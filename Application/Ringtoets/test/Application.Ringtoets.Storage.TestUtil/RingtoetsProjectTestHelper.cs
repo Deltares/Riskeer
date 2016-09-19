@@ -88,7 +88,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             AddForeshoreProfiles(waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles);
-            ConfigureWaveImpactAsphaltCoverFailureMechanism(waveImpactAsphaltCoverFailureMechanism);
+            ConfigureWaveImpactAsphaltCoverFailureMechanism(waveImpactAsphaltCoverFailureMechanism, assessmentSection);
             AddSections(waveImpactAsphaltCoverFailureMechanism);
             SetSectionResults(waveImpactAsphaltCoverFailureMechanism.SectionResults);
 
@@ -692,7 +692,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             });
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
-                Name = "GCEO A"
+                Name = "GCEO B"
             });
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(
                 new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -742,7 +742,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
-                Name = "GEKB A",
+                Name = "SSC A",
                 Children =
                 {
                     new StabilityStoneCoverWaveConditionsCalculation
@@ -779,7 +779,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             });
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
-                Name = "SSC A"
+                Name = "SSC B"
             });
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(
                 new StabilityStoneCoverWaveConditionsCalculation
@@ -830,16 +830,67 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         #region WaveImpactAsphaltCover FailureMechanism
 
-        private static void ConfigureWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        private static void ConfigureWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
+            ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
-                Name = "GCEO A",
+                Name = "WIAC A",
+                Children =
+                {
+                    new WaveImpactAsphaltCoverWaveConditionsCalculation
+                    {
+                        Name = "Calculation 1",
+                        Comments = "Comments for Calculation 1",
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            Orientation = foreshoreProfile.Orientation,
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
+                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
+                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
+                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
+                            StepSize = WaveConditionsInputStepSize.Two
+                        }
+                    }
+                }
             });
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
-                Name = "GCEO A"
+                Name = "WIAC B"
             });
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(
+                new WaveImpactAsphaltCoverWaveConditionsCalculation
+                {
+                    Name = "Calculation 2",
+                    Comments = "Comments for Calculation 2",
+                    InputParameters =
+                    {
+                        ForeshoreProfile = null,
+                        HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
+                        BreakWater =
+                        {
+                            Height = (RoundedDouble)(foreshoreProfile.BreakWater.Height + 0.1),
+                            Type = BreakWaterType.Dam
+                        },
+                        Orientation = foreshoreProfile.Orientation,
+                        UseForeshore = false,
+                        UseBreakWater = false,
+                        UpperBoundaryRevetment = (RoundedDouble)12.3,
+                        LowerBoundaryRevetment = (RoundedDouble)(-3.5),
+                        UpperBoundaryWaterLevels = (RoundedDouble)13.3,
+                        LowerBoundaryWaterLevels = (RoundedDouble)(-1.9),
+                        StepSize = WaveConditionsInputStepSize.One
+                    }
+                });
         }
 
         private static void SetSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults)

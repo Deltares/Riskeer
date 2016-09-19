@@ -152,6 +152,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = assessmentSection.StabilityStoneCover;
             Assert.AreEqual(2, stabilityStoneCoverFailureMechanism.ForeshoreProfiles.Count);
             Assert.NotNull(stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup);
+            Assert.AreEqual(3, stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Count);
 
             Assert.AreEqual(1, ((CalculationGroup)stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0]).Children.Count);
             Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculation>(
@@ -163,10 +164,14 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = assessmentSection.WaveImpactAsphaltCover;
             Assert.AreEqual(2, waveImpactAsphaltCoverFailureMechanism.ForeshoreProfiles.Count);
             Assert.NotNull(waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup);
-            Assert.AreEqual(2, waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Count);
+            Assert.AreEqual(3, waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Count);
 
-            Assert.AreEqual(0, ((CalculationGroup)waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0]).Children.Count);
+            Assert.AreEqual(1, ((CalculationGroup)waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0]).Children.Count);
+            Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsCalculation>(
+                ((CalculationGroup)waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0]).Children[0]);
             Assert.AreEqual(0, ((CalculationGroup)waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[1]).Children.Count);
+            Assert.IsInstanceOf<WaveImpactAsphaltCoverWaveConditionsCalculation>(
+                waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[2]);
         }
     }
 }

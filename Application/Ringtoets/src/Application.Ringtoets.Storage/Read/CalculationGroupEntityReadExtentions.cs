@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Read.StabilityStoneCover;
+using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
 
@@ -213,6 +214,11 @@ namespace Application.Ringtoets.Storage.Read
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector));
                 }
+                var childCalculationEntity = childEntity as WaveImpactAsphaltCoverWaveConditionsCalculationEntity;
+                if (childCalculationEntity != null)
+                {
+                    group.Children.Add(childCalculationEntity.Read(collector));
+                }
             }
 
             return group;
@@ -240,6 +246,10 @@ namespace Application.Ringtoets.Storage.Read
             foreach (StabilityStoneCoverWaveConditionsCalculationEntity calculationEntity in entity.StabilityStoneCoverWaveConditionsCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
+            }
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculationEntity asphaltCoverWaveConditionsCalculationEntity in entity.WaveImpactAsphaltCoverWaveConditionsCalculationEntities)
+            {
+                sortedList.Add(asphaltCoverWaveConditionsCalculationEntity.Order, asphaltCoverWaveConditionsCalculationEntity);
             }
             return sortedList.Values;
         }

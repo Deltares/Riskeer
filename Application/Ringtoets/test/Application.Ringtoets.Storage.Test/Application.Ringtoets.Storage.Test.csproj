@@ -77,13 +77,15 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsConditionsCalculationCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensionsTest.cs" />
+    <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensionsTest.cs" />
     <Compile Include="Read\ForeshoreProfileReadExtensionsTest.cs" />
     <Compile Include="Create\ForeshoreProfileCreateExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsHydraulicLocationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Serializers\DataCollectionSerializerTest.cs" />
     <Compile Include="Serializers\Point2DXmlSerializerTest.cs" />
     <Compile Include="Serializers\Point3DXmlSerializerTest.cs" />
@@ -179,7 +181,7 @@
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacrostabilityInwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\WaveImpactAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensionsTest.cs" />

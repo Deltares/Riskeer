@@ -62,9 +62,10 @@
     </Compile>
     <Compile Include="Create\ForeshoreProfileCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionOutwardsInputCreateExtensions.cs" />
-    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsConditionsCalculationCreateExtensions.cs" />
+    <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputCreateExtensions.cs" />
+    <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverConditionsCalculationCreateExtensions.cs" />
     <Compile Include="DbContext\AssessmentSectionEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -201,12 +202,16 @@
     <Compile Include="DbContext\WaveImpactAsphaltCoverSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\WaveImpactAsphaltCoverWaveConditionsCalculationEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Read\ForeshoreProfileEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsHydraulicLocationEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputEntityReadExtensions.cs" />
+    <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationEntityReadExtensions.cs" />
     <Compile Include="Serializers\Point2DXmlSerializer.cs" />
     <Compile Include="Serializers\Point3DXmlSerializer.cs" />
     <Compile Include="Serializers\RoughnessPointXmlSerializer.cs" />
@@ -300,7 +305,7 @@
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\MacrostabilityInwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\MacrostabilityOutwardsSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\WaveImpactAsphaltCoverSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensions.cs" />

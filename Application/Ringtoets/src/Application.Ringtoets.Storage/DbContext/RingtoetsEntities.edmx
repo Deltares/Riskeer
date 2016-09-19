@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -551,6 +551,28 @@
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerTwoA" Type="real" />
           <Property Name="LayerThree" Type="real" />
+        </EntityType>
+        <EntityType Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
+          <Key>
+            <PropertyRef Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntityId" />
+          </Key>
+          <Property Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CalculationGroupEntityId" Type="integer" Nullable="false" />
+          <Property Name="ForeshoreProfileEntityId" Type="integer" />
+          <Property Name="HydraulicLocationEntityId" Type="integer" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="260" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="UseBreakWater" Type="tinyint" Nullable="false" />
+          <Property Name="BreakWaterType" Type="tinyint" Nullable="false" />
+          <Property Name="BreakWaterHeight" Type="real" />
+          <Property Name="UseForeshore" Type="tinyint" Nullable="false" />
+          <Property Name="Orientation" Type="real" />
+          <Property Name="UpperBoundaryRevetment" Type="real" />
+          <Property Name="LowerBoundaryRevetment" Type="real" />
+          <Property Name="UpperBoundaryWaterLevels" Type="real" />
+          <Property Name="LowerBoundaryWaterLevels" Type="real" />
+          <Property Name="StepSize" Type="tinyint" Nullable="false" />
         </EntityType>
         <Association Name="FK_AssessmentSectionEntity_0_0">
           <End Role="ProjectEntity" Type="Self.ProjectEntity" Multiplicity="1" />
@@ -1200,6 +1222,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_0_0">
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="0..1" />
+          <End Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Type="Self.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_1_0">
+          <End Role="ForeshoreProfileEntity" Type="Self.ForeshoreProfileEntity" Multiplicity="0..1" />
+          <End Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Type="Self.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForeshoreProfileEntity">
+              <PropertyRef Name="ForeshoreProfileEntityId" />
+            </Principal>
+            <Dependent Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
+              <PropertyRef Name="ForeshoreProfileEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_2_0">
+          <End Role="CalculationGroupEntity" Type="Self.CalculationGroupEntity" Multiplicity="1" />
+          <End Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Type="Self.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationGroupEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Principal>
+            <Dependent Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="RingtoetsEntitiesModelStoreContainer">
           <EntitySet Name="AssessmentSectionEntity" EntityType="Self.AssessmentSectionEntity" store:Type="Tables" />
           <EntitySet Name="CalculationGroupEntity" EntityType="Self.CalculationGroupEntity" store:Type="Tables" />
@@ -1246,6 +1304,7 @@
           <EntitySet Name="VersionEntity" EntityType="Self.VersionEntity" store:Type="Tables" />
           <EntitySet Name="WaterPressureAsphaltCoverSectionResultEntity" EntityType="Self.WaterPressureAsphaltCoverSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="WaveImpactAsphaltCoverSectionResultEntity" EntityType="Self.WaveImpactAsphaltCoverSectionResultEntity" store:Type="Tables" />
+          <EntitySet Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" EntityType="Self.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" store:Type="Tables" />
           <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="Self.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntity" />
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntity" />
@@ -1462,6 +1521,18 @@
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="WaveImpactAsphaltCoverSectionResultEntity" EntitySet="WaveImpactAsphaltCoverSectionResultEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_0_0" Association="Self.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_0_0">
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+            <End Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" EntitySet="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_1_0" Association="Self.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_1_0">
+            <End Role="ForeshoreProfileEntity" EntitySet="ForeshoreProfileEntity" />
+            <End Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" EntitySet="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_2_0" Association="Self.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_2_0">
+            <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntity" />
+            <End Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" EntitySet="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -1513,6 +1584,7 @@
           <EntitySet Name="VersionEntities" EntityType="RingtoetsEntitiesModel.VersionEntity" />
           <EntitySet Name="WaterPressureAsphaltCoverSectionResultEntities" EntityType="RingtoetsEntitiesModel.WaterPressureAsphaltCoverSectionResultEntity" />
           <EntitySet Name="WaveImpactAsphaltCoverSectionResultEntities" EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverSectionResultEntity" />
+          <EntitySet Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" EntityType="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
           <AssociationSet Name="FK_AssessmentSectionEntity_0_0" Association="RingtoetsEntitiesModel.FK_AssessmentSectionEntity_0_0">
             <End Role="ProjectEntity" EntitySet="ProjectEntities" />
             <End Role="AssessmentSectionEntity" EntitySet="AssessmentSectionEntities" />
@@ -1548,6 +1620,10 @@
           <AssociationSet Name="FK_StabilityStoneCoverWaveConditionsCalculationEntity_2_0" Association="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_2_0">
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
             <End Role="StabilityStoneCoverWaveConditionsCalculationEntity" EntitySet="StabilityStoneCoverWaveConditionsCalculationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_2_0" Association="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_2_0">
+            <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
+            <End Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" EntitySet="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_CharacteristicPointEntity_0_0" Association="RingtoetsEntitiesModel.FK_CharacteristicPointEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
@@ -1673,6 +1749,10 @@
             <End Role="ForeshoreProfileEntity" EntitySet="ForeshoreProfileEntities" />
             <End Role="StabilityStoneCoverWaveConditionsCalculationEntity" EntitySet="StabilityStoneCoverWaveConditionsCalculationEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_1_0" Association="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_1_0">
+            <End Role="ForeshoreProfileEntity" EntitySet="ForeshoreProfileEntities" />
+            <End Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" EntitySet="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_GrassCoverErosionInwardsCalculationEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0">
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
             <End Role="GrassCoverErosionInwardsCalculationEntity" EntitySet="GrassCoverErosionInwardsCalculationEntities" />
@@ -1696,6 +1776,10 @@
           <AssociationSet Name="FK_StabilityStoneCoverWaveConditionsCalculationEntity_0_0" Association="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_0_0">
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
             <End Role="StabilityStoneCoverWaveConditionsCalculationEntity" EntitySet="StabilityStoneCoverWaveConditionsCalculationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_0_0" Association="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_0_0">
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+            <End Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" EntitySet="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_PipingCalculationEntity_0_0" Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
@@ -1765,6 +1849,7 @@
           <NavigationProperty Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_2_0" FromRole="CalculationGroupEntity" ToRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_3_0" FromRole="CalculationGroupEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="StabilityStoneCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_2_0" FromRole="CalculationGroupEntity" ToRole="StabilityStoneCoverWaveConditionsCalculationEntity" />
+          <NavigationProperty Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_2_0" FromRole="CalculationGroupEntity" ToRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
         </EntityType>
         <EntityType Name="CharacteristicPointEntity">
           <Key>
@@ -1887,6 +1972,7 @@
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_ForeshoreProfileEntity_0_0" FromRole="ForeshoreProfileEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_1_0" FromRole="ForeshoreProfileEntity" ToRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" />
           <NavigationProperty Name="StabilityStoneCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_1_0" FromRole="ForeshoreProfileEntity" ToRole="StabilityStoneCoverWaveConditionsCalculationEntity" />
+          <NavigationProperty Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_1_0" FromRole="ForeshoreProfileEntity" ToRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
         </EntityType>
         <EntityType Name="GrassCoverErosionInwardsCalculationEntity">
           <Key>
@@ -2067,6 +2153,7 @@
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0" FromRole="HydraulicLocationEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="StabilityStoneCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="StabilityStoneCoverWaveConditionsCalculationEntity" />
+          <NavigationProperty Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
         </EntityType>
         <EntityType Name="MacrostabilityInwardsSectionResultEntity">
           <Key>
@@ -2385,6 +2472,31 @@
           <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverSectionResultEntity_0_0" FromRole="WaveImpactAsphaltCoverSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
+        <EntityType Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
+          <Key>
+            <PropertyRef Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntityId" />
+          </Key>
+          <Property Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CalculationGroupEntityId" Type="Int64" Nullable="false" />
+          <Property Name="ForeshoreProfileEntityId" Type="Int64" />
+          <Property Name="HydraulicLocationEntityId" Type="Int64" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="UseBreakWater" Type="Byte" Nullable="false" />
+          <Property Name="BreakWaterType" Type="Byte" Nullable="false" />
+          <Property Name="BreakWaterHeight" Type="Double" />
+          <Property Name="UseForeshore" Type="Byte" Nullable="false" />
+          <Property Name="Orientation" Type="Double" />
+          <Property Name="UpperBoundaryRevetment" Type="Double" />
+          <Property Name="LowerBoundaryRevetment" Type="Double" />
+          <Property Name="UpperBoundaryWaterLevels" Type="Double" />
+          <Property Name="LowerBoundaryWaterLevels" Type="Double" />
+          <Property Name="StepSize" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_2_0" FromRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" ToRole="CalculationGroupEntity" />
+          <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_1_0" FromRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" ToRole="ForeshoreProfileEntity" />
+          <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_0_0" FromRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" ToRole="HydraulicLocationEntity" />
+        </EntityType>
         <Association Name="FK_AssessmentSectionEntity_0_0">
           <End Type="RingtoetsEntitiesModel.ProjectEntity" Role="ProjectEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.AssessmentSectionEntity" Role="AssessmentSectionEntity" Multiplicity="*" />
@@ -2489,6 +2601,18 @@
               <PropertyRef Name="CalculationGroupEntityId" />
             </Principal>
             <Dependent Role="StabilityStoneCoverWaveConditionsCalculationEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_2_0">
+          <End Type="RingtoetsEntitiesModel.CalculationGroupEntity" Role="CalculationGroupEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationGroupEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Principal>
+            <Dependent Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
               <PropertyRef Name="CalculationGroupEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -2865,6 +2989,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.ForeshoreProfileEntity" Role="ForeshoreProfileEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForeshoreProfileEntity">
+              <PropertyRef Name="ForeshoreProfileEntityId" />
+            </Principal>
+            <Dependent Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
+              <PropertyRef Name="ForeshoreProfileEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_GrassCoverErosionInwardsCalculationEntity_0_0">
           <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="0..1" />
           <End Type="RingtoetsEntitiesModel.GrassCoverErosionInwardsCalculationEntity" Role="GrassCoverErosionInwardsCalculationEntity" Multiplicity="*" />
@@ -2933,6 +3069,18 @@
               <PropertyRef Name="HydraulicLocationEntityId" />
             </Principal>
             <Dependent Role="StabilityStoneCoverWaveConditionsCalculationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
               <PropertyRef Name="HydraulicLocationEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -3628,6 +3776,29 @@
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="WaveImpactAsphaltCoverSectionResultEntityId" ColumnName="WaveImpactAsphaltCoverSectionResultEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
+              <MappingFragment StoreEntitySet="WaveImpactAsphaltCoverWaveConditionsCalculationEntity">
+                <ScalarProperty Name="StepSize" ColumnName="StepSize" />
+                <ScalarProperty Name="LowerBoundaryWaterLevels" ColumnName="LowerBoundaryWaterLevels" />
+                <ScalarProperty Name="UpperBoundaryWaterLevels" ColumnName="UpperBoundaryWaterLevels" />
+                <ScalarProperty Name="LowerBoundaryRevetment" ColumnName="LowerBoundaryRevetment" />
+                <ScalarProperty Name="UpperBoundaryRevetment" ColumnName="UpperBoundaryRevetment" />
+                <ScalarProperty Name="Orientation" ColumnName="Orientation" />
+                <ScalarProperty Name="UseForeshore" ColumnName="UseForeshore" />
+                <ScalarProperty Name="BreakWaterHeight" ColumnName="BreakWaterHeight" />
+                <ScalarProperty Name="BreakWaterType" ColumnName="BreakWaterType" />
+                <ScalarProperty Name="UseBreakWater" ColumnName="UseBreakWater" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
+                <ScalarProperty Name="ForeshoreProfileEntityId" ColumnName="ForeshoreProfileEntityId" />
+                <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />
+                <ScalarProperty Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntityId" ColumnName="WaveImpactAsphaltCoverWaveConditionsCalculationEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

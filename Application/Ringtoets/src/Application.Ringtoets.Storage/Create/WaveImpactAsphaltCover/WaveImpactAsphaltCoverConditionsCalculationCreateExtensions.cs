@@ -21,27 +21,27 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.HydraRing.Data;
 
-namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
+namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
 {
     /// <summary>
-    /// Extension methods for <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> related to creating a
-    /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationEntity"/>.
+    /// Extension methods for <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> related to creating a
+    /// <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationEntity"/>.
     /// </summary>
-    internal static class GrassCoverErosionOutwardsConditionsCalculationCreateExtensions
+    internal static class WaveImpactAsphaltCoverConditionsCalculationCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationEntity"/> based on the information of the 
-        /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.
+        /// Creates a <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationEntity"/> based on the information of the 
+        /// <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">The index at which <paramref name="calculation"/> resides within its parent.</param>
-        /// <returns>A new <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationEntity"/>.</returns>
+        /// <returns>A new <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static GrassCoverErosionOutwardsWaveConditionsCalculationEntity Create(this GrassCoverErosionOutwardsWaveConditionsCalculation calculation, 
+        internal static WaveImpactAsphaltCoverWaveConditionsCalculationEntity Create(this WaveImpactAsphaltCoverWaveConditionsCalculation calculation, 
             PersistenceRegistry registry, int order)
         {
             if (registry == null)
@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
                 throw new ArgumentNullException("registry");
             }
 
-            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+            var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
             {
                 Order = order,
                 Name = calculation.Name.DeepClone(),
@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             HydraulicBoundaryLocation hydraulicBoundaryLocation = calculation.InputParameters.HydraulicBoundaryLocation;
             if (hydraulicBoundaryLocation != null)
             {
-                entity.GrassCoverErosionOutwardsHydraulicLocationEntity = hydraulicBoundaryLocation.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 0);
+                entity.HydraulicLocationEntity = hydraulicBoundaryLocation.Create(registry, 0);
             }
             if (calculation.InputParameters.ForeshoreProfile != null)
             {

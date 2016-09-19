@@ -22,11 +22,12 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
 {
     [TestFixture]
     public class WaveImpactAsphaltCoverSectionResultEntityReadExtensionsTest

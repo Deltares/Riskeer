@@ -24,7 +24,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
-namespace Application.Ringtoets.Storage.Read
+namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> based on the

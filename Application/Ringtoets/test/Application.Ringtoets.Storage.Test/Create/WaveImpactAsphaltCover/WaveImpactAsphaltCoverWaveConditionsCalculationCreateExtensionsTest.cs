@@ -23,21 +23,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
+using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
+namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsConditionsCalculationCreateExtensionsTest
+    public class WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensionsTest
     {
         private static IEnumerable<TestCaseData> ValidWaveConditionsInputs
         {
@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
 
             // Call
             TestDelegate call = () => calculation.Create(null, 0);
@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
 
         [Test]
         [TestCaseSource("ValidWaveConditionsInputs")]
-        public void Create_GrassCoverErosionOutwardsWaveConditionsCalculationWithPropertiesSet_ReturnGrassCoverErosionOutwardsWaveConditionsCalculationEntity(
+        public void Create_WaveImpactAsphaltCoverWaveConditionsCalculationWithPropertiesSet_ReturnWaveImpactAsphaltCoverWaveConditionsCalculationEntity(
             double orientation, bool useBreakWater, double lowerBoundaryRevetment,
             double upperBoundaryRevetment, double lowerBoundaryWaterLevels,
             double upperBoundaryWaterLevels, WaveConditionsInputStepSize stepSize)
@@ -87,7 +87,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             const string comments = "comments";
             const int order = 1234;
 
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = name,
                 Comments = comments,
@@ -106,7 +106,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             var registry = new PersistenceRegistry();
 
             // Call
-            GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity = calculation.Create(registry, order);
+            WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity = calculation.Create(registry, order);
 
             // Assert
             Assert.AreEqual(name, entity.Name);
@@ -123,10 +123,10 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             Assert.AreEqual(Convert.ToByte(input.StepSize), entity.StepSize);
 
             Assert.AreEqual(order, entity.Order);
-            Assert.AreEqual(0, entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntityId);
+            Assert.AreEqual(0, entity.WaveImpactAsphaltCoverWaveConditionsCalculationEntityId);
             Assert.IsNull(entity.CalculationGroupEntity);
-            Assert.IsNull(entity.ForeshoreProfileEntityId);
-            Assert.IsNull(entity.GrassCoverErosionOutwardsHydraulicLocationEntityId);
+            Assert.IsNull(entity.ForeshoreProfileEntity);
+            Assert.IsNull(entity.HydraulicLocationEntity);
         }
 
         [Test]
@@ -135,7 +135,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             // Setup
             const string name = "A";
             const string comments = "B";
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation()
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation()
             {
                 Name = name,
                 Comments = comments
@@ -144,7 +144,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             var registry = new PersistenceRegistry();
 
             // Call
-            GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
+            WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
             Assert.AreNotSame(name, entity.Name,
@@ -157,16 +157,15 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         }
 
         [Test]
-        public void Create_GrassCoverErosionOutwardsHydraulicLocationEntity_EntityHasGrassCoverErosionOutwardsHydraulicLocationEntity()
+        public void Create_WaveImpactAsphaltCoverHydraulicLocationEntity_EntityHasWaveImpactAsphaltCoverHydraulicLocationEntity()
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 2.3, 4.5);
 
             var registry = new PersistenceRegistry();
-            GrassCoverErosionOutwardsHydraulicLocationEntity hydraulicLocationEntity =
-                hydraulicBoundaryLocation.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 0);
+            HydraulicLocationEntity hydraulicLocationEntity = hydraulicBoundaryLocation.Create(registry, 0);
 
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
@@ -175,10 +174,10 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             };
 
             // Call
-            GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
+            WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.AreSame(hydraulicLocationEntity, entity.GrassCoverErosionOutwardsHydraulicLocationEntity);
+            Assert.AreSame(hydraulicLocationEntity, entity.HydraulicLocationEntity);
         }
 
         [Test]
@@ -186,7 +185,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         {
             // Setup
             var registry = new PersistenceRegistry();
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 InputParameters =
                 {
@@ -198,7 +197,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             };
 
             // Call
-            GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
+            WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
             Assert.IsNotNull(entity.ForeshoreProfileEntity);

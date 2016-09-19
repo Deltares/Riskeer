@@ -29,6 +29,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -986,6 +987,102 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsTrue(rootChildGroup1Child2.IsNameEditable);
             CollectionAssert.IsEmpty(rootChildGroup1Child2.Children);
         }
+
+        [Test]
+        public void ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup_EntityWithChildWaveImpactAsphaltCoverWaveConditionsCalculations_CreateCalculationGroupWithChildCalculations()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                Name = "A",
+                WaveImpactAsphaltCoverWaveConditionsCalculationEntities = 
+                {
+                    new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
+                    {
+                        Order = 1,
+                        Name = "2"
+                    },
+                    new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
+                    {
+                        Order = 0,
+                        Name = "1"
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
+
+            // Assert
+            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            Assert.AreEqual(2, rootChildren.Length);
+
+            var rootChildCalculation1 = (WaveImpactAsphaltCoverWaveConditionsCalculation)rootChildren[0];
+            Assert.AreEqual("1", rootChildCalculation1.Name);
+
+            var rootChildCalculation2 = (WaveImpactAsphaltCoverWaveConditionsCalculation)rootChildren[1];
+            Assert.AreEqual("2", rootChildCalculation2.Name);
+        }
+
+        [Test]
+        public void ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup_EntityWithChildWaveImpactAsphaltCoverWaveConditionsCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                Name = "A",
+                WaveImpactAsphaltCoverWaveConditionsCalculationEntities =
+                {
+                    new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
+                    {
+                        Order = 0,
+                        Name = "calculation1"
+                    },
+                    new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
+                    {
+                        Order = 2,
+                        Name = "calculation2"
+                    }
+                },
+                CalculationGroupEntity1 =
+                {
+                    new CalculationGroupEntity
+                    {
+                        Order = 3,
+                        Name = "group2"
+                    },
+                    new CalculationGroupEntity
+                    {
+                        Order = 1,
+                        Name = "group1"
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var rootGroup = rootGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
+
+            // Assert
+            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            Assert.AreEqual(4, rootChildren.Length);
+
+            var rootChildCalculation1 = (WaveImpactAsphaltCoverWaveConditionsCalculation)rootChildren[0];
+            Assert.AreEqual("calculation1", rootChildCalculation1.Name);
+
+            var rootChildGroup1 = (CalculationGroup)rootChildren[1];
+            Assert.AreEqual("group1", rootChildGroup1.Name);
+
+            var rootChildCalculation2 = (WaveImpactAsphaltCoverWaveConditionsCalculation)rootChildren[2];
+            Assert.AreEqual("calculation2", rootChildCalculation2.Name);
+
+            var rootChildGroup2 = (CalculationGroup)rootChildren[3];
+            Assert.AreEqual("group2", rootChildGroup2.Name);
+        }
+
         #endregion
     }
 }
