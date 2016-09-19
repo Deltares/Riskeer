@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.Read;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
@@ -34,6 +35,8 @@ namespace Application.Ringtoets.Storage.Test.Read
     [TestFixture]
     public class CalculationGroupEntityReadExtentionsTest
     {
+        #region Piping
+
         [Test]
         public void ReadAsPipingCalculationGroup_ReadConversionCollectorIsNull_ThrowArgumentNullException()
         {
@@ -259,6 +262,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual("group2", rootChildGroup2.Name);
         }
 
+        #endregion
+
+        #region Grass Cover Erosion Inwards
+
         [Test]
         public void ReadAsGrassCoverErosionInwardsCalculationGroup_CollectorIsNull_ThrowArgumentNullException()
         {
@@ -460,6 +467,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual("group2", rootChildGroup2.Name);
         }
 
+        #endregion
+
+        #region Grass Cover Erosion Outwards
+
         [Test]
         public void ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup_CollectorIsNull_ThrowArgumentNullException()
         {
@@ -567,6 +578,105 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        public void ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup_EntityWithChildGrassCoverErosionOutwardsWaveConditionsCalculations_CreateCalculationGroupWithChildCalculations()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                Name = "A",
+                GrassCoverErosionOutwardsWaveConditionsCalculationEntities =
+                {
+                    new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+                    {
+                        Order = 0,
+                        Name = "1"
+                    },
+                    new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+                    {
+                        Order = 1,
+                        Name = "2"
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
+
+            // Assert
+            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            Assert.AreEqual(2, rootChildren.Length);
+
+            var rootChildCalculation1 = (GrassCoverErosionOutwardsWaveConditionsCalculation) rootChildren[0];
+            Assert.AreEqual("1", rootChildCalculation1.Name);
+
+            var rootChildCalculation2 = (GrassCoverErosionOutwardsWaveConditionsCalculation) rootChildren[1];
+            Assert.AreEqual("2", rootChildCalculation2.Name);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup_EntityWithChildGrassCoverErosionOutwardsWaveConditionsCalculationsAndGroups_CreateCalculationGroupWithChildCalculationsAndGroups()
+        {
+            // Setup
+            var rootGroupEntity = new CalculationGroupEntity
+            {
+                Name = "A",
+                GrassCoverErosionOutwardsWaveConditionsCalculationEntities =
+                {
+                    new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+                    {
+                        Order = 0,
+                        Name = "calculation1"
+                    },
+                    new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+                    {
+                        Order = 2,
+                        Name = "calculation2"
+                    }
+                },
+                CalculationGroupEntity1 =
+                {
+                    new CalculationGroupEntity
+                    {
+                        Order = 1,
+                        Name = "group1"
+                    },
+                    new CalculationGroupEntity
+                    {
+                        Order = 3,
+                        Name = "group2"
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var rootGroup = rootGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
+
+            // Assert
+            ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
+            Assert.AreEqual(4, rootChildren.Length);
+
+            var rootChildCalculation1 = (GrassCoverErosionOutwardsWaveConditionsCalculation) rootChildren[0];
+            Assert.AreEqual("calculation1", rootChildCalculation1.Name);
+
+            var rootChildGroup1 = (CalculationGroup) rootChildren[1];
+            Assert.AreEqual("group1", rootChildGroup1.Name);
+
+            var rootChildCalculation2 = (GrassCoverErosionOutwardsWaveConditionsCalculation) rootChildren[2];
+            Assert.AreEqual("calculation2", rootChildCalculation2.Name);
+
+            var rootChildGroup2 = (CalculationGroup) rootChildren[3];
+            Assert.AreEqual("group2", rootChildGroup2.Name);
+        }
+
+        #endregion
+
+        #region Stability Stone Cover
+
+        [Test]
         public void ReadAsStabilityStoneCoverWaveConditionsCalculationGroup_CollectorIsNull_ThrowArgumentNullException()
         {
             // Setup
@@ -653,20 +763,20 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsFalse(rootGroup.IsNameEditable);
 
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            var rootChildGroup1 = (CalculationGroup)rootChildren[0];
+            var rootChildGroup1 = (CalculationGroup) rootChildren[0];
             Assert.AreEqual("AA", rootChildGroup1.Name);
             Assert.IsTrue(rootChildGroup1.IsNameEditable);
             CollectionAssert.IsEmpty(rootChildGroup1.Children);
-            var rootChildGroup2 = (CalculationGroup)rootChildren[1];
+            var rootChildGroup2 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("AB", rootChildGroup2.Name);
             Assert.IsFalse(rootChildGroup2.IsNameEditable);
 
             ICalculationBase[] rootChildGroup2Children = rootChildGroup2.Children.ToArray();
-            var rootChildGroup1Child1 = (CalculationGroup)rootChildGroup2Children[0];
+            var rootChildGroup1Child1 = (CalculationGroup) rootChildGroup2Children[0];
             Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
             Assert.IsFalse(rootChildGroup1Child1.IsNameEditable);
             CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
-            var rootChildGroup1Child2 = (CalculationGroup)rootChildGroup2Children[1];
+            var rootChildGroup1Child2 = (CalculationGroup) rootChildGroup2Children[1];
             Assert.AreEqual("ABB", rootChildGroup1Child2.Name);
             Assert.IsTrue(rootChildGroup1Child2.IsNameEditable);
             CollectionAssert.IsEmpty(rootChildGroup1Child2.Children);
@@ -679,7 +789,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var rootGroupEntity = new CalculationGroupEntity
             {
                 Name = "A",
-                StabilityStoneCoverWaveConditionsCalculationEntities = 
+                StabilityStoneCoverWaveConditionsCalculationEntities =
                 {
                     new StabilityStoneCoverWaveConditionsCalculationEntity
                     {
@@ -703,10 +813,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
             Assert.AreEqual(2, rootChildren.Length);
 
-            var rootChildCalculation1 = (StabilityStoneCoverWaveConditionsCalculation)rootChildren[0];
+            var rootChildCalculation1 = (StabilityStoneCoverWaveConditionsCalculation) rootChildren[0];
             Assert.AreEqual("1", rootChildCalculation1.Name);
 
-            var rootChildCalculation2 = (StabilityStoneCoverWaveConditionsCalculation)rootChildren[1];
+            var rootChildCalculation2 = (StabilityStoneCoverWaveConditionsCalculation) rootChildren[1];
             Assert.AreEqual("2", rootChildCalculation2.Name);
         }
 
@@ -754,18 +864,22 @@ namespace Application.Ringtoets.Storage.Test.Read
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
             Assert.AreEqual(4, rootChildren.Length);
 
-            var rootChildCalculation1 = (StabilityStoneCoverWaveConditionsCalculation)rootChildren[0];
+            var rootChildCalculation1 = (StabilityStoneCoverWaveConditionsCalculation) rootChildren[0];
             Assert.AreEqual("calculation1", rootChildCalculation1.Name);
 
-            var rootChildGroup1 = (CalculationGroup)rootChildren[1];
+            var rootChildGroup1 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("group1", rootChildGroup1.Name);
 
-            var rootChildCalculation2 = (StabilityStoneCoverWaveConditionsCalculation)rootChildren[2];
+            var rootChildCalculation2 = (StabilityStoneCoverWaveConditionsCalculation) rootChildren[2];
             Assert.AreEqual("calculation2", rootChildCalculation2.Name);
 
-            var rootChildGroup2 = (CalculationGroup)rootChildren[3];
+            var rootChildGroup2 = (CalculationGroup) rootChildren[3];
             Assert.AreEqual("group2", rootChildGroup2.Name);
         }
+
+        #endregion
+
+        #region Wave Impact Asphalt Cover
 
         [Test]
         public void ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup_CollectorIsNull_ThrowArgumentNullException()
@@ -854,23 +968,24 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsFalse(rootGroup.IsNameEditable);
 
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
-            var rootChildGroup1 = (CalculationGroup)rootChildren[0];
+            var rootChildGroup1 = (CalculationGroup) rootChildren[0];
             Assert.AreEqual("AA", rootChildGroup1.Name);
             Assert.IsTrue(rootChildGroup1.IsNameEditable);
             CollectionAssert.IsEmpty(rootChildGroup1.Children);
-            var rootChildGroup2 = (CalculationGroup)rootChildren[1];
+            var rootChildGroup2 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("AB", rootChildGroup2.Name);
             Assert.IsFalse(rootChildGroup2.IsNameEditable);
 
             ICalculationBase[] rootChildGroup2Children = rootChildGroup2.Children.ToArray();
-            var rootChildGroup1Child1 = (CalculationGroup)rootChildGroup2Children[0];
+            var rootChildGroup1Child1 = (CalculationGroup) rootChildGroup2Children[0];
             Assert.AreEqual("ABA", rootChildGroup1Child1.Name);
             Assert.IsFalse(rootChildGroup1Child1.IsNameEditable);
             CollectionAssert.IsEmpty(rootChildGroup1Child1.Children);
-            var rootChildGroup1Child2 = (CalculationGroup)rootChildGroup2Children[1];
+            var rootChildGroup1Child2 = (CalculationGroup) rootChildGroup2Children[1];
             Assert.AreEqual("ABB", rootChildGroup1Child2.Name);
             Assert.IsTrue(rootChildGroup1Child2.IsNameEditable);
             CollectionAssert.IsEmpty(rootChildGroup1Child2.Children);
         }
+        #endregion
     }
 }

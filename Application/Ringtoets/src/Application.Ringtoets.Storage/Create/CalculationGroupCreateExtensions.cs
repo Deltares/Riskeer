@@ -21,11 +21,13 @@
 
 using System;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
+using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.Create.StabilityStoneCover;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
@@ -82,6 +84,11 @@ namespace Application.Ringtoets.Storage.Create
                 if (childGrassCoverErosionInwardsCalculation != null)
                 {
                     entity.GrassCoverErosionInwardsCalculationEntities.Add(childGrassCoverErosionInwardsCalculation.Create(registry, i));
+                }
+                var childGrassCoverErosionOutwardsCalculation = calculationBase as GrassCoverErosionOutwardsWaveConditionsCalculation;
+                if (childGrassCoverErosionOutwardsCalculation != null)
+                {
+                    entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntities.Add(childGrassCoverErosionOutwardsCalculation.Create(registry, i));
                 }
                 var stabilityStoneCoverWaveConditionsCalculation = calculationBase as StabilityStoneCoverWaveConditionsCalculation;
                 if (stabilityStoneCoverWaveConditionsCalculation != null)

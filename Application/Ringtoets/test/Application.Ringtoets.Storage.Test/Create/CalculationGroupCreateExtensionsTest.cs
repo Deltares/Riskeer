@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
@@ -321,6 +322,95 @@ namespace Application.Ringtoets.Storage.Test.Create
             CollectionAssert.IsEmpty(childEntity3.CalculationGroupEntity1);
 
             GrassCoverErosionInwardsCalculationEntity childEntity4 = childCalculationEntities[1];
+            Assert.AreEqual("D", childEntity4.Name);
+            Assert.AreEqual(3, childEntity4.Order);
+        }
+
+        [Test]
+        public void Create_GroupWithChildGrassCoverErosionOutwardsWaveConditionsCalculations_CreateEntities()
+        {
+            // Setup
+            var group = new CalculationGroup("root", true)
+            {
+                Children =
+                {
+                    new GrassCoverErosionOutwardsWaveConditionsCalculation
+                    {
+                        Name = "A"
+                    },
+                    new GrassCoverErosionOutwardsWaveConditionsCalculation
+                    {
+                        Name = "B"
+                    }
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            CalculationGroupEntity entity = group.Create(registry, 0);
+
+            // Assert
+            GrassCoverErosionOutwardsWaveConditionsCalculationEntity[] childCalculationEntities = entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntities.ToArray();
+            Assert.AreEqual(2, childCalculationEntities.Length);
+
+            GrassCoverErosionOutwardsWaveConditionsCalculationEntity childEntity1 = childCalculationEntities[0];
+            Assert.AreEqual("A", childEntity1.Name);
+            Assert.AreEqual(0, childEntity1.Order);
+            GrassCoverErosionOutwardsWaveConditionsCalculationEntity childEntity2 = childCalculationEntities[1];
+            Assert.AreEqual("B", childEntity2.Name);
+            Assert.AreEqual(1, childEntity2.Order);
+        }
+
+        [Test]
+        public void Create_GroupWithChildGrassCoverErosionOutwardsWaveConditionsCalculationsAndChildCalculationGroups_CreateEntities()
+        {
+            // Setup
+            var group = new CalculationGroup("root", true)
+            {
+                Children =
+                {
+                    new CalculationGroup("A", true),
+                    new GrassCoverErosionOutwardsWaveConditionsCalculation
+                    {
+                        Name = "B"
+                    },
+                    new CalculationGroup("C", false),
+                    new GrassCoverErosionOutwardsWaveConditionsCalculation
+                    {
+                        Name = "D"
+                    }
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            CalculationGroupEntity entity = group.Create(registry, 0);
+
+            // Assert
+            CalculationGroupEntity[] childGroupEntities = entity.CalculationGroupEntity1.ToArray();
+            GrassCoverErosionOutwardsWaveConditionsCalculationEntity[] childCalculationEntities = entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntities.ToArray();
+            Assert.AreEqual(2, childGroupEntities.Length);
+            Assert.AreEqual(2, childCalculationEntities.Length);
+
+            CalculationGroupEntity childEntity1 = childGroupEntities[0];
+            Assert.AreEqual("A", childEntity1.Name);
+            Assert.AreEqual(1, childEntity1.IsEditable);
+            Assert.AreEqual(0, childEntity1.Order);
+            CollectionAssert.IsEmpty(childEntity1.CalculationGroupEntity1);
+
+            GrassCoverErosionOutwardsWaveConditionsCalculationEntity childEntity2 = childCalculationEntities[0];
+            Assert.AreEqual("B", childEntity2.Name);
+            Assert.AreEqual(1, childEntity2.Order);
+
+            CalculationGroupEntity childEntity3 = childGroupEntities[1];
+            Assert.AreEqual("C", childEntity3.Name);
+            Assert.AreEqual(0, childEntity3.IsEditable);
+            Assert.AreEqual(2, childEntity3.Order);
+            CollectionAssert.IsEmpty(childEntity3.CalculationGroupEntity1);
+
+            GrassCoverErosionOutwardsWaveConditionsCalculationEntity childEntity4 = childCalculationEntities[1];
             Assert.AreEqual("D", childEntity4.Name);
             Assert.AreEqual(3, childEntity4.Order);
         }

@@ -23,6 +23,7 @@ using System;
 using System.Collections;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
+using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Read.StabilityStoneCover;
 using Ringtoets.Common.Data.Calculation;
@@ -140,6 +141,11 @@ namespace Application.Ringtoets.Storage.Read
                 {
                     group.Children.Add(childCalculationGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector));
                 }
+                var childCalculationEntity = childEntity as GrassCoverErosionOutwardsWaveConditionsCalculationEntity;
+                if (childCalculationEntity != null)
+                {
+                    group.Children.Add(childCalculationEntity.Read(collector));
+                }
             }
 
             return group;
@@ -219,17 +225,21 @@ namespace Application.Ringtoets.Storage.Read
             {
                 sortedList.Add(groupEntity.Order, groupEntity);
             }
-            foreach (PipingCalculationEntity pipingCalculationEntity in entity.PipingCalculationEntities)
+            foreach (PipingCalculationEntity calculationEntity in entity.PipingCalculationEntities)
             {
-                sortedList.Add(pipingCalculationEntity.Order, pipingCalculationEntity);
+                sortedList.Add(calculationEntity.Order, calculationEntity);
             }
-            foreach (GrassCoverErosionInwardsCalculationEntity grassCoverErosionInwardsCalculationEntity in entity.GrassCoverErosionInwardsCalculationEntities)
+            foreach (GrassCoverErosionInwardsCalculationEntity calculationEntity in entity.GrassCoverErosionInwardsCalculationEntities)
             {
-                sortedList.Add(grassCoverErosionInwardsCalculationEntity.Order, grassCoverErosionInwardsCalculationEntity);
+                sortedList.Add(calculationEntity.Order, calculationEntity);
             }
-            foreach (StabilityStoneCoverWaveConditionsCalculationEntity stabilityStoneCoverWaveConditionsCalculationEntity in entity.StabilityStoneCoverWaveConditionsCalculationEntities)
+            foreach (GrassCoverErosionOutwardsWaveConditionsCalculationEntity calculationEntity in entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntities)
             {
-                sortedList.Add(stabilityStoneCoverWaveConditionsCalculationEntity.Order, stabilityStoneCoverWaveConditionsCalculationEntity);
+                sortedList.Add(calculationEntity.Order, calculationEntity);
+            }
+            foreach (StabilityStoneCoverWaveConditionsCalculationEntity calculationEntity in entity.StabilityStoneCoverWaveConditionsCalculationEntities)
+            {
+                sortedList.Add(calculationEntity.Order, calculationEntity);
             }
             return sortedList.Values;
         }
