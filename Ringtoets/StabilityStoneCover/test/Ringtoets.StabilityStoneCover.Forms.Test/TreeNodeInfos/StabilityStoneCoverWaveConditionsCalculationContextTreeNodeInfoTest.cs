@@ -198,8 +198,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
             var inputContext = (WaveConditionsInputContext) children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
-            CollectionAssert.AreEqual(new[] { foreshoreProfile }, inputContext.ForeshoreProfiles);
-            CollectionAssert.AreEqual(new[] { location }, inputContext.HydraulicBoundaryLocations);
+            CollectionAssert.AreEqual(new[]
+            {
+                foreshoreProfile
+            }, inputContext.ForeshoreProfiles);
+            CollectionAssert.AreEqual(new[]
+            {
+                location
+            }, inputContext.HydraulicBoundaryLocations);
 
             Assert.IsInstanceOf<EmptyStabilityStoneCoverOutput>(children[2]);
         }
@@ -227,9 +233,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                                                                      Enumerable.Empty<WaveConditionsOutput>())
             };
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                       Enumerable.Empty<Point2D>(),
-                                                       new BreakWater(BreakWaterType.Caisson, 1),
-                                                       new ForeshoreProfile.ConstructionProperties());
+                                                        Enumerable.Empty<Point2D>(),
+                                                        new BreakWater(BreakWaterType.Caisson, 1),
+                                                        new ForeshoreProfile.ConstructionProperties());
 
             var failureMechanism = new StabilityStoneCoverFailureMechanism
             {
@@ -253,8 +259,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
             var inputContext = (WaveConditionsInputContext) children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
-            CollectionAssert.AreEqual(new[] { foreshoreProfile }, inputContext.ForeshoreProfiles);
-            CollectionAssert.AreEqual(new[] { location }, inputContext.HydraulicBoundaryLocations);
+            CollectionAssert.AreEqual(new[]
+            {
+                foreshoreProfile
+            }, inputContext.ForeshoreProfiles);
+            CollectionAssert.AreEqual(new[]
+            {
+                location
+            }, inputContext.HydraulicBoundaryLocations);
 
             var output = (StabilityStoneCoverWaveConditionsOutput) children[2];
             Assert.AreSame(calculation.Output, output);
@@ -332,7 +344,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void CanRemove_CalculationNotInParent_ReturnTrue()
+        public void CanRemove_CalculationNotInParent_ReturnFalse()
         {
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -648,90 +660,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenValidCalculation_WhenValidating_ThenCalculationPassesValidation()
-        {
-            // Given
-            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
-                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHydroDatabasePath
-            };
-            assessmentSection.Stub(a => a.Id).Return("someId");
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(
-                new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 100, 20));
-
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
-            {
-                Name = "A",
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
-                    {
-                        DesignWaterLevel = (RoundedDouble) 12.0
-                    },
-                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
-                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
-                    StepSize = WaveConditionsInputStepSize.One,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0
-                }
-            };
-
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Precondition
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  validateMenuItemIndex,
-                                                                  "&Valideren",
-                                                                  "Valideer de invoer voor deze berekening.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon);
-
-                    // When
-                    ToolStripItem validateMenuItem = contextMenu.Items[validateMenuItemIndex];
-                    Action call = () => validateMenuItem.PerformClick();
-
-                    // Then
-                    TestHelper.AssertLogMessages(call, logMessages =>
-                    {
-                        var messages = logMessages.ToArray();
-                        Assert.AreEqual(2, messages.Length);
-                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
-                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messages[1]);
-                    });
-                }
-            }
-        }
-
-        [Test]
-        public void GivenInValidCalculation_WhenValidating_ThenCalculationFailsValidation()
+        [TestCase(false)]
+        [TestCase(true)]
+        public void GivenCalculation_WhenValidating_ThenCalculationValidated(bool validCalculation)
         {
             // Given
             string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
@@ -752,6 +683,19 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 Name = "A"
             };
 
+            if (validCalculation)
+            {
+                calculation.InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
+                {
+                    DesignWaterLevel = (RoundedDouble) 12.0
+                };
+                calculation.InputParameters.LowerBoundaryRevetment = (RoundedDouble) 1.0;
+                calculation.InputParameters.UpperBoundaryRevetment = (RoundedDouble) 10.0;
+                calculation.InputParameters.StepSize = WaveConditionsInputStepSize.One;
+                calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble) 1.0;
+                calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble) 10.0;
+            }
+
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
                                                                                   failureMechanism,
                                                                                   assessmentSection);
@@ -793,10 +737,16 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
                         var messages = logMessages.ToArray();
-                        Assert.AreEqual(3, messages.Length);
+                        var expectedMessageCount = validCalculation ? 2 : 3;
+                        Assert.AreEqual(expectedMessageCount, messages.Length);
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messages[0]);
-                        StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", messages[1]);
-                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messages[2]);
+
+                        if (!validCalculation)
+                        {
+                            StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", messages[1]);
+                        }
+
+                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messages.Last());
                     });
                 }
             }
@@ -851,67 +801,20 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenAssessmentSectionWithoutValidPathForCalculation_ThenCalculationItemDisabled()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AssessmentSection_WithOrWithoutValidPath_CalculationItemEnabledOrDisabled(bool validPath)
         {
-            // Given
+            // Setup
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            if (validPath)
             {
-                Name = "A"
-            };
-            var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,
-                                                                                  failureMechanism,
-                                                                                  assessmentSection);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var appFeatureCommandHandler = mocks.Stub<IApplicationFeatureCommands>();
-                var importHandler = mocks.Stub<IImportCommandHandler>();
-                var exportHandler = mocks.Stub<IExportCommandHandler>();
-                var viewCommands = mocks.Stub<IViewCommands>();
-                var menuBuilderMock = new ContextMenuBuilder(appFeatureCommandHandler,
-                                                             importHandler,
-                                                             exportHandler,
-                                                             viewCommands,
-                                                             context,
-                                                             treeViewControl);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(g => g.Get(context, treeViewControl)).Return(menuBuilderMock);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
-                {
-                    // Then
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu,
-                                                                  calculateMenuItemIndex,
-                                                                  "Be&rekenen",
-                                                                  "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': Bestandspad mag niet leeg of ongedefinieerd zijn.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon,
-                                                                  false);
-                }
+                hydraulicBoundaryDatabase.FilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
+                                                                                Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
             }
-        }
-
-        [Test]
-        public void GivenAssessmentSectionWithValidPathForCalculation_ThenCalculationItemEnabled()
-        {
-            // Given
-            string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
-                                                                       Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
-
-            var failureMechanism = new StabilityStoneCoverFailureMechanism();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validHydroDatabasePath
-            };
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -944,11 +847,15 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Then
+                    var expectedTooltip = validPath
+                                              ? "Voer deze berekening uit."
+                                              : "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': Bestandspad mag niet leeg of ongedefinieerd zijn.";
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu,
                                                                   calculateMenuItemIndex,
                                                                   "Be&rekenen",
-                                                                  "Voer deze berekening uit.",
-                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+                                                                  expectedTooltip,
+                                                                  RingtoetsCommonFormsResources.CalculateIcon,
+                                                                  validPath);
                 }
             }
         }

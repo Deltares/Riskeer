@@ -33,7 +33,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
                                                                              ICalculationContext<GrassCoverErosionOutwardsWaveConditionsCalculation, GrassCoverErosionOutwardsFailureMechanism>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext"/> class.
+        /// Initializes a new instance of the <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationContext"/> class.
         /// </summary>
         /// <param name="calculation">The wrapped <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>

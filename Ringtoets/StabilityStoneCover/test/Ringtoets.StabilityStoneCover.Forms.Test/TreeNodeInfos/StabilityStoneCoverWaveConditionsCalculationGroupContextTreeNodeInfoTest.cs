@@ -656,6 +656,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         [Test]
         public void ContextMenuStrip_TwoCalculationsClickOnValidateAllInGroup_ValidationMessagesLogged()
         {
+            // Setup
             string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -715,7 +716,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            // Setup
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
@@ -747,6 +747,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         [Test]
         public void ContextMenuStrip_TwoCalculationsClickOnCalculateAllInGroup_MessagesLogged()
         {
+            // Setup
             string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -787,7 +788,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 // Expect an activity dialog which is automatically closed
             };
 
-            // Setup
             using (var treeViewControl = new TreeViewControl())
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
@@ -800,7 +800,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new HydraRingCalculationServiceConfig())
                 using (new WaveConditionsCalculationServiceConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -826,6 +825,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         [Test]
         public void ContextMenuStrip_NoCalculations_ClearAllOutputItemDisabled()
         {
+            // Setup
             string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -850,7 +850,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            // Setup
             using (var treeViewControl = new TreeViewControl())
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
@@ -863,7 +862,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new HydraRingCalculationServiceConfig())
                 using (new WaveConditionsCalculationServiceConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -879,6 +877,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         [Test]
         public void ContextMenuStrip_TwoCalculationsWithoutOutput_ClearAllOutputItemDisabled()
         {
+            // Setup
             string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -907,7 +906,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            // Setup
             using (var treeViewControl = new TreeViewControl())
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
@@ -920,7 +918,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new HydraRingCalculationServiceConfig())
                 using (new WaveConditionsCalculationServiceConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
@@ -938,6 +935,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
         [TestCase(false)]
         public void ContextMenuStrip_TwoCalculationsWithOutputClickOnClearAllOutput_OutputRemovedForCalculationsAfterConfirmation(bool confirm)
         {
+            // Setup
             string hrdPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -996,7 +994,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 }
             };
 
-            // Setup
             using (var treeViewControl = new TreeViewControl())
             {
                 var mainWindow = mocks.Stub<IMainWindow>();
@@ -1009,7 +1006,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new HydraRingCalculationServiceConfig())
                 using (new WaveConditionsCalculationServiceConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
