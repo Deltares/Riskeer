@@ -162,9 +162,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             const string name = "<very nice name>";
 
-            GrassCoverErosionInwardsCalculation calculation = GetCalculationWithBreakWater(name,
-                                                                                           true,
-                                                                                           breakWaterHeight);
+            GrassCoverErosionInwardsCalculation calculation = GetCalculationWithBreakWater(name, breakWaterHeight);
+            calculation.InputParameters.UseBreakWater = true;
 
             // Call
             bool isValid = false;
@@ -196,9 +195,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             const string name = "<very nice name>";
 
-            GrassCoverErosionInwardsCalculation calculation = GetCalculationWithBreakWater(name,
-                                                                                           useBreakWater,
-                                                                                           breakWaterHeight);
+            GrassCoverErosionInwardsCalculation calculation = GetCalculationWithBreakWater(name, breakWaterHeight);
+            calculation.InputParameters.UseBreakWater = useBreakWater;
 
             // Call
             bool isValid = false;
@@ -444,7 +442,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         private static GrassCoverErosionInwardsCalculation GetCalculationWithBreakWater(string name,
-                                                                                        bool useBreakWater,
                                                                                         double breakWaterHeight)
         {
             return new GrassCoverErosionInwardsCalculation
@@ -458,7 +455,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                                                   new Point2D[0],
                                                   new BreakWater(BreakWaterType.Dam, breakWaterHeight),
                                                   new DikeProfile.ConstructionProperties()),
-                    UseBreakWater = useBreakWater,
                 }
             };
         }

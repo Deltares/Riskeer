@@ -282,7 +282,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         }
 
         [Test]
-        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
         [TestCase(double.NaN)]
         public void OnRun_CalculationWithForeshoreAndDoesNotUseBreakWaterAndHasInvalidBreakWaterHeight_PerformCalculationAndLogStartEnd(double breakWaterHeight)
         {
@@ -290,22 +290,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation()
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
-                    UseForeshore = true,
-                    UseBreakWater = false,
-                    StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble) 4,
-                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 5.4,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 5
-                }
-            };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 12.0;
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput(assessmentSection);
+            calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam,
+                                                                                                 breakWaterHeight));
+            calculation.InputParameters.UseBreakWater = false;
 
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
                                                                                           testDataPath,
@@ -344,7 +332,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         }
 
         [Test]
-        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
         [TestCase(double.NaN)]
         public void OnRun_CalculationWithForeshoreAndUsesBreakWaterAndHasInvalidBreakWaterHeight_DoesNotPerformCalculationAndLogStartEnd(double breakWaterHeight)
         {
@@ -352,22 +340,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
-                    UseForeshore = true,
-                    UseBreakWater = true,
-                    StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble) 4,
-                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 5.4,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 5
-                }
-            };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 12.0;
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput(assessmentSection);
+            calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam,
+                                                                                                 breakWaterHeight));
+            calculation.InputParameters.UseBreakWater = true;
 
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
                                                                                           testDataPath,
@@ -394,28 +370,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         }
 
         [Test]
-        public void OnRun_CalculationWithValidInputConditionsAndWithoutForeshoreProfileCannotPerformCalculation_LogCalculationStartAndErrorAndEnd()
+        [TestCase(CalculationType.NoForeshore)]
+        [TestCase(CalculationType.ForeShoreWithoutBreakWater)]
+        [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
+        public void OnRun_CalculationWithValidInputConditionsAndValidateForeShore_LogCalculationStartAndErrorAndEnd(CalculationType calculationType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation()
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput(assessmentSection);
+
+            switch (calculationType)
             {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    ForeshoreProfile = null,
-                    UseForeshore = false,
-                    UseBreakWater = false,
-                    StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble)4,
-                    UpperBoundaryRevetment = (RoundedDouble)10.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble)5.4,
-                    LowerBoundaryWaterLevels = (RoundedDouble)5
-                }
-            };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)12.0;
+                case CalculationType.NoForeshore:
+                    calculation.InputParameters.ForeshoreProfile = null;
+                    calculation.InputParameters.UseForeshore = false;
+                    break;
+                case CalculationType.ForeShoreWithoutBreakWater:
+                    calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(null);
+                    calculation.InputParameters.UseBreakWater = false;
+                    break;
+                case CalculationType.ForeshoreWithValidBreakWater:
+                    break;
+            }
 
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
                                                                                           testDataPath,
@@ -448,111 +426,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                     }
 
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[9]);
-                });
-                Assert.AreEqual(ActivityState.Failed, activity.State);
-            }
-        }
-
-        [Test]
-        public void OnRun_CalculationWithValidInputConditionsAndForeshoreProfileWithoutBreakWaterCannotPerformCalculation_LogCalculationStartAndErrorAndEnd()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
-
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation()
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    ForeshoreProfile = CreateForeshoreProfile(null),
-                    UseForeshore = true,
-                    UseBreakWater = false,
-                    StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble) 4,
-                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 5.4,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 5
-                }
-            };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 12.0;
-
-            var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
-                                                                                          testDataPath,
-                                                                                          assessmentSection.GrassCoverErosionOutwards,
-                                                                                          assessmentSection);
-
-            using (new HydraRingCalculationServiceConfig())
-            {
-                // Call
-                Action call = () => activity.Run();
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    var msgs = messages.ToArray();
-                    Assert.AreEqual(10, msgs.Length);
-
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-
-                    int i = 2;
-                    foreach (var waterLevel in calculation.InputParameters.WaterLevels)
-                    {
-                        StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' gestart om: ", calculation.Name, waterLevel), msgs[i + 1]);
-                        Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt.", calculation.Name, waterLevel), msgs[i + 2]);
-                        StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd om: ", calculation.Name, waterLevel), msgs[i + 3]);
-
-                        i = i + 3;
-                    }
-
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[9]);
-                });
-                Assert.AreEqual(ActivityState.Failed, activity.State);
-            }
-        }
-
-        [Test]
-        public void OnRun_CalculationWithValidInputConditionsAndForeshoreProfileWithBreakWaterCannotPerformCalculation_LogCalculationStartAndErrorAndEnd()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
-
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
-
-            var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
-                                                                                          testDataPath,
-                                                                                          assessmentSection.GrassCoverErosionOutwards,
-                                                                                          assessmentSection);
-
-            using (new HydraRingCalculationServiceConfig())
-            {
-                // Call
-                Action call = () => activity.Run();
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    var msgs = messages.ToArray();
-                    Assert.AreEqual(13, msgs.Length);
-
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-
-                    int i = 2;
-                    foreach (var waterLevel in calculation.InputParameters.WaterLevels)
-                    {
-                        StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' gestart om: ", calculation.Name, waterLevel), msgs[i + 1]);
-                        Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt.", calculation.Name, waterLevel), msgs[i + 2]);
-                        StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd om: ", calculation.Name, waterLevel), msgs[i + 3]);
-
-                        i = i + 3;
-                    }
-
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[12]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
@@ -802,6 +675,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             }
         }
 
+        public enum CalculationType
+        {
+            NoForeshore,
+            ForeshoreWithValidBreakWater,
+            ForeShoreWithoutBreakWater
+        }
+
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation(AssessmentSection assessmentSection)
         {
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
@@ -823,6 +703,27 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             return calculation;
         }
 
+        private static GrassCoverErosionOutwardsWaveConditionsCalculation GetDefaultValidationInput(AssessmentSection assessmentSection)
+        {
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    ForeshoreProfile = CreateForeshoreProfile(),
+                    UseForeshore = true,
+                    UseBreakWater = true,
+                    StepSize = WaveConditionsInputStepSize.Half,
+                    LowerBoundaryRevetment = (RoundedDouble) 4,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 5.4,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 5
+                }
+            };
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
+            return calculation;
+        }
+
         private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
         {
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -835,14 +736,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
         private static ForeshoreProfile CreateForeshoreProfile()
         {
-            return new ForeshoreProfile(new Point2D(0, 0),
-                                        new[]
-                                        {
-                                            new Point2D(3.3, 4.4),
-                                            new Point2D(5.5, 6.6)
-                                        },
-                                        new BreakWater(BreakWaterType.Dam, 10.0),
-                                        new ForeshoreProfile.ConstructionProperties());
+            return CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, 10.0));
         }
 
         private static ForeshoreProfile CreateForeshoreProfile(BreakWater breakWater)
