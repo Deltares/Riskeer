@@ -22,8 +22,10 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
 {
@@ -45,9 +47,19 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
+            AddEntitiesForHydraulicBoundaryLocations(mechanism.HydraulicBoundaryLocations, entity, registry);
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
 
             return entity;
+        }
+
+        private static void AddEntitiesForHydraulicBoundaryLocations(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations, FailureMechanismEntity entity, PersistenceRegistry registry)
+        {
+            int i = 0;
+            foreach (var location in hydraulicBoundaryLocations)
+            {
+                entity.GrassCoverErosionOutwardsHydraulicLocationEntities.Add(location.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, i++));
+            }
         }
 
         private static void AddEntitiesForFailureMechanismMeta(GeneralGrassCoverErosionOutwardsInput generalInput, FailureMechanismEntity entity, PersistenceRegistry registry)

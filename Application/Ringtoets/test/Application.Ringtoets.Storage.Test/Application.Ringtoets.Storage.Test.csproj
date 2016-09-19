@@ -79,6 +79,7 @@
     </Compile>
     <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionOutwardsOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\ForeshoreProfileCreateExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionOutwardsHydraulicLocationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\ForeshoreProfileReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationEntityReadExtensionsTest.cs" />

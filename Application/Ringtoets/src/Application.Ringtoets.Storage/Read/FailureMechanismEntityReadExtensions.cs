@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -445,6 +446,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadGeneralGrassCoverErosionOutwardsCalculationInput(failureMechanism.GeneralInput);
             entity.ReadGrassCoverErosionOutwardsMechanismSectionResults(failureMechanism, collector);
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
+            entity.ReadHydraulicBoundaryLocations(failureMechanism.HydraulicBoundaryLocations, collector);
 
             ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.WaveConditionsCalculationGroup, collector);
         }
@@ -463,6 +465,11 @@ namespace Application.Ringtoets.Storage.Read
 
                 sectionResultEntity.Read(result);
             }
+        }
+
+        private static void ReadHydraulicBoundaryLocations(this FailureMechanismEntity entity, ObservableList<HydraulicBoundaryLocation> locations, ReadConversionCollector collector)
+        {
+            locations.AddRange(entity.GrassCoverErosionOutwardsHydraulicLocationEntities.Select(location => location.Read(collector)));
         }
 
         private static void ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,

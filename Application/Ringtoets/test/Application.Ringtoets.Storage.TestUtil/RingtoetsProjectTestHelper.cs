@@ -655,6 +655,9 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             failureMechanism.GeneralInput.N = 15;
 
+            failureMechanism.HydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(0, "HL 1", 100, 200));
+            failureMechanism.HydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(45, "HL 2", 123, 150));
+
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
                 Name = "GCEO A",

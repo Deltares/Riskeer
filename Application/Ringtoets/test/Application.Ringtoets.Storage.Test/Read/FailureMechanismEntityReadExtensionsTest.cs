@@ -24,6 +24,7 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
+using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -31,6 +32,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -605,6 +607,48 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             ICalculationBase child2 = failureMechanism.WaveConditionsCalculationGroup.Children[1];
             Assert.AreEqual("Child2", child2.Name);
+        }
+
+        [Test]
+        public void ReadAsGrassCoverErosionOutwardsFailureMechanism_WithHydraulicBoundaryLocations_ReturnsNewGrassCoverErosionInwardsFailureMechanismWithLocationsSet()
+        {
+            // Setup
+            var locationAName = "Location A";
+            var locationBName = "Location B";
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                GrassCoverErosionOutwardsFailureMechanismMetaEntities =
+                {
+                    new GrassCoverErosionOutwardsFailureMechanismMetaEntity
+                    {
+                        N = 1
+                    }
+                },
+                GrassCoverErosionOutwardsHydraulicLocationEntities =
+                {
+                    new GrassCoverErosionOutwardsHydraulicLocationEntity
+                    {
+                        Name = locationAName
+                    },
+                    new GrassCoverErosionOutwardsHydraulicLocationEntity
+                    {
+                        Name = locationBName
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            // Call
+            entity.ReadAsGrassCoverErosionOutwardsFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            var hydraulicBoundaryLocations = failureMechanism.HydraulicBoundaryLocations;
+            Assert.AreEqual(2, hydraulicBoundaryLocations.Count);
+
+            Assert.AreEqual(locationAName, hydraulicBoundaryLocations[0].Name);
+            Assert.AreEqual(locationBName, hydraulicBoundaryLocations[1].Name);
         }
 
         #endregion

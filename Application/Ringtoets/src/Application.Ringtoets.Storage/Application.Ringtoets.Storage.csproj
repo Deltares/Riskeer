@@ -199,6 +199,7 @@
     </Compile>
     <Compile Include="Read\ForeshoreProfileEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions.cs" />
+    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsHydraulicLocationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputEntityReadExtensions.cs" />
     <Compile Include="Serializers\Point2DXmlSerializer.cs" />

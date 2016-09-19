@@ -141,6 +141,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsInstanceOf<GrassCoverErosionInwardsCalculation>(grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children[2]);
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
+            Assert.AreEqual(2, grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Count);
             Assert.AreEqual(2, grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles.Count);
             Assert.NotNull(grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup);
             Assert.AreEqual(2, grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children.Count);

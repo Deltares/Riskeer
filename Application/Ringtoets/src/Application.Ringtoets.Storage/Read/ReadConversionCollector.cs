@@ -43,6 +43,7 @@ namespace Application.Ringtoets.Storage.Read
         private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
         private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines = CreateDictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>();
         private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicBoundaryLocations = CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
+        private readonly Dictionary<GrassCoverErosionOutwardsHydraulicLocationEntity, HydraulicBoundaryLocation> grassCoverErosionOutwardsHydraulicBoundaryLocations = CreateDictionary<GrassCoverErosionOutwardsHydraulicLocationEntity, HydraulicBoundaryLocation>();
         private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = CreateDictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
         private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles = CreateDictionary<DikeProfileEntity, DikeProfile>();
         private readonly Dictionary<ForeshoreProfileEntity, ForeshoreProfile> foreshoreProfiles = CreateDictionary<ForeshoreProfileEntity, ForeshoreProfile>();
@@ -692,6 +693,78 @@ namespace Application.Ringtoets.Storage.Read
             try
             {
                 return grassCoverErosionInwardsCalculations[entity];
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new InvalidOperationException(e.Message, e);
+            }
+        }
+
+        #endregion
+
+        #region GrassCoverErosionOutwardsHydraulicLocationEntity: Read, Contains, Get
+
+        /// <summary>
+        /// Registers a read operation for <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/> and the
+        /// <see cref="HydraulicBoundaryLocation"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/> that was read.</param>
+        /// <param name="model">The <see cref="HydraulicBoundaryLocation"/> that was constructed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Read(GrassCoverErosionOutwardsHydraulicLocationEntity entity, HydraulicBoundaryLocation model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
+            grassCoverErosionOutwardsHydraulicBoundaryLocations[entity] = model;
+        }
+
+        /// <summary>
+        /// Checks whether a read operation has been registered for a given <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/> to check for.</param>
+        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        internal bool Contains(GrassCoverErosionOutwardsHydraulicLocationEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            return grassCoverErosionOutwardsHydraulicBoundaryLocations.ContainsKey(entity);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="HydraulicBoundaryLocation"/> which was read for the
+        /// given <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="GrassCoverErosionOutwardsHydraulicLocationEntity"/> for which a read
+        /// operation has been registered.</param>
+        /// <returns>The constructed <see cref="HydraulicBoundaryLocation"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has
+        /// been registered for <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="Contains(GrassCoverErosionOutwardsHydraulicLocationEntity)"/> to find out whether a
+        /// read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal HydraulicBoundaryLocation Get(GrassCoverErosionOutwardsHydraulicLocationEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            try
+            {
+                return grassCoverErosionOutwardsHydraulicBoundaryLocations[entity];
             }
             catch (KeyNotFoundException e)
             {

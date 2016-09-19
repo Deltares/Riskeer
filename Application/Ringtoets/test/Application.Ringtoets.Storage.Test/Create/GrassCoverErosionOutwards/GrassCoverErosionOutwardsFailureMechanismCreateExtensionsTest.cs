@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HydraRing.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
 {
@@ -192,6 +193,35 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             Assert.AreEqual("B", childGroupEntities[1].Name);
             Assert.AreEqual(1, childGroupEntities[1].IsEditable);
             Assert.AreEqual(1, childGroupEntities[1].Order);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Create_WithGrassCoverErosionOutwardHydraulicBoundaryLocation_ReturnFailureMechanismEntityWithCalculationGroupEntities(bool isRelevant)
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.HydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(0, "A", 0, 0));
+            failureMechanism.HydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(1, "B", 0, 0));
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(2, entity.GrassCoverErosionOutwardsHydraulicLocationEntities.Count);
+
+            var firstLocation = entity.GrassCoverErosionOutwardsHydraulicLocationEntities.ElementAt(0);
+            var secondLocation = entity.GrassCoverErosionOutwardsHydraulicLocationEntities.ElementAt(1);
+            Assert.AreEqual("A", firstLocation.Name);
+            Assert.AreEqual(0, firstLocation.LocationId);
+            Assert.AreEqual(0, firstLocation.Order);
+            Assert.AreEqual("B", secondLocation.Name);
+            Assert.AreEqual(1, secondLocation.LocationId);
+            Assert.AreEqual(1, secondLocation.Order);
         }
     }
 }

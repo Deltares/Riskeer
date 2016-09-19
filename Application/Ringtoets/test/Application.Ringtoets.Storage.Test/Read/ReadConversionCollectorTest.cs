@@ -623,7 +623,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Read(null, new HydraulicBoundaryLocation(1, "A", 1, 1));
+            TestDelegate test = () => collector.Read((HydraulicLocationEntity) null, new HydraulicBoundaryLocation(1, "A", 1, 1));
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -1247,5 +1247,155 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         #endregion
+
+        #region GrassCoverErosionOutwardsHydraulicLocationEntity: Read, Contains, Get
+
+        [Test]
+        public void Contains_WithoutGrassCoverErosionOutwardsHydraulicLocationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Contains((GrassCoverErosionOutwardsHydraulicLocationEntity)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Contains_GrassCoverErosionOutwardsHydraulicLocationEntityAdded_ReturnsTrue()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity();
+            collector.Read(entity, new HydraulicBoundaryLocation(1, "A", 1, 2));
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoGrassCoverErosionOutwardsHydraulicLocationEntityAdded_ReturnsFalse()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity();
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherGrassCoverErosionOutwardsHydraulicLocationEntityAdded_ReturnsFalse()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity();
+            collector.Read(new GrassCoverErosionOutwardsHydraulicLocationEntity(), new HydraulicBoundaryLocation(1, "A", 2, 3));
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Get_WithoutGrassCoverErosionOutwardsHydraulicLocationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Get((GrassCoverErosionOutwardsHydraulicLocationEntity)null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Get_GrassCoverErosionOutwardsHydraulicLocationEntityAdded_ReturnsHydraulicBoundaryLocation()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var profile = new HydraulicBoundaryLocation(1, "A", 1, 1);
+            var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity();
+            collector.Read(entity, profile);
+
+            // Call
+            var result = collector.Get(entity);
+
+            // Assert
+            Assert.AreSame(profile, result);
+        }
+
+        [Test]
+        public void Get_NoGrassCoverErosionOutwardsHydraulicLocationEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity();
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherGrassCoverErosionOutwardsHydraulicLocationEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity();
+            collector.Read(new GrassCoverErosionOutwardsHydraulicLocationEntity(), new HydraulicBoundaryLocation(1, "A", 1, 1));
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Read_WithNullGrassCoverErosionOutwardsHydraulicLocationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read((GrassCoverErosionOutwardsHydraulicLocationEntity) null, new HydraulicBoundaryLocation(1, "A", 1, 1));
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Read_WithNullHydraulicBoundaryLocationForGrassCoverErosionOutwardsHydraulicLocationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(new GrassCoverErosionOutwardsHydraulicLocationEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        #endregion
+
     }
 }

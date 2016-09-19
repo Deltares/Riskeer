@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_WithPersistenceRegistry_ReturnsHydraulicBoundaryLocationEntityWithPropertiesSet()
+        public void Create_WithPersistenceRegistry_ReturnsHydraulicLocationEntityWithPropertiesSet()
         {
             // Setup
             var testName = "testName";
@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        public void Create_WithPersistenceRegistryAndInitializer_ReturnsHydraulicBoundaryLocationEntityWithDesignWaterLevelSet()
+        public void Create_WithPersistenceRegistryAndInitializer_ReturnsHydraulicLocationEntityWithDesignWaterLevelSet()
         {
             // Setup
             var random = new Random(21);
@@ -108,7 +108,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = hydraulicBoundaryLocation.Create(registry, 0);
+            HydraulicLocationEntity entity = hydraulicBoundaryLocation.Create(registry, 0);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -128,7 +128,114 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             HydraulicLocationEntity entity1 = hydraulicBoundaryLocations.Create(registry, 0);
-            HydraulicLocationEntity entity2 = hydraulicBoundaryLocations.Create(registry, 0);
+            HydraulicLocationEntity entity2 = hydraulicBoundaryLocations.Create(registry, 1);
+
+            // Assert
+            Assert.AreSame(entity1, entity2);
+        }
+
+        [Test]
+        public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_WithoutPersistenceRegistry_ThrowsArgumentNullException()
+        {
+            // Setup
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", 2, 3);
+
+            // Call
+            TestDelegate test = () => hydraulicBoundaryLocation.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(null, 0);
+
+            // Assert
+            var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("registry", parameterName);
+        }
+
+        [Test]
+        public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_WithPersistenceRegistry_ReturnsGrassCoverErosionOutwardsHydraulicLocationEntityWithPropertiesSet()
+        {
+            // Setup
+            var testName = "testName";
+            var random = new Random(21);
+            var coordinateX = random.NextDouble();
+            var coordinateY = random.NextDouble();
+            var id = random.Next(0, 150);
+            int order = random.Next();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, testName, coordinateX, coordinateY);
+            var registry = new PersistenceRegistry();
+
+            // Call
+            GrassCoverErosionOutwardsHydraulicLocationEntity entity =
+                hydraulicBoundaryLocation.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, order);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(testName, entity.Name);
+            Assert.AreEqual(coordinateX, entity.LocationX);
+            Assert.AreEqual(coordinateY, entity.LocationY);
+            Assert.AreEqual(id, entity.LocationId);
+            Assert.IsNull(entity.DesignWaterLevel);
+            Assert.IsNull(entity.WaveHeight);
+            Assert.AreEqual(order, entity.Order);
+        }
+
+        [Test]
+        public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_StringPropertiesDoNotShareReferences()
+        {
+            // Setup
+            var testName = "original name";
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, testName, 0, 0);
+            var registry = new PersistenceRegistry();
+
+            // Call
+            GrassCoverErosionOutwardsHydraulicLocationEntity entity = 
+                hydraulicBoundaryLocation.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 0);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreNotSame(testName, entity.Name,
+                              "To create stable binary representations/fingerprints, it's really important that strings are not shared.");
+            Assert.AreEqual(testName, entity.Name);
+        }
+
+        [Test]
+        public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_WithPersistenceRegistryAndInitializer_ReturnsGrassCoverErosionOutwardsHydraulicLocationEntityWithDesignWaterLevelSet()
+        {
+            // Setup
+            var random = new Random(21);
+            var waterLevel = (RoundedDouble) random.NextDouble();
+            var waveHeight = (RoundedDouble) random.NextDouble();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "testName", random.NextDouble(), random.NextDouble())
+            {
+                DesignWaterLevel = waterLevel,
+                WaveHeight = waveHeight,
+                DesignWaterLevelCalculationConvergence = CalculationConvergence.CalculatedConverged,
+                WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged
+            };
+            var registry = new PersistenceRegistry();
+
+            // Call
+            GrassCoverErosionOutwardsHydraulicLocationEntity entity = 
+                hydraulicBoundaryLocation.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 0);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(waterLevel, entity.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
+            Assert.AreEqual(waveHeight, entity.WaveHeight, hydraulicBoundaryLocation.WaveHeight.GetAccuracy());
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, (CalculationConvergence) entity.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, (CalculationConvergence) entity.WaveHeightCalculationConvergence);
+        }
+
+        [Test]
+        public void CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation_HydraulicBoundaryLocationSavedMultipleTimes_ReturnSameEntity()
+        {
+            // Setup
+            var hydraulicBoundaryLocations = new HydraulicBoundaryLocation(1, "A", 1.1, 2.2);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            GrassCoverErosionOutwardsHydraulicLocationEntity entity1 = 
+                hydraulicBoundaryLocations.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 0);
+            GrassCoverErosionOutwardsHydraulicLocationEntity entity2 =
+                hydraulicBoundaryLocations.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 1);
 
             // Assert
             Assert.AreSame(entity1, entity2);
