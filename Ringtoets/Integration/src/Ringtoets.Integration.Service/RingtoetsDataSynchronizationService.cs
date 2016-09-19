@@ -66,6 +66,7 @@ namespace Ringtoets.Integration.Service
                 var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
                 var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
                 var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
+                var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
 
                 if (pipingFailureMechanism != null)
                 {
@@ -78,6 +79,10 @@ namespace Ringtoets.Integration.Service
                 if (stabilityStoneCoverFailureMechanism != null)
                 {
                     affectedItems.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(stabilityStoneCoverFailureMechanism));
+                }
+                if (grassCoverErosionOutwardsFailureMechanism != null)
+                {
+                    affectedItems.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionOutwardsFailureMechanism));
                 }
                 if (heightStructuresFailureMechanism != null)
                 {

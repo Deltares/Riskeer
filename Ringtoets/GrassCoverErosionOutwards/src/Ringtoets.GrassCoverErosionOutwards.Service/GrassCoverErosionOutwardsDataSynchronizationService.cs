@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -77,6 +79,54 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             }
 
             return locationsAffected;
+        }
+
+        /// <summary>
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the wave conditions calculations
+        /// in the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/>
+        /// which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// removal of data.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> ClearAllCalculationOutputAndHydraulicBoundaryLocations(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            Collection<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems = new Collection<GrassCoverErosionOutwardsWaveConditionsCalculation>();
+            foreach (var calculation in failureMechanism.Calculations.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>())
+            {
+                var calculationChanged = false;
+
+                if (calculation.HasOutput)
+                {
+                    ClearWaveConditionsCalculationOutput(calculation);
+                    calculationChanged = true;
+                }
+
+                if (calculation.InputParameters.HydraulicBoundaryLocation != null)
+                {
+                    ClearHydraulicBoundaryLocation(calculation);
+                    calculationChanged = true;
+                }
+
+                if (calculationChanged)
+                {
+                    affectedItems.Add(calculation);
+                }
+            }
+
+            return affectedItems;
+        }
+
+        private static void ClearHydraulicBoundaryLocation(GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
+        {
+            calculation.InputParameters.HydraulicBoundaryLocation = null;
         }
     }
 }

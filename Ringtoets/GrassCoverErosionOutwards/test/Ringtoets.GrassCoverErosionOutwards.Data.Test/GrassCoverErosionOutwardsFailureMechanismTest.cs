@@ -24,6 +24,8 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 
@@ -48,6 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             Assert.IsFalse(failureMechanism.WaveConditionsCalculationGroup.IsNameEditable);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.HydraulicBoundaryLocations);
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
 
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
             Assert.IsInstanceOf<IList<ForeshoreProfile>>(failureMechanism.ForeshoreProfiles);
@@ -87,6 +90,36 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             // Assert
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.SectionResults);
+        }
+
+        [Test]
+        public void Calculations_MultipleChildrenAdded_ReturnStabilityStoneCoverWaveConditionsCalculations()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                WaveConditionsCalculationGroup =
+                {
+                    Children =
+                    {
+                        new CalculationGroup(),
+                        new GrassCoverErosionOutwardsWaveConditionsCalculation(),
+                        mocks.StrictMock<ICalculation>(),
+                        new GrassCoverErosionOutwardsWaveConditionsCalculation()
+                    }
+                }
+            };
+
+            mocks.ReplayAll();
+
+            // Call
+            var calculations = failureMechanism.Calculations.ToList();
+
+            // Assert
+            Assert.AreEqual(2, calculations.Count);
+            Assert.IsTrue(calculations.All(c => c is GrassCoverErosionOutwardsWaveConditionsCalculation));
+            mocks.VerifyAll();
         }
     }
 }

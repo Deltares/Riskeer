@@ -96,7 +96,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
         }
 
         [Test]
-        public void Calculations_MultipleChildrenAdded_ReturnHeightStructuresCalculations()
+        public void Calculations_MultipleChildrenAdded_ReturnStabilityStoneCoverWaveConditionsCalculations()
         {
             // Setup
             var mocks = new MockRepository();
