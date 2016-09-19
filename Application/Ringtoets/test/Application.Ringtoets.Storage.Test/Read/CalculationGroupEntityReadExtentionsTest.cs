@@ -112,15 +112,15 @@ namespace Application.Ringtoets.Storage.Test.Read
                         {
                             new CalculationGroupEntity
                             {
-                                Name = "ABA",
-                                IsEditable = 0,
-                                Order = 0
-                            },
-                            new CalculationGroupEntity
-                            {
                                 Name = "ABB",
                                 IsEditable = 1,
                                 Order = 1
+                            },
+                            new CalculationGroupEntity
+                            {
+                                Name = "ABA",
+                                IsEditable = 0,
+                                Order = 0
                             }
                         },
                         Order = 1
@@ -169,15 +169,15 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new PipingCalculationEntity
                     {
-                        Order = 0,
-                        Name = "1",
-                        DampingFactorExitMean = 1,
-                    },
-                    new PipingCalculationEntity
-                    {
                         Order = 1,
                         Name = "2",
                         DampingFactorExitMean = 2,
+                    },
+                    new PipingCalculationEntity
+                    {
+                        Order = 0,
+                        Name = "1",
+                        DampingFactorExitMean = 1,
                     }
                 }
             };
@@ -225,13 +225,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new CalculationGroupEntity
                     {
-                        Order = 1,
-                        Name = "group1"
+                        Order = 3,
+                        Name = "group2"
                     },
                     new CalculationGroupEntity
                     {
-                        Order = 3,
-                        Name = "group2"
+                        Order = 1,
+                        Name = "group1"
                     }
                 }
             };
@@ -308,30 +308,30 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new CalculationGroupEntity
                     {
-                        Name = "AA",
-                        IsEditable = 1,
-                        Order = 0
-                    },
-                    new CalculationGroupEntity
-                    {
                         Name = "AB",
                         IsEditable = 0,
                         CalculationGroupEntity1 =
                         {
                             new CalculationGroupEntity
                             {
-                                Name = "ABA",
-                                IsEditable = 0,
-                                Order = 0
-                            },
-                            new CalculationGroupEntity
-                            {
                                 Name = "ABB",
                                 IsEditable = 1,
                                 Order = 1
+                            },
+                            new CalculationGroupEntity
+                            {
+                                Name = "ABA",
+                                IsEditable = 0,
+                                Order = 0
                             }
                         },
                         Order = 1
+                    },
+                    new CalculationGroupEntity
+                    {
+                        Name = "AA",
+                        IsEditable = 1,
+                        Order = 0
                     }
                 }
             };
@@ -414,13 +414,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new GrassCoverErosionInwardsCalculationEntity
                     {
-                        Order = 0,
-                        Name = "calculation1"
+                        Order = 2,
+                        Name = "calculation2"
                     },
                     new GrassCoverErosionInwardsCalculationEntity
                     {
-                        Order = 2,
-                        Name = "calculation2"
+                        Order = 0,
+                        Name = "calculation1"
                     }
                 },
                 CalculationGroupEntity1 =
@@ -509,12 +509,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new CalculationGroupEntity
                     {
-                        Name = "AA",
-                        IsEditable = 1,
-                        Order = 0
-                    },
-                    new CalculationGroupEntity
-                    {
                         Name = "AB",
                         IsEditable = 0,
                         CalculationGroupEntity1 =
@@ -533,6 +527,12 @@ namespace Application.Ringtoets.Storage.Test.Read
                             }
                         },
                         Order = 1
+                    },
+                    new CalculationGroupEntity
+                    {
+                        Name = "AA",
+                        IsEditable = 1,
+                        Order = 0
                     }
                 }
             };
@@ -615,12 +615,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new CalculationGroupEntity
                     {
-                        Name = "AA",
-                        IsEditable = 1,
-                        Order = 0
-                    },
-                    new CalculationGroupEntity
-                    {
                         Name = "AB",
                         IsEditable = 0,
                         CalculationGroupEntity1 =
@@ -639,6 +633,12 @@ namespace Application.Ringtoets.Storage.Test.Read
                             }
                         },
                         Order = 1
+                    },
+                    new CalculationGroupEntity
+                    {
+                        Name = "AA",
+                        IsEditable = 1,
+                        Order = 0
                     }
                 }
             };
@@ -683,13 +683,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new StabilityStoneCoverWaveConditionsCalculationEntity
                     {
-                        Order = 0,
-                        Name = "1"
+                        Order = 1,
+                        Name = "2"
                     },
                     new StabilityStoneCoverWaveConditionsCalculationEntity
                     {
-                        Order = 1,
-                        Name = "2"
+                        Order = 0,
+                        Name = "1"
                     }
                 }
             };
@@ -734,13 +734,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new CalculationGroupEntity
                     {
-                        Order = 1,
-                        Name = "group1"
+                        Order = 3,
+                        Name = "group2"
                     },
                     new CalculationGroupEntity
                     {
-                        Order = 3,
-                        Name = "group2"
+                        Order = 1,
+                        Name = "group1"
                     }
                 }
             };
@@ -816,12 +816,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new CalculationGroupEntity
                     {
-                        Name = "AA",
-                        IsEditable = 1,
-                        Order = 0
-                    },
-                    new CalculationGroupEntity
-                    {
                         Name = "AB",
                         IsEditable = 0,
                         CalculationGroupEntity1 =
@@ -840,6 +834,12 @@ namespace Application.Ringtoets.Storage.Test.Read
                             }
                         },
                         Order = 1
+                    },
+                    new CalculationGroupEntity
+                    {
+                        Name = "AA",
+                        IsEditable = 1,
+                        Order = 0
                     }
                 }
             };
@@ -872,6 +872,5 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsTrue(rootChildGroup1Child2.IsNameEditable);
             CollectionAssert.IsEmpty(rootChildGroup1Child2.Children);
         }
-
     }
 }

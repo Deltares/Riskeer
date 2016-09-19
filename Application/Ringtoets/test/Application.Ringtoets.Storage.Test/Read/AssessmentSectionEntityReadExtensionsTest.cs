@@ -340,6 +340,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = CreateAssessmentSectionEntity();
             const string comments = "Some text";
 
+            var n = new Random(21).Next(1,20);
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
@@ -350,7 +351,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
                     {
-                        N = 1
+                        N = n
                     }
                 }
             };
@@ -364,6 +365,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.AreEqual(isRelevant, section.GrassCoverErosionInwards.IsRelevant);
             Assert.AreEqual(comments, section.GrassCoverErosionInwards.Comments);
+            Assert.AreEqual(n, section.GrassCoverErosionInwards.GeneralInput.N);
         }
 
         [Test]
@@ -449,6 +451,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = CreateAssessmentSectionEntity();
             const string comments = "Some text";
 
+            var n = new Random(21).Next(1, 20);
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
@@ -459,7 +462,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
                     {
-                        N = 1
+                        N = n
                     }
                 }
             };
@@ -473,6 +476,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             // Assert
             Assert.AreEqual(isRelevant, section.GrassCoverErosionOutwards.IsRelevant);
             Assert.AreEqual(comments, section.GrassCoverErosionOutwards.Comments);
+            Assert.AreEqual(n, section.GrassCoverErosionOutwards.GeneralInput.N);
         }
 
         [Test]

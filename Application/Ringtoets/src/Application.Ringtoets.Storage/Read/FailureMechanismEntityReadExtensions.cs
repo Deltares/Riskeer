@@ -113,7 +113,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadPipingMechanismSectionResults(failureMechanism, collector);
 
             ReadPipingRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup,
-                                     failureMechanism.GeneralInput, collector);
+                                           failureMechanism.GeneralInput, collector);
         }
 
         private static void ReadProbabilityAssessmentInput(ICollection<PipingFailureMechanismMetaEntity> pipingFailureMechanismMetaEntities, PipingProbabilityAssessmentInput pipingProbabilityAssessmentInput)
@@ -136,8 +136,9 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         private static void ReadPipingRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
-                                                     CalculationGroup targetRootCalculationGroup, GeneralPipingInput generalPipingInput,
-                                                     ReadConversionCollector collector)
+                                                           CalculationGroup targetRootCalculationGroup,
+                                                           GeneralPipingInput generalPipingInput,
+                                                           ReadConversionCollector collector)
         {
             CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsPipingCalculationGroup(collector, generalPipingInput);
             foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
@@ -190,8 +191,8 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         private static void ReadGrassCoverErosionInwardsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
-                                                     CalculationGroup targetRootCalculationGroup,
-                                                     ReadConversionCollector collector)
+                                                                             CalculationGroup targetRootCalculationGroup,
+                                                                             ReadConversionCollector collector)
         {
             CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsGrassCoverErosionInwardsCalculationGroup(collector);
             foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
@@ -420,8 +421,8 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         private static void ReadWaveImpactAsphaltCoverRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
-                                                     CalculationGroup targetRootCalculationGroup,
-                                                     ReadConversionCollector collector)
+                                                                           CalculationGroup targetRootCalculationGroup,
+                                                                           ReadConversionCollector collector)
         {
             CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsWaveImpactAsphaltCoverWaveConditionsCalculationGroup(collector);
             foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
@@ -473,7 +474,7 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         private static void ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
-                                                     CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)
+                                                                                            CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)
         {
             CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsGrassCoverErosionOutwardsWaveConditionsCalculationGroup(collector);
             foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
@@ -656,7 +657,7 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         private static void ReadStabilityStoneCoverWaveConditionsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
-                                                     CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)
+                                                                                      CalculationGroup targetRootCalculationGroup, ReadConversionCollector collector)
         {
             CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(collector);
             foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
