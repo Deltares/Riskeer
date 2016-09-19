@@ -66,7 +66,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(null);
+            TestDelegate call = () => 
+                WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -105,11 +106,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems = WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems =
+                WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children
-                                                                                                 .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
+                                                                                                    .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
                 Assert.IsNull(calculation.Output);
@@ -151,11 +153,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems = WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems =
+                WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children
-                                                                                                 .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
+                                                                                                    .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
             }
@@ -189,11 +192,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems = WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems =
+                WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children
-                                                                                                 .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
+                                                                                                    .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
             {
                 Assert.IsNull(calculation.Output);
             }
@@ -219,7 +223,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems = WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems =
+                WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             CollectionAssert.IsEmpty(affectedItems);
