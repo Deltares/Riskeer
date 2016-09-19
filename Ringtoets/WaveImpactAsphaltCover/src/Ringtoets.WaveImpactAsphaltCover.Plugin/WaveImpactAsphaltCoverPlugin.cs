@@ -64,6 +64,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             {
                 GetObjectPropertiesData = context => context.WrappedData
             };
+            yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsOutput, WaveImpactAsphaltCoverWaveConditionsOutputProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

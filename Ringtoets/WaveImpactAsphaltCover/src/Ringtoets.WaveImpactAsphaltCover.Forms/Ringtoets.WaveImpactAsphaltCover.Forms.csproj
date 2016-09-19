@@ -54,6 +54,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\WaveImpactAsphaltCoverWaveConditionsOutputProperties.cs" />
     <Compile Include="Views\WaveImpactAsphaltCoverFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
