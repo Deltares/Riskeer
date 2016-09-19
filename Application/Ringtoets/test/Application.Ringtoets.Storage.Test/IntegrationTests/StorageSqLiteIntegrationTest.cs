@@ -696,10 +696,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedBoundaryDatabase.FilePath, actualBoundaryDatabase.FilePath);
             Assert.AreEqual(expectedBoundaryDatabase.Locations.Count, actualBoundaryDatabase.Locations.Count);
 
-            for (int i = 0; i < expectedBoundaryDatabase.Locations.Count; i++)
+            AssertHydraulicBoundaryLocations(expectedBoundaryDatabase.Locations, actualBoundaryDatabase.Locations);
+        }
+
+        private static void AssertHydraulicBoundaryLocations(List<HydraulicBoundaryLocation> expectedHydraulicBoundaryLocations, List<HydraulicBoundaryLocation> actualHydraulicBoundaryLocations)
+        {
+            for (int i = 0; i < expectedHydraulicBoundaryLocations.Count; i++)
             {
-                HydraulicBoundaryLocation expectedBoundaryLocation = expectedBoundaryDatabase.Locations[i];
-                HydraulicBoundaryLocation actualBoundaryLocation = actualBoundaryDatabase.Locations[i];
+                HydraulicBoundaryLocation expectedBoundaryLocation = expectedHydraulicBoundaryLocations[i];
+                HydraulicBoundaryLocation actualBoundaryLocation = actualHydraulicBoundaryLocations[i];
 
                 AssertHydraulicBoundaryLocation(expectedBoundaryLocation, actualBoundaryLocation);
             }
@@ -1061,6 +1066,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
+            AssertHydraulicBoundaryLocations(expectedFailureMechanism.HydraulicBoundaryLocations, actualFailureMechanism.HydraulicBoundaryLocations);
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
         }
 
