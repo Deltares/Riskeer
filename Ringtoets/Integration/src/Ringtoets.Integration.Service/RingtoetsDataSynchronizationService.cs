@@ -36,6 +36,8 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service;
+using Ringtoets.WaveImpactAsphaltCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Service;
 
 namespace Ringtoets.Integration.Service
 {
@@ -67,6 +69,7 @@ namespace Ringtoets.Integration.Service
                 var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
                 var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
                 var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
+                var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
 
                 if (pipingFailureMechanism != null)
                 {
@@ -80,9 +83,13 @@ namespace Ringtoets.Integration.Service
                 {
                     affectedItems.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(stabilityStoneCoverFailureMechanism));
                 }
+                if (waveImpactAsphaltCoverFailureMechanism != null)
+                {
+                    affectedItems.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(waveImpactAsphaltCoverFailureMechanism));
+                }
                 if (grassCoverErosionOutwardsFailureMechanism != null)
                 {
-                    affectedItems.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionOutwardsFailureMechanism));
+                    affectedItems.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(grassCoverErosionOutwardsFailureMechanism));
                 }
                 if (heightStructuresFailureMechanism != null)
                 {

@@ -115,6 +115,16 @@
       <Name>Ringtoets.StabilityStoneCover.Service</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
+      <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
+      <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Service\Ringtoets.WaveImpactAsphaltCover.Service.csproj">
+      <Project>{9E4A7C0B-F8B5-4101-B9D5-90F3F3C0FF7C}</Project>
+      <Name>Ringtoets.WaveImpactAsphaltCover.Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

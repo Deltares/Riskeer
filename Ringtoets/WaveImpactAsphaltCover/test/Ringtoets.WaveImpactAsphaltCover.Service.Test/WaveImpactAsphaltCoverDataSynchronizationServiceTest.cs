@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -58,6 +60,169 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             // Assert
             Assert.IsNull(calculation.Output);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutFailureMechanism_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+
+            var calculation1 = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+
+            var calculation2 = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                },
+                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+
+            var calculation3 = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
+
+            // Call
+            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems = WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children
+                                                                                                 .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
+            {
+                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
+                Assert.IsNull(calculation.Output);
+            }
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
+
+            var calculation1 = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var calculation2 = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
+            };
+
+            var calculation3 = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
+
+            // Call
+            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems = WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children
+                                                                                                 .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
+            {
+                Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
+            }
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOutputAndReturnsAffectedCalculations()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var calculation1 = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+
+            var calculation2 = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+
+            var calculation3 = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
+
+            // Call
+            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems = WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children
+                                                                                                 .Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
+            {
+                Assert.IsNull(calculation.Output);
+            }
+            CollectionAssert.AreEqual(new[]
+            {
+                calculation1,
+                calculation2
+            }, affectedItems);
+        }
+
+        [Test]
+        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationWithoutOutputAndHydraulicBoundaryLocation_ReturnNoAffectedCalculations()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var calculation1 = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var calculation2 = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var calculation3 = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation1);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation2);
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
+
+            // Call
+            IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems = WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+
+            // Assert
+            CollectionAssert.IsEmpty(affectedItems);
         }
     }
 }

@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// removal of data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> ClearAllCalculationOutputAndHydraulicBoundaryLocations(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
+        public static IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {

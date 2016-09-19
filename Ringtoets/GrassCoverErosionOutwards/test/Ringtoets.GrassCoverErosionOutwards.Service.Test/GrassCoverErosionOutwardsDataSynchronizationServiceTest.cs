@@ -134,10 +134,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutAssessmentSection_ThrowsArgumentNullException()
+        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_WithoutAssessmentSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionOutwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(null);
+            TestDelegate call = () => GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -145,7 +145,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
         {
             // Setup
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -176,7 +176,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>())
@@ -192,7 +192,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
+        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
         {
             // Setup
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -221,7 +221,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>())
@@ -236,7 +236,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOutputAndReturnsAffectedCalculations()
+        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithOutputAndNoHydraulicBoundaryLocation_ClearsOutputAndReturnsAffectedCalculations()
         {
             // Setup
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -258,7 +258,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> affectedItems = GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in failureMechanism.WaveConditionsCalculationGroup.Children.Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>())

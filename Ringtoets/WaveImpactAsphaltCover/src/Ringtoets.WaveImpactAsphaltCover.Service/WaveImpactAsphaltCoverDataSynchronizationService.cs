@@ -20,6 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Service
@@ -44,6 +48,56 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             }
 
             calculation.Output = null;
+        }
+
+        /// <summary>
+        /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the wave conditions calculations
+        /// in the <see cref="WaveImpactAsphaltCoverFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="WaveImpactAsphaltCoverFailureMechanism"/>
+        /// which contains the calculations.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
+        /// removing data.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
+        /// is <c>null</c>.</exception>
+        public static IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
+            Collection<WaveImpactAsphaltCoverWaveConditionsCalculation> affectedItems = new Collection<WaveImpactAsphaltCoverWaveConditionsCalculation>();
+
+            foreach (var calculation in failureMechanism.Calculations.Cast<WaveImpactAsphaltCoverWaveConditionsCalculation>())
+            {
+                var calculationChanged = false;
+
+                if (calculation.HasOutput)
+                {
+                    ClearWaveConditionsCalculationOutput(calculation);
+                    calculationChanged = true;
+                }
+
+                if (calculation.InputParameters.HydraulicBoundaryLocation != null)
+                {
+                    ClearHydraulicBoundaryLocation(calculation);
+                    calculationChanged = true;
+                }
+
+                if (calculationChanged)
+                {
+                    affectedItems.Add(calculation);
+                }
+            }
+
+            return affectedItems;
+        }
+
+        private static void ClearHydraulicBoundaryLocation(WaveImpactAsphaltCoverWaveConditionsCalculation calculation)
+        {
+            calculation.InputParameters.HydraulicBoundaryLocation = null;
         }
     }
 }
