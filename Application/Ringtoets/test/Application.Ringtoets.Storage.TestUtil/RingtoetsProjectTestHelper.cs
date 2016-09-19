@@ -655,17 +655,69 @@ namespace Application.Ringtoets.Storage.TestUtil
         {
             failureMechanism.GeneralInput.N = 15;
 
-            failureMechanism.HydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(0, "HL 1", 100, 200));
-            failureMechanism.HydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(45, "HL 2", 123, 150));
+            var hydraulicBoundaryLocations = failureMechanism.HydraulicBoundaryLocations;
+            hydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(0, "HL 1", 100, 200));
+            hydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(45, "HL 2", 123, 150));
 
+            ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
                 Name = "GCEO A",
+                Children =
+                {
+                    new GrassCoverErosionOutwardsWaveConditionsCalculation
+                    {
+                        Name = "Calculation 1",
+                        Comments = "Comments for Calculation 1",
+                        InputParameters =
+                        {
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocations[0],
+                            BreakWater =
+                            {
+                                Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.3),
+                                Type = BreakWaterType.Wall
+                            },
+                            Orientation = foreshoreProfile.Orientation,
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            UpperBoundaryRevetment = (RoundedDouble) 22.3,
+                            LowerBoundaryRevetment = (RoundedDouble) (-3.2),
+                            UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
+                            LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
+                            StepSize = WaveConditionsInputStepSize.Two
+                        }
+                    }
+                }
             });
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
             {
                 Name = "GCEO A"
             });
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(
+                new GrassCoverErosionOutwardsWaveConditionsCalculation
+                {
+                    Name = "Calculation 2",
+                    Comments = "Comments for Calculation 2",
+                    InputParameters =
+                    {
+                        ForeshoreProfile = null,
+                        HydraulicBoundaryLocation = hydraulicBoundaryLocations[1],
+                        BreakWater =
+                        {
+                            Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.1),
+                            Type = BreakWaterType.Dam
+                        },
+                        Orientation = foreshoreProfile.Orientation,
+                        UseForeshore = false,
+                        UseBreakWater = false,
+                        UpperBoundaryRevetment = (RoundedDouble) 12.3,
+                        LowerBoundaryRevetment = (RoundedDouble) (-3.5),
+                        UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
+                        LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
+                        StepSize = WaveConditionsInputStepSize.One
+                    }
+                });
         }
 
         private static void SetSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults)
