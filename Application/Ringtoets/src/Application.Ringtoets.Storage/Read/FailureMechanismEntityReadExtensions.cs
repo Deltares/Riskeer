@@ -467,7 +467,7 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static void ReadHydraulicBoundaryLocations(this FailureMechanismEntity entity, ObservableList<HydraulicBoundaryLocation> locations, ReadConversionCollector collector)
+        private static void ReadHydraulicBoundaryLocations(this FailureMechanismEntity entity, List<HydraulicBoundaryLocation> locations, ReadConversionCollector collector)
         {
             locations.AddRange(entity.GrassCoverErosionOutwardsHydraulicLocationEntities.Select(location => location.Read(collector)));
         }
