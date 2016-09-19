@@ -85,6 +85,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 GetObjectPropertiesData = context => context.WrappedData
             };
+
+            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsOutput, GrassCoverErosionOutwardsWaveConditionsOutputProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

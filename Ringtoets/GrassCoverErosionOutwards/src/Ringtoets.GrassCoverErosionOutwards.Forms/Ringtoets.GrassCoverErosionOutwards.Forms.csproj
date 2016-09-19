@@ -52,6 +52,7 @@
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveConditionsCalculationContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightLocationContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsWaveHeightLocationsContext.cs" />
+    <Compile Include="PropertyClasses\GrassCoverErosionOutwardsWaveConditionsOutputProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionOutwardsHydraulicBoundaryLocationContextProperties.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsDesignWaterLevelLocationContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundariesGroupContext.cs" />
