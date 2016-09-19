@@ -21,41 +21,42 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HydraRing.Data;
 
-namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
+namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
 {
     /// <summary>
-    /// Extension methods for <see cref="StabilityStoneCoverWaveConditionsCalculation"/> related to creating a
-    /// <see cref="StabilityStoneCoverWaveConditionsCalculationEntity"/>.
+    /// Extension methods for <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> related to creating a
+    /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationEntity"/>.
     /// </summary>
-    internal static class StabilityStoneCoverWaveConditionsCalculationCreateExtensions
+    internal static class GrassCoverErosionOutwardsConditionsCalculationCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="StabilityStoneCoverWaveConditionsCalculationEntity"/> based on the information of the 
-        /// <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.
+        /// Creates a <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationEntity"/> based on the information of the 
+        /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">The index at which <paramref name="calculation"/> resides within its parent.</param>
-        /// <returns>A new <see cref="StabilityStoneCoverWaveConditionsCalculationEntity"/>.</returns>
+        /// <returns>A new <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static StabilityStoneCoverWaveConditionsCalculationEntity Create(this StabilityStoneCoverWaveConditionsCalculation calculation,
-                                                                                  PersistenceRegistry registry, int order)
+        internal static GrassCoverErosionOutwardsWaveConditionsCalculationEntity Create(this GrassCoverErosionOutwardsWaveConditionsCalculation calculation, 
+            PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
                 throw new ArgumentNullException("registry");
             }
 
-            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
+            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
             {
                 Order = order,
                 Name = calculation.Name.DeepClone(),
                 Comments = calculation.Comments.DeepClone(),
                 Orientation = calculation.InputParameters.Orientation,
                 UseBreakWater = Convert.ToByte(calculation.InputParameters.UseBreakWater),
-                BreakWaterType = (byte) calculation.InputParameters.BreakWater.Type,
+                BreakWaterType = (byte)calculation.InputParameters.BreakWater.Type,
                 BreakWaterHeight = calculation.InputParameters.BreakWater.Height,
                 UseForeshore = Convert.ToByte(calculation.InputParameters.UseForeshore),
                 UpperBoundaryRevetment = calculation.InputParameters.UpperBoundaryRevetment,
@@ -65,35 +66,16 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
                 StepSize = Convert.ToByte(calculation.InputParameters.StepSize)
             };
 
-            if (calculation.InputParameters.HydraulicBoundaryLocation != null)
+            HydraulicBoundaryLocation hydraulicBoundaryLocation = calculation.InputParameters.HydraulicBoundaryLocation;
+            if (hydraulicBoundaryLocation != null)
             {
-                entity.HydraulicLocationEntity = calculation.InputParameters.HydraulicBoundaryLocation.Create(registry, 0);
+                entity.GrassCoverErosionOutwardsHydraulicLocationEntity = hydraulicBoundaryLocation.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 0);
             }
             if (calculation.InputParameters.ForeshoreProfile != null)
             {
                 entity.ForeshoreProfileEntity = calculation.InputParameters.ForeshoreProfile.Create(registry, 0);
             }
-
-            if (calculation.HasOutput)
-            {
-                AddEntityForStabilityStoneCoverWaveConditionsOutput(calculation.Output, registry, entity);
-            }
-
             return entity;
-        }
-
-        private static void AddEntityForStabilityStoneCoverWaveConditionsOutput(StabilityStoneCoverWaveConditionsOutput stabilityStoneCoverWaveConditionsOutputs,
-                                                                                PersistenceRegistry registry,
-                                                                                StabilityStoneCoverWaveConditionsCalculationEntity entity)
-        {
-            foreach (var output in stabilityStoneCoverWaveConditionsOutputs.BlocksOutput)
-            {
-                entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutput(WaveConditionsOutputType.Blocks, registry));
-            }
-            foreach (var output in stabilityStoneCoverWaveConditionsOutputs.ColumnsOutput)
-            {
-                entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutput(WaveConditionsOutputType.Columns, registry));
-            }
         }
     }
 }

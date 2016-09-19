@@ -20,48 +20,45 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
-using Ringtoets.StabilityStoneCover.Data;
 
-namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
+namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="StabilityStoneCoverWaveConditionsCalculation"/>
-    /// based on the <see cref="StabilityStoneCoverWaveConditionsCalculationEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>
+    /// based on the <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationEntity"/>.
     /// </summary>
-    internal static class StabilityStoneCoverWaveConditionsCalculationEntityReadExtensions
+    internal static class GrassCoverErosionOutwardsWaveConditionsCalculationEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="GrassCoverErosionInwardsCalculationEntity"/> and use the
-        /// information to update a <see cref="GrassCoverErosionInwardsCalculation"/>.
+        /// information to update a <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.
         /// </summary>
         /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
-        /// to create <see cref="GrassCoverErosionInwardsCalculation"/> for.</param>
+        /// to create <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="GrassCoverErosionInwardsCalculation"/>.</returns>
+        /// <returns>A new <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
-        internal static StabilityStoneCoverWaveConditionsCalculation Read(this StabilityStoneCoverWaveConditionsCalculationEntity entity, ReadConversionCollector collector)
+        internal static GrassCoverErosionOutwardsWaveConditionsCalculation Read(this GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
             {
                 throw new ArgumentNullException("collector");
             }
 
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = entity.Name,
                 Comments = entity.Comments,
                 InputParameters =
                 {
                     ForeshoreProfile = GetDikeProfileValue(entity.ForeshoreProfileEntity, collector),
-                    HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.HydraulicLocationEntity, collector),
+                    HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.GrassCoverErosionOutwardsHydraulicLocationEntity, collector),
                     Orientation = (RoundedDouble) entity.Orientation.ToNullAsNaN(),
                     UseForeshore = Convert.ToBoolean(entity.UseForeshore),
                     UseBreakWater = Convert.ToBoolean(entity.UseBreakWater),
@@ -78,35 +75,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
                 }
             };
 
-            ReadCalculationOutputs(entity, calculation);
-
             return calculation;
-        }
-
-        private static void ReadCalculationOutputs(StabilityStoneCoverWaveConditionsCalculationEntity entity, StabilityStoneCoverWaveConditionsCalculation calculation)
-        {
-            if (!entity.StabilityStoneCoverWaveConditionsOutputEntities.Any())
-            {
-                return;
-            }
-
-            var columnsOutput = new List<WaveConditionsOutput>();
-            var blocksOutput = new List<WaveConditionsOutput>();
-
-            foreach (var conditionsOutputEntity in entity.StabilityStoneCoverWaveConditionsOutputEntities)
-            {
-                var output = conditionsOutputEntity.Read();
-                if (conditionsOutputEntity.OutputType == (byte) WaveConditionsOutputType.Columns)
-                {
-                    columnsOutput.Add(output);
-                }
-                else if (conditionsOutputEntity.OutputType == (byte) WaveConditionsOutputType.Blocks)
-                {
-                    blocksOutput.Add(output);
-                }
-            }
-
-            calculation.Output = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
         }
 
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity, ReadConversionCollector collector)
@@ -118,7 +87,9 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
             return null;
         }
 
-        private static HydraulicBoundaryLocation GetHydraulicBoundaryLocationValue(HydraulicLocationEntity hydraulicLocationEntity, ReadConversionCollector collector)
+        private static HydraulicBoundaryLocation GetHydraulicBoundaryLocationValue(
+            GrassCoverErosionOutwardsHydraulicLocationEntity hydraulicLocationEntity,
+            ReadConversionCollector collector)
         {
             if (hydraulicLocationEntity != null)
             {

@@ -28,7 +28,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsHydraulicLocationEntityReadExtensionsTest

@@ -33,28 +33,28 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class GrassCoverErosionOutwardsHydraulicLocationEntity
+    public partial class GrassCoverErosionOutwardsWaveConditionsCalculationEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GrassCoverErosionOutwardsHydraulicLocationEntity()
-        {
-            this.GrassCoverErosionOutwardsWaveConditionsCalculationEntities = new HashSet<GrassCoverErosionOutwardsWaveConditionsCalculationEntity>();
-        }
-    
-        public long GrassCoverErosionOutwardsHydraulicLocationEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
-        public long LocationId { get; set; }
-        public string Name { get; set; }
-        public Nullable<double> LocationX { get; set; }
-        public Nullable<double> LocationY { get; set; }
-        public Nullable<double> DesignWaterLevel { get; set; }
-        public Nullable<double> WaveHeight { get; set; }
-        public byte DesignWaterLevelCalculationConvergence { get; set; }
-        public byte WaveHeightCalculationConvergence { get; set; }
+        public long GrassCoverErosionOutwardsWaveConditionsCalculationEntityId { get; set; }
+        public long CalculationGroupEntityId { get; set; }
+        public Nullable<long> ForeshoreProfileEntityId { get; set; }
+        public Nullable<long> GrassCoverErosionOutwardsHydraulicLocationEntityId { get; set; }
         public int Order { get; set; }
+        public string Name { get; set; }
+        public string Comments { get; set; }
+        public byte UseBreakWater { get; set; }
+        public byte BreakWaterType { get; set; }
+        public Nullable<double> BreakWaterHeight { get; set; }
+        public byte UseForeshore { get; set; }
+        public Nullable<double> Orientation { get; set; }
+        public Nullable<double> UpperBoundaryRevetment { get; set; }
+        public Nullable<double> LowerBoundaryRevetment { get; set; }
+        public Nullable<double> UpperBoundaryWaterLevels { get; set; }
+        public Nullable<double> LowerBoundaryWaterLevels { get; set; }
+        public byte StepSize { get; set; }
     
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GrassCoverErosionOutwardsWaveConditionsCalculationEntity> GrassCoverErosionOutwardsWaveConditionsCalculationEntities { get; set; }
+        public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
+        public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
+        public virtual GrassCoverErosionOutwardsHydraulicLocationEntity GrassCoverErosionOutwardsHydraulicLocationEntity { get; set; }
     }
 }

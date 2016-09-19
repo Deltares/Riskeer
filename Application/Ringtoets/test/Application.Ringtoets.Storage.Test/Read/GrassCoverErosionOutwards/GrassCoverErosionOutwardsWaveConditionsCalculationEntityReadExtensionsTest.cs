@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Read.StabilityStoneCover;
+using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
@@ -32,14 +32,14 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
-using Ringtoets.StabilityStoneCover.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
+namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsCalculationEntityReadExtensionsTest
+    public class GrassCoverErosionOutwardsWaveConditionsCalculationEntityReadExtensionsTest
     {
         private static IEnumerable<TestCaseData> ValidWaveConditionsInputs
         {
@@ -100,7 +100,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
         public void Read_CollectorIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity();
+            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity();
 
             // Call
             TestDelegate call = () => entity.Read(null);
@@ -112,14 +112,14 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
 
         [Test]
         [TestCaseSource("ValidWaveConditionsInputs")]
-        public void Read_ValidEntity_ReturnStabilityStoneCoverWaveConditionsCalculation(
+        public void Read_ValidEntity_ReturnGrassCoverErosionOutwardsWaveConditionsCalculation(
             string name, string comments,
             double orientation, bool useBreakWater, BreakWaterType breakWaterType, double breakWaterHeight, bool useForeshore, double lowerBoundaryRevetment,
             double upperBoundaryRevetment, double lowerBoundaryWaterLevels,
             double upperBoundaryWaterLevels, WaveConditionsInputStepSize stepSize)
         {
             // Setup
-            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
+            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
             {
                 Name = name,
                 Comments = comments,
@@ -138,7 +138,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
             var collector = new ReadConversionCollector();
 
             // Call
-            StabilityStoneCoverWaveConditionsCalculation calculation = entity.Read(collector);
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = entity.Read(collector);
 
             // Assert
             Assert.AreEqual(name, calculation.Name);
@@ -168,16 +168,16 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
             {
                 GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
             };
-            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
+            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
             {
-                ForeshoreProfileEntity = foreshoreProfileEntity
+                ForeshoreProfileEntity = foreshoreProfileEntity,
             };
 
             var collector = new ReadConversionCollector();
             collector.Read(foreshoreProfileEntity, foreshoreProfile);
 
             // Call
-            StabilityStoneCoverWaveConditionsCalculation calculation = entity.Read(collector);
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(foreshoreProfile, calculation.InputParameters.ForeshoreProfile);
@@ -194,15 +194,15 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
                 GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>())
             };
 
-            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
+            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
             {
-                ForeshoreProfileEntity = foreshoreProfileEntity
+                ForeshoreProfileEntity = foreshoreProfileEntity,
             };
 
             var collector = new ReadConversionCollector();
 
             // Call
-            StabilityStoneCoverWaveConditionsCalculation calculation = entity.Read(collector);
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = entity.Read(collector);
 
             // Assert
             Assert.IsTrue(collector.Contains(foreshoreProfileEntity));
@@ -214,17 +214,17 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1.1, 2.2);
-            var hydraulicLocationEntity = new HydraulicLocationEntity();
-            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
+            var hydraulicLocationEntity = new GrassCoverErosionOutwardsHydraulicLocationEntity();
+            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
             {
-                HydraulicLocationEntity = hydraulicLocationEntity,
+                GrassCoverErosionOutwardsHydraulicLocationEntity = hydraulicLocationEntity
             };
 
             var collector = new ReadConversionCollector();
             collector.Read(hydraulicLocationEntity, hydraulicBoundaryLocation);
 
             // Call
-            StabilityStoneCoverWaveConditionsCalculation calculation = entity.Read(collector);
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = entity.Read(collector);
 
             // Assert
             Assert.AreSame(hydraulicBoundaryLocation, calculation.InputParameters.HydraulicBoundaryLocation);
@@ -234,14 +234,14 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
         public void Read_EntityWithHydraulicBoundaryLocationNotYetInCollector_CalculationWithCreatedHydraulicBoundaryLocationAndRegisteredNewEntities()
         {
             // Setup
-            var hydraulicLocationEntity = new HydraulicLocationEntity
+            var hydraulicLocationEntity = new GrassCoverErosionOutwardsHydraulicLocationEntity
             {
                 Name = "A"
             };
 
-            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
+            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
             {
-                HydraulicLocationEntity = hydraulicLocationEntity
+                GrassCoverErosionOutwardsHydraulicLocationEntity = hydraulicLocationEntity
             };
 
             var collector = new ReadConversionCollector();
@@ -251,27 +251,6 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
 
             // Assert
             Assert.IsTrue(collector.Contains(hydraulicLocationEntity));
-        }
-
-        [Test]
-        public void Read_EntityWithCalculationOutputEntity_CalculationWithOutput()
-        {
-            // Setup
-            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
-            {
-                StabilityStoneCoverWaveConditionsOutputEntities =
-                {
-                    new StabilityStoneCoverWaveConditionsOutputEntity()
-                }
-            };
-
-            var collector = new ReadConversionCollector();
-
-            // Call
-            StabilityStoneCoverWaveConditionsCalculation calculation = entity.Read(collector);
-
-            // Assert
-            Assert.IsNotNull(calculation.Output);
         }
 
         private static void AssertRoundedDouble(double expectedValue, RoundedDouble actualValue)
