@@ -38,6 +38,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Service;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms;
@@ -103,7 +104,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 WaveConditionsCalculationContextContextMenuStrip,
                 WaveConditionsCalculationContextOnNodeRemoved);
 
-            yield return new TreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsCalculationInputContext>
+            yield return new TreeNodeInfo<WaveConditionsInputContext>
             {
                 Text = context => RingtoetsCommonFormsResources.Calculation_Input,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
@@ -471,9 +472,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             var childNodes = new List<object>
             {
                 new CommentContext<ICommentable>(context.WrappedData),
-                new WaveImpactAsphaltCoverWaveConditionsCalculationInputContext(context.WrappedData.InputParameters,
-                                                                                context.FailureMechanism,
-                                                                                context.AssessmentSection)
+                new WaveConditionsInputContext(context.WrappedData.InputParameters,
+                                               context.FailureMechanism.ForeshoreProfiles,
+                                               context.AssessmentSection)
             };
 
             if (context.WrappedData.HasOutput)

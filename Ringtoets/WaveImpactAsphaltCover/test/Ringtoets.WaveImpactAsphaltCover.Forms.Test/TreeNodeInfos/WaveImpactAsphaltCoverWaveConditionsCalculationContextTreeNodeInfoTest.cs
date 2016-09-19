@@ -45,6 +45,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Service.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -153,14 +154,35 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_CalculationWithoutOutput_ReturnChildrenWithEmptyOutput()
         {
             // Setup
+            var location = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    location
+                }
+            };
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Output = null
             };
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                       Enumerable.Empty<Point2D>(),
+                                                       new BreakWater(BreakWaterType.Caisson, 1),
+                                                       new ForeshoreProfile.ConstructionProperties());
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                ForeshoreProfiles =
+                {
+                    foreshoreProfile
+                }
+            };
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                      failureMechanism,
                                                                                      assessmentSection);
@@ -174,10 +196,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             var commentsContext = (CommentContext<ICommentable>) children[0];
             Assert.AreSame(calculation, commentsContext.WrappedData);
 
-            var inputContext = (WaveImpactAsphaltCoverWaveConditionsCalculationInputContext) children[1];
+            var inputContext = (WaveConditionsInputContext)children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
-            Assert.AreSame(failureMechanism, inputContext.FailureMechanism);
-            Assert.AreSame(assessmentSection, inputContext.AssessmentSection);
+            CollectionAssert.AreEqual(new[]
+            {
+                foreshoreProfile
+            }, inputContext.ForeshoreProfiles);
+            CollectionAssert.AreEqual(new[]
+            {
+                location
+            }, inputContext.HydraulicBoundaryLocations);
 
             Assert.IsInstanceOf<EmptyWaveImpactAsphaltCoverOutput>(children[2]);
         }
@@ -186,14 +214,34 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_CalculationWithOutput_ReturnChildrenWithOutput()
         {
             // Setup
+            var location = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    location
+                }
+            };
+
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mocks.ReplayAll();
 
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                      Enumerable.Empty<Point2D>(),
+                                                      new BreakWater(BreakWaterType.Caisson, 1),
+                                                      new ForeshoreProfile.ConstructionProperties());
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                ForeshoreProfiles =
+                {
+                    foreshoreProfile
+                }
+            };
             var context = new WaveImpactAsphaltCoverWaveConditionsCalculationContext(calculation,
                                                                                      failureMechanism,
                                                                                      assessmentSection);
@@ -207,10 +255,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             var commentsContext = (CommentContext<ICommentable>) children[0];
             Assert.AreSame(calculation, commentsContext.WrappedData);
 
-            var inputContext = (WaveImpactAsphaltCoverWaveConditionsCalculationInputContext) children[1];
+            var inputContext = (WaveConditionsInputContext)children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
-            Assert.AreSame(failureMechanism, inputContext.FailureMechanism);
-            Assert.AreSame(assessmentSection, inputContext.AssessmentSection);
+            CollectionAssert.AreEqual(new[]
+            {
+                foreshoreProfile
+            }, inputContext.ForeshoreProfiles);
+            CollectionAssert.AreEqual(new[]
+            {
+                location
+            }, inputContext.HydraulicBoundaryLocations);
 
             var output = (WaveImpactAsphaltCoverWaveConditionsOutput) children[2];
             Assert.AreSame(calculation.Output, output);

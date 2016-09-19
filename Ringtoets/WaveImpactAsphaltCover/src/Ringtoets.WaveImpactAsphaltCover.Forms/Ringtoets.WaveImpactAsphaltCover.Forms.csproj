@@ -47,7 +47,6 @@
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverCalculationContext.cs" />
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverContext.cs" />
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverFailureMechanismContext.cs" />
-    <Compile Include="PresentationObjects\WaveImpactAsphaltCoverWaveConditionsCalculationInputContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\WaveImpactAsphaltCoverFailureMechanismContextProperties.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
