@@ -49,8 +49,8 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
                 Order = order,
-                Name = calculation.Name,
-                Comments = calculation.Comments,
+                Name = calculation.Name.DeepClone(),
+                Comments = calculation.Comments.DeepClone(),
                 Orientation = calculation.InputParameters.Orientation,
                 UseBreakWater = Convert.ToByte(calculation.InputParameters.UseBreakWater),
                 BreakWaterType = (byte) calculation.InputParameters.BreakWater.Type,
@@ -72,7 +72,26 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
                 entity.ForeshoreProfileEntity = calculation.InputParameters.ForeshoreProfile.Create(registry, 0);
             }
 
+            if (calculation.HasOutput)
+            {
+                AddEntityForStabilityStoneCoverWaveConditionsOutput(calculation.Output, registry, entity);
+            }
+
             return entity;
+        }
+
+        private static void AddEntityForStabilityStoneCoverWaveConditionsOutput(StabilityStoneCoverWaveConditionsOutput stabilityStoneCoverWaveConditionsOutputs,
+                                                                                PersistenceRegistry registry,
+                                                                                StabilityStoneCoverWaveConditionsCalculationEntity entity)
+        {
+            foreach (var output in stabilityStoneCoverWaveConditionsOutputs.BlocksOutput)
+            {
+                entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutput(WaveConditionsOutputType.Blocks, registry));
+            }
+            foreach (var output in stabilityStoneCoverWaveConditionsOutputs.ColumnsOutput)
+            {
+                entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutput(WaveConditionsOutputType.Columns, registry));
+            }
         }
     }
 }

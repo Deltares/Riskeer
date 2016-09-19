@@ -33,7 +33,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
     public class GrassCoverErosionInwardsOutputCreateExtensionsTest
     {
         [Test]
-        public void Create_PersistenceRegistryIsNull_ThrowArgumenNullException()
+        public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
         {
             // Setup
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, 1.0, 1.0, 1.0);
@@ -51,8 +51,11 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
         public void Create_ValidInput_ReturnGrassCoverErosionInwardsOutputEntity()
         {
             // Setup
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(0.005, 1.0, 0.06, 0.8, 0.5);
-            var output = new GrassCoverErosionInwardsOutput(1.1, false, probabilityAssessmentOutput, 2.2);
+            var random = new Random(456);
+            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
+                                                                              random.NextDouble(), random.NextDouble(),
+                                                                              random.NextDouble());
+            var output = new GrassCoverErosionInwardsOutput(random.NextDouble(), false, probabilityAssessmentOutput, random.NextDouble());
 
             var registry = new PersistenceRegistry();
 

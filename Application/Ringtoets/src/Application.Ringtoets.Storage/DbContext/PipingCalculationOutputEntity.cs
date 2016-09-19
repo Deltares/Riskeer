@@ -37,6 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long PipingCalculationOutputEntityId { get; set; }
         public long PipingCalculationEntityId { get; set; }
+        public int Order { get; set; }
         public Nullable<double> HeaveFactorOfSafety { get; set; }
         public Nullable<double> HeaveZValue { get; set; }
         public Nullable<double> UpliftFactorOfSafety { get; set; }

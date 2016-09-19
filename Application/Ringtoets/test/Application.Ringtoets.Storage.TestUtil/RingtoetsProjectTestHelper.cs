@@ -131,6 +131,224 @@ namespace Application.Ringtoets.Storage.TestUtil
             return fullTestProject;
         }
 
+        private static void SetSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<TechnicalInnovationFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<ClosingStructureFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
+
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
+
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<MicrostabilityFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
+
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<PipingStructureFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
+
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<DuneErosionFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
+
+                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void SetSectionResults(IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static void AddSections(IFailureMechanism failureMechanism)
+        {
+            failureMechanism.AddSection(new FailureMechanismSection("section 1", new[]
+            {
+                new Point2D(0, 2),
+                new Point2D(2, 3)
+            }));
+            failureMechanism.AddSection(new FailureMechanismSection("section 2", new[]
+            {
+                new Point2D(2, 3),
+                new Point2D(4, 5)
+            }));
+            failureMechanism.AddSection(new FailureMechanismSection("section 3", new[]
+            {
+                new Point2D(4, 5),
+                new Point2D(2, 3)
+            }));
+        }
+
+        private static void AddForeshoreProfiles(ObservableList<ForeshoreProfile> foreshoreProfiles)
+        {
+            foreshoreProfiles.Add(new ForeshoreProfile(
+                                      new Point2D(2, 5), new[]
+                                      {
+                                          new Point2D(1, 6),
+                                          new Point2D(8, 5),
+                                      }, new BreakWater(BreakWaterType.Caisson, 2.5), new ForeshoreProfile.ConstructionProperties
+                                      {
+                                          Name = "FP",
+                                          Orientation = 95.5,
+                                          X0 = 22.1
+                                      }));
+            foreshoreProfiles.Add(new ForeshoreProfile(
+                                      new Point2D(2, 5), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()));
+        }
+
+        private static ReferenceLine GetReferenceLine()
+        {
+            IEnumerable<Point2D> points = new[]
+            {
+                new Point2D(2, 3),
+                new Point2D(5, 4),
+                new Point2D(5, 8),
+                new Point2D(-3, 2)
+            };
+
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(points);
+            return referenceLine;
+        }
+
+        private static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase()
+        {
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = "/temp/test",
+                Version = "1.0"
+            };
+            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5)
+            {
+                DesignWaterLevel = (RoundedDouble) 12.4,
+                WaveHeight = (RoundedDouble) 2.4,
+                DesignWaterLevelCalculationConvergence = CalculationConvergence.NotCalculated,
+                WaveHeightCalculationConvergence = CalculationConvergence.NotCalculated
+            });
+
+            return hydraulicBoundaryDatabase;
+        }
+
+        #region Piping FailureMechanism
+
         private static void ConfigurePipingFailureMechanism(PipingFailureMechanism pipingFailureMechanism, AssessmentSection assessmentSection)
         {
             pipingFailureMechanism.PipingProbabilityAssessmentInput.A = 0.9;
@@ -280,6 +498,53 @@ namespace Application.Ringtoets.Storage.TestUtil
             });
         }
 
+        private static void SetSectionResults(IEnumerable<PipingFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
+        }
+
+        private static RingtoetsPipingSurfaceLine GetSurfaceLine()
+        {
+            var surfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = "Surfaceline",
+                ReferenceLineIntersectionWorldPoint = new Point2D(4.0, 6.0)
+            };
+
+            var geometryPoints = new[]
+            {
+                new Point3D(6.0, 6.0, -2.3),
+                new Point3D(5.8, 6.0, -2.3), // Dike toe at river
+                new Point3D(5.6, 6.0, 3.4),
+                new Point3D(4.2, 6.0, 3.5),
+                new Point3D(4.0, 6.0, 0.5), // Dike toe at polder
+                new Point3D(3.8, 6.0, 0.5), // Ditch dike side
+                new Point3D(3.6, 6.0, 0.2), // Bottom ditch dike side
+                new Point3D(3.4, 6.0, 0.25), // Bottom ditch polder side
+                new Point3D(3.2, 6.0, 0.5), // Ditch polder side
+                new Point3D(3.0, 6.0, 0.5),
+            };
+            surfaceLine.SetGeometry(geometryPoints);
+
+            surfaceLine.SetDikeToeAtRiverAt(geometryPoints[1]);
+            surfaceLine.SetDikeToeAtPolderAt(geometryPoints[4]);
+            surfaceLine.SetDitchDikeSideAt(geometryPoints[5]);
+            surfaceLine.SetBottomDitchDikeSideAt(geometryPoints[6]);
+            surfaceLine.SetBottomDitchPolderSideAt(geometryPoints[7]);
+            surfaceLine.SetDitchPolderSideAt(geometryPoints[8]);
+
+            return surfaceLine;
+        }
+
+        #endregion
+
+        #region GrassCoverErosionInwards FailureMechanism
+
         private static void ConfigureGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism,
                                                                               IAssessmentSection assessmentSection)
         {
@@ -364,6 +629,28 @@ namespace Application.Ringtoets.Storage.TestUtil
                 });
         }
 
+        private static void SetSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+        {
+            var random = new Random(21);
+            bool firstSectionResultHasCalculation = false;
+            var grassCoverErosionInwardsCalculation = calculations.First();
+
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+                if (!firstSectionResultHasCalculation)
+                {
+                    sectionResult.Calculation = grassCoverErosionInwardsCalculation;
+                    firstSectionResultHasCalculation = true;
+                }
+            }
+        }
+
+        #endregion
+
+        #region GrassCoverErosionOutwards FailureMechanism
+
         private static void ConfigureGrassCoverErosionOutwardsFailureMechanism(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
             failureMechanism.GeneralInput.N = 15;
@@ -378,17 +665,22 @@ namespace Application.Ringtoets.Storage.TestUtil
             });
         }
 
-        private static void ConfigureWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        private static void SetSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults)
         {
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
             {
-                Name = "GCEO A",
-            });
-            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
-            {
-                Name = "GCEO A"
-            });
+                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
+
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
         }
+
+        #endregion
+
+        #region StabilityStoneCover FailureMechanism
 
         private static void ConfigureStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
@@ -419,7 +711,14 @@ namespace Application.Ringtoets.Storage.TestUtil
                             UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
                             StepSize = WaveConditionsInputStepSize.Two
-                        }
+                        },
+                        Output = new StabilityStoneCoverWaveConditionsOutput(new[]
+                        {
+                            new WaveConditionsOutput(1, 2, 3, 4)
+                        }, new[]
+                        {
+                            new WaveConditionsOutput(2, 3, 4, 5)
+                        })
                     }
                 }
             });
@@ -438,208 +737,26 @@ namespace Application.Ringtoets.Storage.TestUtil
                         HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
                         BreakWater =
                         {
-                            Height = (RoundedDouble)(foreshoreProfile.BreakWater.Height + 0.1),
-                            Type = BreakWaterType.Dam 
+                            Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.1),
+                            Type = BreakWaterType.Dam
                         },
                         Orientation = foreshoreProfile.Orientation,
                         UseForeshore = false,
                         UseBreakWater = false,
-                        UpperBoundaryRevetment = (RoundedDouble)12.3,
-                        LowerBoundaryRevetment = (RoundedDouble)(-3.5),
-                        UpperBoundaryWaterLevels = (RoundedDouble)13.3,
-                        LowerBoundaryWaterLevels = (RoundedDouble)(-1.9),
+                        UpperBoundaryRevetment = (RoundedDouble) 12.3,
+                        LowerBoundaryRevetment = (RoundedDouble) (-3.5),
+                        UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
+                        LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One
-                    }
+                    },
+                    Output = new StabilityStoneCoverWaveConditionsOutput(new[]
+                    {
+                        new WaveConditionsOutput(5, 6, 7, 8)
+                    }, new[]
+                    {
+                        new WaveConditionsOutput(7, 4, 1, 2)
+                    })
                 });
-        }
-
-        private static void SetSectionResults(IEnumerable<PipingFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
-        {
-            var random = new Random(21);
-            bool firstSectionResultHasCalculation = false;
-            var grassCoverErosionInwardsCalculation = calculations.First();
-
-            foreach (var sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-                if (!firstSectionResultHasCalculation)
-                {
-                    sectionResult.Calculation = grassCoverErosionInwardsCalculation;
-                    firstSectionResultHasCalculation = true;
-                }
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<TechnicalInnovationFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<WaterPressureAsphaltCoverFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<ClosingStructureFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<MacrostabilityInwardsFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
-
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
-
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<GrassCoverSlipOffOutwardsFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
-
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<MicrostabilityFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
-
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<PipingStructureFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
-
-                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
-        private static void SetSectionResults(IEnumerable<DuneErosionFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
-
-                sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
         }
 
         private static void SetSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> sectionResults)
@@ -654,116 +771,33 @@ namespace Application.Ringtoets.Storage.TestUtil
             }
         }
 
-        private static void SetSectionResults(IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> sectionResults)
+        #endregion
+
+        #region WaveImpactAsphaltCover FailureMechanism
+
+        private static void ConfigureWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        {
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GCEO A",
+            });
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(new CalculationGroup
+            {
+                Name = "GCEO A"
+            });
+        }
+
+        private static void SetSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
             foreach (var sectionResult in sectionResults)
             {
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
                 sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
 
-        private static void AddSections(IFailureMechanism failureMechanism)
-        {
-            failureMechanism.AddSection(new FailureMechanismSection("section 1", new[]
-            {
-                new Point2D(0, 2),
-                new Point2D(2, 3)
-            }));
-            failureMechanism.AddSection(new FailureMechanismSection("section 2", new[]
-            {
-                new Point2D(2, 3),
-                new Point2D(4, 5)
-            }));
-            failureMechanism.AddSection(new FailureMechanismSection("section 3", new[]
-            {
-                new Point2D(4, 5),
-                new Point2D(2, 3)
-            }));
-        }
-
-        private static void AddForeshoreProfiles(ObservableList<ForeshoreProfile> foreshoreProfiles)
-        {
-            foreshoreProfiles.Add(new ForeshoreProfile(
-                                      new Point2D(2, 5), new[]
-                                      {
-                                          new Point2D(1, 6), 
-                                          new Point2D(8, 5), 
-                                      }, new BreakWater(BreakWaterType.Caisson, 2.5), new ForeshoreProfile.ConstructionProperties
-                                      {
-                                          Name = "FP",
-                                          Orientation = 95.5,
-                                          X0 = 22.1
-                                      }));
-            foreshoreProfiles.Add(new ForeshoreProfile(
-                new Point2D(2, 5), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()));
-        }
-
-        private static RingtoetsPipingSurfaceLine GetSurfaceLine()
-        {
-            var surfaceLine = new RingtoetsPipingSurfaceLine
-            {
-                Name = "Surfaceline",
-                ReferenceLineIntersectionWorldPoint = new Point2D(4.0, 6.0)
-            };
-
-            var geometryPoints = new[]
-            {
-                new Point3D(6.0, 6.0, -2.3),
-                new Point3D(5.8, 6.0, -2.3), // Dike toe at river
-                new Point3D(5.6, 6.0, 3.4),
-                new Point3D(4.2, 6.0, 3.5),
-                new Point3D(4.0, 6.0, 0.5), // Dike toe at polder
-                new Point3D(3.8, 6.0, 0.5), // Ditch dike side
-                new Point3D(3.6, 6.0, 0.2), // Bottom ditch dike side
-                new Point3D(3.4, 6.0, 0.25), // Bottom ditch polder side
-                new Point3D(3.2, 6.0, 0.5), // Ditch polder side
-                new Point3D(3.0, 6.0, 0.5),
-            };
-            surfaceLine.SetGeometry(geometryPoints);
-
-            surfaceLine.SetDikeToeAtRiverAt(geometryPoints[1]);
-            surfaceLine.SetDikeToeAtPolderAt(geometryPoints[4]);
-            surfaceLine.SetDitchDikeSideAt(geometryPoints[5]);
-            surfaceLine.SetBottomDitchDikeSideAt(geometryPoints[6]);
-            surfaceLine.SetBottomDitchPolderSideAt(geometryPoints[7]);
-            surfaceLine.SetDitchPolderSideAt(geometryPoints[8]);
-
-            return surfaceLine;
-        }
-
-        private static ReferenceLine GetReferenceLine()
-        {
-            IEnumerable<Point2D> points = new[]
-            {
-                new Point2D(2, 3),
-                new Point2D(5, 4),
-                new Point2D(5, 8),
-                new Point2D(-3, 2)
-            };
-
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(points);
-            return referenceLine;
-        }
-
-        private static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase()
-        {
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = "/temp/test",
-                Version = "1.0"
-            };
-            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(13001, "test", 152.3, 2938.5)
-            {
-                DesignWaterLevel = (RoundedDouble) 12.4,
-                WaveHeight = (RoundedDouble) 2.4,
-                DesignWaterLevelCalculationConvergence = CalculationConvergence.NotCalculated,
-                WaveHeightCalculationConvergence = CalculationConvergence.NotCalculated
-            });
-
-            return hydraulicBoundaryDatabase;
-        }
+        #endregion
     }
 }

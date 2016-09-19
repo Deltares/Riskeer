@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -71,11 +73,39 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
                     LowerBoundaryRevetment = (RoundedDouble) entity.LowerBoundaryRevetment.ToNullAsNaN(),
                     UpperBoundaryWaterLevels = (RoundedDouble) entity.UpperBoundaryWaterLevels.ToNullAsNaN(),
                     LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN(),
-                    StepSize = (WaveConditionsInputStepSize)entity.StepSize
+                    StepSize = (WaveConditionsInputStepSize) entity.StepSize
                 }
             };
 
+            ReadCalculationOutputs(entity, calculation);
+
             return calculation;
+        }
+
+        private static void ReadCalculationOutputs(StabilityStoneCoverWaveConditionsCalculationEntity entity, StabilityStoneCoverWaveConditionsCalculation calculation)
+        {
+            if (!entity.StabilityStoneCoverWaveConditionsOutputEntities.Any())
+            {
+                return;
+            }
+
+            var columnsOutput = new List<WaveConditionsOutput>();
+            var blocksOutput = new List<WaveConditionsOutput>();
+
+            foreach (var conditionsOutputEntity in entity.StabilityStoneCoverWaveConditionsOutputEntities)
+            {
+                var output = conditionsOutputEntity.Read();
+                if (conditionsOutputEntity.OutputType == (byte) WaveConditionsOutputType.Columns)
+                {
+                    columnsOutput.Add(output);
+                }
+                else if (conditionsOutputEntity.OutputType == (byte) WaveConditionsOutputType.Blocks)
+                {
+                    blocksOutput.Add(output);
+                }
+            }
+
+            calculation.Output = new StabilityStoneCoverWaveConditionsOutput(columnsOutput, blocksOutput);
         }
 
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity, ReadConversionCollector collector)

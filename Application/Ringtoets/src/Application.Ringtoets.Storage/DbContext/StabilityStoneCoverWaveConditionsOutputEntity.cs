@@ -37,11 +37,12 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long StabilityStoneCoverWaveConditionsOutputEntityId { get; set; }
         public long StabilityStoneCoverWaveConditionsCalculationEntityId { get; set; }
+        public int Order { get; set; }
+        public byte OutputType { get; set; }
         public Nullable<double> WaterLevel { get; set; }
         public Nullable<double> WaveHeight { get; set; }
         public Nullable<double> WavePeakPeriod { get; set; }
         public Nullable<double> WaveAngle { get; set; }
-        public Nullable<short> OutputType { get; set; }
     
         public virtual StabilityStoneCoverWaveConditionsCalculationEntity StabilityStoneCoverWaveConditionsCalculationEntity { get; set; }
     }

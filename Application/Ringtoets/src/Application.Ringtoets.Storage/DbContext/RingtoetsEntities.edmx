@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -150,6 +150,7 @@
           </Key>
           <Property Name="GrassCoverErosionInwardsOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="GrassCoverErosionInwardsCalculationEntityId" Type="integer" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="IsOvertoppingDominant" Type="tinyint" Nullable="false" />
           <Property Name="WaveHeight" Type="real" />
           <Property Name="DikeHeight" Type="real" />
@@ -306,6 +307,7 @@
           </Key>
           <Property Name="PipingCalculationOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PipingCalculationEntityId" Type="integer" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="HeaveFactorOfSafety" Type="real" />
           <Property Name="HeaveZValue" Type="real" />
           <Property Name="UpliftFactorOfSafety" Type="real" />
@@ -337,6 +339,7 @@
           </Key>
           <Property Name="PipingSemiProbabilisticOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PipingCalculationEntityId" Type="integer" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="UpliftFactorOfSafety" Type="real" />
           <Property Name="UpliftProbability" Type="real" />
           <Property Name="HeaveFactorOfSafety" Type="real" />
@@ -432,11 +435,12 @@
           </Key>
           <Property Name="StabilityStoneCoverWaveConditionsOutputEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StabilityStoneCoverWaveConditionsCalculationEntityId" Type="integer" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="OutputType" Type="tinyint" Nullable="false" />
           <Property Name="WaterLevel" Type="real" />
           <Property Name="WaveHeight" Type="real" />
           <Property Name="WavePeakPeriod" Type="real" />
           <Property Name="WaveAngle" Type="real" />
-          <Property Name="OutputType" Type="smallint" />
         </EntityType>
         <EntityType Name="StochasticSoilModelEntity">
           <Key>
@@ -1839,6 +1843,7 @@
           </Key>
           <Property Name="GrassCoverErosionInwardsOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="GrassCoverErosionInwardsCalculationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="IsOvertoppingDominant" Type="Byte" Nullable="false" />
           <Property Name="WaveHeight" Type="Double" />
           <Property Name="DikeHeight" Type="Double" />
@@ -2017,6 +2022,7 @@
           </Key>
           <Property Name="PipingCalculationOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PipingCalculationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="HeaveFactorOfSafety" Type="Double" />
           <Property Name="HeaveZValue" Type="Double" />
           <Property Name="UpliftFactorOfSafety" Type="Double" />
@@ -2051,6 +2057,7 @@
           </Key>
           <Property Name="PipingSemiProbabilisticOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PipingCalculationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="UpliftFactorOfSafety" Type="Double" />
           <Property Name="UpliftProbability" Type="Double" />
           <Property Name="HeaveFactorOfSafety" Type="Double" />
@@ -2157,11 +2164,12 @@
           </Key>
           <Property Name="StabilityStoneCoverWaveConditionsOutputEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StabilityStoneCoverWaveConditionsCalculationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="OutputType" Type="Byte" Nullable="false" />
           <Property Name="WaterLevel" Type="Double" />
           <Property Name="WaveHeight" Type="Double" />
           <Property Name="WavePeakPeriod" Type="Double" />
           <Property Name="WaveAngle" Type="Double" />
-          <Property Name="OutputType" Type="Int16" />
           <NavigationProperty Name="StabilityStoneCoverWaveConditionsCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsOutputEntity_0_0" FromRole="StabilityStoneCoverWaveConditionsOutputEntity" ToRole="StabilityStoneCoverWaveConditionsCalculationEntity" />
         </EntityType>
         <EntityType Name="StochasticSoilModelEntity">
@@ -3045,6 +3053,7 @@
                 <ScalarProperty Name="DikeHeight" ColumnName="DikeHeight" />
                 <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
                 <ScalarProperty Name="IsOvertoppingDominant" ColumnName="IsOvertoppingDominant" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="GrassCoverErosionInwardsCalculationEntityId" ColumnName="GrassCoverErosionInwardsCalculationEntityId" />
                 <ScalarProperty Name="GrassCoverErosionInwardsOutputEntityId" ColumnName="GrassCoverErosionInwardsOutputEntityId" />
               </MappingFragment>
@@ -3211,6 +3220,7 @@
                 <ScalarProperty Name="UpliftFactorOfSafety" ColumnName="UpliftFactorOfSafety" />
                 <ScalarProperty Name="HeaveZValue" ColumnName="HeaveZValue" />
                 <ScalarProperty Name="HeaveFactorOfSafety" ColumnName="HeaveFactorOfSafety" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="PipingCalculationEntityId" ColumnName="PipingCalculationEntityId" />
                 <ScalarProperty Name="PipingCalculationOutputEntityId" ColumnName="PipingCalculationOutputEntityId" />
               </MappingFragment>
@@ -3252,6 +3262,7 @@
                 <ScalarProperty Name="HeaveFactorOfSafety" ColumnName="HeaveFactorOfSafety" />
                 <ScalarProperty Name="UpliftProbability" ColumnName="UpliftProbability" />
                 <ScalarProperty Name="UpliftFactorOfSafety" ColumnName="UpliftFactorOfSafety" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="PipingCalculationEntityId" ColumnName="PipingCalculationEntityId" />
                 <ScalarProperty Name="PipingSemiProbabilisticOutputEntityId" ColumnName="PipingSemiProbabilisticOutputEntityId" />
               </MappingFragment>
@@ -3341,11 +3352,12 @@
           <EntitySetMapping Name="StabilityStoneCoverWaveConditionsOutputEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsOutputEntity">
               <MappingFragment StoreEntitySet="StabilityStoneCoverWaveConditionsOutputEntity">
-                <ScalarProperty Name="OutputType" ColumnName="OutputType" />
                 <ScalarProperty Name="WaveAngle" ColumnName="WaveAngle" />
                 <ScalarProperty Name="WavePeakPeriod" ColumnName="WavePeakPeriod" />
                 <ScalarProperty Name="WaveHeight" ColumnName="WaveHeight" />
                 <ScalarProperty Name="WaterLevel" ColumnName="WaterLevel" />
+                <ScalarProperty Name="OutputType" ColumnName="OutputType" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="StabilityStoneCoverWaveConditionsCalculationEntityId" ColumnName="StabilityStoneCoverWaveConditionsCalculationEntityId" />
                 <ScalarProperty Name="StabilityStoneCoverWaveConditionsOutputEntityId" ColumnName="StabilityStoneCoverWaveConditionsOutputEntityId" />
               </MappingFragment>

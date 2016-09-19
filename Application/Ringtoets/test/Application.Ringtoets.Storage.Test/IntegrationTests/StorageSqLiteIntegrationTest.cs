@@ -1007,8 +1007,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.RequiredProbability, actualOutput.RequiredProbability);
             Assert.AreEqual(expectedOutput.RequiredReliability, actualOutput.RequiredReliability);
         }
-
-
+        
         private static void AssertStabilityStoneCoverWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculation expectedCalculation, StabilityStoneCoverWaveConditionsCalculation actualCalculation)
         {
             Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
@@ -1016,7 +1015,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             AssertWaveConditionsInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
 
-            Assert.IsFalse(actualCalculation.HasOutput);
+            Assert.IsTrue(actualCalculation.HasOutput);
         }
 
         private static void AssertWaveConditionsInput(WaveConditionsInput expectedInput, WaveConditionsInput actualInput)

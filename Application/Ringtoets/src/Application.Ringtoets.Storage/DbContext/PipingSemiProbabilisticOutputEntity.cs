@@ -37,6 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long PipingSemiProbabilisticOutputEntityId { get; set; }
         public long PipingCalculationEntityId { get; set; }
+        public int Order { get; set; }
         public Nullable<double> UpliftFactorOfSafety { get; set; }
         public Nullable<double> UpliftProbability { get; set; }
         public Nullable<double> HeaveFactorOfSafety { get; set; }

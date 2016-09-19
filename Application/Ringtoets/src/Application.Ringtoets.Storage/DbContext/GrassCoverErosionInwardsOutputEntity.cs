@@ -37,6 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long GrassCoverErosionInwardsOutputEntityId { get; set; }
         public long GrassCoverErosionInwardsCalculationEntityId { get; set; }
+        public int Order { get; set; }
         public byte IsOvertoppingDominant { get; set; }
         public Nullable<double> WaveHeight { get; set; }
         public Nullable<double> DikeHeight { get; set; }
