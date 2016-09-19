@@ -154,6 +154,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         [Test]
         [TestCase(double.NaN)]
         [TestCase(double.NegativeInfinity)]
+        [TestCase(double.PositiveInfinity)]
         public void Validate_ValidInputAndValidateBreakWaterHeight_ReturnsFalse(double breakWaterHeight)
         {
             // Setup
@@ -186,6 +187,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         [TestCase(true, 10.0)]
         [TestCase(false, 10.0)]
         [TestCase(false, double.NaN)]
+        [TestCase(false, double.PositiveInfinity)]
         [TestCase(false, double.NegativeInfinity)]
         public void Validate_ValidInputAndValidateBreakWaterHeight_ReturnsTrue(bool useBreakWater, double breakWaterHeight)
         {

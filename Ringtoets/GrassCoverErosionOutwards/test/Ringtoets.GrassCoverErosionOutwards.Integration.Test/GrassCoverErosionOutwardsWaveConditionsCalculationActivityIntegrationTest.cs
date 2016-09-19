@@ -282,6 +282,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         }
 
         [Test]
+        [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(double.NaN)]
         public void OnRun_CalculationWithForeshoreAndDoesNotUseBreakWaterAndHasInvalidBreakWaterHeight_PerformCalculationAndLogStartEnd(double breakWaterHeight)
@@ -332,6 +333,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         }
 
         [Test]
+        [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(double.NaN)]
         public void OnRun_CalculationWithForeshoreAndUsesBreakWaterAndHasInvalidBreakWaterHeight_DoesNotPerformCalculationAndLogStartEnd(double breakWaterHeight)
@@ -386,6 +388,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                 case CalculationType.NoForeshore:
                     calculation.InputParameters.ForeshoreProfile = null;
                     calculation.InputParameters.UseForeshore = false;
+                    calculation.InputParameters.UseBreakWater = false;
                     break;
                 case CalculationType.ForeShoreWithoutBreakWater:
                     calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(null);
