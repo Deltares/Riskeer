@@ -20,10 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
-using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Read.StabilityStoneCover;
 using Application.Ringtoets.Storage.Serializers;
 using Application.Ringtoets.Storage.TestUtil;
@@ -33,8 +33,6 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Primitives;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
@@ -43,6 +41,61 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
     [TestFixture]
     public class StabilityStoneCoverWaveConditionsCalculationEntityReadExtensionsTest
     {
+        private static IEnumerable<TestCaseData> ValidWaveConditionsInputs
+        {
+            get
+            {
+                yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Caisson, 2.0, true,
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half);
+                yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Dam, 2.0, true,
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One);
+                yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Wall, 2.0, true,
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two);
+
+                yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Wall, 2.0, false,
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half);
+                yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Dam, 2.0, false,
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One);
+                yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Caisson, 2.0, false,
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two);
+
+                yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, true,
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half);
+                yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, true,
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One);
+                yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, true,
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two);
+
+                yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, false,
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half);
+                yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, false,
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One);
+                yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, false,
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two);
+
+                yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, true,
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half);
+                yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, true,
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One);
+                yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, true,
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two);
+
+                yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, false,
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half);
+                yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, false,
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One);
+                yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, false,
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two);
+
+                yield return new TestCaseData(null, null, double.NaN, false, BreakWaterType.Caisson, double.NaN, false,
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half);
+                yield return new TestCaseData(null, null, double.NaN, false, BreakWaterType.Caisson, double.NaN, false,
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One);
+                yield return new TestCaseData(null, null, double.NaN, false, BreakWaterType.Caisson, double.NaN, false,
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two);
+            }
+        }
+
         [Test]
         public void Read_CollectorIsNull_ThrowArgumentNullException()
         {
@@ -58,11 +111,12 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
         }
 
         [Test]
-        [TestCase("haha", "hihi", true, BreakWaterType.Dam, 0.98, true, 0.0, 3.4, 2.4, 16.8, 2.8, WaveConditionsInputStepSize.Two)]
-        [TestCase(null, null, false, BreakWaterType.Wall, 0.0, false, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One)]
-        public void Read_ValidEntity_ReturnStabilityStoneCoverWaveConditionsCalculation(string name, string comments, bool useBreakWater, BreakWaterType breakWaterType, 
-            double breakWaterHeight, bool useForeshore, double orientation, double upperBoundaryRevetment, double lowerBoundaryRevetment, double upperBoundaryWaterLevels,
-            double lowerBoundaryWaterLevels, WaveConditionsInputStepSize stepSize)
+        [TestCaseSource("ValidWaveConditionsInputs")]
+        public void Read_ValidEntity_ReturnStabilityStoneCoverWaveConditionsCalculation(
+            string name, string comments,
+            double orientation, bool useBreakWater, BreakWaterType breakWaterType, double breakWaterHeight, bool useForeshore, double lowerBoundaryRevetment,
+            double upperBoundaryRevetment, double lowerBoundaryWaterLevels,
+            double upperBoundaryWaterLevels, WaveConditionsInputStepSize stepSize)
         {
             // Setup
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
@@ -78,7 +132,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
                 LowerBoundaryRevetment = lowerBoundaryRevetment,
                 UpperBoundaryWaterLevels = upperBoundaryWaterLevels,
                 LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
-                StepSize = (byte)stepSize
+                StepSize = (byte) stepSize
             };
 
             var collector = new ReadConversionCollector();
@@ -197,6 +251,27 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
 
             // Assert
             Assert.IsTrue(collector.Contains(hydraulicLocationEntity));
+        }
+
+        [Test]
+        public void Read_EntityWithCalculationOutputEntity_CalculationWithOutput()
+        {
+            // Setup
+            var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
+            {
+                StabilityStoneCoverWaveConditionsOutputEntities =
+                {
+                    new StabilityStoneCoverWaveConditionsOutputEntity()
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            StabilityStoneCoverWaveConditionsCalculation calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsNotNull(calculation.Output);
         }
 
         private static void AssertRoundedDouble(double expectedValue, RoundedDouble actualValue)

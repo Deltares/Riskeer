@@ -27,7 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
 {
     [TestFixture]
     public class StabilityStoneCoverSectionResultEntityReadExtensionsTest

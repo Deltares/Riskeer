@@ -77,12 +77,11 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionOutwardsOutputCreateExtensionsTest.cs" />
+    <Compile Include="Read\ForeshoreProfileReadExtensionsTest.cs" />
     <Compile Include="Create\ForeshoreProfileCreateExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionOutwardsHydraulicLocationEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\ForeshoreProfileReadExtensionsTest.cs" />
-    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Serializers\DataCollectionSerializerTest.cs" />
     <Compile Include="Serializers\Point2DXmlSerializerTest.cs" />
     <Compile Include="Serializers\Point3DXmlSerializerTest.cs" />
@@ -98,6 +97,7 @@
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputCreateExtensionsTest.cs" />
+    <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionOutwardsOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverSlipOffInwards\GrassCoverSlipOffInwardsFailureMechanismCreateExtensionsTest.cs" />
@@ -127,6 +127,8 @@
     <Compile Include="Create\Piping\StochasticSoilProfileCreateExtensionsTest.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationCreateExtensionsTest.cs" />
+    <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\StrengthStabilityLengthwise\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\StrengthStabilityPointConstruction\StrengthStabilityPointConstructionFailureMechanismCreateExtensionsTest.cs" />
@@ -154,6 +156,7 @@
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\PipingCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\PipingCalculationOutputEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\PipingFailureMechanismMetaEntityReadExtensionsTest.cs" />
@@ -166,7 +169,7 @@
     <Compile Include="Read\Piping\StochasticSoilProfileEntityReadExtensionsTest.cs" />
     <Compile Include="Read\Piping\SurfaceLineEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StrengthStabilityPointConstructionSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\StabilityStoneCoverSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\DuneErosionSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverSlipOffInwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverSlipOffOutwardsSectionResultEntityReadExtensionsTest.cs" />
