@@ -37,7 +37,7 @@ namespace Ringtoets.Revetment.IO
         /// <param name="waveConditionsInput">The input parameters of the parent calculation.</param>
         /// <param name="waveConditionsOutput">The output parameters of the parent calculation.</param>
         /// <param name="coverType">The type of dike cover.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>, <paramref name="waveConditionsInput"/> or 
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="name"/>, <paramref name="waveConditionsInput"/>, or 
         /// <paramref name="waveConditionsOutput"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="WaveConditionsInput.HydraulicBoundaryLocation"/> 
         /// is <c>null</c> for <paramref name="waveConditionsInput"/>.</exception>
@@ -58,7 +58,7 @@ namespace Ringtoets.Revetment.IO
 
             if (waveConditionsInput.HydraulicBoundaryLocation == null)
             {
-                throw new ArgumentException("HydraulicBoundaryLocation is null.", "waveConditionsInput");
+                throw new ArgumentException(@"HydraulicBoundaryLocation is null.", "waveConditionsInput");
             }
 
             CalculationName = name;
