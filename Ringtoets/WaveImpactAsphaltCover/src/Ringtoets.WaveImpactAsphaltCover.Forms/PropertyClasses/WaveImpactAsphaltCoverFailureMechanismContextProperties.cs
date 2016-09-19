@@ -19,11 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsRevetmentFormsResources = Ringtoets.Revetment.Forms.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
 {
@@ -55,6 +57,46 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
             get
             {
                 return data.WrappedData.Code;
+            }
+        }
+
+        #endregion
+
+        #region Model settings
+
+        [PropertyOrder(3)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
+        [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_A_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_A_Description")]
+        public RoundedDouble A
+        {
+            get
+            {
+                return data.WrappedData.GeneralInput.A;
+            }
+        }
+
+        [PropertyOrder(4)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
+        [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_B_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_B_Description")]
+        public RoundedDouble B
+        {
+            get
+            {
+                return data.WrappedData.GeneralInput.B;
+            }
+        }
+
+        [PropertyOrder(5)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
+        [ResourcesDisplayName(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_C_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsRevetmentFormsResources), "GeneralWaveConditionsInput_C_Description")]
+        public RoundedDouble C
+        {
+            get
+            {
+                return data.WrappedData.GeneralInput.C;
             }
         }
 

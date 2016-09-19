@@ -86,7 +86,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             {
                 BrowsableAttribute.Yes
             });
-            Assert.AreEqual(2, dynamicProperties.Count);
+            Assert.AreEqual(5, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[0];
             Assert.IsTrue(nameProperty.IsReadOnly);
@@ -99,6 +99,27 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             Assert.AreEqual("Algemeen", codeProperty.Category);
             Assert.AreEqual("Label", codeProperty.DisplayName);
             Assert.AreEqual("Het label van het toetsspoor.", codeProperty.Description);
+
+            PropertyDescriptor aProperty = dynamicProperties[2];
+            Assert.IsNotNull(aProperty);
+            Assert.IsTrue(aProperty.IsReadOnly);
+            Assert.AreEqual("Modelinstellingen", aProperty.Category);
+            Assert.AreEqual("a", aProperty.DisplayName);
+            Assert.AreEqual("De waarde van de parameter 'a' in de berekening voor golf condities.", aProperty.Description);
+
+            PropertyDescriptor bProperty = dynamicProperties[3];
+            Assert.IsNotNull(bProperty);
+            Assert.IsTrue(bProperty.IsReadOnly);
+            Assert.AreEqual("Modelinstellingen", bProperty.Category);
+            Assert.AreEqual("b", bProperty.DisplayName);
+            Assert.AreEqual("De waarde van de parameter 'b' in de berekening voor golf condities.", bProperty.Description);
+
+            PropertyDescriptor cProperty = dynamicProperties[4];
+            Assert.IsNotNull(cProperty);
+            Assert.IsTrue(cProperty.IsReadOnly);
+            Assert.AreEqual("Modelinstellingen", cProperty.Category);
+            Assert.AreEqual("c", cProperty.DisplayName);
+            Assert.AreEqual("De waarde van de parameter 'c' in de berekening voor golf condities.", cProperty.Description);
         }
     }
 }
