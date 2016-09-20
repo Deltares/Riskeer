@@ -89,9 +89,10 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
                                                                                 PersistenceRegistry registry,
                                                                                 GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity)
         {
+            var i = 0;
             foreach (WaveConditionsOutput output in outputs.Items)
             {
-                entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Add(output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(registry));
+                entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Add(output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(i++, registry));
             }
         }
     }

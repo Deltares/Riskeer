@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
                 return;
             }
 
-            var waveConditionsOutputs = entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Select(e => e.Read()).ToList();
+            var waveConditionsOutputs = entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.OrderBy(e => e.Order).Select(e => e.Read()).ToList();
             calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(waveConditionsOutputs);
         }
 

@@ -257,11 +257,22 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
         public void Read_EntityWithCalculationOutputEntity_CalculationWithOutput()
         {
             // Setup
+            const double outputALevel = 0;
+            const double outputBLevel = 1;
             var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
             {
                 GrassCoverErosionOutwardsWaveConditionsOutputEntities =
                 {
-                    new GrassCoverErosionOutwardsWaveConditionsOutputEntity()
+                    new GrassCoverErosionOutwardsWaveConditionsOutputEntity
+                    {
+                        WaterLevel = outputBLevel,
+                        Order = 1
+                    },
+                    new GrassCoverErosionOutwardsWaveConditionsOutputEntity
+                    {
+                        WaterLevel = outputALevel,
+                        Order = 0
+                    }
                 }
             };
 
@@ -272,6 +283,10 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
             // Assert
             Assert.IsNotNull(calculation.Output);
+            var accuracy = calculation.Output.Items.First().WaterLevel.GetAccuracy();
+            Assert.AreEqual(2, calculation.Output.Items.Count());
+            Assert.AreEqual(outputALevel, calculation.Output.Items.ElementAt(0).WaterLevel, accuracy);
+            Assert.AreEqual(outputBLevel, calculation.Output.Items.ElementAt(1).WaterLevel, accuracy);
         }
 
         private static void AssertRoundedDouble(double expectedValue, RoundedDouble actualValue)

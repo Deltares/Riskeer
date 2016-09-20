@@ -257,9 +257,9 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
         public void Read_EntityWithCalculationOutputEntity_CalculationWithOutput()
         {
             // Setup
-            double outputALevel = 5.4;
-            double outputBLevel = 2.3;
-            double outputCLevel = 13.2;
+            const double outputALevel = 5.4;
+            const double outputBLevel = 2.3;
+            const double outputCLevel = 13.2;
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
                 StabilityStoneCoverWaveConditionsOutputEntities =

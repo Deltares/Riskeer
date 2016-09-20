@@ -37,11 +37,12 @@ namespace Application.Ringtoets.Storage.Create
         /// </summary>
         /// <param name="output">The calculation output for stability stone cover failure mechanism to 
         /// create a database entity for.</param>
+        /// <param name="order">The position of the output in the list of all outputs.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionOutwardsWaveConditionsOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static GrassCoverErosionOutwardsWaveConditionsOutputEntity CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(
-            this WaveConditionsOutput output, PersistenceRegistry registry)
+            this WaveConditionsOutput output, int order, PersistenceRegistry registry)
         {
             if (registry == null)
             {
@@ -49,6 +50,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             var entity = new GrassCoverErosionOutwardsWaveConditionsOutputEntity
             {
+                Order = order,
                 WaterLevel = output.WaterLevel.Value.ToNaNAsNull(),
                 WaveHeight = output.WaveHeight.Value.ToNaNAsNull(),
                 WavePeakPeriod = output.WavePeakPeriod.Value.ToNaNAsNull(),
@@ -92,12 +94,13 @@ namespace Application.Ringtoets.Storage.Create
         /// of the <see cref="WaveConditionsOutput"/>.
         /// </summary>
         /// <param name="output">The calculation output for stability stone cover failure mechanism to 
-        ///     create a database entity for.</param>
+        /// create a database entity for.</param>
         /// <param name="order">The position of the output in the list of all outputs.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="WaveImpactAsphaltCoverWaveConditionsOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static WaveImpactAsphaltCoverWaveConditionsOutputEntity CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(this WaveConditionsOutput output, int order, PersistenceRegistry registry)
+        internal static WaveImpactAsphaltCoverWaveConditionsOutputEntity CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(
+            this WaveConditionsOutput output, int order, PersistenceRegistry registry)
         {
             if (registry == null)
             {
