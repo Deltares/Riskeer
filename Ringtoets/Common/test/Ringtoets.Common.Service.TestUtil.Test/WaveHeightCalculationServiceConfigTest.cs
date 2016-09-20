@@ -19,12 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Core.Common.Utils;
+using System;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Service.MessageProviders;
-using Ringtoets.HydraRing.Calculation.Data.Output;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Service.TestUtil.Test
 {
@@ -32,133 +28,38 @@ namespace Ringtoets.Common.Service.TestUtil.Test
     public class WaveHeightCalculationServiceConfigTest
     {
         [Test]
-        public void Validate_Always_ReturnTrue()
+        public void Constructor_NewInstanceCanBeDisposed()
         {
-            // Setup
-            var service = new TestHydraulicBoundaryLocationCalculationService();
-
             // Call
-            bool validated = service.Validate(string.Empty, string.Empty);
+            var service = new WaveHeightCalculationServiceConfig();
 
             // Assert
-            Assert.IsTrue(validated);
+            Assert.IsInstanceOf<IDisposable>(service);
+            Assert.DoesNotThrow(() => service.Dispose());
         }
 
         [Test]
-        public void Calculate_SetCalculationConvergenceOutputDefault_ReturnsExpectedValue()
+        public void Constructor_SetsTestWaveConditionsCalculationService()
         {
-            // Setup
-            var mockRepository = new MockRepository();
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-            
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
-            var service = new TestHydraulicBoundaryLocationCalculationService();
-            const double norm = 12.34;
-
             // Call
-            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocation,
-                                                                         string.Empty,
-                                                                         string.Empty,
-                                                                         norm,
-                                                                         calculationMessageProviderMock);
-
-            // Assert
-            var expectedOutput = new ReliabilityIndexCalculationOutput(norm, StatisticsConverter.NormToBeta(norm));
-            AssertReliabilityIndexCalculationOutput(expectedOutput, output);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_SetCalculationConvergenceOutputCalculatedConverged_ReturnsExpectedValue()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
-            var service = new TestHydraulicBoundaryLocationCalculationService
+            using (new WaveHeightCalculationServiceConfig())
             {
-                CalculationConvergenceOutput = CalculationConvergence.CalculatedConverged
-            };
-            const double norm = 12.34;
-
-            // Call
-            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocation,
-                                                                         string.Empty,
-                                                                         string.Empty,
-                                                                         norm,
-                                                                         calculationMessageProviderMock);
-
-            // Assert
-            Assert.AreSame(calculationMessageProviderMock, service.MessageProvider);
-            var expectedOutput = new ReliabilityIndexCalculationOutput(norm, StatisticsConverter.NormToBeta(norm));
-            AssertReliabilityIndexCalculationOutput(expectedOutput, output);
-            mockRepository.VerifyAll();
+                // Assert
+                Assert.IsInstanceOf<TestHydraulicBoundaryLocationCalculationService>(WaveHeightCalculationService.Instance);
+            }
         }
 
         [Test]
-        public void Calculate_SetCalculationConvergenceOutputNotCalculated_ReturnsNull()
+        public void Dispose_Always_ResetsDesignWaterLevelCalculationServiceToPreviousValue()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
-            var service = new TestHydraulicBoundaryLocationCalculationService
-            {
-                CalculationConvergenceOutput = CalculationConvergence.NotCalculated
-            };
-            const double norm = 12.34;
+            var expectedService = WaveHeightCalculationService.Instance;
 
             // Call
-            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocation,
-                                                                         string.Empty,
-                                                                         string.Empty,
-                                                                         norm,
-                                                                         calculationMessageProviderMock);
+            using (new WaveHeightCalculationServiceConfig()) { }
 
             // Assert
-            Assert.AreSame(calculationMessageProviderMock, service.MessageProvider);
-            Assert.IsNull(output);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_SetCalculationConvergenceOutputCalculatedNotConverged_ReturnsExpectedValue()
-        {
-            // Setup
-            var mockRepository = new MockRepository();
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            mockRepository.ReplayAll();
-
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
-            var service = new TestHydraulicBoundaryLocationCalculationService
-            {
-                CalculationConvergenceOutput = CalculationConvergence.CalculatedNotConverged
-            };
-            const double norm = 12.34;
-
-            // Call
-            ReliabilityIndexCalculationOutput output = service.Calculate(hydraulicBoundaryLocation,
-                                                                         string.Empty,
-                                                                         string.Empty,
-                                                                         norm,
-                                                                         calculationMessageProviderMock);
-
-            // Assert
-            Assert.AreSame(calculationMessageProviderMock, service.MessageProvider);
-            var expectedOutput = new ReliabilityIndexCalculationOutput(norm, norm);
-            AssertReliabilityIndexCalculationOutput(expectedOutput, output);
-            mockRepository.VerifyAll();
-        }
-
-        private static void AssertReliabilityIndexCalculationOutput(ReliabilityIndexCalculationOutput expected, ReliabilityIndexCalculationOutput actual)
-        {
-            Assert.AreEqual(expected.CalculatedReliabilityIndex, actual.CalculatedReliabilityIndex);
-            Assert.AreEqual(expected.Result, actual.Result, 1e-6);
+            Assert.AreSame(expectedService, WaveHeightCalculationService.Instance);
         }
     }
 }

@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             // Call
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
             {
                 new Point2D(2, 1)
             }));
@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            failureMechanism.AddSection(new FailureMechanismSection(string.Empty, new[]
             {
                 new Point2D(2, 1)
             }));
@@ -93,7 +93,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         }
 
         [Test]
-        public void Calculations_MultipleChildrenAdded_ReturnStabilityStoneCoverWaveConditionsCalculations()
+        public void Calculations_MultipleChildrenAdded_ReturnGrassCoverErosionOutwardsWaveConditionsCalculations()
         {
             // Setup
             var mocks = new MockRepository();
@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
                     {
                         new CalculationGroup(),
                         new GrassCoverErosionOutwardsWaveConditionsCalculation(),
-                        mocks.StrictMock<ICalculation>(),
+                        mocks.Stub<ICalculation>(),
                         new GrassCoverErosionOutwardsWaveConditionsCalculation()
                     }
                 }

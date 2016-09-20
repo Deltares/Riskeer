@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             const string ringId = "11-1";
 
             var mockRepository = new MockRepository();
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             const double norm = 12.34;
 
             var mockRepository = new MockRepository();
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             const double norm = 12.34;
 
             var mockRepository = new MockRepository();
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
@@ -124,7 +124,6 @@ namespace Ringtoets.Common.Service.TestUtil.Test
                                                                          calculationMessageProviderMock);
 
             // Assert
-            Assert.AreSame(calculationMessageProviderMock, service.MessageProvider);
             var expectedOutput = new ReliabilityIndexCalculationOutput(norm, StatisticsConverter.NormToBeta(norm));
             AssertReliabilityIndexCalculationOutput(expectedOutput, output);
             mockRepository.VerifyAll();
@@ -137,7 +136,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             const double norm = 12.34;
 
             var mockRepository = new MockRepository();
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
@@ -154,7 +153,6 @@ namespace Ringtoets.Common.Service.TestUtil.Test
                                                                          calculationMessageProviderMock);
 
             // Assert
-            Assert.AreSame(calculationMessageProviderMock, service.MessageProvider);
             Assert.IsNull(output);
             mockRepository.VerifyAll();
         }
@@ -166,7 +164,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             const double norm = 12.34;
 
             var mockRepository = new MockRepository();
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0);
@@ -183,7 +181,6 @@ namespace Ringtoets.Common.Service.TestUtil.Test
                                                                          calculationMessageProviderMock);
 
             // Assert
-            Assert.AreSame(calculationMessageProviderMock, service.MessageProvider);
             var expectedOutput = new ReliabilityIndexCalculationOutput(norm, norm);
             AssertReliabilityIndexCalculationOutput(expectedOutput, output);
             mockRepository.VerifyAll();

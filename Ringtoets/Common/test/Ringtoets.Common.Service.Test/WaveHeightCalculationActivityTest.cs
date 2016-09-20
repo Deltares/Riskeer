@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             // Call
-            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, validFilePath, "", 1, calculationMessageProviderMock);
+            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, validFilePath, string.Empty, 1, calculationMessageProviderMock);
 
             // Assert
             Assert.IsInstanceOf<Activity>(activity);
@@ -81,7 +81,7 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             // Call
-            TestDelegate call = () => new WaveHeightCalculationActivity(hydraulicBoundaryLocation, validFilePath, "", 1, null);
+            TestDelegate call = () => new WaveHeightCalculationActivity(hydraulicBoundaryLocation, validFilePath, string.Empty, 1, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -98,7 +98,7 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             // Call
-            TestDelegate call = () => new WaveHeightCalculationActivity(null, validFilePath, "", 1, calculationMessageProviderMock);
+            TestDelegate call = () => new WaveHeightCalculationActivity(null, validFilePath, string.Empty, 1, calculationMessageProviderMock);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -125,7 +125,7 @@ namespace Ringtoets.Common.Service.Test
                 WaveHeight = new RoundedDouble(2, double.NaN)
             };
 
-            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, inValidFilePath, "", 1, calculationMessageProviderMock);
+            var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation, inValidFilePath, string.Empty, 1, calculationMessageProviderMock);
 
             // Call
             Action call = () => activity.Run();
@@ -229,8 +229,8 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "locationName";
 
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return("");
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return("").Repeat.AtLeastOnce();
+            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return(string.Empty);
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return(string.Empty).Repeat.AtLeastOnce();
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0)
@@ -267,8 +267,8 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             const string locationName = "locationName";
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return("");
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return("").Repeat.AtLeastOnce();
+            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return(string.Empty);
+            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return(string.Empty).Repeat.AtLeastOnce();
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0)
@@ -359,7 +359,7 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "Name";
 
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return("");
+            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return(string.Empty);
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0)

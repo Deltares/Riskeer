@@ -36,7 +36,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
     public class WaveConditionsInputContextTest
     {
         [Test]
-        public void Constructor_InputNull_ThrowArgumentNullException()
+        public void Constructor_WaveConditionsInputNull_ThrowArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();

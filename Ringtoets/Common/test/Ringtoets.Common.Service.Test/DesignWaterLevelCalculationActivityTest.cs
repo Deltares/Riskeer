@@ -156,6 +156,7 @@ namespace Ringtoets.Common.Service.Test
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[2]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
+            mockRepository.VerifyAll();
         }
 
         [Test]

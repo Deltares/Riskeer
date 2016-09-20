@@ -147,11 +147,11 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 new BreakWater(BreakWaterType.Dam, damHeight), 
                 new ForeshoreProfile.ConstructionProperties
                 {
-                    Name = "",
+                    Name = string.Empty,
                     Orientation = foreshoreProfileOrientation,
                     X0 = -3
                 });
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0)
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
                 DesignWaterLevel = assessmentLevel
             };

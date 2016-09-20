@@ -160,8 +160,8 @@ namespace Ringtoets.Common.Service.Test
 
             var mockRepository = new MockRepository();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return(calculationName);
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationFailedMessage(locationName)).Return(calculationFailedMessage);
+            calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
+            calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedMessage(locationName)).Return(calculationFailedMessage);
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, locationName, 0, 0)

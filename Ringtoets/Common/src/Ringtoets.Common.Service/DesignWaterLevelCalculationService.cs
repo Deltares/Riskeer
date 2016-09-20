@@ -30,7 +30,6 @@ namespace Ringtoets.Common.Service
     /// </summary>
     public class DesignWaterLevelCalculationService : HydraulicBoundaryLocationCalculationService<AssessmentLevelCalculationInput>
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(DesignWaterLevelCalculationService));
         private static IHydraulicBoundaryLocationCalculationService instance;
 
         /// <summary>
