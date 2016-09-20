@@ -203,7 +203,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         }
 
         [Test]
-        public void CreateDatabaseFile_FileAreadyExists_OverwriteFile()
+        public void CreateDatabaseFile_FileAlreadyExists_OverwriteFile()
         {
             // Setup
             string validPath = Path.Combine(testDataPath, "tempFile.rtd");
@@ -224,7 +224,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         }
 
         [Test]
-        public void CreateDatabaseFile_FileAreadyExistsAndLocked_Fail()
+        public void CreateDatabaseFile_FileAlreadyExistsAndLocked_Fail()
         {
             // Setup
             string validPath = Path.Combine(testDataPath, "tempFile.rtd");

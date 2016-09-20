@@ -250,7 +250,359 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private void AssertProjectsAreEqual(RingtoetsProject expectedProject, RingtoetsProject actualProject)
+        #region Piping FailureMechanism
+
+        private static void AssertPipingFailureMechanism(PipingFailureMechanism expectedPipingFailureMechanism, PipingFailureMechanism actualPipingFailureMechanism)
+        {
+            AssertProbabilityAssessmentInput(expectedPipingFailureMechanism.PipingProbabilityAssessmentInput, actualPipingFailureMechanism.PipingProbabilityAssessmentInput);
+            AssertStochasticSoilModels(expectedPipingFailureMechanism.StochasticSoilModels, actualPipingFailureMechanism.StochasticSoilModels);
+            AssertSurfaceLines(expectedPipingFailureMechanism.SurfaceLines, actualPipingFailureMechanism.SurfaceLines);
+            AssertCalculationGroup(expectedPipingFailureMechanism.CalculationsGroup, actualPipingFailureMechanism.CalculationsGroup);
+        }
+
+        private static void AssertFailureMechanismSectionResults(
+            IEnumerable<PipingFailureMechanismSectionResult> expectedSectionResults,
+            IEnumerable<PipingFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                PipingFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                PipingFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+        private static void AssertProbabilityAssessmentInput(PipingProbabilityAssessmentInput expectedModel, PipingProbabilityAssessmentInput actualModel)
+        {
+            Assert.AreEqual(expectedModel.A, actualModel.A);
+            Assert.AreEqual(expectedModel.UpliftCriticalSafetyFactor, actualModel.UpliftCriticalSafetyFactor);
+        }
+
+        private static void AssertPipingCalculationScenario(PipingCalculationScenario expectedPipingCalculation, PipingCalculationScenario actualPipingCalculation)
+        {
+            Assert.AreEqual(expectedPipingCalculation.IsRelevant, actualPipingCalculation.IsRelevant);
+            Assert.AreEqual(expectedPipingCalculation.Contribution, actualPipingCalculation.Contribution);
+            Assert.AreEqual(expectedPipingCalculation.Name, actualPipingCalculation.Name);
+            Assert.AreEqual(expectedPipingCalculation.Comments, actualPipingCalculation.Comments);
+
+            AssertPipingInput(expectedPipingCalculation.InputParameters, actualPipingCalculation.InputParameters);
+            AssertPipingOutput(expectedPipingCalculation.Output, actualPipingCalculation.Output);
+            AssertPipingSemiProbabilisticOutput(expectedPipingCalculation.SemiProbabilisticOutput, actualPipingCalculation.SemiProbabilisticOutput);
+        }
+
+        private static void AssertPipingInput(PipingInput expectedPipingInput, PipingInput actualPipingInput)
+        {
+            Assert.AreEqual(expectedPipingInput.ExitPointL, actualPipingInput.ExitPointL);
+            Assert.AreEqual(expectedPipingInput.EntryPointL, actualPipingInput.EntryPointL);
+            Assert.AreEqual(expectedPipingInput.PhreaticLevelExit.Mean, actualPipingInput.PhreaticLevelExit.Mean);
+            Assert.AreEqual(expectedPipingInput.PhreaticLevelExit.StandardDeviation, actualPipingInput.PhreaticLevelExit.StandardDeviation);
+            Assert.AreEqual(expectedPipingInput.DampingFactorExit.Mean, actualPipingInput.DampingFactorExit.Mean);
+            Assert.AreEqual(expectedPipingInput.DampingFactorExit.StandardDeviation, actualPipingInput.DampingFactorExit.StandardDeviation);
+            Assert.AreEqual(expectedPipingInput.SaturatedVolumicWeightOfCoverageLayer.Mean, actualPipingInput.SaturatedVolumicWeightOfCoverageLayer.Mean);
+            Assert.AreEqual(expectedPipingInput.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation, actualPipingInput.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation);
+            Assert.AreEqual(expectedPipingInput.SaturatedVolumicWeightOfCoverageLayer.Shift, actualPipingInput.SaturatedVolumicWeightOfCoverageLayer.Shift);
+            Assert.AreEqual(expectedPipingInput.Diameter70.Mean, actualPipingInput.Diameter70.Mean);
+            Assert.AreEqual(expectedPipingInput.Diameter70.StandardDeviation, actualPipingInput.Diameter70.StandardDeviation);
+            Assert.AreEqual(expectedPipingInput.DarcyPermeability.Mean, actualPipingInput.DarcyPermeability.Mean);
+            Assert.AreEqual(expectedPipingInput.DarcyPermeability.StandardDeviation, actualPipingInput.DarcyPermeability.StandardDeviation);
+        }
+
+        private static void AssertPipingOutput(PipingOutput expectedOutput, PipingOutput actualOutput)
+        {
+            if (expectedOutput == null)
+            {
+                Assert.IsNull(actualOutput);
+            }
+            else
+            {
+                Assert.AreEqual(expectedOutput.HeaveFactorOfSafety, actualOutput.HeaveFactorOfSafety);
+                Assert.AreEqual(expectedOutput.HeaveZValue, actualOutput.HeaveZValue);
+                Assert.AreEqual(expectedOutput.UpliftFactorOfSafety, actualOutput.UpliftFactorOfSafety);
+                Assert.AreEqual(expectedOutput.UpliftZValue, actualOutput.UpliftZValue);
+                Assert.AreEqual(expectedOutput.SellmeijerFactorOfSafety, actualOutput.SellmeijerFactorOfSafety);
+                Assert.AreEqual(expectedOutput.SellmeijerZValue, actualOutput.SellmeijerZValue);
+            }
+        }
+
+        private static void AssertPipingSemiProbabilisticOutput(PipingSemiProbabilisticOutput expectedOutput, PipingSemiProbabilisticOutput actualOutput)
+        {
+            if (expectedOutput == null)
+            {
+                Assert.IsNull(actualOutput);
+            }
+            else
+            {
+                Assert.AreEqual(expectedOutput.HeaveFactorOfSafety, actualOutput.HeaveFactorOfSafety);
+                Assert.AreEqual(expectedOutput.HeaveProbability, actualOutput.HeaveProbability);
+                Assert.AreEqual(expectedOutput.HeaveReliability, actualOutput.HeaveReliability);
+
+                Assert.AreEqual(expectedOutput.SellmeijerFactorOfSafety, actualOutput.SellmeijerFactorOfSafety);
+                Assert.AreEqual(expectedOutput.SellmeijerProbability, actualOutput.SellmeijerProbability);
+                Assert.AreEqual(expectedOutput.SellmeijerReliability, actualOutput.SellmeijerReliability);
+
+                Assert.AreEqual(expectedOutput.UpliftFactorOfSafety, actualOutput.UpliftFactorOfSafety);
+                Assert.AreEqual(expectedOutput.UpliftProbability, actualOutput.UpliftProbability);
+
+                Assert.AreEqual(expectedOutput.RequiredReliability, actualOutput.RequiredReliability);
+                Assert.AreEqual(expectedOutput.RequiredProbability, actualOutput.RequiredProbability);
+
+                Assert.AreEqual(expectedOutput.PipingFactorOfSafety, actualOutput.PipingFactorOfSafety);
+                Assert.AreEqual(expectedOutput.PipingReliability, actualOutput.PipingReliability);
+                Assert.AreEqual(expectedOutput.PipingProbability, actualOutput.PipingProbability);
+            }
+        }
+
+        #endregion
+
+        #region GrassCoverErosionInwards FailureMechanism
+
+        private static void AssertGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism expectedFailureMechanism,
+                                                                           GrassCoverErosionInwardsFailureMechanism actualFailureMechanism)
+        {
+            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
+            AssertDikeProfiles(expectedFailureMechanism.DikeProfiles, actualFailureMechanism.DikeProfiles);
+            AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
+        }
+
+        private static void AssertFailureMechanismSectionResults(
+            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> expectedSectionResults, 
+            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                GrassCoverErosionInwardsFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                GrassCoverErosionInwardsFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+                if (expectedSection.Calculation == null)
+                {
+                    Assert.IsNull(actualSection.Calculation);
+                }
+                else
+                {
+                    AssertGrassCoverErosionInwardsCalculation(expectedSection.Calculation, actualSection.Calculation);
+                }
+            }
+        }
+       
+        private static void AssertGrassCoverErosionInwardsCalculation(GrassCoverErosionInwardsCalculation expectedCalculation, 
+            GrassCoverErosionInwardsCalculation actualCalculation)
+        {
+            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
+
+            AssertGrassCoverErosionInwardsInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
+
+            if (expectedCalculation.HasOutput)
+            {
+                AssertGrassCoverErosionInwardsOutput(expectedCalculation.Output, actualCalculation.Output);
+            }
+            else
+            {
+                Assert.IsFalse(actualCalculation.HasOutput);
+            }
+        }
+
+        private static void AssertGrassCoverErosionInwardsInput(GrassCoverErosionInwardsInput expectedInput, GrassCoverErosionInwardsInput actualInput)
+        {
+            if (expectedInput.DikeProfile == null)
+            {
+                Assert.IsNull(actualInput.DikeProfile);
+            }
+            else
+            {
+                AssertDikeProfile(expectedInput.DikeProfile, actualInput.DikeProfile);
+            }
+            if (expectedInput.HydraulicBoundaryLocation == null)
+            {
+                Assert.IsNull(actualInput.HydraulicBoundaryLocation);
+            }
+            else
+            {
+                AssertHydraulicBoundaryLocation(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
+            }
+            AssertBreakWater(expectedInput.BreakWater, actualInput.BreakWater);
+            Assert.AreEqual(expectedInput.Orientation, actualInput.Orientation);
+            Assert.AreEqual(expectedInput.UseBreakWater, actualInput.UseBreakWater);
+            Assert.AreEqual(expectedInput.UseForeshore, actualInput.UseForeshore);
+            Assert.AreEqual(expectedInput.DikeHeight, actualInput.DikeHeight);
+            Assert.AreEqual(expectedInput.CriticalFlowRate.Mean, actualInput.CriticalFlowRate.Mean);
+            Assert.AreEqual(expectedInput.CriticalFlowRate.StandardDeviation, actualInput.CriticalFlowRate.StandardDeviation);
+            Assert.AreEqual(expectedInput.CalculateDikeHeight, actualInput.CalculateDikeHeight);
+        }
+
+        private static void AssertGrassCoverErosionInwardsOutput(GrassCoverErosionInwardsOutput expectedOutput, GrassCoverErosionInwardsOutput actualOutput)
+        {
+            Assert.AreEqual(expectedOutput.DikeHeightCalculated, actualOutput.DikeHeightCalculated);
+            Assert.AreEqual(expectedOutput.DikeHeight, actualOutput.DikeHeight);
+            Assert.AreEqual(expectedOutput.WaveHeight, actualOutput.WaveHeight);
+            Assert.AreEqual(expectedOutput.IsOvertoppingDominant, actualOutput.IsOvertoppingDominant);
+            AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput, actualOutput.ProbabilityAssessmentOutput);
+        }
+
+        #endregion
+
+        #region GrassCoverErosionOutwards FailureMechanism
+
+        private static void AssertGrassCoverErosionOutwardsFailureMechanism(GrassCoverErosionOutwardsFailureMechanism expectedFailureMechanism,
+                                                                           GrassCoverErosionOutwardsFailureMechanism actualFailureMechanism)
+        {
+            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
+            AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
+            AssertHydraulicBoundaryLocations(expectedFailureMechanism.HydraulicBoundaryLocations, actualFailureMechanism.HydraulicBoundaryLocations);
+            AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
+        }
+
+        private static void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                GrassCoverErosionOutwardsFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                GrassCoverErosionOutwardsFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
+                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+
+        #endregion
+
+        #region StabilityStoneCover FailureMechanism
+
+        private static void AssertStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism expectedFailureMechanism,
+                                                                           StabilityStoneCoverFailureMechanism actualFailureMechanism)
+        {
+            AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
+            AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
+        }
+
+        private static void AssertFailureMechanismSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                StabilityStoneCoverFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                StabilityStoneCoverFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+        private static void AssertStabilityStoneCoverWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculation expectedCalculation, StabilityStoneCoverWaveConditionsCalculation actualCalculation)
+        {
+            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
+
+            AssertWaveConditionsInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
+
+            Assert.AreEqual(expectedCalculation.HasOutput, actualCalculation.HasOutput);
+        }
+        
+        #endregion
+
+        #region WaveImpactAsphaltCover FailureMechanism
+        
+        private static void AssertWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism expectedFailureMechanism,
+                                                                           WaveImpactAsphaltCoverFailureMechanism actualFailureMechanism)
+        {
+            AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
+            AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
+        }
+
+        private static void AssertFailureMechanismSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> expectedSectionResults, IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                WaveImpactAsphaltCoverFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                WaveImpactAsphaltCoverFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
+                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+            }
+        }
+
+        private static void AssertWaveImpactAsphaltCoverWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculation expectedCalculation, WaveImpactAsphaltCoverWaveConditionsCalculation actualCalculation)
+        {
+            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
+
+            AssertWaveConditionsInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
+
+            Assert.AreEqual(expectedCalculation.HasOutput, actualCalculation.HasOutput);
+        }
+
+        #endregion
+
+        #region Hydraulic Boundary Database
+
+        private static void AssertHydraulicBoundaryDatabase(HydraulicBoundaryDatabase expectedBoundaryDatabase, HydraulicBoundaryDatabase actualBoundaryDatabase)
+        {
+            Assert.IsNotNull(expectedBoundaryDatabase);
+            Assert.AreEqual(expectedBoundaryDatabase.Version, actualBoundaryDatabase.Version);
+            Assert.AreEqual(expectedBoundaryDatabase.FilePath, actualBoundaryDatabase.FilePath);
+            Assert.AreEqual(expectedBoundaryDatabase.Locations.Count, actualBoundaryDatabase.Locations.Count);
+
+            AssertHydraulicBoundaryLocations(expectedBoundaryDatabase.Locations, actualBoundaryDatabase.Locations);
+        }
+
+        private static void AssertHydraulicBoundaryLocations(List<HydraulicBoundaryLocation> expectedHydraulicBoundaryLocations, List<HydraulicBoundaryLocation> actualHydraulicBoundaryLocations)
+        {
+            for (int i = 0; i < expectedHydraulicBoundaryLocations.Count; i++)
+            {
+                HydraulicBoundaryLocation expectedBoundaryLocation = expectedHydraulicBoundaryLocations[i];
+                HydraulicBoundaryLocation actualBoundaryLocation = actualHydraulicBoundaryLocations[i];
+
+                AssertHydraulicBoundaryLocation(expectedBoundaryLocation, actualBoundaryLocation);
+            }
+        }
+
+        private static void AssertHydraulicBoundaryLocation(HydraulicBoundaryLocation expectedBoundaryLocation, HydraulicBoundaryLocation actualBoundaryLocation)
+        {
+            Assert.AreEqual(expectedBoundaryLocation.Id, actualBoundaryLocation.Id);
+            Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
+            Assert.AreEqual(expectedBoundaryLocation.DesignWaterLevel, actualBoundaryLocation.DesignWaterLevel);
+            Assert.AreEqual(expectedBoundaryLocation.WaveHeight, actualBoundaryLocation.WaveHeight);
+            Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
+            Assert.AreEqual(expectedBoundaryLocation.DesignWaterLevelCalculationConvergence,
+                            actualBoundaryLocation.DesignWaterLevelCalculationConvergence);
+            Assert.AreEqual(expectedBoundaryLocation.WaveHeightCalculationConvergence,
+                            actualBoundaryLocation.WaveHeightCalculationConvergence);
+        }
+        
+        #endregion
+
+        private static void AssertProjectsAreEqual(RingtoetsProject expectedProject, RingtoetsProject actualProject)
         {
             Assert.NotNull(expectedProject);
             Assert.NotNull(actualProject);
@@ -336,50 +688,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.StrengthStabilityPointConstruction.SectionResults,
                     actualAssessmentSection.StrengthStabilityPointConstruction.SectionResults);
-            }
-        }
-
-        private static void AssertFailureMechanismSectionResults(
-            IEnumerable<PipingFailureMechanismSectionResult> expectedSectionResults,
-            IEnumerable<PipingFailureMechanismSectionResult> actualSectionResults)
-        {
-            var expectedSectionResultsArray = expectedSectionResults.ToArray();
-            var actualSectionResultsArray = actualSectionResults.ToArray();
-
-            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
-
-            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
-            {
-                PipingFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
-                PipingFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
-
-                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
-                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
-            }
-        }
-
-        private static void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> actualSectionResults)
-        {
-            var expectedSectionResultsArray = expectedSectionResults.ToArray();
-            var actualSectionResultsArray = actualSectionResults.ToArray();
-
-            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
-
-            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
-            {
-                GrassCoverErosionInwardsFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
-                GrassCoverErosionInwardsFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
-
-                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
-                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
-                if (expectedSection.Calculation == null)
-                {
-                    Assert.IsNull(actualSection.Calculation);
-                }
-                else
-                {
-                    AssertGrassCoverErosionInwardsCalculation(expectedSection.Calculation, actualSection.Calculation);
-                }
             }
         }
 
@@ -505,42 +813,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> expectedSectionResults, IEnumerable<WaveImpactAsphaltCoverFailureMechanismSectionResult> actualSectionResults)
-        {
-            var expectedSectionResultsArray = expectedSectionResults.ToArray();
-            var actualSectionResultsArray = actualSectionResults.ToArray();
-
-            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
-
-            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
-            {
-                WaveImpactAsphaltCoverFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
-                WaveImpactAsphaltCoverFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
-
-                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
-                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
-                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
-            }
-        }
-
-        private static void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult> actualSectionResults)
-        {
-            var expectedSectionResultsArray = expectedSectionResults.ToArray();
-            var actualSectionResultsArray = actualSectionResults.ToArray();
-
-            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
-
-            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
-            {
-                GrassCoverErosionOutwardsFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
-                GrassCoverErosionOutwardsFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
-
-                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
-                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
-                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
-            }
-        }
-
         private static void AssertFailureMechanismSectionResults(IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> expectedSectionResults, IEnumerable<GrassCoverSlipOffInwardsFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
@@ -630,23 +902,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StabilityStoneCoverFailureMechanismSectionResult> actualSectionResults)
-        {
-            var expectedSectionResultsArray = expectedSectionResults.ToArray();
-            var actualSectionResultsArray = actualSectionResults.ToArray();
-
-            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
-
-            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
-            {
-                StabilityStoneCoverFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
-                StabilityStoneCoverFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
-
-                Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
-                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
-            }
-        }
-
         private static void AssertFailureMechanismSectionResults(IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
@@ -689,59 +944,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertHydraulicBoundaryDatabase(HydraulicBoundaryDatabase expectedBoundaryDatabase, HydraulicBoundaryDatabase actualBoundaryDatabase)
-        {
-            Assert.IsNotNull(expectedBoundaryDatabase);
-            Assert.AreEqual(expectedBoundaryDatabase.Version, actualBoundaryDatabase.Version);
-            Assert.AreEqual(expectedBoundaryDatabase.FilePath, actualBoundaryDatabase.FilePath);
-            Assert.AreEqual(expectedBoundaryDatabase.Locations.Count, actualBoundaryDatabase.Locations.Count);
-
-            AssertHydraulicBoundaryLocations(expectedBoundaryDatabase.Locations, actualBoundaryDatabase.Locations);
-        }
-
-        private static void AssertHydraulicBoundaryLocations(List<HydraulicBoundaryLocation> expectedHydraulicBoundaryLocations, List<HydraulicBoundaryLocation> actualHydraulicBoundaryLocations)
-        {
-            for (int i = 0; i < expectedHydraulicBoundaryLocations.Count; i++)
-            {
-                HydraulicBoundaryLocation expectedBoundaryLocation = expectedHydraulicBoundaryLocations[i];
-                HydraulicBoundaryLocation actualBoundaryLocation = actualHydraulicBoundaryLocations[i];
-
-                AssertHydraulicBoundaryLocation(expectedBoundaryLocation, actualBoundaryLocation);
-            }
-        }
-
-        private static void AssertHydraulicBoundaryLocation(HydraulicBoundaryLocation expectedBoundaryLocation, HydraulicBoundaryLocation actualBoundaryLocation)
-        {
-            Assert.AreEqual(expectedBoundaryLocation.Id, actualBoundaryLocation.Id);
-            Assert.AreEqual(expectedBoundaryLocation.Name, actualBoundaryLocation.Name);
-            Assert.AreEqual(expectedBoundaryLocation.DesignWaterLevel, actualBoundaryLocation.DesignWaterLevel);
-            Assert.AreEqual(expectedBoundaryLocation.WaveHeight, actualBoundaryLocation.WaveHeight);
-            Assert.AreEqual(expectedBoundaryLocation.Location, actualBoundaryLocation.Location);
-            Assert.AreEqual(expectedBoundaryLocation.DesignWaterLevelCalculationConvergence,
-                            actualBoundaryLocation.DesignWaterLevelCalculationConvergence);
-            Assert.AreEqual(expectedBoundaryLocation.WaveHeightCalculationConvergence,
-                            actualBoundaryLocation.WaveHeightCalculationConvergence);
-        }
-
         private static void AssertReferenceLine(ReferenceLine expectedReferenceLine, ReferenceLine actualReferenceLine)
         {
             Assert.IsNotNull(expectedReferenceLine);
 
             CollectionAssert.AreEqual(expectedReferenceLine.Points, actualReferenceLine.Points);
-        }
-
-        private static void AssertPipingFailureMechanism(PipingFailureMechanism expectedPipingFailureMechanism, PipingFailureMechanism actualPipingFailureMechanism)
-        {
-            AssertProbabilityAssessmentInput(expectedPipingFailureMechanism.PipingProbabilityAssessmentInput, actualPipingFailureMechanism.PipingProbabilityAssessmentInput);
-            AssertStochasticSoilModels(expectedPipingFailureMechanism.StochasticSoilModels, actualPipingFailureMechanism.StochasticSoilModels);
-            AssertSurfaceLines(expectedPipingFailureMechanism.SurfaceLines, actualPipingFailureMechanism.SurfaceLines);
-            AssertCalculationGroup(expectedPipingFailureMechanism.CalculationsGroup, actualPipingFailureMechanism.CalculationsGroup);
-        }
-
-        private static void AssertProbabilityAssessmentInput(PipingProbabilityAssessmentInput expectedModel, PipingProbabilityAssessmentInput actualModel)
-        {
-            Assert.AreEqual(expectedModel.A, actualModel.A);
-            Assert.AreEqual(expectedModel.UpliftCriticalSafetyFactor, actualModel.UpliftCriticalSafetyFactor);
         }
 
         private static void AssertStochasticSoilModels(ObservableList<StochasticSoilModel> expectedModels, ObservableList<StochasticSoilModel> actualModels)
@@ -881,135 +1088,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertPipingCalculationScenario(PipingCalculationScenario expectedPipingCalculation, PipingCalculationScenario actualPipingCalculation)
-        {
-            Assert.AreEqual(expectedPipingCalculation.IsRelevant, actualPipingCalculation.IsRelevant);
-            Assert.AreEqual(expectedPipingCalculation.Contribution, actualPipingCalculation.Contribution);
-            Assert.AreEqual(expectedPipingCalculation.Name, actualPipingCalculation.Name);
-            Assert.AreEqual(expectedPipingCalculation.Comments, actualPipingCalculation.Comments);
-
-            AssertPipingInput(expectedPipingCalculation.InputParameters, actualPipingCalculation.InputParameters);
-            AssertPipingOutput(expectedPipingCalculation.Output, actualPipingCalculation.Output);
-            AssertPipingSemiProbabilisticOutput(expectedPipingCalculation.SemiProbabilisticOutput, actualPipingCalculation.SemiProbabilisticOutput);
-        }
-
-        private static void AssertPipingInput(PipingInput expectedPipingInput, PipingInput actualPipingInput)
-        {
-            Assert.AreEqual(expectedPipingInput.ExitPointL, actualPipingInput.ExitPointL);
-            Assert.AreEqual(expectedPipingInput.EntryPointL, actualPipingInput.EntryPointL);
-            Assert.AreEqual(expectedPipingInput.PhreaticLevelExit.Mean, actualPipingInput.PhreaticLevelExit.Mean);
-            Assert.AreEqual(expectedPipingInput.PhreaticLevelExit.StandardDeviation, actualPipingInput.PhreaticLevelExit.StandardDeviation);
-            Assert.AreEqual(expectedPipingInput.DampingFactorExit.Mean, actualPipingInput.DampingFactorExit.Mean);
-            Assert.AreEqual(expectedPipingInput.DampingFactorExit.StandardDeviation, actualPipingInput.DampingFactorExit.StandardDeviation);
-            Assert.AreEqual(expectedPipingInput.SaturatedVolumicWeightOfCoverageLayer.Mean, actualPipingInput.SaturatedVolumicWeightOfCoverageLayer.Mean);
-            Assert.AreEqual(expectedPipingInput.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation, actualPipingInput.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation);
-            Assert.AreEqual(expectedPipingInput.SaturatedVolumicWeightOfCoverageLayer.Shift, actualPipingInput.SaturatedVolumicWeightOfCoverageLayer.Shift);
-            Assert.AreEqual(expectedPipingInput.Diameter70.Mean, actualPipingInput.Diameter70.Mean);
-            Assert.AreEqual(expectedPipingInput.Diameter70.StandardDeviation, actualPipingInput.Diameter70.StandardDeviation);
-            Assert.AreEqual(expectedPipingInput.DarcyPermeability.Mean, actualPipingInput.DarcyPermeability.Mean);
-            Assert.AreEqual(expectedPipingInput.DarcyPermeability.StandardDeviation, actualPipingInput.DarcyPermeability.StandardDeviation);
-        }
-
-        private static void AssertPipingOutput(PipingOutput expectedOutput, PipingOutput actualOutput)
-        {
-            if (expectedOutput == null)
-            {
-                Assert.IsNull(actualOutput);
-            }
-            else
-            {
-                Assert.AreEqual(expectedOutput.HeaveFactorOfSafety, actualOutput.HeaveFactorOfSafety);
-                Assert.AreEqual(expectedOutput.HeaveZValue, actualOutput.HeaveZValue);
-                Assert.AreEqual(expectedOutput.UpliftFactorOfSafety, actualOutput.UpliftFactorOfSafety);
-                Assert.AreEqual(expectedOutput.UpliftZValue, actualOutput.UpliftZValue);
-                Assert.AreEqual(expectedOutput.SellmeijerFactorOfSafety, actualOutput.SellmeijerFactorOfSafety);
-                Assert.AreEqual(expectedOutput.SellmeijerZValue, actualOutput.SellmeijerZValue);
-            }
-        }
-
-        private static void AssertPipingSemiProbabilisticOutput(PipingSemiProbabilisticOutput expectedOutput, PipingSemiProbabilisticOutput actualOutput)
-        {
-            if (expectedOutput == null)
-            {
-                Assert.IsNull(actualOutput);
-            }
-            else
-            {
-                Assert.AreEqual(expectedOutput.HeaveFactorOfSafety, actualOutput.HeaveFactorOfSafety);
-                Assert.AreEqual(expectedOutput.HeaveProbability, actualOutput.HeaveProbability);
-                Assert.AreEqual(expectedOutput.HeaveReliability, actualOutput.HeaveReliability);
-
-                Assert.AreEqual(expectedOutput.SellmeijerFactorOfSafety, actualOutput.SellmeijerFactorOfSafety);
-                Assert.AreEqual(expectedOutput.SellmeijerProbability, actualOutput.SellmeijerProbability);
-                Assert.AreEqual(expectedOutput.SellmeijerReliability, actualOutput.SellmeijerReliability);
-
-                Assert.AreEqual(expectedOutput.UpliftFactorOfSafety, actualOutput.UpliftFactorOfSafety);
-                Assert.AreEqual(expectedOutput.UpliftProbability, actualOutput.UpliftProbability);
-
-                Assert.AreEqual(expectedOutput.RequiredReliability, actualOutput.RequiredReliability);
-                Assert.AreEqual(expectedOutput.RequiredProbability, actualOutput.RequiredProbability);
-
-                Assert.AreEqual(expectedOutput.PipingFactorOfSafety, actualOutput.PipingFactorOfSafety);
-                Assert.AreEqual(expectedOutput.PipingReliability, actualOutput.PipingReliability);
-                Assert.AreEqual(expectedOutput.PipingProbability, actualOutput.PipingProbability);
-            }
-        }
-
-        private static void AssertGrassCoverErosionInwardsCalculation(GrassCoverErosionInwardsCalculation expectedCalculation, GrassCoverErosionInwardsCalculation actualCalculation)
-        {
-            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
-            Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
-
-            AssertGrassCoverErosionInwardsInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
-
-            if (expectedCalculation.HasOutput)
-            {
-                AssertGrassCoverErosionInwardsOutput(expectedCalculation.Output, actualCalculation.Output);
-            }
-            else
-            {
-                Assert.IsFalse(actualCalculation.HasOutput);
-            }
-        }
-
-        private static void AssertGrassCoverErosionInwardsInput(GrassCoverErosionInwardsInput expectedInput, GrassCoverErosionInwardsInput actualInput)
-        {
-            if (expectedInput.DikeProfile == null)
-            {
-                Assert.IsNull(actualInput.DikeProfile);
-            }
-            else
-            {
-                AssertDikeProfile(expectedInput.DikeProfile, actualInput.DikeProfile);
-            }
-            if (expectedInput.HydraulicBoundaryLocation == null)
-            {
-                Assert.IsNull(actualInput.HydraulicBoundaryLocation);
-            }
-            else
-            {
-                AssertHydraulicBoundaryLocation(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
-            }
-            AssertBreakWater(expectedInput.BreakWater, actualInput.BreakWater);
-            Assert.AreEqual(expectedInput.Orientation, actualInput.Orientation);
-            Assert.AreEqual(expectedInput.UseBreakWater, actualInput.UseBreakWater);
-            Assert.AreEqual(expectedInput.UseForeshore, actualInput.UseForeshore);
-            Assert.AreEqual(expectedInput.DikeHeight, actualInput.DikeHeight);
-            Assert.AreEqual(expectedInput.CriticalFlowRate.Mean, actualInput.CriticalFlowRate.Mean);
-            Assert.AreEqual(expectedInput.CriticalFlowRate.StandardDeviation, actualInput.CriticalFlowRate.StandardDeviation);
-            Assert.AreEqual(expectedInput.CalculateDikeHeight, actualInput.CalculateDikeHeight);
-        }
-
-        private static void AssertGrassCoverErosionInwardsOutput(GrassCoverErosionInwardsOutput expectedOutput, GrassCoverErosionInwardsOutput actualOutput)
-        {
-            Assert.AreEqual(expectedOutput.DikeHeightCalculated, actualOutput.DikeHeightCalculated);
-            Assert.AreEqual(expectedOutput.DikeHeight, actualOutput.DikeHeight);
-            Assert.AreEqual(expectedOutput.WaveHeight, actualOutput.WaveHeight);
-            Assert.AreEqual(expectedOutput.IsOvertoppingDominant, actualOutput.IsOvertoppingDominant);
-            AssertProbabilityAssessmentOutput(expectedOutput.ProbabilityAssessmentOutput, actualOutput.ProbabilityAssessmentOutput);
-        }
-
-        private static void AssertProbabilityAssessmentOutput(ProbabilityAssessmentOutput expectedOutput, ProbabilityAssessmentOutput actualOutput)
+       private static void AssertProbabilityAssessmentOutput(ProbabilityAssessmentOutput expectedOutput, ProbabilityAssessmentOutput actualOutput)
         {
             Assert.AreEqual(expectedOutput.FactorOfSafety, actualOutput.FactorOfSafety);
             Assert.AreEqual(expectedOutput.Probability, actualOutput.Probability);
@@ -1018,16 +1097,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedOutput.RequiredReliability, actualOutput.RequiredReliability);
         }
         
-        private static void AssertStabilityStoneCoverWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculation expectedCalculation, StabilityStoneCoverWaveConditionsCalculation actualCalculation)
-        {
-            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
-            Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
-
-            AssertWaveConditionsInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
-
-            Assert.AreEqual(expectedCalculation.HasOutput, actualCalculation.HasOutput);
-        }
-
         private static void AssertWaveConditionsInput(WaveConditionsInput expectedInput, WaveConditionsInput actualInput)
         {
             if (expectedInput.ForeshoreProfile == null)
@@ -1056,47 +1125,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedInput.LowerBoundaryWaterLevels, actualInput.LowerBoundaryWaterLevels);
             Assert.AreEqual(expectedInput.StepSize, actualInput.StepSize);
 
-        }
-
-        private static void AssertGrassCoverErosionInwardsFailureMechanism(GrassCoverErosionInwardsFailureMechanism expectedFailureMechanism,
-                                                                           GrassCoverErosionInwardsFailureMechanism actualFailureMechanism)
-        {
-            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
-            AssertDikeProfiles(expectedFailureMechanism.DikeProfiles, actualFailureMechanism.DikeProfiles);
-            AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
-        }
-
-        private static void AssertGrassCoverErosionOutwardsFailureMechanism(GrassCoverErosionOutwardsFailureMechanism expectedFailureMechanism,
-                                                                           GrassCoverErosionOutwardsFailureMechanism actualFailureMechanism)
-        {
-            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
-            AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
-            AssertHydraulicBoundaryLocations(expectedFailureMechanism.HydraulicBoundaryLocations, actualFailureMechanism.HydraulicBoundaryLocations);
-            AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
-        }
-
-        private static void AssertStabilityStoneCoverFailureMechanism(StabilityStoneCoverFailureMechanism expectedFailureMechanism,
-                                                                           StabilityStoneCoverFailureMechanism actualFailureMechanism)
-        {
-            AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
-            AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
-        }
-
-        private static void AssertWaveImpactAsphaltCoverFailureMechanism(WaveImpactAsphaltCoverFailureMechanism expectedFailureMechanism,
-                                                                           WaveImpactAsphaltCoverFailureMechanism actualFailureMechanism)
-        {
-            AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
-            AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
-        }
-
-        private static void AssertWaveImpactAsphaltCoverWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculation expectedCalculation, WaveImpactAsphaltCoverWaveConditionsCalculation actualCalculation)
-        {
-            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
-            Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
-
-            AssertWaveConditionsInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
-
-            Assert.AreEqual(expectedCalculation.HasOutput, actualCalculation.HasOutput);
         }
 
         private static void AssertDikeProfiles(IList<DikeProfile> expectedDikeProfiles, IList<DikeProfile> actualDikeProfiles)

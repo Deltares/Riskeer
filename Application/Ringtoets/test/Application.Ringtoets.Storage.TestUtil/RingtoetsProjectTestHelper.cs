@@ -716,7 +716,12 @@ namespace Application.Ringtoets.Storage.TestUtil
                         UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
                         LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One
-                    }
+                    },
+                    Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
+                    {
+                        new WaveConditionsOutput(1, 2, 3, 4),
+                        new WaveConditionsOutput(2, 3, 4, 5)
+                    })
                 });
         }
 
@@ -873,16 +878,16 @@ namespace Application.Ringtoets.Storage.TestUtil
                         HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0],
                         BreakWater =
                         {
-                            Height = (RoundedDouble)(foreshoreProfile.BreakWater.Height + 0.1),
+                            Height = (RoundedDouble) (foreshoreProfile.BreakWater.Height + 0.1),
                             Type = BreakWaterType.Dam
                         },
                         Orientation = foreshoreProfile.Orientation,
                         UseForeshore = false,
                         UseBreakWater = false,
-                        UpperBoundaryRevetment = (RoundedDouble)12.3,
-                        LowerBoundaryRevetment = (RoundedDouble)(-3.5),
-                        UpperBoundaryWaterLevels = (RoundedDouble)13.3,
-                        LowerBoundaryWaterLevels = (RoundedDouble)(-1.9),
+                        UpperBoundaryRevetment = (RoundedDouble) 12.3,
+                        LowerBoundaryRevetment = (RoundedDouble) (-3.5),
+                        UpperBoundaryWaterLevels = (RoundedDouble) 13.3,
+                        LowerBoundaryWaterLevels = (RoundedDouble) (-1.9),
                         StepSize = WaveConditionsInputStepSize.One
                     },
                     Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
