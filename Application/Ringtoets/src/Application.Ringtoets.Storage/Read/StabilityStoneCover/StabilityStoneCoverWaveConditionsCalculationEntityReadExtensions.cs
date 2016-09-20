@@ -25,7 +25,6 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
@@ -39,13 +38,13 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
     internal static class StabilityStoneCoverWaveConditionsCalculationEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="GrassCoverErosionInwardsCalculationEntity"/> and use the
-        /// information to update a <see cref="GrassCoverErosionInwardsCalculation"/>.
+        /// Reads the <see cref="StabilityStoneCoverWaveConditionsCalculationEntity"/> and use the
+        /// information to update a <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="GrassCoverErosionInwardsCalculationEntity"/>
-        /// to create <see cref="GrassCoverErosionInwardsCalculation"/> for.</param>
+        /// <param name="entity">The <see cref="StabilityStoneCoverWaveConditionsCalculationEntity"/>
+        /// to create <see cref="StabilityStoneCoverWaveConditionsCalculation"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        /// <returns>A new <see cref="GrassCoverErosionInwardsCalculation"/>.</returns>
+        /// <returns>A new <see cref="StabilityStoneCoverWaveConditionsCalculation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static StabilityStoneCoverWaveConditionsCalculation Read(this StabilityStoneCoverWaveConditionsCalculationEntity entity, ReadConversionCollector collector)
         {
