@@ -122,6 +122,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<WaveConditionsInput>>(context);
+            Assert.IsInstanceOf<IWaveConditionsInputContext>(context);
             Assert.AreSame(input, context.WrappedData);
             CollectionAssert.AreEqual(foreshoreProfiles, context.ForeshoreProfiles);
             CollectionAssert.AreEqual(locations, context.HydraulicBoundaryLocations);
