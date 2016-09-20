@@ -99,7 +99,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_HydraulicBoundaryLocationsEmpty_ReturnsFalse()
+        public void HydraulicBoundaryLocationsExporterExportInfo_IsEnabledHydraulicBoundaryLocationsEmpty_ReturnsFalse()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -117,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_HydraulicBoundaryLocationsNotEmpty_ReturnsTrue()
+        public void HydraulicBoundaryLocationsExporterExportInfo_IsEnabledHydraulicBoundaryLocationsNotEmpty_ReturnsTrue()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -195,7 +195,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_WaveConditionsCalculationGroupCalculationsEmpty_ReturnsFalse()
+        public void WaveConditionsExporterExportInfo_IsEnabledWaveConditionsCalculationGroupCalculationsEmpty_ReturnsFalse()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -213,7 +213,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_CalculationsWithoutOutput_ReturnsFalse()
+        public void WaveConditionsExporterExportInfo_IsEnabledCalculationsWithoutOutput_ReturnsFalse()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -232,7 +232,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
         }
 
         [Test]
-        public void IsEnabled_CalculationsWithOutput_ReturnsTrue()
+        public void WaveConditionsExporterExportInfo_IsEnabledCalculationsWithOutput_ReturnsTrue()
         {
             // Setup
             var mockRepository = new MockRepository();
