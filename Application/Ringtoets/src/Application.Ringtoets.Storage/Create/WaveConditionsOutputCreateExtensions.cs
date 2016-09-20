@@ -33,6 +33,32 @@ namespace Application.Ringtoets.Storage.Create
     internal static class WaveConditionsOutputCreateExtensions
     {
         /// <summary>
+        /// Creates a <see cref="GrassCoverErosionOutwardsWaveConditionsOutputEntity"/> based on the information
+        /// of the <see cref="WaveConditionsOutput"/>.
+        /// </summary>
+        /// <param name="output">The calculation output for stability stone cover failure mechanism to 
+        /// create a database entity for.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
+        /// <returns>A new <see cref="GrassCoverErosionOutwardsWaveConditionsOutputEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static GrassCoverErosionOutwardsWaveConditionsOutputEntity CreateGrassCoverErosionOutwardsWaveConditionsOutput(
+            this WaveConditionsOutput output, PersistenceRegistry registry)
+        {
+            if (registry == null)
+            {
+                throw new ArgumentNullException("registry");
+            }
+            var entity = new GrassCoverErosionOutwardsWaveConditionsOutputEntity
+            {
+                WaterLevel = output.WaterLevel.Value.ToNaNAsNull(),
+                WaveHeight = output.WaveHeight.Value.ToNaNAsNull(),
+                WavePeakPeriod = output.WavePeakPeriod.Value.ToNaNAsNull(),
+                WaveAngle = output.WaveAngle.Value.ToNaNAsNull()
+            };
+            return entity;
+        }
+
+        /// <summary>
         /// Creates a <see cref="StabilityStoneCoverWaveConditionsOutputEntity"/> based on the information
         /// of the <see cref="WaveConditionsOutput"/>.
         /// </summary>

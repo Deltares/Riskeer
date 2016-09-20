@@ -26,10 +26,10 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
+namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsOutputCreateExtensionsTest
+    public class GrassCoverErosionOutwardsWaveConditionsOutputCreateExtensionsTest
     {
         [Test]
         public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             var output = new WaveConditionsOutput(1.1, 2.2, 3.3, 4.4);
 
             // Call
-            TestDelegate call = () => output.CreateStabilityStoneCoverWaveConditionsOutput(WaveConditionsOutputType.Columns, null);
+            TestDelegate call = () => output.CreateGrassCoverErosionOutwardsWaveConditionsOutput(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -46,9 +46,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
         }
 
         [Test]
-        [TestCase(WaveConditionsOutputType.Blocks)]
-        [TestCase(WaveConditionsOutputType.Columns)]
-        public void Create_AllOutputValuesSet_ReturnEntity(WaveConditionsOutputType outputType)
+        public void Create_AllOutputValuesSet_ReturnEntity()
         {
             // Setup
             var output = new WaveConditionsOutput(1.1, 2.2, 3.3, 4.4);
@@ -56,23 +54,19 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             var registry = new PersistenceRegistry();
 
             // Call
-            StabilityStoneCoverWaveConditionsOutputEntity entity = output.CreateStabilityStoneCoverWaveConditionsOutput(outputType, registry);
+            GrassCoverErosionOutwardsWaveConditionsOutputEntity entity = output.CreateGrassCoverErosionOutwardsWaveConditionsOutput(registry);
 
             // Assert
             Assert.AreEqual(output.WaterLevel, entity.WaterLevel, output.WaterLevel.GetAccuracy());
             Assert.AreEqual(output.WaveHeight, entity.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.AreEqual(output.WavePeakPeriod, entity.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
             Assert.AreEqual(output.WaveAngle, entity.WaveAngle, output.WaveAngle.GetAccuracy());
-            Assert.AreEqual(Convert.ToByte(outputType), entity.OutputType);
 
-            Assert.AreEqual(0, entity.StabilityStoneCoverWaveConditionsOutputEntityId);
-            Assert.AreEqual(0, entity.StabilityStoneCoverWaveConditionsCalculationEntityId);
+            Assert.IsNull(entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntity);
         }
 
         [Test]
-        [TestCase(WaveConditionsOutputType.Blocks)]
-        [TestCase(WaveConditionsOutputType.Columns)]
-        public void Create_AllOutputValuesNaN_ReturnEntityWithNullValues(WaveConditionsOutputType outputType)
+        public void Create_AllOutputValuesNaN_ReturnEntityWithNullValues()
         {
             // Setup
             var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN);
@@ -80,17 +74,15 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             var registry = new PersistenceRegistry();
 
             // Call
-            StabilityStoneCoverWaveConditionsOutputEntity entity = output.CreateStabilityStoneCoverWaveConditionsOutput(outputType, registry);
+            GrassCoverErosionOutwardsWaveConditionsOutputEntity entity = output.CreateGrassCoverErosionOutwardsWaveConditionsOutput(registry);
 
             // Assert
             Assert.IsNull(entity.WaterLevel);
             Assert.IsNull(entity.WaveHeight);
             Assert.IsNull(entity.WavePeakPeriod);
             Assert.IsNull(entity.WaveAngle);
-            Assert.AreEqual(Convert.ToByte(outputType), entity.OutputType);
 
-            Assert.AreEqual(0, entity.StabilityStoneCoverWaveConditionsOutputEntityId);
-            Assert.AreEqual(0, entity.StabilityStoneCoverWaveConditionsCalculationEntityId);
+            Assert.IsNull(entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntity);
         }
     }
 }
