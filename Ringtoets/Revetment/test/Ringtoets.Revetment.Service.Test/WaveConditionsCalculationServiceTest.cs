@@ -204,7 +204,7 @@ namespace Ringtoets.Revetment.Service.Test
         [TestCase(double.NaN)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
-        public void Validate_ForeShoreProfileDoesNotUseBreakWaterAndHasInvalidBreakwaterHeight_ReturnsTrueAndLogsValidationMessages(double breakWaterHeight)
+        public void Validate_ForeshoreProfileDoesNotUseBreakWaterAndHasInvalidBreakwaterHeight_ReturnsTrueAndLogsValidationMessages(double breakWaterHeight)
         {
             // Setup
             string name = "test";
@@ -238,7 +238,7 @@ namespace Ringtoets.Revetment.Service.Test
         [TestCase(double.NaN)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
-        public void Validate_ForeShoreProfileUseBreakWaterAndHasInvalidBreakWaterHeight_ReturnsFalseAndLogsValidationMessages(double breakWaterHeight)
+        public void Validate_ForeshoreProfileUseBreakWaterAndHasInvalidBreakWaterHeight_ReturnsFalseAndLogsValidationMessages(double breakWaterHeight)
         {
             // Setup
             string name = "test";
@@ -271,7 +271,7 @@ namespace Ringtoets.Revetment.Service.Test
 
         [Test]
         [TestCase(CalculationType.NoForeshore)]
-        [TestCase(CalculationType.ForeShoreWithoutBreakWater)]
+        [TestCase(CalculationType.ForeshoreWithoutBreakWater)]
         [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
         public void Validate_ValidInputValidateForeshoreProfile_ReturnsTrueAndLogsValidationMessages(CalculationType calculationType)
         {
@@ -293,7 +293,7 @@ namespace Ringtoets.Revetment.Service.Test
                     input.UseBreakWater = false;
                     input.UseForeshore = false;
                     break;
-                case CalculationType.ForeShoreWithoutBreakWater:
+                case CalculationType.ForeshoreWithoutBreakWater:
                     input.ForeshoreProfile = CreateForeshoreProfile(null);
                     input.UseBreakWater = false;
                     break;
@@ -397,7 +397,7 @@ namespace Ringtoets.Revetment.Service.Test
         {
             NoForeshore,
             ForeshoreWithValidBreakWater,
-            ForeShoreWithoutBreakWater
+            ForeshoreWithoutBreakWater
         }
 
         private static WaveConditionsInput GetDefaultValidationInput()

@@ -345,7 +345,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         }
 
         [Test]
-        [TestCase((double.NegativeInfinity))]
+        [TestCase(double.NegativeInfinity)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NaN)]
         public void OnRun_CalculationWithForeshoreAndUsesBreakWaterAndHasInvalidBreakWaterHeight_DoesNotPerformCalculationAndLogStartEnd(double breakWaterHeight)
@@ -397,7 +397,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
 
         [Test]
         [TestCase(CalculationType.NoForeshore)]
-        [TestCase(CalculationType.ForeShoreWithoutBreakWater)]
+        [TestCase(CalculationType.ForeshoreWithoutBreakWater)]
         [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
         public void OnRun_CalculationWithValidInputConditionsValidateForeshoreProfile_PerformCalculationLogCalculationStartAndErrorAndEnd(CalculationType calculationType)
         {
@@ -414,7 +414,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                     calculation.InputParameters.UseForeshore = false;
                     calculation.InputParameters.UseBreakWater = false;
                     break;
-                case CalculationType.ForeShoreWithoutBreakWater:
+                case CalculationType.ForeshoreWithoutBreakWater:
                     calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(null);
                     calculation.InputParameters.UseBreakWater = false;
                     break;
@@ -706,7 +706,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         {
             NoForeshore,
             ForeshoreWithValidBreakWater,
-            ForeShoreWithoutBreakWater
+            ForeshoreWithoutBreakWater
         }
 
         private static WaveImpactAsphaltCoverWaveConditionsCalculation GetValidCalculation(AssessmentSection assessmentSection)

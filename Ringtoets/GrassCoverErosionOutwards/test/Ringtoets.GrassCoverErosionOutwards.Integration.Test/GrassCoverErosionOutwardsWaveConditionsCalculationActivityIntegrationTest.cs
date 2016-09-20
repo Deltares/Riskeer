@@ -373,9 +373,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
         [Test]
         [TestCase(CalculationType.NoForeshore)]
-        [TestCase(CalculationType.ForeShoreWithoutBreakWater)]
+        [TestCase(CalculationType.ForeshoreWithoutBreakWater)]
         [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
-        public void OnRun_CalculationWithValidInputConditionsAndValidateForeShore_LogCalculationStartAndErrorAndEnd(CalculationType calculationType)
+        public void OnRun_CalculationWithValidInputConditionsAndValidateForeshore_LogCalculationStartAndErrorAndEnd(CalculationType calculationType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -390,7 +390,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                     calculation.InputParameters.UseForeshore = false;
                     calculation.InputParameters.UseBreakWater = false;
                     break;
-                case CalculationType.ForeShoreWithoutBreakWater:
+                case CalculationType.ForeshoreWithoutBreakWater:
                     calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(null);
                     calculation.InputParameters.UseBreakWater = false;
                     break;
@@ -682,7 +682,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         {
             NoForeshore,
             ForeshoreWithValidBreakWater,
-            ForeShoreWithoutBreakWater
+            ForeshoreWithoutBreakWater
         }
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation(AssessmentSection assessmentSection)

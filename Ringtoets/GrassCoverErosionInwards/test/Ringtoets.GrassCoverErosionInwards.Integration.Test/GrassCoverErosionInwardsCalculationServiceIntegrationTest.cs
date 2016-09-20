@@ -171,7 +171,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
 
             // Assert
-
             TestHelper.AssertLogMessages(call, messages =>
             {
                 var msgs = messages.ToArray();
