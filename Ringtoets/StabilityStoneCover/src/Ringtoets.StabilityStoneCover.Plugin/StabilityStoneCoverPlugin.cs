@@ -67,6 +67,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 GetObjectPropertiesData = context => context.WrappedData
             };
             yield return new PropertyInfo<StabilityStoneCoverWaveConditionsOutput, StabilityStoneCoverWaveConditionsOutputProperties>();
+            yield return new PropertyInfo<StabilityStoneCoverWaveConditionsInputContext, StabilityStoneCoverWaveConditionsInputContextProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -126,6 +127,15 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<StabilityStoneCoverWaveConditionsInputContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
         }
@@ -464,9 +474,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             var childNodes = new List<object>
             {
                 new CommentContext<ICommentable>(context.WrappedData),
-                new WaveConditionsInputContext(context.WrappedData.InputParameters,
-                                               context.FailureMechanism.ForeshoreProfiles,
-                                               context.AssessmentSection)
+                new StabilityStoneCoverWaveConditionsInputContext(context.WrappedData.InputParameters,
+                                                                  context.FailureMechanism.ForeshoreProfiles,
+                                                                  context.AssessmentSection)
             };
 
             if (context.WrappedData.HasOutput)

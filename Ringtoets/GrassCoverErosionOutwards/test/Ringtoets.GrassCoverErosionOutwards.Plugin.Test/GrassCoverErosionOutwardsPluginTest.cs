@@ -79,7 +79,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(9, treeNodeInfos.Length);
+                Assert.AreEqual(10, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HydraulicBoundariesGroupContext)));
@@ -89,6 +89,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveConditionsCalculationContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyGrassCoverErosionOutwardsOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveConditionsOutput)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionOutwardsWaveConditionsInputContext)));
             }
         }
 
@@ -102,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(4, propertyInfos.Length);
+                Assert.AreEqual(5, propertyInfos.Length);
 
                 PropertyInfo grassCoverErosionOutwardsFailureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined<
                     GrassCoverErosionOutwardsFailureMechanismContext,
@@ -127,6 +128,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                     GrassCoverErosionOutwardsWaveConditionsOutputProperties>(propertyInfos);
                 Assert.IsNull(grassCoverErosionWaveConditionsOutputProperties.AdditionalDataCheck);
                 Assert.IsNull(grassCoverErosionWaveConditionsOutputProperties.AfterCreate);
+
+                var grassCoverErosionWaveConditionsInputContextroperties = PluginTestHelper.AssertPropertyInfoDefined<
+                    GrassCoverErosionOutwardsWaveConditionsInputContext,
+                    GrassCoverErosionOutwardsWaveConditionsInputContextProperties>(propertyInfos);
+                Assert.IsNull(grassCoverErosionWaveConditionsInputContextroperties.AdditionalDataCheck);
+                Assert.IsNull(grassCoverErosionWaveConditionsInputContextroperties.AfterCreate);
             }
         }
 

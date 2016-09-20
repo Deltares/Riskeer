@@ -201,7 +201,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(13, propertyInfos.Length);
+                Assert.AreEqual(12, propertyInfos.Length);
 
                 PropertyInfo ringtoetsProjectProperties = PluginTestHelper.AssertPropertyInfoDefined
                     <IProject, RingtoetsProjectProperties>(propertyInfos);
@@ -274,13 +274,6 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsNull(foreshoreProfileProperties.AdditionalDataCheck);
                 Assert.IsNull(foreshoreProfileProperties.GetObjectPropertiesData);
                 Assert.IsNull(foreshoreProfileProperties.AfterCreate);
-
-                PropertyInfo waveConditionsInputProperites = PluginTestHelper.AssertPropertyInfoDefined<
-                    WaveConditionsInputContext,
-                    WaveConditionsInputContextProperties<WaveConditionsInputContext>>(propertyInfos);
-                Assert.IsNull(waveConditionsInputProperites.AdditionalDataCheck);
-                Assert.IsNull(waveConditionsInputProperites.GetObjectPropertiesData);
-                Assert.IsNull(waveConditionsInputProperites.AfterCreate);
             }
         }
 
@@ -410,7 +403,7 @@ namespace Ringtoets.Integration.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(28, treeNodeInfos.Length);
+                Assert.AreEqual(27, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(AssessmentSection)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ReferenceLineContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismContext<IFailureMechanism>)));
@@ -438,7 +431,6 @@ namespace Ringtoets.Integration.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(CommentContext<ICommentable>)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityAssessmentOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(RingtoetsProject)));
-                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(WaveConditionsInputContext)));
             }
         }
 

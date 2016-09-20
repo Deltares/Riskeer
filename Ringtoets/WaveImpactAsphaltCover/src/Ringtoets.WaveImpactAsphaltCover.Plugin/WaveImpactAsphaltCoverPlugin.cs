@@ -65,6 +65,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 GetObjectPropertiesData = context => context.WrappedData
             };
             yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsOutput, WaveImpactAsphaltCoverWaveConditionsOutputProperties>();
+            yield return new PropertyInfo<WaveImpactAsphaltCoverWaveConditionsInputContext, WaveImpactAsphaltCoverWaveConditionsInputContextProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -122,6 +123,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             {
                 Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<WaveImpactAsphaltCoverWaveConditionsInputContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -467,9 +477,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             var childNodes = new List<object>
             {
                 new CommentContext<ICommentable>(context.WrappedData),
-                new WaveConditionsInputContext(context.WrappedData.InputParameters,
-                                               context.FailureMechanism.ForeshoreProfiles,
-                                               context.AssessmentSection)
+                new WaveImpactAsphaltCoverWaveConditionsInputContext(context.WrappedData.InputParameters,
+                                                                     context.FailureMechanism.ForeshoreProfiles,
+                                                                     context.AssessmentSection)
             };
 
             if (context.WrappedData.HasOutput)

@@ -44,10 +44,12 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="PresentationObjects\EmptyWaveImpactAsphaltCoverOutput.cs" />
+    <Compile Include="PresentationObjects\WaveImpactAsphaltCoverWaveConditionsInputContext.cs" />
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverCalculationContext.cs" />
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverContext.cs" />
     <Compile Include="PresentationObjects\WaveImpactAsphaltCoverFailureMechanismContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyClasses\WaveImpactAsphaltCoverWaveConditionsInputContextProperties.cs" />
     <Compile Include="PropertyClasses\WaveImpactAsphaltCoverFailureMechanismProperties.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

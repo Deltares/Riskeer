@@ -281,7 +281,6 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationContextProperties>();
             yield return new PropertyInfo<ForeshoreProfile, ForeshoreProfileProperties>();
-            yield return new PropertyInfo<WaveConditionsInputContext, WaveConditionsInputContextProperties<WaveConditionsInputContext>>();
         }
 
         /// <summary>
@@ -594,15 +593,6 @@ namespace Ringtoets.Integration.Plugin
             {
                 Text = foreshoreProfile => foreshoreProfile.Name,
                 Image = context => Resources.Foreshore,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
-
-            yield return new TreeNodeInfo<WaveConditionsInputContext>
-            {
-                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
-                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()

@@ -28,16 +28,16 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Integration.Plugin;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.PresentationObjects;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using Ringtoets.WaveImpactAsphaltCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
+using Ringtoets.WaveImpactAsphaltCover.Plugin;
 
-namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
+namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class WaveConditionsInputContextTreeNodeInfoTest
+    public class WaveImpactAsphaltCoverWaveConditionsInputContextTreeNodeInfoTest
     {
         private MockRepository mocks;
 
@@ -47,11 +47,17 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks = new MockRepository();
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -79,13 +85,13 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
+            
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.Grass);
-            var context = new WaveConditionsInputContext(input,
-                                                         new ForeshoreProfile[0],
-                                                         assessmentSection);
+            var input = new WaveConditionsInput(WaveConditionsRevetment.Asphalt);
+            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 var info = GetInfo(plugin);
 
@@ -104,18 +110,19 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.Grass);
-            var context = new WaveConditionsInputContext(input,
-                                                         new ForeshoreProfile[0],
-                                                         assessmentSection);
-            using (var plugin = new RingtoetsPlugin())
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var input = new WaveConditionsInput(WaveConditionsRevetment.Asphalt);
+            var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);
+
+            using (var plugin = new WaveImpactAsphaltCoverPlugin())
             {
                 var info = GetInfo(plugin);
                 // Call
                 Image icon = info.Image(context);
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, icon);
+                TestHelper.AssertImagesAreEqual(Resources.GenericInputOutputIcon, icon);
             }
         }
 
@@ -126,11 +133,12 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
+                mocks.ReplayAll();
 
-                var input = new WaveConditionsInput(WaveConditionsRevetment.Grass);
-                var context = new WaveConditionsInputContext(input,
-                                                             new ForeshoreProfile[0],
-                                                             assessmentSection);
+                var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+                var input = new WaveConditionsInput(WaveConditionsRevetment.Asphalt);
+                var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
@@ -143,7 +151,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
                 mocks.ReplayAll();
 
-                using (var plugin = new RingtoetsPlugin())
+                using (var plugin = new WaveImpactAsphaltCoverPlugin())
                 {
                     var info = GetInfo(plugin);
                     plugin.Gui = gui;
@@ -157,9 +165,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Assert expectancies are called in TearDown()
         }
 
-        private TreeNodeInfo GetInfo(RingtoetsPlugin plugin)
+        private TreeNodeInfo GetInfo(WaveImpactAsphaltCoverPlugin plugin)
         {
-            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveConditionsInputContext));
+            return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(WaveImpactAsphaltCoverWaveConditionsInputContext));
         }
     }
 }

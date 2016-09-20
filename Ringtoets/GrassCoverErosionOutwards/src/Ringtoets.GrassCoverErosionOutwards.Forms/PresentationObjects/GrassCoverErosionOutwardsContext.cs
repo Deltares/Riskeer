@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any paramater is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         protected GrassCoverErosionOutwardsContext(T wrappedData,
                                                    GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                    IAssessmentSection assessmentSection)

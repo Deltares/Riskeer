@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
 using Core.Common.Base.Geometry;
@@ -28,6 +29,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.PropertyClasses;
@@ -58,10 +60,8 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
 
             var grassCoverErosionInwardsInput = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
 
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var inputContext = new WaveConditionsInputContext(grassCoverErosionInwardsInput,
-                                                              foreshoreProfiles,
-                                                              assessmentSectionMock);
+            var inputContext = new TestWaveConditionsInputContext(grassCoverErosionInwardsInput,
+                                                                  foreshoreProfiles);
 
             var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
             {
@@ -102,9 +102,11 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
             };
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            var inputContext = new WaveConditionsInputContext(waveConditionsInput,
-                                                              new[] { foreshoreProfile },
-                                                              assessmentSectionMock);
+            var inputContext = new TestWaveConditionsInputContext(waveConditionsInput,
+                                                                  new[]
+                                                                  {
+                                                                      foreshoreProfile
+                                                                  });
 
             var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
             {
@@ -131,6 +133,33 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
             Assert.AreSame(foreshoreProfile, result);
 
             mockRepository.VerifyAll();
+        }
+
+        private class TestWaveConditionsInputContext : WaveConditionsInputContext
+        {
+            private readonly IEnumerable<ForeshoreProfile> foreshoreProfiles;
+
+            public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
+                                                  IEnumerable<ForeshoreProfile> foreshoreProfiles) : base(wrappedData)
+            {
+                this.foreshoreProfiles = foreshoreProfiles;
+            }
+
+            public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public override IEnumerable<ForeshoreProfile> ForeshoreProfiles
+            {
+                get
+                {
+                    return foreshoreProfiles;
+                }
+            }
         }
     }
 }

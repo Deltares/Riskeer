@@ -34,7 +34,7 @@ namespace Ringtoets.Revetment.Forms.UITypeEditors
     /// <see cref="HydraulicBoundaryLocation"/> from a collection.
     /// </summary>
     public class WaveConditionsInputContextHydraulicBoundaryLocationEditor :
-        SelectionEditor<WaveConditionsInputContextProperties<WaveConditionsInputContext>, HydraulicBoundaryLocation>
+        SelectionEditor<IWaveConditionsInputContextProperties<WaveConditionsInputContext>, HydraulicBoundaryLocation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInputContextHydraulicBoundaryLocationEditor"/>.

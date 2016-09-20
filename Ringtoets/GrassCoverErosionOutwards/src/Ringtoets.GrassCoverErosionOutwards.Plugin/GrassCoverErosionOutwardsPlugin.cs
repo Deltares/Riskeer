@@ -87,6 +87,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             };
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsOutput, GrassCoverErosionOutwardsWaveConditionsOutputProperties>();
+
+            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsInputContext, GrassCoverErosionOutwardsWaveConditionsInputContextProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -178,6 +180,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 Text = emptyPipingOutput => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
                 Image = emptyPipingOutput => RingtoetsCommonFormsResources.GeneralOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<GrassCoverErosionOutwardsWaveConditionsInputContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.Calculation_Input,
+                Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
@@ -679,9 +690,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             var childNodes = new List<object>
             {
                 new CommentContext<ICommentable>(context.WrappedData),
-                new WaveConditionsInputContext(context.WrappedData.InputParameters,
-                                               context.FailureMechanism.ForeshoreProfiles,
-                                               context.AssessmentSection)
+                new GrassCoverErosionOutwardsWaveConditionsInputContext(context.WrappedData.InputParameters,
+                                                                        context.FailureMechanism)
             };
 
             if (context.WrappedData.HasOutput)

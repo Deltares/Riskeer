@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
@@ -33,15 +32,17 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 
-namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
+namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class WaveConditionsInputContextPropertiesTest
+    public class GrassCoverErosionOutwardsWaveConditionsInputContextPropertiesTest
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
         private const int assessmentLevelPropertyIndex = 1;
@@ -64,11 +65,10 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>();
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<WaveConditionsInputContext>>(properties);
-            Assert.IsInstanceOf<IWaveConditionsInputContextProperties<WaveConditionsInputContext>>(properties);
+            Assert.IsInstanceOf<WaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -76,11 +76,12 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void Data_SetDefaultInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
-            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
+            var input = new WaveConditionsInput(WaveConditionsRevetment.Grass);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
 
             // Call
-            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -114,17 +115,17 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(21);
-            var assessmentLevel = (RoundedDouble) random.NextDouble();
-            var lowerBoundaryRevetment = (RoundedDouble) random.NextDouble();
-            var lowerBoundaryWaterLevels = (RoundedDouble) random.NextDouble();
-            var upperBoundaryRevetment = lowerBoundaryRevetment + (RoundedDouble) random.NextDouble();
-            var upperBoundaryWaterLevels = lowerBoundaryWaterLevels + (RoundedDouble) random.NextDouble();
+            var assessmentLevel = (RoundedDouble)random.NextDouble();
+            var lowerBoundaryRevetment = (RoundedDouble)random.NextDouble();
+            var lowerBoundaryWaterLevels = (RoundedDouble)random.NextDouble();
+            var upperBoundaryRevetment = lowerBoundaryRevetment + (RoundedDouble)random.NextDouble();
+            var upperBoundaryWaterLevels = lowerBoundaryWaterLevels + (RoundedDouble)random.NextDouble();
             var stepSize = WaveConditionsInputStepSize.Half;
 
-            var worldX = (RoundedDouble) random.NextDouble();
-            var worldY = (RoundedDouble) random.NextDouble();
-            var damHeight = (RoundedDouble) random.NextDouble();
-            var foreshoreProfileOrientation = (RoundedDouble) random.NextDouble();
+            var worldX = (RoundedDouble)random.NextDouble();
+            var worldY = (RoundedDouble)random.NextDouble();
+            var damHeight = (RoundedDouble)random.NextDouble();
+            var foreshoreProfileOrientation = (RoundedDouble)random.NextDouble();
 
             var foreshoreProfile = new ForeshoreProfile(
                 new Point2D(worldX, worldY),
@@ -150,16 +151,15 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 LowerBoundaryWaterLevels = lowerBoundaryWaterLevels,
                 StepSize = stepSize
             };
-            var inputContext = new TestWaveConditionsInputContext(input, new[]
-            {
-                foreshoreProfile
-            }, new[]
-            {
-                hydraulicBoundaryLocation
-            });
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            failureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation);
+            failureMechanism.ForeshoreProfiles.Add(foreshoreProfile);
+
+            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
 
             // Call
-            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -188,12 +188,12 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var random = new Random(21);
-            var orientation = (RoundedDouble) random.NextDouble();
-            var assessmentLevel = (RoundedDouble) random.NextDouble();
-            var newLowerBoundaryRevetment = (RoundedDouble) random.NextDouble();
-            var newLowerBoundaryWaterLevels = (RoundedDouble) random.NextDouble();
-            var newUpperBoundaryRevetment = newLowerBoundaryRevetment + (RoundedDouble) random.NextDouble();
-            var newUpperBoundaryWaterLevels = newLowerBoundaryWaterLevels + (RoundedDouble) random.NextDouble();
+            var orientation = (RoundedDouble)random.NextDouble();
+            var assessmentLevel = (RoundedDouble)random.NextDouble();
+            var newLowerBoundaryRevetment = (RoundedDouble)random.NextDouble();
+            var newLowerBoundaryWaterLevels = (RoundedDouble)random.NextDouble();
+            var newUpperBoundaryRevetment = newLowerBoundaryRevetment + (RoundedDouble)random.NextDouble();
+            var newUpperBoundaryWaterLevels = newLowerBoundaryWaterLevels + (RoundedDouble)random.NextDouble();
             var newStepSize = WaveConditionsInputStepSize.Half;
 
             var newHydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1)
@@ -203,17 +203,20 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
             input.Attach(observerMock);
-            var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
+
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
 
             var newForeshoreProfile = new ForeshoreProfile(
                 new Point2D(
-                    (RoundedDouble) random.NextDouble(),
-                    (RoundedDouble) random.NextDouble()),
+                    (RoundedDouble)random.NextDouble(),
+                    (RoundedDouble)random.NextDouble()),
                 Enumerable.Empty<Point2D>(),
-                new BreakWater(BreakWaterType.Dam, (RoundedDouble) random.NextDouble()),
+                new BreakWater(BreakWaterType.Dam, (RoundedDouble)random.NextDouble()),
                 new ForeshoreProfile.ConstructionProperties());
 
-            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -263,13 +266,12 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             {
                 input.ForeshoreProfile = foreshoreProfile;
             }
-            var inputContext = new TestWaveConditionsInputContext(input, new[]
-            {
-                foreshoreProfile
-            }, new HydraulicBoundaryLocation[0]);
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
 
             // Call
-            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
+            var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -296,15 +298,15 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.IsNotNull(assessmentLevelProperty);
             Assert.IsTrue(assessmentLevelProperty.IsReadOnly);
             Assert.AreEqual(hydraulicParametersCategory, assessmentLevelProperty.Category);
-            Assert.AreEqual("Toetspeil [m+NAP]", assessmentLevelProperty.DisplayName);
-            Assert.AreEqual("Waterstand met een overschrijdingsfrequentie gelijk aan de trajectnorm.", assessmentLevelProperty.Description);
+            Assert.AreEqual("Waterstand bij doorsnede-eis [m+NAP]", assessmentLevelProperty.DisplayName);
+            Assert.AreEqual("Berekende waterstand bij doorsnede-eis op de geselecteerde locatie.", assessmentLevelProperty.Description);
 
             PropertyDescriptor upperBoundaryDesignWaterLevelProperty = dynamicProperties[upperBoundaryDesignWaterLevelPropertyIndex];
             Assert.IsNotNull(upperBoundaryDesignWaterLevelProperty);
             Assert.IsTrue(upperBoundaryDesignWaterLevelProperty.IsReadOnly);
             Assert.AreEqual(hydraulicParametersCategory, upperBoundaryDesignWaterLevelProperty.Category);
-            Assert.AreEqual("Bovengrens op basis van toetspeil [m+NAP]", upperBoundaryDesignWaterLevelProperty.DisplayName);
-            Assert.AreEqual("Bovengrens bepaald aan de hand van de waarde van het toetspeil op de geselecteerde hydraulische locatie.", upperBoundaryDesignWaterLevelProperty.Description);
+            Assert.AreEqual("Bovengrens op basis van waterstand bij doorsnede-eis [m+NAP]", upperBoundaryDesignWaterLevelProperty.DisplayName);
+            Assert.AreEqual("Bovengrens bepaald aan de hand van de waarde van de waterstand bij doorsnede-eis op de geselecteerde hydraulische locatie.", upperBoundaryDesignWaterLevelProperty.Description);
 
             PropertyDescriptor upperBoundaryRevetmentProperty = dynamicProperties[upperBoundaryRevetmentPropertyIndex];
             Assert.IsNotNull(upperBoundaryRevetmentProperty);
@@ -393,36 +395,6 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(schematizationCategory, revetmentTypeProperty.Category);
             Assert.AreEqual("Type bekleding", revetmentTypeProperty.DisplayName);
             Assert.AreEqual("Het type van de bekleding waarvoor berekend wordt.", revetmentTypeProperty.Description);
-        }
-
-        private class TestWaveConditionsInputContext : WaveConditionsInputContext
-        {
-            private readonly IEnumerable<ForeshoreProfile> foreshoreProfiles;
-            private readonly IEnumerable<HydraulicBoundaryLocation> locations;
-
-            public TestWaveConditionsInputContext(WaveConditionsInput wrappedData,
-                                                  IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                                  IEnumerable<HydraulicBoundaryLocation> locations) : base(wrappedData)
-            {
-                this.foreshoreProfiles = foreshoreProfiles;
-                this.locations = locations;
-            }
-
-            public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
-            {
-                get
-                {
-                    return locations;
-                }
-            }
-
-            public override IEnumerable<ForeshoreProfile> ForeshoreProfiles
-            {
-                get
-                {
-                    return foreshoreProfiles;
-                }
-            }
         }
     }
 }

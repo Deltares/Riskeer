@@ -29,7 +29,6 @@ using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.PresentationObjects;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
 {
@@ -57,7 +56,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
 
             // Assert
-            Assert.IsInstanceOf<IWaveConditionsInputContext>(context);
             Assert.IsInstanceOf<WrappedObjectContextBase<WaveConditionsInput>>(context);
             Assert.AreSame(input, context.WrappedData);
             CollectionAssert.AreEqual(new[] { foreshoreProfile }, context.ForeshoreProfiles);

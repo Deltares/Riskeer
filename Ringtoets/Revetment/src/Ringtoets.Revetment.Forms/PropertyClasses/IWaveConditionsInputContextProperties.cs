@@ -19,36 +19,35 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
-using Core.Common.Controls.PresentationObjects;
+using Core.Common.Gui.PropertyBag;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 
-namespace Ringtoets.Revetment.Forms.PresentationObjects
+namespace Ringtoets.Revetment.Forms.PropertyClasses
 {
     /// <summary>
-    /// Presentation object for the <see cref="WaveConditionsInput"/>.
+    /// Interface for wave conditions input properties classes.
     /// </summary>
-    public abstract class WaveConditionsInputContext : ObservableWrappedObjectContextBase<WaveConditionsInput>
+    /// <typeparam name="T">The type of the wave conditions input presentation object.</typeparam>
+    public interface IWaveConditionsInputContextProperties<out T> : IObjectProperties where T : WaveConditionsInputContext
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WaveConditionsInputContext"/> class.
+        /// Gets the available <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        protected WaveConditionsInputContext(WaveConditionsInput wrappedData)
-            : base(wrappedData) {}
+        /// <returns>An <see cref="IEnumerable{T}"/> of available <see cref="HydraulicBoundaryLocation"/>.</returns>
+        IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations();
 
         /// <summary>
-        /// Gets the hydraulic boundary locations.
+        /// Gets the available <see cref="ForeshoreProfile"/>.
         /// </summary>
-        public abstract IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; }
+        /// <returns>An <see cref="IEnumerable{T}"/> of available <see cref="ForeshoreProfile"/>.</returns>
+        IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles();
 
         /// <summary>
-        /// Gets the foreshore profiles.
+        /// Gets and sets the selected <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
-        public abstract IEnumerable<ForeshoreProfile> ForeshoreProfiles { get; }
+        HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
     }
 }

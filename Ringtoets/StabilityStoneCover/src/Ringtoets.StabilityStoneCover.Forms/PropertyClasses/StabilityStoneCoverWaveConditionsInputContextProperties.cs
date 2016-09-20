@@ -19,25 +19,24 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Revetment.Data;
+using Ringtoets.Revetment.Forms.PropertyClasses;
+using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 
-namespace Ringtoets.Revetment.Forms.PresentationObjects
+namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 {
     /// <summary>
-    /// Interface for defining a wave conditions input context.
+    /// Property control the <see cref="StabilityStoneCoverWaveConditionsInputContext"/>.
     /// </summary>
-    public interface IWaveConditionsInputContext
+    public class StabilityStoneCoverWaveConditionsInputContextProperties
+        : WaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext>
     {
-        /// <summary>
-        /// Gets the hydraulic boundary locations.
-        /// </summary>
-        IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; }
-
-        /// <summary>
-        /// Gets the foreshore profiles.
-        /// </summary>
-        IEnumerable<ForeshoreProfile> ForeshoreProfiles { get; }
+        public override WaveConditionsRevetment RevetmentType
+        {
+            get
+            {
+                return WaveConditionsRevetment.StabilityStone;
+            }
+        }
     }
 }

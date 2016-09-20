@@ -20,11 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Geometry;
+using System.Collections.Generic;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
-using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
@@ -38,95 +36,48 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
         [Test]
         public void Constructor_WaveConditionsInputNull_ThrowArgumentNullException()
         {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             // Call
-            TestDelegate call = () => new WaveConditionsInputContext(null, new ForeshoreProfile[0],  assessmentSection);
+            TestDelegate call = () => new TestWaveConditionsInputContext(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("wrappedData", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_ForeshoreProfilesNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
-
-            // Call
-            TestDelegate call = () => new WaveConditionsInputContext(input, null, assessmentSection);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("foreshoreProfiles", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_AssessmentSectionNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
-
-            // Call
-            TestDelegate call = () => new WaveConditionsInputContext(input, new ForeshoreProfile[0], null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
         }
 
         [Test]
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var locations = new[]
-            {
-                new HydraulicBoundaryLocation(0, "A", 0, 0),
-                new HydraulicBoundaryLocation(1, "B", 1, 1)
-            };
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.AddRange(locations);
-
-            var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            mocks.ReplayAll();
-
             var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
 
-            var foreshoreProfiles = new[]
-            {
-                new ForeshoreProfile(new Point2D(0, 0),
-                                     new Point2D[0],
-                                     null,
-                                     new ForeshoreProfile.ConstructionProperties()),
-                new ForeshoreProfile(new Point2D(1, 1),
-                                     new Point2D[0],
-                                     null,
-                                     new ForeshoreProfile.ConstructionProperties())
-            };
-
             // Call
-            var context = new WaveConditionsInputContext(input, foreshoreProfiles, assessmentSection);
+            var context = new TestWaveConditionsInputContext(input);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<WaveConditionsInput>>(context);
-            Assert.IsInstanceOf<IWaveConditionsInputContext>(context);
+            Assert.IsInstanceOf<WaveConditionsInputContext>(context);
             Assert.AreSame(input, context.WrappedData);
-            CollectionAssert.AreEqual(foreshoreProfiles, context.ForeshoreProfiles);
-            CollectionAssert.AreEqual(locations, context.HydraulicBoundaryLocations);
-            mocks.VerifyAll();
+        }
+        
+        private class TestWaveConditionsInputContext : WaveConditionsInputContext
+        {
+            public TestWaveConditionsInputContext(WaveConditionsInput wrappedData) : base(wrappedData) {}
+
+            public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
+
+            public override IEnumerable<ForeshoreProfile> ForeshoreProfiles
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
         }
     }
 }

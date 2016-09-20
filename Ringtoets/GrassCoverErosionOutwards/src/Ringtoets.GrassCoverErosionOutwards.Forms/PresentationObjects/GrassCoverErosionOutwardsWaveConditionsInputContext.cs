@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Data;
@@ -33,8 +32,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for <see cref="WaveConditionsInput"/> for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveConditionsInputContext : ObservableWrappedObjectContextBase<WaveConditionsInput>,
-                                                                       IWaveConditionsInputContext
+    public class GrassCoverErosionOutwardsWaveConditionsInputContext : WaveConditionsInputContext
     {
         private readonly GrassCoverErosionOutwardsFailureMechanism failureMechanism;
 
@@ -44,7 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <param name="wrappedData">The wrapped <see cref="WaveConditionsInput"/>.</param>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/>
         /// the context belongs to.</param>
-        /// <exception cref="ArgumentNullException">Thrown when any paramater is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveConditionsInputContext(WaveConditionsInput wrappedData,
                                                                    GrassCoverErosionOutwardsFailureMechanism failureMechanism)
             : base(wrappedData)
@@ -56,7 +54,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
             this.failureMechanism = failureMechanism;
         }
 
-        public IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
+        public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
         {
             get
             {
@@ -64,7 +62,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
             }
         }
 
-        public IEnumerable<ForeshoreProfile> ForeshoreProfiles
+        public override IEnumerable<ForeshoreProfile> ForeshoreProfiles
         {
             get
             {

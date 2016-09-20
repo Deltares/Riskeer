@@ -20,12 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
@@ -50,18 +50,13 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
         public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
-
             var grassCoverErosionInwardsInput = new WaveConditionsInput(WaveConditionsRevetment.Grass);
 
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
-                                 .Return(hydraulicBoundaryDatabase)
-                                 .Repeat.AtLeastOnce();
-            var inputContext = new WaveConditionsInputContext(grassCoverErosionInwardsInput,
-                                                              new ForeshoreProfile[0],
-                                                              assessmentSectionMock);
+            var inputContext = new TestWaveConditionsInputContext(grassCoverErosionInwardsInput,
+                                                                  new[]
+                                                                  {
+                                                                      new TestHydraulicBoundaryLocation()
+                                                                  });
 
             var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
             {
@@ -93,22 +88,18 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             var waveConditionsInput = new WaveConditionsInput(WaveConditionsRevetment.Grass)
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };
 
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
-                                 .Return(hydraulicBoundaryDatabase)
-                                 .Repeat.AtLeastOnce();
-            var inputContext = new WaveConditionsInputContext(waveConditionsInput,
-                                                              new ForeshoreProfile[0],
-                                                              assessmentSectionMock);
+            var inputContext = new TestWaveConditionsInputContext(waveConditionsInput,
+                                                                  new[]
+                                                                  {
+                                                                      hydraulicBoundaryLocation
+                                                                  });
 
             var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
             {
@@ -140,6 +131,32 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
         private class TestHydraulicBoundaryLocation : HydraulicBoundaryLocation
         {
             public TestHydraulicBoundaryLocation() : base(0, string.Empty, 0, 0) {}
+        }
+
+        private class TestWaveConditionsInputContext : WaveConditionsInputContext
+        {
+            private readonly IEnumerable<HydraulicBoundaryLocation> locations;
+
+            public TestWaveConditionsInputContext(WaveConditionsInput wrappedData, IEnumerable<HydraulicBoundaryLocation> locations) : base(wrappedData)
+            {
+                this.locations = locations;
+            }
+
+            public override IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
+            {
+                get
+                {
+                    return locations;
+                }
+            }
+
+            public override IEnumerable<ForeshoreProfile> ForeshoreProfiles
+            {
+                get
+                {
+                    throw new NotImplementedException();
+                }
+            }
         }
     }
 }
