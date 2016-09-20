@@ -68,6 +68,7 @@ namespace Ringtoets.Revetment.IO.Test
             // Assert
             var exception = Assert.Throws<CriticalFileWriteException>(call);
             Assert.AreEqual(string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'.", filePath), exception.Message);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
         }
 
         [Test]

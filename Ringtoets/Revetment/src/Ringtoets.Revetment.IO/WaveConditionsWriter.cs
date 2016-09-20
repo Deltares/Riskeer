@@ -36,7 +36,7 @@ namespace Ringtoets.Revetment.IO
     /// </summary>
     public static class WaveConditionsWriter
     {
-        private static string separator = ", ";
+        private const string separator = ", ";
 
         /// <summary>
         /// Writes wave conditions to a csv file.
@@ -45,8 +45,7 @@ namespace Ringtoets.Revetment.IO
         /// <param name="filePath">The path to the csv file.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="exportableWaveConditionsCollection"/> or 
         /// <paramref name="filePath"/> is <c>null</c>.</exception>
-        /// <exception cref="CriticalFileWriteException">Thrown when either <see cref="StringBuilder.AppendLine(string)"/> or 
-        /// <see cref="File.WriteAllText(string,string)"/> fail.</exception>
+        /// <exception cref="CriticalFileWriteException">Thrown when unable to write to <paramref name="filePath"/>.</exception>
         public static void WriteWaveConditions(IEnumerable<ExportableWaveConditions> exportableWaveConditionsCollection, string filePath)
         {
             if (exportableWaveConditionsCollection == null)
@@ -57,7 +56,7 @@ namespace Ringtoets.Revetment.IO
             {
                 throw new ArgumentNullException("filePath");
             }
-            
+
             var stringBuilder = new StringBuilder(Resources.WaveConditionsWriter_HeaderLine + Environment.NewLine);
 
             try
@@ -68,14 +67,6 @@ namespace Ringtoets.Revetment.IO
                 }
 
                 File.WriteAllText(filePath, stringBuilder.ToString());
-            }
-            catch (ArgumentException e)
-            {
-                throw new CriticalFileWriteException(string.Format(CoreCommonUtilsResources.Error_General_output_error_0, filePath), e);
-            }
-            catch (IOException e)
-            {
-                throw new CriticalFileWriteException(string.Format(CoreCommonUtilsResources.Error_General_output_error_0, filePath), e);
             }
             catch (SystemException e)
             {
