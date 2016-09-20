@@ -202,6 +202,26 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekende resultaten voor de hydraulische randvoorwaarden voor gras..
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocation" +
+                        "Result_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hydraulische randvoorwaarden voor gras.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocation" +
+                        "Result_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Golfhoogtes bij doorsnede-eis.
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName {

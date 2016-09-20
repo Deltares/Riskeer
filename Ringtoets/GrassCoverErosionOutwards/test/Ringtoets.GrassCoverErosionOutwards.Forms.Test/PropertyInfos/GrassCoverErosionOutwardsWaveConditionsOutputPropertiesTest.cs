@@ -104,8 +104,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
             Assert.IsTrue(itemsProperty.IsReadOnly);
             Assert.IsInstanceOf<ExpandableArrayConverter>(itemsProperty.Converter);
             Assert.AreEqual("Resultaat", itemsProperty.Category);
-            Assert.AreEqual("Hydraulische randvoorwaarden", itemsProperty.DisplayName);
-            Assert.AreEqual("Berekende resultaten voor de hydraulische randvoorwaarden.", itemsProperty.Description);
+            Assert.AreEqual("Hydraulische randvoorwaarden voor gras", itemsProperty.DisplayName);
+            Assert.AreEqual("Berekende resultaten voor de hydraulische randvoorwaarden voor gras.", itemsProperty.Description);
         }
     }
 }

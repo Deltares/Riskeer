@@ -118,7 +118,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende resultaten voor blokken..
+        ///   Looks up a localized string similar to Berekende resultaten voor de hydraulische randvoorwaarden voor blokken..
         /// </summary>
         public static string StabilityStoneCoverWaveConditionsOutputProperties_Blocks_Description {
             get {
@@ -127,11 +127,29 @@ namespace Ringtoets.StabilityStoneCover.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende resultaten voor zuilen..
+        ///   Looks up a localized string similar to Hydraulische randvoorwaarden voor blokken.
+        /// </summary>
+        public static string StabilityStoneCoverWaveConditionsOutputProperties_Blocks_DisplayName {
+            get {
+                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsOutputProperties_Blocks_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende resultaten voor de hydraulische randvoorwaarden voor zuilen..
         /// </summary>
         public static string StabilityStoneCoverWaveConditionsOutputProperties_Columns_Description {
             get {
                 return ResourceManager.GetString("StabilityStoneCoverWaveConditionsOutputProperties_Columns_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hydraulische randvoorwaarden voor zuilen.
+        /// </summary>
+        public static string StabilityStoneCoverWaveConditionsOutputProperties_Columns_DisplayName {
+            get {
+                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsOutputProperties_Columns_DisplayName", resourceCulture);
             }
         }
     }

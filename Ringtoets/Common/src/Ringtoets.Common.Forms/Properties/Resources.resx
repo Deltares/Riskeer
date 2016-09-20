@@ -646,10 +646,4 @@
   <data name="WaveConditionsExporter_DisplayName" xml:space="preserve">
     <value>Berekende belastingen bij verschillende waterstanden (*.csv).</value>
   </data>
-  <data name="WaveConditionsOutputProperties_HydraulicBoundaryLocations_Description" xml:space="preserve">
-    <value>Berekende resultaten voor de hydraulische randvoorwaarden.</value>
-  </data>
-  <data name="WaveConditionsOutputProperties_HydraulicBoundaryLocations_DisplayName" xml:space="preserve">
-    <value>Hydraulische randvoorwaarden</value>
-  </data>
 </root>

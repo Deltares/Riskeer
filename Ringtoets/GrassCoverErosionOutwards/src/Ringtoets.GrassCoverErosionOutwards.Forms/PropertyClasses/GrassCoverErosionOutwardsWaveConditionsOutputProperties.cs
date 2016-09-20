@@ -26,6 +26,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
+using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
@@ -37,8 +38,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "WaveConditionsOutputProperties_HydraulicBoundaryLocations_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "WaveConditionsOutputProperties_HydraulicBoundaryLocations_Description")]
+        [ResourcesDisplayName(typeof(Resources), "GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "GrassCoverErosionOutwardsWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description")]
         public WaveConditionsOutputProperties[] Items
         {
             get

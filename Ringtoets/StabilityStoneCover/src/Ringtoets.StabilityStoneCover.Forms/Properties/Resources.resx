@@ -124,15 +124,21 @@
     <value>Zuilen</value>
   </data>
   <data name="StabilityStoneCoverWaveConditionsOutputProperties_Blocks_Description" xml:space="preserve">
-    <value>Berekende resultaten voor blokken.</value>
+    <value>Berekende resultaten voor de hydraulische randvoorwaarden voor blokken.</value>
   </data>
   <data name="StabilityStoneCoverWaveConditionsOutputProperties_Columns_Description" xml:space="preserve">
-    <value>Berekende resultaten voor zuilen.</value>
+    <value>Berekende resultaten voor de hydraulische randvoorwaarden voor zuilen.</value>
   </data>
   <data name="StabilityStoneCoverWaveConditionsFailureMechanism_Blocks_Description" xml:space="preserve">
     <value>De modelinstellingen voor het berekenen van golfcondities voor blokken.</value>
   </data>
   <data name="StabilityStoneCoverWaveConditionsFailureMechanism_Columns_Description" xml:space="preserve">
     <value>De modelinstellingen voor het berekenen van golfcondities voor zuilen.</value>
+  </data>
+  <data name="StabilityStoneCoverWaveConditionsOutputProperties_Blocks_DisplayName" xml:space="preserve">
+    <value>Hydraulische randvoorwaarden voor blokken</value>
+  </data>
+  <data name="StabilityStoneCoverWaveConditionsOutputProperties_Columns_DisplayName" xml:space="preserve">
+    <value>Hydraulische randvoorwaarden voor zuilen</value>
   </data>
 </root>

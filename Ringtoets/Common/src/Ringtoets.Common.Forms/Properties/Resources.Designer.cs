@@ -1680,24 +1680,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekende resultaten voor de hydraulische randvoorwaarden..
-        /// </summary>
-        public static string WaveConditionsOutputProperties_HydraulicBoundaryLocations_Description {
-            get {
-                return ResourceManager.GetString("WaveConditionsOutputProperties_HydraulicBoundaryLocations_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hydraulische randvoorwaarden.
-        /// </summary>
-        public static string WaveConditionsOutputProperties_HydraulicBoundaryLocations_DisplayName {
-            get {
-                return ResourceManager.GetString("WaveConditionsOutputProperties_HydraulicBoundaryLocations_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Locatie (RD) [m].
         /// </summary>
         public static string WorldReferencePoint_DisplayName {
