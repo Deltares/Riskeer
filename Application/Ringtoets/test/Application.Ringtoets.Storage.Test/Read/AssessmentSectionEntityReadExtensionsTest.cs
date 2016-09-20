@@ -451,7 +451,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = CreateAssessmentSectionEntity();
             const string comments = "Some text";
 
-            var n = new Random(21).Next(1, 20);
+            int n = new Random(21).Next(1, 20);
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,

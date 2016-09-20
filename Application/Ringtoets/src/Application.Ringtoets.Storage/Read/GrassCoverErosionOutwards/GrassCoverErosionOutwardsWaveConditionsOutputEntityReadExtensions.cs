@@ -27,7 +27,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>
-    /// based on the <see cref="WaveImpactAsphaltCoverWaveConditionsOutputEntity"/>.
+    /// based on the <see cref="GrassCoverErosionOutwardsWaveConditionsOutputEntity"/>.
     /// </summary>
     internal static class GrassCoverErosionOutwardsWaveConditionsOutputEntityReadExtensions
     {

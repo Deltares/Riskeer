@@ -27,7 +27,7 @@ namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
     /// Extension methods for <see cref="WaveConditionsOutput"/> related to 
-    /// creating entities for different failure mechanisms.
+    /// creating entities for various failure mechanisms.
     /// </summary>
     internal static class WaveConditionsOutputCreateExtensions
     {
@@ -35,9 +35,9 @@ namespace Application.Ringtoets.Storage.Create
         /// Creates a <see cref="GrassCoverErosionOutwardsWaveConditionsOutputEntity"/> based on the information
         /// of the <see cref="WaveConditionsOutput"/>.
         /// </summary>
-        /// <param name="output">The calculation output for stability stone cover failure mechanism to 
+        /// <param name="output">The calculation output for grass cover erosion outwards failure mechanism to 
         /// create a database entity for.</param>
-        /// <param name="order">The position of the output in the list of all outputs.</param>
+        /// <param name="order">The position of <paramref name="output"/> in the list of all outputs.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionOutwardsWaveConditionsOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="output">The calculation output for stability stone cover failure mechanism to 
         /// create a database entity for.</param>
         /// <param name="type">The type of the <see cref="WaveConditionsOutput"/>.</param>
-        /// <param name="order">The position of the output in the list of all outputs.</param>
+        /// <param name="order">The position of <paramref name="output"/> in the list of all outputs.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StabilityStoneCoverWaveConditionsOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
@@ -93,9 +93,9 @@ namespace Application.Ringtoets.Storage.Create
         /// Creates a <see cref="WaveImpactAsphaltCoverWaveConditionsOutputEntity"/> based on the information
         /// of the <see cref="WaveConditionsOutput"/>.
         /// </summary>
-        /// <param name="output">The calculation output for stability stone cover failure mechanism to 
+        /// <param name="output">The calculation output for wave impact asphalt cover mechanism to 
         /// create a database entity for.</param>
-        /// <param name="order">The position of the output in the list of all outputs.</param>
+        /// <param name="order">The position of <paramref name="output"/> in the list of all outputs.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="WaveImpactAsphaltCoverWaveConditionsOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>

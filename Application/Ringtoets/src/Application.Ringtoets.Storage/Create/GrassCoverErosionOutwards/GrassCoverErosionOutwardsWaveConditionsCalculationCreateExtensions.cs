@@ -85,12 +85,12 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             return entity;
         }
 
-        private static void AddEntityForStabilityStoneCoverWaveConditionsOutput(GrassCoverErosionOutwardsWaveConditionsOutput outputs,
+        private static void AddEntityForStabilityStoneCoverWaveConditionsOutput(GrassCoverErosionOutwardsWaveConditionsOutput waveConditionsOutput,
                                                                                 PersistenceRegistry registry,
                                                                                 GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity)
         {
             var i = 0;
-            foreach (WaveConditionsOutput output in outputs.Items)
+            foreach (WaveConditionsOutput output in waveConditionsOutput.Items)
             {
                 entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Add(output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(i++, registry));
             }
