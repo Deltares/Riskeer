@@ -61,6 +61,8 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="ExportInfos\GrassCoverErosionOutwardsWaveConditionsCalculationContextExportInfoTest.cs" />
+    <Compile Include="ExportInfos\GrassCoverErosionOutwardsWaveConditionsCalculationGroupContextExportInfoTest.cs" />
     <Compile Include="ExportInfos\HydraulicBoundariesGroupContextExportInfoTest.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculationHelperTest.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionOutwardsContextTest.cs" />
@@ -175,6 +177,10 @@
       <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
       <Name>Ringtoets.Revetment.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.IO\Ringtoets.Revetment.IO.csproj">
+      <Project>{e3347b16-bb18-41c1-8d34-fbcbf20db695}</Project>
+      <Name>Ringtoets.Revetment.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\test\Ringtoets.Revetment.Service.TestUtil\Ringtoets.Revetment.Service.TestUtil.csproj">
       <Project>{EA416DD2-1633-439E-8512-B9933E37B9C5}</Project>
       <Name>Ringtoets.Revetment.Service.TestUtil</Name>
@@ -186,6 +192,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Forms\Ringtoets.GrassCoverErosionOutwards.Forms.csproj">
       <Project>{41B829C1-630F-40B0-8BEE-B1C4C94EC8C4}</Project>
       <Name>Ringtoets.GrassCoverErosionOutwards.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.IO\Ringtoets.GrassCoverErosionOutwards.IO.csproj">
+      <Project>{6EAEEC05-E564-45FC-AE7E-912F3612CC9D}</Project>
+      <Name>Ringtoets.GrassCoverErosionOutwards.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.GrassCoverErosionOutwards.Plugin\Ringtoets.GrassCoverErosionOutwards.Plugin.csproj">
       <Project>{9B3ED064-E29F-4D38-85E0-3A82B77BA702}</Project>
