@@ -708,22 +708,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
 
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetDefaultValidationInput(AssessmentSection assessmentSection)
         {
-            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    ForeshoreProfile = CreateForeshoreProfile(),
-                    UseForeshore = true,
-                    UseBreakWater = true,
-                    StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble) 4,
-                    UpperBoundaryRevetment = (RoundedDouble) 10,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 5.4,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 5
-                }
-            };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
+            calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble) 5;
+            calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble) 5.4;
+
             return calculation;
         }
 

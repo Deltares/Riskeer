@@ -282,6 +282,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         }
 
         [Test]
+        [TestCase(double.NegativeInfinity)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NaN)]
         public void OnRun_CalculationWithForeshoreAndDoesNotUseBreakWaterAndHasInvalidBreakWaterHeight_PerformCalculationAndLogStartEnd(double breakWaterHeight)
@@ -344,6 +345,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         }
 
         [Test]
+        [TestCase((double.NegativeInfinity))]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NaN)]
         public void OnRun_CalculationWithForeshoreAndUsesBreakWaterAndHasInvalidBreakWaterHeight_DoesNotPerformCalculationAndLogStartEnd(double breakWaterHeight)
@@ -394,28 +396,31 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         }
 
         [Test]
-        public void OnRun_CalculationWithValidInputConditionsAndWithoutForeshoreProfileCannotPerformCalculation_LogCalculationStartAndErrorAndEnd()
+        [TestCase(CalculationType.NoForeshore)]
+        [TestCase(CalculationType.ForeShoreWithoutBreakWater)]
+        [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
+        public void OnRun_CalculationWithValidInputConditionsValidateForeshoreProfile_PerformCalculationLogCalculationStartAndErrorAndEnd(CalculationType calculationType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation()
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetDefaultValidationInput(assessmentSection);
+
+            switch (calculationType)
             {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    ForeshoreProfile = null,
-                    UseForeshore = false,
-                    UseBreakWater = false,
-                    StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble) 4,
-                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 5.4,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 5
-                }
-            };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 12.0;
+                case CalculationType.NoForeshore:
+                    calculation.InputParameters.ForeshoreProfile = null;
+                    calculation.InputParameters.UseForeshore = false;
+                    calculation.InputParameters.UseBreakWater = false;
+                    break;
+                case CalculationType.ForeShoreWithoutBreakWater:
+                    calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(null);
+                    calculation.InputParameters.UseBreakWater = false;
+                    break;
+                case CalculationType.ForeshoreWithValidBreakWater:
+                    break;
+            }
 
             var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
                                                                                        testDataPath,
@@ -448,111 +453,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                     }
 
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[9]);
-                });
-                Assert.AreEqual(ActivityState.Failed, activity.State);
-            }
-        }
-
-        [Test]
-        public void OnRun_CalculationWithValidInputConditionsAndForeshoreProfileWithoutBreakWaterCannotPerformCalculation_LogCalculationStartAndEnd()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
-
-            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    ForeshoreProfile = CreateForeshoreProfile(null),
-                    UseForeshore = true,
-                    UseBreakWater = false,
-                    StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble) 4,
-                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 5.4,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 5
-                }
-            };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 12.0;
-
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                       testDataPath,
-                                                                                       assessmentSection.WaveImpactAsphaltCover,
-                                                                                       assessmentSection);
-
-            using (new HydraRingCalculationServiceConfig())
-            {
-                // Call
-                Action call = () => activity.Run();
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    var msgs = messages.ToArray();
-                    Assert.AreEqual(10, msgs.Length);
-
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-
-                    int i = 2;
-                    foreach (var waterLevel in calculation.InputParameters.WaterLevels)
-                    {
-                        StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' gestart om: ", calculation.Name, waterLevel), msgs[i + 1]);
-                        Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt.", calculation.Name, waterLevel), msgs[i + 2]);
-                        StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd om: ", calculation.Name, waterLevel), msgs[i + 3]);
-
-                        i = i + 3;
-                    }
-
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[9]);
-                });
-                Assert.AreEqual(ActivityState.Failed, activity.State);
-            }
-        }
-
-        [Test]
-        public void OnRun_CalculationWithValidInputConditionsAndForeshoreProfileWithBreakWaterCannotPerformCalculation_LogCalculationStartAndEnd()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
-
-            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
-
-            var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation,
-                                                                                       testDataPath,
-                                                                                       assessmentSection.WaveImpactAsphaltCover,
-                                                                                       assessmentSection);
-
-            using (new HydraRingCalculationServiceConfig())
-            {
-                // Call
-                Action call = () => activity.Run();
-
-                // Assert
-                TestHelper.AssertLogMessages(call, messages =>
-                {
-                    var msgs = messages.ToArray();
-                    Assert.AreEqual(13, msgs.Length);
-
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-
-                    int i = 2;
-                    foreach (var waterLevel in calculation.InputParameters.WaterLevels)
-                    {
-                        StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' gestart om: ", calculation.Name, waterLevel), msgs[i + 1]);
-                        Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt.", calculation.Name, waterLevel), msgs[i + 2]);
-                        StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd om: ", calculation.Name, waterLevel), msgs[i + 3]);
-
-                        i = i + 3;
-                    }
-
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[12]);
                 });
                 Assert.AreEqual(ActivityState.Failed, activity.State);
             }
@@ -802,6 +702,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             }
         }
 
+        public enum CalculationType
+        {
+            NoForeshore,
+            ForeshoreWithValidBreakWater,
+            ForeShoreWithoutBreakWater
+        }
+
         private static WaveImpactAsphaltCoverWaveConditionsCalculation GetValidCalculation(AssessmentSection assessmentSection)
         {
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
@@ -820,6 +727,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
                 }
             };
             calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
+            return calculation;
+        }
+
+        private static WaveImpactAsphaltCoverWaveConditionsCalculation GetDefaultValidationInput(AssessmentSection assessmentSection)
+        {
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
+            calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble) 5;
+            calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble) 5.4;
+
             return calculation;
         }
 

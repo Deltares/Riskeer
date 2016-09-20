@@ -285,7 +285,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         [TestCase(double.NegativeInfinity)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NaN)]
-        public void OnRun_CalculationWithForeshoreAndDoesNotUseBreakWaterAndHasInvalidBreakWaterHeight_PerformCalculationAndLogStartEnd(double breakWaterHeight)
+        public void OnRun_CalculationWithForeshoreAndDoesNotUseBreakWaterAndHasInvalidBreakWaterHeight_PerformCalculationAndLogStartAndErrorAndEnd(double breakWaterHeight)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -378,7 +378,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         [TestCase(CalculationType.NoForeshore)]
         [TestCase(CalculationType.ForeShoreWithoutBreakWater)]
         [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
-        public void OnRun_CalculationWithValidInputConditionsValidateForeshoreProfileCannotPerformCalculation_LogCalculationStartAndErrorAndEnd(CalculationType calculationType)
+        public void OnRun_CalculationWithValidInputConditionsValidateForeshoreProfile_PerformCalculationLogCalculationStartAndErrorAndEnd(CalculationType calculationType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -767,22 +767,10 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
 
         private static StabilityStoneCoverWaveConditionsCalculation GetDefaultValidationInput(AssessmentSection assessmentSection)
         {
-            var calculation = new StabilityStoneCoverWaveConditionsCalculation()
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    ForeshoreProfile = CreateForeshoreProfile(),
-                    UseForeshore = true,
-                    UseBreakWater = true,
-                    StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble) 4,
-                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 5.4,
-                    LowerBoundaryWaterLevels = (RoundedDouble) 5
-                }
-            };
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 12.0;
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
+            calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble) 5;
+            calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble) 5.4;
+
             return calculation;
         }
 
