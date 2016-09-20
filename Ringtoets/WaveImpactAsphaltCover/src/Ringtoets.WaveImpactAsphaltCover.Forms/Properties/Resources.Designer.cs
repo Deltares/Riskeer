@@ -90,5 +90,25 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Properties {
                         "ism", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekende resultaten voor de hydraulische randvoorwaarden voor asfalt..
+        /// </summary>
+        public static string WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description {
+            get {
+                return ResourceManager.GetString("WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationRes" +
+                        "ult_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hydraulische randvoorwaarden voor asfalt.
+        /// </summary>
+        public static string WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName {
+            get {
+                return ResourceManager.GetString("WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationRes" +
+                        "ult_DisplayName", resourceCulture);
+            }
+        }
     }
 }

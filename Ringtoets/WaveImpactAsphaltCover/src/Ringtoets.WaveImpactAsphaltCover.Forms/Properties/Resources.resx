@@ -120,4 +120,10 @@
   <data name="WaveImpactAsphaltCoverContext_DataDescription_WaveImpactAsphaltCoverFailureMechanism" xml:space="preserve">
     <value>Het golfklappen op asfalt toetsspoor</value>
   </data>
+  <data name="WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description" xml:space="preserve">
+    <value>Berekende resultaten voor de hydraulische randvoorwaarden voor asfalt.</value>
+  </data>
+  <data name="WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName" xml:space="preserve">
+    <value>Hydraulische randvoorwaarden voor asfalt</value>
+  </data>
 </root>

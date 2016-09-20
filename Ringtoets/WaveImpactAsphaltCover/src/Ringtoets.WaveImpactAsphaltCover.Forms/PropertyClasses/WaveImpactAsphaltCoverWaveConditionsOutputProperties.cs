@@ -26,7 +26,9 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.WaveImpactAsphaltCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
 {
@@ -37,8 +39,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
     {
         [TypeConverter(typeof(ExpandableArrayConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Result")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "WaveConditionsOutputProperties_HydraulicBoundaryLocations_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "WaveConditionsOutputProperties_HydraulicBoundaryLocations_Description")]
+        [ResourcesDisplayName(typeof(Resources), "WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WaveImpactAsphaltCoverWaveConditionsOutputProperties_HydraulicBoundaryLocationResult_Description")]
         public WaveConditionsOutputProperties[] Items
         {
             get
