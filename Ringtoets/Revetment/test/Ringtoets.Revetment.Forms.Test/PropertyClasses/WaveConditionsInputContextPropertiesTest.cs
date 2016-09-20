@@ -72,7 +72,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new WaveConditionsInputContextProperties();
+            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<WaveConditionsInputContext>>(properties);
@@ -90,7 +90,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var inputContext = new WaveConditionsInputContext(input, new ForeshoreProfile[0], assessmentSectionMock);
 
             // Call
-            var properties = new WaveConditionsInputContextProperties
+            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
             {
                 Data = inputContext
             };
@@ -171,7 +171,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             }, assessmentSectionMock);
 
             // Call
-            var properties = new WaveConditionsInputContextProperties
+            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
             {
                 Data = inputContext
             };
@@ -226,7 +226,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 new BreakWater(BreakWaterType.Dam, (RoundedDouble)random.NextDouble()),
                 new ForeshoreProfile.ConstructionProperties());
 
-            var properties = new WaveConditionsInputContextProperties
+            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
             {
                 Data = inputContext
             };
@@ -285,7 +285,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             }, assessmentSectionMock);
 
             // Call
-            var properties = new WaveConditionsInputContextProperties
+            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
             {
                 Data = inputContext
             };

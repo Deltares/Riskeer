@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 
 namespace Ringtoets.Revetment.Forms.UITypeEditors
@@ -33,7 +34,7 @@ namespace Ringtoets.Revetment.Forms.UITypeEditors
     /// <see cref="HydraulicBoundaryLocation"/> from a collection.
     /// </summary>
     public class WaveConditionsInputContextHydraulicBoundaryLocationEditor :
-        SelectionEditor<WaveConditionsInputContextProperties, HydraulicBoundaryLocation>
+        SelectionEditor<WaveConditionsInputContextProperties<WaveConditionsInputContext>, HydraulicBoundaryLocation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInputContextHydraulicBoundaryLocationEditor"/>.

@@ -25,6 +25,7 @@ using System.Drawing.Design;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.PresentationObjects;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -43,7 +44,8 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="WaveConditionsInputContext"/> for properties panel.
     /// </summary>
-    public class WaveConditionsInputContextProperties : ObjectProperties<WaveConditionsInputContext>
+    public class WaveConditionsInputContextProperties<T> : ObjectProperties<T> where T : WrappedObjectContextBase<WaveConditionsInput>,
+                                                                                   IWaveConditionsInputContext
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
         private const int assessmentLevelPropertyIndex = 1;
@@ -67,7 +69,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_Description")]
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation
+        public virtual HydraulicBoundaryLocation HydraulicBoundaryLocation
         {
             get
             {
@@ -84,7 +86,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "AssessmentLevel_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "AssessmentLevel_Description")]
-        public RoundedDouble AssessmentLevel
+        public virtual RoundedDouble AssessmentLevel
         {
             get
             {
@@ -96,7 +98,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_UpperBoundaryDesignWaterLevel_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WaveConditionsInput_UpperBoundaryDesignWaterLevel_Description")]
-        public RoundedDouble UpperBoundaryDesignWaterLevel
+        public virtual RoundedDouble UpperBoundaryDesignWaterLevel
         {
             get
             {
@@ -108,7 +110,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_UpperBoundaryRevetment_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WaveConditionsInput_UpperBoundaryRevetment_Description")]
-        public RoundedDouble UpperBoundaryRevetment
+        public virtual RoundedDouble UpperBoundaryRevetment
         {
             get
             {
@@ -125,7 +127,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_LowerBoundaryRevetment_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WaveConditionsInput_LowerBoundaryRevetment_Description")]
-        public RoundedDouble LowerBoundaryRevetment
+        public virtual RoundedDouble LowerBoundaryRevetment
         {
             get
             {
@@ -142,7 +144,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_UpperBoundaryWaterLevels_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WaveConditionsInput_UpperBoundaryWaterLevels_Description")]
-        public RoundedDouble UpperBoundaryWaterLevels
+        public virtual RoundedDouble UpperBoundaryWaterLevels
         {
             get
             {
@@ -159,7 +161,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_LowerBoundaryWaterLevels_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WaveConditionsInput_LowerBoundaryWaterLevels_Description")]
-        public RoundedDouble LowerBoundaryWaterLevels
+        public virtual RoundedDouble LowerBoundaryWaterLevels
         {
             get
             {
@@ -177,7 +179,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_StepSize_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WaveConditionsInput_StepSize_Description")]
-        public WaveConditionsInputStepSize StepSize
+        public virtual WaveConditionsInputStepSize StepSize
         {
             get
             {
@@ -195,7 +197,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_WaterLevels_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WaveConditionsInput_WaterLevels_Description")]
-        public RoundedDouble[] WaterLevels
+        public virtual RoundedDouble[] WaterLevels
         {
             get
             {
@@ -208,7 +210,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "ForeshoreProfile_DisplayName")]
         [ResourcesDescription(typeof(Resources), "ForeshoreProfile_Description")]
-        public ForeshoreProfile ForeshoreProfile
+        public virtual ForeshoreProfile ForeshoreProfile
         {
             get
             {
@@ -225,7 +227,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "WorldReferencePoint_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "WorldReferencePoint_ForeshoreProfile_Description")]
-        public Point2D WorldReferencePoint
+        public virtual Point2D WorldReferencePoint
         {
             get
             {
@@ -240,7 +242,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Orientation_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Orientation_ForeshoreProfile_Description")]
-        public RoundedDouble Orientation
+        public virtual RoundedDouble Orientation
         {
             get
             {
@@ -258,7 +260,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "BreakWaterProperties_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "BreakWaterProperties_Description")]
-        public WaveConditionsInputBreakWaterProperties BreakWater
+        public virtual WaveConditionsInputBreakWaterProperties BreakWater
         {
             get
             {
@@ -274,7 +276,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "ForeshoreProperties_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "ForeshoreProperties_Description")]
-        public WaveConditionsInputForeshoreProfileProperties ForeshoreGeometry
+        public virtual WaveConditionsInputForeshoreProfileProperties ForeshoreGeometry
         {
             get
             {
@@ -290,7 +292,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_RevetmentType_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WaveConditionsInput_RevetmentType_Description")]
-        public WaveConditionsRevetment RevetmentType
+        public virtual WaveConditionsRevetment RevetmentType
         {
             get
             {
@@ -298,12 +300,12 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
         }
 
-        public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
+        public virtual IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
         {
             return data.HydraulicBoundaryLocations;
         }
 
-        public IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
+        public virtual IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
         {
             return data.ForeshoreProfiles;
         }

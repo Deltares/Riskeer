@@ -33,7 +33,7 @@ namespace Ringtoets.Revetment.Forms.PresentationObjects
     /// <summary>
     /// Presentation object for the <see cref="WaveConditionsInput"/>.
     /// </summary>
-    public class WaveConditionsInputContext : ObservableWrappedObjectContextBase<WaveConditionsInput>
+    public class WaveConditionsInputContext : ObservableWrappedObjectContextBase<WaveConditionsInput>, IWaveConditionsInputContext
     {
         private readonly IAssessmentSection assessmentSection;
 
@@ -62,9 +62,6 @@ namespace Ringtoets.Revetment.Forms.PresentationObjects
             this.assessmentSection = assessmentSection;
         }
 
-        /// <summary>
-        /// Gets the hydraulic boundary locations.
-        /// </summary>
         public IEnumerable<HydraulicBoundaryLocation> HydraulicBoundaryLocations
         {
             get
@@ -75,9 +72,6 @@ namespace Ringtoets.Revetment.Forms.PresentationObjects
             }
         }
 
-        /// <summary>
-        /// Gets the foreshore profiles.
-        /// </summary>
         public IEnumerable<ForeshoreProfile> ForeshoreProfiles { get; private set; }
     }
 }

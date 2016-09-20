@@ -63,7 +63,7 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
                                                               foreshoreProfiles,
                                                               assessmentSectionMock);
 
-            var properties = new WaveConditionsInputContextProperties
+            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
             {
                 Data = inputContext
             };
@@ -106,7 +106,7 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
                                                               new[] { foreshoreProfile },
                                                               assessmentSectionMock);
 
-            var properties = new WaveConditionsInputContextProperties
+            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
             {
                 Data = inputContext
             };

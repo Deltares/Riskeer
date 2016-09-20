@@ -281,7 +281,7 @@ namespace Ringtoets.Integration.Plugin
             };
             yield return new PropertyInfo<WaveHeightLocationContext, WaveHeightLocationContextProperties>();
             yield return new PropertyInfo<ForeshoreProfile, ForeshoreProfileProperties>();
-            yield return new PropertyInfo<WaveConditionsInputContext, WaveConditionsInputContextProperties>();
+            yield return new PropertyInfo<WaveConditionsInputContext, WaveConditionsInputContextProperties<WaveConditionsInputContext>>();
         }
 
         /// <summary>

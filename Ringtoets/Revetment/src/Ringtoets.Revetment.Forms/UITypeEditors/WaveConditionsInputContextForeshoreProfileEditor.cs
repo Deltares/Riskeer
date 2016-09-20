@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.UITypeEditors;
+using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 
@@ -36,7 +37,7 @@ namespace Ringtoets.Revetment.Forms.UITypeEditors
     /// <see cref="DikeProfile"/> from a collection.
     /// </summary>
     public class WaveConditionsInputContextForeshoreProfileEditor :
-        SelectionEditor<WaveConditionsInputContextProperties, ForeshoreProfile>
+        SelectionEditor<WaveConditionsInputContextProperties<WaveConditionsInputContext>, ForeshoreProfile>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInputContextForeshoreProfileEditor"/>.

@@ -277,7 +277,7 @@ namespace Ringtoets.Integration.Plugin.Test
 
                 PropertyInfo waveConditionsInputProperites = PluginTestHelper.AssertPropertyInfoDefined<
                     WaveConditionsInputContext,
-                    WaveConditionsInputContextProperties>(propertyInfos);
+                    WaveConditionsInputContextProperties<WaveConditionsInputContext>>(propertyInfos);
                 Assert.IsNull(waveConditionsInputProperites.AdditionalDataCheck);
                 Assert.IsNull(waveConditionsInputProperites.GetObjectPropertiesData);
                 Assert.IsNull(waveConditionsInputProperites.AfterCreate);
