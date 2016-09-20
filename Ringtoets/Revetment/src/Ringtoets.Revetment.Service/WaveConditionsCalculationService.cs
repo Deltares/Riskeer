@@ -71,15 +71,7 @@ namespace Ringtoets.Revetment.Service
 
         }
 
-        public WaveConditionsOutput Calculate(RoundedDouble waterLevel,
-                                              double a,
-                                              double b,
-                                              double c,
-                                              int norm,
-                                              WaveConditionsInput input,
-                                              string hlcdDirectory,
-                                              string ringId,
-                                              string name)
+        public WaveConditionsOutput Calculate(RoundedDouble waterLevel, double a, double b, double c, double norm, WaveConditionsInput input, string hlcdDirectory, string ringId, string name)
         {
             WaveConditionsCosineCalculationInput calculationInput = CreateInput(waterLevel, a, b, c, norm, input);
             var waveConditionsCalculationParser = new WaveConditionsCalculationParser();

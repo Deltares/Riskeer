@@ -45,7 +45,7 @@ namespace Ringtoets.Revetment.Service.TestUtil
                                        double a,
                                        double b,
                                        double c,
-                                       int norm,
+                                       double norm,
                                        WaveConditionsInput input,
                                        string hlcdDirectory,
                                        string ringId,
@@ -85,7 +85,7 @@ namespace Ringtoets.Revetment.Service.TestUtil
         /// <summary>
         /// Gets the specified norm.
         /// </summary>
-        public int Norm { get; private set; }
+        public double Norm { get; private set; }
 
         /// <summary>
         /// Gets the specified input.

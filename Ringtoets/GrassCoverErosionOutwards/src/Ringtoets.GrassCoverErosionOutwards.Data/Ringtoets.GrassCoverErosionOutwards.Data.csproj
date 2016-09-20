@@ -41,6 +41,7 @@
     </Compile>
     <Compile Include="GeneralGrassCoverErosionOutwardsInput.cs" />
     <Compile Include="GrassCoverErosionOutwardsFailureMechanism.cs" />
+    <Compile Include="GrassCoverErosionOutwardsFailureMechanismExtensions.cs" />
     <Compile Include="GrassCoverErosionOutwardsFailureMechanismSectionResult.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsCalculation.cs" />
     <Compile Include="GrassCoverErosionOutwardsWaveConditionsOutput.cs" />
@@ -60,6 +61,11 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
       <Name>Core.Common.Base</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">

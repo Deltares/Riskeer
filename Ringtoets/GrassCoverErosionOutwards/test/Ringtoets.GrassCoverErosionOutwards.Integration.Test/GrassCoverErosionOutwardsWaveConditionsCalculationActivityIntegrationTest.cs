@@ -539,7 +539,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                     Assert.AreEqual(generalInput.GeneralWaveConditionsInput.A, testWaveConditionsInputs[i].A, generalInput.GeneralWaveConditionsInput.A.GetAccuracy());
                     Assert.AreEqual(generalInput.GeneralWaveConditionsInput.B, testWaveConditionsInputs[i].B, generalInput.GeneralWaveConditionsInput.B.GetAccuracy());
                     Assert.AreEqual(generalInput.GeneralWaveConditionsInput.C, testWaveConditionsInputs[i].C, generalInput.GeneralWaveConditionsInput.C.GetAccuracy());
-                    Assert.AreEqual(assessmentSection.FailureMechanismContribution.Norm, testWaveConditionsInputs[i].Norm);
+                    Assert.AreEqual(assessmentSection.GrassCoverErosionOutwards.CalculationBeta(assessmentSection), testWaveConditionsInputs[i].Norm);
                     Assert.AreSame(calculation.InputParameters, testWaveConditionsInputs[i].WaveConditionsInput);
                     Assert.AreEqual(testDataPath, testWaveConditionsInputs[i].HlcdDirectory);
                     Assert.AreEqual(assessmentSection.Id, testWaveConditionsInputs[i].RingId);

@@ -58,15 +58,7 @@ namespace Ringtoets.Revetment.Service.TestUtil
             return true;
         }
 
-        public WaveConditionsOutput Calculate(RoundedDouble waterLevel,
-                                              double a,
-                                              double b,
-                                              double c,
-                                              int norm,
-                                              WaveConditionsInput input,
-                                              string hlcdDirectory,
-                                              string ringId,
-                                              string name)
+        public WaveConditionsOutput Calculate(RoundedDouble waterLevel, double a, double b, double c, double norm, WaveConditionsInput input, string hlcdDirectory, string ringId, string name)
         {
             inputs.Add(new TestWaveConditionsCalculationServiceInput(waterLevel, a, b, c, norm, input, hlcdDirectory, ringId, name));
 

@@ -19,11 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Utils.Extensions;
-using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.GrassCoverErosionOutwards.Plugin
+namespace Ringtoets.GrassCoverErosionOutwards.Data
 {
     /// <summary>
     /// Defines extension methods dealing with <see cref="GrassCoverErosionOutwardsFailureMechanism"/> instances.
@@ -45,10 +46,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 return;
             }
 
-            hydraulicBoundaryDatabase.Locations.ForEachElementDo(location => failureMechanism.HydraulicBoundaryLocations.Add(new HydraulicBoundaryLocation(location.Id,
-                                                                                                                                                           location.Name,
-                                                                                                                                                           location.Location.X,
-                                                                                                                                                           location.Location.Y)));
+            hydraulicBoundaryDatabase.Locations
+                                     .ForEachElementDo(location => failureMechanism.HydraulicBoundaryLocations
+                                                                                   .Add(new HydraulicBoundaryLocation(location.Id,
+                                                                                                                      location.Name,
+                                                                                                                      location.Location.X,
+                                                                                                                      location.Location.Y)));
+        }
+
+        /// <summary>
+        /// Gets the beta which is needed in the calculations within <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
+        /// </summary>
+        /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> to get the beta for.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the norm.</param>
+        /// <returns></returns>
+        public static double CalculationBeta(this GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            if (assessmentSection == null)
+            {
+                throw new ArgumentNullException("assessmentSection");
+            }
+
+            return assessmentSection.FailureMechanismContribution.Norm/
+                   (failureMechanism.Contribution/100)*
+                   failureMechanism.GeneralInput.N;
         }
     }
 }

@@ -102,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                            var a = failureMechanism.GeneralInput.GeneralWaveConditionsInput.A;
                            var b = failureMechanism.GeneralInput.GeneralWaveConditionsInput.B;
                            var c = failureMechanism.GeneralInput.GeneralWaveConditionsInput.C;
-                           var norm = assessmentSection.FailureMechanismContribution.Norm;
+                           var norm = failureMechanism.CalculationBeta(assessmentSection);
 
                            foreach (var waterLevel in calculation.InputParameters.WaterLevels)
                            {

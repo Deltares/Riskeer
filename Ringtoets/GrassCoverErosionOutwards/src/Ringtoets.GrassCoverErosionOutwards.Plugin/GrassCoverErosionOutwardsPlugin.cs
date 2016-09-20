@@ -387,16 +387,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         return;
                     }
 
-                    var correctedNormFactor = assessmentSection.FailureMechanismContribution.Norm/
-                                              (failureMechanism.Contribution/100)*
-                                              failureMechanism.GeneralInput.N;
-
                     bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         nodeData.WrappedData,
                         assessmentSection.Id,
-                        correctedNormFactor,
+                        failureMechanism.CalculationBeta(assessmentSection),
                         new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
+
                     if (successfulCalculation)
                     {
                         nodeData.WrappedData.NotifyObservers();
@@ -446,16 +443,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                         return;
                     }
 
-                    var correctedNormFactor = assessmentSection.FailureMechanismContribution.Norm/
-                                              (failureMechanism.Contribution/100)*
-                                              failureMechanism.GeneralInput.N;
-
                     bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
                         assessmentSection.HydraulicBoundaryDatabase.FilePath,
                         nodeData.WrappedData,
                         assessmentSection.Id,
-                        correctedNormFactor,
+                        failureMechanism.CalculationBeta(assessmentSection),
                         new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
+
                     if (successfulCalculation)
                     {
                         nodeData.WrappedData.NotifyObservers();
