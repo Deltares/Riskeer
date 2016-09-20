@@ -35,6 +35,12 @@ namespace Application.Ringtoets.Storage.DbContext
     
     public partial class WaveImpactAsphaltCoverWaveConditionsCalculationEntity
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public WaveImpactAsphaltCoverWaveConditionsCalculationEntity()
+        {
+            this.WaveImpactAsphaltCoverWaveConditionsOutputEntities = new HashSet<WaveImpactAsphaltCoverWaveConditionsOutputEntity>();
+        }
+    
         public long WaveImpactAsphaltCoverWaveConditionsCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
         public Nullable<long> ForeshoreProfileEntityId { get; set; }
@@ -56,5 +62,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WaveImpactAsphaltCoverWaveConditionsOutputEntity> WaveImpactAsphaltCoverWaveConditionsOutputEntities { get; set; }
     }
 }

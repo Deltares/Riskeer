@@ -24,13 +24,13 @@ using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 
-namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
+namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
     /// Extension methods for <see cref="StabilityStoneCoverWaveConditionsOutput"/> related to 
     /// creating a <see cref="StabilityStoneCoverWaveConditionsOutputEntity"/>.
     /// </summary>
-    internal static class StabilityStoneCoverWaveConditionsOutputCreateExtensions
+    internal static class WaveConditionsOutputCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="StabilityStoneCoverWaveConditionsOutputEntity"/> based on the information
@@ -56,6 +56,32 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
                 WavePeakPeriod = output.WavePeakPeriod.Value.ToNaNAsNull(),
                 WaveAngle = output.WaveAngle.Value.ToNaNAsNull(),
                 OutputType = (byte) type
+            };
+            return entity;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="StabilityStoneCoverWaveConditionsOutputEntity"/> based on the information
+        /// of the <see cref="WaveConditionsOutput"/>.
+        /// </summary>
+        /// <param name="output">The calculation output for stability stone cover failure mechanism to 
+        /// create a database entity for.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
+        /// <returns>A new <see cref="StabilityStoneCoverWaveConditionsOutputEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static WaveImpactAsphaltCoverWaveConditionsOutputEntity CreateWaveImpactAsphaltCoverWaveConditionsOutput(
+            this WaveConditionsOutput output, PersistenceRegistry registry)
+        {
+            if (registry == null)
+            {
+                throw new ArgumentNullException("registry");
+            }
+            var entity = new WaveImpactAsphaltCoverWaveConditionsOutputEntity
+            {
+                WaterLevel = output.WaterLevel.Value.ToNaNAsNull(),
+                WaveHeight = output.WaveHeight.Value.ToNaNAsNull(),
+                WavePeakPeriod = output.WavePeakPeriod.Value.ToNaNAsNull(),
+                WaveAngle = output.WaveAngle.Value.ToNaNAsNull(),
             };
             return entity;
         }

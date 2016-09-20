@@ -21,22 +21,22 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Application.Ringtoets.Storage.Read.StabilityStoneCover;
+using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
 using NUnit.Framework;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Revetment.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
+namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
 {
     [TestFixture]
-    public class StabilityStoneCoverWaveConditionsOutputEntityReadExtensionsTest
+    public class WaveImpactAsphaltCoverWaveConditionsOutputEntityReadExtensionsTest
     {
         [Test]
         public void Read_ValidEntity_ReturnOutputWithValues()
         {
             // Setup
             var random = new Random(12);
-            var entity = new StabilityStoneCoverWaveConditionsOutputEntity
+            var entity = new WaveImpactAsphaltCoverWaveConditionsOutputEntity
             {
                 WaterLevel = random.NextDouble(),
                 WaveHeight = random.NextDouble(),
@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
         public void Read_ValidEntityWithNullParameterValues_ReturnOutputWithNaNValues()
         {
             // Setup
-            var entity = new StabilityStoneCoverWaveConditionsOutputEntity
+            var entity = new WaveImpactAsphaltCoverWaveConditionsOutputEntity
             {
                 WaterLevel = null,
                 WaveHeight = null,
