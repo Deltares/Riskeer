@@ -257,11 +257,31 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
         public void Read_EntityWithCalculationOutputEntity_CalculationWithOutput()
         {
             // Setup
+            double outputALevel = 5.4;
+            double outputBLevel = 2.3;
+            double outputCLevel = 13.2;
             var entity = new StabilityStoneCoverWaveConditionsCalculationEntity
             {
                 StabilityStoneCoverWaveConditionsOutputEntities =
                 {
-                    new StabilityStoneCoverWaveConditionsOutputEntity()
+                    new StabilityStoneCoverWaveConditionsOutputEntity
+                    {
+                        WaterLevel = outputBLevel,
+                        Order = 1,
+                        OutputType = Convert.ToByte(WaveConditionsOutputType.Columns)
+                    },
+                    new StabilityStoneCoverWaveConditionsOutputEntity
+                    {
+                        WaterLevel = outputCLevel,
+                        Order = 2,
+                        OutputType = Convert.ToByte(WaveConditionsOutputType.Blocks)
+                    },
+                    new StabilityStoneCoverWaveConditionsOutputEntity
+                    {
+                        WaterLevel = outputALevel,
+                        Order = 0,
+                        OutputType = Convert.ToByte(WaveConditionsOutputType.Columns)
+                    }
                 }
             };
 
@@ -272,6 +292,14 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
 
             // Assert
             Assert.IsNotNull(calculation.Output);
+            var accuracy = calculation.Output.ColumnsOutput.ElementAt(0).WaterLevel.GetAccuracy();
+
+            Assert.AreEqual(2, calculation.Output.ColumnsOutput.Count());
+            Assert.AreEqual(outputALevel, calculation.Output.ColumnsOutput.ElementAt(0).WaterLevel, accuracy);
+            Assert.AreEqual(outputBLevel, calculation.Output.ColumnsOutput.ElementAt(1).WaterLevel, accuracy);
+
+            Assert.AreEqual(1, calculation.Output.BlocksOutput.Count());
+            Assert.AreEqual(outputCLevel, calculation.Output.BlocksOutput.ElementAt(0).WaterLevel, accuracy);
         }
 
         private static void AssertRoundedDouble(double expectedValue, RoundedDouble actualValue)

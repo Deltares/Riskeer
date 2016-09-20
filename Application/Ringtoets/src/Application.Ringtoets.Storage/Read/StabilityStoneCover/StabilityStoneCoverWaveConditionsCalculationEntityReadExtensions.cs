@@ -93,7 +93,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityStoneCover
             var columnsOutput = new List<WaveConditionsOutput>();
             var blocksOutput = new List<WaveConditionsOutput>();
 
-            foreach (var conditionsOutputEntity in entity.StabilityStoneCoverWaveConditionsOutputEntities)
+            foreach (var conditionsOutputEntity in entity.StabilityStoneCoverWaveConditionsOutputEntities.OrderBy(oe => oe.Order))
             {
                 var output = conditionsOutputEntity.Read();
                 if (conditionsOutputEntity.OutputType == (byte) WaveConditionsOutputType.Columns)

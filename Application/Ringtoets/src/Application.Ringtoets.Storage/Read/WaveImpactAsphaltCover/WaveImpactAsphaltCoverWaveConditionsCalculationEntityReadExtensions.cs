@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -72,12 +74,13 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
                     UpperBoundaryWaterLevels = (RoundedDouble) entity.UpperBoundaryWaterLevels.ToNullAsNaN(),
                     LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN(),
                     StepSize = (WaveConditionsInputStepSize) entity.StepSize
-                }
+                },
+                Output = GetOutput(entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities)
             };
 
             return calculation;
         }
-
+        
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity, ReadConversionCollector collector)
         {
             if (foreshoreProfileEntity != null)
@@ -94,6 +97,16 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
             if (hydraulicLocationEntity != null)
             {
                 return hydraulicLocationEntity.Read(collector);
+            }
+            return null;
+        }
+        private static WaveImpactAsphaltCoverWaveConditionsOutput GetOutput(ICollection<WaveImpactAsphaltCoverWaveConditionsOutputEntity> waveImpactAsphaltCoverWaveConditionsOutputEntities)
+        {
+            if (waveImpactAsphaltCoverWaveConditionsOutputEntities.Any())
+            {
+                return new WaveImpactAsphaltCoverWaveConditionsOutput(waveImpactAsphaltCoverWaveConditionsOutputEntities
+                    .OrderBy(oe => oe.Order)
+                    .Select(oe => oe.Read()));
             }
             return null;
         }

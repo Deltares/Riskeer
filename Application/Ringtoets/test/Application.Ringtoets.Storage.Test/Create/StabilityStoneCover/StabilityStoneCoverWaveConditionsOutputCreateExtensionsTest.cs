@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             var output = new WaveConditionsOutput(1.1, 2.2, 3.3, 4.4);
 
             // Call
-            TestDelegate call = () => output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Columns, null);
+            TestDelegate call = () => output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Columns, 0, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -52,11 +52,12 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
         {
             // Setup
             var output = new WaveConditionsOutput(1.1, 2.2, 3.3, 4.4);
+            int order = 22;
 
             var registry = new PersistenceRegistry();
 
             // Call
-            StabilityStoneCoverWaveConditionsOutputEntity entity = output.CreateStabilityStoneCoverWaveConditionsOutputEntity(outputType, registry);
+            StabilityStoneCoverWaveConditionsOutputEntity entity = output.CreateStabilityStoneCoverWaveConditionsOutputEntity(outputType, order, registry);
 
             // Assert
             Assert.AreEqual(output.WaterLevel, entity.WaterLevel, output.WaterLevel.GetAccuracy());
@@ -80,7 +81,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             var registry = new PersistenceRegistry();
 
             // Call
-            StabilityStoneCoverWaveConditionsOutputEntity entity = output.CreateStabilityStoneCoverWaveConditionsOutputEntity(outputType, registry);
+            StabilityStoneCoverWaveConditionsOutputEntity entity = output.CreateStabilityStoneCoverWaveConditionsOutputEntity(outputType, 22, registry);
 
             // Assert
             Assert.IsNull(entity.WaterLevel);

@@ -766,14 +766,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             UpperBoundaryWaterLevels = (RoundedDouble) 15.3,
                             LowerBoundaryWaterLevels = (RoundedDouble) (-2.4),
                             StepSize = WaveConditionsInputStepSize.Two
-                        },
-                        Output = new StabilityStoneCoverWaveConditionsOutput(new[]
-                        {
-                            new WaveConditionsOutput(1, 2, 3, 4)
-                        }, new[]
-                        {
-                            new WaveConditionsOutput(2, 3, 4, 5)
-                        })
+                        }
                     }
                 }
             });
@@ -806,10 +799,12 @@ namespace Application.Ringtoets.Storage.TestUtil
                     },
                     Output = new StabilityStoneCoverWaveConditionsOutput(new[]
                     {
-                        new WaveConditionsOutput(5, 6, 7, 8)
+                        new WaveConditionsOutput(5, 6, 7, 8),
+                        new WaveConditionsOutput(4, 4, 2, 2)
                     }, new[]
                     {
-                        new WaveConditionsOutput(7, 4, 1, 2)
+                        new WaveConditionsOutput(7, 4, 1, 2),
+                        new WaveConditionsOutput(8, 3, 2, 1),
                     })
                 });
         }
@@ -889,7 +884,12 @@ namespace Application.Ringtoets.Storage.TestUtil
                         UpperBoundaryWaterLevels = (RoundedDouble)13.3,
                         LowerBoundaryWaterLevels = (RoundedDouble)(-1.9),
                         StepSize = WaveConditionsInputStepSize.One
-                    }
+                    },
+                    Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
+                    {
+                        new WaveConditionsOutput(5, 6, 7, 8),
+                        new WaveConditionsOutput(4, 4, 2, 2)
+                    })
                 });
         }
 

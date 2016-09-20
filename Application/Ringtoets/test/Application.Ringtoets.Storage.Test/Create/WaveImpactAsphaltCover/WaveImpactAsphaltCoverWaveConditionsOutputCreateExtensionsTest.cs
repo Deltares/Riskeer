@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             var output = new WaveConditionsOutput(1.1, 2.2, 3.3, 4.4);
 
             // Call
-            TestDelegate call = () => output.CreateWaveImpactAsphaltCoverWaveConditionsOutput(null);
+            TestDelegate call = () => output.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(0, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -50,13 +50,15 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
         {
             // Setup
             var output = new WaveConditionsOutput(1.1, 2.2, 3.3, 4.4);
+            var order = 22;
 
             var registry = new PersistenceRegistry();
 
             // Call
-            WaveImpactAsphaltCoverWaveConditionsOutputEntity entity = output.CreateWaveImpactAsphaltCoverWaveConditionsOutput(registry);
+            WaveImpactAsphaltCoverWaveConditionsOutputEntity entity = output.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(order, registry);
 
             // Assert
+            Assert.AreEqual(order, entity.Order);
             Assert.AreEqual(output.WaterLevel, entity.WaterLevel, output.WaterLevel.GetAccuracy());
             Assert.AreEqual(output.WaveHeight, entity.WaveHeight, output.WaveHeight.GetAccuracy());
             Assert.AreEqual(output.WavePeakPeriod, entity.WavePeakPeriod, output.WavePeakPeriod.GetAccuracy());
@@ -74,7 +76,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             var registry = new PersistenceRegistry();
 
             // Call
-            WaveImpactAsphaltCoverWaveConditionsOutputEntity entity = output.CreateWaveImpactAsphaltCoverWaveConditionsOutput(registry);
+            WaveImpactAsphaltCoverWaveConditionsOutputEntity entity = output.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(22, registry);
 
             // Assert
             Assert.IsNull(entity.WaterLevel);

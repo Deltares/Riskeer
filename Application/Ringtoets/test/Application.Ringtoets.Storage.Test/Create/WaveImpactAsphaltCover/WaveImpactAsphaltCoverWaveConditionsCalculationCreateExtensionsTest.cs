@@ -202,5 +202,27 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             // Assert
             Assert.IsNotNull(entity.ForeshoreProfileEntity);
         }
+
+        [Test]
+        public void Create_HasCalculationOutputs_EntityHasOrderedCalculationOutputEntity()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(new[]
+                {
+                    new WaveConditionsOutput(1, 2, 3, 4),
+                    new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN)
+                })
+            };
+
+            // Call
+            WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.AreEqual(2, entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities.Count);
+            Assert.AreEqual(new [] {0,1}, entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities.Select(oe => oe.Order));
+        }
     }
 }

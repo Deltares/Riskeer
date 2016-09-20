@@ -253,6 +253,42 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
             Assert.IsTrue(collector.Contains(hydraulicLocationEntity));
         }
 
+        [Test]
+        public void Read_EntityWithCalculationOutputEntity_CalculationWithOutput()
+        {
+            // Setup
+            double outputALevel = 5.4;
+            double outputBLevel = 2.3;
+            var entity = new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
+            {
+                WaveImpactAsphaltCoverWaveConditionsOutputEntities =
+                {
+                    new WaveImpactAsphaltCoverWaveConditionsOutputEntity
+                    {
+                        WaterLevel = outputBLevel,
+                        Order = 1
+                    },
+                    new WaveImpactAsphaltCoverWaveConditionsOutputEntity
+                    {
+                        WaterLevel = outputALevel,
+                        Order = 0
+                    }
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsNotNull(calculation.Output);
+            Assert.AreEqual(2, calculation.Output.Items.Count());
+            var accuracy = calculation.Output.Items.ElementAt(0).WaterLevel.GetAccuracy();
+            Assert.AreEqual(outputALevel, calculation.Output.Items.ElementAt(0).WaterLevel, accuracy);
+            Assert.AreEqual(outputBLevel, calculation.Output.Items.ElementAt(1).WaterLevel, accuracy);
+        }
+
         private static void AssertRoundedDouble(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());

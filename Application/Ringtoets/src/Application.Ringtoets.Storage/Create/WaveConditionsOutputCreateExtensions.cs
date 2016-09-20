@@ -22,13 +22,12 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Revetment.Data;
-using Ringtoets.StabilityStoneCover.Data;
 
 namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="StabilityStoneCoverWaveConditionsOutput"/> related to 
-    /// creating a <see cref="StabilityStoneCoverWaveConditionsOutputEntity"/>.
+    /// Extension methods for <see cref="WaveConditionsOutput"/> related to 
+    /// creating entities for different failure mechanisms.
     /// </summary>
     internal static class WaveConditionsOutputCreateExtensions
     {
@@ -65,11 +64,12 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="output">The calculation output for stability stone cover failure mechanism to 
         /// create a database entity for.</param>
         /// <param name="type">The type of the <see cref="WaveConditionsOutput"/>.</param>
+        /// <param name="order">The position of the output in the list of all outputs.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StabilityStoneCoverWaveConditionsOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static StabilityStoneCoverWaveConditionsOutputEntity CreateStabilityStoneCoverWaveConditionsOutputEntity(
-            this WaveConditionsOutput output, WaveConditionsOutputType type, PersistenceRegistry registry)
+            this WaveConditionsOutput output, WaveConditionsOutputType type, int order, PersistenceRegistry registry)
         {
             if (registry == null)
             {
@@ -77,6 +77,7 @@ namespace Application.Ringtoets.Storage.Create
             }
             var entity = new StabilityStoneCoverWaveConditionsOutputEntity
             {
+                Order = order,
                 WaterLevel = output.WaterLevel.Value.ToNaNAsNull(),
                 WaveHeight = output.WaveHeight.Value.ToNaNAsNull(),
                 WavePeakPeriod = output.WavePeakPeriod.Value.ToNaNAsNull(),
@@ -87,16 +88,16 @@ namespace Application.Ringtoets.Storage.Create
         }
 
         /// <summary>
-        /// Creates a <see cref="StabilityStoneCoverWaveConditionsOutputEntity"/> based on the information
+        /// Creates a <see cref="WaveImpactAsphaltCoverWaveConditionsOutputEntity"/> based on the information
         /// of the <see cref="WaveConditionsOutput"/>.
         /// </summary>
         /// <param name="output">The calculation output for stability stone cover failure mechanism to 
-        /// create a database entity for.</param>
+        ///     create a database entity for.</param>
+        /// <param name="order">The position of the output in the list of all outputs.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
-        /// <returns>A new <see cref="StabilityStoneCoverWaveConditionsOutputEntity"/>.</returns>
+        /// <returns>A new <see cref="WaveImpactAsphaltCoverWaveConditionsOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static WaveImpactAsphaltCoverWaveConditionsOutputEntity CreateWaveImpactAsphaltCoverWaveConditionsOutput(
-            this WaveConditionsOutput output, PersistenceRegistry registry)
+        internal static WaveImpactAsphaltCoverWaveConditionsOutputEntity CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(this WaveConditionsOutput output, int order, PersistenceRegistry registry)
         {
             if (registry == null)
             {
@@ -104,10 +105,11 @@ namespace Application.Ringtoets.Storage.Create
             }
             var entity = new WaveImpactAsphaltCoverWaveConditionsOutputEntity
             {
+                Order = order,
                 WaterLevel = output.WaterLevel.Value.ToNaNAsNull(),
                 WaveHeight = output.WaveHeight.Value.ToNaNAsNull(),
                 WavePeakPeriod = output.WavePeakPeriod.Value.ToNaNAsNull(),
-                WaveAngle = output.WaveAngle.Value.ToNaNAsNull(),
+                WaveAngle = output.WaveAngle.Value.ToNaNAsNull()
             };
             return entity;
         }

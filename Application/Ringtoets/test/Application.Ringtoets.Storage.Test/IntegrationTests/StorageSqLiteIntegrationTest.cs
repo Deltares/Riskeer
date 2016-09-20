@@ -873,6 +873,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     AssertStabilityStoneCoverWaveConditionsCalculation(expectedStabilityStoneCoverWaveConditionsCalculation, (StabilityStoneCoverWaveConditionsCalculation)actualChild);
                 }
+                var expectedWaveImpactAsphaltCoverWaveConditionsCalculation = expectedChild as WaveImpactAsphaltCoverWaveConditionsCalculation;
+                if (expectedWaveImpactAsphaltCoverWaveConditionsCalculation != null)
+                {
+                    AssertWaveImpactAsphaltCoverWaveConditionsCalculation(expectedWaveImpactAsphaltCoverWaveConditionsCalculation, (WaveImpactAsphaltCoverWaveConditionsCalculation)actualChild);
+                }
             }
         }
 
@@ -1020,7 +1025,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             AssertWaveConditionsInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
 
-            Assert.IsTrue(actualCalculation.HasOutput);
+            Assert.AreEqual(expectedCalculation.HasOutput, actualCalculation.HasOutput);
         }
 
         private static void AssertWaveConditionsInput(WaveConditionsInput expectedInput, WaveConditionsInput actualInput)
@@ -1082,6 +1087,16 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         {
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertCalculationGroup(expectedFailureMechanism.WaveConditionsCalculationGroup, actualFailureMechanism.WaveConditionsCalculationGroup);
+        }
+
+        private static void AssertWaveImpactAsphaltCoverWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculation expectedCalculation, WaveImpactAsphaltCoverWaveConditionsCalculation actualCalculation)
+        {
+            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
+
+            AssertWaveConditionsInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
+
+            Assert.AreEqual(expectedCalculation.HasOutput, actualCalculation.HasOutput);
         }
 
         private static void AssertDikeProfiles(IList<DikeProfile> expectedDikeProfiles, IList<DikeProfile> actualDikeProfiles)
