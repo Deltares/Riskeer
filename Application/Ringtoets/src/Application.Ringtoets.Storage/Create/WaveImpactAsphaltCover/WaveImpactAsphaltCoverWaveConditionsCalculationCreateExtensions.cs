@@ -76,12 +76,12 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
                 entity.ForeshoreProfileEntity = calculation.InputParameters.ForeshoreProfile.Create(registry, 0);
             }
 
-            CreateEntitiesForOutput(calculation, registry, entity);
+            AddEntityForWaveImpactAsphaltCoverWaveConditionsOutput(calculation, registry, entity);
 
             return entity;
         }
 
-        private static void CreateEntitiesForOutput(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, PersistenceRegistry registry, WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity)
+        private static void AddEntityForWaveImpactAsphaltCoverWaveConditionsOutput(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, PersistenceRegistry registry, WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity)
         {
             if (calculation.HasOutput)
             {

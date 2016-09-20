@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
                     LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN(),
                     StepSize = (WaveConditionsInputStepSize) entity.StepSize
                 },
-                Output = GetOutput(entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities)
+                Output = ReadCalculationOutputs(entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities)
             };
 
             return calculation;
@@ -100,7 +100,7 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
             }
             return null;
         }
-        private static WaveImpactAsphaltCoverWaveConditionsOutput GetOutput(ICollection<WaveImpactAsphaltCoverWaveConditionsOutputEntity> waveImpactAsphaltCoverWaveConditionsOutputEntities)
+        private static WaveImpactAsphaltCoverWaveConditionsOutput ReadCalculationOutputs(ICollection<WaveImpactAsphaltCoverWaveConditionsOutputEntity> waveImpactAsphaltCoverWaveConditionsOutputEntities)
         {
             if (waveImpactAsphaltCoverWaveConditionsOutputEntities.Any())
             {
