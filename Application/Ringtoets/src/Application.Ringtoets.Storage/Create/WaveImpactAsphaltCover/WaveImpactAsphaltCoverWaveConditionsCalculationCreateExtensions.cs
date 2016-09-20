@@ -30,7 +30,7 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
     /// Extension methods for <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> related to creating a
     /// <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationEntity"/>.
     /// </summary>
-    internal static class WaveImpactAsphaltCoverConditionsCalculationCreateExtensions
+    internal static class WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationEntity"/> based on the information of the 

@@ -247,9 +247,9 @@ namespace Application.Ringtoets.Storage.Read
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }
-            foreach (WaveImpactAsphaltCoverWaveConditionsCalculationEntity asphaltCoverWaveConditionsCalculationEntity in entity.WaveImpactAsphaltCoverWaveConditionsCalculationEntities)
+            foreach (WaveImpactAsphaltCoverWaveConditionsCalculationEntity calculationEntity in entity.WaveImpactAsphaltCoverWaveConditionsCalculationEntities)
             {
-                sortedList.Add(asphaltCoverWaveConditionsCalculationEntity.Order, asphaltCoverWaveConditionsCalculationEntity);
+                sortedList.Add(calculationEntity.Order, calculationEntity);
             }
             return sortedList.Values;
         }
