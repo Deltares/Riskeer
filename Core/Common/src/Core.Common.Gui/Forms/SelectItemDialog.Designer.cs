@@ -88,6 +88,7 @@ namespace Core.Common.Gui.Forms
             this.listViewItemTypes.Name = "listViewItemTypes";
             this.listViewItemTypes.SmallImageList = this.imageList;
             this.listViewItemTypes.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.listViewItemTypes.TileSize = new System.Drawing.Size(200, 30);
             this.listViewItemTypes.UseCompatibleStateImageBehavior = false;
             this.listViewItemTypes.View = System.Windows.Forms.View.Tile;
             this.listViewItemTypes.DoubleClick += new System.EventHandler(this.ListViewItemTypesDoubleClick);
