@@ -59,7 +59,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// </summary>
         /// <param name="failureMechanism">The <see cref="GrassCoverErosionOutwardsFailureMechanism"/> to get the beta for.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the norm.</param>
-        /// <returns></returns>
+        /// <returns>The value of beta.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
         public static double CalculationBeta(this GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)

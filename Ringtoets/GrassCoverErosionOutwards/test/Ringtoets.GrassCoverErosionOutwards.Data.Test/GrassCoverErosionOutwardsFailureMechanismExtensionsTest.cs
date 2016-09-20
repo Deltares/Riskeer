@@ -117,7 +117,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             double beta = failureMechanism.CalculationBeta(assessmentSection);
 
             // Assert
-
             double expectedBeta = assessmentSection.FailureMechanismContribution.Norm/
                                   (failureMechanism.Contribution/100)*
                                   failureMechanism.GeneralInput.N;
