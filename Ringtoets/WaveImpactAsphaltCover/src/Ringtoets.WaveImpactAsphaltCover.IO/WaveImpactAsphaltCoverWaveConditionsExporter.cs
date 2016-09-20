@@ -39,7 +39,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.IO
         /// <param name="calculations">The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> objects to export.</param>
         /// <param name="filePath">The file path to export to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the file could not be written.</exception>
         public WaveImpactAsphaltCoverWaveConditionsExporter(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, string filePath)
             : base(CreateExportableWaveConditionsCollection(calculations), filePath) {}

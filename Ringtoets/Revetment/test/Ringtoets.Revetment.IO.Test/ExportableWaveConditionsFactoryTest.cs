@@ -98,15 +98,18 @@ namespace Ringtoets.Revetment.IO.Test
         [Test]
         public void CreateExportableWaveConditionsCollection_ValidData_ReturnsValidCollection()
         {
+            // Setup
+            var waveConditionsInput = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
+                ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()),
+                UseForeshore = true
+            };
+
             // Call
             ExportableWaveConditions[] exportableWaveConditionsCollection =
                 ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("ewcName",
-                                                                                         new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
-                                                                                         {
-                                                                                             HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
-                                                                                             ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()),
-                                                                                             UseForeshore = true
-                                                                                         },
+                                                                                         waveConditionsInput,
                                                                                          waveConditionsOutputCollection,
                                                                                          waveConditionsOutputCollection).ToArray();
 
@@ -168,14 +171,14 @@ namespace Ringtoets.Revetment.IO.Test
         }
 
         [Test]
-        public void CreateExportableWaveConditionsCollection_CoverTypeNull_ReturnsEmptyCollection()
+        public void CreateExportableWaveConditionsCollection_CoverTypeNull_ThrowArgumentNullException()
         {
             // Call
-            IEnumerable<ExportableWaveConditions> exportableWaveConditionsCollection =
-                ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(WaveConditionsRevetment.Asphalt), Enumerable.Empty<WaveConditionsOutput>(), (CoverType) null);
+            TestDelegate call = () => ExportableWaveConditionsFactory.CreateExportableWaveConditionsCollection("aName", new WaveConditionsInput(WaveConditionsRevetment.Asphalt), Enumerable.Empty<WaveConditionsOutput>(), (CoverType) null);
 
             // Assert
-            Assert.IsEmpty(exportableWaveConditionsCollection);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("coverType", exception.ParamName);
         }
 
         [Test]

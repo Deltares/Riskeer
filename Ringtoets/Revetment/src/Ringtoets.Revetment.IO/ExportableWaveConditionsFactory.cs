@@ -108,6 +108,10 @@ namespace Ringtoets.Revetment.IO
             {
                 throw new ArgumentNullException("output");
             }
+            if (coverType == null)
+            {
+                throw new ArgumentNullException("coverType");
+            }
 
             return output.Select(waveConditionsOutput => new ExportableWaveConditions(name, waveConditionsInput, waveConditionsOutput, coverType));
         }
