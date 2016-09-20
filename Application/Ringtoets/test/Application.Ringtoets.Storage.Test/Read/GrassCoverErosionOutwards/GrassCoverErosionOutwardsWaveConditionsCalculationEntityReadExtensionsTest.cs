@@ -253,6 +253,27 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             Assert.IsTrue(collector.Contains(hydraulicLocationEntity));
         }
 
+        [Test]
+        public void Read_EntityWithCalculationOutputEntity_CalculationWithOutput()
+        {
+            // Setup
+            var entity = new GrassCoverErosionOutwardsWaveConditionsCalculationEntity
+            {
+                GrassCoverErosionOutwardsWaveConditionsOutputEntities =
+                {
+                    new GrassCoverErosionOutwardsWaveConditionsOutputEntity()
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsNotNull(calculation.Output);
+        }
+
         private static void AssertRoundedDouble(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());

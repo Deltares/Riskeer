@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             var output = new WaveConditionsOutput(1.1, 2.2, 3.3, 4.4);
 
             // Call
-            TestDelegate call = () => output.CreateGrassCoverErosionOutwardsWaveConditionsOutput(null);
+            TestDelegate call = () => output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -54,7 +54,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             var registry = new PersistenceRegistry();
 
             // Call
-            GrassCoverErosionOutwardsWaveConditionsOutputEntity entity = output.CreateGrassCoverErosionOutwardsWaveConditionsOutput(registry);
+            GrassCoverErosionOutwardsWaveConditionsOutputEntity entity = output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(registry);
 
             // Assert
             Assert.AreEqual(output.WaterLevel, entity.WaterLevel, output.WaterLevel.GetAccuracy());
@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             var registry = new PersistenceRegistry();
 
             // Call
-            GrassCoverErosionOutwardsWaveConditionsOutputEntity entity = output.CreateGrassCoverErosionOutwardsWaveConditionsOutput(registry);
+            GrassCoverErosionOutwardsWaveConditionsOutputEntity entity = output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(registry);
 
             // Assert
             Assert.IsNull(entity.WaterLevel);

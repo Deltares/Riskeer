@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -75,7 +76,21 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
                 }
             };
 
+            ReadCalculationOutputs(entity, calculation);
+
             return calculation;
+        }
+
+        private static void ReadCalculationOutputs(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity,
+                                                   GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
+        {
+            if (!entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Any())
+            {
+                return;
+            }
+
+            var waveConditionsOutputs = entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Select(e => e.Read()).ToList();
+            calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(waveConditionsOutputs);
         }
 
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity, ReadConversionCollector collector)

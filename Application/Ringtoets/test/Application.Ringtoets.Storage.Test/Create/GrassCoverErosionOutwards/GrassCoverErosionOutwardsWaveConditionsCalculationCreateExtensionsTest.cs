@@ -125,6 +125,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             Assert.AreEqual(order, entity.Order);
             Assert.AreEqual(0, entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntityId);
             Assert.IsNull(entity.CalculationGroupEntity);
+            Assert.AreEqual(0, entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Count);
             Assert.IsNull(entity.ForeshoreProfileEntity);
             Assert.IsNull(entity.GrassCoverErosionOutwardsHydraulicLocationEntity);
         }
@@ -202,6 +203,26 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
 
             // Assert
             Assert.IsNotNull(entity.ForeshoreProfileEntity);
+        }
+
+        [Test]
+        public void Create_HasCalculationOutput_EntityHasCalculationOutputEntity()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(new[]
+                {
+                    new WaveConditionsOutput(1, 2, 3, 4)
+                })
+            };
+
+            // Call
+            GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.AreEqual(1, entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Count);
         }
     }
 }

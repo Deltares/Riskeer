@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Revetment.Data;
 
 namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
 {
@@ -41,8 +42,8 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
         /// <param name="order">The index at which <paramref name="calculation"/> resides within its parent.</param>
         /// <returns>A new <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static GrassCoverErosionOutwardsWaveConditionsCalculationEntity Create(this GrassCoverErosionOutwardsWaveConditionsCalculation calculation, 
-            PersistenceRegistry registry, int order)
+        internal static GrassCoverErosionOutwardsWaveConditionsCalculationEntity Create(this GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
+                                                                                        PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
@@ -56,7 +57,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
                 Comments = calculation.Comments.DeepClone(),
                 Orientation = calculation.InputParameters.Orientation,
                 UseBreakWater = Convert.ToByte(calculation.InputParameters.UseBreakWater),
-                BreakWaterType = (byte)calculation.InputParameters.BreakWater.Type,
+                BreakWaterType = (byte) calculation.InputParameters.BreakWater.Type,
                 BreakWaterHeight = calculation.InputParameters.BreakWater.Height,
                 UseForeshore = Convert.ToByte(calculation.InputParameters.UseForeshore),
                 UpperBoundaryRevetment = calculation.InputParameters.UpperBoundaryRevetment,
@@ -75,7 +76,23 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             {
                 entity.ForeshoreProfileEntity = calculation.InputParameters.ForeshoreProfile.Create(registry, 0);
             }
+
+            if (calculation.HasOutput)
+            {
+                AddEntityForStabilityStoneCoverWaveConditionsOutput(calculation.Output, registry, entity);
+            }
+
             return entity;
+        }
+
+        private static void AddEntityForStabilityStoneCoverWaveConditionsOutput(GrassCoverErosionOutwardsWaveConditionsOutput outputs,
+                                                                                PersistenceRegistry registry,
+                                                                                GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity)
+        {
+            foreach (WaveConditionsOutput output in outputs.Items)
+            {
+                entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Add(output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(registry));
+            }
         }
     }
 }

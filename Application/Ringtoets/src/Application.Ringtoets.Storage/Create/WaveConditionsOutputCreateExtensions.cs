@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionOutwardsWaveConditionsOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static GrassCoverErosionOutwardsWaveConditionsOutputEntity CreateGrassCoverErosionOutwardsWaveConditionsOutput(
+        internal static GrassCoverErosionOutwardsWaveConditionsOutputEntity CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(
             this WaveConditionsOutput output, PersistenceRegistry registry)
         {
             if (registry == null)
@@ -68,7 +68,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StabilityStoneCoverWaveConditionsOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static StabilityStoneCoverWaveConditionsOutputEntity CreateStabilityStoneCoverWaveConditionsOutput(
+        internal static StabilityStoneCoverWaveConditionsOutputEntity CreateStabilityStoneCoverWaveConditionsOutputEntity(
             this WaveConditionsOutput output, WaveConditionsOutputType type, PersistenceRegistry registry)
         {
             if (registry == null)

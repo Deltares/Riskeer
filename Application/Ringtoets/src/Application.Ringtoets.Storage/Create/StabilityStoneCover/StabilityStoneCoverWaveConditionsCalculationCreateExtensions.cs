@@ -88,11 +88,13 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
         {
             foreach (var output in stabilityStoneCoverWaveConditionsOutputs.BlocksOutput)
             {
-                entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutput(WaveConditionsOutputType.Blocks, registry));
+                entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(
+                    output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Blocks, registry));
             }
             foreach (var output in stabilityStoneCoverWaveConditionsOutputs.ColumnsOutput)
             {
-                entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutput(WaveConditionsOutputType.Columns, registry));
+                entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(
+                    output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Columns, registry));
             }
         }
     }
