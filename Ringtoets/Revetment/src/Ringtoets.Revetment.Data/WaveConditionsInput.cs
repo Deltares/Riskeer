@@ -99,6 +99,11 @@ namespace Ringtoets.Revetment.Data
         /// Gets or sets the orientation of the foreshore profile geometry with respect to North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
+        /// <remarks><list type="bullet">
+        /// <item>When the value is smaller than 0, it will be set to 0.</item>
+        /// <item>When the value is larger than 360, it will be set to 360.</item>
+        /// </list>
+        /// </remarks>
         public RoundedDouble Orientation
         {
             get
@@ -107,7 +112,11 @@ namespace Ringtoets.Revetment.Data
             }
             set
             {
-                orientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
+                var newOrientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
+
+                newOrientation = ValidateOrientationInRange(newOrientation);
+
+                orientation = newOrientation;
             }
         }
 
@@ -269,6 +278,24 @@ namespace Ringtoets.Revetment.Data
             {
                 return DetermineWaterLevels();
             }
+        }
+
+        private RoundedDouble ValidateOrientationInRange(RoundedDouble newOrientation)
+        {
+            const int lowerBoundaryRange = 0;
+            const int upperBoundaryRange = 360;
+
+            if (newOrientation < lowerBoundaryRange)
+            {
+                newOrientation = new RoundedDouble(2);
+            }
+
+            if (newOrientation > upperBoundaryRange)
+            {
+                newOrientation = new RoundedDouble(2, upperBoundaryRange);
+            }
+
+            return newOrientation;
         }
 
         private static RoundedDouble ValidateUpperBoundaryInRange(RoundedDouble boundary)

@@ -276,13 +276,11 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        [TestCase(1233)]
-        [TestCase(359.994)]
+        [TestCase(360.004)]
         [TestCase(300)]
         [TestCase(0)]
-        [TestCase(-0.005)]
-        [TestCase(-23)]
-        public void Orientation_ValidValues_NewValueSet(double orientation)
+        [TestCase(-0.004)]
+        public void Orientation_ValidValue_NewValueSet(double orientation)
         {
             // Setup
             var input = new WaveConditionsInput();
@@ -292,6 +290,23 @@ namespace Ringtoets.Revetment.Data.Test
 
             // Assert
             Assert.AreEqual(orientation, input.Orientation, input.Orientation.GetAccuracy());
+        }
+
+        [Test]
+        [TestCase(400, 360)]
+        [TestCase(360.05, 360)]
+        [TestCase(-0.005, 0)]
+        [TestCase(-23, 0)]
+        public void Orientation_InvalidValue_ValueRoundedToValidValue(double invalidValue, double validValue)
+        {
+            // Setup
+            var input = new WaveConditionsInput();
+
+            // Call
+            input.Orientation = (RoundedDouble) invalidValue;
+
+            // Assert
+            Assert.AreEqual(validValue, input.Orientation, input.Orientation.GetAccuracy());
         }
 
         [Test]
