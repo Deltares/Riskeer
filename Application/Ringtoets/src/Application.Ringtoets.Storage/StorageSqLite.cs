@@ -122,6 +122,7 @@ namespace Application.Ringtoets.Storage
             SetConnectionToExistingFile(databaseFilePath);
             try
             {
+                RingtoetsProject project;
                 using (var dbContext = new RingtoetsEntities(connectionString))
                 {
                     ValidateDatabaseVersion(dbContext, databaseFilePath);
@@ -137,11 +138,11 @@ namespace Application.Ringtoets.Storage
                         throw CreateStorageReaderException(databaseFilePath, Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file, exception);
                     }
 
-                    var project = projectEntity.Read(new ReadConversionCollector());
-
-                    project.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
-                    return project;
+                    project = projectEntity.Read(new ReadConversionCollector());
                 }
+
+                project.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
+                return project;
             }
             catch (DataException exception)
             {
@@ -172,12 +173,14 @@ namespace Application.Ringtoets.Storage
 
             try
             {
+                byte[] originalHash;
                 using (var dbContext = new RingtoetsEntities(connectionString))
                 {
-                    byte[] originalHash = dbContext.VersionEntities.Select(v => v.FingerPrint).First();
-                    byte[] hash = FingerprintHelper.Get(stagedProjectEntity);
-                    return !FingerprintHelper.AreEqual(originalHash, hash);
+                    originalHash = dbContext.VersionEntities.Select(v => v.FingerPrint).First();
                 }
+
+                byte[] hash = FingerprintHelper.Get(stagedProjectEntity);
+                return !FingerprintHelper.AreEqual(originalHash, hash);
             }
             catch (QuotaExceededException e)
             {
@@ -219,7 +222,6 @@ namespace Application.Ringtoets.Storage
             {
                 try
                 {
-                    var registry = new PersistenceRegistry();
                     dbContext.VersionEntities.Add(new VersionEntity
                     {
                         Version = currentDatabaseVersion,
@@ -228,8 +230,6 @@ namespace Application.Ringtoets.Storage
                     });
                     dbContext.ProjectEntities.Add(stagedProjectEntity);
                     dbContext.SaveChanges();
-
-                    stagedProject.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
                 }
                 catch (DataException exception)
                 {
@@ -247,6 +247,7 @@ namespace Application.Ringtoets.Storage
                     }
                     throw;
                 }
+                stagedProject.Name = Path.GetFileNameWithoutExtension(databaseFilePath);
             }
         }
 

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
@@ -217,11 +218,18 @@ namespace Core.Common.Gui.Commands
                 case DialogResult.Cancel:
                     return false;
                 case DialogResult.Yes:
+                    ReleaseDatabaseFileHandle();
                     return SaveProject();
                 case DialogResult.No:
                     break;
             }
             return true;
+        }
+
+        private static void ReleaseDatabaseFileHandle()
+        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         /// <summary>
