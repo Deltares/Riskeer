@@ -63,7 +63,7 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
             var inputContext = new TestWaveConditionsInputContext(grassCoverErosionInwardsInput,
                                                                   foreshoreProfiles);
 
-            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
+            var properties = new TestWaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -108,7 +108,7 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
                                                                       foreshoreProfile
                                                                   });
 
-            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
+            var properties = new TestWaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -158,6 +158,17 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
                 get
                 {
                     return foreshoreProfiles;
+                }
+            }
+        }
+
+        private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<WaveConditionsInputContext>
+        {
+            public override string RevetmentType
+            {
+                get
+                {
+                    return "test";
                 }
             }
         }

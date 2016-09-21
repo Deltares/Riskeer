@@ -19,9 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
+using Ringtoets.StabilityStoneCover.Forms.Properties;
 
 namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 {
@@ -31,11 +31,11 @@ namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
     public class StabilityStoneCoverWaveConditionsInputContextProperties
         : WaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext>
     {
-        public override WaveConditionsRevetment RevetmentType
+        public override string RevetmentType
         {
             get
             {
-                return WaveConditionsRevetment.StabilityStone;
+                return Resources.StabilityStoneCoverWaveConditionsInputContextPorperties_RevetmentType;
             }
         }
     }

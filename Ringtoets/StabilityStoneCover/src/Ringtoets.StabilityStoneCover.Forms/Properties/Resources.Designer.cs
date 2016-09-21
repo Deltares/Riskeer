@@ -118,6 +118,15 @@ namespace Ringtoets.StabilityStoneCover.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Steen (blokken en zuilen).
+        /// </summary>
+        public static string StabilityStoneCoverWaveConditionsInputContextPorperties_RevetmentType {
+            get {
+                return ResourceManager.GetString("StabilityStoneCoverWaveConditionsInputContextPorperties_RevetmentType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekende resultaten voor de hydraulische randvoorwaarden voor blokken..
         /// </summary>
         public static string StabilityStoneCoverWaveConditionsOutputProperties_Blocks_Description {

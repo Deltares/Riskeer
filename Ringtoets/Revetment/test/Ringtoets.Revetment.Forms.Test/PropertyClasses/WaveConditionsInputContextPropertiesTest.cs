@@ -64,7 +64,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>();
+            var properties = new TestWaveConditionsInputContextProperties();
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<WaveConditionsInputContext>>(properties);
@@ -80,7 +80,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
 
             // Call
-            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
+            var properties = new TestWaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -106,7 +106,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.AreEqual(0, properties.Orientation.Value);
             Assert.AreSame(input, properties.BreakWater.Data);
             Assert.AreSame(input, properties.ForeshoreGeometry.Data);
-            Assert.AreEqual(input.RevetmentType, properties.RevetmentType);
+            Assert.AreEqual("Test", properties.RevetmentType);
         }
 
         [Test]
@@ -159,7 +159,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             });
 
             // Call
-            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
+            var properties = new TestWaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -213,7 +213,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 new BreakWater(BreakWaterType.Dam, (RoundedDouble) random.NextDouble()),
                 new ForeshoreProfile.ConstructionProperties());
 
-            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
+            var properties = new TestWaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -269,7 +269,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             }, new HydraulicBoundaryLocation[0]);
 
             // Call
-            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
+            var properties = new TestWaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -421,6 +421,17 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 get
                 {
                     return foreshoreProfiles;
+                }
+            }
+        }
+
+        private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<WaveConditionsInputContext>
+        {
+            public override string RevetmentType
+            {
+                get
+                {
+                    return "Test";
                 }
             }
         }

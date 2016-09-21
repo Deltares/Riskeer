@@ -43,7 +43,8 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="WaveConditionsInputContext"/> for properties panel.
     /// </summary>
-    public class WaveConditionsInputContextProperties<T> : ObjectProperties<T>, IWaveConditionsInputContextProperties<T>  where T : WaveConditionsInputContext
+    public abstract class WaveConditionsInputContextProperties<T> : ObjectProperties<T>, IWaveConditionsInputContextProperties<T> 
+        where T : WaveConditionsInputContext
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
         private const int assessmentLevelPropertyIndex = 1;
@@ -286,17 +287,10 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         }
 
         [PropertyOrder(revetmentTypePropertyIndex)]
-        [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "WaveConditionsInput_RevetmentType_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WaveConditionsInput_RevetmentType_Description")]
-        public virtual WaveConditionsRevetment RevetmentType
-        {
-            get
-            {
-                return data.WrappedData.RevetmentType;
-            }
-        }
+        public abstract string RevetmentType { get; }
 
         public virtual IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
         {

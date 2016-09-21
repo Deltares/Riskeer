@@ -107,7 +107,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(0, properties.Orientation.Value);
             Assert.AreSame(input, properties.BreakWater.Data);
             Assert.AreSame(input, properties.ForeshoreGeometry.Data);
-            Assert.AreEqual(input.RevetmentType, properties.RevetmentType);
+            Assert.AreEqual("Gras", properties.RevetmentType);
         }
 
         [Test]

@@ -23,7 +23,6 @@ using Core.Common.Base.Data;
 using Core.Common.Utils.Attributes;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
-using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PropertyClasses;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
@@ -54,11 +53,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             }
         }
 
-        public override WaveConditionsRevetment RevetmentType
+        public override string RevetmentType
         {
             get
             {
-                return WaveConditionsRevetment.Grass;
+                return Resources.GrassCoverErosionOutwardsWaveConditionsInputContext_RevetmentType;
             }
         }
     }

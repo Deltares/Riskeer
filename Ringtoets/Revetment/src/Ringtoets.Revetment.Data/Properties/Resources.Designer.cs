@@ -136,32 +136,5 @@ namespace Ringtoets.Revetment.Data.Properties {
                 return ResourceManager.GetString("WaveConditionsInputStepSize_Two", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Asfalt.
-        /// </summary>
-        internal static string WaveConditionsRevetment_AsphaltRevetment {
-            get {
-                return ResourceManager.GetString("WaveConditionsRevetment_AsphaltRevetment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gras.
-        /// </summary>
-        internal static string WaveConditionsRevetment_GrassRevetment {
-            get {
-                return ResourceManager.GetString("WaveConditionsRevetment_GrassRevetment", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Steen (blokken en zuilen).
-        /// </summary>
-        internal static string WaveConditionsRevetment_StoneRevetment {
-            get {
-                return ResourceManager.GetString("WaveConditionsRevetment_StoneRevetment", resourceCulture);
-            }
-        }
     }
 }

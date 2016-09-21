@@ -174,4 +174,7 @@
   <data name="GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_Description" xml:space="preserve">
     <value>Berekende waterstand bij doorsnede-eis op de geselecteerde locatie.</value>
   </data>
+  <data name="GrassCoverErosionOutwardsWaveConditionsInputContext_RevetmentType" xml:space="preserve">
+    <value>Gras</value>
+  </data>
 </root>

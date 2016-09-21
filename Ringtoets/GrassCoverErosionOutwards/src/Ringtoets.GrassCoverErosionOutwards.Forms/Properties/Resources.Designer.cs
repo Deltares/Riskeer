@@ -202,6 +202,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gras.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveConditionsInputContext_RevetmentType {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsInputContext_RevetmentType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Berekende waterstand bij doorsnede-eis op de geselecteerde locatie..
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsInputContextProperties_DesignWaterLevel_Description {

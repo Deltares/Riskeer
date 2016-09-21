@@ -114,7 +114,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
             Assert.AreEqual(0, properties.Orientation.Value);
             Assert.AreSame(input, properties.BreakWater.Data);
             Assert.AreSame(input, properties.ForeshoreGeometry.Data);
-            Assert.AreEqual(input.RevetmentType, properties.RevetmentType);
+            Assert.AreEqual("Steen (blokken en zuilen)", properties.RevetmentType);
             mocks.VerifyAll();
         }
 

@@ -135,13 +135,4 @@
   <data name="WaveConditionsInputStepSize_Two" xml:space="preserve">
     <value>2.0</value>
   </data>
-  <data name="WaveConditionsRevetment_AsphaltRevetment" xml:space="preserve">
-    <value>Asfalt</value>
-  </data>
-  <data name="WaveConditionsRevetment_GrassRevetment" xml:space="preserve">
-    <value>Gras</value>
-  </data>
-  <data name="WaveConditionsRevetment_StoneRevetment" xml:space="preserve">
-    <value>Steen (blokken en zuilen)</value>
-  </data>
 </root>

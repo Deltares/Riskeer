@@ -58,7 +58,7 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
                                                                       new TestHydraulicBoundaryLocation()
                                                                   });
 
-            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
+            var properties = new TestWaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -101,7 +101,7 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
                                                                       hydraulicBoundaryLocation
                                                                   });
 
-            var properties = new WaveConditionsInputContextProperties<WaveConditionsInputContext>
+            var properties = new TestWaveConditionsInputContextProperties
             {
                 Data = inputContext
             };
@@ -155,6 +155,17 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
                 get
                 {
                     throw new NotImplementedException();
+                }
+            }
+        }
+
+        private class TestWaveConditionsInputContextProperties : WaveConditionsInputContextProperties<WaveConditionsInputContext>
+        {
+            public override string RevetmentType
+            {
+                get
+                {
+                    return "test";
                 }
             }
         }
