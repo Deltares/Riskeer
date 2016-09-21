@@ -52,7 +52,6 @@ using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Service;
 using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
 using RingtoetsGrassCoverErosionOutwardsDataResources = Ringtoets.GrassCoverErosionOutwards.Data.Properties.Resources;
@@ -60,6 +59,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RingtoetsGrassCoverErosionOutwardsServiceResources = Ringtoets.GrassCoverErosionOutwards.Service.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 {
@@ -619,7 +619,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
             {
-                WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters, database, calculation.Name);
+                WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters,
+                                                                   database,
+                                                                   calculation.Name,
+                                                                   RingtoetsGrassCoverErosionOutwardsServiceResources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_LogMessage_DesignWaterLevel_name);
             }
         }
 

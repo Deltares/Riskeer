@@ -43,7 +43,7 @@ namespace Ringtoets.Revetment.Service.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,7 +57,7 @@ namespace Ringtoets.Revetment.Service.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.Revetment.Service.Properties.Resources", typeof(Resources).Assembly);
@@ -72,7 +72,7 @@ namespace Ringtoets.Revetment.Service.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -82,27 +82,37 @@ namespace Ringtoets.Revetment.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to het toetspeil.
+        /// </summary>
+        public static string WaveConditionsCalculationService_LogMessage_default_DesignWaterLevel_name {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel__log_mess" +
+                        "age_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kan {0} niet afleiden op basis van de invoer..
+        /// </summary>
+        public static string WaveConditionsCalculationService_ValidateInput_No_0_DesignWaterLevel_calculated {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_0_DesignWaterLevel_calculated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan geen waterstanden afleiden op basis van de invoer. Controleer de opgegeven boven- en ondergrenzen..
         /// </summary>
-        internal static string WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels {
+        public static string WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels {
             get {
                 return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan het toetspeil niet afleiden op basis van de invoer..
-        /// </summary>
-        internal static string WaveConditionsCalculationService_ValidateInput_No_DesignWaterLevel_calculated {
-            get {
-                return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_DesignWaterLevel_calculated", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Er is geen hydraulische randvoorwaardenlocatie geselecteerd..
         /// </summary>
-        internal static string WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected {
+        public static string WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selected {
             get {
                 return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selec" +
                         "ted", resourceCulture);
@@ -112,7 +122,7 @@ namespace Ringtoets.Revetment.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; is niet gelukt..
         /// </summary>
-        internal static string WaveConditionsCalculationService_VerifyWaveConditionsCalculationOutput_Error_in_wave_conditions_calculation_0_for_waterlevel_1 {
+        public static string WaveConditionsCalculationService_VerifyWaveConditionsCalculationOutput_Error_in_wave_conditions_calculation_0_for_waterlevel_1 {
             get {
                 return ResourceManager.GetString("WaveConditionsCalculationService_VerifyWaveConditionsCalculationOutput_Error_in_w" +
                         "ave_conditions_calculation_0_for_waterlevel_1", resourceCulture);

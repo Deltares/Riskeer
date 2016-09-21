@@ -32,6 +32,7 @@ using Ringtoets.Revetment.Service;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Service.Properties;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RingtoetsRevetmentServiceResources = Ringtoets.Revetment.Service.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Service
 {
@@ -89,7 +90,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
         {
             PerformRun(() => WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters,
                                                                                 assessmentSection.HydraulicBoundaryDatabase,
-                                                                                calculation.Name),
+                                                                                calculation.Name,
+                                                                                RingtoetsRevetmentServiceResources.WaveConditionsCalculationService_LogMessage_default_DesignWaterLevel_name),
                        () => WaveImpactAsphaltCoverDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation),
                        () =>
                        {

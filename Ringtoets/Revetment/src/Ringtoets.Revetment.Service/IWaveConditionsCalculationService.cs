@@ -37,9 +37,10 @@ namespace Ringtoets.Revetment.Service
         /// <param name="input">The <see cref="WaveConditionsInput"/> that holds the information required to perform a calculation.</param>
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> used when performing a calculation.</param>
         /// <param name="name">The name of the calculation to validate.</param>
+        /// <param name="designWaterLevelName">The name of the design water level to be displayed when a related error message needs to be generated</param>
         /// <returns><c>False</c> if <paramref name="input"/> contains invalid values or when no locations could be obtained from 
         /// the <paramref name="hydraulicBoundaryDatabase"/>; <c>True</c> otherwise.</returns>
-        bool Validate(WaveConditionsInput input, HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string name);
+        bool Validate(WaveConditionsInput input, HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string name, string designWaterLevelName);
 
         /// <summary>
         /// Performs a wave conditions cosine calculation based on the supplied <see cref="WaveConditionsInput"/>

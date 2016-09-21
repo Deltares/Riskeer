@@ -64,11 +64,12 @@ namespace Ringtoets.Revetment.Service
             }
         }
 
-        public bool Validate(WaveConditionsInput input, HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string name)
+        public bool Validate(WaveConditionsInput input, HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string name, string designWaterLevelName)
         {
             return CalculationServiceHelper.PerformValidation(name,
-                                                              () => ValidateAllInputs(hydraulicBoundaryDatabase, input));
-
+                                                              () => ValidateAllInputs(hydraulicBoundaryDatabase,
+                                                                                      input,
+                                                                                      designWaterLevelName));
         }
 
         public WaveConditionsOutput Calculate(RoundedDouble waterLevel, double a, double b, double c, double norm, WaveConditionsInput input, string hlcdDirectory, string ringId, string name)
@@ -133,22 +134,30 @@ namespace Ringtoets.Revetment.Service
             return input.UseForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0];
         }
 
-        private static string[] ValidateAllInputs(HydraulicBoundaryDatabase hydraulicBoundaryDatabase, WaveConditionsInput input)
+        private static string[] ValidateAllInputs(HydraulicBoundaryDatabase hydraulicBoundaryDatabase,
+                                                  WaveConditionsInput input,
+                                                  string designWaterLevelName)
         {
             string message = ValidateHydraulicBoundaryDatabase(hydraulicBoundaryDatabase);
             if (!string.IsNullOrEmpty(message))
             {
-                return new[]{message};
+                return new[]
+                {
+                    message
+                };
             }
 
-            message = ValidateWaveConditionsInput(input);
+            message = ValidateWaveConditionsInput(input, designWaterLevelName);
             if (!string.IsNullOrEmpty(message))
             {
-                return new[]{message};
+                return new[]
+                {
+                    message
+                };
             }
-            
+
             return new string[0];
-        }           
+        }
 
         private static string ValidateHydraulicBoundaryDatabase(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)
         {
@@ -167,7 +176,7 @@ namespace Ringtoets.Revetment.Service
             return null;
         }
 
-        private static string ValidateWaveConditionsInput(WaveConditionsInput input)
+        private static string ValidateWaveConditionsInput(WaveConditionsInput input, string designWaterLevelName)
         {
             if (input.HydraulicBoundaryLocation == null)
             {
@@ -176,7 +185,7 @@ namespace Ringtoets.Revetment.Service
 
             if (double.IsNaN(input.HydraulicBoundaryLocation.DesignWaterLevel))
             {
-                return Resources.WaveConditionsCalculationService_ValidateInput_No_DesignWaterLevel_calculated;
+                return string.Format(Resources.WaveConditionsCalculationService_ValidateInput_No_0_DesignWaterLevel_calculated, designWaterLevelName);
             }
 
             if (!input.WaterLevels.Any())

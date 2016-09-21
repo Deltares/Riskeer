@@ -157,6 +157,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to de waterstand bij doorsnede-eis.
+        /// </summary>
+        public static string GrassCoverErosionOutwardsWaveConditionsCalculationActivity_LogMessage_DesignWaterLevel_name {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationActivity_LogMessage_DesignWater" +
+                        "Level_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waterstand &apos;{0}&apos; berekenen..
         /// </summary>
         public static string GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_ {

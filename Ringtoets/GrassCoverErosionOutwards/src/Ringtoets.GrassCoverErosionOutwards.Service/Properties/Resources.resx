@@ -150,4 +150,7 @@
   <data name="GrassCoverErosionOutwardsPlugin_WaveHeight_calculation_for_location_0_not_converged" xml:space="preserve">
     <value>Golfhoogte bij doorsnede-eis berekening voor locatie {0} is niet geconvergeerd.</value>
   </data>
+  <data name="GrassCoverErosionOutwardsWaveConditionsCalculationActivity_LogMessage_DesignWaterLevel_name" xml:space="preserve">
+    <value>de waterstand bij doorsnede-eis</value>
+  </data>
 </root>

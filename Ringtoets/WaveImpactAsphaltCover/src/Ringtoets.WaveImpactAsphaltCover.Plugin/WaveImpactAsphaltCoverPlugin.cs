@@ -38,7 +38,6 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Service;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms;
@@ -49,7 +48,9 @@ using Ringtoets.WaveImpactAsphaltCover.IO;
 using Ringtoets.WaveImpactAsphaltCover.Service;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RingtoetsRevetmentServiceResources = Ringtoets.Revetment.Service.Properties.Resources;
 using WaveImpactAsphaltCoverDataResources = Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources;
+
 
 namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 {
@@ -429,7 +430,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
             {
-                WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters, database, calculation.Name);
+                WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters,
+                                                                   database,
+                                                                   calculation.Name,
+                                                                   RingtoetsRevetmentServiceResources.WaveConditionsCalculationService_LogMessage_default_DesignWaterLevel_name);
             }
         }
 

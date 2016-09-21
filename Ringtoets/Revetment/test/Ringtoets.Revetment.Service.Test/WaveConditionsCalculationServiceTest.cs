@@ -51,7 +51,7 @@ namespace Ringtoets.Revetment.Service.Test
             bool isValid = false;
 
             // Call
-            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(null, null, name);
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(null, null, name, null);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -79,7 +79,7 @@ namespace Ringtoets.Revetment.Service.Test
             };
 
             // Call
-            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(null, database, name);
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(null, database, name, null);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -109,7 +109,7 @@ namespace Ringtoets.Revetment.Service.Test
             var input = new WaveConditionsInput();
 
             // Call
-            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name, null);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -141,16 +141,24 @@ namespace Ringtoets.Revetment.Service.Test
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             };
 
+            string designWaterLevelName = "<de arbitraire naam voor designwaterlevel>";
+
             // Call
-            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input,
+                                                                                               database,
+                                                                                               name,
+                                                                                               designWaterLevelName);
 
             // Assert
+            string expectedMessage = string.Format("Validatie mislukt: Kan {0} niet afleiden op basis van de invoer",
+                                                   designWaterLevelName);
+
             TestHelper.AssertLogMessages(action, messages =>
             {
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith("Validatie mislukt: Kan het toetspeil niet afleiden op basis van de invoer.", msgs[1]);
+                StringAssert.StartsWith(expectedMessage, msgs[1]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
             });
 
@@ -160,7 +168,9 @@ namespace Ringtoets.Revetment.Service.Test
         [Test]
         [TestCase(double.NaN, 10.0, 12.0)]
         [TestCase(1.0, double.NaN, 12.0)]
-        public void Validate_NoWaterLevels_ReturnsFalseAndLogsValidationError(double lowerBoundaryRevetments, double upperBoundaryRevetments, double designWaterLevel)
+        public void Validate_NoWaterLevels_ReturnsFalseAndLogsValidationError(double lowerBoundaryRevetments,
+                                                                              double upperBoundaryRevetments,
+                                                                              double designWaterLevel)
         {
             // Setup
             string name = "test";
@@ -185,7 +195,10 @@ namespace Ringtoets.Revetment.Service.Test
             };
 
             // Call
-            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input,
+                                                                                               database,
+                                                                                               name,
+                                                                                               "DesignWaterLevelName");
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -220,7 +233,10 @@ namespace Ringtoets.Revetment.Service.Test
             input.UseBreakWater = false;
 
             // Call
-            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input,
+                                                                                               database,
+                                                                                               name,
+                                                                                               "DesignWaterLevelName");
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -254,7 +270,10 @@ namespace Ringtoets.Revetment.Service.Test
             input.UseBreakWater = true;
 
             // Call
-            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input,
+                                                                                               database,
+                                                                                               name,
+                                                                                               "DesignWaterLevelName");
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -302,7 +321,10 @@ namespace Ringtoets.Revetment.Service.Test
             }
 
             // Call
-            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input,
+                                                                                               database,
+                                                                                               name,
+                                                                                               "DesignWaterLevelName");
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>

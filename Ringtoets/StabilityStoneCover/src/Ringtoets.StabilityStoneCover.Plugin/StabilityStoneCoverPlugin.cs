@@ -38,7 +38,6 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms;
@@ -52,6 +51,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 using StabilityStoneCoverDataResources = Ringtoets.StabilityStoneCover.Data.Properties.Resources;
 using StabilityStoneCoverFormsResources = Ringtoets.StabilityStoneCover.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RingtoetsRevetmentServiceResources = Ringtoets.Revetment.Service.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Plugin
 {
@@ -426,7 +426,10 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
             {
-                WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters, database, calculation.Name);
+                WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters,
+                                                                   database,
+                                                                   calculation.Name,
+                                                                   RingtoetsRevetmentServiceResources.WaveConditionsCalculationService_LogMessage_default_DesignWaterLevel_name);
             }
         }
 

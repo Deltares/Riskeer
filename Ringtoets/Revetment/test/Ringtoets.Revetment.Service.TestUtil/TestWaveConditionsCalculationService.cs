@@ -53,7 +53,7 @@ namespace Ringtoets.Revetment.Service.TestUtil
             }
         }
 
-        public bool Validate(WaveConditionsInput input, HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string name)
+        public bool Validate(WaveConditionsInput input, HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string name, string designWaterLevelName)
         {
             return true;
         }

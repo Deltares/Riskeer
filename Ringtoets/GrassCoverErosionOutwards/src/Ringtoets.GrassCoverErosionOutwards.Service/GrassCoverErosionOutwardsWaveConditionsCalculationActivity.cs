@@ -89,7 +89,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         {
             PerformRun(() => WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters,
                                                                                 assessmentSection.HydraulicBoundaryDatabase,
-                                                                                calculation.Name),
+                                                                                calculation.Name,
+                                                                                Resources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_LogMessage_DesignWaterLevel_name),
                        () => GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation),
                        () =>
                        {

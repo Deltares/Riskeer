@@ -47,7 +47,7 @@ namespace Ringtoets.Revetment.Service.TestUtil.Test
             var testService = new TestWaveConditionsCalculationService();
 
             // Call
-            var valid = testService.Validate(null, null, string.Empty);
+            var valid = testService.Validate(null, null, string.Empty, string.Empty);
 
             // Assert
             Assert.IsTrue(valid);

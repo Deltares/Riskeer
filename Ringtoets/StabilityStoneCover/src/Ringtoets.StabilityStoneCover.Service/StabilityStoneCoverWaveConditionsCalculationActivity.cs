@@ -30,6 +30,7 @@ using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service.Properties;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RingtoetsRevetmentServiceResources = Ringtoets.Revetment.Service.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Service
 {
@@ -85,7 +86,8 @@ namespace Ringtoets.StabilityStoneCover.Service
         {
             PerformRun(() => WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters,
                                                                                 assessmentSection.HydraulicBoundaryDatabase,
-                                                                                calculation.Name),
+                                                                                calculation.Name,
+                                                                                RingtoetsRevetmentServiceResources.WaveConditionsCalculationService_LogMessage_default_DesignWaterLevel_name),
                        () => StabilityStoneCoverDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation),
                        () =>
                        {
