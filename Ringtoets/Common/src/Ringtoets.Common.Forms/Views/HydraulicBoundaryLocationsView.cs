@@ -29,10 +29,9 @@ using Core.Common.Utils.Extensions;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
     /// Base view for <see cref="HydraulicBoundaryLocation"/> views which should be derived in order to get a consistent look and feel.
@@ -50,7 +49,16 @@ namespace Ringtoets.Integration.Forms.Views
         protected HydraulicBoundaryLocationsView()
         {
             InitializeComponent();
+            LocalizeControls();
             InitializeEventHandlers();
+        }
+
+        private void LocalizeControls()
+        {
+            CalculateForSelectedButton.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_CalculateForSelectedButton_Text;
+            DeselectAllButton.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_DeselectAllButton_Text;
+            SelectAllButton.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_SelectAllButton_Text;
+            ButtonGroupBox.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_ButtonGroupBox_Text;
         }
 
         /// <summary>
@@ -117,7 +125,7 @@ namespace Ringtoets.Integration.Forms.Views
         protected virtual void InitializeDataGridView()
         {
             dataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationRow>(row => row.ToCalculate),
-                                                  Resources.HydraulicBoundaryLocationsView_Calculate);
+                                                  RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_Calculate);
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationRow>(row => row.Name),
                                                  RingtoetsCommonFormsResources.HydraulicBoundaryDatabase_Location_Name_DisplayName);
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<HydraulicBoundaryLocationRow>(row => row.Id),

@@ -49,9 +49,9 @@
     <Compile Include="Commands\AssessmentSectionFromFileCommandHandler.cs" />
     <Compile Include="Commands\IAssessmentSectionFromFileCommandHandler.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationContext.cs" />
-    <Compile Include="PresentationObjects\HydraulicBoundaryLocationContext.cs" />
     <Compile Include="PresentationObjects\DesignWaterLevelLocationsContext.cs" />
     <Compile Include="PresentationObjects\HydraulicBoundaryDatabaseContext.cs" />
+    <Compile Include="PresentationObjects\HydraulicBoundaryLocationContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightLocationContext.cs" />
     <Compile Include="PresentationObjects\WaveHeightLocationsContext.cs" />
     <Compile Include="PropertyClasses\CalculationContextProperties.cs" />
@@ -97,13 +97,6 @@
     </Compile>
     <Compile Include="Views\DesignWaterLevelLocationsView.Designer.cs">
       <DependentUpon>DesignWaterLevelLocationsView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HydraulicBoundaryLocationRow.cs" />
-    <Compile Include="Views\HydraulicBoundaryLocationsView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\HydraulicBoundaryLocationsView.Designer.cs">
-      <DependentUpon>HydraulicBoundaryLocationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\SectionResultRows\FailureMechanismSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\ClosingStructureSectionResultRow.cs" />
@@ -281,9 +274,6 @@
     <EmbeddedResource Include="Views\DesignWaterLevelLocationsView.resx">
       <DependentUpon>DesignWaterLevelLocationsView.cs</DependentUpon>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\HydraulicBoundaryLocationsView.resx">
-      <DependentUpon>HydraulicBoundaryLocationsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\WaveHeightLocationsView.resx">
       <DependentUpon>WaveHeightLocationsView.cs</DependentUpon>

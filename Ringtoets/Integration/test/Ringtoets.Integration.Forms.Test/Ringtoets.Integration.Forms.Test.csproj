@@ -126,8 +126,6 @@
     <Compile Include="Views\FailureMechanismContributionItemRowTest.cs" />
     <Compile Include="Views\DesignWaterLevelLocationRowTest.cs" />
     <Compile Include="Views\DesignWaterLevelLocationsViewTest.cs" />
-    <Compile Include="Views\HydraulicBoundaryLocationContextRowTest.cs" />
-    <Compile Include="Views\HydraulicBoundaryLocationsViewTest.cs" />
     <Compile Include="Views\SectionResultRows\FailureMechanismSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultViews\ClosingStructureResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\DuneErosionResultViewTest.cs" />

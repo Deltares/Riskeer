@@ -483,15 +483,6 @@ namespace Ringtoets.Integration.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Berekenen.
-        /// </summary>
-        public static string HydraulicBoundaryLocationsView_Calculate {
-            get {
-                return ResourceManager.GetString("HydraulicBoundaryLocationsView_Calculate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap Map {

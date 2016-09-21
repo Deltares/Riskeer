@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 

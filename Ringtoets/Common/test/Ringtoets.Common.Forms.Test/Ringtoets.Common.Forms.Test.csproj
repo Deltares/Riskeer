@@ -96,6 +96,8 @@
     <Compile Include="Views\FailureMechanismResultViewTest.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Views\HydraulicBoundaryLocationRowTest.cs" />
+    <Compile Include="Views\HydraulicBoundaryLocationsViewTest.cs" />
     <Compile Include="Views\RingtoetsMapDataFactoryTest.cs" />
     <Compile Include="Views\RingtoetsMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\SelectableRowTest.cs" />

@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Ringtoets.Common.Forms.Views
 {
     partial class HydraulicBoundaryLocationsView<T>
     {
@@ -62,7 +62,6 @@ namespace Ringtoets.Integration.Forms.Views
             this.CalculateForSelectedButton.Name = "CalculateForSelectedButton";
             this.CalculateForSelectedButton.Size = new System.Drawing.Size(207, 23);
             this.CalculateForSelectedButton.TabIndex = 2;
-            this.CalculateForSelectedButton.Text = "Bereken voor geselecteerde locaties";
             this.CalculateForSelectedButton.UseVisualStyleBackColor = true;
             this.CalculateForSelectedButton.Click += new System.EventHandler(this.CalculateForSelectedButton_Click);
             // 
@@ -72,7 +71,6 @@ namespace Ringtoets.Integration.Forms.Views
             this.DeselectAllButton.Name = "DeselectAllButton";
             this.DeselectAllButton.Size = new System.Drawing.Size(111, 23);
             this.DeselectAllButton.TabIndex = 1;
-            this.DeselectAllButton.Text = "Deselecteer alles";
             this.DeselectAllButton.UseVisualStyleBackColor = true;
             this.DeselectAllButton.Click += new System.EventHandler(this.DeselectAllButton_Click);
             // 
@@ -82,7 +80,6 @@ namespace Ringtoets.Integration.Forms.Views
             this.SelectAllButton.Name = "SelectAllButton";
             this.SelectAllButton.Size = new System.Drawing.Size(98, 23);
             this.SelectAllButton.TabIndex = 0;
-            this.SelectAllButton.Text = "Selecteer alles";
             this.SelectAllButton.UseVisualStyleBackColor = true;
             this.SelectAllButton.Click += new System.EventHandler(this.SelectAllButton_Click);
             // 
@@ -98,7 +95,6 @@ namespace Ringtoets.Integration.Forms.Views
             this.ButtonGroupBox.Size = new System.Drawing.Size(533, 61);
             this.ButtonGroupBox.TabIndex = 3;
             this.ButtonGroupBox.TabStop = false;
-            this.ButtonGroupBox.Text = "Berekenen";
             // 
             // HydraulicBoundaryLocationsView
             // 

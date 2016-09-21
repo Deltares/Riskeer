@@ -35,11 +35,10 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.GuiServices;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.Views;
 
-namespace Ringtoets.Integration.Forms.Test.Views
+namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
     public class HydraulicBoundaryLocationsViewTest

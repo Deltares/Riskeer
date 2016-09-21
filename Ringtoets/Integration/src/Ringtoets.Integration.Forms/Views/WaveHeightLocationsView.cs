@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;

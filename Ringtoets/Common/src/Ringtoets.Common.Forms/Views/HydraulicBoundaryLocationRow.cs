@@ -22,12 +22,11 @@
 using System;
 using Core.Common.Base.Geometry;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.PresentationObjects;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="HydraulicBoundaryLocationContext"/>.
+    /// This class represents a row of <see cref="HydraulicBoundaryLocation"/>.
     /// </summary>
     public abstract class HydraulicBoundaryLocationRow
     {

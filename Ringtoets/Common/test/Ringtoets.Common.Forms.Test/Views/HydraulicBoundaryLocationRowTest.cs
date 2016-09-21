@@ -22,14 +22,13 @@
 using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.PresentationObjects;
-using Ringtoets.Integration.Forms.Views;
 
-namespace Ringtoets.Integration.Forms.Test.Views
+namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class HydraulicBoundaryLocationContextRowTest
+    public class HydraulicBoundaryLocationRowTest
     {
         [Test]
         public void Constructor_WithoutHydraulicBoundaryLocationContext_ThrowsArgumentNullException()
@@ -76,12 +75,6 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.IsTrue(row.ToCalculate);
-        }
-
-        private class TestHydraulicBoundaryLocationContext : HydraulicBoundaryLocationContext
-        {
-            public TestHydraulicBoundaryLocationContext(HydraulicBoundaryDatabase wrappedData, HydraulicBoundaryLocation hydraulicBoundaryLocation)
-                : base(wrappedData, hydraulicBoundaryLocation) {}
         }
 
         private class TestHydraulicBoundaryLocationRow : HydraulicBoundaryLocationRow
