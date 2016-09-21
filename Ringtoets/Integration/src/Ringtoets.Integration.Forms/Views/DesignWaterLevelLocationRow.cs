@@ -29,17 +29,17 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="DesignWaterLevelLocationContext"/>.
+    /// This class represents a row of <see cref="HydraulicBoundaryLocation"/> of which the design water
+    /// level is presented.
     /// </summary>
-    internal class DesignWaterLevelLocationContextRow : HydraulicBoundaryLocationContextRow
+    public class DesignWaterLevelLocationRow : HydraulicBoundaryLocationRow
     {
         /// <summary>
-        /// Creates a new instance of <see cref="DesignWaterLevelLocationContextRow"/>.
+        /// Creates a new instance of <see cref="DesignWaterLevelLocationRow"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationContext">The <see cref="DesignWaterLevelLocationContext"/> for this row.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationContext"/> is <c>null</c>.</exception>
-        internal DesignWaterLevelLocationContextRow(DesignWaterLevelLocationContext hydraulicBoundaryLocationContext)
-            : base(hydraulicBoundaryLocationContext) {}
+        /// <param name="hydraulicBoundaryLocation">The <see cref="DesignWaterLevelLocationContext"/> for this row.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
+        public DesignWaterLevelLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation) : base(hydraulicBoundaryLocation) { }
 
         /// <summary>
         /// Gets the <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return HydraulicBoundaryLocationContext.HydraulicBoundaryLocation.DesignWaterLevel;
+                return HydraulicBoundaryLocation.DesignWaterLevel;
             }
         }
     }

@@ -29,27 +29,27 @@ namespace Ringtoets.Integration.Forms.Views
     /// <summary>
     /// This class represents a row of <see cref="HydraulicBoundaryLocationContext"/>.
     /// </summary>
-    internal abstract class HydraulicBoundaryLocationContextRow
+    public abstract class HydraulicBoundaryLocationRow
     {
-        private readonly HydraulicBoundaryLocationContext hydraulicBoundaryLocationContext;
-
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicBoundaryLocationContextRow"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationRow"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationContext">The <see cref="HydraulicBoundaryLocationContext"/> for this row.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationContext"/> is <c>null</c>.</exception>
-        internal HydraulicBoundaryLocationContextRow(HydraulicBoundaryLocationContext hydraulicBoundaryLocationContext)
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> for this row.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
+        protected HydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation)
         {
-            if (hydraulicBoundaryLocationContext == null)
+            if (hydraulicBoundaryLocation == null)
             {
-                throw new ArgumentNullException("hydraulicBoundaryLocationContext");
+                throw new ArgumentNullException("hydraulicBoundaryLocation");
             }
 
-            this.hydraulicBoundaryLocationContext = hydraulicBoundaryLocationContext;
+            HydraulicBoundaryLocation = hydraulicBoundaryLocation;
         }
 
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
+
         /// <summary>
-        /// Gets or sets whether the <see cref="HydraulicBoundaryLocationContextRow"/> is set to be calculated.
+        /// Gets or sets whether the <see cref="HydraulicBoundaryLocationRow"/> is set to be calculated.
         /// </summary>
         public bool ToCalculate { get; set; }
 
@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return hydraulicBoundaryLocationContext.HydraulicBoundaryLocation.Name;
+                return HydraulicBoundaryLocation.Name;
             }
         }
 
@@ -71,7 +71,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return hydraulicBoundaryLocationContext.HydraulicBoundaryLocation.Id;
+                return HydraulicBoundaryLocation.Id;
             }
         }
 
@@ -82,18 +82,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return hydraulicBoundaryLocationContext.HydraulicBoundaryLocation.Location;
-            }
-        }
-
-        /// <summary>
-        /// Gets the <see cref="Ringtoets.Integration.Forms.PresentationObjects.HydraulicBoundaryLocationContext"/>.
-        /// </summary>
-        public HydraulicBoundaryLocationContext HydraulicBoundaryLocationContext
-        {
-            get
-            {
-                return hydraulicBoundaryLocationContext;
+                return HydraulicBoundaryLocation.Location;
             }
         }
     }

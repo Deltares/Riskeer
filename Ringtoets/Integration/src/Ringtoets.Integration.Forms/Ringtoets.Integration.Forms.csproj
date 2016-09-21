@@ -91,14 +91,14 @@
     <Compile Include="Views\FailureMechanismContributionView.Designer.cs">
       <DependentUpon>FailureMechanismContributionView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\DesignWaterLevelLocationContextRow.cs" />
+    <Compile Include="Views\DesignWaterLevelLocationRow.cs" />
     <Compile Include="Views\DesignWaterLevelLocationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\DesignWaterLevelLocationsView.Designer.cs">
       <DependentUpon>DesignWaterLevelLocationsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\HydraulicBoundaryLocationContextRow.cs" />
+    <Compile Include="Views\HydraulicBoundaryLocationRow.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -154,7 +154,7 @@
     <Compile Include="Views\SectionResultViews\WaterPressureAsphaltCoverResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\WaveHeightLocationContextRow.cs" />
+    <Compile Include="Views\WaveHeightLocationRow.cs" />
     <Compile Include="Views\WaveHeightLocationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>

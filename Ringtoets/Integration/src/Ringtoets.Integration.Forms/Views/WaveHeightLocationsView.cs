@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Linq;
+using Core.Common.Base;
 using Core.Common.Utils.Reflection;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
@@ -32,23 +33,48 @@ namespace Ringtoets.Integration.Forms.Views
     /// <summary>
     /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
     /// </summary>
-    public partial class WaveHeightLocationsView : HydraulicBoundaryLocationsView
+    public partial class WaveHeightLocationsView : HydraulicBoundaryLocationsView<WaveHeightLocationRow>
     {
+        private readonly Observer assessmentSectionObserver;
+        private readonly Observer hydraulicBoundaryDatabaseObserver;
+        private IAssessmentSection assessmentSection;
+
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightLocationsView"/>.
         /// </summary>
         public WaveHeightLocationsView()
         {
             InitializeComponent();
+
+            assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryDatabase);
+            hydraulicBoundaryDatabaseObserver = new Observer(() => dataGridViewControl.RefreshDataGridView());
         }
 
-        protected override void SetDataSource()
+        public IAssessmentSection AssessmentSection
         {
-            dataGridViewControl.SetDataSource(AssessmentSection != null && AssessmentSection.HydraulicBoundaryDatabase != null
-                                                  ? AssessmentSection.HydraulicBoundaryDatabase.Locations.Select(
-                                                      hl => new WaveHeightLocationContextRow(
-                                                                new WaveHeightLocationContext(AssessmentSection.HydraulicBoundaryDatabase, hl))).ToArray()
-                                                  : null);
+            get
+            {
+                return assessmentSection;
+            }
+            set
+            {
+                assessmentSection = value;
+
+                if (assessmentSection != null)
+                {
+                    assessmentSectionObserver.Observable = assessmentSection;
+                    hydraulicBoundaryDatabaseObserver.Observable = assessmentSection.HydraulicBoundaryDatabase;
+                }
+            }
+        }
+
+        protected override object CreateSelectedItemFromCurrentRow()
+        {
+            var currentRow = dataGridViewControl.CurrentRow;
+
+            return currentRow != null ?
+                       new WaveHeightLocationContext(AssessmentSection.HydraulicBoundaryDatabase, ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).HydraulicBoundaryLocation) :
+                       null;
         }
 
         protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
@@ -57,11 +83,11 @@ namespace Ringtoets.Integration.Forms.Views
             {
                 return;
             }
-            
+
             bool successfulCalculation = CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                locations,
-                AssessmentSection.Id,
-                AssessmentSection.FailureMechanismContribution.Norm, new WaveHeightCalculationMessageProvider());
+                                                                                    locations,
+                                                                                    AssessmentSection.Id,
+                                                                                    AssessmentSection.FailureMechanismContribution.Norm, new WaveHeightCalculationMessageProvider());
 
             if (successfulCalculation)
             {
@@ -69,11 +95,40 @@ namespace Ringtoets.Integration.Forms.Views
             }
         }
 
+        protected override WaveHeightLocationRow CreateNewRow(HydraulicBoundaryLocation location)
+        {
+            return new WaveHeightLocationRow(location);
+        }
+
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationContextRow>(row => row.WaveHeight),
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationRow>(row => row.WaveHeight),
                                                  Resources.HydraulicBoundaryDatabase_Location_WaveHeight_DisplayName);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            assessmentSectionObserver.Dispose();
+            hydraulicBoundaryDatabaseObserver.Dispose();
+
+            base.Dispose(disposing);
+        }
+
+        private void UpdateHydraulicBoundaryDatabase()
+        {
+            if (AssessmentSection == null || AssessmentSection.HydraulicBoundaryDatabase == null)
+            {
+                hydraulicBoundaryDatabaseObserver.Observable = null;
+                Data = null;
+            }
+            else
+            {
+                var hydraulicBoundaryDatabase = AssessmentSection.HydraulicBoundaryDatabase;
+                hydraulicBoundaryDatabaseObserver.Observable = hydraulicBoundaryDatabase;
+                Data = hydraulicBoundaryDatabase.Locations;
+            }
+            UpdateDataGridViewDataSource();
         }
     }
 }

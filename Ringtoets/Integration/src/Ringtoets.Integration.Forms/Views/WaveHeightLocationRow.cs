@@ -29,17 +29,17 @@ using Ringtoets.Integration.Forms.PresentationObjects;
 namespace Ringtoets.Integration.Forms.Views
 {
     /// <summary>
-    /// This class represents a row of <see cref="HydraulicBoundaryLocationContext"/>.
+    /// This class represents a row of <see cref="HydraulicBoundaryLocation"/> of which the wave height
+    /// is presented.
     /// </summary>
-    internal class WaveHeightLocationContextRow : HydraulicBoundaryLocationContextRow
+    public class WaveHeightLocationRow : HydraulicBoundaryLocationRow
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaveHeightLocationContextRow"/>.
+        /// Creates a new instance of <see cref="WaveHeightLocationRow"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationContext">The <see cref="WaveHeightLocationContext"/> for this row.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocationContext"/> is <c>null</c>.</exception>
-        internal WaveHeightLocationContextRow(WaveHeightLocationContext hydraulicBoundaryLocationContext)
-            : base(hydraulicBoundaryLocationContext) {}
+        /// <param name="hydraulicBoundaryLocation">The <see cref="WaveHeightLocationContext"/> for this row.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
+        public WaveHeightLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation) : base(hydraulicBoundaryLocation) { }
 
         /// <summary>
         /// Gets the <see cref="HydraulicBoundaryLocation.WaveHeight"/>.
@@ -49,7 +49,7 @@ namespace Ringtoets.Integration.Forms.Views
         {
             get
             {
-                return HydraulicBoundaryLocationContext.HydraulicBoundaryLocation.WaveHeight;
+                return HydraulicBoundaryLocation.WaveHeight;
             }
         }
     }

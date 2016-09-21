@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Linq;
+using Core.Common.Base;
 using Core.Common.Utils.Reflection;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Properties;
@@ -32,23 +33,48 @@ namespace Ringtoets.Integration.Forms.Views
     /// <summary>
     /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.DesignWaterLevel"/>.
     /// </summary>
-    public partial class DesignWaterLevelLocationsView : HydraulicBoundaryLocationsView
+    public partial class DesignWaterLevelLocationsView : HydraulicBoundaryLocationsView<DesignWaterLevelLocationRow>
     {
+        private readonly Observer assessmentSectionObserver;
+        private readonly Observer hydraulicBoundaryDatabaseObserver;
+        private IAssessmentSection assessmentSection;
+
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationsView"/>.
         /// </summary>
         public DesignWaterLevelLocationsView()
         {
             InitializeComponent();
+
+            assessmentSectionObserver = new Observer(UpdateHydraulicBoundaryDatabase);
+            hydraulicBoundaryDatabaseObserver = new Observer(() => dataGridViewControl.RefreshDataGridView());
         }
 
-        protected override void SetDataSource()
+        public IAssessmentSection AssessmentSection
         {
-            dataGridViewControl.SetDataSource(AssessmentSection != null && AssessmentSection.HydraulicBoundaryDatabase != null
-                                                  ? AssessmentSection.HydraulicBoundaryDatabase.Locations.Select(
-                                                      hl => new DesignWaterLevelLocationContextRow(
-                                                                new DesignWaterLevelLocationContext(AssessmentSection.HydraulicBoundaryDatabase, hl))).ToArray()
-                                                  : null);
+            get
+            {
+                return assessmentSection;
+            }
+            set
+            {
+                assessmentSection = value;
+
+                if (assessmentSection != null)
+                {
+                    assessmentSectionObserver.Observable = assessmentSection;
+                    hydraulicBoundaryDatabaseObserver.Observable = assessmentSection.HydraulicBoundaryDatabase;
+                }
+            }
+        }
+
+        protected override object CreateSelectedItemFromCurrentRow()
+        {
+            var currentRow = dataGridViewControl.CurrentRow;
+
+            return currentRow != null ?
+                       new DesignWaterLevelLocationContext(AssessmentSection.HydraulicBoundaryDatabase, ((HydraulicBoundaryLocationRow) currentRow.DataBoundItem).HydraulicBoundaryLocation) :
+                       null;
         }
 
         protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)
@@ -63,15 +89,44 @@ namespace Ringtoets.Integration.Forms.Views
                                                                                           AssessmentSection.FailureMechanismContribution.Norm, new DesignWaterLevelCalculationMessageProvider());
             if (successfulCalculation)
             {
-               AssessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
+                AssessmentSection.HydraulicBoundaryDatabase.NotifyObservers();
             }
+        }
+
+        protected override DesignWaterLevelLocationRow CreateNewRow(HydraulicBoundaryLocation location)
+        {
+            return new DesignWaterLevelLocationRow(location);
         }
 
         protected override void InitializeDataGridView()
         {
             base.InitializeDataGridView();
-            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationContextRow>(row => row.DesignWaterLevel),
+            dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<DesignWaterLevelLocationRow>(row => row.DesignWaterLevel),
                                                  Resources.HydraulicBoundaryDatabase_Location_DesignWaterLevel_DisplayName);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            assessmentSectionObserver.Dispose();
+            hydraulicBoundaryDatabaseObserver.Dispose();
+
+            base.Dispose(disposing);
+        }
+
+        private void UpdateHydraulicBoundaryDatabase()
+        {
+            if (AssessmentSection == null || AssessmentSection.HydraulicBoundaryDatabase == null)
+            {
+                hydraulicBoundaryDatabaseObserver.Observable = null;
+                Data = null;
+            }
+            else
+            {
+                var hydraulicBoundaryDatabase = AssessmentSection.HydraulicBoundaryDatabase;
+                hydraulicBoundaryDatabaseObserver.Observable = hydraulicBoundaryDatabase;
+                Data = hydraulicBoundaryDatabase.Locations;
+            }
+            UpdateDataGridViewDataSource();
         }
     }
 }

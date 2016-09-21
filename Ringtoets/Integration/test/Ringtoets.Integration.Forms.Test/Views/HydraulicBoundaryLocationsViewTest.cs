@@ -123,13 +123,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
             // Setup
             using (var view = new TestHydraulicBoundaryLocationsView())
             {
-                var assessmentSection = new TestAssessmentSection();
+                var hydraulicBoundaryLocations = Enumerable.Empty<HydraulicBoundaryLocation>();
 
                 // Call
-                view.Data = assessmentSection;
+                view.Data = hydraulicBoundaryLocations;
 
                 // Assert
-                Assert.AreSame(assessmentSection, view.Data);
+                Assert.AreSame(hydraulicBoundaryLocations, view.Data);
             }
         }
 
@@ -183,51 +183,17 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        public void HydraulicBoundaryLocationsView_HydraulicBoundaryDatabaseUpdated_DataGridViewCorrectlyUpdated()
-        {
-            // Setup
-            var view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
-            IAssessmentSection assessmentSection = (IAssessmentSection) view.Data;
-            HydraulicBoundaryDatabase newHydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10.0, 10.0)
-            {
-                DesignWaterLevel = (RoundedDouble) 10.23
-            };
-            newHydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-
-            // Precondition
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rows = dataGridView.Rows;
-            Assert.AreEqual(3, rows.Count);
-
-            // Call
-            assessmentSection.HydraulicBoundaryDatabase = newHydraulicBoundaryDatabase;
-            assessmentSection.NotifyObservers();
-
-            // Assert
-            Assert.AreEqual(1, rows.Count);
-            var cells = rows[0].Cells;
-            Assert.AreEqual(4, cells.Count);
-            Assert.AreEqual(false, cells[locationCalculateColumnIndex].FormattedValue);
-            Assert.AreEqual("10", cells[locationNameColumnIndex].FormattedValue);
-            Assert.AreEqual("10", cells[locationIdColumnIndex].FormattedValue);
-            Assert.AreEqual(new Point2D(10, 10).ToString(), cells[locationColumnIndex].FormattedValue);
-        }
-
-        [Test]
         public void HydraulicBoundaryLocationsView_SelectingCellInRow_ApplicationSelectionCorrectlySynced()
         {
             // Setup
             var view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
-            IAssessmentSection assessmentSection = (IAssessmentSection) view.Data;
-            var secondHydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.Skip(1).First();
+            var createdSelection = new object();
+            view.CreateForSelection = createdSelection;
 
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
             applicationSelectionMock.Stub(asm => asm.Selection).Return(null);
-            applicationSelectionMock.Expect(asm => asm.Selection = new TestHydraulicBoundaryLocationContext(
-                                                                       assessmentSection.HydraulicBoundaryDatabase,
-                                                                       secondHydraulicBoundaryLocation));
+            applicationSelectionMock.Expect(asm => asm.Selection = createdSelection);
             mocks.ReplayAll();
 
             view.ApplicationSelection = applicationSelectionMock;
@@ -247,9 +213,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
-
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            dataGridView.CurrentCell = dataGridView.Rows[1].Cells[locationCalculateColumnIndex];
 
             var mocks = new MockRepository();
             var applicationSelectionMock = mocks.StrictMock<IApplicationSelection>();
@@ -267,23 +231,18 @@ namespace Ringtoets.Integration.Forms.Test.Views
         }
 
         [Test]
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(2)]
-        public void Selection_Always_ReturnsTheSelectedRowObject(int selectedRow)
+        public void Selection_Always_ReturnsCreatedSelectionObject()
         {
             // Setup
             var view = ShowFullyConfiguredTestHydraulicBoundaryLocationsView();
-            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            dataGridView.CurrentCell = dataGridView.Rows[selectedRow].Cells[locationCalculateColumnIndex];
+            var createdSelection = new object();
+            view.CreateForSelection = createdSelection;
 
             // Call
             var selection = view.Selection;
 
             // Assert
-            Assert.IsInstanceOf<HydraulicBoundaryLocationContext>(selection);
-            HydraulicBoundaryDatabase hydraulicBoundaryDatabase = ((IAssessmentSection) view.Data).HydraulicBoundaryDatabase;
-            Assert.AreSame(hydraulicBoundaryDatabase, ((HydraulicBoundaryLocationContext) selection).WrappedData);
+            Assert.AreSame(createdSelection, selection);
         }
 
         [Test]
@@ -382,7 +341,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(1, view.LocationsToCalculate.Count());
-            HydraulicBoundaryLocation expectedLocation = ((IAssessmentSection) view.Data).HydraulicBoundaryDatabase.Locations.First();
+            HydraulicBoundaryLocation expectedLocation = ((IEnumerable<HydraulicBoundaryLocation>) view.Data).First();
             Assert.AreEqual(expectedLocation, view.LocationsToCalculate.First());
             mockRepository.VerifyAll();
         }
@@ -425,7 +384,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 HydraulicBoundaryDatabase = new TestHydraulicBoundaryDatabase()
             };
 
-            view.Data = assessmentSection;
+            view.Data = assessmentSection.HydraulicBoundaryDatabase.Locations;
             return view;
         }
 
@@ -466,19 +425,13 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
         }
 
-        private class TestHydraulicBoundaryLocationContext : HydraulicBoundaryLocationContext
+        private class TestHydraulicBoundaryLocationRow : HydraulicBoundaryLocationRow
         {
-            public TestHydraulicBoundaryLocationContext(HydraulicBoundaryDatabase wrappedData, HydraulicBoundaryLocation hydraulicBoundaryLocation)
-                : base(wrappedData, hydraulicBoundaryLocation) {}
+            public TestHydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+                : base(hydraulicBoundaryLocation) {}
         }
 
-        private class TestHydraulicBoundaryLocationContextRow : HydraulicBoundaryLocationContextRow
-        {
-            public TestHydraulicBoundaryLocationContextRow(HydraulicBoundaryLocationContext hydraulicBoundaryLocationContext)
-                : base(hydraulicBoundaryLocationContext) {}
-        }
-
-        private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView
+        private sealed class TestHydraulicBoundaryLocationsView : HydraulicBoundaryLocationsView<TestHydraulicBoundaryLocationRow>
         {
             public TestHydraulicBoundaryLocationsView()
             {
@@ -486,14 +439,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
             }
 
             public IEnumerable<HydraulicBoundaryLocation> LocationsToCalculate { get; private set; }
+            public object CreateForSelection { get; set; }
 
-            protected override void SetDataSource()
+            protected override TestHydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)
             {
-                dataGridViewControl.SetDataSource(AssessmentSection != null && AssessmentSection.HydraulicBoundaryDatabase != null
-                                                      ? AssessmentSection.HydraulicBoundaryDatabase.Locations.Select(
-                                                          hl => new TestHydraulicBoundaryLocationContextRow(
-                                                                    new TestHydraulicBoundaryLocationContext(AssessmentSection.HydraulicBoundaryDatabase, hl))).ToArray()
-                                                      : null);
+                return new TestHydraulicBoundaryLocationRow(location);
+            }
+
+            protected override object CreateSelectedItemFromCurrentRow()
+            {
+                return CreateForSelection;
             }
 
             protected override void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations)

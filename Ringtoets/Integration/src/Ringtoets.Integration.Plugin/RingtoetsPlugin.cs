@@ -301,25 +301,41 @@ namespace Ringtoets.Integration.Plugin
                 }
             };
 
-            yield return new ViewInfo<DesignWaterLevelLocationsContext, IAssessmentSection, DesignWaterLevelLocationsView>
+            yield return new ViewInfo<DesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocation>, DesignWaterLevelLocationsView>
             {
                 GetViewName = (v, o) => RingtoetsFormsResources.DesignWaterLevelLocationsContext_DisplayName,
-                GetViewData = context => context.WrappedData,
+                GetViewData = context =>
+                {
+                    if (context.WrappedData.HydraulicBoundaryDatabase == null)
+                    {
+                        return null;
+                    }
+                    return context.WrappedData.HydraulicBoundaryDatabase.Locations;
+                },
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 AfterCreate = (view, context) =>
                 {
+                    view.AssessmentSection = context.WrappedData;
                     view.ApplicationSelection = Gui;
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 }
             };
 
-            yield return new ViewInfo<WaveHeightLocationsContext, IAssessmentSection, WaveHeightLocationsView>
+            yield return new ViewInfo<WaveHeightLocationsContext, IEnumerable<HydraulicBoundaryLocation>, WaveHeightLocationsView>
             {
                 GetViewName = (v, o) => RingtoetsFormsResources.WaveHeightLocationsContext_DisplayName,
-                GetViewData = context => context.WrappedData,
+                GetViewData = context =>
+                {
+                    if (context.WrappedData.HydraulicBoundaryDatabase == null)
+                    {
+                        return null;
+                    }
+                    return context.WrappedData.HydraulicBoundaryDatabase.Locations;
+                },
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 AfterCreate = (view, context) =>
                 {
+                    view.AssessmentSection = context.WrappedData;
                     view.ApplicationSelection = Gui;
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 }

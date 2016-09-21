@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -40,14 +41,12 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
     [TestFixture]
     public class WaveHeightLocationsViewInfoTest
     {
-        private MockRepository mocks;
         private RingtoetsPlugin plugin;
         private ViewInfo info;
 
         [SetUp]
         public void SetUp()
         {
-            mocks = new MockRepository();
             plugin = new RingtoetsPlugin();
             info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveHeightLocationsView));
         }
@@ -62,18 +61,14 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
             using (var view = new WaveHeightLocationsView())
             {
                 // Call
-                var viewName = info.GetViewName(view, assessmentSection);
+                var viewName = info.GetViewName(view, Enumerable.Empty<HydraulicBoundaryLocation>());
 
                 // Assert
                 Assert.AreEqual("Golfhoogtes", viewName);
             }
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -83,7 +78,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewDataType = info.ViewDataType;
 
             // Assert
-            Assert.AreEqual(typeof(IAssessmentSection), viewDataType);
+            Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocation>), viewDataType);
         }
 
         [Test]
@@ -110,6 +105,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void GetViewData_Always_ReturnsHydraulicBoundaryDatabase()
         {
             // Setup
+            var mocks = new MockRepository();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
@@ -120,7 +116,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             var viewData = info.GetViewData(context);
 
             // Assert
-            Assert.AreSame(assessmentSection, viewData);
+            Assert.AreSame(hydraulicBoundaryDatabase.Locations, viewData);
             mocks.VerifyAll();
         }
 
@@ -129,6 +125,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         public void AfterCreate_WithGuiSet_SetsSpecificPropertiesToView()
         {
             // Setup
+            var mocks = new MockRepository();
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;

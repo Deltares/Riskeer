@@ -35,11 +35,11 @@ namespace Ringtoets.Integration.Forms.Test.Views
         public void Constructor_WithoutHydraulicBoundaryLocationContext_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new TestHydraulicBoundaryLocationContextRow(null);
+            TestDelegate test = () => new TestHydraulicBoundaryLocationRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("hydraulicBoundaryLocationContext", paramName);
+            Assert.AreEqual("hydraulicBoundaryLocation", paramName);
         }
 
         [Test]
@@ -51,20 +51,16 @@ namespace Ringtoets.Integration.Forms.Test.Views
             const double coordinateX = 1.0;
             const double coordinateY = 2.0;
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(id, locationname, coordinateX, coordinateY);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
             // Call
-            var row = new TestHydraulicBoundaryLocationContextRow(context);
+            var row = new TestHydraulicBoundaryLocationRow(hydraulicBoundaryLocation);
 
             // Assert
             Assert.AreEqual(id, row.Id);
             Assert.AreEqual(locationname, row.Name);
             var expectedPoint2D = new Point2D(coordinateX, coordinateY);
             Assert.AreEqual(expectedPoint2D, row.Location);
-            Assert.AreSame(context, row.HydraulicBoundaryLocationContext);
+            Assert.AreSame(hydraulicBoundaryLocation, row.HydraulicBoundaryLocation);
             Assert.IsFalse(row.ToCalculate);
         }
 
@@ -73,11 +69,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "LocationName", 1.0, 2.0);
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-
-            var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
-            var row = new TestHydraulicBoundaryLocationContextRow(context);
+            var row = new TestHydraulicBoundaryLocationRow(hydraulicBoundaryLocation);
 
             // Call
             row.ToCalculate = true;
@@ -92,10 +84,10 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 : base(wrappedData, hydraulicBoundaryLocation) {}
         }
 
-        private class TestHydraulicBoundaryLocationContextRow : HydraulicBoundaryLocationContextRow
+        private class TestHydraulicBoundaryLocationRow : HydraulicBoundaryLocationRow
         {
-            public TestHydraulicBoundaryLocationContextRow(HydraulicBoundaryLocationContext hydraulicBoundaryLocationContext)
-                : base(hydraulicBoundaryLocationContext) {}
+            public TestHydraulicBoundaryLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation)
+                : base(hydraulicBoundaryLocation) {}
         }
     }
 }

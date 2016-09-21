@@ -124,7 +124,7 @@
     <Compile Include="PropertyClasses\AssessmentSectionPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\ReferenceLineContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\FailureMechanismContributionItemRowTest.cs" />
-    <Compile Include="Views\DesignWaterLevelLocationContextRowTest.cs" />
+    <Compile Include="Views\DesignWaterLevelLocationRowTest.cs" />
     <Compile Include="Views\DesignWaterLevelLocationsViewTest.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationContextRowTest.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationsViewTest.cs" />
@@ -155,7 +155,7 @@
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
     <Compile Include="Views\SectionResultRows\StrengthStabilityLengthwiseConstructionSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultRows\DuneErosionSectionResultRowTest.cs" />
-    <Compile Include="Views\WaveHeightLocationContextRowTest.cs" />
+    <Compile Include="Views\WaveHeightLocationRowTest.cs" />
     <Compile Include="Views\WaveHeightLocationsViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
