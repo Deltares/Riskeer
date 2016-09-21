@@ -51,7 +51,7 @@ namespace Ringtoets.Revetment.Service.Test
             bool isValid = false;
 
             // Call
-            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(null, null, name, null);
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(null, null, name, string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -79,7 +79,7 @@ namespace Ringtoets.Revetment.Service.Test
             };
 
             // Call
-            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(null, database, name, null);
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(null, database, name, string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -109,7 +109,7 @@ namespace Ringtoets.Revetment.Service.Test
             var input = new WaveConditionsInput();
 
             // Call
-            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name, null);
+            Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name, string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -122,6 +122,33 @@ namespace Ringtoets.Revetment.Service.Test
             });
 
             Assert.IsFalse(isValid);
+        }
+
+        [Test]
+        public void Validate_NoDesignWaterLevelName_ThrowArgumentNullException()
+        {
+            // Setup 
+            string name = "test";
+
+            HydraulicBoundaryDatabase database = new HydraulicBoundaryDatabase()
+            {
+                FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
+            };
+
+            var input = new WaveConditionsInput()
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+            };
+
+            // Call
+            TestDelegate action = () => WaveConditionsCalculationService.Instance.Validate(input,
+                                                                                           database,
+                                                                                           name,
+                                                                                           null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(action);
+            Assert.AreEqual("designWaterLevelName", exception.ParamName);
         }
 
         [Test]

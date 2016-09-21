@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -66,6 +67,11 @@ namespace Ringtoets.Revetment.Service
 
         public bool Validate(WaveConditionsInput input, HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string name, string designWaterLevelName)
         {
+            if (designWaterLevelName == null)
+            {
+                throw new ArgumentNullException("designWaterLevelName");
+            }
+
             return CalculationServiceHelper.PerformValidation(name,
                                                               () => ValidateAllInputs(hydraulicBoundaryDatabase,
                                                                                       input,
