@@ -88,7 +88,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.Asphalt);
+            var input = new WaveConditionsInput();
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
@@ -112,7 +112,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
 
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.Asphalt);
+            var input = new WaveConditionsInput();
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);
 
             using (var plugin = new WaveImpactAsphaltCoverPlugin())
@@ -137,7 +137,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
 
                 var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
-                var input = new WaveConditionsInput(WaveConditionsRevetment.Asphalt);
+                var input = new WaveConditionsInput();
                 var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();

@@ -47,7 +47,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             Assert.IsNull(calculation.Comments);
             Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-            Assert.AreEqual(WaveConditionsRevetment.Grass, calculation.InputParameters.RevetmentType);
         }
 
         [Test]

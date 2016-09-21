@@ -37,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         public GrassCoverErosionOutwardsWaveConditionsCalculation()
         {
             Name = Resources.GrassCoverErosionOutwardsWaveConditionsCalculation_DefaultName;
-            InputParameters = new WaveConditionsInput(WaveConditionsRevetment.Grass);
+            InputParameters = new WaveConditionsInput();
         }
 
         /// <summary>

@@ -38,8 +38,8 @@ namespace Ringtoets.Revetment.IO.Test
             new WaveConditionsOutput(0.0, 1.1, 2.2, 3.3)
         };
 
-        private readonly WaveConditionsInput emptyWaveConditionsInput = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
-        private readonly WaveConditionsInput waveConditionsInputWithAsphalt = new WaveConditionsInput(WaveConditionsRevetment.Asphalt);
+        private readonly WaveConditionsInput emptyWaveConditionsInput = new WaveConditionsInput();
+        private readonly WaveConditionsInput waveConditionsInputWithAsphalt = new WaveConditionsInput();
 
         [Test]
         public void CreateExportableWaveConditionsCollection_NameNull_ThrowArgumentNullException()
@@ -115,7 +115,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CreateExportableWaveConditionsCollection_ValidData_ReturnsValidCollection()
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var waveConditionsInput = new WaveConditionsInput()
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
                 ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()),
@@ -213,7 +213,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void CreateExportableWaveConditionsCollection_ValidDataWithCoverType_ReturnsValidCollection()
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput(WaveConditionsRevetment.Grass)
+            var waveConditionsInput = new WaveConditionsInput()
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
                 ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties()),

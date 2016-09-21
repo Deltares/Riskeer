@@ -118,7 +118,7 @@ namespace Ringtoets.Revetment.IO.Test
             // Setup
             ExportableWaveConditions[] exportableWaveConditions =
             {
-                new ExportableWaveConditions("blocksName", new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+                new ExportableWaveConditions("blocksName", new WaveConditionsInput()
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                     {
@@ -130,7 +130,7 @@ namespace Ringtoets.Revetment.IO.Test
                     LowerBoundaryWaterLevels = (RoundedDouble) 2.689,
                     UpperBoundaryWaterLevels = (RoundedDouble) 77.8249863247
                 }, new WaveConditionsOutput(1.11111, 2.22222, 3.33333, 4.44444), CoverType.StoneCoverBlocks),
-                new ExportableWaveConditions("columnsName", new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+                new ExportableWaveConditions("columnsName", new WaveConditionsInput()
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(8, "aLocation", 44, 123.456)
                     {

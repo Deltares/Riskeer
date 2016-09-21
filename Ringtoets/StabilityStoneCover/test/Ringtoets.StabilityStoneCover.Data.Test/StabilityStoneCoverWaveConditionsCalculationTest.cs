@@ -47,7 +47,6 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
             Assert.IsNull(calculation.Comments);
             Assert.IsNull(calculation.Output);
             Assert.IsNull(calculation.InputParameters.ForeshoreProfile);
-            Assert.AreEqual(WaveConditionsRevetment.StabilityStone, calculation.InputParameters.RevetmentType);
         }
 
         [Test]

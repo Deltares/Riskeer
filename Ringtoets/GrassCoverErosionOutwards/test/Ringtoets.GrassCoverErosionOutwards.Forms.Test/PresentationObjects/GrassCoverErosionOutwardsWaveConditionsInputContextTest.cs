@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             failureMechanism.ForeshoreProfiles.Add(foreshoreProfile);
             failureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation);
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.Grass);
+            var input = new WaveConditionsInput();
 
             // Call
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
@@ -80,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
         public void Constructor_FailureMechanismNull_ThrowsArgumentNullException()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.Grass);
+            var input = new WaveConditionsInput();
 
             // Call
             TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsInputContext(input, null);

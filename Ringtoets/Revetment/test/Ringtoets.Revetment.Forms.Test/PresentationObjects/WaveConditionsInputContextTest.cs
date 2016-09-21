@@ -48,7 +48,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             // Call
             var context = new TestWaveConditionsInputContext(input);

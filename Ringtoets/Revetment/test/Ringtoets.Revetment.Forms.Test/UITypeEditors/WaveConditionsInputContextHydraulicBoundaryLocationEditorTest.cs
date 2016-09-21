@@ -50,7 +50,7 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
         public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var grassCoverErosionInwardsInput = new WaveConditionsInput(WaveConditionsRevetment.Grass);
+            var grassCoverErosionInwardsInput = new WaveConditionsInput();
 
             var inputContext = new TestWaveConditionsInputContext(grassCoverErosionInwardsInput,
                                                                   new[]
@@ -90,7 +90,7 @@ namespace Ringtoets.Revetment.Forms.Test.UITypeEditors
             // Setup
             var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
 
-            var waveConditionsInput = new WaveConditionsInput(WaveConditionsRevetment.Grass)
+            var waveConditionsInput = new WaveConditionsInput()
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };

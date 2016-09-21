@@ -101,16 +101,12 @@ namespace Ringtoets.Revetment.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-            const WaveConditionsRevetment revetmentType = WaveConditionsRevetment.StabilityStone;
-
             // Call
-            var input = new WaveConditionsInput(revetmentType);
+            var input = new WaveConditionsInput();
 
             // Assert
             Assert.IsInstanceOf<Observable>(input);
             Assert.IsInstanceOf<ICalculationInput>(input);
-            Assert.AreEqual(revetmentType, input.RevetmentType);
             Assert.IsNull(input.HydraulicBoundaryLocation);
             Assert.IsNull(input.ForeshoreProfile);
             Assert.IsFalse(input.UseBreakWater);
@@ -140,7 +136,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void HydraulicBoundaryLocation_SetNewValue_AssessmentLevelAndUpperBoundaryDesignWaterLevelExpectedValue()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             const double assessmentLevel = 3.2;
 
             // Call
@@ -158,7 +154,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void HydraulicBoundaryLocation_SetNullValue_AssessmentLevelAndUpperBoundaryDesignWaterLevelNaN()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0, 0)
                 {
@@ -181,7 +177,7 @@ namespace Ringtoets.Revetment.Data.Test
             [Values(true, false)] bool withValidForeshore)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             BreakWaterType originalBreakWaterType = input.BreakWater.Type;
             RoundedDouble originalBreakWaterHeight = input.BreakWater.Height;
             HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
@@ -237,7 +233,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void Foreshore_SetNullValue_InputSyncedToDefaults()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             BreakWaterType originalBreakWaterType = input.BreakWater.Type;
             RoundedDouble originalBreakWaterHeight = input.BreakWater.Height;
             HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
@@ -289,7 +285,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void Orientation_ValidValues_NewValueSet(double orientation)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             // Call
             input.Orientation = (RoundedDouble)orientation;
@@ -302,7 +298,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryDesignWaterLevel_NoHydraulicBoundaryLocation_ReturnNaN()
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var waveConditionsInput = new WaveConditionsInput();
 
             // Call
             waveConditionsInput.HydraulicBoundaryLocation = null;
@@ -315,7 +311,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryDesignWaterLevel_NoDesignWaterLevel_ReturnNaN()
         {
             // Setup
-            var waveConditionsInput = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var waveConditionsInput = new WaveConditionsInput();
 
             // Call
             waveConditionsInput.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0);
@@ -329,7 +325,7 @@ namespace Ringtoets.Revetment.Data.Test
         {
             // Setup
             var designWaterLevel = (RoundedDouble)1.0;
-            var waveConditionsInput = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var waveConditionsInput = new WaveConditionsInput();
 
             // Call
             waveConditionsInput.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0)
@@ -345,7 +341,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryRevetment_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             int originalNumberOfDecimalPlaces = input.LowerBoundaryRevetment.NumberOfDecimalPlaces;
 
@@ -366,7 +362,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryRevetment_ValidValueAccordingtoUpperBoundaryRevetment_ValueIsSet(double lowerBoundaryRevetment, double upperBoundaryRevetment)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetment
             };
@@ -385,7 +381,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryRevetment_InvalidValueAccordingtoUpperBoundaryRevetment_ThrowsArgumentOutOfRangeException(double lowerBoundaryRevetment, double upperBoundaryRevetment)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetment
             };
@@ -404,7 +400,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryRevetment_BoundarySmallerThanValid_SetValueToValidBoundary(double newValue)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             // Call
             input.LowerBoundaryRevetment = (RoundedDouble) newValue;
@@ -417,7 +413,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryRevetment_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             int originalNumberOfDecimalPlaces = input.UpperBoundaryRevetment.NumberOfDecimalPlaces;
 
@@ -438,7 +434,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryRevetment_ValidValueAccordingtoLowerBoundaryRevetment_ValueIsSet(double lowerBoundaryRevetment, double upperBoundaryRevetment)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetment
             };
@@ -457,7 +453,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryRevetment_InvalidValueAccordingtoLowerBoundaryRevetment_ThrowsArgumentOutOfRangeException(double lowerBoundaryRevetment, double upperBoundaryRevetment)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetment
             };
@@ -476,7 +472,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryRevetment_BoundaryLargerThanValid_SetValueToValidBoundary(double newValue)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             // Call
             input.UpperBoundaryRevetment = (RoundedDouble)newValue;
@@ -489,7 +485,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryWaterLevels_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             int originalNumberOfDecimalPlaces = input.LowerBoundaryWaterLevels.NumberOfDecimalPlaces;
 
@@ -510,7 +506,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryWaterLevels_ValidValueAccordingtoUpperBoundaryWaterLevels_ValueIsSet(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 UpperBoundaryWaterLevels = (RoundedDouble)upperBoundaryWaterLevels
             };
@@ -529,7 +525,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryWaterLevels_InvalidValueAccordingtoUpperBoundaryWaterLevels_ThrowsArgumentOutOfRangeException(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 UpperBoundaryWaterLevels = (RoundedDouble)upperBoundaryWaterLevels
             };
@@ -548,7 +544,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void LowerBoundaryWaterLevels_BoundarySmallerThanValid_SetValueToValidBoundary(double newValue)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             // Call
             input.LowerBoundaryWaterLevels = (RoundedDouble)newValue;
@@ -561,7 +557,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryWaterLevels_SetNewValue_ValueIsRounded()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             int originalNumberOfDecimalPlaces = input.UpperBoundaryWaterLevels.NumberOfDecimalPlaces;
 
@@ -582,7 +578,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryWaterLevels_ValidValueAccordingtoLowerBoundaryWaterLevels_ValueIsSet(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 LowerBoundaryWaterLevels = (RoundedDouble)lowerBoundaryWaterLevels
             };
@@ -601,7 +597,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryWaterLevels_InvalidValueAccordingtoLowerBoundaryWaterLevels_ThrowsArgumentOutOfRangeException(double lowerBoundaryWaterLevels, double upperBoundaryWaterLevels)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryWaterLevels
             };
@@ -620,7 +616,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryWaterLevels_BoundaryLargerThanValid_SetValueToValidBoundary(double newValue)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             // Call
             input.UpperBoundaryWaterLevels = (RoundedDouble)newValue;
@@ -636,7 +632,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void WaterLevels_InvalidInput_NoWaterLevels(double lowerBoundaryRevetments, double upperBoundaryRevetments, double designWaterLevel)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
@@ -660,7 +656,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void WaterLevels_AllBoundariesAboveUpperBoundaryDesignWaterLevel_NoWaterLevels()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
@@ -684,7 +680,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void WaterLevels_HydraulicBoundaryLocationNull_NoWaterLevels()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 LowerBoundaryRevetment = (RoundedDouble)1.0,
                 UpperBoundaryRevetment = (RoundedDouble)10.0,
@@ -707,7 +703,7 @@ namespace Ringtoets.Revetment.Data.Test
                                                               double designWaterLevel, IEnumerable<RoundedDouble> expectedWaterLevels)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {

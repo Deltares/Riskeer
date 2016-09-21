@@ -76,7 +76,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void Data_SetDefaultInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
 
             // Call
@@ -140,7 +140,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             {
                 DesignWaterLevel = assessmentLevel
             };
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 ForeshoreProfile = foreshoreProfile,
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
@@ -201,7 +201,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
                 DesignWaterLevel = assessmentLevel
             };
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             input.Attach(observerMock);
             var inputContext = new TestWaveConditionsInputContext(input, new ForeshoreProfile[0], new HydraulicBoundaryLocation[0]);
 
@@ -252,7 +252,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             [Values(true, false)] bool withForeshoreProfile)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             var foreshoreProfile = new ForeshoreProfile(
                 new Point2D(0, 0),
                 Enumerable.Empty<Point2D>(),

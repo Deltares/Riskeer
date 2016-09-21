@@ -106,7 +106,7 @@ namespace Ringtoets.Revetment.Service.Test
                 FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
             };
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             // Call
             Action action = () => isValid = WaveConditionsCalculationService.Instance.Validate(input, database, name);
@@ -136,7 +136,7 @@ namespace Ringtoets.Revetment.Service.Test
                 FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
             };
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             };
@@ -171,7 +171,7 @@ namespace Ringtoets.Revetment.Service.Test
                 FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
             };
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
@@ -328,7 +328,7 @@ namespace Ringtoets.Revetment.Service.Test
             double b = 0.8;
             double c = 0.4;
             int norm = 5;
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0),
                 ForeshoreProfile = CreateForeshoreProfile(),
@@ -368,7 +368,7 @@ namespace Ringtoets.Revetment.Service.Test
             double b = 0.8;
             double c = 0.4;
             int norm = 5;
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0),
                 ForeshoreProfile = CreateForeshoreProfile()
@@ -402,7 +402,7 @@ namespace Ringtoets.Revetment.Service.Test
 
         private static WaveConditionsInput GetDefaultValidationInput()
         {
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {

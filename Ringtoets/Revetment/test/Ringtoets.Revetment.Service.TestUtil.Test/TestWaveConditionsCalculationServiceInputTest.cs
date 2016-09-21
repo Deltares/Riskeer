@@ -37,7 +37,7 @@ namespace Ringtoets.Revetment.Service.TestUtil.Test
             const double b = 0.3;
             const double c = 0.8;
             const int norm = 5;
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             const string hlcdDirectory = "C:/temp";
             const string ringId = "11-1";
             const string name = "test";

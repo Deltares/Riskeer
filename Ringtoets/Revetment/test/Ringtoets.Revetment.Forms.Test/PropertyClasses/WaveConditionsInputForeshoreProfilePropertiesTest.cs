@@ -55,7 +55,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             var properties = new WaveConditionsInputForeshoreProfileProperties();
 
             // Call
@@ -70,7 +70,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void Data_SetInputContextInstanceWithData_ReturnCorrectPropertyValues()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
                                                         new[]
@@ -104,7 +104,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mockRepository.ReplayAll();
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             var properties = new WaveConditionsInputForeshoreProfileProperties
             {
                 Data = input
@@ -127,7 +127,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void PropertyAttributes_WithOrWithoutForeshoreProfileAndForelands_ReturnExpectedValues(bool withDikeProfile, int forlands, bool expectedCoordinatesPropertyReadOnly)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             if (withDikeProfile)
             {

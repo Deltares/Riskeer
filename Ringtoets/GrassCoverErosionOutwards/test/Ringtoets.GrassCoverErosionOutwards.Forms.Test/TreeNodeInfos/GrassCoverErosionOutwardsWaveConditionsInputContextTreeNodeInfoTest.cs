@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.Grass);
+            var input = new WaveConditionsInput();
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -91,7 +91,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.Grass);
+            var input = new WaveConditionsInput();
             var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
@@ -114,7 +114,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             {
                 var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-                var input = new WaveConditionsInput(WaveConditionsRevetment.Grass);
+                var input = new WaveConditionsInput();
                 var context = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
 
                 var menuBuilder = mocks.StrictMock<IContextMenuBuilder>();

@@ -67,7 +67,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
                 }
             };
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             // Call
             var context = new StabilityStoneCoverWaveConditionsInputContext(input,
@@ -111,7 +111,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             // Call
             TestDelegate test = () => new StabilityStoneCoverWaveConditionsInputContext(input,
@@ -128,7 +128,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
         public void Constructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             // Call
@@ -149,7 +149,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PresentationObjects
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var context = new StabilityStoneCoverWaveConditionsInputContext(input, failureMechanism.ForeshoreProfiles, assessmentSection);

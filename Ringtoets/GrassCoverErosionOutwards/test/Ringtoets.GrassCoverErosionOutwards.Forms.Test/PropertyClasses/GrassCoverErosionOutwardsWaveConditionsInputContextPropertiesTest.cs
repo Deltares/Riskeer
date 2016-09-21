@@ -76,7 +76,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         public void Data_SetDefaultInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.Grass);
+            var input = new WaveConditionsInput();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
 
@@ -141,7 +141,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             {
                 DesignWaterLevel = assessmentLevel
             };
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+            var input = new WaveConditionsInput()
             {
                 ForeshoreProfile = foreshoreProfile,
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,
@@ -201,7 +201,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
                 DesignWaterLevel = assessmentLevel
             };
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             input.Attach(observerMock);
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -255,7 +255,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             [Values(true, false)] bool withForeshoreProfile)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             var foreshoreProfile = new ForeshoreProfile(
                 new Point2D(0, 0),
                 Enumerable.Empty<Point2D>(),

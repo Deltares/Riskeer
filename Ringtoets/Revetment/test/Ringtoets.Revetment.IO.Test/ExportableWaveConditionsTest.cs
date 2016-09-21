@@ -31,7 +31,7 @@ namespace Ringtoets.Revetment.IO.Test
     [TestFixture]
     public class ExportableWaveConditionsTest
     {
-        private readonly WaveConditionsInput waveConditionsInput = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+        private readonly WaveConditionsInput waveConditionsInput = new WaveConditionsInput()
         {
             HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0),
             ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties()),
@@ -76,7 +76,7 @@ namespace Ringtoets.Revetment.IO.Test
         public void Constructor_WaveConditionsInputHydraulicBoundaryLocationNull_ThrowsArgumentException()
         {
             // Call
-            TestDelegate call = () => new ExportableWaveConditions("aName", new WaveConditionsInput(WaveConditionsRevetment.StabilityStone), waveConditionsOutput, CoverType.StoneCoverColumns);
+            TestDelegate call = () => new ExportableWaveConditions("aName", new WaveConditionsInput(), waveConditionsOutput, CoverType.StoneCoverColumns);
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
@@ -90,7 +90,7 @@ namespace Ringtoets.Revetment.IO.Test
             // Call
             ExportableWaveConditions exportableWaveConditions =
                 new ExportableWaveConditions("ewcName",
-                                             new WaveConditionsInput(WaveConditionsRevetment.StabilityStone)
+                                             new WaveConditionsInput()
                                              {
                                                  HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "hblName", 1.0, 8.0)
                                              },

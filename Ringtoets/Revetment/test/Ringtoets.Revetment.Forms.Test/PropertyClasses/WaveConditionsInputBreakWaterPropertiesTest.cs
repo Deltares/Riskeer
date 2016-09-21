@@ -53,7 +53,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void Data_SetNewInputContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             var properties = new WaveConditionsInputBreakWaterProperties();
 
             // Call
@@ -75,7 +75,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             mockRepository.ReplayAll();
 
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
             var properties = new WaveConditionsInputBreakWaterProperties
             {
                 Data = input
@@ -105,7 +105,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
         public void PropertyAttributes_SpecificForeshoreProfileAndUseBreakWaterState_ReturnExpectedValues(bool useBreakWaterState, bool useForeshoreProfile)
         {
             // Setup
-            var input = new WaveConditionsInput(WaveConditionsRevetment.StabilityStone);
+            var input = new WaveConditionsInput();
 
             BreakWater breakWater = null;
             if (useBreakWaterState)
