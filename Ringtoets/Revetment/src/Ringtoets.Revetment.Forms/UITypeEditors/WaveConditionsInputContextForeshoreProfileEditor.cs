@@ -37,7 +37,7 @@ namespace Ringtoets.Revetment.Forms.UITypeEditors
     /// <see cref="DikeProfile"/> from a collection.
     /// </summary>
     public class WaveConditionsInputContextForeshoreProfileEditor :
-        SelectionEditor<WaveConditionsInputContextProperties<WaveConditionsInputContext>, ForeshoreProfile>
+        SelectionEditor<IWaveConditionsInputContextProperties<WaveConditionsInputContext>, ForeshoreProfile>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveConditionsInputContextForeshoreProfileEditor"/>.

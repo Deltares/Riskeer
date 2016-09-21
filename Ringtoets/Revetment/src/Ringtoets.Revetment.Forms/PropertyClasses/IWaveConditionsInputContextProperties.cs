@@ -49,5 +49,10 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         /// Gets and sets the selected <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+
+        /// <summary>
+        /// Gets and sets the selected <see cref="ForeshoreProfile"/>.
+        /// </summary>
+        ForeshoreProfile ForeshoreProfile { get; set; }
     }
 }
