@@ -605,16 +605,6 @@ namespace Ringtoets.Common.Forms.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap CsvFileIcon {
-            get {
-                object obj = ResourceManager.GetObject("CsvFileIcon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap DatabaseIcon {
             get {
                 object obj = ResourceManager.GetObject("DatabaseIcon", resourceCulture);
@@ -1211,7 +1201,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstanden en golfhoogten uit marginale statistiek (*.shp)..
+        ///   Looks up a localized string similar to Waterstanden en golfhoogtes uit marginale statistiek (*.shp)..
         /// </summary>
         public static string HydraulicBoundaryLocationsExporter_DisplayName {
             get {

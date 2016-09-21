@@ -21,6 +21,7 @@
 
 using System;
 using System.Windows.Forms;
+using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -53,7 +54,7 @@ namespace Core.Common.Gui.Test.Forms
             using (var dialog = new SelectItemDialog(parent, "Dialog text"))
             {
                 // Assert
-                Assert.AreEqual("Dialog text", dialog.Text);
+                Assert.IsInstanceOf<DialogBase>(dialog);
                 Assert.IsNull(dialog.SelectedItemTag);
                 Assert.IsNull(dialog.SelectedItemTypeName);
             }

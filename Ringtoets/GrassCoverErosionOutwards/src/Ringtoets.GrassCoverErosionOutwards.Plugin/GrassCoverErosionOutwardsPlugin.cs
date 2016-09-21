@@ -213,7 +213,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 Name = RingtoetsCommonFormsResources.WaveConditionsExporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.CsvFileIcon,
+                Image = RingtoetsCommonFormsResources.GeneralOutputIcon,
                 CreateFileExporter = (context, filePath) =>
                 {
                     var calculations = context.WrappedData.WaveConditionsCalculationGroup.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();

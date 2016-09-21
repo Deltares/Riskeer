@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ExportInfo[] exportInfos = plugin.GetExportInfos().Where(ei => ei.DataType == typeof(HydraulicBoundariesGroupContext)).ToArray();
-                hydraulicBoundaryLocationsExporterExportInfo = exportInfos.FirstOrDefault(ei => ei.Name.Equals("Waterstanden en golfhoogten uit marginale statistiek (*.shp)."));
+                hydraulicBoundaryLocationsExporterExportInfo = exportInfos.FirstOrDefault(ei => ei.Name.Equals("Waterstanden en golfhoogtes uit marginale statistiek (*.shp)."));
                 waveConditionsExporterExportInfo = exportInfos.FirstOrDefault(ei => ei.Name.Equals("Berekende belastingen bij verschillende waterstanden (*.csv)."));
             }
         }
@@ -172,7 +172,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             var icon = waveConditionsExporterExportInfo.Image;
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CsvFileIcon, icon);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralOutputIcon, icon);
         }
 
         [Test]

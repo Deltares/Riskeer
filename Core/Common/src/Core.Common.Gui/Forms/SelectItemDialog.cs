@@ -33,17 +33,19 @@ namespace Core.Common.Gui.Forms
     /// </summary>
     public partial class SelectItemDialog : DialogBase
     {
+        private readonly string text;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="SelectItemDialog"/> class.
         /// </summary>
         /// <param name="dialogParent">The dialog parent for which this dialog should be 
         /// shown on top.</param>
         /// <param name="text">The text to show in the dialog.</param>
-        public SelectItemDialog(IWin32Window dialogParent, string text) : base(dialogParent, Resources.plus, 320, 220)
+        public SelectItemDialog(IWin32Window dialogParent, string text) : base(dialogParent, Resources.ExportIcon, 320, 220)
         {
             InitializeComponent();
 
-            Text = text;
+            this.text = text;
 
             imageList.Images.Clear();
             listViewItemTypes.Clear();
@@ -104,6 +106,13 @@ namespace Core.Common.Gui.Forms
         protected override Button GetCancelButton()
         {
             return buttonCancel;
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            Text = text;
+
+            base.OnLoad(e);
         }
 
         private ListViewItem SelectedItem

@@ -259,7 +259,7 @@ namespace Core.Common.Gui.Test.Commands
             exportHandler.ExportFrom(1234);
 
             // Assert
-            Assert.AreEqual("Kies wat u wilt exporteren", dialogText);
+            Assert.AreEqual("Selecteer wat u wilt exporteren", dialogText);
             mockRepository.VerifyAll();
         }
 
