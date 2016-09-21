@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Security.AccessControl;
 using Core.Common.Base.Data;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
@@ -69,6 +70,49 @@ namespace Ringtoets.Revetment.IO.Test
             var exception = Assert.Throws<CriticalFileWriteException>(call);
             Assert.AreEqual(string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'.", filePath), exception.Message);
             Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+        }
+
+        [Test]
+        public void WriteWaveConditions_FilePathTooLong_ThrowCriticalFileWriteException()
+        {
+            // Setup
+            var filePath = new string('a', 249);
+
+            // Call
+            TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), filePath);
+
+            // Assert
+            var exception = Assert.Throws<CriticalFileWriteException>(call);
+            Assert.AreEqual(string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'.", filePath), exception.Message);
+            Assert.IsInstanceOf<ArgumentException>(exception.InnerException);
+        }
+
+        [Test]
+        public void WriteWaveConditions_InvalidDirectoryRights_ThrowCriticalFileWriteException()
+        {
+            // Setup
+            string directoryPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Revetment.IO,
+                                                              "WriteWaveConditions_InvalidDirectoryRights_ThrowCriticalFileWriteException");
+            Directory.CreateDirectory(directoryPath);
+            string filePath = Path.Combine(directoryPath, "test.csv");
+
+            // Call
+            TestDelegate call = () => WaveConditionsWriter.WriteWaveConditions(Enumerable.Empty<ExportableWaveConditions>(), filePath);
+
+            try
+            {
+                using (new DirectoryPermissionsRevoker(directoryPath, FileSystemRights.Write))
+                {
+                    // Assert
+                    var exception = Assert.Throws<CriticalFileWriteException>(call);
+                    Assert.AreEqual(string.Format("Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'.", filePath), exception.Message);
+                    Assert.IsInstanceOf<UnauthorizedAccessException>(exception.InnerException);
+                }
+            }
+            finally
+            {
+                Directory.Delete(directoryPath, true);
+            }
         }
 
         [Test]

@@ -47,9 +47,6 @@ namespace Core.Common.Gui.Forms
 
             this.text = text;
 
-            imageList.Images.Clear();
-            listViewItemTypes.Clear();
-            listViewItemTypes.Groups.Clear();
             listViewItemTypes.HandleCreated += ListViewItemTypesOnHandleCreated;
 
             // http://blogs.msdn.com/b/oldnewthing/archive/2005/05/03/414317.aspx
@@ -145,7 +142,10 @@ namespace Core.Common.Gui.Forms
         {
             if (SelectedItem == null)
             {
-                MessageBox.Show(Resources.SelectItemDialog_buttonOk_Click_Please_select_an_item, Resources.SelectItemDialog_buttonOk_Click_Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.SelectItemDialog_buttonOk_Click_Please_select_an_item,
+                                Resources.SelectItemDialog_buttonOk_Click_Error,
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
                 DialogResult = DialogResult.None;
             }
         }

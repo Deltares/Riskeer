@@ -77,10 +77,6 @@ namespace Core.Common.Gui.Forms
             // listViewItemTypes
             // 
             resources.ApplyResources(this.listViewItemTypes, "listViewItemTypes");
-            this.listViewItemTypes.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            ((System.Windows.Forms.ListViewGroup)(resources.GetObject("listViewItemTypes.Groups"))),
-            ((System.Windows.Forms.ListViewGroup)(resources.GetObject("listViewItemTypes.Groups1"))),
-            ((System.Windows.Forms.ListViewGroup)(resources.GetObject("listViewItemTypes.Groups2")))});
             this.listViewItemTypes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.listViewItemTypes.HideSelection = false;
             this.listViewItemTypes.LargeImageList = this.imageList;
@@ -95,11 +91,9 @@ namespace Core.Common.Gui.Forms
             // 
             // imageList
             // 
-            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth32Bit;
+            resources.ApplyResources(this.imageList, "imageList");
             this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "table.png");
-            this.imageList.Images.SetKeyName(1, "chart_curve.png");
-            this.imageList.Images.SetKeyName(2, "map.png");
             // 
             // SelectItemDialog
             // 

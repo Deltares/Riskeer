@@ -23,13 +23,15 @@ using System;
 using System.Windows.Forms;
 using Core.Common.Controls.Dialogs;
 using Core.Common.Gui.Forms;
+using Core.Common.Gui.Test.Properties;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Core.Common.Gui.Test.Forms
 {
     [TestFixture]
-    public class SelectItemDialogTest
+    public class SelectItemDialogTest : NUnitFormTest
     {
         [Test]
         public void Constructor_WithoutDialogParent_ThrowsArgumentNullException()
@@ -57,6 +59,106 @@ namespace Core.Common.Gui.Test.Forms
                 Assert.IsInstanceOf<DialogBase>(dialog);
                 Assert.IsNull(dialog.SelectedItemTag);
                 Assert.IsNull(dialog.SelectedItemTypeName);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Constructor_Always_SetMinimumSize()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var parent = mocks.StrictMock<IWin32Window>();
+            mocks.ReplayAll();
+
+            using (var dialog = new SelectItemDialog(parent, "Dialog text"))
+            {
+                // Call
+                dialog.Show();
+
+                // Assert
+                Assert.AreEqual(320, dialog.MinimumSize.Width);
+                Assert.AreEqual(220, dialog.MinimumSize.Height);
+            }
+        }
+
+        [Test]
+        public void OnLoad_Text_SetsText()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var parent = mocks.StrictMock<IWin32Window>();
+            mocks.ReplayAll();
+            var text = "Dialog text";
+
+            using (var dialog = new SelectItemDialog(parent, text))
+            {
+                // Call
+                dialog.Show();
+
+                // Assert
+                Assert.AreEqual(text, dialog.Text);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void ButtonOkClick_NoItemSelected_ShowDialogWithText()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var parent = mocks.StrictMock<IWin32Window>();
+            mocks.ReplayAll();
+
+            string messageText = null;
+            DialogBoxHandler = (name, wnd) =>
+            {
+                var messageBox = new MessageBoxTester(wnd);
+                messageText = messageBox.Text;
+                messageBox.ClickOk();
+            };
+
+            using (var dialog = new SelectItemDialog(parent, "Dialog text"))
+            {
+                dialog.Show();
+
+                // Call
+                var okButton = new ButtonTester("buttonOk", dialog);
+                okButton.Click();
+
+                // Assert
+                Assert.IsNull(dialog.SelectedItemTag);
+                Assert.IsNull(dialog.SelectedItemTypeName);
+                Assert.AreEqual("Selecteer een type.", messageText);
+                Assert.AreEqual(DialogResult.None, dialog.DialogResult);
+            }
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void SelectedItemTag_ItemSelected_ReturnsSelectedItem()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var parent = mocks.StrictMock<IWin32Window>();
+            mocks.ReplayAll();
+
+            using (var dialog = new SelectItemDialog(parent, "Dialog text"))
+            {
+                var tag = new object();
+                dialog.AddItemType("aName", "aCategory", Resources.abacus, tag);
+                var listView = (ListView)new ControlTester("listViewItemTypes", dialog).TheObject;
+                dialog.Show();
+
+                // Call
+                listView.Items[0].Selected = true;
+
+                // Assert
+                Assert.AreEqual(tag, dialog.SelectedItemTag);
+                Assert.AreEqual("aName", dialog.SelectedItemTypeName);
             }
 
             mocks.VerifyAll();
