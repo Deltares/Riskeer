@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
@@ -38,7 +39,7 @@ namespace Ringtoets.Revetment.Service
         /// <param name="hydraulicBoundaryDatabase">The <see cref="HydraulicBoundaryDatabase"/> used when performing a calculation.</param>
         /// <param name="name">The name of the calculation to validate.</param>
         /// <param name="designWaterLevelName">The name of the design water level which is displayed when a log message is generated.</param>
-        /// <returns><c>False</c> if <paramref name="input"/> contains invalid values or when no locations could be obtained from 
+        /// <returns><c>false</c> if <paramref name="input"/> contains invalid values or when no locations could be obtained from 
         /// the <paramref name="hydraulicBoundaryDatabase"/>; <c>True</c> otherwise.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelName"/> is <c>null</c></exception>
         bool Validate(WaveConditionsInput input, HydraulicBoundaryDatabase hydraulicBoundaryDatabase, string name, string designWaterLevelName);

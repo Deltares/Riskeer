@@ -125,7 +125,7 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
-        public void Validate_NoDesignWaterLevelName_ThrowArgumentNullException()
+        public void Validate_DesignWaterLevelNameNull_ThrowArgumentNullException()
         {
             // Setup 
             string name = "test";
