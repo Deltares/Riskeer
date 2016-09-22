@@ -102,8 +102,7 @@ namespace Ringtoets.Revetment.Data
         /// <remarks><list type="bullet">
         /// <item>When the value is smaller than 0, it will be set to 0.</item>
         /// <item>When the value is larger than 360, it will be set to 360.</item>
-        /// </list>
-        /// </remarks>
+        /// </list></remarks>
         public RoundedDouble Orientation
         {
             get
@@ -112,7 +111,7 @@ namespace Ringtoets.Revetment.Data
             }
             set
             {
-                var newOrientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
+                RoundedDouble newOrientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
 
                 newOrientation = ValidateOrientationInRange(newOrientation);
 
@@ -172,7 +171,7 @@ namespace Ringtoets.Revetment.Data
             }
             set
             {
-                var newLowerBoundaryRevetment = value.ToPrecision(lowerBoundaryRevetment.NumberOfDecimalPlaces);
+                RoundedDouble newLowerBoundaryRevetment = value.ToPrecision(lowerBoundaryRevetment.NumberOfDecimalPlaces);
 
                 newLowerBoundaryRevetment = ValidateLowerBoundaryInRange(newLowerBoundaryRevetment);
 
@@ -195,7 +194,7 @@ namespace Ringtoets.Revetment.Data
             }
             set
             {
-                var newUpperBoundaryRevetment = value.ToPrecision(upperBoundaryRevetment.NumberOfDecimalPlaces);
+                RoundedDouble newUpperBoundaryRevetment = value.ToPrecision(upperBoundaryRevetment.NumberOfDecimalPlaces);
 
                 newUpperBoundaryRevetment = ValidateUpperBoundaryInRange(newUpperBoundaryRevetment);
 
@@ -229,7 +228,7 @@ namespace Ringtoets.Revetment.Data
             }
             set
             {
-                var newLowerBoundaryWaterLevels = value.ToPrecision(lowerBoundaryWaterLevels.NumberOfDecimalPlaces);
+                RoundedDouble newLowerBoundaryWaterLevels = value.ToPrecision(lowerBoundaryWaterLevels.NumberOfDecimalPlaces);
 
                 newLowerBoundaryWaterLevels = ValidateLowerBoundaryInRange(newLowerBoundaryWaterLevels);
 
@@ -259,7 +258,7 @@ namespace Ringtoets.Revetment.Data
             }
             set
             {
-                var newUpperBoundaryWaterLevels = value.ToPrecision(upperBoundaryWaterLevels.NumberOfDecimalPlaces);
+                RoundedDouble newUpperBoundaryWaterLevels = value.ToPrecision(upperBoundaryWaterLevels.NumberOfDecimalPlaces);
 
                 newUpperBoundaryWaterLevels = ValidateUpperBoundaryInRange(newUpperBoundaryWaterLevels);
 
@@ -287,7 +286,7 @@ namespace Ringtoets.Revetment.Data
 
             if (newOrientation < lowerBoundaryRange)
             {
-                newOrientation = new RoundedDouble(2);
+                newOrientation = new RoundedDouble(2, lowerBoundaryRange);
             }
 
             if (newOrientation > upperBoundaryRange)

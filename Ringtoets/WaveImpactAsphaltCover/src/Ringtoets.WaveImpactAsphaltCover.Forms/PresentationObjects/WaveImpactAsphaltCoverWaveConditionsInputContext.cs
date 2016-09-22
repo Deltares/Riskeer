@@ -46,8 +46,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverWaveConditionsInputContext(WaveConditionsInput wrappedData,
-                                                             IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                                             IAssessmentSection assessmentSection) : base(wrappedData)
+                                                                IEnumerable<ForeshoreProfile> foreshoreProfiles,
+                                                                IAssessmentSection assessmentSection) : base(wrappedData)
         {
             if (foreshoreProfiles == null)
             {
@@ -65,9 +65,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
         {
             get
             {
-                return assessmentSection.HydraulicBoundaryDatabase != null 
-                    ? assessmentSection.HydraulicBoundaryDatabase.Locations 
-                    : Enumerable.Empty<HydraulicBoundaryLocation>();
+                return assessmentSection.HydraulicBoundaryDatabase != null
+                           ? assessmentSection.HydraulicBoundaryDatabase.Locations
+                           : Enumerable.Empty<HydraulicBoundaryLocation>();
             }
         }
 

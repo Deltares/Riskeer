@@ -140,7 +140,7 @@ namespace Ringtoets.Revetment.Data.Test
             const double assessmentLevel = 3.2;
 
             // Call
-            input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0, 0)
+            input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
             {
                 DesignWaterLevel = (RoundedDouble)assessmentLevel
             };
@@ -156,7 +156,7 @@ namespace Ringtoets.Revetment.Data.Test
             // Setup
             var input = new WaveConditionsInput()
             {
-                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0, 0)
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
                 {
                     DesignWaterLevel = (RoundedDouble)3.2
                 }
@@ -329,7 +329,7 @@ namespace Ringtoets.Revetment.Data.Test
             var waveConditionsInput = new WaveConditionsInput();
 
             // Call
-            waveConditionsInput.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0);
+            waveConditionsInput.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
             // Assert
             Assert.AreEqual(new RoundedDouble(2, double.NaN), waveConditionsInput.UpperBoundaryDesignWaterLevel);
@@ -343,7 +343,7 @@ namespace Ringtoets.Revetment.Data.Test
             var waveConditionsInput = new WaveConditionsInput();
 
             // Call
-            waveConditionsInput.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0)
+            waveConditionsInput.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
                 DesignWaterLevel = designWaterLevel
             };

@@ -26,7 +26,7 @@ using Ringtoets.WaveImpactAsphaltCover.Forms.Properties;
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses
 {
     /// <summary>
-    /// Property control the <see cref="WaveImpactAsphaltCoverWaveConditionsInputContext"/>.
+    /// ViewModel of <see cref="WaveImpactAsphaltCoverWaveConditionsInputContext"/> for properties panel.
     /// </summary>
     public class WaveImpactAsphaltCoverWaveConditionsInputContextProperties
         : WaveConditionsInputContextProperties<WaveImpactAsphaltCoverWaveConditionsInputContext>
