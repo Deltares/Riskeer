@@ -63,13 +63,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 // Assert
                 Assert.AreEqual(2, viewInfos.Length);
 
-                PluginTestHelper.AssertContainsViewInfo(
+                PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>),
                     typeof(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>),
                     typeof(GrassCoverErosionOutwardsFailureMechanismResultView));
 
-                PluginTestHelper.AssertContainsViewInfo(
+                PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext),
                     typeof(IEnumerable<HydraulicBoundaryLocation>),

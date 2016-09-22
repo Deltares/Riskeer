@@ -37,7 +37,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
         public GrassCoverErosionOutwardsDesignWaterLevelLocationsView()
         {
-            hydraulicBoundaryLocationsObserver = new Observer(() => dataGridViewControl.RefreshDataGridView());
+            hydraulicBoundaryLocationsObserver = new Observer(UpdateDataGridViewDataSource);
         }
 
         public override object Data

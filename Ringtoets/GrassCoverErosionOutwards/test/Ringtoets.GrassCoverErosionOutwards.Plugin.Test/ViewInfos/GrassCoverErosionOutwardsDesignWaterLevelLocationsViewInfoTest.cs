@@ -21,33 +21,66 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using Core.Common.Base;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Ringtoets.HydraRing.Data;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsViewInfoTest : ViewInfoTest<GrassCoverErosionOutwardsDesignWaterLevelLocationsView>
     {
-        protected override Type DataType
+        [Test]
+        public void AfterCreate_Always_SetsExpectedProperties()
         {
-            get
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            IGui guiStub = mockRepository.Stub<IGui>();
+            IMainWindow windowsStub = mockRepository.Stub<IMainWindow>();
+            guiStub.Stub(gs => gs.MainWindow).Return(windowsStub);
+            mockRepository.ReplayAll();
+
+            var data = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSectionStub);
+            Plugin.Gui = guiStub;
+            Plugin.Activate();
+
+            using (var view = CreateView())
             {
-                return typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext);
+                Info.AfterCreate(view, data);
+
+                // Assert
+                Assert.AreSame(assessmentSectionStub, view.AssessmentSection);
+                Assert.AreSame(guiStub, view.ApplicationSelection);
+                Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(view.CalculationGuiService);
             }
+
+            mockRepository.VerifyAll();
         }
 
-        protected override Type ViewDataType
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationsViewInfoTest()
         {
-            get
-            {
-                return typeof(IEnumerable<HydraulicBoundaryLocation>);
-                
-            }
+            DataType = typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext);
+            ViewDataType = typeof(IEnumerable<HydraulicBoundaryLocation>);
+            ViewIcon = RingtoetsCommonFormsResources.GenericInputOutputIcon;
+            ViewName = Resources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName;
+        }
+
+        protected override GrassCoverErosionOutwardsDesignWaterLevelLocationsView CreateView()
+        {
+            return new GrassCoverErosionOutwardsDesignWaterLevelLocationsView();
         }
 
         protected override PluginBase CreatePlugin()
@@ -56,25 +89,29 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         }
     }
 
-    public abstract class ViewInfoTest<TView>
+    public abstract class ViewInfoTest<TView> where TView : IDisposable
     {
-        private PluginBase plugin;
-        private ViewInfo Info { get; set; }
-
-        protected abstract Type DataType { get; }
-        protected abstract Type ViewDataType { get; }
+        protected Type DataType;
+        protected Type ViewDataType;
+        protected Image ViewIcon;
+        protected string ViewName;
+        protected PluginBase Plugin;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = CreatePlugin();
-            Info = plugin.GetViewInfos().FirstOrDefault(vi => vi.ViewType == typeof(TView));
+            Plugin = CreatePlugin();
+            Info = Plugin.GetViewInfos().FirstOrDefault(vi => vi.ViewType == typeof(TView));
+            if (ViewDataType == null)
+            {
+                ViewDataType = DataType;
+            }
         }
 
         [TearDown]
         public void TearDown()
         {
-            plugin.Dispose();
+            Plugin.Dispose();
         }
 
         [TestCase]
@@ -82,11 +119,96 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         {
             Assert.NotNull(Info, "Expected a viewInfo definition for views with type {0}.", typeof(TView));
             Assert.AreEqual(DataType, Info.DataType);
+            Assert.AreEqual(ViewDataType, Info.ViewDataType);
         }
 
-        protected virtual PluginBase CreatePlugin()
+        [Test]
+        public void ViewType_Always_ReturnsViewType()
         {
-            return null;
+            // Call
+            var expectedViewType = Info.ViewType;
+
+            // Assert
+            Assert.AreEqual(typeof(TView), expectedViewType);
+        }
+
+        [Test]
+        public void DataType_Always_ReturnsDataType()
+        {
+            // Call
+            var expectedDataType = Info.DataType;
+
+            // Assert
+            Assert.AreEqual(DataType, expectedDataType);
+        }
+
+        [Test]
+        public void ViewDataType_Always_ReturnsViewDataType()
+        {
+            // Call
+            Type expectedViewDataType = Info.ViewDataType;
+
+            // Assert
+            Assert.AreEqual(ViewDataType, expectedViewDataType);
+        }
+
+        [Test]
+        public void Image_Always_ReturnsViewIcon()
+        {
+            // Call
+            Image image = Info.Image;
+
+            // Assert
+            TestHelper.AssertImagesAreEqual(ViewIcon, image);
+        }
+
+        [Test]
+        public void GetViewName_Always_ReturnsViewName()
+        {
+            // Setup
+            using (var view = CreateView())
+            {
+                // Call
+                var expectedViewName = Info.GetViewName(view, null);
+
+                // Assert
+                Assert.AreEqual(ViewName, expectedViewName);
+            }
+        }
+
+        [Test]
+        [TestCaseSource("CloseForDataTests")]
+        public void CloseForData_ForDifferentObjects_ReturnsExpectedValue(CloseForDataTest test)
+        {
+            using (var view = CreateView())
+            {
+                // Call
+                var closeForData = Info.CloseForData(view, test.DataToCloseFor);
+
+                // Assert
+                Assert.AreEqual(test.ExpectedResult, closeForData);
+            }
+        }
+
+        protected virtual IEnumerable<CloseForDataTest> CloseForDataTests
+        {
+            get
+            {
+                return new[]
+                {
+                    new CloseForDataTest()
+                };
+            }
+        }
+
+        protected abstract PluginBase CreatePlugin();
+        protected abstract GrassCoverErosionOutwardsDesignWaterLevelLocationsView CreateView();
+        protected ViewInfo Info { get; private set; }
+
+        public class CloseForDataTest
+        {
+            public bool ExpectedResult { get; set; }
+            public object DataToCloseFor { get; set; }
         }
     }
 }

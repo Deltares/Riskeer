@@ -23,7 +23,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Plugin;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.Gui.TestUtil
@@ -63,10 +62,16 @@ namespace Core.Common.Gui.TestUtil
         /// <param name="viewDataType">The type of the data which is set on the view.</param>
         /// <param name="viewType">The type of the view.</param>
         /// <returns>The <see cref="ViewInfo"/> that was found within the collection of <see cref="viewInfos"/>.</returns>
-        /// <exception cref="AssertionException">No <see cref="ViewInfo"/> can be found for type <paramref name="dataType"/> or the found 
-        /// <see cref="ViewInfo"/> does not define the expected <paramref name="viewDataType"/> or <paramref name="viewType"/>.</exception>
-        public static ViewInfo AssertContainsViewInfo(IEnumerable<ViewInfo> viewInfos, Type dataType, Type viewDataType, Type viewType)
+        /// <exception cref="AssertionException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="viewInfos"/> is <c>null</c></item>
+        /// <item>no <see cref="ViewInfo"/> can be found for type <paramref name="dataType"/></item>
+        /// <item>the found <see cref="ViewInfo"/> does not define the expected <paramref name="viewDataType"/> or 
+        /// <paramref name="viewType"/></item>
+        /// </list></exception>
+        public static ViewInfo AssertViewInfoDefined(IEnumerable<ViewInfo> viewInfos, Type dataType, Type viewDataType, Type viewType)
         {
+            Assert.NotNull(viewInfos);
             var viewInfo = viewInfos.SingleOrDefault(vi => vi.DataType == dataType);
             Assert.NotNull(viewInfo, "Could not find viewInfo for the dataType {0}", dataType);
             Assert.AreEqual(viewDataType, viewInfo.ViewDataType);
@@ -81,11 +86,15 @@ namespace Core.Common.Gui.TestUtil
         /// <param name="dataType">The type of the data which is passed to the <see cref="ViewInfo"/> and is set on the view.</param>
         /// <param name="viewType">The type of the view.</param>
         /// <returns>The <see cref="ViewInfo"/> that was found within the collection of <see cref="viewInfos"/>.</returns>
-        /// <exception cref="AssertionException">No <see cref="ViewInfo"/> can be found for type <paramref name="dataType"/> or the found 
-        /// <see cref="ViewInfo"/> does not define the expected <paramref name="viewType"/>.</exception>
-        public static ViewInfo AssertContainsViewInfo(IEnumerable<ViewInfo> viewInfos, Type dataType, Type viewType)
+        /// <exception cref="AssertionException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="viewInfos"/> is <c>null</c></item>
+        /// <item>no <see cref="ViewInfo"/> can be found for type <paramref name="dataType"/></item>
+        /// <item>the found <see cref="ViewInfo"/> does not define the expected <paramref name="viewType"/></item>
+        /// </list></exception>
+        public static ViewInfo AssertViewInfoDefined(IEnumerable<ViewInfo> viewInfos, Type dataType, Type viewType)
         {
-            return AssertContainsViewInfo(viewInfos, dataType, dataType, viewType);
+            return AssertViewInfoDefined(viewInfos, dataType, dataType, viewType);
         }
     }
 }
