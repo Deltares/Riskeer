@@ -26,7 +26,7 @@ using Ringtoets.StabilityStoneCover.Forms.Properties;
 namespace Ringtoets.StabilityStoneCover.Forms.PropertyClasses
 {
     /// <summary>
-    /// Property control the <see cref="StabilityStoneCoverWaveConditionsInputContext"/>.
+    /// ViewModel of <see cref="StabilityStoneCoverWaveConditionsInputContext"/> for properties panel.
     /// </summary>
     public class StabilityStoneCoverWaveConditionsInputContextProperties
         : WaveConditionsInputContextProperties<StabilityStoneCoverWaveConditionsInputContext>

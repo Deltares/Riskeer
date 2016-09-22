@@ -71,8 +71,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 
             // Call
             var context = new WaveImpactAsphaltCoverWaveConditionsInputContext(input,
-                                                                            failureMechanism.ForeshoreProfiles,
-                                                                            assessmentSection);
+                                                                               failureMechanism.ForeshoreProfiles,
+                                                                               assessmentSection);
 
             // Assert
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
@@ -94,8 +94,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(null,
-                                                                                        failureMechanism.ForeshoreProfiles,
-                                                                                        assessmentSection);
+                                                                                           failureMechanism.ForeshoreProfiles,
+                                                                                           assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -115,8 +115,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(input,
-                                                                                        null,
-                                                                                        assessmentSection);
+                                                                                           null,
+                                                                                           assessmentSection);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
@@ -133,8 +133,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
 
             // Call
             TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsInputContext(input,
-                                                                                        failureMechanism.ForeshoreProfiles,
-                                                                                        null);
+                                                                                           failureMechanism.ForeshoreProfiles,
+                                                                                           null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

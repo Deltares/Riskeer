@@ -28,7 +28,7 @@ using Ringtoets.Revetment.Forms.PropertyClasses;
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
 {
     /// <summary>
-    /// Property control the <see cref="GrassCoverErosionOutwardsWaveConditionsInputContext"/>.
+    /// ViewModel of <see cref="GrassCoverErosionOutwardsWaveConditionsInputContext"/> for properties panel.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsInputContextProperties
         : WaveConditionsInputContextProperties<GrassCoverErosionOutwardsWaveConditionsInputContext>
