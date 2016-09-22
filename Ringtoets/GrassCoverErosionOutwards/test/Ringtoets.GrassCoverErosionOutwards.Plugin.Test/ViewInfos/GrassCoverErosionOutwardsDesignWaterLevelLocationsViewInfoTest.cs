@@ -19,15 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
-using Core.Common.TestUtil;
+using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -86,129 +83,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         protected override PluginBase CreatePlugin()
         {
             return new GrassCoverErosionOutwardsPlugin();
-        }
-    }
-
-    public abstract class ViewInfoTest<TView> where TView : IDisposable
-    {
-        protected Type DataType;
-        protected Type ViewDataType;
-        protected Image ViewIcon;
-        protected string ViewName;
-        protected PluginBase Plugin;
-
-        [SetUp]
-        public void SetUp()
-        {
-            Plugin = CreatePlugin();
-            Info = Plugin.GetViewInfos().FirstOrDefault(vi => vi.ViewType == typeof(TView));
-            if (ViewDataType == null)
-            {
-                ViewDataType = DataType;
-            }
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            Plugin.Dispose();
-        }
-
-        [TestCase]
-        public void Initialized_Always_DataTypeAndViewTypeAsExpected()
-        {
-            Assert.NotNull(Info, "Expected a viewInfo definition for views with type {0}.", typeof(TView));
-            Assert.AreEqual(DataType, Info.DataType);
-            Assert.AreEqual(ViewDataType, Info.ViewDataType);
-        }
-
-        [Test]
-        public void ViewType_Always_ReturnsViewType()
-        {
-            // Call
-            var expectedViewType = Info.ViewType;
-
-            // Assert
-            Assert.AreEqual(typeof(TView), expectedViewType);
-        }
-
-        [Test]
-        public void DataType_Always_ReturnsDataType()
-        {
-            // Call
-            var expectedDataType = Info.DataType;
-
-            // Assert
-            Assert.AreEqual(DataType, expectedDataType);
-        }
-
-        [Test]
-        public void ViewDataType_Always_ReturnsViewDataType()
-        {
-            // Call
-            Type expectedViewDataType = Info.ViewDataType;
-
-            // Assert
-            Assert.AreEqual(ViewDataType, expectedViewDataType);
-        }
-
-        [Test]
-        public void Image_Always_ReturnsViewIcon()
-        {
-            // Call
-            Image image = Info.Image;
-
-            // Assert
-            TestHelper.AssertImagesAreEqual(ViewIcon, image);
-        }
-
-        [Test]
-        public void GetViewName_Always_ReturnsViewName()
-        {
-            // Setup
-            using (var view = CreateView())
-            {
-                // Call
-                var expectedViewName = Info.GetViewName(view, null);
-
-                // Assert
-                Assert.AreEqual(ViewName, expectedViewName);
-            }
-        }
-
-        [Test]
-        [TestCaseSource("CloseForDataTests")]
-        public void CloseForData_ForDifferentObjects_ReturnsExpectedValue(CloseForDataTest test)
-        {
-            using (var view = CreateView())
-            {
-                // Call
-                var closeForData = Info.CloseForData(view, test.DataToCloseFor);
-
-                // Assert
-                Assert.AreEqual(test.ExpectedResult, closeForData);
-            }
-        }
-
-        protected virtual IEnumerable<CloseForDataTest> CloseForDataTests
-        {
-            get
-            {
-                return new[]
-                {
-                    new CloseForDataTest()
-                };
-            }
-        }
-
-        protected abstract PluginBase CreatePlugin();
-        protected abstract GrassCoverErosionOutwardsDesignWaterLevelLocationsView CreateView();
-        protected ViewInfo Info { get; private set; }
-
-        public class CloseForDataTest
-        {
-            public bool ExpectedResult { get; set; }
-            public object DataToCloseFor { get; set; }
         }
     }
 }
