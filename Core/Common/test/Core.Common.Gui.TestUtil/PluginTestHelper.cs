@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Gui.Plugin;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 
 namespace Core.Common.Gui.TestUtil
@@ -33,24 +35,57 @@ namespace Core.Common.Gui.TestUtil
     {
         /// <summary>
         /// Asserts that the given <paramref name="propertyInfos"/> contains a definition for the combination of
-        /// <typeparamref name="TDataObject"/> and <typeparamref name="TPropertyObject"/>. 
+        /// <paramref name="dataObjectType"/> and <paramref name="propertyObjectType"/>. 
         /// </summary>
-        /// <typeparam name="TDataObject">The type of the data object for which property info is defined.</typeparam>
-        /// <typeparam name="TPropertyObject">The type of the object which shows the data object properties.</typeparam>
         /// <param name="propertyInfos">Collection of <see cref="PropertyInfo"/> definitions.</param>
+        /// <param name="dataObjectType">The type of the data object for which property info is defined.</param>
+        /// <param name="propertyObjectType">The type of the object which shows the data object properties.</param>
         /// <returns>The found property info.</returns>
         /// <exception cref="AssertionException">Thrown when the <paramref name="propertyInfos"/> is <c>null</c>
-        /// or does not contain a defintion for the combination of <typeparamref name="TDataObject"/> and 
-        /// <typeparamref name="TPropertyObject"/>.</exception>
-        public static PropertyInfo AssertPropertyInfoDefined<TDataObject, TPropertyObject>(IEnumerable<PropertyInfo> propertyInfos)
+        /// or does not contain a defintion for the combination of <paramref name="dataObjectType"/> and 
+        /// <paramref name="propertyObjectType"/>.</exception>
+        public static PropertyInfo AssertPropertyInfoDefined(IEnumerable<PropertyInfo> propertyInfos, Type dataObjectType, Type propertyObjectType)
         {
             Assert.NotNull(propertyInfos);
             var propertyInfo = propertyInfos.FirstOrDefault(
                 tni => 
-                tni.DataType == typeof(TDataObject) && 
-                tni.PropertyObjectType == typeof(TPropertyObject));
+                tni.DataType == dataObjectType && 
+                tni.PropertyObjectType == propertyObjectType);
             Assert.NotNull(propertyInfo);
             return propertyInfo;
+        }
+
+        /// <summary>
+        /// Asserts that a view info is defined in the collection of view infos given. 
+        /// </summary>
+        /// <param name="viewInfos">The collection of <see cref="ViewInfo"/> to search in.</param>
+        /// <param name="dataType">The type of the data which is passed to the <see cref="ViewInfo"/>.</param>
+        /// <param name="viewDataType">The type of the data which is set on the view.</param>
+        /// <param name="viewType">The type of the view.</param>
+        /// <returns>The <see cref="ViewInfo"/> that was found within the collection of <see cref="viewInfos"/>.</returns>
+        /// <exception cref="AssertionException">No <see cref="ViewInfo"/> can be found for type <paramref name="dataType"/> or the found 
+        /// <see cref="ViewInfo"/> does not define the expected <paramref name="viewDataType"/> or <paramref name="viewType"/>.</exception>
+        public static ViewInfo AssertContainsViewInfo(IEnumerable<ViewInfo> viewInfos, Type dataType, Type viewDataType, Type viewType)
+        {
+            var viewInfo = viewInfos.SingleOrDefault(vi => vi.DataType == dataType);
+            Assert.NotNull(viewInfo, "Could not find viewInfo for the dataType {0}", dataType);
+            Assert.AreEqual(viewDataType, viewInfo.ViewDataType);
+            Assert.AreEqual(viewType, viewInfo.ViewType);
+            return viewInfo;
+        }
+
+        /// <summary>
+        /// Asserts that a view info is defined in the collection of view infos given. 
+        /// </summary>
+        /// <param name="viewInfos">The collection of <see cref="ViewInfo"/> to search in.</param>
+        /// <param name="dataType">The type of the data which is passed to the <see cref="ViewInfo"/> and is set on the view.</param>
+        /// <param name="viewType">The type of the view.</param>
+        /// <returns>The <see cref="ViewInfo"/> that was found within the collection of <see cref="viewInfos"/>.</returns>
+        /// <exception cref="AssertionException">No <see cref="ViewInfo"/> can be found for type <paramref name="dataType"/> or the found 
+        /// <see cref="ViewInfo"/> does not define the expected <paramref name="viewType"/>.</exception>
+        public static ViewInfo AssertContainsViewInfo(IEnumerable<ViewInfo> viewInfos, Type dataType, Type viewType)
+        {
+            return AssertContainsViewInfo(viewInfos, dataType, dataType, viewType);
         }
     }
 }

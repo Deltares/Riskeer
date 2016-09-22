@@ -203,74 +203,98 @@ namespace Ringtoets.Integration.Plugin.Test
                 // Assert
                 Assert.AreEqual(12, propertyInfos.Length);
 
-                PropertyInfo ringtoetsProjectProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <IProject, RingtoetsProjectProperties>(propertyInfos);
+                PropertyInfo ringtoetsProjectProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos, 
+                    typeof(IProject), 
+                    typeof(RingtoetsProjectProperties));
                 Assert.IsNull(ringtoetsProjectProperties.AdditionalDataCheck);
                 Assert.IsNull(ringtoetsProjectProperties.GetObjectPropertiesData);
                 Assert.IsNull(ringtoetsProjectProperties.AfterCreate);
 
-                PropertyInfo assessmentSectionProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <IAssessmentSection, AssessmentSectionProperties>(propertyInfos);
+                PropertyInfo assessmentSectionProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos, 
+                    typeof(IAssessmentSection), 
+                    typeof(AssessmentSectionProperties));
                 Assert.IsNull(assessmentSectionProperties.AdditionalDataCheck);
                 Assert.IsNull(assessmentSectionProperties.GetObjectPropertiesData);
                 Assert.IsNull(assessmentSectionProperties.AfterCreate);
 
-                PropertyInfo hydraulicBoundaryDatabaseProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <HydraulicBoundaryDatabaseContext, HydraulicBoundaryDatabaseProperties>(propertyInfos);
+                PropertyInfo hydraulicBoundaryDatabaseProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(HydraulicBoundaryDatabaseContext), 
+                    typeof(HydraulicBoundaryDatabaseProperties));
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.AdditionalDataCheck);
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.GetObjectPropertiesData);
                 Assert.IsNull(hydraulicBoundaryDatabaseProperties.AfterCreate);
 
-                PropertyInfo standAloneFailureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <FailureMechanismContext<IFailureMechanism>, StandAloneFailureMechanismContextProperties>(propertyInfos);
+                PropertyInfo standAloneFailureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(FailureMechanismContext<IFailureMechanism>), 
+                    typeof(StandAloneFailureMechanismContextProperties));
                 Assert.IsNull(standAloneFailureMechanismProperties.AdditionalDataCheck);
                 Assert.IsNull(standAloneFailureMechanismProperties.GetObjectPropertiesData);
                 Assert.IsNull(standAloneFailureMechanismProperties.AfterCreate);
 
-                PropertyInfo calculationGroupProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <ICalculationContext<CalculationGroup, IFailureMechanism>, CalculationGroupContextProperties>(propertyInfos);
+                PropertyInfo calculationGroupProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ICalculationContext<CalculationGroup, IFailureMechanism>), 
+                    typeof(CalculationGroupContextProperties));
                 Assert.IsNull(calculationGroupProperties.AdditionalDataCheck);
                 Assert.IsNull(calculationGroupProperties.GetObjectPropertiesData);
                 Assert.IsNull(calculationGroupProperties.AfterCreate);
 
-                PropertyInfo calculationContextProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <ICalculationContext<ICalculation, IFailureMechanism>, CalculationContextProperties>(propertyInfos);
+                PropertyInfo calculationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ICalculationContext<ICalculation, IFailureMechanism>),
+                    typeof(CalculationContextProperties));
                 Assert.IsNull(calculationContextProperties.AdditionalDataCheck);
                 Assert.IsNull(calculationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(calculationContextProperties.AfterCreate);
 
-                PropertyInfo outputContextProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <ProbabilityAssessmentOutput, ProbabilityAssessmentOutputProperties>(propertyInfos);
+                PropertyInfo outputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ProbabilityAssessmentOutput), 
+                    typeof(ProbabilityAssessmentOutputProperties));
                 Assert.IsNull(outputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(outputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(outputContextProperties.AfterCreate);
 
-                PropertyInfo designWaterLevelLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <DesignWaterLevelLocationsContext, DesignWaterLevelLocationsContextProperties>(propertyInfos);
+                PropertyInfo designWaterLevelLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(DesignWaterLevelLocationsContext), 
+                    typeof(DesignWaterLevelLocationsContextProperties));
                 Assert.IsNull(designWaterLevelLocationsContextProperties.AdditionalDataCheck);
                 Assert.IsNotNull(designWaterLevelLocationsContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(designWaterLevelLocationsContextProperties.AfterCreate);
 
-                PropertyInfo designWaterLevelLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <DesignWaterLevelLocationContext, DesignWaterLevelLocationContextProperties>(propertyInfos);
+                PropertyInfo designWaterLevelLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(DesignWaterLevelLocationContext), 
+                    typeof(DesignWaterLevelLocationContextProperties));
                 Assert.IsNull(designWaterLevelLocationContextProperties.AdditionalDataCheck);
                 Assert.IsNull(designWaterLevelLocationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(designWaterLevelLocationContextProperties.AfterCreate);
 
-                PropertyInfo waveHeightLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <WaveHeightLocationsContext, WaveHeightLocationsContextProperties>(propertyInfos);
+                PropertyInfo waveHeightLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos, 
+                    typeof(WaveHeightLocationsContext),
+                    typeof(WaveHeightLocationsContextProperties));
                 Assert.IsNull(waveHeightLocationsContextProperties.AdditionalDataCheck);
                 Assert.IsNotNull(waveHeightLocationsContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(waveHeightLocationsContextProperties.AfterCreate);
 
-                PropertyInfo waveHeightLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <WaveHeightLocationContext, WaveHeightLocationContextProperties>(propertyInfos);
+                PropertyInfo waveHeightLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos, 
+                    typeof(WaveHeightLocationContext),
+                    typeof(WaveHeightLocationContextProperties));
                 Assert.IsNull(waveHeightLocationContextProperties.AdditionalDataCheck);
                 Assert.IsNull(waveHeightLocationContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(waveHeightLocationContextProperties.AfterCreate);
 
-                PropertyInfo foreshoreProfileProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <ForeshoreProfile, ForeshoreProfileProperties>(propertyInfos);
+                PropertyInfo foreshoreProfileProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ForeshoreProfile),
+                    typeof(ForeshoreProfileProperties));
                 Assert.IsNull(foreshoreProfileProperties.AdditionalDataCheck);
                 Assert.IsNull(foreshoreProfileProperties.GetObjectPropertiesData);
                 Assert.IsNull(foreshoreProfileProperties.AfterCreate);

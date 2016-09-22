@@ -32,7 +32,7 @@ namespace Core.Common.Gui.TestUtil.Test
         public void AssertPropertyInfoDefined_NullInfos_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => PluginTestHelper.AssertPropertyInfoDefined<object, object>(null);
+            TestDelegate test = () => PluginTestHelper.AssertPropertyInfoDefined(null, typeof(object), typeof(object));
             
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -42,7 +42,7 @@ namespace Core.Common.Gui.TestUtil.Test
         public void AssertPropertyInfoDefined_NoInfos_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => PluginTestHelper.AssertPropertyInfoDefined<object, object>(new PropertyInfo[0]);
+            TestDelegate test = () => PluginTestHelper.AssertPropertyInfoDefined(new PropertyInfo[0], typeof(object), typeof(object));
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -52,10 +52,10 @@ namespace Core.Common.Gui.TestUtil.Test
         public void AssertPropertyInfoDefined_NoMatchingInfos_ThrowsAssertionException()
         {
             // Call
-            TestDelegate test = () => PluginTestHelper.AssertPropertyInfoDefined<object, object>(new PropertyInfo[]
+            TestDelegate test = () => PluginTestHelper.AssertPropertyInfoDefined(new PropertyInfo[]
             {
                 new PropertyInfo<int,IObjectProperties>()
-            });
+            }, typeof(object), typeof(object));
 
             // Assert
             Assert.Throws<AssertionException>(test);
@@ -65,11 +65,11 @@ namespace Core.Common.Gui.TestUtil.Test
         public void AssertPropertyInfoDefined_MultipleInfosSingleMatching_ReturnsMatchingInfoFromList()
         {
             // Call
-            var foundInfo = PluginTestHelper.AssertPropertyInfoDefined<int, IObjectProperties>(new []
+            var foundInfo = PluginTestHelper.AssertPropertyInfoDefined(new []
                                           {
                                               new PropertyInfo(), 
                                               new PropertyInfo<int, IObjectProperties>()
-                                          });
+                                          }, typeof(int), typeof(IObjectProperties));
 
             // Assert
             Assert.AreEqual(typeof(int), foundInfo.DataType);

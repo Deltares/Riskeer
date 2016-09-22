@@ -61,21 +61,25 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
                 // Assert
                 Assert.AreEqual(3, propertyInfos.Length);
 
-                PropertyInfo failureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <WaveImpactAsphaltCoverFailureMechanismContext, WaveImpactAsphaltCoverFailureMechanismProperties>(propertyInfos);
+                PropertyInfo failureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos, 
+                    typeof(WaveImpactAsphaltCoverFailureMechanismContext), 
+                    typeof(WaveImpactAsphaltCoverFailureMechanismProperties));
                 Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
                 Assert.IsNull(failureMechanismContextProperties.AfterCreate);
 
-                PropertyInfo waveImpactAsphaltCoverWaveConditionsOutputProperties = PluginTestHelper.AssertPropertyInfoDefined<
-                    WaveImpactAsphaltCoverWaveConditionsOutput,
-                    WaveImpactAsphaltCoverWaveConditionsOutputProperties>(propertyInfos);
+                PropertyInfo waveImpactAsphaltCoverWaveConditionsOutputProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos, 
+                    typeof(WaveImpactAsphaltCoverWaveConditionsOutput), 
+                    typeof(WaveImpactAsphaltCoverWaveConditionsOutputProperties));
                 Assert.IsNull(waveImpactAsphaltCoverWaveConditionsOutputProperties.AdditionalDataCheck);
                 Assert.IsNull(waveImpactAsphaltCoverWaveConditionsOutputProperties.GetObjectPropertiesData);
                 Assert.IsNull(waveImpactAsphaltCoverWaveConditionsOutputProperties.AfterCreate);
 
-                PropertyInfo waveConditionsInputContextProperties = PluginTestHelper.AssertPropertyInfoDefined<
-                    WaveImpactAsphaltCoverWaveConditionsInputContext,
-                    WaveImpactAsphaltCoverWaveConditionsInputContextProperties>(propertyInfos);
+                PropertyInfo waveConditionsInputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(WaveImpactAsphaltCoverWaveConditionsInputContext),
+                    typeof(WaveImpactAsphaltCoverWaveConditionsInputContextProperties));
                 Assert.IsNull(waveConditionsInputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(waveConditionsInputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(waveConditionsInputContextProperties.AfterCreate);

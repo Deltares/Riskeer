@@ -50,19 +50,22 @@ namespace Ringtoets.StabilityStoneCover.Plugin.Test
                 // Assert
                 Assert.AreEqual(3, propertyInfos.Length);
 
-                PropertyInfo failureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined<
-                    StabilityStoneCoverFailureMechanismContext,
-                    StabilityStoneCoverFailureMechanismProperties>(propertyInfos);
+                PropertyInfo failureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(StabilityStoneCoverFailureMechanismContext), 
+                    typeof(StabilityStoneCoverFailureMechanismProperties));
                 Assert.IsNull(failureMechanismProperties.AdditionalDataCheck);
                 Assert.IsNull(failureMechanismProperties.AfterCreate);
-                PropertyInfo waveConditionsOutputProperties = PluginTestHelper.AssertPropertyInfoDefined<
-                    StabilityStoneCoverWaveConditionsOutput,
-                    StabilityStoneCoverWaveConditionsOutputProperties>(propertyInfos);
+                PropertyInfo waveConditionsOutputProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos, 
+                    typeof(StabilityStoneCoverWaveConditionsOutput),
+                    typeof(StabilityStoneCoverWaveConditionsOutputProperties));
                 Assert.IsNull(waveConditionsOutputProperties.AdditionalDataCheck);
                 Assert.IsNull(waveConditionsOutputProperties.AfterCreate);
-                PropertyInfo waveConditionsInputContextProperties = PluginTestHelper.AssertPropertyInfoDefined<
-                    StabilityStoneCoverWaveConditionsInputContext,
-                    StabilityStoneCoverWaveConditionsInputContextProperties>(propertyInfos);
+                PropertyInfo waveConditionsInputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos, 
+                    typeof(StabilityStoneCoverWaveConditionsInputContext), 
+                    typeof(StabilityStoneCoverWaveConditionsInputContextProperties));
                 Assert.IsNull(waveConditionsInputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(waveConditionsInputContextProperties.AfterCreate);
             }

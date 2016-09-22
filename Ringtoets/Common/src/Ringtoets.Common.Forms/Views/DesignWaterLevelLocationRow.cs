@@ -23,11 +23,9 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.PresentationObjects;
 
-namespace Ringtoets.Integration.Forms.Views
+namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
     /// This class represents a row of <see cref="HydraulicBoundaryLocation"/> of which the design water
@@ -38,7 +36,7 @@ namespace Ringtoets.Integration.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelLocationRow"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="DesignWaterLevelLocationContext"/> for this row.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="HydraulicBoundaryLocation"/> for this row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
         public DesignWaterLevelLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation) : base(hydraulicBoundaryLocation) { }
 

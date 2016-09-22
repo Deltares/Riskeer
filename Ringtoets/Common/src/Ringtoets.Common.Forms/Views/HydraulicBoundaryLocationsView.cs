@@ -71,7 +71,7 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         public IHydraulicBoundaryLocationCalculationGuiService CalculationGuiService { get; set; }
 
-        public object Data
+        public virtual object Data
         {
             get
             {

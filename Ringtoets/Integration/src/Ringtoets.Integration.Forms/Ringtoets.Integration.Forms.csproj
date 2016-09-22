@@ -91,7 +91,6 @@
     <Compile Include="Views\FailureMechanismContributionView.Designer.cs">
       <DependentUpon>FailureMechanismContributionView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\DesignWaterLevelLocationRow.cs" />
     <Compile Include="Views\DesignWaterLevelLocationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>

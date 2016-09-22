@@ -91,6 +91,7 @@
     <Compile Include="HydraulicBoundaryLocationSelectionDialog.Designer.cs">
       <DependentUpon>HydraulicBoundaryLocationSelectionDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\DesignWaterLevelLocationRow.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationRow.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationsView.cs">
       <SubType>UserControl</SubType>

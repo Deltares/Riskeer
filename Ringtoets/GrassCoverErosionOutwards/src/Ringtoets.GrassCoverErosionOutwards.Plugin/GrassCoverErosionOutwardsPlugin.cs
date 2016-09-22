@@ -89,6 +89,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsOutput, GrassCoverErosionOutwardsWaveConditionsOutputProperties>();
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsInputContext, GrassCoverErosionOutwardsWaveConditionsInputContextProperties>();
+
+            yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationContext, GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -103,6 +105,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+            };
+
+            yield return new ViewInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocation>, GrassCoverErosionOutwardsDesignWaterLevelLocationsView>
+            {
+                GetViewName = (v, o) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName,
+                GetViewData = context => context.WrappedData,
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                AfterCreate = (view, context) =>
+                {
+                    view.AssessmentSection = context.AssessmentSection;
+                    view.ApplicationSelection = Gui;
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
             };
         }
 
@@ -148,7 +163,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new TreeNodeInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext>
             {
-                Text = context => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocationsContext_DisplayName,
+                Text = context => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ForeColor = context => context.AssessmentSection.HydraulicBoundaryDatabase == null ?
                                            Color.FromKnownColor(KnownColor.GrayText) :

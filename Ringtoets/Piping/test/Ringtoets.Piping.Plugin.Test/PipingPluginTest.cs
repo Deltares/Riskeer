@@ -70,38 +70,50 @@ namespace Ringtoets.Piping.Plugin.Test
                 // assert
                 Assert.AreEqual(6, propertyInfos.Length);
 
-                PropertyInfo pipingFailureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <PipingFailureMechanismContext, PipingFailureMechanismContextProperties>(propertyInfos);
+                PropertyInfo pipingFailureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos, 
+                    typeof(PipingFailureMechanismContext),
+                    typeof(PipingFailureMechanismContextProperties));
                 Assert.IsNull(pipingFailureMechanismContextProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingFailureMechanismContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingFailureMechanismContextProperties.AfterCreate);
 
-                PropertyInfo pipingInputContextProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <PipingInputContext, PipingInputContextProperties>(propertyInfos);
+                PropertyInfo pipingInputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(PipingInputContext), 
+                    typeof(PipingInputContextProperties));
                 Assert.IsNull(pipingInputContextProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingInputContextProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingInputContextProperties.AfterCreate);
 
-                PropertyInfo pipingOutputProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <PipingSemiProbabilisticOutput, PipingSemiProbabilisticOutputProperties>(propertyInfos);
+                PropertyInfo pipingOutputProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos, 
+                    typeof(PipingSemiProbabilisticOutput),
+                    typeof(PipingSemiProbabilisticOutputProperties));
                 Assert.IsNull(pipingOutputProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingOutputProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingOutputProperties.AfterCreate);
 
-                PropertyInfo pipingSurfaceLineProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <RingtoetsPipingSurfaceLine, RingtoetsPipingSurfaceLineProperties>(propertyInfos);
+                PropertyInfo pipingSurfaceLineProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(RingtoetsPipingSurfaceLine),
+                    typeof(RingtoetsPipingSurfaceLineProperties));
                 Assert.IsNull(pipingSurfaceLineProperties.AdditionalDataCheck);
                 Assert.IsNull(pipingSurfaceLineProperties.GetObjectPropertiesData);
                 Assert.IsNull(pipingSurfaceLineProperties.AfterCreate);
 
-                PropertyInfo stochasticSoilModelProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <StochasticSoilModel, StochasticSoilModelProperties>(propertyInfos);
+                PropertyInfo stochasticSoilModelProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(StochasticSoilModel),
+                    typeof(StochasticSoilModelProperties));
                 Assert.IsNull(stochasticSoilModelProperties.AdditionalDataCheck);
                 Assert.IsNull(stochasticSoilModelProperties.GetObjectPropertiesData);
                 Assert.IsNull(stochasticSoilModelProperties.AfterCreate);
 
-                PropertyInfo stochasticSoilProfileProperties = PluginTestHelper.AssertPropertyInfoDefined
-                    <StochasticSoilProfile, StochasticSoilProfileProperties>(propertyInfos);
+                PropertyInfo stochasticSoilProfileProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos, 
+                    typeof(StochasticSoilProfile),
+                    typeof(StochasticSoilProfileProperties));
                 Assert.IsNull(stochasticSoilProfileProperties.AdditionalDataCheck);
                 Assert.IsNull(stochasticSoilProfileProperties.GetObjectPropertiesData);
                 Assert.IsNull(stochasticSoilProfileProperties.AfterCreate);
