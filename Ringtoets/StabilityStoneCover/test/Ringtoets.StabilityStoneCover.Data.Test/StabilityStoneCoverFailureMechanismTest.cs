@@ -19,16 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Revetment.Data;
 
 namespace Ringtoets.StabilityStoneCover.Data.Test
 {
@@ -43,21 +39,17 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<StabilityStoneCoverFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Stabiliteit steenzetting", failureMechanism.Name);
             Assert.AreEqual("ZST", failureMechanism.Code);
+            Assert.IsInstanceOf<GeneralStabilityStoneCoverWaveConditionsInput>(failureMechanism.GeneralInput);
 
             Assert.AreEqual("Hydraulische randvoorwaarden", failureMechanism.WaveConditionsCalculationGroup.Name);
             Assert.IsFalse(failureMechanism.WaveConditionsCalculationGroup.IsNameEditable);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
-
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-            Assert.IsInstanceOf<IObservable>(failureMechanism.ForeshoreProfiles);
-            Assert.IsInstanceOf<IList<ForeshoreProfile>>(failureMechanism.ForeshoreProfiles);
-
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
-
-            Assert.IsInstanceOf<GeneralStabilityStoneCoverWaveConditionsInput>(failureMechanism.GeneralInput);
         }
 
         [Test]

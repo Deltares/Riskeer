@@ -19,14 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
@@ -44,17 +41,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.AreEqual("Dijken en dammen - Grasbekleding erosie buitentalud", failureMechanism.Name);
             Assert.AreEqual("GEBU", failureMechanism.Code);
-            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            Assert.IsInstanceOf<GeneralGrassCoverErosionOutwardsInput>(failureMechanism.GeneralInput);
 
             Assert.AreEqual("Berekeningen", failureMechanism.WaveConditionsCalculationGroup.Name);
             Assert.IsFalse(failureMechanism.WaveConditionsCalculationGroup.IsNameEditable);
             CollectionAssert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.HydraulicBoundaryLocations);
-            CollectionAssert.IsEmpty(failureMechanism.Calculations);
-
             CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
-            Assert.IsInstanceOf<IList<ForeshoreProfile>>(failureMechanism.ForeshoreProfiles);
-            Assert.IsInstanceOf<IObservable>(failureMechanism.ForeshoreProfiles);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
         }
 
         [Test]

@@ -27,7 +27,6 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.GrassCoverErosionInwards.Data.Properties;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -37,23 +36,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // call
+            // Call
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            // assert
+            // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
             Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
-
-            Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayName, failureMechanism.Name);
-            Assert.AreEqual(Resources.GrassCoverErosionInwardsFailureMechanism_DisplayCode, failureMechanism.Code);
+            Assert.IsInstanceOf<IHasSectionResults<GrassCoverErosionInwardsFailureMechanismSectionResult>>(failureMechanism);
+            Assert.AreEqual("Dijken en dammen - Grasbekleding erosie kruin en binnentalud", failureMechanism.Name);
+            Assert.AreEqual("GEKB", failureMechanism.Code);
 
             Assert.IsInstanceOf<GeneralGrassCoverErosionInwardsInput>(failureMechanism.GeneralInput);
 
-            CollectionAssert.IsEmpty(failureMechanism.Calculations);
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
-            Assert.IsEmpty(failureMechanism.CalculationsGroup.Children);
-
-            Assert.IsInstanceOf<ObservableList<DikeProfile>>(failureMechanism.DikeProfiles);
+            Assert.IsFalse(failureMechanism.CalculationsGroup.IsNameEditable);
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.DikeProfiles);
         }
 

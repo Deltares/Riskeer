@@ -39,13 +39,18 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<HeightStructuresFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Kunstwerken - Hoogte kunstwerk", failureMechanism.Name);
             Assert.AreEqual("HTKW", failureMechanism.Code);
+            Assert.IsInstanceOf<GeneralHeightStructuresInput>(failureMechanism.GeneralInput);
+
             Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
+            Assert.IsFalse(failureMechanism.CalculationsGroup.IsNameEditable);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
-            Assert.IsInstanceOf<GeneralHeightStructuresInput>(failureMechanism.GeneralInput);
+            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
         }
 
         [Test]

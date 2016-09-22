@@ -164,6 +164,8 @@ namespace Ringtoets.HeightStructures.Plugin
             return null;
         }
 
+        #region TreeNodeInfos
+
         #region EmptyProbabilityAssessmentOutput TreeNodeInfo
 
         private ContextMenuStrip EmptyProbabilityAssessmentOutputContextMenuStrip(EmptyProbabilityAssessmentOutput output, object parentData, TreeViewControl treeViewControl)
@@ -216,6 +218,7 @@ namespace Ringtoets.HeightStructures.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }
@@ -456,5 +459,8 @@ namespace Ringtoets.HeightStructures.Plugin
         }
 
         #endregion
+
+        #endregion
+
     }
 }

@@ -19,14 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using Core.Common.Base;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Piping.Data.Properties;
-using Ringtoets.Piping.Primitives;
 
 namespace Ringtoets.Piping.Data.Test
 {
@@ -45,23 +42,23 @@ namespace Ringtoets.Piping.Data.Test
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var piping = new PipingFailureMechanism();
+            var failureMechanism = new PipingFailureMechanism();
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismBase>(piping);
-            Assert.IsInstanceOf<ICalculatableFailureMechanism>(piping);
-            Assert.AreEqual(Resources.PipingFailureMechanism_DisplayName, piping.Name);
-            Assert.AreEqual(Resources.PipingFailureMechanism_DisplayCode, piping.Code);
-            Assert.IsInstanceOf<GeneralPipingInput>(piping.GeneralInput);
-            CollectionAssert.IsEmpty(piping.Sections);
-            CollectionAssert.IsEmpty(piping.SurfaceLines);
-            Assert.IsInstanceOf<IList<RingtoetsPipingSurfaceLine>>(piping.SurfaceLines);
-            Assert.IsInstanceOf<IObservable>(piping.SurfaceLines);
-            CollectionAssert.IsEmpty(piping.StochasticSoilModels);
-            Assert.IsInstanceOf<IList<StochasticSoilModel>>(piping.StochasticSoilModels);
-            Assert.IsInstanceOf<IObservable>(piping.StochasticSoilModels);
-            Assert.AreEqual("Berekeningen", piping.CalculationsGroup.Name);
-            Assert.IsEmpty(piping.CalculationsGroup.Children);
+            Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<PipingFailureMechanismSectionResult>>(failureMechanism);
+            Assert.AreEqual("Dijken en dammen - Piping", failureMechanism.Name);
+            Assert.AreEqual("STPH", failureMechanism.Code);
+
+            Assert.IsInstanceOf<GeneralPipingInput>(failureMechanism.GeneralInput);
+
+            Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
+            Assert.IsFalse(failureMechanism.CalculationsGroup.IsNameEditable);
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
+            CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.SurfaceLines);
+            CollectionAssert.IsEmpty(failureMechanism.StochasticSoilModels);
         }
 
         [Test]

@@ -21,7 +21,9 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HeightStructures.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -44,6 +46,7 @@ namespace Ringtoets.HeightStructures.Data
             sectionResults = new List<HeightStructuresFailureMechanismSectionResult>();
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             GeneralInput = new GeneralHeightStructuresInput();
+            ForeshoreProfiles = new ObservableList<ForeshoreProfile>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -59,6 +62,14 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         public GeneralHeightStructuresInput GeneralInput { get; private set; }
 
+        /// <summary>
+        /// Gets the available foreshore profiles for this instance.
+        /// </summary>
+        public ObservableList<ForeshoreProfile> ForeshoreProfiles { get; private set; }
+
+        /// <summary>
+        /// Gets the container of all calculations.
+        /// </summary>
         public CalculationGroup CalculationsGroup { get; private set; }
 
         public IEnumerable<HeightStructuresFailureMechanismSectionResult> SectionResults

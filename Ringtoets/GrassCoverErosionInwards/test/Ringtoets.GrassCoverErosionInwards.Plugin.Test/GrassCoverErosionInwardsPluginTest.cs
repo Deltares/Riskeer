@@ -40,10 +40,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
-            // call
+            // Call
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
-                // assert
+                // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
             }
         }
@@ -51,18 +51,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
         [Test]
         public void GetPropertyInfos_ReturnsSupportedPropertyClasses()
         {
-            // setup
+            // Setup
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
-                // call
+                // Call
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
-                // assert
+                // Assert
                 Assert.AreEqual(4, propertyInfos.Length);
 
                 PropertyInfo failureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos, 
-                    typeof(GrassCoverErosionInwardsFailureMechanismContext), 
+                    propertyInfos,
+                    typeof(GrassCoverErosionInwardsFailureMechanismContext),
                     typeof(GrassCoverErosionInwardsFailureMechanismContextProperties));
                 Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
                 Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
@@ -70,14 +70,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
 
                 PropertyInfo dikeProfileProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(DikeProfile), 
+                    typeof(DikeProfile),
                     typeof(DikeProfileProperties));
                 Assert.IsNull(dikeProfileProperties.AdditionalDataCheck);
                 Assert.IsNull(dikeProfileProperties.GetObjectPropertiesData);
                 Assert.IsNull(dikeProfileProperties.AfterCreate);
 
                 PropertyInfo inputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos, 
+                    propertyInfos,
                     typeof(GrassCoverErosionInwardsInputContext),
                     typeof(GrassCoverErosionInwardsInputContextProperties));
                 Assert.IsNull(inputContextProperties.AdditionalDataCheck);
@@ -85,8 +85,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsNull(inputContextProperties.AfterCreate);
 
                 PropertyInfo outputProperties = PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos, 
-                    typeof(GrassCoverErosionInwardsOutput), 
+                    propertyInfos,
+                    typeof(GrassCoverErosionInwardsOutput),
                     typeof(GrassCoverErosionInwardsOutputProperties));
                 Assert.IsNull(outputProperties.AdditionalDataCheck);
                 Assert.IsNull(outputProperties.GetObjectPropertiesData);
@@ -97,13 +97,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
         [Test]
         public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
         {
-            // setup
+            // Setup
             using (var plugin = new GrassCoverErosionInwardsPlugin())
             {
-                // call
+                // Call
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
-                // assert
+                // Assert
                 Assert.AreEqual(9, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(GrassCoverErosionInwardsFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(DikeProfilesContext)));
