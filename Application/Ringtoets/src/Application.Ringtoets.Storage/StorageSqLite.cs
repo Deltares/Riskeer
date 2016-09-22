@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage
     /// </summary>
     public class StorageSqLite : IStoreProject
     {
-        private const int currentDatabaseVersion = 2;
+        private const int currentDatabaseVersion = 3;
         private static readonly ILog log = LogManager.GetLogger(typeof(StorageSqLite));
 
         private string connectionString;

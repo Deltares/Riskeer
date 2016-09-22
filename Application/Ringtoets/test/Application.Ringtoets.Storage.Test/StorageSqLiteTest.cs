@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Test
     [TestFixture]
     public class StorageSqLiteTest
     {
-        private const int currentDatabaseVersion = 2;
+        private const int currentDatabaseVersion = 3;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles");
         private readonly string tempRingtoetsFile = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Application.Ringtoets.Storage, "DatabaseFiles"), "tempProjectFile.rtd");
 
