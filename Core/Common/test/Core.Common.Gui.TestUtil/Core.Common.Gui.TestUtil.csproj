@@ -86,7 +86,6 @@
     <Compile Include="ContextMenu\CustomItemsOnlyContextMenuBuilder.cs" />
     <Compile Include="PluginTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Core.Common.Controls\Core.Common.Controls.csproj">

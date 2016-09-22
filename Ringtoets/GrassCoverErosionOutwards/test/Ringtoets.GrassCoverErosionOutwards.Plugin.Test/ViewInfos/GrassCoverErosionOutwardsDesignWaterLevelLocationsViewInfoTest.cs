@@ -20,11 +20,12 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
-using Core.Common.Gui.TestUtil;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -38,8 +39,25 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsViewInfoTest : ViewInfoTest<GrassCoverErosionOutwardsDesignWaterLevelLocationsView>
+    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsViewInfoTest
     {
+
+        [TestCase]
+        public void Initialized_Always_DataTypeAndViewTypeAsExpected()
+        {
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                Assert.NotNull(info, "Expected a viewInfo definition for views with type {0}.", typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsView));
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext), info.DataType);
+                Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocation>), info.ViewDataType);
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsView), info.ViewType);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, info.Image);
+                Assert.AreEqual(Resources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName, info.GetViewName(null, null));
+            }
+        }
+
         [Test]
         public void AfterCreate_Always_SetsExpectedProperties()
         {
@@ -49,40 +67,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             IMainWindow windowsStub = mockRepository.Stub<IMainWindow>();
             guiStub.Stub(gs => gs.MainWindow).Return(windowsStub);
             mockRepository.ReplayAll();
-
-            var data = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSectionStub);
-            Plugin.Gui = guiStub;
-            Plugin.Activate();
-
-            using (var view = CreateView())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
-                Info.AfterCreate(view, data);
+                var info = GetInfo(plugin);
 
-                // Assert
-                Assert.AreSame(assessmentSectionStub, view.AssessmentSection);
-                Assert.AreSame(guiStub, view.ApplicationSelection);
-                Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(view.CalculationGuiService);
+                var data = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSectionStub);
+                plugin.Gui = guiStub;
+                plugin.Activate();
+
+                using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
+                {
+                    info.AfterCreate(view, data);
+
+                    // Assert
+                    Assert.AreSame(assessmentSectionStub, view.AssessmentSection);
+                    Assert.AreSame(guiStub, view.ApplicationSelection);
+                    Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(view.CalculationGuiService);
+                }
             }
-
             mockRepository.VerifyAll();
         }
 
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationsViewInfoTest()
+        private ViewInfo GetInfo(PluginBase plugin)
         {
-            DataType = typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext);
-            ViewDataType = typeof(IEnumerable<HydraulicBoundaryLocation>);
-            ViewIcon = RingtoetsCommonFormsResources.GenericInputOutputIcon;
-            ViewName = Resources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName;
-        }
-
-        protected override GrassCoverErosionOutwardsDesignWaterLevelLocationsView CreateView()
-        {
-            return new GrassCoverErosionOutwardsDesignWaterLevelLocationsView();
-        }
-
-        protected override PluginBase CreatePlugin()
-        {
-            return new GrassCoverErosionOutwardsPlugin();
+            return plugin.GetViewInfos().FirstOrDefault(vi => vi.ViewType == typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsView));
         }
     }
 }
