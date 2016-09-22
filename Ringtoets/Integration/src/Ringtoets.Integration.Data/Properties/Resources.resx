@@ -135,7 +135,7 @@
   <data name="StrengthStabilityPointConstructionFailureMechanism_DisplayName" xml:space="preserve">
     <value>Kunstwerken - Sterkte en stabiliteit puntconstructies</value>
   </data>
-  <data name="ClosingStructureFailureMechanism_DisplayName" xml:space="preserve">
+  <data name="ClosingStructuresFailureMechanism_DisplayName" xml:space="preserve">
     <value>Kunstwerken - Betrouwbaarheid sluiting kunstwerk</value>
   </data>
   <data name="GrassCoverSlipOffOutwardsFailureMechanism_DisplayName" xml:space="preserve">
@@ -150,7 +150,7 @@
   <data name="GrassCoverSlipOffOutwardsFailureMechanism_Code" xml:space="preserve">
     <value>GABU</value>
   </data>
-  <data name="ClosingStructureFailureMechanism_Code" xml:space="preserve">
+  <data name="ClosingStructuresFailureMechanism_Code" xml:space="preserve">
     <value>BSKW</value>
   </data>
   <data name="StrengthStabilityPointConstructionFailureMechanism_Code" xml:space="preserve">

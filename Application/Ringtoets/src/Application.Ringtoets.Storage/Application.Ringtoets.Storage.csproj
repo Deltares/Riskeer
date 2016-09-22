@@ -75,7 +75,7 @@
     <Compile Include="DbContext\CharacteristicPointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\ClosingStructureSectionResultEntity.cs">
+    <Compile Include="DbContext\ClosingStructuresSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\DikeProfileEntity.cs">
@@ -226,8 +226,8 @@
     <Compile Include="Serializers\DataCollectionSerializer.cs" />
     <Compile Include="Create\AssessmentSectionCreateExtensions.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensions.cs" />
-    <Compile Include="Create\ClosingStructure\ClosingStructureFailureMechanismCreateExtensions.cs" />
-    <Compile Include="Create\ClosingStructure\ClosingStructureFailureMechanismSectionResultCreateExtensions.cs" />
+    <Compile Include="Create\ClosingStructures\ClosingStructuresFailureMechanismCreateExtensions.cs" />
+    <Compile Include="Create\ClosingStructures\ClosingStructuresFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismCreateExtensions.cs" />
     <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismSectionResultCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\DikeProfileCreateExtensions.cs" />
@@ -285,7 +285,7 @@
     <Compile Include="Exceptions\CannotDeleteBackupFileException.cs" />
     <Compile Include="FingerprintHelper.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentions.cs" />
-    <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\ClosingStructures\ClosingStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\DikeProfileEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationEntityReadExtensions.cs">
       <SubType>Code</SubType>

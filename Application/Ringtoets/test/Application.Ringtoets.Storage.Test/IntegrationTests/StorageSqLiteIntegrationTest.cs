@@ -302,8 +302,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     expectedAssessmentSection.WaterPressureAsphaltCover.SectionResults,
                     actualAssessmentSection.WaterPressureAsphaltCover.SectionResults);
                 AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.ClosingStructure.SectionResults,
-                    actualAssessmentSection.ClosingStructure.SectionResults);
+                    expectedAssessmentSection.ClosingStructures.SectionResults,
+                    actualAssessmentSection.ClosingStructures.SectionResults);
                 AssertFailureMechanismSectionResults(
                     expectedAssessmentSection.MacrostabilityOutwards.SectionResults,
                     actualAssessmentSection.MacrostabilityOutwards.SectionResults);
@@ -408,7 +408,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<ClosingStructureFailureMechanismSectionResult> expectedSectionResults, IEnumerable<ClosingStructureFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResult> expectedSectionResults, IEnumerable<ClosingStructuresFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -417,8 +417,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             for (var i = 0; i < expectedSectionResultsArray.Length; i++)
             {
-                ClosingStructureFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
-                ClosingStructureFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+                ClosingStructuresFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                ClosingStructuresFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
 
                 Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
                 Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);

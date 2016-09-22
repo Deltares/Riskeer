@@ -106,8 +106,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(assessmentSection.GrassCoverSlipOffOutwards.SectionResults);
             AddSections(assessmentSection.HeightStructures);
             SetSectionResults(assessmentSection.HeightStructures.SectionResults);
-            AddSections(assessmentSection.ClosingStructure);
-            SetSectionResults(assessmentSection.ClosingStructure.SectionResults);
+            AddSections(assessmentSection.ClosingStructures);
+            SetSectionResults(assessmentSection.ClosingStructures.SectionResults);
             AddSections(assessmentSection.StrengthStabilityPointConstruction);
             SetSectionResults(assessmentSection.StrengthStabilityPointConstruction.SectionResults);
             AddSections(assessmentSection.StrengthStabilityLengthwiseConstruction);
@@ -171,7 +171,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             }
         }
 
-        private static void SetSectionResults(IEnumerable<ClosingStructureFailureMechanismSectionResult> sectionResults)
+        private static void SetSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
             foreach (var sectionResult in sectionResults)

@@ -84,7 +84,7 @@ DROP TABLE IF EXISTS 'TechnicalInnovationSectionResultEntity'
 DROP TABLE IF EXISTS 'WaterPressureAsphaltCoverSectionResultEntity'
 ;
 
-DROP TABLE IF EXISTS 'ClosingStructureSectionResultEntity'
+DROP TABLE IF EXISTS 'ClosingStructuresSectionResultEntity'
 ;
 
 DROP TABLE IF EXISTS 'GrassCoverErosionOutwardsSectionResultEntity'
@@ -492,14 +492,14 @@ CREATE TABLE 'WaterPressureAsphaltCoverSectionResultEntity'
 )
 ;
 
-CREATE TABLE 'ClosingStructureSectionResultEntity'
+CREATE TABLE 'ClosingStructuresSectionResultEntity'
 (
-	'ClosingStructureSectionResultEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	'ClosingStructuresSectionResultEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	'FailureMechanismSectionEntityId' INTEGER NOT NULL,
 	'LayerOne' TINYINT (1) NOT NULL, -- true or false
 	'LayerTwoA' REAL,
 	'LayerThree' REAL,
-	CONSTRAINT 'FK_ClosingStructureSectionResultEntity_FailureMechanismSectionEntity' FOREIGN KEY ('FailureMechanismSectionEntityId') REFERENCES 'FailureMechanismSectionEntity' ('FailureMechanismSectionEntityId') ON DELETE Cascade ON UPDATE Cascade
+	CONSTRAINT 'FK_ClosingStructuresSectionResultEntity_FailureMechanismSectionEntity' FOREIGN KEY ('FailureMechanismSectionEntityId') REFERENCES 'FailureMechanismSectionEntity' ('FailureMechanismSectionEntityId') ON DELETE Cascade ON UPDATE Cascade
 )
 ;
 
@@ -930,8 +930,8 @@ CREATE INDEX 'IXFK_WaterPressureAsphaltCoverSectionResultEntity_FailureMechanism
  ON 'WaterPressureAsphaltCoverSectionResultEntity' ('FailureMechanismSectionEntityId' ASC)
 ;
 
-CREATE INDEX 'IXFK_ClosingStructureSectionResultEntity_FailureMechanismSectionEntity'
- ON 'ClosingStructureSectionResultEntity' ('FailureMechanismSectionEntityId' ASC)
+CREATE INDEX 'IXFK_ClosingStructuresSectionResultEntity_FailureMechanismSectionEntity'
+ ON 'ClosingStructuresSectionResultEntity' ('FailureMechanismSectionEntityId' ASC)
 ;
 
 CREATE INDEX 'IXFK_GrassCoverErosionOutwardsSectionResultEntity_FailureMechanismSectionEntity'

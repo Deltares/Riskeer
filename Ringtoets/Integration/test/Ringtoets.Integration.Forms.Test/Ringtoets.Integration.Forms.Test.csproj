@@ -95,7 +95,7 @@
     <Compile Include="PropertyInfos\DesignWaterLevelLocationsContextPropertyInfoTest.cs" />
     <Compile Include="ReferenceLineMetaSelectionDialogTest.cs" />
     <Compile Include="RingtoetsSettingsHelperTest.cs" />
-    <Compile Include="TreeNodeInfos\ClosingStructureFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ClosingStructuresFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\AssessmentSectionTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CommentContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\CategoryTreeFolderTreeNodeInfoTest.cs" />
@@ -127,7 +127,7 @@
     <Compile Include="Views\DesignWaterLevelLocationRowTest.cs" />
     <Compile Include="Views\DesignWaterLevelLocationsViewTest.cs" />
     <Compile Include="Views\SectionResultRows\FailureMechanismSectionResultRowTest.cs" />
-    <Compile Include="Views\SectionResultViews\ClosingStructureResultViewTest.cs" />
+    <Compile Include="Views\SectionResultViews\ClosingStructuresResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\DuneErosionResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffInwardsResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffOutwardsResultViewTest.cs" />
@@ -145,7 +145,7 @@
     <Compile Include="Views\SectionResultViews\TechnicalInnovationResultViewTest.cs" />
     <Compile Include="Views\SectionResultRows\WaterPressureAsphaltCoverSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultViews\WaterPressureAsphaltCoverResultViewTest.cs" />
-    <Compile Include="Views\SectionResultRows\ClosingStructureSectionResultRowTest.cs" />
+    <Compile Include="Views\SectionResultRows\ClosingStructuresSectionResultRowTest.cs" />
     <Compile Include="Views\AssessmentSectionViewTest.cs" />
     <Compile Include="Views\SectionResultRows\MacrostabilityInwardsSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultRows\MacrostabilityOutwardsSectionResultRowTest.cs" />

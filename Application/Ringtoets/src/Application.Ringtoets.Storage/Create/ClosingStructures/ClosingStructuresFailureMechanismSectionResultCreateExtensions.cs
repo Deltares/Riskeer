@@ -23,28 +23,28 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Application.Ringtoets.Storage.Create.ClosingStructure
+namespace Application.Ringtoets.Storage.Create.ClosingStructures
 {
     /// <summary>
-    /// Extension methods for <see cref="ClosingStructureFailureMechanismSectionResult"/> related to creating a 
-    /// <see cref="ClosingStructureSectionResultEntity"/>.
+    /// Extension methods for <see cref="ClosingStructuresFailureMechanismSectionResult"/> related to creating a 
+    /// <see cref="ClosingStructuresSectionResultEntity"/>.
     /// </summary>
-    internal static class ClosingStructureFailureMechanismSectionResultCreateExtensions
+    internal static class ClosingStructuresFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="ClosingStructureSectionResultEntity"/> based on the information of the <see cref="ClosingStructureFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="ClosingStructuresSectionResultEntity"/> based on the information of the <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
-        /// <returns>A new <see cref="ClosingStructureSectionResultEntity"/>.</returns>
+        /// <returns>A new <see cref="ClosingStructuresSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static ClosingStructureSectionResultEntity Create(this ClosingStructureFailureMechanismSectionResult result, PersistenceRegistry registry)
+        internal static ClosingStructuresSectionResultEntity Create(this ClosingStructuresFailureMechanismSectionResult result, PersistenceRegistry registry)
         {
             if (registry == null)
             {
                 throw new ArgumentNullException("registry");
             }
-            var sectionResultEntity = new ClosingStructureSectionResultEntity
+            var sectionResultEntity = new ClosingStructuresSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
                 LayerTwoA = result.AssessmentLayerTwoA.ToNaNAsNull(),

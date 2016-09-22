@@ -28,20 +28,20 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 namespace Ringtoets.Integration.Forms.Views.SectionResultRows
 {
     /// <summary>
-    /// Class for displaying <see cref="ClosingStructureFailureMechanismSectionResult"/>  as a row in a grid view.
+    /// Class for displaying <see cref="ClosingStructuresFailureMechanismSectionResult"/>  as a row in a grid view.
     /// </summary>
-    public class ClosingStructureSectionResultRow : FailureMechanismSectionResultRow<ClosingStructureFailureMechanismSectionResult>
+    public class ClosingStructuresSectionResultRow : FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResult>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructureSectionResultRow"/>.
+        /// Creates a new instance of <see cref="ClosingStructuresSectionResultRow"/>.
         /// </summary>
-        /// <param name="sectionResult">The <see cref="ClosingStructureFailureMechanismSectionResult"/> to wrap
+        /// <param name="sectionResult">The <see cref="ClosingStructuresFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public ClosingStructureSectionResultRow(ClosingStructureFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
+        public ClosingStructuresSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult) : base(sectionResult) { }
 
         /// <summary>
-        /// Gets or sets the value representing the result of the <see cref="ClosingStructureFailureMechanismSectionResult.AssessmentLayerOne"/>.
+        /// Gets or sets the value representing the result of the <see cref="ClosingStructuresFailureMechanismSectionResult.AssessmentLayerOne"/>.
         /// </summary>
         public bool AssessmentLayerOne
         {
@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
-        /// Gets or sets the value representing the result of the <see cref="ClosingStructureFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
+        /// Gets or sets the value representing the result of the <see cref="ClosingStructuresFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is
         /// not in the range [0,1].</exception>
@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         }
 
         /// <summary>
-        /// Gets or sets the value representing the result of the <see cref="ClosingStructureFailureMechanismSectionResult.AssessmentLayerThree"/>.
+        /// Gets or sets the value representing the result of the <see cref="ClosingStructuresFailureMechanismSectionResult.AssessmentLayerThree"/>.
         /// </summary>
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerThree

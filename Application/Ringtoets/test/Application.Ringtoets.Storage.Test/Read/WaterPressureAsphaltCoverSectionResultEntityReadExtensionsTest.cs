@@ -35,7 +35,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_SectionResultIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var entity = new ClosingStructureSectionResultEntity();
+            var entity = new WaterPressureAsphaltCoverSectionResultEntity();
 
             // Call
             TestDelegate call = () => entity.Read(null);

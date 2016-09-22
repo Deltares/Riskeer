@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create.ClosingStructure;
+using Application.Ringtoets.Storage.Create.ClosingStructures;
 using Application.Ringtoets.Storage.Create.DuneErosion;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
@@ -83,7 +83,7 @@ namespace Application.Ringtoets.Storage.Create
             entity.FailureMechanismEntities.Add(section.StrengthStabilityLengthwiseConstruction.Create(registry));
             entity.FailureMechanismEntities.Add(section.TechnicalInnovation.Create(registry));
             entity.FailureMechanismEntities.Add(section.WaterPressureAsphaltCover.Create(registry));
-            entity.FailureMechanismEntities.Add(section.ClosingStructure.Create(registry));
+            entity.FailureMechanismEntities.Add(section.ClosingStructures.Create(registry));
             entity.FailureMechanismEntities.Add(section.MacrostabilityInwards.Create(registry));
             entity.FailureMechanismEntities.Add(section.MacrostabilityOutwards.Create(registry));
             entity.FailureMechanismEntities.Add(section.WaveImpactAsphaltCover.Create(registry));

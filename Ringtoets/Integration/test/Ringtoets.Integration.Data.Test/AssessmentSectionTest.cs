@@ -45,33 +45,33 @@ namespace Ringtoets.Integration.Data.Test
             // Call
             var section = new AssessmentSection(composition);
 
-            var pipingName = "Dijken en dammen - Piping";
-            var grassErosionInsideName = "Dijken en dammen - Grasbekleding erosie kruin en binnentalud";
-            var macrostabilityInwardName = "Dijken en dammen - Macrostabiliteit binnenwaarts";
-            var stoneRevetmentName = "Dijken en dammen - Stabiliteit steenzetting";
-            var waveImpactAsphaltName = "Dijken en dammen - Golfklappen op asfaltbekleding";
-            var grassCoverErosionOutwardsName = "Dijken en dammen - Grasbekleding erosie buitentalud";
-            var grassCoverSlipOffOutsideName = "Dijken en dammen - Grasbekleding afschuiven buitentalud";
-            var heightStructureName = "Kunstwerken - Hoogte kunstwerk";
-            var closingStructureName = "Kunstwerken - Betrouwbaarheid sluiting kunstwerk";
-            var pipingStructureName = "Kunstwerken - Piping bij kunstwerk";
-            var strengthStabilityPointConstructionName = "Kunstwerken - Sterkte en stabiliteit puntconstructies";
-            var duneErosionName = "Duinwaterkering - Duinafslag";
-            var otherName = "Overig";
+            const string pipingName = "Dijken en dammen - Piping";
+            const string grassErosionInsideName = "Dijken en dammen - Grasbekleding erosie kruin en binnentalud";
+            const string macrostabilityInwardName = "Dijken en dammen - Macrostabiliteit binnenwaarts";
+            const string stoneRevetmentName = "Dijken en dammen - Stabiliteit steenzetting";
+            const string waveImpactAsphaltName = "Dijken en dammen - Golfklappen op asfaltbekleding";
+            const string grassCoverErosionOutwardsName = "Dijken en dammen - Grasbekleding erosie buitentalud";
+            const string grassCoverSlipOffOutsideName = "Dijken en dammen - Grasbekleding afschuiven buitentalud";
+            const string heightStructuresName = "Kunstwerken - Hoogte kunstwerk";
+            const string closingStructuresName = "Kunstwerken - Betrouwbaarheid sluiting kunstwerk";
+            const string pipingStructuresName = "Kunstwerken - Piping bij kunstwerk";
+            const string strengthStabilityPointConstructionName = "Kunstwerken - Sterkte en stabiliteit puntconstructies";
+            const string duneErosionName = "Duinwaterkering - Duinafslag";
+            const string otherName = "Overig";
 
-            var pipingCode = "STPH";
-            var grassErosionInsideCode = "GEKB";
-            var macrostabilityInwardCode = "STBI";
-            var stoneRevetmentCode = "ZST";
-            var waveImpactAsphaltCode = "AGK";
-            var grassCoverErosionOutwardsCode = "GEBU";
-            var grassCoverSlipOffOutsideCode = "GABU";
-            var heightStructureCode = "HTKW";
-            var closingStructureCode = "BSKW";
-            var pipingStructureCode = "PKW";
-            var strengthStabilityPointConstructionCode = "STKWp";
-            var duneErosionCode = "DA";
-            var otherCode = "-";
+            const string pipingCode = "STPH";
+            const string grassErosionInsideCode = "GEKB";
+            const string macrostabilityInwardCode = "STBI";
+            const string stoneRevetmentCode = "ZST";
+            const string waveImpactAsphaltCode = "AGK";
+            const string grassCoverErosionOutwardsCode = "GEBU";
+            const string grassCoverSlipOffOutsideCode = "GABU";
+            const string heightStructuresCode = "HTKW";
+            const string closingStructuresCode = "BSKW";
+            const string pipingStructuresCode = "PKW";
+            const string strengthStabilityPointConstructionCode = "STKWp";
+            const string duneErosionCode = "DA";
+            const string otherCode = "-";
 
             var names = new[]
             {
@@ -82,9 +82,9 @@ namespace Ringtoets.Integration.Data.Test
                 waveImpactAsphaltName,
                 grassCoverErosionOutwardsName,
                 grassCoverSlipOffOutsideName,
-                heightStructureName,
-                closingStructureName,
-                pipingStructureName,
+                heightStructuresName,
+                closingStructuresName,
+                pipingStructuresName,
                 strengthStabilityPointConstructionName,
                 duneErosionName,
                 otherName
@@ -99,9 +99,9 @@ namespace Ringtoets.Integration.Data.Test
                 waveImpactAsphaltCode,
                 grassCoverErosionOutwardsCode,
                 grassCoverSlipOffOutsideCode,
-                heightStructureCode,
-                closingStructureCode,
-                pipingStructureCode,
+                heightStructuresCode,
+                closingStructuresCode,
+                pipingStructuresCode,
                 strengthStabilityPointConstructionCode,
                 duneErosionCode,
                 otherCode
@@ -133,7 +133,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.NotNull(section.GrassCoverSlipOffOutwards);
             Assert.NotNull(section.GrassCoverSlipOffInwards);
             Assert.NotNull(section.HeightStructures);
-            Assert.NotNull(section.ClosingStructure);
+            Assert.NotNull(section.ClosingStructures);
             Assert.NotNull(section.PipingStructure);
             Assert.NotNull(section.StrengthStabilityPointConstruction);
             Assert.NotNull(section.StrengthStabilityLengthwiseConstruction);
@@ -207,7 +207,7 @@ namespace Ringtoets.Integration.Data.Test
                 assessmentSection.GrassCoverSlipOffOutwards,
                 assessmentSection.GrassCoverSlipOffInwards,
                 assessmentSection.HeightStructures,
-                assessmentSection.ClosingStructure,
+                assessmentSection.ClosingStructures,
                 assessmentSection.PipingStructure,
                 assessmentSection.StrengthStabilityPointConstruction,
                 assessmentSection.StrengthStabilityLengthwiseConstruction,
@@ -352,7 +352,7 @@ namespace Ringtoets.Integration.Data.Test
                 section.GrassCoverErosionOutwards,
                 section.GrassCoverSlipOffOutwards,
                 section.HeightStructures,
-                section.ClosingStructure,
+                section.ClosingStructures,
                 section.PipingStructure,
                 section.StrengthStabilityPointConstruction,
                 section.DuneErosion,
@@ -371,7 +371,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(contributions[5], assessmentSection.GrassCoverErosionOutwards.Contribution);
             Assert.AreEqual(contributions[6], assessmentSection.GrassCoverSlipOffOutwards.Contribution);
             Assert.AreEqual(contributions[7], assessmentSection.HeightStructures.Contribution);
-            Assert.AreEqual(contributions[8], assessmentSection.ClosingStructure.Contribution);
+            Assert.AreEqual(contributions[8], assessmentSection.ClosingStructures.Contribution);
             Assert.AreEqual(contributions[9], assessmentSection.PipingStructure.Contribution);
             Assert.AreEqual(contributions[10], assessmentSection.StrengthStabilityPointConstruction.Contribution);
             Assert.AreEqual(contributions[11], assessmentSection.DuneErosion.Contribution);

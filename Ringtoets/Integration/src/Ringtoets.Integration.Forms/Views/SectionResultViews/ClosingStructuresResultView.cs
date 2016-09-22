@@ -29,25 +29,25 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms.Views.SectionResultViews
 {
     /// <summary>
-    /// The view for a collection of <see cref="ClosingStructureFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
     /// </summary>
-    public class ClosingStructureResultView : FailureMechanismResultView<ClosingStructureFailureMechanismSectionResult>
+    public class ClosingStructuresResultView : FailureMechanismResultView<ClosingStructuresFailureMechanismSectionResult>
     {
         private const int assessmentLayerOneColumnIndex = 1;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructureResultView"/>.
+        /// Creates a new instance of <see cref="ClosingStructuresResultView"/>.
         /// </summary>
-        public ClosingStructureResultView()
+        public ClosingStructuresResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(OnCellFormatting);
 
             AddDataGridColumns();
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(ClosingStructureFailureMechanismSectionResult sectionResult)
+        protected override object CreateFailureMechanismSectionResultRow(ClosingStructuresFailureMechanismSectionResult sectionResult)
         {
-            return new ClosingStructureSectionResultRow(sectionResult);
+            return new ClosingStructuresSectionResultRow(sectionResult);
         }
 
         protected override void Dispose(bool disposing)
@@ -60,17 +60,17 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         private void AddDataGridColumns()
         {
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<ClosingStructureSectionResultRow>(sr => sr.Name),
+                TypeUtils.GetMemberName<ClosingStructuresSectionResultRow>(sr => sr.Name),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
             DataGridViewControl.AddCheckBoxColumn(
-                TypeUtils.GetMemberName<ClosingStructureSectionResultRow>(sr => sr.AssessmentLayerOne),
+                TypeUtils.GetMemberName<ClosingStructuresSectionResultRow>(sr => sr.AssessmentLayerOne),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<ClosingStructureSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                TypeUtils.GetMemberName<ClosingStructuresSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<ClosingStructureSectionResultRow>(sr => sr.AssessmentLayerThree),
+                TypeUtils.GetMemberName<ClosingStructuresSectionResultRow>(sr => sr.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
 

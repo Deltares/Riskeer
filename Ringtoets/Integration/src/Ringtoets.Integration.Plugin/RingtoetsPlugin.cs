@@ -187,7 +187,7 @@ namespace Ringtoets.Integration.Plugin
                                                       assessmentSection)
                 ),
             new FailureMechanismContextAssociation(
-                typeof(ClosingStructureFailureMechanism),
+                typeof(ClosingStructuresFailureMechanism),
                 (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
                                                       mechanism,
                                                       assessmentSection)
@@ -381,8 +381,8 @@ namespace Ringtoets.Integration.Plugin
                 StrengthStabilityPointConstructionFailureMechanismSectionResult,
                 StrengthStabilityPointConstructionResultView>();
             yield return CreateFailureMechanismResultViewInfo<
-                ClosingStructureFailureMechanismSectionResult,
-                ClosingStructureResultView>();
+                ClosingStructuresFailureMechanismSectionResult,
+                ClosingStructuresResultView>();
 
             yield return new ViewInfo<CommentContext<ICommentable>, ICommentable, CommentView>
             {
@@ -622,7 +622,7 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<ClosingStructureFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<ClosingStructuresFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityInwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityOutwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<StrengthStabilityPointConstructionFailureMechanismSectionResult>();
@@ -979,7 +979,7 @@ namespace Ringtoets.Integration.Plugin
             var strengthStabilityLengthwiseConstruction = nodeData as IHasSectionResults<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>;
             var waterPressureAsphaltCover = nodeData as IHasSectionResults<WaterPressureAsphaltCoverFailureMechanismSectionResult>;
             var waveImpactAsphaltCover = nodeData as IHasSectionResults<WaveImpactAsphaltCoverFailureMechanismSectionResult>;
-            var closingStructure = nodeData as IHasSectionResults<ClosingStructureFailureMechanismSectionResult>;
+            var closingStructures = nodeData as IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>;
             var macrostabilityInwards = nodeData as IHasSectionResults<MacrostabilityInwardsFailureMechanismSectionResult>;
             var macrostabilityOutwards = nodeData as IHasSectionResults<MacrostabilityOutwardsFailureMechanismSectionResult>;
             var strengthStabilityPointConstruction = nodeData as IHasSectionResults<StrengthStabilityPointConstructionFailureMechanismSectionResult>;
@@ -1035,10 +1035,10 @@ namespace Ringtoets.Integration.Plugin
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<WaveImpactAsphaltCoverFailureMechanismSectionResult>(waveImpactAsphaltCover.SectionResults, nodeData);
             }
-            if (closingStructure != null)
+            if (closingStructures != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<ClosingStructureFailureMechanismSectionResult>(closingStructure.SectionResults, nodeData);
+                    new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(closingStructures.SectionResults, nodeData);
             }
             if (macrostabilityInwards != null)
             {

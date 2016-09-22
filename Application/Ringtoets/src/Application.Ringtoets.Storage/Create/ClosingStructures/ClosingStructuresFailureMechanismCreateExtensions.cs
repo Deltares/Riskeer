@@ -25,21 +25,21 @@ using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Application.Ringtoets.Storage.Create.ClosingStructure
+namespace Application.Ringtoets.Storage.Create.ClosingStructures
 {
     /// <summary>
-    /// Extension methods for <see cref="ClosingStructureFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="ClosingStructuresFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    internal static class ClosingStructureFailureMechanismCreateExtensions
+    internal static class ClosingStructuresFailureMechanismCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="ClosingStructureFailureMechanism"/>.
+        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="ClosingStructuresFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The failure mechanism to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static FailureMechanismEntity Create(this ClosingStructureFailureMechanism mechanism, PersistenceRegistry registry)
+        internal static FailureMechanismEntity Create(this ClosingStructuresFailureMechanism mechanism, PersistenceRegistry registry)
         {
             var entity = mechanism.Create(FailureMechanismType.ReliabilityClosingOfStructure, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
@@ -48,14 +48,14 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructure
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<ClosingStructureFailureMechanismSectionResult> sectionResults,
+            IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
             foreach (var failureMechanismSectionResult in sectionResults)
             {
                 var sectionResultEntity = failureMechanismSectionResult.Create(registry);
                 var section = registry.Get(failureMechanismSectionResult.Section);
-                section.ClosingStructureSectionResultEntities.Add(sectionResultEntity);
+                section.ClosingStructuresSectionResultEntities.Add(sectionResultEntity);
             }
         }
     }

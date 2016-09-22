@@ -95,8 +95,8 @@
     <Compile Include="Serializers\Point3DXmlSerializerTest.cs" />
     <Compile Include="Serializers\RoughnessPointXmlSerializerTest.cs" />
     <Compile Include="Create\CalculationGroupCreateExtensionsTest.cs" />
-    <Compile Include="Create\ClosingStructure\ClosingStructureFailureMechanismCreateExtensionsTest.cs" />
-    <Compile Include="Create\ClosingStructure\ClosingStructureFailureMechanismSectionResultCreateExtensionsTest.cs" />
+    <Compile Include="Create\ClosingStructures\ClosingStructuresFailureMechanismCreateExtensionsTest.cs" />
+    <Compile Include="Create\ClosingStructures\ClosingStructuresFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismCreateExtensionsTest.cs" />
     <Compile Include="Create\DuneErosion\DuneErosionFailureMechanismSectionResultCreateExtensionsTest.cs" />
     <Compile Include="Create\GrassCoverErosionInwards\DikeProfileCreateExtensionsTest.cs" />
@@ -158,7 +158,7 @@
     <Compile Include="FingerprintHelperTest.cs" />
     <Compile Include="Read\AssessmentSectionEntityReadExtensionsTest.cs" />
     <Compile Include="Read\CalculationGroupEntityReadExtentionsTest.cs" />
-    <Compile Include="Read\ClosingStructureSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\ClosingStructures\ClosingStructuresSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\DikeProfileEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsCalculationEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverErosionInwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensionsTest.cs" />

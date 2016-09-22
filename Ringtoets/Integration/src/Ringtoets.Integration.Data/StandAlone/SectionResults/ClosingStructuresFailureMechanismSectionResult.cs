@@ -28,19 +28,19 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the
-    /// Closing Structure failure mechanism.
+    /// Closing Structures failure mechanism.
     /// </summary>
-    public class ClosingStructureFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class ClosingStructuresFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         private double assessmentLayerTwoA;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructureFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
-        /// <see cref="ClosingStructureFailureMechanismSectionResult"/> will hold the result.</param>
+        /// <see cref="ClosingStructuresFailureMechanismSectionResult"/> will hold the result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public ClosingStructureFailureMechanismSectionResult(FailureMechanismSection section)
+        public ClosingStructuresFailureMechanismSectionResult(FailureMechanismSection section)
             : base(section)
         {
             AssessmentLayerTwoA = double.NaN;

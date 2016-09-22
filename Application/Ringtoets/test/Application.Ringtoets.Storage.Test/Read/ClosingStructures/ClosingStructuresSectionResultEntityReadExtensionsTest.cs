@@ -22,20 +22,21 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+using Application.Ringtoets.Storage.Read.ClosingStructures;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
 {
     [TestFixture]
-    public class ClosingStructureSectionResultEntityReadExtensionsTest
+    public class ClosingStructuresSectionResultEntityReadExtensionsTest
     {
         [Test]
         public void Read_SectionResultIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var entity = new ClosingStructureSectionResultEntity();
+            var entity = new ClosingStructuresSectionResultEntity();
 
             // Call
             TestDelegate call = () => entity.Read(null);
@@ -48,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithDecimalParameterValues_ReturnClosingStructureSectionResultWithDoubleParameterValues(bool layerOne)
+        public void Read_WithDecimalParameterValues_ReturnClosingStructuresSectionResultWithDoubleParameterValues(bool layerOne)
         {
             // Setup
             var random = new Random(21);
@@ -58,14 +59,14 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new ClosingStructureSectionResultEntity
+            var entity = new ClosingStructuresSectionResultEntity
             {
                 LayerThree = layerThree,
                 LayerTwoA = layerTwoA,
                 LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new ClosingStructureFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
@@ -80,20 +81,20 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithNullLayerTwoA_ReturnClosingStructureSectionResultWithNullParameters(bool layerOne)
+        public void Read_WithNullLayerTwoA_ReturnClosingStructuresSectionResultWithNullParameters(bool layerOne)
         {
             // Setup
             var collector = new ReadConversionCollector();
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new ClosingStructureSectionResultEntity
+            var entity = new ClosingStructuresSectionResultEntity
             {
                 LayerOne = Convert.ToByte(layerOne),
                 LayerTwoA = null,
                 LayerThree = new Random(21).NextDouble(),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new ClosingStructureFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
@@ -105,20 +106,20 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithNullLayerThree_ReturnClosingStructureSectionResultWithNullParameters(bool layerOne)
+        public void Read_WithNullLayerThree_ReturnClosingStructuresSectionResultWithNullParameters(bool layerOne)
         {
             // Setup
             var collector = new ReadConversionCollector();
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new ClosingStructureSectionResultEntity
+            var entity = new ClosingStructuresSectionResultEntity
             {
                 LayerOne = Convert.ToByte(layerOne),
                 LayerTwoA = new Random(21).NextDouble(),
                 LayerThree = null,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new ClosingStructureFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

@@ -37,7 +37,7 @@ using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
 {
     [TestFixture]
-    public class ClosingStructureResultViewTest
+    public class ClosingStructuresResultViewTest
     {
         private const int nameColumnIndex = 0;
         private const int assessmentLayerOneIndex = 1;
@@ -45,11 +45,11 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         private const int assessmentLayerThreeIndex = 3;
 
         [Test]
-        public void GivenFormWithClosingStructureFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithClosingStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (var form = new Form())
-            using (var view = new ClosingStructureResultView())
+            using (var view = new ClosingStructuresResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -79,7 +79,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void GivenFormWithClosingStructureFailureMechanismResultView_WhenDataSourceWithClosingStructureFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void GivenFormWithClosingStructuresFailureMechanismResultView_WhenDataSourceWithClosingStructureFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -91,13 +91,13 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result1 = new ClosingStructureFailureMechanismSectionResult(section1)
+            var result1 = new ClosingStructuresFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = true,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            var result2 = new ClosingStructureFailureMechanismSectionResult(section2)
+            var result2 = new ClosingStructuresFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
@@ -105,7 +105,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             };
 
             using (var form = new Form())
-            using (var view = new ClosingStructureResultView())
+            using (var view = new ClosingStructuresResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -148,7 +148,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void GivenFormWithClosingStructureFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled()
+        public void GivenFormWithClosingStructuresFailureMechanismResultView_WhenSectionPassesLevel0AndListenersNotified_ThenRowsForSectionBecomesDisabled()
         {
             // Given
             var section = new FailureMechanismSection("Section 1", new[]
@@ -156,14 +156,14 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result = new ClosingStructureFailureMechanismSectionResult(section)
+            var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = false,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             using (var form = new Form())
-            using (var view = new ClosingStructureResultView())
+            using (var view = new ClosingStructuresResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -191,7 +191,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void GivenFormWithClosingStructureFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
+        public void GivenFormWithClosingStructuresFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -206,7 +206,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result2 = new TestFailureMechanismSectionResult(section2);
 
             using (var form = new Form())
-            using (var view = new ClosingStructureResultView())
+            using (var view = new ClosingStructuresResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -225,14 +225,14 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             }
         }
 
-        private void AssertCellIsDisabled(DataGridViewCell dataGridViewCell)
+        private static void AssertCellIsDisabled(DataGridViewCell dataGridViewCell)
         {
             Assert.AreEqual(true, dataGridViewCell.ReadOnly);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), dataGridViewCell.Style.ForeColor);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), dataGridViewCell.Style.BackColor);
         }
 
-        private void AssertCellIsEnabled(DataGridViewCell dataGridViewCell)
+        private static void AssertCellIsEnabled(DataGridViewCell dataGridViewCell)
         {
             Assert.AreEqual(false, dataGridViewCell.ReadOnly);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);

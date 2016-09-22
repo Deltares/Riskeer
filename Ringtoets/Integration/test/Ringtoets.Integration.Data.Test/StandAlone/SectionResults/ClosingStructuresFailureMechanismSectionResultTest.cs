@@ -29,13 +29,13 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
 {
     [TestFixture]
-    public class ClosingStructureFailureMechanismSectionResultTest
+    public class ClosingStructuresFailureMechanismSectionResultTest
     {
         [Test]
         public void Constructor_WithoutSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ClosingStructureFailureMechanismSectionResult(null);
+            TestDelegate test = () => new ClosingStructuresFailureMechanismSectionResult(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             });
 
             // Call
-            var result = new ClosingStructureFailureMechanismSectionResult(section);
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             {
                 new Point2D(0, 0)
             });
-            var result = new ClosingStructureFailureMechanismSectionResult(section);
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate test = () => result.AssessmentLayerTwoA = a;
@@ -99,7 +99,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             {
                 new Point2D(0, 0)
             });
-            var result = new ClosingStructureFailureMechanismSectionResult(section);
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
             result.AssessmentLayerTwoA = a;

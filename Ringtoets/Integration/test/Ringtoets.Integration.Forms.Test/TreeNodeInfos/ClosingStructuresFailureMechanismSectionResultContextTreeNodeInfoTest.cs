@@ -35,7 +35,7 @@ using Ringtoets.Integration.Plugin;
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ClosingStructureFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class ClosingStructuresFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private RingtoetsPlugin plugin;
@@ -46,7 +46,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new RingtoetsPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<ClosingStructureFailureMechanismSectionResult>));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>));
         }
 
         [TearDown]
@@ -63,7 +63,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<ClosingStructureFailureMechanismSectionResult>), info.TagType);
+            Assert.AreEqual(typeof(FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>), info.TagType);
 
             Assert.IsNull(info.ChildNodeObjects);
             Assert.IsNull(info.ForeColor);
@@ -87,8 +87,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
 
-            var mechanism = new ClosingStructureFailureMechanism();
-            var context = new FailureMechanismSectionResultContext<ClosingStructureFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
+            var mechanism = new ClosingStructuresFailureMechanism();
+            var context = new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(mechanism.SectionResults, mechanism);
 
             // Call
             var text = info.Text(context);

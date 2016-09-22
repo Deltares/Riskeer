@@ -56,10 +56,10 @@
     <Compile Include="AssessmentSectionTest.cs" />
     <Compile Include="RingtoetsProjectFactoryTest.cs" />
     <Compile Include="RingtoetsProjectTest.cs" />
-    <Compile Include="StandAlone\ClosingStructureFailureMechanismTest.cs" />
+    <Compile Include="StandAlone\ClosingStructuresFailureMechanismTest.cs" />
     <Compile Include="StandAlone\MacrostabilityOutwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\GrassCoverSlipOffInwardsFailureMechanismTest.cs" />
-    <Compile Include="StandAlone\SectionResults\ClosingStructureFailureMechanismSectionResultTest.cs" />
+    <Compile Include="StandAlone\SectionResults\ClosingStructuresFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\TechnicalInnovationFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\PipingStructureFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\MicrostabilityFailureMechanismSectionResultTest.cs" />

@@ -55,7 +55,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<AssessmentSectionEntity> AssessmentSectionEntities { get; set; }
         public virtual DbSet<CalculationGroupEntity> CalculationGroupEntities { get; set; }
         public virtual DbSet<CharacteristicPointEntity> CharacteristicPointEntities { get; set; }
-        public virtual DbSet<ClosingStructureSectionResultEntity> ClosingStructureSectionResultEntities { get; set; }
         public virtual DbSet<DikeProfileEntity> DikeProfileEntities { get; set; }
         public virtual DbSet<DuneErosionSectionResultEntity> DuneErosionSectionResultEntities { get; set; }
         public virtual DbSet<FailureMechanismEntity> FailureMechanismEntities { get; set; }
@@ -100,5 +99,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<WaveImpactAsphaltCoverSectionResultEntity> WaveImpactAsphaltCoverSectionResultEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverWaveConditionsCalculationEntity> WaveImpactAsphaltCoverWaveConditionsCalculationEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverWaveConditionsOutputEntity> WaveImpactAsphaltCoverWaveConditionsOutputEntities { get; set; }
+        public virtual DbSet<ClosingStructuresSectionResultEntity> ClosingStructuresSectionResultEntities { get; set; }
     }
 }

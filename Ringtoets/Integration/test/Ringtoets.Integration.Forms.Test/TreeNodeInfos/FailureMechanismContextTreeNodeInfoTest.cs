@@ -212,8 +212,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult)")]
         [TestCase(typeof(WaterPressureAsphaltCoverFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(WaterPressureAsphaltCoverFailureMechanismSectionResult)")]
-        [TestCase(typeof(ClosingStructureFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(ClosingStructureFailureMechanismSectionResult)")]
+        [TestCase(typeof(ClosingStructuresFailureMechanismSectionResult),
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(ClosingStructuresFailureMechanismSectionResult)")]
         [TestCase(typeof(MacrostabilityInwardsFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MacrostabilityInwardsFailureMechanismSectionResult)")]
         [TestCase(typeof(MacrostabilityOutwardsFailureMechanismSectionResult),

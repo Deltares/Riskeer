@@ -115,10 +115,10 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<WaterPressureAsphaltCoverSectionResultEntity> WaterPressureAsphaltCoverSectionResultEntities { get; }
 
         /// <summary>
-        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="ClosingStructureSectionResultEntity"/> containing
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="ClosingStructuresSectionResultEntity"/> containing
         /// every entity found in the database.
         /// </summary>
-        DbSet<ClosingStructureSectionResultEntity> ClosingStructureSectionResultEntities { get; }
+        DbSet<ClosingStructuresSectionResultEntity> ClosingStructuresSectionResultEntities { get; }
 
         /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="MacrostabilityInwardsSectionResultEntity"/> containing

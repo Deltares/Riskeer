@@ -22,22 +22,22 @@
 using System;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.ClosingStructure;
+using Application.Ringtoets.Storage.Create.ClosingStructures;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Integration.Data.StandAlone;
 
-namespace Application.Ringtoets.Storage.Test.Create.ClosingStructure
+namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
 {
     [TestFixture]
-    public class ClosingStructureFailureMechanismCreateExtensionsTest
+    public class ClosingStructuresFailureMechanismCreateExtensionsTest
     {
         [Test]
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new ClosingStructureFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
             TestDelegate test = () => failureMechanism.Create(null);
@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructure
         public void Create_WithCollectorAndPropertiesSet_ReturnsFailureMechanismEntityWithPropertiesSet(bool isRelevant)
         {
             // Setup
-            var failureMechanism = new ClosingStructureFailureMechanism
+            var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 IsRelevant = isRelevant,
                 Comments = "Some text"
@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructure
         {
             // Setup
             const string original = "Some text";
-            var failureMechanism = new ClosingStructureFailureMechanism
+            var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 Comments = original
             };
@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructure
         public void Create_WithoutSections_EmptyFailureMechanismSectionEntities()
         {
             // Setup
-            var failureMechanism = new ClosingStructureFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
             var entity = failureMechanism.Create(new PersistenceRegistry());
@@ -107,7 +107,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructure
         public void Create_WithSections_FailureMechanismSectionEntitiesCreated()
         {
             // Setup
-            var failureMechanism = new ClosingStructureFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             failureMechanism.AddSection(new TestFailureMechanismSection());
 
             // Call
@@ -115,7 +115,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructure
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructureSectionResultEntities).Count());
+            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructuresSectionResultEntities).Count());
         }
     }
 }

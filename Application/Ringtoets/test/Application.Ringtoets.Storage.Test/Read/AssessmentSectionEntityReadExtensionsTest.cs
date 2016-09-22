@@ -823,7 +823,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssertFailureMechanismEqual(isRelevant, macrostabilityOutwardsEntityComment, 2, section.MacrostabilityOutwards);
             AssertFailureMechanismEqual(isRelevant, microstabilityEntityComment, 2, section.Microstability);
             AssertFailureMechanismEqual(isRelevant, structureHeightEntityComment, 2, section.HeightStructures);
-            AssertFailureMechanismEqual(isRelevant, closingEntityComment, 2, section.ClosingStructure);
+            AssertFailureMechanismEqual(isRelevant, closingEntityComment, 2, section.ClosingStructures);
             AssertFailureMechanismEqual(isRelevant, failingOfConstructionPointEntityComment, 2, section.StrengthStabilityPointConstruction);
             AssertFailureMechanismEqual(isRelevant, failingOfConstructionLengthwiseEntityComment, 2, section.StrengthStabilityLengthwiseConstruction);
             AssertFailureMechanismEqual(isRelevant, waterPressureEntityComment, 2, section.WaterPressureAsphaltCover);

@@ -36,7 +36,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         public void Read_SectionResultIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var entity = new ClosingStructureSectionResultEntity();
+            var entity = new PipingSectionResultEntity();
 
             // Call
             TestDelegate call = () => entity.Read(null);

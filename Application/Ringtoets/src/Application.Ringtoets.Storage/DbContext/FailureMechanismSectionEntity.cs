@@ -38,7 +38,6 @@ namespace Application.Ringtoets.Storage.DbContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FailureMechanismSectionEntity()
         {
-            this.ClosingStructureSectionResultEntities = new HashSet<ClosingStructureSectionResultEntity>();
             this.DuneErosionSectionResultEntities = new HashSet<DuneErosionSectionResultEntity>();
             this.GrassCoverErosionInwardsSectionResultEntities = new HashSet<GrassCoverErosionInwardsSectionResultEntity>();
             this.GrassCoverErosionOutwardsSectionResultEntities = new HashSet<GrassCoverErosionOutwardsSectionResultEntity>();
@@ -56,6 +55,7 @@ namespace Application.Ringtoets.Storage.DbContext
             this.TechnicalInnovationSectionResultEntities = new HashSet<TechnicalInnovationSectionResultEntity>();
             this.WaterPressureAsphaltCoverSectionResultEntities = new HashSet<WaterPressureAsphaltCoverSectionResultEntity>();
             this.WaveImpactAsphaltCoverSectionResultEntities = new HashSet<WaveImpactAsphaltCoverSectionResultEntity>();
+            this.ClosingStructuresSectionResultEntities = new HashSet<ClosingStructuresSectionResultEntity>();
         }
     
         public long FailureMechanismSectionEntityId { get; set; }
@@ -63,8 +63,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public string Name { get; set; }
         public string FailureMechanismSectionPointXml { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ClosingStructureSectionResultEntity> ClosingStructureSectionResultEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DuneErosionSectionResultEntity> DuneErosionSectionResultEntities { get; set; }
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
@@ -100,5 +98,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ICollection<WaterPressureAsphaltCoverSectionResultEntity> WaterPressureAsphaltCoverSectionResultEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WaveImpactAsphaltCoverSectionResultEntity> WaveImpactAsphaltCoverSectionResultEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClosingStructuresSectionResultEntity> ClosingStructuresSectionResultEntities { get; set; }
     }
 }

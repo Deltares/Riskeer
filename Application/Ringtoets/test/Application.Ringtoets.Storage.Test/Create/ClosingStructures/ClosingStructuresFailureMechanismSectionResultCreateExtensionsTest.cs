@@ -21,22 +21,22 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.ClosingStructure;
+using Application.Ringtoets.Storage.Create.ClosingStructures;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Application.Ringtoets.Storage.Test.Create.ClosingStructure
+namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
 {
     [TestFixture]
-    public class ClosingStructureFailureMechanismSectionResultCreateExtensionsTest
+    public class ClosingStructuresFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new ClosingStructureFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             TestDelegate test = () => sectionResult.Create(null);
@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructure
             [Values(3.2, 4.5)] double assessmentLayerThreeResult)
         {
             // Setup
-            var sectionResult = new ClosingStructureFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
                 AssessmentLayerTwoA = (RoundedDouble) assessmentLayerTwoAResult,
@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructure
         public void Create_WithNaNLevel2aResult_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new ClosingStructureFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerTwoA = (RoundedDouble) double.NaN
             };
@@ -88,7 +88,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructure
         public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new ClosingStructureFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerThree = (RoundedDouble) double.NaN
             };

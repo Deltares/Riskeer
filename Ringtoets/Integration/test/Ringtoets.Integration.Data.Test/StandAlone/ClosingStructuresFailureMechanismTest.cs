@@ -29,26 +29,28 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 namespace Ringtoets.Integration.Data.Test.StandAlone
 {
     [TestFixture]
-    public class ClosingStructureFailureMechanismTest
+    public class ClosingStructuresFailureMechanismTest
     {
         [Test]
         public void DefaultConstructor_Always_PropertiesSet()
         {
             // Call
-            var failureMechanism = new ClosingStructureFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Kunstwerken - Betrouwbaarheid sluiting kunstwerk", failureMechanism.Name);
             Assert.AreEqual("BSKW", failureMechanism.Code);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
         }
 
         [Test]
-        public void AddSection_WithSection_AddedClosingStructureFailureMechanismSectionResult()
+        public void AddSection_WithSection_AddedClosingStructuresFailureMechanismSectionResult()
         {
             // Setup
-            var failureMechanism = new ClosingStructureFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
@@ -58,7 +60,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
 
             // Assert
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsInstanceOf<ClosingStructureFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            Assert.IsInstanceOf<ClosingStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
         }
     }
 }

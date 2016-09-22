@@ -37,13 +37,13 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
 {
     [TestFixture]
-    public class ClosingStructureSectionResultRowTest
+    public class ClosingStructuresSectionResultRowTest
     {
         [Test]
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ClosingStructureSectionResultRow(null);
+            TestDelegate test = () => new ClosingStructuresSectionResultRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -55,10 +55,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             var section = CreateSection();
-            var result = new ClosingStructureFailureMechanismSectionResult(section);
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
-            var row = new ClosingStructureSectionResultRow(result);
+            var row = new ClosingStructuresSectionResultRow(result);
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
@@ -66,10 +66,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
-            Assert.IsTrue(TypeUtils.HasTypeConverter<ClosingStructureSectionResultRow,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<ClosingStructuresSectionResultRow,
                               FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
-            Assert.IsTrue(TypeUtils.HasTypeConverter<ClosingStructureSectionResultRow,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<ClosingStructuresSectionResultRow,
                               NoValueRoundedDoubleConverter>(
                                   r => r.AssessmentLayerThree));
         }
@@ -86,10 +86,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             mocks.ReplayAll();
 
             var section = CreateSection();
-            var result = new ClosingStructureFailureMechanismSectionResult(section);
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new ClosingStructureSectionResultRow(result);
+            var row = new ClosingStructuresSectionResultRow(result);
 
             // Call
             row.AssessmentLayerOne = newValue;
@@ -109,8 +109,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             var section = CreateSection();
-            var result = new ClosingStructureFailureMechanismSectionResult(section);
-            var row = new ClosingStructureSectionResultRow(result);
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
+            var row = new ClosingStructuresSectionResultRow(result);
 
             // Call
             row.AssessmentLayerTwoA = value;
@@ -128,8 +128,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             var section = CreateSection();
-            var result = new ClosingStructureFailureMechanismSectionResult(section);
-            var row = new ClosingStructureSectionResultRow(result);
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
+            var row = new ClosingStructuresSectionResultRow(result);
 
             // Call
             TestDelegate test = () => row.AssessmentLayerTwoA = value;
@@ -147,8 +147,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var random = new Random(21);
             var newValue = random.NextDouble();
             var section = CreateSection();
-            var result = new ClosingStructureFailureMechanismSectionResult(section);
-            var row = new ClosingStructureSectionResultRow(result);
+            var result = new ClosingStructuresFailureMechanismSectionResult(section);
+            var row = new ClosingStructuresSectionResultRow(result);
 
             // Call
             row.AssessmentLayerThree = (RoundedDouble) newValue;

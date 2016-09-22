@@ -24,23 +24,23 @@ using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Application.Ringtoets.Storage.Read
+namespace Application.Ringtoets.Storage.Read.ClosingStructures
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="ClosingStructureFailureMechanismSectionResult"/> based on the
-    /// <see cref="ClosingStructureSectionResultEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="ClosingStructuresFailureMechanismSectionResult"/> based on the
+    /// <see cref="ClosingStructuresSectionResultEntity"/>.
     /// </summary>
-    internal static class ClosingStructureSectionResultEntityReadExtensions
+    internal static class ClosingStructuresSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="ClosingStructureSectionResultEntity"/> and use the information to update a 
-        /// <see cref="ClosingStructureFailureMechanismSectionResult"/>.
+        /// Reads the <see cref="ClosingStructuresSectionResultEntity"/> and use the information to update a 
+        /// <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="ClosingStructureSectionResultEntity"/> to create <see cref="ClosingStructureFailureMechanismSectionResult"/> for.</param>
+        /// <param name="entity">The <see cref="ClosingStructuresSectionResultEntity"/> to create <see cref="ClosingStructuresFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="ClosingStructureFailureMechanismSectionResult"/>.</returns>
+        /// <returns>A new <see cref="ClosingStructuresFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        internal static void Read(this ClosingStructureSectionResultEntity entity, ClosingStructureFailureMechanismSectionResult sectionResult)
+        internal static void Read(this ClosingStructuresSectionResultEntity entity, ClosingStructuresFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
             {

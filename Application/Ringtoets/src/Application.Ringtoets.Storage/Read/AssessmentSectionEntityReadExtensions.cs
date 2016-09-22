@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadStrengthStabilityLengthwiseConstructionFailureMechanism(assessmentSection, collector);
             entity.ReadTechnicalInnovationFailureMechanism(assessmentSection, collector);
             entity.ReadWaterPressureAsphaltCoverFailureMechanism(assessmentSection, collector);
-            entity.ReadClosingStructureFailureMechanism(assessmentSection, collector);
+            entity.ReadClosingStructuresFailureMechanism(assessmentSection, collector);
             entity.ReadMacrostabilityInwardsFailureMechanism(assessmentSection, collector);
             entity.ReadMacrostabilityOutwardsFailureMechanism(assessmentSection, collector);
             entity.ReadWaveImpactAsphaltCoverFailureMechanism(assessmentSection, collector);
@@ -170,12 +170,12 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static void ReadClosingStructureFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
+        private static void ReadClosingStructuresFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var closingStructureFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.ReliabilityClosingOfStructure);
-            if (closingStructureFailureMechanismEntity != null)
+            var closingStructuresFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.ReliabilityClosingOfStructure);
+            if (closingStructuresFailureMechanismEntity != null)
             {
-                closingStructureFailureMechanismEntity.ReadAsClosingStructureFailureMechanism(assessmentSection.ClosingStructure, collector);
+                closingStructuresFailureMechanismEntity.ReadAsClosingStructuresFailureMechanism(assessmentSection.ClosingStructures, collector);
             }
         }
 

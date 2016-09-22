@@ -30,19 +30,19 @@ namespace Ringtoets.Integration.Data.StandAlone
 {
     /// <summary>
     /// Model containing input and output needed to perform different levels of the
-    /// Closing Structure failure mechanism.
+    /// Closing Structures failure mechanism.
     /// </summary>
-    public class ClosingStructureFailureMechanism : FailureMechanismBase, IHasSectionResults<ClosingStructureFailureMechanismSectionResult>
+    public class ClosingStructuresFailureMechanism : FailureMechanismBase, IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>
     {
-        private readonly List<ClosingStructureFailureMechanismSectionResult> sectionResults;
+        private readonly List<ClosingStructuresFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ClosingStructureFailureMechanism"/> class.
+        /// Initializes a new instance of the <see cref="ClosingStructuresFailureMechanism"/> class.
         /// </summary>
-        public ClosingStructureFailureMechanism()
-            : base(Resources.ClosingStructureFailureMechanism_DisplayName, Resources.ClosingStructureFailureMechanism_Code)
+        public ClosingStructuresFailureMechanism()
+            : base(Resources.ClosingStructuresFailureMechanism_DisplayName, Resources.ClosingStructuresFailureMechanism_Code)
         {
-            sectionResults = new List<ClosingStructureFailureMechanismSectionResult>();
+            sectionResults = new List<ClosingStructuresFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        public IEnumerable<ClosingStructureFailureMechanismSectionResult> SectionResults
+        public IEnumerable<ClosingStructuresFailureMechanismSectionResult> SectionResults
         {
             get
             {
@@ -65,7 +65,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new ClosingStructureFailureMechanismSectionResult(section));
+            sectionResults.Add(new ClosingStructuresFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()
