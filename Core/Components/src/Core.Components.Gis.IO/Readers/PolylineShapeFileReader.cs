@@ -89,7 +89,9 @@ namespace Core.Components.Gis.IO.Readers
             try
             {
                 IFeature lineFeature = GetFeature(readIndex);
-                return ConvertSingleLineFeatureToMapLineData(lineFeature, !string.IsNullOrWhiteSpace(name) ? name : GisIOResources.PolylineShapeFileReader_ReadLine_Line);
+                return ConvertSingleLineFeatureToMapLineData(lineFeature, !string.IsNullOrWhiteSpace(name)
+                                                                              ? name
+                                                                              : GisIOResources.PolylineShapeFileReader_ReadLine_Line);
             }
             finally
             {

@@ -90,13 +90,15 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void Import_ValidFileCorrespondingToReferenceLineAndNoSectionImportedYet_ImportSections()
+        [TestCase("traject_1-1.shp", "traject_1-1_vakken.shp", 62)]
+        [TestCase("traject_19-1.shp", "traject_19-1_vakken.shp", 17)]
+        public void Import_ValidFileCorrespondingToReferenceLineAndNoSectionImportedYet_ImportSections(string referenceLineFileName, string sectionsFileName, int sectionCount)
         {
             // Setup
             var referenceLineFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                   Path.Combine("ReferenceLine", "traject_1-1.shp"));
+                                                                   Path.Combine("ReferenceLine", referenceLineFileName));
             var sectionsFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("FailureMechanismSections", "traject_1-1_vakken.shp"));
+                                                              Path.Combine("FailureMechanismSections", sectionsFileName));
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -116,7 +118,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             Assert.IsTrue(importSuccessful);
 
             FailureMechanismSection[] sections = failureMechanism.Sections.ToArray();
-            Assert.AreEqual(62, sections.Length);
+            Assert.AreEqual(sectionCount, sections.Length);
             AssertSectionsAreValidForReferenceLine(sections, assessmentSection.ReferenceLine);
             mocks.VerifyAll();
         }

@@ -166,38 +166,6 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
         }
 
         [Test]
-        public void AddSection_SecondSectionEndConnectingToStartOfFirst_Section2InsertedBeforeSection1()
-        {
-            // Setup
-            var failureMechanism = new SimpleFailureMechanismBase();
-
-            const int matchingX = 1;
-            const int matchingY = 2;
-
-            var section1 = new FailureMechanismSection("A", new[]
-            {
-                new Point2D(matchingX, matchingY),
-                new Point2D(3, 4)
-            });
-            var section2 = new FailureMechanismSection("B", new[]
-            {
-                new Point2D(-2, -1),
-                new Point2D(matchingX, matchingY)
-            });
-
-            // Call
-            failureMechanism.AddSection(section1);
-            failureMechanism.AddSection(section2);
-
-            // Assert
-            CollectionAssert.AreEqual(new[]
-            {
-                section2,
-                section1
-            }, failureMechanism.Sections);
-        }
-
-        [Test]
         public void AddSection_SecondSectionStartConnectingToEndOfFirst_Section2AddedAfterSection1()
         {
             // Setup
@@ -227,6 +195,36 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
                 section1,
                 section2
             }, failureMechanism.Sections);
+        }
+
+        [Test]
+        public void AddSection_SecondSectionEndConnectingToStartOfFirst_ThrowArgumentException()
+        {
+            // Setup
+            var failureMechanism = new SimpleFailureMechanismBase();
+
+            const int matchingX = 1;
+            const int matchingY = 2;
+
+            var section1 = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(matchingX, matchingY),
+                new Point2D(3, 4)
+            });
+            var section2 = new FailureMechanismSection("B", new[]
+            {
+                new Point2D(-2, -1),
+                new Point2D(matchingX, matchingY)
+            });
+
+            failureMechanism.AddSection(section1);
+
+            // Call
+            TestDelegate call = () => failureMechanism.AddSection(section2);
+
+            // Assert
+            const string expectedMessage = "Vak 'B' sluit niet aan op de al gedefinieerde vakken van het toetsspoor.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
         [Test]

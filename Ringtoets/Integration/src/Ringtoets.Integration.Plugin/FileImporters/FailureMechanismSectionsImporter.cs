@@ -243,7 +243,7 @@ namespace Ringtoets.Integration.Plugin.FileImporters
 
         private static IEnumerable<FailureMechanismSection> SnapReadSectionsToReferenceLine(IEnumerable<FailureMechanismSection> readSections, ReferenceLine referenceLine)
         {
-            IList<FailureMechanismSection> orderedReadSections = OrderSections(readSections);
+            IList<FailureMechanismSection> orderedReadSections = OrderSections(readSections, referenceLine);
 
             double[] orderedSectionLengths = GetReferenceLineCutoffLengths(referenceLine, orderedReadSections);
 
@@ -252,19 +252,40 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             return CreateFailureMechanismSectionsSnappedOnReferenceLine(orderedReadSections, splitResults);
         }
 
-        private static IList<FailureMechanismSection> OrderSections(IEnumerable<FailureMechanismSection> unorderedSections)
+        private static IList<FailureMechanismSection> OrderSections(IEnumerable<FailureMechanismSection> unorderedSections, ReferenceLine referenceLine)
         {
             List<FailureMechanismSection> sourceList = unorderedSections.ToList();
 
+            var startSection = GetStart(sourceList, referenceLine);
+
             var resultList = new List<FailureMechanismSection>(sourceList.Count)
             {
-                sourceList[0]
+                startSection
             };
 
+            sourceList.Remove(startSection);
             GrowTowardsEnd(resultList, sourceList);
-            GrowTowardsStart(resultList, sourceList);
 
             return resultList;
+        }
+
+        private static FailureMechanismSection GetStart(List<FailureMechanismSection> sourceList, ReferenceLine referenceLine)
+        {
+            var shortestDistance = double.MaxValue;
+            FailureMechanismSection closestSectionToReferenceLineStart = null;
+            Dictionary<double, FailureMechanismSection> sectionReferenceLineDistances = sourceList.ToDictionary(s => referenceLine.Points.First().GetEuclideanDistanceTo(s.GetStart()), s => s);
+
+            foreach (var sectionReferenceLineDistance in sectionReferenceLineDistances)
+            {
+                double distance = sectionReferenceLineDistance.Key;
+                if (distance < shortestDistance && distance <= snappingTolerance)
+                {
+                    shortestDistance = sectionReferenceLineDistance.Key;
+                    closestSectionToReferenceLineStart = sectionReferenceLineDistance.Value;
+                }
+            }
+
+            return closestSectionToReferenceLineStart;
         }
 
         private static void GrowTowardsEnd(List<FailureMechanismSection> resultList, List<FailureMechanismSection> sourceList)
@@ -293,37 +314,6 @@ namespace Ringtoets.Integration.Plugin.FileImporters
                 else
                 {
                     resultList.Add(closestSectionToConnectWith);
-                    sourceList.Remove(closestSectionToConnectWith);
-                }
-            }
-        }
-
-        private static void GrowTowardsStart(List<FailureMechanismSection> resultList, List<FailureMechanismSection> sourceList)
-        {
-            bool doneGrowingToStart = false;
-            while (!doneGrowingToStart)
-            {
-                Point2D startPointToConnect = resultList[0].GetStart();
-
-                var shortestDistance = double.MaxValue;
-                FailureMechanismSection closestSectionToConnectWith = null;
-                Dictionary<double, FailureMechanismSection> sectionConnectionDistances = sourceList.ToDictionary(s => startPointToConnect.GetEuclideanDistanceTo(s.GetLast()), s => s);
-                foreach (var sectionConnectionDistance in sectionConnectionDistances)
-                {
-                    double distance = sectionConnectionDistance.Key;
-                    if (distance < shortestDistance && distance <= snappingTolerance)
-                    {
-                        shortestDistance = sectionConnectionDistance.Key;
-                        closestSectionToConnectWith = sectionConnectionDistance.Value;
-                    }
-                }
-                if (closestSectionToConnectWith == null)
-                {
-                    doneGrowingToStart = true;
-                }
-                else
-                {
-                    resultList.Insert(0, closestSectionToConnectWith);
                     sourceList.Remove(closestSectionToConnectWith);
                 }
             }

@@ -130,19 +130,14 @@ namespace Ringtoets.Common.Data.FailureMechanism
 
         /// <summary>
         /// Inserts the section to <see cref="Sections"/> while maintaining connectivity
-        /// order (neighboring <see cref="FailureMechanismSection"/> have same start and 
-        /// end points).
+        /// order (neighboring <see cref="FailureMechanismSection"/> have same end points).
         /// </summary>
         /// <param name="sectionToInsert">The new section.</param>
         /// <exception cref="ArgumentException">When <paramref name="sectionToInsert"/> cannot
         /// be connected to elements already defined in <see cref="Sections"/>.</exception>
         private void InsertSectionWhileMaintainingConnectivityOrder(FailureMechanismSection sectionToInsert)
         {
-            if (sections[0].GetStart().Equals(sectionToInsert.GetLast()))
-            {
-                sections.Insert(0, sectionToInsert);
-            }
-            else if (sections[sections.Count - 1].GetLast().Equals(sectionToInsert.GetStart()))
+            if (sections[sections.Count - 1].GetLast().Equals(sectionToInsert.GetStart()))
             {
                 sections.Add(sectionToInsert);
             }
