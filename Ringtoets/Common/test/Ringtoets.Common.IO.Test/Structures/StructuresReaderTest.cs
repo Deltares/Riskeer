@@ -260,7 +260,8 @@ namespace Ringtoets.Common.IO.Test.Structures
                 TestDelegate call = () => reader.GetNextStructure();
 
                 // Assert
-                Assert.Throws<LineParseException>(call);
+                var exception = Assert.Throws<LineParseException>(call);
+                Assert.AreEqual("Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'.", exception.Message);
             }
         }
 

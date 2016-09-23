@@ -98,14 +98,11 @@ namespace Ringtoets.Common.IO.Structures
             string attributeNameValue = GetNameAttributeValue(attributes, attributeIdValue);
 
             Point2D point = mapPointData.Features.First().MapGeometries.First().PointCollections.First().First();
-            try
+            if (attributeIdValue == null)
             {
-                return new Structure(attributeIdValue, attributeNameValue, point);
+                throw new LineParseException(string.Format(Resources.StructuresReader_GetNextStructure_Invalid_KWKIDENT, idAttributeName));
             }
-            catch (ArgumentNullException exception)
-            {
-                throw new LineParseException(exception.Message);
-            }
+            return new Structure(attributeIdValue, attributeNameValue, point);
         }
 
         public void Dispose()

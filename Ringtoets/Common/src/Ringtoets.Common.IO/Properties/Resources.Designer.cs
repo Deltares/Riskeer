@@ -721,5 +721,14 @@ namespace Ringtoets.Common.IO.Properties {
                 return ResourceManager.GetString("ReferenceLineWriter_CreateMapLineData_Traject_id", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het kunstwerk heeft geen geldige waarde voor attribuut &apos;{0}&apos;..
+        /// </summary>
+        public static string StructuresReader_GetNextStructure_Invalid_KWKIDENT {
+            get {
+                return ResourceManager.GetString("StructuresReader_GetNextStructure_Invalid_KWKIDENT", resourceCulture);
+            }
+        }
     }
 }
