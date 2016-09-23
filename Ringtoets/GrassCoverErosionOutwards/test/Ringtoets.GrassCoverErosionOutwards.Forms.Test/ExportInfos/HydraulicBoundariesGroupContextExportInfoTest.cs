@@ -88,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             mockRepository.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            var context = new HydraulicBoundariesGroupContext(failureMechanism, assessmentSectionMock);
+            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSectionMock);
 
             // Call
             IFileExporter fileExporter = hydraulicBoundaryLocationsExporterExportInfo.CreateFileExporter(context, "test");
@@ -107,7 +107,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             mockRepository.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            var context = new HydraulicBoundariesGroupContext(failureMechanism, assessmentSectionMock);
+            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSectionMock);
 
             // Call
             bool isEnabled = hydraulicBoundaryLocationsExporterExportInfo.IsEnabled(context);
@@ -132,7 +132,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
                 }
             });
 
-            var context = new HydraulicBoundariesGroupContext(failureMechanism, assessmentSectionMock);
+            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSectionMock);
 
             // Call
             bool isEnabled = hydraulicBoundaryLocationsExporterExportInfo.IsEnabled(context);
@@ -184,7 +184,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             mockRepository.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            var context = new HydraulicBoundariesGroupContext(failureMechanism, assessmentSectionMock);
+            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSectionMock);
 
             // Call
             IFileExporter fileExporter = waveConditionsExporterExportInfo.CreateFileExporter(context, "test");
@@ -203,7 +203,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             mockRepository.ReplayAll();
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
-            var context = new HydraulicBoundariesGroupContext(failureMechanism, assessmentSectionMock);
+            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSectionMock);
 
             // Call
             bool isEnabled = waveConditionsExporterExportInfo.IsEnabled(context);
@@ -222,7 +222,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(new GrassCoverErosionOutwardsWaveConditionsCalculation());
 
-            var context = new HydraulicBoundariesGroupContext(failureMechanism, assessmentSectionMock);
+            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSectionMock);
 
             // Call
             bool isEnabled = waveConditionsExporterExportInfo.IsEnabled(context);
@@ -244,7 +244,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
                 Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             });
 
-            var context = new HydraulicBoundariesGroupContext(failureMechanism, assessmentSectionMock);
+            var context = new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, assessmentSectionMock);
 
             // Call
             bool isEnabled = waveConditionsExporterExportInfo.IsEnabled(context);

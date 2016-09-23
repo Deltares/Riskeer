@@ -93,6 +93,7 @@
     <Compile Include="TypeConverters\NoValueRoundedDoubleConverterTest.cs" />
     <Compile Include="UITypeEditors\SelectionEditorTest.cs" />
     <Compile Include="Views\CommentViewTest.cs" />
+    <Compile Include="Views\DesignWaterLevelLocationRowTest.cs" />
     <Compile Include="Views\FailureMechanismResultViewTest.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -101,6 +102,7 @@
     <Compile Include="Views\RingtoetsMapDataFactoryTest.cs" />
     <Compile Include="Views\RingtoetsMapDataFeaturesFactoryTest.cs" />
     <Compile Include="Views\SelectableRowTest.cs" />
+    <Compile Include="Views\WaveHeightLocationRowTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

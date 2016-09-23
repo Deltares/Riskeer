@@ -142,7 +142,6 @@
     <Compile Include="Views\SectionResultViews\WaterPressureAsphaltCoverResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\WaveHeightLocationRow.cs" />
     <Compile Include="Views\WaveHeightLocationsView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -272,6 +271,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\WaveHeightLocationsView.resx">
       <DependentUpon>WaveHeightLocationsView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

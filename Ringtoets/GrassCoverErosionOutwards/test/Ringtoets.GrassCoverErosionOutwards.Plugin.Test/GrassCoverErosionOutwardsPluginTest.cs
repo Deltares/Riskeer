@@ -25,7 +25,6 @@ using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -61,19 +60,25 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, viewInfos.Length);
+                Assert.AreEqual(3, viewInfos.Length);
 
-                PluginTestHelper.AssertContainsViewInfo(
+                PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(FailureMechanismSectionResultContext<GrassCoverErosionOutwardsFailureMechanismSectionResult>),
                     typeof(IEnumerable<GrassCoverErosionOutwardsFailureMechanismSectionResult>),
                     typeof(GrassCoverErosionOutwardsFailureMechanismResultView));
 
-                PluginTestHelper.AssertContainsViewInfo(
+                PluginTestHelper.AssertViewInfoDefined(
                     viewInfos,
                     typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext),
                     typeof(IEnumerable<HydraulicBoundaryLocation>),
                     typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsView));
+
+                PluginTestHelper.AssertViewInfoDefined(
+                    viewInfos,
+                    typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext),
+                    typeof(IEnumerable<HydraulicBoundaryLocation>),
+                    typeof(GrassCoverErosionOutwardsWaveHeightLocationsView));
             }
         }
 

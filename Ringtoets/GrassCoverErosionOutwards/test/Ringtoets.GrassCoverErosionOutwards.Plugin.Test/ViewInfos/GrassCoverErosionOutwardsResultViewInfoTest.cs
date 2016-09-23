@@ -80,11 +80,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnsViewName()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             using (var view = new GrassCoverErosionOutwardsFailureMechanismResultView())
             {
                 // Call
-                var viewName = info.GetViewName(view, failureMechanism.SectionResults);
+                var viewName = info.GetViewName(view, null);
 
                 // Assert
                 Assert.AreEqual("Resultaat", viewName);

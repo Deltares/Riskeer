@@ -19,74 +19,220 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base;
+using Core.Common.Gui;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.Plugin;
+using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Forms.GuiServices;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
+using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Ringtoets.HydraRing.Data;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsViewInfoTest : ViewInfoTest<GrassCoverErosionOutwardsDesignWaterLevelLocationsView>
+    public class GrassCoverErosionOutwardsDesignWaterLevelLocationsViewInfoTest
     {
-        protected override Type DataType
-        {
-            get
-            {
-                return typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext);
-            }
-        }
-
-        protected override Type ViewDataType
-        {
-            get
-            {
-                return typeof(IEnumerable<HydraulicBoundaryLocation>);
-                
-            }
-        }
-
-        protected override PluginBase CreatePlugin()
-        {
-            return new GrassCoverErosionOutwardsPlugin();
-        }
-    }
-
-    public abstract class ViewInfoTest<TView>
-    {
-        private PluginBase plugin;
-        private ViewInfo Info { get; set; }
-
-        protected abstract Type DataType { get; }
-        protected abstract Type ViewDataType { get; }
-
-        [SetUp]
-        public void SetUp()
-        {
-            plugin = CreatePlugin();
-            Info = plugin.GetViewInfos().FirstOrDefault(vi => vi.ViewType == typeof(TView));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
-        }
-
         [TestCase]
         public void Initialized_Always_DataTypeAndViewTypeAsExpected()
         {
-            Assert.NotNull(Info, "Expected a viewInfo definition for views with type {0}.", typeof(TView));
-            Assert.AreEqual(DataType, Info.DataType);
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                Assert.NotNull(info, "Expected a viewInfo definition for views with type {0}.", typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsView));
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext), info.DataType);
+                Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocation>), info.ViewDataType);
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsView), info.ViewType);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, info.Image);
+                Assert.AreEqual(Resources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName, info.GetViewName(null, null));
+            }
         }
 
-        protected virtual PluginBase CreatePlugin()
+        [Test]
+        public void AfterCreate_Always_SetsExpectedProperties()
         {
-            return null;
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            IGui guiStub = mockRepository.Stub<IGui>();
+            IMainWindow windowsStub = mockRepository.Stub<IMainWindow>();
+            guiStub.Stub(gs => gs.MainWindow).Return(windowsStub);
+            mockRepository.ReplayAll();
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                var data = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSectionStub);
+                plugin.Gui = guiStub;
+                plugin.Activate();
+
+                using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
+                {
+                    info.AfterCreate(view, data);
+
+                    // Assert
+                    Assert.AreSame(assessmentSectionStub, view.AssessmentSection);
+                    Assert.AreSame(guiStub, view.ApplicationSelection);
+                    Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(view.CalculationGuiService);
+                }
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ForMatchingAssessmentSection_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+                view.AssessmentSection = assessmentSection;
+
+                // Call
+                var closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ForNonMatchingAssessmentSection_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionA = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionB = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+                view.AssessmentSection = assessmentSectionA;
+
+                // Call
+                var closeForData = info.CloseForData(view, assessmentSectionB);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ForMatchingFailureMechanismContext_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(
+                new GrassCoverErosionOutwardsFailureMechanism(), 
+                assessmentSection);
+
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+                view.AssessmentSection = assessmentSection;
+
+                // Call
+                var closeForData = info.CloseForData(view, grassCoverErosionOutwardsFailureMechanismContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ForNonMatchingFailureMechanismContext_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionA = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionB = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(
+                new GrassCoverErosionOutwardsFailureMechanism(),
+                assessmentSectionB);
+
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+                view.AssessmentSection = assessmentSectionA;
+
+                // Call
+                var closeForData = info.CloseForData(view, grassCoverErosionOutwardsFailureMechanismContext);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ForOtherObjectType_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionA = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+                view.Data = assessmentSectionA;
+
+                // Call
+                var closeForData = info.CloseForData(view, new object());
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ViewDataNull_ReturnsFalse()
+        {
+            // Setup
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                // Call
+                var closeForData = info.CloseForData(view, new object());
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+        }
+
+        private ViewInfo GetInfo(PluginBase plugin)
+        {
+            return plugin.GetViewInfos().FirstOrDefault(vi => vi.ViewType == typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsView));
         }
     }
 }
