@@ -79,6 +79,9 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismSectionResultRow.cs" />
+    <Compile Include="Views\GrassCoverErosionOutwardsWaveHeightLocationsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

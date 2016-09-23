@@ -28,9 +28,8 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Forms.Views;
 
-namespace Ringtoets.Integration.Forms.Test.Views
+namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
     public class WaveHeightLocationRowTest

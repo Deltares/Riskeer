@@ -119,6 +119,22 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 }
             };
+
+            yield return new ViewInfo<
+                GrassCoverErosionOutwardsWaveHeightLocationsContext,
+                IEnumerable<HydraulicBoundaryLocation>,
+                GrassCoverErosionOutwardsWaveHeightLocationsView>
+            {
+                GetViewName = (v, o) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName,
+                GetViewData = context => context.WrappedData,
+                Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                AfterCreate = (view, context) =>
+                {
+                    view.AssessmentSection = context.AssessmentSection;
+                    view.ApplicationSelection = Gui;
+                    view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
+                }
+            };
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()

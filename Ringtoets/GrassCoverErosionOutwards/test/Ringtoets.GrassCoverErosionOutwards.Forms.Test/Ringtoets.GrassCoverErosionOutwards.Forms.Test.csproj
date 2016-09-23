@@ -101,6 +101,7 @@
     <Compile Include="Views\GrassCoverErosionOutwardsDesignWaterLevelLocationsViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\GrassCoverErosionOutwardsFailureMechanismSectionResultRowTest.cs" />
+    <Compile Include="Views\GrassCoverErosionOutwardsWaveHeightLocationsViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

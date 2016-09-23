@@ -153,7 +153,6 @@
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
     <Compile Include="Views\SectionResultRows\StrengthStabilityLengthwiseConstructionSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultRows\DuneErosionSectionResultRowTest.cs" />
-    <Compile Include="Views\WaveHeightLocationRowTest.cs" />
     <Compile Include="Views\WaveHeightLocationsViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
