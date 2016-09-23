@@ -70,7 +70,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
 
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("Structures", "Kunstwerken.shp"));
+                                                              Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
             string invalidFilePath = validFilePath.Replace("1", invalidFileNameChars[1].ToString());
 
             // Call
