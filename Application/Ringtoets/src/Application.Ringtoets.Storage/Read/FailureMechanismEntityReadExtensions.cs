@@ -676,9 +676,9 @@ namespace Application.Ringtoets.Storage.Read
         #region Stability Point Structures
 
         /// <summary>
-        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="StrengthStabilityPointConstructionFailureMechanism"/>.
+        /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="StabilityPointStructuresFailureMechanism"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="StrengthStabilityPointConstructionFailureMechanism"/> for.</param>
+        /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="StabilityPointStructuresFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         internal static void ReadAsStabilityPointStructuresFailureMechanism(this FailureMechanismEntity entity, StabilityPointStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)

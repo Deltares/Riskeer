@@ -34,7 +34,7 @@ using Ringtoets.StabilityPointStructures.Data;
 namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StrengthStabilityPointConstructionFailureMechanismSectionResultContextTreeNodeInfoTest
+    public class StabilityPointStructuresFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private RingtoetsPlugin plugin;

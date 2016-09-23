@@ -81,7 +81,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadPipingStructureFailureMechanism(assessmentSection, collector);
             entity.ReadDuneErosionFailureMechanism(assessmentSection, collector);
             entity.ReadStabilityStoneCoverFailureMechanism(assessmentSection, collector);
-            entity.ReadStrengthStabilityPointConstructionFailureMechanism(assessmentSection, collector);
+            entity.ReadStabilityPointStructuresFailureMechanism(assessmentSection, collector);
 
             return assessmentSection;
         }
@@ -269,12 +269,12 @@ namespace Application.Ringtoets.Storage.Read
             }
         }
 
-        private static void ReadStrengthStabilityPointConstructionFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
+        private static void ReadStabilityPointStructuresFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var strengthStabilityPointConstructionFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.StabilityPointStructures);
-            if (strengthStabilityPointConstructionFailureMechanismEntity != null)
+            var stabilityPointStructuresFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.StabilityPointStructures);
+            if (stabilityPointStructuresFailureMechanismEntity != null)
             {
-                strengthStabilityPointConstructionFailureMechanismEntity.ReadAsStabilityPointStructuresFailureMechanism(assessmentSection.StabilityPointStructures, collector);
+                stabilityPointStructuresFailureMechanismEntity.ReadAsStabilityPointStructuresFailureMechanism(assessmentSection.StabilityPointStructures, collector);
             }
         }
     }
