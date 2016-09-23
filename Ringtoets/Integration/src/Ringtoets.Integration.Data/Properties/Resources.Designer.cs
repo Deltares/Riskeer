@@ -262,24 +262,6 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to STKWp.
-        /// </summary>
-        public static string StrengthStabilityPointConstructionFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("StrengthStabilityPointConstructionFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken - Sterkte en stabiliteit puntconstructies.
-        /// </summary>
-        public static string StrengthStabilityPointConstructionFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("StrengthStabilityPointConstructionFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to INN.
         /// </summary>
         public static string TechnicalInnovationFailureMechanismFailureMechanism_Code {

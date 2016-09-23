@@ -84,7 +84,7 @@ namespace Application.Ringtoets.Storage.DbContext
         /// <summary>
         /// Sterkte en stabiliteit puntconstructies - STKWp
         /// </summary>
-        StrengthAndStabilityPointConstruction = 12,
+        StabilityPointStructures = 12,
 
         /// <summary>
         /// Macrostabiliteit buitenwaarts - STBU

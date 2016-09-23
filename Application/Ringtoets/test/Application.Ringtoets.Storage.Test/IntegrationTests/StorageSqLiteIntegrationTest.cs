@@ -50,6 +50,7 @@ using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Revetment.Data;
+using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -336,8 +337,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                     expectedAssessmentSection.StabilityStoneCover.SectionResults,
                     actualAssessmentSection.StabilityStoneCover.SectionResults);
                 AssertFailureMechanismSectionResults(
-                    expectedAssessmentSection.StrengthStabilityPointConstruction.SectionResults,
-                    actualAssessmentSection.StrengthStabilityPointConstruction.SectionResults);
+                    expectedAssessmentSection.StabilityPointStructures.SectionResults,
+                    actualAssessmentSection.StabilityPointStructures.SectionResults);
             }
         }
 
@@ -552,7 +553,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> actualSectionResults)
+        private static void AssertFailureMechanismSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
             var actualSectionResultsArray = actualSectionResults.ToArray();
@@ -561,8 +562,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             for (var i = 0; i < expectedSectionResultsArray.Length; i++)
             {
-                StrengthStabilityPointConstructionFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
-                StrengthStabilityPointConstructionFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+                StabilityPointStructuresFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                StabilityPointStructuresFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
 
                 Assert.AreEqual(expectedSection.AssessmentLayerTwoA, actualSection.AssessmentLayerTwoA);
                 Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);

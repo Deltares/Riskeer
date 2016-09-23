@@ -135,7 +135,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.NotNull(section.HeightStructures);
             Assert.NotNull(section.ClosingStructures);
             Assert.NotNull(section.PipingStructure);
-            Assert.NotNull(section.StrengthStabilityPointConstruction);
+            Assert.NotNull(section.StabilityPointStructures);
             Assert.NotNull(section.StrengthStabilityLengthwiseConstruction);
             Assert.NotNull(section.DuneErosion);
             Assert.NotNull(section.TechnicalInnovation);
@@ -209,7 +209,7 @@ namespace Ringtoets.Integration.Data.Test
                 assessmentSection.HeightStructures,
                 assessmentSection.ClosingStructures,
                 assessmentSection.PipingStructure,
-                assessmentSection.StrengthStabilityPointConstruction,
+                assessmentSection.StabilityPointStructures,
                 assessmentSection.StrengthStabilityLengthwiseConstruction,
                 assessmentSection.DuneErosion,
                 assessmentSection.TechnicalInnovation
@@ -354,7 +354,7 @@ namespace Ringtoets.Integration.Data.Test
                 section.HeightStructures,
                 section.ClosingStructures,
                 section.PipingStructure,
-                section.StrengthStabilityPointConstruction,
+                section.StabilityPointStructures,
                 section.DuneErosion,
             };
         }
@@ -373,7 +373,7 @@ namespace Ringtoets.Integration.Data.Test
             Assert.AreEqual(contributions[7], assessmentSection.HeightStructures.Contribution);
             Assert.AreEqual(contributions[8], assessmentSection.ClosingStructures.Contribution);
             Assert.AreEqual(contributions[9], assessmentSection.PipingStructure.Contribution);
-            Assert.AreEqual(contributions[10], assessmentSection.StrengthStabilityPointConstruction.Contribution);
+            Assert.AreEqual(contributions[10], assessmentSection.StabilityPointStructures.Contribution);
             Assert.AreEqual(contributions[11], assessmentSection.DuneErosion.Contribution);
 
             CollectionAssert.AreEqual(contributions, assessmentSection.FailureMechanismContribution.Distribution.Select(d => d.Contribution));

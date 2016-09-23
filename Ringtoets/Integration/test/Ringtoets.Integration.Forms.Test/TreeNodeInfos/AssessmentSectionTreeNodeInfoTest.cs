@@ -216,7 +216,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.PipingStructure, pipingStructureFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, pipingStructureFailureMechanismContext.Parent);
                 var strengthStabilityPointConstructionFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[18];
-                Assert.AreSame(assessmentSection.StrengthStabilityPointConstruction, strengthStabilityPointConstructionFailureMechanismContext.WrappedData);
+                Assert.AreSame(assessmentSection.StabilityPointStructures, strengthStabilityPointConstructionFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, strengthStabilityPointConstructionFailureMechanismContext.Parent);
                 var strengthStabilityLengthwiseConstructionFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[19];
                 Assert.AreSame(assessmentSection.StrengthStabilityLengthwiseConstruction, strengthStabilityLengthwiseConstructionFailureMechanismContext.WrappedData);

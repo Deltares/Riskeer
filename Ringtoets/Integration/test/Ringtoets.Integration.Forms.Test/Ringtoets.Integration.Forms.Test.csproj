@@ -134,7 +134,6 @@
     <Compile Include="Views\SectionResultViews\MicrostabilityResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\PipingStructureResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\StrengthStabilityLengthwiseConstructionResultViewTest.cs" />
-    <Compile Include="Views\SectionResultViews\StrengthStabilityPointConstructionResultViewTest.cs" />
     <Compile Include="Views\SectionResultRows\TechnicalInnovationSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultRows\MicrostabilitySectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultRows\PipingStructureSectionResultRowTest.cs" />
@@ -146,7 +145,6 @@
     <Compile Include="Views\AssessmentSectionViewTest.cs" />
     <Compile Include="Views\SectionResultRows\MacrostabilityInwardsSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultRows\MacrostabilityOutwardsSectionResultRowTest.cs" />
-    <Compile Include="Views\SectionResultRows\StrengthStabilityPointConstructionSectionResultRowTest.cs" />
     <Compile Include="Views\FailureMechanismContributionViewTest.cs" />
     <Compile Include="Views\SectionResultRows\StrengthStabilityLengthwiseConstructionSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultRows\DuneErosionSectionResultRowTest.cs" />
@@ -216,6 +214,10 @@
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.IO\Ringtoets.Revetment.IO.csproj">
       <Project>{E3347B16-BB18-41C1-8D34-FBCBF20DB695}</Project>
       <Name>Ringtoets.Revetment.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+      <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Plugin\Ringtoets.StabilityStoneCover.Plugin.csproj">
       <Project>{9DDC42CC-A2CC-4900-A711-AA1DD6D3A94A}</Project>

@@ -22,40 +22,39 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.StabilityPointStructures.Data;
 
-namespace Application.Ringtoets.Storage.Create.StrengthStabilityPointConstruction
+namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
 {
     /// <summary>
-    /// Extension methods for <see cref="StrengthStabilityPointConstructionFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.
+    /// Extension methods for <see cref="StabilityPointStructuresFailureMechanism"/> related to creating a <see cref="FailureMechanismEntity"/>.
     /// </summary>
-    internal static class StrengthStabilityPointConstructionFailureMechanismCreateExtensions
+    internal static class StabilityPointStructuresFailureMechanismCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="StrengthStabilityPointConstructionFailureMechanism"/>.
+        /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="StabilityPointStructuresFailureMechanism"/>.
         /// </summary>
         /// <param name="mechanism">The failure mechanism to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static FailureMechanismEntity Create(this StrengthStabilityPointConstructionFailureMechanism mechanism, PersistenceRegistry registry)
+        internal static FailureMechanismEntity Create(this StabilityPointStructuresFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            var entity = mechanism.Create(FailureMechanismType.StrengthAndStabilityPointConstruction, registry);
+            var entity = mechanism.Create(FailureMechanismType.StabilityPointStructures, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
         }
 
         private static void AddEntitiesForSectionResults(
-            IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> sectionResults,
+            IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults,
             PersistenceRegistry registry)
         {
             foreach (var failureMechanismSectionResult in sectionResults)
             {
                 var sectionResultEntity = failureMechanismSectionResult.Create(registry);
                 var section = registry.Get(failureMechanismSectionResult.Section);
-                section.StrengthStabilityPointConstructionSectionResultEntities.Add(sectionResultEntity);
+                section.StabilityPointStructuresSectionResultEntities.Add(sectionResultEntity);
             }
         }
     }

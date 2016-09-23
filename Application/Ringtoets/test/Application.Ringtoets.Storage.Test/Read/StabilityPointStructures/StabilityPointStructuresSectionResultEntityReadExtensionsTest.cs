@@ -22,20 +22,21 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+using Application.Ringtoets.Storage.Read.StabilityPointStructures;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.StabilityPointStructures.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
 {
     [TestFixture]
-    public class StrengthStabilityPointConstructionSectionResultEntityReadExtensionsTest
+    public class StabilityPointStructuresSectionResultEntityReadExtensionsTest
     {
         [Test]
         public void Read_SectionResultIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var entity = new StrengthStabilityPointConstructionSectionResultEntity();
+            var entity = new StabilityPointStructuresSectionResultEntity();
 
             // Call
             TestDelegate call = () => entity.Read(null);
@@ -46,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithDecimalParameterValues_ReturnStrengthStabilityPointConstructionSectionResultWithDoubleParameterValues()
+        public void Read_WithDecimalParameterValues_ReturnStabilityPointStructuresSectionResultWithDoubleParameterValues()
         {
             // Setup
             var random = new Random(21);
@@ -56,13 +57,13 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new StrengthStabilityPointConstructionSectionResultEntity
+            var entity = new StabilityPointStructuresSectionResultEntity
             {
                 LayerThree = layerThree,
                 LayerTwoA = layerTwoA,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
@@ -74,19 +75,19 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithNullLayerTwoA_ReturnStrengthStabilityPointConstructionSectionResultWithNullParameters()
+        public void Read_WithNullLayerTwoA_ReturnStabilityPointStructuresSectionResultWithNullParameters()
         {
             // Setup
             var collector = new ReadConversionCollector();
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new StrengthStabilityPointConstructionSectionResultEntity
+            var entity = new StabilityPointStructuresSectionResultEntity
             {
                 LayerTwoA = null,
                 LayerThree = new Random(21).NextDouble(),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);
@@ -96,19 +97,19 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_WithNullLayerThree_ReturnStrengthStabilityPointConstructionSectionResultWithNullParameters()
+        public void Read_WithNullLayerThree_ReturnStabilityPointStructuresSectionResultWithNullParameters()
         {
             // Setup
             var collector = new ReadConversionCollector();
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new StrengthStabilityPointConstructionSectionResultEntity
+            var entity = new StabilityPointStructuresSectionResultEntity
             {
                 LayerTwoA = new Random(21).NextDouble(),
                 LayerThree = null,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
-            var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             entity.Read(sectionResult);

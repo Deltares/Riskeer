@@ -22,27 +22,25 @@
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.Properties;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using Ringtoets.StabilityPointStructures.Data.Properties;
 
-namespace Ringtoets.Integration.Data.StandAlone
+namespace Ringtoets.StabilityPointStructures.Data
 {
     /// <summary>
     /// Model containing input and output needed to perform different levels of the
     /// Strength and Stability of Point Constructions failure mechanism.
     /// </summary>
-    public class StrengthStabilityPointConstructionFailureMechanism : FailureMechanismBase, IHasSectionResults<StrengthStabilityPointConstructionFailureMechanismSectionResult>
+    public class StabilityPointStructuresFailureMechanism : FailureMechanismBase, IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>
     {
-        private readonly IList<StrengthStabilityPointConstructionFailureMechanismSectionResult> sectionResults;
+        private readonly IList<StabilityPointStructuresFailureMechanismSectionResult> sectionResults;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StrengthStabilityPointConstructionFailureMechanism"/> class.
+        /// Initializes a new instance of the <see cref="StabilityPointStructuresFailureMechanism"/> class.
         /// </summary>
-        public StrengthStabilityPointConstructionFailureMechanism()
-            : base(Resources.StrengthStabilityPointConstructionFailureMechanism_DisplayName, Resources.StrengthStabilityPointConstructionFailureMechanism_Code)
+        public StabilityPointStructuresFailureMechanism()
+            : base(Resources.StabilityPointStructuresFailureMechanism_DisplayName, Resources.StabilityPointStructuresFailureMechanism_Code)
         {
-            sectionResults = new List<StrengthStabilityPointConstructionFailureMechanismSectionResult>();
+            sectionResults = new List<StabilityPointStructuresFailureMechanismSectionResult>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -53,7 +51,7 @@ namespace Ringtoets.Integration.Data.StandAlone
             }
         }
 
-        public IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> SectionResults
+        public IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> SectionResults
         {
             get
             {
@@ -65,7 +63,7 @@ namespace Ringtoets.Integration.Data.StandAlone
         {
             base.AddSection(section);
 
-            sectionResults.Add(new StrengthStabilityPointConstructionFailureMechanismSectionResult(section));
+            sectionResults.Add(new StabilityPointStructuresFailureMechanismSectionResult(section));
         }
 
         public override void ClearAllSections()

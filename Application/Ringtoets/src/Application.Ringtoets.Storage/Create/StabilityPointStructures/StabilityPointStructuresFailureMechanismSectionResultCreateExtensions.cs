@@ -21,30 +21,30 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.StabilityPointStructures.Data;
 
-namespace Application.Ringtoets.Storage.Create.StrengthStabilityPointConstruction
+namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
 {
     /// <summary>
-    /// Extension methods for <see cref="StrengthStabilityPointConstructionFailureMechanismSectionResult"/> related to creating a 
-    /// <see cref="StrengthStabilityPointConstructionSectionResultEntity"/>.
+    /// Extension methods for <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> related to creating a 
+    /// <see cref="StabilityPointStructuresSectionResultEntity"/>.
     /// </summary>
-    internal static class StrengthStabilityPointConstructionFailureMechanismSectionResultCreateExtensions
+    internal static class StabilityPointStructuresFailureMechanismSectionResultCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="StrengthStabilityPointConstructionSectionResultEntity"/> based on the information of the <see cref="StrengthStabilityPointConstructionFailureMechanismSectionResult"/>.
+        /// Creates a <see cref="StabilityPointStructuresSectionResultEntity"/> based on the information of the <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
-        /// <returns>A new <see cref="StrengthStabilityPointConstructionSectionResultEntity"/>.</returns>
+        /// <returns>A new <see cref="StabilityPointStructuresSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static StrengthStabilityPointConstructionSectionResultEntity Create(this StrengthStabilityPointConstructionFailureMechanismSectionResult result, PersistenceRegistry registry)
+        internal static StabilityPointStructuresSectionResultEntity Create(this StabilityPointStructuresFailureMechanismSectionResult result, PersistenceRegistry registry)
         {
             if (registry == null)
             {
                 throw new ArgumentNullException("registry");
             }
-            var sectionResultEntity = new StrengthStabilityPointConstructionSectionResultEntity
+            var sectionResultEntity = new StabilityPointStructuresSectionResultEntity
             {
                 LayerTwoA = result.AssessmentLayerTwoA.ToNaNAsNull(),
                 LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()

@@ -21,41 +21,40 @@
 
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultRows;
+using Ringtoets.StabilityPointStructures.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Views.SectionResultViews
+namespace Ringtoets.StabilityPointStructures.Forms.Views
 {
     /// <summary>
-    /// The view for a collection of <see cref="StrengthStabilityPointConstructionFailureMechanismSectionResult"/>.
+    /// The view for a collection of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
     /// </summary>
-    public class StrengthStabilityPointConstructionResultView : FailureMechanismResultView<StrengthStabilityPointConstructionFailureMechanismSectionResult>
+    public class StabilityPointStructuresResultView : FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StrengthStabilityPointConstructionResultView"/>.
+        /// Creates a new instance of <see cref="StabilityPointStructuresResultView"/>.
         /// </summary>
-        public StrengthStabilityPointConstructionResultView()
+        public StabilityPointStructuresResultView()
         {
             AddDataGridColumns();
         }
 
-        protected override object CreateFailureMechanismSectionResultRow(StrengthStabilityPointConstructionFailureMechanismSectionResult sectionResult)
+        protected override object CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
         {
-            return new StrengthStabilityPointConstructionSectionResultRow(sectionResult);
+            return new StabilityPointStructuresSectionResultRow(sectionResult);
         }
 
         private void AddDataGridColumns()
         {
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<StrengthStabilityPointConstructionSectionResultRow>(sr => sr.Name),
+                TypeUtils.GetMemberName<StabilityPointStructuresSectionResultRow>(sr => sr.Name),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<StrengthStabilityPointConstructionSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                TypeUtils.GetMemberName<StabilityPointStructuresSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<StrengthStabilityPointConstructionSectionResultRow>(sr => sr.AssessmentLayerThree),
+                TypeUtils.GetMemberName<StabilityPointStructuresSectionResultRow>(sr => sr.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
     }

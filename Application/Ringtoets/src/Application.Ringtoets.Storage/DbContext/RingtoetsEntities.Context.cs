@@ -55,6 +55,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<AssessmentSectionEntity> AssessmentSectionEntities { get; set; }
         public virtual DbSet<CalculationGroupEntity> CalculationGroupEntities { get; set; }
         public virtual DbSet<CharacteristicPointEntity> CharacteristicPointEntities { get; set; }
+        public virtual DbSet<ClosingStructuresSectionResultEntity> ClosingStructuresSectionResultEntities { get; set; }
         public virtual DbSet<DikeProfileEntity> DikeProfileEntities { get; set; }
         public virtual DbSet<DuneErosionSectionResultEntity> DuneErosionSectionResultEntities { get; set; }
         public virtual DbSet<FailureMechanismEntity> FailureMechanismEntities { get; set; }
@@ -85,13 +86,13 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<ProjectEntity> ProjectEntities { get; set; }
         public virtual DbSet<SoilLayerEntity> SoilLayerEntities { get; set; }
         public virtual DbSet<SoilProfileEntity> SoilProfileEntities { get; set; }
+        public virtual DbSet<StabilityPointStructuresSectionResultEntity> StabilityPointStructuresSectionResultEntities { get; set; }
         public virtual DbSet<StabilityStoneCoverSectionResultEntity> StabilityStoneCoverSectionResultEntities { get; set; }
         public virtual DbSet<StabilityStoneCoverWaveConditionsCalculationEntity> StabilityStoneCoverWaveConditionsCalculationEntities { get; set; }
         public virtual DbSet<StabilityStoneCoverWaveConditionsOutputEntity> StabilityStoneCoverWaveConditionsOutputEntities { get; set; }
         public virtual DbSet<StochasticSoilModelEntity> StochasticSoilModelEntities { get; set; }
         public virtual DbSet<StochasticSoilProfileEntity> StochasticSoilProfileEntities { get; set; }
         public virtual DbSet<StrengthStabilityLengthwiseConstructionSectionResultEntity> StrengthStabilityLengthwiseConstructionSectionResultEntities { get; set; }
-        public virtual DbSet<StrengthStabilityPointConstructionSectionResultEntity> StrengthStabilityPointConstructionSectionResultEntities { get; set; }
         public virtual DbSet<SurfaceLineEntity> SurfaceLineEntities { get; set; }
         public virtual DbSet<TechnicalInnovationSectionResultEntity> TechnicalInnovationSectionResultEntities { get; set; }
         public virtual DbSet<VersionEntity> VersionEntities { get; set; }
@@ -99,6 +100,5 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<WaveImpactAsphaltCoverSectionResultEntity> WaveImpactAsphaltCoverSectionResultEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverWaveConditionsCalculationEntity> WaveImpactAsphaltCoverWaveConditionsCalculationEntities { get; set; }
         public virtual DbSet<WaveImpactAsphaltCoverWaveConditionsOutputEntity> WaveImpactAsphaltCoverWaveConditionsOutputEntities { get; set; }
-        public virtual DbSet<ClosingStructuresSectionResultEntity> ClosingStructuresSectionResultEntities { get; set; }
     }
 }

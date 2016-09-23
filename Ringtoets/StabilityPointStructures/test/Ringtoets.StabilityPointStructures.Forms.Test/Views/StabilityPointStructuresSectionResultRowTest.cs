@@ -27,21 +27,20 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultRows;
-using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Forms.Views;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
+namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 {
     [TestFixture]
-    public class StrengthStabilityPointConstructionSectionResultRowTest
+    public class StabilityPointStructuresSectionResultRowTest
     {
         [Test]
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StrengthStabilityPointConstructionSectionResultRow(null);
+            TestDelegate test = () => new StabilityPointStructuresSectionResultRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -53,20 +52,20 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             var section = CreateSection();
-            var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Call
-            var row = new StrengthStabilityPointConstructionSectionResultRow(result);
+            var row = new StabilityPointStructuresSectionResultRow(result);
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
-            Assert.IsTrue(TypeUtils.HasTypeConverter<StrengthStabilityPointConstructionSectionResultRow,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<StabilityPointStructuresSectionResultRow,
                               FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
-            Assert.IsTrue(TypeUtils.HasTypeConverter<StrengthStabilityPointConstructionSectionResultRow,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<StabilityPointStructuresSectionResultRow,
                               NoValueRoundedDoubleConverter>(
                                   r => r.AssessmentLayerThree));
         }
@@ -80,8 +79,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             var section = CreateSection();
-            var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section);
-            var row = new StrengthStabilityPointConstructionSectionResultRow(result);
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var row = new StabilityPointStructuresSectionResultRow(result);
 
             // Call
             row.AssessmentLayerTwoA = value;
@@ -99,8 +98,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         {
             // Setup
             var section = CreateSection();
-            var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section);
-            var row = new StrengthStabilityPointConstructionSectionResultRow(result);
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var row = new StabilityPointStructuresSectionResultRow(result);
 
             // Call
             TestDelegate test = () => row.AssessmentLayerTwoA = value;
@@ -118,8 +117,8 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var random = new Random(21);
             var newValue = random.NextDouble();
             var section = CreateSection();
-            var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section);
-            var row = new StrengthStabilityPointConstructionSectionResultRow(result);
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var row = new StabilityPointStructuresSectionResultRow(result);
 
             // Call
             row.AssessmentLayerThree = (RoundedDouble) newValue;

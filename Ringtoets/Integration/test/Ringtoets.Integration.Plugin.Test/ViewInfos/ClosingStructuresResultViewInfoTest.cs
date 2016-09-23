@@ -194,7 +194,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[]
             {
-                new TetsFailureMechanism(),
+                new TestFailureMechanism(),
                 failureMechanism
             });
 
@@ -311,17 +311,17 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
             // Assert
             mocks.VerifyAll();
         }
-    }
 
-    public class TetsFailureMechanism : FailureMechanismBase
-    {
-        public TetsFailureMechanism() : base("Name", "FailureMechanismCode") {}
-
-        public override IEnumerable<ICalculation> Calculations
+        private class TestFailureMechanism : FailureMechanismBase
         {
-            get
+            public TestFailureMechanism() : base("Name", "FailureMechanismCode") {}
+
+            public override IEnumerable<ICalculation> Calculations
             {
-                return null;
+                get
+                {
+                    return null;
+                }
             }
         }
     }

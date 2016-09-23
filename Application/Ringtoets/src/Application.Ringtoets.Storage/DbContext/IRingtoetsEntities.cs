@@ -187,10 +187,10 @@ namespace Application.Ringtoets.Storage.DbContext
         DbSet<StabilityStoneCoverSectionResultEntity> StabilityStoneCoverSectionResultEntities { get; }
 
         /// <summary>
-        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="StrengthStabilityPointConstructionSectionResultEntity"/> containing
+        /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="StabilityPointStructuresSectionResultEntity"/> containing
         /// every entity found in the database.
         /// </summary>
-        DbSet<StrengthStabilityPointConstructionSectionResultEntity> StrengthStabilityPointConstructionSectionResultEntities { get; }
+        DbSet<StabilityPointStructuresSectionResultEntity> StabilityPointStructuresSectionResultEntities { get; }
 
         /// <summary>
         /// Gets a <see cref="DbSet{TEntity}"/> of <see cref="PipingFailureMechanismMetaEntity"/> containing

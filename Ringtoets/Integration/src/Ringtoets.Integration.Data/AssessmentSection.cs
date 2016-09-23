@@ -34,6 +34,7 @@ using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data.Properties;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Piping.Data;
+using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -69,7 +70,7 @@ namespace Ringtoets.Integration.Data
             GrassCoverSlipOffInwards = new GrassCoverSlipOffInwardsFailureMechanism();
             HeightStructures = new HeightStructuresFailureMechanism();
             ClosingStructures = new ClosingStructuresFailureMechanism();
-            StrengthStabilityPointConstruction = new StrengthStabilityPointConstructionFailureMechanism();
+            StabilityPointStructures = new StabilityPointStructuresFailureMechanism();
             StrengthStabilityLengthwiseConstruction = new StrengthStabilityLengthwiseConstructionFailureMechanism();
             PipingStructure = new PipingStructureFailureMechanism();
             DuneErosion = new DuneErosionFailureMechanism();
@@ -152,7 +153,7 @@ namespace Ringtoets.Integration.Data
         /// <summary>
         /// Gets the "Kunstwerken - Sterkte en stabiliteit puntconstructies" failure mechanism.
         /// </summary>
-        public StrengthStabilityPointConstructionFailureMechanism StrengthStabilityPointConstruction { get; private set; }
+        public StabilityPointStructuresFailureMechanism StabilityPointStructures { get; private set; }
 
         /// <summary>
         /// Gets the "Kunstwerken - Sterkte en stabiliteit langsconstructies" failure mechanism.
@@ -210,7 +211,7 @@ namespace Ringtoets.Integration.Data
             yield return HeightStructures;
             yield return ClosingStructures;
             yield return PipingStructure;
-            yield return StrengthStabilityPointConstruction;
+            yield return StabilityPointStructures;
             yield return StrengthStabilityLengthwiseConstruction;
             yield return DuneErosion;
             yield return TechnicalInnovation;
@@ -231,7 +232,7 @@ namespace Ringtoets.Integration.Data
                     HeightStructures.Contribution = 24;
                     ClosingStructures.Contribution = 4;
                     PipingStructure.Contribution = 2;
-                    StrengthStabilityPointConstruction.Contribution = 2;
+                    StabilityPointStructures.Contribution = 2;
                     DuneErosion.Contribution = 0;
                     FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 30);
                     break;
@@ -246,7 +247,7 @@ namespace Ringtoets.Integration.Data
                     HeightStructures.Contribution = 0;
                     ClosingStructures.Contribution = 0;
                     PipingStructure.Contribution = 0;
-                    StrengthStabilityPointConstruction.Contribution = 0;
+                    StabilityPointStructures.Contribution = 0;
                     DuneErosion.Contribution = 70;
                     FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 30);
                     break;
@@ -261,7 +262,7 @@ namespace Ringtoets.Integration.Data
                     HeightStructures.Contribution = 24;
                     ClosingStructures.Contribution = 4;
                     PipingStructure.Contribution = 2;
-                    StrengthStabilityPointConstruction.Contribution = 2;
+                    StabilityPointStructures.Contribution = 2;
                     DuneErosion.Contribution = 10;
                     FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 20);
                     break;
@@ -283,7 +284,7 @@ namespace Ringtoets.Integration.Data
             yield return HeightStructures;
             yield return ClosingStructures;
             yield return PipingStructure;
-            yield return StrengthStabilityPointConstruction;
+            yield return StabilityPointStructures;
             yield return DuneErosion;
         }
     }

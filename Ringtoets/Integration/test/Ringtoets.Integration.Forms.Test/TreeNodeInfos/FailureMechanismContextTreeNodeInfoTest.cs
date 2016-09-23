@@ -44,6 +44,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Plugin;
+using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -219,8 +220,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MacrostabilityInwardsFailureMechanismSectionResult)")]
         [TestCase(typeof(MacrostabilityOutwardsFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MacrostabilityOutwardsFailureMechanismSectionResult)")]
-        [TestCase(typeof(StrengthStabilityPointConstructionFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(StrengthStabilityPointConstructionFailureMechanismSectionResult)")]
+        [TestCase(typeof(StabilityPointStructuresFailureMechanismSectionResult),
+            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(StabilityPointStructuresFailureMechanismSectionResult)")]
         public void ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(Type t)
         {
             // Delegate actual test

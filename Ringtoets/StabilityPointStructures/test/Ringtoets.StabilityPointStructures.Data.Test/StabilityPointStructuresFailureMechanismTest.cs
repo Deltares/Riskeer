@@ -23,19 +23,17 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone
+namespace Ringtoets.StabilityPointStructures.Data.Test
 {
     [TestFixture]
-    public class StrengthStabilityPointConstructionFailureMechanismTest
+    public class StabilityPointStructuresFailureMechanismTest
     {
         [Test]
         public void DefaultConstructor_Always_PropertiesSet()
         {
             // Call
-            var failureMechanism = new StrengthStabilityPointConstructionFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
@@ -45,10 +43,10 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
         }
 
         [Test]
-        public void AddSection_WithSection_AddedStrengthStabilityPointConstructionFailureMechanismSectionResult()
+        public void AddSection_WithSection_AddedStabilityPointStructuresFailureMechanismSectionResult()
         {
             // Setup
-            var failureMechanism = new StrengthStabilityPointConstructionFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
             failureMechanism.AddSection(new FailureMechanismSection("", new[]
@@ -58,7 +56,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone
 
             // Assert
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
-            Assert.IsInstanceOf<StrengthStabilityPointConstructionFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+            Assert.IsInstanceOf<StabilityPointStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
         }
     }
 }

@@ -66,7 +66,6 @@
     <Compile Include="StandAlone\SectionResults\WaterPressureAsphaltCoverFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\MacrostabilityOutwardsFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\MacrostabilityInwardsFailureMechanismSectionResultTest.cs" />
-    <Compile Include="StandAlone\SectionResults\StrengthStabilityPointConstructionFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\DuneErosionFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\StrengthStabilityLengthwiseConstructionFailureMechanismTest.cs" />
@@ -77,7 +76,6 @@
     <Compile Include="StandAlone\GrassCoverSlipOffOutwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\MacrostabilityInwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\PipingStructureFailureMechanismTest.cs" />
-    <Compile Include="StandAlone\StrengthStabilityPointConstructionFailureMechanismTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +86,10 @@
     <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{c6309704-d67b-434c-bc98-9f8910bc1d10}</Project>
       <Name>Ringtoets.ClosingStructures.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+      <Project>{3d4b9740-8348-4434-8d77-b611fc6ee57f}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567e0b69-5280-41ce-add6-443725a61c86}</Project>

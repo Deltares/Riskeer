@@ -72,6 +72,8 @@ using Ringtoets.Integration.Service;
 using Ringtoets.Integration.Service.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Forms.Views;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -204,7 +206,7 @@ namespace Ringtoets.Integration.Plugin
                                                       assessmentSection)
                 ),
             new FailureMechanismContextAssociation(
-                typeof(StrengthStabilityPointConstructionFailureMechanism),
+                typeof(StabilityPointStructuresFailureMechanism),
                 (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
                                                       mechanism,
                                                       assessmentSection)
@@ -379,8 +381,8 @@ namespace Ringtoets.Integration.Plugin
                 MacrostabilityOutwardsFailureMechanismSectionResult,
                 MacrostabilityOutwardsResultView>();
             yield return CreateFailureMechanismResultViewInfo<
-                StrengthStabilityPointConstructionFailureMechanismSectionResult,
-                StrengthStabilityPointConstructionResultView>();
+                StabilityPointStructuresFailureMechanismSectionResult,
+                StabilityPointStructuresResultView>();
             yield return CreateFailureMechanismResultViewInfo<
                 ClosingStructuresFailureMechanismSectionResult,
                 ClosingStructuresResultView>();
@@ -626,7 +628,7 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<ClosingStructuresFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityInwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityOutwardsFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<StrengthStabilityPointConstructionFailureMechanismSectionResult>();
+            yield return CreateFailureMechanismSectionResultTreeNodeInfo<StabilityPointStructuresFailureMechanismSectionResult>();
 
             yield return new TreeNodeInfo<CommentContext<ICommentable>>
             {
@@ -1007,7 +1009,7 @@ namespace Ringtoets.Integration.Plugin
             var closingStructures = nodeData as IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>;
             var macrostabilityInwards = nodeData as IHasSectionResults<MacrostabilityInwardsFailureMechanismSectionResult>;
             var macrostabilityOutwards = nodeData as IHasSectionResults<MacrostabilityOutwardsFailureMechanismSectionResult>;
-            var strengthStabilityPointConstruction = nodeData as IHasSectionResults<StrengthStabilityPointConstructionFailureMechanismSectionResult>;
+            var stabilityPointConstruction = nodeData as IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>;
 
             var failureMechanismSectionResultContexts = new object[1];
             if (duneErosion != null)
@@ -1075,10 +1077,10 @@ namespace Ringtoets.Integration.Plugin
                 failureMechanismSectionResultContexts[0] =
                     new FailureMechanismSectionResultContext<MacrostabilityOutwardsFailureMechanismSectionResult>(macrostabilityOutwards.SectionResults, nodeData);
             }
-            if (strengthStabilityPointConstruction != null)
+            if (stabilityPointConstruction != null)
             {
                 failureMechanismSectionResultContexts[0] =
-                    new FailureMechanismSectionResultContext<StrengthStabilityPointConstructionFailureMechanismSectionResult>(strengthStabilityPointConstruction.SectionResults, nodeData);
+                    new FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(stabilityPointConstruction.SectionResults, nodeData);
             }
             return failureMechanismSectionResultContexts;
         }

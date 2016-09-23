@@ -33,9 +33,9 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class StrengthStabilityPointConstructionSectionResultEntity
+    public partial class StabilityPointStructuresSectionResultEntity
     {
-        public long StrengthStabilityPointConstructionSectionResultEntityId { get; set; }
+        public long StabilityPointStructuresSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
         public Nullable<double> LayerTwoA { get; set; }
         public Nullable<double> LayerThree { get; set; }

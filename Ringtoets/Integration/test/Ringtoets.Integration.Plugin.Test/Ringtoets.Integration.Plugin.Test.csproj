@@ -93,7 +93,7 @@
     <Compile Include="ViewInfos\WaveHeightLocationsViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacrostabilityInwardsResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacrostabilityOutwardsResultViewInfoTest.cs" />
-    <Compile Include="ViewInfos\StrengthStabilityPointConstructionResultViewInfoTest.cs" />
+    <Compile Include="ViewInfos\StabilityPointStructuresResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\StrengthStabilityLengthwiseConstructionResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismContributionViewInfoTest.cs" />
     <Compile Include="ViewInfos\DuneErosionResultViewInfoTest.cs" />
@@ -146,6 +146,14 @@
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Forms\Ringtoets.Revetment.Forms.csproj">
       <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
       <Name>Ringtoets.Revetment.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+      <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Forms\Ringtoets.StabilityPointStructures.Forms.csproj">
+      <Project>{D5F0A6B0-8710-4345-ABA1-D934C8E6783D}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>

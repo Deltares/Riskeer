@@ -42,6 +42,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Revetment.Data;
+using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -109,8 +110,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(assessmentSection.HeightStructures.SectionResults);
             AddSections(assessmentSection.ClosingStructures);
             SetSectionResults(assessmentSection.ClosingStructures.SectionResults);
-            AddSections(assessmentSection.StrengthStabilityPointConstruction);
-            SetSectionResults(assessmentSection.StrengthStabilityPointConstruction.SectionResults);
+            AddSections(assessmentSection.StabilityPointStructures);
+            SetSectionResults(assessmentSection.StabilityPointStructures.SectionResults);
             AddSections(assessmentSection.StrengthStabilityLengthwiseConstruction);
             SetSectionResults(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
             AddSections(assessmentSection.PipingStructure);
@@ -269,7 +270,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             }
         }
 
-        private static void SetSectionResults(IEnumerable<StrengthStabilityPointConstructionFailureMechanismSectionResult> sectionResults)
+        private static void SetSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
             foreach (var sectionResult in sectionResults)

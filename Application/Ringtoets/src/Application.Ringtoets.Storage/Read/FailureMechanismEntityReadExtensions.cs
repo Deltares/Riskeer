@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.Read.ClosingStructures;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Read.Piping;
+using Application.Ringtoets.Storage.Read.StabilityPointStructures;
 using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data;
@@ -39,6 +40,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data.StandAlone;
 using Ringtoets.Piping.Data;
+using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -327,7 +329,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadClosingStructuresMechanismSectionResults(failureMechanism, collector);
         }
-        
+
         private static void ReadClosingStructuresMechanismSectionResults(this FailureMechanismEntity entity, ClosingStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructuresSectionResultEntities))
@@ -671,7 +673,7 @@ namespace Application.Ringtoets.Storage.Read
 
         #endregion
 
-        #region Strength Stability Point Construction
+        #region Stability Point Structures
 
         /// <summary>
         /// Read the <see cref="FailureMechanismEntity"/> and use the information to update a <see cref="StrengthStabilityPointConstructionFailureMechanism"/>.
@@ -679,15 +681,15 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="entity">The <see cref="FailureMechanismEntity"/> to create <see cref="StrengthStabilityPointConstructionFailureMechanism"/> for.</param>
         /// <param name="failureMechanism">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
-        internal static void ReadAsStrengthStabilityPointConstructionFailureMechanism(this FailureMechanismEntity entity, StrengthStabilityPointConstructionFailureMechanism failureMechanism, ReadConversionCollector collector)
+        internal static void ReadAsStabilityPointStructuresFailureMechanism(this FailureMechanismEntity entity, StabilityPointStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
-            entity.ReadStrengthStabilityPointConstructionMechanismSectionResults(failureMechanism, collector);
+            entity.ReadStabilityPointStructuresMechanismSectionResults(failureMechanism, collector);
         }
 
-        private static void ReadStrengthStabilityPointConstructionMechanismSectionResults(this FailureMechanismEntity entity, StrengthStabilityPointConstructionFailureMechanism failureMechanism, ReadConversionCollector collector)
+        private static void ReadStabilityPointStructuresMechanismSectionResults(this FailureMechanismEntity entity, StabilityPointStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
         {
-            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StrengthStabilityPointConstructionSectionResultEntities))
+            foreach (var sectionResultEntity in entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityPointStructuresSectionResultEntities))
             {
                 var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));

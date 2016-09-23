@@ -32,9 +32,9 @@ using Application.Ringtoets.Storage.Create.MacrostabilityOutwards;
 using Application.Ringtoets.Storage.Create.Microstability;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.Create.PipingStructure;
+using Application.Ringtoets.Storage.Create.StabilityPointStructures;
 using Application.Ringtoets.Storage.Create.StabilityStoneCover;
 using Application.Ringtoets.Storage.Create.StrengthStabilityLengthwise;
-using Application.Ringtoets.Storage.Create.StrengthStabilityPointConstruction;
 using Application.Ringtoets.Storage.Create.TechnicalInnovation;
 using Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover;
 using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Create
             entity.FailureMechanismEntities.Add(section.PipingStructure.Create(registry));
             entity.FailureMechanismEntities.Add(section.StabilityStoneCover.Create(registry));
             entity.FailureMechanismEntities.Add(section.DuneErosion.Create(registry));
-            entity.FailureMechanismEntities.Add(section.StrengthStabilityPointConstruction.Create(registry));
+            entity.FailureMechanismEntities.Add(section.StabilityPointStructures.Create(registry));
 
             return entity;
         }

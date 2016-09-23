@@ -22,25 +22,25 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.StabilityPointStructures.Data;
 
-namespace Application.Ringtoets.Storage.Read
+namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="StrengthStabilityPointConstructionFailureMechanismSectionResult"/> based on the
-    /// <see cref="StrengthStabilityPointConstructionSectionResultEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> based on the
+    /// <see cref="StabilityPointStructuresSectionResultEntity"/>.
     /// </summary>
-    internal static class StrengthStabilityPointConstructionSectionResultEntityReadExtensions
+    internal static class StabilityPointStructuresSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="StrengthStabilityPointConstructionSectionResultEntity"/> and use the information to update a 
-        /// <see cref="StrengthStabilityPointConstructionFailureMechanismSectionResult"/>.
+        /// Reads the <see cref="StabilityPointStructuresSectionResultEntity"/> and use the information to update a 
+        /// <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="StrengthStabilityPointConstructionSectionResultEntity"/> to create <see cref="StrengthStabilityPointConstructionFailureMechanismSectionResult"/> for.</param>
+        /// <param name="entity">The <see cref="StabilityPointStructuresSectionResultEntity"/> to create <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
-        /// <returns>A new <see cref="StrengthStabilityPointConstructionFailureMechanismSectionResult"/>.</returns>
+        /// <returns>A new <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        internal static void Read(this StrengthStabilityPointConstructionSectionResultEntity entity, StrengthStabilityPointConstructionFailureMechanismSectionResult sectionResult)
+        internal static void Read(this StabilityPointStructuresSectionResultEntity entity, StabilityPointStructuresFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
             {

@@ -24,23 +24,23 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.Integration.Data.StandAlone.SectionResults
+namespace Ringtoets.StabilityPointStructures.Data
 {
     /// <summary>
     /// This class holds information about the result of a calculation on section level for the
     /// Strength and Stability of Point Constructions failure mechanism.
     /// </summary>
-    public class StrengthStabilityPointConstructionFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class StabilityPointStructuresFailureMechanismSectionResult : FailureMechanismSectionResult
     {
         private double assessmentLayerTwoA;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StrengthStabilityPointConstructionFailureMechanismSectionResult"/>.
+        /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
-        /// <see cref="StrengthStabilityPointConstructionFailureMechanismSectionResult"/> will hold the result.</param>
+        /// <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> will hold the result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public StrengthStabilityPointConstructionFailureMechanismSectionResult(FailureMechanismSection section)
+        public StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSection section)
             : base(section)
         {
             AssessmentLayerTwoA = double.NaN;

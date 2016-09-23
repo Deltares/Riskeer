@@ -22,22 +22,22 @@
 using System;
 using System.Linq;
 using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.StrengthStabilityPointConstruction;
+using Application.Ringtoets.Storage.Create.StabilityPointStructures;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Integration.Data.StandAlone;
+using Ringtoets.StabilityPointStructures.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstruction
+namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
 {
     [TestFixture]
-    public class StrengthStabilityPointConstructionFailureMechanismCreateExtensionsTest
+    public class StabilityPointStructuresFailureMechanismCreateExtensionsTest
     {
         [Test]
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new StrengthStabilityPointConstructionFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
             TestDelegate test = () => failureMechanism.Create(null);
@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstr
         public void Create_WithCollectorAndPropertiesSet_ReturnsExpectedEntity(bool isRelevant)
         {
             // Setup
-            var failureMechanism = new StrengthStabilityPointConstructionFailureMechanism
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
                 IsRelevant = isRelevant,
                 Comments = "Some text"
@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstr
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((short) FailureMechanismType.StrengthAndStabilityPointConstruction, entity.FailureMechanismType);
+            Assert.AreEqual((short) FailureMechanismType.StabilityPointStructures, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.Comments, entity.Comments);
         }
@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstr
         {
             // Setup
             const string originalComments = "Some text";
-            var failureMechanism = new StrengthStabilityPointConstructionFailureMechanism
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
                 Comments = originalComments
             };
@@ -94,7 +94,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstr
         public void Create_WithoutSections_EmptyFailureMechanismSectionEntities()
         {
             // Setup
-            var failureMechanism = new StrengthStabilityPointConstructionFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
             var entity = failureMechanism.Create(new PersistenceRegistry());
@@ -107,7 +107,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstr
         public void Create_WithSections_FailureMechanismSectionEntitiesCreated()
         {
             // Setup
-            var failureMechanism = new StrengthStabilityPointConstructionFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.AddSection(new TestFailureMechanismSection());
 
             // Call
@@ -115,7 +115,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstr
 
             // Assert
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
-            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StrengthStabilityPointConstructionSectionResultEntities).Count());
+            Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.StabilityPointStructuresSectionResultEntities).Count());
         }
     }
 }

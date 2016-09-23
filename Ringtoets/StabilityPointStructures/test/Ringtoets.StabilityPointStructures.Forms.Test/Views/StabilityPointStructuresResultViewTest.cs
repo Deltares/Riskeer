@@ -28,26 +28,25 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultViews;
-using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
+namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 {
     [TestFixture]
-    public class StrengthStabilityPointConstructionResultViewTest
+    public class StabilityPointStructuresResultViewTest
     {
         private const int nameColumnIndex = 0;
         private const int assessmentLayerTwoAIndex = 1;
         private const int assessmentLayerThreeIndex = 2;
 
         [Test]
-        public void GivenFormWithStrengthStabilityPointConstructionFailureMechanismResultView_ThenExpectedColumnsAreVisible()
+        public void GivenFormWithStabilityPointStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
             using (var form = new Form())
-            using (var view = new StrengthStabilityPointConstructionResultView())
+            using (var view = new StabilityPointStructuresResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -69,7 +68,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void GivenFormWithStrengthStabilityPointConstructionFailureMechanismResultView_WhenDataSourceWithStrengthStabilityPointConstructionFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
+        public void GivenFormWithStabilityPointStructuresFailureMechanismResultView_WhenDataSourceWithStabilityPointStructuresFailureMechanismSectionResultAssigned_ThenSectionsAddedAsRows()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -81,19 +80,19 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
                 new Point2D(0, 0)
             });
             Random random = new Random(21);
-            var result1 = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section1)
+            var result1 = new StabilityPointStructuresFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            var result2 = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section2)
+            var result2 = new StabilityPointStructuresFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
 
             using (var form = new Form())
-            using (var view = new StrengthStabilityPointConstructionResultView())
+            using (var view = new StabilityPointStructuresResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -127,7 +126,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
         }
 
         [Test]
-        public void GivenFormWithStrengthStabilityPointConstructionFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
+        public void GivenFormWithStabilityPointStructuresFailureMechanismResultView_WhenDataSourceWithOtherFailureMechanismSectionResultAssigned_ThenSectionsNotAdded()
         {
             // Given
             var section1 = new FailureMechanismSection("Section 1", new[]
@@ -142,7 +141,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
             var result2 = new TestFailureMechanismSectionResult(section2);
 
             using (var form = new Form())
-            using (var view = new StrengthStabilityPointConstructionResultView())
+            using (var view = new StabilityPointStructuresResultView())
             {
                 form.Controls.Add(view);
                 form.Show();

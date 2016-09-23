@@ -24,18 +24,17 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Properties;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
+namespace Ringtoets.StabilityPointStructures.Data.Test
 {
     [TestFixture]
-    public class StrengthStabilityPointConstructionFailureMechanismSectionResultTest
+    public class StabilityPointStructuresFailureMechanismSectionResultTest
     {
         [Test]
         public void Constructor_WithoutSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StrengthStabilityPointConstructionFailureMechanismSectionResult(null);
+            TestDelegate test = () => new StabilityPointStructuresFailureMechanismSectionResult(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -52,7 +51,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             });
 
             // Call
-            var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
@@ -73,7 +72,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             {
                 new Point2D(0, 0)
             });
-            var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Call
             TestDelegate test = () => result.AssessmentLayerTwoA = a;
@@ -98,7 +97,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             {
                 new Point2D(0, 0)
             });
-            var result = new StrengthStabilityPointConstructionFailureMechanismSectionResult(section);
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Call
             result.AssessmentLayerTwoA = a;

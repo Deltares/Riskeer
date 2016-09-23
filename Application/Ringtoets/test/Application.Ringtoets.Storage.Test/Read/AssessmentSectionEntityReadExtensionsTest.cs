@@ -805,7 +805,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, microstabilityEntityComment, FailureMechanismType.Microstability));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, structureHeightEntityComment, FailureMechanismType.StructureHeight));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, closingEntityComment, FailureMechanismType.ReliabilityClosingOfStructure));
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, failingOfConstructionPointEntityComment, FailureMechanismType.StrengthAndStabilityPointConstruction));
+            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, failingOfConstructionPointEntityComment, FailureMechanismType.StabilityPointStructures));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, failingOfConstructionLengthwiseEntityComment, FailureMechanismType.StrengthAndStabilityParallelConstruction));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, waterPressureEntityComment, FailureMechanismType.WaterOverpressureAsphaltRevetment));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, grassCoverSlipoffOutwardsEntityComment, FailureMechanismType.GrassRevetmentSlidingOutwards));
@@ -824,7 +824,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssertFailureMechanismEqual(isRelevant, microstabilityEntityComment, 2, section.Microstability);
             AssertFailureMechanismEqual(isRelevant, structureHeightEntityComment, 2, section.HeightStructures);
             AssertFailureMechanismEqual(isRelevant, closingEntityComment, 2, section.ClosingStructures);
-            AssertFailureMechanismEqual(isRelevant, failingOfConstructionPointEntityComment, 2, section.StrengthStabilityPointConstruction);
+            AssertFailureMechanismEqual(isRelevant, failingOfConstructionPointEntityComment, 2, section.StabilityPointStructures);
             AssertFailureMechanismEqual(isRelevant, failingOfConstructionLengthwiseEntityComment, 2, section.StrengthStabilityLengthwiseConstruction);
             AssertFailureMechanismEqual(isRelevant, waterPressureEntityComment, 2, section.WaterPressureAsphaltCover);
             AssertFailureMechanismEqual(isRelevant, grassCoverSlipoffOutwardsEntityComment, 2, section.GrassCoverSlipOffOutwards);

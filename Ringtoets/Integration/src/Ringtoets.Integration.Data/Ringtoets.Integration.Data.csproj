@@ -52,7 +52,6 @@
     <Compile Include="StandAlone\SectionResults\MicrostabilityFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\SectionResults\PipingStructureFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\SectionResults\StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult.cs" />
-    <Compile Include="StandAlone\SectionResults\StrengthStabilityPointConstructionFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\SectionResults\TechnicalInnovationFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\SectionResults\WaterPressureAsphaltCoverFailureMechanismSectionResult.cs" />
     <Compile Include="StandAlone\WaterPressureAsphaltCoverFailureMechanism.cs" />
@@ -61,7 +60,6 @@
     <Compile Include="StandAlone\TechnicalInnovationFailureMechanism.cs" />
     <Compile Include="StandAlone\DuneErosionFailureMechanism.cs" />
     <Compile Include="StandAlone\PipingStructureFailureMechanism.cs" />
-    <Compile Include="StandAlone\StrengthStabilityPointConstructionFailureMechanism.cs" />
     <Compile Include="StandAlone\GrassCoverSlipOffOutwardsFailureMechanism.cs" />
     <Compile Include="StandAlone\MacroStabilityInwardsFailureMechanism.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +78,11 @@
     <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
       <Name>Ringtoets.ClosingStructures.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+      <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">

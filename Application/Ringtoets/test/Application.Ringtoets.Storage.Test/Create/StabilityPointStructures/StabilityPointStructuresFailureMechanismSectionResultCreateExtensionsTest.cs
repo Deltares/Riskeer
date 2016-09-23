@@ -21,22 +21,22 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.StrengthStabilityPointConstruction;
+using Application.Ringtoets.Storage.Create.StabilityPointStructures;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.StabilityPointStructures.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstruction
+namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
 {
     [TestFixture]
-    public class StrengthStabilityPointConstructionFailureMechanismSectionResultCreateExtensionsTest
+    public class StabilityPointStructuresFailureMechanismSectionResultCreateExtensionsTest
     {
         [Test]
         public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
         {
             // Setup
-            var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection());
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
             TestDelegate test = () => sectionResult.Create(null);
@@ -52,7 +52,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstr
             [Values(3.2, 4.5)] double assessmentLayerThreeResult)
         {
             // Setup
-            var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerTwoA = (RoundedDouble) assessmentLayerTwoAResult,
                 AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstr
         public void Create_WithNaNLevel2aResult_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerTwoA = (RoundedDouble) double.NaN
             };
@@ -86,7 +86,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityPointConstr
         public void Create_WithNaNLevel3Result_ReturnsEntityWithExpectedResults()
         {
             // Setup
-            var sectionResult = new StrengthStabilityPointConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerThree = (RoundedDouble) double.NaN
             };
