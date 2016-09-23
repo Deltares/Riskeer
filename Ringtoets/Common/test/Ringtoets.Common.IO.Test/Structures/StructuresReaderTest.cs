@@ -71,7 +71,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
-            string invalidFilePath = validFilePath.Replace("1", invalidFileNameChars[1].ToString());
+            string invalidFilePath = validFilePath.Replace("e", invalidFileNameChars[1].ToString());
 
             // Call
             TestDelegate call = () => new StructuresReader(invalidFilePath);
