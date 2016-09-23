@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveHeightLocationsContextTreeNodeInfoTest
     {
-        private const int contextMenuRunWaveHeightCalculationsIndex = 0;
+        private const int contextMenuRunWaveHeightCalculationsIndex = 1;
         private MockRepository mockRepository;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
@@ -149,6 +149,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         assessmentSectionMock);
 
                     var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
+                    menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
+                    menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddSeparator()).Return(menuBuilder);
                     menuBuilder.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilder);
@@ -208,16 +210,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
                     {
                         // Assert
-                        Assert.AreEqual(3, menu.Items.Count);
+                        Assert.AreEqual(5, menu.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                      0,
+                                                                      2,
                                                                       RingtoetsCommonFormsResources.Calculate_all,
                                                                       Resources.GrassCoverErosionOutwards_WaveHeight_No_HRD_To_Calculate,
                                                                       RingtoetsCommonFormsResources.CalculateAllIcon,
                                                                       false);
                         TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                      2,
+                                                                      4,
                                                                       CoreCommonGuiResources.Properties,
                                                                       CoreCommonGuiResources.Properties_ToolTip,
                                                                       CoreCommonGuiResources.PropertiesHS,
@@ -226,6 +228,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         CollectionAssert.AllItemsAreInstancesOfType(new[]
                         {
                             menu.Items[1],
+                            menu.Items[3],
                         }, typeof(ToolStripSeparator));
                     }
                 }
@@ -272,15 +275,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     using (ContextMenuStrip menu = info.ContextMenuStrip(context, null, treeViewControl))
                     {
                         // Assert
-                        Assert.AreEqual(3, menu.Items.Count);
+                        Assert.AreEqual(5, menu.Items.Count);
 
                         TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                      0,
+                                                                      2,
                                                                       RingtoetsCommonFormsResources.Calculate_all,
                                                                       Resources.GrassCoverErosionOutwards_WaveHeight_Calculate_All_ToolTip,
                                                                       RingtoetsCommonFormsResources.CalculateAllIcon);
                         TestHelper.AssertContextMenuStripContainsItem(menu,
-                                                                      2,
+                                                                      4,
                                                                       CoreCommonGuiResources.Properties,
                                                                       CoreCommonGuiResources.Properties_ToolTip,
                                                                       CoreCommonGuiResources.PropertiesHS,
@@ -289,6 +292,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         CollectionAssert.AllItemsAreInstancesOfType(new[]
                         {
                             menu.Items[1],
+                            menu.Items[3],
                         }, typeof(ToolStripSeparator));
                     }
                 }

@@ -128,6 +128,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             {
                 GetViewName = (v, o) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName,
                 GetViewData = context => context.WrappedData,
+                CloseForData = CloseGrassCoverErosionOutwardsLocationsViewForData,
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 AfterCreate = (view, context) =>
                 {
@@ -325,6 +326,22 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #endregion
 
+        #region GrassCoverErosionOutwardsWaveHeightLocationsView
+
+        private static bool CloseGrassCoverErosionOutwardsLocationsViewForData(GrassCoverErosionOutwardsWaveHeightLocationsView view, object dataToCloseFor)
+        {
+            var section = dataToCloseFor as IAssessmentSection;
+            var failureMechanismContext = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanismContext;
+
+            var viewAssessmentSection = view.AssessmentSection;
+            var closeForFailureMechanism = failureMechanismContext != null && ReferenceEquals(failureMechanismContext.Parent, viewAssessmentSection);
+            var closeForSection = section != null && ReferenceEquals(section, viewAssessmentSection);
+
+            return closeForSection || closeForFailureMechanism;
+        }
+
+        #endregion
+
         #endregion
 
         #region TreeNodeInfos
@@ -517,6 +534,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             }
 
             return Gui.Get(nodeData, treeViewControl)
+                      .AddOpenItem()
+                      .AddSeparator()
                       .AddCustomItem(waveHeightItem)
                       .AddSeparator()
                       .AddPropertiesItem()
