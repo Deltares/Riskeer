@@ -27,7 +27,7 @@ using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Common.IO
+namespace Ringtoets.Common.IO.ReferenceLine
 {
     /// <summary>
     /// Exports a <see cref="ReferenceLine"/> associated to an <see cref="IAssessmentSection"/> and stores it as a shapefile.
@@ -36,7 +36,7 @@ namespace Ringtoets.Common.IO
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ReferenceLineExporter));
 
-        private readonly ReferenceLine referenceLine;
+        private readonly Data.AssessmentSection.ReferenceLine referenceLine;
         private readonly string filePath;
         private readonly string id;
 
@@ -47,7 +47,7 @@ namespace Ringtoets.Common.IO
         /// <param name="id">The id of the assessment section to which this reference line is associated.</param>
         /// <param name="filePath">The path of the file to export to.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
-        public ReferenceLineExporter(ReferenceLine referenceLine, string id, string filePath)
+        public ReferenceLineExporter(Data.AssessmentSection.ReferenceLine referenceLine, string id, string filePath)
         {
             FileUtils.ValidateFilePath(filePath);
 

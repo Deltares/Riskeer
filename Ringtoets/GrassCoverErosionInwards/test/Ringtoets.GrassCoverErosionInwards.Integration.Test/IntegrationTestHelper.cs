@@ -24,6 +24,7 @@ using Core.Common.Base.Service;
 using Core.Common.Utils.IO;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.IO;
+using Ringtoets.Common.IO.ReferenceLine;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
 

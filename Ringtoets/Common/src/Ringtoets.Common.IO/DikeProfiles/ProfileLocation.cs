@@ -34,9 +34,9 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <summary>
         /// Creates a new instance of <see cref="ProfileLocation"/>.
         /// </summary>
-        /// <param name="id">The identifier for this <see cref="ProfileLocation"/></param>
-        /// <param name="name">The name of this <see cref="ProfileLocation"/></param>
-        /// <param name="offset">The coordinate offset in the local coordinate system for this <see cref="ProfileLocation"/></param>
+        /// <param name="id">The identifier for this <see cref="ProfileLocation"/>.</param>
+        /// <param name="name">The name of this <see cref="ProfileLocation"/>.</param>
+        /// <param name="offset">The coordinate offset in the local coordinate system for this <see cref="ProfileLocation"/>.</param>
         /// <param name="point">The coordinates of the location as a <see cref="Point2D"/>.</param>
         /// <exception cref="ArgumentException"><list type="Bullet">
         /// <item>The Id parameter is null.</item>

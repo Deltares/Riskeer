@@ -26,6 +26,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.IO;
+using Ringtoets.Common.IO.ReferenceLine;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;

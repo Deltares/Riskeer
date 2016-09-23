@@ -28,8 +28,9 @@ using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.ReferenceLine;
 
-namespace Ringtoets.Common.IO.Test
+namespace Ringtoets.Common.IO.Test.ReferenceLine
 {
     [TestFixture]
     public class ReferenceLinesMetaReaderTest

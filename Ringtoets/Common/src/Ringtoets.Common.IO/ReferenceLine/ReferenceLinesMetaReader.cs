@@ -34,7 +34,7 @@ using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Common.IO
+namespace Ringtoets.Common.IO.ReferenceLine
 {
     /// <summary>
     /// Shape file reader that reads <see cref="ReferenceLineMeta"/> objects based on the line feature in the file.

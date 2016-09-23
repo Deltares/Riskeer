@@ -25,9 +25,9 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.ReferenceLine;
 
-namespace Ringtoets.Common.IO.Test
+namespace Ringtoets.Common.IO.Test.ReferenceLine
 {
     [TestFixture]
     public class ReferenceLineWriterTest
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.IO.Test
         public void WriteReferenceLine_NullId_ThrowArgumentNullException()
         {
             // Setup
-            var referenceLine = new ReferenceLine();
+            var referenceLine = new Data.AssessmentSection.ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
                 new Point2D(1.1, 2.2),
@@ -80,7 +80,7 @@ namespace Ringtoets.Common.IO.Test
         public void WriteReferenceLine_InvalidId_ThrowArgumentException(string id)
         {
             // Setup
-            var referenceLine = new ReferenceLine();
+            var referenceLine = new Data.AssessmentSection.ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
                 new Point2D(1.1, 2.2),
@@ -104,7 +104,7 @@ namespace Ringtoets.Common.IO.Test
         public void WriteReferenceLine_NullFilePath_ThrowArgumentNullException()
         {
             // Setup
-            var referenceLine = new ReferenceLine();
+            var referenceLine = new Data.AssessmentSection.ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
                 new Point2D(1.1, 2.2),
@@ -124,7 +124,7 @@ namespace Ringtoets.Common.IO.Test
         public void WriteReferenceLine_ValidData_WritesShapeFile()
         {
             // Setup
-            var referenceLine = new ReferenceLine();
+            var referenceLine = new Data.AssessmentSection.ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
                 new Point2D(1.1, 2.2),

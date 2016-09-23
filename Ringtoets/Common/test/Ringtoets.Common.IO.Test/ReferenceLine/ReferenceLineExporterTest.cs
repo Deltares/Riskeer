@@ -26,9 +26,9 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.ReferenceLine;
 
-namespace Ringtoets.Common.IO.Test
+namespace Ringtoets.Common.IO.Test.ReferenceLine
 {
     [TestFixture]
     public class ReferenceLineExporterTest
@@ -37,7 +37,7 @@ namespace Ringtoets.Common.IO.Test
         public void ParameteredConstructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var referenceLine = new ReferenceLine();
+            var referenceLine = new Data.AssessmentSection.ReferenceLine();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "test.shp");
 
             // Call
@@ -51,7 +51,7 @@ namespace Ringtoets.Common.IO.Test
         public void ParameteredConstructor_NullFilePath_ThrowArgumentException()
         {
             // Setup
-            var referenceLine = new ReferenceLine();
+            var referenceLine = new Data.AssessmentSection.ReferenceLine();
 
             // Call
             TestDelegate call = () => new ReferenceLineExporter(referenceLine, "anId", null);
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.IO.Test
         public void Export_ValidData_ReturnTrue()
         {
             // Setup
-            var referenceLine = new ReferenceLine();
+            var referenceLine = new Data.AssessmentSection.ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
                 new Point2D(1.1, 2.2),
@@ -97,7 +97,7 @@ namespace Ringtoets.Common.IO.Test
         public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
         {
             // Setup
-            var referenceLine = new ReferenceLine();
+            var referenceLine = new Data.AssessmentSection.ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
                 new Point2D(1.1, 2.2),

@@ -487,6 +487,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kon geen punten vinden in dit bestand..
+        /// </summary>
+        public static string PointShapefileReader_File_can_only_contain_points {
+            get {
+                return ResourceManager.GetString("PointShapefileReader_File_can_only_contain_points", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De locatie parameter &apos;ID&apos; mag uitsluitend uit letters en cijfers bestaan..
         /// </summary>
         public static string ProfileLocation_ProfileLocation_Id_is_invalid {
@@ -537,15 +546,6 @@ namespace Ringtoets.Common.IO.Properties {
         public static string ProfileLocationReader_GetProfileLocations_Invalid_X0 {
             get {
                 return ResourceManager.GetString("ProfileLocationReader_GetProfileLocations_Invalid_X0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kon geen punten vinden in dit bestand..
-        /// </summary>
-        public static string ProfileLocationReader_OpenPointsShapeFile_File_can_only_contain_points {
-            get {
-                return ResourceManager.GetString("ProfileLocationReader_OpenPointsShapeFile_File_can_only_contain_points", resourceCulture);
             }
         }
         

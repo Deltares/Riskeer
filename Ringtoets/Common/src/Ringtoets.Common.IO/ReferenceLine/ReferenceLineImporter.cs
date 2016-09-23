@@ -31,10 +31,9 @@ using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
-using RingtoetsDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
-namespace Ringtoets.Common.IO
+namespace Ringtoets.Common.IO.ReferenceLine
 {
     /// <summary>
     /// Imports a <see cref="ReferenceLine"/> and stores in on a <see cref="IAssessmentSection"/>,
@@ -74,7 +73,7 @@ namespace Ringtoets.Common.IO
 
             NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Reading_referenceline,
                            1, clearReferenceLineDependentData ? 4 : 2);
-            ReadResult<ReferenceLine> readResult = ReadReferenceLine();
+            ReadResult<Data.AssessmentSection.ReferenceLine> readResult = ReadReferenceLine();
             if (readResult.CriticalErrorOccurred)
             {
                 return false;
@@ -122,11 +121,11 @@ namespace Ringtoets.Common.IO
             log.Info(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Import_cancelled_no_data_read);
         }
 
-        private ReadResult<ReferenceLine> ReadReferenceLine()
+        private ReadResult<Data.AssessmentSection.ReferenceLine> ReadReferenceLine()
         {
             try
             {
-                return new ReadResult<ReferenceLine>(false)
+                return new ReadResult<Data.AssessmentSection.ReferenceLine>(false)
                 {
                     ImportedItems = new[]
                     {
@@ -144,15 +143,15 @@ namespace Ringtoets.Common.IO
             }
         }
 
-        private static ReadResult<ReferenceLine> HandleCriticalFileReadError(Exception e)
+        private static ReadResult<Data.AssessmentSection.ReferenceLine> HandleCriticalFileReadError(Exception e)
         {
             var errorMessage = string.Format(RingtoetsCommonIOResources.ReferenceLineImporter_HandleCriticalFileReadError_Error_0_no_referenceline_imported,
                                              e.Message);
             log.Error(errorMessage);
-            return new ReadResult<ReferenceLine>(true);
+            return new ReadResult<Data.AssessmentSection.ReferenceLine>(true);
         }
 
-        private void AddReferenceLineToDataModel(ReferenceLine importedReferenceLine, bool clearReferenceLineDependentData)
+        private void AddReferenceLineToDataModel(Data.AssessmentSection.ReferenceLine importedReferenceLine, bool clearReferenceLineDependentData)
         {
             NotifyProgress(RingtoetsCommonIOResources.ReferenceLineImporter_ProgressText_Adding_imported_referenceline_to_assessmentsection,
                            2, clearReferenceLineDependentData ? 4 : 2);

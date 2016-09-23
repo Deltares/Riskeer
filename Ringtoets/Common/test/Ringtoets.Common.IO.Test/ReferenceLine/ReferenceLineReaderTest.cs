@@ -26,9 +26,9 @@ using Core.Common.Base.Geometry;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.ReferenceLine;
 
-namespace Ringtoets.Common.IO.Test
+namespace Ringtoets.Common.IO.Test.ReferenceLine
 {
     [TestFixture]
     public class ReferenceLineReaderTest
@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.Test
             var reader = new ReferenceLineReader();
 
             // Call
-            ReferenceLine referenceLine = reader.ReadReferenceLine(validReferenceLineShapeFile);
+            Data.AssessmentSection.ReferenceLine referenceLine = reader.ReadReferenceLine(validReferenceLineShapeFile);
 
             // Assert
             Point2D[] point2Ds = referenceLine.Points.ToArray();

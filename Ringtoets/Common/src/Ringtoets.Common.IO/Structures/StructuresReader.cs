@@ -32,20 +32,19 @@ using Core.Components.Gis.IO.Readers;
 using Ringtoets.Common.IO.Properties;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 
-namespace Ringtoets.Common.IO.DikeProfiles
+namespace Ringtoets.Common.IO.Structures
 {
     /// <summary>
-    /// This class is responsible for reading map locations for <see cref="ProfileLocation"/> instances.
+    /// This class is responsible for reading structures for <see cref="Structure"/> instances.
     /// </summary>
-    public class ProfileLocationReader : IDisposable
+    public class StructuresReader : IDisposable
     {
-        private const string idAttributeName = "ID";
-        private const string nameAttributeName = "Naam";
-        private const string offsetAttributeName = "X0";
+        private const string idAttributeName = "KBWIDENT";
+        private const string nameAttributeName = "KUNST_OMSC";
         private readonly PointShapeFileReader pointsShapeFileReader;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProfileLocationReader"/> class.
+        /// Initializes a new instance of the <see cref="StructuresReader"/> class.
         /// </summary>
         /// <param name="shapeFilePath">The shape file path.</param>
         /// <exception cref="ArgumentException"><paramref name="shapeFilePath"/> is invalid.</exception>
@@ -54,7 +53,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <item><paramref name="shapeFilePath"/> does not only contain point features.</item>
         /// <item><paramref name="shapeFilePath"/> does not contain all of the required attributes.</item>
         /// </list></exception>
-        public ProfileLocationReader(string shapeFilePath)
+        public StructuresReader(string shapeFilePath)
         {
             FileUtils.ValidateFilePath(shapeFilePath);
             if (!File.Exists(shapeFilePath))
@@ -70,43 +69,58 @@ namespace Ringtoets.Common.IO.DikeProfiles
         }
 
         /// <summary>
-        /// Gets the number of profile locations present in the shapefile.
-        /// </summary>
-        public int GetLocationCount
-        {
-            get
-            {
-                return pointsShapeFileReader.GetNumberOfFeatures();
-            }
-        }
-
-        /// <summary>
-        /// Retrieve a <see cref="ProfileLocation"/> based on the next point feature in the shapefile.
+        /// Retrieve a <see cref="Structure"/> based on the next point feature in the shapefile.
         /// </summary>
         /// <exception cref="LineParseException">Thrown when either:
         /// <list type="bullet">
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
         /// </list></exception>
-        /// <returns>A <see cref="ProfileLocation"/> based on the next point feature in the shapefile.</returns>
-        public ProfileLocation GetNextProfileLocation()
+        /// <returns>A <see cref="Structure"/> based on the next point feature in the shapefile.</returns>
+        public Structure GetNextStructure()
         {
-            MapPointData mapPointData = (MapPointData) pointsShapeFileReader.ReadFeature();
+            MapPointData mapPointData = (MapPointData)pointsShapeFileReader.ReadFeature();
 
             IDictionary<string, object> attributes = mapPointData.Features.First().MetaData;
 
             string attributeIdValue = GetIdAttributeValue(attributes);
-            string attributeNameValue = GetNameAttributeValue(attributes);
-            double attributeX0Value = GetOffsetAttributeValue(attributes);
+            string attributeNameValue = GetNameAttributeValue(attributes, attributeIdValue);
 
             Point2D point = mapPointData.Features.First().MapGeometries.First().PointCollections.First().First();
             try
             {
-                return new ProfileLocation(attributeIdValue, attributeNameValue, attributeX0Value, point);
+                return new Structure(attributeIdValue, attributeNameValue, point);
             }
-            catch (ArgumentException exception)
+            catch (ArgumentNullException exception)
             {
                 throw new LineParseException(exception.Message);
+            }
+        }
+
+        private static string GetIdAttributeValue(IDictionary<string, object> attributes)
+        {
+            var attributeIdValue = attributes[idAttributeName] as string;
+            return attributeIdValue;
+        }
+
+        private string GetNameAttributeValue(IDictionary<string, object> attributes, string defaultName)
+        {
+            if (!pointsShapeFileReader.HasAttribute(nameAttributeName))
+            {
+                return defaultName;
+            }
+            var attributeNameValue = attributes[nameAttributeName] as string;
+            return string.IsNullOrWhiteSpace(attributeNameValue) ? defaultName : attributeNameValue;
+        }
+
+        /// <summary>
+        /// Gets the number of structures present in the shapefile.
+        /// </summary>
+        public int GetStructureCount
+        {
+            get
+            {
+                return pointsShapeFileReader.GetNumberOfFeatures();
             }
         }
 
@@ -116,7 +130,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         }
 
         /// <summary>
-        /// Open a shapefile containing dike locations as point features.
+        /// Open a shapefile containing structures as point features.
         /// </summary>
         /// <param name="shapeFilePath">Shape file path.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="shapeFilePath"/> is invalid.</exception>
@@ -146,43 +160,12 @@ namespace Ringtoets.Common.IO.DikeProfiles
             }
         }
 
-        private static double GetOffsetAttributeValue(IDictionary<string, object> attributes)
-        {
-            var attributeX0Value = attributes[offsetAttributeName] as double?;
-            if (attributeX0Value == null)
-            {
-                throw new LineParseException(Resources.ProfileLocationReader_GetProfileLocations_Invalid_X0);
-            }
-            return attributeX0Value.Value;
-        }
-
-        private static string GetNameAttributeValue(IDictionary<string, object> attributes)
-        {
-            var attributeNameValue = attributes[nameAttributeName] as string;
-            return attributeNameValue;
-        }
-
-        private static string GetIdAttributeValue(IDictionary<string, object> attributes)
-        {
-            var attributeIdValue = attributes[idAttributeName] as string;
-            return attributeIdValue;
-        }
-
         private void CheckRequiredAttributePresence()
         {
-            IEnumerable<string> requiredAttributes = new[]
+            if (!pointsShapeFileReader.HasAttribute(idAttributeName))
             {
-                idAttributeName,
-                nameAttributeName,
-                offsetAttributeName
-            };
-            foreach (string attribute in requiredAttributes)
-            {
-                if (!pointsShapeFileReader.HasAttribute(attribute))
-                {
-                    throw new CriticalFileReadException(
-                        string.Format(Resources.ProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_, attribute));
-                }
+                throw new CriticalFileReadException(
+                    string.Format(Resources.ProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_, idAttributeName));
             }
         }
     }

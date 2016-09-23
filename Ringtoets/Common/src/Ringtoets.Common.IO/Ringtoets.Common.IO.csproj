@@ -57,9 +57,9 @@
     <Compile Include="DikeProfiles\SheetPileType.cs" />
     <Compile Include="Exceptions\CriticalFileValidationException.cs" />
     <Compile Include="HydraulicBoundaryLocationsExporter.cs" />
-    <Compile Include="ReferenceLineExporter.cs" />
-    <Compile Include="ReferenceLineMetaImporter.cs" />
-    <Compile Include="ReferenceLinesMetaReader.cs" />
+    <Compile Include="ReferenceLine\ReferenceLineExporter.cs" />
+    <Compile Include="ReferenceLine\ReferenceLineMetaImporter.cs" />
+    <Compile Include="ReferenceLine\ReferenceLinesMetaReader.cs" />
     <Compile Include="FailureMechanismSectionReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -67,9 +67,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ReferenceLineImporter.cs" />
-    <Compile Include="ReferenceLineReader.cs" />
-    <Compile Include="ReferenceLineWriter.cs" />
+    <Compile Include="ReferenceLine\ReferenceLineImporter.cs" />
+    <Compile Include="ReferenceLine\ReferenceLineReader.cs" />
+    <Compile Include="ReferenceLine\ReferenceLineWriter.cs" />
+    <Compile Include="Structures\Structure.cs" />
+    <Compile Include="Structures\StructuresReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
@@ -120,7 +122,7 @@
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
-      <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
+      <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>
       <Private>False</Private>
     </ProjectReference>
