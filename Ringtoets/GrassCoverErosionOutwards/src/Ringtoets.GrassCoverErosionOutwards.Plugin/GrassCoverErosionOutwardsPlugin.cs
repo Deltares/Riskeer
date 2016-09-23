@@ -117,7 +117,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     view.AssessmentSection = context.AssessmentSection;
                     view.ApplicationSelection = Gui;
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
-                }
+                },
+                CloseForData = CloseDesignWaterLevelLocationsViewForData
             };
 
             yield return new ViewInfo<
@@ -135,6 +136,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 }
             };
+        }
+
+        private bool CloseDesignWaterLevelLocationsViewForData(GrassCoverErosionOutwardsDesignWaterLevelLocationsView view, object dataToCloseFor)
+        {
+            var section = dataToCloseFor as IAssessmentSection;
+            var failureMechanismContext = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanismContext;
+
+            var viewAssessmentSection = view.AssessmentSection;
+            var closeForFailureMechanism = failureMechanismContext != null && ReferenceEquals(failureMechanismContext.Parent, viewAssessmentSection);
+            var closeForSection = section != null && ReferenceEquals(section, viewAssessmentSection);
+
+            return closeForSection || closeForFailureMechanism;
         }
 
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()

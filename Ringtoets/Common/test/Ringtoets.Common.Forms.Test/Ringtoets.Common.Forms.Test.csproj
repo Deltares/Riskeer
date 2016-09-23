@@ -93,6 +93,7 @@
     <Compile Include="TypeConverters\NoValueRoundedDoubleConverterTest.cs" />
     <Compile Include="UITypeEditors\SelectionEditorTest.cs" />
     <Compile Include="Views\CommentViewTest.cs" />
+    <Compile Include="Views\DesignWaterLevelLocationRowTest.cs" />
     <Compile Include="Views\FailureMechanismResultViewTest.cs">
       <SubType>UserControl</SubType>
     </Compile>

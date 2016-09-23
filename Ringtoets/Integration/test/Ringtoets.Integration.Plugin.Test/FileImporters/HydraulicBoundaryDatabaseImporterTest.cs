@@ -210,6 +210,70 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
+        public void Import_ImportingToSameDatabaseOnDifferentPath_FilePathUpdatedAndAssessmentSectionNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers()).Repeat.Twice();
+            mocks.ReplayAll();
+
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                              "completeWithLocationsToBeFilteredOut.sqlite");
+            string copyValidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                              "copyOfCompleteWithLocationsToBeFilteredOut.sqlite");
+
+
+            // Precondition
+            Assert.IsTrue(File.Exists(validFilePath), string.Format("Precodition failed. File does not exist: {0}", validFilePath));
+
+            importer.Import(assessmentSection, validFilePath);
+
+            // Call
+            var importResult = importer.Import(assessmentSection, copyValidFilePath);
+
+            // Assert
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(copyValidFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            Assert.AreEqual(9, importedLocations.Count);
+            CollectionAssert.AllItemsAreNotNull(importedLocations);
+            CollectionAssert.AllItemsAreUnique(importedLocations);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void Import_ImportingToSameDatabaseOnSamePath_AssessmentSectionNotNotified()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Expect(section => section.NotifyObservers());
+            mocks.ReplayAll();
+
+            string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
+                                                              "completeWithLocationsToBeFilteredOut.sqlite");
+
+
+            // Precondition
+            Assert.IsTrue(File.Exists(validFilePath), string.Format("Precodition failed. File does not exist: {0}", validFilePath));
+
+            importer.Import(assessmentSection, validFilePath);
+
+            // Call
+            var importResult = importer.Import(assessmentSection, validFilePath);
+
+            // Assert
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(validFilePath, assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            ICollection<HydraulicBoundaryLocation> importedLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            Assert.AreEqual(9, importedLocations.Count);
+            CollectionAssert.AllItemsAreNotNull(importedLocations);
+            CollectionAssert.AllItemsAreUnique(importedLocations);
+            mocks.VerifyAll();
+        }
+
+        [Test]
         public void Import_ImportingFileWithCorruptSchema_AbortAndLog()
         {
             // Setup

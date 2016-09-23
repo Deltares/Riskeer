@@ -63,7 +63,12 @@ namespace Ringtoets.Integration.Plugin.FileImporters
             var hydraulicBoundaryDatabase = targetItem.HydraulicBoundaryDatabase;
             if (!IsImportRequired(hydraulicBoundaryDatabase))
             {
+                var isNotificationRequired = hydraulicBoundaryDatabase.FilePath != filePath;
                 hydraulicBoundaryDatabase.FilePath = filePath;
+                if (isNotificationRequired)
+                {
+                    targetItem.NotifyObservers();
+                }
             }
             else
             {

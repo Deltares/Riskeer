@@ -313,6 +313,7 @@ namespace Ringtoets.Integration.Plugin
                     return context.WrappedData.HydraulicBoundaryDatabase.Locations;
                 },
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                CloseForData = CloseDesignWaterLevelLocationsViewForData,
                 AfterCreate = (view, context) =>
                 {
                     view.AssessmentSection = context.WrappedData;
@@ -333,6 +334,7 @@ namespace Ringtoets.Integration.Plugin
                     return context.WrappedData.HydraulicBoundaryDatabase.Locations;
                 },
                 Image = RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                CloseForData = CloseWaveHeightLocationsViewForData,
                 AfterCreate = (view, context) =>
                 {
                     view.AssessmentSection = context.WrappedData;
@@ -773,6 +775,30 @@ namespace Ringtoets.Integration.Plugin
             return failureMechanism != null
                    && failureMechanismWithSectionResults != null
                    && ReferenceEquals(viewData, failureMechanismWithSectionResults.SectionResults);
+        }
+
+        #endregion
+
+        #region DesignWaterLevelLocationsView ViewInfo
+
+        private bool CloseDesignWaterLevelLocationsViewForData(DesignWaterLevelLocationsView view, object dataToCloseFor)
+        {
+            var viewData = view.AssessmentSection;
+            var assessmentSection = dataToCloseFor as IAssessmentSection;
+
+            return assessmentSection != null && ReferenceEquals(viewData, assessmentSection);
+        }
+
+        #endregion
+
+        #region WaveHeightLocationsView ViewInfo
+
+        private bool CloseWaveHeightLocationsViewForData(WaveHeightLocationsView view, object dataToCloseFor)
+        {
+            var viewData = view.AssessmentSection;
+            var assessmentSection = dataToCloseFor as IAssessmentSection;
+
+            return assessmentSection != null && ReferenceEquals(viewData, assessmentSection);
         }
 
         #endregion

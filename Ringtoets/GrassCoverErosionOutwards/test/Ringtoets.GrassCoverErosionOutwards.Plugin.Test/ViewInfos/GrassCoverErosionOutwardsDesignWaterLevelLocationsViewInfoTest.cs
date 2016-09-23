@@ -41,7 +41,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
     [TestFixture]
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsViewInfoTest
     {
-
         [TestCase]
         public void Initialized_Always_DataTypeAndViewTypeAsExpected()
         {
@@ -86,6 +85,93 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 }
             }
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ForMatchingAssessmentSection_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+                view.AssessmentSection = assessmentSection;
+
+                // Call
+                var closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ForNonMatchingAssessmentSection_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionA = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionB = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+                view.AssessmentSection = assessmentSectionA;
+
+                // Call
+                var closeForData = info.CloseForData(view, assessmentSectionB);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ForOtherObjectType_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionA = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+                view.Data = assessmentSectionA;
+
+                // Call
+                var closeForData = info.CloseForData(view, new object());
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ViewDataNull_ReturnsFalse()
+        {
+            // Setup
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                // Call
+                var closeForData = info.CloseForData(view, new object());
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
         }
 
         private ViewInfo GetInfo(PluginBase plugin)

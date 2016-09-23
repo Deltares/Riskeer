@@ -126,9 +126,7 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             IGui guiStub = mocks.Stub<IGui>();
             guiStub.Stub(g => g.ProjectOpened += null).IgnoreArguments();
@@ -139,6 +137,8 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            assessmentSection.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             var context = new WaveHeightLocationsContext(assessmentSection);
 
             using (var view = new WaveHeightLocationsView())
@@ -156,6 +156,84 @@ namespace Ringtoets.Integration.Plugin.Test.ViewInfos
                 Assert.AreSame(view.ApplicationSelection, guiStub);
             }
             mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ForMatchingAssessmentSection_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new WaveHeightLocationsView())
+            {
+                view.AssessmentSection = assessmentSection;
+
+                // Call
+                var closeForData = info.CloseForData(view, assessmentSection);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ForNonMatchingAssessmentSection_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionA = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionB = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new WaveHeightLocationsView())
+            {
+                view.AssessmentSection = assessmentSectionA;
+
+                // Call
+                var closeForData = info.CloseForData(view, assessmentSectionB);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ForOtherObjectType_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionA = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            using (var view = new WaveHeightLocationsView())
+            {
+                view.Data = assessmentSectionA;
+
+                // Call
+                var closeForData = info.CloseForData(view, new object());
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ViewDataNull_ReturnsFalse()
+        {
+            // Setup
+            using (var view = new WaveHeightLocationsView())
+            {
+                // Call
+                var closeForData = info.CloseForData(view, new object());
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
         }
     }
 }
