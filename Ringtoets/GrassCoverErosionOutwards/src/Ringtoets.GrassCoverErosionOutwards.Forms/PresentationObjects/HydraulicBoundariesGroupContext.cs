@@ -20,36 +20,51 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for Hydraulic boundary locations and calculations.
     /// </summary>
-    public class HydraulicBoundariesGroupContext : ObservableWrappedObjectContextBase<GrassCoverErosionOutwardsFailureMechanism>
+    public class HydraulicBoundariesGroupContext : ObservableWrappedObjectContextBase<ObservableList<HydraulicBoundaryLocation>>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="HydraulicBoundariesGroupContext"/> class.
         /// </summary>
-        /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
-        /// <param name="assessmentSection">The assessment section this context belongs to.</param>
+        /// <param name="hydraulicBoundaryLocations">The locations from the hydraulic boundaries database made for grass cover erosion outwards.</param>
+        /// <param name="failureMechanism">The grass cover erosion outwards failure mechanism which the locations belong to.</param>
+        /// <param name="assessmentSection">The assessment section the locations belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public HydraulicBoundariesGroupContext(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            : base(failureMechanism)
+        public HydraulicBoundariesGroupContext(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+                                               GrassCoverErosionOutwardsFailureMechanism failureMechanism,
+                                               IAssessmentSection assessmentSection)
+            : base(hydraulicBoundaryLocations)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException("assessmentSection");
             }
             AssessmentSection = assessmentSection;
+            FailureMechanism = failureMechanism;
         }
 
         /// <summary>
         /// Gets the assessment section.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
+
+        /// <summary>
+        /// Gets the failure mechanism.
+        /// </summary>
+        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; private set; }
     }
 }

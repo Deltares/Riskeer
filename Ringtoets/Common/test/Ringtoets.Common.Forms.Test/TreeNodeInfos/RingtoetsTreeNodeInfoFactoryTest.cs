@@ -105,26 +105,26 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void EnsureVisibleOnCreate_CalculationGroup_ForFailureMechanismCalculationGroup_ReturnsFalse()
+        public void EnsureVisibleOnCreate_CalculationGroup_ForCalculationGroup_ReturnsTrue()
         {
             // Setup
             var mocks = new MockRepository();
-            var failureMechanismMock = mocks.StrictMock<IFailureMechanismContext<IFailureMechanism>>();
+            var calculationGroup = new TestCalculationGroupContext(new CalculationGroup(), mocks.Stub<IFailureMechanism>());
 
             mocks.ReplayAll();
 
             var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
 
             // Call
-            var result = treeNodeInfo.EnsureVisibleOnCreate(null, failureMechanismMock);
+            var result = treeNodeInfo.EnsureVisibleOnCreate(null, calculationGroup);
 
             // Assert
-            Assert.IsFalse(result);
+            Assert.IsTrue(result);
             mocks.VerifyAll();
         }
 
         [Test]
-        public void EnsureVisibleOnCreate_CalculationGroup_AnyOtherObject_ReturnsTrue()
+        public void EnsureVisibleOnCreate_CalculationGroup_AnyOtherObject_ReturnsFalse()
         {
             // Setup
             var treeNodeInfo = RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<TestCalculationGroupContext>(null, null, null);
@@ -133,7 +133,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
             var result = treeNodeInfo.EnsureVisibleOnCreate(null, null);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.IsFalse(result);
         }
 
         [Test]

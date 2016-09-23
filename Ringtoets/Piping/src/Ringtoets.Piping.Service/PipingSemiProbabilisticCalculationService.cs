@@ -41,8 +41,6 @@ namespace Ringtoets.Piping.Service
         private readonly double constantB;
         private readonly double assessmentSectionLength;
         private readonly double upliftCriticalSafetyFactor;
-        private readonly double heaveNormDependentFactor;
-        private readonly double sellmeijerNormDependentFactor;
         private readonly double contribution;
 
         // Intermediate results

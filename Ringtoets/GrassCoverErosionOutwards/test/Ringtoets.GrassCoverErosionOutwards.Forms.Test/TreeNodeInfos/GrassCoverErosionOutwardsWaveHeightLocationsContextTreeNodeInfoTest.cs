@@ -86,6 +86,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 Assert.IsNull(info.CanDrop);
                 Assert.IsNull(info.CanInsert);
                 Assert.IsNull(info.OnDrop);
+                Assert.IsNull(info.ForeColor);
             }
         }
 
@@ -296,62 +297,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         }, typeof(ToolStripSeparator));
                     }
                 }
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ForeColor_ContextHasLocationsData_ReturnControlText()
-        {
-            // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 0, 0);
-            HydraulicBoundaryDatabase database = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    hydraulicBoundaryLocation
-                }
-            };
-            assessmentSectionMock.HydraulicBoundaryDatabase = database;
-            mockRepository.ReplayAll();
-            var locations = new ObservableList<HydraulicBoundaryLocation>
-            {
-                hydraulicBoundaryLocation
-            };
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(locations, assessmentSectionMock);
-
-            using (var plugin = new GrassCoverErosionOutwardsPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
-
-                // Call
-                Color color = info.ForeColor(context);
-
-                // Assert
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ForeColor_ContextHasNoLocationsData_ReturnGrayText()
-        {
-            // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-            var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
-                new ObservableList<HydraulicBoundaryLocation>(),
-                assessmentSectionMock);
-
-            using (var plugin = new GrassCoverErosionOutwardsPlugin())
-            {
-                TreeNodeInfo info = GetInfo(plugin);
-                // Call
-                Color color = info.ForeColor(context);
-
-                // Assert
-                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
             }
             mockRepository.VerifyAll();
         }

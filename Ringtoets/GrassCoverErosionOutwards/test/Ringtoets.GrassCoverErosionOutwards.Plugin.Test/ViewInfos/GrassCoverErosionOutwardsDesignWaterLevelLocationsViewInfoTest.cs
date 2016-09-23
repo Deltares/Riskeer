@@ -30,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.GuiServices;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
@@ -127,6 +128,61 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 // Call
                 var closeForData = info.CloseForData(view, assessmentSectionB);
+
+                // Assert
+                Assert.IsFalse(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ForMatchingFailureMechanismContext_ReturnsTrue()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(
+                new GrassCoverErosionOutwardsFailureMechanism(), 
+                assessmentSection);
+
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+                view.AssessmentSection = assessmentSection;
+
+                // Call
+                var closeForData = info.CloseForData(view, grassCoverErosionOutwardsFailureMechanismContext);
+
+                // Assert
+                Assert.IsTrue(closeForData);
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CloseViewForData_ForNonMatchingFailureMechanismContext_ReturnsFalse()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionA = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionB = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(
+                new GrassCoverErosionOutwardsFailureMechanism(),
+                assessmentSectionB);
+
+            using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+                view.AssessmentSection = assessmentSectionA;
+
+                // Call
+                var closeForData = info.CloseForData(view, grassCoverErosionOutwardsFailureMechanismContext);
 
                 // Assert
                 Assert.IsFalse(closeForData);
