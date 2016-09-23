@@ -39,8 +39,8 @@ namespace Ringtoets.Common.IO.Structures
     /// </summary>
     public class StructuresReader : IDisposable
     {
-        private const string idAttributeName = "KBWIDENT";
-        private const string nameAttributeName = "KUNST_OMSC";
+        private const string idAttributeName = "KWKIDENT";
+        private const string nameAttributeName = "KWKNAAM";
         private readonly PointShapeFileReader pointsShapeFileReader;
 
         /// <summary>

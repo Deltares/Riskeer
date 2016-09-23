@@ -38,7 +38,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("Structures", "CorrectFiles", "12_Kunstwerken_OO_Aquo.shp"));
+                                                              Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             // Call
             using (var reader = new StructuresReader(validFilePath))
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             char[] invalidFileNameChars = Path.GetInvalidFileNameChars();
 
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("Structures", "12_Kunstwerken_OO_Aquo.shp"));
+                                                              Path.Combine("Structures", "Kunstwerken.shp"));
             string invalidFilePath = validFilePath.Replace("1", invalidFileNameChars[1].ToString());
 
             // Call
@@ -137,18 +137,18 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void Constructor_ShapefileWithoutAttributeKBWIDENT_ThrowCriticalFileReadException()
+        public void Constructor_ShapefileWithoutAttributeKWKIDENT_ThrowCriticalFileReadException()
         {
             // Setup
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                                Path.Combine("Structures", "StructuresWithoutKBWIDENT", "12_Kunstwerken_OO_Aquo.shp"));
+                                                                Path.Combine("Structures", "StructuresWithoutKWKIDENT", "Kunstwerken.shp"));
 
             // Call
             TestDelegate call = () => new StructuresReader(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.", 
-                                                "KBWIDENT");
+                                                "KWKIDENT");
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
@@ -158,7 +158,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("Structures", "CorrectFiles", "12_Kunstwerken_OO_Aquo.shp"));
+                                                              Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             using (new FileStream(validFilePath, FileMode.Open))
             {
@@ -179,7 +179,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("Structures", "CorrectFiles", "12_Kunstwerken_OO_Aquo.shp"));
+                                                              Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             using (var reader = new StructuresReader(validFilePath))
             {
@@ -193,11 +193,11 @@ namespace Ringtoets.Common.IO.Test.Structures
 
 
         [Test]
-        public void GetNextStructure_ShapefileWithoutAttributeKUNST_OMSC_NamesEqualAttributeKBWIDENT()
+        public void GetNextStructure_ShapefileWithoutAttributeKWKNAAM_NamesEqualAttributeKWKIDENT()
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("Structures", "StructuresWithoutKUNST_OMSC", "12_Kunstwerken_OO_Aquo.shp"));
+                                                              Path.Combine("Structures", "StructuresWithoutKWKNAAM", "Kunstwerken.shp"));
             IList<Structure> structures = new List<Structure>();
 
             using (var reader = new StructuresReader(validFilePath))
@@ -220,11 +220,11 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void GetNextStructure_ShapefileAttributeKUNST_OMSCSometimesNullOrWhitespace_GetSixStructuresWithCorrectAttributes()
+        public void GetNextStructure_ShapefileAttributeKWKNAAMSometimesNullOrWhitespace_GetSixStructuresWithCorrectAttributes()
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("Structures", "StructuresSomeWithEmptyKUNST_OMSC", "12_Kunstwerken_OO_Aquo.shp"));
+                                                              Path.Combine("Structures", "StructuresSomeWithEmptyKWKNAAM", "Kunstwerken.shp"));
             IList<Structure> structures = new List<Structure>();
 
             using (var reader = new StructuresReader(validFilePath))
@@ -249,11 +249,11 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void GetNextStructure_ShapefileAttributeKBWIDENTValuesAreNull_ThrowLineParseException()
+        public void GetNextStructure_ShapefileAttributeKWKIDENTValuesAreNull_ThrowLineParseException()
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("Structures", "StructuresWithNullKBWIDENT", "12_Kunstwerken_OO_Aquo.shp"));
+                                                              Path.Combine("Structures", "StructuresWithNullKWKIDENT", "Kunstwerken.shp"));
             
 
             using (var reader = new StructuresReader(validFilePath))
@@ -271,7 +271,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         {
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                              Path.Combine("Structures", "CorrectFiles", "12_Kunstwerken_OO_Aquo.shp"));
+                                                              Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
             IList<Structure> structures = new List<Structure>();
 
             using (var reader = new StructuresReader(validFilePath))
