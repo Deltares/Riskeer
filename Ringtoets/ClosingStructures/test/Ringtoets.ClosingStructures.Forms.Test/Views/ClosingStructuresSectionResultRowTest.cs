@@ -26,15 +26,14 @@ using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultRows;
-using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
+namespace Ringtoets.ClosingStructures.Forms.Test.Views
 {
     [TestFixture]
     public class ClosingStructuresSectionResultRowTest

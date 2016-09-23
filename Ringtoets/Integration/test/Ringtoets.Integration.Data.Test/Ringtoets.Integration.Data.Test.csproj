@@ -56,10 +56,8 @@
     <Compile Include="AssessmentSectionTest.cs" />
     <Compile Include="RingtoetsProjectFactoryTest.cs" />
     <Compile Include="RingtoetsProjectTest.cs" />
-    <Compile Include="StandAlone\ClosingStructuresFailureMechanismTest.cs" />
     <Compile Include="StandAlone\MacrostabilityOutwardsFailureMechanismTest.cs" />
     <Compile Include="StandAlone\GrassCoverSlipOffInwardsFailureMechanismTest.cs" />
-    <Compile Include="StandAlone\SectionResults\ClosingStructuresFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\TechnicalInnovationFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\PipingStructureFailureMechanismSectionResultTest.cs" />
     <Compile Include="StandAlone\SectionResults\MicrostabilityFailureMechanismSectionResultTest.cs" />
@@ -86,6 +84,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3bbfd65b-b277-4e50-ae6d-bd24c3434609}</Project>
       <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+      <Project>{c6309704-d67b-434c-bc98-9f8910bc1d10}</Project>
+      <Name>Ringtoets.ClosingStructures.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567e0b69-5280-41ce-add6-443725a61c86}</Project>

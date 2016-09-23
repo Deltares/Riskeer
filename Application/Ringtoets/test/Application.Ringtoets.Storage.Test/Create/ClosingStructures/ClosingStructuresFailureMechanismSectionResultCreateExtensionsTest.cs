@@ -25,7 +25,7 @@ using Application.Ringtoets.Storage.Create.ClosingStructures;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using NUnit.Framework;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.ClosingStructures.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
 {

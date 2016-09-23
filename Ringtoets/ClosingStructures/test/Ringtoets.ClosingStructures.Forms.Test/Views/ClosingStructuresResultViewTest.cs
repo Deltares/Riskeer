@@ -26,15 +26,14 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultViews;
-using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Test.Views.SectionResultViews
+namespace Ringtoets.ClosingStructures.Forms.Test.Views
 {
     [TestFixture]
     public class ClosingStructuresResultViewTest

@@ -366,6 +366,11 @@
       <Name>Core.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+      <Project>{c6309704-d67b-434c-bc98-9f8910bc1d10}</Project>
+      <Name>Ringtoets.ClosingStructures.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
       <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>

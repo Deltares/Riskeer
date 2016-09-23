@@ -98,7 +98,6 @@
       <DependentUpon>DesignWaterLevelLocationsView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\SectionResultRows\FailureMechanismSectionResultRow.cs" />
-    <Compile Include="Views\SectionResultRows\ClosingStructuresSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\DuneErosionSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffInwardsSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\GrassCoverSlipOffOutwardsSectionResultRow.cs" />
@@ -110,9 +109,6 @@
     <Compile Include="Views\SectionResultRows\StrengthStabilityPointConstructionSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\TechnicalInnovationSectionResultRow.cs" />
     <Compile Include="Views\SectionResultRows\WaterPressureAsphaltCoverSectionResultRow.cs" />
-    <Compile Include="Views\SectionResultViews\ClosingStructuresResultView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="Views\SectionResultViews\DuneErosionResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>

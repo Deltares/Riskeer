@@ -127,7 +127,6 @@
     <Compile Include="Views\DesignWaterLevelLocationRowTest.cs" />
     <Compile Include="Views\DesignWaterLevelLocationsViewTest.cs" />
     <Compile Include="Views\SectionResultRows\FailureMechanismSectionResultRowTest.cs" />
-    <Compile Include="Views\SectionResultViews\ClosingStructuresResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\DuneErosionResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffInwardsResultViewTest.cs" />
     <Compile Include="Views\SectionResultViews\GrassCoverSlipOffOutwardsResultViewTest.cs" />
@@ -145,7 +144,6 @@
     <Compile Include="Views\SectionResultViews\TechnicalInnovationResultViewTest.cs" />
     <Compile Include="Views\SectionResultRows\WaterPressureAsphaltCoverSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultViews\WaterPressureAsphaltCoverResultViewTest.cs" />
-    <Compile Include="Views\SectionResultRows\ClosingStructuresSectionResultRowTest.cs" />
     <Compile Include="Views\AssessmentSectionViewTest.cs" />
     <Compile Include="Views\SectionResultRows\MacrostabilityInwardsSectionResultRowTest.cs" />
     <Compile Include="Views\SectionResultRows\MacrostabilityOutwardsSectionResultRowTest.cs" />
@@ -192,6 +190,10 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis\Core.Components.Gis.csproj">
       <Project>{318ba582-88c9-4816-a54a-a7e431461de3}</Project>
       <Name>Core.Components.Gis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+      <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
+      <Name>Ringtoets.ClosingStructures.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Service.TestUtil\Ringtoets.Common.Service.TestUtil.csproj">
       <Project>{73E7E100-C015-4874-A548-AD6E33E7955E}</Project>

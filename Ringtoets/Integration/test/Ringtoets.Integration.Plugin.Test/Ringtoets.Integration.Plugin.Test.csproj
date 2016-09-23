@@ -135,6 +135,14 @@
       <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
       <Name>Core.Components.Gis.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
+      <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
+      <Name>Ringtoets.ClosingStructures.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ClosingStructures\src\Ringtoets.ClosingStructures.Forms\Ringtoets.ClosingStructures.Forms.csproj">
+      <Project>{22E191F2-B2E3-413C-9511-4C2CDEDB2EFF}</Project>
+      <Name>Ringtoets.ClosingStructures.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Forms\Ringtoets.Revetment.Forms.csproj">
       <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
       <Name>Ringtoets.Revetment.Forms</Name>

@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Ringtoets.ClosingStructures.Data.Properties;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Integration.Data.Properties;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Integration.Data.StandAlone
+namespace Ringtoets.ClosingStructures.Data
 {
     /// <summary>
     /// Model containing input and output needed to perform different levels of the

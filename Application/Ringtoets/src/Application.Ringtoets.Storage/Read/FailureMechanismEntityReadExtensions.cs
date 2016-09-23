@@ -29,6 +29,7 @@ using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
 using Core.Common.Base;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;

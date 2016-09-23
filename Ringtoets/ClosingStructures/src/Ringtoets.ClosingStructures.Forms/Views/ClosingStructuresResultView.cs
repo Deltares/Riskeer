@@ -21,12 +21,11 @@
 
 using System.Windows.Forms;
 using Core.Common.Utils.Reflection;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultRows;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Forms.Views.SectionResultViews
+namespace Ringtoets.ClosingStructures.Forms.Views
 {
     /// <summary>
     /// The view for a collection of <see cref="ClosingStructuresFailureMechanismSectionResult"/>.

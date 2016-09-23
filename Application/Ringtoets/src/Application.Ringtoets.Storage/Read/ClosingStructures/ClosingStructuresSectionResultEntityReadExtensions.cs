@@ -22,7 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.ClosingStructures.Data;
 
 namespace Application.Ringtoets.Storage.Read.ClosingStructures
 {

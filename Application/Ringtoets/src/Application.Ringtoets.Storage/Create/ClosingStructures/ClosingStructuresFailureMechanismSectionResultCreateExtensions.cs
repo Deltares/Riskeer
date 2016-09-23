@@ -21,7 +21,7 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.ClosingStructures.Data;
 
 namespace Application.Ringtoets.Storage.Create.ClosingStructures
 {

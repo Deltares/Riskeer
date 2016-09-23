@@ -24,9 +24,8 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Properties;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
+namespace Ringtoets.ClosingStructures.Data.Test
 {
     [TestFixture]
     public class ClosingStructuresFailureMechanismSectionResultTest

@@ -100,24 +100,6 @@ namespace Ringtoets.Integration.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BSKW.
-        /// </summary>
-        public static string ClosingStructuresFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("ClosingStructuresFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken - Betrouwbaarheid sluiting kunstwerk.
-        /// </summary>
-        public static string ClosingStructuresFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("ClosingStructuresFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to DA.
         /// </summary>
         public static string DuneErosionFailureMechanism_Code {

@@ -22,8 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.Integration.Data.StandAlone;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
+using Ringtoets.ClosingStructures.Data;
 
 namespace Application.Ringtoets.Storage.Create.ClosingStructures
 {
