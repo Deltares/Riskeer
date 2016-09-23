@@ -147,7 +147,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             TestDelegate call = () => new StructuresReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.", 
+            var expectedMessage = string.Format("Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.",
                                                 "KWKIDENT");
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
@@ -190,7 +190,6 @@ namespace Ringtoets.Common.IO.Test.Structures
                 Assert.AreEqual(6, count);
             }
         }
-
 
         [Test]
         public void GetNextStructure_ShapefileWithoutAttributeKWKNAAM_NamesEqualAttributeKWKIDENT()
@@ -254,7 +253,6 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("Structures", "StructuresWithNullKWKIDENT", "Kunstwerken.shp"));
-            
 
             using (var reader = new StructuresReader(validFilePath))
             {

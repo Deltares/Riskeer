@@ -57,9 +57,9 @@
     <Compile Include="DikeProfiles\SheetPileType.cs" />
     <Compile Include="Exceptions\CriticalFileValidationException.cs" />
     <Compile Include="HydraulicBoundaryLocationsExporter.cs" />
-    <Compile Include="ReferenceLine\ReferenceLineExporter.cs" />
-    <Compile Include="ReferenceLine\ReferenceLineMetaImporter.cs" />
-    <Compile Include="ReferenceLine\ReferenceLinesMetaReader.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineExporter.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineMetaImporter.cs" />
+    <Compile Include="ReferenceLines\ReferenceLinesMetaReader.cs" />
     <Compile Include="FailureMechanismSectionReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -67,9 +67,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ReferenceLine\ReferenceLineImporter.cs" />
-    <Compile Include="ReferenceLine\ReferenceLineReader.cs" />
-    <Compile Include="ReferenceLine\ReferenceLineWriter.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineImporter.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineReader.cs" />
+    <Compile Include="ReferenceLines\ReferenceLineWriter.cs" />
     <Compile Include="Structures\Structure.cs" />
     <Compile Include="Structures\StructuresReader.cs" />
   </ItemGroup>

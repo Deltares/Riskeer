@@ -47,8 +47,8 @@ namespace Ringtoets.Common.IO.Structures
         /// Initializes a new instance of the <see cref="StructuresReader"/> class.
         /// </summary>
         /// <param name="shapeFilePath">The shape file path.</param>
-        /// <exception cref="ArgumentException"><paramref name="shapeFilePath"/> is invalid.</exception>
-        /// <exception cref="CriticalFileReadException"><list type="Bullet">
+        /// <exception cref="ArgumentException">Thrown when <paramref name="shapeFilePath"/> is invalid.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when: <list type="bullet">
         /// <item><paramref name="shapeFilePath"/> points to a file that does not exist.</item>
         /// <item><paramref name="shapeFilePath"/> does not only contain point features.</item>
         /// <item><paramref name="shapeFilePath"/> does not contain all of the required attributes.</item>
@@ -69,6 +69,17 @@ namespace Ringtoets.Common.IO.Structures
         }
 
         /// <summary>
+        /// Gets the number of structures present in the shapefile.
+        /// </summary>
+        public int GetStructureCount
+        {
+            get
+            {
+                return pointsShapeFileReader.GetNumberOfFeatures();
+            }
+        }
+
+        /// <summary>
         /// Retrieve a <see cref="Structure"/> based on the next point feature in the shapefile.
         /// </summary>
         /// <exception cref="LineParseException">Thrown when either:
@@ -79,7 +90,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <returns>A <see cref="Structure"/> based on the next point feature in the shapefile.</returns>
         public Structure GetNextStructure()
         {
-            MapPointData mapPointData = (MapPointData)pointsShapeFileReader.ReadFeature();
+            MapPointData mapPointData = (MapPointData) pointsShapeFileReader.ReadFeature();
 
             IDictionary<string, object> attributes = mapPointData.Features.First().MetaData;
 
@@ -97,6 +108,11 @@ namespace Ringtoets.Common.IO.Structures
             }
         }
 
+        public void Dispose()
+        {
+            pointsShapeFileReader.Dispose();
+        }
+
         private static string GetIdAttributeValue(IDictionary<string, object> attributes)
         {
             var attributeIdValue = attributes[idAttributeName] as string;
@@ -111,22 +127,6 @@ namespace Ringtoets.Common.IO.Structures
             }
             var attributeNameValue = attributes[nameAttributeName] as string;
             return string.IsNullOrWhiteSpace(attributeNameValue) ? defaultName : attributeNameValue;
-        }
-
-        /// <summary>
-        /// Gets the number of structures present in the shapefile.
-        /// </summary>
-        public int GetStructureCount
-        {
-            get
-            {
-                return pointsShapeFileReader.GetNumberOfFeatures();
-            }
-        }
-
-        public void Dispose()
-        {
-            pointsShapeFileReader.Dispose();
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace Ringtoets.Common.IO.Structures
             }
             catch (CriticalFileReadException e)
             {
-                if (e.InnerException.GetType() == typeof(ApplicationException))
+                if (e.InnerException is ApplicationException)
                 {
                     string message = new FileReaderErrorMessageBuilder(shapeFilePath)
                         .Build(Resources.PointShapefileReader_File_can_only_contain_points);

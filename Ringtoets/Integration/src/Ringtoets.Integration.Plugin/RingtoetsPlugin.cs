@@ -50,7 +50,7 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.IO;
-using Ringtoets.Common.IO.ReferenceLine;
+using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;

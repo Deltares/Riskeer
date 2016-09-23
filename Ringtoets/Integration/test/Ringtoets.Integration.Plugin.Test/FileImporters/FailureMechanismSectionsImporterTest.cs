@@ -31,8 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.IO;
-using Ringtoets.Common.IO.ReferenceLine;
+using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.Integration.Plugin.FileImporters;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
 

@@ -33,9 +33,9 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Common.IO.ReferenceLine;
+using Ringtoets.Common.IO.ReferenceLines;
 
-namespace Ringtoets.Common.IO.Test.ReferenceLine
+namespace Ringtoets.Common.IO.Test.ReferenceLines
 {
     [TestFixture]
     public class ReferenceLineImporterTest : NUnitFormsAssertTest
@@ -189,7 +189,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLine
         public void Import_AssessmentSectionAlreadyHasReferenceLineAndAnswerDialogToCancel_NoChanges()
         {
             // Setup
-            var originalReferenceLine = new Data.AssessmentSection.ReferenceLine();
+            var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
             var calculation1 = mocks.StrictMock<ICalculation>();
@@ -249,7 +249,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLine
         public void Import_AssessmentSectionAlreadyHasReferenceLineAndAnswerDialogToContinue_ClearDataDependentOnReferenceLine()
         {
             // Setup
-            var originalReferenceLine = new Data.AssessmentSection.ReferenceLine();
+            var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
             var calculation1 = mocks.Stub<ICalculation>();
@@ -326,7 +326,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLine
         public void Import_AssessmentSectionAlreadyHasReferenceLineAndAnswerDialogToContinue_GenerateExpectedProgressMessages()
         {
             // Setup
-            var originalReferenceLine = new Data.AssessmentSection.ReferenceLine();
+            var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
             var calculation1 = mocks.Stub<ICalculation>();
@@ -400,7 +400,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLine
         public void Import_CancellingImport_ReturnFalseAndNoChanges()
         {
             // Setup
-            var originalReferenceLine = new Data.AssessmentSection.ReferenceLine();
+            var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -434,7 +434,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLine
         public void Import_CancelImportDuringDialogInteraction_GenerateCancelledLogMessage(bool acceptRemovalOfReferenceLineDependentData)
         {
             // Setup
-            var originalReferenceLine = new Data.AssessmentSection.ReferenceLine();
+            var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
@@ -499,7 +499,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLine
         public void DoPostImportUpdates_AssessmentSectionAlreadyHasReferenceLineAndAnswerDialogToContinue_NotifyObserversOfTargetContextAndClearedObjects()
         {
             // Setup
-            var originalReferenceLine = new Data.AssessmentSection.ReferenceLine();
+            var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
             var calculation1 = mocks.Stub<ICalculation>();
@@ -576,7 +576,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLine
         public void DoPostImportUpdates_AssessmentSectionAlreadyHasReferenceLineAndAnswerDialogToContinue_NotifyObserversOfTargetContextParent()
         {
             // Setup
-            var originalReferenceLine = new Data.AssessmentSection.ReferenceLine();
+            var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
             var observer = mocks.Stub<IObserver>();
@@ -616,7 +616,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLine
         public void DoPostImportUpdates_CancellingImport_DoNotNotifyObservers()
         {
             // Setup
-            var originalReferenceLine = new Data.AssessmentSection.ReferenceLine();
+            var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
             var calculation1 = mocks.StrictMock<ICalculation>();
@@ -667,7 +667,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLine
         public void DoPostImportUpdates_ReuseImporterWithAssessmentSectionWithReferenceLineAndAnswerDialogToContinue_NotifyObserversOfTargetContextAndClearedObjects()
         {
             // Setup
-            var originalReferenceLine = new Data.AssessmentSection.ReferenceLine();
+            var originalReferenceLine = new ReferenceLine();
 
             var mocks = new MockRepository();
             var calculation1 = mocks.Stub<ICalculation>();

@@ -34,7 +34,7 @@ using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Common.IO.ReferenceLine
+namespace Ringtoets.Common.IO.ReferenceLines
 {
     /// <summary>
     /// Shapefile reader that reads a <see cref="ReferenceLine"/> based on the line feature in the file.
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.IO.ReferenceLine
         /// <item>An unexpected error occurred when reading the shapefile.</item>
         /// </list>
         /// </exception>
-        public Data.AssessmentSection.ReferenceLine ReadReferenceLine(string shapeFilePath)
+        public ReferenceLine ReadReferenceLine(string shapeFilePath)
         {
             FileUtils.ValidateFilePath(shapeFilePath);
             if (!File.Exists(shapeFilePath))
@@ -97,7 +97,7 @@ namespace Ringtoets.Common.IO.ReferenceLine
             return (MapLineData) lineShapeReader.ReadFeature(RingtoetsCommonDataResources.ReferenceLine_DisplayName);
         }
 
-        private static Data.AssessmentSection.ReferenceLine CreateReferenceLine(MapLineData lineMapData, string shapeFilePath)
+        private static ReferenceLine CreateReferenceLine(MapLineData lineMapData, string shapeFilePath)
         {
             var lineFeatures = lineMapData.Features.ToArray();
 
@@ -108,7 +108,7 @@ namespace Ringtoets.Common.IO.ReferenceLine
                 throw new CriticalFileReadException(message);
             }
 
-            var referenceLine = new Data.AssessmentSection.ReferenceLine();
+            var referenceLine = new ReferenceLine();
             var referenceLineFeature = lineMapData.Features.First();
             var referenceGeometries = referenceLineFeature.MapGeometries.ToArray();
 

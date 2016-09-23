@@ -26,9 +26,10 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.IO.ReferenceLine;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.ReferenceLines;
 
-namespace Ringtoets.Common.IO.Test.ReferenceLine
+namespace Ringtoets.Common.IO.Test.ReferenceLines
 {
     [TestFixture]
     public class ReferenceLineExporterTest
@@ -37,7 +38,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLine
         public void ParameteredConstructor_ValidParameters_ExpectedValues()
         {
             // Setup
-            var referenceLine = new Data.AssessmentSection.ReferenceLine();
+            var referenceLine = new ReferenceLine();
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "test.shp");
 
             // Call
@@ -51,7 +52,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLine
         public void ParameteredConstructor_NullFilePath_ThrowArgumentException()
         {
             // Setup
-            var referenceLine = new Data.AssessmentSection.ReferenceLine();
+            var referenceLine = new ReferenceLine();
 
             // Call
             TestDelegate call = () => new ReferenceLineExporter(referenceLine, "anId", null);
@@ -64,7 +65,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLine
         public void Export_ValidData_ReturnTrue()
         {
             // Setup
-            var referenceLine = new Data.AssessmentSection.ReferenceLine();
+            var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
                 new Point2D(1.1, 2.2),
@@ -97,7 +98,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLine
         public void Export_InvalidDirectoryRights_LogErrorAndReturnFalse()
         {
             // Setup
-            var referenceLine = new Data.AssessmentSection.ReferenceLine();
+            var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(new[]
             {
                 new Point2D(1.1, 2.2),

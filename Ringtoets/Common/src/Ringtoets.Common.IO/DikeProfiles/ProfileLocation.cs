@@ -38,7 +38,7 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// <param name="name">The name of this <see cref="ProfileLocation"/>.</param>
         /// <param name="offset">The coordinate offset in the local coordinate system for this <see cref="ProfileLocation"/>.</param>
         /// <param name="point">The coordinates of the location as a <see cref="Point2D"/>.</param>
-        /// <exception cref="ArgumentException"><list type="Bullet">
+        /// <exception cref="ArgumentException">Thrown when: <list type="bullet">
         /// <item>The Id parameter is null.</item>
         /// <item>The Id parameter contains illegal characters.</item>
         /// <item>The Point parameter is null.</item>

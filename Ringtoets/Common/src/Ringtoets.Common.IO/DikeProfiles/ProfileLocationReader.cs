@@ -48,8 +48,8 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// Initializes a new instance of the <see cref="ProfileLocationReader"/> class.
         /// </summary>
         /// <param name="shapeFilePath">The shape file path.</param>
-        /// <exception cref="ArgumentException"><paramref name="shapeFilePath"/> is invalid.</exception>
-        /// <exception cref="CriticalFileReadException"><list type="Bullet">
+        /// <exception cref="ArgumentException">Thrown when <paramref name="shapeFilePath"/> is invalid.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when: <list type="bullet">
         /// <item><paramref name="shapeFilePath"/> points to a file that does not exist.</item>
         /// <item><paramref name="shapeFilePath"/> does not only contain point features.</item>
         /// <item><paramref name="shapeFilePath"/> does not contain all of the required attributes.</item>

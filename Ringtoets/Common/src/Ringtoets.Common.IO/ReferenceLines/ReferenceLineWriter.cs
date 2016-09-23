@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.Common.IO.ReferenceLine
+namespace Ringtoets.Common.IO.ReferenceLines
 {
     /// <summary>
     /// Shapefile writer that writes a <see cref="ReferenceLine"/> as a line feature.
@@ -51,7 +51,7 @@ namespace Ringtoets.Common.IO.ReferenceLine
         /// <item><paramref name="id"/> is empty or consists of whitespace.</item>
         /// </list></exception>
         /// <exception cref="CriticalFileWriteException">Thrown when the shapefile cannot be written.</exception>
-        public void WriteReferenceLine(Data.AssessmentSection.ReferenceLine referenceLine, string id, string filePath)
+        public void WriteReferenceLine(ReferenceLine referenceLine, string id, string filePath)
         {
             if (filePath == null)
             {
@@ -77,7 +77,7 @@ namespace Ringtoets.Common.IO.ReferenceLine
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/> or <paramref name="id"/> 
         /// is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="id"/> is empty or consists only of whitespace.</exception>
-        private static MapLineData CreateMapLineData(Data.AssessmentSection.ReferenceLine referenceLine, string id)
+        private static MapLineData CreateMapLineData(ReferenceLine referenceLine, string id)
         {
             if (referenceLine == null)
             {

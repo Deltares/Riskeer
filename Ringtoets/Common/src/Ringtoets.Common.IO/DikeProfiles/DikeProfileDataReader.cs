@@ -64,12 +64,12 @@ namespace Ringtoets.Common.IO.DikeProfiles
         /// </summary>
         /// <param name="filePath">The file path.</param>
         /// <returns>The read <see cref="DikeProfileData"/>.</returns>
-        /// <exception cref="ArgumentException">When <paramref name="filePath"/> is invalid.</exception>
-        /// <exception cref="CriticalFileReadException">When an error occurs like:
+        /// <exception cref="ArgumentException">Thrown when <paramref name="filePath"/> is invalid.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
         /// <item><paramref name="filePath"/> refers to a file that doesn't exist.</item>
         /// <item>A piece of text from the file cannot be converted into the expected variable type.</item>
-        /// <item>An critical I/O exception occurred while attempting to read a line in the file.</item>
+        /// <item>A critical I/O exception occurred while attempting to read a line in the file.</item>
         /// <item>A converted value is invalid.</item>
         /// <item>The file is incomplete.</item>
         /// <item>A keyword is defined more then once.</item>
