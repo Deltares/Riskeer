@@ -48,8 +48,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
             set
             {
-                base.Data = value;
-                hydraulicBoundaryLocationsObserver.Observable = value as IObservable;
+                var data = (IObservable) value;
+                base.Data = data;
+                hydraulicBoundaryLocationsObserver.Observable = data;
             }
         }
 
@@ -58,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             return new DesignWaterLevelLocationRow(location);
         }
 
-        public IAssessmentSection AssessmentSection { get; set; }
+        public override IAssessmentSection AssessmentSection { get; set; }
 
         protected override void InitializeDataGridView()
         {

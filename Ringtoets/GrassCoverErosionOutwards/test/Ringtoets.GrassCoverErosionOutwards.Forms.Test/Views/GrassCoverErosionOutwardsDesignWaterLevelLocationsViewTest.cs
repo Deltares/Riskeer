@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -108,6 +109,31 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
             var button = (Button)buttonTester.TheObject;
             Assert.IsFalse(button.Enabled);
+        }
+
+
+        [Test]
+        public void WaveHeightLocationsView_WithNonIObservableList_ThrowsInvalidCastException()
+        {
+            // Setup
+            var view = ShowDesignWaterLevelLocationsView();
+
+            List<HydraulicBoundaryLocation> locations = new List<HydraulicBoundaryLocation>();
+            locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
+            locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
+            {
+                WaveHeight = (RoundedDouble)1.23
+            });
+            locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
+            {
+                DesignWaterLevel = (RoundedDouble)2.45
+            });
+
+            // Call
+            TestDelegate action = () => view.Data = locations;
+
+            // Assert
+            Assert.Throws<InvalidCastException>(action);
         }
 
         [Test]

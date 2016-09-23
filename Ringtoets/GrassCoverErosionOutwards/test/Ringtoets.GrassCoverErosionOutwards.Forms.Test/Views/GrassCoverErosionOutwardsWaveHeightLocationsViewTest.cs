@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -104,6 +105,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var locationWaveHeightColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationWaveHeightColumnIndex];
             const string expectedLocationWaveHeightHeaderText = "Waterstand bij doorsnede-eis [m+NAP]";
             Assert.AreEqual(expectedLocationWaveHeightHeaderText, locationWaveHeightColumn.HeaderText);
+        }
+
+        [Test]
+        public void WaveHeightLocationsView_WithNonIObservableList_ThrowsInvalidCastException()
+        {
+            // Setup
+            var view = ShowWaveHeightLocationsView();
+
+            List<HydraulicBoundaryLocation> locations = new List<HydraulicBoundaryLocation>();
+            locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
+            locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
+            {
+                WaveHeight = (RoundedDouble)1.23
+            });
+            locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
+            {
+                DesignWaterLevel = (RoundedDouble)2.45
+            });
+
+            // Call
+            TestDelegate action = () => view.Data = locations;
+
+            // Assert
+            Assert.Throws<InvalidCastException>(action);
         }
 
         [Test]

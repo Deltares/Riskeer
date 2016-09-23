@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms.Views
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightLocationRow"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocation">The <see cref="Ringtoets.Integration.Forms.PresentationObjects.WaveHeightLocationContext"/> for this row.</param>
+        /// <param name="hydraulicBoundaryLocation">The <see cref="Ringtoets.Common.Forms.PresentationObjects.HydraulicBoundaryLocation"/> for this row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
         public WaveHeightLocationRow(HydraulicBoundaryLocation hydraulicBoundaryLocation) : base(hydraulicBoundaryLocation) { }
 
