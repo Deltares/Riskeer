@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -102,8 +103,32 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(expectedLocationHeaderText, locationColumn.HeaderText);
 
             var locationWaveHeightColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationWaveHeightColumnIndex];
-            const string expectedLocationWaveHeightHeaderText = "Waterstand bij doorsnede-eis [m+NAP]";
+            const string expectedLocationWaveHeightHeaderText = "Golfhoogte bij doorsnede-eis [m]";
             Assert.AreEqual(expectedLocationWaveHeightHeaderText, locationWaveHeightColumn.HeaderText);
+        }
+
+        [Test]
+        public void WaveHeightLocationsView_WithNonIObservableList_ThrowsInvalidCastException()
+        {
+            // Setup
+            var view = ShowWaveHeightLocationsView();
+
+            List<HydraulicBoundaryLocation> locations = new List<HydraulicBoundaryLocation>();
+            locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
+            locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
+            {
+                WaveHeight = (RoundedDouble)1.23
+            });
+            locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
+            {
+                DesignWaterLevel = (RoundedDouble)2.45
+            });
+
+            // Call
+            TestDelegate action = () => view.Data = locations;
+
+            // Assert
+            Assert.Throws<InvalidCastException>(action);
         }
 
         [Test]
@@ -151,6 +176,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Precondition
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dataGridViewSource = dataGridView.DataSource;
             var rows = dataGridView.Rows;
             Assert.AreEqual(3, rows.Count);
 
@@ -174,6 +200,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual("10", cells[locationIdColumnIndex].FormattedValue);
             Assert.AreEqual(new Point2D(10, 10).ToString(), cells[locationColumnIndex].FormattedValue);
             Assert.AreEqual(hydraulicBoundaryLocation.WaveHeight, cells[locationWaveHeightColumnIndex].Value);
+            Assert.AreNotSame(dataGridViewSource, dataGridView.DataSource);
         }
 
         [Test]
@@ -211,6 +238,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
             ObservableList<HydraulicBoundaryLocation> locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var dataGridViewSource = dataGridView.DataSource;
             var rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
 
@@ -254,6 +282,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(1, calculatedLocations.Length);
             HydraulicBoundaryLocation expectedLocation = locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocations.First());
+            Assert.AreSame(dataGridViewSource, dataGridView.DataSource);
             mockRepository.VerifyAll();
         }
 

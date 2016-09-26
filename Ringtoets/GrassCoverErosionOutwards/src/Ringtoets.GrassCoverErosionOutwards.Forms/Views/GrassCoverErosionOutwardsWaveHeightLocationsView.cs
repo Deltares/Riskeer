@@ -33,7 +33,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 {
     /// <summary>
     /// View for the <see cref="HydraulicBoundaryLocation"/> with <see cref="HydraulicBoundaryLocation.WaveHeight"/>
-    /// </summary>
+    /// for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/></summary>
     public class GrassCoverErosionOutwardsWaveHeightLocationsView : HydraulicBoundaryLocationsView<WaveHeightLocationRow>
     {
         private readonly Observer hydraulicBoundaryLocationObserver;
@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// </summary>
         public GrassCoverErosionOutwardsWaveHeightLocationsView()
         {
-            hydraulicBoundaryLocationObserver = new Observer(UpdateDataGridViewDataSource);
+            hydraulicBoundaryLocationObserver = new Observer(UpdateHydraulicBoundaryLocations);
         }
 
         public override object Data
@@ -54,12 +54,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
             set
             {
-                base.Data = value;
-                hydraulicBoundaryLocationObserver.Observable = value as IObservable;
+                var data = (IObservable) value;
+                base.Data = data;
+                hydraulicBoundaryLocationObserver.Observable = data;
             }
         }
 
-        public IAssessmentSection AssessmentSection { get; set; }
+        public override IAssessmentSection AssessmentSection { get; set; }
 
         protected override WaveHeightLocationRow CreateNewRow(HydraulicBoundaryLocation location)
         {
@@ -69,9 +70,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         protected override object CreateSelectedItemFromCurrentRow()
         {
             var currentRow = dataGridViewControl.CurrentRow;
-            
+
             return currentRow != null ?
-                       new GrassCoverErosionOutwardsWaveHeightLocationContext((ObservableList<HydraulicBoundaryLocation>)Data,
+                       new GrassCoverErosionOutwardsWaveHeightLocationContext((ObservableList<HydraulicBoundaryLocation>) Data,
                                                                               ((WaveHeightLocationRow) currentRow.DataBoundItem).HydraulicBoundaryLocation) :
                        null;
         }
@@ -91,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 
             if (successFullCalculation)
             {
-                ((IObservable)Data).NotifyObservers();
+                ((IObservable) Data).NotifyObservers();
             }
         }
 
@@ -99,13 +100,44 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         {
             base.InitializeDataGridView();
             dataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<WaveHeightLocationRow>(row => row.WaveHeight),
-                                                 Resources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_DesignWaterLevel_DisplayName);
+                                                 Resources.GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName);
         }
 
         protected override void Dispose(bool disposing)
         {
             hydraulicBoundaryLocationObserver.Dispose();
             base.Dispose(disposing);
+        }
+
+        private void UpdateHydraulicBoundaryLocations()
+        {
+            if (IsDataGridDataSourceChanged())
+            {
+                UpdateDataGridViewDataSource();
+            }
+            else
+            {
+                dataGridViewControl.RefreshDataGridView();
+            }
+        }
+
+        private bool IsDataGridDataSourceChanged()
+        {
+            var locations = (ObservableList<HydraulicBoundaryLocation>) Data;
+            var count = dataGridViewControl.Rows.Count;
+            if (count != locations.Count)
+            {
+                return true;
+            }
+            for (int i = 0; i < count; i++)
+            {
+                var locationFromGrid = ((WaveHeightLocationRow) dataGridViewControl.Rows[i].DataBoundItem).HydraulicBoundaryLocation;
+                if (!ReferenceEquals(locationFromGrid, locations[i]))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

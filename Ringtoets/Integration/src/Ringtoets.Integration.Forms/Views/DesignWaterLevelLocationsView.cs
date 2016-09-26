@@ -51,7 +51,7 @@ namespace Ringtoets.Integration.Forms.Views
             hydraulicBoundaryDatabaseObserver = new Observer(() => dataGridViewControl.RefreshDataGridView());
         }
 
-        public IAssessmentSection AssessmentSection
+        public override IAssessmentSection AssessmentSection
         {
             get
             {

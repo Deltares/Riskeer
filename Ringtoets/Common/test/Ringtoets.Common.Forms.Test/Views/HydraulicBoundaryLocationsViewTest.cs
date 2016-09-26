@@ -438,6 +438,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             }
 
             public IEnumerable<HydraulicBoundaryLocation> LocationsToCalculate { get; private set; }
+            public override IAssessmentSection AssessmentSection { get; set; }
             public object CreateForSelection { get; set; }
 
             protected override TestHydraulicBoundaryLocationRow CreateNewRow(HydraulicBoundaryLocation location)

@@ -81,6 +81,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         [TestCase("700003-fdir-output", 1.04899, true)]
         [TestCase("700003-form-output", 1.04899, true)]
         [TestCase("700003-form-output-not-dominant", 1.04899, false)]
+        [TestCase("10-1-ZW_HR_L_10_8-NTI", 0.06193, false)]
         public void Parse_ExampleHydraRingOutputFileContainingSectionIds_OutputSetWithExpectedCalculationResult(string testDir, double expected, bool isOvertoppingDominant)
         {
             // Setup
@@ -104,6 +105,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         [TestCase("6-3_0-output-invalid-wind")]
         [TestCase("6-3_0-output-invalid-beta")]
         [TestCase("6-3_0-output-no-relevant-overflow")]
+        [TestCase("6-3_0-output-no-governing-wind-direction")]
         public void Parse_InvalidHydraRingOutputFile_OutputNull(string testDir)
         {
             // Setup

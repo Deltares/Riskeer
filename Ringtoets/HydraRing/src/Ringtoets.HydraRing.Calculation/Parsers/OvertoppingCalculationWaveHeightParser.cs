@@ -36,6 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         private const string overtoppingStart = "Submechanism = Overtopping RTO";
         private const string overflowStart = "Submechanism = Overflow";
         private const string combineWindDirectionStart = "Status = Combined over wind directions";
+        private const string governingWindDirectionStart = "Governing wind direction";
         private const string overtoppingWaveHeight = "Wave height (Hs)";
         private const string windDirection = "Wind direction";
         private const string closingSituation = "Closing situation";
@@ -44,7 +45,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         private readonly List<OvertoppingResult> overtoppingResults;
         private readonly List<GeneralResult> overflowResults;
-        private int governingWindDirection;
+        private int governingWindDirection = -1;
 
         /// <summary>
         /// Creates a new instance of <see cref="OvertoppingCalculationWaveHeightParser"/>.
@@ -108,7 +109,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                         string currentLine = file.ReadLine();
                         TryParseOvertoppingSection(currentLine, file);
                         TryParseOverflowSection(currentLine, file);
-                        TryParseGoverningWindDirection(currentLine, file);
+                        TryParseCombinationWindDirectionSection(currentLine, file);
                     }
                 }
             }
@@ -147,11 +148,22 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
         }
 
-        private void TryParseGoverningWindDirection(string startLine, StreamReader file)
+        private void TryParseCombinationWindDirectionSection(string startLine, StreamReader file)
         {
             if (startLine.Contains(combineWindDirectionStart))
             {
-                string line = file.ReadLine();
+                while (!file.EndOfStream && governingWindDirection == -1)
+                {
+                    string readLine = file.ReadLine();
+                    TryParseGoverningWindDirection(readLine);
+                }
+            }
+        }
+
+        private void TryParseGoverningWindDirection(string line)
+        {
+            if (line.Contains(governingWindDirectionStart))
+            {
                 string governingWindDirectionString = line.Split(equalsCharacter)[1].Trim();
                 governingWindDirection = int.Parse(governingWindDirectionString);
             }

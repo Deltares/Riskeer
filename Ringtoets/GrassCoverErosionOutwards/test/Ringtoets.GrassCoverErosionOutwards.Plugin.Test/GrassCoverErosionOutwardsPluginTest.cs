@@ -116,7 +116,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(6, propertyInfos.Length);
+                Assert.AreEqual(7, propertyInfos.Length);
 
                 PropertyInfo grassCoverErosionOutwardsFailureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos, 
@@ -159,6 +159,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                     typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties));
                 Assert.IsNull(grassCoverErosionDesignWaterLevelLocationContextProperties.AdditionalDataCheck);
                 Assert.IsNull(grassCoverErosionDesignWaterLevelLocationContextProperties.AfterCreate);
+
+                var grasCoverErosionWaveHeightWaterLevelLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                     propertyInfos,
+                    typeof(GrassCoverErosionOutwardsWaveHeightLocationContext),
+                    typeof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties));
+                Assert.IsNull(grasCoverErosionWaveHeightWaterLevelLocationContextProperties.AdditionalDataCheck);
+                Assert.IsNull(grasCoverErosionWaveHeightWaterLevelLocationContextProperties.AfterCreate);
             }
         }
 
