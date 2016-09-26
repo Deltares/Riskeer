@@ -42,13 +42,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
     [TestFixture]
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsViewInfoTest
     {
-        [TestCase]
+        [Test]
         public void Initialized_Always_DataTypeAndViewTypeAsExpected()
         {
+            // Setup
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
+                // Call
                 var info = GetInfo(plugin);
 
+                // Assert
                 Assert.NotNull(info, "Expected a viewInfo definition for views with type {0}.", typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsView));
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext), info.DataType);
                 Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocation>), info.ViewDataType);
@@ -59,8 +62,33 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void GetViewData_Always_ReturnWrappedDataInContext()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var expectedLocations = new ObservableList<HydraulicBoundaryLocation>();
+
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                // Call
+                var locations = info.GetViewData(new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(expectedLocations, assessmentSectionStub));
+
+                // Assert
+                Assert.AreSame(locations, expectedLocations);
+            }
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void AfterCreate_Always_SetsExpectedProperties()
         {
+            // Setup
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             IGui guiStub = mockRepository.Stub<IGui>();
@@ -77,6 +105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
                 {
+                    // Call
                     info.AfterCreate(view, data);
 
                     // Assert

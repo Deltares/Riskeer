@@ -251,7 +251,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     var calculations = context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>();
                     return new GrassCoverErosionOutwardsWaveConditionsExporter(calculations, filePath);
                 },
-                IsEnabled = context => context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Cast<GrassCoverErosionOutwardsWaveConditionsCalculation>().Any(c => c.HasOutput),
+                IsEnabled = context => context.FailureMechanism.WaveConditionsCalculationGroup.GetCalculations().Any(c => c.HasOutput),
                 FileFilter = RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter
             };
 

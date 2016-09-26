@@ -36,6 +36,7 @@ using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 using Ringtoets.Integration.Service.MessageProviders;
 
@@ -72,6 +73,37 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationsView<DesignWaterLevelLocationRow>>(view);
                 Assert.IsNull(view.Data);
+            }
+        }
+
+        [Test]
+        public void Selection_WithoutLocations_ReturnsNull()
+        {
+            // Call
+            using (var view = new DesignWaterLevelLocationsView())
+            {
+                // Assert
+                Assert.IsNull(view.Selection);
+            }
+        }
+
+        [Test]
+        public void Selection_WithLocations_ReturnsSelectedLocationWrappedInContext()
+        {
+            // Call
+            using (var view = ShowFullyConfiguredDesignWaterLevelLocationsView())
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var selectedLocationRow = dataGridView.Rows[0];
+                selectedLocationRow.Cells[0].Value = true;
+
+                // Assert
+                var selection = view.Selection as DesignWaterLevelLocationContext;
+                var dataBoundItem = selectedLocationRow.DataBoundItem as DesignWaterLevelLocationRow;
+
+                Assert.NotNull(selection);
+                Assert.NotNull(dataBoundItem);
+                Assert.AreSame(dataBoundItem.HydraulicBoundaryLocation, selection.HydraulicBoundaryLocation);
             }
         }
 

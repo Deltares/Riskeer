@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service.MessageProviders;
+using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
 using Ringtoets.HydraRing.Data;
@@ -73,6 +74,37 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationsView<WaveHeightLocationRow>>(view);
                 Assert.IsNull(view.Data);
+            }
+        }
+
+        [Test]
+        public void Selection_WithoutLocations_ReturnsNull()
+        {
+            // Call
+            using (var view = new GrassCoverErosionOutwardsWaveHeightLocationsView())
+            {
+                // Assert
+                Assert.IsNull(view.Selection);
+            }
+        }
+
+        [Test]
+        public void Selection_WithLocations_ReturnsSelectedLocationWrappedInContext()
+        {
+            // Call
+            using (var view = ShowFullyConfiguredWaveHeightLocationsView())
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var selectedLocationRow = dataGridView.Rows[0];
+                selectedLocationRow.Cells[0].Value = true;
+
+                // Assert
+                var selection = view.Selection as GrassCoverErosionOutwardsWaveHeightLocationContext;
+                var dataBoundItem = selectedLocationRow.DataBoundItem as WaveHeightLocationRow;
+
+                Assert.NotNull(selection);
+                Assert.NotNull(dataBoundItem);
+                Assert.AreSame(dataBoundItem.HydraulicBoundaryLocation, selection.HydraulicBoundaryLocation);
             }
         }
 
@@ -117,11 +149,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
             locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
             {
-                WaveHeight = (RoundedDouble)1.23
+                WaveHeight = (RoundedDouble) 1.23
             });
             locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
             {
-                DesignWaterLevel = (RoundedDouble)2.45
+                DesignWaterLevel = (RoundedDouble) 2.45
             });
 
             // Call
@@ -178,6 +210,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             var dataGridViewSource = dataGridView.DataSource;
             var rows = dataGridView.Rows;
+            rows[0].Cells[locationCalculateColumnIndex].Value = true;
             Assert.AreEqual(3, rows.Count);
 
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(10, "10", 10, 10)
@@ -201,10 +234,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(new Point2D(10, 10).ToString(), cells[locationColumnIndex].FormattedValue);
             Assert.AreEqual(hydraulicBoundaryLocation.WaveHeight, cells[locationWaveHeightColumnIndex].Value);
             Assert.AreNotSame(dataGridViewSource, dataGridView.DataSource);
+            Assert.IsFalse((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
         }
 
         [Test]
-        public void WaveHeightLocationsView_AssessmentSectionUpdated_DataGridViewCorrectlyUpdated()
+        public void WaveHeightLocationsView_EachHydraulicBoundaryLocationUpdated_DataGridViewRefreshedWithNewValues()
         {
             // Setup
             GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
@@ -232,7 +266,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void CalculateForSelectedButton_OneSelected_CallsCalculateWaveHeights(bool isSuccessful)
+        public void CalculateForSelectedButton_OneSelected_CallsCalculateWaveHeightsSelectionNotChanged(bool isSuccessful)
         {
             // Setup
             GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
@@ -283,6 +317,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             HydraulicBoundaryLocation expectedLocation = locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocations.First());
             Assert.AreSame(dataGridViewSource, dataGridView.DataSource);
+            Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsFalse((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
             mockRepository.VerifyAll();
         }
 
