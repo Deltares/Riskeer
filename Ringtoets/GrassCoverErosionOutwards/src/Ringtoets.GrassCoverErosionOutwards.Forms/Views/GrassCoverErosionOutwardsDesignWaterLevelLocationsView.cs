@@ -48,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
             set
             {
-                var data = (IObservable) value;
+                var data = (ObservableList<HydraulicBoundaryLocation>) value;
                 base.Data = data;
                 hydraulicBoundaryLocationsObserver.Observable = data;
             }

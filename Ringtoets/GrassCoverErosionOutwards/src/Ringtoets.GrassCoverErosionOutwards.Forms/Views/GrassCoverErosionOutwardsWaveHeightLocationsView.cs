@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
@@ -54,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
             set
             {
-                var data = (IObservable) value;
+                var data = (ObservableList<HydraulicBoundaryLocation>) value;
                 base.Data = data;
                 hydraulicBoundaryLocationObserver.Observable = data;
             }

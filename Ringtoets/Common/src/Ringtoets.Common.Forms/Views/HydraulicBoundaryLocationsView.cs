@@ -72,6 +72,9 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         public IHydraulicBoundaryLocationCalculationGuiService CalculationGuiService { get; set; }
 
+        /// <summary>
+        /// Gets or sets the <see cref="IAssessmentSection"/>.
+        /// </summary>
         public abstract IAssessmentSection AssessmentSection { get; set; }
 
         public virtual object Data
