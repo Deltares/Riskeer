@@ -35,6 +35,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Forms.PresentationObjects;
 using Ringtoets.Integration.Forms.Views;
 
 namespace Ringtoets.Integration.Forms.Test.Views
@@ -70,6 +71,37 @@ namespace Ringtoets.Integration.Forms.Test.Views
                 // Assert
                 Assert.IsInstanceOf<HydraulicBoundaryLocationsView<WaveHeightLocationRow>>(view);
                 Assert.IsNull(view.Data);
+            }
+        }
+
+        [Test]
+        public void Selection_WithoutLocations_ReturnsNull()
+        {
+            // Call
+            using (var view = new WaveHeightLocationsView())
+            {
+                // Assert
+                Assert.IsNull(view.Selection);
+            }
+        }
+
+        [Test]
+        public void Selection_WithLocations_ReturnsSelectedLocationWrappedInContext()
+        {
+            // Call
+            using (var view = ShowFullyConfiguredWaveHeightLocationsView())
+            {
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+                var selectedLocationRow = dataGridView.Rows[0];
+                selectedLocationRow.Cells[0].Value = true;
+
+                // Assert
+                var selection = view.Selection as WaveHeightLocationContext;
+                var dataBoundItem = selectedLocationRow.DataBoundItem as WaveHeightLocationRow;
+
+                Assert.NotNull(selection);
+                Assert.NotNull(dataBoundItem);
+                Assert.AreSame(dataBoundItem.HydraulicBoundaryLocation, selection.HydraulicBoundaryLocation);
             }
         }
 

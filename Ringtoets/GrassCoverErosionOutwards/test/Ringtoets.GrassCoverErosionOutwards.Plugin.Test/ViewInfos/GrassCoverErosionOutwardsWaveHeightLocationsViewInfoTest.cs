@@ -40,15 +40,18 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsWaveHeightLocationsViewInfoTest 
+    public class GrassCoverErosionOutwardsWaveHeightLocationsViewInfoTest
     {
-        [TestCase]
+        [Test]
         public void Initialized_Always_DataTypeAndViewTypeAsExpected()
         {
+            // Setup
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
+                // Call
                 var info = GetInfo(plugin);
 
+                // Assert
                 Assert.NotNull(info, "Expected a viewInfo definition for views with type {0}.", typeof(GrassCoverErosionOutwardsWaveHeightLocationsView));
                 Assert.AreEqual(typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext), info.DataType);
                 Assert.AreEqual(typeof(IEnumerable<HydraulicBoundaryLocation>), info.ViewDataType);
@@ -56,6 +59,30 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, info.Image);
                 Assert.AreEqual(Resources.GrassCoverErosionOutwardsWaveHeightLocationsContext_DisplayName, info.GetViewName(null, null));
             }
+        }
+
+        [Test]
+        public void GetViewData_Always_ReturnWrappedDataInContext()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var expectedLocations = new ObservableList<HydraulicBoundaryLocation>();
+
+            using (var plugin = new GrassCoverErosionOutwardsPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                // Call
+                var locations = info.GetViewData(new GrassCoverErosionOutwardsWaveHeightLocationsContext(expectedLocations, assessmentSectionStub));
+
+                // Assert
+                Assert.AreSame(locations, expectedLocations);
+            }
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -87,7 +114,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             }
             mockRepository.VerifyAll();
         }
-
 
         [Test]
         public void CloseViewForData_ForMatchingAssessmentSection_ReturnsTrue()
@@ -188,7 +214,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var mocks = new MockRepository();
             var assessmentSectionA = mocks.Stub<IAssessmentSection>();
             var assessmentSectionB = mocks.Stub<IAssessmentSection>();
-            
+
             assessmentSectionA.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 new GrassCoverErosionOutwardsFailureMechanism()
@@ -196,7 +222,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             assessmentSectionB.Stub(a => a.GetFailureMechanisms()).Return(new[]
             {
                 new GrassCoverErosionOutwardsFailureMechanism()
-            }); 
+            });
             mocks.ReplayAll();
 
             var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(
