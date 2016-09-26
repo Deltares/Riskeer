@@ -322,7 +322,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #endregion
 
-        #region: CloseDesignWaterLevelLocationsViewForData
+        #region CloseDesignWaterLevelLocationsViewForData
 
         private static bool CloseDesignWaterLevelLocationsViewForData(GrassCoverErosionOutwardsDesignWaterLevelLocationsView view, object dataToCloseFor)
         {
@@ -340,7 +340,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 viewFailureMechanism = viewAssessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
             }
 
-
             var failureMechanismContext = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanismContext;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanism;
@@ -348,7 +347,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             if (assessmentSection != null)
             {
                 failureMechanism = ((IAssessmentSection)dataToCloseFor).GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
-                return failureMechanism != null && ReferenceEquals(failureMechanism, viewFailureMechanism);
             }
 
             if (failureMechanismContext != null)

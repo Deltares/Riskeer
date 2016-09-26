@@ -254,13 +254,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSectionA = mocks.Stub<IAssessmentSection>();
+            assessmentSectionA.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                new GrassCoverErosionOutwardsFailureMechanism()
+            });
             mocks.ReplayAll();
 
             using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 var info = GetInfo(plugin);
-                view.Data = assessmentSectionA;
+                view.AssessmentSection = assessmentSectionA;
 
                 // Call
                 var closeForData = info.CloseForData(view, new object());
