@@ -103,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(expectedLocationHeaderText, locationColumn.HeaderText);
 
             var locationWaveHeightColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[locationWaveHeightColumnIndex];
-            const string expectedLocationWaveHeightHeaderText = "Waterstand bij doorsnede-eis [m+NAP]";
+            const string expectedLocationWaveHeightHeaderText = "Golfhoogte bij doorsnede-eis [m]";
             Assert.AreEqual(expectedLocationWaveHeightHeaderText, locationWaveHeightColumn.HeaderText);
         }
 

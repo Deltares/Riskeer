@@ -136,7 +136,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis [m+NAP].
+        ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis [m].
         /// </summary>
         public static string GrassCoverErosionOutwardsHydraulicBoundaryLocation_WaveHeight_DisplayName {
             get {

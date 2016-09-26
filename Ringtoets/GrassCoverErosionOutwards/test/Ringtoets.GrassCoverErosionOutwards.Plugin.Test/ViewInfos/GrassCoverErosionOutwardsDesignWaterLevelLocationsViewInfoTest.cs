@@ -94,6 +94,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                new GrassCoverErosionOutwardsFailureMechanism()
+            });
             mocks.ReplayAll();
 
             using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
@@ -118,6 +122,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var mocks = new MockRepository();
             var assessmentSectionA = mocks.Stub<IAssessmentSection>();
             var assessmentSectionB = mocks.Stub<IAssessmentSection>();
+
+            assessmentSectionA.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                new GrassCoverErosionOutwardsFailureMechanism()
+            });
+
+            assessmentSectionB.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                new GrassCoverErosionOutwardsFailureMechanism()
+            });
+
             mocks.ReplayAll();
 
             using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
@@ -141,10 +156,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             // Setup
             var mocks = new MockRepository();
             var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                new GrassCoverErosionOutwardsFailureMechanism()
+            });
             mocks.ReplayAll();
 
             var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(
-                new GrassCoverErosionOutwardsFailureMechanism(), 
+                new GrassCoverErosionOutwardsFailureMechanism(),
                 assessmentSection);
 
             using (var view = new GrassCoverErosionOutwardsDesignWaterLevelLocationsView())
@@ -169,6 +188,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             var mocks = new MockRepository();
             var assessmentSectionA = mocks.Stub<IAssessmentSection>();
             var assessmentSectionB = mocks.Stub<IAssessmentSection>();
+
+            assessmentSectionA.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                new GrassCoverErosionOutwardsFailureMechanism()
+            });
+
+            assessmentSectionB.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                new GrassCoverErosionOutwardsFailureMechanism()
+            });
             mocks.ReplayAll();
 
             var grassCoverErosionOutwardsFailureMechanismContext = new GrassCoverErosionOutwardsFailureMechanismContext(

@@ -91,6 +91,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             yield return new PropertyInfo<GrassCoverErosionOutwardsWaveConditionsInputContext, GrassCoverErosionOutwardsWaveConditionsInputContextProperties>();
 
             yield return new PropertyInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationContext, GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties>();
+
+            yield return new PropertyInfo<GrassCoverErosionOutwardsWaveHeightLocationContext, GrassCoverErosionOutwardsWaveHeightLocationContextProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -315,38 +317,50 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private static bool CloseGrassCoverErosionOutwardsLocationsViewForData(GrassCoverErosionOutwardsWaveHeightLocationsView view, object dataToCloseFor)
         {
-            var section = dataToCloseFor as IAssessmentSection;
-            var failureMechanismContext = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanismContext;
-            var viewAssessmentSection = view.AssessmentSection;
-
-            return CloseForSectionOrForFailureMechanism(section, viewAssessmentSection, failureMechanismContext);
+            return CloseHydraulicBoundaryLocationsViewForData(view.AssessmentSection, dataToCloseFor);
         }
 
         #endregion
 
         #region: CloseDesignWaterLevelLocationsViewForData
+
         private static bool CloseDesignWaterLevelLocationsViewForData(GrassCoverErosionOutwardsDesignWaterLevelLocationsView view, object dataToCloseFor)
         {
-            var section = dataToCloseFor as IAssessmentSection;
-            var failureMechanismContext = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanismContext;
-            var viewAssessmentSection = view.AssessmentSection;
-
-            return CloseForSectionOrForFailureMechanism(section, viewAssessmentSection, failureMechanismContext);
+          return CloseHydraulicBoundaryLocationsViewForData(view.AssessmentSection, dataToCloseFor);
         }
+
         #endregion
 
-        private static bool CloseForSectionOrForFailureMechanism(IAssessmentSection sectionToCloseFor,
-            IAssessmentSection viewAssessmentSection,
-            GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
+        private static bool CloseHydraulicBoundaryLocationsViewForData(IAssessmentSection viewAssessmentSection,
+                                                                       object dataToCloseFor)
         {
-            var closeForFailureMechanism = failureMechanismContext != null && ReferenceEquals(failureMechanismContext.Parent, viewAssessmentSection);
-            var closeForSection = sectionToCloseFor != null && ReferenceEquals(sectionToCloseFor, viewAssessmentSection);
+            GrassCoverErosionOutwardsFailureMechanism viewFailureMechanism = null;
+            if (viewAssessmentSection != null)
+            {
+                viewFailureMechanism = viewAssessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
+            }
 
 
-            return closeForSection || closeForFailureMechanism;
+            var failureMechanismContext = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanismContext;
+            var assessmentSection = dataToCloseFor as IAssessmentSection;
+            var failureMechanism = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanism;
+            
+            if (assessmentSection != null)
+            {
+                failureMechanism = ((IAssessmentSection)dataToCloseFor).GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
+                return failureMechanism != null && ReferenceEquals(failureMechanism, viewFailureMechanism);
+            }
+
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.Parent.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
+                
+            }
+            return failureMechanism != null && ReferenceEquals(failureMechanism, viewFailureMechanism);
         }
 
         #endregion
+
         #region TreeNodeInfos
 
         #region GrassCoverErosionOutwardsFailureMechanismContext TreeNodeInfo
@@ -493,8 +507,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                       .AddPropertiesItem()
                       .Build();
         }
-
-
 
         #endregion
 
