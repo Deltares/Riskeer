@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using Core.Common.Utils;
 
 namespace Ringtoets.HeightStructures.IO
@@ -43,6 +44,17 @@ namespace Ringtoets.HeightStructures.IO
             FileUtils.ValidateFilePath(path);
 
             filePath = path;
+        }
+
+        public IDictionary<string, IList<StructuresParameterRow>> ReadAllData()
+        {
+            // Validate file exists
+            // Read 1st line: Index header
+            // For every remaining line
+                // Skip if empty
+                // Tokenize line
+                // 
+            return new Dictionary<string, IList<StructuresParameterRow>>();
         }
     }
 }

@@ -41,6 +41,7 @@
     </Compile>
     <Compile Include="HeightStructuresCharacteristicsCsvReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StructuresParameterRow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
