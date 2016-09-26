@@ -34,9 +34,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
         {
             // Setup
             const int hydraulicBoundaryLocationId = 1000;
+            var hydraRingSection = new HydraRingSection(1, double.NaN, double.NaN);
 
             // Call
-            var input = new StructuresClosureCalculationInput(hydraulicBoundaryLocationId);
+            var input = new StructuresClosureCalculationInput(hydraulicBoundaryLocationId, hydraRingSection);
 
             // Assert
             Assert.IsInstanceOf<ExceedanceProbabilityCalculationInput>(input);
@@ -44,6 +45,21 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(1, input.CalculationTypeId);
             Assert.AreEqual(65, input.VariableId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresClosure, input.FailureMechanismType);
+            Assert.AreSame(hydraRingSection, input.Section);
+        }
+
+        [Test]
+        [TestCase(423, null)]
+        [TestCase(424, 106)]
+        [TestCase(425, 111)]
+        [TestCase(426, null)]
+        public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
+        {
+            // Call
+            var input = new StructuresClosureCalculationInput(1, new HydraRingSection(1, double.NaN, double.NaN));
+
+            // Assert
+            Assert.AreEqual(expectedSubMechanismModelId, input.GetSubMechanismModelId(subMechanismModelId));
         }
     }
 }

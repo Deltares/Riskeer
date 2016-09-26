@@ -26,11 +26,18 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
     /// </summary>
     public class StructuresClosureCalculationInput : ExceedanceProbabilityCalculationInput
     {
+        private readonly HydraRingSection hydraRingSection;
+
         /// <summary>
         /// Creates a new instance of <see cref="StructuresClosureCalculationInput"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
-        public StructuresClosureCalculationInput(long hydraulicBoundaryLocationId) : base(hydraulicBoundaryLocationId) {}
+        /// <param name="hydraRingSection">The section to use during the calculation.</param>
+        public StructuresClosureCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection)
+            : base(hydraulicBoundaryLocationId)
+        {
+            this.hydraRingSection = hydraRingSection;
+        }
 
         public override HydraRingFailureMechanismType FailureMechanismType
         {
@@ -52,7 +59,20 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         {
             get
             {
-                throw new System.NotImplementedException();
+                return hydraRingSection;
+            }
+        }
+
+        public override int? GetSubMechanismModelId(int subMechanismId)
+        {
+            switch (subMechanismId)
+            {
+                case 424:
+                    return 106;
+                case 425:
+                    return 111;
+                default:
+                    return null;
             }
         }
     }
