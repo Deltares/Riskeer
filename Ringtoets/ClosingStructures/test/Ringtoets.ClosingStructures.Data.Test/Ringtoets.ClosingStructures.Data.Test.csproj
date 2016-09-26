@@ -50,6 +50,7 @@
     </Compile>
     <Compile Include="ClosingStructuresFailureMechanismSectionResultTest.cs" />
     <Compile Include="ClosingStructuresFailureMechanismTest.cs" />
+    <Compile Include="GeneralClosingStructuresInputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +67,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>

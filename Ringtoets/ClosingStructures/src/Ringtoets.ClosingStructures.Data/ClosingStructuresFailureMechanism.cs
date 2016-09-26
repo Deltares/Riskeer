@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Ringtoets.ClosingStructures.Data.Properties;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Data
 {
@@ -30,7 +31,7 @@ namespace Ringtoets.ClosingStructures.Data
     /// Model containing input and output needed to perform different levels of the
     /// Closing Structures failure mechanism.
     /// </summary>
-    public class ClosingStructuresFailureMechanism : FailureMechanismBase, IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>
+    public class ClosingStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<ClosingStructuresFailureMechanismSectionResult>
     {
         private readonly List<ClosingStructuresFailureMechanismSectionResult> sectionResults;
 
@@ -40,6 +41,8 @@ namespace Ringtoets.ClosingStructures.Data
         public ClosingStructuresFailureMechanism()
             : base(Resources.ClosingStructuresFailureMechanism_DisplayName, Resources.ClosingStructuresFailureMechanism_Code)
         {
+            CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
+            GeneralInput = new GeneralClosingStructuresInput();
             sectionResults = new List<ClosingStructuresFailureMechanismSectionResult>();
         }
 
@@ -50,6 +53,13 @@ namespace Ringtoets.ClosingStructures.Data
                 yield break;
             }
         }
+
+        /// <summary>
+        /// Gets the general closing structures calculation input parameters that apply to each calculation.
+        /// </summary>
+        public GeneralClosingStructuresInput GeneralInput { get; private set; }
+
+        public CalculationGroup CalculationsGroup { get; private set; }
 
         public IEnumerable<ClosingStructuresFailureMechanismSectionResult> SectionResults
         {
