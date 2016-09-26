@@ -36,7 +36,6 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Extensions;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -383,9 +382,6 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismResultViewInfo<
                 StabilityPointStructuresFailureMechanismSectionResult,
                 StabilityPointStructuresResultView>();
-            yield return CreateFailureMechanismResultViewInfo<
-                ClosingStructuresFailureMechanismSectionResult,
-                ClosingStructuresResultView>();
 
             yield return new ViewInfo<CommentContext<ICommentable>, ICommentable, CommentView>
             {
@@ -625,7 +621,6 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<TechnicalInnovationFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<ClosingStructuresFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityInwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityOutwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<StabilityPointStructuresFailureMechanismSectionResult>();

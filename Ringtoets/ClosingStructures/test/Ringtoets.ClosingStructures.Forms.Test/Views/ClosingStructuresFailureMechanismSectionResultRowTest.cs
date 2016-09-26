@@ -36,13 +36,13 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.ClosingStructures.Forms.Test.Views
 {
     [TestFixture]
-    public class ClosingStructuresSectionResultRowTest
+    public class ClosingStructuresFailureMechanismSectionResultRowTest
     {
         [Test]
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new ClosingStructuresSectionResultRow(null);
+            TestDelegate test = () => new ClosingStructuresFailureMechanismSectionResultRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -57,7 +57,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
-            var row = new ClosingStructuresSectionResultRow(result);
+            var row = new ClosingStructuresFailureMechanismSectionResultRow(result);
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
@@ -65,10 +65,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
-            Assert.IsTrue(TypeUtils.HasTypeConverter<ClosingStructuresSectionResultRow,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<ClosingStructuresFailureMechanismSectionResultRow,
                               FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
-            Assert.IsTrue(TypeUtils.HasTypeConverter<ClosingStructuresSectionResultRow,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<ClosingStructuresFailureMechanismSectionResultRow,
                               NoValueRoundedDoubleConverter>(
                                   r => r.AssessmentLayerThree));
         }
@@ -88,7 +88,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
             result.Attach(observer);
 
-            var row = new ClosingStructuresSectionResultRow(result);
+            var row = new ClosingStructuresFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerOne = newValue;
@@ -109,7 +109,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Setup
             var section = CreateSection();
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
-            var row = new ClosingStructuresSectionResultRow(result);
+            var row = new ClosingStructuresFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerTwoA = value;
@@ -128,7 +128,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Setup
             var section = CreateSection();
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
-            var row = new ClosingStructuresSectionResultRow(result);
+            var row = new ClosingStructuresFailureMechanismSectionResultRow(result);
 
             // Call
             TestDelegate test = () => row.AssessmentLayerTwoA = value;
@@ -147,7 +147,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var newValue = random.NextDouble();
             var section = CreateSection();
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
-            var row = new ClosingStructuresSectionResultRow(result);
+            var row = new ClosingStructuresFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerThree = (RoundedDouble) newValue;

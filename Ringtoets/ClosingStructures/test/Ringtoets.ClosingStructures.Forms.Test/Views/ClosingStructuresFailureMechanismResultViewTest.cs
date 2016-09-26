@@ -36,7 +36,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.ClosingStructures.Forms.Test.Views
 {
     [TestFixture]
-    public class ClosingStructuresResultViewTest
+    public class ClosingStructuresFailureMechanismResultViewTest
     {
         private const int nameColumnIndex = 0;
         private const int assessmentLayerOneIndex = 1;
@@ -48,7 +48,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         {
             // Given
             using (var form = new Form())
-            using (var view = new ClosingStructuresResultView())
+            using (var view = new ClosingStructuresFailureMechanismResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -104,7 +104,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             };
 
             using (var form = new Form())
-            using (var view = new ClosingStructuresResultView())
+            using (var view = new ClosingStructuresFailureMechanismResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -162,7 +162,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             using (var form = new Form())
-            using (var view = new ClosingStructuresResultView())
+            using (var view = new ClosingStructuresFailureMechanismResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -205,7 +205,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var result2 = new TestFailureMechanismSectionResult(section2);
 
             using (var form = new Form())
-            using (var view = new ClosingStructuresResultView())
+            using (var view = new ClosingStructuresFailureMechanismResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
