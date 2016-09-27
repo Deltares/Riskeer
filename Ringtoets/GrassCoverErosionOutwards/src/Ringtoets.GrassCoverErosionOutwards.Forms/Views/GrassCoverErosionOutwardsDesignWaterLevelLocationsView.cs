@@ -36,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 {
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsView : HydraulicBoundaryLocationsView<DesignWaterLevelLocationRow>
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsFailureMechanism));
+        private readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsView));
         private readonly Observer hydraulicBoundaryLocationsObserver;
 
         public GrassCoverErosionOutwardsDesignWaterLevelLocationsView()
