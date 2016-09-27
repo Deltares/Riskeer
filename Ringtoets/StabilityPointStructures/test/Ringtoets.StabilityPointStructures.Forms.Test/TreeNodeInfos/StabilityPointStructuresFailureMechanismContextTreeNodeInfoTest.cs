@@ -29,12 +29,12 @@ using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
-using Ringtoets.StabilityPointStructures.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
+using Ringtoets.StabilityPointStructures.Plugin;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -43,9 +43,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class ClosingStructureFailureMechanismContextTreeNodeInfoTest
     {
-
         private const int contextMenuRelevancyIndexWhenRelevant = 0;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
+        private const int contextMenuValidateAllIndex = 2;
+        private const int contextMenuCalculateAllIndex = 3;
+        private const int contextMenuClearAllIndex = 4;
 
         private MockRepository mocksRepository;
 
@@ -116,7 +118,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[1];
                 Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
-                var calculationsFolder = (StabilityPointStructuresCalculationGroupContext)children[1];
+                var calculationsFolder = (StabilityPointStructuresCalculationGroupContext) children[1];
                 Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
                 Assert.AreSame(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);
                 Assert.AreSame(failureMechanism, calculationsFolder.FailureMechanism);
@@ -173,6 +175,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -191,7 +197,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
             }
-            
+
             // Assert
             mocksRepository.VerifyAll();
         }
@@ -258,12 +264,30 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSectionMock, treeView))
                 {
                     // Assert
-                    Assert.AreEqual(3, menu.Items.Count);
+                    Assert.AreEqual(7, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                                   RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
                                                                   RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
                                                                   RingtoetsCommonFormsResources.Checkbox_ticked);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
+                                                                  RingtoetsCommonFormsResources.Validate_all,
+                                                                  RingtoetsCommonFormsResources.ValidateAll_No_calculations_to_validate,
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                                  RingtoetsCommonFormsResources.Calculate_all,
+                                                                  RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run,
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndex,
+                                                                  RingtoetsCommonFormsResources.Clear_all_output,
+                                                                  RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
+                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  false);
                 }
             }
 
@@ -310,7 +334,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             mocksRepository.VerifyAll();
         }
 
-
         [Test]
         public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_OnChangeActionRemovesAllViewsForItem()
         {
@@ -335,7 +358,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
                 var info = GetInfo(plugin);
 
-
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
                     // Call
@@ -346,7 +368,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Assert
             mocksRepository.VerifyAll();
         }
-
 
         [Test]
         public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevant()

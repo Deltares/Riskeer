@@ -154,11 +154,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(StabilityPointStructuresFailureMechanismContext stabilityPointStructuresFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(StabilityPointStructuresFailureMechanismContext failureMechanismContext, object parentData, TreeViewControl treeViewControl)
         {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(stabilityPointStructuresFailureMechanismContext, treeViewControl));
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
-            return builder.AddToggleRelevancyOfFailureMechanismItem(stabilityPointStructuresFailureMechanismContext, RemoveAllViewsForItem)
+            return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
+                          .AddSeparator()
+                          .AddValidateAllCalculationsInFailureMechanismItem(failureMechanismContext,null)
+                          .AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null)
+                          .AddClearAllCalculationOutputInFailureMechanismItem(failureMechanismContext.WrappedData)
                           .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
