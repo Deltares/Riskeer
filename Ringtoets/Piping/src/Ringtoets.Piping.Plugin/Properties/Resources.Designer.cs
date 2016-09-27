@@ -82,15 +82,6 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kommagescheiden bestand.
-        /// </summary>
-        public static string Csv_file_name {
-            get {
-                return ResourceManager.GetString("Csv_file_name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het stochastische ondergrondmodel &apos;{0}&apos; bestaat al in het toetsspoor..
         /// </summary>
         public static string PipingSoilProfilesImporter_AddImportedDataToModel_Stochastisch_soil_model_0_already_exists {

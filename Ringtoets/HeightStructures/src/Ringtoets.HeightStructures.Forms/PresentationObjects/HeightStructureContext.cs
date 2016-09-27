@@ -33,11 +33,11 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
     public class HeightStructureContext : ObservableWrappedObjectContextBase<ObservableList<HeightStructure>>
     {
         /// <summary>
-        /// 
+        /// Creates an instance of <see cref="HeightStructureContext"/>
         /// </summary>
-        /// <param name="heightStructures"></param>
-        /// <param name="assessmentSection"></param>
-        /// <exception cref="ArgumentNullException"></exception>
+        /// <param name="heightStructures">The collection to update</param>
+        /// <param name="assessmentSection">The assessment section</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input arguments are null</exception>
         public HeightStructureContext(ObservableList<HeightStructure> heightStructures, IAssessmentSection assessmentSection)
             : base(heightStructures)
         {

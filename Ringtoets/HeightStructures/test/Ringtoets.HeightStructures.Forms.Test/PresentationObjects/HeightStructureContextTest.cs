@@ -31,7 +31,7 @@ using Ringtoets.HeightStructures.Forms.PresentationObjects;
 namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class HeightStructureProfileContextTest
+    public class HeightStructureContextTest
     {
         [Test]
         public void ParameteredConstructor_DefaultValues()
