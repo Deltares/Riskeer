@@ -19,10 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
+using Ringtoets.HydraRing.Calculation.TestUtil;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
 {
@@ -36,8 +40,39 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const int hydraulicBoundaryLocationId = 1000;
             var hydraRingSection = new HydraRingSection(1, double.NaN, double.NaN);
 
+            const double gravitationalAcceleration = 9.81;
+            const double factorStormDurationOpenStructure = 0.1;
+            const double failureProbabilityOpenStructure = 0.04;
+            const double failureProbabilityReparation = 0.08;
+            const double identicalAperture = 0.4;
+            const double allowableIncreaseOfLevelForStorageMean = 3.3;
+            const double allowableIncreaseOfLevelForStorageStandardDeviation = 0.1;
+            const double modelFactorForStorageVolumeMean = 1.0;
+            const double modelFactorForStorageVolumeStandardDeviation = 0.2;
+            const double storageStructureAreaMean = 4.4;
+            const double storageStructureAreaStandardDeviation = 0.1;
+            const double modelFactorForIncomingFlowVolume = 1;
+            const double flowWidthAtBottomProtectionMean = 5.5;
+            const double flowWidthAtBottomProtectionStandardDeviation = 0.05;
+            const double criticalOvertoppingDischargeMean = 6.6;
+            const double criticalOvertoppingDischargeMeanStandardDeviation = 0.15;
+            const double failureProbabilityOfStructureGivenErosion = 7.7;
+            const double stormDurationMean = 7.5;
+            const double stormDurationStandardDeviation = 0.25;
+            const double probabilityOpenStructureBeforeFlooding = 0.04;
+
             // Call
-            var input = new StructuresClosureCalculationInput(hydraulicBoundaryLocationId, hydraRingSection);
+            var input = new TestStructuresClosureCalculationInput(hydraulicBoundaryLocationId, hydraRingSection,
+                                                                  gravitationalAcceleration, factorStormDurationOpenStructure,
+                                                                  failureProbabilityOpenStructure, failureProbabilityReparation,
+                                                                  identicalAperture, allowableIncreaseOfLevelForStorageMean,
+                                                                  allowableIncreaseOfLevelForStorageStandardDeviation, modelFactorForStorageVolumeMean,
+                                                                  modelFactorForStorageVolumeStandardDeviation, storageStructureAreaMean,
+                                                                  storageStructureAreaStandardDeviation, modelFactorForIncomingFlowVolume,
+                                                                  flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation,
+                                                                  criticalOvertoppingDischargeMean, criticalOvertoppingDischargeMeanStandardDeviation,
+                                                                  failureProbabilityOfStructureGivenErosion, stormDurationMean,
+                                                                  stormDurationStandardDeviation, probabilityOpenStructureBeforeFlooding);
 
             // Assert
             Assert.IsInstanceOf<ExceedanceProbabilityCalculationInput>(input);
@@ -46,20 +81,56 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(65, input.VariableId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresClosure, input.FailureMechanismType);
             Assert.AreSame(hydraRingSection, input.Section);
+            HydraRingVariableAssert.AreEqual(GetDefaultOvertoppingVariables().ToArray(), input.Variables.ToArray());
         }
 
-        [Test]
-        [TestCase(423, null)]
-        [TestCase(424, 106)]
-        [TestCase(425, 111)]
-        [TestCase(426, null)]
-        public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
+        private static IEnumerable<HydraRingVariable> GetDefaultOvertoppingVariables()
         {
-            // Call
-            var input = new StructuresClosureCalculationInput(1, new HydraRingSection(1, double.NaN, double.NaN));
+            yield return new HydraRingVariable(58, HydraRingDistributionType.Deterministic, 9.81, HydraRingDeviationType.Variation, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(63, HydraRingDistributionType.Deterministic, double.NaN, HydraRingDeviationType.Standard, 0.1, double.NaN, double.NaN);
+            yield return new HydraRingVariable(68, HydraRingDistributionType.Deterministic, 0.04, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(69, HydraRingDistributionType.Deterministic, 0.08, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(71, HydraRingDistributionType.Deterministic, 0.4, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(94, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Standard, 3.3, 0.1, double.NaN);
+            yield return new HydraRingVariable(95, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Standard, 1.0, 0.2, double.NaN);
+            yield return new HydraRingVariable(96, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Variation, 4.4, 0.1, double.NaN);
+            yield return new HydraRingVariable(97, HydraRingDistributionType.Deterministic, 1, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(103, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 5.5, 0.05, double.NaN);
+            yield return new HydraRingVariable(104, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Variation, 6.6, 0.15, double.NaN);
+            yield return new HydraRingVariable(105, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 7.7, 0, double.NaN);
+            yield return new HydraRingVariable(108, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Variation, 7.5, 0.25, double.NaN);
+            yield return new HydraRingVariable(129, HydraRingDistributionType.Deterministic, 0.04, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+        }
 
-            // Assert
-            Assert.AreEqual(expectedSubMechanismModelId, input.GetSubMechanismModelId(subMechanismModelId));
+        private class TestStructuresClosureCalculationInput : StructuresClosureCalculationInput
+        {
+            public TestStructuresClosureCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
+                                                         double hydraRingGravitationalAcceleration, double hydraRingFactorStormDurationOpenStructure,
+                                                         double hydraRingFailureProbabilityOpenStructure, double hydraRingFailureProbabilityReparation,
+                                                         double hydraRingIdenticalAperture, double hydraRingAllowableIncreaseOfLevelForStorageMean,
+                                                         double hydraRingAllowableIncreaseOfLevelForStorageStandardDeviation, double hydraRingModelFactorForStorageVolumeMean,
+                                                         double hydraRingModelFactorForStorageVolumeStandardDeviation, double hydraRingStorageStructureAreaMean,
+                                                         double hydraRingStorageStructureAreaVariation, double hydraRingModelFactorForIncomingFlowVolume,
+                                                         double hydraRingFlowWidthAtBottomProtectionMean, double hydraRingFlowWidthAtBottomProtectionStandardDeviation,
+                                                         double hydraRingCriticalOvertoppingDischargeMean, double hydraRingCriticalOvertoppingDischargeVariation,
+                                                         double hydraRingFailureProbabilityOfStructureGivenErosion, double hydraRingStormDurationMean,
+                                                         double hydraRingStormDurationVariation, double hydraRingProbabilityOpenStructureBeforeFlooding)
+                : base(hydraulicBoundaryLocationId, hydraRingSection,
+                       hydraRingGravitationalAcceleration, hydraRingFactorStormDurationOpenStructure,
+                       hydraRingFailureProbabilityOpenStructure, hydraRingFailureProbabilityReparation,
+                       hydraRingIdenticalAperture, hydraRingAllowableIncreaseOfLevelForStorageMean,
+                       hydraRingAllowableIncreaseOfLevelForStorageStandardDeviation, hydraRingModelFactorForStorageVolumeMean,
+                       hydraRingModelFactorForStorageVolumeStandardDeviation, hydraRingStorageStructureAreaMean,
+                       hydraRingStorageStructureAreaVariation, hydraRingModelFactorForIncomingFlowVolume,
+                       hydraRingFlowWidthAtBottomProtectionMean, hydraRingFlowWidthAtBottomProtectionStandardDeviation,
+                       hydraRingCriticalOvertoppingDischargeMean, hydraRingCriticalOvertoppingDischargeVariation,
+                       hydraRingFailureProbabilityOfStructureGivenErosion, hydraRingStormDurationMean,
+                       hydraRingStormDurationVariation, hydraRingProbabilityOpenStructureBeforeFlooding) {}
+
+            public override int? GetSubMechanismModelId(int subMechanismId)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
