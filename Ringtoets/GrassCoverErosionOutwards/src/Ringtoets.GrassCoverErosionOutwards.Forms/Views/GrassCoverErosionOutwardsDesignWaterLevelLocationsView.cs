@@ -19,11 +19,14 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
+using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Views;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
@@ -33,6 +36,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
 {
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsView : HydraulicBoundaryLocationsView<DesignWaterLevelLocationRow>
     {
+        private readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsFailureMechanism));
         private readonly Observer hydraulicBoundaryLocationsObserver;
 
         public GrassCoverErosionOutwardsDesignWaterLevelLocationsView()
@@ -59,6 +63,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             return new DesignWaterLevelLocationRow(location);
         }
 
+        /// <summary>
+        /// Gets or sets the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for which the
+        /// hydraulic boundary locations are shown.
+        /// </summary>
+        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; set; }
+
         public override IAssessmentSection AssessmentSection { get; set; }
 
         protected override void InitializeDataGridView()
@@ -83,13 +93,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             {
                 return;
             }
-            bool successfulCalculation = CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                          locations,
-                                                                                          AssessmentSection.Id,
-                                                                                          AssessmentSection.FailureMechanismContribution.Norm, new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
-            if (successfulCalculation)
+
+            var modifiedBeta = GetModifiedBeta();
+
+            if (!double.IsNaN(modifiedBeta))
             {
-                ((IObservable)Data).NotifyObservers();
+                bool successfulCalculation = CalculationGuiService.CalculateDesignWaterLevels(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                              locations,
+                                                                                              AssessmentSection.Id,
+                                                                                              modifiedBeta,
+                                                                                              new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
+                if (successfulCalculation)
+                {
+                    ((IObservable) Data).NotifyObservers();
+                }
             }
         }
 
@@ -122,6 +139,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 }
             }
             return false;
+        }
+
+        private double GetModifiedBeta()
+        {
+            var calculationBeta = double.NaN;
+            try
+            {
+                calculationBeta = FailureMechanism.CalculationBeta(AssessmentSection);
+            }
+            catch (ArgumentException e)
+            {
+                log.ErrorFormat(e.Message);
+            }
+            return calculationBeta;
         }
     }
 }

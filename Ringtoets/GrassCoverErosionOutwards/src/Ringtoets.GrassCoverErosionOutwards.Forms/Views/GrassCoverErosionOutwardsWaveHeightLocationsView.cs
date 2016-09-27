@@ -19,9 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Utils.Reflection;
+using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -37,6 +39,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// for the <see cref="GrassCoverErosionOutwardsFailureMechanism"/></summary>
     public class GrassCoverErosionOutwardsWaveHeightLocationsView : HydraulicBoundaryLocationsView<WaveHeightLocationRow>
     {
+        private readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsWaveHeightLocationsView));
         private readonly Observer hydraulicBoundaryLocationObserver;
 
         /// <summary>
@@ -60,6 +63,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 hydraulicBoundaryLocationObserver.Observable = data;
             }
         }
+
+        /// <summary>
+        /// Gets or sets the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for which the
+        /// hydraulic boundary locations are shown.
+        /// </summary>
+        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; set; }
 
         public override IAssessmentSection AssessmentSection { get; set; }
 
@@ -85,15 +94,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 return;
             }
 
-            bool successFullCalculation = CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
-                                                                                     locations,
-                                                                                     AssessmentSection.Id,
-                                                                                     AssessmentSection.FailureMechanismContribution.Norm,
-                                                                                     new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
+            var modifiedBeta = GetModifiedBeta();
 
-            if (successFullCalculation)
+            if (!double.IsNaN(modifiedBeta))
             {
-                ((IObservable) Data).NotifyObservers();
+                bool successFullCalculation = CalculationGuiService.CalculateWaveHeights(AssessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                                         locations,
+                                                                                         AssessmentSection.Id,
+                                                                                         modifiedBeta,
+                                                                                         new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
+
+                if (successFullCalculation)
+                {
+                    ((IObservable) Data).NotifyObservers();
+                }
             }
         }
 
@@ -139,6 +153,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
                 }
             }
             return false;
+        }
+
+        private double GetModifiedBeta()
+        {
+            var calculationBeta = double.NaN;
+            try
+            {
+                calculationBeta = FailureMechanism.CalculationBeta(AssessmentSection);
+            }
+            catch (ArgumentException e)
+            {
+                log.ErrorFormat(e.Message);
+            }
+            return calculationBeta;
         }
     }
 }

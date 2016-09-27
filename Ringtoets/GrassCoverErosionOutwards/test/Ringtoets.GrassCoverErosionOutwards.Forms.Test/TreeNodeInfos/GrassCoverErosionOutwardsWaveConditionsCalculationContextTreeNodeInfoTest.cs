@@ -827,7 +827,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             string validHydroDatabasePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO,
                                                                        Path.Combine("HydraulicBoundaryLocationReader", "complete.sqlite"));
 
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 10
+            };
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             assessmentSection.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {

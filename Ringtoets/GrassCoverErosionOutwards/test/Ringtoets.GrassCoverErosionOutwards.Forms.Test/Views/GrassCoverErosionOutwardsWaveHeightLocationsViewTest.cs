@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -36,6 +37,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.GuiServices;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.Common.Service.MessageProviders;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
@@ -306,6 +308,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             view.AssessmentSection = assessmentSectionStub;
             view.CalculationGuiService = guiServiceMock;
+            view.FailureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 10
+            };
             var button = new ButtonTester("CalculateForSelectedButton", testForm);
 
             // Call
@@ -317,9 +323,51 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             HydraulicBoundaryLocation expectedLocation = locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocations.First());
             Assert.AreSame(dataGridViewSource, dataGridView.DataSource);
-            Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsTrue((bool)rows[0].Cells[locationCalculateColumnIndex].Value);
             Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
             Assert.IsFalse((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void CalculateForSelectedButton_ContributionZero_LogsErrorSelectionNotChanged()
+        {
+            // Setup
+            GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
+            ObservableList<HydraulicBoundaryLocation> locations = (ObservableList<HydraulicBoundaryLocation>)view.Data;
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridViewSource = dataGridView.DataSource;
+            var rows = dataGridView.Rows;
+            rows[0].Cells[locationCalculateColumnIndex].Value = true;
+
+            var mockRepository = new MockRepository();
+            var guiServiceMock = mockRepository.StrictMock<IHydraulicBoundaryLocationCalculationGuiService>();
+            var observer = mockRepository.StrictMock<IObserver>();
+            locations.Attach(observer);
+
+            IAssessmentSection assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            mockRepository.ReplayAll();
+
+            view.AssessmentSection = assessmentSectionStub;
+            view.CalculationGuiService = guiServiceMock;
+            view.FailureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 0
+            };
+            var buttonTester = new ButtonTester("CalculateForSelectedButton", testForm);
+
+            // Call
+            Action action = () => buttonTester.Click();
+
+            // Assert
+            TestHelper.AssertLogMessageIsGenerated(action, "De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.", 1);
+            Assert.AreSame(dataGridViewSource, dataGridView.DataSource);
+            Assert.IsTrue((bool)rows[0].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsFalse((bool)rows[1].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsFalse((bool)rows[2].Cells[locationCalculateColumnIndex].Value);
+
             mockRepository.VerifyAll();
         }
 

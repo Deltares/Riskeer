@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -102,7 +103,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
         public void CalculationBeta_WithAssessmentSection_ReturnBeta()
         {
             // Setup
-            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 10
+            };
 
             var mocks = new MockRepository();
             var assessmentSection = mocks.StrictMock<IAssessmentSection>();
@@ -110,18 +114,39 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             {
                 failureMechanism
             });
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 300));
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new [] { failureMechanism }, 1, 300));
             mocks.ReplayAll();
 
             // Call
             double beta = failureMechanism.CalculationBeta(assessmentSection);
 
             // Assert
-            double expectedBeta = assessmentSection.FailureMechanismContribution.Norm/
-                                  (failureMechanism.Contribution/100)*
-                                  failureMechanism.GeneralInput.N;
+            Assert.AreEqual(6000, beta);
+        }
 
-            Assert.AreEqual(expectedBeta, beta);
+        [Test]
+        public void CalculationBeta_WithZeroContributionForFailureMechanism_ThrowsArgumentException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 0
+            };
+
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.StrictMock<IAssessmentSection>();
+            assessmentSection.Stub(a => a.GetFailureMechanisms()).Return(new[]
+            {
+                failureMechanism
+            });
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[] { failureMechanism }, 1, 300));
+            mocks.ReplayAll();
+
+            // Call
+            TestDelegate action = () => failureMechanism.CalculationBeta(assessmentSection);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(action, "De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");
         }
     }
 }

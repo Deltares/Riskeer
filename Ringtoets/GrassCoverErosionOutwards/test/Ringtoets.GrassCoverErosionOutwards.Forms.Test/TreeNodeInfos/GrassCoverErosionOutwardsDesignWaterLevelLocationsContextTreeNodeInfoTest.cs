@@ -99,9 +99,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
+
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                 new ObservableList<HydraulicBoundaryLocation>(),
-                assessmentSectionMock);
+                assessmentSectionMock,
+                new GrassCoverErosionOutwardsFailureMechanism());
 
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
@@ -124,7 +126,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             mockRepository.ReplayAll();
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                 new ObservableList<HydraulicBoundaryLocation>(),
-                assessmentSectionMock);
+                assessmentSectionMock,
+                new GrassCoverErosionOutwardsFailureMechanism());
             using (var plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 TreeNodeInfo info = GetInfo(plugin);
@@ -151,7 +154,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
                 var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                     new ObservableList<HydraulicBoundaryLocation>(),
-                    assessmentSectionMock);
+                    assessmentSectionMock,
+                    new GrassCoverErosionOutwardsFailureMechanism());
 
                 var menuBuilder = mockRepository.StrictMock<IContextMenuBuilder>();
                 menuBuilder.Expect(mb => mb.AddOpenItem()).Return(menuBuilder);
@@ -196,7 +200,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
                     var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                         new ObservableList<HydraulicBoundaryLocation>(),
-                        assessmentSectionMock);
+                        assessmentSectionMock,
+                        new GrassCoverErosionOutwardsFailureMechanism());
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                              importCommandHandler,
@@ -268,7 +273,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
                     var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
                         new ObservableList<HydraulicBoundaryLocation>(),
-                        assessmentSectionMock);
+                        assessmentSectionMock,
+                        new GrassCoverErosionOutwardsFailureMechanism());
 
                     var menuBuilder = new ContextMenuBuilder(applicationFeatureCommandHandler,
                                                              importCommandHandler,
@@ -350,7 +356,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
-            }, assessmentSectionMock);
+            }, assessmentSectionMock, failureMechanism);
 
             var observer = mockRepository.StrictMock<IObserver>();
             context.Attach(observer);
@@ -408,13 +414,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             assessmentSectionMock.Expect(a => a.Id).Return("Id");
-            assessmentSectionMock.Expect(a => a.GetFailureMechanisms()).Return(new[]
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
-                new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    Contribution = 1
-                }
-            });
+                Contribution = 1
+            };
             assessmentSectionMock
                 .Expect(a => a.FailureMechanismContribution)
                 .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 5));
@@ -429,7 +432,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 grassCoverErosionOutwardsHydraulicBoundaryLocation1,
                 grassCoverErosionOutwardsHydraulicBoundaryLocation2
             };
-            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(grassCoverErosionOutwardsHydraulicBoundaryLocations, assessmentSectionMock);
+            var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
+                grassCoverErosionOutwardsHydraulicBoundaryLocations, 
+                assessmentSectionMock,
+                failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -473,13 +479,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var location = new HydraulicBoundaryLocation(1, "HydraulicBoundaryLocation", 1.1, 2.2);
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             assessmentSectionMock.Expect(a => a.Id).Return("Id");
-            assessmentSectionMock.Expect(a => a.GetFailureMechanisms()).Return(new[]
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
-                new GrassCoverErosionOutwardsFailureMechanism
-                {
-                    Contribution = 1
-                }
-            });
+                Contribution = 1
+            };
             assessmentSectionMock.Expect(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 300));
             assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -494,7 +497,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
-            }, assessmentSectionMock);
+            }, assessmentSectionMock, failureMechanism);
 
             using (var treeViewControl = new TreeViewControl())
             {
@@ -539,10 +542,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 Contribution = 0
             };
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.Stub(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism
-            });
             assessmentSectionMock.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 300));
             assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -557,7 +556,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>
             {
                 grassCoverErosionOutwardsHydraulicBoundaryLocation
-            }, assessmentSectionMock);
+            }, assessmentSectionMock, failureMechanism);
 
             var contextObserverMock = mockRepository.StrictMock<IObserver>();
             context.Attach(contextObserverMock);

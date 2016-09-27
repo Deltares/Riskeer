@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.GrassCoverErosionOutwards.Data.Properties;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data
@@ -61,11 +62,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which contains the norm.</param>
         /// <returns>The value of beta.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="assessmentSection"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="failureMechanism"/> has no (0) contribution.</exception>
         public static double CalculationBeta(this GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException("assessmentSection");
+            }
+            if (!(failureMechanism.Contribution > 0))
+            {
+                throw new ArgumentException(Resources.GrassCoverErosionOutwardsFailureMechanismExtensions_CalculationBeta_Contribution_is_zero);
             }
 
             return assessmentSection.FailureMechanismContribution.Norm/

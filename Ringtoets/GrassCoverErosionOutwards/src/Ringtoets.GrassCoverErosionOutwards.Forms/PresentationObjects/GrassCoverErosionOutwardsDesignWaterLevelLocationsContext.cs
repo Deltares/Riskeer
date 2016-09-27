@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
@@ -36,25 +37,38 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationsContext"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary 
-        /// locations for this context.</param>
+        /// <param name="hydraulicBoundaryLocations">The hydraulic boundary locations for this context.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> which the 
         /// <see cref="GrassCoverErosionOutwardsDesignWaterLevelLocationsContext"/> belongs to.</param>
+        /// <param name="failureMechanism">The grass cover erosion outwards failure mechanism within
+        /// the <paramref name="assessmentSection"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
-                                                                         IAssessmentSection assessmentSection)
+        public GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations, 
+            IAssessmentSection assessmentSection, 
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism)
             : base(hydraulicBoundaryLocations)
         {
             if (assessmentSection == null)
             {
                 throw new ArgumentNullException("assessmentSection");
             }
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
             AssessmentSection = assessmentSection;
+            FailureMechanism = failureMechanism;
         }
 
         /// <summary>
         /// Gets the assessment section.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
+
+        /// <summary>
+        /// Gets the grass cover erosion outwards failure mechanism.
+        /// </summary>
+        public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; private set; }
     }
 }

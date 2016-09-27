@@ -25,6 +25,7 @@ using Core.Common.Gui.Plugin;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using Ringtoets.HydraRing.Data;
@@ -45,7 +46,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
             var hydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
 
             var context = new GrassCoverErosionOutwardsWaveHeightLocationsContext(
-                hydraulicBoundaryLocations, assessmentSectionMock);
+                hydraulicBoundaryLocations, assessmentSectionMock, new GrassCoverErosionOutwardsFailureMechanism());
 
             using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
             {
