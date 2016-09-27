@@ -44,13 +44,13 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, inputParameters.N.NumberOfDecimalPlaces);
             Assert.AreEqual(1, inputParameters.N, inputParameters.N.GetAccuracy());
 
-            var modelFactorForIncomingFlowVolume = new NormalDistribution(2)
+            var modelfactorForSubcriticalFlow = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(1, 1),
                 StandardDeviation = new RoundedDouble(1, 0.1)
             };
-            Assert.AreEqual(modelFactorForIncomingFlowVolume.Mean, inputParameters.ModelfactorForSubcriticalFlow.Mean);
-            Assert.AreEqual(modelFactorForIncomingFlowVolume.StandardDeviation, inputParameters.ModelfactorForSubcriticalFlow.StandardDeviation);
+            Assert.AreEqual(modelfactorForSubcriticalFlow.Mean, inputParameters.ModelfactorForSubcriticalFlow.Mean);
+            Assert.AreEqual(modelfactorForSubcriticalFlow.StandardDeviation, inputParameters.ModelfactorForSubcriticalFlow.StandardDeviation);
         }
 
         [Test]
