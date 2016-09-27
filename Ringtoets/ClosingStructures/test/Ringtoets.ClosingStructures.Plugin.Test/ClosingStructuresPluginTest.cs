@@ -61,9 +61,10 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(2, treeNodeInfos.Length);
+                Assert.AreEqual(3, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructureContext)));
             }
 
             mocks.VerifyAll();

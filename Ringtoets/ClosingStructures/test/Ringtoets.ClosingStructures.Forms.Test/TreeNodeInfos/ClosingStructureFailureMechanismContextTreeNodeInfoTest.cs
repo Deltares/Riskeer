@@ -108,12 +108,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 var inputsFolder = (CategoryTreeFolder) children[0];
                 Assert.AreEqual("Invoer", inputsFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
-                Assert.AreEqual(2, inputsFolder.Contents.Count);
+                Assert.AreEqual(3, inputsFolder.Contents.Count);
                 var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
                 Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
                 Assert.AreSame(assessmentSectionMock, failureMechanismSectionsContext.ParentAssessmentSection);
 
-                var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[1];
+                var closingStructureContext = (ClosingStructureContext)inputsFolder.Contents[1];
+                Assert.AreSame(failureMechanism.ClosingStructures, closingStructureContext.WrappedData);
+                Assert.AreSame(assessmentSectionMock, closingStructureContext.AssessmentSection);
+
+                var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
                 Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
                 var outputsFolder = (CategoryTreeFolder) children[1];

@@ -213,7 +213,4 @@
   <data name="FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null" xml:space="preserve">
     <value>De waarde voor de faalkans moet ingevuld zijn.</value>
   </data>
-  <data name="HeightStructureCollection_DisplayName" xml:space="preserve">
-    <value>Kunstwerken</value>
-  </data>
 </root>

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data.Properties;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -43,6 +44,7 @@ namespace Ringtoets.ClosingStructures.Data
         {
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             GeneralInput = new GeneralClosingStructuresInput();
+            ClosingStructures = new ObservableList<ClosingStructure>();
             sectionResults = new List<ClosingStructuresFailureMechanismSectionResult>();
         }
 
@@ -58,6 +60,11 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets the general closing structures calculation input parameters that apply to each calculation.
         /// </summary>
         public GeneralClosingStructuresInput GeneralInput { get; private set; }
+
+        /// <summary>
+        /// Gets the closing structure within the scope of the closing structure failure mechanism
+        /// </summary>
+        public ObservableList<ClosingStructure> ClosingStructures { get; private set; }
 
         public CalculationGroup CalculationsGroup { get; private set; }
 

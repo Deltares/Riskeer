@@ -658,4 +658,7 @@
   <data name="HydraulicBoundaryLocationsView_SelectAllButton_Text" xml:space="preserve">
     <value>Selecteer alles</value>
   </data>
+  <data name="StructuresCollection_DisplayName" xml:space="preserve">
+    <value>Kunstwerken</value>
+  </data>
 </root>

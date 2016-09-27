@@ -1650,6 +1650,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kunstwerken.
+        /// </summary>
+        public static string StructuresCollection_DisplayName {
+            get {
+                return ResourceManager.GetString("StructuresCollection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Valideren.
         /// </summary>
         public static string Validate {

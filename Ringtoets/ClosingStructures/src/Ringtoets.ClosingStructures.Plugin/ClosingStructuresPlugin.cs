@@ -21,6 +21,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
@@ -75,7 +76,48 @@ namespace Ringtoets.ClosingStructures.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
+
+            yield return new TreeNodeInfo<ClosingStructureContext>()
+            {
+                Text = context => RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ForeColor = context => context.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddImportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddExpandAllItem()
+                                                                                 .AddCollapseAllItem()
+                                                                                 .Build()
+            };
         }
+
+        #region ViewInfo
+
+        #region ClosingStructuresFailureMechanismResultView ViewInfo
+
+        private static bool CloseFailureMechanismResultViewForData(ClosingStructuresFailureMechanismResultView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as ClosingStructuresFailureMechanism;
+            var failureMechanismContext = o as IFailureMechanismContext<ClosingStructuresFailureMechanism>;
+            if (assessmentSection != null)
+            {
+                return assessmentSection
+                    .GetFailureMechanisms()
+                    .OfType<ClosingStructuresFailureMechanism>()
+                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+            }
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
+        }
+
+        #endregion
+
+        #endregion
 
         #region TreeNodeInfo
 
@@ -104,6 +146,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new ClosingStructureContext(failureMechanism.ClosingStructures, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }
@@ -143,33 +186,6 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .Build();
-        }
-
-        #endregion
-
-        #endregion
-        
-        #region ViewInfo
-
-        #region ClosingStructuresFailureMechanismResultView ViewInfo
-
-        private static bool CloseFailureMechanismResultViewForData(ClosingStructuresFailureMechanismResultView view, object o)
-        {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as ClosingStructuresFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<ClosingStructuresFailureMechanism>;
-            if (assessmentSection != null)
-            {
-                return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<ClosingStructuresFailureMechanism>()
-                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
-            }
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
         }
 
         #endregion

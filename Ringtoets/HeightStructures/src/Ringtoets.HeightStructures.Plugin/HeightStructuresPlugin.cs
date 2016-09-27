@@ -64,10 +64,10 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             yield return new ImportInfo<HeightStructureContext>()
             {
-                Name = HeightStructuresFormsResources.HeightStructureCollection_DisplayName,
+                Name = RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
                 FileFilter = string.Format("{0} {1}",
-                                           HeightStructuresFormsResources.HeightStructureCollection_DisplayName,
+                                           RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
                                            RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null
                 //TODO: WTI-579 Hook this up with the importer
@@ -139,7 +139,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
             yield return new TreeNodeInfo<HeightStructureContext>
             {
-                Text = context => HeightStructuresFormsResources.HeightStructureCollection_DisplayName,
+                Text = context => RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
                 ForeColor = context => context.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
                 ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
