@@ -27,6 +27,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -210,7 +211,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 Assert.AreSame(assessmentSection.HeightStructures, heightStructuresFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, heightStructuresFailureMechanismContext.Parent);
 
-                var closingStructuresFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[16];
+                var closingStructuresFailureMechanismContext = (ClosingStructuresFailureMechanismContext)objects[16];
                 Assert.AreSame(assessmentSection.ClosingStructures, closingStructuresFailureMechanismContext.WrappedData);
                 Assert.AreSame(assessmentSection, closingStructuresFailureMechanismContext.Parent);
                 var pipingStructureFailureMechanismContext = (FailureMechanismContext<IFailureMechanism>)objects[17];

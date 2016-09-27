@@ -36,6 +36,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Extensions;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -188,8 +189,8 @@ namespace Ringtoets.Integration.Plugin
                 ),
             new FailureMechanismContextAssociation(
                 typeof(ClosingStructuresFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
+                (mechanism, assessmentSection) => new ClosingStructuresFailureMechanismContext(
+                                                      (ClosingStructuresFailureMechanism) mechanism,
                                                       assessmentSection)
                 ),
             new FailureMechanismContextAssociation(
