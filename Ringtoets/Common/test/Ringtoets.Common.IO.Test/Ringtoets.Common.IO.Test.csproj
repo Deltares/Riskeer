@@ -68,7 +68,7 @@
     <Compile Include="ReferenceLines\ReferenceLineImporterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineReaderTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineWriterTest.cs" />
-    <Compile Include="Structures\HeightStructuresCharacteristicsCsvReaderTest.cs" />
+    <Compile Include="Structures\StructuresCharacteristicsCsvReaderTest.cs" />
     <Compile Include="Structures\StructuresParameterRowTest.cs" />
     <Compile Include="Structures\StructuresReaderTest.cs" />
     <Compile Include="Structures\StructureTest.cs" />

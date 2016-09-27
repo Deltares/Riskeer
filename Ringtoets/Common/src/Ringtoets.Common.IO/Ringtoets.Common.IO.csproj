@@ -70,7 +70,7 @@
     <Compile Include="ReferenceLines\ReferenceLineImporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLineReader.cs" />
     <Compile Include="ReferenceLines\ReferenceLineWriter.cs" />
-    <Compile Include="Structures\HeightStructuresCharacteristicsCsvReader.cs" />
+    <Compile Include="Structures\StructuresCharacteristicsCsvReader.cs" />
     <Compile Include="Structures\Structure.cs" />
     <Compile Include="Structures\StructuresParameterRow.cs" />
     <Compile Include="Structures\StructuresReader.cs" />

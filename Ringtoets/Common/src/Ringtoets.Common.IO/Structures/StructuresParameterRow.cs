@@ -38,6 +38,11 @@ namespace Ringtoets.Common.IO.Structures
         }
 
         /// <summary>
+        /// Gets or sets the location identifier to which this parameter belongs.
+        /// </summary>
+        public string LocationId { get; set; }
+
+        /// <summary>
         /// Gets or sets the ID of this parameter.
         /// </summary>
         public string ParameterId { get; set; }
