@@ -217,6 +217,10 @@
       <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
       <Name>Ringtoets.StabilityPointStructures.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Forms\Ringtoets.StabilityPointStructures.Forms.csproj">
+      <Project>{D5F0A6B0-8710-4345-ABA1-D934C8E6783D}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Plugin\Ringtoets.StabilityStoneCover.Plugin.csproj">
       <Project>{9DDC42CC-A2CC-4900-A711-AA1DD6D3A94A}</Project>
       <Name>Ringtoets.StabilityStoneCover.Plugin</Name>

@@ -116,12 +116,12 @@ namespace Ringtoets.StabilityPointStructures.Data
         public NormalDistribution ModelfactorForSubcriticalFlow { get; private set; }
 
         /// <summary>
-        /// Gets the model factor for .
+        /// Gets the model factor for collision load.
         /// </summary>
         public NormalDistribution ModelFactorForCollisionLoad { get; private set; }
 
         /// <summary>
-        /// Gets the model factor for .
+        /// Gets the model factor for load effect mS.
         /// </summary>
         public NormalDistribution ModelFactorLoadEffectMs { get; private set; }
 

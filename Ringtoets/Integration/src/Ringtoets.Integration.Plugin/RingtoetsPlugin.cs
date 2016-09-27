@@ -72,6 +72,7 @@ using Ringtoets.Integration.Service.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -205,8 +206,8 @@ namespace Ringtoets.Integration.Plugin
                 ),
             new FailureMechanismContextAssociation(
                 typeof(StabilityPointStructuresFailureMechanism),
-                (mechanism, assessmentSection) => new FailureMechanismContext<IFailureMechanism>(
-                                                      mechanism,
+                (mechanism, assessmentSection) => new StabilityPointStructuresFailureMechanismContext(
+                                                      (StabilityPointStructuresFailureMechanism) mechanism,
                                                       assessmentSection)
                 )
         };
