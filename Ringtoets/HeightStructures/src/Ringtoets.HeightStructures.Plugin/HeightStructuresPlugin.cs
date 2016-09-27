@@ -21,6 +21,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -57,6 +58,20 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             yield return new PropertyInfo<HeightStructuresFailureMechanismContext, HeightStructuresFailureMechanismContextProperties>();
             yield return new PropertyInfo<HeightStructuresInputContext, HeightStructuresInputContextProperties>();
+        }
+
+        public override IEnumerable<ImportInfo> GetImportInfos()
+        {
+            yield return new ImportInfo<HeightStructureContext>()
+            {
+                Name = HeightStructuresFormsResources.HeightStructureCollection_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                FileFilter = string.Format("{0} {1}",
+                                           HeightStructuresFormsResources.HeightStructureCollection_DisplayName,
+                                           RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter),
+                IsEnabled = context => context.AssessmentSection.ReferenceLine != null
+                //TODO: WTI-579 Hook this up with the importer
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
@@ -119,6 +134,20 @@ namespace Ringtoets.HeightStructures.Plugin
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<HeightStructureContext>
+            {
+                Text = heightStructureProfile => HeightStructuresFormsResources.HeightStructureCollection_DisplayName,
+                Image = heightStructureProfile => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ForeColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ChildNodeObjects = heightStructureProfile => heightStructureProfile.WrappedData.Cast<object>().ToArray(),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddImportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddExpandAllItem()
+                                                                                 .AddCollapseAllItem()
                                                                                  .Build()
             };
         }
@@ -219,6 +248,7 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, assessmentSection),
+                new HeightStructureContext(failureMechanism.HeightStructures, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }
@@ -461,6 +491,5 @@ namespace Ringtoets.HeightStructures.Plugin
         #endregion
 
         #endregion
-
     }
 }

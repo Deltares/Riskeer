@@ -117,7 +117,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             Assert.AreEqual("Invoer", inputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
 
-            Assert.AreEqual(3, inputsFolder.Contents.Count);
+            Assert.AreEqual(4, inputsFolder.Contents.Count);
             var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, failureMechanismSectionsContext.ParentAssessmentSection);
@@ -126,7 +126,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, profilesContext.ParentAssessmentSection);
 
-            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
+            var heightStructureContext = (HeightStructureContext) inputsFolder.Contents[2];
+            Assert.AreSame(failureMechanism.HeightStructures, heightStructureContext.WrappedData);
+            Assert.AreSame(assessmentSectionMock, heightStructureContext.AssessmentSection);
+
+            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[3];
             Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
             var calculationsFolder = (HeightStructuresCalculationGroupContext) children[1];

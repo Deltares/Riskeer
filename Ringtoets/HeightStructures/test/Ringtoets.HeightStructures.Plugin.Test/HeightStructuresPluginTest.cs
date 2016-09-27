@@ -97,11 +97,12 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 TreeNodeInfo[] treeNodeInfos = plugin.GetTreeNodeInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(7, treeNodeInfos.Length);
+                Assert.AreEqual(8, treeNodeInfos.Length);
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresFailureMechanismContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresCalculationGroupContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresCalculationContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructuresInputContext)));
+                Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(HeightStructureContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ProbabilityAssessmentOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(EmptyProbabilityAssessmentOutput)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>)));
@@ -131,6 +132,30 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 Assert.AreEqual(1, viewInfos.Length);
 
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(HeightStructuresFailureMechanismResultView)));
+            }
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void GetFileInfos_Always_ReturnsExpectedFileInfos()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var guiStub = mocks.Stub<IGui>();
+            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
+            mocks.ReplayAll();
+
+            using (var plugin = new HeightStructuresPlugin()
+            {
+                Gui = guiStub
+            })
+            {
+                // Call
+                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, importInfos.Length);
+                Assert.AreEqual(1, importInfos.Count(i => i.DataType == typeof(HeightStructureContext)));
             }
             mocks.VerifyAll();
         }
