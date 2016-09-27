@@ -20,8 +20,9 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Common.IO.Structures;
 
-namespace Ringtoets.HeightStructures.IO.Test
+namespace Ringtoets.Common.IO.Test.Structures
 {
     [TestFixture]
     public class StructuresParameterRowTest

@@ -26,7 +26,7 @@ using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
 using Core.Common.Utils;
 
-namespace Ringtoets.HeightStructures.IO
+namespace Ringtoets.Common.IO.Structures
 {
     /// <summary>
     /// File reader for a plain text file in comma-separated values format (*.csv) containing

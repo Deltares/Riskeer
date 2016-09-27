@@ -24,9 +24,10 @@ using System.IO;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Structures;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.IO.Test
+namespace Ringtoets.Common.IO.Test.Structures
 {
     [TestFixture]
     public class HeightStructuresCharacteristicsCsvReaderTest
@@ -61,7 +62,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             TestDelegate call = () => new HeightStructuresCharacteristicsCsvReader(corruptPath);
 
             // Assert
-            string innerExpectedMessage = string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
+            string innerExpectedMessage = string.Format((string) UtilsResources.Error_Path_cannot_contain_Characters_0_,
                                                         string.Join(", ", Path.GetInvalidFileNameChars()));
             string expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(innerExpectedMessage);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
