@@ -92,7 +92,6 @@
     <Compile Include="ViewInfos\WaveHeightLocationsViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacrostabilityInwardsResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\MacrostabilityOutwardsResultViewInfoTest.cs" />
-    <Compile Include="ViewInfos\StabilityPointStructuresResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\StrengthStabilityLengthwiseConstructionResultViewInfoTest.cs" />
     <Compile Include="ViewInfos\FailureMechanismContributionViewInfoTest.cs" />
     <Compile Include="ViewInfos\DuneErosionResultViewInfoTest.cs" />

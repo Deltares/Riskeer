@@ -28,23 +28,23 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
-using Ringtoets.Integration.Plugin;
+using Ringtoets.StabilityPointStructures.Plugin;
 using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
+namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismSectionResultContextTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private RingtoetsPlugin plugin;
+        private StabilityPointStructuresPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new RingtoetsPlugin();
+            plugin = new StabilityPointStructuresPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>));
         }
 
@@ -97,7 +97,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void Image_Always_ReturnsGenericInputOutputIcon()
+        public void Image_Always_ReturnsFailureMechanismSectionResultIcon()
         {
             // Setup
             mocks.ReplayAll();

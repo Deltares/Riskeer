@@ -112,7 +112,6 @@
     <Compile Include="TreeNodeInfos\WaveHeightLocationsContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\MacrostabilityOutwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\MacrostabilityInwardsFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\StabilityPointStructuresFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\DuneErosionFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismContributionContextTreeNodeInfoTest.cs" />

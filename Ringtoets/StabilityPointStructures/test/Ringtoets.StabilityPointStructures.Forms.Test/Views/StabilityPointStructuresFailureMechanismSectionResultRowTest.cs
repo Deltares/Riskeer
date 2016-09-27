@@ -34,13 +34,13 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 {
     [TestFixture]
-    public class StabilityPointStructuresSectionResultRowTest
+    public class StabilityPointStructuresFailureMechanismSectionResultRowTest
     {
         [Test]
         public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StabilityPointStructuresSectionResultRow(null);
+            TestDelegate test = () => new StabilityPointStructuresFailureMechanismSectionResultRow(null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -55,17 +55,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
 
             // Call
-            var row = new StabilityPointStructuresSectionResultRow(result);
+            var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result);
 
             // Assert
             Assert.AreEqual(section.Name, row.Name);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
-            Assert.IsTrue(TypeUtils.HasTypeConverter<StabilityPointStructuresSectionResultRow,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<StabilityPointStructuresFailureMechanismSectionResultRow,
                               FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
-            Assert.IsTrue(TypeUtils.HasTypeConverter<StabilityPointStructuresSectionResultRow,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<StabilityPointStructuresFailureMechanismSectionResultRow,
                               NoValueRoundedDoubleConverter>(
                                   r => r.AssessmentLayerThree));
         }
@@ -80,7 +80,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             // Setup
             var section = CreateSection();
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
-            var row = new StabilityPointStructuresSectionResultRow(result);
+            var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerTwoA = value;
@@ -99,7 +99,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             // Setup
             var section = CreateSection();
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
-            var row = new StabilityPointStructuresSectionResultRow(result);
+            var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result);
 
             // Call
             TestDelegate test = () => row.AssessmentLayerTwoA = value;
@@ -118,7 +118,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var newValue = random.NextDouble();
             var section = CreateSection();
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
-            var row = new StabilityPointStructuresSectionResultRow(result);
+            var row = new StabilityPointStructuresFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerThree = (RoundedDouble) newValue;

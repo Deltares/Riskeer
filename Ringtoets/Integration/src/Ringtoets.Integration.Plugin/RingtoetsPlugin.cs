@@ -72,7 +72,6 @@ using Ringtoets.Integration.Service.MessageProviders;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Forms.Views;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -379,9 +378,6 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismResultViewInfo<
                 MacrostabilityOutwardsFailureMechanismSectionResult,
                 MacrostabilityOutwardsResultView>();
-            yield return CreateFailureMechanismResultViewInfo<
-                StabilityPointStructuresFailureMechanismSectionResult,
-                StabilityPointStructuresResultView>();
 
             yield return new ViewInfo<CommentContext<ICommentable>, ICommentable, CommentView>
             {
@@ -623,7 +619,6 @@ namespace Ringtoets.Integration.Plugin
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<WaterPressureAsphaltCoverFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityInwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<MacrostabilityOutwardsFailureMechanismSectionResult>();
-            yield return CreateFailureMechanismSectionResultTreeNodeInfo<StabilityPointStructuresFailureMechanismSectionResult>();
 
             yield return new TreeNodeInfo<CommentContext<ICommentable>>
             {

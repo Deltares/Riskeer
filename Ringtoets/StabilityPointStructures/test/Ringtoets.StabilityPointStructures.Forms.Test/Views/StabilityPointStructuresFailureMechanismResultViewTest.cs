@@ -35,7 +35,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
 {
     [TestFixture]
-    public class StabilityPointStructuresResultViewTest
+    public class StabilityPointStructuresFailureMechanismResultViewTest
     {
         private const int nameColumnIndex = 0;
         private const int assessmentLayerTwoAIndex = 1;
@@ -46,7 +46,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
         {
             // Given
             using (var form = new Form())
-            using (var view = new StabilityPointStructuresResultView())
+            using (var view = new StabilityPointStructuresFailureMechanismResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -92,7 +92,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             };
 
             using (var form = new Form())
-            using (var view = new StabilityPointStructuresResultView())
+            using (var view = new StabilityPointStructuresFailureMechanismResultView())
             {
                 form.Controls.Add(view);
                 form.Show();
@@ -141,7 +141,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var result2 = new TestFailureMechanismSectionResult(section2);
 
             using (var form = new Form())
-            using (var view = new StabilityPointStructuresResultView())
+            using (var view = new StabilityPointStructuresFailureMechanismResultView())
             {
                 form.Controls.Add(view);
                 form.Show();

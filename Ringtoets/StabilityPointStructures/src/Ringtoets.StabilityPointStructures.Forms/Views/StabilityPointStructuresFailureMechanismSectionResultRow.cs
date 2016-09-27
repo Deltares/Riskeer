@@ -31,17 +31,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     /// <summary>
     /// Class for displaying <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> as a row in a grid view.
     /// </summary>
-    public class StabilityPointStructuresSectionResultRow
+    public class StabilityPointStructuresFailureMechanismSectionResultRow
     {
         private readonly StabilityPointStructuresFailureMechanismSectionResult sectionResult;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityPointStructuresSectionResultRow"/>.
+        /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public StabilityPointStructuresSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
+        public StabilityPointStructuresFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
             {

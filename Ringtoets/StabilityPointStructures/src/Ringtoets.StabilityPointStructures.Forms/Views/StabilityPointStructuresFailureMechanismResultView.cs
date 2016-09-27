@@ -29,32 +29,32 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     /// <summary>
     /// The view for a collection of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
     /// </summary>
-    public class StabilityPointStructuresResultView : FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult>
+    public class StabilityPointStructuresFailureMechanismResultView : FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityPointStructuresResultView"/>.
+        /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismResultView"/>.
         /// </summary>
-        public StabilityPointStructuresResultView()
+        public StabilityPointStructuresFailureMechanismResultView()
         {
             AddDataGridColumns();
         }
 
         protected override object CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
         {
-            return new StabilityPointStructuresSectionResultRow(sectionResult);
+            return new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult);
         }
 
         private void AddDataGridColumns()
         {
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<StabilityPointStructuresSectionResultRow>(sr => sr.Name),
+                TypeUtils.GetMemberName<StabilityPointStructuresFailureMechanismSectionResultRow>(sr => sr.Name),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<StabilityPointStructuresSectionResultRow>(sr => sr.AssessmentLayerTwoA),
+                TypeUtils.GetMemberName<StabilityPointStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
             DataGridViewControl.AddTextBoxColumn(
-                TypeUtils.GetMemberName<StabilityPointStructuresSectionResultRow>(sr => sr.AssessmentLayerThree),
+                TypeUtils.GetMemberName<StabilityPointStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
         }
     }
