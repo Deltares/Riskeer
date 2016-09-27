@@ -100,7 +100,7 @@
 "5-2";"KwSluiten";1
 "5-2";"KwPuntconstructies";1
 "6-1";"Toetspeil";1
-"6-1";"Q";1
+"6-1";"Q";2
 "6-1";"Hs";1
 "6-1";"Tp";1
 "6-1";"Tm-1,0";1
@@ -110,7 +110,7 @@
 "6-1";"KwSluiten";1
 "6-1";"KwPuntconstructies";1
 "6-2";"Toetspeil";1
-"6-2";"Q";1
+"6-2";"Q";2
 "6-2";"Hs";1
 "6-2";"Tp";1
 "6-2";"Tm-1,0";1
@@ -180,7 +180,7 @@
 "7-1";"KwSluiten";1
 "7-1";"KwPuntconstructies";1
 "7-2";"Toetspeil";1
-"7-2";"Q";1
+"7-2";"Q";2
 "7-2";"Hs";1
 "7-2";"Tp";1
 "7-2";"Tm-1,0";1
@@ -190,7 +190,7 @@
 "7-2";"KwSluiten";1
 "7-2";"KwPuntconstructies";1
 "8-1";"Toetspeil";1
-"8-1";"Q";1
+"8-1";"Q";2
 "8-1";"Hs";1
 "8-1";"Tp";1
 "8-1";"Tm-1,0";1
@@ -200,7 +200,7 @@
 "8-1";"KwSluiten";1
 "8-1";"KwPuntconstructies";1
 "8-2";"Toetspeil";1
-"8-2";"Q";1
+"8-2";"Q";2
 "8-2";"Hs";1
 "8-2";"Tp";1
 "8-2";"Tm-1,0";1
@@ -210,7 +210,7 @@
 "8-2";"KwSluiten";1
 "8-2";"KwPuntconstructies";1
 "8-3a";"Toetspeil";1
-"8-3a";"Q";1
+"8-3a";"Q";2
 "8-3a";"Hs";1
 "8-3a";"Tp";1
 "8-3a";"Tm-1,0";1
@@ -220,7 +220,7 @@
 "8-3a";"KwSluiten";1
 "8-3a";"KwPuntconstructies";1
 "8-3b";"Toetspeil";1
-"8-3b";"Q";1
+"8-3b";"Q";2
 "8-3b";"Hs";1
 "8-3b";"Tp";1
 "8-3b";"Tm-1,0";1
@@ -230,7 +230,7 @@
 "8-3b";"KwSluiten";1
 "8-3b";"KwPuntconstructies";1
 "8-4";"Toetspeil";1
-"8-4";"Q";1
+"8-4";"Q";2
 "8-4";"Hs";1
 "8-4";"Tp";1
 "8-4";"Tm-1,0";1
@@ -320,7 +320,7 @@
 "10-3";"KwSluiten";3
 "10-3";"KwPuntconstructies";3
 "11-1";"Toetspeil";1
-"11-1";"Q";3
+"11-1";"Q";1
 "11-1";"Hs";3
 "11-1";"Tp";3
 "11-1";"Tm-1,0";3
@@ -330,7 +330,7 @@
 "11-1";"KwSluiten";3
 "11-1";"KwPuntconstructies";3
 "11-2";"Toetspeil";1
-"11-2";"Q";3
+"11-2";"Q";2
 "11-2";"Hs";3
 "11-2";"Tp";3
 "11-2";"Tm-1,0";3
@@ -360,7 +360,7 @@
 "12-1";"KwSluiten";1
 "12-1";"KwPuntconstructies";1
 "12-2";"Toetspeil";1
-"12-2";"Q";1
+"12-2";"Q";2
 "12-2";"Hs";1
 "12-2";"Tp";1
 "12-2";"Tm-1,0";1
@@ -420,7 +420,7 @@
 "13-5";"KwSluiten";1
 "13-5";"KwPuntconstructies";1
 "13-6";"Toetspeil";1
-"13-6";"Q";1
+"13-6";"Q";2
 "13-6";"Hs";1
 "13-6";"Tp";1
 "13-6";"Tm-1,0";1
@@ -430,7 +430,7 @@
 "13-6";"KwSluiten";1
 "13-6";"KwPuntconstructies";1
 "13-7";"Toetspeil";1
-"13-7";"Q";1
+"13-7";"Q";2
 "13-7";"Hs";1
 "13-7";"Tp";1
 "13-7";"Tm-1,0";1
@@ -440,7 +440,7 @@
 "13-7";"KwSluiten";1
 "13-7";"KwPuntconstructies";1
 "13-8";"Toetspeil";1
-"13-8";"Q";1
+"13-8";"Q";2
 "13-8";"Hs";1
 "13-8";"Tp";1
 "13-8";"Tm-1,0";1
@@ -450,7 +450,7 @@
 "13-8";"KwSluiten";1
 "13-8";"KwPuntconstructies";1
 "13-9";"Toetspeil";1
-"13-9";"Q";1
+"13-9";"Q";2
 "13-9";"Hs";1
 "13-9";"Tp";1
 "13-9";"Tm-1,0";1
@@ -460,7 +460,7 @@
 "13-9";"KwSluiten";1
 "13-9";"KwPuntconstructies";1
 "13a-1a";"Toetspeil";1
-"13a-1a";"Q";1
+"13a-1a";"Q";2
 "13a-1a";"Hs";1
 "13a-1a";"Tp";1
 "13a-1a";"Tm-1,0";1
@@ -470,7 +470,7 @@
 "13a-1a";"KwSluiten";1
 "13a-1a";"KwPuntconstructies";1
 "13a-1b";"Toetspeil";1
-"13a-1b";"Q";1
+"13a-1b";"Q";2
 "13a-1b";"Hs";1
 "13a-1b";"Tp";1
 "13a-1b";"Tm-1,0";1
@@ -480,7 +480,7 @@
 "13a-1b";"KwSluiten";1
 "13a-1b";"KwPuntconstructies";1
 "13a-1c";"Toetspeil";1
-"13a-1c";"Q";1
+"13a-1c";"Q";2
 "13a-1c";"Hs";1
 "13a-1c";"Tp";1
 "13a-1c";"Tm-1,0";1
@@ -490,7 +490,7 @@
 "13a-1c";"KwSluiten";1
 "13a-1c";"KwPuntconstructies";1
 "13a-1d";"Toetspeil";1
-"13a-1d";"Q";1
+"13a-1d";"Q";2
 "13a-1d";"Hs";1
 "13a-1d";"Tp";1
 "13a-1d";"Tm-1,0";1
@@ -500,7 +500,7 @@
 "13a-1d";"KwSluiten";1
 "13a-1d";"KwPuntconstructies";1
 "13b-1";"Toetspeil";1
-"13b-1";"Q";1
+"13b-1";"Q";2
 "13b-1";"Hs";1
 "13b-1";"Tp";1
 "13b-1";"Tm-1,0";1
@@ -509,16 +509,6 @@
 "13b-1";"KwHoogte";1
 "13b-1";"KwSluiten";1
 "13b-1";"KwPuntconstructies";1
-"14-1";"Toetspeil";1
-"14-1";"Q";1
-"14-1";"Hs";1
-"14-1";"Tp";1
-"14-1";"Tm-1,0";1
-"14-1";"HBN";1
-"14-1";"Gras";1
-"14-1";"KwHoogte";1
-"14-1";"KwSluiten";1
-"14-1";"KwPuntconstructies";1
 "14-2";"Toetspeil";3
 "14-2";"Q";3
 "14-2";"Hs";3
@@ -629,16 +619,6 @@
 "15-2";"KwHoogte";3
 "15-2";"KwSluiten";3
 "15-2";"KwPuntconstructies";3
-"15-3";"Toetspeil";1
-"15-3";"Q";1
-"15-3";"Hs";1
-"15-3";"Tp";1
-"15-3";"Tm-1,0";1
-"15-3";"HBN";1
-"15-3";"Gras";1
-"15-3";"KwHoogte";1
-"15-3";"KwSluiten";1
-"15-3";"KwPuntconstructies";1
 "16-1";"Toetspeil";1
 "16-1";"Q";1
 "16-1";"Hs";1
@@ -860,7 +840,7 @@
 "24-2";"KwSluiten";1
 "24-2";"KwPuntconstructies";1
 "24-3";"Toetspeil";1
-"24-3";"Q";3
+"24-3";"Q";1
 "24-3";"Hs";3
 "24-3";"Tp";3
 "24-3";"Tm-1,0";3
@@ -1220,7 +1200,7 @@
 "34a-1";"KwSluiten";1
 "34a-1";"KwPuntconstructies";1
 "35-1";"Toetspeil";3
-"35-1";"Q";3
+"35-1";"Q";1
 "35-1";"Hs";3
 "35-1";"Tp";3
 "35-1";"Tm-1,0";3
@@ -1470,7 +1450,7 @@
 "43-6";"KwSluiten";1
 "43-6";"KwPuntconstructies";1
 "44-1";"Toetspeil";1
-"44-1";"Q";3
+"44-1";"Q";1
 "44-1";"Hs";3
 "44-1";"Tp";3
 "44-1";"Tm-1,0";3
@@ -1480,7 +1460,7 @@
 "44-1";"KwSluiten";3
 "44-1";"KwPuntconstructies";3
 "44-2";"Toetspeil";1
-"44-2";"Q";1
+"44-2";"Q";2
 "44-2";"Hs";1
 "44-2";"Tp";1
 "44-2";"Tm-1,0";1
@@ -1510,7 +1490,7 @@
 "45-1";"KwSluiten";1
 "45-1";"KwPuntconstructies";1
 "45-2";"Toetspeil";1
-"45-2";"Q";1
+"45-2";"Q";2
 "45-2";"Hs";1
 "45-2";"Tp";1
 "45-2";"Tm-1,0";1
@@ -1530,7 +1510,7 @@
 "45-3";"KwSluiten";1
 "45-3";"KwPuntconstructies";1
 "46-1";"Toetspeil";1
-"46-1";"Q";1
+"46-1";"Q";2
 "46-1";"Hs";1
 "46-1";"Tp";1
 "46-1";"Tm-1,0";1
@@ -1640,7 +1620,7 @@
 "52-1";"KwSluiten";1
 "52-1";"KwPuntconstructies";1
 "52-2";"Toetspeil";1
-"52-2";"Q";3
+"52-2";"Q";1
 "52-2";"Hs";3
 "52-2";"Tp";3
 "52-2";"Tm-1,0";3
@@ -1660,7 +1640,7 @@
 "52-3";"KwSluiten";1
 "52-3";"KwPuntconstructies";1
 "52-4";"Toetspeil";1
-"52-4";"Q";3
+"52-4";"Q";1
 "52-4";"Hs";3
 "52-4";"Tp";3
 "52-4";"Tm-1,0";3
@@ -1670,7 +1650,7 @@
 "52-4";"KwSluiten";3
 "52-4";"KwPuntconstructies";3
 "52a-1";"Toetspeil";1
-"52a-1";"Q";3
+"52a-1";"Q";1
 "52a-1";"Hs";3
 "52a-1";"Tp";3
 "52a-1";"Tm-1,0";3
@@ -1690,7 +1670,7 @@
 "53-1";"KwSluiten";1
 "53-1";"KwPuntconstructies";1
 "53-2";"Toetspeil";1
-"53-2";"Q";3
+"53-2";"Q";1
 "53-2";"Hs";3
 "53-2";"Tp";3
 "53-2";"Tm-1,0";3
@@ -2570,7 +2550,7 @@
 "202";"KwSluiten";1
 "202";"KwPuntconstructies";1
 "204a";"Toetspeil";1
-"204a";"Q";1
+"204a";"Q";2
 "204a";"Hs";1
 "204a";"Tp";1
 "204a";"Tm-1,0";1
@@ -2580,7 +2560,7 @@
 "204a";"KwSluiten";1
 "204a";"KwPuntconstructies";1
 "204b";"Toetspeil";1
-"204b";"Q";1
+"204b";"Q";2
 "204b";"Hs";1
 "204b";"Tp";1
 "204b";"Tm-1,0";1
@@ -2600,7 +2580,7 @@
 "205";"KwSluiten";1
 "205";"KwPuntconstructies";1
 "206";"Toetspeil";1
-"206";"Q";3
+"206";"Q";1
 "206";"Hs";3
 "206";"Tp";3
 "206";"Tm-1,0";3
@@ -2770,7 +2750,7 @@
 "224";"KwSluiten";1
 "224";"KwPuntconstructies";1
 "225";"Toetspeil";1
-"225";"Q";3
+"225";"Q";1
 "225";"Hs";3
 "225";"Tp";3
 "225";"Tm-1,0";3
