@@ -55,6 +55,7 @@
     <Compile Include="Data\HydraRingProfilePoint.cs" />
     <Compile Include="Data\Input\Hydraulics\DikeHeightCalculationInput.cs" />
     <Compile Include="Data\Input\Structures\StructuresClosureCalculationInput.cs" />
+    <Compile Include="Data\Input\Structures\StructuresClosureVerticalWallCalculationInput.cs" />
     <Compile Include="Data\Input\WaveConditions\WaveConditionsCosineCalculationInput.cs" />
     <Compile Include="Data\Input\WaveConditions\WaveConditionsCalculationInput.cs" />
     <Compile Include="Data\Input\Hydraulics\WaveHeightCalculationInput .cs" />

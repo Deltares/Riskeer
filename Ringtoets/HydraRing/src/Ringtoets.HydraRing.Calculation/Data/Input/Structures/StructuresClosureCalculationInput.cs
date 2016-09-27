@@ -149,7 +149,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         {
             // Gravitational acceleration
             yield return new HydraRingVariable(58, HydraRingDistributionType.Deterministic, gravitationalAcceleration,
-                                               HydraRingDeviationType.Variation, double.NaN, double.NaN, double.NaN);
+                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
 
             // Factor storm duration open structure
             yield return new HydraRingVariable(63, HydraRingDistributionType.Deterministic, double.NaN,
