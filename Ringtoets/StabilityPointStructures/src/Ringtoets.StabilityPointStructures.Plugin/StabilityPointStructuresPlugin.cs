@@ -24,16 +24,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.Views;
+using Ringtoets.StabilityPointStructures.Plugin.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using StabilityPointStructuresDataResources = Ringtoets.StabilityPointStructures.Data.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Plugin
 {
@@ -42,7 +46,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
     /// </summary>
     public class StabilityPointStructuresPlugin : PluginBase
     {
-         public override IEnumerable<ViewInfo> GetViewInfos()
+        public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new ViewInfo<
                 FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>,
@@ -76,7 +80,39 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                                                                                  .AddOpenItem()
                                                                                  .Build()
             };
+
+            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<StabilityPointStructuresCalculationGroupContext>(
+                CalculationGroupContextChildNodeObjects,
+                CalculationGroupContextContextMenuStrip,
+                CalculationGroupContextOnNodeRemoved);
         }
+
+        #region ViewInfo
+
+        #region StabilityPointStructuresFailureMechanismResultView ViewInfo
+
+        private static bool CloseFailureMechanismResultViewForData(StabilityPointStructuresFailureMechanismResultView view, object o)
+        {
+            var assessmentSection = o as IAssessmentSection;
+            var failureMechanism = o as StabilityPointStructuresFailureMechanism;
+            var failureMechanismContext = o as IFailureMechanismContext<StabilityPointStructuresFailureMechanism>;
+            if (assessmentSection != null)
+            {
+                return assessmentSection
+                    .GetFailureMechanisms()
+                    .OfType<StabilityPointStructuresFailureMechanism>()
+                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+            }
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
+        }
+
+        #endregion
+
+        #endregion
 
         #region TreeNodeInfo
 
@@ -88,6 +124,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, stabilityPointStructuresFailureMechanismContext.Parent), TreeFolderCategory.Input),
+                new StabilityPointStructuresCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData, stabilityPointStructuresFailureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
@@ -148,30 +185,94 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         #endregion
 
-        #endregion
-        
-        #region ViewInfo
+        #region StabilityPointStructuresCalculationGroupContext TreeNodeInfo
 
-        #region StabilityPointStructuresFailureMechanismResultView ViewInfo
-
-        private static bool CloseFailureMechanismResultViewForData(StabilityPointStructuresFailureMechanismResultView view, object o)
+        private static object[] CalculationGroupContextChildNodeObjects(StabilityPointStructuresCalculationGroupContext context)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as StabilityPointStructuresFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<StabilityPointStructuresFailureMechanism>;
-            if (assessmentSection != null)
+            var childNodeObjects = new List<object>();
+
+            foreach (ICalculationBase calculationItem in context.WrappedData.Children)
             {
-                return assessmentSection
-                    .GetFailureMechanisms()
-                    .OfType<StabilityPointStructuresFailureMechanism>()
-                    .Any(fm => ReferenceEquals(view.Data, fm.SectionResults));
+                var group = calculationItem as CalculationGroup;
+                if (group != null)
+                {
+                    childNodeObjects.Add(new StabilityPointStructuresCalculationGroupContext(group,
+                                                                                             context.FailureMechanism,
+                                                                                             context.AssessmentSection));
+                }
+                else
+                {
+                    childNodeObjects.Add(calculationItem);
+                }
             }
-            if (failureMechanismContext != null)
-            {
-                failureMechanism = failureMechanismContext.WrappedData;
-            }
-            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
+
+            return childNodeObjects.ToArray();
         }
+
+        private ContextMenuStrip CalculationGroupContextContextMenuStrip(StabilityPointStructuresCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
+        {
+            CalculationGroup group = context.WrappedData;
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var isNestedGroup = parentData is StabilityPointStructuresCalculationGroupContext;
+
+            StrictContextMenuItem generateCalculationsItem = CreateGenerateCalculationsItem(context);
+
+            if (!isNestedGroup)
+            {
+                builder.AddCustomItem(generateCalculationsItem)
+                       .AddSeparator();
+            }
+
+            builder.AddCreateCalculationGroupItem(group)
+                   .AddCreateCalculationItem(context, AddCalculation);
+
+            if (!isNestedGroup)
+            {
+                builder.AddSeparator()
+                       .AddRemoveAllChildrenItem(group, Gui.ViewCommands);
+            }
+
+            builder.AddSeparator()
+                   .AddValidateAllCalculationsInGroupItem(context, null)
+                   .AddPerformAllCalculationsInGroupItem(group, context, null)
+                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddSeparator();
+
+            if (isNestedGroup)
+            {
+                builder.AddRenameItem()
+                       .AddDeleteItem()
+                       .AddSeparator();
+            }
+
+            return builder.AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private StrictContextMenuItem CreateGenerateCalculationsItem(StabilityPointStructuresCalculationGroupContext nodeData)
+        {
+            var generateCalculationsItem = new StrictContextMenuItem(
+                RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
+                Resources.StabilityPointStructuresPlugin_CreateGenerateCalculationsItem_ToolTip,
+                RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => { })
+            {
+                Enabled = false
+            };
+            return generateCalculationsItem;
+        }
+
+        private static void CalculationGroupContextOnNodeRemoved(StabilityPointStructuresCalculationGroupContext context, object parentNodeData)
+        {
+            var parentGroupContext = (StabilityPointStructuresCalculationGroupContext) parentNodeData;
+
+            parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
+            parentGroupContext.NotifyObservers();
+        }
+
+        private static void AddCalculation(StabilityPointStructuresCalculationGroupContext context) {}
 
         #endregion
 

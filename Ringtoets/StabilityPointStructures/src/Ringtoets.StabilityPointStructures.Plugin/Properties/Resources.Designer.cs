@@ -29,7 +29,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Ringtoets.StabilityPointStructures.Data.Properties {
+namespace Ringtoets.StabilityPointStructures.Plugin.Properties {
     using System;
     
     
@@ -60,7 +60,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.StabilityPointStructures.Data.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ringtoets.StabilityPointStructures.Plugin.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -82,29 +82,11 @@ namespace Ringtoets.StabilityPointStructures.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuwe berekening.
+        ///   Looks up a localized string similar to Genereer scenario&apos;s.
         /// </summary>
-        public static string StabilityPointStructuresCalculation_DefaultName {
+        public static string StabilityPointStructuresPlugin_CreateGenerateCalculationsItem_ToolTip {
             get {
-                return ResourceManager.GetString("StabilityPointStructuresCalculation_DefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to STKWp.
-        /// </summary>
-        public static string StabilityPointStructuresFailureMechanism_Code {
-            get {
-                return ResourceManager.GetString("StabilityPointStructuresFailureMechanism_Code", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken - Sterkte en stabiliteit puntconstructies.
-        /// </summary>
-        public static string StabilityPointStructuresFailureMechanism_DisplayName {
-            get {
-                return ResourceManager.GetString("StabilityPointStructuresFailureMechanism_DisplayName", resourceCulture);
+                return ResourceManager.GetString("StabilityPointStructuresPlugin_CreateGenerateCalculationsItem_ToolTip", resourceCulture);
             }
         }
     }

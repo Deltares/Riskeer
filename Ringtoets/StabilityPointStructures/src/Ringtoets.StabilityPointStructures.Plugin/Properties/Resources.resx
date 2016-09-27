@@ -117,13 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="StabilityPointStructuresCalculation_DefaultName" xml:space="preserve">
-    <value>Nieuwe berekening</value>
-  </data>
-  <data name="StabilityPointStructuresFailureMechanism_Code" xml:space="preserve">
-    <value>STKWp</value>
-  </data>
-  <data name="StabilityPointStructuresFailureMechanism_DisplayName" xml:space="preserve">
-    <value>Kunstwerken - Sterkte en stabiliteit puntconstructies</value>
+  <data name="StabilityPointStructuresPlugin_CreateGenerateCalculationsItem_ToolTip" xml:space="preserve">
+    <value>Genereer scenario's</value>
   </data>
 </root>
