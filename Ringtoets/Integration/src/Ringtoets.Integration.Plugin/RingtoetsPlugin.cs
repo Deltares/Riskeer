@@ -1291,6 +1291,7 @@ namespace Ringtoets.Integration.Plugin
                 return;
             }
 
+            var previousHydraulicBoundaryDatabase = assessmentSection.HydraulicBoundaryDatabase;
             using (var hydraulicBoundaryLocationsImporter = new HydraulicBoundaryDatabaseImporter())
             {
                 if (hydraulicBoundaryLocationsImporter.Import(assessmentSection, databaseFile))
@@ -1300,9 +1301,11 @@ namespace Ringtoets.Integration.Plugin
                         ClearCalculations(assessmentSection);
                     }
 
-                    assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase);
-                    assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
-
+                    if (!ReferenceEquals(previousHydraulicBoundaryDatabase, assessmentSection.HydraulicBoundaryDatabase))
+                    {
+                        assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase);
+                        assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.NotifyObservers();
+                    }
                     log.InfoFormat(RingtoetsFormsResources.RingtoetsPlugin_SetBoundaryDatabaseFilePath_Database_on_path_0_linked,
                                    assessmentSection.HydraulicBoundaryDatabase.FilePath);
                 }

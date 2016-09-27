@@ -109,7 +109,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
 
-            yield return new ViewInfo<GrassCoverErosionOutwardsDesignWaterLevelLocationsContext, IEnumerable<HydraulicBoundaryLocation>, GrassCoverErosionOutwardsDesignWaterLevelLocationsView>
+            yield return new ViewInfo<
+                GrassCoverErosionOutwardsDesignWaterLevelLocationsContext,
+                IEnumerable<HydraulicBoundaryLocation>, 
+                GrassCoverErosionOutwardsDesignWaterLevelLocationsView>
             {
                 GetViewName = (v, o) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName,
                 GetViewData = context => context.WrappedData,
@@ -117,6 +120,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 AfterCreate = (view, context) =>
                 {
                     view.AssessmentSection = context.AssessmentSection;
+                    view.FailureMechanism = context.FailureMechanism;
                     view.ApplicationSelection = Gui;
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 },
@@ -135,6 +139,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 AfterCreate = (view, context) =>
                 {
                     view.AssessmentSection = context.AssessmentSection;
+                    view.FailureMechanism = context.FailureMechanism;
                     view.ApplicationSelection = Gui;
                     view.CalculationGuiService = hydraulicBoundaryLocationCalculationGuiService;
                 }
@@ -438,10 +443,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             }
 
             ObservableList<HydraulicBoundaryLocation> locations = hydraulicBoundariesGroupContext.WrappedData;
+            var failureMechanism = hydraulicBoundariesGroupContext.FailureMechanism;
             return new object[]
             {
-                new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSection),
-                new GrassCoverErosionOutwardsWaveHeightLocationsContext(locations, assessmentSection),
+                new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(locations, assessmentSection, failureMechanism),
+                new GrassCoverErosionOutwardsWaveHeightLocationsContext(locations, assessmentSection, failureMechanism),
                 new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(hydraulicBoundariesGroupContext.FailureMechanism.WaveConditionsCalculationGroup,
                                                                                    hydraulicBoundariesGroupContext.FailureMechanism,
                                                                                    assessmentSection)
@@ -468,27 +474,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     }
 
                     IAssessmentSection assessmentSection = nodeData.AssessmentSection;
-                    GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().FirstOrDefault();
-                    if (failureMechanism == null)
-                    {
-                        return;
-                    }
-                    if (!(failureMechanism.Contribution > 0))
-                    {
-                        log.Info(Resources.GrassCoverErosionOutwardsPlugin_CalculateGrassCoverErosionOutwardsHydraulicBoundaryLocations_Cannot_calculate_when_Contribution_is_zero);
-                        return;
-                    }
+                    GrassCoverErosionOutwardsFailureMechanism failureMechanism = nodeData.FailureMechanism;
 
-                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
-                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                        nodeData.WrappedData,
-                        assessmentSection.Id,
-                        failureMechanism.CalculationBeta(assessmentSection),
-                        new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
+                    var calculationBeta = GetModifiedBeta(failureMechanism, assessmentSection);
 
-                    if (successfulCalculation)
+                    if (!double.IsNaN(calculationBeta))
                     {
-                        nodeData.WrappedData.NotifyObservers();
+                        bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateDesignWaterLevels(
+                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                            nodeData.WrappedData,
+                            assessmentSection.Id,
+                            calculationBeta,
+                            new GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider());
+
+                        if (successfulCalculation)
+                        {
+                            nodeData.WrappedData.NotifyObservers();
+                        }
                     }
                 });
 
@@ -531,22 +533,22 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                     {
                         return;
                     }
-                    if (!(failureMechanism.Contribution > 0))
-                    {
-                        log.Info(Resources.GrassCoverErosionOutwardsPlugin_CalculateGrassCoverErosionOutwardsHydraulicBoundaryLocations_Cannot_calculate_when_Contribution_is_zero);
-                        return;
-                    }
 
-                    bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
-                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
-                        nodeData.WrappedData,
-                        assessmentSection.Id,
-                        failureMechanism.CalculationBeta(assessmentSection),
-                        new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
+                    var calculationBeta = GetModifiedBeta(failureMechanism, assessmentSection);
 
-                    if (successfulCalculation)
+                    if (!double.IsNaN(calculationBeta))
                     {
-                        nodeData.WrappedData.NotifyObservers();
+                        bool successfulCalculation = hydraulicBoundaryLocationCalculationGuiService.CalculateWaveHeights(
+                            assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                            nodeData.WrappedData,
+                            assessmentSection.Id,
+                            calculationBeta,
+                            new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider());
+
+                        if (successfulCalculation)
+                        {
+                            nodeData.WrappedData.NotifyObservers();
+                        }
                     }
                 });
 
@@ -857,6 +859,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         }
 
         #endregion
+
+        private static double GetModifiedBeta(GrassCoverErosionOutwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        {
+            var calculationBeta = double.NaN;
+            try
+            {
+                calculationBeta = failureMechanism.CalculationBeta(assessmentSection);
+            }
+            catch (ArgumentException e)
+            {
+                log.ErrorFormat(e.Message);
+            }
+            return calculationBeta;
+        }
 
         #endregion
     }

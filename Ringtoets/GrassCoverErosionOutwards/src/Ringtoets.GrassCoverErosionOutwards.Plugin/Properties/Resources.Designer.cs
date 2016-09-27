@@ -91,16 +91,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd..
-        /// </summary>
-        internal static string GrassCoverErosionOutwardsPlugin_CalculateGrassCoverErosionOutwardsHydraulicBoundaryLocations_Cannot_calculate_when_Contribution_is_zero {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsPlugin_CalculateGrassCoverErosionOutwardsHydraulicBounda" +
-                        "ryLocations_Cannot_calculate_when_Contribution_is_zero", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Hs(doorsn).
         /// </summary>
         internal static string WaveHeight_Description {

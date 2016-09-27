@@ -123,7 +123,4 @@
   <data name="WaveHeight_Description" xml:space="preserve">
     <value>Hs(doorsn)</value>
   </data>
-  <data name="GrassCoverErosionOutwardsPlugin_CalculateGrassCoverErosionOutwardsHydraulicBoundaryLocations_Cannot_calculate_when_Contribution_is_zero" xml:space="preserve">
-    <value>De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.</value>
-  </data>
 </root>

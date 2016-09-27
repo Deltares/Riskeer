@@ -34,6 +34,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -254,6 +255,12 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void GivenNoFilePathIsSet_WhenOpeningValidFileFromContextMenu_ThenPathWillBeSetAndNotifiesObserverAndLogMessageAdded()
         {
             // Given
+            var assessmentSectionObserver = mocks.StrictMock<IObserver>();
+            assessmentSectionObserver.Expect(o => o.UpdateObserver());
+
+            var grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
+            grassCoverErosionOutwardsLocationsObserver.Expect(o => o.UpdateObserver());
+
             string testFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
@@ -267,6 +274,9 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                 IGui gui = mocks.DynamicMock<IGui>();
                 gui.Expect(cmp => cmp.Get(hydraulicBoundaryDatabaseContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mocks.ReplayAll();
+
+                assessmentSection.Attach(assessmentSectionObserver);
+                assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -292,6 +302,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     });
 
                     Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);
+                    Assert.IsNotEmpty(assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations);
                 }
             }
             mocks.VerifyAll();
@@ -393,6 +404,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             // Given
             string validFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             IObserver assessmentObserver = mocks.StrictMock<IObserver>();
+            IObserver grassCoverErosionOutwardsLocationsObserver = mocks.StrictMock<IObserver>();
             int contextMenuImportHydraulicBoundaryDatabaseIndex = 0;
 
             AssessmentSection assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -416,6 +428,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             };
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
+            assessmentSection.GrassCoverErosionOutwards.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(assessmentSection.HydraulicBoundaryDatabase);
 
             // Precondition
             Assert.IsNotNull(assessmentSection.HydraulicBoundaryDatabase);
@@ -424,6 +437,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             string currentFilePath = assessmentSection.HydraulicBoundaryDatabase.FilePath;
             string currentVersion = assessmentSection.HydraulicBoundaryDatabase.Version;
             var currentLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
+            var currentFirstGrassCoverErosionOutwardsLocation = assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.First();
+            assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.Attach(grassCoverErosionOutwardsLocationsObserver);
 
             using (TreeViewControl treeViewControl = new TreeViewControl())
             using (RingtoetsPlugin plugin = new RingtoetsPlugin())
@@ -456,6 +471,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     CollectionAssert.AreEqual(currentLocations, assessmentSection.HydraulicBoundaryDatabase.Locations);
                     Assert.AreSame(assessmentSection.HydraulicBoundaryDatabase.Locations.First(), pipingCalculation.InputParameters.HydraulicBoundaryLocation);
                     Assert.AreSame(pipingOutput, pipingCalculation.Output);
+                    Assert.AreSame(currentFirstGrassCoverErosionOutwardsLocation, assessmentSection.GrassCoverErosionOutwards.HydraulicBoundaryLocations.First());
                 }
             }
             mocks.VerifyAll();

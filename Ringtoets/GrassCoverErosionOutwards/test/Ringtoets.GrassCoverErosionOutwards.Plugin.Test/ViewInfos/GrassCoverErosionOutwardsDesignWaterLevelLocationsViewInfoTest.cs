@@ -76,7 +76,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 var info = GetInfo(plugin);
 
                 // Call
-                var locations = info.GetViewData(new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(expectedLocations, assessmentSectionStub));
+                var locations = info.GetViewData(new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
+                    expectedLocations,
+                    assessmentSectionStub,
+                    new GrassCoverErosionOutwardsFailureMechanism()));
 
                 // Assert
                 Assert.AreSame(locations, expectedLocations);
@@ -99,7 +102,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
             {
                 var info = GetInfo(plugin);
 
-                var data = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(new ObservableList<HydraulicBoundaryLocation>(), assessmentSectionStub);
+                var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+                var data = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
+                    new ObservableList<HydraulicBoundaryLocation>(), 
+                    assessmentSectionStub,
+                    grassCoverErosionOutwardsFailureMechanism);
+
                 plugin.Gui = guiStub;
                 plugin.Activate();
 
@@ -111,6 +120,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                     // Assert
                     Assert.AreSame(assessmentSectionStub, view.AssessmentSection);
                     Assert.AreSame(guiStub, view.ApplicationSelection);
+                    Assert.AreSame(grassCoverErosionOutwardsFailureMechanism, view.FailureMechanism);
                     Assert.IsInstanceOf<IHydraulicBoundaryLocationCalculationGuiService>(view.CalculationGuiService);
                 }
             }
