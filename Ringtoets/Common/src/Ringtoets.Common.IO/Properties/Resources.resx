@@ -311,4 +311,10 @@ Er is geen referentielijn geëxporteerd.</value>
   <data name="StructuresReader_GetNextStructure_Invalid_KWKIDENT" xml:space="preserve">
     <value>Het kunstwerk heeft geen geldige waarde voor attribuut '{0}'.</value>
   </data>
+  <data name="StructuresCharacteristicsCsvReader_Column_0_must_be_defined_only_once" xml:space="preserve">
+    <value>De kolom '{0}' mag maar 1x gedefinieerd zijn.</value>
+  </data>
+  <data name="StructuresCharacteristicsCsvReader_ValidateRequiredColumnIndices_Invalid_header_Must_have_columns_0_" xml:space="preserve">
+    <value>Het bestand is niet geschikt om kunstwerken parameters uit te lezen (Verwachte koptekst moet de volgende kolommen bevatten: {0}.</value>
+  </data>
 </root>

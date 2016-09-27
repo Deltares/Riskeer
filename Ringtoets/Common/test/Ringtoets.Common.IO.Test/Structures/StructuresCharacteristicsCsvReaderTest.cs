@@ -63,7 +63,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             TestDelegate call = () => new StructuresCharacteristicsCsvReader(corruptPath);
 
             // Assert
-            string innerExpectedMessage = string.Format((string)UtilsResources.Error_Path_cannot_contain_Characters_0_,
+            string innerExpectedMessage = string.Format((string) UtilsResources.Error_Path_cannot_contain_Characters_0_,
                                                         string.Join(", ", Path.GetInvalidFileNameChars()));
             string expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(innerExpectedMessage);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
@@ -87,14 +87,15 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             const string invalidFilePath = "I_do_not_exist.csv";
 
-            var reader = new StructuresCharacteristicsCsvReader(invalidFilePath);
+            using (var reader = new StructuresCharacteristicsCsvReader(invalidFilePath))
+            {
+                // Call
+                TestDelegate call = () => reader.GetLineCount();
 
-            // Call
-            TestDelegate call = () => reader.GetLineCount();
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            Assert.AreEqual("Fout bij het lezen van bestand 'I_do_not_exist.csv': Het bestand bestaat niet.", message);
+                // Assert
+                string message = Assert.Throws<CriticalFileReadException>(call).Message;
+                Assert.AreEqual("Fout bij het lezen van bestand 'I_do_not_exist.csv': Het bestand bestaat niet.", message);
+            }
         }
 
         [Test]
@@ -103,16 +104,149 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             string invalidFilePath = Path.Combine("I_do_not_exist", "I do not exist either.csv");
 
-            var reader = new StructuresCharacteristicsCsvReader(invalidFilePath);
+            using (var reader = new StructuresCharacteristicsCsvReader(invalidFilePath))
+            {
+                // Call
+                TestDelegate call = () => reader.GetLineCount();
 
-            // Call
-            TestDelegate call = () => reader.GetLineCount();
+                // Assert
+                string message = Assert.Throws<CriticalFileReadException>(call).Message;
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestandspad verwijst naar een map die niet bestaat.",
+                                                       invalidFilePath);
+                Assert.AreEqual(expectedMessage, message);
+            }
+        }
 
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestandspad verwijst naar een map die niet bestaat.",
-                                                   invalidFilePath);
-            Assert.AreEqual(expectedMessage, message);
+        [Test]
+        public void GetLineCount_EmptyFile_ThrowCriticalFileReadException()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "EmptyFile.csv"));
+
+            using (var reader = new StructuresCharacteristicsCsvReader(filePath))
+            {
+                // Call
+                TestDelegate call = () => reader.GetLineCount();
+
+                // Assert
+                string message = Assert.Throws<CriticalFileReadException>(call).Message;
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is leeg.",
+                                                       filePath);
+                Assert.AreEqual(expectedMessage, message);
+            }
+        }
+
+        [Test]
+        [TestCase("InvalidFile_LocationIdMissing.csv")]
+        [TestCase("InvalidFile_ParameterIdMissing.csv")]
+        [TestCase("InvalidFile_NumericValueMissing.csv")]
+        [TestCase("InvalidFile_VarianceValueMissing.csv")]
+        [TestCase("InvalidFile_BooleanMissing.csv")]
+        public void GetLineCount_FileLackingLocationIdColumn_ThrowCriticalFileReadException(string fileName)
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures", 
+                                                         "StructuresCharacteristicsCsvFiles", 
+                                                         fileName));
+
+            using (var reader = new StructuresCharacteristicsCsvReader(filePath))
+            {
+                // Call
+                TestDelegate call = () => reader.GetLineCount();
+
+                // Assert
+                string message = Assert.Throws<CriticalFileReadException>(call).Message;
+                string expectedHeaderColumnsText = "identificatie, kunstwerken.identificatie, numeriekewaarde, standarddeviatie.variance, boolean";
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen (Verwachte koptekst moet de volgende kolommen bevatten: {1}.",
+                                                       filePath, expectedHeaderColumnsText);
+                Assert.AreEqual(expectedMessage, message);
+            }
+        }
+
+        [Test]
+        public void GetLineCount_ValidFileWithTwoLocationsAndAllHeightStructureParameters_ReturnCount()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures",
+                                                                      "StructuresCharacteristicsCsvFiles",
+                                                                      "ValidFile_2Locations_AllHeightStructureParameters.csv"));
+
+            using (var reader = new StructuresCharacteristicsCsvReader(filePath))
+            {
+                // Call
+                int count = reader.GetLineCount();
+
+                // Assert
+                Assert.AreEqual(16, count);
+            }
+        }
+
+        [Test]
+        public void GetLineCount_ValidFileWithTwoLocationsAndAllHeightStructureParametersCondensed_ReturnCount()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures",
+                                                                      "StructuresCharacteristicsCsvFiles",
+                                                                      "ValidFile_2Locations_AllHeightStructureParameters_CondensedAndDifferentOrder.csv"));
+
+            using (var reader = new StructuresCharacteristicsCsvReader(filePath))
+            {
+                // Call
+                int count = reader.GetLineCount();
+
+                // Assert
+                Assert.AreEqual(16, count);
+            }
+        }
+
+        [Test]
+        public void GetLineCount_ValidFileWithOneLocationsAndExtraWhiteLines_ReturnCount()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures",
+                                                                      "StructuresCharacteristicsCsvFiles",
+                                                                      "ValidFile_1Location_AllHeightStructureParameters_ExtraWhiteLines.csv"));
+
+            using (var reader = new StructuresCharacteristicsCsvReader(filePath))
+            {
+                // Call
+                int count = reader.GetLineCount();
+
+                // Assert
+                Assert.AreEqual(8, count);
+            }
+        }
+
+        [Test]
+        [TestCase("InvalidFile_DuplicateLocationId.csv", "identificatie")]
+        [TestCase("InvalidFile_DuplicateParameterId.csv", "kunstwerken.identificatie")]
+        [TestCase("InvalidFile_DuplicateNumericalValue.csv", "numeriekewaarde")]
+        [TestCase("InvalidFile_DuplicateVarianceValue.csv", "standarddeviatie.variance")]
+        [TestCase("InvalidFile_DuplicateBoolean.csv", "boolean")]
+        public void GetLineCount_DuplicateColumn_ThrowCriticalFileReadException(string fileName, string columnName)
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures",
+                                                         "StructuresCharacteristicsCsvFiles",
+                                                         fileName));
+
+            using (var reader = new StructuresCharacteristicsCsvReader(filePath))
+            {
+                // Call
+                TestDelegate call = () => reader.GetLineCount();
+
+                // Assert
+                string message = Assert.Throws<CriticalFileReadException>(call).Message;
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: De kolom '{1}' mag maar 1x gedefinieerd zijn.",
+                                                       filePath, columnName);
+                Assert.AreEqual(expectedMessage, message);
+            }
         }
 
         [Test]
@@ -121,14 +255,15 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             const string invalidFilePath = "I_do_not_exist.csv";
 
-            var reader = new StructuresCharacteristicsCsvReader(invalidFilePath);
+            using (var reader = new StructuresCharacteristicsCsvReader(invalidFilePath))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
 
-            // Call
-            TestDelegate call = () => reader.ReadLine();
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            Assert.AreEqual("Fout bij het lezen van bestand 'I_do_not_exist.csv': Het bestand bestaat niet.", message);
+                // Assert
+                string message = Assert.Throws<CriticalFileReadException>(call).Message;
+                Assert.AreEqual("Fout bij het lezen van bestand 'I_do_not_exist.csv': Het bestand bestaat niet.", message);
+            }
         }
 
         [Test]
@@ -137,16 +272,17 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             string invalidFilePath = Path.Combine("I_do_not_exist", "I do not exist either.csv");
 
-            var reader = new StructuresCharacteristicsCsvReader(invalidFilePath);
+            using (var reader = new StructuresCharacteristicsCsvReader(invalidFilePath))
+            {
+                // Call
+                TestDelegate call = () => reader.ReadLine();
 
-            // Call
-            TestDelegate call = () => reader.ReadLine();
-
-            // Assert
-            string message = Assert.Throws<CriticalFileReadException>(call).Message;
-            string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestandspad verwijst naar een map die niet bestaat.",
-                                                   invalidFilePath);
-            Assert.AreEqual(expectedMessage, message);
+                // Assert
+                string message = Assert.Throws<CriticalFileReadException>(call).Message;
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestandspad verwijst naar een map die niet bestaat.",
+                                                       invalidFilePath);
+                Assert.AreEqual(expectedMessage, message);
+            }
         }
     }
 }
