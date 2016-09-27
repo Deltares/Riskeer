@@ -139,10 +139,10 @@ namespace Ringtoets.HeightStructures.Plugin
 
             yield return new TreeNodeInfo<HeightStructureContext>
             {
-                Text = heightStructureProfile => HeightStructuresFormsResources.HeightStructureCollection_DisplayName,
-                Image = heightStructureProfile => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                ForeColor = ringtoetsPipingSurfaceLine => ringtoetsPipingSurfaceLine.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
-                ChildNodeObjects = heightStructureProfile => heightStructureProfile.WrappedData.Cast<object>().ToArray(),
+                Text = context => HeightStructuresFormsResources.HeightStructureCollection_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ForeColor = context => context.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddImportItem()
                                                                                  .AddSeparator()

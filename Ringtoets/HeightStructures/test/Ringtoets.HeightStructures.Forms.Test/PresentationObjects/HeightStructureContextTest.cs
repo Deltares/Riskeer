@@ -41,14 +41,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var heightStructureProfiles = new ObservableList<HeightStructure>();
+            var heightStructures = new ObservableList<HeightStructure>();
 
             // Call
-            var context = new HeightStructureContext(heightStructureProfiles, assessmentSectionMock);
+            var context = new HeightStructureContext(heightStructures, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HeightStructure>>>(context);
-            Assert.AreSame(heightStructureProfiles, context.WrappedData);
+            Assert.AreSame(heightStructures, context.WrappedData);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             mocks.VerifyAll();
         }
@@ -57,10 +57,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var heightStructureProfiles = new ObservableList<HeightStructure>();
+            var heightStructures = new ObservableList<HeightStructure>();
 
             // Call
-            TestDelegate test = () => new HeightStructureContext(heightStructureProfiles, null);
+            TestDelegate test = () => new HeightStructureContext(heightStructures, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
