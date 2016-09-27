@@ -51,6 +51,7 @@ using Ringtoets.HeightStructures.Plugin;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin;
 using Ringtoets.Piping.Plugin;
+using Ringtoets.StabilityPointStructures.Plugin;
 using Ringtoets.StabilityStoneCover.Plugin;
 using Ringtoets.WaveImpactAsphaltCover.Plugin;
 using MessageBox = System.Windows.MessageBox;
@@ -152,6 +153,7 @@ namespace Application.Ringtoets
                     new CommonToolsPlugin(),
                     new RingtoetsPlugin(),
                     new ClosingStructuresPlugin(),
+                    new StabilityPointStructuresPlugin(),
                     new WaveImpactAsphaltCoverPlugin(),
                     new GrassCoverErosionInwardsPlugin(),
                     new GrassCoverErosionOutwardsPlugin(),
