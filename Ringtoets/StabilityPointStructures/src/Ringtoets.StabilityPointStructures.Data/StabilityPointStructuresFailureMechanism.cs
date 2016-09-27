@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.StabilityPointStructures.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Data
 {
@@ -30,7 +31,7 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// Model containing input and output needed to perform different levels of the
     /// Strength and Stability of Point Constructions failure mechanism.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanism : FailureMechanismBase, IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>
+    public class StabilityPointStructuresFailureMechanism : FailureMechanismBase, ICalculatableFailureMechanism, IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>
     {
         private readonly IList<StabilityPointStructuresFailureMechanismSectionResult> sectionResults;
 
@@ -40,6 +41,8 @@ namespace Ringtoets.StabilityPointStructures.Data
         public StabilityPointStructuresFailureMechanism()
             : base(Resources.StabilityPointStructuresFailureMechanism_DisplayName, Resources.StabilityPointStructuresFailureMechanism_Code)
         {
+            CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
+            GeneralInput = new GeneralStabilityPointStructuresInput();
             sectionResults = new List<StabilityPointStructuresFailureMechanismSectionResult>();
         }
 
@@ -50,6 +53,13 @@ namespace Ringtoets.StabilityPointStructures.Data
                 yield break;
             }
         }
+
+        /// <summary>
+        /// Gets the general stability point structures calculation input parameters that apply to each calculation.
+        /// </summary>
+        public GeneralStabilityPointStructuresInput GeneralInput { get; private set; }
+
+        public CalculationGroup CalculationsGroup { get; private set; }
 
         public IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> SectionResults
         {

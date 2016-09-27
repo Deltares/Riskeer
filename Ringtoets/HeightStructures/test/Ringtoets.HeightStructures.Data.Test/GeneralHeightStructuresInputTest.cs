@@ -91,7 +91,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             TestDelegate test = () => generalHeightStructuresInput.N = value;
 
             // Assert
-            var expectedMessage = Resources.N_Value_should_be_in_interval_1_20;
+            const string expectedMessage = "De waarde voor 'N' moet in interval [1, 20] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
     }

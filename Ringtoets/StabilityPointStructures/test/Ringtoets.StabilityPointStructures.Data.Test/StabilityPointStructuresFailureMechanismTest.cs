@@ -37,9 +37,19 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismBase>(failureMechanism);
+            Assert.IsInstanceOf<ICalculatableFailureMechanism>(failureMechanism);
+            Assert.IsInstanceOf<IHasSectionResults<StabilityPointStructuresFailureMechanismSectionResult>>(failureMechanism);
             Assert.AreEqual("Kunstwerken - Sterkte en stabiliteit puntconstructies", failureMechanism.Name);
             Assert.AreEqual("STKWp", failureMechanism.Code);
+
+            Assert.IsInstanceOf<GeneralStabilityPointStructuresInput>(failureMechanism.GeneralInput);
+
+            Assert.AreEqual("Berekeningen", failureMechanism.CalculationsGroup.Name);
+            Assert.IsFalse(failureMechanism.CalculationsGroup.IsNameEditable);
+            CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
+            CollectionAssert.IsEmpty(failureMechanism.Calculations);
         }
 
         [Test]
@@ -57,6 +67,33 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.AreEqual(1, failureMechanism.SectionResults.Count());
             Assert.IsInstanceOf<StabilityPointStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults.ElementAt(0));
+        }
+
+        [Test]
+        public void ClearAllSections_WithSectionsAndSectionResults_SectionsAndSectionResultsCleared()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(2, 1)
+            }));
+            failureMechanism.AddSection(new FailureMechanismSection("", new[]
+            {
+                new Point2D(2, 1)
+            }));
+
+            // Precondition
+            Assert.AreEqual(2, failureMechanism.Sections.Count());
+            Assert.AreEqual(2, failureMechanism.SectionResults.Count());
+
+            // Call
+            failureMechanism.ClearAllSections();
+
+            // Assert
+            Assert.AreEqual(0, failureMechanism.Sections.Count());
+            Assert.AreEqual(0, failureMechanism.SectionResults.Count());
         }
     }
 }
