@@ -19,13 +19,44 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
 {
     [TestFixture]
     public class StructuresStabilityPointCalculationInputTest
     {
+        [Test]
+        public void Constructor_ExpectedValues()
+        {
+            // Setup
+            const int hydraulicBoundaryLocationId = 1000;
+            var hydraRingSection = new HydraRingSection(1, double.NaN, double.NaN);
+            var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
 
+            // Call
+            var input = new TestStructuresStabilityPointCalculationInput(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints);
+
+            // Assert
+            Assert.IsInstanceOf<ExceedanceProbabilityCalculationInput>(input);
+            Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
+            Assert.AreEqual(1, input.CalculationTypeId);
+            Assert.AreEqual(58, input.VariableId);
+            Assert.AreEqual(HydraRingFailureMechanismType.StructuresStructuralFailure, input.FailureMechanismType);
+            Assert.AreSame(hydraRingSection, input.Section);
+            Assert.AreSame(forelandPoints, input.ForelandsPoints);
+        }
+
+        private class TestStructuresStabilityPointCalculationInput : StructuresStabilityPointCalculationInput
+        {
+            public TestStructuresStabilityPointCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
+                                                                IEnumerable<HydraRingForelandPoint> forelandPoints)
+                : base(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints) {}
+        }
     }
 }
