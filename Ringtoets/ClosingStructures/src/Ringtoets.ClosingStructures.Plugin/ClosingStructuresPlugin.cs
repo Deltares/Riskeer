@@ -68,6 +68,11 @@ namespace Ringtoets.ClosingStructures.Plugin
                 FailureMechanismEnabledContextMenuStrip,
                 FailureMechanismDisabledContextMenuStrip);
 
+            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<ClosingStructuresCalculationGroupContext>(
+                CalculationGroupContextChildNodeObjects,
+                CalculationGroupContextContextMenuStrip,
+                CalculationGroupContextOnNodeRemoved);
+
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -129,6 +134,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return new object[]
             {
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, closingStructuresFailureMechanismContext.Parent), TreeFolderCategory.Input),
+                new ClosingStructuresCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData, closingStructuresFailureMechanismContext.Parent),
                 new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
             };
         }
@@ -165,6 +171,13 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(closingStructuresFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
+                          .AddValidateAllCalculationsInFailureMechanismItem(
+                              closingStructuresFailureMechanismContext,
+                              c => ValidateAll(),
+                              ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                          .AddPerformAllCalculationsInFailureMechanismItem(closingStructuresFailureMechanismContext, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                          .AddClearAllCalculationOutputInFailureMechanismItem(closingStructuresFailureMechanismContext.WrappedData)
+                          .AddSeparator()
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .AddSeparator()
@@ -186,6 +199,54 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .Build();
+        }
+
+        private void ValidateAll()
+        {
+            //Add validation service - currently a place holder
+        }
+
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(ClosingStructuresFailureMechanismContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
+        }
+
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, ClosingStructuresFailureMechanism failureMechanism)
+        {
+            //Check for database connection/part of a validation issue - currently a placeholder
+            return string.Empty;
+        }
+
+        private void CalculateAll(ClosingStructuresFailureMechanismContext context)
+        {
+            //Add calculate logic, part of WTI-554
+        }
+
+        #endregion
+
+        #region ClosingStructuresCalculationGroupContext TreeNodeInfo
+
+        private static object[] CalculationGroupContextChildNodeObjects(ClosingStructuresCalculationGroupContext context)
+        {
+            //Part of WTI-550
+            return new object[0];
+        }
+
+        private ContextMenuStrip CalculationGroupContextContextMenuStrip(ClosingStructuresCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
+        {
+            //Placeholder for time being, relevant for WTI-550
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            return builder.AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private static void CalculationGroupContextOnNodeRemoved(ClosingStructuresCalculationGroupContext context, object parentNodeData)
+        {
+            //Part of WTI-550
         }
 
         #endregion

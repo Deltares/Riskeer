@@ -43,9 +43,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class ClosingStructureFailureMechanismContextTreeNodeInfoTest
     {
-
         private const int contextMenuRelevancyIndexWhenRelevant = 0;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
+
+        private const int contextMenuValidateAllIndex = 2;
+        private const int contextMenuCalculateAllIndex = 3;
+        private const int contextMenuClearAllIndex = 4;
 
         private MockRepository mocksRepository;
 
@@ -103,7 +106,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
 
                 // Assert
-                Assert.AreEqual(2, children.Length);
+                Assert.AreEqual(3, children.Length);
 
                 var inputsFolder = (CategoryTreeFolder) children[0];
                 Assert.AreEqual("Invoer", inputsFolder.Name);
@@ -113,14 +116,19 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
                 Assert.AreSame(assessmentSectionMock, failureMechanismSectionsContext.ParentAssessmentSection);
 
-                var closingStructureContext = (ClosingStructureContext)inputsFolder.Contents[1];
+                var closingStructureContext = (ClosingStructureContext) inputsFolder.Contents[1];
                 Assert.AreSame(failureMechanism.ClosingStructures, closingStructureContext.WrappedData);
                 Assert.AreSame(assessmentSectionMock, closingStructureContext.AssessmentSection);
 
                 var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
                 Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
-                var outputsFolder = (CategoryTreeFolder) children[1];
+                var calculationsFolder = (ClosingStructuresCalculationGroupContext) children[1];
+                Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
+                Assert.AreEqual(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);
+                Assert.AreEqual(failureMechanism, calculationsFolder.FailureMechanism);
+
+                var outputsFolder = (CategoryTreeFolder) children[2];
                 Assert.AreEqual("Oordeel", outputsFolder.Name);
                 Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
                 Assert.AreEqual(1, outputsFolder.Contents.Count);
@@ -172,6 +180,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -190,7 +202,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 // Call
                 info.ContextMenuStrip(failureMechanismContext, null, treeViewControl);
             }
-            
+
             // Assert
             mocksRepository.VerifyAll();
         }
@@ -257,12 +269,29 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSectionMock, treeView))
                 {
                     // Assert
-                    Assert.AreEqual(3, menu.Items.Count);
+                    Assert.AreEqual(7, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                                   RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
                                                                   RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
                                                                   RingtoetsCommonFormsResources.Checkbox_ticked);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
+                                                                  RingtoetsCommonFormsResources.Validate_all,
+                                                                  RingtoetsCommonFormsResources.ValidateAll_No_calculations_to_validate,
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                                  false);
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
+                                                                  RingtoetsCommonFormsResources.Calculate_all,
+                                                                  RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run,
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndex,
+                                                                  RingtoetsCommonFormsResources.Clear_all_output,
+                                                                  RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
+                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  false);
                 }
             }
 
@@ -309,7 +338,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             mocksRepository.VerifyAll();
         }
 
-
         [Test]
         public void ContextMenuStrip_FailureMechanismIsRelevantAndClickOnIsRelevantItem_OnChangeActionRemovesAllViewsForItem()
         {
@@ -334,7 +362,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
                 var info = GetInfo(plugin);
 
-
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
                     // Call
@@ -345,7 +372,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             // Assert
             mocksRepository.VerifyAll();
         }
-
 
         [Test]
         public void ContextMenuStrip_FailureMechanismIsNotRelevantAndClickOnIsRelevantItem_MakeFailureMechanismRelevant()

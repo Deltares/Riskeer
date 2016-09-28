@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Core.Common.TestUtil;
@@ -29,7 +28,6 @@ using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
 {

@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.ClosingStructures.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
@@ -43,7 +41,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         /// <param name="wrappedData">The concrete data instance wrapped by the context object</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to</param>
-        /// <exception cref="ArgumentNullException">When any of the input parameters are <c>null</c></exception>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are <c>null</c></exception>
         protected ClosingStructuresContext(T wrappedData,
                                         ClosingStructuresFailureMechanism failureMechanism,
                                         IAssessmentSection assessmentSection)
@@ -52,7 +50,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
             if (failureMechanism == null)
             {
                 string message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                               "Het sluitings kunstwerk toetsspoor");
+                                               Resources.ClosingStructuresContext_DataDescription_ClosingStructuresFailureMechanism);
                 throw new ArgumentNullException("failureMechanism", message);
             }
 
@@ -69,12 +67,12 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the assessment section belonging to the context
+        /// Gets the assessment section for this instance
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
 
         /// <summary>
-        /// Gets the failure mechanism belonging to the context
+        /// Gets the failure mechanism for this instance
         /// </summary>
         public ClosingStructuresFailureMechanism FailureMechanism { get; private set; }
     }

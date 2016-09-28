@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -26,8 +27,19 @@ using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
 {
+    /// <summary>
+    /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
+    /// in order to be able to create configurable closing structures calculations.
+    /// </summary>
     public class ClosingStructuresCalculationGroupContext : ClosingStructuresContext<CalculationGroup>, ICalculationContext<CalculationGroup, ClosingStructuresFailureMechanism>
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="ClosingStructuresCalculationGroupContext"/>
+        /// </summary>
+        /// <param name="calculationGroup">The <see cref="CalculationGroup"/> instance that is wrapped by this context object</param>
+        /// <param name="failureMechanism">The failure mechanism of the instance</param>
+        /// <param name="assessmentSection">The assessment section of the instance</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are null</exception>
         public ClosingStructuresCalculationGroupContext(CalculationGroup calculationGroup, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection) :
             base(calculationGroup, failureMechanism, assessmentSection) {}
     }
