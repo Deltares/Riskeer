@@ -27,7 +27,7 @@ using Ringtoets.Common.IO.Structures;
 namespace Ringtoets.Common.IO.Test.Structures
 {
     [TestFixture]
-    public class StructureTest
+    public class StructureLocationTest
     {
         private const string id = "anId";
         private const string name = "aName";
@@ -37,7 +37,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void Constructor_IdNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new Structure(null, name, point);
+            TestDelegate call = () => new StructureLocation(null, name, point);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void Constructor_NameNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new Structure(id, null, point);
+            TestDelegate call = () => new StructureLocation(id, null, point);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void Constructor_PointNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new Structure(id, name, null);
+            TestDelegate call = () => new StructureLocation(id, name, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void Constructor_ValidParameters_ExpectedProperties()
         {
             // Call
-            var structure = new Structure(id, name, point);
+            var structure = new StructureLocation(id, name, point);
 
             // Assert
             Assert.AreEqual("anId", structure.Id);

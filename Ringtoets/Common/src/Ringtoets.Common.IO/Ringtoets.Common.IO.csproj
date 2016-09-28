@@ -56,6 +56,7 @@
     <Compile Include="DikeProfiles\ProfileLocationReader.cs" />
     <Compile Include="DikeProfiles\SheetPileType.cs" />
     <Compile Include="Exceptions\CriticalFileValidationException.cs" />
+    <Compile Include="FileImporters\StructuresImporter.cs" />
     <Compile Include="HydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLineMetaImporter.cs" />
@@ -71,9 +72,9 @@
     <Compile Include="ReferenceLines\ReferenceLineReader.cs" />
     <Compile Include="ReferenceLines\ReferenceLineWriter.cs" />
     <Compile Include="Structures\StructuresCharacteristicsCsvReader.cs" />
-    <Compile Include="Structures\Structure.cs" />
+    <Compile Include="Structures\StructureLocation.cs" />
     <Compile Include="Structures\StructuresParameterRow.cs" />
-    <Compile Include="Structures\StructuresReader.cs" />
+    <Compile Include="Structures\StructureLocationReader.cs" />
     <Compile Include="Structures\VarianceType.cs" />
   </ItemGroup>
   <ItemGroup>

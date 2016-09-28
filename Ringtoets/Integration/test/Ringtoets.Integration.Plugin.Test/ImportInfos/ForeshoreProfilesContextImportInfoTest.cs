@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
@@ -32,56 +30,86 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Integration.Plugin.Properties;
 
 namespace Ringtoets.Integration.Plugin.Test.ImportInfos
 {
     public class ForeshoreProfilesContextImportInfoTest
     {
-        private ImportInfo importInfo;
-        private RingtoetsPlugin plugin;
-
-        [SetUp]
-        public void SetUp()
+        [Test]
+        public void CreateFileImporter_Always_ExpectedPropertiesSet()
         {
-            plugin = new RingtoetsPlugin();
-            importInfo = plugin.GetImportInfos().First(i => i.DataType == typeof(ForeshoreProfilesContext));
-        }
+            // Setup
+            var mocks = new MockRepository();
+            ReferenceLine referenceLine = mocks.Stub<ReferenceLine>();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            assessmentSection.ReferenceLine = referenceLine;
+            mocks.ReplayAll();
 
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
+            var list = new ObservableList<ForeshoreProfile>();
+
+            var importTarget = new ForeshoreProfilesContext(list, assessmentSection);
+
+            using (var plugin = new RingtoetsPlugin())
+            {
+                ImportInfo importInfo = GetImportInfo(plugin);
+
+                // Call
+                IFileImporter importer = importInfo.CreateFileImporter(importTarget, "test");
+
+                // Assert
+                Assert.IsInstanceOf<ProfilesImporter<ObservableList<ForeshoreProfile>>>(importer);
+            }
+            mocks.VerifyAll();
         }
 
         [Test]
         public void Name_Always_ReturnExpectedName()
         {
-            // Call
-            string name = importInfo.Name;
+            // Setup
+            using (var plugin = new RingtoetsPlugin())
+            {
+                ImportInfo importInfo = GetImportInfo(plugin);
 
-            // Assert
-            Assert.AreEqual("Voorlandprofiellocaties", name);
+                // Call
+                string name = importInfo.Name;
+
+                // Assert
+                Assert.AreEqual("Voorlandprofiellocaties", name);
+            }
         }
 
         [Test]
         public void Category_Always_ReturnExpectedCategory()
         {
-            // Call
-            string category = importInfo.Category;
+            // Setup
+            using (var plugin = new RingtoetsPlugin())
+            {
+                ImportInfo importInfo = GetImportInfo(plugin);
 
-            // Assert
-            Assert.AreEqual("Algemeen", category);
+                // Call
+                string category = importInfo.Category;
+
+                // Assert
+                Assert.AreEqual("Algemeen", category);
+            }
         }
 
         [Test]
         public void Image_Always_ReturnExpectedIcon()
         {
-            // Call
-            Image image = importInfo.Image;
+            // Setup
+            using (var plugin = new RingtoetsPlugin())
+            {
+                ImportInfo importInfo = GetImportInfo(plugin);
 
-            // Assert
-            TestHelper.AssertImagesAreEqual(Resources.Foreshore, image);
+                // Call
+                Image image = importInfo.Image;
+
+                // Assert
+                TestHelper.AssertImagesAreEqual(Resources.Foreshore, image);
+            }
         }
 
         [Test]
@@ -97,11 +125,16 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
 
             var context = new ForeshoreProfilesContext(list, assessmentSection);
 
-            // Call
-            bool isEnabled = importInfo.IsEnabled(context);
+            using (var plugin = new RingtoetsPlugin())
+            {
+                ImportInfo importInfo = GetImportInfo(plugin);
 
-            // Assert
-            Assert.IsTrue(isEnabled);
+                // Call
+                bool isEnabled = importInfo.IsEnabled(context);
+
+                // Assert
+                Assert.IsTrue(isEnabled);
+            }
             mocks.VerifyAll();
         }
 
@@ -118,62 +151,38 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
 
             var context = new ForeshoreProfilesContext(list, assessmentSection);
 
-            // Call
-            bool isEnabled = importInfo.IsEnabled(context);
+            using (var plugin = new RingtoetsPlugin())
+            {
+                ImportInfo importInfo = GetImportInfo(plugin);
 
-            // Assert
-            Assert.IsFalse(isEnabled);
+                // Call
+                bool isEnabled = importInfo.IsEnabled(context);
+
+                // Assert
+                Assert.IsFalse(isEnabled);
+            }
             mocks.VerifyAll();
         }
 
         [Test]
         public void FileFilter_Always_ReturnExpectedFileFilter()
         {
-            // Call
-            string fileFilter = importInfo.FileFilter;
-
-            // Assert
-            Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter);
-        }
-
-        [Test]
-        public void CreateFileImporter_ValidInput_SuccessfulImport()
-        {
             // Setup
-            var mocks = new MockRepository();
-            ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mocks.ReplayAll();
+            using (var plugin = new RingtoetsPlugin())
+            {
+                ImportInfo importInfo = GetImportInfo(plugin);
 
-            var list = new ObservableList<ForeshoreProfile>();
+                // Call
+                string fileFilter = importInfo.FileFilter;
 
-            string path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
-                                                     Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
-
-            var importTarget = new ForeshoreProfilesContext(list, assessmentSection);
-
-            // Call
-            IFileImporter importer = importInfo.CreateFileImporter(importTarget, path);
-
-            // Assert
-            Assert.IsTrue(importer.Import());
-
-            mocks.VerifyAll();
+                // Assert
+                Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter);
+            }
         }
 
-        private ReferenceLine CreateMatchingReferenceLine()
+        private static ImportInfo GetImportInfo(RingtoetsPlugin plugin)
         {
-            var referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(new[]
-            {
-                new Point2D(131223.2, 548393.4),
-                new Point2D(133854.3, 545323.1),
-                new Point2D(135561.0, 541920.3),
-                new Point2D(136432.1, 538235.2),
-                new Point2D(136039.4, 533920.2)
-            });
-            return referenceLine;
+            return plugin.GetImportInfos().First(ii => ii.DataType == typeof(ForeshoreProfilesContext));
         }
     }
 }

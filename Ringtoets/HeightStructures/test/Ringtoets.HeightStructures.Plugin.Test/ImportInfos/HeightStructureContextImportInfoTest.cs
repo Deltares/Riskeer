@@ -28,15 +28,15 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.Integration.Plugin.FileImporters;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.ImportInfos
+namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class DikeProfilesContextImportInfoTest
+    public class HeightStructureContextImportInfoTest
     {
         [Test]
         public void CreateFileImporter_Always_ExpectedPropertiesSet()
@@ -48,11 +48,11 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = referenceLine;
             mocks.ReplayAll();
 
-            var list = new ObservableList<DikeProfile>();
+            var list = new ObservableList<HeightStructure>();
 
-            var importTarget = new DikeProfilesContext(list, assessmentSection);
+            var importTarget = new HeightStructureContext(list, assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new HeightStructuresPlugin())
             {
                 ImportInfo importInfo = GetImportInfo(plugin);
 
@@ -60,7 +60,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
                 IFileImporter importer = importInfo.CreateFileImporter(importTarget, "test");
 
                 // Assert
-                Assert.IsInstanceOf<ProfilesImporter<ObservableList<DikeProfile>>>(importer);
+                Assert.IsInstanceOf<HeightStructuresImporter>(importer);
             }
             mocks.VerifyAll();
         }
@@ -69,7 +69,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
         public void Name_Always_ReturnExpectedName()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new HeightStructuresPlugin())
             {
                 ImportInfo importInfo = GetImportInfo(plugin);
 
@@ -77,7 +77,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
                 string name = importInfo.Name;
 
                 // Assert
-                Assert.AreEqual("Dijkprofiellocaties", name);
+                Assert.AreEqual("Kunstwerklocaties", name);
             }
         }
 
@@ -85,7 +85,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
         public void Category_Always_ReturnExpectedCategory()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new HeightStructuresPlugin())
             {
                 ImportInfo importInfo = GetImportInfo(plugin);
 
@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
         public void Image_Always_ReturnExpectedIcon()
         {
             // Setup
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new HeightStructuresPlugin())
             {
                 ImportInfo importInfo = GetImportInfo(plugin);
 
@@ -109,7 +109,23 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
                 Image image = importInfo.Image;
 
                 // Assert
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.DikeProfile, image);
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.StructuresIcon, image);
+            }
+        }
+
+        [Test]
+        public void FileFilter_Always_ReturnExpectedFileFilter()
+        {
+            // Setup
+            using (var plugin = new HeightStructuresPlugin())
+            {
+                ImportInfo importInfo = GetImportInfo(plugin);
+
+                // Call
+                string fileFilter = importInfo.FileFilter;
+
+                // Assert
+                Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter);
             }
         }
 
@@ -122,11 +138,11 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
-            var list = new ObservableList<DikeProfile>();
+            var list = new ObservableList<HeightStructure>();
 
-            var context = new DikeProfilesContext(list, assessmentSection);
+            var context = new HeightStructureContext(list, assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new HeightStructuresPlugin())
             {
                 ImportInfo importInfo = GetImportInfo(plugin);
 
@@ -148,11 +164,11 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             assessmentSection.ReferenceLine = null;
             mocks.ReplayAll();
 
-            var list = new ObservableList<DikeProfile>();
+            var list = new ObservableList<HeightStructure>();
 
-            var context = new DikeProfilesContext(list, assessmentSection);
+            var context = new HeightStructureContext(list, assessmentSection);
 
-            using (var plugin = new RingtoetsPlugin())
+            using (var plugin = new HeightStructuresPlugin())
             {
                 ImportInfo importInfo = GetImportInfo(plugin);
 
@@ -165,25 +181,9 @@ namespace Ringtoets.Integration.Plugin.Test.ImportInfos
             mocks.VerifyAll();
         }
 
-        [Test]
-        public void FileFilter_Always_ReturnExpectedFileFilter()
+        private static ImportInfo GetImportInfo(HeightStructuresPlugin plugin)
         {
-            // Setup
-            using (var plugin = new RingtoetsPlugin())
-            {
-                ImportInfo importInfo = GetImportInfo(plugin);
-
-                // Call
-                string fileFilter = importInfo.FileFilter;
-
-                // Assert
-                Assert.AreEqual("Shapebestand (*.shp)|*.shp", fileFilter);
-            }
-        }
-
-        private static ImportInfo GetImportInfo(RingtoetsPlugin plugin)
-        {
-            return plugin.GetImportInfos().First(ii => ii.DataType == typeof(DikeProfilesContext));
-        }
+            return plugin.GetImportInfos().First(ii => ii.DataType == typeof(HeightStructureContext));
+        } 
     }
 }

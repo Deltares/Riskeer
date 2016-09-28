@@ -31,7 +31,7 @@ using Ringtoets.Common.IO.Structures;
 namespace Ringtoets.Common.IO.Test.Structures
 {
     [TestFixture]
-    public class StructuresReaderTest
+    public class StructureLocationReaderTest
     {
         [Test]
         public void Constructor_ValidFilePath_ExpectedValues()
@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                                                               Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
             // Call
-            using (var reader = new StructuresReader(validFilePath))
+            using (var reader = new StructureLocationReader(validFilePath))
             {
                 // Assert
                 Assert.IsInstanceOf<IDisposable>(reader);
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         public void Constructor_FilePathIsNullOrWhiteSpace_ThrowArgumentException(string invalidFilePath)
         {
             // Call
-            TestDelegate call = () => new StructuresReader(invalidFilePath);
+            TestDelegate call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet leeg of ongedefinieerd zijn.",
@@ -74,7 +74,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             string invalidFilePath = validFilePath.Replace("e", invalidFileNameChars[1].ToString());
 
             // Call
-            TestDelegate call = () => new StructuresReader(invalidFilePath);
+            TestDelegate call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet de volgende tekens bevatten: {1}",
@@ -90,7 +90,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                                                                 Path.DirectorySeparatorChar.ToString());
 
             // Call
-            TestDelegate call = () => new StructuresReader(invalidFilePath);
+            TestDelegate call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Bestandspad mag niet verwijzen naar een lege bestandsnaam.",
@@ -105,7 +105,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "I_do_not_exist.shp");
 
             // Call
-            TestDelegate call = () => new StructuresReader(invalidFilePath);
+            TestDelegate call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",
@@ -127,7 +127,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             string invalidFilePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO, shapeFileName);
 
             // Call
-            TestDelegate call = () => new StructuresReader(invalidFilePath);
+            TestDelegate call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Kon geen punten vinden in dit bestand.",
@@ -144,7 +144,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                                                                 Path.Combine("Structures", "StructuresWithoutKWKIDENT", "Kunstwerken.shp"));
 
             // Call
-            TestDelegate call = () => new StructuresReader(invalidFilePath);
+            TestDelegate call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
             var expectedMessage = string.Format("Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.",
@@ -163,7 +163,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             using (new FileStream(validFilePath, FileMode.Open))
             {
                 // Call
-                TestDelegate call = () => new StructuresReader(validFilePath);
+                TestDelegate call = () => new StructureLocationReader(validFilePath);
 
                 // Assert
                 var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
@@ -181,7 +181,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
 
-            using (var reader = new StructuresReader(validFilePath))
+            using (var reader = new StructureLocationReader(validFilePath))
             {
                 // Call
                 int count = reader.GetStructureCount;
@@ -197,15 +197,15 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("Structures", "StructuresWithoutKWKNAAM", "Kunstwerken.shp"));
-            IList<Structure> structures = new List<Structure>();
+            IList<StructureLocation> structures = new List<StructureLocation>();
 
-            using (var reader = new StructuresReader(validFilePath))
+            using (var reader = new StructureLocationReader(validFilePath))
             {
                 // Call
                 int count = reader.GetStructureCount;
                 for (int i = 0; i < count; i++)
                 {
-                    structures.Add(reader.GetNextStructure());
+                    structures.Add(reader.GetNextStructureLocation());
                 }
 
                 // Assert
@@ -224,15 +224,15 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("Structures", "StructuresSomeWithEmptyKWKNAAM", "Kunstwerken.shp"));
-            IList<Structure> structures = new List<Structure>();
+            IList<StructureLocation> structures = new List<StructureLocation>();
 
-            using (var reader = new StructuresReader(validFilePath))
+            using (var reader = new StructureLocationReader(validFilePath))
             {
                 // Call
                 int count = reader.GetStructureCount;
                 for (int i = 0; i < count; i++)
                 {
-                    structures.Add(reader.GetNextStructure());
+                    structures.Add(reader.GetNextStructureLocation());
                 }
 
                 // Assert
@@ -254,10 +254,10 @@ namespace Ringtoets.Common.IO.Test.Structures
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("Structures", "StructuresWithNullKWKIDENT", "Kunstwerken.shp"));
 
-            using (var reader = new StructuresReader(validFilePath))
+            using (var reader = new StructureLocationReader(validFilePath))
             {
                 // Call
-                TestDelegate call = () => reader.GetNextStructure();
+                TestDelegate call = () => reader.GetNextStructureLocation();
 
                 // Assert
                 var exception = Assert.Throws<LineParseException>(call);
@@ -271,15 +271,15 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
-            IList<Structure> structures = new List<Structure>();
+            IList<StructureLocation> structures = new List<StructureLocation>();
 
-            using (var reader = new StructuresReader(validFilePath))
+            using (var reader = new StructureLocationReader(validFilePath))
             {
                 // Call
                 int count = reader.GetStructureCount;
                 for (int i = 0; i < count; i++)
                 {
-                    structures.Add(reader.GetNextStructure());
+                    structures.Add(reader.GetNextStructureLocation());
                 }
 
                 // Assert

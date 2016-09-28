@@ -55,6 +55,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="HeightStructuresPluginTest.cs" />
+    <Compile Include="ImportInfos\HeightStructureContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewInfos\HeightStructuresFailureMechanismResultViewInfoTest.cs" />
   </ItemGroup>
@@ -97,6 +98,10 @@
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
       <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
       <Name>Ringtoets.HeightStructures.Data</Name>
@@ -104,6 +109,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Forms\Ringtoets.HeightStructures.Forms.csproj">
       <Project>{F0BCF06A-3D01-4D65-A249-E2A14AEC6EFD}</Project>
       <Name>Ringtoets.HeightStructures.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.IO\Ringtoets.HeightStructures.IO.csproj">
+      <Project>{D63FCFEC-34E8-4C68-8B4F-99338D2447AC}</Project>
+      <Name>Ringtoets.HeightStructures.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Plugin\Ringtoets.HeightStructures.Plugin.csproj">
       <Project>{9AF85B2B-8D78-43C5-9542-FBB3A14EAB36}</Project>

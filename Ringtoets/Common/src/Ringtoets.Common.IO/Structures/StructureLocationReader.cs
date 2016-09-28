@@ -35,16 +35,16 @@ using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
 namespace Ringtoets.Common.IO.Structures
 {
     /// <summary>
-    /// This class is responsible for reading structures for <see cref="Structure"/> instances.
+    /// This class is responsible for reading structures for <see cref="StructureLocation"/> instances.
     /// </summary>
-    public class StructuresReader : IDisposable
+    public class StructureLocationReader : IDisposable
     {
         private const string idAttributeName = "KWKIDENT";
         private const string nameAttributeName = "KWKNAAM";
         private readonly PointShapeFileReader pointsShapeFileReader;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StructuresReader"/> class.
+        /// Initializes a new instance of the <see cref="StructureLocationReader"/> class.
         /// </summary>
         /// <param name="shapeFilePath">The shape file path.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="shapeFilePath"/> is invalid.</exception>
@@ -53,7 +53,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <item><paramref name="shapeFilePath"/> does not only contain point features.</item>
         /// <item><paramref name="shapeFilePath"/> does not contain all of the required attributes.</item>
         /// </list></exception>
-        public StructuresReader(string shapeFilePath)
+        public StructureLocationReader(string shapeFilePath)
         {
             FileUtils.ValidateFilePath(shapeFilePath);
             if (!File.Exists(shapeFilePath))
@@ -80,15 +80,15 @@ namespace Ringtoets.Common.IO.Structures
         }
 
         /// <summary>
-        /// Retrieve a <see cref="Structure"/> based on the next point feature in the shapefile.
+        /// Retrieve a <see cref="StructureLocation"/> based on the next point feature in the shapefile.
         /// </summary>
         /// <exception cref="LineParseException">Thrown when either:
         /// <list type="bullet">
         /// <item>The shapefile misses a value for a required attribute.</item>
         /// <item>The shapefile has an attribute whose type is incorrect.</item>
         /// </list></exception>
-        /// <returns>A <see cref="Structure"/> based on the next point feature in the shapefile.</returns>
-        public Structure GetNextStructure()
+        /// <returns>A <see cref="StructureLocation"/> based on the next point feature in the shapefile.</returns>
+        public StructureLocation GetNextStructureLocation()
         {
             MapPointData mapPointData = (MapPointData) pointsShapeFileReader.ReadFeature();
 
@@ -102,7 +102,7 @@ namespace Ringtoets.Common.IO.Structures
             {
                 throw new LineParseException(string.Format(Resources.StructuresReader_GetNextStructure_Invalid_KWKIDENT, idAttributeName));
             }
-            return new Structure(attributeIdValue, attributeNameValue, point);
+            return new StructureLocation(attributeIdValue, attributeNameValue, point);
         }
 
         public void Dispose()

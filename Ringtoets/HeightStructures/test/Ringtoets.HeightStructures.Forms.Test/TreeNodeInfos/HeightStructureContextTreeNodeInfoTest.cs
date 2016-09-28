@@ -22,6 +22,7 @@
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -227,8 +228,16 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
         private static HeightStructure CreateHeightStructure()
         {
-            // Creation of height structure object will be defined by issue WTI-579
-            return null;
+            var heightStructure = new HeightStructure("aName", "anId", new Point2D(1.22, 2.333),
+                                                      0.12345,
+                                                      234.567, 0.23456,
+                                                      345.678, 0.34567,
+                                                      456.789, 0.45678,
+                                                      567.890, 0.56789,
+                                                      0.67890,
+                                                      112.223, 0.11222,
+                                                      225.336, 0.22533);
+            return heightStructure;
         }
     }
 }

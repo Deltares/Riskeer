@@ -39,6 +39,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Forms.Views;
+using Ringtoets.HeightStructures.IO;
 using Ringtoets.HeightStructures.Service;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -46,6 +47,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using HeightStructuresDataResources = Ringtoets.HeightStructures.Data.Properties.Resources;
 using HeightStructuresFormsResources = Ringtoets.HeightStructures.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Plugin
 {
@@ -64,13 +66,14 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             yield return new ImportInfo<HeightStructureContext>()
             {
-                Name = RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
+                CreateFileImporter = (context, filePath) => new HeightStructuresImporter(context.WrappedData,
+                                                                                         context.AssessmentSection.ReferenceLine,
+                                                                                         filePath),
+                Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
                 Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                FileFilter = string.Format("{0} {1}",
-                                           RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
-                                           RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter),
+                Image = RingtoetsCommonFormsResources.StructuresIcon,
+                FileFilter = RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter,
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null
-                //TODO: WTI-579 Hook this up with the importer
             };
         }
 

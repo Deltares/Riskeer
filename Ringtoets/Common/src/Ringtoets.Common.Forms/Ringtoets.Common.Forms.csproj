@@ -231,6 +231,7 @@
     <None Include="Resources\text_columns.png" />
     <None Include="Resources\point_shape_file.png" />
     <None Include="Resources\PointShapefileIcon.png" />
+    <None Include="Resources\Structures.png" />
     <Content Include="Resources\wand-hat.png" />
     <None Include="Resources\database.png" />
     <None Include="Resources\chart_single_line.png" />

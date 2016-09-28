@@ -159,5 +159,20 @@ namespace Ringtoets.HeightStructures.Plugin.Test
             }
             mocks.VerifyAll();
         }
+
+        [Test]
+        public void GetImportInfos_ReturnsExpectedImportInfos()
+        {
+            // Setup
+            using (var plugin = new HeightStructuresPlugin())
+            {
+                // Call
+                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, importInfos.Length);
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(HeightStructureContext)));
+            }
+        }
     }
 }

@@ -27,16 +27,16 @@ namespace Ringtoets.Common.IO.Structures
     /// <summary>
     /// Representation of a structure as read from a shapefile.
     /// </summary>
-    public class Structure
+    public class StructureLocation
     {
         /// <summary>
-        /// Creates a new instance of <see cref="Structure"/>.
+        /// Creates a new instance of <see cref="StructureLocation"/>.
         /// </summary>
-        /// <param name="id">The identifier for this <see cref="Structure"/>.</param>
-        /// <param name="name">The name of this <see cref="Structure"/>.</param>
-        /// <param name="point">The coordinates of this <see cref="Structure"/>.</param>
+        /// <param name="id">The identifier for this <see cref="StructureLocation"/>.</param>
+        /// <param name="name">The name of this <see cref="StructureLocation"/>.</param>
+        /// <param name="point">The coordinates of this <see cref="StructureLocation"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public Structure(string id, string name, Point2D point)
+        public StructureLocation(string id, string name, Point2D point)
         {
             if (id == null)
             {
@@ -56,17 +56,17 @@ namespace Ringtoets.Common.IO.Structures
         }
 
         /// <summary>
-        /// Gets the identifier for this <see cref="Structure"/>.
+        /// Gets the identifier for this <see cref="StructureLocation"/>.
         /// </summary>
         public string Id { get; private set; }
 
         /// <summary>
-        /// Gets the name of this <see cref="Structure"/>.
+        /// Gets the name of this <see cref="StructureLocation"/>.
         /// </summary>
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets the actual location of this <see cref="Structure"/>.
+        /// Gets the actual location of this <see cref="StructureLocation"/>.
         /// </summary>
         public Point2D Point { get; private set; }
     }
