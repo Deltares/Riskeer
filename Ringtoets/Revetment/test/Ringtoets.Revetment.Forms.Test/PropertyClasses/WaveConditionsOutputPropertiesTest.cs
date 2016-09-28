@@ -77,7 +77,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             const string expectedWaterLevelDescription = "De waterstand waarvoor de golfhoogte, -periode en -richting zijn berekend.";
             const string expectedWaveHeightDescription = "Berekende golfhoogte.";
             const string expectedWavePeakPeriodDescription = "Berekende golfperiode.";
-            const string expectedWaveAngleDescription = "Berekende golfrichting.";
+            const string expectedWaveAngleDescription = "Berekende golfrichting ten opzichte van dijknormaal.";
 
             var properties = new WaveConditionsOutputProperties
             {
