@@ -133,9 +133,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
+            var childCalculation = new StabilityPointStructuresCalculation();
 
             group.Children.Add(childGroup);
             group.Children.Add(calculationItemMock);
+            group.Children.Add(childCalculation);
 
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                    failureMechanism,
@@ -151,6 +153,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, calculationGroupContext.AssessmentSection);
             Assert.AreSame(calculationItemMock, children[1]);
+            var calculationContext = (StabilityPointStructuresCalculationContext) children[2];
+            Assert.AreSame(childCalculation, calculationContext.WrappedData);
+            Assert.AreSame(assessmentSectionMock, calculationContext.AssessmentSection);
         }
 
         [Test]
@@ -393,6 +398,52 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                     var newlyAddedItem = group.Children.Last();
                     Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
+                                    "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnAddCalculationItem_AddCalculationToCalculationGroupAndNotifyObservers()
+        {
+            // Setup
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var group = new CalculationGroup();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSectionMock);
+            var calculationItem = new StabilityPointStructuresCalculation
+            {
+                Name = "Nieuwe berekening"
+            };
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                group.Children.Add(calculationItem);
+                nodeData.Attach(observerMock);
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Precondition
+                    Assert.AreEqual(1, group.Children.Count);
+
+                    // Call
+                    contextMenu.Items[contextMenuAddCalculationIndexRootGroup].PerformClick();
+
+                    // Assert
+                    Assert.AreEqual(2, group.Children.Count);
+                    var newlyAddedItem = group.Children.Last();
+                    Assert.IsInstanceOf<StabilityPointStructuresCalculation>(newlyAddedItem);
+                    Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }
             }
