@@ -41,6 +41,8 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="PresentationObjects\ClosingStructureContext.cs" />
+    <Compile Include="PresentationObjects\ClosingStructuresCalculationGroupContext.cs" />
+    <Compile Include="PresentationObjects\ClosingStructuresContext.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresFailureMechanismContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\ClosingStructuresFailureMechanismResultView.cs">
@@ -78,6 +80,10 @@
       <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>

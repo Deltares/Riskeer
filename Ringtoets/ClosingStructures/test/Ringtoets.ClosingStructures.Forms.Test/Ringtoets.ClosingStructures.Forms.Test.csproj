@@ -58,6 +58,8 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="PresentationObjects\ClosingStructureContextTest.cs" />
+    <Compile Include="PresentationObjects\ClosingStructuresCalculationGroupContextTest.cs" />
+    <Compile Include="PresentationObjects\ClosingStructuresContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresFailureMechanismContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructureFailureMechanismContextTreeNodeInfoTest.cs" />
@@ -112,6 +114,11 @@
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
       <Name>Ringtoets.Common.Data.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
+      <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
+      <Name>Ringtoets.HydraRing.Data</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
