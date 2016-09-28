@@ -172,7 +172,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             Assert.AreSame(heightStructure1, children.ElementAt(0));
             Assert.AreSame(heightStructure2, children.ElementAt(1));
             mocks.VerifyAll();
-        } 
+        }
 
         [Test]
         public void ForeColor_CollectionIsEmpty_ReturnGrayText()

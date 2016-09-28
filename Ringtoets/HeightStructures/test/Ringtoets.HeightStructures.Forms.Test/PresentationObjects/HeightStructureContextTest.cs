@@ -34,11 +34,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
     public class HeightStructureContextTest
     {
         [Test]
-        public void ParameteredConstructor_DefaultValues()
+        public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var heightStructures = new ObservableList<HeightStructure>();
