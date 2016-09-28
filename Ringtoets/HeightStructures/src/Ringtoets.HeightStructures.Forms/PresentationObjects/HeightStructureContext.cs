@@ -35,9 +35,9 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// <summary>
         /// Creates an instance of <see cref="HeightStructureContext"/>
         /// </summary>
-        /// <param name="heightStructures">The collection to update</param>
-        /// <param name="assessmentSection">The assessment section</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input arguments are null</exception>
+        /// <param name="heightStructures">The wrapped <see cref="ObservableList{T}"/> containing <see cref="HeightStructure"/></param>
+        /// <param name="assessmentSection">The assessment section which the height structures belong to</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input arguments are <c>null</c></exception>
         public HeightStructureContext(ObservableList<HeightStructure> heightStructures, IAssessmentSection assessmentSection)
             : base(heightStructures)
         {
@@ -49,6 +49,9 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
             AssessmentSection = assessmentSection;
         }
 
+        /// <summary>
+        /// Gets the assessment section of this instance
+        /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
     }
 }

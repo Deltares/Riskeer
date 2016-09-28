@@ -64,7 +64,7 @@ namespace Ringtoets.HeightStructures.Data
         public GeneralHeightStructuresInput GeneralInput { get; private set; }
 
         /// <summary>
-        /// Gets the available height structure within the scope of the height structure failure mechanism
+        /// Gets the available height structure of this instance
         /// </summary>
         public ObservableList<HeightStructure> HeightStructures { get; private set; }
 

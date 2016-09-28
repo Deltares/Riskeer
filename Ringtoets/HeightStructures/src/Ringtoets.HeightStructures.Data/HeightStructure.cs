@@ -22,7 +22,7 @@
 namespace Ringtoets.HeightStructures.Data
 {
     /// <summary>
-    /// Definition of a height structures profile for the <see cref="HeightStructuresFailureMechanism"/>.
+    /// Definition of a height structure for the <see cref="HeightStructuresFailureMechanism"/>.
     /// </summary>
     public class HeightStructure
     {

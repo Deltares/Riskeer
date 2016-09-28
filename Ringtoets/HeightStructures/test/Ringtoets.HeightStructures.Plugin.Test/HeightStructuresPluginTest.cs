@@ -137,7 +137,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test
         }
 
         [Test]
-        public void GetFileInfos_Always_ReturnsExpectedFileInfos()
+        public void GetFileInfos_Always_ReturnsExpectedImportInfos()
         {
             // Setup
             var mocks = new MockRepository();
