@@ -42,6 +42,7 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Demo.Ringtoets.Commands
 {
@@ -89,6 +90,7 @@ namespace Demo.Ringtoets.Commands
             InitializeDemoPipingData(demoAssessmentSection);
             InitializeStabilityPointStructuresData(demoAssessmentSection);
             InitializeStabilityStoneCoverData(demoAssessmentSection);
+            InitializeWaveImpactAsphaltCoverData(demoAssessmentSection);
             return demoAssessmentSection;
         }
 
@@ -301,6 +303,20 @@ namespace Demo.Ringtoets.Commands
             StabilityStoneCoverFailureMechanism failureMechanism = demoAssessmentSection.StabilityStoneCover;
 
             var calculation = new StabilityStoneCoverWaveConditionsCalculation();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
+            calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+            calculation.InputParameters.NotifyObservers();
+        }
+
+        #endregion
+
+        #region WaveImpactAsphaltCoverFailureMechanism
+
+        private static void InitializeWaveImpactAsphaltCoverData(AssessmentSection demoAssessmentSection)
+        {
+            WaveImpactAsphaltCoverFailureMechanism failureMechanism = demoAssessmentSection.WaveImpactAsphaltCover;
+
+            var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
             failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();

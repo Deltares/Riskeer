@@ -45,6 +45,7 @@ using Ringtoets.Piping.Service;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Demo.Ringtoets.Test.Commands
 {
@@ -109,6 +110,7 @@ namespace Demo.Ringtoets.Test.Commands
             AssertPipingFailureMechanism(demoAssessmentSection);
             AssertStabilityPointStructuresFailureMechanism(demoAssessmentSection);
             AssertStabilityStoneCoverFailureMechanism(demoAssessmentSection);
+            AssertWaveImpactAsphaltCoverFailureMechanism(demoAssessmentSection);
             mocks.VerifyAll();
         }
 
@@ -413,6 +415,25 @@ namespace Demo.Ringtoets.Test.Commands
         }
 
         private static void AssertExpectedStabilityStoneCoverWaveConditionsInputInput(WaveConditionsInput inputParameters)
+        {
+            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
+        }
+
+        #endregion
+
+        #region WaveImpactAsphaltCoverFailureMechanism
+
+        private static void AssertWaveImpactAsphaltCoverFailureMechanism(AssessmentSection demoAssessmentSection)
+        {
+            Assert.AreEqual(1, demoAssessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Count);
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = demoAssessmentSection.WaveImpactAsphaltCover
+                                                                                            .WaveConditionsCalculationGroup.GetCalculations()
+                                                                                            .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                                            .First();
+            AssertExpectedWaveImpactAsphaltCoverWaveConditionsInputInput(calculation.InputParameters);
+        }
+
+        private static void AssertExpectedWaveImpactAsphaltCoverWaveConditionsInputInput(WaveConditionsInput inputParameters)
         {
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
         }
