@@ -40,6 +40,28 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsFailureMechanismProperties));
 
+        #region Length effect parameters
+
+        [PropertyOrder(3)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_Description")]
+        public int LengthEffect
+        {
+            get
+            {
+                return data.GeneralInput.N;
+            }
+            set
+            {
+                data.GeneralInput.N = value;
+                ClearHydraulicBoundaryLocationOutput();
+                data.NotifyObservers();
+            }
+        }
+
+        #endregion
+
         private void ClearHydraulicBoundaryLocationOutput()
         {
             GrassCoverErosionOutwardsDataSynchronizationService.ClearHydraulicBoundaryLocationOutput(data.HydraulicBoundaryLocations);
@@ -70,28 +92,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PropertyClasses
             get
             {
                 return data.Code;
-            }
-        }
-
-        #endregion
-
-        #region Length effect parameters
-
-        [PropertyOrder(3)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_LengthEffect")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "FailureMechanism_N_Description")]
-        public int LengthEffect
-        {
-            get
-            {
-                return data.GeneralInput.N;
-            }
-            set
-            {
-                data.GeneralInput.N = value;
-                ClearHydraulicBoundaryLocationOutput();
-                data.NotifyObservers();
             }
         }
 

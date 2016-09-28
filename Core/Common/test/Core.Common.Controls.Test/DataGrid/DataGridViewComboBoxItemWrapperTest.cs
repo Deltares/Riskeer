@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Controls.DataGrid;
-using Core.Common.Controls.Properties;
 using NUnit.Framework;
 
 namespace Core.Common.Controls.Test.DataGrid

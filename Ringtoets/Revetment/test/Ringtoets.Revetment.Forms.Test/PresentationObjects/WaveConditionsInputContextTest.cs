@@ -58,7 +58,7 @@ namespace Ringtoets.Revetment.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<WaveConditionsInputContext>(context);
             Assert.AreSame(input, context.WrappedData);
         }
-        
+
         private class TestWaveConditionsInputContext : WaveConditionsInputContext
         {
             public TestWaveConditionsInputContext(WaveConditionsInput wrappedData) : base(wrappedData) {}

@@ -39,7 +39,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsFalse(profile.HasBreakWater);
             Assert.AreEqual(0.0, profile.X0);
             Assert.AreEqual(0.0, profile.Orientation.Value);
-            Assert.AreEqual(new Point2D(0,0), profile.WorldReferencePoint);
-        } 
+            Assert.AreEqual(new Point2D(0, 0), profile.WorldReferencePoint);
+        }
     }
 }

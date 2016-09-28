@@ -58,10 +58,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
         }
 
-        protected override DesignWaterLevelLocationRow CreateNewRow(HydraulicBoundaryLocation location)
-        {
-            return new DesignWaterLevelLocationRow(location);
-        }
+        public override IAssessmentSection AssessmentSection { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for which the
@@ -69,7 +66,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; set; }
 
-        public override IAssessmentSection AssessmentSection { get; set; }
+        protected override DesignWaterLevelLocationRow CreateNewRow(HydraulicBoundaryLocation location)
+        {
+            return new DesignWaterLevelLocationRow(location);
+        }
 
         protected override void InitializeDataGridView()
         {

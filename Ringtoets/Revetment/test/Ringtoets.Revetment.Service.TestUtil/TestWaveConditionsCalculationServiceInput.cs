@@ -42,14 +42,14 @@ namespace Ringtoets.Revetment.Service.TestUtil
         /// <param name="ringId">The specified ring id.</param>
         /// <param name="name">The specified name.</param>
         public TestWaveConditionsCalculationServiceInput(RoundedDouble waterLevel,
-                                       double a,
-                                       double b,
-                                       double c,
-                                       double norm,
-                                       WaveConditionsInput input,
-                                       string hlcdDirectory,
-                                       string ringId,
-                                       string name)
+                                                         double a,
+                                                         double b,
+                                                         double c,
+                                                         double norm,
+                                                         WaveConditionsInput input,
+                                                         string hlcdDirectory,
+                                                         string ringId,
+                                                         string name)
         {
             WaterLevel = waterLevel;
             A = a;
@@ -66,7 +66,7 @@ namespace Ringtoets.Revetment.Service.TestUtil
         /// Gets the specified water level.
         /// </summary>
         public RoundedDouble WaterLevel { get; private set; }
-        
+
         /// <summary>
         /// Gets the specified 'a' parameter.
         /// </summary>

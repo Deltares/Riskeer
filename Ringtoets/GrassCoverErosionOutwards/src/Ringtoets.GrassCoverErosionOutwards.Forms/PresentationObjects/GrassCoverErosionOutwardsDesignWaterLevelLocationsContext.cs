@@ -44,8 +44,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// the <paramref name="assessmentSection"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations, 
-            IAssessmentSection assessmentSection, 
+            ObservableList<HydraulicBoundaryLocation> hydraulicBoundaryLocations,
+            IAssessmentSection assessmentSection,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism)
             : base(hydraulicBoundaryLocations)
         {

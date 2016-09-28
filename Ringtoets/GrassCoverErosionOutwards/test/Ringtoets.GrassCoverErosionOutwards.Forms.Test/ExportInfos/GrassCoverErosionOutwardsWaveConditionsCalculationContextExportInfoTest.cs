@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
-                                                                                     failureMechanism, assessmentSection);
+                                                                                        failureMechanism, assessmentSection);
             using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);
@@ -88,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var context = new GrassCoverErosionOutwardsWaveConditionsCalculationContext(new GrassCoverErosionOutwardsWaveConditionsCalculation(),
-                                                                                     failureMechanism, assessmentSection);
+                                                                                        failureMechanism, assessmentSection);
             using (GrassCoverErosionOutwardsPlugin plugin = new GrassCoverErosionOutwardsPlugin())
             {
                 ExportInfo exportInfo = GetExportInfo(plugin);

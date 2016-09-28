@@ -37,6 +37,7 @@ namespace Ringtoets.Revetment.IO.Test
             ForeshoreProfile = new ForeshoreProfile(new Point2D(8.7, 7.8), new Point2D[0], null, new ForeshoreProfile.ConstructionProperties()),
             UseForeshore = true
         };
+
         private readonly WaveConditionsOutput waveConditionsOutput = new WaveConditionsOutput(0.0, 1.1, 2.2, 3.3);
 
         [Test]

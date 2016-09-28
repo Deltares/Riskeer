@@ -115,17 +115,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         {
             // Setup
             var random = new Random(21);
-            var assessmentLevel = (RoundedDouble)random.NextDouble();
-            var lowerBoundaryRevetment = (RoundedDouble)random.NextDouble();
-            var lowerBoundaryWaterLevels = (RoundedDouble)random.NextDouble();
-            var upperBoundaryRevetment = lowerBoundaryRevetment + (RoundedDouble)random.NextDouble();
-            var upperBoundaryWaterLevels = lowerBoundaryWaterLevels + (RoundedDouble)random.NextDouble();
+            var assessmentLevel = (RoundedDouble) random.NextDouble();
+            var lowerBoundaryRevetment = (RoundedDouble) random.NextDouble();
+            var lowerBoundaryWaterLevels = (RoundedDouble) random.NextDouble();
+            var upperBoundaryRevetment = lowerBoundaryRevetment + (RoundedDouble) random.NextDouble();
+            var upperBoundaryWaterLevels = lowerBoundaryWaterLevels + (RoundedDouble) random.NextDouble();
             var stepSize = WaveConditionsInputStepSize.Half;
 
-            var worldX = (RoundedDouble)random.NextDouble();
-            var worldY = (RoundedDouble)random.NextDouble();
-            var damHeight = (RoundedDouble)random.NextDouble();
-            var foreshoreProfileOrientation = (RoundedDouble)random.NextDouble();
+            var worldX = (RoundedDouble) random.NextDouble();
+            var worldY = (RoundedDouble) random.NextDouble();
+            var damHeight = (RoundedDouble) random.NextDouble();
+            var foreshoreProfileOrientation = (RoundedDouble) random.NextDouble();
 
             var foreshoreProfile = new ForeshoreProfile(
                 new Point2D(worldX, worldY),
@@ -188,12 +188,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var random = new Random(21);
-            var orientation = (RoundedDouble)random.NextDouble();
-            var assessmentLevel = (RoundedDouble)random.NextDouble();
-            var newLowerBoundaryRevetment = (RoundedDouble)random.NextDouble();
-            var newLowerBoundaryWaterLevels = (RoundedDouble)random.NextDouble();
-            var newUpperBoundaryRevetment = newLowerBoundaryRevetment + (RoundedDouble)random.NextDouble();
-            var newUpperBoundaryWaterLevels = newLowerBoundaryWaterLevels + (RoundedDouble)random.NextDouble();
+            var orientation = (RoundedDouble) random.NextDouble();
+            var assessmentLevel = (RoundedDouble) random.NextDouble();
+            var newLowerBoundaryRevetment = (RoundedDouble) random.NextDouble();
+            var newLowerBoundaryWaterLevels = (RoundedDouble) random.NextDouble();
+            var newUpperBoundaryRevetment = newLowerBoundaryRevetment + (RoundedDouble) random.NextDouble();
+            var newUpperBoundaryWaterLevels = newLowerBoundaryWaterLevels + (RoundedDouble) random.NextDouble();
             var newStepSize = WaveConditionsInputStepSize.Half;
 
             var newHydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1)
@@ -210,10 +210,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
 
             var newForeshoreProfile = new ForeshoreProfile(
                 new Point2D(
-                    (RoundedDouble)random.NextDouble(),
-                    (RoundedDouble)random.NextDouble()),
+                    (RoundedDouble) random.NextDouble(),
+                    (RoundedDouble) random.NextDouble()),
                 Enumerable.Empty<Point2D>(),
-                new BreakWater(BreakWaterType.Dam, (RoundedDouble)random.NextDouble()),
+                new BreakWater(BreakWaterType.Dam, (RoundedDouble) random.NextDouble()),
                 new ForeshoreProfile.ConstructionProperties());
 
             var properties = new GrassCoverErosionOutwardsWaveConditionsInputContextProperties

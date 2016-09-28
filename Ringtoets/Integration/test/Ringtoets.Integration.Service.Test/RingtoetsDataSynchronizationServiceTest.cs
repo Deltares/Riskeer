@@ -313,7 +313,7 @@ namespace Ringtoets.Integration.Service.Test
             assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(waveImpactAshpaltCoverWaveConditionsCalculation);
 
             // Call
-            
+
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(assessmentSection);
 
             // Assert
@@ -430,7 +430,7 @@ namespace Ringtoets.Integration.Service.Test
                 grassCoverErosionInwardsCalculation,
                 stabilityStoneCoverWaveConditionsCalculation,
                 waveImpactAshpaltCoverWaveConditionsCalculation,
-                grassCoverErosionOutwardsWaveConditionsCalculation,                
+                grassCoverErosionOutwardsWaveConditionsCalculation,
                 heightStructuresCalculation
             }, affectedItems);
         }
@@ -506,7 +506,7 @@ namespace Ringtoets.Integration.Service.Test
                 grassCoverErosionInwardsCalculation,
                 stabilityStoneCoverWaveConditionsCalculation,
                 waveImpactAshpaltCoverWaveConditionsCalculation,
-                grassCoverErosionOutwardsWaveConditionsCalculation,                
+                grassCoverErosionOutwardsWaveConditionsCalculation,
                 heightStructuresCalculation
             }, affectedItems);
         }
@@ -703,8 +703,8 @@ namespace Ringtoets.Integration.Service.Test
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 0, 0)
             {
-                DesignWaterLevel = (RoundedDouble)designWaterLevel,
-                WaveHeight = (RoundedDouble)waveHeight
+                DesignWaterLevel = (RoundedDouble) designWaterLevel,
+                WaveHeight = (RoundedDouble) waveHeight
             };
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
@@ -732,12 +732,12 @@ namespace Ringtoets.Integration.Service.Test
             Assert.IsNaN(hydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicBoundaryLocation.WaveHeightCalculationConvergence);
-            
+
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
             Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
             Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculationConvergence);
-            
+
             Assert.IsTrue(affected);
         }
     }

@@ -328,7 +328,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             HydraulicBoundaryLocation expectedLocation = locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocations.First());
             Assert.AreSame(dataGridViewSource, dataGridView.DataSource);
-            Assert.IsTrue((bool)rows[0].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
             Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
             Assert.IsFalse((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
 

@@ -48,7 +48,6 @@ using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Service.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -345,7 +344,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             var commentsContext = (CommentContext<ICommentable>) children[0];
             Assert.AreSame(calculation, commentsContext.WrappedData);
 
-            var inputContext = (GrassCoverErosionOutwardsWaveConditionsInputContext)children[1];
+            var inputContext = (GrassCoverErosionOutwardsWaveConditionsInputContext) children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
             CollectionAssert.AreEqual(new[]
             {

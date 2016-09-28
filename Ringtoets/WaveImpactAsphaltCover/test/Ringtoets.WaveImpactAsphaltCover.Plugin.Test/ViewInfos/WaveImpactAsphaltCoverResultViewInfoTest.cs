@@ -255,7 +255,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
             var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(failureMechanism,
-                                                                                         assessmentSection);
+                                                                                            assessmentSection);
 
             mocks.ReplayAll();
 
@@ -278,7 +278,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             var failureMechanismContext = new WaveImpactAsphaltCoverFailureMechanismContext(new WaveImpactAsphaltCoverFailureMechanism(),
-                                                                                         assessmentSection);
+                                                                                            assessmentSection);
             mocks.ReplayAll();
 
             using (var view = new WaveImpactAsphaltCoverFailureMechanismResultView())

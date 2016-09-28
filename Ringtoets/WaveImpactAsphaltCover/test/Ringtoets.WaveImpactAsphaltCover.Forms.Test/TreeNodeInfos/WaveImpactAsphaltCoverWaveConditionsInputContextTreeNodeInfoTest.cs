@@ -85,7 +85,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var input = new WaveConditionsInput();

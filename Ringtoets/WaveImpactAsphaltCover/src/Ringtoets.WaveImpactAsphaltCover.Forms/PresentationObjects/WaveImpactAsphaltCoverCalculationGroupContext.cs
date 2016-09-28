@@ -31,7 +31,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
     /// in order be able to create configurable wave impact asphalt calculations.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext 
+    public class WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext
         : WaveImpactAsphaltCoverContext<CalculationGroup>, ICalculationContext<CalculationGroup, WaveImpactAsphaltCoverFailureMechanism>
     {
         /// <summary>
@@ -41,9 +41,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(CalculationGroup calculationsGroup, 
-                                                             WaveImpactAsphaltCoverFailureMechanism failureMechanism, 
-                                                             IAssessmentSection assessmentSection)
+        public WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext(CalculationGroup calculationsGroup,
+                                                                           WaveImpactAsphaltCoverFailureMechanism failureMechanism,
+                                                                           IAssessmentSection assessmentSection)
             : base(calculationsGroup, failureMechanism, assessmentSection) {}
     }
 }

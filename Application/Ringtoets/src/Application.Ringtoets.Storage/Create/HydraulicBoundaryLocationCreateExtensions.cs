@@ -92,10 +92,10 @@ namespace Application.Ringtoets.Storage.Create
                 Name = location.Name.DeepClone(),
                 LocationX = location.Location.X.ToNaNAsNull(),
                 LocationY = location.Location.Y.ToNaNAsNull(),
-                DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?)null : location.DesignWaterLevel,
-                WaveHeight = double.IsNaN(location.WaveHeight) ? (double?)null : location.WaveHeight,
-                DesignWaterLevelCalculationConvergence = (byte)location.DesignWaterLevelCalculationConvergence,
-                WaveHeightCalculationConvergence = (byte)location.WaveHeightCalculationConvergence,
+                DesignWaterLevel = double.IsNaN(location.DesignWaterLevel) ? (double?) null : location.DesignWaterLevel,
+                WaveHeight = double.IsNaN(location.WaveHeight) ? (double?) null : location.WaveHeight,
+                DesignWaterLevelCalculationConvergence = (byte) location.DesignWaterLevelCalculationConvergence,
+                WaveHeightCalculationConvergence = (byte) location.WaveHeightCalculationConvergence,
                 Order = order
             };
 

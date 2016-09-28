@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
@@ -43,7 +41,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             failureMechanism.HydraulicBoundaryLocations.Add(hydraulicBoundaryLocation);
 
             // Precondition
-            CollectionAssert.AreEqual(new[] { hydraulicBoundaryLocation }, failureMechanism.HydraulicBoundaryLocations);
+            CollectionAssert.AreEqual(new[]
+            {
+                hydraulicBoundaryLocation
+            }, failureMechanism.HydraulicBoundaryLocations);
 
             // Call
             failureMechanism.SetGrassCoverErosionOutwardsHydraulicBoundaryLocations(null);
@@ -114,7 +115,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             {
                 failureMechanism
             });
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new [] { failureMechanism }, 1, 300));
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
+            {
+                failureMechanism
+            }, 1, 300));
             mocks.ReplayAll();
 
             // Call
@@ -139,7 +143,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
             {
                 failureMechanism
             });
-            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[] { failureMechanism }, 1, 300));
+            assessmentSection.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
+            {
+                failureMechanism
+            }, 1, 300));
             mocks.ReplayAll();
 
             // Call

@@ -112,7 +112,7 @@ namespace Core.Components.Gis.IO.Test.Readers
         {
             // Setup
             string corruptPointShapeFile = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
-                                                                  "CorruptFile.shp");
+                                                                      "CorruptFile.shp");
 
             // Call
             TestDelegate call = () => new PointShapeFileReader(corruptPointShapeFile);

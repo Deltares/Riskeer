@@ -21,7 +21,6 @@
 
 using System;
 using NUnit.Framework;
-using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
 

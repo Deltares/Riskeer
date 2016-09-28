@@ -85,7 +85,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             // Setup
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
-            
+
             var failureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var input = new WaveConditionsInput();

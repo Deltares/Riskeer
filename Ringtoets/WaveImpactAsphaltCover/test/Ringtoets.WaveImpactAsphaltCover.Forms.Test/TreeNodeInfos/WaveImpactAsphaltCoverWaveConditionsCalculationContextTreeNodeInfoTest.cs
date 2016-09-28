@@ -45,7 +45,6 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Service.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -173,9 +172,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             };
 
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                       Enumerable.Empty<Point2D>(),
-                                                       new BreakWater(BreakWaterType.Caisson, 1),
-                                                       new ForeshoreProfile.ConstructionProperties());
+                                                        Enumerable.Empty<Point2D>(),
+                                                        new BreakWater(BreakWaterType.Caisson, 1),
+                                                        new ForeshoreProfile.ConstructionProperties());
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
                 ForeshoreProfiles =
@@ -196,7 +195,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             var commentsContext = (CommentContext<ICommentable>) children[0];
             Assert.AreSame(calculation, commentsContext.WrappedData);
 
-            var inputContext = (WaveImpactAsphaltCoverWaveConditionsInputContext)children[1];
+            var inputContext = (WaveImpactAsphaltCoverWaveConditionsInputContext) children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
             CollectionAssert.AreEqual(new[]
             {
@@ -232,9 +231,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                 Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
             };
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                      Enumerable.Empty<Point2D>(),
-                                                      new BreakWater(BreakWaterType.Caisson, 1),
-                                                      new ForeshoreProfile.ConstructionProperties());
+                                                        Enumerable.Empty<Point2D>(),
+                                                        new BreakWater(BreakWaterType.Caisson, 1),
+                                                        new ForeshoreProfile.ConstructionProperties());
             var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
             {
                 ForeshoreProfiles =
@@ -255,7 +254,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
             var commentsContext = (CommentContext<ICommentable>) children[0];
             Assert.AreSame(calculation, commentsContext.WrappedData);
 
-            var inputContext = (WaveImpactAsphaltCoverWaveConditionsInputContext)children[1];
+            var inputContext = (WaveImpactAsphaltCoverWaveConditionsInputContext) children[1];
             Assert.AreSame(calculation.InputParameters, inputContext.WrappedData);
             CollectionAssert.AreEqual(new[]
             {

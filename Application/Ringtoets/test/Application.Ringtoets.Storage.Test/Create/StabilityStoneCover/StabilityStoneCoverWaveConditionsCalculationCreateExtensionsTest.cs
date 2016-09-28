@@ -225,7 +225,11 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
 
             // Assert
             Assert.AreEqual(2, entity.StabilityStoneCoverWaveConditionsOutputEntities.Count);
-            Assert.AreEqual(new[] { 0, 1 }, entity.StabilityStoneCoverWaveConditionsOutputEntities.Select(oe => oe.Order));
+            Assert.AreEqual(new[]
+            {
+                0,
+                1
+            }, entity.StabilityStoneCoverWaveConditionsOutputEntities.Select(oe => oe.Order));
         }
     }
 }

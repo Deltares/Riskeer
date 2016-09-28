@@ -34,7 +34,7 @@ namespace Core.Common.Gui.TestUtil.Test
         {
             // Call
             TestDelegate test = () => PluginTestHelper.AssertPropertyInfoDefined(null, typeof(object), typeof(object));
-            
+
             // Assert
             Assert.Throws<AssertionException>(test);
         }
@@ -55,7 +55,7 @@ namespace Core.Common.Gui.TestUtil.Test
             // Call
             TestDelegate test = () => PluginTestHelper.AssertPropertyInfoDefined(new PropertyInfo[]
             {
-                new PropertyInfo<int,IObjectProperties>()
+                new PropertyInfo<int, IObjectProperties>()
             }, typeof(object), typeof(object));
 
             // Assert
@@ -66,11 +66,11 @@ namespace Core.Common.Gui.TestUtil.Test
         public void AssertPropertyInfoDefined_MultipleInfosSingleMatching_ReturnsMatchingInfoFromList()
         {
             // Call
-            var foundInfo = PluginTestHelper.AssertPropertyInfoDefined(new []
-                                          {
-                                              new PropertyInfo(), 
-                                              new PropertyInfo<int, IObjectProperties>()
-                                          }, typeof(int), typeof(IObjectProperties));
+            var foundInfo = PluginTestHelper.AssertPropertyInfoDefined(new[]
+            {
+                new PropertyInfo(),
+                new PropertyInfo<int, IObjectProperties>()
+            }, typeof(int), typeof(IObjectProperties));
 
             // Assert
             Assert.AreEqual(typeof(int), foundInfo.DataType);
@@ -103,7 +103,7 @@ namespace Core.Common.Gui.TestUtil.Test
             // Call
             TestDelegate test = () => PluginTestHelper.AssertViewInfoDefined(new ViewInfo[]
             {
-                new ViewInfo<int,IView>()
+                new ViewInfo<int, IView>()
             }, typeof(object), typeof(object));
 
             // Assert
@@ -115,10 +115,10 @@ namespace Core.Common.Gui.TestUtil.Test
         {
             // Call
             var foundInfo = PluginTestHelper.AssertViewInfoDefined(new[]
-                                          {
-                                              new ViewInfo(), 
-                                              new ViewInfo<int, IView>()
-                                          }, typeof(int), typeof(IView));
+            {
+                new ViewInfo(),
+                new ViewInfo<int, IView>()
+            }, typeof(int), typeof(IView));
 
             // Assert
             Assert.AreEqual(typeof(int), foundInfo.DataType);
@@ -151,7 +151,7 @@ namespace Core.Common.Gui.TestUtil.Test
             // Call
             TestDelegate test = () => PluginTestHelper.AssertViewInfoDefined(new ViewInfo[]
             {
-                new ViewInfo<int,IView>()
+                new ViewInfo<int, IView>()
             }, typeof(object), typeof(object), typeof(object));
 
             // Assert
@@ -177,10 +177,10 @@ namespace Core.Common.Gui.TestUtil.Test
         {
             // Call
             var foundInfo = PluginTestHelper.AssertViewInfoDefined(new[]
-                                          {
-                                              new ViewInfo(), 
-                                              new ViewInfo<int, string, IView>()
-                                          }, typeof(int), typeof(string), typeof(IView));
+            {
+                new ViewInfo(),
+                new ViewInfo<int, string, IView>()
+            }, typeof(int), typeof(string), typeof(IView));
 
             // Assert
             Assert.AreEqual(typeof(int), foundInfo.DataType);

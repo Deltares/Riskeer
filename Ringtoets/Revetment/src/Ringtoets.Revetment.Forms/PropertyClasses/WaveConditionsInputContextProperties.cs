@@ -43,7 +43,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="WaveConditionsInputContext"/> for properties panel.
     /// </summary>
-    public abstract class WaveConditionsInputContextProperties<T> : ObjectProperties<T>, IWaveConditionsInputContextProperties<T> 
+    public abstract class WaveConditionsInputContextProperties<T> : ObjectProperties<T>, IWaveConditionsInputContextProperties<T>
         where T : WaveConditionsInputContext
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;

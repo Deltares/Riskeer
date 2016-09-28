@@ -31,7 +31,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
     /// in order to prepare it for performing a calculation.
     /// </summary>
     public class WaveImpactAsphaltCoverWaveConditionsCalculationContext : WaveImpactAsphaltCoverContext<WaveImpactAsphaltCoverWaveConditionsCalculation>,
-                                                            ICalculationContext<WaveImpactAsphaltCoverWaveConditionsCalculation, WaveImpactAsphaltCoverFailureMechanism>
+                                                                          ICalculationContext<WaveImpactAsphaltCoverWaveConditionsCalculation, WaveImpactAsphaltCoverFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationContext"/>.
@@ -41,8 +41,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverWaveConditionsCalculationContext(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
-                                                        WaveImpactAsphaltCoverFailureMechanism failureMechanism,
-                                                        IAssessmentSection assessmentSection)
+                                                                      WaveImpactAsphaltCoverFailureMechanism failureMechanism,
+                                                                      IAssessmentSection assessmentSection)
             : base(calculation, failureMechanism, assessmentSection) {}
     }
 }

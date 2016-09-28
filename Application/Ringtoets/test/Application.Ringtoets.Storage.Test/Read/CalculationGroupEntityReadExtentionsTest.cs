@@ -995,7 +995,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var rootGroupEntity = new CalculationGroupEntity
             {
                 Name = "A",
-                WaveImpactAsphaltCoverWaveConditionsCalculationEntities = 
+                WaveImpactAsphaltCoverWaveConditionsCalculationEntities =
                 {
                     new WaveImpactAsphaltCoverWaveConditionsCalculationEntity
                     {
@@ -1019,10 +1019,10 @@ namespace Application.Ringtoets.Storage.Test.Read
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
             Assert.AreEqual(2, rootChildren.Length);
 
-            var rootChildCalculation1 = (WaveImpactAsphaltCoverWaveConditionsCalculation)rootChildren[0];
+            var rootChildCalculation1 = (WaveImpactAsphaltCoverWaveConditionsCalculation) rootChildren[0];
             Assert.AreEqual("1", rootChildCalculation1.Name);
 
-            var rootChildCalculation2 = (WaveImpactAsphaltCoverWaveConditionsCalculation)rootChildren[1];
+            var rootChildCalculation2 = (WaveImpactAsphaltCoverWaveConditionsCalculation) rootChildren[1];
             Assert.AreEqual("2", rootChildCalculation2.Name);
         }
 
@@ -1070,16 +1070,16 @@ namespace Application.Ringtoets.Storage.Test.Read
             ICalculationBase[] rootChildren = rootGroup.Children.ToArray();
             Assert.AreEqual(4, rootChildren.Length);
 
-            var rootChildCalculation1 = (WaveImpactAsphaltCoverWaveConditionsCalculation)rootChildren[0];
+            var rootChildCalculation1 = (WaveImpactAsphaltCoverWaveConditionsCalculation) rootChildren[0];
             Assert.AreEqual("calculation1", rootChildCalculation1.Name);
 
-            var rootChildGroup1 = (CalculationGroup)rootChildren[1];
+            var rootChildGroup1 = (CalculationGroup) rootChildren[1];
             Assert.AreEqual("group1", rootChildGroup1.Name);
 
-            var rootChildCalculation2 = (WaveImpactAsphaltCoverWaveConditionsCalculation)rootChildren[2];
+            var rootChildCalculation2 = (WaveImpactAsphaltCoverWaveConditionsCalculation) rootChildren[2];
             Assert.AreEqual("calculation2", rootChildCalculation2.Name);
 
-            var rootChildGroup2 = (CalculationGroup)rootChildren[3];
+            var rootChildGroup2 = (CalculationGroup) rootChildren[3];
             Assert.AreEqual("group2", rootChildGroup2.Name);
         }
 

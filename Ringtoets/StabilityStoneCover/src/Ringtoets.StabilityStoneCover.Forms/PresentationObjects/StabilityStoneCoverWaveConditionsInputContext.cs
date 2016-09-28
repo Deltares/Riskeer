@@ -66,9 +66,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         {
             get
             {
-                return assessmentSection.HydraulicBoundaryDatabase != null 
-                    ? assessmentSection.HydraulicBoundaryDatabase.Locations 
-                    : Enumerable.Empty<HydraulicBoundaryLocation>();
+                return assessmentSection.HydraulicBoundaryDatabase != null
+                           ? assessmentSection.HydraulicBoundaryDatabase.Locations
+                           : Enumerable.Empty<HydraulicBoundaryLocation>();
             }
         }
 

@@ -34,6 +34,16 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
     public interface IWaveConditionsInputContextProperties<out T> : IObjectProperties where T : WaveConditionsInputContext
     {
         /// <summary>
+        /// Gets and sets the selected <see cref="HydraulicBoundaryLocation"/>.
+        /// </summary>
+        HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+
+        /// <summary>
+        /// Gets and sets the selected <see cref="ForeshoreProfile"/>.
+        /// </summary>
+        ForeshoreProfile ForeshoreProfile { get; set; }
+
+        /// <summary>
         /// Gets the available <see cref="HydraulicBoundaryLocation"/>.
         /// </summary>
         /// <returns>An <see cref="IEnumerable{T}"/> of available <see cref="HydraulicBoundaryLocation"/>.</returns>
@@ -44,15 +54,5 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         /// </summary>
         /// <returns>An <see cref="IEnumerable{T}"/> of available <see cref="ForeshoreProfile"/>.</returns>
         IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles();
-
-        /// <summary>
-        /// Gets and sets the selected <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
-        HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
-
-        /// <summary>
-        /// Gets and sets the selected <see cref="ForeshoreProfile"/>.
-        /// </summary>
-        ForeshoreProfile ForeshoreProfile { get; set; }
     }
 }

@@ -30,6 +30,7 @@ using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Utils;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -128,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             dataGridViewControl.AddComboBoxColumn<DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>>(
                 TypeUtils.GetMemberName<GrassCoverErosionInwardsScenarioRow>(sr => sr.Calculation),
-                Properties.Resources.GrassCoverErosionInwardsScenariosView_AddDataGridColumns_Calculation,
+                Resources.GrassCoverErosionInwardsScenariosView_AddDataGridColumns_Calculation,
                 null,
                 TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>>(wrapper => wrapper.WrappedObject),
                 TypeUtils.GetMemberName<DataGridViewComboBoxItemWrapper<GrassCoverErosionInwardsCalculation>>(wrapper => wrapper.DisplayName));

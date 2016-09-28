@@ -118,6 +118,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.WaveImpactAsphaltCoverSectionResultEntities).Count());
         }
+
         [Test]
         public void Create_WithoutForeshoreProfiles_EmptyForeshoreProfilesEntities()
         {

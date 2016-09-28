@@ -433,7 +433,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 grassCoverErosionOutwardsHydraulicBoundaryLocation2
             };
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                grassCoverErosionOutwardsHydraulicBoundaryLocations, 
+                grassCoverErosionOutwardsHydraulicBoundaryLocations,
                 assessmentSectionMock,
                 failureMechanism);
 

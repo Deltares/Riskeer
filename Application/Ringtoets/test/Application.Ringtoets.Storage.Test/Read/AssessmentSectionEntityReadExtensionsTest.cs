@@ -340,7 +340,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = CreateAssessmentSectionEntity();
             const string comments = "Some text";
 
-            var n = new Random(21).Next(1,20);
+            var n = new Random(21).Next(1, 20);
             var failureMechanismEntity = new FailureMechanismEntity
             {
                 FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
@@ -376,7 +376,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismType = (int)FailureMechanismType.GrassRevetmentTopErosionAndInwards,
+                FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionInwardsFailureMechanismMetaEntity
@@ -420,7 +420,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var rootGroupEntity = new CalculationGroupEntity();
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismType = (int)FailureMechanismType.GrassRevetmentTopErosionAndInwards,
+                FailureMechanismType = (int) FailureMechanismType.GrassRevetmentTopErosionAndInwards,
                 FailureMechanismSectionEntities = CreateFailureMechanismSectionEntities(),
                 GrassCoverErosionInwardsFailureMechanismMetaEntities =
                 {
@@ -487,7 +487,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismType = (int)FailureMechanismType.GrassRevetmentErosionOutwards,
+                FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
@@ -532,7 +532,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var profileBName = "profileB";
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismType = (int)FailureMechanismType.GrassRevetmentErosionOutwards,
+                FailureMechanismType = (int) FailureMechanismType.GrassRevetmentErosionOutwards,
                 GrassCoverErosionOutwardsFailureMechanismMetaEntities =
                 {
                     new GrassCoverErosionOutwardsFailureMechanismMetaEntity
@@ -566,7 +566,11 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             ObservableList<ForeshoreProfile> foreshoreProfiles = section.GrassCoverErosionOutwards.ForeshoreProfiles;
-            CollectionAssert.AreEqual(new[] { profileBName, profileAName }, foreshoreProfiles.Select(fp => fp.Name));
+            CollectionAssert.AreEqual(new[]
+            {
+                profileBName,
+                profileAName
+            }, foreshoreProfiles.Select(fp => fp.Name));
         }
 
         [Test]
@@ -580,7 +584,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismType = (int)FailureMechanismType.StabilityStoneRevetment,
+                FailureMechanismType = (int) FailureMechanismType.StabilityStoneRevetment,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
                 Comments = comments
@@ -673,7 +677,11 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             ObservableList<ForeshoreProfile> foreshoreProfiles = section.StabilityStoneCover.ForeshoreProfiles;
-            CollectionAssert.AreEqual(new [] {profileBName, profileAName}, foreshoreProfiles.Select(fp => fp.Name));
+            CollectionAssert.AreEqual(new[]
+            {
+                profileBName,
+                profileAName
+            }, foreshoreProfiles.Select(fp => fp.Name));
         }
 
         [Test]
@@ -687,7 +695,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismType = (int)FailureMechanismType.WaveImpactOnAsphaltRevetment,
+                FailureMechanismType = (int) FailureMechanismType.WaveImpactOnAsphaltRevetment,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
                 Comments = comments
@@ -714,7 +722,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var profileBName = "profileB";
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismType = (int)FailureMechanismType.WaveImpactOnAsphaltRevetment,
+                FailureMechanismType = (int) FailureMechanismType.WaveImpactOnAsphaltRevetment,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 ForeshoreProfileEntities =
                 {
@@ -741,7 +749,11 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Assert
             ObservableList<ForeshoreProfile> foreshoreProfiles = section.WaveImpactAsphaltCover.ForeshoreProfiles;
-            CollectionAssert.AreEqual(new[] { profileBName, profileAName }, foreshoreProfiles.Select(fp => fp.Name));
+            CollectionAssert.AreEqual(new[]
+            {
+                profileBName,
+                profileAName
+            }, foreshoreProfiles.Select(fp => fp.Name));
         }
 
         [Test]
@@ -752,7 +764,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismType = (int)FailureMechanismType.WaveImpactOnAsphaltRevetment,
+                FailureMechanismType = (int) FailureMechanismType.WaveImpactOnAsphaltRevetment,
                 CalculationGroupEntity = new CalculationGroupEntity
                 {
                     CalculationGroupEntity1 =

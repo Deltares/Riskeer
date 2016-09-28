@@ -25,9 +25,9 @@ using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
 {
@@ -80,7 +80,7 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
 
             return calculation;
         }
-        
+
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity, ReadConversionCollector collector)
         {
             if (foreshoreProfileEntity != null)
@@ -100,13 +100,14 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
             }
             return null;
         }
+
         private static WaveImpactAsphaltCoverWaveConditionsOutput ReadCalculationOutputs(ICollection<WaveImpactAsphaltCoverWaveConditionsOutputEntity> waveImpactAsphaltCoverWaveConditionsOutputEntities)
         {
             if (waveImpactAsphaltCoverWaveConditionsOutputEntities.Any())
             {
                 return new WaveImpactAsphaltCoverWaveConditionsOutput(waveImpactAsphaltCoverWaveConditionsOutputEntities
-                    .OrderBy(oe => oe.Order)
-                    .Select(oe => oe.Read()));
+                                                                          .OrderBy(oe => oe.Order)
+                                                                          .Select(oe => oe.Read()));
             }
             return null;
         }

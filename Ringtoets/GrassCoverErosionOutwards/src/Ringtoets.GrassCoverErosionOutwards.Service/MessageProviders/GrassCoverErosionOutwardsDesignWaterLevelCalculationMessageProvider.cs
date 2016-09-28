@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using Ringtoets.Common.Service.MessageProviders;
-using Ringtoets.GrassCoverErosionOutwards.Service.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.GrassCoverErosionOutwards.Service.Properties;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders
 {

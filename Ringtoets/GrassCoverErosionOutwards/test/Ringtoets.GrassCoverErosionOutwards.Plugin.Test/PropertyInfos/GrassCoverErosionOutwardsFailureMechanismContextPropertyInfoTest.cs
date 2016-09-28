@@ -45,8 +45,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.PropertyInfos
                 // Assert
                 Assert.IsNull(info.AdditionalDataCheck);
                 Assert.IsNull(info.AfterCreate);
-                Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailureMechanismContext),info.DataType);
-                Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailureMechanismProperties),info.PropertyObjectType);
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailureMechanismContext), info.DataType);
+                Assert.AreEqual(typeof(GrassCoverErosionOutwardsFailureMechanismProperties), info.PropertyObjectType);
             }
         }
 

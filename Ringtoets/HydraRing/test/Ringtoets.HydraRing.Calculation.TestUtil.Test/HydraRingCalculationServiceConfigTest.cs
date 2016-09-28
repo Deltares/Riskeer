@@ -57,7 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
             var expectedService = HydraRingCalculationService.Instance;
 
             // Call
-            using (new HydraRingCalculationServiceConfig()) { }
+            using (new HydraRingCalculationServiceConfig()) {}
 
             // Assert
             Assert.AreSame(expectedService, HydraRingCalculationService.Instance);

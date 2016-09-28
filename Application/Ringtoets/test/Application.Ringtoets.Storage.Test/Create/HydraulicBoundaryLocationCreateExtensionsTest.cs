@@ -185,7 +185,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            GrassCoverErosionOutwardsHydraulicLocationEntity entity = 
+            GrassCoverErosionOutwardsHydraulicLocationEntity entity =
                 hydraulicBoundaryLocation.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 0);
 
             // Assert
@@ -212,7 +212,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            GrassCoverErosionOutwardsHydraulicLocationEntity entity = 
+            GrassCoverErosionOutwardsHydraulicLocationEntity entity =
                 hydraulicBoundaryLocation.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 0);
 
             // Assert
@@ -232,7 +232,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            GrassCoverErosionOutwardsHydraulicLocationEntity entity1 = 
+            GrassCoverErosionOutwardsHydraulicLocationEntity entity1 =
                 hydraulicBoundaryLocations.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 0);
             GrassCoverErosionOutwardsHydraulicLocationEntity entity2 =
                 hydraulicBoundaryLocations.CreateGrassCoverErosionOutwardsHydraulicBoundaryLocation(registry, 1);

@@ -44,6 +44,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismContextTreeNodeInfoTest
     {
+        private const int contextMenuRelevancyIndexWhenRelevant = 0;
+        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
         private MockRepository mocks;
         private GrassCoverErosionOutwardsPlugin plugin;
         private TreeNodeInfo info;
@@ -192,7 +194,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
             Assert.AreSame(assessmentSection, failureMechanismSectionsContext.ParentAssessmentSection);
 
-            var foreshoreProfilesContext = (ForeshoreProfilesContext)inputsFolder.Contents[1];
+            var foreshoreProfilesContext = (ForeshoreProfilesContext) inputsFolder.Contents[1];
             Assert.AreSame(failureMechanism.ForeshoreProfiles, foreshoreProfilesContext.WrappedData);
             Assert.AreSame(assessmentSection, foreshoreProfilesContext.ParentAssessmentSection);
 
@@ -392,8 +394,5 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 }
             }
         }
-
-        private const int contextMenuRelevancyIndexWhenRelevant = 0;
-        private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
     }
 }

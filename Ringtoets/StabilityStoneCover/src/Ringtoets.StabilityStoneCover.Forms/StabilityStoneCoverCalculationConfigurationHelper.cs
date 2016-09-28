@@ -75,6 +75,6 @@ namespace Ringtoets.StabilityStoneCover.Forms
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
-        } 
+        }
     }
 }

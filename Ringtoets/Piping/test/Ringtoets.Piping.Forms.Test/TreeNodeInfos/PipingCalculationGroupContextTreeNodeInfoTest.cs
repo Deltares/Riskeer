@@ -153,10 +153,10 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
             // Assert
             Assert.AreEqual(group.Children.Count, children.Length);
             Assert.AreSame(calculationItem, children[0]);
-            var returnedCalculationContext = (PipingCalculationScenarioContext)children[1];
+            var returnedCalculationContext = (PipingCalculationScenarioContext) children[1];
             Assert.AreSame(childCalculation, returnedCalculationContext.WrappedData);
             Assert.AreSame(pipingFailureMechanism, returnedCalculationContext.FailureMechanism);
-            var returnedCalculationGroupContext = (PipingCalculationGroupContext)children[2];
+            var returnedCalculationGroupContext = (PipingCalculationGroupContext) children[2];
             Assert.AreSame(childGroup, returnedCalculationGroupContext.WrappedData);
             Assert.AreSame(pipingFailureMechanism, returnedCalculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, returnedCalculationGroupContext.AssessmentSection);
@@ -1031,8 +1031,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 int rowCount = 0;
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                    grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                    selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                    grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
                     rowCount = grid.Rows.Count;
                     new ButtonTester("CustomCancelButton", selectionDialog).Click();
                 };
@@ -1183,8 +1183,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                    var grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                    var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
 
                     grid.Rows[0].Cells[0].Value = true;
 
@@ -1302,8 +1302,8 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var selectionDialog = (PipingSurfaceLineSelectionDialog)new FormTester(name).TheObject;
-                    var grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                    var selectionDialog = (PipingSurfaceLineSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
 
                     grid.Rows[0].Cells[0].Value = true;
 

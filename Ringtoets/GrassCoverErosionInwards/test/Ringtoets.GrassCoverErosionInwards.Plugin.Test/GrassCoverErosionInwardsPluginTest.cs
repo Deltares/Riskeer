@@ -61,8 +61,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.AreEqual(4, propertyInfos.Length);
 
                 PropertyInfo failureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos, 
-                    typeof(GrassCoverErosionInwardsFailureMechanismContext), 
+                    propertyInfos,
+                    typeof(GrassCoverErosionInwardsFailureMechanismContext),
                     typeof(GrassCoverErosionInwardsFailureMechanismContextProperties));
                 Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
                 Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
@@ -70,14 +70,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
 
                 PropertyInfo dikeProfileProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
-                    typeof(DikeProfile), 
+                    typeof(DikeProfile),
                     typeof(DikeProfileProperties));
                 Assert.IsNull(dikeProfileProperties.AdditionalDataCheck);
                 Assert.IsNull(dikeProfileProperties.GetObjectPropertiesData);
                 Assert.IsNull(dikeProfileProperties.AfterCreate);
 
                 PropertyInfo inputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos, 
+                    propertyInfos,
                     typeof(GrassCoverErosionInwardsInputContext),
                     typeof(GrassCoverErosionInwardsInputContextProperties));
                 Assert.IsNull(inputContextProperties.AdditionalDataCheck);
@@ -85,8 +85,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test
                 Assert.IsNull(inputContextProperties.AfterCreate);
 
                 PropertyInfo outputProperties = PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos, 
-                    typeof(GrassCoverErosionInwardsOutput), 
+                    propertyInfos,
+                    typeof(GrassCoverErosionInwardsOutput),
                     typeof(GrassCoverErosionInwardsOutputProperties));
                 Assert.IsNull(outputProperties.AdditionalDataCheck);
                 Assert.IsNull(outputProperties.GetObjectPropertiesData);

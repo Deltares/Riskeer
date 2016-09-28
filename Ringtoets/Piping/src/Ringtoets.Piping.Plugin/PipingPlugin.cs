@@ -293,7 +293,7 @@ namespace Ringtoets.Piping.Plugin
             var assessmentSection = o as IAssessmentSection;
             var pipingFailureMechanism = o as PipingFailureMechanism;
 
-            var viewPipingFailureMechanismContext = (PipingFailureMechanismContext)view.Data;
+            var viewPipingFailureMechanismContext = (PipingFailureMechanismContext) view.Data;
             var viewPipingFailureMechanism = viewPipingFailureMechanismContext.WrappedData;
 
             return assessmentSection != null
@@ -746,7 +746,7 @@ namespace Ringtoets.Piping.Plugin
 
         private void PipingCalculationGroupContextOnNodeRemoved(PipingCalculationGroupContext nodeData, object parentNodeData)
         {
-            var parentGroupContext = (PipingCalculationGroupContext)parentNodeData;
+            var parentGroupContext = (PipingCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(nodeData.WrappedData);
 

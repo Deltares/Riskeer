@@ -37,6 +37,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismResultViewTest
     {
+        private const int nameColumnIndex = 0;
+        private const int assessmentLayerOneIndex = 1;
+        private const int assessmentLayerTwoAIndex = 2;
+        private const int assessmentLayerThreeIndex = 3;
+
         [Test]
         public void GivenFormWithGrassCoverErosionOutwardsFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
         {
@@ -219,11 +224,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
                 }
             }
         }
-
-        private const int nameColumnIndex = 0;
-        private const int assessmentLayerOneIndex = 1;
-        private const int assessmentLayerTwoAIndex = 2;
-        private const int assessmentLayerThreeIndex = 3;
 
         private static void AssertCellIsDisabled(DataGridViewCell dataGridViewCell)
         {

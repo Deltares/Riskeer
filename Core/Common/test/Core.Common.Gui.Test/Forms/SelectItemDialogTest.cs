@@ -150,7 +150,7 @@ namespace Core.Common.Gui.Test.Forms
             {
                 var tag = new object();
                 dialog.AddItemType("aName", "aCategory", Resources.abacus, tag);
-                var listView = (ListView)new ControlTester("listViewItemTypes", dialog).TheObject;
+                var listView = (ListView) new ControlTester("listViewItemTypes", dialog).TheObject;
                 dialog.Show();
 
                 // Call
