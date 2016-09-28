@@ -23,13 +23,13 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
+namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsCalculationContextTest
+    public class StabilityPointStructuresCalculationContextTest
     {
         [Test]
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
@@ -39,15 +39,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var calculation = new GrassCoverErosionInwardsCalculation();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var calculation = new StabilityPointStructuresCalculation();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var context = new GrassCoverErosionInwardsCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+            var context = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<GrassCoverErosionInwardsContext<GrassCoverErosionInwardsCalculation>>(context);
-            Assert.IsInstanceOf<ICalculationContext<GrassCoverErosionInwardsCalculation, GrassCoverErosionInwardsFailureMechanism>>(context);
+            Assert.IsInstanceOf<StabilityPointStructuresContext<StabilityPointStructuresCalculation>>(context);
+            Assert.IsInstanceOf<ICalculationContext<StabilityPointStructuresCalculation, StabilityPointStructuresFailureMechanism>>(context);
             Assert.AreSame(calculation, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);

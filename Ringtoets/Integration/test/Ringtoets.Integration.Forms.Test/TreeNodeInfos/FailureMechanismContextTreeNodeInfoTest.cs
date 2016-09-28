@@ -220,8 +220,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MacrostabilityInwardsFailureMechanismSectionResult)")]
         [TestCase(typeof(MacrostabilityOutwardsFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MacrostabilityOutwardsFailureMechanismSectionResult)")]
-        [TestCase(typeof(StabilityPointStructuresFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(StabilityPointStructuresFailureMechanismSectionResult)")]
         public void ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(Type t)
         {
             // Delegate actual test
