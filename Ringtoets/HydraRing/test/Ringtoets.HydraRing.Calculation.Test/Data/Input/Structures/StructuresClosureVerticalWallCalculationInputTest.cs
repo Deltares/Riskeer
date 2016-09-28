@@ -91,7 +91,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.IsInstanceOf<StructuresClosureCalculationInput>(input);
             Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
             Assert.AreEqual(1, input.CalculationTypeId);
-            Assert.AreEqual(65, input.VariableId);
+            Assert.AreEqual(58, input.VariableId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresClosure, input.FailureMechanismType);
             Assert.AreSame(hydraRingSection, input.Section);
             Assert.AreSame(forelandPoints, input.ForelandsPoints);

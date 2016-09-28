@@ -127,7 +127,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         {
             get
             {
-                return 65;
+                return 58;
             }
         }
 
