@@ -36,7 +36,6 @@ using Core.Common.TestUtil;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -44,7 +43,6 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Plugin;
-using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using RingtoetsFormsResources = Ringtoets.Integration.Forms.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -214,8 +212,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult)")]
         [TestCase(typeof(WaterPressureAsphaltCoverFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(WaterPressureAsphaltCoverFailureMechanismSectionResult)")]
-        [TestCase(typeof(ClosingStructuresFailureMechanismSectionResult),
-            TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(ClosingStructuresFailureMechanismSectionResult)")]
         [TestCase(typeof(MacrostabilityInwardsFailureMechanismSectionResult),
             TestName = "ChildNodeObjects_FailureMechanismIsRelevant_OutputNodeAddedForResult(MacrostabilityInwardsFailureMechanismSectionResult)")]
         [TestCase(typeof(MacrostabilityOutwardsFailureMechanismSectionResult),
