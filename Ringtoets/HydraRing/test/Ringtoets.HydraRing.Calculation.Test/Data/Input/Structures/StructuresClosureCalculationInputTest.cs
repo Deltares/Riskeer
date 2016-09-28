@@ -39,6 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             // Setup
             const int hydraulicBoundaryLocationId = 1000;
             var hydraRingSection = new HydraRingSection(1, double.NaN, double.NaN);
+            var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
 
             const double gravitationalAcceleration = 9.81;
             const double factorStormDurationOpenStructure = 0.1;
@@ -62,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double probabilityOpenStructureBeforeFlooding = 0.04;
 
             // Call
-            var input = new TestStructuresClosureCalculationInput(hydraulicBoundaryLocationId, hydraRingSection,
+            var input = new TestStructuresClosureCalculationInput(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints,
                                                                   gravitationalAcceleration, factorStormDurationOpenStructure,
                                                                   failureProbabilityOpenStructure, failureProbabilityReparation,
                                                                   identicalAperture, allowableIncreaseOfLevelForStorageMean,
@@ -81,6 +82,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(65, input.VariableId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresClosure, input.FailureMechanismType);
             Assert.AreSame(hydraRingSection, input.Section);
+            Assert.AreSame(forelandPoints, input.ForelandsPoints);
             HydraRingVariableAssert.AreEqual(GetDefaultOvertoppingVariables().ToArray(), input.Variables.ToArray());
         }
 
@@ -105,6 +107,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
         private class TestStructuresClosureCalculationInput : StructuresClosureCalculationInput
         {
             public TestStructuresClosureCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
+                                                         IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                          double hydraRingGravitationalAcceleration, double hydraRingFactorStormDurationOpenStructure,
                                                          double hydraRingFailureProbabilityOpenStructure, double hydraRingFailureProbabilityReparation,
                                                          double hydraRingIdenticalAperture, double hydraRingAllowableIncreaseOfLevelForStorageMean,
@@ -115,7 +118,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                          double hydraRingCriticalOvertoppingDischargeMean, double hydraRingCriticalOvertoppingDischargeVariation,
                                                          double hydraRingFailureProbabilityOfStructureGivenErosion, double hydraRingStormDurationMean,
                                                          double hydraRingStormDurationVariation, double hydraRingProbabilityOpenStructureBeforeFlooding)
-                : base(hydraulicBoundaryLocationId, hydraRingSection,
+                : base(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints,
                        hydraRingGravitationalAcceleration, hydraRingFactorStormDurationOpenStructure,
                        hydraRingFailureProbabilityOpenStructure, hydraRingFailureProbabilityReparation,
                        hydraRingIdenticalAperture, hydraRingAllowableIncreaseOfLevelForStorageMean,

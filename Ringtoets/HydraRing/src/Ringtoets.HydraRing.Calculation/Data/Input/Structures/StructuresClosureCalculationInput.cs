@@ -29,6 +29,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
     public abstract class StructuresClosureCalculationInput : ExceedanceProbabilityCalculationInput
     {
         private readonly HydraRingSection hydraRingSection;
+        private readonly IEnumerable<HydraRingForelandPoint> forelandPoints;
         private readonly double gravitationalAcceleration;
         private readonly double factorStormDurationOpenStructure;
         private readonly double failureProbabilityOpenStructure;
@@ -55,6 +56,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="hydraRingSection">The section to use during the calculation.</param>
+        /// <param name="forelandPoints">The foreland points to use during the calculation.</param>
         /// <param name="hydraRingGravitationalAcceleration">The gravitational acceleration to use during the calculation.</param>
         /// <param name="hydraRingFactorStormDurationOpenStructure">The factor of the storm duration for an open structure to use during the calculation.</param>
         /// <param name="hydraRingFailureProbabilityOpenStructure">The failure probability for an open structure to use during the calculation.</param>
@@ -76,6 +78,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingStormDurationVariation">The variation of the storm duration to use during the calculation.</param>
         /// <param name="hydraRingProbabilityOpenStructureBeforeFlooding">The propability of an open structure before flooding to use during the calculation.</param>
         protected StructuresClosureCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
+                                                    IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                     double hydraRingGravitationalAcceleration, double hydraRingFactorStormDurationOpenStructure,
                                                     double hydraRingFailureProbabilityOpenStructure, double hydraRingFailureProbabilityReparation,
                                                     double hydraRingIdenticalAperture, double hydraRingAllowableIncreaseOfLevelForStorageMean,
@@ -89,6 +92,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             : base(hydraulicBoundaryLocationId)
         {
             this.hydraRingSection = hydraRingSection;
+            this.forelandPoints = forelandPoints;
             gravitationalAcceleration = hydraRingGravitationalAcceleration;
             factorStormDurationOpenStructure = hydraRingFactorStormDurationOpenStructure;
             failureProbabilityOpenStructure = hydraRingFailureProbabilityOpenStructure;
@@ -132,6 +136,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             get
             {
                 return hydraRingSection;
+            }
+        }
+
+        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints
+        {
+            get
+            {
+                return forelandPoints;
             }
         }
 

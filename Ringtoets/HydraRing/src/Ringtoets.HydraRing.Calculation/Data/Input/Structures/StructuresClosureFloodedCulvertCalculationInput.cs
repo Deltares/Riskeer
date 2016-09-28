@@ -41,6 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="hydraRingSection">The section to use during the calculation.</param>
+        /// <param name="forelandPoints">The foreland points to use during the calculation.</param>
         /// <param name="hydraRingGravitationalAcceleration">The gravitational acceleration to use during the calculation.</param>
         /// <param name="hydraRingFactorStormDurationOpenStructure">The factor of the storm duration for an open structure to use during the calculation.</param>
         /// <param name="hydraRingFailureProbabilityOpenStructure">The failure probability for an open structure to use during the calculation.</param>
@@ -68,6 +69,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingWaterLevelInsideMean">The mean of the waterlevel inside to use during the calculation.</param>
         /// <param name="hydraRingWaterLevelInsideStandardDeviation">The standard deviation of the waterlevel inside to use during the calculation.</param>
         public StructuresClosureFloodedCulvertCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
+                                                               IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                                double hydraRingGravitationalAcceleration, double hydraRingFactorStormDurationOpenStructure,
                                                                double hydraRingFailureProbabilityOpenStructure, double hydraRingFailureProbabilityReparation,
                                                                double hydraRingIdenticalAperture, double hydraRingAllowableIncreaseOfLevelForStorageMean,
@@ -81,7 +83,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                double hydraRingDrainCoefficientMean, double hydraRingDrainCoefficientStandardDeviation,
                                                                double hydraRingAreaFlowAperturesMean, double hydraRingAreaFlowAperturesStandardDeviation,
                                                                double hydraRingWaterLevelInsideMean, double hydraRingWaterLevelInsideStandardDeviation)
-            : base(hydraulicBoundaryLocationId, hydraRingSection,
+            : base(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints,
                    hydraRingGravitationalAcceleration, hydraRingFactorStormDurationOpenStructure,
                    hydraRingFailureProbabilityOpenStructure, hydraRingFailureProbabilityReparation,
                    hydraRingIdenticalAperture, hydraRingAllowableIncreaseOfLevelForStorageMean,

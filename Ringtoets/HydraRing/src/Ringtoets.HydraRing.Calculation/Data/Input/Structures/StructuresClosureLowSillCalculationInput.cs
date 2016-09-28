@@ -45,6 +45,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="hydraRingSection">The section to use during the calculation.</param>
+        /// <param name="forelandPoints">The foreland points to use during the calculation.</param>
         /// <param name="hydraRingGravitationalAcceleration">The gravitational acceleration to use during the calculation.</param>
         /// <param name="hydraRingFactorStormDurationOpenStructure">The factor of the storm duration for an open structure to use during the calculation.</param>
         /// <param name="hydraRingFailureProbabilityOpenStructure">The failure probability for an open structure to use during the calculation.</param>
@@ -76,23 +77,24 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingWidthOfFlowAperturesMean">The mean of the width of flow apertures to use during the calculation.</param>
         /// <param name="hydraRingWidthOfFlowAperturesVariation">The variation of the width of flow apertures to use during the calculation.</param>
         public StructuresClosureLowSillCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
-                                                             double hydraRingGravitationalAcceleration, double hydraRingFactorStormDurationOpenStructure,
-                                                             double hydraRingFailureProbabilityOpenStructure, double hydraRingFailureProbabilityReparation,
-                                                             double hydraRingIdenticalAperture, double hydraRingAllowableIncreaseOfLevelForStorageMean,
-                                                             double hydraRingAllowableIncreaseOfLevelForStorageStandardDeviation, double hydraRingModelFactorForStorageVolumeMean,
-                                                             double hydraRingModelFactorForStorageVolumeStandardDeviation, double hydraRingStorageStructureAreaMean,
-                                                             double hydraRingStorageStructureAreaVariation, double hydraRingModelFactorForIncomingFlowVolume,
-                                                             double hydraRingFlowWidthAtBottomProtectionMean, double hydraRingFlowWidthAtBottomProtectionStandardDeviation,
-                                                             double hydraRingCriticalOvertoppingDischargeMean, double hydraRingCriticalOvertoppingDischargeVariation,
-                                                             double hydraRingFailureProbabilityOfStructureGivenErosion, double hydraRingStormDurationMean,
-                                                             double hydraRingStormDurationVariation, double hydraRingProbabilityOpenStructureBeforeFlooding,
-                                                             double hydraRingModelFactorSubcriticalFlowMean, double hydraRingModelFactorSubcriticalFlowVariation,
-                                                             double hydraRingThresholdLowWeirHeightMean, double hydraRingThresholdLowWeirHeightStandardDeviation,
-                                                             double hydraRingWaterLevelInsideMean, double hydraRingWaterLevelInsideStandardDeviation,
-                                                             double hydraRingModelFactorOvertoppingSupercriticalFlowMean,
-                                                             double hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation,
-                                                             double hydraRingWidthOfFlowAperturesMean, double hydraRingWidthOfFlowAperturesVariation)
-            : base(hydraulicBoundaryLocationId, hydraRingSection,
+                                                        IEnumerable<HydraRingForelandPoint> forelandPoints,
+                                                        double hydraRingGravitationalAcceleration, double hydraRingFactorStormDurationOpenStructure,
+                                                        double hydraRingFailureProbabilityOpenStructure, double hydraRingFailureProbabilityReparation,
+                                                        double hydraRingIdenticalAperture, double hydraRingAllowableIncreaseOfLevelForStorageMean,
+                                                        double hydraRingAllowableIncreaseOfLevelForStorageStandardDeviation, double hydraRingModelFactorForStorageVolumeMean,
+                                                        double hydraRingModelFactorForStorageVolumeStandardDeviation, double hydraRingStorageStructureAreaMean,
+                                                        double hydraRingStorageStructureAreaVariation, double hydraRingModelFactorForIncomingFlowVolume,
+                                                        double hydraRingFlowWidthAtBottomProtectionMean, double hydraRingFlowWidthAtBottomProtectionStandardDeviation,
+                                                        double hydraRingCriticalOvertoppingDischargeMean, double hydraRingCriticalOvertoppingDischargeVariation,
+                                                        double hydraRingFailureProbabilityOfStructureGivenErosion, double hydraRingStormDurationMean,
+                                                        double hydraRingStormDurationVariation, double hydraRingProbabilityOpenStructureBeforeFlooding,
+                                                        double hydraRingModelFactorSubcriticalFlowMean, double hydraRingModelFactorSubcriticalFlowVariation,
+                                                        double hydraRingThresholdLowWeirHeightMean, double hydraRingThresholdLowWeirHeightStandardDeviation,
+                                                        double hydraRingWaterLevelInsideMean, double hydraRingWaterLevelInsideStandardDeviation,
+                                                        double hydraRingModelFactorOvertoppingSupercriticalFlowMean,
+                                                        double hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation,
+                                                        double hydraRingWidthOfFlowAperturesMean, double hydraRingWidthOfFlowAperturesVariation)
+            : base(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints,
                    hydraRingGravitationalAcceleration, hydraRingFactorStormDurationOpenStructure,
                    hydraRingFailureProbabilityOpenStructure, hydraRingFailureProbabilityReparation,
                    hydraRingIdenticalAperture, hydraRingAllowableIncreaseOfLevelForStorageMean,
