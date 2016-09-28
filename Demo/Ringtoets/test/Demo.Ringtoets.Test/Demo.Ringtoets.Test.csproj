@@ -150,6 +150,14 @@
       <Project>{10B8D63D-87E8-46DF-ACA9-A8CF22EE8FB5}</Project>
       <Name>Ringtoets.Piping.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\Revetment\src\Ringtoets.Revetment.Data\Ringtoets.Revetment.Data.csproj">
+      <Project>{87c2c553-c0bc-40bf-b1ea-b83bff357f27}</Project>
+      <Name>Ringtoets.Revetment.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\StabilityPointStructures\src\Ringtoets.StabilityPointStructures.Data\Ringtoets.StabilityPointStructures.Data.csproj">
+      <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Demo.Ringtoets\Demo.Ringtoets.csproj">
       <Project>{ffe3a667-3a4c-4f48-bc6b-1589867fcb41}</Project>
       <Name>Demo.Ringtoets</Name>

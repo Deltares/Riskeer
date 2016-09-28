@@ -40,6 +40,7 @@ using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Plugin.FileImporters;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Plugin.FileImporter;
+using Ringtoets.StabilityPointStructures.Data;
 
 namespace Demo.Ringtoets.Commands
 {
@@ -80,9 +81,12 @@ namespace Demo.Ringtoets.Commands
             InitializeDemoReferenceLine(demoAssessmentSection);
             InitializeDemoHydraulicBoundaryDatabase(demoAssessmentSection);
             InitializeDemoFailureMechanismSections(demoAssessmentSection);
-            InitializeDemoPipingData(demoAssessmentSection);
+
             InitializeGrassCoverErosionInwardsData(demoAssessmentSection);
+            InitializeGrassCoverErosionOutwardsData(demoAssessmentSection);
             InitializeHeightStructuresData(demoAssessmentSection);
+            InitializeDemoPipingData(demoAssessmentSection);
+            InitializeStabilityPointStructuresData(demoAssessmentSection);
             return demoAssessmentSection;
         }
 
@@ -130,46 +134,6 @@ namespace Demo.Ringtoets.Commands
 
         #region FailureMechanisms
 
-        #region PipingFailureMechanism
-
-        private void InitializeDemoPipingData(AssessmentSection demoAssessmentSection)
-        {
-            var pipingFailureMechanism = demoAssessmentSection.PipingFailureMechanism;
-
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6_surfacelines.csv", "DR6_surfacelines.krp.csv"))
-            {
-                var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter(pipingFailureMechanism.SurfaceLines, demoAssessmentSection.ReferenceLine,
-                                                                             Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
-                surfaceLinesImporter.Import();
-            }
-
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6.soil"))
-            {
-                var soilProfilesImporter = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels,
-                                                                          Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
-                soilProfilesImporter.Import();
-            }
-
-            var calculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput);
-            pipingFailureMechanism.CalculationsGroup.Children.Add(calculation);
-            var originalPhreaticLevelExit = calculation.InputParameters.PhreaticLevelExit;
-            calculation.InputParameters.PhreaticLevelExit = new NormalDistribution(originalPhreaticLevelExit.Mean.NumberOfDecimalPlaces)
-            {
-                Mean = (RoundedDouble) 3.0,
-                StandardDeviation = originalPhreaticLevelExit.StandardDeviation
-            };
-            calculation.InputParameters.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
-
-            var stochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(sm => sm.Name == "PK001_0001_Piping");
-            calculation.InputParameters.StochasticSoilModel = stochasticSoilModel;
-            calculation.InputParameters.StochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First(sp => sp.SoilProfile.Name == "W1-6_0_1D1");
-            calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
-
-            calculation.InputParameters.NotifyObservers();
-        }
-
-        #endregion
-
         #region GrassCoverErosionInwardsFailureMechanism
 
         private static void InitializeGrassCoverErosionInwardsData(AssessmentSection demoAssessmentSection)
@@ -184,21 +148,17 @@ namespace Demo.Ringtoets.Commands
 
         #endregion
 
-        #region GrassCoverErosionInwardsFailureMechanism
+        #region GrassCoverErosionOutwardsFailureMechanism
 
-        private static void InitializeHeightStructuresData(AssessmentSection demoAssessmentSection)
+        private static void InitializeGrassCoverErosionOutwardsData(AssessmentSection demoAssessmentSection)
         {
-            HeightStructuresFailureMechanism failureMechanism = demoAssessmentSection.HeightStructures;
+            GrassCoverErosionOutwardsFailureMechanism failureMechanism = demoAssessmentSection.GrassCoverErosionOutwards;
 
-            var calculation = new HeightStructuresCalculation();
-            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();
         }
-
-        #endregion
-
-        #region GrassCoverErosionOutwardsFailureMechanism
 
         private static void SetGrassCoverErosionOutwardsHydraulicBoundaryLocationDesignWaterLevelValues(GrassCoverErosionOutwardsFailureMechanism failureMechanism)
         {
@@ -260,6 +220,74 @@ namespace Demo.Ringtoets.Commands
             {
                 hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.CalculatedConverged;
             }
+        }
+
+        #endregion
+
+        #region HeightStructuresFailureMechanism
+
+        private static void InitializeHeightStructuresData(AssessmentSection demoAssessmentSection)
+        {
+            HeightStructuresFailureMechanism failureMechanism = demoAssessmentSection.HeightStructures;
+
+            var calculation = new HeightStructuresCalculation();
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+            calculation.InputParameters.NotifyObservers();
+        }
+
+        #endregion
+
+        #region PipingFailureMechanism
+
+        private void InitializeDemoPipingData(AssessmentSection demoAssessmentSection)
+        {
+            var pipingFailureMechanism = demoAssessmentSection.PipingFailureMechanism;
+
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6_surfacelines.csv", "DR6_surfacelines.krp.csv"))
+            {
+                var surfaceLinesImporter = new PipingSurfaceLinesCsvImporter(pipingFailureMechanism.SurfaceLines, demoAssessmentSection.ReferenceLine,
+                                                                             Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6_surfacelines.csv"));
+                surfaceLinesImporter.Import();
+            }
+
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, true, "DR6.soil"))
+            {
+                var soilProfilesImporter = new PipingSoilProfilesImporter(pipingFailureMechanism.StochasticSoilModels,
+                                                                          Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "DR6.soil"));
+                soilProfilesImporter.Import();
+            }
+
+            var calculation = new PipingCalculationScenario(pipingFailureMechanism.GeneralInput);
+            pipingFailureMechanism.CalculationsGroup.Children.Add(calculation);
+            var originalPhreaticLevelExit = calculation.InputParameters.PhreaticLevelExit;
+            calculation.InputParameters.PhreaticLevelExit = new NormalDistribution(originalPhreaticLevelExit.Mean.NumberOfDecimalPlaces)
+            {
+                Mean = (RoundedDouble) 3.0,
+                StandardDeviation = originalPhreaticLevelExit.StandardDeviation
+            };
+            calculation.InputParameters.SurfaceLine = pipingFailureMechanism.SurfaceLines.First(sl => sl.Name == "PK001_0001");
+
+            var stochasticSoilModel = pipingFailureMechanism.StochasticSoilModels.First(sm => sm.Name == "PK001_0001_Piping");
+            calculation.InputParameters.StochasticSoilModel = stochasticSoilModel;
+            calculation.InputParameters.StochasticSoilProfile = stochasticSoilModel.StochasticSoilProfiles.First(sp => sp.SoilProfile.Name == "W1-6_0_1D1");
+            calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+
+            calculation.InputParameters.NotifyObservers();
+        }
+
+        #endregion
+
+        #region StabilityPointStructuresFailureMechanism
+
+        private static void InitializeStabilityPointStructuresData(AssessmentSection demoAssessmentSection)
+        {
+            StabilityPointStructuresFailureMechanism failureMechanism = demoAssessmentSection.StabilityPointStructures;
+
+            var calculation = new StabilityPointStructuresCalculation();
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+            calculation.InputParameters.NotifyObservers();
         }
 
         #endregion
