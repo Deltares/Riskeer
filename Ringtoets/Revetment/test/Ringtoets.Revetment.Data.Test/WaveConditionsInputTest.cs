@@ -142,7 +142,7 @@ namespace Ringtoets.Revetment.Data.Test
             // Call
             input.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
             {
-                DesignWaterLevel = (RoundedDouble)assessmentLevel
+                DesignWaterLevel = (RoundedDouble) assessmentLevel
             };
 
             // Assert
@@ -158,7 +158,7 @@ namespace Ringtoets.Revetment.Data.Test
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, string.Empty, 0, 0)
                 {
-                    DesignWaterLevel = (RoundedDouble)3.2
+                    DesignWaterLevel = (RoundedDouble) 3.2
                 }
             };
 
@@ -286,7 +286,7 @@ namespace Ringtoets.Revetment.Data.Test
             var input = new WaveConditionsInput();
 
             // Call
-            input.Orientation = (RoundedDouble)orientation;
+            input.Orientation = (RoundedDouble) orientation;
 
             // Assert
             Assert.AreEqual(orientation, input.Orientation, input.Orientation.GetAccuracy());
@@ -339,7 +339,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void UpperBoundaryDesignWaterLevel_DesignWaterLevelSet_ReturnValueJustBelowDesignWaterLevel()
         {
             // Setup
-            var designWaterLevel = (RoundedDouble)1.0;
+            var designWaterLevel = (RoundedDouble) 1.0;
             var waveConditionsInput = new WaveConditionsInput();
 
             // Call
@@ -379,11 +379,11 @@ namespace Ringtoets.Revetment.Data.Test
             // Setup
             var input = new WaveConditionsInput()
             {
-                UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetment
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
             };
 
             // Call
-            input.LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetment;
+            input.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment;
 
             // Assert
             Assert.AreEqual(lowerBoundaryRevetment, input.LowerBoundaryRevetment, input.LowerBoundaryRevetment.GetAccuracy());
@@ -398,11 +398,11 @@ namespace Ringtoets.Revetment.Data.Test
             // Setup
             var input = new WaveConditionsInput()
             {
-                UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetment
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment
             };
 
             // Call
-            TestDelegate test = () => input.LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetment;
+            TestDelegate test = () => input.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment;
 
             // Assert
             string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment;
@@ -451,11 +451,11 @@ namespace Ringtoets.Revetment.Data.Test
             // Setup
             var input = new WaveConditionsInput()
             {
-                LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetment
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment
             };
 
             // Call
-            input.UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetment;
+            input.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment;
 
             // Assert
             Assert.AreEqual(upperBoundaryRevetment, input.UpperBoundaryRevetment, input.UpperBoundaryRevetment.GetAccuracy());
@@ -470,11 +470,11 @@ namespace Ringtoets.Revetment.Data.Test
             // Setup
             var input = new WaveConditionsInput()
             {
-                LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetment
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment
             };
 
             // Call
-            TestDelegate test = () => input.UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetment;
+            TestDelegate test = () => input.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment;
 
             // Assert
             string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment;
@@ -490,7 +490,7 @@ namespace Ringtoets.Revetment.Data.Test
             var input = new WaveConditionsInput();
 
             // Call
-            input.UpperBoundaryRevetment = (RoundedDouble)newValue;
+            input.UpperBoundaryRevetment = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual(1000, input.UpperBoundaryRevetment, input.UpperBoundaryRevetment.GetAccuracy());
@@ -523,11 +523,11 @@ namespace Ringtoets.Revetment.Data.Test
             // Setup
             var input = new WaveConditionsInput()
             {
-                UpperBoundaryWaterLevels = (RoundedDouble)upperBoundaryWaterLevels
+                UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels
             };
 
             // Call
-            input.LowerBoundaryWaterLevels = (RoundedDouble)lowerBoundaryWaterLevels;
+            input.LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels;
 
             // Assert
             Assert.AreEqual(lowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels.GetAccuracy());
@@ -542,11 +542,11 @@ namespace Ringtoets.Revetment.Data.Test
             // Setup
             var input = new WaveConditionsInput()
             {
-                UpperBoundaryWaterLevels = (RoundedDouble)upperBoundaryWaterLevels
+                UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels
             };
 
             // Call
-            TestDelegate test = () => input.LowerBoundaryWaterLevels = (RoundedDouble)lowerBoundaryWaterLevels;
+            TestDelegate test = () => input.LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels;
 
             // Assert
             string expectedMessage = Resources.WaveConditionsInput_ValidateWaterLevelBoundaries_Upper_boundary_water_levels_must_be_above_lower_boundary_water_levels;
@@ -562,7 +562,7 @@ namespace Ringtoets.Revetment.Data.Test
             var input = new WaveConditionsInput();
 
             // Call
-            input.LowerBoundaryWaterLevels = (RoundedDouble)newValue;
+            input.LowerBoundaryWaterLevels = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual(-50, input.LowerBoundaryWaterLevels, input.LowerBoundaryWaterLevels.GetAccuracy());
@@ -595,11 +595,11 @@ namespace Ringtoets.Revetment.Data.Test
             // Setup
             var input = new WaveConditionsInput()
             {
-                LowerBoundaryWaterLevels = (RoundedDouble)lowerBoundaryWaterLevels
+                LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels
             };
 
             // Call
-            input.UpperBoundaryWaterLevels = (RoundedDouble)upperBoundaryWaterLevels;
+            input.UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels;
 
             // Assert
             Assert.AreEqual(upperBoundaryWaterLevels, input.UpperBoundaryWaterLevels, input.UpperBoundaryWaterLevels.GetAccuracy());
@@ -614,11 +614,11 @@ namespace Ringtoets.Revetment.Data.Test
             // Setup
             var input = new WaveConditionsInput()
             {
-                LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryWaterLevels
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryWaterLevels
             };
 
             // Call
-            TestDelegate test = () => input.UpperBoundaryRevetment = (RoundedDouble)upperBoundaryWaterLevels;
+            TestDelegate test = () => input.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryWaterLevels;
 
             // Assert
             string expectedMessage = Resources.WaveConditionsInput_ValidateRevetmentBoundaries_Upper_boundary_revetment_must_be_above_lower_boundary_revetment;
@@ -634,7 +634,7 @@ namespace Ringtoets.Revetment.Data.Test
             var input = new WaveConditionsInput();
 
             // Call
-            input.UpperBoundaryWaterLevels = (RoundedDouble)newValue;
+            input.UpperBoundaryWaterLevels = (RoundedDouble) newValue;
 
             // Assert
             Assert.AreEqual(1000, input.UpperBoundaryWaterLevels, input.UpperBoundaryWaterLevels.GetAccuracy());
@@ -651,13 +651,13 @@ namespace Ringtoets.Revetment.Data.Test
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
-                    DesignWaterLevel = (RoundedDouble)designWaterLevel
+                    DesignWaterLevel = (RoundedDouble) designWaterLevel
                 },
-                LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetments,
-                UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetments,
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetments,
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetments,
                 StepSize = WaveConditionsInputStepSize.One,
-                LowerBoundaryWaterLevels = (RoundedDouble)1.0,
-                UpperBoundaryWaterLevels = (RoundedDouble)10.0
+                LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                UpperBoundaryWaterLevels = (RoundedDouble) 10.0
             };
 
             // Call
@@ -697,11 +697,11 @@ namespace Ringtoets.Revetment.Data.Test
             // Setup
             var input = new WaveConditionsInput()
             {
-                LowerBoundaryRevetment = (RoundedDouble)1.0,
-                UpperBoundaryRevetment = (RoundedDouble)10.0,
+                LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                UpperBoundaryRevetment = (RoundedDouble) 10.0,
                 StepSize = WaveConditionsInputStepSize.One,
-                LowerBoundaryWaterLevels = (RoundedDouble)1.0,
-                UpperBoundaryWaterLevels = (RoundedDouble)10.0
+                LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                UpperBoundaryWaterLevels = (RoundedDouble) 10.0
             };
 
             // Call
@@ -722,13 +722,13 @@ namespace Ringtoets.Revetment.Data.Test
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
-                    DesignWaterLevel = (RoundedDouble)designWaterLevel
+                    DesignWaterLevel = (RoundedDouble) designWaterLevel
                 },
-                LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetment,
-                UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetment,
+                LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment,
+                UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment,
                 StepSize = stepSize,
-                LowerBoundaryWaterLevels = (RoundedDouble)lowerBoundaryWaterLevels,
-                UpperBoundaryWaterLevels = (RoundedDouble)upperBoundaryWaterLevels
+                LowerBoundaryWaterLevels = (RoundedDouble) lowerBoundaryWaterLevels,
+                UpperBoundaryWaterLevels = (RoundedDouble) upperBoundaryWaterLevels
             };
 
             // Call

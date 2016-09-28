@@ -36,6 +36,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
     [TestFixture]
     public class StabilityStoneCoverResultViewTest
     {
+        private const int nameColumnIndex = 0;
+        private const int assessmentLayerTwoAIndex = 1;
+        private const int assessmentLayerThreeIndex = 2;
+
         [Test]
         public void GivenFormWithStabilityStoneCoverFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
         {
@@ -157,9 +161,5 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 Assert.AreEqual(0, rows.Count);
             }
         }
-
-        private const int nameColumnIndex = 0;
-        private const int assessmentLayerTwoAIndex = 1;
-        private const int assessmentLayerThreeIndex = 2;
     }
 }

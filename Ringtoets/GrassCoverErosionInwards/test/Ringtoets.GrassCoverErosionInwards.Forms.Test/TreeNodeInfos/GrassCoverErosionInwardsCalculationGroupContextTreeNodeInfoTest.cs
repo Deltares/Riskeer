@@ -161,12 +161,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             // Assert
             Assert.AreEqual(group.Children.Count, children.Length);
-            var calculationGroupContext = (GrassCoverErosionInwardsCalculationGroupContext)children[0];
+            var calculationGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) children[0];
             Assert.AreSame(childGroup, calculationGroupContext.WrappedData);
             Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, calculationGroupContext.AssessmentSection);
             Assert.AreSame(calculationItemMock, children[1]);
-            var calculationContext = (GrassCoverErosionInwardsCalculationContext)children[2];
+            var calculationContext = (GrassCoverErosionInwardsCalculationContext) children[2];
             Assert.AreSame(childCalculation, calculationContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, calculationContext.AssessmentSection);
         }
@@ -994,8 +994,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
-                    var grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
 
                     grid.Rows[0].Cells[0].Value = true;
 
@@ -1051,8 +1051,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
-                    var grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
 
                     grid.Rows[0].Cells[0].Value = true;
 
@@ -1116,8 +1116,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
                 DialogBoxHandler = (name, wnd) =>
                 {
-                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog)new FormTester(name).TheObject;
-                    var grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+                    var selectionDialog = (GrassCoverErosionInwardsDikeProfileSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
 
                     grid.Rows[0].Cells[0].Value = true;
 

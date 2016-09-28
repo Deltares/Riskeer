@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Service
     /// Abstract service that provides methods for performing Hydra-Ring calculations for hydraulic boundary locations.
     /// </summary>
     /// <typeparam name="T">The input type of the calculation.</typeparam>
-    public abstract class HydraulicBoundaryLocationCalculationService<T> : IHydraulicBoundaryLocationCalculationService 
+    public abstract class HydraulicBoundaryLocationCalculationService<T> : IHydraulicBoundaryLocationCalculationService
         where T : HydraRingCalculationInput
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HydraulicBoundaryLocationCalculationService<T>));
@@ -87,14 +87,6 @@ namespace Ringtoets.Common.Service
             return reliabilityIndexCalculationParser.Output;
         }
 
-        private static void VerifyOutput(ReliabilityIndexCalculationOutput output, ICalculationMessageProvider messageProvider, string locationName)
-        {
-            if (output == null)
-            {
-                log.Error(messageProvider.GetCalculationFailedMessage(locationName));
-            }
-        }
-
         /// <summary>
         /// Creates the input for the calculation.
         /// </summary>
@@ -102,5 +94,13 @@ namespace Ringtoets.Common.Service
         /// <param name="norm">The norm which is needed in the input.</param>
         /// <returns>The created Input.</returns>
         protected abstract T CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm);
+
+        private static void VerifyOutput(ReliabilityIndexCalculationOutput output, ICalculationMessageProvider messageProvider, string locationName)
+        {
+            if (output == null)
+            {
+                log.Error(messageProvider.GetCalculationFailedMessage(locationName));
+            }
+        }
     }
 }

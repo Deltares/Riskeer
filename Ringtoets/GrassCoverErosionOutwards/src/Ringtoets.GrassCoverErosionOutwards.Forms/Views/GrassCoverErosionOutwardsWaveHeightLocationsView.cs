@@ -64,13 +64,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
             }
         }
 
+        public override IAssessmentSection AssessmentSection { get; set; }
+
         /// <summary>
         /// Gets or sets the <see cref="GrassCoverErosionOutwardsFailureMechanism"/> for which the
         /// hydraulic boundary locations are shown.
         /// </summary>
         public GrassCoverErosionOutwardsFailureMechanism FailureMechanism { get; set; }
-
-        public override IAssessmentSection AssessmentSection { get; set; }
 
         protected override WaveHeightLocationRow CreateNewRow(HydraulicBoundaryLocation location)
         {

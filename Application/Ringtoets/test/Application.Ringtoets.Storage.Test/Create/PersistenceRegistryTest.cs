@@ -460,7 +460,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             var registry = new PersistenceRegistry();
 
             // Call
-            TestDelegate call = () => registry.Contains((ForeshoreProfile)null);
+            TestDelegate call = () => registry.Contains((ForeshoreProfile) null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;

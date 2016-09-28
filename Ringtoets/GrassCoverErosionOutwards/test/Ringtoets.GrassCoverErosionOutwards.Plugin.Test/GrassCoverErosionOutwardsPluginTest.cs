@@ -119,35 +119,35 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 Assert.AreEqual(7, propertyInfos.Length);
 
                 PropertyInfo grassCoverErosionOutwardsFailureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos, 
-                    typeof(GrassCoverErosionOutwardsFailureMechanismContext), 
+                    propertyInfos,
+                    typeof(GrassCoverErosionOutwardsFailureMechanismContext),
                     typeof(GrassCoverErosionOutwardsFailureMechanismProperties));
                 Assert.IsNull(grassCoverErosionOutwardsFailureMechanismProperties.AdditionalDataCheck);
                 Assert.IsNull(grassCoverErosionOutwardsFailureMechanismProperties.AfterCreate);
 
                 var waterLevelHydraulicBoundaryLocationsContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos, 
-                    typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext), 
+                    propertyInfos,
+                    typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContext),
                     typeof(GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties));
                 Assert.IsNull(waterLevelHydraulicBoundaryLocationsContextProperties.AdditionalDataCheck);
                 Assert.IsNull(waterLevelHydraulicBoundaryLocationsContextProperties.AfterCreate);
 
                 var waveHeightLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos, 
+                    propertyInfos,
                     typeof(GrassCoverErosionOutwardsWaveHeightLocationsContext),
                     typeof(GrassCoverErosionOutwardsWaveHeightLocationsContextProperties));
                 Assert.IsNull(waveHeightLocationContextProperties.AdditionalDataCheck);
                 Assert.IsNull(waveHeightLocationContextProperties.AfterCreate);
 
                 var grassCoverErosionWaveConditionsOutputProperties = PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos, 
+                    propertyInfos,
                     typeof(GrassCoverErosionOutwardsWaveConditionsOutput),
                     typeof(GrassCoverErosionOutwardsWaveConditionsOutputProperties));
                 Assert.IsNull(grassCoverErosionWaveConditionsOutputProperties.AdditionalDataCheck);
                 Assert.IsNull(grassCoverErosionWaveConditionsOutputProperties.AfterCreate);
 
                 var grassCoverErosionWaveConditionsInputContextroperties = PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos, 
+                    propertyInfos,
                     typeof(GrassCoverErosionOutwardsWaveConditionsInputContext),
                     typeof(GrassCoverErosionOutwardsWaveConditionsInputContextProperties));
                 Assert.IsNull(grassCoverErosionWaveConditionsInputContextroperties.AdditionalDataCheck);
@@ -161,7 +161,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test
                 Assert.IsNull(grassCoverErosionDesignWaterLevelLocationContextProperties.AfterCreate);
 
                 var grasCoverErosionWaveHeightWaterLevelLocationContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
-                     propertyInfos,
+                    propertyInfos,
                     typeof(GrassCoverErosionOutwardsWaveHeightLocationContext),
                     typeof(GrassCoverErosionOutwardsWaveHeightLocationContextProperties));
                 Assert.IsNull(grasCoverErosionWaveHeightWaterLevelLocationContextProperties.AdditionalDataCheck);

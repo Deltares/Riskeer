@@ -46,7 +46,6 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
-using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service.TestUtil;
@@ -687,16 +686,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "", 1, 1)
                     {
-                        DesignWaterLevel = (RoundedDouble)12.0
+                        DesignWaterLevel = (RoundedDouble) 12.0
                     },
-                    LowerBoundaryRevetment = (RoundedDouble)1.0,
-                    UpperBoundaryRevetment = (RoundedDouble)10.0,
+                    LowerBoundaryRevetment = (RoundedDouble) 1.0,
+                    UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
-                    LowerBoundaryWaterLevels = (RoundedDouble)1.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble)10.0
+                    LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0
                 }
             };
-
 
             var group = new CalculationGroup();
             group.Children.Add(calculationA);
@@ -712,7 +710,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                                                     assessmentSection);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            
+
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
@@ -740,7 +738,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 }
             }
         }
-        
+
         [Test]
         public void ContextMenuStrip_TwoCalculationsClickOnCalculateAllInGroup_MessagesLogged()
         {

@@ -54,14 +54,6 @@ namespace Ringtoets.Common.Forms.Views
             InitializeEventHandlers();
         }
 
-        private void LocalizeControls()
-        {
-            CalculateForSelectedButton.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_CalculateForSelectedButton_Text;
-            DeselectAllButton.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_DeselectAllButton_Text;
-            SelectAllButton.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_SelectAllButton_Text;
-            ButtonGroupBox.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_ButtonGroupBox_Text;
-        }
-
         /// <summary>
         /// Gets or sets the <see cref="IApplicationSelection"/>.
         /// </summary>
@@ -159,6 +151,14 @@ namespace Ringtoets.Common.Forms.Views
         /// </summary>
         /// <param name="locations">The enumeration of <see cref="HydraulicBoundaryLocation"/> to use in the calculation.</param>
         protected abstract void HandleCalculateSelectedLocations(IEnumerable<HydraulicBoundaryLocation> locations);
+
+        private void LocalizeControls()
+        {
+            CalculateForSelectedButton.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_CalculateForSelectedButton_Text;
+            DeselectAllButton.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_DeselectAllButton_Text;
+            SelectAllButton.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_SelectAllButton_Text;
+            ButtonGroupBox.Text = RingtoetsCommonFormsResources.HydraulicBoundaryLocationsView_ButtonGroupBox_Text;
+        }
 
         private IEnumerable<T> GetHydraulicBoundaryLocationContextRows()
         {

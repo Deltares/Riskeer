@@ -21,8 +21,8 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
-using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
 {
@@ -41,8 +41,8 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
         /// <param name="order">The index at which <paramref name="calculation"/> resides within its parent.</param>
         /// <returns>A new <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static WaveImpactAsphaltCoverWaveConditionsCalculationEntity Create(this WaveImpactAsphaltCoverWaveConditionsCalculation calculation, 
-            PersistenceRegistry registry, int order)
+        internal static WaveImpactAsphaltCoverWaveConditionsCalculationEntity Create(this WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
+                                                                                     PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {
@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
                 Comments = calculation.Comments.DeepClone(),
                 Orientation = calculation.InputParameters.Orientation,
                 UseBreakWater = Convert.ToByte(calculation.InputParameters.UseBreakWater),
-                BreakWaterType = (byte)calculation.InputParameters.BreakWater.Type,
+                BreakWaterType = (byte) calculation.InputParameters.BreakWater.Type,
                 BreakWaterHeight = calculation.InputParameters.BreakWater.Height,
                 UseForeshore = Convert.ToByte(calculation.InputParameters.UseForeshore),
                 UpperBoundaryRevetment = calculation.InputParameters.UpperBoundaryRevetment,

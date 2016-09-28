@@ -111,7 +111,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
             yield return new ViewInfo<
                 GrassCoverErosionOutwardsDesignWaterLevelLocationsContext,
-                IEnumerable<HydraulicBoundaryLocation>, 
+                IEnumerable<HydraulicBoundaryLocation>,
                 GrassCoverErosionOutwardsDesignWaterLevelLocationsView>
             {
                 GetViewName = (v, o) => RingtoetsGrassCoverErosionOutwardsFormsResources.GrassCoverErosionOutwardsWaterLevelLocations_DisplayName,
@@ -331,7 +331,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         private static bool CloseDesignWaterLevelLocationsViewForData(GrassCoverErosionOutwardsDesignWaterLevelLocationsView view, object dataToCloseFor)
         {
-          return CloseHydraulicBoundaryLocationsViewForData(view.AssessmentSection, dataToCloseFor);
+            return CloseHydraulicBoundaryLocationsViewForData(view.AssessmentSection, dataToCloseFor);
         }
 
         #endregion
@@ -348,16 +348,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             var failureMechanismContext = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanismContext;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
             var failureMechanism = dataToCloseFor as GrassCoverErosionOutwardsFailureMechanism;
-            
+
             if (assessmentSection != null)
             {
-                failureMechanism = ((IAssessmentSection)dataToCloseFor).GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
+                failureMechanism = ((IAssessmentSection) dataToCloseFor).GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
             }
 
             if (failureMechanismContext != null)
             {
                 failureMechanism = failureMechanismContext.Parent.GetFailureMechanisms().OfType<GrassCoverErosionOutwardsFailureMechanism>().Single();
-                
             }
             return failureMechanism != null && ReferenceEquals(failureMechanism, viewFailureMechanism);
         }

@@ -24,7 +24,6 @@ using System.Drawing.Drawing2D;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Properties;
 using Ringtoets.Common.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -42,7 +41,7 @@ namespace Ringtoets.Common.Forms.Test.Views
 
             // Assert
             Assert.IsEmpty(data.Features);
-            Assert.AreEqual(Resources.ReferenceLine_DisplayName, data.Name);
+            Assert.AreEqual(RingtoetsCommonDataResources.ReferenceLine_DisplayName, data.Name);
             AssertEqualStyle(data.Style, Color.Red, 3, DashStyle.Solid);
         }
 

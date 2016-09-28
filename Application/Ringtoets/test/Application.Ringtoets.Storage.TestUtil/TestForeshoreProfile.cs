@@ -28,11 +28,11 @@ namespace Application.Ringtoets.Storage.TestUtil
     /// <summary>
     /// Simple foreshore profile that can be used for testing.
     /// </summary>
-    public class TestForeshoreProfile : ForeshoreProfile {
-
+    public class TestForeshoreProfile : ForeshoreProfile
+    {
         /// <summary>
         /// Creates a new instance of <see cref="TestForeshoreProfile"/>.
         /// </summary>
-        public TestForeshoreProfile() : base(new Point2D(0,0), Enumerable.Empty<Point2D>(), null, new ConstructionProperties()) {}
+        public TestForeshoreProfile() : base(new Point2D(0, 0), Enumerable.Empty<Point2D>(), null, new ConstructionProperties()) {}
     }
 }

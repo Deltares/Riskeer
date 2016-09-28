@@ -238,7 +238,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
 
                 // Call
                 Action call = () => guiService.CalculateDesignWaterLevels(validDatabasePath,
-                                                                          new List<HydraulicBoundaryLocation>() 
+                                                                          new List<HydraulicBoundaryLocation>()
                                                                           {
                                                                               new HydraulicBoundaryLocation(1, hydraulicLocationName, 2, 3)
                                                                           },

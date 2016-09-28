@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Service.Test
             // Setup
             const string locationName = "locationName";
             const string activityName = "GetActivityName";
-            
+
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return(activityName);
             mockRepository.ReplayAll();
@@ -326,7 +326,7 @@ namespace Ringtoets.Common.Service.Test
             const int norm = 300;
             var activity = new WaveHeightCalculationActivity(hydraulicBoundaryLocation,
                                                              validFilePath,
-                                                             string.Empty, 
+                                                             string.Empty,
                                                              norm, calculationMessageProviderMock);
 
             using (new WaveHeightCalculationServiceConfig())

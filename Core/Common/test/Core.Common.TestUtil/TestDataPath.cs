@@ -103,14 +103,14 @@ namespace Core.Common.TestUtil
                 public static readonly TestDataPath Plugin = System.IO.Path.Combine("Ringtoets", "Piping", "test", "Ringtoets.Piping.Plugin.Test");
             }
 
-            public static class StabilityStoneCover
-            {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "StabilityStoneCover", "test", "Ringtoets.StabilityStoneCover.IO.Test");
-            }
-
             public static class Revetment
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Revetment", "test", "Ringtoets.Revetment.IO.Test");
+            }
+
+            public static class StabilityStoneCover
+            {
+                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "StabilityStoneCover", "test", "Ringtoets.StabilityStoneCover.IO.Test");
             }
 
             public static class WaveImpactAsphaltCover

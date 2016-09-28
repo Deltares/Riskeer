@@ -377,7 +377,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             // Assert
             Action<IEnumerable<string>> asserts = messages =>
-            {                
+            {
                 var start = "Meerdere definities gevonden voor profiel 'profiel001'. Bestand '";
                 var end = "' wordt overgeslagen.";
                 bool found = messages.Any(m => m.StartsWith(start) && m.EndsWith(end));
@@ -539,7 +539,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 : base(referenceLine, filePath, importTarget) {}
 
             protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult, ReadResult<DikeProfileData> importDikeProfileDataResult) {}
-            
+
             protected override bool DikeProfileDataIsValid(DikeProfileData data, string prflFilePath)
             {
                 return true;

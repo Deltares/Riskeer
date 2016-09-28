@@ -52,14 +52,6 @@ namespace Ringtoets.Common.Forms
             SelectedItems = new List<T>();
         }
 
-        private void Localize()
-        {
-            SelectAllButton.Text = Resources.SelectionDialogBase_SelectionDialogBase_Select_all;
-            DeselectAllButton.Text = Resources.SelectionDialogBase_SelectionDialogBase_Deselect_all;
-            DoForSelectedButton.Text = Resources.SelectionDialogBase_SelectionDialogBase_Generate;
-            CustomCancelButton.Text = Resources.SelectionDialogBase_SelectionDialogBase_Cancel;
-        }
-
         /// <summary>
         /// Gets a collection of selected <see cref="T"/> if they were selected
         /// in the dialog and a confirmation was given. If no confirmation was given or no 
@@ -74,7 +66,7 @@ namespace Ringtoets.Common.Forms
         {
             DataGridViewControl.SetDataSource(data);
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -87,6 +79,26 @@ namespace Ringtoets.Common.Forms
         protected override Button GetCancelButton()
         {
             return CustomCancelButton;
+        }
+
+        /// <summary>
+        /// Initializes the <see cref="DataGridView"/>.
+        /// <param name="nameColumnHeader">Display name of the column header for <see cref="SelectableRow{T}.Name"/>.</param>
+        /// </summary>
+        protected void InitializeDataGridView(string nameColumnHeader)
+        {
+            DataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<SelectableRow<T>>(row => row.Selected),
+                                                  Resources.SelectionDialogBase_ColumnSelect_DisplayName);
+            DataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<SelectableRow<T>>(row => row.Name),
+                                                 nameColumnHeader, true, DataGridViewAutoSizeColumnMode.Fill);
+        }
+
+        private void Localize()
+        {
+            SelectAllButton.Text = Resources.SelectionDialogBase_SelectionDialogBase_Select_all;
+            DeselectAllButton.Text = Resources.SelectionDialogBase_SelectionDialogBase_Deselect_all;
+            DoForSelectedButton.Text = Resources.SelectionDialogBase_SelectionDialogBase_Generate;
+            CustomCancelButton.Text = Resources.SelectionDialogBase_SelectionDialogBase_Cancel;
         }
 
         private void SetSelectedItems()
@@ -102,19 +114,6 @@ namespace Ringtoets.Common.Forms
         private IEnumerable<T> GetSelectedItems()
         {
             return GetSelectableRows().Where(row => row.Selected).Select(row => row.Item).ToArray();
-        }
-
-        /// <summary>
-        /// Initializes the <see cref="DataGridView"/>.
-        /// <param name="nameColumnHeader">Display name of the column header for <see cref="SelectableRow{T}.Name"/>.</param>
-        /// </summary>
-        protected void InitializeDataGridView(string nameColumnHeader)
-        {
-            DataGridViewControl.AddCheckBoxColumn(TypeUtils.GetMemberName<SelectableRow<T>>(row => row.Selected),
-                                                  Resources.SelectionDialogBase_ColumnSelect_DisplayName);
-            DataGridViewControl.AddTextBoxColumn(TypeUtils.GetMemberName<SelectableRow<T>>(row => row.Name),
-                                                 nameColumnHeader, true, DataGridViewAutoSizeColumnMode.Fill);
-            
         }
 
         #region Event handling

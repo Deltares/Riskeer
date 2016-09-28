@@ -110,8 +110,8 @@ namespace Ringtoets.Common.IO.Test
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(123, "aName", 1.1, 2.2)
             {
-                DesignWaterLevel = (RoundedDouble)111.111,
-                WaveHeight = (RoundedDouble)222.222
+                DesignWaterLevel = (RoundedDouble) 111.111,
+                WaveHeight = (RoundedDouble) 222.222
             };
 
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "test.shp");

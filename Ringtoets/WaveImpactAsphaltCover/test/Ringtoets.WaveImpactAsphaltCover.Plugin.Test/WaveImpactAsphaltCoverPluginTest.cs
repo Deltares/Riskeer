@@ -62,15 +62,15 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test
                 Assert.AreEqual(3, propertyInfos.Length);
 
                 PropertyInfo failureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos, 
-                    typeof(WaveImpactAsphaltCoverFailureMechanismContext), 
+                    propertyInfos,
+                    typeof(WaveImpactAsphaltCoverFailureMechanismContext),
                     typeof(WaveImpactAsphaltCoverFailureMechanismProperties));
                 Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
                 Assert.IsNull(failureMechanismContextProperties.AfterCreate);
 
                 PropertyInfo waveImpactAsphaltCoverWaveConditionsOutputProperties = PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos, 
-                    typeof(WaveImpactAsphaltCoverWaveConditionsOutput), 
+                    propertyInfos,
+                    typeof(WaveImpactAsphaltCoverWaveConditionsOutput),
                     typeof(WaveImpactAsphaltCoverWaveConditionsOutputProperties));
                 Assert.IsNull(waveImpactAsphaltCoverWaveConditionsOutputProperties.AdditionalDataCheck);
                 Assert.IsNull(waveImpactAsphaltCoverWaveConditionsOutputProperties.GetObjectPropertiesData);

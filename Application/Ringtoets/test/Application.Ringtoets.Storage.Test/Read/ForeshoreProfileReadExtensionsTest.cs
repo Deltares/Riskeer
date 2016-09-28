@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.IsNull(foreshoreProfile.BreakWater);
             Assert.IsFalse(foreshoreProfile.HasBreakWater);
             Assert.IsEmpty(foreshoreProfile.Geometry);
-        } 
+        }
 
         [Test]
         public void Read_WithGeometryAndBreakWaterTypeAndValues_CompleteForeshoreProfile()
@@ -114,7 +114,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 Name = name,
                 Orientation = orientation,
                 X0 = x0,
-                BreakWaterType = (byte)breakWaterType,
+                BreakWaterType = (byte) breakWaterType,
                 BreakWaterHeight = height,
                 GeometryXml = pointXml
             };
@@ -134,6 +134,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(breakWaterType, foreshoreProfile.BreakWater.Type);
             Assert.IsTrue(foreshoreProfile.HasBreakWater);
             CollectionAssert.AreEqual(points, foreshoreProfile.Geometry);
-        } 
+        }
     }
 }

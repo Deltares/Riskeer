@@ -101,7 +101,7 @@ namespace Ringtoets.Common.Data.Test.DikeProfiles
                                                            new Point2D[]
                                                            {
                                                                null
-                                                           }, 
+                                                           },
                                                            null, new ForeshoreProfile.ConstructionProperties());
 
             // Assert

@@ -60,7 +60,7 @@ namespace Ringtoets.StabilityStoneCover.Data.Test
                 new WaveConditionsOutput(1, 0, 3, 5),
                 new WaveConditionsOutput(8, 2, 6, 1)
             };
-            
+
             var blocksOutput = new[]
             {
                 new WaveConditionsOutput(6, 2, 9, 4),

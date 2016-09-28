@@ -53,6 +53,23 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<object, HydraulicBoundaryLocation> hydraulicLocations = CreateDictionary<object, HydraulicBoundaryLocation>();
 
         /// <summary>
+        /// Obtains the <see cref="ForeshoreProfileEntity"/> which was registered for the
+        /// given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="ForeshoreProfile"/> for which a
+        /// read/update operation has been registered.</param>
+        /// <returns>The constructed <see cref="ForeshoreProfileEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create/update operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(DikeProfile)"/> to find out
+        /// whether a create/update operation has been registered for <paramref name="model"/>.</remarks>
+        public ForeshoreProfileEntity Get(ForeshoreProfile model)
+        {
+            return Get(foreshoreProfiles, model);
+        }
+
+        /// <summary>
         /// Registers a create or update operation for <paramref name="model"/> and the
         /// <paramref name="entity"/> that was constructed with the information.
         /// </summary>
@@ -406,7 +423,7 @@ namespace Application.Ringtoets.Storage.Create
         {
             return Get(hydraulicLocations, model) as T;
         }
-        
+
         /// <summary>
         /// Obtains the <see cref="FailureMechanismSection"/> which was registered for the
         /// given <paramref name="model"/>.
@@ -439,23 +456,6 @@ namespace Application.Ringtoets.Storage.Create
         internal DikeProfileEntity Get(DikeProfile model)
         {
             return Get(dikeProfiles, model);
-        }
-
-        /// <summary>
-        /// Obtains the <see cref="ForeshoreProfileEntity"/> which was registered for the
-        /// given <paramref name="model"/>.
-        /// </summary>
-        /// <param name="model">The <see cref="ForeshoreProfile"/> for which a
-        /// read/update operation has been registered.</param>
-        /// <returns>The constructed <see cref="ForeshoreProfileEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown when no create/update operation 
-        /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains(DikeProfile)"/> to find out
-        /// whether a create/update operation has been registered for <paramref name="model"/>.</remarks>
-        public ForeshoreProfileEntity Get(ForeshoreProfile model)
-        {
-            return Get(foreshoreProfiles, model);
         }
 
         /// <summary>

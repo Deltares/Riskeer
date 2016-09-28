@@ -215,7 +215,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
                 var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
                 Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
-                var hydraulicBoundariesCalculationGroup = (WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext)children[1];
+                var hydraulicBoundariesCalculationGroup = (WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext) children[1];
                 Assert.AreSame(failureMechanism.WaveConditionsCalculationGroup, hydraulicBoundariesCalculationGroup.WrappedData);
                 Assert.AreSame(failureMechanism, hydraulicBoundariesCalculationGroup.FailureMechanism);
 

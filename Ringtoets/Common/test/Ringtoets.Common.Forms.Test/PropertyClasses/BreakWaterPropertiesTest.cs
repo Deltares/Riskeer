@@ -48,8 +48,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                              new BreakWater(BreakWaterType.Wall, 10.0),
-                                              new ForeshoreProfile.ConstructionProperties());
+                                                        new BreakWater(BreakWaterType.Wall, 10.0),
+                                                        new ForeshoreProfile.ConstructionProperties());
 
             var properties = new BreakWaterProperties();
 
@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                              null, new ForeshoreProfile.ConstructionProperties());
+                                                        null, new ForeshoreProfile.ConstructionProperties());
 
             var properties = new BreakWaterProperties();
 
@@ -83,8 +83,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                              new BreakWater(BreakWaterType.Caisson, 10.0),
-                                              new ForeshoreProfile.ConstructionProperties());
+                                                        new BreakWater(BreakWaterType.Caisson, 10.0),
+                                                        new ForeshoreProfile.ConstructionProperties());
 
             // Call
             var properties = new BreakWaterProperties
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
-                                              null, new ForeshoreProfile.ConstructionProperties());
+                                                        null, new ForeshoreProfile.ConstructionProperties());
 
             // Call
             var properties = new BreakWaterProperties

@@ -82,7 +82,7 @@ namespace Ringtoets.Revetment.Service.TestUtil.Test
         public void Inputs_Always_ReturnsInputsOfCalculateMethod()
         {
             // Setup
-            RoundedDouble waterLevel = (RoundedDouble)23.5;
+            RoundedDouble waterLevel = (RoundedDouble) 23.5;
             const double a = 1.0;
             const double b = 0.3;
             const double c = 0.8;

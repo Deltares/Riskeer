@@ -77,9 +77,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
 
                 // Call
                 var locations = info.GetViewData(new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                    expectedLocations,
-                    assessmentSectionStub,
-                    new GrassCoverErosionOutwardsFailureMechanism()));
+                                                     expectedLocations,
+                                                     assessmentSectionStub,
+                                                     new GrassCoverErosionOutwardsFailureMechanism()));
 
                 // Assert
                 Assert.AreSame(locations, expectedLocations);
@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin.Test.ViewInfos
                 var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
                 var data = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContext(
-                    new ObservableList<HydraulicBoundaryLocation>(), 
+                    new ObservableList<HydraulicBoundaryLocation>(),
                     assessmentSectionStub,
                     grassCoverErosionOutwardsFailureMechanism);
 

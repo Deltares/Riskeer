@@ -91,17 +91,17 @@ namespace Ringtoets.Piping.Forms.Test
                 // Assert
                 Assert.IsEmpty(dialog.SelectedItems);
 
-                var dataGridViewControl = (DataGridViewControl)new ControlTester("DataGridViewControl", dialog).TheObject;
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
                 Assert.AreEqual(2, dataGridView.ColumnCount);
 
-                var locationCalculateColumn = (DataGridViewCheckBoxColumn)dataGridView.Columns[selectItemColumnIndex];
+                var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[selectItemColumnIndex];
                 const string expectedLocationCalculateHeaderText = "Gebruik";
                 Assert.AreEqual(expectedLocationCalculateHeaderText, locationCalculateColumn.HeaderText);
                 Assert.AreEqual("Selected", locationCalculateColumn.DataPropertyName);
                 Assert.IsFalse(locationCalculateColumn.ReadOnly);
 
-                var nameColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[nameColumnIndex];
+                var nameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[nameColumnIndex];
                 const string expectedNameHeaderText = "Profielschematisatie";
                 Assert.AreEqual(expectedNameHeaderText, nameColumn.HeaderText);
                 Assert.AreEqual("Name", nameColumn.DataPropertyName);
@@ -128,10 +128,10 @@ namespace Ringtoets.Piping.Forms.Test
                 // Assert
                 dialog.Show();
 
-                var dataGridViewControl = (DataGridViewControl)new ControlTester("DataGridViewControl").TheObject;
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl").TheObject;
                 Assert.AreEqual(1, dataGridViewControl.Rows.Count);
-                Assert.IsFalse((bool)dataGridViewControl.Rows[0].Cells[selectItemColumnIndex].Value);
-                Assert.AreEqual(testname, (string)dataGridViewControl.Rows[0].Cells[nameColumnIndex].Value);
+                Assert.IsFalse((bool) dataGridViewControl.Rows[0].Cells[selectItemColumnIndex].Value);
+                Assert.AreEqual(testname, (string) dataGridViewControl.Rows[0].Cells[nameColumnIndex].Value);
             }
         }
     }

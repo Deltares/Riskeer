@@ -91,11 +91,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test
 
             // Assert
             Assert.AreEqual(2, calculationBases.Count);
-            var firstCalculation = (WaveImpactAsphaltCoverWaveConditionsCalculation)calculationBases.First();
+            var firstCalculation = (WaveImpactAsphaltCoverWaveConditionsCalculation) calculationBases.First();
             Assert.AreEqual(name, firstCalculation.Name);
             Assert.AreEqual(locations[0], firstCalculation.InputParameters.HydraulicBoundaryLocation);
 
-            var secondCalculation = (WaveImpactAsphaltCoverWaveConditionsCalculation)calculationBases.ElementAt(1);
+            var secondCalculation = (WaveImpactAsphaltCoverWaveConditionsCalculation) calculationBases.ElementAt(1);
             Assert.AreEqual(string.Format("{0} (1)", name), secondCalculation.Name);
             Assert.AreSame(locations[1], secondCalculation.InputParameters.HydraulicBoundaryLocation);
         }
@@ -123,11 +123,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test
 
             // Assert
             Assert.AreEqual(3, calculationBases.Count);
-            var firstCalculation = (WaveImpactAsphaltCoverWaveConditionsCalculation)calculationBases.ElementAt(1);
+            var firstCalculation = (WaveImpactAsphaltCoverWaveConditionsCalculation) calculationBases.ElementAt(1);
             Assert.AreEqual(string.Format("{0} (1)", name), firstCalculation.Name);
             Assert.AreEqual(locations[0], firstCalculation.InputParameters.HydraulicBoundaryLocation);
 
-            var secondCalculation = (WaveImpactAsphaltCoverWaveConditionsCalculation)calculationBases.ElementAt(2);
+            var secondCalculation = (WaveImpactAsphaltCoverWaveConditionsCalculation) calculationBases.ElementAt(2);
             Assert.AreEqual(string.Format("{0} (2)", name), secondCalculation.Name);
             Assert.AreSame(locations[1], secondCalculation.InputParameters.HydraulicBoundaryLocation);
         }

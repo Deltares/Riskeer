@@ -336,7 +336,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 EntryPointL = 1,
                 ExitPointL = 2,
                 DampingFactorExitMean = 1,
-                PipingSemiProbabilisticOutputEntities = 
+                PipingSemiProbabilisticOutputEntities =
                 {
                     new PipingSemiProbabilisticOutputEntity()
                     {

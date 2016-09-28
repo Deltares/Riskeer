@@ -91,7 +91,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
             var nonDefaultBreakWaterType = BreakWaterType.Wall;
             var nonDefaultBreakWaterHeight = 5.5;
-            var breakWater =  new BreakWater(nonDefaultBreakWaterType, nonDefaultBreakWaterHeight);
+            var breakWater = new BreakWater(nonDefaultBreakWaterType, nonDefaultBreakWaterHeight);
 
             double orientation = 96;
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),

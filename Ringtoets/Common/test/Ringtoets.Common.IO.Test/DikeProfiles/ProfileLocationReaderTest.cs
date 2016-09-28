@@ -173,7 +173,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
 
                 // Assert
                 var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
-                                                validFilePath);
+                                                    validFilePath);
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);

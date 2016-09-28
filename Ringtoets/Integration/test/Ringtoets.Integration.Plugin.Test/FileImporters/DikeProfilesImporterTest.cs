@@ -116,7 +116,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         {
             // Setup
             string fileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
-                                                         Path.Combine("DikeProfiles", "NoDikeProfileGeometries"));
+                                                              Path.Combine("DikeProfiles", "NoDikeProfileGeometries"));
             string filePath = Path.Combine(fileDirectory, "Voorlanden 12-2.shp");
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();

@@ -30,7 +30,6 @@ namespace Core.Common.Base.Test.IO
     [TestFixture]
     public class FileImporterBaseTest
     {
-
         [Test]
         public void Constructor_FilePathNull_ThrowArgumentNullException()
         {
@@ -44,6 +43,7 @@ namespace Core.Common.Base.Test.IO
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("filePath", paramName);
         }
+
         [Test]
         public void Constructor_ImportTargetNull_ThrowArgumentNullException()
         {
@@ -182,9 +182,9 @@ namespace Core.Common.Base.Test.IO
 
         private class SimpleFileImporter<T> : FileImporterBase<T>
         {
-            public SimpleFileImporter(T importTarget) : base("", importTarget) { }
+            public SimpleFileImporter(T importTarget) : base("", importTarget) {}
 
-            public SimpleFileImporter(string filePath, T importTarget) : base(filePath, importTarget) { }
+            public SimpleFileImporter(string filePath, T importTarget) : base(filePath, importTarget) {}
 
             public IObservable[] AffectedNonTargetObservableInstancesOverride { private get; set; }
 

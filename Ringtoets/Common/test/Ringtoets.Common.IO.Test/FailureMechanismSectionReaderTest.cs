@@ -311,7 +311,7 @@ namespace Ringtoets.Common.IO.Test
         [Test]
         public void ReadFailureMechanismSection_FileInUse_ThrowCriticalFileReadException()
         {
-             // Setup
+            // Setup
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                               Path.Combine("FailureMechanismSections", "traject_227_vakken.shp"));
 
@@ -322,7 +322,7 @@ namespace Ringtoets.Common.IO.Test
 
                 // Assert
                 var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand kon niet worden geopend. Mogelijk is het bestand corrupt of in gebruik door een andere applicatie.",
-                                                validFilePath);
+                                                    validFilePath);
                 var exception = Assert.Throws<CriticalFileReadException>(call);
                 Assert.AreEqual(expectedMessage, exception.Message);
                 Assert.IsInstanceOf<IOException>(exception.InnerException);

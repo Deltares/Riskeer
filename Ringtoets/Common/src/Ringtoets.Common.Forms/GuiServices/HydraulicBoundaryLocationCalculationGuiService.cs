@@ -57,10 +57,10 @@ namespace Ringtoets.Common.Forms.GuiServices
             this.viewParent = viewParent;
         }
 
-        public bool CalculateDesignWaterLevels(string hydraulicBoundaryDatabasePath, 
-            IEnumerable<HydraulicBoundaryLocation> locations, 
-            string ringId, double norm, 
-            ICalculationMessageProvider messageProvider)
+        public bool CalculateDesignWaterLevels(string hydraulicBoundaryDatabasePath,
+                                               IEnumerable<HydraulicBoundaryLocation> locations,
+                                               string ringId, double norm,
+                                               ICalculationMessageProvider messageProvider)
         {
             if (messageProvider == null)
             {
@@ -72,16 +72,16 @@ namespace Ringtoets.Common.Forms.GuiServices
                 throw new ArgumentNullException("locations");
             }
             var activities = locations.Select(location => new DesignWaterLevelCalculationActivity(location,
-                                                                                             hydraulicBoundaryDatabasePath,
-                                                                                             ringId,
-                                                                                             norm, messageProvider)).ToArray();
+                                                                                                  hydraulicBoundaryDatabasePath,
+                                                                                                  ringId,
+                                                                                                  norm, messageProvider)).ToArray();
             return RunActivities(hydraulicBoundaryDatabasePath, activities);
         }
 
-        public bool CalculateWaveHeights(string hydraulicBoundaryDatabasePath, 
-            IEnumerable<HydraulicBoundaryLocation> locations, 
-            string ringId, double norm, 
-            ICalculationMessageProvider messageProvider)
+        public bool CalculateWaveHeights(string hydraulicBoundaryDatabasePath,
+                                         IEnumerable<HydraulicBoundaryLocation> locations,
+                                         string ringId, double norm,
+                                         ICalculationMessageProvider messageProvider)
         {
             if (messageProvider == null)
             {
@@ -93,9 +93,9 @@ namespace Ringtoets.Common.Forms.GuiServices
                 throw new ArgumentNullException("locations");
             }
             var activities = locations.Select(location => new WaveHeightCalculationActivity(location,
-                                                                                       hydraulicBoundaryDatabasePath,
-                                                                                       ringId,
-                                                                                       norm, messageProvider)).ToArray();
+                                                                                            hydraulicBoundaryDatabasePath,
+                                                                                            ringId,
+                                                                                            norm, messageProvider)).ToArray();
             return RunActivities(hydraulicBoundaryDatabasePath, activities);
         }
 

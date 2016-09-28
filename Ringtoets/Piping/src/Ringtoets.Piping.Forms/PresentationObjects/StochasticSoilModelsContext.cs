@@ -40,8 +40,8 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
         public StochasticSoilModelsContext(ObservableList<StochasticSoilModel> wrappedStochasticSoilModels,
-                                          PipingFailureMechanism failureMechanism,
-                                          IAssessmentSection assessmentSection)
+                                           PipingFailureMechanism failureMechanism,
+                                           IAssessmentSection assessmentSection)
             : base(wrappedStochasticSoilModels)
         {
             if (failureMechanism == null)

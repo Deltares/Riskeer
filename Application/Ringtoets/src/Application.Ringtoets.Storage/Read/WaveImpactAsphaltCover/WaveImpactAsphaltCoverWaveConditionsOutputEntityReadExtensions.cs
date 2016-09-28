@@ -44,6 +44,6 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
                                             entity.WaveHeight.ToNullAsNaN(),
                                             entity.WavePeakPeriod.ToNullAsNaN(),
                                             entity.WaveAngle.ToNullAsNaN());
-        } 
+        }
     }
 }

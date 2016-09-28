@@ -45,7 +45,7 @@ namespace Ringtoets.Revetment.Forms.UITypeEditors
         public WaveConditionsInputContextForeshoreProfileEditor()
         {
             DisplayMember = TypeUtils.GetMemberName<ForeshoreProfile>(dp => dp.Name);
-            NullItem = new ForeshoreProfile(new Point2D(0,0), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties
+            NullItem = new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties
             {
                 Name = CoreCommonControlsResources.DisplayName_None
             });

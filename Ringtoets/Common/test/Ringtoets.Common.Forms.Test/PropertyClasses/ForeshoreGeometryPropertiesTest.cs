@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new ForeshoreGeometryProperties();
 
             // Call
-            properties.Data = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, 
+            properties.Data = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null,
                                                    new ForeshoreProfile.ConstructionProperties());
 
             // Assert
@@ -62,11 +62,11 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             // Setup
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                              new[]
-                                              {
-                                                  new Point2D(0, 0),
-                                                  new Point2D(1, 1)
-                                              }, null, new ForeshoreProfile.ConstructionProperties());
+                                                        new[]
+                                                        {
+                                                            new Point2D(0, 0),
+                                                            new Point2D(1, 1)
+                                                        }, null, new ForeshoreProfile.ConstructionProperties());
 
             var properties = new ForeshoreGeometryProperties();
 
@@ -86,8 +86,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null, 
-                                                   new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0], null,
+                                                        new ForeshoreProfile.ConstructionProperties());
 
             // Call
             var properties = new ForeshoreGeometryProperties

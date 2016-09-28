@@ -151,7 +151,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         public void Create_WithUpdatedN_FailureMechanismMetaUpdated()
         {
             // Setup
-            var n = new Random(21).Next(1,20);
+            var n = new Random(21).Next(1, 20);
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
             failureMechanism.GeneralInput.N = n;
 

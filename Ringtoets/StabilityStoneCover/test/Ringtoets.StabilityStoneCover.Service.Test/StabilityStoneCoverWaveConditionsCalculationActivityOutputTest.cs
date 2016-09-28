@@ -33,7 +33,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Call
             var output = new StabilityStoneCoverWaveConditionsCalculationActivityOutput();
-            
+
             // Assert
             CollectionAssert.IsEmpty(output.BlocksOutput);
             CollectionAssert.IsEmpty(output.ColumnsOutput);
@@ -67,7 +67,10 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             output.AddBlocksOutput(element);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { element }, output.BlocksOutput);
+            CollectionAssert.AreEqual(new[]
+            {
+                element
+            }, output.BlocksOutput);
         }
 
         [Test]
@@ -98,7 +101,10 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             output.AddColumnsOutput(element);
 
             // Assert
-            CollectionAssert.AreEqual(new[] { element }, output.ColumnsOutput);
+            CollectionAssert.AreEqual(new[]
+            {
+                element
+            }, output.ColumnsOutput);
         }
     }
 }

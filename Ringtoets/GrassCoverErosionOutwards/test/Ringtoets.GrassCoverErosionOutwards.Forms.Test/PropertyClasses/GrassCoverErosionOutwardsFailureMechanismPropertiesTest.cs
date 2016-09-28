@@ -37,6 +37,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismPropertiesTest
     {
+        private const int namePropertyIndex = 0;
+        private const int codePropertyIndex = 1;
+        private const int lengthEffectPropertyIndex = 2;
+        private const int aPropertyIndex = 3;
+        private const int bPropertyIndex = 4;
+        private const int cPropertyIndex = 5;
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -148,7 +155,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual("c", cProperty.DisplayName);
             Assert.AreEqual("De waarde van de parameter 'c' in de berekening voor golf condities.", cProperty.Description);
         }
-        
+
         [Test]
         [TestCase(1)]
         [TestCase(10)]
@@ -161,10 +168,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             observerMock.Expect(o => o.UpdateObserver());
             mockRepository.ReplayAll();
 
-            var hydraulicLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)           
+            var hydraulicLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
             {
-                DesignWaterLevel = (RoundedDouble)3.8,
-                WaveHeight = (RoundedDouble)5.2
+                DesignWaterLevel = (RoundedDouble) 3.8,
+                WaveHeight = (RoundedDouble) 5.2
             };
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
@@ -196,12 +203,5 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.AreEqual(CalculationConvergence.NotCalculated, hydraulicLocation.WaveHeightCalculationConvergence);
             mockRepository.VerifyAll();
         }
-
-        private const int namePropertyIndex = 0;
-        private const int codePropertyIndex = 1;
-        private const int lengthEffectPropertyIndex = 2;
-        private const int aPropertyIndex = 3;
-        private const int bPropertyIndex = 4;
-        private const int cPropertyIndex = 5;
     }
 }

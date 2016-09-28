@@ -221,8 +221,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                               "completeWithLocationsToBeFilteredOut.sqlite");
             string copyValidFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
-                                                              "copyOfCompleteWithLocationsToBeFilteredOut.sqlite");
-
+                                                                  "copyOfCompleteWithLocationsToBeFilteredOut.sqlite");
 
             // Precondition
             Assert.IsTrue(File.Exists(validFilePath), string.Format("Precodition failed. File does not exist: {0}", validFilePath));
@@ -253,7 +252,6 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             string validFilePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                               "completeWithLocationsToBeFilteredOut.sqlite");
-
 
             // Precondition
             Assert.IsTrue(File.Exists(validFilePath), string.Format("Precodition failed. File does not exist: {0}", validFilePath));

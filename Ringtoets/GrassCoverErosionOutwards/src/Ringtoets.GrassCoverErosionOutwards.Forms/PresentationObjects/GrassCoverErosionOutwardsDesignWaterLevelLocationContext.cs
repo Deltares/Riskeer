@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects
         /// which the <see cref="GrassCoverErosionOutwardsHydraulicBoundaryLocationContext"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsDesignWaterLevelLocationContext(ObservableList<HydraulicBoundaryLocation> wrappedList,
-                                                                  HydraulicBoundaryLocation hydraulicBoundaryLocation)
+                                                                        HydraulicBoundaryLocation hydraulicBoundaryLocation)
             : base(wrappedList, hydraulicBoundaryLocation) {}
     }
 }

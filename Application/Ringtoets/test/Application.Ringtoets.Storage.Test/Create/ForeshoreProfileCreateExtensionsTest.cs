@@ -85,14 +85,14 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             var foreshoreProfile = new ForeshoreProfile(
-                new Point2D(0, 0), 
+                new Point2D(0, 0),
                 Enumerable.Empty<Point2D>(),
                 new BreakWater(BreakWaterType.Caisson, double.NaN),
                 new ForeshoreProfile.ConstructionProperties
-            {
-                Orientation = double.NaN,
-                X0 = double.NaN
-            });
+                {
+                    Orientation = double.NaN,
+                    X0 = double.NaN
+                });
             var registry = new PersistenceRegistry();
 
             // Call
@@ -144,7 +144,7 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity);
-            Assert.AreEqual((int)breakWaterType, entity.BreakWaterType);
+            Assert.AreEqual((int) breakWaterType, entity.BreakWaterType);
             Assert.AreEqual(height, entity.BreakWaterHeight, foreshoreProfile.BreakWater.Height.GetAccuracy());
         }
 
@@ -153,7 +153,7 @@ namespace Application.Ringtoets.Storage.Test.Create
         {
             // Setup
             string testName = "original name";
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0,0), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties
             {
                 Name = testName
             });

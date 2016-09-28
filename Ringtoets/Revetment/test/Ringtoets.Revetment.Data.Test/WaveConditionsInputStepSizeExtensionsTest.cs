@@ -44,7 +44,7 @@ namespace Ringtoets.Revetment.Data.Test
         public void AsValue_InvalidValue_ThrowsInvalidEnumArgumentException()
         {
             // Call
-            TestDelegate test = () => ((WaveConditionsInputStepSize)4).AsValue();
+            TestDelegate test = () => ((WaveConditionsInputStepSize) 4).AsValue();
 
             // Assert
             var parameter = Assert.Throws<InvalidEnumArgumentException>(test).ParamName;

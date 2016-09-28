@@ -45,7 +45,7 @@ namespace Ringtoets.Revetment.Data
                 case WaveConditionsInputStepSize.Two:
                     return 2.0;
                 default:
-                    throw new InvalidEnumArgumentException("stepSize", (int)stepSize, typeof(WaveConditionsInputStepSize));
+                    throw new InvalidEnumArgumentException("stepSize", (int) stepSize, typeof(WaveConditionsInputStepSize));
             }
         }
     }

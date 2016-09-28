@@ -30,7 +30,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
     /// <summary>
     /// Container for the results of a grass cover erosion outwards wave conditions calculation.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveConditionsOutput: Observable, ICalculationOutput
+    public class GrassCoverErosionOutwardsWaveConditionsOutput : Observable, ICalculationOutput
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsOutput"/>.

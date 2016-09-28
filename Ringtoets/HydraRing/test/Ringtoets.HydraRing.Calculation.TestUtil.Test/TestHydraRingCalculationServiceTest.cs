@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
@@ -79,7 +80,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
             {
                 get
                 {
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
                 }
             }
 
@@ -87,7 +88,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
             {
                 get
                 {
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
                 }
             }
 
@@ -95,7 +96,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
             {
                 get
                 {
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
                 }
             }
 
@@ -103,7 +104,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Test
             {
                 get
                 {
-                    throw new System.NotImplementedException();
+                    throw new NotImplementedException();
                 }
             }
         }

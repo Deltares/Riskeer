@@ -58,8 +58,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             // Assert
             Assert.IsInstanceOf<WrappedObjectContextBase<WaveConditionsInput>>(context);
             Assert.AreSame(input, context.WrappedData);
-            CollectionAssert.AreEqual(new[] { foreshoreProfile }, context.ForeshoreProfiles);
-            CollectionAssert.AreEqual(new[] { hydraulicBoundaryLocation }, context.HydraulicBoundaryLocations);
+            CollectionAssert.AreEqual(new[]
+            {
+                foreshoreProfile
+            }, context.ForeshoreProfiles);
+            CollectionAssert.AreEqual(new[]
+            {
+                hydraulicBoundaryLocation
+            }, context.HydraulicBoundaryLocations);
         }
 
         [Test]

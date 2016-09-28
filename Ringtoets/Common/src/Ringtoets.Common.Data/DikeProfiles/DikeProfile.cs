@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
                 throw new ArgumentNullException("properties");
             }
 
-            ForeshoreProfile = new ForeshoreProfile(worldCoordinate, foreshoreGeometry, breakWater, 
+            ForeshoreProfile = new ForeshoreProfile(worldCoordinate, foreshoreGeometry, breakWater,
                                                     new ForeshoreProfile.ConstructionProperties
                                                     {
                                                         Name = properties.Name,
@@ -74,7 +74,8 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// <summary>
         /// Gets the name of the dike profile.
         /// </summary>
-        public string Name {
+        public string Name
+        {
             get
             {
                 return ForeshoreProfile.Name;

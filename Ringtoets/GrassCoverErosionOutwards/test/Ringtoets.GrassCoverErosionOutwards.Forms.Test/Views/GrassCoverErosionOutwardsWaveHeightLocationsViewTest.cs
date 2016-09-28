@@ -323,7 +323,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             HydraulicBoundaryLocation expectedLocation = locations.First();
             Assert.AreEqual(expectedLocation, calculatedLocations.First());
             Assert.AreSame(dataGridViewSource, dataGridView.DataSource);
-            Assert.IsTrue((bool)rows[0].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
             Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
             Assert.IsFalse((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
             mockRepository.VerifyAll();
@@ -334,8 +334,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             GrassCoverErosionOutwardsWaveHeightLocationsView view = ShowFullyConfiguredWaveHeightLocationsView();
-            ObservableList<HydraulicBoundaryLocation> locations = (ObservableList<HydraulicBoundaryLocation>)view.Data;
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            ObservableList<HydraulicBoundaryLocation> locations = (ObservableList<HydraulicBoundaryLocation>) view.Data;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             var dataGridViewSource = dataGridView.DataSource;
             var rows = dataGridView.Rows;
             rows[0].Cells[locationCalculateColumnIndex].Value = true;
@@ -364,9 +364,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Assert
             TestHelper.AssertLogMessageIsGenerated(action, "De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.", 1);
             Assert.AreSame(dataGridViewSource, dataGridView.DataSource);
-            Assert.IsTrue((bool)rows[0].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsFalse((bool)rows[1].Cells[locationCalculateColumnIndex].Value);
-            Assert.IsFalse((bool)rows[2].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsTrue((bool) rows[0].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsFalse((bool) rows[1].Cells[locationCalculateColumnIndex].Value);
+            Assert.IsFalse((bool) rows[2].Cells[locationCalculateColumnIndex].Value);
 
             mockRepository.VerifyAll();
         }

@@ -176,7 +176,7 @@ namespace Ringtoets.StabilityStoneCover.IO.Test
                 string fileContent = File.ReadAllText(filePath);
                 Assert.AreEqual("Naam berekening, Naam HR locatie, X HR locatie (RD) [m], Y HR locatie (RD) [m], Naam voorlandprofiel, Dam aanwezig, Voorlandgeometrie aanwezig, Type bekleding, Waterstand [m+NAP], Golfhoogte (Hs) [m], Golfperiode (Tp) [s], Golfrichting [°]\r\n" +
                                 "aCalculation, aLocation, 44.000, 123.456, , nee, nee, Steen (zuilen), 1.11, 2.22, 3.33, 4.44\r\n" +
-                                "aCalculation, aLocation, 44.000, 123.456, , nee, nee, Steen (blokken), 3.33, 1.11, 4.44, 2.22\r\n", 
+                                "aCalculation, aLocation, 44.000, 123.456, , nee, nee, Steen (blokken), 3.33, 1.11, 4.44, 2.22\r\n",
                                 fileContent);
             }
             finally

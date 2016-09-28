@@ -51,7 +51,6 @@ using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Reso
 using RingtoetsRevetmentServiceResources = Ringtoets.Revetment.Service.Properties.Resources;
 using WaveImpactAsphaltCoverDataResources = Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources;
 
-
 namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 {
     /// <summary>

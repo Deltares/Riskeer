@@ -1257,7 +1257,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Contains((GrassCoverErosionOutwardsHydraulicLocationEntity)null);
+            TestDelegate test = () => collector.Contains((GrassCoverErosionOutwardsHydraulicLocationEntity) null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -1315,7 +1315,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var collector = new ReadConversionCollector();
 
             // Call
-            TestDelegate test = () => collector.Get((GrassCoverErosionOutwardsHydraulicLocationEntity)null);
+            TestDelegate test = () => collector.Get((GrassCoverErosionOutwardsHydraulicLocationEntity) null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

@@ -83,24 +83,24 @@ namespace Ringtoets.Common.Forms.Test
                 // Assert
                 Assert.IsEmpty(dialog.SelectedItems);
 
-                var dataGridViewControl = (DataGridViewControl)new ControlTester("DataGridViewControl", dialog).TheObject;
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 var dataGridView = dataGridViewControl.Controls.OfType<DataGridView>().First();
                 Assert.AreEqual(2, dataGridView.ColumnCount);
 
-                var locationCalculateColumn = (DataGridViewCheckBoxColumn)dataGridView.Columns[selectItemColumnIndex];
+                var locationCalculateColumn = (DataGridViewCheckBoxColumn) dataGridView.Columns[selectItemColumnIndex];
                 const string expectedLocationCalculateHeaderText = "Gebruik";
                 Assert.AreEqual(expectedLocationCalculateHeaderText, locationCalculateColumn.HeaderText);
                 Assert.AreEqual("Selected", locationCalculateColumn.DataPropertyName);
                 Assert.IsFalse(locationCalculateColumn.ReadOnly);
 
-                var nameColumn = (DataGridViewTextBoxColumn)dataGridView.Columns[nameColumnIndex];
+                var nameColumn = (DataGridViewTextBoxColumn) dataGridView.Columns[nameColumnIndex];
                 Assert.AreEqual(string.Empty, nameColumn.HeaderText);
                 Assert.AreEqual("Name", nameColumn.DataPropertyName);
                 Assert.AreEqual(DataGridViewAutoSizeColumnMode.Fill, nameColumn.AutoSizeMode);
                 Assert.IsTrue(nameColumn.ReadOnly);
 
                 var buttonTester = new ButtonTester("DoForSelectedButton", dialog);
-                var button = (Button)buttonTester.TheObject;
+                var button = (Button) buttonTester.TheObject;
                 Assert.IsFalse(button.Enabled);
             }
         }
@@ -132,7 +132,7 @@ namespace Ringtoets.Common.Forms.Test
 
             using (var dialog = new TestFullyConfiguredSelectionDialogBase(testForm))
             {
-                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", dialog).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 dialog.SetDataSource(items);
 
                 dialog.Show();
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.Forms.Test
 
             using (var dialog = new TestFullyConfiguredSelectionDialogBase(testForm))
             {
-                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", dialog).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 dialog.SetDataSource(items);
 
                 dialog.Show();
@@ -187,7 +187,7 @@ namespace Ringtoets.Common.Forms.Test
 
             using (var dialog = new TestFullyConfiguredSelectionDialogBase(testForm))
             {
-                var selectionView = (DataGridViewControl)new ControlTester("DataGridViewControl", dialog).TheObject;
+                var selectionView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 dialog.SetDataSource(items);
 
                 dialog.Show();
@@ -222,20 +222,20 @@ namespace Ringtoets.Common.Forms.Test
                 dialog.SetDataSource(items);
                 dialog.Show();
 
-                var dataGridView = (DataGridViewControl)new ControlTester("DataGridViewControl", dialog).TheObject;
+                var dataGridView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 var rows = dataGridView.Rows;
                 var button = new ButtonTester("SelectAllButton", dialog);
 
                 // Precondition
-                Assert.IsFalse((bool)rows[0].Cells[selectItemColumnIndex].Value);
-                Assert.IsFalse((bool)rows[1].Cells[selectItemColumnIndex].Value);
+                Assert.IsFalse((bool) rows[0].Cells[selectItemColumnIndex].Value);
+                Assert.IsFalse((bool) rows[1].Cells[selectItemColumnIndex].Value);
 
                 // Call
                 button.Click();
 
                 // Assert
-                Assert.IsTrue((bool)rows[0].Cells[selectItemColumnIndex].Value);
-                Assert.IsTrue((bool)rows[1].Cells[selectItemColumnIndex].Value);
+                Assert.IsTrue((bool) rows[0].Cells[selectItemColumnIndex].Value);
+                Assert.IsTrue((bool) rows[1].Cells[selectItemColumnIndex].Value);
             }
         }
 
@@ -254,7 +254,7 @@ namespace Ringtoets.Common.Forms.Test
                 dialog.SetDataSource(items);
                 dialog.Show();
 
-                var dataGridView = (DataGridViewControl)new ControlTester("DataGridViewControl", dialog).TheObject;
+                var dataGridView = (DataGridViewControl) new ControlTester("DataGridViewControl", dialog).TheObject;
                 var rows = dataGridView.Rows;
                 var button = new ButtonTester("DeselectAllButton", dialog);
 
@@ -264,15 +264,15 @@ namespace Ringtoets.Common.Forms.Test
                 }
 
                 // Precondition
-                Assert.IsTrue((bool)rows[0].Cells[selectItemColumnIndex].Value);
-                Assert.IsTrue((bool)rows[1].Cells[selectItemColumnIndex].Value);
+                Assert.IsTrue((bool) rows[0].Cells[selectItemColumnIndex].Value);
+                Assert.IsTrue((bool) rows[1].Cells[selectItemColumnIndex].Value);
 
                 // Call
                 button.Click();
 
                 // Assert
-                Assert.IsFalse((bool)rows[0].Cells[selectItemColumnIndex].Value);
-                Assert.IsFalse((bool)rows[1].Cells[selectItemColumnIndex].Value);
+                Assert.IsFalse((bool) rows[0].Cells[selectItemColumnIndex].Value);
+                Assert.IsFalse((bool) rows[1].Cells[selectItemColumnIndex].Value);
             }
         }
 
@@ -293,14 +293,14 @@ namespace Ringtoets.Common.Forms.Test
                 var buttonTester = new ButtonTester("DoForSelectedButton", dialog);
 
                 // Call
-                var button = (Button)buttonTester.TheObject;
+                var button = (Button) buttonTester.TheObject;
 
                 // Assert
                 Assert.IsFalse(button.Enabled);
                 Assert.IsEmpty(dialog.SelectedItems);
             }
         }
-        
+
         private class TestSelectionDialogBase : SelectionDialogBase<object>
         {
             public TestSelectionDialogBase(IWin32Window dialogParent) : base(dialogParent) {}

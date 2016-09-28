@@ -56,7 +56,7 @@ namespace Ringtoets.Revetment.Service.TestUtil.Test
             var expectedService = WaveConditionsCalculationService.Instance;
 
             // Call
-            using (new WaveConditionsCalculationServiceConfig()) { }
+            using (new WaveConditionsCalculationServiceConfig()) {}
 
             // Assert
             Assert.AreSame(expectedService, WaveConditionsCalculationService.Instance);

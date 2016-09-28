@@ -85,6 +85,6 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             Assert.IsNull(entity.WaveAngle);
 
             Assert.IsNull(entity.WaveImpactAsphaltCoverWaveConditionsCalculationEntity);
-        } 
+        }
     }
 }

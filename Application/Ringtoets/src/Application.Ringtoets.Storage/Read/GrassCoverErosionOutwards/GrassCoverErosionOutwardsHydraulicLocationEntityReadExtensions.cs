@@ -60,11 +60,10 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
                 DesignWaterLevelCalculationConvergence = (CalculationConvergence) entity.DesignWaterLevelCalculationConvergence,
                 WaveHeightCalculationConvergence = (CalculationConvergence) entity.WaveHeightCalculationConvergence
             };
-            
+
             collector.Read(entity, hydraulicBoundaryLocation);
 
             return hydraulicBoundaryLocation;
         }
-         
     }
 }

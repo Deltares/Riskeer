@@ -127,7 +127,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test
             Assert.AreEqual(string.Format("{0} (1)", name), firstCalculation.Name);
             Assert.AreEqual(locations[0], firstCalculation.InputParameters.HydraulicBoundaryLocation);
 
-            var secondCalculation = (StabilityStoneCoverWaveConditionsCalculation)calculationBases.ElementAt(2);
+            var secondCalculation = (StabilityStoneCoverWaveConditionsCalculation) calculationBases.ElementAt(2);
             Assert.AreEqual(string.Format("{0} (2)", name), secondCalculation.Name);
             Assert.AreSame(locations[1], secondCalculation.InputParameters.HydraulicBoundaryLocation);
         }

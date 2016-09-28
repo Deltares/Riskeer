@@ -126,26 +126,26 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             Assert.NotNull(pipingFailureMechanism.CalculationsGroup);
             Assert.AreEqual(3, pipingFailureMechanism.CalculationsGroup.Children.Count);
-            Assert.AreEqual(1, ((CalculationGroup)pipingFailureMechanism.CalculationsGroup.Children[0]).Children.Count);
-            Assert.IsInstanceOf<PipingCalculationScenario>(((CalculationGroup)pipingFailureMechanism.CalculationsGroup.Children[0]).Children[0]);
-            Assert.AreEqual(0, ((CalculationGroup)pipingFailureMechanism.CalculationsGroup.Children[1]).Children.Count);
+            Assert.AreEqual(1, ((CalculationGroup) pipingFailureMechanism.CalculationsGroup.Children[0]).Children.Count);
+            Assert.IsInstanceOf<PipingCalculationScenario>(((CalculationGroup) pipingFailureMechanism.CalculationsGroup.Children[0]).Children[0]);
+            Assert.AreEqual(0, ((CalculationGroup) pipingFailureMechanism.CalculationsGroup.Children[1]).Children.Count);
             Assert.IsInstanceOf<PipingCalculationScenario>(pipingFailureMechanism.CalculationsGroup.Children[2]);
 
             GrassCoverErosionInwardsFailureMechanism grassCoverErosionInwardsFailureMechanism = assessmentSection.GrassCoverErosionInwards;
             Assert.NotNull(grassCoverErosionInwardsFailureMechanism.CalculationsGroup);
             Assert.AreEqual(3, grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children.Count);
 
-            Assert.AreEqual(1, ((CalculationGroup)grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children[0]).Children.Count);
-            Assert.IsInstanceOf<GrassCoverErosionInwardsCalculation>(((CalculationGroup)grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children[0]).Children[0]);
-            Assert.AreEqual(0, ((CalculationGroup)grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children[1]).Children.Count);
+            Assert.AreEqual(1, ((CalculationGroup) grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children[0]).Children.Count);
+            Assert.IsInstanceOf<GrassCoverErosionInwardsCalculation>(((CalculationGroup) grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children[0]).Children[0]);
+            Assert.AreEqual(0, ((CalculationGroup) grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children[1]).Children.Count);
             Assert.IsInstanceOf<GrassCoverErosionInwardsCalculation>(grassCoverErosionInwardsFailureMechanism.CalculationsGroup.Children[2]);
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             Assert.AreEqual(2, grassCoverErosionOutwardsFailureMechanism.HydraulicBoundaryLocations.Count);
             Assert.AreEqual(2, grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles.Count);
             Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsCalculation>(
-                ((CalculationGroup)grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children[0]).Children[0]);
-            Assert.AreEqual(0, ((CalculationGroup)grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children[1]).Children.Count);
+                ((CalculationGroup) grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children[0]).Children[0]);
+            Assert.AreEqual(0, ((CalculationGroup) grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children[1]).Children.Count);
             Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsCalculation>(
                 grassCoverErosionOutwardsFailureMechanism.WaveConditionsCalculationGroup.Children[2]);
 
@@ -154,19 +154,19 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.NotNull(stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup);
             Assert.AreEqual(3, stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Count);
 
-            Assert.AreEqual(1, ((CalculationGroup)stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0]).Children.Count);
+            Assert.AreEqual(1, ((CalculationGroup) stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0]).Children.Count);
             Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculation>(
-                ((CalculationGroup)stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0]).Children[0]);
+                ((CalculationGroup) stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0]).Children[0]);
 
-            var stabilityStoneCoverCalculationWithoutOutput = ((CalculationGroup)stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0])
-                .Children[0] as StabilityStoneCoverWaveConditionsCalculation;
+            var stabilityStoneCoverCalculationWithoutOutput = ((CalculationGroup) stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0])
+                                                                  .Children[0] as StabilityStoneCoverWaveConditionsCalculation;
             Assert.NotNull(stabilityStoneCoverCalculationWithoutOutput);
             Assert.IsFalse(stabilityStoneCoverCalculationWithoutOutput.HasOutput);
 
-            Assert.AreEqual(0, ((CalculationGroup)stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children[1]).Children.Count);
+            Assert.AreEqual(0, ((CalculationGroup) stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children[1]).Children.Count);
 
             var stabilityStoneCoverCalculationWithOutput = stabilityStoneCoverFailureMechanism.WaveConditionsCalculationGroup.Children[2]
-                as StabilityStoneCoverWaveConditionsCalculation;
+                                                           as StabilityStoneCoverWaveConditionsCalculation;
             Assert.NotNull(stabilityStoneCoverCalculationWithOutput);
             Assert.IsTrue(stabilityStoneCoverCalculationWithOutput.HasOutput);
             Assert.AreEqual(2, stabilityStoneCoverCalculationWithOutput.Output.BlocksOutput.Count());
@@ -177,17 +177,17 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.NotNull(waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup);
             Assert.AreEqual(3, waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children.Count);
 
-            Assert.AreEqual(1, ((CalculationGroup)waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0]).Children.Count);
+            Assert.AreEqual(1, ((CalculationGroup) waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0]).Children.Count);
 
-            var waveImpactAsphaltCoverCalculationWithoutOutput = ((CalculationGroup)waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0])
-                .Children[0] as WaveImpactAsphaltCoverWaveConditionsCalculation;
+            var waveImpactAsphaltCoverCalculationWithoutOutput = ((CalculationGroup) waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[0])
+                                                                     .Children[0] as WaveImpactAsphaltCoverWaveConditionsCalculation;
             Assert.NotNull(waveImpactAsphaltCoverCalculationWithoutOutput);
             Assert.IsFalse(waveImpactAsphaltCoverCalculationWithoutOutput.HasOutput);
 
-            Assert.AreEqual(0, ((CalculationGroup)waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[1]).Children.Count);
+            Assert.AreEqual(0, ((CalculationGroup) waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[1]).Children.Count);
 
-            var waveImpactAsphaltCoverCalculationWithOutput = waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[2] 
-                as WaveImpactAsphaltCoverWaveConditionsCalculation;
+            var waveImpactAsphaltCoverCalculationWithOutput = waveImpactAsphaltCoverFailureMechanism.WaveConditionsCalculationGroup.Children[2]
+                                                              as WaveImpactAsphaltCoverWaveConditionsCalculation;
             Assert.NotNull(waveImpactAsphaltCoverCalculationWithOutput);
             Assert.IsTrue(waveImpactAsphaltCoverCalculationWithOutput.HasOutput);
             Assert.AreEqual(2, waveImpactAsphaltCoverCalculationWithOutput.Output.Items.Count());

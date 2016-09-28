@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Service.TestUtil.Test
             var expectedService = WaveHeightCalculationService.Instance;
 
             // Call
-            using (new WaveHeightCalculationServiceConfig()) { }
+            using (new WaveHeightCalculationServiceConfig()) {}
 
             // Assert
             Assert.AreSame(expectedService, WaveHeightCalculationService.Instance);

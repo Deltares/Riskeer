@@ -66,8 +66,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         public void ClearAllCalculationOutputAndHydraulicBoundaryLocations_WithoutFailureMechanism_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => 
-                WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(null);
+            TestDelegate call = () =>
+                                WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

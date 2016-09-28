@@ -41,7 +41,7 @@ namespace Ringtoets.Revetment.Data.Test
             var type = typeof(WaveConditionsInputStepSize);
             var memInfo = type.GetMember(value.ToString());
             var attributes = memInfo[0].GetCustomAttributes(typeof(ResourcesDisplayNameAttribute), false);
-            return ((ResourcesDisplayNameAttribute)attributes[0]).DisplayName;
+            return ((ResourcesDisplayNameAttribute) attributes[0]).DisplayName;
         }
     }
 }
