@@ -37,5 +37,22 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         public StructuresStabilityPointLowSillQuadraticCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
                                                                         IEnumerable<HydraRingForelandPoint> forelandPoints)
             : base(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints) {}
+
+        public override int? GetSubMechanismModelId(int subMechanismId)
+        {
+            switch (subMechanismId)
+            {
+                case 424:
+                    return 106;
+                case 425:
+                    return 111;
+                case 430:
+                    return 115;
+                case 435:
+                    return 117;
+                default:
+                    return null;
+            }
+        }
     }
 }

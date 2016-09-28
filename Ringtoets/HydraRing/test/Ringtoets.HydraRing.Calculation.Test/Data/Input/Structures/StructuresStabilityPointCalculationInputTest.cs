@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -57,6 +58,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             public TestStructuresStabilityPointCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
                                                                 IEnumerable<HydraRingForelandPoint> forelandPoints)
                 : base(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints) {}
+
+            public override int? GetSubMechanismModelId(int subMechanismId)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

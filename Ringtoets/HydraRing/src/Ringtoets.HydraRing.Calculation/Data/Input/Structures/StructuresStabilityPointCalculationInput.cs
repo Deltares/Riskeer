@@ -76,5 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 return forelandPoints;
             }
         }
+
+        public abstract override int? GetSubMechanismModelId(int subMechanismId);
     }
 }

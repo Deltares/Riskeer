@@ -50,5 +50,25 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreSame(hydraRingSection, input.Section);
             Assert.AreSame(forelandPoints, input.ForelandsPoints);
         }
+
+        [Test]
+        [TestCase(423, null)]
+        [TestCase(424, 107)]
+        [TestCase(425, 113)]
+        [TestCase(430, 114)]
+        [TestCase(435, 116)]
+        [TestCase(436, null)]
+        public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
+        {
+            // Setup
+            var input = new StructuresStabilityPointFloodedCulvertLinearCalculationInput(111, new HydraRingSection(1, double.NaN, double.NaN),
+                                                                                         Enumerable.Empty<HydraRingForelandPoint>());
+
+            // Call
+            int? actualSubmechanismModelId = input.GetSubMechanismModelId(subMechanismModelId);
+
+            // Assert
+            Assert.AreEqual(expectedSubMechanismModelId, actualSubmechanismModelId);
+        }
     }
 }
