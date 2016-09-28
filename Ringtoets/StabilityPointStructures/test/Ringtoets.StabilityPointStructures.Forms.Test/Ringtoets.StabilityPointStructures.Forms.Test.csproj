@@ -63,9 +63,12 @@
     <Compile Include="PresentationObjects\StabilityPointStructuresFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\StabilityPointStructuresInputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TreeNodeInfos\StabilityPointStructuresCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityPointStructuresCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityPointStructuresFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityPointStructuresFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\StabilityPointStructuresInputContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\StabilityPointStructuresOutputTreeNodeInfoTest.cs" />
     <Compile Include="Views\StabilityPointStructuresFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\StabilityPointStructuresFailureMechanismSectionResultRowTest.cs" />
   </ItemGroup>
@@ -111,6 +114,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
+      <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
+      <Name>Ringtoets.Common.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
       <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>

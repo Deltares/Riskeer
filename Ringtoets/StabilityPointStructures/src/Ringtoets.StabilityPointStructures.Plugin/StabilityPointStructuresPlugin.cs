@@ -29,6 +29,7 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -113,27 +114,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
-        }
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, StabilityPointStructuresFailureMechanism failureMechanism)
-        {
-            if (!failureMechanism.Sections.Any())
-            {
-                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported;
-            }
-
-            if (assessmentSection.HydraulicBoundaryDatabase == null)
-            {
-                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
-            }
-
-            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
-            if (!string.IsNullOrEmpty(validationProblem))
-            {
-                return string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_, validationProblem);
-            }
-
-            return null;
         }
 
         #region ViewInfo
@@ -364,7 +344,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             }
             else
             {
-                // childNodes.Add(new EmptyProbabilityAssessmentOutput());
+                childNodes.Add(new EmptyProbabilityAssessmentOutput());
             }
 
             return childNodes.ToArray();
@@ -390,11 +370,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                           .Build();
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(StabilityPointStructuresCalculationContext context)
-        {
-            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
-        }
-
         private void Calculate(StabilityPointStructuresCalculation calculation, StabilityPointStructuresCalculationContext context) {}
 
         private void CalculationContextOnNodeRemoved(StabilityPointStructuresCalculationContext context, object parentData)
@@ -403,7 +378,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                //AssignUnassignCalculations.Delete(context.FailureMechanism.SectionResults, context.WrappedData, context.FailureMechanism.Calculations.OfType<StabilityPointStructuresCalculation>());
                 calculationGroupContext.NotifyObservers();
             }
         }
