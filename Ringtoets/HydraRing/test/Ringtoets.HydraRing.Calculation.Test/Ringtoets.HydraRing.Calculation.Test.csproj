@@ -62,6 +62,11 @@
     <Compile Include="Data\Input\Structures\StructuresClosureFloodedCulvertCalculationInputTest.cs" />
     <Compile Include="Data\Input\Structures\StructuresClosureLowSillCalculationInputTest.cs" />
     <Compile Include="Data\Input\Structures\StructuresClosureVerticalWallCalculationInputTest.cs" />
+    <Compile Include="Data\Input\Structures\StructuresStabilityPointCalculationInputTest.cs" />
+    <Compile Include="Data\Input\Structures\StructuresStabilityPointFloodedCulvertLinearCalculationInputTest.cs" />
+    <Compile Include="Data\Input\Structures\StructuresStabilityPointFloodedCulvertQuadraticCalculationInputTest.cs" />
+    <Compile Include="Data\Input\Structures\StructuresStabilityPointLowSillLinearCalculationInputTest.cs" />
+    <Compile Include="Data\Input\Structures\StructuresStabilityPointLowSillQuadraticCalculationInputTest.cs" />
     <Compile Include="Data\Input\WaveConditions\WaveConditionsCosineCalculationInputTest.cs" />
     <Compile Include="Data\Input\WaveConditions\WaveConditionsCalculationInputTest.cs" />
     <Compile Include="Data\Input\Hydraulics\WaveHeightCalculationInputTest.cs" />
