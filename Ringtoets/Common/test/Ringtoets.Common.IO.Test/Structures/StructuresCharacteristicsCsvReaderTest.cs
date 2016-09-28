@@ -63,7 +63,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             TestDelegate call = () => new StructuresCharacteristicsCsvReader(corruptPath);
 
             // Assert
-            string innerExpectedMessage = string.Format((string) UtilsResources.Error_Path_cannot_contain_Characters_0_,
+            string innerExpectedMessage = string.Format(UtilsResources.Error_Path_cannot_contain_Characters_0_,
                                                         string.Join(", ", Path.GetInvalidFileNameChars()));
             string expectedMessage = new FileReaderErrorMessageBuilder(corruptPath).Build(innerExpectedMessage);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
@@ -419,26 +419,6 @@ namespace Ringtoets.Common.IO.Test.Structures
 
         [Test]
         public void ReadLine_LineWithExtraValues_ThrowLineParseException()
-        {
-            // Setup
-            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "InvalidFile_1Location_SecondLineWithExtraValues.csv"));
-
-            using (var reader = new StructuresCharacteristicsCsvReader(filePath))
-            {
-                // Call
-                TestDelegate call = () => reader.ReadLine();
-
-                // Assert
-                string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: Regel verwacht van 20 elementen, maar het zijn er 22.",
-                                                       filePath);
-                Assert.AreEqual(expectedMessage, message);
-            }
-        }
-
-        [Test]
-        public void ReadLine_LineWithNoValueForLocationId_ThrowsLineParseException()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
