@@ -197,6 +197,11 @@
       <Name>Ringtoets.StabilityPointStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\StabilityStoneCover\src\Ringtoets.StabilityStoneCover.Data\Ringtoets.StabilityStoneCover.Data.csproj">
+      <Project>{B479E3AF-7C34-488C-BB73-D324100D36C9}</Project>
+      <Name>Ringtoets.StabilityStoneCover.Data</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\MapDataView.resx">

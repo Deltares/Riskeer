@@ -44,6 +44,7 @@ using Ringtoets.Piping.Primitives;
 using Ringtoets.Piping.Service;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityStoneCover.Data;
 
 namespace Demo.Ringtoets.Test.Commands
 {
@@ -107,6 +108,7 @@ namespace Demo.Ringtoets.Test.Commands
             AssertHeightStructuresFailureMechanism(demoAssessmentSection);
             AssertPipingFailureMechanism(demoAssessmentSection);
             AssertStabilityPointStructuresFailureMechanism(demoAssessmentSection);
+            AssertStabilityStoneCoverFailureMechanism(demoAssessmentSection);
             mocks.VerifyAll();
         }
 
@@ -163,11 +165,11 @@ namespace Demo.Ringtoets.Test.Commands
         private static void AssertGrassCoverErosionInwardsFailureMechanism(AssessmentSection demoAssessmentSection)
         {
             Assert.AreEqual(1, demoAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Count);
-            GrassCoverErosionInwardsCalculation grassCoverErosionInwardsCalculation = demoAssessmentSection.GrassCoverErosionInwards
-                                                                                                           .CalculationsGroup.GetCalculations()
-                                                                                                           .OfType<GrassCoverErosionInwardsCalculation>()
-                                                                                                           .First();
-            AssertExpectedGrassCoverErosionInwardsInput(grassCoverErosionInwardsCalculation.InputParameters);
+            GrassCoverErosionInwardsCalculation calculation = demoAssessmentSection.GrassCoverErosionInwards
+                                                                                   .CalculationsGroup.GetCalculations()
+                                                                                   .OfType<GrassCoverErosionInwardsCalculation>()
+                                                                                   .First();
+            AssertExpectedGrassCoverErosionInwardsInput(calculation.InputParameters);
         }
 
         private static void AssertExpectedGrassCoverErosionInwardsInput(GrassCoverErosionInwardsInput inputParameters)
@@ -192,11 +194,11 @@ namespace Demo.Ringtoets.Test.Commands
             AssertWaveHeightConvergenceOnGrassCoverErosionOutwardsHydraulicBoundaryLocations(hydraulicBoundaryLocations);
 
             Assert.AreEqual(1, demoAssessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Count);
-            GrassCoverErosionOutwardsWaveConditionsCalculation grassCoverErosionOutwardsCalculation = demoAssessmentSection.GrassCoverErosionOutwards
-                                                                                                                           .WaveConditionsCalculationGroup.GetCalculations()
-                                                                                                                           .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
-                                                                                                                           .First();
-            AssertExpectedGrassCoverErosionOutwardsWaveConditionsInput(grassCoverErosionOutwardsCalculation.InputParameters);
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = demoAssessmentSection.GrassCoverErosionOutwards
+                                                                                                  .WaveConditionsCalculationGroup.GetCalculations()
+                                                                                                  .OfType<GrassCoverErosionOutwardsWaveConditionsCalculation>()
+                                                                                                  .First();
+            AssertExpectedGrassCoverErosionOutwardsWaveConditionsInput(calculation.InputParameters);
         }
 
         private static void AssertExpectedGrassCoverErosionOutwardsWaveConditionsInput(WaveConditionsInput inputParameters)
@@ -271,11 +273,11 @@ namespace Demo.Ringtoets.Test.Commands
         private static void AssertHeightStructuresFailureMechanism(AssessmentSection demoAssessmentSection)
         {
             Assert.AreEqual(1, demoAssessmentSection.HeightStructures.CalculationsGroup.Children.Count);
-            HeightStructuresCalculation heightStructuresCalculation = demoAssessmentSection.HeightStructures
-                                                                                           .CalculationsGroup.GetCalculations()
-                                                                                           .OfType<HeightStructuresCalculation>()
-                                                                                           .First();
-            AssertExpectedHeightStructuresInput(heightStructuresCalculation.InputParameters);
+            HeightStructuresCalculation calculation = demoAssessmentSection.HeightStructures
+                                                                           .CalculationsGroup.GetCalculations()
+                                                                           .OfType<HeightStructuresCalculation>()
+                                                                           .First();
+            AssertExpectedHeightStructuresInput(calculation.InputParameters);
         }
 
         private static void AssertExpectedHeightStructuresInput(HeightStructuresInput inputParameters)
@@ -384,14 +386,33 @@ namespace Demo.Ringtoets.Test.Commands
         private static void AssertStabilityPointStructuresFailureMechanism(AssessmentSection demoAssessmentSection)
         {
             Assert.AreEqual(1, demoAssessmentSection.StabilityPointStructures.CalculationsGroup.Children.Count);
-            StabilityPointStructuresCalculation grassCoverErosionInwardsCalculation = demoAssessmentSection.StabilityPointStructures
-                                                                                                           .CalculationsGroup.GetCalculations()
-                                                                                                           .OfType<StabilityPointStructuresCalculation>()
-                                                                                                           .First();
-            AssertExpectedStabilityPointStructuresInput(grassCoverErosionInwardsCalculation.InputParameters);
+            StabilityPointStructuresCalculation calculation = demoAssessmentSection.StabilityPointStructures
+                                                                                   .CalculationsGroup.GetCalculations()
+                                                                                   .OfType<StabilityPointStructuresCalculation>()
+                                                                                   .First();
+            AssertExpectedStabilityPointStructuresInput(calculation.InputParameters);
         }
 
         private static void AssertExpectedStabilityPointStructuresInput(StabilityPointStructuresInput inputParameters)
+        {
+            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
+        }
+
+        #endregion
+
+        #region StabilityStoneCoverFailureMechanism
+
+        private static void AssertStabilityStoneCoverFailureMechanism(AssessmentSection demoAssessmentSection)
+        {
+            Assert.AreEqual(1, demoAssessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Count);
+            StabilityStoneCoverWaveConditionsCalculation calculation = demoAssessmentSection.StabilityStoneCover
+                                                                                            .WaveConditionsCalculationGroup.GetCalculations()
+                                                                                            .OfType<StabilityStoneCoverWaveConditionsCalculation>()
+                                                                                            .First();
+            AssertExpectedStabilityStoneCoverWaveConditionsInputInput(calculation.InputParameters);
+        }
+
+        private static void AssertExpectedStabilityStoneCoverWaveConditionsInputInput(WaveConditionsInput inputParameters)
         {
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
         }
