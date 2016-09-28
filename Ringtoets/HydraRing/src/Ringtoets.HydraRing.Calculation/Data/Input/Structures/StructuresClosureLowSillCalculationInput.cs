@@ -25,9 +25,9 @@ using System.Linq;
 namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
 {
     /// <summary>
-    /// Container of all data necessary for performing a low threshold based structures closure calculation via Hydra-Ring.
+    /// Container of all data necessary for performing a low sill based structures closure calculation via Hydra-Ring.
     /// </summary>
-    public class StructuresClosureLowThresholdCalculationInput : StructuresClosureCalculationInput
+    public class StructuresClosureLowSillCalculationInput : StructuresClosureCalculationInput
     {
         private readonly double modelFactorOvertoppingSupercriticalFlowMean;
         private readonly double modelFactorOvertoppingSupercriticalFlowStandardDeviation;
@@ -41,7 +41,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double widthOfFlowAperturesVariation;
 
         /// <summary>
-        /// Creates a new instance of <see cref="StructuresClosureLowThresholdCalculationInput"/>.
+        /// Creates a new instance of <see cref="StructuresClosureLowSillCalculationInput"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
         /// <param name="hydraRingSection">The section to use during the calculation.</param>
@@ -75,7 +75,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation">The standard deviation of the model factor overtopping supercritical flow to use during the calculation.</param>
         /// <param name="hydraRingWidthOfFlowAperturesMean">The mean of the width of flow apertures to use during the calculation.</param>
         /// <param name="hydraRingWidthOfFlowAperturesVariation">The variation of the width of flow apertures to use during the calculation.</param>
-        public StructuresClosureLowThresholdCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
+        public StructuresClosureLowSillCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
                                                              double hydraRingGravitationalAcceleration, double hydraRingFactorStormDurationOpenStructure,
                                                              double hydraRingFailureProbabilityOpenStructure, double hydraRingFailureProbabilityReparation,
                                                              double hydraRingIdenticalAperture, double hydraRingAllowableIncreaseOfLevelForStorageMean,
@@ -89,7 +89,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                              double hydraRingModelFactorSubcriticalFlowMean, double hydraRingModelFactorSubcriticalFlowVariation,
                                                              double hydraRingThresholdLowWeirHeightMean, double hydraRingThresholdLowWeirHeightStandardDeviation,
                                                              double hydraRingWaterLevelInsideMean, double hydraRingWaterLevelInsideStandardDeviation,
-                                                             double hydraRingModelFactorOvertoppingSupercriticalFlowMean, double hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation,
+                                                             double hydraRingModelFactorOvertoppingSupercriticalFlowMean,
+                                                             double hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation,
                                                              double hydraRingWidthOfFlowAperturesMean, double hydraRingWidthOfFlowAperturesVariation)
             : base(hydraulicBoundaryLocationId, hydraRingSection,
                    hydraRingGravitationalAcceleration, hydraRingFactorStormDurationOpenStructure,

@@ -29,7 +29,7 @@ using Ringtoets.HydraRing.Calculation.TestUtil;
 namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
 {
     [TestFixture]
-    public class StructuresClosureLowThresholdCalculationInputTest
+    public class StructuresClosureLowSillCalculationInputTest
     {
         [Test]
         public void Constructor_ExpectedValues()
@@ -70,22 +70,22 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double waterLevelInsideStandardDeviation = 0.1;
 
             // Call
-            var input = new StructuresClosureLowThresholdCalculationInput(hydraulicBoundaryLocationId, hydraRingSection,
-                                                                          gravitationalAcceleration, factorStormDurationOpenStructure,
-                                                                          failureProbabilityOpenStructure, failureProbabilityReparation,
-                                                                          identicalAperture, allowableIncreaseOfLevelForStorageMean,
-                                                                          allowableIncreaseOfLevelForStorageStandardDeviation, modelFactorForStorageVolumeMean,
-                                                                          modelFactorForStorageVolumeStandardDeviation, storageStructureAreaMean,
-                                                                          storageStructureAreaStandardDeviation, modelFactorForIncomingFlowVolume,
-                                                                          flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation,
-                                                                          criticalOvertoppingDischargeMean, criticalOvertoppingDischargeMeanStandardDeviation,
-                                                                          failureProbabilityOfStructureGivenErosion, stormDurationMean,
-                                                                          stormDurationStandardDeviation, probabilityOpenStructureBeforeFlooding,
-                                                                          modelFactorSubcriticalFlowMean, modelFactorSubcriticalFlowVariation,
-                                                                          thresholdLowWeirHeightMean, thresholdLowWeirHeightStandardDeviation,
-                                                                          waterLevelInsideMean, waterLevelInsideStandardDeviation,
-                                                                          modelFactorOvertoppingSupercriticalFlowMean, modelFactorOvertoppingSupercriticalFlowStandardDeviation,
-                                                                          widthOfFlowAperturesMean, widthOfFlowAperturesVariation);
+            var input = new StructuresClosureLowSillCalculationInput(hydraulicBoundaryLocationId, hydraRingSection,
+                                                                     gravitationalAcceleration, factorStormDurationOpenStructure,
+                                                                     failureProbabilityOpenStructure, failureProbabilityReparation,
+                                                                     identicalAperture, allowableIncreaseOfLevelForStorageMean,
+                                                                     allowableIncreaseOfLevelForStorageStandardDeviation, modelFactorForStorageVolumeMean,
+                                                                     modelFactorForStorageVolumeStandardDeviation, storageStructureAreaMean,
+                                                                     storageStructureAreaStandardDeviation, modelFactorForIncomingFlowVolume,
+                                                                     flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation,
+                                                                     criticalOvertoppingDischargeMean, criticalOvertoppingDischargeMeanStandardDeviation,
+                                                                     failureProbabilityOfStructureGivenErosion, stormDurationMean,
+                                                                     stormDurationStandardDeviation, probabilityOpenStructureBeforeFlooding,
+                                                                     modelFactorSubcriticalFlowMean, modelFactorSubcriticalFlowVariation,
+                                                                     thresholdLowWeirHeightMean, thresholdLowWeirHeightStandardDeviation,
+                                                                     waterLevelInsideMean, waterLevelInsideStandardDeviation,
+                                                                     modelFactorOvertoppingSupercriticalFlowMean, modelFactorOvertoppingSupercriticalFlowStandardDeviation,
+                                                                     widthOfFlowAperturesMean, widthOfFlowAperturesVariation);
 
             // Assert
             Assert.IsInstanceOf<StructuresClosureCalculationInput>(input);
@@ -105,10 +105,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
         public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
         {
             // Setup
-            var input = new StructuresClosureLowThresholdCalculationInput(111, new HydraRingSection(1, double.NaN, double.NaN),
-                                                                          1.1, 222, 333, 5.5, 6.6, 7.7, 8.8, 11, 22, 33, 44, 55,
-                                                                          66, 77, 88, 99, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-                                                                          22, 23, 24, 25);
+            var input = new StructuresClosureLowSillCalculationInput(111, new HydraRingSection(1, double.NaN, double.NaN),
+                                                                     1.1, 222, 333, 5.5, 6.6, 7.7, 8.8, 11, 22, 33, 44, 55,
+                                                                     66, 77, 88, 99, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+                                                                     22, 23, 24, 25);
 
             // Call
             int? actualSubmechanismModelId = input.GetSubMechanismModelId(subMechanismModelId);
