@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Core.Common.IO.Exceptions;
@@ -50,6 +51,7 @@ namespace Ringtoets.Common.IO.Structures
         };
 
         private int locationIdIndex, parameterIdIndex, numericValueIndex, varianceValueIndex, varianceTypeIndex;
+        private int headerLength;
 
         private int lineNumber;
         private StreamReader fileReader;
@@ -196,7 +198,7 @@ namespace Ringtoets.Common.IO.Structures
             }
             catch (IOException e)
             {
-                string errorMessage = string.Format((string) CoreCommonUtilsResources.Error_General_IO_ErrorMessage_0_,
+                string errorMessage = string.Format(CoreCommonUtilsResources.Error_General_IO_ErrorMessage_0_,
                                                     e.Message);
                 var fullErrorMessage = new FileReaderErrorMessageBuilder(filePath).Build(errorMessage);
                 throw new CriticalFileReadException(fullErrorMessage, e);
@@ -212,6 +214,8 @@ namespace Ringtoets.Common.IO.Structures
         private void IndexFile(TextReader reader)
         {
             string[] tokenizedHeader = GetTokenizedHeader(reader);
+
+            headerLength = tokenizedHeader.Length;
 
             const int uninitializedValue = -999;
             int[] requiredHeaderColumnIndices = GetRequiredHeaderColumnIndices(uninitializedValue, tokenizedHeader);
@@ -256,7 +260,8 @@ namespace Ringtoets.Common.IO.Structures
                     }
                     else
                     {
-                        string message = string.Format(Resources.StructuresCharacteristicsCsvReader_Column_0_must_be_defined_only_once, columnName);
+                        string message = string.Format(Resources.StructuresCharacteristicsCsvReader_Column_0_must_be_defined_only_once,
+                                                       columnName);
                         throw CreateCriticalFileReadException(lineNumber, message);
                     }
                 }
@@ -330,7 +335,12 @@ namespace Ringtoets.Common.IO.Structures
         {
             string[] tokenizedText = TokenizeString(readText);
 
-            // TODO: tokenizedText.Length smaller than largest index value => LineParseException
+            if (tokenizedText.Length != headerLength)
+            {
+                string message = string.Format(Resources.StructuresCharacteristicsCsvReader_CreateStructuresParameterRow_Line_should_have_NumberOfExpectedElements_0_but_has_ActualNumberOfElements_1_,
+                                               headerLength, tokenizedText.Length);
+                throw CreateLineParseException(lineNumber, message);
+            }
 
             string locationId = ParseLocationId(tokenizedText);
             string parameterId = ParseParameterId(tokenizedText);
@@ -358,11 +368,11 @@ namespace Ringtoets.Common.IO.Structures
         {
             if (!readText.Contains(separator))
             {
-                throw CreateLineParseException(lineNumber, string.Format("Regel ontbreekt het verwachte scheidingsteken (het karakter: {0}).",
-                                                                         separator));
+                string message = string.Format(Resources.StructuresCharacteristicsCsvReader_TokenizeString_Line_lacks_SeparatorCharacter_0_,
+                                               separator);
+                throw CreateLineParseException(lineNumber, message);
             }
             return readText.Split(separator)
-                           .TakeWhile(text => !string.IsNullOrEmpty(text))
                            .ToArray();
         }
 
@@ -375,11 +385,7 @@ namespace Ringtoets.Common.IO.Structures
         private string ParseLocationId(string[] tokenizedText)
         {
             string locationId = tokenizedText[locationIdIndex];
-            if (string.IsNullOrWhiteSpace(locationId))
-            {
-                throw CreateLineParseException(lineNumber, "'Identificatie' kolom mag geen lege waardes bevatten.");
-            }
-            return locationId;
+            return ParseIdString(locationId, "Identificatie");
         }
 
         /// <summary>
@@ -392,11 +398,18 @@ namespace Ringtoets.Common.IO.Structures
         private string ParseParameterId(string[] tokenizedText)
         {
             string parameterId = tokenizedText[parameterIdIndex];
-            if (string.IsNullOrWhiteSpace(parameterId))
+            return ParseIdString(parameterId, "Kunstwerken.identificatie");
+        }
+
+        private string ParseIdString(string parameterTextValue, string parameterName)
+        {
+            if (string.IsNullOrWhiteSpace(parameterTextValue))
             {
-                throw CreateLineParseException(lineNumber, "'Kunstwerken.identificatie' kolom mag geen lege waardes bevatten.");
+                string message = string.Format(Resources.StructuresCharacteristicsCsvReader_ParseIdString_ParameterName_0_cannot_be_empty,
+                                               parameterName);
+                throw CreateLineParseException(lineNumber, message);
             }
-            return parameterId;
+            return parameterTextValue;
         }
 
         /// <summary>
@@ -443,16 +456,16 @@ namespace Ringtoets.Common.IO.Structures
             }
             try
             {
-                return double.Parse(doubleValueText);
+                return double.Parse(doubleValueText, CultureInfo.InvariantCulture);
             }
             catch (FormatException e)
             {
-                throw CreateLineParseException(lineNumber, string.Format("{0} kan niet worden omgezet naar een getal.",
+                throw CreateLineParseException(lineNumber, string.Format(Resources.StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_not_number,
                                                                          parameterName), e);
             }
             catch (OverflowException e)
             {
-                throw CreateLineParseException(lineNumber, string.Format("{0} is te groot of te klein om ingelezen te worden.",
+                throw CreateLineParseException(lineNumber, string.Format(Resources.StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_overflow_error,
                                                                          parameterName), e);
             }
         }
@@ -472,7 +485,7 @@ namespace Ringtoets.Common.IO.Structures
             }
             try
             {
-                int typeValue = int.Parse(varianceTypeText);
+                int typeValue = int.Parse(varianceTypeText, CultureInfo.InvariantCulture);
                 if (typeValue == 0)
                 {
                     return VarianceType.CoefficientOfVariation;
@@ -481,15 +494,15 @@ namespace Ringtoets.Common.IO.Structures
                 {
                     return VarianceType.StandardDeviation;
                 }
-                throw CreateLineParseException(lineNumber, "De 'Boolean' kolom mag uitsluitend de waardes '0' of '1' bevatten, of mag leeg zijn.");
+                throw CreateLineParseException(lineNumber, Resources.StructuresCharacteristicsCsvReader_ParseVarianceType_Column_only_allows_certain_values);
             }
             catch (FormatException e)
             {
-                throw CreateLineParseException(lineNumber, "De 'Boolean' kolom mag uitsluitend de waardes '0' of '1' bevatten, of mag leeg zijn.", e);
+                throw CreateLineParseException(lineNumber, Resources.StructuresCharacteristicsCsvReader_ParseVarianceType_Column_only_allows_certain_values, e);
             }
             catch (OverflowException e)
             {
-                throw CreateLineParseException(lineNumber, "De 'Boolean' kolom mag uitsluitend de waardes '0' of '1' bevatten, of mag leeg zijn.", e);
+                throw CreateLineParseException(lineNumber, Resources.StructuresCharacteristicsCsvReader_ParseVarianceType_Column_only_allows_certain_values, e);
             }
         }
 
@@ -502,7 +515,8 @@ namespace Ringtoets.Common.IO.Structures
         /// <returns>New <see cref="LineParseException"/> with message set.</returns>
         private LineParseException CreateLineParseException(int currentLine, string lineParseErrorMessage, Exception innerException = null)
         {
-            string locationDescription = string.Format(CoreCommonUtilsResources.TextFile_On_LineNumber_0_, currentLine);
+            string locationDescription = string.Format(CoreCommonUtilsResources.TextFile_On_LineNumber_0_,
+                                                       currentLine);
             var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
                                                                      .Build(lineParseErrorMessage);
             return new LineParseException(message, innerException);

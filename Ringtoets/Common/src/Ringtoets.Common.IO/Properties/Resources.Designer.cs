@@ -711,6 +711,64 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Regel verwacht van {0} elementen, maar het zijn er {1}..
+        /// </summary>
+        public static string StructuresCharacteristicsCsvReader_CreateStructuresParameterRow_Line_should_have_NumberOfExpectedElements_0_but_has_ActualNumberOfElements_1_ {
+            get {
+                return ResourceManager.GetString("StructuresCharacteristicsCsvReader_CreateStructuresParameterRow_Line_should_have_" +
+                        "NumberOfExpectedElements_0_but_has_ActualNumberOfElements_1_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} kan niet worden omgezet naar een getal..
+        /// </summary>
+        public static string StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_not_number {
+            get {
+                return ResourceManager.GetString("StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_not_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} is te groot of te klein om ingelezen te worden..
+        /// </summary>
+        public static string StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_overflow_error {
+            get {
+                return ResourceManager.GetString("StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_overflow_erro" +
+                        "r", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;{0}&apos; kolom mag geen lege waardes bevatten..
+        /// </summary>
+        public static string StructuresCharacteristicsCsvReader_ParseIdString_ParameterName_0_cannot_be_empty {
+            get {
+                return ResourceManager.GetString("StructuresCharacteristicsCsvReader_ParseIdString_ParameterName_0_cannot_be_empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De &apos;Boolean&apos; kolom mag uitsluitend de waardes &apos;0&apos; of &apos;1&apos; bevatten, of mag leeg zijn..
+        /// </summary>
+        public static string StructuresCharacteristicsCsvReader_ParseVarianceType_Column_only_allows_certain_values {
+            get {
+                return ResourceManager.GetString("StructuresCharacteristicsCsvReader_ParseVarianceType_Column_only_allows_certain_v" +
+                        "alues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regel ontbreekt het verwachte scheidingsteken (het karakter: {0})..
+        /// </summary>
+        public static string StructuresCharacteristicsCsvReader_TokenizeString_Line_lacks_SeparatorCharacter_0_ {
+            get {
+                return ResourceManager.GetString("StructuresCharacteristicsCsvReader_TokenizeString_Line_lacks_SeparatorCharacter_0" +
+                        "_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bestand is niet geschikt om kunstwerken parameters uit te lezen (Verwachte koptekst moet de volgende kolommen bevatten: {0}..
         /// </summary>
         public static string StructuresCharacteristicsCsvReader_ValidateRequiredColumnIndices_Invalid_header_Must_have_columns_0_ {
