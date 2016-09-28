@@ -196,7 +196,7 @@
     <value>Waterstand [m+NAP]</value>
   </data>
   <data name="WaveConditionsOutput_WaveAngle_Description" xml:space="preserve">
-    <value>Berekende golfrichting.</value>
+    <value>Berekende golfrichting ten opzichte van dijknormaal.</value>
   </data>
   <data name="WaveConditionsOutput_WaveAngle_DisplayName" xml:space="preserve">
     <value>Golfrichting [°]</value>
