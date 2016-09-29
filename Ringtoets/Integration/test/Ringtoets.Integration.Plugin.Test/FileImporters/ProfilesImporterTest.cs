@@ -41,24 +41,25 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
     [TestFixture]
     public class ProfilesImporterTest
     {
-        [Test]
-        public void ParameterdConstructor_ExpectedValues()
-        {
-            // Setup
-            ReferenceLine referenceLine = new ReferenceLine();
+        private readonly ObservableList<TestProfile> testImportTarget = new ObservableList<TestProfile>();
+        private readonly ReferenceLine testReferenceLine = new ReferenceLine();
+        private readonly string testFilePath = string.Empty;
 
+        [Test]
+        public void ParameteredConstructor_ExpectedValues()
+        {
             // Call
-            var importer = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, "");
+            var importer = new TestProfilesImporter(testImportTarget, testReferenceLine, testFilePath);
 
             // Assert
             Assert.IsInstanceOf<IFileImporter>(importer);
         }
 
         [Test]
-        public void ParameterdConstructor_ImportTargetNull_ThrowArgumentNullException()
+        public void ParameteredConstructor_ImportTargetNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestProfilesImporter(null, new ReferenceLine(), "");
+            TestDelegate call = () => new TestProfilesImporter(null, testReferenceLine, testFilePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -66,10 +67,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void ParameterdConstructor_ReferenceLineNull_ThrowArgumentNullException()
+        public void ParameteredConstructor_ReferenceLineNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestProfilesImporter(new ObservableList<TestProfile>(), null, "");
+            TestDelegate call = () => new TestProfilesImporter(testImportTarget, null, testFilePath);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -77,10 +78,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void ParameterdConstructor_FilePathNull_ThrowArgumentNullException()
+        public void ParameteredConstructor_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestProfilesImporter(new ObservableList<TestProfile>(), new ReferenceLine(), null);
+            TestDelegate call = () => new TestProfilesImporter(testImportTarget, testReferenceLine, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -93,13 +94,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         public void Import_FromInvalidEmptyPath_FalseAndLogError(string filePath)
         {
             // Setup
-            ReferenceLine referenceLine = new ReferenceLine();
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
-
-            // Precondition
-            var importResult = true;
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath);
 
             // Call
+            var importResult = true;
             Action call = () => importResult = testProfilesImporter.Import();
 
             // Assert
@@ -122,8 +120,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var invalidFileNameChars = Path.GetInvalidFileNameChars();
             var invalidPath = filePath.Replace('_', invalidFileNameChars[0]);
 
-            ReferenceLine referenceLine = new ReferenceLine();
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, invalidPath);
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, invalidPath);
 
             // Call
             var importResult = true;
@@ -146,8 +143,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             // Setup
             string folderPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin) + Path.DirectorySeparatorChar;
 
-            ReferenceLine referenceLine = new ReferenceLine();
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, folderPath);
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, folderPath);
 
             // Call
             var importResult = true;
@@ -177,8 +173,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Core.Components.Gis.IO,
                                                          shapeFileName);
 
-            ReferenceLine referenceLine = new ReferenceLine();
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath);
 
             // Call
             var importResult = true;
@@ -206,8 +201,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", shapeFileName));
 
-            ReferenceLine referenceLine = new ReferenceLine();
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath);
 
             // Call
             var importResult = true;
@@ -473,16 +467,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
-            var referencePoints = new List<Point2D>
-            {
-                new Point2D(130074.3, 543717.4),
-                new Point2D(130084.3, 543727.4)
-            };
-            ReferenceLine referenceLine = new ReferenceLine();
-            referenceLine.SetGeometry(referencePoints);
-            var testProfilesImporter = new TestProfilesImporter(new ObservableList<TestProfile>(), referenceLine, filePath);
+            var testProfilesImporter = new TestProfilesImporter(testImportTarget, testReferenceLine, filePath);
 
-            // Precondition
             testProfilesImporter.Cancel();
 
             // Call
@@ -510,6 +496,8 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
 
             testProfilesImporter.Cancel();
             bool importResult = testProfilesImporter.Import();
+            
+            // Precondition
             Assert.IsFalse(importResult);
 
             // Call

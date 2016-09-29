@@ -1,0 +1,103 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Ringtoets.Common.IO
+{
+    /// <summary>
+    /// This class represents the result of a validation.
+    /// </summary>
+    public class ValidationResult
+    {
+        private readonly List<string> warningMessages = new List<string>();
+        private readonly List<string> errorMessages = new List<string>();
+
+        /// <summary>
+        /// Create a new instance of <see cref="ValidationResult"/>.
+        /// </summary>
+        /// <param name="errorMessages">The error messages for this <see cref="ValidationResult"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="errorMessages"/> is <c>null</c></item>
+        /// <item>any message in <paramref name="errorMessages"/> is <c>null</c>, empty or consists of whitespace</item>
+        /// </list></exception>
+        public ValidationResult(ICollection<string> errorMessages)
+        {
+            if (errorMessages == null || errorMessages.Any(string.IsNullOrWhiteSpace))
+            {
+                throw new ArgumentException("errorMessages");
+            }
+
+            IsValid = errorMessages.Count < 1;
+            this.errorMessages.AddRange(errorMessages);
+        }
+
+        /// <summary>
+        /// Create a new instance of <see cref="ValidationResult"/>.
+        /// </summary>
+        /// <param name="errorMessages">The error messages for this <see cref="ValidationResult"/>.</param>
+        /// <param name="warningMessages">The warning messages for this <see cref="ValidationResult"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when:
+        /// <list type="bullet">
+        /// <item><paramref name="errorMessages"/> or <paramref name="warningMessages"/> is <c>null</c></item>
+        /// <item>any message in <paramref name="errorMessages"/> or <paramref name="warningMessages"/> is <c>null</c>, empty or consists of whitespace</item>
+        /// </list></exception>
+        public ValidationResult(ICollection<string> errorMessages, List<string> warningMessages) : this(errorMessages)
+        {
+            if (warningMessages == null || warningMessages.Any(string.IsNullOrWhiteSpace))
+            {
+                throw new ArgumentException("warningMessages");
+            }
+
+            this.warningMessages.AddRange(warningMessages);
+        }
+
+        /// <summary>
+        /// Gets a value which indicates whether the validation subject is valid.
+        /// </summary>
+        public bool IsValid { get; private set; }
+
+        /// <summary>
+        /// Gets the error messages resulting from the validation.
+        /// </summary>
+        public IEnumerable<string> ErrorMessages
+        {
+            get
+            {
+                return errorMessages;
+            }
+        }
+
+        /// <summary>
+        /// Gets the warning messages resulting from the validation.
+        /// </summary>
+        public IEnumerable<string> WarningMessages
+        {
+            get
+            {
+                return warningMessages;
+            }
+        }
+    }
+}

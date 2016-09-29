@@ -24,8 +24,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.FileImporters;
-using Ringtoets.Common.IO.Properties;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.HeightStructures.Data;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
@@ -37,18 +37,6 @@ namespace Ringtoets.HeightStructures.IO
     /// </summary>
     public class HeightStructuresImporter : StructuresImporter<ObservableList<HeightStructure>>
     {
-        private static readonly string[] requiredParameterNames =
-        {
-            "KW_HOOGTE1",
-            "KW_HOOGTE2",
-            "KW_HOOGTE3",
-            "KW_HOOGTE4",
-            "KW_HOOGTE5",
-            "KW_HOOGTE6",
-            "KW_HOOGTE7",
-            "KW_HOOGTE8"
-        };
-
         private readonly ObservableList<HeightStructure> importTarget;
 
         /// <summary>
@@ -61,7 +49,7 @@ namespace Ringtoets.HeightStructures.IO
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
         public HeightStructuresImporter(ObservableList<HeightStructure> importTarget, ReferenceLine referenceLine, string filePath)
-            : base(referenceLine, filePath, importTarget)
+            : base(importTarget, referenceLine, filePath)
         {
             this.importTarget = importTarget;
         }
@@ -69,7 +57,7 @@ namespace Ringtoets.HeightStructures.IO
         protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
-            IEnumerable<HeightStructure> importedHeightStructures = CreateHeightStructures(structureLocations, groupedStructureParameterRows);
+            IEnumerable<HeightStructure> importedHeightStructures = CreateHeightStructures(structureLocations.ToList(), groupedStructureParameterRows);
 
             foreach (HeightStructure heightStructure in importedHeightStructures)
             {
@@ -77,23 +65,29 @@ namespace Ringtoets.HeightStructures.IO
             }
         }
 
-        private IEnumerable<HeightStructure> CreateHeightStructures(IEnumerable<StructureLocation> structureLocations,
+        private IEnumerable<HeightStructure> CreateHeightStructures(IList<StructureLocation> structureLocations,
                                                                     Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
             var heightStructures = new List<HeightStructure>();
-            foreach (StructureLocation structureLocation in structureLocations)
+            for (int i = 0; i < structureLocations.Count; i++)
             {
+                StructureLocation structureLocation = structureLocations[i];
+
                 string id = structureLocation.Id;
 
                 if (!groupedStructureParameterRows.ContainsKey(id))
                 {
-                    log.ErrorFormat(Resources.StructuresImporter_CreateSpecificStructures_no_structursdata_for_location_0_, id);
+                    log.WarnFormat(RingtoetsCommonIOResources.StructuresImporter_CreateSpecificStructures_no_structuresdata_for_location_0_, id);
+                    log.ErrorFormat("Kunstwerk nummer {0} wordt overgeslagen.", i);
                     continue;
                 }
 
                 List<StructuresParameterRow> structureParameterRows = groupedStructureParameterRows[id];
-                if (!ValidateParameterNames(structureParameterRows, id))
+
+                ValidationResult parameterRowsValidationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(structureParameterRows);
+                if (!parameterRowsValidationResult.IsValid)
                 {
+                    LogMessages(parameterRowsValidationResult, i);
                     continue;
                 }
 
@@ -103,30 +97,17 @@ namespace Ringtoets.HeightStructures.IO
             return heightStructures;
         }
 
-        private bool ValidateParameterNames(List<StructuresParameterRow> structureParameterRows, string id)
+        private void LogMessages(ValidationResult validationResult, int i)
         {
-            bool isValid = true;
-            if (structureParameterRows.Count > requiredParameterNames.Length)
+            foreach (string message in validationResult.WarningMessages)
             {
-                log.ErrorFormat(RingtoetsCommonIOResources.StructuresImporter_ValidateParameterNames_Structure_0_has_too_many_parameters_expected_parameters_1_, id, string.Join(", ", requiredParameterNames));
-                isValid = false;
+                log.Warn(message);
             }
-
-            foreach (string name in requiredParameterNames)
+            foreach (string message in validationResult.ErrorMessages)
             {
-                int count = structureParameterRows.Count(row => row.ParameterId.Equals(name));
-                if (count < 1)
-                {
-                    log.ErrorFormat(RingtoetsCommonIOResources.StructuresImporter_ValidateParameterNames_Parameter_0_missing_for_structure_1_, name, id);
-                    isValid = false;
-                }
-                if (count > 1)
-                {
-                    log.ErrorFormat(RingtoetsCommonIOResources.StructuresImporter_ValidateParameterNames_Parameter_0_repeated_for_structure_1_, name, id);
-                    isValid = false;
-                }
+                log.Error(message);
             }
-            return isValid;
+            log.ErrorFormat("Kunstwerk nummer {0} wordt overgeslagen.", i);
         }
 
         private static HeightStructure CreateHeightStructure(StructureLocation structureLocation, List<StructuresParameterRow> structureParameterRows)

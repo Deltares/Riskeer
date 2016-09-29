@@ -47,12 +47,12 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <summary>
         /// Initializes a new instance of <see cref="StructuresImporter{T}"/>.
         /// </summary>
+        /// <param name="importTarget">The import target.</param>
         /// <param name="referenceLine">The reference line used to check if the imported structures are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
-        /// <param name="importTarget">The import target.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
-        protected StructuresImporter(ReferenceLine referenceLine, string filePath, T importTarget)
+        protected StructuresImporter(T importTarget, ReferenceLine referenceLine, string filePath)
             : base(filePath, importTarget)
         {
             if (referenceLine == null)
@@ -127,16 +127,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
             string csvFilePath = Path.ChangeExtension(FilePath, ".csv");
 
-            StructuresCharacteristicsCsvReader rowsReader;
-            try
-            {
-                rowsReader = new StructuresCharacteristicsCsvReader(csvFilePath);
-            }
-            catch (ArgumentException exception)
-            {
-                log.Error(exception.Message);
-                return new ReadResult<StructuresParameterRow>(true);
-            }
+            var rowsReader = new StructuresCharacteristicsCsvReader(csvFilePath);
 
             int totalNumberOfRows;
             try
@@ -226,11 +217,6 @@ namespace Ringtoets.Common.IO.FileImporters
                         i + 1,
                         exception.Message);
                     log.Warn(message);
-                }
-                catch (CriticalFileReadException exception)
-                {
-                    log.Error(exception.Message);
-                    return new ReadResult<StructureLocation>(true);
                 }
             }
             return new ReadResult<StructureLocation>(false)

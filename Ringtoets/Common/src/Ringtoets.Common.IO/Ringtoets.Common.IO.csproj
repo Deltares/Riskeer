@@ -73,9 +73,11 @@
     <Compile Include="ReferenceLines\ReferenceLineWriter.cs" />
     <Compile Include="Structures\StructuresCharacteristicsCsvReader.cs" />
     <Compile Include="Structures\StructureLocation.cs" />
+    <Compile Include="Structures\StructuresParameterRowsValidator.cs" />
     <Compile Include="Structures\StructuresParameterRow.cs" />
     <Compile Include="Structures\StructureLocationReader.cs" />
     <Compile Include="Structures\VarianceType.cs" />
+    <Compile Include="ValidationResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

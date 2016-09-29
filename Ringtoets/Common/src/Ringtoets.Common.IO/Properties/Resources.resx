@@ -356,16 +356,7 @@ Er is geen referentielijn geëxporteerd.</value>
   <data name="StructuresImporter_ReadStructureParameterRowsData_reading_structuredata" xml:space="preserve">
     <value>Inlezen van kunstwerkgegevens.</value>
   </data>
-  <data name="StructuresImporter_CreateSpecificStructures_no_structursdata_for_location_0_" xml:space="preserve">
+  <data name="StructuresImporter_CreateSpecificStructures_no_structuresdata_for_location_0_" xml:space="preserve">
     <value>Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT '{0}'.</value>
-  </data>
-  <data name="StructuresImporter_ValidateParameterNames_Structure_0_has_too_many_parameters_expected_parameters_1_" xml:space="preserve">
-    <value>Kunstwerklocatie met KWKIDENT '{0}' bevat teveel parameters. De verwachte parameters zijn: '{1}'.</value>
-  </data>
-  <data name="StructuresImporter_ValidateParameterNames_Parameter_0_missing_for_structure_1_" xml:space="preserve">
-    <value>Parameter '{0}' ontbreekt voor de kunstwerklocatie met KWKIDENT '{1}'.</value>
-  </data>
-  <data name="StructuresImporter_ValidateParameterNames_Parameter_0_repeated_for_structure_1_" xml:space="preserve">
-    <value>Parameter '{0}' wordt herhaald voor de kunstwerklocatie met KWKIDENT '{1}'.</value>
   </data>
 </root>
