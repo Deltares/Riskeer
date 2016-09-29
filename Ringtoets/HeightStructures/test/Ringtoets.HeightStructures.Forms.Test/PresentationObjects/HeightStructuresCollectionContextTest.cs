@@ -31,7 +31,7 @@ using Ringtoets.HeightStructures.Forms.PresentationObjects;
 namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class HeightStructureContextTest
+    public class HeightStructuresCollectionContextTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
@@ -44,7 +44,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var heightStructures = new ObservableList<HeightStructure>();
 
             // Call
-            var context = new HeightStructureContext(heightStructures, assessmentSectionMock);
+            var context = new HeightStructuresCollectionContext(heightStructures, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HeightStructure>>>(context);
@@ -60,7 +60,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var heightStructures = new ObservableList<HeightStructure>();
 
             // Call
-            TestDelegate test = () => new HeightStructureContext(heightStructures, null);
+            TestDelegate test = () => new HeightStructuresCollectionContext(heightStructures, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

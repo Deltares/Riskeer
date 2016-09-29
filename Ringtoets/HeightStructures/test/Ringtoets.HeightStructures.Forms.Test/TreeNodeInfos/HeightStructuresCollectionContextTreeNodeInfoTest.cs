@@ -38,7 +38,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class HeightStructureContextTreeNodeInfoTest
+    public class HeightStructuresCollectionContextTreeNodeInfoTest
     {
         private HeightStructuresPlugin plugin;
         private TreeNodeInfo info;
@@ -47,7 +47,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new HeightStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructureContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresCollectionContext));
         }
 
         [TearDown]
@@ -60,7 +60,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(HeightStructureContext), info.TagType);
+            Assert.AreEqual(typeof(HeightStructuresCollectionContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ForeColor);
@@ -90,7 +90,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var heightStructures = new ObservableList<HeightStructure>();
 
-            var heightStructureContext = new HeightStructureContext(heightStructures, assessmentSection);
+            var heightStructureContext = new HeightStructuresCollectionContext(heightStructures, assessmentSection);
 
             // Call
             string text = info.Text(heightStructureContext);
@@ -111,7 +111,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var heightStructures = new ObservableList<HeightStructure>();
 
-            var heightStructureContext = new HeightStructureContext(heightStructures, assessmentSection);
+            var heightStructureContext = new HeightStructuresCollectionContext(heightStructures, assessmentSection);
 
             // Call
             Image image = info.Image(heightStructureContext);
@@ -137,7 +137,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.IsNotEmpty(heightStructures);
 
-            var context = new HeightStructureContext(heightStructures, asssessmentSection);
+            var context = new HeightStructuresCollectionContext(heightStructures, asssessmentSection);
 
             // Call
             Color color = info.ForeColor(context);
@@ -163,7 +163,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 heightStructure2
             };
 
-            var heightStructureContext = new HeightStructureContext(heightStructures, assessmentSection);
+            var heightStructureContext = new HeightStructuresCollectionContext(heightStructures, assessmentSection);
 
             // Call
             object[] children = info.ChildNodeObjects(heightStructureContext);
@@ -186,7 +186,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.IsEmpty(heightStructures);
 
-            var context = new HeightStructureContext(heightStructures, asssessmentSection);
+            var context = new HeightStructuresCollectionContext(heightStructures, asssessmentSection);
 
             // Call
             Color color = info.ForeColor(context);

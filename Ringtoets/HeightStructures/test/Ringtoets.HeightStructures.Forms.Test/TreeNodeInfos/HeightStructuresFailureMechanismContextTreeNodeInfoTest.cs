@@ -126,7 +126,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, profilesContext.ParentAssessmentSection);
 
-            var heightStructureContext = (HeightStructureContext) inputsFolder.Contents[2];
+            var heightStructureContext = (HeightStructuresCollectionContext) inputsFolder.Contents[2];
             Assert.AreSame(failureMechanism.HeightStructures, heightStructureContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, heightStructureContext.AssessmentSection);
 

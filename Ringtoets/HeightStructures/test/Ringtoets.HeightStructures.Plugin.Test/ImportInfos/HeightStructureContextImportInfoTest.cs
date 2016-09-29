@@ -50,7 +50,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
 
             var list = new ObservableList<HeightStructure>();
 
-            var importTarget = new HeightStructureContext(list, assessmentSection);
+            var importTarget = new HeightStructuresCollectionContext(list, assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())
             {
@@ -140,7 +140,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
 
             var list = new ObservableList<HeightStructure>();
 
-            var context = new HeightStructureContext(list, assessmentSection);
+            var context = new HeightStructuresCollectionContext(list, assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())
             {
@@ -166,7 +166,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
 
             var list = new ObservableList<HeightStructure>();
 
-            var context = new HeightStructureContext(list, assessmentSection);
+            var context = new HeightStructuresCollectionContext(list, assessmentSection);
 
             using (var plugin = new HeightStructuresPlugin())
             {
@@ -183,7 +183,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
 
         private static ImportInfo GetImportInfo(HeightStructuresPlugin plugin)
         {
-            return plugin.GetImportInfos().First(ii => ii.DataType == typeof(HeightStructureContext));
+            return plugin.GetImportInfos().First(ii => ii.DataType == typeof(HeightStructuresCollectionContext));
         } 
     }
 }

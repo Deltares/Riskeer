@@ -28,12 +28,12 @@ using Ringtoets.HeightStructures.Data;
 namespace Ringtoets.HeightStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// The presentation object for <see cref="HeightStructure"/>.
+    /// The presentation object for a collection of <see cref="HeightStructure"/>.
     /// </summary>
-    public class HeightStructureContext : ObservableWrappedObjectContextBase<ObservableList<HeightStructure>>
+    public class HeightStructuresCollectionContext : ObservableWrappedObjectContextBase<ObservableList<HeightStructure>>
     {
         /// <summary>
-        /// Creates an instance of <see cref="HeightStructureContext"/>.
+        /// Creates an instance of <see cref="HeightStructuresCollectionContext"/>.
         /// </summary>
         /// <param name="heightStructures">The wrapped <see cref="ObservableList{T}"/>
         /// containing <see cref="HeightStructure"/>.</param>
@@ -41,7 +41,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input arguments
         /// are <c>null</c>.</exception>
-        public HeightStructureContext(ObservableList<HeightStructure> heightStructures, IAssessmentSection assessmentSection)
+        public HeightStructuresCollectionContext(ObservableList<HeightStructure> heightStructures, IAssessmentSection assessmentSection)
             : base(heightStructures)
         {
             if (assessmentSection == null)

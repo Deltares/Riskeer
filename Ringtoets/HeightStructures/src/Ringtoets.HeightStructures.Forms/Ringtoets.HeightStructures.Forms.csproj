@@ -41,7 +41,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="PresentationObjects\HeightStructureContext.cs" />
+    <Compile Include="PresentationObjects\HeightStructuresCollectionContext.cs" />
     <Compile Include="PresentationObjects\HeightStructuresCalculationContext.cs" />
     <Compile Include="PresentationObjects\HeightStructuresCalculationGroupContext.cs" />
     <Compile Include="PresentationObjects\HeightStructuresContext.cs" />
