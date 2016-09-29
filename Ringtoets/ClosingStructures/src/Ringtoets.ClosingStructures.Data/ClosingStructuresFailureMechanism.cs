@@ -62,7 +62,7 @@ namespace Ringtoets.ClosingStructures.Data
         public GeneralClosingStructuresInput GeneralInput { get; private set; }
 
         /// <summary>
-        /// Gets the available closing structures  for this instance
+        /// Gets the available closing structures  for this instance.
         /// </summary>
         public ObservableList<ClosingStructure> ClosingStructures { get; private set; }
 

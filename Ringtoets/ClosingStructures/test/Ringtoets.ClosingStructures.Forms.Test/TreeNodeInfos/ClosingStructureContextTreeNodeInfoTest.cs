@@ -36,7 +36,8 @@ using Ringtoets.Common.Forms.Properties;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 {
-    class ClosingStructureContextTreeNodeInfoTest
+    [TestFixture]
+    public class ClosingStructureContextTreeNodeInfoTest
     {
         private ClosingStructuresPlugin plugin;
         private TreeNodeInfo info;
