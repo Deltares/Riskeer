@@ -485,20 +485,20 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 "INSERT INTO [Numerics] VALUES (1, 110, 1, 1, 423, 1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 10000, 20000, 0.1, -6, 6, 25);" + Environment.NewLine +
                 Environment.NewLine +
                 "DELETE FROM [VariableDatas];" + Environment.NewLine +
-                "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 58, 9.81, 0, 0, NULL, NULL, NULL, 0, 0, 99000);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 58, 9.81, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 59, 0, 4, 0.09, 0.06, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 60, 0, 2, 1.1, 0.05, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 61, 2.2, 0, 0, NULL, NULL, NULL, 0, 0, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 61, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 62, 0, 2, 1.1, 0.03, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 94, 0, 4, 3.3, 0.1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 95, 0, 4, 1, 0.2, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 96, 0, 4, 4.4, NULL, NULL, NULL, 0, 0.1, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 97, 1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 103, 0, 2, 5.5, 0.05, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 103, 0, 4, 5.5, 0.05, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 104, 0, 4, 6.6, NULL, NULL, NULL, 0, 0.15, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 105, 0, 2, 7.7, 0, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 106, 0, 2, 8.8, NULL, NULL, NULL, 0, 0.05, 999999);" + Environment.NewLine +
-                "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 107, 9.9, 0, 0, NULL, NULL, NULL, 0, 0, 99000);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 107, 9.9, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 108, 0, 4, 7.5, NULL, NULL, NULL, 0, 0.25, 999999);" + Environment.NewLine +
                 Environment.NewLine +
                 "DELETE FROM [CalculationProfiles];" + Environment.NewLine +

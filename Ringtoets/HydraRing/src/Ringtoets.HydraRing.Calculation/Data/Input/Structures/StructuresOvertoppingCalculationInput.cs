@@ -32,23 +32,23 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double gravitationalAcceleration;
         private readonly double modelFactorOvertoppingFlowMean;
         private readonly double modelFactorOvertoppingFlowStandardDeviation;
-        private readonly double levelOfCrestOfStructureMean;
-        private readonly double levelOfCrestOfStructureStandardDeviation;
+        private readonly double levelCrestStructureMean;
+        private readonly double levelCrestStructureStandardDeviation;
         private readonly double structureNormalOrientation;
         private readonly double modelFactorOvertoppingSupercriticalFlowMean;
         private readonly double modelFactorOvertoppingSupercriticalFlowStandardDeviation;
-        private readonly double allowableIncreaseOfLevelForStorageMean;
-        private readonly double allowableIncreaseOfLevelForStorageStandardDeviation;
-        private readonly double modelFactorForStorageVolumeMean;
-        private readonly double modelFactorForStorageVolumeStandardDeviation;
+        private readonly double allowedLevelIncreaseStorageMean;
+        private readonly double allowedLevelIncreaseStorageStandardDeviation;
+        private readonly double modelFactorStorageVolumeMean;
+        private readonly double modelFactorStorageVolumeStandardDeviation;
         private readonly double storageStructureAreaMean;
         private readonly double storageStructureAreaVariation;
-        private readonly double modelFactorForIncomingFlowVolume;
+        private readonly double modelFactorInflowVolume;
         private readonly double flowWidthAtBottomProtectionMean;
         private readonly double flowWidthAtBottomProtectionStandardDeviation;
         private readonly double criticalOvertoppingDischargeMean;
         private readonly double criticalOvertoppingDischargeVariation;
-        private readonly double failureProbabilityOfStructureGivenErosion;
+        private readonly double failureProbabilityStructureWithErosion;
         private readonly double widthOfFlowAperturesMean;
         private readonly double widthOfFlowAperturesVariation;
         private readonly double deviationOfTheWaveDirection;
@@ -63,23 +63,23 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingGravitationalAcceleration">The gravitational acceleration to use during the calculation.</param>
         /// <param name="hydraRingModelFactorOvertoppingFlowMean">The mean of the model factor overtopping flow to use during the calculation.</param>
         /// <param name="hydraRingModelFactorOvertoppingFlowStandardDeviation">The standard deviation of the model factor overtopping flow to use during the calculation.</param>
-        /// <param name="hydraRingLevelOfCrestOfStructureMean">The mean of the level of the crest of the structure to use during the calculation.</param>
-        /// <param name="hydraRingLevelOfCrestOfStructureStandardDeviation">The standard deviation of the level of the crest of the structure to use during the calculation.</param>
+        /// <param name="hydraRingLevelCrestStructureMean">The mean of the level crest structure to use during the calculation.</param>
+        /// <param name="hydraRingLevelCrestStructureStandardDeviation">The standard deviation of the level crest structure to use during the calculation.</param>
         /// <param name="hydraRingStructureNormalOrientation">The orientation of the normal of the structure to use during the calculation.</param>
         /// <param name="hydraRingModelFactorOvertoppingSupercriticalFlowMean">The mean of the model factor overtopping supercritical flow to use during the calculation.</param>
         /// <param name="hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation">The standard deviation of the model factor overtopping supercritical flow to use during the calculation.</param>
-        /// <param name="hydraRingAllowableIncreaseOfLevelForStorageMean">The mean of the allowable increase of the level for the storage to use during the calculation.</param>
-        /// <param name="hydraRingAllowableIncreaseOfLevelForStorageStandardDeviation">The standard deviation of the allowable increase of the level for the storage to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorForStorageVolumeMean">The mean of the model factor for the storage volume to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorForStorageVolumeStandardDeviation">The standard deviation of the model factor for the storage volume to use during the calculation.</param>
+        /// <param name="hydraRingAllowedLevelIncreaseStorageMean">The mean of the allowed increase of the level for the storage to use during the calculation.</param>
+        /// <param name="hydraRingAllowedLevelIncreaseStorageStandardDeviation">The standard deviation of the allowed increase of the level for the storage to use during the calculation.</param>
+        /// <param name="hydraRingModelFactorStorageVolumeMean">The mean of the model factor for the storage volume to use during the calculation.</param>
+        /// <param name="hydraRingModelFactorStorageVolumeStandardDeviation">The standard deviation of the model factor for the storage volume to use during the calculation.</param>
         /// <param name="hydraRingStorageStructureAreaMean">The mean of the storage structure area to use during the calculation.</param>
         /// <param name="hydraRingStorageStructureAreaVariation">The variation of the storage structure area to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorForIncomingFlowVolume">The model factor for incoming flow volume to use during the calculation.</param>
+        /// <param name="hydraRingModelFactorInflowVolume">The model factor inflow volume to use during the calculation.</param>
         /// <param name="hydraRingFlowWidthAtBottomProtectionMean">The mean of the flow width at bottom protection to use during the calculation.</param>
         /// <param name="hydraRingFlowWidthAtBottomProtectionStandardDeviation">The standard deviation of the flow width at bottom protection to use during the calculation.</param>
         /// <param name="hydraRingCriticalOvertoppingDischargeMean">The mean of the critical overtopping discharge to use during the calculation.</param>
         /// <param name="hydraRingCriticalOvertoppingDischargeVariation">The variation of the critical overtopping discharge to use during the calculation.</param>
-        /// <param name="hydraRingFailureProbabilityOfStructureGivenErosion">The failure probability of structure given erosion to use during the calculation.</param>
+        /// <param name="hydraRingFailureProbabilityStructureWithErosion">The failure probability structure with erosion to use during the calculation.</param>
         /// <param name="hydraRingWidthOfFlowAperturesMean">The mean of the width of flow apertures to use during the calculation.</param>
         /// <param name="hydraRingWidthOfFlowAperturesVariation">The variation of the width of flow apertures to use during the calculation.</param>
         /// <param name="hydraRingDeviationOfTheWaveDirection">The deviation of the wave direction to use during the calculation.</param>
@@ -88,16 +88,16 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         public StructuresOvertoppingCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
                                                      double hydraRingGravitationalAcceleration,
                                                      double hydraRingModelFactorOvertoppingFlowMean, double hydraRingModelFactorOvertoppingFlowStandardDeviation,
-                                                     double hydraRingLevelOfCrestOfStructureMean, double hydraRingLevelOfCrestOfStructureStandardDeviation,
+                                                     double hydraRingLevelCrestStructureMean, double hydraRingLevelCrestStructureStandardDeviation,
                                                      double hydraRingStructureNormalOrientation,
                                                      double hydraRingModelFactorOvertoppingSupercriticalFlowMean, double hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation,
-                                                     double hydraRingAllowableIncreaseOfLevelForStorageMean, double hydraRingAllowableIncreaseOfLevelForStorageStandardDeviation,
-                                                     double hydraRingModelFactorForStorageVolumeMean, double hydraRingModelFactorForStorageVolumeStandardDeviation,
+                                                     double hydraRingAllowedLevelIncreaseStorageMean, double hydraRingAllowedLevelIncreaseStorageStandardDeviation,
+                                                     double hydraRingModelFactorStorageVolumeMean, double hydraRingModelFactorStorageVolumeStandardDeviation,
                                                      double hydraRingStorageStructureAreaMean, double hydraRingStorageStructureAreaVariation,
-                                                     double hydraRingModelFactorForIncomingFlowVolume,
+                                                     double hydraRingModelFactorInflowVolume,
                                                      double hydraRingFlowWidthAtBottomProtectionMean, double hydraRingFlowWidthAtBottomProtectionStandardDeviation,
                                                      double hydraRingCriticalOvertoppingDischargeMean, double hydraRingCriticalOvertoppingDischargeVariation,
-                                                     double hydraRingFailureProbabilityOfStructureGivenErosion,
+                                                     double hydraRingFailureProbabilityStructureWithErosion,
                                                      double hydraRingWidthOfFlowAperturesMean, double hydraRingWidthOfFlowAperturesVariation,
                                                      double hydraRingDeviationOfTheWaveDirection,
                                                      double hydraRingStormDurationMean, double hydraRingStormDurationVariation
@@ -108,23 +108,23 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             gravitationalAcceleration = hydraRingGravitationalAcceleration;
             modelFactorOvertoppingFlowMean = hydraRingModelFactorOvertoppingFlowMean;
             modelFactorOvertoppingFlowStandardDeviation = hydraRingModelFactorOvertoppingFlowStandardDeviation;
-            levelOfCrestOfStructureMean = hydraRingLevelOfCrestOfStructureMean;
-            levelOfCrestOfStructureStandardDeviation = hydraRingLevelOfCrestOfStructureStandardDeviation;
+            levelCrestStructureMean = hydraRingLevelCrestStructureMean;
+            levelCrestStructureStandardDeviation = hydraRingLevelCrestStructureStandardDeviation;
             structureNormalOrientation = hydraRingStructureNormalOrientation;
             modelFactorOvertoppingSupercriticalFlowMean = hydraRingModelFactorOvertoppingSupercriticalFlowMean;
             modelFactorOvertoppingSupercriticalFlowStandardDeviation = hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation;
-            allowableIncreaseOfLevelForStorageMean = hydraRingAllowableIncreaseOfLevelForStorageMean;
-            allowableIncreaseOfLevelForStorageStandardDeviation = hydraRingAllowableIncreaseOfLevelForStorageStandardDeviation;
-            modelFactorForStorageVolumeMean = hydraRingModelFactorForStorageVolumeMean;
-            modelFactorForStorageVolumeStandardDeviation = hydraRingModelFactorForStorageVolumeStandardDeviation;
+            allowedLevelIncreaseStorageMean = hydraRingAllowedLevelIncreaseStorageMean;
+            allowedLevelIncreaseStorageStandardDeviation = hydraRingAllowedLevelIncreaseStorageStandardDeviation;
+            modelFactorStorageVolumeMean = hydraRingModelFactorStorageVolumeMean;
+            modelFactorStorageVolumeStandardDeviation = hydraRingModelFactorStorageVolumeStandardDeviation;
             storageStructureAreaMean = hydraRingStorageStructureAreaMean;
             storageStructureAreaVariation = hydraRingStorageStructureAreaVariation;
-            modelFactorForIncomingFlowVolume = hydraRingModelFactorForIncomingFlowVolume;
+            modelFactorInflowVolume = hydraRingModelFactorInflowVolume;
             flowWidthAtBottomProtectionMean = hydraRingFlowWidthAtBottomProtectionMean;
             flowWidthAtBottomProtectionStandardDeviation = hydraRingFlowWidthAtBottomProtectionStandardDeviation;
             criticalOvertoppingDischargeMean = hydraRingCriticalOvertoppingDischargeMean;
             criticalOvertoppingDischargeVariation = hydraRingCriticalOvertoppingDischargeVariation;
-            failureProbabilityOfStructureGivenErosion = hydraRingFailureProbabilityOfStructureGivenErosion;
+            failureProbabilityStructureWithErosion = hydraRingFailureProbabilityStructureWithErosion;
             widthOfFlowAperturesMean = hydraRingWidthOfFlowAperturesMean;
             widthOfFlowAperturesVariation = hydraRingWidthOfFlowAperturesVariation;
             deviationOfTheWaveDirection = hydraRingDeviationOfTheWaveDirection;
@@ -168,48 +168,48 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         {
             // Gravitational acceleration
             yield return new HydraRingVariable(58, HydraRingDistributionType.Deterministic, gravitationalAcceleration,
-                                               HydraRingDeviationType.Variation, double.NaN, double.NaN, double.NaN);
+                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
 
             // Model factor overtopping flow
             yield return new HydraRingVariable(59, HydraRingDistributionType.LogNormal, double.NaN,
                                                HydraRingDeviationType.Standard, modelFactorOvertoppingFlowMean,
                                                modelFactorOvertoppingFlowStandardDeviation, double.NaN);
 
-            // Level of crest of structure
+            // Level crest structure
             yield return new HydraRingVariable(60, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, levelOfCrestOfStructureMean,
-                                               levelOfCrestOfStructureStandardDeviation, double.NaN);
+                                               HydraRingDeviationType.Standard, levelCrestStructureMean,
+                                               levelCrestStructureStandardDeviation, double.NaN);
 
             // Orientation of the normal of the structure
             yield return new HydraRingVariable(61, HydraRingDistributionType.Deterministic, structureNormalOrientation,
-                                               HydraRingDeviationType.Variation, double.NaN, double.NaN, double.NaN);
+                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
 
             // Model factor overtopping supercritical flow
             yield return new HydraRingVariable(62, HydraRingDistributionType.Normal, double.NaN,
                                                HydraRingDeviationType.Standard, modelFactorOvertoppingSupercriticalFlowMean,
                                                modelFactorOvertoppingSupercriticalFlowStandardDeviation, double.NaN);
 
-            // Allowable increase of level for storage
+            // Allowed level increase storage
             yield return new HydraRingVariable(94, HydraRingDistributionType.LogNormal, double.NaN,
-                                               HydraRingDeviationType.Standard, allowableIncreaseOfLevelForStorageMean,
-                                               allowableIncreaseOfLevelForStorageStandardDeviation, double.NaN);
+                                               HydraRingDeviationType.Standard, allowedLevelIncreaseStorageMean,
+                                               allowedLevelIncreaseStorageStandardDeviation, double.NaN);
 
-            // Model factor for storage volume
+            // Model factor storage volume
             yield return new HydraRingVariable(95, HydraRingDistributionType.LogNormal, double.NaN,
-                                               HydraRingDeviationType.Standard, modelFactorForStorageVolumeMean,
-                                               modelFactorForStorageVolumeStandardDeviation, double.NaN);
+                                               HydraRingDeviationType.Standard, modelFactorStorageVolumeMean,
+                                               modelFactorStorageVolumeStandardDeviation, double.NaN);
 
             // Storage structure area
             yield return new HydraRingVariable(96, HydraRingDistributionType.LogNormal, double.NaN,
                                                HydraRingDeviationType.Variation, storageStructureAreaMean,
                                                storageStructureAreaVariation, double.NaN);
 
-            // Model factor for incoming flow volume
-            yield return new HydraRingVariable(97, HydraRingDistributionType.Deterministic, modelFactorForIncomingFlowVolume,
+            // Model factor inflow volume
+            yield return new HydraRingVariable(97, HydraRingDistributionType.Deterministic, modelFactorInflowVolume,
                                                HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
 
             // Flow width at bottom protection
-            yield return new HydraRingVariable(103, HydraRingDistributionType.Normal, double.NaN,
+            yield return new HydraRingVariable(103, HydraRingDistributionType.LogNormal, double.NaN,
                                                HydraRingDeviationType.Standard, flowWidthAtBottomProtectionMean,
                                                flowWidthAtBottomProtectionStandardDeviation, double.NaN);
 
@@ -218,9 +218,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                HydraRingDeviationType.Variation, criticalOvertoppingDischargeMean,
                                                criticalOvertoppingDischargeVariation, double.NaN);
 
-            // Failure probability of structure given erosion
+            // Failure probability structure with erosion
             yield return new HydraRingVariable(105, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, failureProbabilityOfStructureGivenErosion, 0, double.NaN);
+                                               HydraRingDeviationType.Standard, failureProbabilityStructureWithErosion,
+                                               0.0, double.NaN); // HACK: Pass the deterministic value as normal distribution (with standard deviation 0.0) as Hydra-Ring otherwise crashes
 
             // Width of flow apertures
             yield return new HydraRingVariable(106, HydraRingDistributionType.Normal, double.NaN,
@@ -229,7 +230,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
 
             // Deviation of the wave direction
             yield return new HydraRingVariable(107, HydraRingDistributionType.Deterministic, deviationOfTheWaveDirection,
-                                               HydraRingDeviationType.Variation, double.NaN, double.NaN, double.NaN);
+                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
 
             // Storm duration
             yield return new HydraRingVariable(108, HydraRingDistributionType.LogNormal, double.NaN,

@@ -33,8 +33,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double drainCoefficientStandardDeviation;
         private readonly double areaFlowAperturesMean;
         private readonly double areaFlowAperturesStandardDeviation;
-        private readonly double waterLevelInsideMean;
-        private readonly double waterLevelInsideStandardDeviation;
+        private readonly double insideWaterLevelMean;
+        private readonly double insideWaterLevelStandardDeviation;
 
         /// <summary>
         /// Creates a new instance of <see cref="StructuresClosureFloodedCulvertCalculationInput"/>.
@@ -66,8 +66,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingDrainCoefficientStandardDeviation">The standard deviation of the drain coefficient to use during the calculation.</param>
         /// <param name="hydraRingAreaFlowAperturesMean">The mean of the area of flow apertures to use during the calculation.</param>
         /// <param name="hydraRingAreaFlowAperturesStandardDeviation">The standard diviation of the area of flow apertures to use during the calculation.</param>
-        /// <param name="hydraRingWaterLevelInsideMean">The mean of the waterlevel inside to use during the calculation.</param>
-        /// <param name="hydraRingWaterLevelInsideStandardDeviation">The standard deviation of the waterlevel inside to use during the calculation.</param>
+        /// <param name="hydraRingInsideWaterLevelMean">The mean of the inside water level to use during the calculation.</param>
+        /// <param name="hydraRingInsideWaterLevelStandardDeviation">The standard deviation of the inside water level to use during the calculation.</param>
         public StructuresClosureFloodedCulvertCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
                                                                IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                                double hydraRingGravitationalAcceleration, double hydraRingFactorStormDurationOpenStructure,
@@ -82,7 +82,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                double hydraRingStormDurationVariation, double hydraRingProbabilityOpenStructureBeforeFlooding,
                                                                double hydraRingDrainCoefficientMean, double hydraRingDrainCoefficientStandardDeviation,
                                                                double hydraRingAreaFlowAperturesMean, double hydraRingAreaFlowAperturesStandardDeviation,
-                                                               double hydraRingWaterLevelInsideMean, double hydraRingWaterLevelInsideStandardDeviation)
+                                                               double hydraRingInsideWaterLevelMean, double hydraRingInsideWaterLevelStandardDeviation)
             : base(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints,
                    hydraRingGravitationalAcceleration, hydraRingFactorStormDurationOpenStructure,
                    hydraRingFailureProbabilityOpenStructure, hydraRingFailureProbabilityReparation,
@@ -99,8 +99,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             drainCoefficientStandardDeviation = hydraRingDrainCoefficientStandardDeviation;
             areaFlowAperturesMean = hydraRingAreaFlowAperturesMean;
             areaFlowAperturesStandardDeviation = hydraRingAreaFlowAperturesStandardDeviation;
-            waterLevelInsideMean = hydraRingWaterLevelInsideMean;
-            waterLevelInsideStandardDeviation = hydraRingWaterLevelInsideStandardDeviation;
+            insideWaterLevelMean = hydraRingInsideWaterLevelMean;
+            insideWaterLevelStandardDeviation = hydraRingInsideWaterLevelStandardDeviation;
         }
 
         public override IEnumerable<HydraRingVariable> Variables
@@ -139,10 +139,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                double.NaN, HydraRingDeviationType.Standard, areaFlowAperturesMean,
                                                areaFlowAperturesStandardDeviation, double.NaN);
 
-            // Waterlevel inside
+            // Inside water level
             yield return new HydraRingVariable(93, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, waterLevelInsideMean,
-                                               waterLevelInsideStandardDeviation, double.NaN);
+                                               HydraRingDeviationType.Standard, insideWaterLevelMean,
+                                               insideWaterLevelStandardDeviation, double.NaN);
         }
     }
 }

@@ -29,14 +29,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
     /// </summary>
     public class StructuresClosureLowSillCalculationInput : StructuresClosureCalculationInput
     {
-        private readonly double modelFactorOvertoppingSupercriticalFlowMean;
-        private readonly double modelFactorOvertoppingSupercriticalFlowStandardDeviation;
-        private readonly double modelFactorSubcriticalFlowMean;
-        private readonly double modelFactorSubcriticalFlowVariation;
-        private readonly double thresholdLowWeirHeightMean;
-        private readonly double thresholdLowWeirHeightStandardDeviation;
-        private readonly double waterLevelInsideMean;
-        private readonly double waterLevelInsideStandardDeviation;
+        private readonly double modelFactorOvertoppingSuperCriticalFlowMean;
+        private readonly double modelFactorOvertoppingSuperCriticalFlowStandardDeviation;
+        private readonly double modelFactorSubCriticalFlowMean;
+        private readonly double modelFactorSubCriticalFlowVariation;
+        private readonly double thresholdHeightOpenWeirMean;
+        private readonly double thresholdHeightOpenWeirStandardDeviation;
+        private readonly double insideWaterLevelMean;
+        private readonly double insideWaterLevelStandardDeviation;
         private readonly double widthOfFlowAperturesMean;
         private readonly double widthOfFlowAperturesVariation;
 
@@ -66,14 +66,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingStormDurationMean">The mean of the storm duration to use during the calculation.</param>
         /// <param name="hydraRingStormDurationVariation">The variation of the storm duration to use during the calculation.</param>
         /// <param name="hydraRingProbabilityOpenStructureBeforeFlooding">The propability of an open structure before flooding to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorSubcriticalFlowMean">The mean of the model factor subcitrical flow to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorSubcriticalFlowVariation">The variation of the model factor subcitrical flow to use during the calculation.</param>
-        /// <param name="hydraRingThresholdLowWeirHeightMean">The mean of the height threshold lo weir to use during the calculation.</param>
-        /// <param name="hydraRingThresholdLowWeirHeightStandardDeviation">The standard deviation of the height threshold lo weir to use during the calculation.</param>
-        /// <param name="hydraRingWaterLevelInsideMean">The mean of the waterlevel inside to use during the calculation.</param>
-        /// <param name="hydraRingWaterLevelInsideStandardDeviation">The standard deviation of the waterlevel inside to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorOvertoppingSupercriticalFlowMean">The mean of the model factor overtopping supercritical flow to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation">The standard deviation of the model factor overtopping supercritical flow to use during the calculation.</param>
+        /// <param name="hydraRingModelFactorSubCriticalFlowMean">The mean of the model factor sub citrical flow to use during the calculation.</param>
+        /// <param name="hydraRingModelFactorSubCriticalFlowVariation">The variation of the model factor sub citrical flow to use during the calculation.</param>
+        /// <param name="hydraRingThresholdHeightOpenWeirMean">The mean of the threshold height open weir to use during the calculation.</param>
+        /// <param name="hydraRingThresholdHeightOpenWeirStandardDeviation">The standard deviation of the threshold height open weir to use during the calculation.</param>
+        /// <param name="hydraRingInsideWaterLevelMean">The mean of the inside water level to use during the calculation.</param>
+        /// <param name="hydraRingInsideWaterLevelStandardDeviation">The standard deviation of the inside water level to use during the calculation.</param>
+        /// <param name="hydraRingModelFactorOvertoppingSuperCriticalFlowMean">The mean of the model factor overtopping super critical flow to use during the calculation.</param>
+        /// <param name="hydraRingModelFactorOvertoppingSuperCriticalFlowStandardDeviation">The standard deviation of the model factor overtopping super critical flow to use during the calculation.</param>
         /// <param name="hydraRingWidthOfFlowAperturesMean">The mean of the width of flow apertures to use during the calculation.</param>
         /// <param name="hydraRingWidthOfFlowAperturesVariation">The variation of the width of flow apertures to use during the calculation.</param>
         public StructuresClosureLowSillCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
@@ -88,11 +88,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                         double hydraRingCriticalOvertoppingDischargeMean, double hydraRingCriticalOvertoppingDischargeVariation,
                                                         double hydraRingFailureProbabilityOfStructureGivenErosion, double hydraRingStormDurationMean,
                                                         double hydraRingStormDurationVariation, double hydraRingProbabilityOpenStructureBeforeFlooding,
-                                                        double hydraRingModelFactorSubcriticalFlowMean, double hydraRingModelFactorSubcriticalFlowVariation,
-                                                        double hydraRingThresholdLowWeirHeightMean, double hydraRingThresholdLowWeirHeightStandardDeviation,
-                                                        double hydraRingWaterLevelInsideMean, double hydraRingWaterLevelInsideStandardDeviation,
-                                                        double hydraRingModelFactorOvertoppingSupercriticalFlowMean,
-                                                        double hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation,
+                                                        double hydraRingModelFactorSubCriticalFlowMean, double hydraRingModelFactorSubCriticalFlowVariation,
+                                                        double hydraRingThresholdHeightOpenWeirMean, double hydraRingThresholdHeightOpenWeirStandardDeviation,
+                                                        double hydraRingInsideWaterLevelMean, double hydraRingInsideWaterLevelStandardDeviation,
+                                                        double hydraRingModelFactorOvertoppingSuperCriticalFlowMean,
+                                                        double hydraRingModelFactorOvertoppingSuperCriticalFlowStandardDeviation,
                                                         double hydraRingWidthOfFlowAperturesMean, double hydraRingWidthOfFlowAperturesVariation)
             : base(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints,
                    hydraRingGravitationalAcceleration, hydraRingFactorStormDurationOpenStructure,
@@ -106,14 +106,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                    hydraRingFailureProbabilityOfStructureGivenErosion, hydraRingStormDurationMean,
                    hydraRingStormDurationVariation, hydraRingProbabilityOpenStructureBeforeFlooding)
         {
-            modelFactorOvertoppingSupercriticalFlowMean = hydraRingModelFactorOvertoppingSupercriticalFlowMean;
-            modelFactorOvertoppingSupercriticalFlowStandardDeviation = hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation;
-            modelFactorSubcriticalFlowMean = hydraRingModelFactorSubcriticalFlowMean;
-            modelFactorSubcriticalFlowVariation = hydraRingModelFactorSubcriticalFlowVariation;
-            thresholdLowWeirHeightMean = hydraRingThresholdLowWeirHeightMean;
-            thresholdLowWeirHeightStandardDeviation = hydraRingThresholdLowWeirHeightStandardDeviation;
-            waterLevelInsideMean = hydraRingWaterLevelInsideMean;
-            waterLevelInsideStandardDeviation = hydraRingWaterLevelInsideStandardDeviation;
+            modelFactorOvertoppingSuperCriticalFlowMean = hydraRingModelFactorOvertoppingSuperCriticalFlowMean;
+            modelFactorOvertoppingSuperCriticalFlowStandardDeviation = hydraRingModelFactorOvertoppingSuperCriticalFlowStandardDeviation;
+            modelFactorSubCriticalFlowMean = hydraRingModelFactorSubCriticalFlowMean;
+            modelFactorSubCriticalFlowVariation = hydraRingModelFactorSubCriticalFlowVariation;
+            thresholdHeightOpenWeirMean = hydraRingThresholdHeightOpenWeirMean;
+            thresholdHeightOpenWeirStandardDeviation = hydraRingThresholdHeightOpenWeirStandardDeviation;
+            insideWaterLevelMean = hydraRingInsideWaterLevelMean;
+            insideWaterLevelStandardDeviation = hydraRingInsideWaterLevelStandardDeviation;
             widthOfFlowAperturesMean = hydraRingWidthOfFlowAperturesMean;
             widthOfFlowAperturesVariation = hydraRingWidthOfFlowAperturesVariation;
         }
@@ -144,25 +144,25 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
 
         private IEnumerable<HydraRingVariable> GetVariables()
         {
-            // Model factor overtopping supercritical flow
+            // Model factor overtopping super critical flow
             yield return new HydraRingVariable(62, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, modelFactorOvertoppingSupercriticalFlowMean,
-                                               modelFactorOvertoppingSupercriticalFlowStandardDeviation, double.NaN);
+                                               HydraRingDeviationType.Standard, modelFactorOvertoppingSuperCriticalFlowMean,
+                                               modelFactorOvertoppingSuperCriticalFlowStandardDeviation, double.NaN);
 
-            // Model factor for subcritical flow
+            // Model factor sub critical flow
             yield return new HydraRingVariable(64, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Variation, modelFactorSubcriticalFlowMean,
-                                               modelFactorSubcriticalFlowVariation, double.NaN);
+                                               HydraRingDeviationType.Variation, modelFactorSubCriticalFlowMean,
+                                               modelFactorSubCriticalFlowVariation, double.NaN);
 
-            // Height of threshold of low weir
+            // Threshold height open weir
             yield return new HydraRingVariable(65, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, thresholdLowWeirHeightMean,
-                                               thresholdLowWeirHeightStandardDeviation, double.NaN);
+                                               HydraRingDeviationType.Standard, thresholdHeightOpenWeirMean,
+                                               thresholdHeightOpenWeirStandardDeviation, double.NaN);
 
-            // Waterlevel inside
+            // Inside water level
             yield return new HydraRingVariable(93, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, waterLevelInsideMean,
-                                               waterLevelInsideStandardDeviation, double.NaN);
+                                               HydraRingDeviationType.Standard, insideWaterLevelMean,
+                                               insideWaterLevelStandardDeviation, double.NaN);
 
             // Width of flow apertures
             yield return new HydraRingVariable(106, HydraRingDistributionType.Normal, double.NaN,
