@@ -56,7 +56,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 Mean = (RoundedDouble) 1,
             };
-            ModelfactorForSubcriticalFlow.SetStandardDeviationFromVariationCoefficient(0.1);
+            ModelFactorForSubCriticalFlow.SetStandardDeviationFromVariationCoefficient(0.1);
 
             ModelFactorForIncomingFlowVolume = new RoundedDouble(2, 1);
         }
