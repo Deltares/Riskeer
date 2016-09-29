@@ -45,12 +45,13 @@ namespace Ringtoets.Common.IO.Structures
         {
             "identificatie",
             "kunstwerken.identificatie",
+            "alphanumeriekewaarde",
             "numeriekewaarde",
             "standarddeviatie.variance",
             "boolean"
         };
 
-        private int locationIdIndex, parameterIdIndex, numericValueIndex, varianceValueIndex, varianceTypeIndex;
+        private int locationIdIndex, parameterIdIndex, alphanumericValueIndex, numericValueIndex, varianceValueIndex, varianceTypeIndex;
         private int headerLength;
 
         private int lineNumber;
@@ -289,9 +290,10 @@ namespace Ringtoets.Common.IO.Structures
         {
             locationIdIndex = requiredHeaderColumnIndices[0];
             parameterIdIndex = requiredHeaderColumnIndices[1];
-            numericValueIndex = requiredHeaderColumnIndices[2];
-            varianceValueIndex = requiredHeaderColumnIndices[3];
-            varianceTypeIndex = requiredHeaderColumnIndices[4];
+            alphanumericValueIndex = requiredHeaderColumnIndices[2];
+            numericValueIndex = requiredHeaderColumnIndices[3];
+            varianceValueIndex = requiredHeaderColumnIndices[4];
+            varianceTypeIndex = requiredHeaderColumnIndices[5];
         }
 
         /// <summary>
@@ -344,6 +346,7 @@ namespace Ringtoets.Common.IO.Structures
 
             string locationId = ParseLocationId(tokenizedText);
             string parameterId = ParseParameterId(tokenizedText);
+            string alphanumericValue = ParseAlphanumericValue(tokenizedText);
             double numbericValue = ParseNumericValue(tokenizedText);
             double varianceValue = ParseVarianceValue(tokenizedText);
             VarianceType varianceType = ParseVarianceType(tokenizedText);
@@ -352,9 +355,11 @@ namespace Ringtoets.Common.IO.Structures
             {
                 LocationId = locationId,
                 ParameterId = parameterId,
+                AlphanumericValue = alphanumericValue,
                 NumericalValue = numbericValue,
                 VarianceValue = varianceValue,
-                VarianceType = varianceType
+                VarianceType = varianceType,
+                LineNumber = lineNumber
             };
         }
 
@@ -410,6 +415,11 @@ namespace Ringtoets.Common.IO.Structures
                 throw CreateLineParseException(lineNumber, message);
             }
             return parameterTextValue;
+        }
+
+        private string ParseAlphanumericValue(string[] tokenizedText)
+        {
+            return tokenizedText[alphanumericValueIndex];
         }
 
         /// <summary>

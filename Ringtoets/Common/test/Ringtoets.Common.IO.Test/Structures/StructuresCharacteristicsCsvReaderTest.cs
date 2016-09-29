@@ -140,6 +140,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         [Test]
         [TestCase("InvalidFile_LocationIdMissing.csv")]
         [TestCase("InvalidFile_ParameterIdMissing.csv")]
+        [TestCase("InvalidFile_AlphanumericValueMissing.csv")]
         [TestCase("InvalidFile_NumericValueMissing.csv")]
         [TestCase("InvalidFile_VarianceValueMissing.csv")]
         [TestCase("InvalidFile_BooleanMissing.csv")]
@@ -158,7 +159,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedHeaderColumnsText = "identificatie, kunstwerken.identificatie, numeriekewaarde, standarddeviatie.variance, boolean";
+                string expectedHeaderColumnsText = "identificatie, kunstwerken.identificatie, alphanumeriekewaarde, numeriekewaarde, standarddeviatie.variance, boolean";
                 string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen (Verwachte koptekst moet de volgende kolommen bevatten: {1}.",
                                                        filePath, expectedHeaderColumnsText);
                 Assert.AreEqual(expectedMessage, message);
@@ -225,6 +226,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         [Test]
         [TestCase("InvalidFile_DuplicateLocationId.csv", "identificatie")]
         [TestCase("InvalidFile_DuplicateParameterId.csv", "kunstwerken.identificatie")]
+        [TestCase("InvalidFile_DuplicateAlphanumericValue.csv", "alphanumeriekewaarde")]
         [TestCase("InvalidFile_DuplicateNumericalValue.csv", "numeriekewaarde")]
         [TestCase("InvalidFile_DuplicateVarianceValue.csv", "standarddeviatie.variance")]
         [TestCase("InvalidFile_DuplicateBoolean.csv", "boolean")]
@@ -308,6 +310,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         [Test]
         [TestCase("InvalidFile_LocationIdMissing.csv")]
         [TestCase("InvalidFile_ParameterIdMissing.csv")]
+        [TestCase("InvalidFile_AlphanumericValueMissing.csv")]
         [TestCase("InvalidFile_NumericValueMissing.csv")]
         [TestCase("InvalidFile_VarianceValueMissing.csv")]
         [TestCase("InvalidFile_BooleanMissing.csv")]
@@ -326,7 +329,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedHeaderColumnsText = "identificatie, kunstwerken.identificatie, numeriekewaarde, standarddeviatie.variance, boolean";
+                string expectedHeaderColumnsText = "identificatie, kunstwerken.identificatie, alphanumeriekewaarde, numeriekewaarde, standarddeviatie.variance, boolean";
                 string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen (Verwachte koptekst moet de volgende kolommen bevatten: {1}.",
                                                        filePath, expectedHeaderColumnsText);
                 Assert.AreEqual(expectedMessage, message);
@@ -336,6 +339,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         [Test]
         [TestCase("InvalidFile_DuplicateLocationId.csv", "identificatie")]
         [TestCase("InvalidFile_DuplicateParameterId.csv", "kunstwerken.identificatie")]
+        [TestCase("InvalidFile_DuplicateAlphanumericValue.csv", "alphanumeriekewaarde")]
         [TestCase("InvalidFile_DuplicateNumericalValue.csv", "numeriekewaarde")]
         [TestCase("InvalidFile_DuplicateVarianceValue.csv", "standarddeviatie.variance")]
         [TestCase("InvalidFile_DuplicateBoolean.csv", "boolean")]
@@ -411,7 +415,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: Regel verwacht van 20 elementen, maar het zijn er 19.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: Regel verwacht van 21 elementen, maar het zijn er 20.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -431,7 +435,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: Regel verwacht van 20 elementen, maar het zijn er 22.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: Regel verwacht van 21 elementen, maar het zijn er 23.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -709,7 +713,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         [TestCase(1, "KUNST1", "KW_HOOGTE1", 45.0, 0.0, VarianceType.CoefficientOfVariation)]
         [TestCase(3, "KUNST1", "KW_HOOGTE3", 18.5, 0.05, VarianceType.StandardDeviation)]
         [TestCase(13, "KUNST2", "KW_HOOGTE5", double.NaN, 0.05, VarianceType.StandardDeviation)]
-        public void ReadLine_ValidFile_ReturnDataFromLine(int lineNumber, string expectedLocationId, string paramterId,
+        public void ReadLine_ValidFile_ReturnDataFromLine(int elementIndex, string expectedLocationId, string paramterId,
                                                           double expectedNumericValue, double expectedVarianceValue, VarianceType expectedType)
         {
             // Setup
@@ -720,7 +724,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             {
                 // Call
                 StructuresParameterRow parameter = null;
-                for (int i = 0; i < lineNumber; i++)
+                for (int i = 0; i < elementIndex; i++)
                 {
                     parameter = reader.ReadLine();
                 }
@@ -732,6 +736,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 Assert.AreEqual(expectedNumericValue, parameter.NumericalValue);
                 Assert.AreEqual(expectedVarianceValue, parameter.VarianceValue);
                 Assert.AreEqual(expectedType, parameter.VarianceType);
+                Assert.AreEqual(elementIndex + 1, parameter.LineNumber);
             }
         }
 
@@ -766,6 +771,23 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 Assert.AreEqual(VarianceType.NotSpecified, parameter.VarianceType);
+            }
+        }
+
+        [Test]
+        public void ReadLine_ValidFileWithNonEmptyAplhanumericValue_ReturnText()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures", "StructuresCharacteristicsCsvFiles", "ValidFile_1Location_AllHeightStructureParameters_AlphanumericValueText.csv"));
+
+            using (var reader = new StructuresCharacteristicsCsvReader(filePath))
+            {
+                // Call
+                StructuresParameterRow parameter = reader.ReadLine();
+
+                // Assert
+                Assert.AreEqual("I'm the alphanumeric value in the file!", parameter.AlphanumericValue);
             }
         }
     }

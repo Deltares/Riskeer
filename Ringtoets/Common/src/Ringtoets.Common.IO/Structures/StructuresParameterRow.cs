@@ -48,6 +48,11 @@ namespace Ringtoets.Common.IO.Structures
         public string ParameterId { get; set; }
 
         /// <summary>
+        /// Gets or sets the alphanumerical value for the parameter.
+        /// </summary>
+        public string AlphanumericValue { get; set; }
+
+        /// <summary>
         /// Gets or sets the numerical value (interpreted as the mean of a random variable
         /// or as deterministic value) for the parameter.
         /// </summary>

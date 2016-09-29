@@ -36,6 +36,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Assert
             Assert.IsNull(parameter.LocationId);
             Assert.IsNull(parameter.ParameterId);
+            Assert.IsNull(parameter.AlphanumericValue);
             Assert.IsNaN(parameter.NumericalValue);
             Assert.IsNaN(parameter.VarianceValue);
             Assert.AreEqual(VarianceType.NotSpecified, parameter.VarianceType);
@@ -43,9 +44,9 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        [TestCase("1", "A", 1.1, -2.2, VarianceType.CoefficientOfVariation, 4)]
-        [TestCase("2", "B", -3.3, 4.4, VarianceType.StandardDeviation, 96758)]
-        public void SimpleProperties_SetNewValues_GetNewlySetValues(string locationId, string id, double numerical, double variance, VarianceType type, int lineNumber)
+        [TestCase("1", "A", "Q3", 1.1, -2.2, VarianceType.CoefficientOfVariation, 4)]
+        [TestCase("2", "B", "s0", -3.3, 4.4, VarianceType.StandardDeviation, 96758)]
+        public void SimpleProperties_SetNewValues_GetNewlySetValues(string locationId, string id, string alphanumeric, double numerical, double variance, VarianceType type, int lineNumber)
         {
             // Setup
             var parameter = new StructuresParameterRow();
@@ -53,6 +54,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Call
             parameter.LocationId = locationId;
             parameter.ParameterId = id;
+            parameter.AlphanumericValue = alphanumeric;
             parameter.NumericalValue = numerical;
             parameter.VarianceValue = variance;
             parameter.VarianceType = type;
@@ -61,6 +63,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Assert
             Assert.AreEqual(locationId, parameter.LocationId);
             Assert.AreEqual(id, parameter.ParameterId);
+            Assert.AreEqual(alphanumeric, parameter.AlphanumericValue);
             Assert.AreEqual(numerical, parameter.NumericalValue);
             Assert.AreEqual(variance, parameter.VarianceValue);
             Assert.AreEqual(type, parameter.VarianceType);
