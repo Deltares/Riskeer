@@ -48,7 +48,7 @@ namespace Ringtoets.StabilityPointStructures.Data
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.2
             };
-            ModelfactorForSubcriticalFlow = new NormalDistribution(1)
+            ModelFactorForSubCriticalFlow = new NormalDistribution(1)
             {
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.1
@@ -111,9 +111,9 @@ namespace Ringtoets.StabilityPointStructures.Data
         public LogNormalDistribution ModelFactorForStorageVolume { get; private set; }
 
         /// <summary>
-        /// Gets the model factor for subcritical flow.
+        /// Gets the model factor for sub critical flow.
         /// </summary>
-        public NormalDistribution ModelfactorForSubcriticalFlow { get; private set; }
+        public NormalDistribution ModelFactorForSubCriticalFlow { get; private set; }
 
         /// <summary>
         /// Gets the model factor for collision load.

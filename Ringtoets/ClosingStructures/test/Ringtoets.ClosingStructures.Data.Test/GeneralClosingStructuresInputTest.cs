@@ -47,21 +47,21 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
             Assert.AreEqual(9.81, inputParameters.GravitationalAcceleration, inputParameters.GravitationalAcceleration.GetAccuracy());
 
-            var modelfactorForSubcriticalFlow = new NormalDistribution(2)
+            var modelFactorForSubCriticalFlow = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(1, 1),
                 StandardDeviation = new RoundedDouble(1, 0.1)
             };
-            Assert.AreEqual(modelfactorForSubcriticalFlow.Mean, inputParameters.ModelfactorForSubcriticalFlow.Mean);
-            Assert.AreEqual(modelfactorForSubcriticalFlow.StandardDeviation, inputParameters.ModelfactorForSubcriticalFlow.StandardDeviation);
+            Assert.AreEqual(modelFactorForSubCriticalFlow.Mean, inputParameters.ModelFactorForSubCriticalFlow.Mean);
+            Assert.AreEqual(modelFactorForSubCriticalFlow.StandardDeviation, inputParameters.ModelFactorForSubCriticalFlow.StandardDeviation);
 
-            var modelfactorForOvertoppingFlow = new LogNormalDistribution(3)
+            var modelFactorOvertoppingFlow = new LogNormalDistribution(3)
             {
               Mean = new RoundedDouble(2, 0.09),
               StandardDeviation =  new RoundedDouble(2, 0.06)
             };
-            Assert.AreEqual(modelfactorForOvertoppingFlow.Mean, inputParameters.ModelFactorOvertoppingFlow.Mean);
-            Assert.AreEqual(modelfactorForOvertoppingFlow.StandardDeviation, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation);
+            Assert.AreEqual(modelFactorOvertoppingFlow.Mean, inputParameters.ModelFactorOvertoppingFlow.Mean);
+            Assert.AreEqual(modelFactorOvertoppingFlow.StandardDeviation, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation);
 
             var modelfactorForStorageVolume = new LogNormalDistribution(2)
             {

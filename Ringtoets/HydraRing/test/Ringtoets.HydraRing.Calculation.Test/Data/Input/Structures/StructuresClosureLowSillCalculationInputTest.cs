@@ -59,16 +59,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double stormDurationMean = 7.5;
             const double stormDurationStandardDeviation = 0.25;
             const double probabilityOpenStructureBeforeFlooding = 0.04;
-            const double modelFactorOvertoppingSupercriticalFlowMean = 1.1;
-            const double modelFactorOvertoppingSupercriticalFlowStandardDeviation = 0.3;
-            const double widthOfFlowAperturesMean = 5.4;
-            const double widthOfFlowAperturesVariation = 0.05;
-            const double modelFactorSubcriticalFlowMean = 1.0;
-            const double modelFactorSubcriticalFlowVariation = 0.1;
+            const double modelFactorOvertoppingSuperCriticalFlowMean = 1.1;
+            const double modelFactorOvertoppingSuperCriticalFlowStandardDeviation = 0.3;
+            const double modelFactorSubCriticalFlowMean = 1.0;
+            const double modelFactorSubCriticalFlowVariation = 0.1;
             const double thresholdLowWeirHeightMean = 0.7;
             const double thresholdLowWeirHeightStandardDeviation = 0.1;
             const double waterLevelInsideMean = 4.3;
             const double waterLevelInsideStandardDeviation = 0.1;
+            const double widthOfFlowAperturesMean = 5.4;
+            const double widthOfFlowAperturesVariation = 0.05;
 
             // Call
             var input = new StructuresClosureLowSillCalculationInput(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints,
@@ -82,10 +82,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                      criticalOvertoppingDischargeMean, criticalOvertoppingDischargeMeanStandardDeviation,
                                                                      failureProbabilityOfStructureGivenErosion, stormDurationMean,
                                                                      stormDurationStandardDeviation, probabilityOpenStructureBeforeFlooding,
-                                                                     modelFactorSubcriticalFlowMean, modelFactorSubcriticalFlowVariation,
+                                                                     modelFactorOvertoppingSuperCriticalFlowMean, modelFactorOvertoppingSuperCriticalFlowStandardDeviation,
+                                                                     modelFactorSubCriticalFlowMean, modelFactorSubCriticalFlowVariation,
                                                                      thresholdLowWeirHeightMean, thresholdLowWeirHeightStandardDeviation,
                                                                      waterLevelInsideMean, waterLevelInsideStandardDeviation,
-                                                                     modelFactorOvertoppingSupercriticalFlowMean, modelFactorOvertoppingSupercriticalFlowStandardDeviation,
                                                                      widthOfFlowAperturesMean, widthOfFlowAperturesVariation);
 
             // Assert

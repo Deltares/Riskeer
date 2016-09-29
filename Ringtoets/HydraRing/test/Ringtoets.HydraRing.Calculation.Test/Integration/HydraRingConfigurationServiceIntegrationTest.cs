@@ -431,8 +431,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const double modelFactorOvertoppingMean = 0.09;
             const double modelFactorOvertoppingStandardDeviation = 0.06;
             const double levelOfCrestOfStructureStandardDeviation = 0.05;
-            const double modelFactorOvertoppingSupercriticalFlowMean = 1.1;
-            const double modelFactorOvertoppingSupercriticalFlowStandardDeviation = 0.03;
+            const double modelFactorOvertoppingSuperCriticalFlowMean = 1.1;
+            const double modelFactorOvertoppingSuperCriticalFlowStandardDeviation = 0.03;
             const double allowableIncreaseOfLevelForStorageStandardDeviation = 0.1;
             const double modelFactorForStorageVolumeMean = 1.0;
             const double modelFactorForStorageVolumeStandardDeviation = 0.2;
@@ -458,7 +458,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                                                  modelFactorOvertoppingMean, modelFactorOvertoppingStandardDeviation,
                                                                                                                  levelOfCrestOfStructureMean, levelOfCrestOfStructureStandardDeviation,
                                                                                                                  orientationOfTheNormalOfTheStructure,
-                                                                                                                 modelFactorOvertoppingSupercriticalFlowMean, modelFactorOvertoppingSupercriticalFlowStandardDeviation,
+                                                                                                                 modelFactorOvertoppingSuperCriticalFlowMean, modelFactorOvertoppingSuperCriticalFlowStandardDeviation,
                                                                                                                  allowableIncreaseOfLevelForStorageMean, allowableIncreaseOfLevelForStorageStandardDeviation,
                                                                                                                  modelFactorForStorageVolumeMean, modelFactorForStorageVolumeStandardDeviation,
                                                                                                                  storageStructureAreaMean, storageStructureAreaStandardDeviation,

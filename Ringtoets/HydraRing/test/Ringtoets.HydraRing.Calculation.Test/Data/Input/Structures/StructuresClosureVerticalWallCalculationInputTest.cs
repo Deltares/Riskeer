@@ -62,8 +62,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double modelFactorOvertoppingFlowMean = 0.09;
             const double modelFactorOvertoppingFlowStandardDeviation = 0.06;
             const double structureNormalOrientation = 0.05;
-            const double modelFactorOvertoppingSupercriticalFlowMean = 1.1;
-            const double modelFactorOvertoppingSupercriticalFlowStandardDeviation = 0.3;
+            const double modelFactorOvertoppingSuperCriticalFlowMean = 1.1;
+            const double modelFactorOvertoppingSuperCriticalFlowStandardDeviation = 0.3;
             const double levelCrestOfStructuresNotClosingMean = 0.08;
             const double levelCrestOfStructuresNotClosingStandardDeviation = 0.05;
             const double widthOfFlowAperturesMean = 5.4;
@@ -82,8 +82,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                           failureProbabilityOfStructureGivenErosion, stormDurationMean,
                                                                           stormDurationStandardDeviation, probabilityOpenStructureBeforeFlooding,
                                                                           modelFactorOvertoppingFlowMean, modelFactorOvertoppingFlowStandardDeviation,
-                                                                          structureNormalOrientation, modelFactorOvertoppingSupercriticalFlowMean,
-                                                                          modelFactorOvertoppingSupercriticalFlowStandardDeviation, levelCrestOfStructuresNotClosingMean,
+                                                                          structureNormalOrientation, modelFactorOvertoppingSuperCriticalFlowMean,
+                                                                          modelFactorOvertoppingSuperCriticalFlowStandardDeviation, levelCrestOfStructuresNotClosingMean,
                                                                           levelCrestOfStructuresNotClosingStandardDeviation, widthOfFlowAperturesMean,
                                                                           widthOfFlowAperturesVariation);
 

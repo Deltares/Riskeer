@@ -51,13 +51,13 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(modelFactorForStorageVolume.Mean, inputParameters.ModelFactorForStorageVolume.Mean);
             Assert.AreEqual(modelFactorForStorageVolume.StandardDeviation, inputParameters.ModelFactorForStorageVolume.StandardDeviation);
 
-            var modelfactorForSubcriticalFlow = new NormalDistribution(2)
+            var modelFactorForSubCriticalFlow = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, 1),
                 StandardDeviation = new RoundedDouble(2, 0.1)
             };
-            Assert.AreEqual(modelfactorForSubcriticalFlow.Mean, inputParameters.ModelfactorForSubcriticalFlow.Mean);
-            Assert.AreEqual(modelfactorForSubcriticalFlow.StandardDeviation, inputParameters.ModelfactorForSubcriticalFlow.StandardDeviation);
+            Assert.AreEqual(modelFactorForSubCriticalFlow.Mean, inputParameters.ModelFactorForSubCriticalFlow.Mean);
+            Assert.AreEqual(modelFactorForSubCriticalFlow.StandardDeviation, inputParameters.ModelFactorForSubCriticalFlow.StandardDeviation);
 
             var modelFactorForCollisionLoad = new NormalDistribution(1)
             {

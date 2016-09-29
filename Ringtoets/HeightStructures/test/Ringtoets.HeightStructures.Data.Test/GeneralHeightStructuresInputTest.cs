@@ -41,13 +41,13 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(2, generalHeightStructuresInput.N);
             Assert.AreEqual(9.81, generalHeightStructuresInput.GravitationalAcceleration, 1e-6);
 
-            var modelfactorOvertopping = new NormalDistribution(3)
+            var modelFactorOvertopping = new NormalDistribution(3)
             {
                 Mean = new RoundedDouble(3, 0.09),
                 StandardDeviation = new RoundedDouble(3, 0.06)
             };
-            Assert.AreEqual(modelfactorOvertopping.Mean, generalHeightStructuresInput.ModelFactorOvertoppingFlow.Mean);
-            Assert.AreEqual(modelfactorOvertopping.StandardDeviation, generalHeightStructuresInput.ModelFactorOvertoppingFlow.StandardDeviation);
+            Assert.AreEqual(modelFactorOvertopping.Mean, generalHeightStructuresInput.ModelFactorOvertoppingFlow.Mean);
+            Assert.AreEqual(modelFactorOvertopping.StandardDeviation, generalHeightStructuresInput.ModelFactorOvertoppingFlow.StandardDeviation);
 
             var modelFactorForStorageVolume = new NormalDistribution(2)
             {

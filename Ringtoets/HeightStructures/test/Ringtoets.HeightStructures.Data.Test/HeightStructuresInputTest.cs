@@ -65,7 +65,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
             var random = new Random(22);
 
-            RoundedDouble defaultModelFactorOvertoppingSupercriticalFlowStandardDeviation = input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation;
+            RoundedDouble defaultModelFactorOvertoppingSuperCriticalFlowStandardDeviation = input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation;
             NormalDistribution modelFactorOvertoppingSuperCriticalFlow = new NormalDistribution(5)
             {
                 Mean = (RoundedDouble) (0.01 + random.NextDouble()),
@@ -77,7 +77,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Assert
             AssertAreEqual(modelFactorOvertoppingSuperCriticalFlow.Mean, input.ModelFactorOvertoppingSuperCriticalFlow.Mean);
-            AssertAreEqual(defaultModelFactorOvertoppingSupercriticalFlowStandardDeviation, input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation);
+            AssertAreEqual(defaultModelFactorOvertoppingSuperCriticalFlowStandardDeviation, input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation);
         }
 
         [Test]

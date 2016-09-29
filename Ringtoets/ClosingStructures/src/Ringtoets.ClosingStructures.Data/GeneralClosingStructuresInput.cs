@@ -52,7 +52,7 @@ namespace Ringtoets.ClosingStructures.Data
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.2
             };
-            ModelfactorForSubcriticalFlow = new NormalDistribution(1)
+            ModelFactorForSubCriticalFlow = new NormalDistribution(1)
             {
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.1
@@ -104,7 +104,7 @@ namespace Ringtoets.ClosingStructures.Data
 
         #endregion
 
-        #region Model Factors
+        #region Model factors
 
         /// <summary>
         /// Gets the model factor overtopping flow.
@@ -117,9 +117,9 @@ namespace Ringtoets.ClosingStructures.Data
         public LogNormalDistribution ModelFactorForStorageVolume { get; private set; }
 
         /// <summary>
-        /// Gets the model factor for subcritical flow.
+        /// Gets the model factor for sub critical flow.
         /// </summary>
-        public NormalDistribution ModelfactorForSubcriticalFlow { get; private set; }
+        public NormalDistribution ModelFactorForSubCriticalFlow { get; private set; }
 
         /// <summary>
         /// Get the model factor for incoming flow volume.

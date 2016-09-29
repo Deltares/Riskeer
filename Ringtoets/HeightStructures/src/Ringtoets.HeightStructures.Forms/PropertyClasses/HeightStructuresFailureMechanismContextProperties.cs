@@ -41,7 +41,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int codePropertyIndex = 2;
         private const int gravitationalAccelerationPropertyIndex = 3;
         private const int lengthEffectPropertyIndex = 4;
-        private const int modelfactorOvertoppingFlowPropertyIndex = 5;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 5;
         private const int modelFactorForStorageVolumePropertyIndex = 6;
 
         #region Length effect parameters
@@ -107,7 +107,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         #region Model settings
 
-        [PropertyOrder(modelfactorOvertoppingFlowPropertyIndex)]
+        [PropertyOrder(modelFactorOvertoppingFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName")]

@@ -39,7 +39,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private const int codePropertyIndex = 1;
         private const int gravitationalAccelerationPropertyIndex = 2;
         private const int lengthEffectPropertyIndex = 3;
-        private const int modelfactorOvertoppingFlowPropertyIndex = 4;
+        private const int modelFactorOvertoppingFlowPropertyIndex = 4;
         private const int modelFactorForStorageVolumePropertyIndex = 5;
         private MockRepository mockRepository;
 
@@ -167,13 +167,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("N [-]", lengthEffectProperty.DisplayName);
             Assert.AreEqual("De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling.", lengthEffectProperty.Description);
 
-            PropertyDescriptor modelfactorOvertoppingFlowProperty = dynamicProperties[modelfactorOvertoppingFlowPropertyIndex];
-            Assert.IsNotNull(modelfactorOvertoppingFlowProperty);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(modelfactorOvertoppingFlowProperty.Converter);
-            Assert.IsTrue(modelfactorOvertoppingFlowProperty.IsReadOnly);
-            Assert.AreEqual(modelSettingsCategory, modelfactorOvertoppingFlowProperty.Category);
-            Assert.AreEqual("Modelfactor overslagdebiet [-]", modelfactorOvertoppingFlowProperty.DisplayName);
-            Assert.AreEqual("Het modelfactor overslagdebiet.", modelfactorOvertoppingFlowProperty.Description);
+            PropertyDescriptor modelFactorOvertoppingFlowProperty = dynamicProperties[modelFactorOvertoppingFlowPropertyIndex];
+            Assert.IsNotNull(modelFactorOvertoppingFlowProperty);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorOvertoppingFlowProperty.Converter);
+            Assert.IsTrue(modelFactorOvertoppingFlowProperty.IsReadOnly);
+            Assert.AreEqual(modelSettingsCategory, modelFactorOvertoppingFlowProperty.Category);
+            Assert.AreEqual("Modelfactor overslagdebiet [-]", modelFactorOvertoppingFlowProperty.DisplayName);
+            Assert.AreEqual("Het modelfactor overslagdebiet.", modelFactorOvertoppingFlowProperty.Description);
 
             PropertyDescriptor modelFactorForStorageVolumeProperty = dynamicProperties[modelFactorForStorageVolumePropertyIndex];
             Assert.IsNotNull(modelFactorForStorageVolumeProperty);
