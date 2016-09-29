@@ -34,12 +34,12 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
     public class ClosingStructuresCalculationGroupContext : ClosingStructuresContext<CalculationGroup>, ICalculationContext<CalculationGroup, ClosingStructuresFailureMechanism>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructuresCalculationGroupContext"/>
+        /// Creates a new instance of <see cref="ClosingStructuresCalculationGroupContext"/>.
         /// </summary>
-        /// <param name="calculationGroup">The <see cref="CalculationGroup"/> instance that is wrapped by this context object</param>
-        /// <param name="failureMechanism">The failure mechanism of the instance</param>
-        /// <param name="assessmentSection">The assessment section of the instance</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are null</exception>
+        /// <param name="calculationGroup">The <see cref="CalculationGroup"/> instance that is wrapped by this context object.</param>
+        /// <param name="failureMechanism">The failure mechanism of the instance.</param>
+        /// <param name="assessmentSection">The assessment section of the instance.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are <c>null</c>.</exception>
         public ClosingStructuresCalculationGroupContext(CalculationGroup calculationGroup, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection) :
             base(calculationGroup, failureMechanism, assessmentSection) {}
     }

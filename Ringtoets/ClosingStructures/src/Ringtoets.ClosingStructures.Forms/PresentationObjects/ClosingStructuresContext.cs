@@ -23,8 +23,8 @@ using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.ClosingStructures.Forms.Properties;
+using Ringtoets.Common.Data.AssessmentSection;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
@@ -33,18 +33,18 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
     /// Presentation object representing all required closing structures input knowledge to configure and create
     /// related objects. It will delegate observable behaviour to the wrapped data object.
     /// </summary>
-    public abstract class ClosingStructuresContext<T> : ObservableWrappedObjectContextBase<T> where T:IObservable
+    public abstract class ClosingStructuresContext<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
     {
         /// <summary>
-        /// Initializes a new instance of <see cref="ClosingStructuresContext{T}"/>
+        /// Initializes a new instance of <see cref="ClosingStructuresContext{T}"/>.
         /// </summary>
-        /// <param name="wrappedData">The concrete data instance wrapped by the context object</param>
-        /// <param name="failureMechanism">The failure mechanism which the context belongs to</param>
-        /// <param name="assessmentSection">The assessment section which the context belongs to</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are <c>null</c></exception>
+        /// <param name="wrappedData">The concrete data instance wrapped by the context object.</param>
+        /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
+        /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are <c>null</c>.</exception>
         protected ClosingStructuresContext(T wrappedData,
-                                        ClosingStructuresFailureMechanism failureMechanism,
-                                        IAssessmentSection assessmentSection)
+                                           ClosingStructuresFailureMechanism failureMechanism,
+                                           IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (failureMechanism == null)
@@ -57,7 +57,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
             if (assessmentSection == null)
             {
                 string message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            RingtoetsCommonFormsResources.FailureMechanismContext_DataDescription_AssessmentSection);
+                                               RingtoetsCommonFormsResources.FailureMechanismContext_DataDescription_AssessmentSection);
 
                 throw new ArgumentNullException("assessmentSection", message);
             }
@@ -67,12 +67,12 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the assessment section for this instance
+        /// Gets the assessment section for this instance.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
 
         /// <summary>
-        /// Gets the failure mechanism for this instance
+        /// Gets the failure mechanism for this instance.
         /// </summary>
         public ClosingStructuresFailureMechanism FailureMechanism { get; private set; }
     }

@@ -40,16 +40,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var target = mockRepository.Stub<IObservable>();
             mockRepository.ReplayAll();
 
-            var target = new ObservableObject();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var context = new SimpleClosingStructuresContext<ObservableObject>(target, failureMechanism, assessmentSectionMock);
+            var context = new SimpleClosingStructuresContext<IObservable>(target, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableObject>>(context);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservable>>(context);
             Assert.AreSame(target, context.WrappedData);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
@@ -61,13 +61,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            var observableObject = mockRepository.Stub<IObservable>();
             mockRepository.ReplayAll();
 
-            var observableObject = new ObservableObject();
-
             // Call
-            TestDelegate call = () => new SimpleClosingStructuresContext<ObservableObject>(observableObject, null, assessmentSectionMock);
+            TestDelegate call = () => new SimpleClosingStructuresContext<IObservable>(observableObject, null, assessmentSectionMock);
 
             // Assert
             const string expectedMessage = "Het sluitings kunstwerk toetsspoor mag niet 'null' zijn.";
@@ -79,18 +78,19 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var observableObject = new ObservableObject();
+            var mockRepository = new MockRepository();
+            var observableObject = mockRepository.Stub<IObservable>();
+            mockRepository.ReplayAll();
+
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new SimpleClosingStructuresContext<ObservableObject>(observableObject, failureMechanism, null);
+            TestDelegate call = () => new SimpleClosingStructuresContext<IObservable>(observableObject, failureMechanism, null);
 
             // Assert
             const string expectedMessage = "Het traject mag niet 'null' zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
-
-        private class ObservableObject : Observable { }
 
         private class SimpleClosingStructuresContext<T> : ClosingStructuresContext<T> where T : IObservable
         {

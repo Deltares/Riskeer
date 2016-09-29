@@ -46,13 +46,20 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         public void SetUp()
         {
             mocks = new MockRepository();
-            guiMock = mocks.StrictMock<IGui>();
+            guiMock = mocks.Stub<IGui>();
             plugin = new ClosingStructuresPlugin()
             {
                 Gui = guiMock
             };
 
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresCalculationGroupContext));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            plugin.Dispose();
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -63,8 +70,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var groupContext = new ClosingStructuresCalculationGroupContext(group,
-                                                                           failureMechanism,
-                                                                           assessmentSectionMock);
+                                                                            failureMechanism,
+                                                                            assessmentSectionMock);
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
             /* Part of WTI-550
@@ -75,9 +82,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
-             * */
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            **/
             menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);

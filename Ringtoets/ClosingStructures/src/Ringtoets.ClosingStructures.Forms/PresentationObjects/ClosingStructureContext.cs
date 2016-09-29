@@ -28,18 +28,18 @@ using Ringtoets.Common.Data.AssessmentSection;
 namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// The presentation object for <see cref="ClosingStructure"/>
+    /// The presentation object for <see cref="ClosingStructure"/>.
     /// </summary>
     public class ClosingStructureContext : ObservableWrappedObjectContextBase<ObservableList<ClosingStructure>>
     {
         /// <summary>
-        /// Creates an instance of <see cref="ClosingStructureContext"/>
+        /// Creates an instance of <see cref="ClosingStructureContext"/>.
         /// </summary>
-        /// <param name="closingStructures">The wrapped <see cref="ObservableList{T}"/> containing <see cref="ClosingStructure"/></param>
-        /// <param name="assessmentSection">The assessment section which the closing structures belong to</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input arguments are <c>null</c></exception>
-        public ClosingStructureContext(ObservableList<ClosingStructure> closingStructures, IAssessmentSection assessmentSection) 
-            : base(closingStructures) 
+        /// <param name="closingStructures">The wrapped <see cref="ObservableList{T}"/> containing <see cref="ClosingStructure"/>.</param>
+        /// <param name="assessmentSection">The assessment section which the closing structures belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input arguments are <c>null</c>.</exception>
+        public ClosingStructureContext(ObservableList<ClosingStructure> closingStructures, IAssessmentSection assessmentSection)
+            : base(closingStructures)
         {
             if (assessmentSection == null)
             {
@@ -50,7 +50,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the assessment section of this instance
+        /// Gets the assessment section of this instance.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
     }
