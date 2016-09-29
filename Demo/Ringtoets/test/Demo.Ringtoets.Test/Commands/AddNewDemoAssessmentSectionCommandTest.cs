@@ -274,12 +274,36 @@ namespace Demo.Ringtoets.Test.Commands
 
         private static void AssertHeightStructuresFailureMechanism(AssessmentSection demoAssessmentSection)
         {
+            Assert.AreEqual(1, demoAssessmentSection.HeightStructures.HeightStructures.Count);
+            AssertExpectedHeightStructureValues(demoAssessmentSection.HeightStructures.HeightStructures[0]);
+
             Assert.AreEqual(1, demoAssessmentSection.HeightStructures.CalculationsGroup.Children.Count);
             HeightStructuresCalculation calculation = demoAssessmentSection.HeightStructures
                                                                            .CalculationsGroup.GetCalculations()
                                                                            .OfType<HeightStructuresCalculation>()
                                                                            .First();
             AssertExpectedHeightStructuresInput(calculation.InputParameters);
+        }
+
+        private static void AssertExpectedHeightStructureValues(HeightStructure heightStructure)
+        {
+            Assert.AreEqual("KUNST1", heightStructure.Name);
+            Assert.AreEqual("KUNST1", heightStructure.Id);
+            Assert.AreEqual(new Point2D(12345.56789, 9876.54321), heightStructure.Location);
+            Assert.AreEqual(45.0, heightStructure.OrientationOfTheNormalOfTheStructure.Value);
+            Assert.AreEqual(5.9, heightStructure.LevelOfCrestOfStructure.Mean.Value);
+            Assert.AreEqual(0.01, heightStructure.LevelOfCrestOfStructure.StandardDeviation.Value);
+            Assert.AreEqual(18.5, heightStructure.FlowWidthAtBottomProtection.Mean.Value);
+            Assert.AreEqual(0.05, heightStructure.FlowWidthAtBottomProtection.StandardDeviation.Value);
+            Assert.AreEqual(0.1, heightStructure.CriticalOvertoppingDischarge.Mean.Value);
+            Assert.AreEqual(1.5, heightStructure.CriticalOvertoppingDischarge.StandardDeviation.Value);
+            Assert.AreEqual(4.0, heightStructure.WidthOfFlowApertures.Mean.Value);
+            Assert.AreEqual(0.05, heightStructure.WidthOfFlowApertures.StandardDeviation.Value);
+            Assert.AreEqual(1.0, heightStructure.FailureProbabilityOfStructureGivenErosion);
+            Assert.AreEqual(50000.0, heightStructure.StorageStructureArea.Mean.Value);
+            Assert.AreEqual(0.02, heightStructure.StorageStructureArea.StandardDeviation.Value);
+            Assert.AreEqual(6.5, heightStructure.AllowableIncreaseOfLevelForStorage.Mean.Value);
+            Assert.AreEqual(0.1, heightStructure.AllowableIncreaseOfLevelForStorage.StandardDeviation.Value);
         }
 
         private static void AssertExpectedHeightStructuresInput(HeightStructuresInput inputParameters)

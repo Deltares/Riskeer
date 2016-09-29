@@ -119,6 +119,31 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                  .Build()
             };
 
+            yield return new TreeNodeInfo<HeightStructuresCollectionContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ForeColor = context => context.WrappedData.Any()
+                                           ? Color.FromKnownColor(KnownColor.ControlText)
+                                           : Color.FromKnownColor(KnownColor.GrayText),
+                ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddImportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddExpandAllItem()
+                                                                                 .AddCollapseAllItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<HeightStructure>
+            {
+                Text = structure => structure.Name,
+                Image = structure => RingtoetsCommonFormsResources.StructuresIcon,
+                ContextMenuStrip = (structure, parentData, treeViewControl) => Gui.Get(structure, treeViewControl)
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
+            };
+
             yield return new TreeNodeInfo<ProbabilityAssessmentOutput>
             {
                 Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
@@ -137,22 +162,6 @@ namespace Ringtoets.HeightStructures.Plugin
                 Image = context => RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
-                                                                                 .Build()
-            };
-
-            yield return new TreeNodeInfo<HeightStructuresCollectionContext>
-            {
-                Text = context => RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
-                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
-                ForeColor = context => context.WrappedData.Any()
-                                           ? Color.FromKnownColor(KnownColor.ControlText)
-                                           : Color.FromKnownColor(KnownColor.GrayText),
-                ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddImportItem()
-                                                                                 .AddSeparator()
-                                                                                 .AddExpandAllItem()
-                                                                                 .AddCollapseAllItem()
                                                                                  .Build()
             };
         }

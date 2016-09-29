@@ -77,6 +77,7 @@
     <Compile Include="TreeNodeInfos\HeightStructuresFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="PresentationObjects\HeightStructuresInputContextTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresInputContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\HeightStructureTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ProbabilisticOutputTreeNodeInfoTest.cs" />
     <Compile Include="UITypeEditors\HeightStructuresInputContextHydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="Views\HeightStructuresFailureMechanismResultViewTest.cs" />

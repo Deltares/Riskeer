@@ -233,11 +233,18 @@ namespace Demo.Ringtoets.Commands
         private static void InitializeHeightStructuresData(AssessmentSection demoAssessmentSection)
         {
             HeightStructuresFailureMechanism failureMechanism = demoAssessmentSection.HeightStructures;
+            failureMechanism.HeightStructures.Add(CreateDemoHeightStructure());
 
             var calculation = new HeightStructuresCalculation();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();
+        }
+
+        private static HeightStructure CreateDemoHeightStructure()
+        {
+            return new HeightStructure("KUNST1", "KUNST1", new Point2D(12345.56789, 9876.54321),
+                                       45.0, 5.9, 0.01, 18.5, 0.05, 0.1, 1.5, 4.0, 0.05, 1.0, 50000.0, 0.02, 6.5, 0.1);
         }
 
         #endregion
