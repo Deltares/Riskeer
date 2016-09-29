@@ -134,9 +134,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                HydraRingDeviationType.Standard, drainCoefficientMean,
                                                drainCoefficientStandardDeviation, double.NaN);
 
-            // Area of flow apertures
-            yield return new HydraRingVariable(67, HydraRingDistributionType.LogNormal,
-                                               double.NaN, HydraRingDeviationType.Standard, areaFlowAperturesMean,
+            // Area flow apertures
+            yield return new HydraRingVariable(67, HydraRingDistributionType.LogNormal, double.NaN,
+                                               HydraRingDeviationType.Standard, areaFlowAperturesMean,
                                                areaFlowAperturesStandardDeviation, double.NaN);
 
             // Inside water level

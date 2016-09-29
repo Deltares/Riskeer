@@ -32,12 +32,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double modelFactorOvertoppingFlowMean;
         private readonly double modelFactorOvertoppingFlowStandardDeviation;
         private readonly double structureNormalOrientation;
-        private readonly double modelFactorOvertoppingSupercriticalFlowMean;
-        private readonly double modelFactorOvertoppingSupercriticalFlowStandardDeviation;
+        private readonly double modelFactorSuperCriticalFlowMean;
+        private readonly double modelFactorSuperCriticalFlowStandardDeviation;
         private readonly double levelCrestOfStructuresNotClosingMean;
         private readonly double levelCrestOfStructuresNotClosingStandardDeviation;
-        private readonly double widthOfFlowAperturesMean;
-        private readonly double widthOfFlowAperturesVariation;
+        private readonly double widthFlowAperturesMean;
+        private readonly double widthFlowAperturesVariation;
 
         /// <summary>
         /// Creates a new instance of <see cref="StructuresClosureVerticalWallCalculationInput"/>.
@@ -68,12 +68,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingModelFactorOvertoppingFlowMean">The mean of the model factor overtopping flow to use during the calculation.</param>
         /// <param name="hydraRingModelFactorOvertoppingFlowStandardDeviation">The standard deviation of the model factor overtopping flow to use during the calculation.</param>
         /// <param name="hydraRingStructureNormalOrientation">The orientation of the normal of the structure to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorOvertoppingSupercriticalFlowMean">The mean of the model factor overtopping supercritical flow to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation">The standard deviation of the model factor overtopping supercritical flow to use during the calculation.</param>
+        /// <param name="hydraRingModelFactorSuperCriticalFlowMean">The mean of the model factor super critical flow to use during the calculation.</param>
+        /// <param name="hydraRingModelFactorSuperCriticalFlowStandardDeviation">The standard deviation of the model factor super critical flow to use during the calculation.</param>
         /// <param name="hydraRingLevelCrestOfStructuresNotClosingMean">The mean of the level crest of structures not closing to use during the calculation.</param>
         /// <param name="hydraRingLevelCrestOfStructuresNotClosingStandardDeviation">The standard deviation of the level crest of structures not closing to use during the calculation.</param>
-        /// <param name="hydraRingWidthOfFlowAperturesMean">The mean of the width of flow apertures to use during the calculation.</param>
-        /// <param name="hydraRingWidthOfFlowAperturesVariation">The variation of the width of flow apertures to use during the calculation.</param>
+        /// <param name="hydraRingWidthFlowAperturesMean">The mean of the width of flow apertures to use during the calculation.</param>
+        /// <param name="hydraRingWidthFlowAperturesVariation">The variation of the width of flow apertures to use during the calculation.</param>
         public StructuresClosureVerticalWallCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
                                                              IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                              double hydraRingGravitationalAcceleration, double hydraRingFactorStormDurationOpenStructure,
@@ -87,10 +87,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                              double hydraRingFailureProbabilityOfStructureGivenErosion, double hydraRingStormDurationMean,
                                                              double hydraRingStormDurationVariation, double hydraRingProbabilityOpenStructureBeforeFlooding,
                                                              double hydraRingModelFactorOvertoppingFlowMean, double hydraRingModelFactorOvertoppingFlowStandardDeviation,
-                                                             double hydraRingStructureNormalOrientation, double hydraRingModelFactorOvertoppingSupercriticalFlowMean,
-                                                             double hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation, double hydraRingLevelCrestOfStructuresNotClosingMean,
-                                                             double hydraRingLevelCrestOfStructuresNotClosingStandardDeviation, double hydraRingWidthOfFlowAperturesMean,
-                                                             double hydraRingWidthOfFlowAperturesVariation)
+                                                             double hydraRingStructureNormalOrientation, double hydraRingModelFactorSuperCriticalFlowMean,
+                                                             double hydraRingModelFactorSuperCriticalFlowStandardDeviation, double hydraRingLevelCrestOfStructuresNotClosingMean,
+                                                             double hydraRingLevelCrestOfStructuresNotClosingStandardDeviation, double hydraRingWidthFlowAperturesMean,
+                                                             double hydraRingWidthFlowAperturesVariation)
             : base(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints,
                    hydraRingGravitationalAcceleration, hydraRingFactorStormDurationOpenStructure,
                    hydraRingFailureProbabilityOpenStructure, hydraRingFailureProbabilityReparation,
@@ -106,12 +106,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             modelFactorOvertoppingFlowMean = hydraRingModelFactorOvertoppingFlowMean;
             modelFactorOvertoppingFlowStandardDeviation = hydraRingModelFactorOvertoppingFlowStandardDeviation;
             structureNormalOrientation = hydraRingStructureNormalOrientation;
-            modelFactorOvertoppingSupercriticalFlowMean = hydraRingModelFactorOvertoppingSupercriticalFlowMean;
-            modelFactorOvertoppingSupercriticalFlowStandardDeviation = hydraRingModelFactorOvertoppingSupercriticalFlowStandardDeviation;
+            modelFactorSuperCriticalFlowMean = hydraRingModelFactorSuperCriticalFlowMean;
+            modelFactorSuperCriticalFlowStandardDeviation = hydraRingModelFactorSuperCriticalFlowStandardDeviation;
             levelCrestOfStructuresNotClosingMean = hydraRingLevelCrestOfStructuresNotClosingMean;
             levelCrestOfStructuresNotClosingStandardDeviation = hydraRingLevelCrestOfStructuresNotClosingStandardDeviation;
-            widthOfFlowAperturesMean = hydraRingWidthOfFlowAperturesMean;
-            widthOfFlowAperturesVariation = hydraRingWidthOfFlowAperturesVariation;
+            widthFlowAperturesMean = hydraRingWidthFlowAperturesMean;
+            widthFlowAperturesVariation = hydraRingWidthFlowAperturesVariation;
         }
 
         public override IEnumerable<HydraRingVariable> Variables
@@ -149,20 +149,20 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             yield return new HydraRingVariable(61, HydraRingDistributionType.Deterministic, structureNormalOrientation,
                                                HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
 
-            // Model factor overtopping supercritical flow
+            // Model factor super critical flow
             yield return new HydraRingVariable(62, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, modelFactorOvertoppingSupercriticalFlowMean,
-                                               modelFactorOvertoppingSupercriticalFlowStandardDeviation, double.NaN);
+                                               HydraRingDeviationType.Standard, modelFactorSuperCriticalFlowMean,
+                                               modelFactorSuperCriticalFlowStandardDeviation, double.NaN);
 
             // Level crest of structures not closing
             yield return new HydraRingVariable(72, HydraRingDistributionType.Normal, double.NaN,
                                                HydraRingDeviationType.Standard, levelCrestOfStructuresNotClosingMean,
                                                levelCrestOfStructuresNotClosingStandardDeviation, double.NaN);
 
-            // Width of flow apertures
+            // Width flow apertures
             yield return new HydraRingVariable(106, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Variation, widthOfFlowAperturesMean,
-                                               widthOfFlowAperturesVariation, double.NaN);
+                                               HydraRingDeviationType.Variation, widthFlowAperturesMean,
+                                               widthFlowAperturesVariation, double.NaN);
         }
     }
 }

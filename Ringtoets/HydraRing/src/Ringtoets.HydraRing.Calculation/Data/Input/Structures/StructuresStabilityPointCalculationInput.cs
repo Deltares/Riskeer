@@ -98,8 +98,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingModelFactorSubCriticalFlowVariation">The variation of the model factor sub critical flow to use during the calculation.</param>
         /// <param name="hydraRingThresholdHeightOpenWeirMean">The mean of the threshold height open weir to use during the calculation.</param>
         /// <param name="hydraRingThresholdHeightOpenWeirStandardDeviation">The standard deviation of the threshold height open weir to use during the calculation.</param>
-        /// <param name="hydarRingInsideWaterLevelFailureConstructionMean">The mean of the inside water level at failure of construction to use during the calculation.</param>
-        /// <param name="hydarRingInsideWaterLevelFailureConstructionStandardDeviation">The standard deviation of the inside water level at failure of construction to use during the calculation.</param>
+        /// <param name="hydraRingInsideWaterLevelFailureConstructionMean">The mean of the inside water level at failure of construction to use during the calculation.</param>
+        /// <param name="hydraRingInsideWaterLevelFailureConstructionStandardDeviation">The standard deviation of the inside water level at failure of construction to use during the calculation.</param>
         /// <param name="hydraRingFailureProbabilityRepairClosure">The failure probability repair closure to use during the calculation.</param>
         /// <param name="hydraRingFailureCollisionEnergyMean">The mean of the failure collision energy to use during the calculation.</param>
         /// <param name="hydraRingFailureCollisionEnergyVariation">The variation of the failure collision energy to use during the calculation.</param>
@@ -146,7 +146,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                            double hydraRingStructureNormalOrientation, double hydraRingFactorStormDurationOpenStructure,
                                                            double hydraRingModelFactorSubCriticalFlowMean, double hydraRingModelFactorSubCriticalFlowVariation,
                                                            double hydraRingThresholdHeightOpenWeirMean, double hydraRingThresholdHeightOpenWeirStandardDeviation,
-                                                           double hydarRingInsideWaterLevelFailureConstructionMean, double hydarRingInsideWaterLevelFailureConstructionStandardDeviation,
+                                                           double hydraRingInsideWaterLevelFailureConstructionMean, double hydraRingInsideWaterLevelFailureConstructionStandardDeviation,
                                                            double hydraRingFailureProbabilityRepairClosure,
                                                            double hydraRingFailureCollisionEnergyMean, double hydraRingFailureCollisionEnergyVariation,
                                                            double hydraRingModelFactorCollisionLoadMean, double hydraRingModelFactorCollisionLoadVariation,
@@ -184,8 +184,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             modelFactorSubCriticalFlowVariation = hydraRingModelFactorSubCriticalFlowVariation;
             thresholdHeightOpenWeirMean = hydraRingThresholdHeightOpenWeirMean;
             thresholdHeightOpenWeirStandardDeviation = hydraRingThresholdHeightOpenWeirStandardDeviation;
-            insideWaterLevelFailureConstructionMean = hydarRingInsideWaterLevelFailureConstructionMean;
-            insideWaterLevelFailureConstructionStandardDeviation = hydarRingInsideWaterLevelFailureConstructionStandardDeviation;
+            insideWaterLevelFailureConstructionMean = hydraRingInsideWaterLevelFailureConstructionMean;
+            insideWaterLevelFailureConstructionStandardDeviation = hydraRingInsideWaterLevelFailureConstructionStandardDeviation;
             failureProbabilityRepairClosure = hydraRingFailureProbabilityRepairClosure;
             failureCollisionEnergyMean = hydraRingFailureCollisionEnergyMean;
             failureCollisionEnergyVariation = hydraRingFailureCollisionEnergyVariation;

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
 {
@@ -28,6 +29,15 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
     /// </summary>
     public class StructuresStabilityPointFloodedCulvertLinearCalculationInput : StructuresStabilityPointCalculationInput
     {
+        private readonly double drainCoefficientMean;
+        private readonly double drainCoefficientStandardDeviation;
+        private readonly double areaFlowAperturesMean;
+        private readonly double areaFlowAperturesStandardDeviation;
+        private readonly double stabilityLinearLoadModelMean;
+        private readonly double stabilityLinearLoadModelVariation;
+        private readonly double constructiveStrengthLinearLoadModelMean;
+        private readonly double constructiveStrengthLinearLoadModelVariation;
+
         /// <summary>
         /// Creates a new instance of <see cref="StructuresStabilityPointFloodedCulvertLinearCalculationInput"/>.
         /// </summary>
@@ -44,8 +54,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingModelFactorSubCriticalFlowVariation">The variation of the model factor sub critical flow to use during the calculation.</param>
         /// <param name="hydraRingThresholdHeightOpenWeirMean">The mean of the threshold height open weir to use during the calculation.</param>
         /// <param name="hydraRingThresholdHeightOpenWeirStandardDeviation">The standard deviation of the threshold height open weir to use during the calculation.</param>
-        /// <param name="hydarRingInsideWaterLevelFailureConstructionMean">The mean of the inside water level at failure of construction to use during the calculation.</param>
-        /// <param name="hydarRingInsideWaterLevelFailureConstructionStandardDeviation">The standard deviation of the inside water level at failure of construction to use during the calculation.</param>
+        /// <param name="hydraRingInsideWaterLevelFailureConstructionMean">The mean of the inside water level at failure of construction to use during the calculation.</param>
+        /// <param name="hydraRingInsideWaterLevelFailureConstructionStandardDeviation">The standard deviation of the inside water level at failure of construction to use during the calculation.</param>
         /// <param name="hydraRingFailureProbabilityRepairClosure">The failure probability repair closure to use during the calculation.</param>
         /// <param name="hydraRingFailureCollisionEnergyMean">The mean of the failure collision energy to use during the calculation.</param>
         /// <param name="hydraRingFailureCollisionEnergyVariation">The variation of the failure collision energy to use during the calculation.</param>
@@ -85,6 +95,14 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingVerticalDistance">The vertical distance to use during the calculation.</param>
         /// <param name="hydraRingModificationFactorWavesSlowlyVaryingPressureComponent">The modification factor waves slowly-varying pressure component to use during the calculation.</param>
         /// <param name="hydraRingModificationFactorDynamicOrImpulsivePressureComponent">The modification factor dynamic or impulsive pressure component to use during the calculation.</param>
+        /// <param name="hydraRingDrainCoefficientMean">The mean of the drain coefficient to use during the calculation.</param>
+        /// <param name="hydraRingDrainCoefficientStandardDeviation">The standard deviation of the drain coefficient to use during the calculation.</param>
+        /// <param name="hydraRingAreaFlowAperturesMean">The mean of the area of flow apertures to use during the calculation.</param>
+        /// <param name="hydraRingAreaFlowAperturesStandardDeviation">The standard diviation of the area of flow apertures to use during the calculation.</param>
+        /// <param name="hydraRingStabilityLinearLoadModelMean">The mean of the stability linear load model to use during the calculation.</param>
+        /// <param name="hydraRingStabilityLinearLoadModelVariation">The variation of the stability linear load model to use during the calculation.</param>
+        /// <param name="hydraRingConstructiveStrengthLinearLoadModelMean">The mean of the constructive strength linear load model to use during the calculation.</param>
+        /// <param name="hydraRingConstructiveStrengthLinearLoadModelVariation">The variation of the constructive strength linear load model to use during the calculation.</param>
         public StructuresStabilityPointFloodedCulvertLinearCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
                                                                             IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                                             double hydraRingVolumicWeightWater, double hydraRingGravitationalAcceleration,
@@ -92,7 +110,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                             double hydraRingStructureNormalOrientation, double hydraRingFactorStormDurationOpenStructure,
                                                                             double hydraRingModelFactorSubCriticalFlowMean, double hydraRingModelFactorSubCriticalFlowVariation,
                                                                             double hydraRingThresholdHeightOpenWeirMean, double hydraRingThresholdHeightOpenWeirStandardDeviation,
-                                                                            double hydarRingInsideWaterLevelFailureConstructionMean, double hydarRingInsideWaterLevelFailureConstructionStandardDeviation,
+                                                                            double hydraRingInsideWaterLevelFailureConstructionMean, double hydraRingInsideWaterLevelFailureConstructionStandardDeviation,
                                                                             double hydraRingFailureProbabilityRepairClosure,
                                                                             double hydraRingFailureCollisionEnergyMean, double hydraRingFailureCollisionEnergyVariation,
                                                                             double hydraRingModelFactorCollisionLoadMean, double hydraRingModelFactorCollisionLoadVariation,
@@ -115,14 +133,18 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                             double hydraRingWaveRatioMaxHMean, double hydraRingWaveRatioMaxHStandardDeviation,
                                                                             double hydraRingVerticalDistance,
                                                                             double hydraRingModificationFactorWavesSlowlyVaryingPressureComponent,
-                                                                            double hydraRingModificationFactorDynamicOrImpulsivePressureComponent)
+                                                                            double hydraRingModificationFactorDynamicOrImpulsivePressureComponent,
+                                                                            double hydraRingDrainCoefficientMean, double hydraRingDrainCoefficientStandardDeviation,
+                                                                            double hydraRingAreaFlowAperturesMean, double hydraRingAreaFlowAperturesStandardDeviation,
+                                                                            double hydraRingStabilityLinearLoadModelMean, double hydraRingStabilityLinearLoadModelVariation,
+                                                                            double hydraRingConstructiveStrengthLinearLoadModelMean, double hydraRingConstructiveStrengthLinearLoadModelVariation)
             : base(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints,
                    hydraRingVolumicWeightWater, hydraRingGravitationalAcceleration,
                    hydraRingLevelCrestStructureMean, hydraRingLevelCrestStructureStandardDeviation,
                    hydraRingStructureNormalOrientation, hydraRingFactorStormDurationOpenStructure,
                    hydraRingModelFactorSubCriticalFlowMean, hydraRingModelFactorSubCriticalFlowVariation,
                    hydraRingThresholdHeightOpenWeirMean, hydraRingThresholdHeightOpenWeirStandardDeviation,
-                   hydarRingInsideWaterLevelFailureConstructionMean, hydarRingInsideWaterLevelFailureConstructionStandardDeviation,
+                   hydraRingInsideWaterLevelFailureConstructionMean, hydraRingInsideWaterLevelFailureConstructionStandardDeviation,
                    hydraRingFailureProbabilityRepairClosure,
                    hydraRingFailureCollisionEnergyMean, hydraRingFailureCollisionEnergyVariation,
                    hydraRingModelFactorCollisionLoadMean, hydraRingModelFactorCollisionLoadVariation,
@@ -145,7 +167,28 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                    hydraRingWaveRatioMaxHMean, hydraRingWaveRatioMaxHStandardDeviation,
                    hydraRingVerticalDistance,
                    hydraRingModificationFactorWavesSlowlyVaryingPressureComponent,
-                   hydraRingModificationFactorDynamicOrImpulsivePressureComponent) {}
+                   hydraRingModificationFactorDynamicOrImpulsivePressureComponent)
+        {
+            drainCoefficientMean = hydraRingDrainCoefficientMean;
+            drainCoefficientStandardDeviation = hydraRingDrainCoefficientStandardDeviation;
+            areaFlowAperturesMean = hydraRingAreaFlowAperturesMean;
+            areaFlowAperturesStandardDeviation = hydraRingAreaFlowAperturesStandardDeviation;
+            stabilityLinearLoadModelMean = hydraRingStabilityLinearLoadModelMean;
+            stabilityLinearLoadModelVariation = hydraRingStabilityLinearLoadModelVariation;
+            constructiveStrengthLinearLoadModelMean = hydraRingConstructiveStrengthLinearLoadModelMean;
+            constructiveStrengthLinearLoadModelVariation = hydraRingConstructiveStrengthLinearLoadModelVariation;
+        }
+
+        public override IEnumerable<HydraRingVariable> Variables
+        {
+            get
+            {
+                var variables = base.Variables.ToList();
+                variables.AddRange(GetVariables());
+
+                return variables.OrderBy(v => v.VariableId);
+            }
+        }
 
         public override int? GetSubMechanismModelId(int subMechanismId)
         {
@@ -162,6 +205,29 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 default:
                     return null;
             }
+        }
+
+        private IEnumerable<HydraRingVariable> GetVariables()
+        {
+            // Drain coefficient
+            yield return new HydraRingVariable(66, HydraRingDistributionType.Normal, double.NaN,
+                                               HydraRingDeviationType.Standard, drainCoefficientMean,
+                                               drainCoefficientStandardDeviation, double.NaN);
+
+            // Area flow apertures
+            yield return new HydraRingVariable(67, HydraRingDistributionType.LogNormal, double.NaN,
+                                               HydraRingDeviationType.Standard, areaFlowAperturesMean,
+                                               areaFlowAperturesStandardDeviation, double.NaN);
+
+            // Stability linear load model
+            yield return new HydraRingVariable(80, HydraRingDistributionType.LogNormal, double.NaN,
+                                               HydraRingDeviationType.Variation, stabilityLinearLoadModelMean,
+                                               stabilityLinearLoadModelVariation, double.NaN);
+
+            // Constructive strength linear load model
+            yield return new HydraRingVariable(83, HydraRingDistributionType.LogNormal, double.NaN,
+                                               HydraRingDeviationType.Variation, constructiveStrengthLinearLoadModelMean,
+                                               constructiveStrengthLinearLoadModelVariation, double.NaN);
         }
     }
 }
