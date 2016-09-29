@@ -44,6 +44,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, inputParameters.N.NumberOfDecimalPlaces);
             Assert.AreEqual(1, inputParameters.N, inputParameters.N.GetAccuracy());
 
+            Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
+            Assert.AreEqual(9.81, inputParameters.GravitationalAcceleration, inputParameters.GravitationalAcceleration.GetAccuracy());
+
             var modelfactorForSubcriticalFlow = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(1, 1),
@@ -51,6 +54,25 @@ namespace Ringtoets.ClosingStructures.Data.Test
             };
             Assert.AreEqual(modelfactorForSubcriticalFlow.Mean, inputParameters.ModelfactorForSubcriticalFlow.Mean);
             Assert.AreEqual(modelfactorForSubcriticalFlow.StandardDeviation, inputParameters.ModelfactorForSubcriticalFlow.StandardDeviation);
+
+            var modelfactorForOvertoppingFlow = new LogNormalDistribution(3)
+            {
+              Mean = new RoundedDouble(2, 0.09),
+              StandardDeviation =  new RoundedDouble(2, 0.06)
+            };
+            Assert.AreEqual(modelfactorForOvertoppingFlow.Mean, inputParameters.ModelFactorOvertoppingFlow.Mean);
+            Assert.AreEqual(modelfactorForOvertoppingFlow.StandardDeviation, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation);
+
+            var modelfactorForStorageVolume = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.0,
+                StandardDeviation = (RoundedDouble) 0.2
+            };
+            Assert.AreEqual(modelfactorForStorageVolume.Mean, inputParameters.ModelFactorForStorageVolume.Mean);
+            Assert.AreEqual(modelfactorForStorageVolume.StandardDeviation, inputParameters.ModelFactorForStorageVolume.StandardDeviation);
+
+            Assert.AreEqual(2, inputParameters.ModelFactorForIncomingFlowVolume.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, inputParameters.ModelFactorForIncomingFlowVolume, inputParameters.ModelFactorForIncomingFlowVolume.GetAccuracy());
         }
 
         [Test]

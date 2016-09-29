@@ -40,14 +40,34 @@ namespace Ringtoets.ClosingStructures.Data
             c = new RoundedDouble(2, 0.5);
             N2A = 1;
 
-            ModelFactorOvertoppingFlow = new LogNormalDistribution(3);
-            ModelFactorForStorageVolume = new LogNormalDistribution(2);
+            GravitationalAcceleration = new RoundedDouble(2, 9.81);
+
+            ModelFactorOvertoppingFlow = new LogNormalDistribution(3)
+            {
+                Mean = (RoundedDouble) 0.09,
+                StandardDeviation = (RoundedDouble) 0.06
+            };
+            ModelFactorForStorageVolume = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1,
+                StandardDeviation = (RoundedDouble) 0.2
+            };
             ModelfactorForSubcriticalFlow = new NormalDistribution(1)
             {
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.1
             };
+            ModelFactorForIncomingFlowVolume = new RoundedDouble(2, 1);
         }
+
+        #region Constants
+
+        /// <summary>
+        /// Gets the gravitational acceleration.
+        /// </summary>
+        public RoundedDouble GravitationalAcceleration { get; private set; }
+
+        #endregion
 
         #region Length effect parameters
 
@@ -100,6 +120,11 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets the model factor for subcritical flow.
         /// </summary>
         public NormalDistribution ModelfactorForSubcriticalFlow { get; private set; }
+
+        /// <summary>
+        /// Get the model factor for incoming flow volume.
+        /// </summary>
+        public RoundedDouble ModelFactorForIncomingFlowVolume { get; private set; }
 
         #endregion
     }
