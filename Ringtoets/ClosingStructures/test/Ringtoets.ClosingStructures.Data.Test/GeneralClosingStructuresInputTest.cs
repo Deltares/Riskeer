@@ -57,19 +57,19 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             var modelFactorOvertoppingFlow = new LogNormalDistribution(3)
             {
-              Mean = new RoundedDouble(2, 0.09),
-              StandardDeviation =  new RoundedDouble(2, 0.06)
+                Mean = new RoundedDouble(2, 0.09),
+                StandardDeviation = new RoundedDouble(2, 0.06)
             };
             Assert.AreEqual(modelFactorOvertoppingFlow.Mean, inputParameters.ModelFactorOvertoppingFlow.Mean);
             Assert.AreEqual(modelFactorOvertoppingFlow.StandardDeviation, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation);
 
             var modelfactorForStorageVolume = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) 1.0,
-                StandardDeviation = (RoundedDouble) 0.2
+                Mean = (RoundedDouble) 1.0
             };
             Assert.AreEqual(modelfactorForStorageVolume.Mean, inputParameters.ModelFactorForStorageVolume.Mean);
-            Assert.AreEqual(modelfactorForStorageVolume.StandardDeviation, inputParameters.ModelFactorForStorageVolume.StandardDeviation);
+            Assert.AreEqual(0.2, inputParameters.ModelFactorForStorageVolume.GetVariationCoefficient(),
+                            inputParameters.ModelFactorForStorageVolume.GetVariationCoefficient().GetAccuracy());
 
             Assert.AreEqual(2, inputParameters.ModelFactorForIncomingFlowVolume.NumberOfDecimalPlaces);
             Assert.AreEqual(1.0, inputParameters.ModelFactorForIncomingFlowVolume, inputParameters.ModelFactorForIncomingFlowVolume.GetAccuracy());
