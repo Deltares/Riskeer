@@ -166,12 +166,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var heightStructureContext = new HeightStructureContext(heightStructures, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(heightStructureContext);
+            object[] children = info.ChildNodeObjects(heightStructureContext);
 
             // Assert
-            Assert.AreEqual(2, children.Length);
-            Assert.AreSame(heightStructure1, children.ElementAt(0));
-            Assert.AreSame(heightStructure2, children.ElementAt(1));
+            CollectionAssert.AreEqual(heightStructures, children);
             mocks.VerifyAll();
         }
 

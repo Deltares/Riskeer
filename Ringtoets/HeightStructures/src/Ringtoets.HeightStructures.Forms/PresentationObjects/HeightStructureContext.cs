@@ -28,16 +28,19 @@ using Ringtoets.HeightStructures.Data;
 namespace Ringtoets.HeightStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// The presentation object for <see cref="HeightStructure"/>
+    /// The presentation object for <see cref="HeightStructure"/>.
     /// </summary>
     public class HeightStructureContext : ObservableWrappedObjectContextBase<ObservableList<HeightStructure>>
     {
         /// <summary>
-        /// Creates an instance of <see cref="HeightStructureContext"/>
+        /// Creates an instance of <see cref="HeightStructureContext"/>.
         /// </summary>
-        /// <param name="heightStructures">The wrapped <see cref="ObservableList{T}"/> containing <see cref="HeightStructure"/></param>
-        /// <param name="assessmentSection">The assessment section which the height structures belong to</param>
-        /// <exception cref="ArgumentNullException">Thrown when any of the input arguments are <c>null</c></exception>
+        /// <param name="heightStructures">The wrapped <see cref="ObservableList{T}"/>
+        /// containing <see cref="HeightStructure"/>.</param>
+        /// <param name="assessmentSection">The assessment section which the height structures
+        /// belong to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any of the input arguments
+        /// are <c>null</c>.</exception>
         public HeightStructureContext(ObservableList<HeightStructure> heightStructures, IAssessmentSection assessmentSection)
             : base(heightStructures)
         {
@@ -50,7 +53,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// Gets the assessment section of this instance
+        /// Gets the assessment section of this instance.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
     }
