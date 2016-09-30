@@ -22,6 +22,8 @@
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.StabilityPointStructures.Data.Test
@@ -94,6 +96,36 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.AreEqual(0, failureMechanism.Sections.Count());
             Assert.AreEqual(0, failureMechanism.SectionResults.Count());
+        }
+
+        [Test]
+        public void Calculations_MultipleChildrenAdded_ReturnStabilityPointStructuresCalculations()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        new CalculationGroup(),
+                        new StabilityPointStructuresCalculation(),
+                        mocks.StrictMock<ICalculation>(),
+                        new StabilityPointStructuresCalculation()
+                    }
+                }
+            };
+
+            mocks.ReplayAll();
+
+            // Call
+            var calculations = failureMechanism.Calculations.ToList();
+
+            // Assert
+            Assert.AreEqual(2, calculations.Count);
+            CollectionAssert.AllItemsAreInstancesOfType(calculations, typeof(StabilityPointStructuresCalculation));
+            mocks.VerifyAll();
         }
     }
 }
