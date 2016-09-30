@@ -78,7 +78,7 @@ namespace Ringtoets.HeightStructures.IO
                 if (!groupedStructureParameterRows.ContainsKey(id))
                 {
                     log.WarnFormat(RingtoetsCommonIOResources.StructuresImporter_CreateSpecificStructures_no_structuresdata_for_location_0_, id);
-                    log.ErrorFormat("Kunstwerk nummer {0} wordt overgeslagen.", i);
+                    log.ErrorFormat("Kunstwerk nummer {0} wordt overgeslagen.", i+1);
                     continue;
                 }
 
@@ -87,7 +87,7 @@ namespace Ringtoets.HeightStructures.IO
                 ValidationResult parameterRowsValidationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(structureParameterRows);
                 if (!parameterRowsValidationResult.IsValid)
                 {
-                    LogMessages(parameterRowsValidationResult, i);
+                    LogMessages(parameterRowsValidationResult, i+1);
                     continue;
                 }
 
