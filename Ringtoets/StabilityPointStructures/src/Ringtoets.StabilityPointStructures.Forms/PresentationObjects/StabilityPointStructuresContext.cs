@@ -35,14 +35,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
     /// Presentation object representing all required stability point structures input knowledge to configure and create
     /// related objects. It will delegate observable behavior to the wrapped data object.
     /// </summary>
-    public class StabilityPointStructuresContext<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
+    public abstract class StabilityPointStructuresContext<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
     {
          /// <summary>
         /// Initializes a new instance of the <see cref="StabilityPointStructuresContext{T}"/> class.
         /// </summary>
         /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
-        /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
+        /// <param name="assessmentSection">The assessment section which <paramref name="failureMechanism"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
         protected StabilityPointStructuresContext(
             T wrappedData,
@@ -70,7 +70,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         public StabilityPointStructuresFailureMechanism FailureMechanism { get; private set; }
 
         /// <summary>
-        /// Gets the assessment section which the context belongs to.
+        /// Gets the assessment section which <see cref="FailureMechanism"/> belongs to.
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
 

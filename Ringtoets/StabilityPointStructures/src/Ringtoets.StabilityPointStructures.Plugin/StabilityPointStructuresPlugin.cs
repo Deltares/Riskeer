@@ -264,7 +264,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             CalculationGroup group = context.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
-            var isNestedGroup = parentData is StabilityPointStructuresCalculationGroupContext;
+            bool isNestedGroup = parentData is StabilityPointStructuresCalculationGroupContext;
 
             StrictContextMenuItem generateCalculationsItem = CreateGenerateCalculationsItem(context);
 

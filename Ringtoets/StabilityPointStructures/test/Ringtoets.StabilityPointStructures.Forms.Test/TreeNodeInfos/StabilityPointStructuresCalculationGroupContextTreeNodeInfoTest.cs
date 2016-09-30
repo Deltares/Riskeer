@@ -66,7 +66,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         public void SetUp()
         {
             mocks = new MockRepository();
-            guiMock = mocks.StrictMock<IGui>();
+            guiMock = mocks.Stub<IGui>();
             plugin = new StabilityPointStructuresPlugin
             {
                 Gui = guiMock
@@ -108,7 +108,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
@@ -126,8 +126,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_GroupWithMixedContents_ReturnChildren()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var calculationItemMock = mocks.StrictMock<ICalculationBase>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -136,7 +135,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var childCalculation = new StabilityPointStructuresCalculation();
 
             group.Children.Add(childGroup);
-            group.Children.Add(calculationItemMock);
             group.Children.Add(childCalculation);
 
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
@@ -144,7 +142,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                                                                                    assessmentSectionMock);
 
             // Call
-            var children = info.ChildNodeObjects(groupContext).ToArray();
+            object[] children = info.ChildNodeObjects(groupContext).ToArray();
 
             // Assert
             Assert.AreEqual(group.Children.Count, children.Length);
@@ -152,8 +150,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             Assert.AreSame(childGroup, calculationGroupContext.WrappedData);
             Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, calculationGroupContext.AssessmentSection);
-            Assert.AreSame(calculationItemMock, children[1]);
-            var calculationContext = (StabilityPointStructuresCalculationContext) children[2];
+            var calculationContext = (StabilityPointStructuresCalculationContext) children[1];
             Assert.AreSame(childCalculation, calculationContext.WrappedData);
             Assert.AreSame(assessmentSectionMock, calculationContext.AssessmentSection);
         }
@@ -164,7 +161,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                    failureMechanism,
                                                                                    assessmentSectionMock);
@@ -208,7 +205,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                    failureMechanism,
                                                                                    assessmentSectionMock);
@@ -265,7 +262,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                    failureMechanism,
                                                                                    assessmentSectionMock);
@@ -309,7 +306,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                    failureMechanism,
                                                                                    assessmentSectionMock);
@@ -364,7 +361,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                failureMechanism,
                                                                                assessmentSectionMock);
@@ -410,7 +407,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new CalculationGroup();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                failureMechanism,
                                                                                assessmentSectionMock);
@@ -465,7 +462,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 };
 
                 var failureMechanism = new StabilityPointStructuresFailureMechanism();
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+                var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
                 var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                    failureMechanism,
                                                                                    assessmentSectionMock);
@@ -504,7 +501,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Setup
             var observerMock = mocks.StrictMock<IObserver>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var nodeData = new StabilityPointStructuresCalculationGroupContext(group,

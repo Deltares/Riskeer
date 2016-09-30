@@ -40,8 +40,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(null);
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var target = new ObservableObject();
@@ -64,7 +63,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var observableObject = new ObservableObject();
@@ -101,8 +100,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
 
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase).Repeat.Twice();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();

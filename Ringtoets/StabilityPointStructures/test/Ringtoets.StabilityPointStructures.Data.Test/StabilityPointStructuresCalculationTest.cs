@@ -141,7 +141,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Setup
             var calculation = new StabilityPointStructuresCalculation();
-            var inputParameters = calculation.InputParameters;
+            StabilityPointStructuresInput inputParameters = calculation.InputParameters;
 
             // Call
             ICalculationInput input = calculation.GetObservableInput();
