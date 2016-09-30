@@ -81,6 +81,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="DikeProfiles\RoughnessPoint.cs" />
+    <Compile Include="StructureBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

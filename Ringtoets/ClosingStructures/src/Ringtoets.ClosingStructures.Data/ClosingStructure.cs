@@ -19,12 +19,26 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data;
+
 namespace Ringtoets.ClosingStructures.Data
 {
     /// <summary>
     /// Definition of a closing structure for the <see cref="ClosingStructuresFailureMechanism"/>
     /// </summary>
-    public class ClosingStructure
+    public class ClosingStructure : StructureBase
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="ClosingStructure"/>.
+        /// </summary>
+        /// <param name="name">The name of the structure.</param>
+        /// <param name="id">The identifier of the structure.</param>
+        /// <param name="location">The location of the structure.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
+        /// , empty or consists of whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
+        public ClosingStructure(string name, string id, Point2D location) : base(name, id, location) {}
     }
 }

@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
 
 namespace Ringtoets.HeightStructures.Data
@@ -29,7 +30,7 @@ namespace Ringtoets.HeightStructures.Data
     /// <summary>
     /// Definition of a height structure for the <see cref="HeightStructuresFailureMechanism"/>.
     /// </summary>
-    public class HeightStructure
+    public class HeightStructure : StructureBase
     {
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructure"/>.
@@ -51,7 +52,8 @@ namespace Ringtoets.HeightStructures.Data
         /// <param name="storageStructureAreaStandardDeviation">The standard deviation of storage area of the height structure.</param>
         /// <param name="allowableIncreaseOfLevelForStorageMean">The mean allowable increase of level for storage of the height structure.</param>
         /// <param name="allowableIncreaseOfLevelForStorageStandardDeviation">The standard deviation of allowable increase of level for storage of the height structure.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
+        /// , empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
         public HeightStructure(string name, string id, Point2D location,
                                double orientationOfTheNormalOfTheStructure,
@@ -62,24 +64,8 @@ namespace Ringtoets.HeightStructures.Data
                                double failureProbabilityOfStructureGivenErosion,
                                double storageStructureAreaMean, double storageStructureAreaStandardDeviation,
                                double allowableIncreaseOfLevelForStorageMean, double allowableIncreaseOfLevelForStorageStandardDeviation
-            )
+            ) : base(name, id, location)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException("name");
-            }
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                throw new ArgumentException("id");
-            }
-            if (location == null)
-            {
-                throw new ArgumentNullException("location");
-            }
-
-            Name = name;
-            Id = id;
-            Location = location;
             OrientationOfTheNormalOfTheStructure = new RoundedDouble(2, orientationOfTheNormalOfTheStructure);
             LevelOfCrestOfStructure = new NormalDistribution(2)
             {
@@ -113,21 +99,6 @@ namespace Ringtoets.HeightStructures.Data
                 StandardDeviation = new RoundedDouble(2, allowableIncreaseOfLevelForStorageStandardDeviation)
             };
         }
-
-        /// <summary>
-        /// Gets the name of the height structure.
-        /// </summary>
-        public string Name { get; private set; }
-
-        /// <summary>
-        /// Gets the identifier of the height structure.
-        /// </summary>
-        public string Id { get; private set; }
-
-        /// <summary>
-        /// Gets the location of the height structure.
-        /// </summary>
-        public Point2D Location { get; private set; }
 
         /// <summary>
         /// Gets the orientation of the height structure, relative to north.

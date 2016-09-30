@@ -21,17 +21,16 @@
 
 using System;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data;
 
-namespace Ringtoets.StabilityPointStructures.Data
+namespace Ringtoets.Common.Data
 {
     /// <summary>
-    /// Definition of a stability point structure for the <see cref="StabilityPointStructuresFailureMechanism"/>.
+    /// Base definition of a structure.
     /// </summary>
-    public class StabilityPointStructure : StructureBase
+    public abstract class StructureBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityPointStructure"/>.
+        /// Creates a new instance of <see cref="StructureBase"/>.
         /// </summary>
         /// <param name="name">The name of the structure.</param>
         /// <param name="id">The identifier of the structure.</param>
@@ -39,6 +38,39 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
         /// , empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
-        public StabilityPointStructure(string name, string id, Point2D location) : base(name, id, location) {}
+        protected StructureBase(string name, string id, Point2D location)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("name");
+            }
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                throw new ArgumentException("id");
+            }
+            if (location == null)
+            {
+                throw new ArgumentNullException("location");
+            }
+
+            Name = name;
+            Id = id;
+            Location = location;
+        }
+
+        /// <summary>
+        /// Gets the name of the structure.
+        /// </summary>
+        public string Name { get; private set; }
+
+        /// <summary>
+        /// Gets the identifier of the structure.
+        /// </summary>
+        public string Id { get; private set; }
+
+        /// <summary>
+        /// Gets the location of the structure.
+        /// </summary>
+        public Point2D Location { get; private set; }
     }
 }

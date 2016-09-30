@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
 
 namespace Ringtoets.HeightStructures.Data.Test
@@ -31,43 +32,6 @@ namespace Ringtoets.HeightStructures.Data.Test
     [TestFixture]
     public class HeightStructureTest
     {
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("   ")]
-        public void Constructor_NameNullOrWhiteSpace_ThrowsArgumentException(string name)
-        {
-            // Call
-            TestDelegate call = () => new HeightStructure(name, "anId", new Point2D(0, 0), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "name");
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("   ")]
-        public void Constructor_IdNullOrWhiteSpace_ThrowsArgumentException(string id)
-        {
-            // Call
-            TestDelegate call = () => new HeightStructure("aName", id, new Point2D(0, 0), 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "id");
-        }
-
-        [Test]
-        public void Constructor_LocationNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new HeightStructure("aName", "anId", null, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("location", paramName);
-        }
-
         [Test]
         public void Constructor_ValidData_ExpectedValues()
         {
@@ -86,6 +50,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                                                       225.336, 0.22533);
 
             // Assert
+            Assert.IsInstanceOf<StructureBase>(heightStructure);
             Assert.AreEqual("aName", heightStructure.Name);
             Assert.AreEqual("anId", heightStructure.Id);
             Assert.IsInstanceOf<Point2D>(heightStructure.Location);

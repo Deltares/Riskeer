@@ -19,12 +19,30 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 
 namespace Ringtoets.ClosingStructures.Data.Test
 {
     [TestFixture]
     public class ClosingStructureTest
     {
+        [Test]
+        public void Constructor_ValidData_ExpectedValues()
+        {
+            // Setup
+            var location = new Point2D(1.22, 2.333);
+
+            // Call
+            var structure = new ClosingStructure("aName", "anId", location);
+
+            // Assert
+            Assert.IsInstanceOf<StructureBase>(structure);
+            Assert.AreEqual("aName", structure.Name);
+            Assert.AreEqual("anId", structure.Id);
+            Assert.AreEqual(location.X, structure.Location.X);
+            Assert.AreEqual(location.Y, structure.Location.Y);
+        }
     }
 }

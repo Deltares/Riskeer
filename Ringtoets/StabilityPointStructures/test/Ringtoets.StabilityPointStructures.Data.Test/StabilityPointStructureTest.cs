@@ -19,53 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data;
 
 namespace Ringtoets.StabilityPointStructures.Data.Test
 {
     [TestFixture]
     public class StabilityPointStructureTest
     {
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("   ")]
-        public void Constructor_NameNullOrWhiteSpace_ThrowArgumentException(string name)
-        {
-            // Call
-            TestDelegate call = () => new StabilityPointStructure(name, "anId", new Point2D(0, 0));
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "name");
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("   ")]
-        public void Constructor_IdNullOrWhiteSpace_ThrowArgumentException(string id)
-        {
-            // Call
-            TestDelegate call = () => new StabilityPointStructure("aName", id, new Point2D(0, 0));
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "id");
-        }
-
-        [Test]
-        public void Constructor_LocationNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new StabilityPointStructure("aName", "anId", null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("location", paramName);
-        }
-
         [Test]
         public void Constructor_ValidData_ExpectedValues()
         {
@@ -76,6 +38,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var structure = new StabilityPointStructure("aName", "anId", location);
 
             // Assert
+            Assert.IsInstanceOf<StructureBase>(structure);
             Assert.AreEqual("aName", structure.Name);
             Assert.AreEqual("anId", structure.Id);
             Assert.AreEqual(location.X, structure.Location.X);
