@@ -45,20 +45,14 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             AssertEqualValues(1.1, input.ModelFactorSuperCriticalFlow.Mean);
             AssertEqualValues(0.03, input.ModelFactorSuperCriticalFlow.StandardDeviation);
-
-            AssertEqualValues(0.1, input.ThresholdLowWeirHeight.StandardDeviation);
-
+            AssertEqualValues(0.1, input.ThresholdHeightOpenWeir.StandardDeviation);
             AssertEqualValues(1, input.DrainCoefficient.Mean);
             AssertEqualValues(0.2, input.DrainCoefficient.StandardDeviation);
-
             AssertEqualValues(0.01, input.AreaFlowApertures.StandardDeviation);
             AssertEqualValues(0.05, input.LevelCrestOfStructureNotClosing.StandardDeviation);
-            AssertEqualValues(0.1, input.WaterLevelInside.StandardDeviation);
-
-            AssertEqualValues(0.1, input.AllowableIncreaseOfLevelForStorage.StandardDeviation);
-            AssertEqualValues(0.1, input.StorageStructureArea.StandardDeviation);
+            AssertEqualValues(0.1, input.InsideWaterLevel.StandardDeviation);
+            AssertEqualValues(0.1, input.AllowedLevelIncreaseStorage.StandardDeviation);
             AssertEqualValues(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
-
             AssertEqualValues(7.5, input.StormDuration.Mean);
             AssertEqualValues(0.25, input.StormDuration.GetVariationCoefficient());
             Assert.AreEqual(1, input.ProbabilityOpenStructureBeforeFlooding);
@@ -81,37 +75,20 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void Properties_OrientationOfTheNormalStructure_ExpectedValues()
+        public void Properties_StructureNormalOrientation_ExpectedValues()
         {
             // Setup
             var input = new ClosingStructuresInput();
             var random = new Random(22);
 
-            var orientationOfTheNormalStructure = new RoundedDouble(5, random.NextDouble());
+            var orientation = new RoundedDouble(5, random.NextDouble());
 
             // Call
-            input.OrientationOfTheNormalOfTheStructure = orientationOfTheNormalStructure;
+            input.StructureNormalOrientation = orientation;
 
             // Assert
-            Assert.AreEqual(2, input.OrientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
-            AssertEqualValues(orientationOfTheNormalStructure, input.OrientationOfTheNormalOfTheStructure);
-        }
-
-        [Test]
-        public void Properties_FactorStormDurationOpenStructure_ExpectedValues()
-        {
-            // Setup
-            var input = new ClosingStructuresInput();
-            var random = new Random(22);
-
-            var factorStormDuration = new RoundedDouble(5, random.NextDouble());
-
-            // Call
-            input.FactorStormDurationOpenStructure = factorStormDuration;
-
-            // Assert
-            Assert.AreEqual(2, input.FactorStormDurationOpenStructure.NumberOfDecimalPlaces);
-            AssertEqualValues(factorStormDuration, input.FactorStormDurationOpenStructure);
+            Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
+            AssertEqualValues(orientation, input.StructureNormalOrientation);
         }
 
         [Test]
@@ -132,20 +109,35 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void Properties_ThresholdLowWeirHeight_ExpectedValues()
+        public void Properties_FactorStormDurationOpenStructure_ExpectedValues()
         {
             // Setup
             var input = new ClosingStructuresInput();
-            NormalDistribution thresholdLowWeirHeight = GenerateNormalDistribution();
+            var random = new Random(22);
 
-            RoundedDouble initialStd = input.ThresholdLowWeirHeight.StandardDeviation;
+            var factorStormDuration = new RoundedDouble(5, random.NextDouble());
+
+            // Call
+            input.FactorStormDurationOpenStructure = factorStormDuration;
+
+            // Assert
+            Assert.AreEqual(2, input.FactorStormDurationOpenStructure.NumberOfDecimalPlaces);
+            AssertEqualValues(factorStormDuration, input.FactorStormDurationOpenStructure);
+        }
+
+        [Test]
+        public void Properties_ThresholdHeightOpenWeir_ExpectedValues()
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+            NormalDistribution thresholdHeightOpenWeir = GenerateNormalDistribution();
 
             //Call
-            input.ThresholdLowWeirHeight = thresholdLowWeirHeight;
+            input.ThresholdHeightOpenWeir = thresholdHeightOpenWeir;
 
             //Assert
-            Assert.AreEqual(thresholdLowWeirHeight.Mean, input.ThresholdLowWeirHeight.Mean);
-            AssertEqualValues(initialStd, input.ThresholdLowWeirHeight.StandardDeviation);
+            Assert.AreEqual(thresholdHeightOpenWeir.Mean, input.ThresholdHeightOpenWeir.Mean);
+            Assert.AreEqual(thresholdHeightOpenWeir.StandardDeviation, input.ThresholdHeightOpenWeir.StandardDeviation);
         }
 
         [Test]
@@ -274,33 +266,33 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void Properties_WaterLevelInside_ExpectedValues()
+        public void Properties_InsideWaterLevel_ExpectedValues()
         {
             // Setup
             var input = new ClosingStructuresInput();
-            NormalDistribution waterLevelInside = GenerateNormalDistribution();
+            NormalDistribution insideWaterLevel = GenerateNormalDistribution();
 
             //Call
-            input.WaterLevelInside = waterLevelInside;
+            input.InsideWaterLevel = insideWaterLevel;
 
             //Assert
-            Assert.AreEqual(waterLevelInside.Mean, input.WaterLevelInside.Mean);
-            Assert.AreEqual(waterLevelInside.StandardDeviation, input.WaterLevelInside.StandardDeviation);
+            Assert.AreEqual(insideWaterLevel.Mean, input.InsideWaterLevel.Mean);
+            Assert.AreEqual(insideWaterLevel.StandardDeviation, input.InsideWaterLevel.StandardDeviation);
         }
 
         [Test]
-        public void Properties_AllowableIncreaseOfLevelForStorage_ExpectedValues()
+        public void Properties_AllowedLevelIncreaseStorage_ExpectedValues()
         {
             // Setup
             var input = new ClosingStructuresInput();
-            LogNormalDistribution allowableIncreaseOfLevelForStorage = GenerateLogNormalDistribution();
+            LogNormalDistribution allowedIncrease = GenerateLogNormalDistribution();
 
             //Call
-            input.AllowableIncreaseOfLevelForStorage = allowableIncreaseOfLevelForStorage;
+            input.AllowedLevelIncreaseStorage = allowedIncrease;
 
             //Assert
-            Assert.AreEqual(allowableIncreaseOfLevelForStorage.Mean, input.AllowableIncreaseOfLevelForStorage.Mean);
-            Assert.AreEqual(allowableIncreaseOfLevelForStorage.StandardDeviation, input.AllowableIncreaseOfLevelForStorage.StandardDeviation);
+            Assert.AreEqual(allowedIncrease.Mean, input.AllowedLevelIncreaseStorage.Mean);
+            Assert.AreEqual(allowedIncrease.StandardDeviation, input.AllowedLevelIncreaseStorage.StandardDeviation);
         }
 
         [Test]
@@ -334,52 +326,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        [TestCase(-1.1)]
-        [TestCase(2)]
-        public void Properties_FailureProbabilityOfStructureGivenErosion_ThrowArgumentException(double probability)
-        {
-            // Setup
-            var input = new ClosingStructuresInput();
-
-            // Call
-            TestDelegate call = () => input.FailureProbabilityOfStructureGivenErosion = probability;
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(0.5)]
-        [TestCase(1.0)]
-        public void Properties_FailureProbabilityOfStructureGivenErosion_ExpectedValues(double probability)
-        {
-            // Setup
-            var input = new ClosingStructuresInput();
-
-            // Call 
-            input.FailureProbabilityOfStructureGivenErosion = probability;
-
-            // Assert
-            Assert.AreEqual(probability, input.FailureProbabilityOfStructureGivenErosion);
-        }
-
-        [Test]
-        public void Properties_WidthOfFlowApertures_ExpectedValues()
-        {
-            // Setup
-            var input = new ClosingStructuresInput();
-            NormalDistribution widthOfFlowApertures = GenerateNormalDistribution();
-
-            //Call
-            input.WidthOfFlowApertures = widthOfFlowApertures;
-
-            //Assert
-            Assert.AreEqual(widthOfFlowApertures.Mean, input.WidthOfFlowApertures.Mean);
-            Assert.AreEqual(widthOfFlowApertures.StandardDeviation, input.WidthOfFlowApertures.StandardDeviation);
-        }
-
-        [Test]
         public void Properties_CriticalOvertoppingDischarge_ExpectedValues()
         {
             // Setup
@@ -392,6 +338,69 @@ namespace Ringtoets.ClosingStructures.Data.Test
             //Assert
             Assert.AreEqual(criticalOverToppingDischarge.Mean, input.CriticalOverToppingDischarge.Mean);
             AssertEqualValues(criticalOverToppingDischarge.StandardDeviation, input.CriticalOverToppingDischarge.StandardDeviation);
+        }
+
+        [Test]
+        [TestCase(-1.1)]
+        [TestCase(2)]
+        public void Properties_FailureProbabilityStructureWithErosion_ThrowArgumentException(double probability)
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.FailureProbabilityStructureWithErosion = probability;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(0.5)]
+        [TestCase(1.0)]
+        public void Properties_FailureProbabilityStructureWithErosion_ExpectedValues(double probability)
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+
+            // Call 
+            input.FailureProbabilityStructureWithErosion = probability;
+
+            // Assert
+            Assert.AreEqual(probability, input.FailureProbabilityStructureWithErosion);
+        }
+
+        [Test]
+        public void Properties_WidthFlowApertures_ExpectedValues()
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+            NormalDistribution widthApertures = GenerateNormalDistribution();
+
+            //Call
+            input.WidthFlowApertures = widthApertures;
+
+            //Assert
+            Assert.AreEqual(widthApertures.Mean, input.WidthFlowApertures.Mean);
+            Assert.AreEqual(widthApertures.StandardDeviation, input.WidthFlowApertures.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_WaveDirectionDeviation_ExpectedValues()
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+            var random = new Random(22);
+
+            var wavedirectionDeviation = new RoundedDouble(5, random.NextDouble());
+
+            // Call
+            input.WavedirectionDeviation = wavedirectionDeviation;
+
+            // Assert
+            Assert.AreEqual(2, input.WavedirectionDeviation.NumberOfDecimalPlaces);
+            AssertEqualValues(wavedirectionDeviation, input.WavedirectionDeviation);
         }
 
         [Test]
@@ -424,23 +433,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
-        }
-
-        [Test]
-        public void Properties_WaveDirectionDeviation_ExpectedValues()
-        {
-            // Setup
-            var input = new ClosingStructuresInput();
-            var random = new Random(22);
-
-            var wavedirectionDeviation = new RoundedDouble(5, random.NextDouble());
-
-            // Call
-            input.WavedirectionDeviation = wavedirectionDeviation;
-
-            // Assert
-            Assert.AreEqual(2, input.WavedirectionDeviation.NumberOfDecimalPlaces);
-            AssertEqualValues(wavedirectionDeviation, input.WavedirectionDeviation);
         }
 
         [Test]

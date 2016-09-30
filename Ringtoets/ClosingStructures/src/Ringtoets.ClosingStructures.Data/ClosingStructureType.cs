@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Utils.Attributes;
+using Ringtoets.ClosingStructures.Data.Properties;
+
 namespace Ringtoets.ClosingStructures.Data
 {
     /// <summary>
@@ -29,16 +32,19 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// A vertical wall.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), "ClosingStructureType_VerticalWall_DisplayName")]
         VerticalWall = 1,
 
         /// <summary>
         /// A low sill structure.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), "ClosingStructureType_LowSill_DisplayName")]
         LowSill = 2,
 
         /// <summary>
         /// A flooded culvert structure.
         /// </summary>
+        [ResourcesDisplayName(typeof(Resources), "ClosingStructureType_FloodedCulvert_DisplayName")]
         FloodedCulvert = 3
     }
 }

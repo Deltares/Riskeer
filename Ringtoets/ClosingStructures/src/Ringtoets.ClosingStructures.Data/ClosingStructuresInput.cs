@@ -31,28 +31,28 @@ namespace Ringtoets.ClosingStructures.Data
     public class ClosingStructuresInput : Observable, ICalculationInput
     {
         private readonly NormalDistribution modelFactorSuperCriticalFlow;
-        private readonly NormalDistribution thresholdLowWeirHeight;
+        private readonly NormalDistribution thresholdHeightOpenWeir;
         private readonly NormalDistribution drainCoefficient;
         private readonly LogNormalDistribution areaFlowApertures;
         private readonly NormalDistribution levelCrestOfStructureNotClosing;
-        private readonly NormalDistribution waterLevelInside;
+        private readonly NormalDistribution insideWaterLevel;
         private readonly LogNormalDistribution storageStructureArea;
-        private readonly LogNormalDistribution allowableIncreaseOfLevelForStorage;
+        private readonly LogNormalDistribution allowedLevelIncreaseStorage;
         private readonly LogNormalDistribution flowWidthAtBottomProtection;
-        private readonly NormalDistribution widthOfFlowApertures;
+        private readonly NormalDistribution widthFlowApertures;
         private readonly LogNormalDistribution stormDuration;
         private readonly LogNormalDistribution criticalOverToppingDischarge;
-        private RoundedDouble orientationOfTheNormalOfTheStructure;
+        private RoundedDouble structureNormalOrientation;
         private RoundedDouble factorStormDurationOpenStructure;
         private double failureProbablityOpenStructure;
         private double failureProbabilityReparation;
-        private double failureProbabilityOfStructureGivenErosion;
+        private double failureProbabilityStructureWithErosion;
         private double probabilityOpenStructureBeforeFlooding;
         private RoundedDouble wavedirectionDeviation;
 
         public ClosingStructuresInput()
         {
-            orientationOfTheNormalOfTheStructure = new RoundedDouble(2);
+            structureNormalOrientation = new RoundedDouble(2);
             factorStormDurationOpenStructure = new RoundedDouble(2);
             wavedirectionDeviation = new RoundedDouble(2);
             probabilityOpenStructureBeforeFlooding = 1.0;
@@ -63,7 +63,7 @@ namespace Ringtoets.ClosingStructures.Data
                 StandardDeviation = (RoundedDouble) 0.03
             };
 
-            thresholdLowWeirHeight = new NormalDistribution(2)
+            thresholdHeightOpenWeir = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) 0.1
@@ -87,13 +87,13 @@ namespace Ringtoets.ClosingStructures.Data
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
-            waterLevelInside = new NormalDistribution(2)
+            insideWaterLevel = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) 0.1
             };
 
-            allowableIncreaseOfLevelForStorage = new LogNormalDistribution(2)
+            allowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) 0.1
@@ -101,9 +101,9 @@ namespace Ringtoets.ClosingStructures.Data
 
             storageStructureArea = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
-                StandardDeviation = (RoundedDouble) 0.1
+                Mean = (RoundedDouble) double.NaN
             };
+            storageStructureArea.SetStandardDeviationFromVariationCoefficient(0.1);
 
             flowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
@@ -111,17 +111,17 @@ namespace Ringtoets.ClosingStructures.Data
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
-            widthOfFlowApertures = new NormalDistribution(2)
-            {
-                Mean = (RoundedDouble) double.NaN,
-            };
-            widthOfFlowApertures.SetStandardDeviationFromVariationCoefficient(0.05);
-
             criticalOverToppingDischarge = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN
             };
             criticalOverToppingDischarge.SetStandardDeviationFromVariationCoefficient(0.15);
+
+            widthFlowApertures = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+            };
+            widthFlowApertures.SetStandardDeviationFromVariationCoefficient(0.05);
 
             stormDuration = new LogNormalDistribution(2)
             {
@@ -159,15 +159,15 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets or sets the orientation of the normal of the structure.
         /// </summary>
-        public RoundedDouble OrientationOfTheNormalOfTheStructure
+        public RoundedDouble StructureNormalOrientation
         {
             get
             {
-                return orientationOfTheNormalOfTheStructure;
+                return structureNormalOrientation;
             }
             set
             {
-                orientationOfTheNormalOfTheStructure = value.ToPrecision(orientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
+                structureNormalOrientation = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
             }
         }
 
@@ -223,11 +223,11 @@ namespace Ringtoets.ClosingStructures.Data
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the value of the probability 
         /// is not between [0, 1].</exception>
-        public double FailureProbabilityOfStructureGivenErosion
+        public double FailureProbabilityStructureWithErosion
         {
             get
             {
-                return failureProbabilityOfStructureGivenErosion;
+                return failureProbabilityStructureWithErosion;
             }
             set
             {
@@ -235,7 +235,7 @@ namespace Ringtoets.ClosingStructures.Data
                 {
                     throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
-                failureProbabilityOfStructureGivenErosion = value;
+                failureProbabilityStructureWithErosion = value;
             }
         }
 
@@ -312,15 +312,16 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets the threshold low weir height normal distribution and sets the threshold low weir height mean.
         /// </summary>
-        public NormalDistribution ThresholdLowWeirHeight
+        public NormalDistribution ThresholdHeightOpenWeir
         {
             get
             {
-                return thresholdLowWeirHeight;
+                return thresholdHeightOpenWeir;
             }
             set
             {
-                thresholdLowWeirHeight.Mean = value.Mean;
+                thresholdHeightOpenWeir.Mean = value.Mean;
+                thresholdHeightOpenWeir.StandardDeviation = value.StandardDeviation;
             }
         }
 
@@ -359,32 +360,32 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets or sets the water level inside normal distribution.
         /// </summary>
-        public NormalDistribution WaterLevelInside
+        public NormalDistribution InsideWaterLevel
         {
             get
             {
-                return waterLevelInside;
+                return insideWaterLevel;
             }
             set
             {
-                waterLevelInside.Mean = value.Mean;
-                waterLevelInside.StandardDeviation = value.StandardDeviation;
+                insideWaterLevel.Mean = value.Mean;
+                insideWaterLevel.StandardDeviation = value.StandardDeviation;
             }
         }
 
         /// <summary>
         /// Gets or sets the allowable increase of level for storage log normal distribution.
         /// </summary>
-        public LogNormalDistribution AllowableIncreaseOfLevelForStorage
+        public LogNormalDistribution AllowedLevelIncreaseStorage
         {
             get
             {
-                return allowableIncreaseOfLevelForStorage;
+                return allowedLevelIncreaseStorage;
             }
             set
             {
-                allowableIncreaseOfLevelForStorage.Mean = value.Mean;
-                allowableIncreaseOfLevelForStorage.StandardDeviation = value.StandardDeviation;
+                allowedLevelIncreaseStorage.Mean = value.Mean;
+                allowedLevelIncreaseStorage.StandardDeviation = value.StandardDeviation;
             }
         }
 
@@ -421,23 +422,7 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the width of flow apertures normal distribution.
-        /// </summary>
-        public NormalDistribution WidthOfFlowApertures
-        {
-            get
-            {
-                return widthOfFlowApertures;
-            }
-            set
-            {
-                widthOfFlowApertures.Mean = value.Mean;
-                widthOfFlowApertures.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the critical overtopping discharge.
+        /// Gets or sets the critical overtopping discharge normal distribution.
         /// </summary>
         public LogNormalDistribution CriticalOverToppingDischarge
         {
@@ -449,6 +434,22 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 criticalOverToppingDischarge.Mean = value.Mean;
                 criticalOverToppingDischarge.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the width of flow apertures normal distribution.
+        /// </summary>
+        public NormalDistribution WidthFlowApertures
+        {
+            get
+            {
+                return widthFlowApertures;
+            }
+            set
+            {
+                widthFlowApertures.Mean = value.Mean;
+                widthFlowApertures.StandardDeviation = value.StandardDeviation;
             }
         }
 
