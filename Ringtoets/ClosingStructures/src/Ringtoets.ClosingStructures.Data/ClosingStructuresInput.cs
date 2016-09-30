@@ -24,33 +24,44 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Data
 {
     public class ClosingStructuresInput : Observable, ICalculationInput
     {
-        private RoundedDouble orientationOfTheNormalOfTheStructure;
-        private RoundedDouble factorStormDurationOpenStructure;
-
+        private readonly NormalDistribution modelFactorSuperCriticalFlow;
         private readonly NormalDistribution thresholdLowWeirHeight;
         private readonly NormalDistribution drainCoefficient;
         private readonly LogNormalDistribution areaFlowApertures;
-        private double failureProbablityOpenStructure;
-        private double failureProbabilityReparation;
         private readonly NormalDistribution levelCrestOfStructureNotClosing;
         private readonly NormalDistribution waterLevelInside;
         private readonly LogNormalDistribution storageStructureArea;
         private readonly LogNormalDistribution allowableIncreaseOfLevelForStorage;
         private readonly LogNormalDistribution flowWidthAtBottomProtection;
-        private double failureProbabilityOfStructureGivenErosion;
         private readonly NormalDistribution widthOfFlowApertures;
         private readonly LogNormalDistribution stormDuration;
+        private readonly LogNormalDistribution criticalOverToppingDischarge;
+        private RoundedDouble orientationOfTheNormalOfTheStructure;
+        private RoundedDouble factorStormDurationOpenStructure;
+        private double failureProbablityOpenStructure;
+        private double failureProbabilityReparation;
+        private double failureProbabilityOfStructureGivenErosion;
         private double probabilityOpenStructureBeforeFlooding;
+        private RoundedDouble wavedirectionDeviation;
 
         public ClosingStructuresInput()
         {
             orientationOfTheNormalOfTheStructure = new RoundedDouble(2);
             factorStormDurationOpenStructure = new RoundedDouble(2);
+            wavedirectionDeviation = new RoundedDouble(2);
+            probabilityOpenStructureBeforeFlooding = 1.0;
+
+            modelFactorSuperCriticalFlow = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 0.03
+            };
 
             thresholdLowWeirHeight = new NormalDistribution(2)
             {
@@ -106,14 +117,27 @@ namespace Ringtoets.ClosingStructures.Data
             };
             widthOfFlowApertures.SetStandardDeviationFromVariationCoefficient(0.05);
 
+            criticalOverToppingDischarge = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN
+            };
+            criticalOverToppingDischarge.SetStandardDeviationFromVariationCoefficient(0.15);
+
             stormDuration = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 7.5
             };
             stormDuration.SetStandardDeviationFromVariationCoefficient(0.25);
-
-            probabilityOpenStructureBeforeFlooding = 1.0;
         }
+
+        #region Structure type
+
+        /// <summary>
+        /// Gets or sets the type of closing structure.
+        /// </summary>
+        public ClosingStructureType ClosingStructureType { get; set; }
+
+        #endregion
 
         #region Deterministic inputs
 
@@ -167,8 +191,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (value < 0 || value > 1)
                 {
-                    // TODO: refactor this in HeightStructures input to Common Forms Resources
-                    throw new ArgumentException("De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
+                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 failureProbablityOpenStructure = value;
             }
@@ -189,8 +212,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (value < 0 || value > 1)
                 {
-                    // TODO: refactor this in HeightStructures input to Common Forms Resources
-                    throw new ArgumentException("De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
+                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 failureProbabilityReparation = value;
             }
@@ -211,10 +233,24 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (value < 0 || value > 1)
                 {
-                    // TODO: refactor this in HeightStructures input to Common Forms Resources
-                    throw new ArgumentException("De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
+                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 failureProbabilityOfStructureGivenErosion = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets and sets the deviation of the wave direction.
+        /// </summary>
+        public RoundedDouble WavedirectionDeviation
+        {
+            get
+            {
+                return wavedirectionDeviation;
+            }
+            set
+            {
+                wavedirectionDeviation = value.ToPrecision(wavedirectionDeviation.NumberOfDecimalPlaces);
             }
         }
 
@@ -233,8 +269,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (value < 0 || value > 1)
                 {
-                    // TODO: refactor this in HeightStructures input to Common Forms Resources
-                    throw new ArgumentException("De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
+                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 probabilityOpenStructureBeforeFlooding = value;
             }
@@ -256,6 +291,21 @@ namespace Ringtoets.ClosingStructures.Data
             set
             {
                 drainCoefficient.Mean = value.Mean;
+            }
+        }
+
+        /// <summary>
+        /// Gets the model factor super critical flow normal distribution and sets the mean.
+        /// </summary>
+        public NormalDistribution ModelFactorSuperCriticalFlow
+        {
+            get
+            {
+                return modelFactorSuperCriticalFlow;
+            }
+            set
+            {
+                modelFactorSuperCriticalFlow.Mean = value.Mean;
             }
         }
 
@@ -383,6 +433,22 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 widthOfFlowApertures.Mean = value.Mean;
                 widthOfFlowApertures.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the critical overtopping discharge.
+        /// </summary>
+        public LogNormalDistribution CriticalOverToppingDischarge
+        {
+            get
+            {
+                return criticalOverToppingDischarge;
+            }
+            set
+            {
+                criticalOverToppingDischarge.Mean = value.Mean;
+                criticalOverToppingDischarge.StandardDeviation = value.StandardDeviation;
             }
         }
 

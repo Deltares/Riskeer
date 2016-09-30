@@ -265,6 +265,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen..
+        /// </summary>
+        public static string FailureProbability_Value_needs_to_be_between_0_and_1 {
+            get {
+                return ResourceManager.GetString("FailureProbability_Value_needs_to_be_between_0_and_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een punt in de geometrie voor het voorlandprofiel heeft geen waarde..
         /// </summary>
         public static string ForeshoreProfile_SetGeometry_A_point_in_the_collection_is_null {

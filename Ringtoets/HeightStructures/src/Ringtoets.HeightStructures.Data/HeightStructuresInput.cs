@@ -26,6 +26,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HeightStructures.Data.Properties;
 using Ringtoets.HydraRing.Data;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Data
 {
@@ -273,7 +274,7 @@ namespace Ringtoets.HeightStructures.Data
             {
                 if (value < 0 || value > 1)
                 {
-                    throw new ArgumentException(Resources.FailureProbabilityOfStructureGivenErosion_Value_needs_to_be_between_0_and_1);
+                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 failureProbabilityOfStructureGivenErosion = value;
             }

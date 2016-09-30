@@ -281,8 +281,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             TestDelegate call = () => input.FailureProbabilityOfStructureGivenErosion = (RoundedDouble) failureProbabilityOfStructureGivenErosion;
 
             // Assert
-            var expectedMessage = Resources.FailureProbabilityOfStructureGivenErosion_Value_needs_to_be_between_0_and_1;
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
         }
 
         [Test]

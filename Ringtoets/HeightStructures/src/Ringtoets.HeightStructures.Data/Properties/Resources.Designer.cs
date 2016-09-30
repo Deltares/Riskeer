@@ -82,15 +82,6 @@ namespace Ringtoets.HeightStructures.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik [0, 1] liggen..
-        /// </summary>
-        public static string FailureProbabilityOfStructureGivenErosion_Value_needs_to_be_between_0_and_1 {
-            get {
-                return ResourceManager.GetString("FailureProbabilityOfStructureGivenErosion_Value_needs_to_be_between_0_and_1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Nieuwe berekening.
         /// </summary>
         public static string HeightStructuresCalculation_DefaultName {

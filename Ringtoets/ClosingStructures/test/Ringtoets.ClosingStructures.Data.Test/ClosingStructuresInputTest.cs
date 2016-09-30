@@ -43,6 +43,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.IsInstanceOf<Observable>(input);
             Assert.IsInstanceOf<ICalculationInput>(input);
 
+            AssertEqualValues(1.1, input.ModelFactorSuperCriticalFlow.Mean);
+            AssertEqualValues(0.03, input.ModelFactorSuperCriticalFlow.StandardDeviation);
+
             AssertEqualValues(0.1, input.ThresholdLowWeirHeight.StandardDeviation);
 
             AssertEqualValues(1, input.DrainCoefficient.Mean);
@@ -55,9 +58,26 @@ namespace Ringtoets.ClosingStructures.Data.Test
             AssertEqualValues(0.1, input.AllowableIncreaseOfLevelForStorage.StandardDeviation);
             AssertEqualValues(0.1, input.StorageStructureArea.StandardDeviation);
             AssertEqualValues(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
+
             AssertEqualValues(7.5, input.StormDuration.Mean);
             AssertEqualValues(0.25, input.StormDuration.GetVariationCoefficient());
             Assert.AreEqual(1, input.ProbabilityOpenStructureBeforeFlooding);
+        }
+
+        [Test]
+        [TestCase(ClosingStructureType.VerticalWall)]
+        [TestCase(ClosingStructureType.LowSill)]
+        [TestCase(ClosingStructureType.FloodedCulvert)]
+        public void Properties_Type_ExpectedValues(ClosingStructureType type)
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+
+            // Call
+            input.ClosingStructureType = type;
+
+            // Assert
+            Assert.AreEqual(type, input.ClosingStructureType);
         }
 
         [Test]
@@ -95,12 +115,29 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
+        public void Properties_ModelFactorSuperCriticalFlow_ExpectedValues()
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+            NormalDistribution modelFactorSuperCriticalFlow = GenerateNormalDistribution();
+
+            RoundedDouble initialStd = input.ModelFactorSuperCriticalFlow.StandardDeviation;
+
+            //Call
+            input.ModelFactorSuperCriticalFlow = modelFactorSuperCriticalFlow;
+
+            //Assert
+            Assert.AreEqual(modelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.Mean);
+            AssertEqualValues(initialStd, input.ModelFactorSuperCriticalFlow.StandardDeviation);
+        }
+
+        [Test]
         public void Properties_ThresholdLowWeirHeight_ExpectedValues()
         {
             // Setup
             var input = new ClosingStructuresInput();
             NormalDistribution thresholdLowWeirHeight = GenerateNormalDistribution();
-  
+
             RoundedDouble initialStd = input.ThresholdLowWeirHeight.StandardDeviation;
 
             //Call
@@ -197,7 +234,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Setup
             var input = new ClosingStructuresInput();
-                
+
             // Call 
             input.FailureProbablityReparation = probability;
 
@@ -327,7 +364,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(probability, input.FailureProbabilityOfStructureGivenErosion);
         }
 
-
         [Test]
         public void Properties_WidthOfFlowApertures_ExpectedValues()
         {
@@ -343,37 +379,20 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(widthOfFlowApertures.StandardDeviation, input.WidthOfFlowApertures.StandardDeviation);
         }
 
-       [Test]
-        [TestCase(-1.1)]
-        [TestCase(2)]
-        public void Properties_ProbabilityOpenStructureBeforeFlooding_ThrowArgumentException(double probability)
-        {
-            // Setup
-            var input = new ClosingStructuresInput();
-
-            // Call
-            TestDelegate call = () => input.ProbabilityOpenStructureBeforeFlooding = probability;
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
-        }
-
         [Test]
-        [TestCase(0)]
-        [TestCase(0.5)]
-        [TestCase(1.0)]
-        public void Properties_ProbabilityOpenStructureBeforeFlooding_ExpectedValues(double probability)
+        public void Properties_CriticalOvertoppingDischarge_ExpectedValues()
         {
             // Setup
             var input = new ClosingStructuresInput();
+            LogNormalDistribution criticalOverToppingDischarge = GenerateLogNormalDistribution();
 
-            // Call 
-            input.ProbabilityOpenStructureBeforeFlooding = probability;
+            //Call
+            input.CriticalOverToppingDischarge = criticalOverToppingDischarge;
 
-            // Assert
-            Assert.AreEqual(probability, input.ProbabilityOpenStructureBeforeFlooding);
+            //Assert
+            Assert.AreEqual(criticalOverToppingDischarge.Mean, input.CriticalOverToppingDischarge.Mean);
+            AssertEqualValues(criticalOverToppingDischarge.StandardDeviation, input.CriticalOverToppingDischarge.StandardDeviation);
         }
-
 
         [Test]
         public void Properties_StormDuration_ExpectedValues()
@@ -392,6 +411,53 @@ namespace Ringtoets.ClosingStructures.Data.Test
             AssertEqualValues(initialStd, input.StormDuration.StandardDeviation);
         }
 
+        [Test]
+        [TestCase(-1.1)]
+        [TestCase(2)]
+        public void Properties_ProbabilityOpenStructureBeforeFlooding_ThrowArgumentException(double probability)
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.ProbabilityOpenStructureBeforeFlooding = probability;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
+        }
+
+        [Test]
+        public void Properties_WaveDirectionDeviation_ExpectedValues()
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+            var random = new Random(22);
+
+            var wavedirectionDeviation = new RoundedDouble(5, random.NextDouble());
+
+            // Call
+            input.WavedirectionDeviation = wavedirectionDeviation;
+
+            // Assert
+            Assert.AreEqual(2, input.WavedirectionDeviation.NumberOfDecimalPlaces);
+            AssertEqualValues(wavedirectionDeviation, input.WavedirectionDeviation);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(0.5)]
+        [TestCase(1.0)]
+        public void Properties_ProbabilityOpenStructureBeforeFlooding_ExpectedValues(double probability)
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+
+            // Call 
+            input.ProbabilityOpenStructureBeforeFlooding = probability;
+
+            // Assert
+            Assert.AreEqual(probability, input.ProbabilityOpenStructureBeforeFlooding);
+        }
 
         private void AssertEqualValues(double expectedValue, RoundedDouble actualValue)
         {
@@ -403,8 +469,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             var random = new Random(22);
             return new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)(0.01 + random.NextDouble()),
-                StandardDeviation = (RoundedDouble)random.NextDouble()
+                Mean = (RoundedDouble) (0.01 + random.NextDouble()),
+                StandardDeviation = (RoundedDouble) random.NextDouble()
             };
         }
 
@@ -413,8 +479,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             var random = new Random(22);
             return new NormalDistribution(2)
             {
-                Mean = (RoundedDouble)(0.01 + random.NextDouble()),
-                StandardDeviation = (RoundedDouble)random.NextDouble()
+                Mean = (RoundedDouble) (0.01 + random.NextDouble()),
+                StandardDeviation = (RoundedDouble) random.NextDouble()
             };
         }
     }
