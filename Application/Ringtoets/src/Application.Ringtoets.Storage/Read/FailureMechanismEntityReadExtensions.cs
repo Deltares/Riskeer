@@ -471,7 +471,11 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadHydraulicBoundaryLocations(this FailureMechanismEntity entity, List<HydraulicBoundaryLocation> locations, ReadConversionCollector collector)
         {
-            locations.AddRange(entity.GrassCoverErosionOutwardsHydraulicLocationEntities.Select(location => location.Read(collector)));
+            locations.AddRange(
+                entity
+                    .GrassCoverErosionOutwardsHydraulicLocationEntities
+                    .OrderBy(location => location.Order)
+                    .Select(location => location.Read(collector)));
         }
 
         private static void ReadGrassCoverErosionOutwardsWaveConditionsRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
