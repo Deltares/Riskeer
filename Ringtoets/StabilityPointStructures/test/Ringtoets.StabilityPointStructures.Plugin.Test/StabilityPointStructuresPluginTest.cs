@@ -91,7 +91,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(1, viewInfos.Length);
-                var closingStructuresResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>));
+                ViewInfo closingStructuresResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>));
                 Assert.AreEqual(typeof(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult>), closingStructuresResultViewInfo.ViewDataType);
                 Assert.AreEqual(typeof(StabilityPointStructuresFailureMechanismResultView), closingStructuresResultViewInfo.ViewType);
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, closingStructuresResultViewInfo.Image);

@@ -49,7 +49,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.CalculationsGroup.Children);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
             CollectionAssert.IsEmpty(failureMechanism.Sections);
-            CollectionAssert.IsEmpty(failureMechanism.Calculations);
         }
 
         [Test]

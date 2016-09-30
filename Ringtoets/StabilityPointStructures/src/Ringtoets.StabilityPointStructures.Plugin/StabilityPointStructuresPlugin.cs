@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -56,7 +55,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 IEnumerable<StabilityPointStructuresFailureMechanismSectionResult>,
                 StabilityPointStructuresFailureMechanismResultView>
             {
-                GetViewName = (v, o) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
+                GetViewName = (view, context) => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
                 Image = RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon,
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
@@ -119,11 +118,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         #region StabilityPointStructuresFailureMechanismResultView ViewInfo
 
-        private static bool CloseFailureMechanismResultViewForData(StabilityPointStructuresFailureMechanismResultView view, object o)
+        private static bool CloseFailureMechanismResultViewForData(StabilityPointStructuresFailureMechanismResultView view, object viewData)
         {
-            var assessmentSection = o as IAssessmentSection;
-            var failureMechanism = o as StabilityPointStructuresFailureMechanism;
-            var failureMechanismContext = o as IFailureMechanismContext<StabilityPointStructuresFailureMechanism>;
+            var assessmentSection = viewData as IAssessmentSection;
+            var failureMechanism = viewData as StabilityPointStructuresFailureMechanism;
+            var failureMechanismContext = viewData as IFailureMechanismContext<StabilityPointStructuresFailureMechanism>;
             if (assessmentSection != null)
             {
                 return assessmentSection
@@ -151,9 +150,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             StabilityPointStructuresFailureMechanism wrappedData = stabilityPointStructuresFailureMechanismContext.WrappedData;
             return new object[]
             {
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName, GetInputs(wrappedData, stabilityPointStructuresFailureMechanismContext.Parent), TreeFolderCategory.Input),
-                new StabilityPointStructuresCalculationGroupContext(wrappedData.CalculationsGroup, wrappedData, stabilityPointStructuresFailureMechanismContext.Parent),
-                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName, GetOutputs(wrappedData), TreeFolderCategory.Output)
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
+                                       GetInputs(wrappedData, stabilityPointStructuresFailureMechanismContext.Parent),
+                                       TreeFolderCategory.Input),
+                new StabilityPointStructuresCalculationGroupContext(wrappedData.CalculationsGroup,
+                                                                    wrappedData,
+                                                                    stabilityPointStructuresFailureMechanismContext.Parent),
+                new CategoryTreeFolder(RingtoetsCommonFormsResources.FailureMechanism_Outputs_DisplayName,
+                                       GetOutputs(wrappedData),
+                                       TreeFolderCategory.Output)
             };
         }
 
@@ -165,24 +170,26 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             };
         }
 
-        private static IList GetInputs(StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        private static object[] GetInputs(StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }
 
-        private static IList GetOutputs(StabilityPointStructuresFailureMechanism failureMechanism)
+        private static object[] GetOutputs(StabilityPointStructuresFailureMechanism failureMechanism)
         {
-            return new ArrayList
+            return new object[]
             {
                 new FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
             };
         }
 
-        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(StabilityPointStructuresFailureMechanismContext failureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismEnabledContextMenuStrip(StabilityPointStructuresFailureMechanismContext failureMechanismContext,
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(failureMechanismContext, treeViewControl));
 
@@ -204,7 +211,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
         }
 
-        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(StabilityPointStructuresFailureMechanismContext stabilityPointStructuresFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(StabilityPointStructuresFailureMechanismContext stabilityPointStructuresFailureMechanismContext,
+                                                                          object parentData,
+                                                                          TreeViewControl treeViewControl)
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(stabilityPointStructuresFailureMechanismContext, treeViewControl));
 
@@ -249,7 +258,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return childNodeObjects.ToArray();
         }
 
-        private ContextMenuStrip CalculationGroupContextContextMenuStrip(StabilityPointStructuresCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
+        private ContextMenuStrip CalculationGroupContextContextMenuStrip(StabilityPointStructuresCalculationGroupContext context,
+                                                                         object parentData,
+                                                                         TreeViewControl treeViewControl)
         {
             CalculationGroup group = context.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));

@@ -43,37 +43,17 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
             Assert.AreEqual(9.81, inputParameters.GravitationalAcceleration, inputParameters.GravitationalAcceleration.GetAccuracy());
 
-            var modelFactorForStorageVolume = new NormalDistribution(1)
-            {
-                Mean = new RoundedDouble(1, 1),
-                StandardDeviation = new RoundedDouble(1, 0.2)
-            };
-            Assert.AreEqual(modelFactorForStorageVolume.Mean, inputParameters.ModelFactorForStorageVolume.Mean);
-            Assert.AreEqual(modelFactorForStorageVolume.StandardDeviation, inputParameters.ModelFactorForStorageVolume.StandardDeviation);
+            Assert.AreEqual(new RoundedDouble(1, 1), inputParameters.ModelFactorForStorageVolume.Mean);
+            Assert.AreEqual(new RoundedDouble(1, 0.2), inputParameters.ModelFactorForStorageVolume.StandardDeviation);
 
-            var modelFactorForSubCriticalFlow = new NormalDistribution(2)
-            {
-                Mean = new RoundedDouble(2, 1),
-                StandardDeviation = new RoundedDouble(2, 0.1)
-            };
-            Assert.AreEqual(modelFactorForSubCriticalFlow.Mean, inputParameters.ModelFactorForSubCriticalFlow.Mean);
-            Assert.AreEqual(modelFactorForSubCriticalFlow.StandardDeviation, inputParameters.ModelFactorForSubCriticalFlow.StandardDeviation);
+            Assert.AreEqual(new RoundedDouble(2, 1), inputParameters.ModelFactorForSubCriticalFlow.Mean);
+            Assert.AreEqual(new RoundedDouble(2, 0.1), inputParameters.ModelFactorForSubCriticalFlow.StandardDeviation);
 
-            var modelFactorForCollisionLoad = new NormalDistribution(1)
-            {
-                Mean = new RoundedDouble(1, 1),
-                StandardDeviation = new RoundedDouble(1, 0.2)
-            };
-            Assert.AreEqual(modelFactorForCollisionLoad.Mean, inputParameters.ModelFactorForCollisionLoad.Mean);
-            Assert.AreEqual(modelFactorForCollisionLoad.StandardDeviation, inputParameters.ModelFactorForCollisionLoad.StandardDeviation);
+            Assert.AreEqual(new RoundedDouble(1, 1), inputParameters.ModelFactorForCollisionLoad.Mean);
+            Assert.AreEqual(new RoundedDouble(1, 0.2), inputParameters.ModelFactorForCollisionLoad.StandardDeviation);
 
-            var modelFactorLoadEffectMs = new NormalDistribution(2)
-            {
-                Mean = new RoundedDouble(2, 1),
-                StandardDeviation = new RoundedDouble(2, 0.05)
-            };
-            Assert.AreEqual(modelFactorLoadEffectMs.Mean, inputParameters.ModelFactorLoadEffectMs.Mean);
-            Assert.AreEqual(modelFactorLoadEffectMs.StandardDeviation, inputParameters.ModelFactorLoadEffectMs.StandardDeviation);
+            Assert.AreEqual(new RoundedDouble(2, 1), inputParameters.ModelFactorLoadEffectMs.Mean);
+            Assert.AreEqual(new RoundedDouble(2, 0.05), inputParameters.ModelFactorLoadEffectMs.StandardDeviation);
 
             Assert.AreEqual(1, inputParameters.ModelFactorForIncomingFlowVolume.NumberOfDecimalPlaces);
             Assert.AreEqual(1, inputParameters.ModelFactorForIncomingFlowVolume, inputParameters.ModelFactorForIncomingFlowVolume.GetAccuracy());
@@ -95,10 +75,9 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var generalHeightStructuresInput = new GeneralStabilityPointStructuresInput();
 
             // Call
-            TestDelegate test = () => generalHeightStructuresInput.N = value;
+            generalHeightStructuresInput.N = value;
 
             // Assert
-            Assert.DoesNotThrow(test);
             Assert.AreEqual(value, generalHeightStructuresInput.N);
         }
 
