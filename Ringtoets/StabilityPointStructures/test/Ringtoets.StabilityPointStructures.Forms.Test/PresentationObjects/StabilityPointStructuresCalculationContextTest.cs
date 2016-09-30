@@ -36,7 +36,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var mocksRepository = new MockRepository();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             var calculation = new StabilityPointStructuresCalculation();

@@ -34,7 +34,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresInputContext"/>.
         /// </summary>
-        /// <param name="input">The stability point structures input instance wrapped by this context object.</param>
+        /// <param name="input">The <see cref="StabilityPointStructuresInput"/> instance wrapped by this context object.</param>
         /// <param name="calculation">The calculation item which the <paramref name="input"/> belongs to.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>

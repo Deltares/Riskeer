@@ -42,7 +42,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             var input = new StabilityPointStructuresInput();
@@ -65,7 +65,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
         public void Constructor_NullCalculation_ThrowsArgumentNullException()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             var input = new StabilityPointStructuresInput();

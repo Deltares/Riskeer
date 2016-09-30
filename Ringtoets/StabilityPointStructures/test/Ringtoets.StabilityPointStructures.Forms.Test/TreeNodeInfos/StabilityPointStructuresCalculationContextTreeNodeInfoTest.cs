@@ -127,9 +127,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             Assert.IsNotNull(commentContext);
             Assert.AreSame(calculationContext.WrappedData, commentContext.WrappedData);
 
-            var grassCoverErosionInwardsInputContext = children[1] as StabilityPointStructuresInputContext;
-            Assert.IsNotNull(grassCoverErosionInwardsInputContext);
-            Assert.AreSame(calculationContext.WrappedData.InputParameters, grassCoverErosionInwardsInputContext.WrappedData);
+            var stabilityPointStructuresInputContext = children[1] as StabilityPointStructuresInputContext;
+            Assert.IsNotNull(stabilityPointStructuresInputContext);
+            Assert.AreSame(calculationContext.WrappedData.InputParameters, stabilityPointStructuresInputContext.WrappedData);
 
             var emptyOutput = children[2] as EmptyProbabilityAssessmentOutput;
             Assert.IsNotNull(emptyOutput);
@@ -158,9 +158,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             Assert.IsNotNull(commentContext);
             Assert.AreSame(calculationContext.WrappedData, commentContext.WrappedData);
 
-            var grassCoverErosionInwardsInputContext = children[1] as StabilityPointStructuresInputContext;
-            Assert.IsNotNull(grassCoverErosionInwardsInputContext);
-            Assert.AreSame(calculationContext.WrappedData.InputParameters, grassCoverErosionInwardsInputContext.WrappedData);
+            var stabilityPointStructuresInputContext = children[1] as StabilityPointStructuresInputContext;
+            Assert.IsNotNull(stabilityPointStructuresInputContext);
+            Assert.AreSame(calculationContext.WrappedData.InputParameters, stabilityPointStructuresInputContext.WrappedData);
 
             var output = children[2] as StabilityPointStructuresOutput;
             Assert.IsNotNull(output);
@@ -255,52 +255,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear,
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_SectionsAndDatabaseSet_ContextMenuItemPerformCalculationEnabled()
-        {
-            // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Version = "1.0"
-            };
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
-
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Stub(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase);
-
-            var calculation = new StabilityPointStructuresCalculation();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-
-                mocks.ReplayAll();
-
-                plugin.Gui = guiMock;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateIndex,
-                                                                  RingtoetsCommonFormsResources.Calculate,
-                                                                  RingtoetsCommonFormsResources.Calculate_ToolTip,
-                                                                  RingtoetsCommonFormsResources.CalculateIcon);
                 }
             }
         }

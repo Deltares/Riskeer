@@ -91,7 +91,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var text = info.Text(null);
 
             // Assert
-            Assert.AreEqual(RingtoetsCommonFormsResources.CalculationOutput_DisplayName, text);
+            Assert.AreEqual("Resultaat", text);
         }
 
         [Test]

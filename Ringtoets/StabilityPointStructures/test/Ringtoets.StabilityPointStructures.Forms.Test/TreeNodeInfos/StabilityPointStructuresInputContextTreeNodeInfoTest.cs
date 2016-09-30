@@ -88,7 +88,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            var grassCoverErosionInwardsInputContext = new StabilityPointStructuresInputContext(
+            var stabilityPointStructuresInputContext = new StabilityPointStructuresInputContext(
                 mocksRepository.StrictMock<StabilityPointStructuresInput>(),
                 mocksRepository.StrictMock<StabilityPointStructuresCalculation>(),
                 new StabilityPointStructuresFailureMechanism(),
@@ -97,7 +97,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             mocksRepository.ReplayAll();
 
             // Call
-            var text = info.Text(grassCoverErosionInwardsInputContext);
+            var text = info.Text(stabilityPointStructuresInputContext);
 
             // Assert
             Assert.AreEqual("Invoer", text);
@@ -108,7 +108,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-            var grassCoverErosionInwardsInputContext = new StabilityPointStructuresInputContext(
+            var stabilityPointStructuresInputContext = new StabilityPointStructuresInputContext(
                 mocksRepository.StrictMock<StabilityPointStructuresInput>(),
                 mocksRepository.StrictMock<StabilityPointStructuresCalculation>(),
                 new StabilityPointStructuresFailureMechanism(),
@@ -117,7 +117,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             mocksRepository.ReplayAll();
 
             // Call
-            var image = info.Image(grassCoverErosionInwardsInputContext);
+            var image = info.Image(stabilityPointStructuresInputContext);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
