@@ -41,142 +41,148 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <summary>
         /// Creates a new instance of <see cref="StructuresStabilityPointLowSillLinearCalculationInput"/>.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
-        /// <param name="hydraRingSection">The section to use during the calculation.</param>
-        /// <param name="forelandPoints">The foreland points to use during the calculation.</param>
-        /// <param name="hydraRingVolumicWeightWater">The volumic weight of water to use during the calculation.</param>
-        /// <param name="hydraRingGravitationalAcceleration">The gravitational acceleration to use during the calculation.</param>
-        /// <param name="hydraRingLevelCrestStructureMean">The mean of the level crest structure to use during the calculation.</param>
-        /// <param name="hydraRingLevelCrestStructureStandardDeviation">The standard deviation of the level crest structure to use during the calculation.</param>
-        /// <param name="hydraRingStructureNormalOrientation">The orientation of the normal of the structure to use during the calculation.</param>
-        /// <param name="hydraRingFactorStormDurationOpenStructure">The factor of the storm duration for an open structure to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorSubCriticalFlowMean">The mean of the model factor sub critical flow to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorSubCriticalFlowVariation">The variation of the model factor sub critical flow to use during the calculation.</param>
-        /// <param name="hydraRingThresholdHeightOpenWeirMean">The mean of the threshold height open weir to use during the calculation.</param>
-        /// <param name="hydraRingThresholdHeightOpenWeirStandardDeviation">The standard deviation of the threshold height open weir to use during the calculation.</param>
-        /// <param name="hydraRingInsideWaterLevelFailureConstructionMean">The mean of the inside water level at failure of construction to use during the calculation.</param>
-        /// <param name="hydraRingInsideWaterLevelFailureConstructionStandardDeviation">The standard deviation of the inside water level at failure of construction to use during the calculation.</param>
-        /// <param name="hydraRingFailureProbabilityRepairClosure">The failure probability repair closure to use during the calculation.</param>
-        /// <param name="hydraRingFailureCollisionEnergyMean">The mean of the failure collision energy to use during the calculation.</param>
-        /// <param name="hydraRingFailureCollisionEnergyVariation">The variation of the failure collision energy to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorCollisionLoadMean">The mean of the model factor collision load to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorCollisionLoadVariation">The variation of the model factor collision load to use during the calculation.</param>
-        /// <param name="hydraRingShipMassMean">The mean of the ship mass to use during the calculation.</param>
-        /// <param name="hydraRingShipMassVariation">The variation of the ship mass to use during the calculation.</param>
-        /// <param name="hydraRingShipVelocityMean">The mean of the ship velocity to use during the calculation.</param>
-        /// <param name="hydraRingShipVelocityVariation">The variation of the ship velocity to use during the calculation.</param>
-        /// <param name="hydraRingLevelingCount">The leveling count to use during the calculation.</param>
-        /// <param name="hydraRingProbabilityCollisionSecondaryStructure">The probability collision secondary structure to use during the calculation.</param>
-        /// <param name="hydraRingFlowVelocityStructureClosableMean">The mean of the flow velocity structure closable to use during the calculation.</param>
-        /// <param name="hydraRingFlowVelocityStructureClosableStandardDeviation">The standard deviation of the flow velocity structure closable to use during the calculation.</param>
-        /// <param name="hydraRingInsideWaterLevelMean">The mean of the inside water level to use during the calculation.</param>
-        /// <param name="hydraRingInsideWaterLevelStandardDeviation">The standard deviation of the inside water level to use during the calculation.</param>
-        /// <param name="hydraRingAllowedLevelIncreaseStorageMean">The mean of the allowed level increase for storage to use during the calculation.</param>
-        /// <param name="hydraRingAllowedLevelIncreaseStorageStandardDeviation">The standard deviation of the allowed level increase for storage to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorStorageVolumeMean">The mean of the model factor storage volume to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorStorageVolumeStandardDeviation">The standard deviation of the model factor storage volume to use during the calculation.</param>
-        /// <param name="hydraRingStorageStructureAreaMean">The mean of the storage structure area to use during the calculation.</param>
-        /// <param name="hydraRingStorageStructureAreaVariation">The variation of the storage structure area to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorInflowVolume">The model factor inflow volume to use during the calculation.</param>
-        /// <param name="hydraRingFlowWidthAtBottomProtectionMean">The mean of the flow width at bottom protection to use during the calculation.</param>
-        /// <param name="hydraRingFlowWidthAtBottomProtectionStandardDeviation">The standard deviation of the flow width at bottom protection to use during the calculation.</param>
-        /// <param name="hydraRingCriticalOvertoppingDischargeMean">The mean of the critical overtopping discharge to use during the calculation.</param>
-        /// <param name="hydraRingCriticalOvertoppingDischargeVariation">The variation of the critical overtopping discharge to use during the calculation.</param>
-        /// <param name="hydraRingFailureProbabilityStructureWithErosion">The failure probability structure with erosion to use during the calculation.</param>
-        /// <param name="hydraRingStormDurationMean">The mean of the storm duration to use during the calculation.</param>
-        /// <param name="hydraRingStormDurationVariation">The variation of the storm duration to use during the calculation.</param>
-        /// <param name="hydraRingBermWidthMean">The mean of the berm width to use during the calculation.</param>
-        /// <param name="hydraRingBermWidthStandardDeviation">The standard deviation of the berm width to use during the calculation.</param>
-        /// <param name="hydraRingEvaluationLevel">The evaluation level to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorLoadEffectMean">The mean of the model factor load effect to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorLoadEffectStandardDeviation">The standard deviation of the model factor load effect to use during the calculation.</param>
-        /// <param name="hydraRingWaveRatioMaxHMean">The mean of the wave ratio max h to use during the calculation.</param>
-        /// <param name="hydraRingWaveRatioMaxHStandardDeviation">The standard deviation of the wave ratio max h to use during the calculation.</param>
-        /// <param name="hydraRingVerticalDistance">The vertical distance to use during the calculation.</param>
-        /// <param name="hydraRingModificationFactorWavesSlowlyVaryingPressureComponent">The modification factor waves slowly-varying pressure component to use during the calculation.</param>
-        /// <param name="hydraRingModificationFactorDynamicOrImpulsivePressureComponent">The modification factor dynamic or impulsive pressure component to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorSuperCriticalFlowMean">The mean of the model factor super critical flow to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorSuperCriticalFlowStandardDeviation">The standard deviation of the model factor super critical flow to use during the calculation.</param>
-        /// <param name="hydraRingStabilityLinearLoadModelMean">The mean of the stability linear load model to use during the calculation.</param>
-        /// <param name="hydraRingStabilityLinearLoadModelVariation">The variation of the stability linear load model to use during the calculation.</param>
-        /// <param name="hydraRingConstructiveStrengthLinearLoadModelMean">The mean of the constructive strength linear load model to use during the calculation.</param>
-        /// <param name="hydraRingConstructiveStrengthLinearLoadModelVariation">The variation of the constructive strength linear load model to use during the calculation.</param>
-        /// <param name="hydraRingWidthFlowAperturesMean">The mean of the width flow apertures to use during the calculation.</param>
-        /// <param name="hydraRingWidthFlowAperturesVariation">The variation of the width flow apertures to use during the calculation.</param>
+        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
+        /// <param name="hydraRingSection">The section.</param>
+        /// <param name="forelandPoints">The foreland points.</param>
+        /// <param name="volumicWeightWater">The volumic weight of water.</param>
+        /// <param name="gravitationalAcceleration">The gravitational acceleration.</param>
+        /// <param name="levelCrestStructureMean">The mean of the level crest of the structure.</param>
+        /// <param name="levelCrestStructureStandardDeviation">The standard deviation of the level crest of the structure.</param>
+        /// <param name="structureNormalOrientation">The orientation of the normal of the structure.</param>
+        /// <param name="factorStormDurationOpenStructure">The factor of the storm duration for an open structure.</param>
+        /// <param name="modelFactorSubCriticalFlowMean">The mean of the model factor sub critical flow.</param>
+        /// <param name="modelFactorSubCriticalFlowVariation">The variation of the model factor sub critical flow.</param>
+        /// <param name="thresholdHeightOpenWeirMean">The mean of the threshold height open weir.</param>
+        /// <param name="thresholdHeightOpenWeirStandardDeviation">The standard deviation of the threshold height open weir.</param>
+        /// <param name="insideWaterLevelFailureConstructionMean">The mean of the inside water level at failure of construction.</param>
+        /// <param name="insideWaterLevelFailureConstructionStandardDeviation">The standard deviation of the inside water level at failure of construction.</param>
+        /// <param name="failureProbabilityRepairClosure">The failure probability repair closure.</param>
+        /// <param name="failureCollisionEnergyMean">The mean of the failure collision energy.</param>
+        /// <param name="failureCollisionEnergyVariation">The variation of the failure collision energy.</param>
+        /// <param name="modelFactorCollisionLoadMean">The mean of the model factor collision load.</param>
+        /// <param name="modelFactorCollisionLoadVariation">The variation of the model factor collision load.</param>
+        /// <param name="shipMassMean">The mean of the ship mass.</param>
+        /// <param name="shipMassVariation">The variation of the ship mass.</param>
+        /// <param name="shipVelocityMean">The mean of the ship velocity.</param>
+        /// <param name="shipVelocityVariation">The variation of the ship velocity.</param>
+        /// <param name="levelingCount">The leveling count.</param>
+        /// <param name="probabilityCollisionSecondaryStructure">The probability of collision of the secondary structure.</param>
+        /// <param name="flowVelocityStructureClosableMean">The mean of the flow velocity structure closable.</param>
+        /// <param name="flowVelocityStructureClosableStandardDeviation">The standard deviation of the flow velocity structure closable.</param>
+        /// <param name="insideWaterLevelMean">The mean of the inside water level.</param>
+        /// <param name="insideWaterLevelStandardDeviation">The standard deviation of the inside water level.</param>
+        /// <param name="allowedLevelIncreaseStorageMean">The mean of the allowed level of increase for storage.</param>
+        /// <param name="allowedLevelIncreaseStorageStandardDeviation">The standard deviation of the allowed level of increase for storage.</param>
+        /// <param name="modelFactorStorageVolumeMean">The mean of the model factor storage volume.</param>
+        /// <param name="modelFactorStorageVolumeStandardDeviation">The standard deviation of the model factor storage volume.</param>
+        /// <param name="storageStructureAreaMean">The mean of the storage structure area.</param>
+        /// <param name="storageStructureAreaVariation">The variation of the storage structure area.</param>
+        /// <param name="modelFactorInflowVolume">The model factor inflow volume.</param>
+        /// <param name="flowWidthAtBottomProtectionMean">The mean of the flow width at bottom protection.</param>
+        /// <param name="flowWidthAtBottomProtectionStandardDeviation">The standard deviation of the flow width at bottom protection.</param>
+        /// <param name="criticalOvertoppingDischargeMean">The mean of the critical overtopping discharge.</param>
+        /// <param name="criticalOvertoppingDischargeVariation">The variation of the critical overtopping discharge.</param>
+        /// <param name="failureProbabilityStructureWithErosion">The failure probability structure with erosion.</param>
+        /// <param name="stormDurationMean">The mean of the storm duration.</param>
+        /// <param name="stormDurationVariation">The variation of the storm duration.</param>
+        /// <param name="bermWidthMean">The mean of the berm width.</param>
+        /// <param name="bermWidthStandardDeviation">The standard deviation of the berm width.</param>
+        /// <param name="evaluationLevel">The evaluation level.</param>
+        /// <param name="modelFactorLoadEffectMean">The mean of the model factor load effect.</param>
+        /// <param name="modelFactorLoadEffectStandardDeviation">The standard deviation of the model factor load effect.</param>
+        /// <param name="waveRatioMaxHMean">The mean of the wave ratio max h.</param>
+        /// <param name="waveRatioMaxHStandardDeviation">The standard deviation of the wave ratio max h.</param>
+        /// <param name="verticalDistance">The vertical distance.</param>
+        /// <param name="modificationFactorWavesSlowlyVaryingPressureComponent">The modification factor waves slowly-varying pressure component.</param>
+        /// <param name="modificationFactorDynamicOrImpulsivePressureComponent">The modification factor dynamic or impulsive pressure component.</param>
+        /// <param name="modelFactorSuperCriticalFlowMean">The mean of the model factor super critical flow.</param>
+        /// <param name="modelFactorSuperCriticalFlowStandardDeviation">The standard deviation of the model factor super critical flow.</param>
+        /// <param name="stabilityLinearLoadModelMean">The mean of the stability linear load model.</param>
+        /// <param name="stabilityLinearLoadModelVariation">The variation of the stability linear load model.</param>
+        /// <param name="constructiveStrengthLinearLoadModelMean">The mean of the constructive strength linear load model.</param>
+        /// <param name="constructiveStrengthLinearLoadModelVariation">The variation of the constructive strength linear load model.</param>
+        /// <param name="widthFlowAperturesMean">The mean of the width flow apertures.</param>
+        /// <param name="widthFlowAperturesVariation">The variation of the width flow apertures.</param>
         public StructuresStabilityPointLowSillLinearCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
                                                                      IEnumerable<HydraRingForelandPoint> forelandPoints,
-                                                                     double hydraRingVolumicWeightWater, double hydraRingGravitationalAcceleration,
-                                                                     double hydraRingLevelCrestStructureMean, double hydraRingLevelCrestStructureStandardDeviation,
-                                                                     double hydraRingStructureNormalOrientation, double hydraRingFactorStormDurationOpenStructure,
-                                                                     double hydraRingModelFactorSubCriticalFlowMean, double hydraRingModelFactorSubCriticalFlowVariation,
-                                                                     double hydraRingThresholdHeightOpenWeirMean, double hydraRingThresholdHeightOpenWeirStandardDeviation,
-                                                                     double hydraRingInsideWaterLevelFailureConstructionMean, double hydraRingInsideWaterLevelFailureConstructionStandardDeviation,
-                                                                     double hydraRingFailureProbabilityRepairClosure,
-                                                                     double hydraRingFailureCollisionEnergyMean, double hydraRingFailureCollisionEnergyVariation,
-                                                                     double hydraRingModelFactorCollisionLoadMean, double hydraRingModelFactorCollisionLoadVariation,
-                                                                     double hydraRingShipMassMean, double hydraRingShipMassVariation,
-                                                                     double hydraRingShipVelocityMean, double hydraRingShipVelocityVariation,
-                                                                     double hydraRingLevelingCount, double hydraRingProbabilityCollisionSecondaryStructure,
-                                                                     double hydraRingFlowVelocityStructureClosableMean, double hydraRingFlowVelocityStructureClosableStandardDeviation,
-                                                                     double hydraRingInsideWaterLevelMean, double hydraRingInsideWaterLevelStandardDeviation,
-                                                                     double hydraRingAllowedLevelIncreaseStorageMean, double hydraRingAllowedLevelIncreaseStorageStandardDeviation,
-                                                                     double hydraRingModelFactorStorageVolumeMean, double hydraRingModelFactorStorageVolumeStandardDeviation,
-                                                                     double hydraRingStorageStructureAreaMean, double hydraRingStorageStructureAreaVariation,
-                                                                     double hydraRingModelFactorInflowVolume,
-                                                                     double hydraRingFlowWidthAtBottomProtectionMean, double hydraRingFlowWidthAtBottomProtectionStandardDeviation,
-                                                                     double hydraRingCriticalOvertoppingDischargeMean, double hydraRingCriticalOvertoppingDischargeVariation,
-                                                                     double hydraRingFailureProbabilityStructureWithErosion,
-                                                                     double hydraRingStormDurationMean, double hydraRingStormDurationVariation,
-                                                                     double hydraRingBermWidthMean, double hydraRingBermWidthStandardDeviation,
-                                                                     double hydraRingEvaluationLevel,
-                                                                     double hydraRingModelFactorLoadEffectMean, double hydraRingModelFactorLoadEffectStandardDeviation,
-                                                                     double hydraRingWaveRatioMaxHMean, double hydraRingWaveRatioMaxHStandardDeviation,
-                                                                     double hydraRingVerticalDistance,
-                                                                     double hydraRingModificationFactorWavesSlowlyVaryingPressureComponent,
-                                                                     double hydraRingModificationFactorDynamicOrImpulsivePressureComponent,
-                                                                     double hydraRingModelFactorSuperCriticalFlowMean, double hydraRingModelFactorSuperCriticalFlowStandardDeviation,
-                                                                     double hydraRingStabilityLinearLoadModelMean, double hydraRingStabilityLinearLoadModelVariation,
-                                                                     double hydraRingConstructiveStrengthLinearLoadModelMean, double hydraRingConstructiveStrengthLinearLoadModelVariation,
-                                                                     double hydraRingWidthFlowAperturesMean, double hydraRingWidthFlowAperturesVariation)
+                                                                     double volumicWeightWater,
+                                                                     double gravitationalAcceleration,
+                                                                     double levelCrestStructureMean, double levelCrestStructureStandardDeviation,
+                                                                     double structureNormalOrientation,
+                                                                     double factorStormDurationOpenStructure,
+                                                                     double modelFactorSubCriticalFlowMean, double modelFactorSubCriticalFlowVariation,
+                                                                     double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
+                                                                     double insideWaterLevelFailureConstructionMean, double insideWaterLevelFailureConstructionStandardDeviation,
+                                                                     double failureProbabilityRepairClosure,
+                                                                     double failureCollisionEnergyMean, double failureCollisionEnergyVariation,
+                                                                     double modelFactorCollisionLoadMean, double modelFactorCollisionLoadVariation,
+                                                                     double shipMassMean, double shipMassVariation,
+                                                                     double shipVelocityMean, double shipVelocityVariation,
+                                                                     double levelingCount,
+                                                                     double probabilityCollisionSecondaryStructure,
+                                                                     double flowVelocityStructureClosableMean, double flowVelocityStructureClosableStandardDeviation,
+                                                                     double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
+                                                                     double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation,
+                                                                     double modelFactorStorageVolumeMean, double modelFactorStorageVolumeStandardDeviation,
+                                                                     double storageStructureAreaMean, double storageStructureAreaVariation,
+                                                                     double modelFactorInflowVolume,
+                                                                     double flowWidthAtBottomProtectionMean, double flowWidthAtBottomProtectionStandardDeviation,
+                                                                     double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeVariation,
+                                                                     double failureProbabilityStructureWithErosion,
+                                                                     double stormDurationMean, double stormDurationVariation,
+                                                                     double bermWidthMean, double bermWidthStandardDeviation,
+                                                                     double evaluationLevel,
+                                                                     double modelFactorLoadEffectMean, double modelFactorLoadEffectStandardDeviation,
+                                                                     double waveRatioMaxHMean, double waveRatioMaxHStandardDeviation,
+                                                                     double verticalDistance,
+                                                                     double modificationFactorWavesSlowlyVaryingPressureComponent,
+                                                                     double modificationFactorDynamicOrImpulsivePressureComponent,
+                                                                     double modelFactorSuperCriticalFlowMean, double modelFactorSuperCriticalFlowStandardDeviation,
+                                                                     double stabilityLinearLoadModelMean, double stabilityLinearLoadModelVariation,
+                                                                     double constructiveStrengthLinearLoadModelMean, double constructiveStrengthLinearLoadModelVariation,
+                                                                     double widthFlowAperturesMean, double widthFlowAperturesVariation)
             : base(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints,
-                   hydraRingVolumicWeightWater, hydraRingGravitationalAcceleration,
-                   hydraRingLevelCrestStructureMean, hydraRingLevelCrestStructureStandardDeviation,
-                   hydraRingStructureNormalOrientation, hydraRingFactorStormDurationOpenStructure,
-                   hydraRingModelFactorSubCriticalFlowMean, hydraRingModelFactorSubCriticalFlowVariation,
-                   hydraRingThresholdHeightOpenWeirMean, hydraRingThresholdHeightOpenWeirStandardDeviation,
-                   hydraRingInsideWaterLevelFailureConstructionMean, hydraRingInsideWaterLevelFailureConstructionStandardDeviation,
-                   hydraRingFailureProbabilityRepairClosure,
-                   hydraRingFailureCollisionEnergyMean, hydraRingFailureCollisionEnergyVariation,
-                   hydraRingModelFactorCollisionLoadMean, hydraRingModelFactorCollisionLoadVariation,
-                   hydraRingShipMassMean, hydraRingShipMassVariation,
-                   hydraRingShipVelocityMean, hydraRingShipVelocityVariation,
-                   hydraRingLevelingCount, hydraRingProbabilityCollisionSecondaryStructure,
-                   hydraRingFlowVelocityStructureClosableMean, hydraRingFlowVelocityStructureClosableStandardDeviation,
-                   hydraRingInsideWaterLevelMean, hydraRingInsideWaterLevelStandardDeviation,
-                   hydraRingAllowedLevelIncreaseStorageMean, hydraRingAllowedLevelIncreaseStorageStandardDeviation,
-                   hydraRingModelFactorStorageVolumeMean, hydraRingModelFactorStorageVolumeStandardDeviation,
-                   hydraRingStorageStructureAreaMean, hydraRingStorageStructureAreaVariation,
-                   hydraRingModelFactorInflowVolume,
-                   hydraRingFlowWidthAtBottomProtectionMean, hydraRingFlowWidthAtBottomProtectionStandardDeviation,
-                   hydraRingCriticalOvertoppingDischargeMean, hydraRingCriticalOvertoppingDischargeVariation,
-                   hydraRingFailureProbabilityStructureWithErosion,
-                   hydraRingStormDurationMean, hydraRingStormDurationVariation,
-                   hydraRingBermWidthMean, hydraRingBermWidthStandardDeviation,
-                   hydraRingEvaluationLevel,
-                   hydraRingModelFactorLoadEffectMean, hydraRingModelFactorLoadEffectStandardDeviation,
-                   hydraRingWaveRatioMaxHMean, hydraRingWaveRatioMaxHStandardDeviation,
-                   hydraRingVerticalDistance,
-                   hydraRingModificationFactorWavesSlowlyVaryingPressureComponent,
-                   hydraRingModificationFactorDynamicOrImpulsivePressureComponent)
+                   volumicWeightWater,
+                   gravitationalAcceleration,
+                   levelCrestStructureMean, levelCrestStructureStandardDeviation,
+                   structureNormalOrientation,
+                   factorStormDurationOpenStructure,
+                   modelFactorSubCriticalFlowMean, modelFactorSubCriticalFlowVariation,
+                   thresholdHeightOpenWeirMean, thresholdHeightOpenWeirStandardDeviation,
+                   insideWaterLevelFailureConstructionMean, insideWaterLevelFailureConstructionStandardDeviation,
+                   failureProbabilityRepairClosure,
+                   failureCollisionEnergyMean, failureCollisionEnergyVariation,
+                   modelFactorCollisionLoadMean, modelFactorCollisionLoadVariation,
+                   shipMassMean, shipMassVariation,
+                   shipVelocityMean, shipVelocityVariation,
+                   levelingCount,
+                   probabilityCollisionSecondaryStructure,
+                   flowVelocityStructureClosableMean, flowVelocityStructureClosableStandardDeviation,
+                   insideWaterLevelMean, insideWaterLevelStandardDeviation,
+                   allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation,
+                   modelFactorStorageVolumeMean, modelFactorStorageVolumeStandardDeviation,
+                   storageStructureAreaMean, storageStructureAreaVariation,
+                   modelFactorInflowVolume,
+                   flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation,
+                   criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
+                   failureProbabilityStructureWithErosion,
+                   stormDurationMean, stormDurationVariation,
+                   bermWidthMean, bermWidthStandardDeviation,
+                   evaluationLevel,
+                   modelFactorLoadEffectMean, modelFactorLoadEffectStandardDeviation,
+                   waveRatioMaxHMean, waveRatioMaxHStandardDeviation,
+                   verticalDistance,
+                   modificationFactorWavesSlowlyVaryingPressureComponent,
+                   modificationFactorDynamicOrImpulsivePressureComponent)
         {
-            modelFactorSuperCriticalFlowMean = hydraRingModelFactorSuperCriticalFlowMean;
-            modelFactorSuperCriticalFlowStandardDeviation = hydraRingModelFactorSuperCriticalFlowStandardDeviation;
-            stabilityLinearLoadModelMean = hydraRingStabilityLinearLoadModelMean;
-            stabilityLinearLoadModelVariation = hydraRingStabilityLinearLoadModelVariation;
-            constructiveStrengthLinearLoadModelMean = hydraRingConstructiveStrengthLinearLoadModelMean;
-            constructiveStrengthLinearLoadModelVariation = hydraRingConstructiveStrengthLinearLoadModelVariation;
-            widthFlowAperturesMean = hydraRingWidthFlowAperturesMean;
-            widthFlowAperturesVariation = hydraRingWidthFlowAperturesVariation;
+            this.modelFactorSuperCriticalFlowMean = modelFactorSuperCriticalFlowMean;
+            this.modelFactorSuperCriticalFlowStandardDeviation = modelFactorSuperCriticalFlowStandardDeviation;
+            this.stabilityLinearLoadModelMean = stabilityLinearLoadModelMean;
+            this.stabilityLinearLoadModelVariation = stabilityLinearLoadModelVariation;
+            this.constructiveStrengthLinearLoadModelMean = constructiveStrengthLinearLoadModelMean;
+            this.constructiveStrengthLinearLoadModelVariation = constructiveStrengthLinearLoadModelVariation;
+            this.widthFlowAperturesMean = widthFlowAperturesMean;
+            this.widthFlowAperturesVariation = widthFlowAperturesVariation;
         }
 
         public override IEnumerable<HydraRingVariable> Variables
@@ -209,22 +215,15 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
 
         private IEnumerable<HydraRingVariable> GetVariables()
         {
-            // Model factor super critical flow
             yield return new HydraRingVariable(62, HydraRingDistributionType.Normal, double.NaN,
                                                HydraRingDeviationType.Standard, modelFactorSuperCriticalFlowMean,
                                                modelFactorSuperCriticalFlowStandardDeviation, double.NaN);
-
-            // Stability linear load model
             yield return new HydraRingVariable(80, HydraRingDistributionType.LogNormal, double.NaN,
                                                HydraRingDeviationType.Variation, stabilityLinearLoadModelMean,
                                                stabilityLinearLoadModelVariation, double.NaN);
-
-            // Constructive strength linear load model
             yield return new HydraRingVariable(83, HydraRingDistributionType.LogNormal, double.NaN,
                                                HydraRingDeviationType.Variation, constructiveStrengthLinearLoadModelMean,
                                                constructiveStrengthLinearLoadModelVariation, double.NaN);
-
-            // Width flow apertures
             yield return new HydraRingVariable(106, HydraRingDistributionType.Normal, double.NaN,
                                                HydraRingDeviationType.Variation, widthFlowAperturesMean,
                                                widthFlowAperturesVariation, double.NaN);

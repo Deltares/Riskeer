@@ -65,7 +65,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraRingDrainCoefficientMean">The mean of the drain coefficient to use during the calculation.</param>
         /// <param name="hydraRingDrainCoefficientStandardDeviation">The standard deviation of the drain coefficient to use during the calculation.</param>
         /// <param name="hydraRingAreaFlowAperturesMean">The mean of the area of flow apertures to use during the calculation.</param>
-        /// <param name="hydraRingAreaFlowAperturesStandardDeviation">The standard diviation of the area of flow apertures to use during the calculation.</param>
+        /// <param name="hydraRingAreaFlowAperturesStandardDeviation">The standard deviation of the area of flow apertures to use during the calculation.</param>
         /// <param name="hydraRingInsideWaterLevelMean">The mean of the inside water level to use during the calculation.</param>
         /// <param name="hydraRingInsideWaterLevelStandardDeviation">The standard deviation of the inside water level to use during the calculation.</param>
         public StructuresClosureFloodedCulvertCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
