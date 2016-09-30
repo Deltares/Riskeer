@@ -162,6 +162,18 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         #endregion
 
+        #region Validation and Calculation
+
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, StabilityPointStructuresFailureMechanism failureMechanism)
+        {
+            return null;
+        }
+        private static void ValidateAll(IEnumerable<StabilityPointStructuresCalculation> calculations, IAssessmentSection assessmentSection) {}
+        private static void CalculateAll(StabilityPointStructuresFailureMechanismContext context) {}
+        private static void CalculateAll(CalculationGroup group, StabilityPointStructuresCalculationGroupContext context) {}
+
+        #endregion
+
         #region TreeNodeInfo
 
         #region StabilityPointStructuresFailureMechanismContext TreeNodeInfo
@@ -217,8 +229,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddValidateAllCalculationsInFailureMechanismItem(failureMechanismContext, null)
-                          .AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, null)
+                          .AddValidateAllCalculationsInFailureMechanismItem(failureMechanismContext,
+                                                                            c => ValidateAll(c.WrappedData.Calculations.OfType<StabilityPointStructuresCalculation>(), c.Parent),
+                                                                            ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                          .AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, CalculateAll)
                           .AddClearAllCalculationOutputInFailureMechanismItem(failureMechanismContext.WrappedData)
                           .AddSeparator()
                           .AddExpandAllItem()
@@ -244,6 +258,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                           .AddExpandAllItem()
                           .AddCollapseAllItem()
                           .Build();
+        }
+
+        private string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(StabilityPointStructuresFailureMechanismContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
         }
 
         #endregion
@@ -306,8 +325,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             }
 
             builder.AddSeparator()
-                   .AddValidateAllCalculationsInGroupItem(context, null)
-                   .AddPerformAllCalculationsInGroupItem(group, context, null)
+                   .AddValidateAllCalculationsInGroupItem(context,
+                                                          c => ValidateAll(c.WrappedData.GetCalculations().OfType<StabilityPointStructuresCalculation>(), c.AssessmentSection))
+                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
 
@@ -388,7 +408,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             StabilityPointStructuresCalculation calculation = context.WrappedData;
 
-            return builder.AddValidateCalculationItem(context, delegate { })
+            return builder.AddValidateCalculationItem(context, delegate { }, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, Calculate)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
@@ -400,6 +420,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(StabilityPointStructuresCalculationContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private void Calculate(StabilityPointStructuresCalculation calculation, StabilityPointStructuresCalculationContext context) {}
