@@ -185,6 +185,10 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets or sets the orientation of the normal of the structure.
         /// </summary>
+        /// <remarks><list type="bullet">
+        /// <item>When the value is smaller than 0, it will be set to 0.</item>
+        /// <item>When the value is larger than 360, it will be set to 360.</item>
+        /// </list></remarks>
         public RoundedDouble OrientationOfTheNormalOfTheStructure
         {
             get
@@ -193,8 +197,28 @@ namespace Ringtoets.HeightStructures.Data
             }
             set
             {
-                orientationOfTheNormalOfTheStructure = value.ToPrecision(orientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
+                RoundedDouble newOrientationValue = value.ToPrecision(orientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
+                newOrientationValue = ValidateStructureNormalOrientationInRange(newOrientationValue);
+
+                orientationOfTheNormalOfTheStructure = newOrientationValue;
             }
+        }
+
+        private RoundedDouble ValidateStructureNormalOrientationInRange(RoundedDouble newOrientationValue)
+        {
+            const double upperBoundaryRange = 360;
+            const double lowerBoundaryRange = 0.0;
+
+            if (newOrientationValue > upperBoundaryRange)
+            {
+                newOrientationValue = new RoundedDouble(2, upperBoundaryRange);
+            }
+            else if (newOrientationValue < lowerBoundaryRange)
+            {
+                newOrientationValue = new RoundedDouble(2, lowerBoundaryRange);
+            }
+
+            return newOrientationValue;
         }
 
         /// <summary>

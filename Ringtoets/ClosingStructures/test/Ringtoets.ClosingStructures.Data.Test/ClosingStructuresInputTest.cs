@@ -50,6 +50,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.IsNull(input.HydraulicBoundaryLocation);
             Assert.IsNull(input.ClosingStructure);
 
+            AssertEqualValues(0, input.StructureNormalOrientation);
+            Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
+
             Assert.IsNull(input.ForeshoreProfile);
             Assert.IsFalse(input.UseBreakWater);
             Assert.AreEqual(BreakWaterType.Dam, input.BreakWater.Type);
@@ -69,7 +72,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             AssertEqualValues(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
             AssertEqualValues(7.5, input.StormDuration.Mean);
             AssertEqualValues(0.25, input.StormDuration.GetVariationCoefficient());
-            Assert.AreEqual(1, input.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(1.0, input.ProbabilityOpenStructureBeforeFlooding);
         }
 
         [Test]
@@ -204,20 +207,39 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void Properties_StructureNormalOrientation_ExpectedValues()
+        [TestCase(360.004)]
+        [TestCase(300)]
+        [TestCase(0)]
+        [TestCase(-0.004)]
+        public void Properties_StructureNormalOrientationValidValues_NewValueSet(double orientation)
         {
             // Setup
             var input = new ClosingStructuresInput();
-            var random = new Random(22);
-
-            var orientation = new RoundedDouble(5, random.NextDouble());
 
             // Call
-            input.StructureNormalOrientation = orientation;
+            input.StructureNormalOrientation = (RoundedDouble) orientation;
 
             // Assert
             Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
             AssertEqualValues(orientation, input.StructureNormalOrientation);
+        }
+
+        [Test]
+        [TestCase(400, 360)]
+        [TestCase(360.05, 360)]
+        [TestCase(-0.005, 0)]
+        [TestCase(-23, 0)]
+        public void Properties_StructureNormalOrientationInValidValues_ValueRoundedToValidValue(double invalidValue, double validValue)
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+
+            // Call
+            input.StructureNormalOrientation = (RoundedDouble) invalidValue;
+
+            // Assert
+            Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
+            AssertEqualValues(validValue, input.StructureNormalOrientation);
         }
 
         [Test]

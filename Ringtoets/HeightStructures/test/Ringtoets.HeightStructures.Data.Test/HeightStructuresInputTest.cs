@@ -45,6 +45,9 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsInstanceOf<ICalculationInput>(input);
             Assert.IsNull(input.HydraulicBoundaryLocation);
 
+            AssertAreEqual(0, input.OrientationOfTheNormalOfTheStructure);
+            Assert.AreEqual(2, input.OrientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
+
             AssertAreEqual(0.05, input.LevelOfCrestOfStructure.StandardDeviation);
             AssertAreEqual(1.1, input.ModelFactorOvertoppingSuperCriticalFlow.Mean);
             AssertAreEqual(0.03, input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation);
@@ -153,19 +156,39 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void Properties_OrientationOfTheNormalOfTheStructure_ExpectedValues()
+        [TestCase(360.004)]
+        [TestCase(300)]
+        [TestCase(0)]
+        [TestCase(-0.004)]
+        public void Properties_StructureNormalOrientationValidValues_NewValueSet(double orientation)
         {
             // Setup
             var input = new HeightStructuresInput();
-            var random = new Random(22);
-
-            RoundedDouble orientationOfTheNormalOfTheStructure = new RoundedDouble(5, random.NextDouble());
 
             // Call
-            input.OrientationOfTheNormalOfTheStructure = orientationOfTheNormalOfTheStructure;
+            input.OrientationOfTheNormalOfTheStructure = (RoundedDouble)orientation;
 
             // Assert
-            AssertAreEqual(orientationOfTheNormalOfTheStructure, input.OrientationOfTheNormalOfTheStructure);
+            Assert.AreEqual(2, input.OrientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
+            AssertAreEqual(orientation, input.OrientationOfTheNormalOfTheStructure);
+        }
+
+        [Test]
+        [TestCase(400, 360)]
+        [TestCase(360.05, 360)]
+        [TestCase(-0.005, 0)]
+        [TestCase(-23, 0)]
+        public void Properties_StructureNormalOrientationInValidValues_ValueRoundedToValidValue(double invalidValue, double validValue)
+        {
+            // Setup
+            var input = new HeightStructuresInput();
+
+            // Call
+            input.OrientationOfTheNormalOfTheStructure = (RoundedDouble)invalidValue;
+
+            // Assert
+            Assert.AreEqual(2, input.OrientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
+            AssertAreEqual(validValue, input.OrientationOfTheNormalOfTheStructure);
         }
 
         [Test]

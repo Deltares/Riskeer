@@ -159,6 +159,50 @@ namespace Ringtoets.ClosingStructures.Data
 
         #region Deterministic inputs
 
+        #region Structure Normal orientation
+
+        /// <summary>
+        /// Gets or sets the orientation of the normal of the structure.
+        /// </summary>
+        /// <remarks><list type="bullet">
+        /// <item>When the value is smaller than 0, it will be set to 0.</item>
+        /// <item>When the value is larger than 360, it will be set to 360.</item>
+        /// </list></remarks>
+        public RoundedDouble StructureNormalOrientation
+        {
+            get
+            {
+                return structureNormalOrientation;
+            }
+            set
+            {
+
+                RoundedDouble newOrientationValue = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
+                newOrientationValue = ValidateStructureNormalOrientationInRange(newOrientationValue);
+
+                structureNormalOrientation = newOrientationValue;                
+            }
+        }
+
+        private RoundedDouble ValidateStructureNormalOrientationInRange(RoundedDouble newOrientationValue)
+        {
+            const double upperBoundaryRange = 360;
+            const double lowerBoundaryRange = 0.0;
+
+            if (newOrientationValue > upperBoundaryRange)
+            {
+                newOrientationValue = new RoundedDouble(2, upperBoundaryRange);
+            }
+            else if (newOrientationValue < lowerBoundaryRange)
+            {
+                newOrientationValue = new RoundedDouble(2, lowerBoundaryRange);
+            }
+
+            return newOrientationValue;
+        }
+
+        #endregion
+
         /// <summary>
         /// Gets or sets the storm duration for an open structure.
         /// </summary>
@@ -171,21 +215,6 @@ namespace Ringtoets.ClosingStructures.Data
             set
             {
                 factorStormDurationOpenStructure = value.ToPrecision(factorStormDurationOpenStructure.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the orientation of the normal of the structure.
-        /// </summary>
-        public RoundedDouble StructureNormalOrientation
-        {
-            get
-            {
-                return structureNormalOrientation;
-            }
-            set
-            {
-                structureNormalOrientation = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
             }
         }
 
