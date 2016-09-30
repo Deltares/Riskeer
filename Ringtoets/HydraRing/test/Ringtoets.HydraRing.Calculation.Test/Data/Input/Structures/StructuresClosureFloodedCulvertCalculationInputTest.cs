@@ -43,44 +43,48 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double factorStormDurationOpenStructure = 0.1;
             const double failureProbabilityOpenStructure = 0.04;
             const double failureProbabilityReparation = 0.08;
-            const double identicalAperture = 0.4;
-            const double allowableIncreaseOfLevelForStorageMean = 3.3;
-            const double allowableIncreaseOfLevelForStorageStandardDeviation = 0.1;
-            const double modelFactorForStorageVolumeMean = 1.0;
-            const double modelFactorForStorageVolumeStandardDeviation = 0.2;
+            const double identicalApertures = 0.4;
+            const double allowedLevelIncreaseStorageMean = 3.3;
+            const double allowedLevelIncreaseStorageStandardDeviation = 0.1;
+            const double modelFactorStorageVolumeMean = 1.0;
+            const double modelFactorStorageVolumeStandardDeviation = 0.2;
             const double storageStructureAreaMean = 4.4;
-            const double storageStructureAreaStandardDeviation = 0.1;
-            const double modelFactorForIncomingFlowVolume = 1;
+            const double storageStructureAreaVariation = 0.1;
+            const double modelFactorInflowVolume = 1;
             const double flowWidthAtBottomProtectionMean = 5.5;
             const double flowWidthAtBottomProtectionStandardDeviation = 0.05;
             const double criticalOvertoppingDischargeMean = 6.6;
-            const double criticalOvertoppingDischargeMeanStandardDeviation = 0.15;
-            const double failureProbabilityOfStructureGivenErosion = 7.7;
+            const double criticalOvertoppingDischargeVariation = 0.15;
+            const double failureProbabilityStructureWithErosion = 7.7;
             const double stormDurationMean = 7.5;
-            const double stormDurationStandardDeviation = 0.25;
+            const double stormDurationVariation = 0.25;
             const double probabilityOpenStructureBeforeFlooding = 0.04;
             const double drainCoefficientMean = 1;
             const double drainCoefficientStandardDeviation = 0.2;
             const double areaFlowAperturesMean = 0.4;
             const double areaFlowAperturesStandardDeviation = 0.01;
-            const double waterLevelInsideMean = 4.3;
-            const double waterLevelInsideStandardDeviation = 0.1;
+            const double insideWaterLevelMean = 4.3;
+            const double insideWaterLevelStandardDeviation = 0.1;
 
             // Call
             var input = new StructuresClosureFloodedCulvertCalculationInput(hydraulicBoundaryLocationId, section, forelandPoints,
-                                                                            gravitationalAcceleration, factorStormDurationOpenStructure,
-                                                                            failureProbabilityOpenStructure, failureProbabilityReparation,
-                                                                            identicalAperture, allowableIncreaseOfLevelForStorageMean,
-                                                                            allowableIncreaseOfLevelForStorageStandardDeviation, modelFactorForStorageVolumeMean,
-                                                                            modelFactorForStorageVolumeStandardDeviation, storageStructureAreaMean,
-                                                                            storageStructureAreaStandardDeviation, modelFactorForIncomingFlowVolume,
+                                                                            gravitationalAcceleration,
+                                                                            factorStormDurationOpenStructure,
+                                                                            failureProbabilityOpenStructure,
+                                                                            failureProbabilityReparation,
+                                                                            identicalApertures,
+                                                                            allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation,
+                                                                            modelFactorStorageVolumeMean, modelFactorStorageVolumeStandardDeviation,
+                                                                            storageStructureAreaMean, storageStructureAreaVariation,
+                                                                            modelFactorInflowVolume,
                                                                             flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation,
-                                                                            criticalOvertoppingDischargeMean, criticalOvertoppingDischargeMeanStandardDeviation,
-                                                                            failureProbabilityOfStructureGivenErosion, stormDurationMean,
-                                                                            stormDurationStandardDeviation, probabilityOpenStructureBeforeFlooding,
+                                                                            criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
+                                                                            failureProbabilityStructureWithErosion,
+                                                                            stormDurationMean, stormDurationVariation,
+                                                                            probabilityOpenStructureBeforeFlooding,
                                                                             drainCoefficientMean, drainCoefficientStandardDeviation,
                                                                             areaFlowAperturesMean, areaFlowAperturesStandardDeviation,
-                                                                            waterLevelInsideMean, waterLevelInsideStandardDeviation);
+                                                                            insideWaterLevelMean, insideWaterLevelStandardDeviation);
 
             // Assert
             Assert.IsInstanceOf<StructuresClosureCalculationInput>(input);

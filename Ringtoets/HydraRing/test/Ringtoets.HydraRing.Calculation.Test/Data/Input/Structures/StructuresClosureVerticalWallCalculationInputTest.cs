@@ -43,50 +43,55 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double factorStormDurationOpenStructure = 0.1;
             const double failureProbabilityOpenStructure = 0.04;
             const double failureProbabilityReparation = 0.08;
-            const double identicalAperture = 0.4;
-            const double allowableIncreaseOfLevelForStorageMean = 3.3;
-            const double allowableIncreaseOfLevelForStorageStandardDeviation = 0.1;
-            const double modelFactorForStorageVolumeMean = 1.0;
-            const double modelFactorForStorageVolumeStandardDeviation = 0.2;
+            const double identicalApertures = 0.4;
+            const double allowedLevelIncreaseStorageMean = 3.3;
+            const double allowedLevelIncreaseStorageStandardDeviation = 0.1;
+            const double modelFactorStorageVolumeMean = 1.0;
+            const double modelFactorStorageVolumeStandardDeviation = 0.2;
             const double storageStructureAreaMean = 4.4;
-            const double storageStructureAreaStandardDeviation = 0.1;
-            const double modelFactorForIncomingFlowVolume = 1;
+            const double storageStructureAreaVariation = 0.1;
+            const double modelFactorInflowVolume = 1;
             const double flowWidthAtBottomProtectionMean = 5.5;
             const double flowWidthAtBottomProtectionStandardDeviation = 0.05;
             const double criticalOvertoppingDischargeMean = 6.6;
-            const double criticalOvertoppingDischargeMeanStandardDeviation = 0.15;
-            const double failureProbabilityOfStructureGivenErosion = 7.7;
+            const double criticalOvertoppingDischargeVariation = 0.15;
+            const double failureProbabilityStructureWithErosion = 7.7;
             const double stormDurationMean = 7.5;
-            const double stormDurationStandardDeviation = 0.25;
+            const double stormDurationVariation = 0.25;
             const double probabilityOpenStructureBeforeFlooding = 0.04;
             const double modelFactorOvertoppingFlowMean = 0.09;
             const double modelFactorOvertoppingFlowStandardDeviation = 0.06;
             const double structureNormalOrientation = 0.05;
-            const double modelFactorOvertoppingSuperCriticalFlowMean = 1.1;
-            const double modelFactorOvertoppingSuperCriticalFlowStandardDeviation = 0.3;
-            const double levelCrestOfStructuresNotClosingMean = 0.08;
-            const double levelCrestOfStructuresNotClosingStandardDeviation = 0.05;
-            const double widthOfFlowAperturesMean = 5.4;
-            const double widthOfFlowAperturesVariation = 0.05;
-            const double wavedirectionDeviation = 0.03;
+            const double modelFactorSuperCriticalFlowMean = 1.1;
+            const double modelFactorSuperCriticalFlowStandardDeviation = 0.3;
+            const double levelCrestStructureNotClosingMean = 0.08;
+            const double levelCrestStructureNotClosingStandardDeviation = 0.05;
+            const double widthFlowAperturesMean = 5.4;
+            const double widthFlowAperturesVariation = 0.05;
+            const double deviationWaveDirection = 0.03;
 
             // Call
             var input = new StructuresClosureVerticalWallCalculationInput(hydraulicBoundaryLocationId, section, forelandPoints,
-                                                                          gravitationalAcceleration, factorStormDurationOpenStructure,
-                                                                          failureProbabilityOpenStructure, failureProbabilityReparation,
-                                                                          identicalAperture, allowableIncreaseOfLevelForStorageMean,
-                                                                          allowableIncreaseOfLevelForStorageStandardDeviation, modelFactorForStorageVolumeMean,
-                                                                          modelFactorForStorageVolumeStandardDeviation, storageStructureAreaMean,
-                                                                          storageStructureAreaStandardDeviation, modelFactorForIncomingFlowVolume,
+                                                                          gravitationalAcceleration,
+                                                                          factorStormDurationOpenStructure,
+                                                                          failureProbabilityOpenStructure,
+                                                                          failureProbabilityReparation,
+                                                                          identicalApertures,
+                                                                          allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation,
+                                                                          modelFactorStorageVolumeMean, modelFactorStorageVolumeStandardDeviation,
+                                                                          storageStructureAreaMean, storageStructureAreaVariation,
+                                                                          modelFactorInflowVolume,
                                                                           flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation,
-                                                                          criticalOvertoppingDischargeMean, criticalOvertoppingDischargeMeanStandardDeviation,
-                                                                          failureProbabilityOfStructureGivenErosion, stormDurationMean,
-                                                                          stormDurationStandardDeviation, probabilityOpenStructureBeforeFlooding,
+                                                                          criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
+                                                                          failureProbabilityStructureWithErosion,
+                                                                          stormDurationMean, stormDurationVariation,
+                                                                          probabilityOpenStructureBeforeFlooding,
                                                                           modelFactorOvertoppingFlowMean, modelFactorOvertoppingFlowStandardDeviation,
-                                                                          structureNormalOrientation, modelFactorOvertoppingSuperCriticalFlowMean,
-                                                                          modelFactorOvertoppingSuperCriticalFlowStandardDeviation, levelCrestOfStructuresNotClosingMean,
-                                                                          levelCrestOfStructuresNotClosingStandardDeviation, widthOfFlowAperturesMean,
-                                                                          widthOfFlowAperturesVariation, wavedirectionDeviation);
+                                                                          structureNormalOrientation,
+                                                                          modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation,
+                                                                          levelCrestStructureNotClosingMean, levelCrestStructureNotClosingStandardDeviation,
+                                                                          widthFlowAperturesMean, widthFlowAperturesVariation,
+                                                                          deviationWaveDirection);
 
             // Assert
             Assert.IsInstanceOf<StructuresClosureCalculationInput>(input);

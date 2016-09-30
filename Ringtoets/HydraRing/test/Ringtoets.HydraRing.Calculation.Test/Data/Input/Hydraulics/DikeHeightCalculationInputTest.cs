@@ -43,17 +43,17 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
 
             const double modelFactorCriticalOvertopping = 1;
-            const double factorFnMean = 4.75;
-            const double factorFnStandardDeviation = 0.5;
-            const double hydraRingFactorFnMean = 2.6;
-            const double hydraRingFactorFnStandardDeviation = 0.35;
-            const double hydraRingmodelFactorOvertopping = 1;
+            const double factorFbMean = 4.75;
+            const double factorFbStandardDeviation = 0.5;
+            const double factorFnMean = 2.6;
+            const double factorFnStandardDeviation = 0.35;
+            const double modelFactorOvertopping = 1;
             const double criticalOvertoppingMean = 22.22;
             const double criticalOvertoppingStandardDeviation = 33.33;
-            const double hydraRingModelFactorFrunupMean = 1;
-            const double hydraRingModelFactorFrunupStandardDeviation = 0.07;
-            const double hydraRingExponentModelFactorShallowMean = 0.92;
-            const double hydraRingExponentModelFactorShallowStandardDeviation = 0.24;
+            const double modelFactorFrunupMean = 1;
+            const double modelFactorFrunupStandardDeviation = 0.07;
+            const double exponentModelFactorShallowMean = 0.92;
+            const double exponentModelFactorShallowStandardDeviation = 0.24;
             var expectedRingProfilePoints = new List<HydraRingRoughnessProfilePoint>
             {
                 new HydraRingRoughnessProfilePoint(1.1, 2.2, 3.3)
@@ -67,11 +67,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             // Call
             DikeHeightCalculationInput dikeHeightCalculationInput = new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, section,
                                                                                                    expectedRingProfilePoints, expectedRingForelandPoints, expectedRingBreakWater,
-                                                                                                   modelFactorCriticalOvertopping, factorFnMean, factorFnStandardDeviation,
-                                                                                                   hydraRingFactorFnMean, hydraRingFactorFnStandardDeviation, hydraRingmodelFactorOvertopping,
-                                                                                                   criticalOvertoppingMean, criticalOvertoppingStandardDeviation, hydraRingModelFactorFrunupMean,
-                                                                                                   hydraRingModelFactorFrunupStandardDeviation, hydraRingExponentModelFactorShallowMean,
-                                                                                                   hydraRingExponentModelFactorShallowStandardDeviation);
+                                                                                                   modelFactorCriticalOvertopping,
+                                                                                                   factorFbMean, factorFbStandardDeviation,
+                                                                                                   factorFnMean, factorFnStandardDeviation,
+                                                                                                   modelFactorOvertopping,
+                                                                                                   criticalOvertoppingMean, criticalOvertoppingStandardDeviation,
+                                                                                                   modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
+                                                                                                   exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation);
 
             // Assert
             const int expectedCalculationTypeId = 2;
