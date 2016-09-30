@@ -47,14 +47,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
             Assert.AreEqual(9.81, inputParameters.GravitationalAcceleration, inputParameters.GravitationalAcceleration.GetAccuracy());
 
-            var modelFactorForSubCriticalFlow = new NormalDistribution(2)
-            {
-                Mean = new RoundedDouble(1, 1),
-                StandardDeviation = new RoundedDouble(1, 0.1)
-            };
-            Assert.AreEqual(modelFactorForSubCriticalFlow.Mean, inputParameters.ModelFactorForSubCriticalFlow.Mean);
-            Assert.AreEqual(modelFactorForSubCriticalFlow.StandardDeviation, inputParameters.ModelFactorForSubCriticalFlow.StandardDeviation);
-
             var modelFactorOvertoppingFlow = new LogNormalDistribution(3)
             {
                 Mean = new RoundedDouble(2, 0.09),
@@ -62,17 +54,25 @@ namespace Ringtoets.ClosingStructures.Data.Test
             };
             Assert.AreEqual(modelFactorOvertoppingFlow.Mean, inputParameters.ModelFactorOvertoppingFlow.Mean);
             Assert.AreEqual(modelFactorOvertoppingFlow.StandardDeviation, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation);
+            
+            var modelFactorForSubCriticalFlow = new NormalDistribution(2)
+            {
+                Mean = new RoundedDouble(1, 1)
+            };
+            Assert.AreEqual(modelFactorForSubCriticalFlow.Mean, inputParameters.ModelFactorForSubCriticalFlow.Mean);
+            Assert.AreEqual(0.1, inputParameters.ModelFactorForSubCriticalFlow.GetVariationCoefficient(),
+                            inputParameters.ModelFactorForSubCriticalFlow.GetVariationCoefficient().GetAccuracy());
 
             var modelfactorForStorageVolume = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) 1.0
+                Mean = (RoundedDouble) 1.0,
+                StandardDeviation = (RoundedDouble) 0.2
             };
             Assert.AreEqual(modelfactorForStorageVolume.Mean, inputParameters.ModelFactorForStorageVolume.Mean);
-            Assert.AreEqual(0.2, inputParameters.ModelFactorForStorageVolume.GetVariationCoefficient(),
-                            inputParameters.ModelFactorForStorageVolume.GetVariationCoefficient().GetAccuracy());
+            Assert.AreEqual(modelfactorForStorageVolume.StandardDeviation, inputParameters.ModelFactorForStorageVolume.StandardDeviation);
 
-            Assert.AreEqual(2, inputParameters.ModelFactorForIncomingFlowVolume.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.0, inputParameters.ModelFactorForIncomingFlowVolume, inputParameters.ModelFactorForIncomingFlowVolume.GetAccuracy());
+            Assert.AreEqual(2, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
+            Assert.AreEqual(1.0, inputParameters.ModelFactorInflowVolume, inputParameters.ModelFactorInflowVolume.GetAccuracy());
         }
 
         [Test]

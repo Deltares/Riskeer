@@ -47,18 +47,20 @@ namespace Ringtoets.ClosingStructures.Data
                 Mean = (RoundedDouble) 0.09,
                 StandardDeviation = (RoundedDouble) 0.06
             };
+
             ModelFactorForStorageVolume = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.2
             };
+
             ModelFactorForSubCriticalFlow = new NormalDistribution(1)
             {
                 Mean = (RoundedDouble) 1,
             };
             ModelFactorForSubCriticalFlow.SetStandardDeviationFromVariationCoefficient(0.1);
 
-            ModelFactorForIncomingFlowVolume = new RoundedDouble(2, 1);
+            ModelFactorInflowVolume = new RoundedDouble(2, 1);
         }
 
         #region Constants
@@ -125,7 +127,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Get the model factor for incoming flow volume.
         /// </summary>
-        public RoundedDouble ModelFactorForIncomingFlowVolume { get; private set; }
+        public RoundedDouble ModelFactorInflowVolume { get; private set; }
 
         #endregion
     }
