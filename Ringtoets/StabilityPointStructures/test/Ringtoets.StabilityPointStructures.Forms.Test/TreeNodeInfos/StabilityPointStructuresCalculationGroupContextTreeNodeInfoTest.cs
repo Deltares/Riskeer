@@ -167,7 +167,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                                                                                    assessmentSectionMock);
 
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -272,7 +271,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
-
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -288,8 +286,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+                
                 guiMock.Expect(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
-
                 mocks.ReplayAll();
 
                 // Call
@@ -512,7 +510,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                                                                                      assessmentSectionMock);
 
             observerMock.Expect(o => o.UpdateObserver());
-
             mocks.ReplayAll();
 
             parentGroup.Children.Add(group);
