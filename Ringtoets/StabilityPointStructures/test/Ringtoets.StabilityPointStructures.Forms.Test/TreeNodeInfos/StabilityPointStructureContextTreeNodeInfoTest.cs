@@ -40,44 +40,34 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class StabilityPointStructureContextTreeNodeInfoTest
     {
-        private StabilityPointStructuresPlugin plugin;
-        private TreeNodeInfo info;
-
-        [SetUp]
-        public void SetUp()
-        {
-            plugin = new StabilityPointStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructureContext));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
-            // Assert
-            Assert.AreEqual(typeof(StabilityPointStructureContext), info.TagType);
-            Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.CanDrag);
-            Assert.IsNull(info.CanDrop);
-            Assert.IsNull(info.CanInsert);
-            Assert.IsNull(info.CanRemove);
-            Assert.IsNull(info.CanRename);
-            Assert.IsNotNull(info.ChildNodeObjects);
-            Assert.IsNotNull(info.ContextMenuStrip);
-            Assert.IsNull(info.EnsureVisibleOnCreate);
-            Assert.IsNotNull(info.ForeColor);
-            Assert.IsNotNull(info.Image);
-            Assert.IsNull(info.IsChecked);
-            Assert.IsNull(info.OnDrop);
-            Assert.IsNull(info.OnNodeChecked);
-            Assert.IsNull(info.OnNodeRemoved);
-            Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNotNull(info.Text);
+            // Setup
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                var info = GetInfo(plugin);
+
+                // Assert
+                Assert.AreEqual(typeof(StabilityPointStructureContext), info.TagType);
+                Assert.IsNull(info.CanCheck);
+                Assert.IsNull(info.CanDrag);
+                Assert.IsNull(info.CanDrop);
+                Assert.IsNull(info.CanInsert);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNotNull(info.ChildNodeObjects);
+                Assert.IsNotNull(info.ContextMenuStrip);
+                Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNotNull(info.ForeColor);
+                Assert.IsNotNull(info.Image);
+                Assert.IsNull(info.IsChecked);
+                Assert.IsNull(info.OnDrop);
+                Assert.IsNull(info.OnNodeChecked);
+                Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNull(info.OnNodeRenamed);
+                Assert.IsNotNull(info.Text);
+            }
         }
 
         [Test]
@@ -91,12 +81,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var context = new StabilityPointStructureContext(new ObservableList<StabilityPointStructure>(),
                                                              assessmentSection);
 
-            // Call
-            string text = info.Text(context);
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            const string expectedText = "Kunstwerken";
-            Assert.AreEqual(expectedText, text);
+                // Call
+                string text = info.Text(context);
+
+                // Assert
+                const string expectedText = "Kunstwerken";
+                Assert.AreEqual(expectedText, text);
+            }
             mocks.VerifyAll();
         }
 
@@ -111,11 +106,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var context = new StabilityPointStructureContext(new ObservableList<StabilityPointStructure>(),
                                                              assessmentSection);
 
-            // Call
-            Image image = info.Image(context);
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsProperties.GeneralFolderIcon, image);
+                // Call
+                Image image = info.Image(context);
+
+                // Assert
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsProperties.GeneralFolderIcon, image);
+            }
             mocks.VerifyAll();
         }
 
@@ -136,12 +136,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             CollectionAssert.IsNotEmpty(structures);
 
             var context = new StabilityPointStructureContext(structures, assessmentSection);
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Call
-            Color color = info.ForeColor(context);
+                // Call
+                Color color = info.ForeColor(context);
 
-            // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
+            }
             mocks.VerifyAll();
         }
 
@@ -162,14 +166,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             };
 
             var context = new StabilityPointStructureContext(closingStructures, assessmentSection);
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Call
-            var children = info.ChildNodeObjects(context);
+                // Call
+                var children = info.ChildNodeObjects(context);
 
-            // Assert
-            Assert.AreEqual(2, children.Length);
-            Assert.AreSame(structure1, children.ElementAt(0));
-            Assert.AreSame(structure2, children.ElementAt(1));
+                // Assert
+                Assert.AreEqual(2, children.Length);
+                Assert.AreSame(structure1, children.ElementAt(0));
+                Assert.AreSame(structure2, children.ElementAt(1));
+            }
             mocks.VerifyAll();
         }
 
@@ -187,12 +195,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             CollectionAssert.IsEmpty(closingStructures);
 
             var context = new StabilityPointStructureContext(closingStructures, assessmentSection);
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Call
-            Color color = info.ForeColor(context);
+                // Call
+                Color color = info.ForeColor(context);
 
-            // Assert
-            Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+                // Assert
+                Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);
+            }
             mocks.VerifyAll();
         }
 
@@ -208,6 +220,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
 
+            using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.Stub<IGui>();
@@ -215,12 +228,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 mocks.ReplayAll();
 
                 plugin.Gui = gui;
+                var info = GetInfo(plugin);
 
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);
             }
             // Assert
             mocks.VerifyAll();
+        }
+
+        private static TreeNodeInfo GetInfo(StabilityPointStructuresPlugin gui)
+        {
+            return gui.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructureContext));
         }
 
         private static StabilityPointStructure CreateStabilityPointStructure()

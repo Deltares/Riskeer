@@ -24,7 +24,6 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -34,78 +33,74 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class StabilityPointStructureTreeNodeInfoTest
     {
-        private MockRepository mocks;
-        private StabilityPointStructuresPlugin plugin;
-        private TreeNodeInfo info;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mocks = new MockRepository();
-            plugin = new StabilityPointStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructure));
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            plugin.Dispose();
-            mocks.VerifyAll();
-        }
-
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Setup
-            mocks.ReplayAll();
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual(typeof(StabilityPointStructure), info.TagType);
-            Assert.IsNull(info.CanCheck);
-            Assert.IsNull(info.CanDrag);
-            Assert.IsNull(info.CanDrop);
-            Assert.IsNull(info.CanInsert);
-            Assert.IsNull(info.CanRemove);
-            Assert.IsNull(info.CanRename);
-            Assert.IsNull(info.ChildNodeObjects);
-            Assert.IsNull(info.ContextMenuStrip);
-            Assert.IsNull(info.EnsureVisibleOnCreate);
-            Assert.IsNull(info.ForeColor);
-            Assert.IsNotNull(info.Image);
-            Assert.IsNull(info.IsChecked);
-            Assert.IsNull(info.OnDrop);
-            Assert.IsNull(info.OnNodeChecked);
-            Assert.IsNull(info.OnNodeRemoved);
-            Assert.IsNull(info.OnNodeRenamed);
-            Assert.IsNotNull(info.Text);
+                // Assert
+                Assert.AreEqual(typeof(StabilityPointStructure), info.TagType);
+                Assert.IsNull(info.CanCheck);
+                Assert.IsNull(info.CanDrag);
+                Assert.IsNull(info.CanDrop);
+                Assert.IsNull(info.CanInsert);
+                Assert.IsNull(info.CanRemove);
+                Assert.IsNull(info.CanRename);
+                Assert.IsNull(info.ChildNodeObjects);
+                Assert.IsNull(info.ContextMenuStrip);
+                Assert.IsNull(info.EnsureVisibleOnCreate);
+                Assert.IsNull(info.ForeColor);
+                Assert.IsNotNull(info.Image);
+                Assert.IsNull(info.IsChecked);
+                Assert.IsNull(info.OnDrop);
+                Assert.IsNull(info.OnNodeChecked);
+                Assert.IsNull(info.OnNodeRemoved);
+                Assert.IsNull(info.OnNodeRenamed);
+                Assert.IsNotNull(info.Text);
+            }
         }
 
         [Test]
         public void Text_Always_ReturnNameOfStructure()
         {
             // Setup
-            mocks.ReplayAll();
             const string name = "a nice name";
             StabilityPointStructure structure = CreateSimpleStabilityPointStructure(name);
 
-            // Call
-            string text = info.Text(structure);
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Assert
-            Assert.AreEqual(name, text);
+                // Call
+                string text = info.Text(structure);
+
+                // Assert
+                Assert.AreEqual(name, text);
+            }
         }
 
         [Test]
-        public void Text_Always_ReturnStructureIcon()
+        public void Image_Always_ReturnStructureIcon()
         {
             // Setup
-            mocks.ReplayAll();
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                var info = GetInfo(plugin);
 
-            // Call
-            var image = info.Image(null);
+                // Call
+                var image = info.Image(null);
 
-            // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.StructuresIcon, image);
+                // Assert
+                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.StructuresIcon, image);
+            }
+        }
+
+        private static TreeNodeInfo GetInfo(StabilityPointStructuresPlugin gui)
+        {
+            return gui.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructure));
         }
 
         private static StabilityPointStructure CreateSimpleStabilityPointStructure(string name)
