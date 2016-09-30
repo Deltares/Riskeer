@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -50,6 +53,7 @@ namespace Ringtoets.ClosingStructures.Data
         private double failureProbabilityStructureWithErosion;
         private double probabilityOpenStructureBeforeFlooding;
         private RoundedDouble deviationWaveDirection;
+        private ForeshoreProfile foreshoreProfile;
 
         public ClosingStructuresInput()
         {
@@ -129,6 +133,8 @@ namespace Ringtoets.ClosingStructures.Data
                 Mean = (RoundedDouble) 7.5
             };
             stormDuration.SetStandardDeviationFromVariationCoefficient(0.25);
+
+            UpdateForeshoreProperties();
         }
 
         #region Hydraulic Boundary Location
@@ -138,6 +144,7 @@ namespace Ringtoets.ClosingStructures.Data
         #endregion
 
         #region Structure properties
+
         /// <summary>
         /// Gets or sets the closing structure.
         /// </summary>
@@ -480,6 +487,77 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 stormDuration.Mean = value.Mean;
             }
+        }
+
+        #endregion
+
+        #region Foreshore Profile
+
+        /// <summary>
+        /// Gets or sets the foreshore profile.
+        /// </summary>
+        public ForeshoreProfile ForeshoreProfile
+        {
+            get
+            {
+                return foreshoreProfile;
+            }
+            set
+            {
+                foreshoreProfile = value;
+                UpdateForeshoreProperties();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets whether the <see cref="BreakWater"/> needs to be taken into account.
+        /// </summary>
+        public bool UseBreakWater { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether the <see cref="ForeshoreProfile"/> needs to be taken into account.
+        /// </summary>
+        public bool UseForeshore { get; set; }
+
+        /// <summary>
+        /// Gets the geometry of the foreshore.
+        /// </summary>
+        public RoundedPoint2DCollection ForeshoreGeometry
+        {
+            get
+            {
+                return foreshoreProfile != null
+                           ? foreshoreProfile.Geometry
+                           : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="BreakWater"/>.
+        /// </summary>
+        public BreakWater BreakWater { get; private set; }
+
+        private void UpdateForeshoreProperties()
+        {
+            if (foreshoreProfile == null)
+            {
+                UseForeshore = false;
+                UseBreakWater = false;
+                BreakWater = GetDefaultBreakWaterProperties();
+            }
+            else
+            {
+                UseForeshore = foreshoreProfile.Geometry.Count() > 1;
+                UseBreakWater = foreshoreProfile.HasBreakWater;
+                BreakWater = foreshoreProfile.HasBreakWater ?
+                                 new BreakWater(foreshoreProfile.BreakWater.Type, foreshoreProfile.BreakWater.Height) :
+                                 GetDefaultBreakWaterProperties();
+            }
+        }
+
+        private BreakWater GetDefaultBreakWaterProperties()
+        {
+            return new BreakWater(BreakWaterType.Dam, 0.0);
         }
 
         #endregion
