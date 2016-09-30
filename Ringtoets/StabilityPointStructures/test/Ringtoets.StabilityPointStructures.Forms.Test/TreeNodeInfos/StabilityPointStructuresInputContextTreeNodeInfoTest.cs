@@ -87,10 +87,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             var stabilityPointStructuresInputContext = new StabilityPointStructuresInputContext(
-                mocksRepository.StrictMock<StabilityPointStructuresInput>(),
-                mocksRepository.StrictMock<StabilityPointStructuresCalculation>(),
+                mocksRepository.Stub<StabilityPointStructuresInput>(),
+                mocksRepository.Stub<StabilityPointStructuresCalculation>(),
                 new StabilityPointStructuresFailureMechanism(),
                 assessmentSectionMock);
 
@@ -107,10 +107,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             var stabilityPointStructuresInputContext = new StabilityPointStructuresInputContext(
-                mocksRepository.StrictMock<StabilityPointStructuresInput>(),
-                mocksRepository.StrictMock<StabilityPointStructuresCalculation>(),
+                mocksRepository.Stub<StabilityPointStructuresInput>(),
+                mocksRepository.Stub<StabilityPointStructuresCalculation>(),
                 new StabilityPointStructuresFailureMechanism(),
                 assessmentSectionMock);
 
