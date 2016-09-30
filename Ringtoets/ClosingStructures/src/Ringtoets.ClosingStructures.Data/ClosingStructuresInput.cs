@@ -34,7 +34,7 @@ namespace Ringtoets.ClosingStructures.Data
         private readonly NormalDistribution thresholdHeightOpenWeir;
         private readonly NormalDistribution drainCoefficient;
         private readonly LogNormalDistribution areaFlowApertures;
-        private readonly NormalDistribution levelCrestOfStructureNotClosing;
+        private readonly NormalDistribution levelCrestStructureNotClosing;
         private readonly NormalDistribution insideWaterLevel;
         private readonly LogNormalDistribution storageStructureArea;
         private readonly LogNormalDistribution allowedLevelIncreaseStorage;
@@ -48,13 +48,13 @@ namespace Ringtoets.ClosingStructures.Data
         private double failureProbabilityReparation;
         private double failureProbabilityStructureWithErosion;
         private double probabilityOpenStructureBeforeFlooding;
-        private RoundedDouble wavedirectionDeviation;
+        private RoundedDouble deviationWaveDirection;
 
         public ClosingStructuresInput()
         {
             structureNormalOrientation = new RoundedDouble(2);
             factorStormDurationOpenStructure = new RoundedDouble(2);
-            wavedirectionDeviation = new RoundedDouble(2);
+            deviationWaveDirection = new RoundedDouble(2);
             probabilityOpenStructureBeforeFlooding = 1.0;
 
             modelFactorSuperCriticalFlow = new NormalDistribution(2)
@@ -81,7 +81,7 @@ namespace Ringtoets.ClosingStructures.Data
                 StandardDeviation = (RoundedDouble) 0.01
             };
 
-            levelCrestOfStructureNotClosing = new NormalDistribution(2)
+            levelCrestStructureNotClosing = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) 0.05
@@ -174,7 +174,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets or sets the identical apertures to use during the calculation.
         /// </summary>
-        public int IdenticalAperture { get; set; }
+        public int IdenticalApertures { get; set; }
 
         /// <summary>
         /// Gets or sets the failure probability of an open structure.
@@ -240,17 +240,17 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets and sets the deviation of the wave direction.
+        /// Gets or sets the deviation of the wave direction.
         /// </summary>
-        public RoundedDouble WavedirectionDeviation
+        public RoundedDouble DeviationWaveDirection
         {
             get
             {
-                return wavedirectionDeviation;
+                return deviationWaveDirection;
             }
             set
             {
-                wavedirectionDeviation = value.ToPrecision(wavedirectionDeviation.NumberOfDecimalPlaces);
+                deviationWaveDirection = value.ToPrecision(deviationWaveDirection.NumberOfDecimalPlaces);
             }
         }
 
@@ -280,8 +280,9 @@ namespace Ringtoets.ClosingStructures.Data
         #region Probabilistic inputs
 
         /// <summary>
-        /// Gets the drain coefficient normal distribution and sets the the drain coefficient mean.
+        /// Gets or sets the drain coefficient.
         /// </summary>
+        /// <remarks>Only sets the mean</remarks>
         public NormalDistribution DrainCoefficient
         {
             get
@@ -295,8 +296,9 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets the model factor super critical flow normal distribution and sets the mean.
+        /// Gets or sets the model factor super critical flow.
         /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
         public NormalDistribution ModelFactorSuperCriticalFlow
         {
             get
@@ -310,7 +312,7 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets the threshold low weir height normal distribution and sets the threshold low weir height mean.
+        /// Gets or sets the threshold low weir height.
         /// </summary>
         public NormalDistribution ThresholdHeightOpenWeir
         {
@@ -326,7 +328,7 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets and sets the area flow apertures normal distribution.
+        /// Gets or sets the area flow apertures normal distribution.
         /// </summary>
         public LogNormalDistribution AreaFlowApertures
         {
@@ -344,16 +346,16 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets or sets the level crest of structure not closing normal distribution.
         /// </summary>
-        public NormalDistribution LevelCrestOfStructureNotClosing
+        public NormalDistribution LevelCrestStructureNotClosing
         {
             get
             {
-                return levelCrestOfStructureNotClosing;
+                return levelCrestStructureNotClosing;
             }
             set
             {
-                levelCrestOfStructureNotClosing.Mean = value.Mean;
-                levelCrestOfStructureNotClosing.StandardDeviation = value.StandardDeviation;
+                levelCrestStructureNotClosing.Mean = value.Mean;
+                levelCrestStructureNotClosing.StandardDeviation = value.StandardDeviation;
             }
         }
 
@@ -454,8 +456,9 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets the storm duration log normal distribution and sets the storm duration mean.
+        /// Gets or sets the storm duration.
         /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
         public LogNormalDistribution StormDuration
         {
             get

@@ -110,6 +110,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets or sets the model factor overtopping critical flow.
         /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
         public NormalDistribution ModelFactorOvertoppingSuperCriticalFlow
         {
             get
@@ -149,6 +150,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets or sets the storm duration
         /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
         public LogNormalDistribution StormDuration
         {
             get

@@ -49,7 +49,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             AssertEqualValues(1, input.DrainCoefficient.Mean);
             AssertEqualValues(0.2, input.DrainCoefficient.StandardDeviation);
             AssertEqualValues(0.01, input.AreaFlowApertures.StandardDeviation);
-            AssertEqualValues(0.05, input.LevelCrestOfStructureNotClosing.StandardDeviation);
+            AssertEqualValues(0.05, input.LevelCrestStructureNotClosing.StandardDeviation);
             AssertEqualValues(0.1, input.InsideWaterLevel.StandardDeviation);
             AssertEqualValues(0.1, input.AllowedLevelIncreaseStorage.StandardDeviation);
             AssertEqualValues(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
@@ -235,7 +235,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void Properties_IdenticalAperture_ExpectedValues()
+        public void Properties_IdenticalApertures_ExpectedValues()
         {
             // Setup
             var input = new ClosingStructuresInput();
@@ -244,25 +244,25 @@ namespace Ringtoets.ClosingStructures.Data.Test
             int identicalAperture = random.Next();
 
             // Call
-            input.IdenticalAperture = identicalAperture;
+            input.IdenticalApertures = identicalAperture;
 
             // Assert
-            Assert.AreEqual(identicalAperture, input.IdenticalAperture);
+            Assert.AreEqual(identicalAperture, input.IdenticalApertures);
         }
 
         [Test]
-        public void Properties_LevelCrestOfStructureNotClosing_ExpectedValues()
+        public void Properties_LevelCrestStructureNotClosing_ExpectedValues()
         {
             // Setup
             var input = new ClosingStructuresInput();
-            NormalDistribution levelCrestOfStructureNotClosing = GenerateNormalDistribution();
+            NormalDistribution levelCrestStructureNotClosing = GenerateNormalDistribution();
 
             //Call
-            input.LevelCrestOfStructureNotClosing = levelCrestOfStructureNotClosing;
+            input.LevelCrestStructureNotClosing = levelCrestStructureNotClosing;
 
             //Assert
-            Assert.AreEqual(levelCrestOfStructureNotClosing.Mean, input.LevelCrestOfStructureNotClosing.Mean);
-            Assert.AreEqual(levelCrestOfStructureNotClosing.StandardDeviation, input.LevelCrestOfStructureNotClosing.StandardDeviation);
+            Assert.AreEqual(levelCrestStructureNotClosing.Mean, input.LevelCrestStructureNotClosing.Mean);
+            Assert.AreEqual(levelCrestStructureNotClosing.StandardDeviation, input.LevelCrestStructureNotClosing.StandardDeviation);
         }
 
         [Test]
@@ -387,20 +387,20 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void Properties_WaveDirectionDeviation_ExpectedValues()
+        public void Properties_DeviationWaveDirection_ExpectedValues()
         {
             // Setup
             var input = new ClosingStructuresInput();
             var random = new Random(22);
 
-            var wavedirectionDeviation = new RoundedDouble(5, random.NextDouble());
+            var deviationWaveDirection = new RoundedDouble(5, random.NextDouble());
 
             // Call
-            input.WavedirectionDeviation = wavedirectionDeviation;
+            input.DeviationWaveDirection = deviationWaveDirection;
 
             // Assert
-            Assert.AreEqual(2, input.WavedirectionDeviation.NumberOfDecimalPlaces);
-            AssertEqualValues(wavedirectionDeviation, input.WavedirectionDeviation);
+            Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
+            AssertEqualValues(deviationWaveDirection, input.DeviationWaveDirection);
         }
 
         [Test]
