@@ -583,16 +583,16 @@
   <data name="PipingContext_DataDescription_PipingCalculationItem" xml:space="preserve">
     <value>De berekening</value>
   </data>
-  <data name="PipingScenarioView_PipingScenarioRow_FailureProbabiltyHeave" xml:space="preserve">
+  <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave" xml:space="preserve">
     <value>Kans op heave [1/jaar]</value>
   </data>
-  <data name="PipingScenarioView_PipingScenarioRow_FailureProbabiltyPiping" xml:space="preserve">
+  <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityPiping" xml:space="preserve">
     <value>Faalkans [1/jaar]</value>
   </data>
-  <data name="PipingScenarioView_PipingScenarioRow_FailureProbabiltySellmeijer" xml:space="preserve">
+  <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilitySellmeijer" xml:space="preserve">
     <value>Kans op terugschrijdende erosie [1/jaar]</value>
   </data>
-  <data name="PipingScenarioView_PipingScenarioRow_FailureProbabiltyUplift" xml:space="preserve">
+  <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityUplift" xml:space="preserve">
     <value>Kans op opbarsten [1/jaar]</value>
   </data>
   <data name="GeneralPipingInput_UpliftCriticalSafetyFactor_Description" xml:space="preserve">

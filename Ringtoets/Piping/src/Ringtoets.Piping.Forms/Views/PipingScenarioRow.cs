@@ -106,7 +106,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets failure probabilty of piping of the <see cref="PipingCalculationScenario"/>.
+        /// Gets the failure probability of piping of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
         public string FailureProbabilityPiping
@@ -122,7 +122,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets failure probabilty of uplift sub failure mechanism of the <see cref="PipingCalculationScenario"/>.
+        /// Gets the failure probability of uplift sub failure mechanism of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
         public string FailureProbabilityUplift
@@ -138,7 +138,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets failure probabilty of heave sub failure mechanism of the <see cref="PipingCalculationScenario"/>.
+        /// Gets the failure probability of heave sub failure mechanism of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
         public string FailureProbabilityHeave
@@ -154,7 +154,7 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets failure probabilty of sellmeijer sub failure mechanism of the <see cref="PipingCalculationScenario"/>.
+        /// Gets the failure probability of sellmeijer sub failure mechanism of the <see cref="PipingCalculationScenario"/>.
         /// </summary>
         [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
         public string FailureProbabilitySellmeijer

@@ -845,36 +845,36 @@ namespace Ringtoets.Piping.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Kans op heave [1/jaar].
         /// </summary>
-        public static string PipingScenarioView_PipingScenarioRow_FailureProbabiltyHeave {
+        public static string PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave {
             get {
-                return ResourceManager.GetString("PipingScenarioView_PipingScenarioRow_FailureProbabiltyHeave", resourceCulture);
+                return ResourceManager.GetString("PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Faalkans [1/jaar].
         /// </summary>
-        public static string PipingScenarioView_PipingScenarioRow_FailureProbabiltyPiping {
+        public static string PipingScenarioView_PipingScenarioRow_FailureProbabilityPiping {
             get {
-                return ResourceManager.GetString("PipingScenarioView_PipingScenarioRow_FailureProbabiltyPiping", resourceCulture);
+                return ResourceManager.GetString("PipingScenarioView_PipingScenarioRow_FailureProbabilityPiping", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kans op terugschrijdende erosie [1/jaar].
         /// </summary>
-        public static string PipingScenarioView_PipingScenarioRow_FailureProbabiltySellmeijer {
+        public static string PipingScenarioView_PipingScenarioRow_FailureProbabilitySellmeijer {
             get {
-                return ResourceManager.GetString("PipingScenarioView_PipingScenarioRow_FailureProbabiltySellmeijer", resourceCulture);
+                return ResourceManager.GetString("PipingScenarioView_PipingScenarioRow_FailureProbabilitySellmeijer", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Kans op opbarsten [1/jaar].
         /// </summary>
-        public static string PipingScenarioView_PipingScenarioRow_FailureProbabiltyUplift {
+        public static string PipingScenarioView_PipingScenarioRow_FailureProbabilityUplift {
             get {
-                return ResourceManager.GetString("PipingScenarioView_PipingScenarioRow_FailureProbabiltyUplift", resourceCulture);
+                return ResourceManager.GetString("PipingScenarioView_PipingScenarioRow_FailureProbabilityUplift", resourceCulture);
             }
         }
         

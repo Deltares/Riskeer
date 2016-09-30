@@ -139,19 +139,19 @@ namespace Ringtoets.Piping.Forms.Views
                 );
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingScenarioRow>(row => row.FailureProbabilityPiping),
-                Resources.PipingScenarioView_PipingScenarioRow_FailureProbabiltyPiping
+                Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilityPiping
                 );
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingScenarioRow>(row => row.FailureProbabilityUplift),
-                Resources.PipingScenarioView_PipingScenarioRow_FailureProbabiltyUplift
+                Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilityUplift
                 );
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingScenarioRow>(row => row.FailureProbabilityHeave),
-                Resources.PipingScenarioView_PipingScenarioRow_FailureProbabiltyHeave
+                Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave
                 );
             dataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<PipingScenarioRow>(row => row.FailureProbabilitySellmeijer),
-                Resources.PipingScenarioView_PipingScenarioRow_FailureProbabiltySellmeijer
+                Resources.PipingScenarioView_PipingScenarioRow_FailureProbabilitySellmeijer
                 );
         }
 
