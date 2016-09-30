@@ -627,11 +627,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new GrassCoverErosionOutwardsHydraulicLocationEntity
                     {
-                        Name = locationAName
+                        Order = 1,
+                        Name = locationBName
                     },
                     new GrassCoverErosionOutwardsHydraulicLocationEntity
                     {
-                        Name = locationBName
+                        Order = 0,
+                        Name = locationAName
                     }
                 }
             };
