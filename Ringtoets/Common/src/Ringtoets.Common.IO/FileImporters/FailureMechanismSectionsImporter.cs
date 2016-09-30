@@ -29,13 +29,9 @@ using Core.Common.IO.Readers;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.IO;
-using Ringtoets.Integration.Plugin.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Integration.Plugin.FileImporters
+namespace Ringtoets.Common.IO.FileImporters
 {
     /// <summary>
     /// Imports <see cref="FailureMechanismSection"/> instances from a shapefile that contains

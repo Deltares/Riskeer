@@ -67,12 +67,6 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="FileImporters\DikeProfilesImporterTest.cs" />
-    <Compile Include="FileImporters\FailureMechanismSectionsImporterTest.cs" />
-    <Compile Include="FileImporters\ForeshoreProfilesImporterTest.cs" />
-    <Compile Include="FileImporters\HydraulicBoundaryDatabaseImporterTest.cs" />
-    <Compile Include="FileImporters\HydraulicBoundaryLocationFilterTest.cs" />
-    <Compile Include="FileImporters\ProfilesImporterTest.cs" />
     <Compile Include="ImportInfos\DikeProfilesContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\FailureMechanismSectionsContextImportInfoTest.cs" />
     <Compile Include="ImportInfos\ForeshoreProfilesContextImportInfoTest.cs" />
@@ -113,14 +107,6 @@
       <Project>{30e4c2ae-719e-4d70-9fa9-668a9767fbfa}</Project>
       <Name>Core.Common.Gui</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
-      <Project>{e344867e-9ac9-44c8-88a5-8185681679a9}</Project>
-      <Name>Core.Common.IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
-      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
-      <Name>Core.Common.Utils</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.Gui.TestUtil\Core.Common.Gui.TestUtil.csproj">
       <Project>{26214bd0-dafb-4cfc-8eb2-80c5d53c859e}</Project>
       <Name>Core.Common.Gui.TestUtil</Name>
@@ -132,10 +118,6 @@
     <ProjectReference Include="..\..\..\..\Core\Components\src\Core.Components.Gis.Forms\Core.Components.Gis.Forms.csproj">
       <Project>{4a06df0d-5d75-4bad-a95a-a3db9b7c4ad5}</Project>
       <Name>Core.Components.Gis.Forms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
-      <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
-      <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{d4200f43-3f72-4f42-af0a-8ced416a38ec}</Project>
@@ -152,10 +134,6 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
       <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
       <Name>Ringtoets.Common.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Data\Ringtoets.GrassCoverErosionInwards.Data.csproj">
-      <Project>{90DE728E-48EF-4665-AB38-3D88E41D9F4D}</Project>
-      <Name>Ringtoets.GrassCoverErosionInwards.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\GrassCoverErosionInwards\src\Ringtoets.GrassCoverErosionInwards.Forms\Ringtoets.GrassCoverErosionInwards.Forms.csproj">
       <Project>{C540E627-B95B-4CC0-A1B6-A0BDF74936C7}</Project>

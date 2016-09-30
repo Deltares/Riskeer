@@ -33,12 +33,12 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Plugin.FileImporters;
 
 namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 {

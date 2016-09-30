@@ -27,12 +27,12 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Plugin.FileImporters;
 
 namespace Ringtoets.HeightStructures.Integration.Test
 {

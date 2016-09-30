@@ -29,11 +29,11 @@ using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Plugin.FileImporters;
 using UtilsResources = Core.Common.Utils.Properties.Resources;
 
-namespace Ringtoets.Integration.Plugin.Test.FileImporters
+namespace Ringtoets.Common.IO.Test.FileImporters
 {
     [TestFixture]
     public class HydraulicBoundaryDatabaseImporterTest

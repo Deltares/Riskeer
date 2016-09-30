@@ -59,6 +59,12 @@
     <Compile Include="DikeProfiles\ProfileLocationReaderTest.cs" />
     <Compile Include="DikeProfiles\ProfileLocationTest.cs" />
     <Compile Include="Exceptions\CriticalFileValidationExceptionTest.cs" />
+    <Compile Include="FileImporters\DikeProfilesImporterTest.cs" />
+    <Compile Include="FileImporters\FailureMechanismSectionsImporterTest.cs" />
+    <Compile Include="FileImporters\ForeshoreProfilesImporterTest.cs" />
+    <Compile Include="FileImporters\HydraulicBoundaryDatabaseImporterTest.cs" />
+    <Compile Include="FileImporters\HydraulicBoundaryLocationFilterTest.cs" />
+    <Compile Include="FileImporters\ProfilesImporterTest.cs" />
     <Compile Include="FileImporters\StructuresImporterTest.cs" />
     <Compile Include="HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporterTest.cs" />

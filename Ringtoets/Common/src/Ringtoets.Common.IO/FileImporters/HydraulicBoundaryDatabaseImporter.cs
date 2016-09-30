@@ -25,12 +25,12 @@ using Core.Common.IO.Exceptions;
 using Core.Common.Utils.Builders;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.IO.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext;
-using Ringtoets.Integration.Plugin.Properties;
 
-namespace Ringtoets.Integration.Plugin.FileImporters
+namespace Ringtoets.Common.IO.FileImporters
 {
     /// <summary>
     /// Imports locations read from an Hydraulic boundary .sqlite file (SqlLite database file) to a 

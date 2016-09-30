@@ -28,10 +28,10 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using Ringtoets.Integration.Data;
-using Ringtoets.Integration.Plugin.FileImporters;
 
 namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 {

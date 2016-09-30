@@ -117,39 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read" xml:space="preserve">
-    <value>De hydraulische randvoorwaardenlocaties zijn ingelezen.</value>
-  </data>
-  <data name="HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped" xml:space="preserve">
-    <value>{0} Het bestand wordt overgeslagen.</value>
-  </data>
-  <data name="FailureMechanismSectionsImporter_CriticalErrorMessage_0_No_sections_imported" xml:space="preserve">
-    <value>{0} 
-Er is geen vakindeling geïmporteerd.</value>
-  </data>
-  <data name="FailureMechanismSectionsImporter_Import_Required_referenceline_missing" xml:space="preserve">
-    <value>Er is geen referentielijn beschikbaar om een vakindeling voor te definiëren.</value>
-  </data>
-  <data name="FailureMechanismSectionsImporter_ReadFile_File_is_empty" xml:space="preserve">
-    <value>Het bestand heeft geen vakindeling.</value>
-  </data>
   <data name="FailureMechanismSectionsImporter_Import_Imported_sections_do_not_correspond_to_current_referenceline" xml:space="preserve">
     <value>Vakindeling komt niet overeen met de huidige referentielijn.</value>
-  </data>
-  <data name="FailureMechanismSectionsImporter_Import_cancelled_no_data_read" xml:space="preserve">
-    <value>Vakindeling importeren afgebroken. Geen gegevens ingelezen.</value>
-  </data>
-  <data name="FailureMechanismSectionsImporter_ProgressText_Reading_file" xml:space="preserve">
-    <value>Inlezen vakindeling.</value>
-  </data>
-  <data name="FailureMechanismSectionsImporter_ProgressText_Validating_imported_sections" xml:space="preserve">
-    <value>Valideren ingelezen vakindeling.</value>
-  </data>
-  <data name="FailureMechanismSectionsImporter_ProgressText_Adding_imported_data_to_failureMechanism" xml:space="preserve">
-    <value>Geïmporteerde gegevens toevoegen aan het toetsspoor.</value>
-  </data>
-  <data name="HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found" xml:space="preserve">
-    <value>Het bijbehorende HLCD bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
   </data>
   <data name="Comment_DisplayName" xml:space="preserve">
     <value>Opmerkingen</value>
@@ -157,71 +126,23 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="RingtoetsRibbon_GroupBox_New" xml:space="preserve">
     <value>Nieuw</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="HydraulicBoundaryLocationsFilterList" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Exceptions_DoNotCalculate.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="ForeshoreProfilesImporter_DisplayName" xml:space="preserve">
     <value>Voorlandprofiellocaties</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Foreshore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Foreshore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ProfilesImporter_AddNextProfileLocation_0_skipping_location_outside_referenceline" xml:space="preserve">
-    <value>Een profiellocatie met ID '{0}' ligt niet op de referentielijn. Locatie wordt overgeslagen.</value>
-  </data>
-  <data name="ProfilesImporter_AddNextProfileLocation_Location_with_id_0_already_read" xml:space="preserve">
-    <value>Profiellocatie met ID '{0}' is opnieuw ingelezen.</value>
   </data>
   <data name="DikeProfilesImporter_DisplayName" xml:space="preserve">
     <value>Dijkprofiellocaties</value>
   </data>
-  <data name="ProfilesImporter_GetProfileLocationReadResult_Error_reading_Profile_LineNumber_0_Error_1_The_Profile_is_skipped" xml:space="preserve">
-    <value>Fout bij het lezen van profiel op regel {0}. {1} Dit profiel wordt overgeslagen.</value>
-  </data>
-  <data name="ProfilesImporter_GetProfileLocationReadResult_reading_profilelocation" xml:space="preserve">
-    <value>Inlezen van profiellocatie.</value>
-  </data>
-  <data name="DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_" xml:space="preserve">
-    <value>Kan geen geldige gegevens vinden voor dijkprofiellocatie met ID '{0}'.</value>
-  </data>
-  <data name="DikeProfilesImporter_HandleUserCancellingImport_dikeprofile_import_aborted" xml:space="preserve">
-    <value>Dijkprofielen importeren is afgebroken. Geen gegevens ingelezen.</value>
-  </data>
   <data name="DikeProfilesImporter_Import_no_referenceline_import_aborted" xml:space="preserve">
     <value>Er is geen referentielijn beschikbaar. Geen gegevens ingelezen.</value>
-  </data>
-  <data name="ProfilesImporter_LogDuplicateDikeProfileData_Multiple_DikeProfileData_found_for_DikeProfile_0_File_1_skipped" xml:space="preserve">
-    <value>Meerdere definities gevonden voor profiel '{0}'. Bestand '{1}' wordt overgeslagen.</value>
-  </data>
-  <data name="ProfilesImporter_ReadDikeProfileData_reading_profiledata" xml:space="preserve">
-    <value>Inlezen van profielgegevens.</value>
-  </data>
-  <data name="ProfilesImporter_ReadDikeProfileData_reading_profile_data" xml:space="preserve">
-    <value>Inlezen van profielgegevens uit een prfl bestand.</value>
-  </data>
-  <data name="ProfilesImporter_ReadDikeProfileData_sheet_piling_not_zero_skipping_0_" xml:space="preserve">
-    <value>Profielgegevens definiëren een damwand waarde ongelijk aan 0. Bestand wordt overgeslagen: {0}</value>
-  </data>
-  <data name="ProfilesImporter_ReadProfileLocations_reading_profilelocations" xml:space="preserve">
-    <value>Inlezen van profiellocaties uit een shapebestand.</value>
-  </data>
-  <data name="ForeshoreProfilesImporter_GetMatchingForeshoreProfileData_no_foreshoreprofiledata_for_location_0_" xml:space="preserve">
-    <value>Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID '{0}'.</value>
-  </data>
-  <data name="ForeshoreProfilesImporter_HandleUserCancellingImport_foreshoreprofile_import_aborted" xml:space="preserve">
-    <value>Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.</value>
   </data>
   <data name="DesignWaterLevel_Description" xml:space="preserve">
     <value>h(norm)</value>
   </data>
   <data name="WaveHeight_Description" xml:space="preserve">
     <value>Hs(norm)</value>
-  </data>
-  <data name="ForeshoreProfilesImporter_No_dam_no_foreshore_geometry_file_0_skipped" xml:space="preserve">
-    <value>Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.</value>
-  </data>
-  <data name="DikeProfilesImporter_No_dike_geometry_file_0_skipped" xml:space="preserve">
-    <value>Profielgegevens definiëren geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.</value>
   </data>
 </root>

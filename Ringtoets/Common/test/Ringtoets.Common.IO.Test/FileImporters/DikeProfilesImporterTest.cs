@@ -28,45 +28,34 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.Integration.Plugin.FileImporters;
-using Ringtoets.WaveImpactAsphaltCover.Data;
+using Ringtoets.Common.IO.FileImporters;
 
-namespace Ringtoets.Integration.Plugin.Test.FileImporters
+namespace Ringtoets.Common.IO.Test.FileImporters
 {
     [TestFixture]
-    public class ForeshoreProfilesImporterTest
+    public class DikeProfilesImporterTest
     {
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
-
         [Test]
-        public void ParameterdConstructor_ExpectedValues()
+        public void Constructor_WithValidParameters_ReturnsNewInstance()
         {
             // Setup
-            var importTarget = new ObservableList<ForeshoreProfile>();
+            var importTarget = new ObservableList<DikeProfile>();
             var referenceLine = new ReferenceLine();
 
             // Call
-            var importer = new ForeshoreProfilesImporter(importTarget, referenceLine, "");
+            var importer = new DikeProfilesImporter(importTarget, referenceLine, "");
 
             // Assert
-            Assert.IsInstanceOf<ProfilesImporter<ObservableList<ForeshoreProfile>>>(importer);
+            Assert.IsInstanceOf<ProfilesImporter<ObservableList<DikeProfile>>>(importer);
         }
 
         [Test]
-        public void ParameterdConstructor_ImportTargetNull_ThrowArgumentNullException()
+        public void Constructor_ImportTargetNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(null, new ReferenceLine(), "");
+            TestDelegate call = () => new DikeProfilesImporter(null, new ReferenceLine(), "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -74,10 +63,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void ParameterdConstructor_ReferenceLineNull_ThrowArgumentNullException()
+        public void Constructor_ReferenceLineNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(new ObservableList<ForeshoreProfile>(), null, "");
+            TestDelegate call = () => new DikeProfilesImporter(new ObservableList<DikeProfile>(), null, "");
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -85,10 +74,10 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
         }
 
         [Test]
-        public void ParameterdConstructor_FilePathNull_ThrowArgumentNullException()
+        public void Constructor_FilePathNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new ForeshoreProfilesImporter(new ObservableList<ForeshoreProfile>(), new ReferenceLine(), null);
+            TestDelegate call = () => new DikeProfilesImporter(new ObservableList<DikeProfile>(), new ReferenceLine(), null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -103,59 +92,57 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "IpflWithUnmatchableId", "Voorlanden_12-2_UnmatchableId.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
+            var dikeProfiles = new ObservableList<DikeProfile>();
 
-            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
-
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(failureMechanism.ForeshoreProfiles, referenceLine, filePath);
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
+            var importResult = false;
 
             // Call
-            var importResult = true;
-            Action call = () => importResult = foreshoreProfilesImporter.Import();
+            Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 string[] messageArray = messages.ToArray();
-                string expectedMessage = "Kan geen geldige gegevens vinden voor voorlandprofiellocatie met ID 'unmatchable'.";
+                string expectedMessage = "Kan geen geldige gegevens vinden voor dijkprofiellocatie met ID 'unmatchable'.";
                 Assert.AreEqual(expectedMessage, messageArray[0]);
             });
             Assert.IsTrue(importResult);
-            mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Import_FiveForeshoreProfilesWithoutDamsAndGeometries_TrueAndLogWarningAndTwoForeshoreProfiles()
+        public void Import_FiveDikeProfilesWithoutGeometries_TrueAndLogWarningAndNoDikeProfiles()
         {
             // Setup
             string fileDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
-                                                              Path.Combine("DikeProfiles", "NoDamsAndNoForeshoreGeometries"));
+                                                              Path.Combine("DikeProfiles", "NoDikeProfileGeometries"));
             string filePath = Path.Combine(fileDirectory, "Voorlanden 12-2.shp");
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
 
             // Call
             bool importResult = false;
-            Action call = () => importResult = foreshoreProfilesImporter.Import();
+            Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
             string[] expectedMessages =
             {
-                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel001 - Ringtoets.prfl")),
-                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel003 - Ringtoets.prfl")),
-                string.Format("Profielgegevens definiëren geen dam en geen voorlandgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel004 - Ringtoets.prfl")),
+                string.Format("Profielgegevens definiëren geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel001 - Ringtoets.prfl")),
+                string.Format("Profielgegevens definiëren geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel002 - Ringtoets.prfl")),
+                string.Format("Profielgegevens definiëren geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel003 - Ringtoets.prfl")),
+                string.Format("Profielgegevens definiëren geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel004 - Ringtoets.prfl")),
+                string.Format("Profielgegevens definiëren geen dijkgeometrie. Bestand '{0}' wordt overgeslagen.", Path.Combine(fileDirectory, "profiel005 - Ringtoets.prfl"))
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(2, foreshoreProfiles.Count);
+            Assert.AreEqual(0, dikeProfiles.Count);
         }
 
         [Test]
-        public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_TrueAndLogErrorAndFourForeshoreProfiles()
+        public void Import_OneDikeProfileLocationNotCloseEnoughToReferenceLine_TrueAndLogErrorAndFourDikeProfiles()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -172,45 +159,40 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
             var referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
 
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
 
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            var importResult = false;
 
             // Call
-            var importResult = true;
-            Action call = () => importResult = foreshoreProfilesImporter.Import();
+            Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
             string expectedMessage = "Een profiellocatie met ID 'profiel005' ligt niet op de referentielijn. Locatie wordt overgeslagen.";
             TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
             Assert.IsTrue(importResult);
-            Assert.AreEqual(4, foreshoreProfiles.Count);
+            Assert.AreEqual(4, dikeProfiles.Count);
         }
 
         [Test]
-        public void Import_AllOkTestData_TrueAndLogMessagesAndFiveForeshoreProfiles()
+        public void Import_AllOkTestData_TrueAndLogMessagesAndFiveDikeProfiles()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath)
+
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath)
             {
                 ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
             };
 
             // Call
-            bool importResult = foreshoreProfilesImporter.Import();
+            bool importResult = dikeProfilesImporter.Import();
 
             // Assert
             Assert.IsTrue(importResult);
@@ -230,67 +212,53 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new ProgressNotification("Inlezen van profielgegevens.", 5, 5)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
-            Assert.AreEqual(5, foreshoreProfiles.Count);
-            mockRepository.VerifyAll(); // 'observer' should not be notified
+            Assert.AreEqual(5, dikeProfiles.Count);
         }
 
         [Test]
-        public void Import_AllOkTestData_CorrectForeshoreProfileProperties()
+        public void Import_AllOkTestData_CorrectDikeProfileProperties()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
-            var observer = mockRepository.StrictMock<IObserver>();
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
 
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
-
-            var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, assessmentSection);
-            targetContext.Attach(observer);
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
 
             // Call
-            foreshoreProfilesImporter.Import();
+            dikeProfilesImporter.Import();
 
             // Assert
-            ForeshoreProfile foreshoreProfile = foreshoreProfiles[4];
-            Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), foreshoreProfile.WorldReferencePoint);
-            Assert.AreEqual("profiel005", foreshoreProfile.Name);
-            Assert.AreEqual(15.56165507, foreshoreProfile.X0);
-            Assert.AreEqual(new RoundedDouble(2, 330.0), foreshoreProfile.Orientation);
-            Assert.IsTrue(foreshoreProfile.HasBreakWater);
-            mockRepository.VerifyAll(); // 'observer' should not be notified
+            DikeProfile dikeProfile = dikeProfiles[4];
+            Assert.AreEqual(new Point2D(136039.49100000039, 533920.28050000477), dikeProfile.WorldReferencePoint);
+            Assert.AreEqual("profiel005", dikeProfile.Name);
+            Assert.AreEqual(15.56165507, dikeProfile.X0);
+            Assert.AreEqual(new RoundedDouble(2, 330.0), dikeProfile.Orientation);
+            Assert.IsTrue(dikeProfile.HasBreakWater);
+            Assert.AreEqual(new RoundedDouble(2, 6.0), dikeProfile.DikeHeight);
         }
 
         [Test]
-        public void Import_AllDamTypes_TrueAndLogMessagesAndFiveForeshoreProfiles()
+        public void Import_AllDamTypes_TrueAndLogMessagesAndFiveDikeProfiles()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllDamTypes", "Voorlanden 12-2.shp"));
 
-            var observer = mockRepository.StrictMock<IObserver>();
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
 
             var progressChangeNotifications = new List<ProgressNotification>();
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath)
+
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath)
             {
-                ProgressChanged = (description, step, steps) => { progressChangeNotifications.Add(new ProgressNotification(description, step, steps)); }
+                ProgressChanged = (description, step, steps) => progressChangeNotifications.Add(new ProgressNotification(description, step, steps))
             };
 
-            var targetContext = new ForeshoreProfilesContext(foreshoreProfiles, assessmentSection);
-            targetContext.Attach(observer);
-
             // Call
-            bool importResult = foreshoreProfilesImporter.Import();
+            bool importResult = dikeProfilesImporter.Import();
 
             // Assert
             Assert.IsTrue(importResult);
@@ -310,8 +278,7 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                 new ProgressNotification("Inlezen van profielgegevens.", 5, 5)
             };
             ValidateProgressMessages(expectedProgressMessages, progressChangeNotifications);
-            Assert.AreEqual(5, foreshoreProfiles.Count);
-            mockRepository.VerifyAll(); // 'observer' should not be notified
+            Assert.AreEqual(5, dikeProfiles.Count);
         }
 
         [Test]
@@ -322,52 +289,43 @@ namespace Ringtoets.Integration.Plugin.Test.FileImporters
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
 
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
 
-            // Precondition
-            foreshoreProfilesImporter.Cancel();
+            dikeProfilesImporter.Cancel();
+            bool importResult = true;
 
             // Call
-            var importResult = true;
-            Action call = () => importResult = foreshoreProfilesImporter.Import();
+            Action call = () => importResult = dikeProfilesImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessageIsGenerated(call, "Voorlandprofielen importeren is afgebroken. Geen gegevens ingelezen.", 1);
+            TestHelper.AssertLogMessageIsGenerated(call, "Dijkprofielen importeren is afgebroken. Geen gegevens ingelezen.", 1);
             Assert.IsFalse(importResult);
-            mockRepository.VerifyAll(); // 'observer' should not be notified
         }
 
         [Test]
-        public void Import_ReuseOfCancelledImportToValidTargetWithValidFile_TrueAndLogMessagesAndFiveForeshoreProfiles()
+        public void Import_ReuseOfCancelledImportToValidTargetWithValidFile_TrueAndLogMessagesAndFiveDikeProfiles()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
                                                          Path.Combine("DikeProfiles", "AllOkTestData", "Voorlanden 12-2.shp"));
 
             ReferenceLine referenceLine = CreateMatchingReferenceLine();
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
-            mockRepository.ReplayAll();
 
-            var foreshoreProfiles = new ObservableList<ForeshoreProfile>();
-            var foreshoreProfilesImporter = new ForeshoreProfilesImporter(foreshoreProfiles, referenceLine, filePath);
+            var dikeProfiles = new ObservableList<DikeProfile>();
+            var dikeProfilesImporter = new DikeProfilesImporter(dikeProfiles, referenceLine, filePath);
 
-            foreshoreProfilesImporter.Cancel();
-            bool importResult = foreshoreProfilesImporter.Import();
+            dikeProfilesImporter.Cancel();
+            bool importResult = dikeProfilesImporter.Import();
             Assert.IsFalse(importResult);
 
             // Call
-            importResult = foreshoreProfilesImporter.Import();
+            importResult = dikeProfilesImporter.Import();
 
             // Assert
             Assert.IsTrue(importResult);
-            Assert.AreEqual(5, foreshoreProfiles.Count);
-            mockRepository.VerifyAll(); // 'observer' should not be notified
+            Assert.AreEqual(5, dikeProfiles.Count);
         }
 
         private ReferenceLine CreateMatchingReferenceLine()

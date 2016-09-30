@@ -20,9 +20,9 @@
 // All rights reserved.
 
 using NUnit.Framework;
-using Ringtoets.Integration.Plugin.FileImporters;
+using Ringtoets.Common.IO.FileImporters;
 
-namespace Ringtoets.Integration.Plugin.Test.FileImporters
+namespace Ringtoets.Common.IO.Test.FileImporters
 {
     [TestFixture]
     public class HydraulicBoundaryLocationFilterTest

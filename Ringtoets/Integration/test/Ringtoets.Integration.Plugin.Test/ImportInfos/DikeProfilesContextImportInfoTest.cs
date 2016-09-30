@@ -29,8 +29,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.Integration.Plugin.FileImporters;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Integration.Plugin.Test.ImportInfos

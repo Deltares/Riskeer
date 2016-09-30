@@ -56,6 +56,12 @@
     <Compile Include="DikeProfiles\ProfileLocationReader.cs" />
     <Compile Include="DikeProfiles\SheetPileType.cs" />
     <Compile Include="Exceptions\CriticalFileValidationException.cs" />
+    <Compile Include="FileImporters\DikeProfilesImporter.cs" />
+    <Compile Include="FileImporters\FailureMechanismSectionsImporter.cs" />
+    <Compile Include="FileImporters\ForeshoreProfilesImporter.cs" />
+    <Compile Include="FileImporters\HydraulicBoundaryDatabaseImporter.cs" />
+    <Compile Include="FileImporters\HydraulicBoundaryLocationFilter.cs" />
+    <Compile Include="FileImporters\ProfilesImporter.cs" />
     <Compile Include="FileImporters\StructuresImporter.cs" />
     <Compile Include="HydraulicBoundaryLocationsExporter.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporter.cs" />
@@ -85,6 +91,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="Resources\20160624v3 N-waarden voor GEKB en HTKW.csv" />
+    <None Include="Resources\Exceptions_DoNotCalculate.csv" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

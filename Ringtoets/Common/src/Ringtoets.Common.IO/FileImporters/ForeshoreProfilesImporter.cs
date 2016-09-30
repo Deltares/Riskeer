@@ -27,11 +27,9 @@ using Core.Common.IO.Readers;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.DikeProfiles;
-using Ringtoets.Integration.Plugin.Properties;
-using RingtoetsFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Integration.Plugin.FileImporters
+namespace Ringtoets.Common.IO.FileImporters
 {
     /// <summary>
     /// Imports point shapefiles containing foreshore locations and text file containing the foreshore schematizations.

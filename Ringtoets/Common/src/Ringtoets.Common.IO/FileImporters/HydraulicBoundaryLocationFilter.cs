@@ -22,10 +22,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ringtoets.Common.IO.Properties;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Plugin.Properties;
 
-namespace Ringtoets.Integration.Plugin.FileImporters
+namespace Ringtoets.Common.IO.FileImporters
 {
     /// <summary>
     /// This class allows for filtering out <see cref="HydraulicBoundaryLocation"/> based

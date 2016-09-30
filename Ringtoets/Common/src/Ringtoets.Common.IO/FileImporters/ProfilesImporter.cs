@@ -32,11 +32,9 @@ using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.IO.DikeProfiles;
-using Ringtoets.Integration.Plugin.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using Ringtoets.Common.IO.Properties;
 
-namespace Ringtoets.Integration.Plugin.FileImporters
+namespace Ringtoets.Common.IO.FileImporters
 {
     /// <summary>
     /// Abstact class for profile importers, providing an implementation of importing point shapefiles 
