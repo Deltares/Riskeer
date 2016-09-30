@@ -40,15 +40,15 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <summary>
         /// Creates a new instance of the <see cref="WaveConditionsCalculationInput"/> class.
         /// </summary>
-        /// <param name="sectionId">The id of the section to use during the calculation.</param>
-        /// <param name="sectionNormal">The normal of the section to use during the calculation.</param>
-        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="forelandPoints">The foreland points to use during the calculation.</param>
-        /// <param name="breakWater">The break water to use during the calculation.</param>
+        /// <param name="sectionId">The id of the section.</param>
+        /// <param name="sectionNormal">The normal of the section.</param>
+        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
+        /// <param name="norm">The norm.</param>
+        /// <param name="forelandPoints">The foreland points.</param>
+        /// <param name="breakWater">The break water.</param>
         /// <param name="waterLevel">The water level to calculate the wave conditions for.</param>
-        /// <param name="a">The a-value to use during the calculation.</param>
-        /// <param name="b">The b-value to use during the calculation.</param>
+        /// <param name="a">The a-value.</param>
+        /// <param name="b">The b-value.</param>
         /// <remarks>As a part of the constructor, the <paramref name="norm"/> is automatically converted into a reliability index.</remarks>
         protected WaveConditionsCalculationInput(int sectionId,
                                                  double sectionNormal,
@@ -106,19 +106,12 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         {
             get
             {
-                // Water level
                 yield return new HydraRingVariable(113, HydraRingDistributionType.Deterministic, waterLevel,
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-
-                // Resistance Q-variant
                 yield return new HydraRingVariable(114, HydraRingDistributionType.Deterministic, 1.0,
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-
-                // a-value
                 yield return new HydraRingVariable(115, HydraRingDistributionType.Deterministic, a,
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-
-                // b-value
                 yield return new HydraRingVariable(116, HydraRingDistributionType.Deterministic, b,
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
             }

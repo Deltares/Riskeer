@@ -33,7 +33,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         private readonly IEnumerable<HydraRingProfilePoint> profilePoints;
         private readonly IEnumerable<HydraRingForelandPoint> forelandPoints;
         private readonly HydraRingBreakWater breakWater;
-
         private readonly double modelFactorCriticalOvertopping;
         private readonly double factorFbMean;
         private readonly double factorFbStandardDeviation;
@@ -50,54 +49,54 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// <summary>
         /// Creates a new instance of the <see cref="OvertoppingCalculationInput"/> class.
         /// </summary>
-        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="hydraRingSection">The section to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorCriticalOvertopping">The model factor critical overtopping to use during the calculation.</param>
-        /// <param name="hydraRingFactorFbMean">The mean of the factor Fb to use during the calculation</param>
-        /// <param name="hydraRingFactorFbStandardDeviation">The standard deviation of the factor Fb to use during the calculation.</param>
-        /// <param name="hydraRingFactorFnMean">The mean of the factor Fn to use during the calculation.</param>
-        /// <param name="hydraRingFactorFnStandardDeviation">The standard deviation of the factor Fn to use during the calculation.</param>
-        /// <param name="hydraRingmodelFactorOvertopping">The factor overtopping to use during the calculation.</param>
-        /// <param name="hydraRingCriticalOvertoppingMean">The mean of the critical overtopping to use during the calculation.</param>
-        /// <param name="hydraRingCriticalOvertoppingStandardDeviation">The standard deviation of the critical overtopping to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorFrunupMean">The mean of the factor frunup to use during the calculation.</param>
-        /// <param name="hydraRingModelFactorFrunupStandardDeviation">The standard deviation of the factor frunup to use during the calculation.</param>
-        /// <param name="hydraRingExponentModelFactorShallowMean">The mean of the exponent model factor shallow to use during the calculation.</param>
-        /// <param name="hydraRingExponentModelFactorShallowStandardDeviation">The standard deviation of the exponent model factor shallow to use during the calculation.</param>
-        /// <param name="hydraRingProfilePoints">The profile points to use during the calculation.</param>
-        /// <param name="hydraRingForelandPoints">The foreland points to use during the calculation.</param>
-        /// <param name="hydraRingBreakWater">The break water to use during the calculation.</param>
+        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
+        /// <param name="norm">The norm.</param>
+        /// <param name="section">The section.</param>
+        /// <param name="profilePoints">The profile points.</param>
+        /// <param name="forelandPoints">The foreland points.</param>
+        /// <param name="breakWater">The break water.</param>
+        /// <param name="modelFactorCriticalOvertopping">The model factor critical overtopping.</param>
+        /// <param name="factorFbMean">The mean of the factor Fb</param>
+        /// <param name="factorFbStandardDeviation">The standard deviation of the factor Fb.</param>
+        /// <param name="factorFnMean">The mean of the factor Fn.</param>
+        /// <param name="factorFnStandardDeviation">The standard deviation of the factor Fn.</param>
+        /// <param name="modelFactorOvertopping">The factor overtopping.</param>
+        /// <param name="criticalOvertoppingMean">The mean of the critical overtopping.</param>
+        /// <param name="criticalOvertoppingStandardDeviation">The standard deviation of the critical overtopping.</param>
+        /// <param name="modelFactorFrunupMean">The mean of the factor frunup.</param>
+        /// <param name="modelFactorFrunupStandardDeviation">The standard deviation of the factor frunup.</param>
+        /// <param name="exponentModelFactorShallowMean">The mean of the exponent model factor shallow.</param>
+        /// <param name="exponentModelFactorShallowStandardDeviation">The standard deviation of the exponent model factor shallow.</param>
         public DikeHeightCalculationInput(long hydraulicBoundaryLocationId, double norm,
-                                          HydraRingSection hydraRingSection, double hydraRingModelFactorCriticalOvertopping,
-                                          double hydraRingFactorFbMean, double hydraRingFactorFbStandardDeviation,
-                                          double hydraRingFactorFnMean, double hydraRingFactorFnStandardDeviation,
-                                          double hydraRingmodelFactorOvertopping, double hydraRingCriticalOvertoppingMean,
-                                          double hydraRingCriticalOvertoppingStandardDeviation, double hydraRingModelFactorFrunupMean,
-                                          double hydraRingModelFactorFrunupStandardDeviation, double hydraRingExponentModelFactorShallowMean,
-                                          double hydraRingExponentModelFactorShallowStandardDeviation,
-                                          IEnumerable<HydraRingRoughnessProfilePoint> hydraRingProfilePoints,
-                                          IEnumerable<HydraRingForelandPoint> hydraRingForelandPoints,
-                                          HydraRingBreakWater hydraRingBreakWater)
+                                          HydraRingSection section,
+                                          IEnumerable<HydraRingRoughnessProfilePoint> profilePoints,
+                                          IEnumerable<HydraRingForelandPoint> forelandPoints,
+                                          HydraRingBreakWater breakWater,
+                                          double modelFactorCriticalOvertopping,
+                                          double factorFbMean, double factorFbStandardDeviation,
+                                          double factorFnMean, double factorFnStandardDeviation,
+                                          double modelFactorOvertopping,
+                                          double criticalOvertoppingMean, double criticalOvertoppingStandardDeviation,
+                                          double modelFactorFrunupMean, double modelFactorFrunupStandardDeviation,
+                                          double exponentModelFactorShallowMean, double exponentModelFactorShallowStandardDeviation)
             : base(hydraulicBoundaryLocationId, norm)
         {
-            section = hydraRingSection;
-            modelFactorCriticalOvertopping = hydraRingModelFactorCriticalOvertopping;
-            factorFbMean = hydraRingFactorFbMean;
-            factorFbStandardDeviation = hydraRingFactorFbStandardDeviation;
-            factorFnMean = hydraRingFactorFnMean;
-            factorFnStandardDeviation = hydraRingFactorFnStandardDeviation;
-            modelFactorOvertopping = hydraRingmodelFactorOvertopping;
-            modelFactorFrunupMean = hydraRingModelFactorFrunupMean;
-            modelFactorFrunupStandardDeviation = hydraRingModelFactorFrunupStandardDeviation;
-            exponentModelFactorShallowMean = hydraRingExponentModelFactorShallowMean;
-            exponentModelFactorShallowStandardDeviation = hydraRingExponentModelFactorShallowStandardDeviation;
-
-            criticalOvertoppingMean = hydraRingCriticalOvertoppingMean;
-            criticalOvertoppingStandardDeviation = hydraRingCriticalOvertoppingStandardDeviation;
-            profilePoints = hydraRingProfilePoints;
-            forelandPoints = hydraRingForelandPoints;
-            breakWater = hydraRingBreakWater;
+            this.section = section;
+            this.modelFactorCriticalOvertopping = modelFactorCriticalOvertopping;
+            this.factorFbMean = factorFbMean;
+            this.factorFbStandardDeviation = factorFbStandardDeviation;
+            this.factorFnMean = factorFnMean;
+            this.factorFnStandardDeviation = factorFnStandardDeviation;
+            this.modelFactorOvertopping = modelFactorOvertopping;
+            this.modelFactorFrunupMean = modelFactorFrunupMean;
+            this.modelFactorFrunupStandardDeviation = modelFactorFrunupStandardDeviation;
+            this.exponentModelFactorShallowMean = exponentModelFactorShallowMean;
+            this.exponentModelFactorShallowStandardDeviation = exponentModelFactorShallowStandardDeviation;
+            this.criticalOvertoppingMean = criticalOvertoppingMean;
+            this.criticalOvertoppingStandardDeviation = criticalOvertoppingStandardDeviation;
+            this.profilePoints = profilePoints;
+            this.forelandPoints = forelandPoints;
+            this.breakWater = breakWater;
         }
 
         public override HydraRingFailureMechanismType FailureMechanismType
@@ -152,7 +151,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         {
             get
             {
-                return GetHydraRingVariables();
+                return GetVariables();
             }
         }
 
@@ -169,41 +168,26 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
             }
         }
 
-        private IEnumerable<HydraRingVariable> GetHydraRingVariables()
+        private IEnumerable<HydraRingVariable> GetVariables()
         {
-            // Dike height
             yield return new HydraRingVariable(1, HydraRingDistributionType.Deterministic, 0.0,
                                                HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-
-            // Model factor critical overtopping
             yield return new HydraRingVariable(8, HydraRingDistributionType.Deterministic, modelFactorCriticalOvertopping,
                                                HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-
-            // Factor Fb
             yield return new HydraRingVariable(10, HydraRingDistributionType.Normal, double.NaN,
                                                HydraRingDeviationType.Standard, factorFbMean, factorFbStandardDeviation,
                                                double.NaN);
-
-            // Factor Fn
             yield return new HydraRingVariable(11, HydraRingDistributionType.Normal, double.NaN,
                                                HydraRingDeviationType.Standard, factorFnMean, factorFnStandardDeviation,
                                                double.NaN);
-
-            // Model factor overtopping
             yield return new HydraRingVariable(12, HydraRingDistributionType.Deterministic, modelFactorOvertopping,
                                                HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-
-            // Critical overtopping
             yield return new HydraRingVariable(17, HydraRingDistributionType.LogNormal, double.NaN,
                                                HydraRingDeviationType.Standard, criticalOvertoppingMean,
                                                criticalOvertoppingStandardDeviation, double.NaN);
-
-            // Model factor Frunup
             yield return new HydraRingVariable(120, HydraRingDistributionType.Normal, double.NaN,
                                                HydraRingDeviationType.Standard, modelFactorFrunupMean,
                                                modelFactorFrunupStandardDeviation, double.NaN);
-
-            // Exponent model factor shallow
             yield return new HydraRingVariable(123, HydraRingDistributionType.Normal, double.NaN,
                                                HydraRingDeviationType.Standard, exponentModelFactorShallowMean,
                                                exponentModelFactorShallowStandardDeviation, double.NaN);

@@ -157,6 +157,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         {
             return new OvertoppingCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
                                                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
+                                                   ParseProfilePoints(calculation.InputParameters.DikeGeometry),
+                                                   ParseForeshore(calculation.InputParameters),
+                                                   ParseBreakWater(calculation.InputParameters),
                                                    calculation.InputParameters.DikeHeight,
                                                    generalInput.CriticalOvertoppingModelFactor,
                                                    generalInput.FbFactor.Mean,
@@ -169,10 +172,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                    generalInput.FrunupModelFactor.Mean,
                                                    generalInput.FrunupModelFactor.StandardDeviation,
                                                    generalInput.FshallowModelFactor.Mean,
-                                                   generalInput.FshallowModelFactor.StandardDeviation,
-                                                   ParseProfilePoints(calculation.InputParameters.DikeGeometry),
-                                                   ParseForeshore(calculation.InputParameters),
-                                                   ParseBreakWater(calculation.InputParameters));
+                                                   generalInput.FshallowModelFactor.StandardDeviation);
         }
 
         private static DikeHeightCalculationInput CreateDikeHeightInput(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection,
@@ -181,6 +181,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             return new DikeHeightCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
                                                   assessmentSection.FailureMechanismContribution.Norm,
                                                   new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
+                                                  ParseProfilePoints(calculation.InputParameters.DikeGeometry),
+                                                  ParseForeshore(calculation.InputParameters),
+                                                  ParseBreakWater(calculation.InputParameters),
                                                   generalInput.CriticalOvertoppingModelFactor,
                                                   generalInput.FbFactor.Mean,
                                                   generalInput.FbFactor.StandardDeviation,
@@ -192,10 +195,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                   generalInput.FrunupModelFactor.Mean,
                                                   generalInput.FrunupModelFactor.StandardDeviation,
                                                   generalInput.FshallowModelFactor.Mean,
-                                                  generalInput.FshallowModelFactor.StandardDeviation,
-                                                  ParseProfilePoints(calculation.InputParameters.DikeGeometry),
-                                                  ParseForeshore(calculation.InputParameters),
-                                                  ParseBreakWater(calculation.InputParameters));
+                                                  generalInput.FshallowModelFactor.StandardDeviation);
         }
 
         private static HydraRingBreakWater ParseBreakWater(GrassCoverErosionInwardsInput input)

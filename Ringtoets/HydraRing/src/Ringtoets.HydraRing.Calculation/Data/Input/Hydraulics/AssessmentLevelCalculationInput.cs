@@ -33,10 +33,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         /// <summary>
         /// Creates a new instance of the <see cref="AssessmentLevelCalculationInput"/> class.
         /// </summary>
-        /// <param name="sectionId">The id of the section to use during the calculation.</param>
-        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
-        public AssessmentLevelCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double norm) : base(hydraulicBoundaryLocationId, norm)
+        /// <param name="sectionId">The id of the section.</param>
+        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
+        /// <param name="norm">The norm.</param>
+        public AssessmentLevelCalculationInput(int sectionId, long hydraulicBoundaryLocationId, double norm)
+            : base(hydraulicBoundaryLocationId, norm)
         {
             section = new HydraRingSection(sectionId, double.NaN, double.NaN);
         }
@@ -69,7 +70,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics
         {
             get
             {
-                // Assessment level
                 yield return new HydraRingVariable(26, HydraRingDistributionType.Deterministic, 0,
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
             }

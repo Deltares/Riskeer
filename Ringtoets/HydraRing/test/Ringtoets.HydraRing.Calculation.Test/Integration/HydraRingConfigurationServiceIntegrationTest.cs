@@ -217,11 +217,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             hydraRingConfigurationService.AddHydraRingCalculationInput(
                 new OvertoppingCalculationInput(
                     hydraulicBoundaryLocationId, hydraRingSection,
-                    dikeHeight,
-                    modelFactorCriticalOvertopping, factorFnMean, factorFnStandardDeviation, hydraRingFactorFnMean, hydraRingFactorFnStandardDeviation,
-                    hydraRingmodelFactorOvertopping, criticalOvertoppingMean, criticalOvertoppingStandardDeviation, hydraRingModelFactorFrunupMean,
-                    hydraRingModelFactorFrunupStandardDeviation, hydraRingExponentModelFactorShallowMean, hydraRingExponentModelFactorShallowStandardDeviation,
-                    profilePoints, forelandPoints, breakWater));
+                    profilePoints, forelandPoints, breakWater,
+                    dikeHeight, modelFactorCriticalOvertopping, factorFnMean, factorFnStandardDeviation, hydraRingFactorFnMean,
+                    hydraRingFactorFnStandardDeviation, hydraRingmodelFactorOvertopping, criticalOvertoppingMean,
+                    criticalOvertoppingStandardDeviation, hydraRingModelFactorFrunupMean, hydraRingModelFactorFrunupStandardDeviation,
+                    hydraRingExponentModelFactorShallowMean, hydraRingExponentModelFactorShallowStandardDeviation));
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (3, 1, 'WTI 2017');" + Environment.NewLine +
@@ -335,10 +335,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
                 new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, hydraRingSection,
+                                               profilePoints, forelandPoints, breakWater,
                                                modelFactorCriticalOvertopping, factorFnMean, factorFnStandardDeviation, hydraRingFactorFnMean, hydraRingFactorFnStandardDeviation,
                                                hydraRingmodelFactorOvertopping, criticalOvertoppingMean, criticalOvertoppingStandardDeviation, hydraRingModelFactorFrunupMean,
-                                               hydraRingModelFactorFrunupStandardDeviation, hydraRingExponentModelFactorShallowMean, hydraRingExponentModelFactorShallowStandardDeviation,
-                                               profilePoints, forelandPoints, breakWater));
+                                               hydraRingModelFactorFrunupStandardDeviation, hydraRingExponentModelFactorShallowMean, hydraRingExponentModelFactorShallowStandardDeviation));
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (3, 1, 'WTI 2017');" + Environment.NewLine +

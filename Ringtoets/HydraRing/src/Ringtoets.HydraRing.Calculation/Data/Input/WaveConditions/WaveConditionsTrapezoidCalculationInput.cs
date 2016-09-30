@@ -35,17 +35,17 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
         /// <summary>
         /// Creates a new instance of the <see cref="WaveConditionsTrapezoidCalculationInput"/> class.
         /// </summary>
-        /// <param name="sectionId">The id of the section to use during the calculation.</param>
-        /// <param name="sectionNormal">The normal of the section to use during the calculation.</param>
-        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station to use during the calculation.</param>
-        /// <param name="norm">The norm to use during the calculation.</param>
-        /// <param name="forelandPoints">The foreland points to use during the calculation.</param>
-        /// <param name="breakWater">The break water to use during the calculation.</param>
+        /// <param name="sectionId">The id of the section.</param>
+        /// <param name="sectionNormal">The normal of the section.</param>
+        /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
+        /// <param name="norm">The norm.</param>
+        /// <param name="forelandPoints">The foreland points.</param>
+        /// <param name="breakWater">The break water.</param>
         /// <param name="waterLevel">The water level to calculate the wave conditions for.</param>
-        /// <param name="a">The a-value to use during the calculation.</param>
-        /// <param name="b">The b-value to use during the calculation.</param>
-        /// <param name="beta1">The beta1-value to use during the calculation.</param>
-        /// <param name="beta2">The beta2-value to use during the calculation.</param>
+        /// <param name="a">The a-value.</param>
+        /// <param name="b">The b-value.</param>
+        /// <param name="beta1">The beta1-value.</param>
+        /// <param name="beta2">The beta2-value.</param>
         public WaveConditionsTrapezoidCalculationInput(int sectionId,
                                                        double sectionNormal,
                                                        long hydraulicBoundaryLocationId,
@@ -77,11 +77,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions
             {
                 var variables = base.Variables.ToList();
 
-                // beta1-value
                 variables.Add(new HydraRingVariable(117, HydraRingDistributionType.Deterministic, beta1,
                                                     HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN));
-
-                // beta2-value
                 variables.Add(new HydraRingVariable(118, HydraRingDistributionType.Deterministic, beta2,
                                                     HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN));
 
