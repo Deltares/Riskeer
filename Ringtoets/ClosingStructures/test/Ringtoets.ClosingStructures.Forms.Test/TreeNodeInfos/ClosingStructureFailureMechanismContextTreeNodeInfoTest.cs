@@ -92,7 +92,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismIsRelevant_ReturnChildDataNodes()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -144,7 +144,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_FailureMechanismIsNotRelevant_ReturnOnlyFailureMechanismComments()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism
@@ -173,7 +173,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
             var guiMock = mocksRepository.StrictMock<IGui>();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
@@ -215,7 +215,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 IsRelevant = false
             };
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
             var guiMock = mocksRepository.StrictMock<IGui>();
             var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
@@ -250,7 +250,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             using (var plugin = new ClosingStructuresPlugin())
             using (var treeView = new TreeViewControl())
             {
-                var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+                var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
                 var failureMechanism = new ClosingStructuresFailureMechanism();
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -305,7 +305,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             using (var plugin = new ClosingStructuresPlugin())
             using (var treeView = new TreeViewControl())
             {
-                var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+                var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
                 var failureMechanism = new ClosingStructuresFailureMechanism
                 {
                     IsRelevant = false
@@ -343,7 +343,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
             var viewCommandsMock = mocksRepository.StrictMock<IViewCommands>();
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
@@ -381,7 +381,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 IsRelevant = false
             };
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var guiMock = mocksRepository.StrictMock<IGui>();

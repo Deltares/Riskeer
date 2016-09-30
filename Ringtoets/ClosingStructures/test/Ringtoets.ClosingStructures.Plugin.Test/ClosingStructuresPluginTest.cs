@@ -25,7 +25,6 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Views;
@@ -52,9 +51,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
         public void GetTreeNodeInfos_ReturnsSupportedTreeNodeInfos()
         {
             // Setup
-            var mocks = new MockRepository();
-            mocks.ReplayAll();
-
             using (var plugin = new ClosingStructuresPlugin())
             {
                 // Call
@@ -67,8 +63,6 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructureContext)));
                 Assert.IsTrue(treeNodeInfos.Any(tni => tni.TagType == typeof(ClosingStructuresCalculationGroupContext)));
             }
-
-            mocks.VerifyAll();
         }
 
         [Test]

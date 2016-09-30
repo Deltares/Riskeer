@@ -37,7 +37,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class ClosingStructuresResultViewInfoTest
+    public class ClosingStructuresFailureMechanismResultViewInfoTest
     {
         private MockRepository mocks;
         private ViewInfo info;
