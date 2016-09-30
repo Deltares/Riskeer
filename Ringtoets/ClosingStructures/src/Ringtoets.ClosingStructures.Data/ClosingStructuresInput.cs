@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.HydraRing.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Data
@@ -130,7 +131,17 @@ namespace Ringtoets.ClosingStructures.Data
             stormDuration.SetStandardDeviationFromVariationCoefficient(0.25);
         }
 
-        #region Structure type
+        #region Hydraulic Boundary Location
+
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+
+        #endregion
+
+        #region Structure properties
+        /// <summary>
+        /// Gets or sets the closing structure.
+        /// </summary>
+        public ClosingStructure ClosingStructure { get; set; }
 
         /// <summary>
         /// Gets or sets the type of closing structure.

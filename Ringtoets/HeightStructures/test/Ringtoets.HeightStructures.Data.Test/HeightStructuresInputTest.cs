@@ -27,7 +27,6 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.HeightStructures.Data.Properties;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Data.Test

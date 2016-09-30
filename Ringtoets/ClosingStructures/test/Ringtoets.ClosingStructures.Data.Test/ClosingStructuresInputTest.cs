@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.ClosingStructures.Data.Test
 {
@@ -42,6 +43,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<Observable>(input);
             Assert.IsInstanceOf<ICalculationInput>(input);
+
+            Assert.IsNull(input.HydraulicBoundaryLocation);
+            Assert.IsNull(input.ClosingStructure);
 
             AssertEqualValues(1.1, input.ModelFactorSuperCriticalFlow.Mean);
             AssertEqualValues(0.03, input.ModelFactorSuperCriticalFlow.StandardDeviation);
@@ -72,6 +76,20 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(type, input.ClosingStructureType);
+        }
+
+        [Test]
+        public void Properties_HydraulicBoundaryLocation_ExpectedValues()
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+            var location = new HydraulicBoundaryLocation(0, "test", 0, 0);
+
+            // Call
+            input.HydraulicBoundaryLocation = location;
+
+            // Assert
+            Assert.AreEqual(location, input.HydraulicBoundaryLocation);
         }
 
         [Test]

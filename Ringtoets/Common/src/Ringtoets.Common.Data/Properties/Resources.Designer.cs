@@ -173,6 +173,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nieuwe berekening.
+        /// </summary>
+        public static string ClosingStructuresCalculation_DefaultName {
+            get {
+                return ResourceManager.GetString("ClosingStructuresCalculation_DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De waarde voor de toegestane bijdrage aan de faalkans moet in interval [0, 100] liggen..
         /// </summary>
         public static string Contribution_Value_should_be_in_interval_0_100 {
