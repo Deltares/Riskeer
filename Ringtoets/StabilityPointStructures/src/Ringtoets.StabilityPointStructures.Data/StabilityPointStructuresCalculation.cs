@@ -61,10 +61,6 @@ namespace Ringtoets.StabilityPointStructures.Data
             }
         }
 
-        /// <summary>
-        /// Returns a string that represents the current object.
-        /// </summary>
-        /// <returns>The name of this calculation.</returns>
         public override string ToString()
         {
             return Name;
