@@ -42,7 +42,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// Creates a new instance of <see cref="StructuresStabilityPointLowSillQuadraticCalculationInput"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
-        /// <param name="hydraRingSection">The section.</param>
+        /// <param name="section">The section.</param>
         /// <param name="forelandPoints">The foreland points.</param>
         /// <param name="volumicWeightWater">The volumic weight of water.</param>
         /// <param name="gravitationalAcceleration">The gravitational acceleration.</param>
@@ -103,7 +103,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="constructiveStrengthQuadraticLoadModelVariation">The variation of the constructive strength quadratic load model.</param>
         /// <param name="widthFlowAperturesMean">The mean of the width flow apertures.</param>
         /// <param name="widthFlowAperturesVariation">The variation of the width flow apertures.</param>
-        public StructuresStabilityPointLowSillQuadraticCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
+        public StructuresStabilityPointLowSillQuadraticCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
                                                                         IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                                         double volumicWeightWater,
                                                                         double gravitationalAcceleration,
@@ -141,7 +141,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                         double stabilityQuadraticLoadModelMean, double stabilityQuadraticLoadModelVariation,
                                                                         double constructiveStrengthQuadraticLoadModelMean, double constructiveStrengthQuadraticLoadModelVariation,
                                                                         double widthFlowAperturesMean, double widthFlowAperturesVariation)
-            : base(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints,
+            : base(hydraulicBoundaryLocationId, section, forelandPoints,
                    volumicWeightWater,
                    gravitationalAcceleration,
                    levelCrestStructureMean, levelCrestStructureStandardDeviation,

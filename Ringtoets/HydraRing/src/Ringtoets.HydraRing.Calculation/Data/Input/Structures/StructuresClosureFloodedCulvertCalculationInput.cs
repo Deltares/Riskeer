@@ -40,7 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// Creates a new instance of <see cref="StructuresClosureFloodedCulvertCalculationInput"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
-        /// <param name="hydraRingSection">The section.</param>
+        /// <param name="section">The section.</param>
         /// <param name="forelandPoints">The foreland points.</param>
         /// <param name="gravitationalAcceleration">The gravitational acceleration.</param>
         /// <param name="factorStormDurationOpenStructure">The factor of the storm duration for an open structure.</param>
@@ -68,7 +68,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="areaFlowAperturesStandardDeviation">The standard deviation of the area of flow apertures.</param>
         /// <param name="insideWaterLevelMean">The mean of the inside water level.</param>
         /// <param name="insideWaterLevelStandardDeviation">The standard deviation of the inside water level.</param>
-        public StructuresClosureFloodedCulvertCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
+        public StructuresClosureFloodedCulvertCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
                                                                IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                                double gravitationalAcceleration,
                                                                double factorStormDurationOpenStructure,
@@ -87,7 +87,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                double drainCoefficientMean, double drainCoefficientStandardDeviation,
                                                                double areaFlowAperturesMean, double areaFlowAperturesStandardDeviation,
                                                                double insideWaterLevelMean, double insideWaterLevelStandardDeviation)
-            : base(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints,
+            : base(hydraulicBoundaryLocationId, section, forelandPoints,
                    gravitationalAcceleration,
                    factorStormDurationOpenStructure,
                    failureProbabilityOpenStructure,

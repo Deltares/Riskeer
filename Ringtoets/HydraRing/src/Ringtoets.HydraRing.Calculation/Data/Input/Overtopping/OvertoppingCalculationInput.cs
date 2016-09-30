@@ -152,7 +152,27 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
         {
             get
             {
-                return GetVariables();
+                yield return new HydraRingVariable(1, HydraRingDistributionType.Deterministic, dikeHeight,
+                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+                yield return new HydraRingVariable(8, HydraRingDistributionType.Deterministic, modelFactorCriticalOvertopping,
+                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+                yield return new HydraRingVariable(10, HydraRingDistributionType.Normal, double.NaN,
+                                                   HydraRingDeviationType.Standard, factorFbMean, factorFbStandardDeviation,
+                                                   double.NaN);
+                yield return new HydraRingVariable(11, HydraRingDistributionType.Normal, double.NaN,
+                                                   HydraRingDeviationType.Standard, factorFnMean, factorFnStandardDeviation,
+                                                   double.NaN);
+                yield return new HydraRingVariable(12, HydraRingDistributionType.Deterministic, modelFactorOvertopping,
+                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+                yield return new HydraRingVariable(17, HydraRingDistributionType.LogNormal, double.NaN,
+                                                   HydraRingDeviationType.Standard, criticalOvertoppingMean,
+                                                   criticalOvertoppingStandardDeviation, double.NaN);
+                yield return new HydraRingVariable(120, HydraRingDistributionType.Normal, double.NaN,
+                                                   HydraRingDeviationType.Standard, modelFactorFrunupMean,
+                                                   modelFactorFrunupStandardDeviation, double.NaN);
+                yield return new HydraRingVariable(123, HydraRingDistributionType.Normal, double.NaN,
+                                                   HydraRingDeviationType.Standard, exponentModelFactorShallowMean,
+                                                   exponentModelFactorShallowStandardDeviation, double.NaN);
             }
         }
 
@@ -167,31 +187,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
                 default:
                     return null;
             }
-        }
-
-        private IEnumerable<HydraRingVariable> GetVariables()
-        {
-            yield return new HydraRingVariable(1, HydraRingDistributionType.Deterministic, dikeHeight,
-                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(8, HydraRingDistributionType.Deterministic, modelFactorCriticalOvertopping,
-                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(10, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, factorFbMean, factorFbStandardDeviation,
-                                               double.NaN);
-            yield return new HydraRingVariable(11, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, factorFnMean, factorFnStandardDeviation,
-                                               double.NaN);
-            yield return new HydraRingVariable(12, HydraRingDistributionType.Deterministic, modelFactorOvertopping,
-                                               HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(17, HydraRingDistributionType.LogNormal, double.NaN,
-                                               HydraRingDeviationType.Standard, criticalOvertoppingMean,
-                                               criticalOvertoppingStandardDeviation, double.NaN);
-            yield return new HydraRingVariable(120, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, modelFactorFrunupMean,
-                                               modelFactorFrunupStandardDeviation, double.NaN);
-            yield return new HydraRingVariable(123, HydraRingDistributionType.Normal, double.NaN,
-                                               HydraRingDeviationType.Standard, exponentModelFactorShallowMean,
-                                               exponentModelFactorShallowStandardDeviation, double.NaN);
         }
     }
 }

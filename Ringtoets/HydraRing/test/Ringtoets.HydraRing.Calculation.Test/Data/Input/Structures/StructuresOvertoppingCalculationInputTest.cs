@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             // Setup
             const int hydraulicBoundaryLocationId = 1000;
 
-            HydraRingSection hydraRingSection = new HydraRingSection(1, double.NaN, double.NaN);
+            HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
             const double gravitationalAcceleration = 9.81;
             const double modelFactorOvertoppingMean = 0.09;
             const double modelFactorOvertoppingStandardDeviation = 0.06;
@@ -66,7 +66,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double deviationOfTheWaveDirection = 9.9;
 
             // Call
-            var structuresOvertoppingCalculationInput = new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, hydraRingSection,
+            var structuresOvertoppingCalculationInput = new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, section,
                                                                                                   gravitationalAcceleration,
                                                                                                   modelFactorOvertoppingMean, modelFactorOvertoppingStandardDeviation,
                                                                                                   levelOfCrestOfStructureMean, levelOfCrestOfStructureStandardDeviation,
@@ -90,7 +90,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(hydraulicBoundaryLocationId, structuresOvertoppingCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresOvertopping, structuresOvertoppingCalculationInput.FailureMechanismType);
             Assert.AreEqual(variableId, structuresOvertoppingCalculationInput.VariableId);
-            Assert.AreEqual(hydraRingSection, structuresOvertoppingCalculationInput.Section);
+            Assert.AreEqual(section, structuresOvertoppingCalculationInput.Section);
             HydraRingVariableAssert.AreEqual(GetDefaultOvertoppingVariables().ToArray(), structuresOvertoppingCalculationInput.Variables.ToArray());
         }
 

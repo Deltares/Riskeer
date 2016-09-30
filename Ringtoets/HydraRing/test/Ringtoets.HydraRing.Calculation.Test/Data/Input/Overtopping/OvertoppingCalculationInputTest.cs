@@ -85,8 +85,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
             Assert.AreEqual(expectedRingBreakWater, overtoppingCalculationInput.BreakWater);
             Assert.IsNaN(overtoppingCalculationInput.Beta);
 
-            var hydraRingSection = overtoppingCalculationInput.Section;
-            Assert.AreEqual(expectedHydraRingSection, hydraRingSection);
+            var section = overtoppingCalculationInput.Section;
+            Assert.AreEqual(expectedHydraRingSection, section);
         }
 
         [Test]
@@ -97,10 +97,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Overtopping
         public void GetSubMechanismModelId_Always_ReturnsExpectedValues(int subMechanismModelId, int? expectedSubMechanismModelId)
         {
             // Setup 
-            HydraRingSection hydraRingSection = new HydraRingSection(1, double.NaN, double.NaN);
+            HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
 
             // Call
-            OvertoppingCalculationInput overtoppingCalculationInput = new OvertoppingCalculationInput(1, hydraRingSection,
+            OvertoppingCalculationInput overtoppingCalculationInput = new OvertoppingCalculationInput(1, section,
                                                                                                       new List<HydraRingRoughnessProfilePoint>(),
                                                                                                       new List<HydraRingForelandPoint>(),
                                                                                                       new HydraRingBreakWater(0, 1.1),

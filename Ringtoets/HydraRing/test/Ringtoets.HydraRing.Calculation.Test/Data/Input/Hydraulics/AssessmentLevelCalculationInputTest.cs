@@ -54,10 +54,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.IsNull(assessmentLevelCalculationInput.BreakWater);
             Assert.AreEqual(expectedBeta, assessmentLevelCalculationInput.Beta);
 
-            var hydraRingSection = assessmentLevelCalculationInput.Section;
-            Assert.AreEqual(sectionId, hydraRingSection.SectionId);
-            Assert.IsNaN(hydraRingSection.SectionLength);
-            Assert.IsNaN(hydraRingSection.CrossSectionNormal);
+            var section = assessmentLevelCalculationInput.Section;
+            Assert.AreEqual(sectionId, section.SectionId);
+            Assert.IsNaN(section.SectionLength);
+            Assert.IsNaN(section.CrossSectionNormal);
 
             var assessmentLevelVariable = assessmentLevelCalculationInput.Variables.First();
             Assert.AreEqual(26, assessmentLevelVariable.VariableId);

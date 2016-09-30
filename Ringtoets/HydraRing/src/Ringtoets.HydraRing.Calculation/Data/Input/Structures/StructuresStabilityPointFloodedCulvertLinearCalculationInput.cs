@@ -42,7 +42,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// Creates a new instance of <see cref="StructuresStabilityPointFloodedCulvertLinearCalculationInput"/>.
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
-        /// <param name="hydraRingSection">The section.</param>
+        /// <param name="section">The section.</param>
         /// <param name="forelandPoints">The foreland points.</param>
         /// <param name="volumicWeightWater">The volumic weight of water.</param>
         /// <param name="gravitationalAcceleration">The gravitational acceleration.</param>
@@ -103,7 +103,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="stabilityLinearLoadModelVariation">The variation of the stability linear load model.</param>
         /// <param name="constructiveStrengthLinearLoadModelMean">The mean of the constructive strength linear load model.</param>
         /// <param name="constructiveStrengthLinearLoadModelVariation">The variation of the constructive strength linear load model.</param>
-        public StructuresStabilityPointFloodedCulvertLinearCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection hydraRingSection,
+        public StructuresStabilityPointFloodedCulvertLinearCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
                                                                             IEnumerable<HydraRingForelandPoint> forelandPoints,
                                                                             double volumicWeightWater,
                                                                             double gravitationalAcceleration,
@@ -141,7 +141,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                             double areaFlowAperturesMean, double areaFlowAperturesStandardDeviation,
                                                                             double stabilityLinearLoadModelMean, double stabilityLinearLoadModelVariation,
                                                                             double constructiveStrengthLinearLoadModelMean, double constructiveStrengthLinearLoadModelVariation)
-            : base(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints,
+            : base(hydraulicBoundaryLocationId, section, forelandPoints,
                    volumicWeightWater,
                    gravitationalAcceleration,
                    levelCrestStructureMean, levelCrestStructureStandardDeviation,

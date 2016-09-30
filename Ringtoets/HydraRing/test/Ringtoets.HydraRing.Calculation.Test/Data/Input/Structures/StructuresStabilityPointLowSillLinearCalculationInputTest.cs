@@ -34,11 +34,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
         {
             // Setup
             const int hydraulicBoundaryLocationId = 1000;
-            var hydraRingSection = new HydraRingSection(1, double.NaN, double.NaN);
+            var section = new HydraRingSection(1, double.NaN, double.NaN);
             var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
 
             // Call
-            var input = new StructuresStabilityPointLowSillLinearCalculationInput(hydraulicBoundaryLocationId, hydraRingSection, forelandPoints,
+            var input = new StructuresStabilityPointLowSillLinearCalculationInput(hydraulicBoundaryLocationId, section, forelandPoints,
                                                                                   1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.10,
                                                                                   11.11, 12.12, 13.13, 14.14, 15.15, 16.16, 17.17,
                                                                                   18.18, 19.19, 20.20, 21.21, 22.22, 23.23, 24.24,
@@ -54,7 +54,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(1, input.CalculationTypeId);
             Assert.AreEqual(58, input.VariableId);
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresStructuralFailure, input.FailureMechanismType);
-            Assert.AreSame(hydraRingSection, input.Section);
+            Assert.AreSame(section, input.Section);
             Assert.AreSame(forelandPoints, input.ForelandsPoints);
         }
 

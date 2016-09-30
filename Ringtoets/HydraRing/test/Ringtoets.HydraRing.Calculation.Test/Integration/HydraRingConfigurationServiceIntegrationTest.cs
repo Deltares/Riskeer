@@ -190,7 +190,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
-            var hydraRingSection = new HydraRingSection(1, 2.2, 3.3);
+            var section = new HydraRingSection(1, 2.2, 3.3);
             const double dikeHeight = 11.11;
             const double modelFactorCriticalOvertopping = 1;
             const double factorFnMean = 4.75;
@@ -216,7 +216,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
                 new OvertoppingCalculationInput(
-                    hydraulicBoundaryLocationId, hydraRingSection,
+                    hydraulicBoundaryLocationId, section,
                     profilePoints, forelandPoints, breakWater,
                     dikeHeight, modelFactorCriticalOvertopping, factorFnMean, factorFnStandardDeviation, hydraRingFactorFnMean,
                     hydraRingFactorFnStandardDeviation, hydraRingmodelFactorOvertopping, criticalOvertoppingMean,
@@ -309,7 +309,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
-            var hydraRingSection = new HydraRingSection(1, 2.2, 3.3);
+            var section = new HydraRingSection(1, 2.2, 3.3);
             const double norm = 1000;
             const double modelFactorCriticalOvertopping = 1;
             const double factorFnMean = 4.75;
@@ -334,7 +334,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var breakWater = new HydraRingBreakWater(1, 2.2);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
-                new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, hydraRingSection,
+                new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, section,
                                                profilePoints, forelandPoints, breakWater,
                                                modelFactorCriticalOvertopping, factorFnMean, factorFnStandardDeviation, hydraRingFactorFnMean, hydraRingFactorFnStandardDeviation,
                                                hydraRingmodelFactorOvertopping, criticalOvertoppingMean, criticalOvertoppingStandardDeviation, hydraRingModelFactorFrunupMean,
@@ -426,7 +426,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
             const int hydraulicBoundaryLocationId = 700004;
 
-            var hydraRingSection = new HydraRingSection(1, 2.2, 3.3);
+            var section = new HydraRingSection(1, 2.2, 3.3);
             const double gravitationalAcceleration = 9.81;
             const double modelFactorOvertoppingMean = 0.09;
             const double modelFactorOvertoppingStandardDeviation = 0.06;
@@ -454,7 +454,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const double widthOfFlowAperturesMean = 8.8;
             const double deviationOfTheWaveDirection = 9.9;
 
-            hydraRingConfigurationService.AddHydraRingCalculationInput(new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, hydraRingSection, gravitationalAcceleration,
+            hydraRingConfigurationService.AddHydraRingCalculationInput(new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, section, gravitationalAcceleration,
                                                                                                                  modelFactorOvertoppingMean, modelFactorOvertoppingStandardDeviation,
                                                                                                                  levelOfCrestOfStructureMean, levelOfCrestOfStructureStandardDeviation,
                                                                                                                  orientationOfTheNormalOfTheStructure,
