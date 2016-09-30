@@ -37,42 +37,27 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, inputParameters.C.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.5, inputParameters.C, inputParameters.C.GetAccuracy());
+            AssertEqualValues(0.5, inputParameters.C);
 
             Assert.AreEqual(1, inputParameters.N2A);
 
             Assert.AreEqual(2, inputParameters.N.NumberOfDecimalPlaces);
-            Assert.AreEqual(1, inputParameters.N, inputParameters.N.GetAccuracy());
+            AssertEqualValues(1, inputParameters.N);
 
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
-            Assert.AreEqual(9.81, inputParameters.GravitationalAcceleration, inputParameters.GravitationalAcceleration.GetAccuracy());
+            AssertEqualValues(9.81, inputParameters.GravitationalAcceleration);
 
-            var modelFactorOvertoppingFlow = new LogNormalDistribution(3)
-            {
-                Mean = new RoundedDouble(2, 0.09),
-                StandardDeviation = new RoundedDouble(2, 0.06)
-            };
-            Assert.AreEqual(modelFactorOvertoppingFlow.Mean, inputParameters.ModelFactorOvertoppingFlow.Mean);
-            Assert.AreEqual(modelFactorOvertoppingFlow.StandardDeviation, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation);
+            AssertEqualValues(0.09, inputParameters.ModelFactorOvertoppingFlow.Mean);
+            AssertEqualValues(0.06, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation);
             
-            var modelFactorForSubCriticalFlow = new NormalDistribution(2)
-            {
-                Mean = new RoundedDouble(1, 1)
-            };
-            Assert.AreEqual(modelFactorForSubCriticalFlow.Mean, inputParameters.ModelFactorForSubCriticalFlow.Mean);
-            Assert.AreEqual(0.1, inputParameters.ModelFactorForSubCriticalFlow.GetVariationCoefficient(),
-                            inputParameters.ModelFactorForSubCriticalFlow.GetVariationCoefficient().GetAccuracy());
+            AssertEqualValues(1, inputParameters.ModelFactorForSubCriticalFlow.Mean);
+            AssertEqualValues(0.1, inputParameters.ModelFactorForSubCriticalFlow.GetVariationCoefficient());
 
-            var modelfactorForStorageVolume = new LogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1.0,
-                StandardDeviation = (RoundedDouble) 0.2
-            };
-            Assert.AreEqual(modelfactorForStorageVolume.Mean, inputParameters.ModelFactorForStorageVolume.Mean);
-            Assert.AreEqual(modelfactorForStorageVolume.StandardDeviation, inputParameters.ModelFactorForStorageVolume.StandardDeviation);
+            AssertEqualValues(1.0, inputParameters.ModelFactorForStorageVolume.Mean);
+            AssertEqualValues(0.2, inputParameters.ModelFactorForStorageVolume.StandardDeviation);
 
             Assert.AreEqual(2, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.0, inputParameters.ModelFactorInflowVolume, inputParameters.ModelFactorInflowVolume.GetAccuracy());
+            AssertEqualValues(1.0, inputParameters.ModelFactorInflowVolume);
         }
 
         [Test]
@@ -93,6 +78,11 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(expected, n, n.GetAccuracy());
+        }
+
+        private void AssertEqualValues(double expected, RoundedDouble actual)
+        {
+            Assert.AreEqual(expected, actual, actual.GetAccuracy());
         }
     }
 }
