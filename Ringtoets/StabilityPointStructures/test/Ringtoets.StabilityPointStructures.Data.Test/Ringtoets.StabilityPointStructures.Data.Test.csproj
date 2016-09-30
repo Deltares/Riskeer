@@ -55,6 +55,7 @@
     <Compile Include="StabilityPointStructuresFailureMechanismTest.cs" />
     <Compile Include="StabilityPointStructuresInputTest.cs" />
     <Compile Include="StabilityPointStructuresOutputTest.cs" />
+    <Compile Include="StabilityPointStructureTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

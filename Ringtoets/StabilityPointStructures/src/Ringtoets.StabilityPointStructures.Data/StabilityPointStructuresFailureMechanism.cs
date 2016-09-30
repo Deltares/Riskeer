@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.StabilityPointStructures.Data.Properties;
@@ -43,6 +44,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         {
             CalculationsGroup = new CalculationGroup(RingtoetsCommonDataResources.FailureMechanism_Calculations_DisplayName, false);
             GeneralInput = new GeneralStabilityPointStructuresInput();
+            StabilityPointStructures = new ObservableList<StabilityPointStructure>();
             sectionResults = new List<StabilityPointStructuresFailureMechanismSectionResult>();
         }
 
@@ -58,6 +60,11 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets the general stability point structures calculation input parameters that apply to each calculation.
         /// </summary>
         public GeneralStabilityPointStructuresInput GeneralInput { get; private set; }
+
+        /// <summary>
+        /// Gets the available stability point structures for this instance.
+        /// </summary>
+        public ObservableList<StabilityPointStructure> StabilityPointStructures { get; private set; }
 
         public CalculationGroup CalculationsGroup { get; private set; }
 

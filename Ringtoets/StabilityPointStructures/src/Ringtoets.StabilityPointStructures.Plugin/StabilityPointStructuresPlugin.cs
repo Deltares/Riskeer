@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
@@ -81,6 +82,26 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddOpenItem()
                                                                                  .Build()
+            };
+
+            yield return new TreeNodeInfo<StabilityPointStructureContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
+                ForeColor = context => context.WrappedData.Any() ? Color.FromKnownColor(KnownColor.ControlText) : Color.FromKnownColor(KnownColor.GrayText),
+                ChildNodeObjects = context => context.WrappedData.Cast<object>().ToArray(),
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddImportItem()
+                                                                                 .AddSeparator()
+                                                                                 .AddExpandAllItem()
+                                                                                 .AddCollapseAllItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<StabilityPointStructure>
+            {
+                Text = structure => structure.Name,
+                Image = structure => RingtoetsCommonFormsResources.StructuresIcon
             };
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<StabilityPointStructuresCalculationGroupContext>(
@@ -175,6 +196,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return new object[]
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new StabilityPointStructureContext(failureMechanism.StabilityPointStructures, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }
