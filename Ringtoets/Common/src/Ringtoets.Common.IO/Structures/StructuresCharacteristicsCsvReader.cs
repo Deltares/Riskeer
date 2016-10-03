@@ -34,7 +34,7 @@ namespace Ringtoets.Common.IO.Structures
 {
     /// <summary>
     /// File reader for a plain text file in comma-separated values format (*.csv) containing
-    /// data specifying characteristics of height structures.
+    /// data specifying characteristics of structures.
     /// </summary>
     public class StructuresCharacteristicsCsvReader : IDisposable
     {
@@ -74,8 +74,8 @@ namespace Ringtoets.Common.IO.Structures
         /// Counts the number of parameter definitions found in the file.
         /// </summary>
         /// <returns>An integer greater than or equal to 0, being the number of parameter rows.</returns>
-        /// <exception cref="CriticalFileReadException">File/directory cannot be found or 
-        /// some other I/O related problem occurred or the header is not in the required format.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the file/directory cannot be found, 
+        /// some I/O related problem occurred or the header is not in the required format.</exception>
         public int GetLineCount()
         {
             using (var reader = StreamReaderHelper.InitializeStreamReader(filePath))
@@ -90,8 +90,8 @@ namespace Ringtoets.Common.IO.Structures
         /// <summary>
         /// Reads the next structure parameter from file.
         /// </summary>
-        /// <returns>The next <see cref="Ringtoets.Common.IO.Structures.StructuresParameterRow"/> based on the read file,
-        /// or null when at the end of the file.</returns>
+        /// <returns>The next <see cref="StructuresParameterRow"/> based on the read file,
+        /// or <c>null</c> when at the end of the file.</returns>
         /// <exception cref="CriticalFileReadException">
         /// Thrown when either:
         /// <list type="bullet">
@@ -103,8 +103,8 @@ namespace Ringtoets.Common.IO.Structures
         /// <exception cref="LineParseException">Thrown when either:
         /// <list type="bullet">
         /// <item>The line does not contain the separator character.</item>
-        /// <item>Location id field is empty or consists out of only white spaces.</item>
-        /// <item>Parameter id field is empty or consists out of only white spaces.</item>
+        /// <item>Location id field is empty or consists only of white-space characters.</item>
+        /// <item>Parameter id field is empty or consists only of white-space characters.</item>
         /// <item>Numeric value field is not a number or too large/small to be represented as <see cref="double"/>.</item>
         /// <item>Variance value field is not a number or too large/small to be represented as <see cref="double"/>.</item>
         /// <item>Boolean field is not a valid value.</item>
@@ -149,7 +149,7 @@ namespace Ringtoets.Common.IO.Structures
         /// Validates the header of the file.
         /// </summary>
         /// <param name="reader">The reader, which is currently at the header row.</param>
-        /// <exception cref="CriticalFileReadException">The header is not in the required format.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the header is not in the required format.</exception>
         private void ValidateHeader(TextReader reader)
         {
             string[] tokenizedHeader = GetTokenizedHeader(reader);
@@ -164,7 +164,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <param name="reader">The reader at the row from which counting should start.</param>
         /// <param name="currentLine">The current line, used for error messaging.</param>
         /// <returns>An integer greater than or equal to 0, being the number of parameter rows.</returns>
-        /// <exception cref="CriticalFileReadException">An I/O exception occurred.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when an I/O exception occurred.</exception>
         private int CountNonEmptyLines(TextReader reader, int currentLine)
         {
             int count = 0, lineNumberForMessage = currentLine;
@@ -185,8 +185,8 @@ namespace Ringtoets.Common.IO.Structures
         /// </summary>
         /// <param name="reader">The opened text file reader.</param>
         /// <param name="currentLine">Row number for error messaging.</param>
-        /// <returns>The read line, or null when at the end of the file.</returns>
-        /// <exception cref="CriticalFileReadException">An critical I/O exception occurred.</exception>
+        /// <returns>The read line, or <c>null</c> when at the end of the file.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when a critical I/O exception occurred.</exception>
         private string ReadLineAndHandleIOExceptions(TextReader reader, int currentLine)
         {
             try
@@ -210,8 +210,8 @@ namespace Ringtoets.Common.IO.Structures
         /// Reads the header and sets the internal indices of the required header columns.
         /// </summary>
         /// <param name="reader">The reader used to read the file.</param>
-        /// <exception cref="CriticalFileReadException">The file is empty or some I/O exception
-        /// occurred or the header is not in the required format.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the file is empty, some I/O exception
+        /// occurred, or the header is not in the required format.</exception>
         private void IndexFile(TextReader reader)
         {
             string[] tokenizedHeader = GetTokenizedHeader(reader);
@@ -230,7 +230,7 @@ namespace Ringtoets.Common.IO.Structures
         /// </summary>
         /// <param name="reader">The reader used to read the file.</param>
         /// <returns>The header split based on <see cref="separator"/>.</returns>
-        /// <exception cref="CriticalFileReadException">The file is empty or some I/O exception
+        /// <exception cref="CriticalFileReadException">Thrown when the file is empty or some I/O exception
         /// occurred.</exception>
         private string[] GetTokenizedHeader(TextReader reader)
         {
@@ -275,7 +275,7 @@ namespace Ringtoets.Common.IO.Structures
         /// </summary>
         /// <param name="requiredHeaderColumnIndices">The array of matched column indices.</param>
         /// <param name="uninitializedValue">The initial index value put in <paramref name="requiredHeaderColumnIndices"/>.</param>
-        /// <exception cref="CriticalFileReadException">The header is not in the required format.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the header is not in the required format.</exception>
         private void ValidateRequiredColumnIndices(int[] requiredHeaderColumnIndices, int uninitializedValue)
         {
             if (requiredHeaderColumnIndices.Any(i => i == uninitializedValue))
@@ -301,7 +301,7 @@ namespace Ringtoets.Common.IO.Structures
         /// </summary>
         /// <returns>The next line which is not a white line, or <c>null</c> when no non-white
         /// line could be found before the end of file.</returns>
-        /// <exception cref="CriticalFileReadException">An critical I/O exception occurred.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when a critical I/O exception occurred.</exception>
         private string ReadNextNonEmptyLine(StreamReader reader)
         {
             string readText;
@@ -323,12 +323,12 @@ namespace Ringtoets.Common.IO.Structures
         /// Creates the structures parameter row.
         /// </summary>
         /// <param name="readText">The read text.</param>
-        /// <returns></returns>
+        /// <returns>The created structures parameter row.</returns>
         /// <exception cref="LineParseException">Thrown when either:
         /// <list type="bullet">
         /// <item><paramref name="readText"/> does not contain the separator character.</item>
-        /// <item>Location id field is empty or consists out of only white spaces.</item>
-        /// <item>Parameter id field is empty or consists out of only white spaces.</item>
+        /// <item>Location id field is empty or consists only of white-space characters.</item>
+        /// <item>Parameter id field is empty or consists only of white-space characters.</item>
         /// <item>Numeric value field is not a number or too large/small to be represented as <see cref="double"/>.</item>
         /// <item>Variance value field is not a number or too large/small to be represented as <see cref="double"/>.</item>
         /// <item>Boolean field is not a valid value.</item>
@@ -347,7 +347,7 @@ namespace Ringtoets.Common.IO.Structures
             string locationId = ParseLocationId(tokenizedText);
             string parameterId = ParseParameterId(tokenizedText);
             string alphanumericValue = ParseAlphanumericValue(tokenizedText);
-            double numbericValue = ParseNumericValue(tokenizedText);
+            double numericValue = ParseNumericValue(tokenizedText);
             double varianceValue = ParseVarianceValue(tokenizedText);
             VarianceType varianceType = ParseVarianceType(tokenizedText);
 
@@ -356,7 +356,7 @@ namespace Ringtoets.Common.IO.Structures
                 LocationId = locationId,
                 ParameterId = parameterId,
                 AlphanumericValue = alphanumericValue,
-                NumericalValue = numbericValue,
+                NumericalValue = numericValue,
                 VarianceValue = varianceValue,
                 VarianceType = varianceType,
                 LineNumber = lineNumber
@@ -366,9 +366,9 @@ namespace Ringtoets.Common.IO.Structures
         /// <summary>
         /// Tokenizes a string using a separator character up to the first empty field.
         /// </summary>
-        /// <param name="readText">The text.</param>
+        /// <param name="readText">The read text.</param>
         /// <returns>The tokenized parts.</returns>
-        /// <exception cref="LineParseException"><paramref name="readText"/> lacks separator character.</exception>
+        /// <exception cref="LineParseException">Thrown when <paramref name="readText"/> lacks separator character.</exception>
         private string[] TokenizeString(string readText)
         {
             if (!readText.Contains(separator))
@@ -386,7 +386,8 @@ namespace Ringtoets.Common.IO.Structures
         /// </summary>
         /// <param name="tokenizedText">The tokenized text.</param>
         /// <returns>The location ID.</returns>
-        /// <exception cref="LineParseException">Location ID field is empty or only has whitespaces.</exception>
+        /// <exception cref="LineParseException">Thrown when the field Location ID is empty 
+        /// or consists only of white-space characters.</exception>
         private string ParseLocationId(string[] tokenizedText)
         {
             string locationId = tokenizedText[locationIdIndex];
@@ -397,9 +398,9 @@ namespace Ringtoets.Common.IO.Structures
         /// Parses the parameter identifier from the read text.
         /// </summary>
         /// <param name="tokenizedText">The tokenized text.</param>
-        /// <returns></returns>
         /// <returns>The parameter ID.</returns>
-        /// <exception cref="LineParseException">Parameter ID field is empty or only has whitespaces.</exception>
+        /// <exception cref="LineParseException">Thrown when the field Parameter ID is empty 
+        /// or consists only of white-space characters.</exception>
         private string ParseParameterId(string[] tokenizedText)
         {
             string parameterId = tokenizedText[parameterIdIndex];
@@ -427,7 +428,7 @@ namespace Ringtoets.Common.IO.Structures
         /// </summary>
         /// <param name="tokenizedText">The tokenized text.</param>
         /// <returns>The numeric value (can be <see cref="double.NaN"/>).</returns>
-        /// <exception cref="LineParseException">When the numeric value field is not a number
+        /// <exception cref="LineParseException">Thrown when the numeric value field is not a number
         /// or when it's too large or too small to be represented as <see cref="double"/>.</exception>
         private double ParseNumericValue(string[] tokenizedText)
         {
@@ -440,7 +441,7 @@ namespace Ringtoets.Common.IO.Structures
         /// </summary>
         /// <param name="tokenizedText">The tokenized text.</param>
         /// <returns>The standard deviation or coefficient of variation value (can be <see cref="double.NaN"/>).</returns>
-        /// <exception cref="LineParseException">When the standard deviation or coefficient
+        /// <exception cref="LineParseException">Thrown when the standard deviation or coefficient
         /// of variation value field is not a number or when it's too large or too small
         /// to be represented as <see cref="double"/>.</exception>
         private double ParseVarianceValue(string[] tokenizedText)
@@ -454,9 +455,9 @@ namespace Ringtoets.Common.IO.Structures
         /// </summary>
         /// <param name="doubleValueText">The value text to be parsed.</param>
         /// <param name="parameterName">Name of the parameter.</param>
-        /// <returns><see cref="double.NaN"/> when <paramref name="doubleValueText"/> is null
-        /// or only whitespaces; otherwise the parsed number.</returns>
-        /// <exception cref="LineParseException">When <paramref name="doubleValueText"/> is
+        /// <returns><see cref="double.NaN"/> when <paramref name="doubleValueText"/> is <c>null</c>
+        /// or only whitespaces; otherwise the parsed value.</returns>
+        /// <exception cref="LineParseException">Thrown when <paramref name="doubleValueText"/> is
         /// not a number or when it's too large or too small to be represented as <see cref="double"/>.</exception>
         private double ParseDoubleValue(string doubleValueText, string parameterName)
         {
@@ -484,8 +485,8 @@ namespace Ringtoets.Common.IO.Structures
         /// Parses the value that indicates how the variance field should be interpreted.
         /// </summary>
         /// <param name="tokenizedText">The tokenized text.</param>
-        /// <returns>The <see cref="Ringtoets.Common.IO.Structures.VarianceType"/> based on the text in the file.</returns>
-        /// <exception cref="LineParseException">When the 'boolean' field is not a valid value.</exception>
+        /// <returns>The <see cref="VarianceType"/> based on the text in the file.</returns>
+        /// <exception cref="LineParseException">Thrown when the 'boolean' field is not a valid value.</exception>
         private VarianceType ParseVarianceType(string[] tokenizedText)
         {
             string varianceTypeText = tokenizedText[varianceTypeIndex];
@@ -538,7 +539,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <param name="currentLine">The line number being read.</param>
         /// <param name="criticalErrorMessage">The critical error message.</param>
         /// <param name="innerException">Optional: exception that caused this exception to be thrown.</param>
-        /// <returns>New <see cref="CriticalFileReadException"/> with message and inner exception set.</returns>
+        /// <returns>New <see cref="CriticalFileReadException"/> with message set.</returns>
         private CriticalFileReadException CreateCriticalFileReadException(int currentLine, string criticalErrorMessage, Exception innerException = null)
         {
             string locationDescription = string.Format(CoreCommonUtilsResources.TextFile_On_LineNumber_0_,
