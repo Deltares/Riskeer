@@ -63,6 +63,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             Assert.IsFalse(validationResult.IsValid);
             List<string> expectedErrorMessages = new List<string>
             {
+                "Parameter 'KW_HOOGTE1' komt meermaals voor.",
                 "Parameter 'KW_HOOGTE2' ontbreekt.",
                 "Parameter 'KW_HOOGTE3' ontbreekt.",
                 "Parameter 'KW_HOOGTE4' ontbreekt.",
@@ -71,12 +72,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "Parameter 'KW_HOOGTE7' ontbreekt.",
                 "Parameter 'KW_HOOGTE8' ontbreekt."
             };
-            List<string> expectedWarningMessages = new List<string>
-            {
-                "Parameter 'KW_HOOGTE1' komt meermaals voor. De eerste specificatie wordt gebruikt."
-            };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
-            CollectionAssert.AreEqual(expectedWarningMessages, validationResult.WarningMessages);
         }
 
         [Test]
