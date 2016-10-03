@@ -53,6 +53,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\HeightStructureProperties.cs" />
     <Compile Include="PropertyClasses\HeightStructuresFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\HeightStructuresInputContextProperties.cs" />
     <Compile Include="UITypeEditors\HeightStructuresInputContextHydraulicBoundaryLocationEditor.cs" />

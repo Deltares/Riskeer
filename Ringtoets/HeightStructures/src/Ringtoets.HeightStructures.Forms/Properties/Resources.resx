@@ -213,4 +213,16 @@
   <data name="FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null" xml:space="preserve">
     <value>De waarde voor de faalkans moet ingevuld zijn.</value>
   </data>
+  <data name="HeightStructure_Location_Description" xml:space="preserve">
+    <value>De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.</value>
+  </data>
+  <data name="HeightStructure_Location_DisplayName" xml:space="preserve">
+    <value>Locatie (RD) [m]</value>
+  </data>
+  <data name="HeightStructure_Name_Description" xml:space="preserve">
+    <value>De naam van het kunstwerk.</value>
+  </data>
+  <data name="HeightStructure_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
 </root>
