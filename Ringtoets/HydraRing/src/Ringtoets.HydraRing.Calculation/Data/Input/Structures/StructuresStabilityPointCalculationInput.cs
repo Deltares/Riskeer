@@ -341,7 +341,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 yield return new HydraRingVariable(132, HydraRingDistributionType.Normal, double.NaN,
                                                    HydraRingDeviationType.Standard, modelFactorLoadEffectMean,
                                                    modelFactorLoadEffectStandardDeviation, double.NaN);
-                yield return new HydraRingVariable(133, HydraRingDistributionType.Normal, double.NaN,
+                yield return new HydraRingVariable(133, HydraRingDistributionType.RayleighN, double.NaN,
                                                    HydraRingDeviationType.Standard, waveRatioMaxHMean,
                                                    waveRatioMaxHStandardDeviation, double.NaN);
                 yield return new HydraRingVariable(134, HydraRingDistributionType.Deterministic, verticalDistance,

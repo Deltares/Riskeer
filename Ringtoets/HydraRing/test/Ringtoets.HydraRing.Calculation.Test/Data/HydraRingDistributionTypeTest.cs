@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
         [Test]
         public void Values_HasThree()
         {
-            Assert.AreEqual(3, Enum.GetValues(typeof(HydraRingDistributionType)).Length);
+            Assert.AreEqual(4, Enum.GetValues(typeof(HydraRingDistributionType)).Length);
         }
 
         [Test]
@@ -40,6 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data
             Assert.AreEqual(0, (int) HydraRingDistributionType.Deterministic);
             Assert.AreEqual(2, (int) HydraRingDistributionType.Normal);
             Assert.AreEqual(4, (int) HydraRingDistributionType.LogNormal);
+            Assert.AreEqual(18, (int) HydraRingDistributionType.RayleighN);
         }
     }
 }
