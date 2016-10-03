@@ -37,7 +37,7 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ClosingStructureContextTreeNodeInfoTest
+    public class ClosingStructuresContextTreeNodeInfoTest
     {
         private ClosingStructuresPlugin plugin;
         private TreeNodeInfo info;
@@ -46,7 +46,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new ClosingStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructureContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresContext));
         }
 
         [TearDown]
@@ -59,7 +59,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(ClosingStructureContext), info.TagType);
+            Assert.AreEqual(typeof(ClosingStructuresContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ForeColor);
@@ -89,10 +89,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             var closingStructures = new ObservableList<ClosingStructure>();
 
-            var closingStructureContext = new ClosingStructureContext(closingStructures, assessmentSection);
+            var closingStructuresContext = new ClosingStructuresContext(closingStructures, assessmentSection);
 
             // Call
-            string text = info.Text(closingStructureContext);
+            string text = info.Text(closingStructuresContext);
 
             // Assert
             const string expectedText = "Kunstwerken";
@@ -110,10 +110,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             var closingStructures = new ObservableList<ClosingStructure>();
 
-            var closingStructureContext = new ClosingStructureContext(closingStructures, assessmentSection);
+            var closingStructuresContext = new ClosingStructuresContext(closingStructures, assessmentSection);
 
             // Call
-            Image image = info.Image(closingStructureContext);
+            Image image = info.Image(closingStructuresContext);
 
             // Assert
             TestHelper.AssertImagesAreEqual(Resources.GeneralFolderIcon, image);
@@ -136,10 +136,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.IsNotEmpty(closingStructures);
 
-            var context = new ClosingStructureContext(closingStructures, asssessmentSection);
+            var closingStructuresContext = new ClosingStructuresContext(closingStructures, asssessmentSection);
 
             // Call
-            Color color = info.ForeColor(context);
+            Color color = info.ForeColor(closingStructuresContext);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
@@ -162,10 +162,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 closingStructure2
             };
 
-            var heightStructureContext = new ClosingStructureContext(closingStructures, assessmentSection);
+            var closingStructuresContext = new ClosingStructuresContext(closingStructures, assessmentSection);
 
             // Call
-            var children = info.ChildNodeObjects(heightStructureContext);
+            var children = info.ChildNodeObjects(closingStructuresContext);
 
             // Assert
             Assert.AreEqual(2, children.Length);
@@ -187,10 +187,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.IsEmpty(closingStructures);
 
-            var context = new ClosingStructureContext(closingStructures, asssessmentSection);
+            var closingStructuresContext = new ClosingStructuresContext(closingStructures, asssessmentSection);
 
             // Call
-            Color color = info.ForeColor(context);
+            Color color = info.ForeColor(closingStructuresContext);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);

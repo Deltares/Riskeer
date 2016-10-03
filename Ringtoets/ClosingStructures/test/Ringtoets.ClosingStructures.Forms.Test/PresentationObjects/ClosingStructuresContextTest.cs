@@ -31,7 +31,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class ClosingStructureContextTest
+    public class ClosingStructuresContextTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
@@ -44,7 +44,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             var closingStructures = new ObservableList<ClosingStructure>();
 
             // Call
-            var context = new ClosingStructureContext(closingStructures, assessmentSectionMock);
+            var context = new ClosingStructuresContext(closingStructures, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<ClosingStructure>>>(context);
@@ -60,7 +60,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             var closingStructures = new ObservableList<ClosingStructure>();
 
             // Call
-            TestDelegate test = () => new ClosingStructureContext(closingStructures, null);
+            TestDelegate test = () => new ClosingStructuresContext(closingStructures, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

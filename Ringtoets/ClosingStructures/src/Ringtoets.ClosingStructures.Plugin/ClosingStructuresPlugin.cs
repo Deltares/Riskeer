@@ -82,7 +82,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<ClosingStructureContext>()
+            yield return new TreeNodeInfo<ClosingStructuresContext>()
             {
                 Text = context => RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
@@ -152,7 +152,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                new ClosingStructureContext(failureMechanism.ClosingStructures, assessmentSection),
+                new ClosingStructuresContext(failureMechanism.ClosingStructures, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }
