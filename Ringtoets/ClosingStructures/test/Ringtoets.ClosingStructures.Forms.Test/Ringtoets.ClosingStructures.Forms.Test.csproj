@@ -59,7 +59,7 @@
     </Compile>
     <Compile Include="PresentationObjects\ClosingStructureContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresCalculationGroupContextTest.cs" />
-    <Compile Include="PresentationObjects\ClosingStructuresContextTest.cs" />
+    <Compile Include="PresentationObjects\ClosingStructuresContextBaseTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresFailureMechanismContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructureContextTreeNodeInfoTest.cs" />

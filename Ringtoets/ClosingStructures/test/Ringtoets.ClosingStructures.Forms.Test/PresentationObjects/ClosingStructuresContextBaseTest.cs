@@ -32,7 +32,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class ClosingStructuresContextTest
+    public class ClosingStructuresContextBaseTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
@@ -92,7 +92,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
         }
 
-        private class SimpleClosingStructuresContext<T> : ClosingStructuresContext<T> where T : IObservable
+        private class SimpleClosingStructuresContext<T> : ClosingStructuresContextBase<T> where T : IObservable
         {
             public SimpleClosingStructuresContext(T target, ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(target, failureMechanism, assessmentSection) { }

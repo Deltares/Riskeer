@@ -33,24 +33,24 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
     /// Presentation object representing all required closing structures input knowledge to configure and create
     /// related objects. It will delegate observable behaviour to the wrapped data object.
     /// </summary>
-    public abstract class ClosingStructuresContext<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
+    public abstract class ClosingStructuresContextBase<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
     {
         /// <summary>
-        /// Initializes a new instance of <see cref="ClosingStructuresContext{T}"/>.
+        /// Initializes a new instance of <see cref="ClosingStructuresContextBase{T}"/>.
         /// </summary>
         /// <param name="wrappedData">The concrete data instance wrapped by the context object.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are <c>null</c>.</exception>
-        protected ClosingStructuresContext(T wrappedData,
-                                           ClosingStructuresFailureMechanism failureMechanism,
-                                           IAssessmentSection assessmentSection)
+        protected ClosingStructuresContextBase(T wrappedData,
+                                               ClosingStructuresFailureMechanism failureMechanism,
+                                               IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (failureMechanism == null)
             {
                 string message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                               Resources.ClosingStructuresContext_DataDescription_ClosingStructuresFailureMechanism);
+                                               Resources.ClosingStructuresContextBase_DataDescription_ClosingStructuresFailureMechanism);
                 throw new ArgumentNullException("failureMechanism", message);
             }
 

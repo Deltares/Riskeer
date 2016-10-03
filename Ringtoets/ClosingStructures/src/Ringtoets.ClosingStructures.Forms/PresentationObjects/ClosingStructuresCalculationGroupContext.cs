@@ -31,7 +31,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
     /// in order to be able to create configurable closing structures calculations.
     /// </summary>
-    public class ClosingStructuresCalculationGroupContext : ClosingStructuresContext<CalculationGroup>, ICalculationContext<CalculationGroup, ClosingStructuresFailureMechanism>
+    public class ClosingStructuresCalculationGroupContext : ClosingStructuresContextBase<CalculationGroup>, ICalculationContext<CalculationGroup, ClosingStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationGroupContext"/>.
