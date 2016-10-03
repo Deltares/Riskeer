@@ -28,17 +28,17 @@ using Ringtoets.StabilityPointStructures.Data;
 namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// The presentation object for <see cref="StabilityPointStructure"/>.
+    /// The presentation object for an <see cref="ObservableList{T}"/> containing <see cref="StabilityPointStructure"/>.
     /// </summary>
-    public class StabilityPointStructureContext : ObservableWrappedObjectContextBase<ObservableList<StabilityPointStructure>>
+    public class StabilityPointStructuresContext : ObservableWrappedObjectContextBase<ObservableList<StabilityPointStructure>>
     {
         /// <summary>
-        /// Creates an instance of <see cref="StabilityPointStructureContext"/>.
+        /// Creates an instance of <see cref="StabilityPointStructuresContext"/>.
         /// </summary>
         /// <param name="stabilityPointStructures">The wrapped <see cref="ObservableList{T}"/> containing <see cref="StabilityPointStructure"/>.</param>
         /// <param name="assessmentSection">The assessment section which the <paramref name="stabilityPointStructures"/> belong to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input arguments are <c>null</c>.</exception>
-        public StabilityPointStructureContext(ObservableList<StabilityPointStructure> stabilityPointStructures, IAssessmentSection assessmentSection)
+        public StabilityPointStructuresContext(ObservableList<StabilityPointStructure> stabilityPointStructures, IAssessmentSection assessmentSection)
             : base(stabilityPointStructures)
         {
             if (assessmentSection == null)

@@ -31,7 +31,7 @@ using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class StabilityPointStructureContextTest
+    public class StabilityPointStructuresContextTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
@@ -44,7 +44,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             var structures = new ObservableList<StabilityPointStructure>();
 
             // Call
-            var context = new StabilityPointStructureContext(structures, assessmentSectionMock);
+            var context = new StabilityPointStructuresContext(structures, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<StabilityPointStructure>>>(context);
@@ -60,7 +60,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             var structures = new ObservableList<StabilityPointStructure>();
 
             // Call
-            TestDelegate test = () => new StabilityPointStructureContext(structures, null);
+            TestDelegate test = () => new StabilityPointStructuresContext(structures, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

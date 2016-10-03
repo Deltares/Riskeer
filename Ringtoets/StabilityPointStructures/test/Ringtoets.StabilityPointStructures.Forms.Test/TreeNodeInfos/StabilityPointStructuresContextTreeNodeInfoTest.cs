@@ -38,7 +38,7 @@ using RingtoetsCommonFormsProperties = Ringtoets.Common.Forms.Properties.Resourc
 namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class StabilityPointStructureContextTreeNodeInfoTest
+    public class StabilityPointStructuresContextTreeNodeInfoTest
     {
         [Test]
         public void Initialized_Always_ExpectedPropertiesSet()
@@ -49,7 +49,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 var info = GetInfo(plugin);
 
                 // Assert
-                Assert.AreEqual(typeof(StabilityPointStructureContext), info.TagType);
+                Assert.AreEqual(typeof(StabilityPointStructuresContext), info.TagType);
                 Assert.IsNull(info.CanCheck);
                 Assert.IsNull(info.CanDrag);
                 Assert.IsNull(info.CanDrop);
@@ -78,7 +78,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new StabilityPointStructureContext(new ObservableList<StabilityPointStructure>(),
+            var context = new StabilityPointStructuresContext(new ObservableList<StabilityPointStructure>(),
                                                              assessmentSection);
 
             using (var plugin = new StabilityPointStructuresPlugin())
@@ -103,7 +103,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var context = new StabilityPointStructureContext(new ObservableList<StabilityPointStructure>(),
+            var context = new StabilityPointStructuresContext(new ObservableList<StabilityPointStructure>(),
                                                              assessmentSection);
 
             using (var plugin = new StabilityPointStructuresPlugin())
@@ -135,7 +135,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.IsNotEmpty(structures);
 
-            var context = new StabilityPointStructureContext(structures, assessmentSection);
+            var context = new StabilityPointStructuresContext(structures, assessmentSection);
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var info = GetInfo(plugin);
@@ -165,7 +165,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 structure2
             };
 
-            var context = new StabilityPointStructureContext(closingStructures, assessmentSection);
+            var context = new StabilityPointStructuresContext(closingStructures, assessmentSection);
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var info = GetInfo(plugin);
@@ -194,7 +194,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.IsEmpty(closingStructures);
 
-            var context = new StabilityPointStructureContext(closingStructures, assessmentSection);
+            var context = new StabilityPointStructuresContext(closingStructures, assessmentSection);
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var info = GetInfo(plugin);
@@ -239,7 +239,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
         private static TreeNodeInfo GetInfo(StabilityPointStructuresPlugin gui)
         {
-            return gui.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructureContext));
+            return gui.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresContext));
         }
 
         private static StabilityPointStructure CreateStabilityPointStructure()

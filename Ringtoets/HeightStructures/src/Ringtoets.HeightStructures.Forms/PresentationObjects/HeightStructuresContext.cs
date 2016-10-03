@@ -28,7 +28,7 @@ using Ringtoets.HeightStructures.Data;
 namespace Ringtoets.HeightStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// The presentation object for an <see cref="ObservableList{T}"/> of <see cref="HeightStructure"/>.
+    /// The presentation object for an <see cref="ObservableList{T}"/> containing <see cref="HeightStructure"/>.
     /// </summary>
     public class HeightStructuresContext : ObservableWrappedObjectContextBase<ObservableList<HeightStructure>>
     {

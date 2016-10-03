@@ -115,9 +115,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
                 Assert.AreSame(assessmentSectionMock, failureMechanismSectionsContext.ParentAssessmentSection);
 
-                var structureContext = (StabilityPointStructureContext)inputsFolder.Contents[1];
-                Assert.AreSame(failureMechanism.StabilityPointStructures, structureContext.WrappedData);
-                Assert.AreSame(assessmentSectionMock, structureContext.AssessmentSection);
+                var stabilityPointStructuresContext = (StabilityPointStructuresContext) inputsFolder.Contents[1];
+                Assert.AreSame(failureMechanism.StabilityPointStructures, stabilityPointStructuresContext.WrappedData);
+                Assert.AreSame(assessmentSectionMock, stabilityPointStructuresContext.AssessmentSection);
 
                 var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
                 Assert.AreSame(failureMechanism, commentContext.WrappedData);

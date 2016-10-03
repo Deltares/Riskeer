@@ -84,7 +84,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<StabilityPointStructureContext>
+            yield return new TreeNodeInfo<StabilityPointStructuresContext>
             {
                 Text = context => RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
@@ -208,7 +208,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return new object[]
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
-                new StabilityPointStructureContext(failureMechanism.StabilityPointStructures, assessmentSection),
+                new StabilityPointStructuresContext(failureMechanism.StabilityPointStructures, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }
