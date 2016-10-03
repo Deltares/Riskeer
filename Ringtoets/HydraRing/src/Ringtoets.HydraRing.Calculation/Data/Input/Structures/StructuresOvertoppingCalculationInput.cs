@@ -29,6 +29,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
     public class StructuresOvertoppingCalculationInput : ExceedanceProbabilityCalculationInput
     {
         private readonly HydraRingSection section;
+        private readonly IEnumerable<HydraRingForelandPoint> forelandPoints;
+        private readonly HydraRingBreakWater breakWater;
         private readonly double gravitationalAcceleration;
         private readonly double modelFactorOvertoppingFlowMean;
         private readonly double modelFactorOvertoppingFlowStandardDeviation;
@@ -60,6 +62,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// </summary>
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
         /// <param name="section">The section.</param>
+        /// <param name="forelandPoints">The foreland points.</param>
+        /// <param name="breakWater">The break water.</param>
         /// <param name="gravitationalAcceleration">The gravitational acceleration.</param>
         /// <param name="modelFactorOvertoppingFlowMean">The mean of the model factor overtopping flow.</param>
         /// <param name="modelFactorOvertoppingFlowStandardDeviation">The standard deviation of the model factor overtopping flow.</param>
@@ -86,6 +90,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="stormDurationMean">The mean of the storm duration.</param>
         /// <param name="stormDurationVariation">The variation of the storm duration.</param>
         public StructuresOvertoppingCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
+                                                     IEnumerable<HydraRingForelandPoint> forelandPoints,
+                                                     HydraRingBreakWater breakWater,
                                                      double gravitationalAcceleration,
                                                      double modelFactorOvertoppingFlowMean, double modelFactorOvertoppingFlowStandardDeviation,
                                                      double levelCrestStructureMean, double levelCrestStructureStandardDeviation,
@@ -104,6 +110,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             : base(hydraulicBoundaryLocationId)
         {
             this.section = section;
+            this.forelandPoints = forelandPoints;
+            this.breakWater = breakWater;
             this.gravitationalAcceleration = gravitationalAcceleration;
             this.modelFactorOvertoppingFlowMean = modelFactorOvertoppingFlowMean;
             this.modelFactorOvertoppingFlowStandardDeviation = modelFactorOvertoppingFlowStandardDeviation;
@@ -200,6 +208,22 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 yield return new HydraRingVariable(108, HydraRingDistributionType.LogNormal, double.NaN,
                                                    HydraRingDeviationType.Variation, stormDurationMean,
                                                    stormDurationVariation, double.NaN);
+            }
+        }
+
+        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints
+        {
+            get
+            {
+                return forelandPoints;
+            }
+        }
+
+        public override HydraRingBreakWater BreakWater
+        {
+            get
+            {
+                return breakWater;
             }
         }
     }

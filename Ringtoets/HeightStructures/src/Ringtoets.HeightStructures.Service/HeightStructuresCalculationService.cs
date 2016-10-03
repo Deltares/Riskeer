@@ -106,6 +106,8 @@ namespace Ringtoets.HeightStructures.Service
             return new StructuresOvertoppingCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
                 new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.OrientationOfTheNormalOfTheStructure),
+                new HydraRingForelandPoint[0],
+                null,
                 generalInput.GravitationalAcceleration,
                 generalInput.ModelFactorOvertoppingFlow.Mean, generalInput.ModelFactorOvertoppingFlow.StandardDeviation,
                 calculation.InputParameters.LevelOfCrestOfStructure.Mean, calculation.InputParameters.LevelOfCrestOfStructure.StandardDeviation,

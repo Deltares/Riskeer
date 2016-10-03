@@ -38,6 +38,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const int hydraulicBoundaryLocationId = 1000;
 
             HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
+            var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
+            var breakWater = new HydraRingBreakWater(1, 1.1);
+
             const double gravitationalAcceleration = 9.81;
             const double modelFactorOvertoppingFlowMean = 0.09;
             const double modelFactorOvertoppingFlowStandardDeviation = 0.06;
@@ -65,32 +68,35 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double stormDurationVariation = 0.25;
 
             // Call
-            var structuresOvertoppingCalculationInput = new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, section,
-                                                                                                  gravitationalAcceleration,
-                                                                                                  modelFactorOvertoppingFlowMean, modelFactorOvertoppingFlowStandardDeviation,
-                                                                                                  levelCrestStructureMean, levelCrestStructureStandardDeviation,
-                                                                                                  structureNormalOrientation,
-                                                                                                  modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation,
-                                                                                                  allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation,
-                                                                                                  modelFactorStorageVolumeMean, modelFactorStorageVolumeStandardDeviation,
-                                                                                                  storageStructureAreaMean, storageStructureAreaVariation,
-                                                                                                  modelFactorInflowVolume,
-                                                                                                  flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation,
-                                                                                                  criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
-                                                                                                  failureProbabilityStructureWithErosion,
-                                                                                                  widthFlowAperturesMean, widthFlowAperturesVariation,
-                                                                                                  deviationWaveDirection,
-                                                                                                  stormDurationMean, stormDurationVariation);
+            var input = new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, section,
+                                                                  forelandPoints, breakWater,
+                                                                  gravitationalAcceleration,
+                                                                  modelFactorOvertoppingFlowMean, modelFactorOvertoppingFlowStandardDeviation,
+                                                                  levelCrestStructureMean, levelCrestStructureStandardDeviation,
+                                                                  structureNormalOrientation,
+                                                                  modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation,
+                                                                  allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation,
+                                                                  modelFactorStorageVolumeMean, modelFactorStorageVolumeStandardDeviation,
+                                                                  storageStructureAreaMean, storageStructureAreaVariation,
+                                                                  modelFactorInflowVolume,
+                                                                  flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation,
+                                                                  criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
+                                                                  failureProbabilityStructureWithErosion,
+                                                                  widthFlowAperturesMean, widthFlowAperturesVariation,
+                                                                  deviationWaveDirection,
+                                                                  stormDurationMean, stormDurationVariation);
 
             // Assert
             const int expectedCalculationTypeId = 1;
             const int variableId = 60;
-            Assert.AreEqual(expectedCalculationTypeId, structuresOvertoppingCalculationInput.CalculationTypeId);
-            Assert.AreEqual(hydraulicBoundaryLocationId, structuresOvertoppingCalculationInput.HydraulicBoundaryLocationId);
-            Assert.AreEqual(HydraRingFailureMechanismType.StructuresOvertopping, structuresOvertoppingCalculationInput.FailureMechanismType);
-            Assert.AreEqual(variableId, structuresOvertoppingCalculationInput.VariableId);
-            Assert.AreEqual(section, structuresOvertoppingCalculationInput.Section);
-            HydraRingVariableAssert.AreEqual(GetDefaultOvertoppingVariables().ToArray(), structuresOvertoppingCalculationInput.Variables.ToArray());
+            Assert.AreEqual(expectedCalculationTypeId, input.CalculationTypeId);
+            Assert.AreEqual(hydraulicBoundaryLocationId, input.HydraulicBoundaryLocationId);
+            Assert.AreEqual(HydraRingFailureMechanismType.StructuresOvertopping, input.FailureMechanismType);
+            Assert.AreEqual(variableId, input.VariableId);
+            Assert.AreEqual(section, input.Section);
+            Assert.AreSame(forelandPoints, input.ForelandsPoints);
+            Assert.AreSame(breakWater, input.BreakWater);
+            HydraRingVariableAssert.AreEqual(GetDefaultOvertoppingVariables().ToArray(), input.Variables.ToArray());
         }
 
         private static IEnumerable<HydraRingVariable> GetDefaultOvertoppingVariables()

@@ -427,6 +427,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const int hydraulicBoundaryLocationId = 700004;
 
             var section = new HydraRingSection(1, 2.2, 3.3);
+            var forelandPoints = new List<HydraRingForelandPoint>
+            {
+                new HydraRingForelandPoint(1.1, 2.2)
+            };
+            var breakWater = new HydraRingBreakWater(1, 2.2);
+
             const double gravitationalAcceleration = 9.81;
             const double modelFactorOvertoppingMean = 0.09;
             const double modelFactorOvertoppingStandardDeviation = 0.06;
@@ -454,7 +460,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const double widthOfFlowAperturesMean = 8.8;
             const double deviationOfTheWaveDirection = 9.9;
 
-            hydraRingConfigurationService.AddHydraRingCalculationInput(new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, section, gravitationalAcceleration,
+            hydraRingConfigurationService.AddHydraRingCalculationInput(new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, section,
+                                                                                                                 forelandPoints, breakWater,
+                                                                                                                 gravitationalAcceleration,
                                                                                                                  modelFactorOvertoppingMean, modelFactorOvertoppingStandardDeviation,
                                                                                                                  levelOfCrestOfStructureMean, levelOfCrestOfStructureStandardDeviation,
                                                                                                                  orientationOfTheNormalOfTheStructure,
@@ -517,8 +525,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 "DELETE FROM [Profiles];" + Environment.NewLine +
                 Environment.NewLine +
                 "DELETE FROM [ForelandModels];" + Environment.NewLine +
+                "INSERT INTO [ForelandModels] VALUES (1, 110, 3);" + Environment.NewLine +
                 Environment.NewLine +
                 "DELETE FROM [Forelands];" + Environment.NewLine +
+                "INSERT INTO [Forelands] VALUES (1, 1, 1.1, 2.2);" + Environment.NewLine +
                 Environment.NewLine +
                 "DELETE FROM [ProbabilityAlternatives];" + Environment.NewLine +
                 Environment.NewLine +
@@ -536,7 +546,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 "DELETE FROM [Projects];" + Environment.NewLine +
                 "INSERT INTO [Projects] VALUES (1, 'WTI 2017', 'Ringtoets calculation');" + Environment.NewLine +
                 Environment.NewLine +
-                "DELETE FROM [Breakwaters];" + Environment.NewLine;
+                "DELETE FROM [Breakwaters];" + Environment.NewLine +
+                "INSERT INTO [Breakwaters] VALUES (1, 1, 2.2);" + Environment.NewLine;
 
             string databaseFilePath = Path.Combine(hydraRingDirectory, "temp.db");
             using (new FileDisposeHelper(databaseFilePath))
