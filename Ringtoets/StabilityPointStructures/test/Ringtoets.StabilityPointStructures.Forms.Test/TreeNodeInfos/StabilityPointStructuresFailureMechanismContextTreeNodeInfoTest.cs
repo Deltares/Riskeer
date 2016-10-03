@@ -41,7 +41,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ClosingStructureFailureMechanismContextTreeNodeInfoTest
+    public class StabilityPointStructuresFailureMechanismContextTreeNodeInfoTest
     {
         private const int contextMenuRelevancyIndexWhenRelevant = 0;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
