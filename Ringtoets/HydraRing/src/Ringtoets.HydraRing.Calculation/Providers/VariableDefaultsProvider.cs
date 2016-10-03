@@ -271,10 +271,13 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     HydraRingFailureMechanismType.StructuresClosure, new Dictionary<int, VariableDefaults>
                     {
                         {
-                            23, new VariableDefaults(6000)
+                            58, new VariableDefaults(99000)
                         },
                         {
-                            58, new VariableDefaults(99000)
+                            59, new VariableDefaults(999999)
+                        },
+                        {
+                            61, new VariableDefaults(999999)
                         },
                         {
                             62, new VariableDefaults(999999)
@@ -289,6 +292,12 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                             65, new VariableDefaults(999999)
                         },
                         {
+                            66, new VariableDefaults(999999)
+                        },
+                        {
+                            67, new VariableDefaults(999999)                            
+                        },
+                        {
                             68, new VariableDefaults(999999)
                         },
                         {
@@ -296,6 +305,9 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                         },
                         {
                             71, new VariableDefaults(999999)
+                        },
+                        {
+                            72, new VariableDefaults(999999)
                         },
                         {
                             93, new VariableDefaults(999999)
@@ -323,6 +335,9 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                         },
                         {
                             106, new VariableDefaults(999999)
+                        },
+                        {
+                            107, new VariableDefaults(999999)
                         },
                         {
                             108, new VariableDefaults(999999)
