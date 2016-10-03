@@ -47,14 +47,17 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
             AssertEqualValues(9.81, inputParameters.GravitationalAcceleration);
 
+            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.ModelFactorOvertoppingFlow);
             AssertEqualValues(0.09, inputParameters.ModelFactorOvertoppingFlow.Mean);
             AssertEqualValues(0.06, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation);
             
-            AssertEqualValues(1, inputParameters.ModelFactorForSubCriticalFlow.Mean);
-            AssertEqualValues(0.1, inputParameters.ModelFactorForSubCriticalFlow.GetVariationCoefficient());
+            Assert.IsInstanceOf<NormalDistribution>(inputParameters.ModelFactorSubCriticalFlow);
+            AssertEqualValues(1, inputParameters.ModelFactorSubCriticalFlow.Mean);
+            AssertEqualValues(0.1, inputParameters.ModelFactorSubCriticalFlow.GetVariationCoefficient());
 
-            AssertEqualValues(1.0, inputParameters.ModelFactorForStorageVolume.Mean);
-            AssertEqualValues(0.2, inputParameters.ModelFactorForStorageVolume.StandardDeviation);
+            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.ModelFactorStorageVolume);
+            AssertEqualValues(1.0, inputParameters.ModelFactorStorageVolume.Mean);
+            AssertEqualValues(0.2, inputParameters.ModelFactorStorageVolume.StandardDeviation);
 
             Assert.AreEqual(2, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
             AssertEqualValues(1.0, inputParameters.ModelFactorInflowVolume);
