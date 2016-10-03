@@ -31,7 +31,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="HeightStructuresInput"/>
     /// in order to be able to configure height structures calculations.
     /// </summary>
-    public class HeightStructuresInputContext : HeightStructuresContext<HeightStructuresInput>
+    public class HeightStructuresInputContext : HeightStructuresContextBase<HeightStructuresInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresInputContext"/>.

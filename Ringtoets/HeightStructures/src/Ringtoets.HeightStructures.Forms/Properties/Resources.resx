@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HeightStructuresContext_DataDescription_HeightStructuresFailureMechanism" xml:space="preserve">
+  <data name="HeightStructuresContextBase_DataDescription_HeightStructuresFailureMechanism" xml:space="preserve">
     <value>Het hoogte kunstwerk toetsspoor</value>
   </data>
   <data name="HeightStructuresInputContext_DataDescription_HeightStructuresInputCalculationItem" xml:space="preserve">

@@ -38,7 +38,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class HeightStructuresCollectionContextTreeNodeInfoTest
+    public class HeightStructuresContextTreeNodeInfoTest
     {
         private HeightStructuresPlugin plugin;
         private TreeNodeInfo info;
@@ -47,7 +47,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void SetUp()
         {
             plugin = new HeightStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresCollectionContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresContext));
         }
 
         [TearDown]
@@ -60,7 +60,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(HeightStructuresCollectionContext), info.TagType);
+            Assert.AreEqual(typeof(HeightStructuresContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ForeColor);
@@ -90,10 +90,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var heightStructures = new ObservableList<HeightStructure>();
 
-            var heightStructureContext = new HeightStructuresCollectionContext(heightStructures, assessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(heightStructures, assessmentSection);
 
             // Call
-            string text = info.Text(heightStructureContext);
+            string text = info.Text(heightStructuresContext);
 
             // Assert
             const string expectedText = "Kunstwerken";
@@ -111,10 +111,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var heightStructures = new ObservableList<HeightStructure>();
 
-            var heightStructureContext = new HeightStructuresCollectionContext(heightStructures, assessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(heightStructures, assessmentSection);
 
             // Call
-            Image image = info.Image(heightStructureContext);
+            Image image = info.Image(heightStructuresContext);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GeneralFolderIcon, image);
@@ -137,10 +137,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.IsNotEmpty(heightStructures);
 
-            var context = new HeightStructuresCollectionContext(heightStructures, asssessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(heightStructures, asssessmentSection);
 
             // Call
-            Color color = info.ForeColor(context);
+            Color color = info.ForeColor(heightStructuresContext);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), color);
@@ -163,10 +163,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 heightStructure2
             };
 
-            var heightStructureContext = new HeightStructuresCollectionContext(heightStructures, assessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(heightStructures, assessmentSection);
 
             // Call
-            object[] children = info.ChildNodeObjects(heightStructureContext);
+            object[] children = info.ChildNodeObjects(heightStructuresContext);
 
             // Assert
             CollectionAssert.AreEqual(heightStructures, children);
@@ -186,10 +186,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Precondition
             CollectionAssert.IsEmpty(heightStructures);
 
-            var context = new HeightStructuresCollectionContext(heightStructures, asssessmentSection);
+            var heightStructuresContext = new HeightStructuresContext(heightStructures, asssessmentSection);
 
             // Call
-            Color color = info.ForeColor(context);
+            Color color = info.ForeColor(heightStructuresContext);
 
             // Assert
             Assert.AreEqual(Color.FromKnownColor(KnownColor.GrayText), color);

@@ -64,7 +64,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return new ImportInfo<HeightStructuresCollectionContext>
+            yield return new ImportInfo<HeightStructuresContext>
             {
                 CreateFileImporter = (context, filePath) => new HeightStructuresImporter(context.WrappedData,
                                                                                          context.AssessmentSection.ReferenceLine,
@@ -119,7 +119,7 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<HeightStructuresCollectionContext>
+            yield return new TreeNodeInfo<HeightStructuresContext>
             {
                 Text = context => RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
@@ -262,7 +262,7 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
                 new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, assessmentSection),
-                new HeightStructuresCollectionContext(failureMechanism.HeightStructures, assessmentSection),
+                new HeightStructuresContext(failureMechanism.HeightStructures, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
         }

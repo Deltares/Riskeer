@@ -20,16 +20,13 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 {
@@ -40,89 +37,34 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
 
-            var target = new ObservableObject();
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var heightStructures = new ObservableList<HeightStructure>();
 
             // Call
-            var context = new SimpleHeightStructuresContext<ObservableObject>(target, failureMechanism, assessmentSectionMock);
+            var context = new HeightStructuresContext(heightStructures, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableObject>>(context);
-            Assert.AreSame(target, context.WrappedData);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableList<HeightStructure>>>(context);
+            Assert.AreSame(heightStructures, context.WrappedData);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
-            Assert.AreSame(failureMechanism, context.FailureMechanism);
-            mockRepository.VerifyAll();
+            mocks.VerifyAll();
         }
 
         [Test]
-        public void ParameteredConstructor_FailureMechanismIsNull_ThrowsArgumentNullException()
+        public void ParameteredConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var observableObject = new ObservableObject();
+            var heightStructures = new ObservableList<HeightStructure>();
 
             // Call
-            TestDelegate call = () => new SimpleHeightStructuresContext<ObservableObject>(observableObject, null, assessmentSectionMock);
+            TestDelegate test = () => new HeightStructuresContext(heightStructures, null);
 
             // Assert
-            const string expectedMessage = "Het hoogte kunstwerk toetsspoor mag niet 'null' zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void ParameteredConstructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var observableObject = new ObservableObject();
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            // Call
-            TestDelegate call = () => new SimpleHeightStructuresContext<ObservableObject>(observableObject, failureMechanism, null);
-
-            // Assert
-            const string expectedMessage = "Het traject mag niet 'null' zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-        }
-
-        [Test]
-        public void AvailableHydraulicBoundaryLocations_HydraulicBoundaryDatabaseSet_ReturnsAllHydraulicBoundaryLocations()
-        {
-            // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
-
-            var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            mockRepository.ReplayAll();
-
-            var target = new ObservableObject();
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var context = new SimpleHeightStructuresContext<ObservableObject>(target, failureMechanism, assessmentSectionStub);
-
-            // Call
-            var availableHydraulicBoundaryLocations = context.AvailableHydraulicBoundaryLocations;
-
-            // Assert
-            Assert.AreEqual(1, availableHydraulicBoundaryLocations.Count());
-            Assert.AreEqual(hydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);
-            mockRepository.VerifyAll();
-        }
-
-        private class ObservableObject : Observable {}
-
-        private class SimpleHeightStructuresContext<T> : HeightStructuresContext<T> where T : IObservable
-        {
-            public SimpleHeightStructuresContext(T target, HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-                : base(target, failureMechanism, assessmentSection) {}
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
     }
 }

@@ -183,9 +183,9 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Het hoogte kunstwerk toetsspoor.
         /// </summary>
-        public static string HeightStructuresContext_DataDescription_HeightStructuresFailureMechanism {
+        public static string HeightStructuresContextBase_DataDescription_HeightStructuresFailureMechanism {
             get {
-                return ResourceManager.GetString("HeightStructuresContext_DataDescription_HeightStructuresFailureMechanism", resourceCulture);
+                return ResourceManager.GetString("HeightStructuresContextBase_DataDescription_HeightStructuresFailureMechanism", resourceCulture);
             }
         }
         

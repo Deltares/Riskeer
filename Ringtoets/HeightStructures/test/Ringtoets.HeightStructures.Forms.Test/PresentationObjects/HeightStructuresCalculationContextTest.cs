@@ -46,7 +46,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var context = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<HeightStructuresContext<HeightStructuresCalculation>>(context);
+            Assert.IsInstanceOf<HeightStructuresContextBase<HeightStructuresCalculation>>(context);
             Assert.IsInstanceOf<ICalculationContext<HeightStructuresCalculation, HeightStructuresFailureMechanism>>(context);
             Assert.AreEqual(calculation, context.WrappedData);
             Assert.AreEqual(failureMechanism, context.FailureMechanism);
