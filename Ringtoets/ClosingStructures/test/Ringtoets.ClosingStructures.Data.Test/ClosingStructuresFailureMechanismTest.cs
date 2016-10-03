@@ -51,6 +51,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             CollectionAssert.IsEmpty(failureMechanism.Sections);
             CollectionAssert.IsEmpty(failureMechanism.ClosingStructures);
             CollectionAssert.IsEmpty(failureMechanism.Calculations);
+            CollectionAssert.IsEmpty(failureMechanism.ForeshoreProfiles);
+            CollectionAssert.IsEmpty(failureMechanism.HydraulicBoundaryLocations);
         }
 
         [Test]

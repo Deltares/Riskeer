@@ -329,7 +329,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets or sets the drain coefficient.
         /// </summary>
-        /// <remarks>Only sets the mean</remarks>
+        /// <remarks>Only sets the mean.</remarks>
         public NormalDistribution DrainCoefficient
         {
             get

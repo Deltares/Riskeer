@@ -23,7 +23,9 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data.Properties;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.HydraRing.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Data
@@ -46,6 +48,8 @@ namespace Ringtoets.ClosingStructures.Data
             GeneralInput = new GeneralClosingStructuresInput();
             ClosingStructures = new ObservableList<ClosingStructure>();
             sectionResults = new List<ClosingStructuresFailureMechanismSectionResult>();
+            ForeshoreProfiles = new ObservableList<ForeshoreProfile>();
+            HydraulicBoundaryLocations = new ObservableList<HydraulicBoundaryLocation>();
         }
 
         public override IEnumerable<ICalculation> Calculations
@@ -65,6 +69,16 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets the available closing structures  for this instance.
         /// </summary>
         public ObservableList<ClosingStructure> ClosingStructures { get; private set; }
+
+        /// <summary>
+        ///  Gets the available hydraulic boundary locations for this instance.
+        /// </summary>
+        public ObservableList<HydraulicBoundaryLocation> HydraulicBoundaryLocations { get; private set; }
+
+        /// <summary>
+        /// Gets the available foreshore profiles for this instance.
+        /// </summary>
+        public ObservableList<ForeshoreProfile> ForeshoreProfiles { get; private set; }
 
         public CalculationGroup CalculationsGroup { get; private set; }
 
