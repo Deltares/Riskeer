@@ -46,6 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
         /// <param name="section">The section.</param>
         /// <param name="forelandPoints">The foreland points.</param>
+        /// <param name="breakWater">The break water.</param>
         /// <param name="gravitationalAcceleration">The gravitational acceleration.</param>
         /// <param name="factorStormDurationOpenStructure">The factor of the storm duration for an open structure.</param>
         /// <param name="failureProbabilityOpenStructure">The failure probability for an open structure.</param>
@@ -78,6 +79,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="widthFlowAperturesVariation">The variation of the width flow apertures.</param>
         public StructuresClosureLowSillCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
                                                         IEnumerable<HydraRingForelandPoint> forelandPoints,
+                                                        HydraRingBreakWater breakWater,
                                                         double gravitationalAcceleration,
                                                         double factorStormDurationOpenStructure,
                                                         double failureProbabilityOpenStructure,
@@ -97,7 +99,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                         double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
                                                         double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
                                                         double widthFlowAperturesMean, double widthFlowAperturesVariation)
-            : base(hydraulicBoundaryLocationId, section, forelandPoints,
+            : base(hydraulicBoundaryLocationId, section,
+                   forelandPoints, breakWater,
                    gravitationalAcceleration,
                    factorStormDurationOpenStructure,
                    failureProbabilityOpenStructure,

@@ -38,6 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const int hydraulicBoundaryLocationId = 1000;
             var section = new HydraRingSection(1, double.NaN, double.NaN);
             var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
+            var breakWater = new HydraRingBreakWater(1, 1.1);
 
             const double gravitationalAcceleration = 9.81;
             const double factorStormDurationOpenStructure = 2.2;
@@ -71,7 +72,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double deviationWaveDirection = 13.13;
 
             // Call
-            var input = new StructuresClosureVerticalWallCalculationInput(hydraulicBoundaryLocationId, section, forelandPoints,
+            var input = new StructuresClosureVerticalWallCalculationInput(hydraulicBoundaryLocationId, section,
+                                                                          forelandPoints, breakWater,
                                                                           gravitationalAcceleration,
                                                                           factorStormDurationOpenStructure,
                                                                           failureProbabilityOpenStructure,
@@ -101,6 +103,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresClosure, input.FailureMechanismType);
             Assert.AreSame(section, input.Section);
             Assert.AreSame(forelandPoints, input.ForelandsPoints);
+            Assert.AreSame(breakWater, input.BreakWater);
             HydraRingVariableAssert.AreEqual(GetDefaultVariables().ToArray(), input.Variables.ToArray());
         }
 
@@ -114,6 +117,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             // Setup
             var input = new StructuresClosureVerticalWallCalculationInput(111, new HydraRingSection(1, double.NaN, double.NaN),
                                                                           Enumerable.Empty<HydraRingForelandPoint>(),
+                                                                          new HydraRingBreakWater(1, 1.1),
                                                                           1.1, 222, 333, 5.5, 6.6, 7.7, 8.8, 11, 22, 33, 44, 55,
                                                                           66, 77, 88, 99, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
                                                                           22, 23, 24, 25);

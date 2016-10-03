@@ -124,30 +124,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
             }
         }
 
-        public override IEnumerable<HydraRingProfilePoint> ProfilePoints
-        {
-            get
-            {
-                return profilePoints;
-            }
-        }
-
-        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints
-        {
-            get
-            {
-                return forelandPoints;
-            }
-        }
-
-        public override HydraRingBreakWater BreakWater
-        {
-            get
-            {
-                return breakWater;
-            }
-        }
-
         public override IEnumerable<HydraRingVariable> Variables
         {
             get
@@ -173,6 +149,30 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Overtopping
                 yield return new HydraRingVariable(123, HydraRingDistributionType.Normal, double.NaN,
                                                    HydraRingDeviationType.Standard, exponentModelFactorShallowMean,
                                                    exponentModelFactorShallowStandardDeviation, double.NaN);
+            }
+        }
+
+        public override IEnumerable<HydraRingProfilePoint> ProfilePoints
+        {
+            get
+            {
+                return profilePoints;
+            }
+        }
+
+        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints
+        {
+            get
+            {
+                return forelandPoints;
+            }
+        }
+
+        public override HydraRingBreakWater BreakWater
+        {
+            get
+            {
+                return breakWater;
             }
         }
 

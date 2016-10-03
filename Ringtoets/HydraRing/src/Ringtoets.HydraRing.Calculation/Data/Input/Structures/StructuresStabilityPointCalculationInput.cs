@@ -30,6 +30,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
     {
         private readonly HydraRingSection section;
         private readonly IEnumerable<HydraRingForelandPoint> forelandPoints;
+        private readonly HydraRingBreakWater breakWater;
         private readonly double volumicWeightWater;
         private readonly double gravitationalAcceleration;
         private readonly double levelCrestStructureMean;
@@ -88,6 +89,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="hydraulicBoundaryLocationId">The id of the hydraulic station.</param>
         /// <param name="section">The section.</param>
         /// <param name="forelandPoints">The foreland points.</param>
+        /// <param name="breakWater">The break water.</param>
         /// <param name="volumicWeightWater">The volumic weight of water.</param>
         /// <param name="gravitationalAcceleration">The gravitational acceleration.</param>
         /// <param name="levelCrestStructureMean">The mean of the level crest of the structure.</param>
@@ -141,6 +143,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="modificationFactorDynamicOrImpulsivePressureComponent">The modification factor dynamic or impulsive pressure component.</param>
         protected StructuresStabilityPointCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
                                                            IEnumerable<HydraRingForelandPoint> forelandPoints,
+                                                           HydraRingBreakWater breakWater,
                                                            double volumicWeightWater,
                                                            double gravitationalAcceleration,
                                                            double levelCrestStructureMean, double levelCrestStructureStandardDeviation,
@@ -177,6 +180,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         {
             this.section = section;
             this.forelandPoints = forelandPoints;
+            this.breakWater = breakWater;
             this.volumicWeightWater = volumicWeightWater;
             this.gravitationalAcceleration = gravitationalAcceleration;
             this.levelCrestStructureMean = levelCrestStructureMean;
@@ -251,14 +255,6 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             get
             {
                 return section;
-            }
-        }
-
-        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints
-        {
-            get
-            {
-                return forelandPoints;
             }
         }
 
@@ -350,6 +346,22 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
                 yield return new HydraRingVariable(136, HydraRingDistributionType.Deterministic, modificationFactorDynamicOrImpulsivePressureComponent,
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            }
+        }
+
+        public override IEnumerable<HydraRingForelandPoint> ForelandsPoints
+        {
+            get
+            {
+                return forelandPoints;
+            }
+        }
+
+        public override HydraRingBreakWater BreakWater
+        {
+            get
+            {
+                return breakWater;
             }
         }
 

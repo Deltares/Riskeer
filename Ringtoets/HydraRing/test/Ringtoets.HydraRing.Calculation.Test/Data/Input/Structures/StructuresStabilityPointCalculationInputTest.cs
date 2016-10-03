@@ -40,6 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const int hydraulicBoundaryLocationId = 1000;
             var section = new HydraRingSection(1, double.NaN, double.NaN);
             var forelandPoints = Enumerable.Empty<HydraRingForelandPoint>();
+            var breakWater = new HydraRingBreakWater(1, 1.1);
 
             const double volumicWeightWater = 9.81;
             const double gravitationalAcceleration = 9.81;
@@ -94,7 +95,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double modificationFactorDynamicOrImpulsivePressureComponent = 1.0;
 
             // Call
-            var input = new TestStructuresStabilityPointCalculationInput(hydraulicBoundaryLocationId, section, forelandPoints,
+            var input = new TestStructuresStabilityPointCalculationInput(hydraulicBoundaryLocationId, section,
+                                                                         forelandPoints, breakWater,
                                                                          volumicWeightWater,
                                                                          gravitationalAcceleration,
                                                                          levelCrestStructureMean, levelCrestStructureStandardDeviation,
@@ -136,6 +138,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             Assert.AreEqual(HydraRingFailureMechanismType.StructuresStructuralFailure, input.FailureMechanismType);
             Assert.AreSame(section, input.Section);
             Assert.AreSame(forelandPoints, input.ForelandsPoints);
+            Assert.AreSame(breakWater, input.BreakWater);
             HydraRingVariableAssert.AreEqual(GetDefaultVariables().ToArray(), input.Variables.ToArray());
         }
 
@@ -179,6 +182,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
         {
             public TestStructuresStabilityPointCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
                                                                 IEnumerable<HydraRingForelandPoint> forelandPoints,
+                                                                HydraRingBreakWater breakWater,
                                                                 double volumicWeightWater,
                                                                 double gravitationalAcceleration,
                                                                 double levelCrestStructureMean, double levelCrestStructureStandardDeviation,
@@ -211,7 +215,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                 double verticalDistance,
                                                                 double modificationFactorWavesSlowlyVaryingPressureComponent,
                                                                 double modificationFactorDynamicOrImpulsivePressureComponent)
-                : base(hydraulicBoundaryLocationId, section, forelandPoints,
+                : base(hydraulicBoundaryLocationId, section,
+                       forelandPoints, breakWater,
                        volumicWeightWater,
                        gravitationalAcceleration,
                        levelCrestStructureMean, levelCrestStructureStandardDeviation,
