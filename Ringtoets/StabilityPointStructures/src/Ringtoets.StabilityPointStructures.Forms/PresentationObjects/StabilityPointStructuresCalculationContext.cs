@@ -30,7 +30,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="StabilityPointStructuresCalculation"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class StabilityPointStructuresCalculationContext : StabilityPointStructuresContext<StabilityPointStructuresCalculation>,
+    public class StabilityPointStructuresCalculationContext : StabilityPointStructuresContextBase<StabilityPointStructuresCalculation>,
                                                               ICalculationContext<StabilityPointStructuresCalculation,
                                                                   StabilityPointStructuresFailureMechanism>
     {

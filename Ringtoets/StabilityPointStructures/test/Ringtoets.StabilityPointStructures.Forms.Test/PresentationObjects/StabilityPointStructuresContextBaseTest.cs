@@ -33,7 +33,7 @@ using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class StabilityPointStructuresContextTest
+    public class StabilityPointStructuresContextBaseTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
@@ -119,7 +119,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
 
         private class ObservableObject : Observable {}
 
-        private class SimpleStabilityPointStructuresContext<T> : StabilityPointStructuresContext<T> where T : IObservable
+        private class SimpleStabilityPointStructuresContext<T> : StabilityPointStructuresContextBase<T> where T : IObservable
         {
             public SimpleStabilityPointStructuresContext(T target, StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(target, failureMechanism, assessmentSection) {}

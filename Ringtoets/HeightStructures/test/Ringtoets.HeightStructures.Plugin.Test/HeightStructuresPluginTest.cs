@@ -138,30 +138,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test
         }
 
         [Test]
-        public void GetFileInfos_Always_ReturnsExpectedImportInfos()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var guiStub = mocks.Stub<IGui>();
-            guiStub.Stub(g => g.ApplicationCommands).Return(mocks.Stub<IApplicationFeatureCommands>());
-            mocks.ReplayAll();
-
-            using (var plugin = new HeightStructuresPlugin()
-            {
-                Gui = guiStub
-            })
-            {
-                // Call
-                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
-
-                // Assert
-                Assert.AreEqual(1, importInfos.Length);
-                Assert.AreEqual(1, importInfos.Count(i => i.DataType == typeof(HeightStructuresContext)));
-            }
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void GetImportInfos_ReturnsExpectedImportInfos()
         {
             // Setup

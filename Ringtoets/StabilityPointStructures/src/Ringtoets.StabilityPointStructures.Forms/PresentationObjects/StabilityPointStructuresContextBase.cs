@@ -35,19 +35,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
     /// Presentation object representing all required stability point structures input knowledge to configure and create
     /// related objects. It will delegate observable behavior to the wrapped data object.
     /// </summary>
-    public abstract class StabilityPointStructuresContext<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
+    public abstract class StabilityPointStructuresContextBase<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
     {
-         /// <summary>
-        /// Initializes a new instance of the <see cref="StabilityPointStructuresContext{T}"/> class.
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StabilityPointStructuresContextBase{T}"/> class.
         /// </summary>
         /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which <paramref name="failureMechanism"/> belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
-        protected StabilityPointStructuresContext(
-            T wrappedData,
-            StabilityPointStructuresFailureMechanism failureMechanism,
-            IAssessmentSection assessmentSection)
+        protected StabilityPointStructuresContextBase(T wrappedData,
+                                                      StabilityPointStructuresFailureMechanism failureMechanism,
+                                                      IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (failureMechanism == null)
@@ -74,7 +73,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         /// </summary>
         public IAssessmentSection AssessmentSection { get; private set; }
 
-       
         /// <summary>
         /// Gets the available hydraulic boundary locations in order for the user to select one to 
         /// set <see cref="StabilityPointStructuresInput.HydraulicBoundaryLocation"/>.

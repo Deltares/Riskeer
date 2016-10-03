@@ -53,7 +53,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             var context = new StabilityPointStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<StabilityPointStructuresContext<StabilityPointStructuresInput>>(context);
+            Assert.IsInstanceOf<StabilityPointStructuresContextBase<StabilityPointStructuresInput>>(context);
             Assert.AreSame(input, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(failureMechanism, context.FailureMechanism);

@@ -29,7 +29,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="StabilityPointStructuresInput"/>
     /// in order to be able to configure stability point structures calculations.
     /// </summary>
-    public class StabilityPointStructuresInputContext : StabilityPointStructuresContext<StabilityPointStructuresInput>
+    public class StabilityPointStructuresInputContext : StabilityPointStructuresContextBase<StabilityPointStructuresInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresInputContext"/>.
