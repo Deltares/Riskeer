@@ -42,30 +42,33 @@ namespace Ringtoets.StabilityPointStructures.Data
 
             GravitationalAcceleration = new RoundedDouble(2, 9.81);
 
-            ModelFactorOvertoppingFlow = new LogNormalDistribution(3);
-            ModelFactorForStorageVolume = new LogNormalDistribution(1)
+            ModelFactorStorageVolume = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.2
             };
-            ModelFactorForSubCriticalFlow = new NormalDistribution(1)
+
+            ModelFactorSubCriticalFlow = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
-                StandardDeviation = (RoundedDouble) 0.1
             };
-            ModelFactorForCollisionLoad = new NormalDistribution(1)
+            ModelFactorSubCriticalFlow.SetStandardDeviationFromVariationCoefficient(0.1);
+
+            ModelFactorCollisionLoad = new NormalDistribution(1)
             {
                 Mean = (RoundedDouble) 1,
-                StandardDeviation = (RoundedDouble) 0.2
             };
-            ModelFactorLoadEffectMs = new NormalDistribution(2)
+            ModelFactorCollisionLoad.SetStandardDeviationFromVariationCoefficient(0.2);
+
+            ModelFactorLoadEffect = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.05
             };
-            ModelFactorForIncomingFlowVolume = new RoundedDouble(1, 1);
-            ModificationFactor1 = new RoundedDouble(1, 1);
-            ModificationFactor2 = new RoundedDouble(1, 1);
+
+            ModelFactorInflowVolume = new RoundedDouble(1, 1);
+            ModificationFactorWavesSlowlyVaryingPressureComponent = new RoundedDouble(1, 1);
+            ModificationFactorDynamicOrImpulsivePressureComponent = new RoundedDouble(1, 1);
         }
 
         /// <summary>
@@ -101,44 +104,39 @@ namespace Ringtoets.StabilityPointStructures.Data
         #region Model Factors
 
         /// <summary>
-        /// Gets the model factor overtopping flow.
-        /// </summary>
-        public LogNormalDistribution ModelFactorOvertoppingFlow { get; private set; }
-
-        /// <summary>
         /// Gets the model factor for storage volume.
         /// </summary>
-        public LogNormalDistribution ModelFactorForStorageVolume { get; private set; }
+        public LogNormalDistribution ModelFactorStorageVolume { get; private set; }
 
         /// <summary>
         /// Gets the model factor for sub critical flow.
         /// </summary>
-        public NormalDistribution ModelFactorForSubCriticalFlow { get; private set; }
+        public NormalDistribution ModelFactorSubCriticalFlow { get; private set; }
 
         /// <summary>
         /// Gets the model factor for collision load.
         /// </summary>
-        public NormalDistribution ModelFactorForCollisionLoad { get; private set; }
+        public NormalDistribution ModelFactorCollisionLoad { get; private set; }
 
         /// <summary>
-        /// Gets the model factor for load effect mS.
+        /// Gets the model factor for load effect.
         /// </summary>
-        public NormalDistribution ModelFactorLoadEffectMs { get; private set; }
+        public NormalDistribution ModelFactorLoadEffect { get; private set; }
 
         /// <summary>
         /// Gets the model factor for incoming flow volume.
         /// </summary>
-        public RoundedDouble ModelFactorForIncomingFlowVolume { get; private set; }
+        public RoundedDouble ModelFactorInflowVolume { get; private set; }
 
         /// <summary>
-        /// Gets the modification factor for lambda 1.
+        /// Gets the modification factor for wave slowly varying pressure component.
         /// </summary>
-        public RoundedDouble ModificationFactor1 { get; private set; }
+        public RoundedDouble ModificationFactorWavesSlowlyVaryingPressureComponent { get; private set; }
 
         /// <summary>
-        /// Gets the modification factor for lambda 2.
+        /// Gets the modification factor for waves dynamic or impulsive pressure component.
         /// </summary>
-        public RoundedDouble ModificationFactor2 { get; private set; }
+        public RoundedDouble ModificationFactorDynamicOrImpulsivePressureComponent { get; private set; }
 
         #endregion
     }

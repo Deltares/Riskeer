@@ -43,26 +43,30 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
             Assert.AreEqual(9.81, inputParameters.GravitationalAcceleration, inputParameters.GravitationalAcceleration.GetAccuracy());
 
-            Assert.AreEqual(new RoundedDouble(1, 1), inputParameters.ModelFactorForStorageVolume.Mean);
-            Assert.AreEqual(new RoundedDouble(1, 0.2), inputParameters.ModelFactorForStorageVolume.StandardDeviation);
+            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.ModelFactorStorageVolume);
+            Assert.AreEqual(new RoundedDouble(2, 1), inputParameters.ModelFactorStorageVolume.Mean);
+            Assert.AreEqual(new RoundedDouble(2, 0.2), inputParameters.ModelFactorStorageVolume.StandardDeviation);
 
-            Assert.AreEqual(new RoundedDouble(2, 1), inputParameters.ModelFactorForSubCriticalFlow.Mean);
-            Assert.AreEqual(new RoundedDouble(2, 0.1), inputParameters.ModelFactorForSubCriticalFlow.StandardDeviation);
+            Assert.IsInstanceOf<NormalDistribution>(inputParameters.ModelFactorSubCriticalFlow);
+            Assert.AreEqual(new RoundedDouble(2, 1), inputParameters.ModelFactorSubCriticalFlow.Mean);
+            Assert.AreEqual(new RoundedDouble(2, 0.1), inputParameters.ModelFactorSubCriticalFlow.GetVariationCoefficient());
 
-            Assert.AreEqual(new RoundedDouble(1, 1), inputParameters.ModelFactorForCollisionLoad.Mean);
-            Assert.AreEqual(new RoundedDouble(1, 0.2), inputParameters.ModelFactorForCollisionLoad.StandardDeviation);
+            Assert.IsInstanceOf<NormalDistribution>(inputParameters.ModelFactorCollisionLoad);
+            Assert.AreEqual(new RoundedDouble(1, 1), inputParameters.ModelFactorCollisionLoad.Mean);
+            Assert.AreEqual(new RoundedDouble(2, 0.2), inputParameters.ModelFactorCollisionLoad.GetVariationCoefficient());
 
-            Assert.AreEqual(new RoundedDouble(2, 1), inputParameters.ModelFactorLoadEffectMs.Mean);
-            Assert.AreEqual(new RoundedDouble(2, 0.05), inputParameters.ModelFactorLoadEffectMs.StandardDeviation);
+            Assert.IsInstanceOf<NormalDistribution>(inputParameters.ModelFactorLoadEffect);
+            Assert.AreEqual(new RoundedDouble(2, 1), inputParameters.ModelFactorLoadEffect.Mean);
+            Assert.AreEqual(new RoundedDouble(2, 0.05), inputParameters.ModelFactorLoadEffect.StandardDeviation);
 
-            Assert.AreEqual(1, inputParameters.ModelFactorForIncomingFlowVolume.NumberOfDecimalPlaces);
-            Assert.AreEqual(1, inputParameters.ModelFactorForIncomingFlowVolume, inputParameters.ModelFactorForIncomingFlowVolume.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
+            Assert.AreEqual(1, inputParameters.ModelFactorInflowVolume, inputParameters.ModelFactorInflowVolume.GetAccuracy());
 
-            Assert.AreEqual(1, inputParameters.ModificationFactor1.NumberOfDecimalPlaces);
-            Assert.AreEqual(1, inputParameters.ModificationFactor1, inputParameters.ModificationFactor1.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.ModificationFactorWavesSlowlyVaryingPressureComponent.NumberOfDecimalPlaces);
+            Assert.AreEqual(1, inputParameters.ModificationFactorWavesSlowlyVaryingPressureComponent, inputParameters.ModificationFactorWavesSlowlyVaryingPressureComponent.GetAccuracy());
 
-            Assert.AreEqual(1, inputParameters.ModificationFactor2.NumberOfDecimalPlaces);
-            Assert.AreEqual(1, inputParameters.ModificationFactor2, inputParameters.ModificationFactor2.GetAccuracy());
+            Assert.AreEqual(1, inputParameters.ModificationFactorDynamicOrImpulsivePressureComponent.NumberOfDecimalPlaces);
+            Assert.AreEqual(1, inputParameters.ModificationFactorDynamicOrImpulsivePressureComponent, inputParameters.ModificationFactorDynamicOrImpulsivePressureComponent.GetAccuracy());
         }
 
         [Test]
