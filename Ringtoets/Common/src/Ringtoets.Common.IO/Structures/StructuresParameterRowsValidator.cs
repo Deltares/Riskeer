@@ -72,7 +72,6 @@ namespace Ringtoets.Common.IO.Structures
                 throw new ArgumentNullException("structureParameterRows");
             }
 
-            List<string> warningMessages = new List<string>();
             List<string> errorMessages = new List<string>();
 
             foreach (string name in heightStructuresRules.Keys)
@@ -87,13 +86,13 @@ namespace Ringtoets.Common.IO.Structures
 
                 if (count > 1)
                 {
-                    warningMessages.Add(string.Format("Parameter '{0}' komt meermaals voor. De eerste specificatie wordt gebruikt.", name));
+                    errorMessages.Add(string.Format("Parameter '{0}' komt meermaals voor.", name));
                 }
 
                 errorMessages.AddRange(heightStructuresRules[name](structureParameterRows.First(row => row.ParameterId.Equals(name))));
             }
 
-            return new ValidationResult(errorMessages, warningMessages);
+            return new ValidationResult(errorMessages);
         }
 
         #region HeightStructuesRules

@@ -78,7 +78,7 @@ namespace Ringtoets.HeightStructures.IO
                 if (!groupedStructureParameterRows.ContainsKey(id))
                 {
                     log.WarnFormat(RingtoetsCommonIOResources.StructuresImporter_CreateSpecificStructures_no_structuresdata_for_location_0_, id);
-                    log.ErrorFormat("Kunstwerk nummer {0} wordt overgeslagen.", i+1);
+                    log.ErrorFormat("Kunstwerk nummer {0} wordt overgeslagen.", i + 1);
                     continue;
                 }
 
@@ -87,7 +87,7 @@ namespace Ringtoets.HeightStructures.IO
                 ValidationResult parameterRowsValidationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(structureParameterRows);
                 if (!parameterRowsValidationResult.IsValid)
                 {
-                    LogMessages(parameterRowsValidationResult, i+1);
+                    LogMessages(parameterRowsValidationResult, i + 1);
                     continue;
                 }
 
@@ -95,19 +95,6 @@ namespace Ringtoets.HeightStructures.IO
                 heightStructures.Add(heightStructure);
             }
             return heightStructures;
-        }
-
-        private void LogMessages(ValidationResult validationResult, int i)
-        {
-            foreach (string message in validationResult.WarningMessages)
-            {
-                log.Warn(message);
-            }
-            foreach (string message in validationResult.ErrorMessages)
-            {
-                log.Error(message);
-            }
-            log.ErrorFormat("Kunstwerk nummer {0} wordt overgeslagen.", i);
         }
 
         private static HeightStructure CreateHeightStructure(StructureLocation structureLocation, List<StructuresParameterRow> structureParameterRows)

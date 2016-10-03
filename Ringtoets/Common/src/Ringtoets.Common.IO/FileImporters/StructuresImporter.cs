@@ -102,6 +102,27 @@ namespace Ringtoets.Common.IO.FileImporters
             Canceled = false;
         }
 
+        /// <summary>
+        /// Create structure objects from location and geometry data.
+        /// </summary>
+        /// <param name="structureLocations">The read structure locations.</param>
+        /// <param name="groupedStructureParameterRows">The read structure parameters, grouped by location identifier.</param>
+        protected abstract void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
+                                                         Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows);
+
+        protected void LogMessages(ValidationResult validationResult, int i)
+        {
+            foreach (string message in validationResult.WarningMessages)
+            {
+                log.Warn(message);
+            }
+            foreach (string message in validationResult.ErrorMessages)
+            {
+                log.Error(message);
+            }
+            log.ErrorFormat("Kunstwerk nummer {0} wordt overgeslagen.", i);
+        }
+
         private void CreateStructures(ReadResult<StructureLocation> importStructureLocationsResult,
                                       ReadResult<StructuresParameterRow> importStructureParameterRowsDataResult)
         {
@@ -112,14 +133,6 @@ namespace Ringtoets.Common.IO.FileImporters
 
             CreateSpecificStructures(importStructureLocationsResult.ImportedItems, groupedRows);
         }
-
-        /// <summary>
-        /// Create structure objects from location and geometry data.
-        /// </summary>
-        /// <param name="structureLocations">The read structure locations.</param>
-        /// <param name="groupedStructureParameterRows">The read structure parameters, grouped by location identifier.</param>
-        protected abstract void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
-                                                         Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows);
 
         private ReadResult<StructuresParameterRow> ReadStructureParameterRowsData()
         {

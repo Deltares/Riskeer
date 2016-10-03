@@ -131,7 +131,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             // Assert
             string[] expectedMessages =
             {
-                "Parameter 'KW_HOOGTE2' komt meermaals voor. De eerste specificatie wordt gebruikt.",
+                "Parameter 'KW_HOOGTE2' komt meermaals voor.",
                 "De variantie van de stroomvoerende breedte bij bodembescherming lognormaalverdeling heeft een ongeldige waarde.",
                 "De variantie van de toegestane peilverhoging op het kombergend oppervlak lognormaalverdeling heeft een ongeldige waarde.",
                 "Kunstwerk nummer 1 wordt overgeslagen."
