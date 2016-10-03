@@ -42,18 +42,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             int hydraulicBoundaryLocationId = 1000;
             HydraRingSection section = new HydraRingSection(1, double.NaN, double.NaN);
 
-            const double modelFactorCriticalOvertopping = 1;
-            const double factorFbMean = 4.75;
-            const double factorFbStandardDeviation = 0.5;
-            const double factorFnMean = 2.6;
-            const double factorFnStandardDeviation = 0.35;
-            const double modelFactorOvertopping = 1;
-            const double criticalOvertoppingMean = 22.22;
-            const double criticalOvertoppingStandardDeviation = 33.33;
-            const double modelFactorFrunupMean = 1;
-            const double modelFactorFrunupStandardDeviation = 0.07;
-            const double exponentModelFactorShallowMean = 0.92;
-            const double exponentModelFactorShallowStandardDeviation = 0.24;
+            const double modelFactorCriticalOvertopping = 1.1;
+            const double factorFbMean = 2.2;
+            const double factorFbStandardDeviation = 3.3;
+            const double factorFnMean = 4.4;
+            const double factorFnStandardDeviation = 5.5;
+            const double modelFactorOvertopping = 6.6;
+            const double criticalOvertoppingMean = 7.7;
+            const double criticalOvertoppingStandardDeviation = 8.8;
+            const double modelFactorFrunupMean = 9.9;
+            const double modelFactorFrunupStandardDeviation = 10.0;
+            const double exponentModelFactorShallowMean = 11.1;
+            const double exponentModelFactorShallowStandardDeviation = 12.2;
             var expectedRingProfilePoints = new List<HydraRingRoughnessProfilePoint>
             {
                 new HydraRingRoughnessProfilePoint(1.1, 2.2, 3.3)
@@ -117,13 +117,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
         private static IEnumerable<HydraRingVariable> GetDefaultDikeHeightVariables()
         {
             yield return new HydraRingVariable(1, HydraRingDistributionType.Deterministic, 0, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(8, HydraRingDistributionType.Deterministic, 1.0, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(10, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 4.75, 0.5, double.NaN);
-            yield return new HydraRingVariable(11, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 2.6, 0.35, double.NaN);
-            yield return new HydraRingVariable(12, HydraRingDistributionType.Deterministic, 1.0, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(17, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Standard, 22.22, 33.33, double.NaN);
-            yield return new HydraRingVariable(120, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 1, 0.07, double.NaN);
-            yield return new HydraRingVariable(123, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 0.92, 0.24, double.NaN);
+            yield return new HydraRingVariable(8, HydraRingDistributionType.Deterministic, 1.1, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(10, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 2.2, 3.3, double.NaN);
+            yield return new HydraRingVariable(11, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 4.4, 5.5, double.NaN);
+            yield return new HydraRingVariable(12, HydraRingDistributionType.Deterministic, 6.6, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(17, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Standard, 7.7, 8.8, double.NaN);
+            yield return new HydraRingVariable(120, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 9.9, 10.0, double.NaN);
+            yield return new HydraRingVariable(123, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 11.1, 12.2, double.NaN);
         }
     }
 }
