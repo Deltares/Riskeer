@@ -22,6 +22,7 @@
 using System;
 using Core.Common.Utils;
 using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Service
 {
@@ -46,7 +47,14 @@ namespace Ringtoets.Common.Service
             {
                 throw new ArgumentNullException("output");
             }
-            return Math.Abs(output.CalculatedReliabilityIndex - StatisticsConverter.NormToBeta(norm)) <= 1.0e-3;
+            return CalculationConverged(output.CalculatedReliabilityIndex, norm) == CalculationConvergence.CalculatedConverged;
+        }
+
+        public static CalculationConvergence CalculationConverged(double reliabilityIndex, double norm)
+        {
+            return Math.Abs(reliabilityIndex - StatisticsConverter.NormToBeta(norm)) <= 1.0e-3 ?
+                CalculationConvergence.CalculatedConverged : 
+                CalculationConvergence.CalculatedNotConverged;
         }
     }
 }

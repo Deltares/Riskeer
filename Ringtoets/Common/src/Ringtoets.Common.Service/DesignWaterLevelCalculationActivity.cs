@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Base.Service;
-using log4net;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Calculation.Activities;
-using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Service
@@ -33,14 +30,14 @@ namespace Ringtoets.Common.Service
     /// <summary>
     /// <see cref="Activity"/> for running a design water level calculation.
     /// </summary>
-    public class DesignWaterLevelCalculationActivity : HydraRingActivity<ReliabilityIndexCalculationOutput>
+    public class DesignWaterLevelCalculationActivity : NewHydraRingActivity
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(DesignWaterLevelCalculationActivity));
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
         private readonly double norm;
         private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly string ringId;
         private readonly ICalculationMessageProvider messageProvider;
+        private readonly DesignWaterLevelCalculationService calculationService;
 
         /// <summary>
         /// Creates a new instance of <see cref="DesignWaterLevelCalculationActivity"/>.
@@ -69,46 +66,48 @@ namespace Ringtoets.Common.Service
 
             this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
             this.messageProvider = messageProvider;
-
             this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.ringId = ringId;
             this.norm = norm;
 
+            calculationService = new DesignWaterLevelCalculationService();
+
             Name = messageProvider.GetActivityName(hydraulicBoundaryLocation.Name);
         }
 
-        protected override void OnRun()
+        protected override bool Validate()
+        {
+            return calculationService.Validate(
+                hydraulicBoundaryLocation.Name,
+                hydraulicBoundaryDatabaseFilePath,
+                messageProvider);
+        }
+
+        protected override void PerformCalculation()
         {
             if (!double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel))
             {
                 State = ActivityState.Skipped;
-                return;
             }
+            else
+            {
+                calculationService.Calculate(
+                    hydraulicBoundaryLocation,
+                    hydraulicBoundaryDatabaseFilePath,
+                    ringId,
+                    norm,
+                    messageProvider);
+            }
+        }
 
-            PerformRun(() => DesignWaterLevelCalculationService.Instance.Validate(messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name),
-                                                                                  hydraulicBoundaryDatabaseFilePath),
-                       () => RingtoetsCommonDataSynchronizationService.ClearDesignWaterLevel(hydraulicBoundaryLocation),
-                       () => DesignWaterLevelCalculationService.Instance.Calculate(hydraulicBoundaryLocation,
-                                                                                   hydraulicBoundaryDatabaseFilePath,
-                                                                                   ringId,
-                                                                                   norm,
-                                                                                   messageProvider));
+        protected override void OnCancel()
+        {
+            calculationService.Cancel();
         }
 
         protected override void OnFinish()
         {
-            PerformFinish(() =>
-            {
-                hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) Output.Result;
-                bool designWaterLevelCalculationConvergence = RingtoetsCommonDataCalculationService.CalculationConverged(Output, norm);
-                if (!designWaterLevelCalculationConvergence)
-                {
-                    log.Warn(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocation.Name));
-                }
-                hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = designWaterLevelCalculationConvergence
-                                                                                       ? CalculationConvergence.CalculatedConverged
-                                                                                       : CalculationConvergence.CalculatedNotConverged;
-            });
+            // hydraulicBoundaryLocation.NotifyObservers();
         }
     }
 }

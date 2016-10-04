@@ -84,9 +84,9 @@ namespace Core.Common.Base.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Uitvoeren van &apos;{0}&apos; is geannuleerd..
         /// </summary>
-        public static string Activity_Finish_Execution_of_ActivityName_0_has_been_cancelled {
+        public static string Activity_Finish_Execution_of_ActivityName_0_has_been_canceled {
             get {
-                return ResourceManager.GetString("Activity_Finish_Execution_of_ActivityName_0_has_been_cancelled", resourceCulture);
+                return ResourceManager.GetString("Activity_Finish_Execution_of_ActivityName_0_has_been_canceled", resourceCulture);
             }
         }
         

@@ -85,7 +85,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             Assert.AreEqual(HydraRingFailureMechanismType.DikesHeight, dikeHeightCalculationInput.FailureMechanismType);
             Assert.AreEqual(expectedVariableId, dikeHeightCalculationInput.VariableId);
             Assert.IsNotNull(dikeHeightCalculationInput.Section);
-            HydraRingVariableAssert.AreEqual(GetDefaultDikeHeightVariables().ToArray(), dikeHeightCalculationInput.Variables.ToArray());
+            HydraRingDataEqualityHelper.AreEqual(GetDefaultDikeHeightVariables().ToArray(), dikeHeightCalculationInput.Variables.ToArray());
             CollectionAssert.AreEqual(expectedRingProfilePoints, dikeHeightCalculationInput.ProfilePoints);
             CollectionAssert.AreEqual(expectedRingForelandPoints, dikeHeightCalculationInput.ForelandsPoints);
             Assert.AreEqual(expectedRingBreakWater, dikeHeightCalculationInput.BreakWater);

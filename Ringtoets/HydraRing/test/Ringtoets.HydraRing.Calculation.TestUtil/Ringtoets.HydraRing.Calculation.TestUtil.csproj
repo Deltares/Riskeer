@@ -52,10 +52,10 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="HydraRingCalculationServiceConfig.cs" />
-    <Compile Include="TestHydraRingCalculationService.cs" />
-    <Compile Include="HydraRingVariableAssert.cs" />
+    <Compile Include="Calculator\HydraRingCalculatorFactoryConfig.cs" />
+    <Compile Include="HydraRingDataEqualityHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Calculator\TestHydraRingCalculatorFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

@@ -20,12 +20,9 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Core.Common.Base.Service;
-using log4net;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.HydraRing.Calculation.Activities;
-using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Service
@@ -33,14 +30,14 @@ namespace Ringtoets.Common.Service
     /// <summary>
     /// <see cref="Activity"/> for running a water height calculation.
     /// </summary>
-    public class WaveHeightCalculationActivity : HydraRingActivity<ReliabilityIndexCalculationOutput>
+    public class WaveHeightCalculationActivity : NewHydraRingActivity
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(WaveHeightCalculationActivity));
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
         private readonly double norm;
         private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly string ringId;
         private readonly ICalculationMessageProvider messageProvider;
+        private readonly WaveHeightCalculationService calculationService;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveHeightCalculationActivity"/>.
@@ -75,38 +72,42 @@ namespace Ringtoets.Common.Service
             this.norm = norm;
 
             Name = messageProvider.GetActivityName(hydraulicBoundaryLocation.Name);
+            calculationService = new WaveHeightCalculationService();
         }
 
-        protected override void OnRun()
+        protected override bool Validate()
+        {
+            return calculationService.Validate(
+                hydraulicBoundaryLocation.Name,
+                hydraulicBoundaryDatabaseFilePath,
+                messageProvider);
+        }
+
+        protected override void PerformCalculation()
         {
             if (!double.IsNaN(hydraulicBoundaryLocation.WaveHeight))
             {
                 State = ActivityState.Skipped;
-                return;
             }
+            else
+            {
+                calculationService.Calculate(
+                    hydraulicBoundaryLocation,
+                    hydraulicBoundaryDatabaseFilePath,
+                    ringId,
+                    norm,
+                    messageProvider);
+            }
+        }
 
-            PerformRun(() => WaveHeightCalculationService.Instance.Validate(messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name),
-                                                                            hydraulicBoundaryDatabaseFilePath),
-                       () => RingtoetsCommonDataSynchronizationService.ClearWaveHeight(hydraulicBoundaryLocation),
-                       () => WaveHeightCalculationService.Instance.Calculate(hydraulicBoundaryLocation,
-                                                                             hydraulicBoundaryDatabaseFilePath,
-                                                                             ringId, norm, messageProvider));
+        protected override void OnCancel()
+        {
+            calculationService.Cancel();
         }
 
         protected override void OnFinish()
         {
-            PerformFinish(() =>
-            {
-                hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) Output.Result;
-                bool waveHeightCalculationConvergence = RingtoetsCommonDataCalculationService.CalculationConverged(Output, norm);
-                if (!waveHeightCalculationConvergence)
-                {
-                    log.WarnFormat(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocation.Name));
-                }
-                hydraulicBoundaryLocation.WaveHeightCalculationConvergence = waveHeightCalculationConvergence
-                                                                                 ? CalculationConvergence.CalculatedConverged
-                                                                                 : CalculationConvergence.CalculatedNotConverged;
-            });
+            // hydraulicBoundaryLocation.NotifyObservers();
         }
     }
 }

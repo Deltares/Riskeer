@@ -92,13 +92,20 @@ namespace Ringtoets.HydraRing.Calculation.Services
         }
 
         private static void PerformPostProcessing(HydraRingCalculationInput hydraRingCalculationInput,
-                                                  ICollection<IHydraRingFileParser> parsers,
+                                                  IList<IHydraRingFileParser> parsers,
                                                   HydraRingInitializationService hydraRingInitializationService)
         {
             var outputFileParser = new HydraRingOutputFileParser();
-            parsers.Add(outputFileParser);
+            parsers.Insert(0, outputFileParser);
 
-            ExecuteParsers(parsers, hydraRingInitializationService.TemporaryWorkingDirectory, hydraRingCalculationInput.Section.SectionId);
+            try
+            {
+                ExecuteParsers(parsers, hydraRingInitializationService.TemporaryWorkingDirectory, hydraRingCalculationInput.Section.SectionId);
+            }
+            catch
+            {
+                // ignore
+            }
 
             string outputFileContent = outputFileParser.OutputFileContent;
             if (!string.IsNullOrEmpty(outputFileContent))

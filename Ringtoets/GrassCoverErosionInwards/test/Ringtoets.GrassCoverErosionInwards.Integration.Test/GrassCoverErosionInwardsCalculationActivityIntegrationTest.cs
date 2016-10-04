@@ -36,7 +36,6 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
-using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
@@ -182,7 +181,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[3]);
+                StringAssert.StartsWith("Overloop berekeningsverslag. Klik op details voor meer informatie.", msgs[3]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
             });
             Assert.AreEqual(ActivityState.Executed, activity.State);
@@ -224,8 +223,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[3]);
-                StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[4]);
+                StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[3]);
+                StringAssert.StartsWith("Overloop berekeningsverslag. Klik op details voor meer informatie.", msgs[4]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
@@ -275,9 +274,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[3]);
-                StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[4]);
-                StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[5]);
+                StringAssert.StartsWith("Overloop berekeningsverslag. Klik op details voor meer informatie.", msgs[3]);
+                StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[4]);
+                StringAssert.StartsWith("Dijkhoogte berekeningsverslag. Klik op details voor meer informatie.", msgs[5]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
             });
             Assert.AreEqual(ActivityState.Executed, activity.State);
@@ -307,7 +306,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             activity.Run();
 
             // Assert
-            Assert.AreEqual(Resources.GrassCoverErosionInwardsCalculationActivity_OnRun_Calculate_probability, activity.ProgressText);
+            Assert.AreEqual("Stap 1 van 1 | Uitvoeren overloop en overslag berekening", activity.ProgressText);
         }
 
         [Test]
@@ -333,7 +332,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             activity.Run();
 
             // Assert
-            Assert.AreEqual(Resources.GrassCoverErosionInwardsCalculationActivity_OnRun_Calculate_probability, activity.ProgressText);
+            Assert.AreEqual("Stap 1 van 2 | Uitvoeren overloop en overslag berekening", activity.ProgressText);
         }
 
         [Test]
@@ -359,7 +358,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             activity.Run();
 
             // Assert
-            Assert.AreEqual(Resources.GrassCoverErosionInwardsCalculationActivity_OnRun_Calculate_dikeHeight, activity.ProgressText);
+            Assert.AreEqual("Stap 2 van 2 | Uitvoeren dijkhoogte berekening", activity.ProgressText);
         }
 
         [Test]

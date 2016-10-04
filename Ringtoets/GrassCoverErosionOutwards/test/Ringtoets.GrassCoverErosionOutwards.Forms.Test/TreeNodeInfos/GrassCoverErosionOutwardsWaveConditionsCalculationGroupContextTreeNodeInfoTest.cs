@@ -46,9 +46,9 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Service.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
@@ -798,7 +798,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
@@ -808,15 +808,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(test, m =>
                     {
                         var messages = m.ToArray();
-                        Assert.AreEqual(18, messages.Length);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[0]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[7]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[8]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[15]);
-                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[16]);
-                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[17]);
+                        Assert.AreEqual(22, messages.Length);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[2]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[9]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[12]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[19]);
+                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[20]);
+                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[21]);
                     });
                 }
+                Assert.AreEqual(3, calculationA.Output.Items.Count());
+                Assert.AreEqual(3, calculationB.Output.Items.Count());
             }
         }
 
@@ -860,7 +862,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
@@ -916,7 +918,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
@@ -999,7 +1001,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call

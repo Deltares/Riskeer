@@ -24,7 +24,6 @@ using Core.Common.Base.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.HydraRing.Calculation.Activities;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Service.Test
@@ -47,10 +46,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingActivity<StabilityStoneCoverWaveConditionsCalculationActivityOutput>>(activity);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
-            Assert.AreEqual(calculation.Name, activity.Name);
+            Assert.AreEqual(string.Format("Golfcondities voor blokken en zuilen voor {0} berekenen", calculation.Name), activity.Name);
 
             mocks.VerifyAll();
         }
@@ -90,7 +88,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("hlcdDirectory", exception.ParamName);
+            Assert.AreEqual("hlcdFilePath", exception.ParamName);
             mocks.VerifyAll();
         }
 

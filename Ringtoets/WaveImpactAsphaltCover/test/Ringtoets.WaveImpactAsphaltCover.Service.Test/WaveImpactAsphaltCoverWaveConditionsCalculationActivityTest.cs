@@ -20,13 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using Core.Common.Base.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.HydraRing.Calculation.Activities;
-using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
@@ -49,7 +46,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var activity = new WaveImpactAsphaltCoverWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<HydraRingActivity<IEnumerable<WaveConditionsOutput>>>(activity);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
             Assert.AreEqual(calculation.Name, activity.Name);
@@ -92,7 +88,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("hlcdDirectory", exception.ParamName);
+            Assert.AreEqual("hlcdFilePath", exception.ParamName);
             mocks.VerifyAll();
         }
 

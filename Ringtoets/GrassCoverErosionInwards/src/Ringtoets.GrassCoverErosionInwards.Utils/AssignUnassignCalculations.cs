@@ -53,7 +53,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
             var sectionResultsArray = sectionResults.ToArray();
 
             FailureMechanismSection failureMechanismSectionContainingCalculation =
-                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(sectionResultsArray, calculation);
+                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(sectionResultsArray.Select(sr => sr.Section), calculation);
 
             UnassignCalculationInSectionResultsNotContainingCalculation(calculation, sectionResultsArray, failureMechanismSectionContainingCalculation);
 
@@ -88,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
             var sectionResultsArray = sectionResults.ToArray();
 
             Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName =
-                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(sectionResultsArray, calculations);
+                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(sectionResultsArray.Select(sr => sr.Section), calculations);
 
             UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(sectionResultsArray, calculation, calculationsPerSegmentName);
         }

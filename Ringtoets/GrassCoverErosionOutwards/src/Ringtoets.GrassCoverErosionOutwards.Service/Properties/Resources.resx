@@ -135,22 +135,13 @@
   <data name="GrassCoverErosionOutwardsPlugin_Name_DesignWaterLevel_for_location_0_" xml:space="preserve">
     <value>Waterstand bij doorsnede-eis voor locatie {0}</value>
   </data>
-  <data name="GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_" xml:space="preserve">
-    <value>Waterstand '{0}' berekenen.</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_ended_time_2_" xml:space="preserve">
-    <value>Berekening '{0}' voor waterstand '{1}' beëindigd om: {2}</value>
-  </data>
-  <data name="GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_started_time_2_" xml:space="preserve">
-    <value>Berekening '{0}' voor waterstand '{1}' gestart om: {2}</value>
-  </data>
   <data name="GrassCoverErosionOutwardsPlugin_Name_WaveHeight_for_location_0_" xml:space="preserve">
     <value>Golfhoogte bij doorsnede-eis voor locatie {0}</value>
   </data>
   <data name="GrassCoverErosionOutwardsPlugin_WaveHeight_calculation_for_location_0_not_converged" xml:space="preserve">
     <value>Golfhoogte bij doorsnede-eis berekening voor locatie {0} is niet geconvergeerd.</value>
   </data>
-  <data name="GrassCoverErosionOutwardsWaveConditionsCalculationActivity_LogMessage_DesignWaterLevel_name" xml:space="preserve">
+  <data name="GrassCoverErosionOutwardsWaveConditionsCalculationService_LogMessage_DesignWaterLevel_name" xml:space="preserve">
     <value>de waterstand bij doorsnede-eis</value>
   </data>
 </root>

@@ -60,8 +60,8 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="GrassCoverErosionInwardsCalculationActivityIntegrationTest.cs" />
     <Compile Include="GrassCoverErosionInwardsCalculationServiceIntegrationTest.cs" />
+    <Compile Include="GrassCoverErosionInwardsCalculationActivityIntegrationTest.cs" />
     <Compile Include="GrassCoverErosionInwardsInputContextPropertiesIntegrationTest.cs" />
     <Compile Include="GrassCoverErosionInwardsScenariosViewIntegrationTest.cs" />
     <Compile Include="IntegrationTestHelper.cs" />
@@ -118,6 +118,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
       <Name>Ringtoets.Common.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Data.TestUtil\Ringtoets.Common.Data.TestUtil.csproj">
+      <Project>{4843D6E5-066F-4795-94F5-1D53932DD03C}</Project>
+      <Name>Ringtoets.Common.Data.TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>

@@ -20,17 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Service;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Activities;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Service;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using Ringtoets.WaveImpactAsphaltCover.Service.Properties;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsRevetmentServiceResources = Ringtoets.Revetment.Service.Properties.Resources;
 
@@ -39,25 +32,24 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
     /// <summary>
     /// <see cref="Activity"/> for running a wave impact asphalt cover wave conditions calculation.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsCalculationActivity : HydraRingActivity<IEnumerable<WaveConditionsOutput>>
+    public class WaveImpactAsphaltCoverWaveConditionsCalculationActivity : NewHydraRingActivity
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(WaveImpactAsphaltCoverWaveConditionsCalculationActivity));
-
         private readonly WaveImpactAsphaltCoverWaveConditionsCalculation calculation;
-        private readonly string hlcdDirectory;
+        private readonly string hlcdFilePath;
         private readonly WaveImpactAsphaltCoverFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+        private readonly WaveImpactAsphaltCoverWaveConditionsCalculationService calculationService;
 
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverWaveConditionsCalculationActivity"/>.
         /// </summary>
         /// <param name="calculation">The wave impact asphalt cover wave conditions data used for the calculation.</param>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="hlcdFilePath">The directory of the HLCD file that should be used for performing the calculation.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverWaveConditionsCalculationActivity(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
-                                                                       string hlcdDirectory,
+                                                                       string hlcdFilePath,
                                                                        WaveImpactAsphaltCoverFailureMechanism failureMechanism,
                                                                        IAssessmentSection assessmentSection)
         {
@@ -65,9 +57,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             {
                 throw new ArgumentNullException("calculation");
             }
-            if (hlcdDirectory == null)
+            if (hlcdFilePath == null)
             {
-                throw new ArgumentNullException("hlcdDirectory");
+                throw new ArgumentNullException("hlcdFilePath");
             }
             if (failureMechanism == null)
             {
@@ -79,79 +71,35 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             }
 
             this.calculation = calculation;
-            this.hlcdDirectory = hlcdDirectory;
+            this.hlcdFilePath = hlcdFilePath;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
+
+            calculationService = new WaveImpactAsphaltCoverWaveConditionsCalculationService();
 
             Name = calculation.Name;
         }
 
-        protected override void OnRun()
+        protected override bool Validate()
         {
-            PerformRun(() => WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters,
-                                                                                assessmentSection.HydraulicBoundaryDatabase,
-                                                                                calculation.Name,
-                                                                                RingtoetsRevetmentServiceResources.WaveConditionsCalculationService_LogMessage_default_DesignWaterLevel_name),
-                       () => WaveImpactAsphaltCoverDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation),
-                       () =>
-                       {
-                           log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_started_Time_1_,
-                                                  calculation.Name,
-                                                  DateTimeService.CurrentTimeAsString));
+            return calculationService.Validate(calculation, hlcdFilePath);
+        }
 
-                           var outputs = new List<WaveConditionsOutput>();
+        protected override void PerformCalculation()
+        {
+            calculationService.OnProgress = UpdateProgressText;
+            calculationService.Calculate(
+                calculation, failureMechanism, assessmentSection, hlcdFilePath);
+        }
 
-                           double a = failureMechanism.GeneralInput.A;
-                           double b = failureMechanism.GeneralInput.B;
-                           double c = failureMechanism.GeneralInput.C;
-                           int norm = assessmentSection.FailureMechanismContribution.Norm;
-
-                           foreach (var waterLevel in calculation.InputParameters.WaterLevels)
-                           {
-                               if (State == ActivityState.Canceled)
-                               {
-                                   break;
-                               }
-
-                               log.Info(string.Format(Resources.WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_started_time_2_,
-                                                      calculation.Name,
-                                                      waterLevel,
-                                                      DateTimeService.CurrentTimeAsString));
-
-                               ProgressText = string.Format(Resources.WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_, waterLevel);
-
-                               WaveConditionsOutput output = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
-                                                                                                                 a,
-                                                                                                                 b,
-                                                                                                                 c,
-                                                                                                                 norm,
-                                                                                                                 calculation.InputParameters,
-                                                                                                                 hlcdDirectory,
-                                                                                                                 assessmentSection.Id,
-                                                                                                                 calculation.Name);
-
-                               if (output != null)
-                               {
-                                   outputs.Add(output);
-                               }
-
-                               log.Info(string.Format(Resources.WaveImpactAsphaltCoverWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_ended_time_2_,
-                                                      calculation.Name,
-                                                      waterLevel,
-                                                      DateTimeService.CurrentTimeAsString));
-                           }
-
-                           log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_ended_Time_1_,
-                                                  calculation.Name,
-                                                  DateTimeService.CurrentTimeAsString));
-
-                           return outputs.Any() ? outputs : null;
-                       });
+        protected override void OnCancel()
+        {
+            calculationService.Cancel();
         }
 
         protected override void OnFinish()
         {
-            PerformFinish(() => { calculation.Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Output); });
+            // something.Notify();
         }
     }
 }

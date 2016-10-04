@@ -19,36 +19,110 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Core.Common.Base.Data;
+using log4net;
+using Ringtoets.Common.Service.MessageProviders;
+using Ringtoets.Common.Service.Properties;
+using Ringtoets.HydraRing.Calculation.Calculator;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
+using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.Common.Service
 {
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for marginal wave statistics.
     /// </summary>
-    public class WaveHeightCalculationService : HydraulicBoundaryLocationCalculationService<WaveHeightCalculationInput>
+    public class WaveHeightCalculationService
     {
-        private static IHydraulicBoundaryLocationCalculationService instance;
+        private static readonly ILog log = LogManager.GetLogger(typeof(WaveHeightCalculationService));
 
-        /// <summary>
-        /// Gets or sets an instance of <see cref="IHydraulicBoundaryLocationCalculationService"/>.
-        /// </summary>
-        public static IHydraulicBoundaryLocationCalculationService Instance
+        private IWaveHeightCalculator calculator;
+        private bool canceled;
+
+        public bool Validate(string name, string hydraulicBoundaryDatabaseFilePath, ICalculationMessageProvider messageProvider)
         {
-            get
+            string calculationName = messageProvider.GetCalculationName(name);
+
+            CalculationServiceHelper.LogValidationBeginTime(calculationName);
+
+            string[] validationProblem = ValidateInput(hydraulicBoundaryDatabaseFilePath);
+
+            CalculationServiceHelper.LogMessagesAsError(Resources.Hydraulic_boundary_database_connection_failed_0_,
+                                                        validationProblem);
+
+            CalculationServiceHelper.LogValidationEndTime(calculationName);
+
+            return !validationProblem.Any();
+        }
+
+        public void Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, string ringId, double norm, ICalculationMessageProvider messageProvider)
+        {
+            string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
+            string calculationName = messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name);
+
+            CalculationServiceHelper.LogCalculationBeginTime(calculationName);
+
+            calculator = HydraRingCalculatorFactory.Instance.CreateWaveHeightCalculator(hlcdDirectory, ringId);
+
+            try
             {
-                return instance ?? (instance = new WaveHeightCalculationService());
+                calculator.Calculate(CreateInput(hydraulicBoundaryLocation, norm));
+
+                hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) calculator.WaveHeight;
+                hydraulicBoundaryLocation.WaveHeightCalculationConvergence =
+                    RingtoetsCommonDataCalculationService.CalculationConverged(calculator.ReliabilityIndex, norm);
+
+                if (hydraulicBoundaryLocation.WaveHeightCalculationConvergence != CalculationConvergence.CalculatedConverged)
+                {
+                    log.Warn(messageProvider.GetCalculatedNotConvergedMessage(hydraulicBoundaryLocation.Name));
+                }
             }
-            set
+            catch (HydraRingFileParserException)
             {
-                instance = value;
+                if (!canceled)
+                {
+                    log.Error(messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name));
+                    throw;
+                }
+            }
+            finally
+            {
+                CalculationServiceHelper.LogCalculationEndTime(calculationName);
             }
         }
 
-        protected override WaveHeightCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
+        public void Cancel()
+        {
+            if (calculator != null)
+            {
+                calculator.Cancel();
+                canceled = true;
+            }
+        }
+
+        private WaveHeightCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
         {
             return new WaveHeightCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
+        }
+
+        private static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath)
+        {
+            List<string> validationResult = new List<string>();
+
+            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
+
+            if (!string.IsNullOrEmpty(validationProblem))
+            {
+                validationResult.Add(validationProblem);
+            }
+
+            return validationResult.ToArray();
         }
     }
 }

@@ -45,10 +45,9 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
-using Ringtoets.HydraRing.Calculation.TestUtil;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Service.TestUtil;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
@@ -875,8 +874,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new HydraRingCalculationServiceConfig())
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Precondition
@@ -894,11 +892,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
                         var messages = logMessages.ToArray();
-                        Assert.AreEqual(9, messages.Length);
-                        StringAssert.StartsWith("Berekening van 'A' gestart om: ", messages[0]);
-                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[7]);
-                        StringAssert.StartsWith("Uitvoeren van 'A' is gelukt.", messages[8]);
+                        Assert.AreEqual(11, messages.Length);
                     });
+
+                    Assert.AreEqual(3, calculation.Output.Items.Count());
                 }
             }
         }

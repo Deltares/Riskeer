@@ -1,0 +1,70 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System.Collections.Generic;
+using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
+using Ringtoets.HydraRing.Calculation.Parsers;
+
+namespace Ringtoets.HydraRing.Calculation.Calculator
+{
+    public class WaveConditionsCosineCalculator : HydraRingCalculator, IWaveConditionsCosineCalculator
+    {
+        private readonly string hlcdDirectory;
+        private readonly string ringId;
+        private readonly WaveConditionsCalculationExceptionParser waveConditionsCalculationParser;
+
+        internal WaveConditionsCosineCalculator(string hlcdDirectory, string ringId)
+        {
+            this.hlcdDirectory = hlcdDirectory;
+            this.ringId = ringId;
+            waveConditionsCalculationParser = new WaveConditionsCalculationExceptionParser();
+
+            WaveHeight = double.NaN;
+            WaveAngle = double.NaN;
+            WavePeakPeriod = double.NaN;
+        }
+
+        public double WaveHeight { get; private set; }
+        public double WaveAngle { get; private set; }
+        public double WavePeakPeriod { get; private set; }
+
+        public void Calculate(WaveConditionsCosineCalculationInput input)
+        {
+            Calculate(hlcdDirectory, ringId, HydraRingUncertaintiesType.All, input);
+        }
+
+        protected override IEnumerable<IHydraRingFileParser> GetParsers()
+        {
+            yield return waveConditionsCalculationParser;
+        }
+
+        protected override void SetOutputs()
+        {
+            if (waveConditionsCalculationParser.Output != null)
+            {
+                WaveHeight = waveConditionsCalculationParser.Output.WaveHeight;
+                WaveAngle = waveConditionsCalculationParser.Output.WaveAngle;
+                WavePeakPeriod = waveConditionsCalculationParser.Output.WavePeakPeriod;
+            }
+        }
+    }
+}

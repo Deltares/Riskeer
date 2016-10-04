@@ -42,10 +42,9 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.HydraRing.Calculation.TestUtil;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Service.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Plugin;
@@ -883,8 +882,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new HydraRingCalculationServiceConfig())
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Precondition
@@ -902,11 +900,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
                         var messages = logMessages.ToArray();
-                        Assert.AreEqual(9, messages.Length);
-                        StringAssert.StartsWith("Berekening van 'A' gestart om: ", messages[0]);
-                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[7]);
-                        StringAssert.StartsWith("Uitvoeren van 'A' is gelukt.", messages[8]);
+                        Assert.AreEqual(11, messages.Length);
+                        StringAssert.StartsWith("Berekening van 'A' gestart om: ", messages[2]);
+                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[9]);
+                        StringAssert.StartsWith("Uitvoeren van 'A' is gelukt.", messages[10]);
                     });
+                    Assert.AreEqual(3, calculation.Output.Items.Count());
                 }
             }
         }

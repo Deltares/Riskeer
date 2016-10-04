@@ -25,10 +25,13 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service.MessageProviders;
-using Ringtoets.Common.Service.TestUtil;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Service.Test
@@ -175,9 +178,9 @@ namespace Ringtoets.Common.Service.Test
                 DesignWaterLevel = new RoundedDouble(2, double.NaN)
             };
 
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return(activityName);
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return(calculationName).Repeat.AtLeastOnce();
+            var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
+            calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(activityName);
+            calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
             mockRepository.ReplayAll();
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
@@ -186,40 +189,55 @@ namespace Ringtoets.Common.Service.Test
                                                                    norm,
                                                                    calculationMessageProviderMock);
 
-            using (new DesignWaterLevelCalculationServiceConfig())
+            using (new HydraRingCalculatorFactoryConfig())
             {
-                var testService = (TestHydraulicBoundaryLocationCalculationService) DesignWaterLevelCalculationService.Instance;
+                var testFactory = (TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance;
+                var testDesignWaterLevelCalculator = testFactory.DesignWaterLevelCalculator;
+                testDesignWaterLevelCalculator.ReliabilityIndex = StatisticsConverter.NormToBeta(norm);
 
                 // Call
-                activity.Run();
+                Action call = () => activity.Run();
 
                 // Assert
-                Assert.AreSame(calculationMessageProviderMock, testService.MessageProvider);
-                Assert.AreSame(hydraulicBoundaryLocation, testService.HydraulicBoundaryLocation);
-                Assert.AreEqual(validFilePath, testService.HydraulicBoundaryDatabaseFilePath);
-                Assert.AreEqual(ringId, testService.RingId);
-                Assert.AreEqual(norm, testService.Norm);
+                TestHelper.AssertLogMessages(call, m =>
+                {
+                    var messages = m.ToArray();
+                    Assert.AreEqual(4, messages.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), messages[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), messages[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), messages[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), messages[3]);
+                });
+
+                var designWaterLevelCalculationInput = testDesignWaterLevelCalculator.ReceivedInputs.First();
+
+                Assert.AreEqual(hydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
+                Assert.AreEqual(testDataPath, testDesignWaterLevelCalculator.HydraulicBoundaryDatabaseDirectory);
+                Assert.AreEqual(ringId, testDesignWaterLevelCalculator.RingId);
+                Assert.AreEqual(StatisticsConverter.NormToBeta(norm), designWaterLevelCalculationInput.Beta);
             }
             Assert.AreEqual(ActivityState.Executed, activity.State);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Run_CalculationAlreadyRan_ValidationAndCalculationNotPerformedAndStateSkipped()
+        public void Run_HydraulicLocationNonNaNDesignWaterLevel_ValidationAndCalculationNotPerformedAndStateSkipped()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
             const string locationName = "locationName";
             const string activityName = "GetActivityName";
 
+
+            var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
+            calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(activityName);
+            calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(activityName);
+            mockRepository.ReplayAll();
+
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
             {
                 DesignWaterLevel = new RoundedDouble(2, 3.0)
             };
-
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return(activityName);
-            mockRepository.ReplayAll();
 
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
@@ -231,17 +249,13 @@ namespace Ringtoets.Common.Service.Test
             Action call = () => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(0, msgs.Length);
-            });
+            TestHelper.AssertLogMessagesCount(call, 2);
             Assert.AreEqual(ActivityState.Skipped, activity.State);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Finish_ValidCalculationAndRun_SetsDesignWaterLevelAndConvergence()
+        public void Run_ValidCalculationAndRun_SetsDesignWaterLevelAndConvergence()
         {
             // Setup
             const string locationName = "locationName 1";
@@ -257,34 +271,43 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, validFile);
+
+            var norm = 30;
+            double expectedDesignWaterLevel = 3.5;
+
             var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
                                                                    validFilePath,
                                                                    string.Empty,
-                                                                   30,
+                                                                   norm,
                                                                    calculationMessageProviderMock);
 
-            using (new DesignWaterLevelCalculationServiceConfig())
+            using (new HydraRingCalculatorFactoryConfig())
             {
+                var testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
+                testDesignWaterLevelCalculator.DesignWaterLevel = expectedDesignWaterLevel;
+                testDesignWaterLevelCalculator.ReliabilityIndex = StatisticsConverter.NormToBeta(norm);
+
+                // Call
                 activity.Run();
             }
 
-            // Call
-            activity.Finish();
-
             // Assert
-            Assert.IsFalse(double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel));
+            Assert.AreEqual(expectedDesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel, hydraulicBoundaryLocation.DesignWaterLevel.GetAccuracy());
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Finish_InvalidCalculationAndRun_DoesNotSetDesignWaterlevelAndConvergence()
+        public void Run_InvalidCalculation_LogsErrorOutputNotUpdated()
         {
             // Setup
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
             const string locationName = "locationName";
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return(string.Empty);
-            calculationMessageProviderMock.Expect(calc => calc.GetCalculationName(locationName)).Return(string.Empty).Repeat.AtLeastOnce();
+            string calculationFailedMessage = "Something went wrong";
+
+            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(string.Empty);
+            calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(string.Empty);
+            calculationMessageProviderMock.Stub(calc => calc.GetCalculationFailedMessage(locationName)).Return(calculationFailedMessage);
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
@@ -300,25 +323,23 @@ namespace Ringtoets.Common.Service.Test
                                                                    30,
                                                                    calculationMessageProviderMock);
 
-            using (new DesignWaterLevelCalculationServiceConfig())
+            using (new HydraRingCalculatorFactoryConfig())
             {
-                var testService = (TestHydraulicBoundaryLocationCalculationService) DesignWaterLevelCalculationService.Instance;
-                testService.CalculationConvergenceOutput = CalculationConvergence.NotCalculated;
+                ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator.EndInFailure = true;
 
-                activity.Run();
+                // Call
+                Action call = () => activity.Run();
+
+                // Assert
+                TestHelper.AssertLogMessageIsGenerated(call, calculationFailedMessage, 5);
+                Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
+                Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             }
-
-            // Call
-            activity.Finish();
-
-            // Assert
-            Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void Finish_ValidCalculationAndRun_LogWarningNoConvergence()
+        public void Run_CalculationResultingInNoConvergence_LogWarningNoConvergence()
         {
             // Setup
             const string locationName = "locationName";
@@ -345,65 +366,22 @@ namespace Ringtoets.Common.Service.Test
                                                                    norm,
                                                                    calculationMessageProviderMock);
 
-            using (new DesignWaterLevelCalculationServiceConfig())
+            using (new HydraRingCalculatorFactoryConfig())
             {
-                var testService = (TestHydraulicBoundaryLocationCalculationService) DesignWaterLevelCalculationService.Instance;
-                testService.CalculationConvergenceOutput = CalculationConvergence.CalculatedNotConverged;
+                var testFactory = (TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance;
+                testFactory.DesignWaterLevelCalculator.ReliabilityIndex = 3;
 
-                activity.Run();
+                Action call = () => activity.Run();
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(5, msgs.Length);
+                    StringAssert.StartsWith(calculationNotConvergedMessage, msgs[3]);
+                });
+                Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             }
-
-            // Precondition
-            Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
-
-            // Call
-            Action call = () => activity.Finish();
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith(calculationNotConvergedMessage, msgs[0]);
-                StringAssert.StartsWith(string.Format("Uitvoeren van '{0}' is gelukt.", activityName), msgs[1]);
-            });
-            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Finish_CalculationAlreadyRan_FinishNotPerformed()
-        {
-            // Setup
-            RoundedDouble designWaterLevel = (RoundedDouble) 3.0;
-            const string locationName = "Name";
-
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Expect(calc => calc.GetActivityName(locationName)).Return(string.Empty);
-            mockRepository.ReplayAll();
-
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, locationName, 0, 0)
-            {
-                DesignWaterLevel = designWaterLevel
-            };
-
-            string validFilePath = Path.Combine(testDataPath, validFile);
-
-            var activity = new DesignWaterLevelCalculationActivity(hydraulicBoundaryLocation,
-                                                                   validFilePath,
-                                                                   string.Empty,
-                                                                   30,
-                                                                   calculationMessageProviderMock);
-
-            using (new DesignWaterLevelCalculationServiceConfig())
-            {
-                activity.Run();
-            }
-
-            // Call
-            activity.Finish();
-
-            // Assert
             mockRepository.VerifyAll();
         }
     }

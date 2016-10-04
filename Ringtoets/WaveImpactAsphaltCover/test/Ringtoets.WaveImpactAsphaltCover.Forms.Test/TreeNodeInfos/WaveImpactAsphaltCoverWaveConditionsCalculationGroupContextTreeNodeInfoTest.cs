@@ -44,9 +44,9 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Service.TestUtil;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
 using Ringtoets.WaveImpactAsphaltCover.Plugin;
@@ -799,7 +799,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
@@ -809,14 +809,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(test, m =>
                     {
                         var messages = m.ToArray();
-                        Assert.AreEqual(18, messages.Length);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[0]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[7]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[8]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[15]);
-                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[16]);
-                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[17]);
+                        Assert.AreEqual(22, messages.Length);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[2]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[9]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[12]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[19]);
+                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[20]);
+                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[21]);
                     });
+                    Assert.AreEqual(3, calculationA.Output.Items.Count());
+                    Assert.AreEqual(3, calculationB.Output.Items.Count());
                 }
             }
         }
@@ -861,7 +863,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
@@ -917,7 +919,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
@@ -1000,7 +1002,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call

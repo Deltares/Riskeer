@@ -44,9 +44,9 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Service.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Plugin;
@@ -799,7 +799,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
@@ -809,14 +809,18 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(test, m =>
                     {
                         var messages = m.ToArray();
-                        Assert.AreEqual(30, messages.Length);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[0]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[13]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[14]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[27]);
-                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[28]);
-                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[29]);
+                        Assert.AreEqual(42, messages.Length);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[2]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[19]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[22]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[39]);
+                        StringAssert.StartsWith("Uitvoeren van 'Golfcondities voor blokken en zuilen voor Nieuwe berekening berekenen' is gelukt.", messages[40]);
+                        StringAssert.StartsWith("Uitvoeren van 'Golfcondities voor blokken en zuilen voor Nieuwe berekening berekenen' is gelukt.", messages[41]);
                     });
+                    Assert.AreEqual(3, calculationA.Output.BlocksOutput.Count());
+                    Assert.AreEqual(3, calculationA.Output.ColumnsOutput.Count());
+                    Assert.AreEqual(3, calculationB.Output.BlocksOutput.Count());
+                    Assert.AreEqual(3, calculationB.Output.ColumnsOutput.Count());
                 }
             }
         }
@@ -861,7 +865,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
@@ -917,7 +921,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
@@ -1005,7 +1009,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call

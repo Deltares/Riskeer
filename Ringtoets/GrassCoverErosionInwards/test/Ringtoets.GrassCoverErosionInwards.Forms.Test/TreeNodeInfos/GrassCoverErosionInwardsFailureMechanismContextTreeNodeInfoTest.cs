@@ -35,6 +35,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
@@ -752,6 +753,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+            assessmentSectionMock.Stub(a => a.Id).Return(string.Empty);
+            assessmentSectionMock.Stub(a => a.FailureMechanismContribution)
+                .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
             var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
             using (var treeViewControl = new TreeViewControl())
@@ -780,14 +784,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
                         StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
                         StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[2]);
-                        StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", messageList[3]);
-                        Assert.AreEqual("De berekening voor grasbekleding erosie kruin en binnentalud 'A' is niet gelukt.", messageList[4]);
+                        Assert.AreEqual("De berekening voor grasbekleding erosie kruin en binnentalud 'A' is niet gelukt.", messageList[3]);
+                        StringAssert.StartsWith("Overloop berekeningsverslag. Klik op details voor meer informatie.", messageList[4]);
                         StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[5]);
                         StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[6]);
                         StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[7]);
                         StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[8]);
-                        StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", messageList[9]);
-                        Assert.AreEqual("De berekening voor grasbekleding erosie kruin en binnentalud 'B' is niet gelukt.", messageList[10]);
+                        Assert.AreEqual("De berekening voor grasbekleding erosie kruin en binnentalud 'B' is niet gelukt.", messageList[9]);
+                        StringAssert.StartsWith("Overloop berekeningsverslag. Klik op details voor meer informatie.", messageList[10]);
                         StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[11]);
                         Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[12]);
                         Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[13]);

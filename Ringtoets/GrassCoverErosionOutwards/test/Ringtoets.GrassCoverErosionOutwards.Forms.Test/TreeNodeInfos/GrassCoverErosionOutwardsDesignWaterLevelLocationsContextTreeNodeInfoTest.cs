@@ -33,6 +33,7 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -40,12 +41,14 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.TestUtil;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -375,22 +378,25 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new DesignWaterLevelCalculationServiceConfig())
+                    using (new HydraRingCalculatorFactoryConfig())
                     {
-                        var testService = (TestHydraulicBoundaryLocationCalculationService) DesignWaterLevelCalculationService.Instance;
+                        var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
 
                         // Call
                         contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();
 
                         // Assert
-                        Assert.AreSame(grassCoverErosionOutwardsHydraulicBoundaryLocation, testService.HydraulicBoundaryLocation);
-                        Assert.AreEqual(filePath, testService.HydraulicBoundaryDatabaseFilePath);
-                        Assert.AreEqual(assessmentSectionMock.Id, testService.RingId);
+                        var testDesignWaterLevelCalculator = testFactory.DesignWaterLevelCalculator;
+                        var designWaterLevelCalculationInput = testDesignWaterLevelCalculator.ReceivedInputs.First();
 
+                        Assert.AreEqual(testDataPath, testDesignWaterLevelCalculator.HydraulicBoundaryDatabaseDirectory);
+                        Assert.AreEqual(assessmentSectionMock.Id, testDesignWaterLevelCalculator.RingId);
+
+                        Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, designWaterLevelCalculationInput.HydraulicBoundaryLocationId);
                         var expectedNorm = assessmentSectionMock.FailureMechanismContribution.Norm/
                                            (failureMechanism.Contribution/100)*
                                            failureMechanism.GeneralInput.N;
-                        Assert.AreEqual(expectedNorm, testService.Norm);
+                        Assert.AreEqual(StatisticsConverter.NormToBeta(expectedNorm), designWaterLevelCalculationInput.Beta);
                     }
                 }
             }
@@ -512,16 +518,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new DesignWaterLevelCalculationServiceConfig())
+                    using (new HydraRingCalculatorFactoryConfig())
                     {
-                        var testService = (TestHydraulicBoundaryLocationCalculationService) DesignWaterLevelCalculationService.Instance;
-                        testService.CalculationConvergenceOutput = CalculationConvergence.NotCalculated;
+                        ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator.EndInFailure = true;
 
                         // When
                         contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();
 
                         // Then
-                        Assert.IsInstanceOf<GrassCoverErosionOutwardsDesignWaterLevelCalculationMessageProvider>(testService.MessageProvider);
+                        Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevel);
                         Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
                     }
                 }
@@ -574,19 +579,21 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new DesignWaterLevelCalculationServiceConfig())
+                    using (new HydraRingCalculatorFactoryConfig())
                     {
-                        var testService = (TestHydraulicBoundaryLocationCalculationService) DesignWaterLevelCalculationService.Instance;
+                        var testFactory = (TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance;
 
                         // Call
                         Action action = () => contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();
 
                         // Assert
                         TestHelper.AssertLogMessageIsGenerated(action, "De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");
-                        Assert.IsNull(testService.HydraulicBoundaryLocation);
-                        Assert.IsNullOrEmpty(testService.HydraulicBoundaryDatabaseFilePath);
-                        Assert.IsNullOrEmpty(testService.RingId);
-                        Assert.AreEqual(0, testService.Norm);
+
+                        var testDesignWaterLevelCalculator = testFactory.DesignWaterLevelCalculator;
+                        Assert.IsEmpty(testDesignWaterLevelCalculator.ReceivedInputs);
+
+                        Assert.IsNullOrEmpty(testDesignWaterLevelCalculator.HydraulicBoundaryDatabaseDirectory);
+                        Assert.IsNullOrEmpty(testDesignWaterLevelCalculator.RingId);
                     }
                 }
             }

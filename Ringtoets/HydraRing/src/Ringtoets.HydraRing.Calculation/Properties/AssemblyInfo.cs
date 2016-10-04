@@ -27,3 +27,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("Ringtoets.HydraRing.Calculation")]
 [assembly: Guid("888D4097-8BC2-4703-9FB1-8744C94D525E")]
 [assembly: InternalsVisibleTo("Ringtoets.HydraRing.Calculation.Test")]
+[assembly: InternalsVisibleTo("Ringtoets.HydraRing.Calculation.TestUtil")]

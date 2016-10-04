@@ -32,6 +32,11 @@ namespace Ringtoets.HydraRing.Calculation.Services
         internal const string OutputFileSuffix = "-output.txt";
 
         /// <summary>
+        /// The extension of the log file for a certain section.
+        /// </summary>
+        internal const string LogFileExtension = ".log";
+
+        /// <summary>
         /// The file name of the file containing the output of a calculation.
         /// </summary>
         internal const string DesignTablesFileName = "designTable.txt";

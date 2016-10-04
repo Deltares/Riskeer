@@ -37,19 +37,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <summary>
         /// Determine which <see cref="GrassCoverErosionInwardsCalculation"/> objects are available for a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="sectionResults">The <see cref="GrassCoverErosionInwardsCalculation"/> objects.</param>
+        /// <param name="sections">The <see cref="GrassCoverErosionInwardsCalculation"/> objects.</param>
         /// <param name="calculations">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects.</param>
         /// <returns>A <see cref="Dictionary{K, V}"/> containing a <see cref="IList{T}"/> 
         /// of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects 
         /// for each section name which has calculations.</returns>
         /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
         public static Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> CollectCalculationsPerSegment(
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
+            IEnumerable<FailureMechanismSection> sections,
             IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
-            if (sectionResults == null)
+            if (sections == null)
             {
-                throw new ArgumentNullException("sectionResults");
+                throw new ArgumentNullException("sections");
             }
 
             if (calculations == null)
@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
                 throw new ArgumentNullException("calculations");
             }
 
-            SectionSegments[] sectionSegments = MakeSectionSegments(sectionResults);
+            SectionSegments[] sectionSegments = MakeSectionSegments(sections);
 
             var calculationsPerSegment = new Dictionary<string, IList<GrassCoverErosionInwardsCalculation>>();
 
@@ -77,18 +77,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <summary>
         /// Determine which <see cref="FailureMechanismSection"/> geometrically contains the <see cref="GrassCoverErosionInwardsCalculation"/>.
         /// </summary>
-        /// <param name="sectionResults">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects 
+        /// <param name="sections">The <see cref="FailureMechanismSection"/> objects 
         /// whose <see cref="FailureMechanismSection"/> are considered.</param>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/>.</param>
         /// <returns>The containing <see cref="FailureMechanismSection"/>, or <c>null</c>.</returns>
         /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
         public static FailureMechanismSection FailureMechanismSectionForCalculation(
-            IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
+            IEnumerable<FailureMechanismSection> sections,
             GrassCoverErosionInwardsCalculation calculation)
         {
-            if (sectionResults == null)
+            if (sections == null)
             {
-                throw new ArgumentNullException("sectionResults");
+                throw new ArgumentNullException("sections");
             }
 
             if (calculation == null)
@@ -96,14 +96,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
                 throw new ArgumentNullException("calculation");
             }
 
-            SectionSegments[] sectionSegments = MakeSectionSegments(sectionResults);
+            SectionSegments[] sectionSegments = MakeSectionSegments(sections);
 
             return FindSectionForCalculation(sectionSegments, calculation);
         }
 
-        private static SectionSegments[] MakeSectionSegments(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults)
+        private static SectionSegments[] MakeSectionSegments(IEnumerable<FailureMechanismSection> sectionResults)
         {
-            return sectionResults.Select(sr => new SectionSegments(sr.Section)).ToArray();
+            return sectionResults.Select(s => new SectionSegments(s)).ToArray();
         }
 
         private static FailureMechanismSection FindSectionForCalculation(SectionSegments[] sectionSegmentsCollection, GrassCoverErosionInwardsCalculation calculation)

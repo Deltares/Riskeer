@@ -32,18 +32,18 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionOutwards.Plugin;
-using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -351,19 +351,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    using (new HydraRingCalculatorFactoryConfig())
                     {
-                        using (new WaveHeightCalculationServiceConfig())
-                        {
-                            var testService = (TestHydraulicBoundaryLocationCalculationService) WaveHeightCalculationService.Instance;
-                            testService.CalculationConvergenceOutput = CalculationConvergence.NotCalculated;
+                        ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveHeightCalculator.EndInFailure = true;
 
-                            // When
-                            contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
+                        // When
+                        contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
-                            // Then
-                            Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider>(testService.MessageProvider);
-                            Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculationConvergence);
-                        }
+                        // Then
+                        Assert.IsNaN(grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeight);
+                        Assert.AreEqual(CalculationConvergence.NotCalculated, grassCoverErosionOutwardsHydraulicBoundaryLocation.WaveHeightCalculationConvergence);
                     }
                 }
             }
@@ -421,22 +418,25 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new WaveHeightCalculationServiceConfig())
+                    using (new HydraRingCalculatorFactoryConfig())
                     {
-                        var testService = (TestHydraulicBoundaryLocationCalculationService) WaveHeightCalculationService.Instance;
+                        var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
 
                         // Call
                         contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
                         // Assert
-                        Assert.AreSame(grassCoverErosionOutwardsHydraulicBoundaryLocation, testService.HydraulicBoundaryLocation);
-                        Assert.AreEqual(filePath, testService.HydraulicBoundaryDatabaseFilePath);
-                        Assert.AreEqual(assessmentSectionMock.Id, testService.RingId);
+                        var testWaveHeightCalculator = testFactory.WaveHeightCalculator;
+                        var waveHeightCalculationInput = testWaveHeightCalculator.ReceivedInputs.First();
 
-                        var expectedNorm = assessmentSectionMock.FailureMechanismContribution.Norm/
+                        Assert.AreEqual(testDataPath, testWaveHeightCalculator.HydraulicBoundaryDatabaseDirectory);
+                        Assert.AreEqual(assessmentSectionMock.Id, testWaveHeightCalculator.RingId);
+
+                        Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
+                        var expectedNorm = assessmentSectionMock.FailureMechanismContribution.Norm /
                                            (failureMechanism.Contribution/100)*
                                            failureMechanism.GeneralInput.N;
-                        Assert.AreEqual(expectedNorm, testService.Norm);
+                        Assert.AreEqual(StatisticsConverter.NormToBeta(expectedNorm), waveHeightCalculationInput.Beta);
                     }
                 }
             }
@@ -492,19 +492,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
-                    using (new WaveHeightCalculationServiceConfig())
+                    using (new HydraRingCalculatorFactoryConfig())
                     {
-                        var testService = (TestHydraulicBoundaryLocationCalculationService) WaveHeightCalculationService.Instance;
-
                         // Call
                         Action action = () => contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
                         // Assert
                         TestHelper.AssertLogMessageIsGenerated(action, "De bijdrage van dit toetsspoor is nul. Daardoor is de doorsnede-eis onbepaald en kunnen de berekeningen niet worden uitgevoerd.");
-                        Assert.IsNull(testService.HydraulicBoundaryLocation);
-                        Assert.IsNullOrEmpty(testService.HydraulicBoundaryDatabaseFilePath);
-                        Assert.IsNullOrEmpty(testService.RingId);
-                        Assert.AreEqual(0, testService.Norm);
+                        Assert.IsNaN(location.WaveHeight);
                     }
                 }
             }

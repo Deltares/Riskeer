@@ -20,15 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Base.Service;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Activities;
-using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
-using Ringtoets.StabilityStoneCover.Service.Properties;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsRevetmentServiceResources = Ringtoets.Revetment.Service.Properties.Resources;
 
@@ -37,33 +32,32 @@ namespace Ringtoets.StabilityStoneCover.Service
     /// <summary>
     /// <see cref="Activity"/> for running a stability stone cover wave conditions calculation.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculationActivity : HydraRingActivity<StabilityStoneCoverWaveConditionsCalculationActivityOutput>
+    public class StabilityStoneCoverWaveConditionsCalculationActivity : NewHydraRingActivity
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(StabilityStoneCoverWaveConditionsCalculationActivity));
-
         private readonly StabilityStoneCoverWaveConditionsCalculation calculation;
-        private readonly string hlcdDirectory;
+        private readonly string hlcdFilePath;
         private readonly StabilityStoneCoverFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+        private readonly StabilityStoneCoverWaveConditionsCalculationService calculationService;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverWaveConditionsCalculationActivity"/>.
         /// </summary>
         /// <param name="calculation">The stability stone cover wave conditions data used for the calculation.</param>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="hlcdFilePath">The directory of the HLCD file that should be used for performing the calculation.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public StabilityStoneCoverWaveConditionsCalculationActivity(StabilityStoneCoverWaveConditionsCalculation calculation, string hlcdDirectory,
+        public StabilityStoneCoverWaveConditionsCalculationActivity(StabilityStoneCoverWaveConditionsCalculation calculation, string hlcdFilePath,
                                                                     StabilityStoneCoverFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException("calculation");
             }
-            if (hlcdDirectory == null)
+            if (hlcdFilePath == null)
             {
-                throw new ArgumentNullException("hlcdDirectory");
+                throw new ArgumentNullException("hlcdFilePath");
             }
             if (failureMechanism == null)
             {
@@ -75,114 +69,35 @@ namespace Ringtoets.StabilityStoneCover.Service
             }
 
             this.calculation = calculation;
-            this.hlcdDirectory = hlcdDirectory;
+            this.hlcdFilePath = hlcdFilePath;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
-            Name = calculation.Name;
+            calculationService = new StabilityStoneCoverWaveConditionsCalculationService();
+
+            Name = string.Format("Golfcondities voor blokken en zuilen voor {0} berekenen", calculation.Name);
         }
 
-        protected override void OnRun()
+        protected override bool Validate()
         {
-            PerformRun(() => WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters,
-                                                                                assessmentSection.HydraulicBoundaryDatabase,
-                                                                                calculation.Name,
-                                                                                RingtoetsRevetmentServiceResources.WaveConditionsCalculationService_LogMessage_default_DesignWaterLevel_name),
-                       () => StabilityStoneCoverDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation),
-                       () =>
-                       {
-                           log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_started_Time_1_,
-                                                  calculation.Name,
-                                                  DateTimeService.CurrentTimeAsString));
+            return calculationService.Validate(calculation, hlcdFilePath);
+        }
 
-                           Output = new StabilityStoneCoverWaveConditionsCalculationActivityOutput();
-
-                           var aBlocks = failureMechanism.GeneralInput.GeneralBlocksWaveConditionsInput.A;
-                           var bBlocks = failureMechanism.GeneralInput.GeneralBlocksWaveConditionsInput.B;
-                           var cBlocks = failureMechanism.GeneralInput.GeneralBlocksWaveConditionsInput.C;
-                           var aColumns = failureMechanism.GeneralInput.GeneralColumnsWaveConditionsInput.A;
-                           var bColumns = failureMechanism.GeneralInput.GeneralColumnsWaveConditionsInput.B;
-                           var cColumns = failureMechanism.GeneralInput.GeneralColumnsWaveConditionsInput.C;
-                           var norm = assessmentSection.FailureMechanismContribution.Norm;
-
-                           foreach (var waterLevel in calculation.InputParameters.WaterLevels)
-                           {
-                               if (State == ActivityState.Canceled)
-                               {
-                                   break;
-                               }
-
-                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_blocks_for_waterlevel_1_started_time_2_,
-                                                      calculation.Name,
-                                                      waterLevel,
-                                                      DateTimeService.CurrentTimeAsString));
-
-                               ProgressText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_blocks_waterlevel_0_, waterLevel);
-
-                               var blocksOutput = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
-                                                                                                      aBlocks,
-                                                                                                      bBlocks,
-                                                                                                      cBlocks,
-                                                                                                      norm,
-                                                                                                      calculation.InputParameters,
-                                                                                                      hlcdDirectory,
-                                                                                                      assessmentSection.Id,
-                                                                                                      calculation.Name);
-
-                               if (blocksOutput != null)
-                               {
-                                   Output.AddBlocksOutput(blocksOutput);
-                               }
-
-                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_blocks_for_waterlevel_1_ended_time_2_,
-                                                      calculation.Name,
-                                                      waterLevel,
-                                                      DateTimeService.CurrentTimeAsString));
-
-                               if (State == ActivityState.Canceled)
-                               {
-                                   break;
-                               }
-
-                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_waterlevel_1_started_time_2_,
-                                                      calculation.Name,
-                                                      waterLevel,
-                                                      DateTimeService.CurrentTimeAsString));
-
-                               ProgressText = string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Calculate_columns_waterlevel_0_, waterLevel);
-
-                               var columnsOutput = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
-                                                                                                       aColumns,
-                                                                                                       bColumns,
-                                                                                                       cColumns,
-                                                                                                       norm,
-                                                                                                       calculation.InputParameters,
-                                                                                                       hlcdDirectory,
-                                                                                                       assessmentSection.Id,
-                                                                                                       calculation.Name);
-
-                               if (columnsOutput != null)
-                               {
-                                   Output.AddColumnsOutput(columnsOutput);
-                               }
-
-                               log.Info(string.Format(Resources.StabilityStoneCoverWaveConditionsCalculationActivity_OnRun_Subject_0_columns_for_waterlevel_1_ended_time_2_,
-                                                      calculation.Name,
-                                                      waterLevel,
-                                                      DateTimeService.CurrentTimeAsString));
-                           }
-
-                           log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_ended_Time_1_,
-                                                  calculation.Name,
-                                                  DateTimeService.CurrentTimeAsString));
-
-                           return !Output.ColumnsOutput.Any() && !Output.BlocksOutput.Any() ? null : Output;
-                       });
+        protected override void PerformCalculation()
+        {
+            calculationService.OnProgress = UpdateProgressText;
+            calculationService.Calculate(
+                calculation, failureMechanism, assessmentSection, hlcdFilePath);
         }
 
         protected override void OnFinish()
         {
-            PerformFinish(() => { calculation.Output = new StabilityStoneCoverWaveConditionsOutput(Output.ColumnsOutput, Output.BlocksOutput); });
+            // something.Notify();
+        }
+
+        protected override void OnCancel()
+        {
+            calculationService.Cancel();
         }
     }
 }

@@ -42,10 +42,9 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.HydraRing.Calculation.TestUtil;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Service.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Forms.PresentationObjects;
 using Ringtoets.StabilityStoneCover.Plugin;
@@ -912,8 +911,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
 
                 plugin.Gui = gui;
 
-                using (new HydraRingCalculationServiceConfig())
-                using (new WaveConditionsCalculationServiceConfig())
+                using (new HydraRingCalculatorFactoryConfig())
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(context, null, treeViewControl))
                 {
                     // Precondition
@@ -931,11 +929,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
                         var messages = logMessages.ToArray();
-                        Assert.AreEqual(15, messages.Length);
-                        StringAssert.StartsWith("Berekening van 'A' gestart om: ", messages[0]);
-                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[13]);
-                        StringAssert.StartsWith("Uitvoeren van 'A' is gelukt.", messages[14]);
+                        Assert.AreEqual(21, messages.Length);
+                        StringAssert.StartsWith("Berekening van 'A' gestart om: ", messages[2]);
+                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[19]);
+                        StringAssert.StartsWith("Uitvoeren van 'Golfcondities voor blokken en zuilen voor A berekenen' is gelukt.", messages[20]);
                     });
+                    Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());
+                    Assert.AreEqual(3, calculation.Output.ColumnsOutput.Count());
                 }
             }
         }

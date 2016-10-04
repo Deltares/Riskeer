@@ -21,6 +21,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.IO;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -28,12 +29,12 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service.Properties;
+using Ringtoets.HydraRing.Calculation.Calculator;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
-using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Parsers;
-using Ringtoets.HydraRing.Calculation.Services;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
@@ -42,9 +43,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for grass cover erosion inwards calculations.
     /// </summary>
-    public static class GrassCoverErosionInwardsCalculationService
+    public class GrassCoverErosionInwardsCalculationService
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionInwardsCalculationService));
+
+        public ProgressChangedDelegate OnProgress;
+        private IOvertoppingCalculator overtoppingCalculator;
+        private IDikeHeightCalculator dikeHeightCalculator;
+        private bool canceled;
 
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
@@ -53,50 +59,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> for which to validate the values.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <returns><c>True</c>c> if <paramref name="calculation"/> has no validation errors; <c>False</c>c> otherwise.</returns>
-        public static bool Validate(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection)
+        public bool Validate(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection)
         {
-            return CalculationServiceHelper.PerformValidation(calculation.Name, () => ValidateInput(calculation.InputParameters, assessmentSection));
-        }
+            CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
 
-        /// <summary>
-        /// Performs a grass cover erosion inwards calculation based on the supplied <see cref="GrassCoverErosionInwardsCalculation"/> 
-        /// and sets <see cref="GrassCoverErosionInwardsCalculation.Output"/> if the calculation was successful. 
-        /// Error and status information is logged during the execution of the operation.
-        /// </summary>
-        /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
-        /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
-        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
-        /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
-        /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        internal static GrassCoverErosionInwardsCalculationServiceOutput CalculateProbability(GrassCoverErosionInwardsCalculation calculation,
-                                                                                              string hlcdDirectory, FailureMechanismSection failureMechanismSection,
-                                                                                              string ringId, GeneralGrassCoverErosionInwardsInput generalInput)
-        {
-            OvertoppingCalculationInput overtoppingCalculationInput = CreateOvertoppingInput(calculation, failureMechanismSection, generalInput);
-            var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
-            var waveHeightParser = new OvertoppingCalculationWaveHeightParser();
+            var messages = ValidateInput(calculation.InputParameters, assessmentSection);
+            CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
 
-            HydraRingCalculationService.Instance.PerformCalculation(
-                hlcdDirectory,
-                ringId,
-                HydraRingUncertaintiesType.All,
-                overtoppingCalculationInput,
-                new IHydraRingFileParser[]
-                {
-                    exceedanceProbabilityCalculationParser,
-                    waveHeightParser
-                });
+            CalculationServiceHelper.LogValidationEndTime(calculation.Name);
 
-            VerifyOvertoppingCalculationOutput(exceedanceProbabilityCalculationParser.Output, waveHeightParser.Output, calculation.Name);
-
-            return exceedanceProbabilityCalculationParser.Output != null && waveHeightParser.Output != null ?
-                       new GrassCoverErosionInwardsCalculationServiceOutput(
-                           exceedanceProbabilityCalculationParser.Output.Beta,
-                           waveHeightParser.Output.WaveHeight,
-                           waveHeightParser.Output.IsOvertoppingDominant,
-                           null) :
-                       null;
+            return !messages.Any();
         }
 
         /// <summary>
@@ -106,48 +78,120 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> that holds all the information required to perform the calculation.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
         /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
-        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
+        /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
+        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
         /// <returns>A double with a  value on a successful calculation, <c>double.NaN</c> otherwise.</returns>
-        internal static double CalculateDikeHeight(GrassCoverErosionInwardsCalculation calculation,
-                                                   IAssessmentSection assessmentSection,
-                                                   string hlcdDirectory, FailureMechanismSection failureMechanismSection,
-                                                   string ringId, GeneralGrassCoverErosionInwardsInput generalInput)
+        internal void CalculateDikeHeight(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection, 
+            FailureMechanismSection failureMechanismSection, GeneralGrassCoverErosionInwardsInput generalInput, double failureMechanismContribution,
+            string hlcdDirectory)
         {
-            var targetProbabiltyCalculationParser = new ReliabilityIndexCalculationParser();
+            var calculateDikeHeight = calculation.InputParameters.CalculateDikeHeight;
+            var totalSteps = calculateDikeHeight ? 2 : 1;
+            var calculationName = calculation.Name;
 
-            DikeHeightCalculationInput dikeHeightCalculationInput = CreateDikeHeightInput(calculation, assessmentSection, failureMechanismSection, generalInput);
+            NotifyProgress("Uitvoeren overloop en overslag berekening", 1, totalSteps);
 
-            HydraRingCalculationService.Instance.PerformCalculation(
-                hlcdDirectory,
-                ringId,
-                HydraRingUncertaintiesType.All,
-                dikeHeightCalculationInput,
-                new IHydraRingFileParser[]
-                {
-                    targetProbabiltyCalculationParser
-                });
+            CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
-            VerifyDikeHeightCalculationOutput(targetProbabiltyCalculationParser.Output, calculation.Name);
+            overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory, assessmentSection.Id);
+            var overtoppingCalculationInput = CreateOvertoppingInput(calculation, failureMechanismSection, generalInput);
+            double? dikeHeight = null;
 
-            return targetProbabiltyCalculationParser.Output == null ? double.NaN : targetProbabiltyCalculationParser.Output.Result;
-        }
-
-        private static void VerifyOvertoppingCalculationOutput(ExceedanceProbabilityCalculationOutput exceedanceOutput, OvertoppingCalculationWaveHeightOutput waveHeightOutput, string name)
-        {
-            if (exceedanceOutput == null || waveHeightOutput == null)
+            try
             {
-                log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation, name);
+                CalculateOvertopping(overtoppingCalculator, overtoppingCalculationInput, calculationName);
+
+                if (calculateDikeHeight)
+                {
+                    NotifyProgress("Uitvoeren dijkhoogte berekening", 2, totalSteps);
+
+                    dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory, assessmentSection.Id);
+                    var dikeHeightCalculationInput = CreateDikeHeightInput(calculation, assessmentSection, failureMechanismSection, generalInput);
+                    CalculateDikeHeight(dikeHeightCalculator, dikeHeightCalculationInput, calculationName);
+                    dikeHeight = dikeHeightCalculator.DikeHeight;
+                }
+
+                if (!canceled)
+                {
+                    calculation.Output = new GrassCoverErosionInwardsOutput(
+                        overtoppingCalculator.WaveHeight,
+                        overtoppingCalculator.IsOvertoppingDominant,
+                        ProbabilityAssessmentService.Calculate(
+                            assessmentSection.FailureMechanismContribution.Norm,
+                            failureMechanismContribution,
+                            generalInput.N,
+                            overtoppingCalculator.ExceedanceProbabilityBeta),
+                        dikeHeight);
+                }
+            }
+            finally
+            {
+                CalculationServiceHelper.LogCalculationEndTime(calculationName);
             }
         }
 
-        private static void VerifyDikeHeightCalculationOutput(ReliabilityIndexCalculationOutput output, string name)
+        public void Cancel()
         {
-            if (output == null)
+            if (overtoppingCalculator != null)
             {
-                log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation, name);
+                overtoppingCalculator.Cancel();
+            }
+            if (dikeHeightCalculator != null)
+            {
+                dikeHeightCalculator.Cancel();
+            }
+            canceled = true;
+        }
+
+        private void NotifyProgress(string stepName, int currentStepNumber, int totalStepNumber)
+        {
+            if (OnProgress != null)
+            {
+                OnProgress(stepName, currentStepNumber, totalStepNumber);
+            }
+        }
+
+        private void CalculateOvertopping(IOvertoppingCalculator overtoppingCalculator, OvertoppingCalculationInput overtoppingCalculationInput, string calculationName)
+        {
+            try
+            {
+                overtoppingCalculator.Calculate(overtoppingCalculationInput);
+            }
+            catch (HydraRingFileParserException)
+            {
+                if (!canceled)
+                {
+                    log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation, calculationName);
+                    throw;
+                }
+            }
+            finally
+            {
+                log.InfoFormat("Overloop berekeningsverslag. Klik op details voor meer informatie.\n{0}", overtoppingCalculator.OutputFileContent);
+            }
+        }
+
+        private void CalculateDikeHeight(IDikeHeightCalculator dikeHeightCalculator, DikeHeightCalculationInput dikeHeightCalculationInput, string calculationName)
+        {
+            if (!canceled)
+            {
+                try
+                {
+                    dikeHeightCalculator.Calculate(dikeHeightCalculationInput);
+                }
+                catch (HydraRingFileParserException)
+                {
+                    if (!canceled)
+                    {
+                        log.ErrorFormat(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation, calculationName);
+                    }
+                }
+                finally
+                {
+                    log.InfoFormat("Dijkhoogte berekeningsverslag. Klik op details voor meer informatie.\n{0}", dikeHeightCalculator.OutputFileContent);
+                }
             }
         }
 
@@ -238,14 +282,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
 
-            if (inputParameters.DikeProfile == null)
-            {
-                validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_dike_profile_selected);
-            }
-
             if (!string.IsNullOrEmpty(validationProblem))
             {
                 validationResult.Add(validationProblem);
+            }
+
+            if (inputParameters.DikeProfile == null)
+            {
+                validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_dike_profile_selected);
             }
 
             if (inputParameters.UseBreakWater)

@@ -70,7 +70,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             Assert.IsNotNull(waveConditionsCalculationInput.Section);
             Assert.AreEqual(sectionId, waveConditionsCalculationInput.Section.SectionId);
             Assert.AreEqual(sectionNormal, waveConditionsCalculationInput.Section.CrossSectionNormal);
-            HydraRingVariableAssert.AreEqual(GetExpectedVariables(waterLevel, a, b).ToArray(), waveConditionsCalculationInput.Variables.ToArray());
+            HydraRingDataEqualityHelper.AreEqual(GetExpectedVariables(waterLevel, a, b).ToArray(), waveConditionsCalculationInput.Variables.ToArray());
             Assert.AreSame(forelandPoints, waveConditionsCalculationInput.ForelandsPoints);
             Assert.AreSame(breakWater, waveConditionsCalculationInput.BreakWater);
             Assert.AreEqual(expectedBeta, waveConditionsCalculationInput.Beta);

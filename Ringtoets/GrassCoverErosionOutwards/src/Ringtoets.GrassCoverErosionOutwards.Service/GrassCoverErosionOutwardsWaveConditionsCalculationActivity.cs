@@ -20,17 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Common.Base.Service;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
-using Ringtoets.GrassCoverErosionOutwards.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Activities;
-using Ringtoets.Revetment.Data;
-using Ringtoets.Revetment.Service;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service
@@ -38,25 +31,24 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
     /// <summary>
     /// <see cref="Activity"/> for running a grass cover erosion outwards wave conditions calculation.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveConditionsCalculationActivity : HydraRingActivity<List<WaveConditionsOutput>>
+    public class GrassCoverErosionOutwardsWaveConditionsCalculationActivity : NewHydraRingActivity
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionOutwardsWaveConditionsCalculationActivity));
-
         private readonly GrassCoverErosionOutwardsWaveConditionsCalculation calculation;
-        private readonly string hlcdDirectory;
+        private readonly string hlcdFilePath;
         private readonly GrassCoverErosionOutwardsFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+        private readonly GrassCoverErosionOutwardsWaveConditionsCalculationService calculationService;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsWaveConditionsCalculationActivity"/>.
         /// </summary>
         /// <param name="calculation">The grass cover erosion outwards wave conditions data used for the calculation.</param>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="hlcdFilePath">The directory of the HLCD file that should be used for performing the calculation.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public GrassCoverErosionOutwardsWaveConditionsCalculationActivity(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
-                                                                          string hlcdDirectory,
+                                                                          string hlcdFilePath,
                                                                           GrassCoverErosionOutwardsFailureMechanism failureMechanism,
                                                                           IAssessmentSection assessmentSection)
         {
@@ -64,9 +56,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             {
                 throw new ArgumentNullException("calculation");
             }
-            if (hlcdDirectory == null)
+            if (hlcdFilePath == null)
             {
-                throw new ArgumentNullException("hlcdDirectory");
+                throw new ArgumentNullException("hlcdFilePath");
             }
             if (failureMechanism == null)
             {
@@ -78,79 +70,35 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             }
 
             this.calculation = calculation;
-            this.hlcdDirectory = hlcdDirectory;
+            this.hlcdFilePath = hlcdFilePath;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
+
+            calculationService = new GrassCoverErosionOutwardsWaveConditionsCalculationService();
 
             Name = calculation.Name;
         }
 
-        protected override void OnRun()
+        protected override bool Validate()
         {
-            PerformRun(() => WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters,
-                                                                                assessmentSection.HydraulicBoundaryDatabase,
-                                                                                calculation.Name,
-                                                                                Resources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_LogMessage_DesignWaterLevel_name),
-                       () => GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation),
-                       () =>
-                       {
-                           log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_started_Time_1_,
-                                                  calculation.Name,
-                                                  DateTimeService.CurrentTimeAsString));
+            return calculationService.Validate(calculation, hlcdFilePath);
+        }
 
-                           List<WaveConditionsOutput> outputs = new List<WaveConditionsOutput>();
+        protected override void PerformCalculation()
+        {
+            calculationService.OnProgress = UpdateProgressText;
+            calculationService.Calculate(
+                calculation, failureMechanism, assessmentSection, hlcdFilePath);
+        }
 
-                           var a = failureMechanism.GeneralInput.GeneralWaveConditionsInput.A;
-                           var b = failureMechanism.GeneralInput.GeneralWaveConditionsInput.B;
-                           var c = failureMechanism.GeneralInput.GeneralWaveConditionsInput.C;
-                           var norm = failureMechanism.CalculationBeta(assessmentSection);
-
-                           foreach (var waterLevel in calculation.InputParameters.WaterLevels)
-                           {
-                               if (State == ActivityState.Canceled)
-                               {
-                                   break;
-                               }
-
-                               log.Info(string.Format(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_started_time_2_,
-                                                      calculation.Name,
-                                                      waterLevel,
-                                                      DateTimeService.CurrentTimeAsString));
-
-                               ProgressText = string.Format(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_, waterLevel);
-
-                               var output = WaveConditionsCalculationService.Instance.Calculate(waterLevel,
-                                                                                                a,
-                                                                                                b,
-                                                                                                c,
-                                                                                                norm,
-                                                                                                calculation.InputParameters,
-                                                                                                hlcdDirectory,
-                                                                                                assessmentSection.Id,
-                                                                                                calculation.Name);
-
-                               if (output != null)
-                               {
-                                   outputs.Add(output);
-                               }
-
-                               log.Info(string.Format(Resources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_ended_time_2_,
-                                                      calculation.Name,
-                                                      waterLevel,
-                                                      DateTimeService.CurrentTimeAsString));
-                           }
-
-                           log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_ended_Time_1_,
-                                                  calculation.Name,
-                                                  DateTimeService.CurrentTimeAsString));
-
-                           return outputs.Any() ? outputs : null;
-                       });
+        protected override void OnCancel()
+        {
+            calculationService.Cancel();
         }
 
         protected override void OnFinish()
         {
-            PerformFinish(() => { calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Output); });
+            // something.Notify();
         }
     }
 }

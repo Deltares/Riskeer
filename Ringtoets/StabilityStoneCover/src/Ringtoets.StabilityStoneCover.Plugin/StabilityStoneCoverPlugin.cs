@@ -426,10 +426,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
             {
-                WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters,
-                                                                   database,
-                                                                   calculation.Name,
-                                                                   RingtoetsRevetmentServiceResources.WaveConditionsCalculationService_LogMessage_default_DesignWaterLevel_name);
+                new StabilityStoneCoverWaveConditionsCalculationService().Validate(calculation, database.FilePath);
             }
         }
 
@@ -448,7 +445,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 Gui.MainWindow,
                 calculations
                     .Select(calculation => new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                                    Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                    assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                     failureMechanism,
                                                                                                     assessmentSection))
                     .ToList());
@@ -529,7 +526,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
-                                                                                                      Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                      context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                       context.FailureMechanism,
                                                                                                       context.AssessmentSection));
             calculation.NotifyObservers();

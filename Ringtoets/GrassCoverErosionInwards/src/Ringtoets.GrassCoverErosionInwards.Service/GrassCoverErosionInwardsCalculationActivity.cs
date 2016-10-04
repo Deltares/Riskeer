@@ -21,12 +21,9 @@
 
 using System;
 using Core.Common.Base.Service;
-using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Service.Properties;
 using Ringtoets.GrassCoverErosionInwards.Utils;
 using Ringtoets.HydraRing.Calculation.Activities;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
@@ -36,14 +33,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
     /// <summary>
     /// <see cref="Activity"/> for running a grass cover erosion inwards calculation.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculationActivity : HydraRingActivity<GrassCoverErosionInwardsCalculationServiceOutput>
+    public class GrassCoverErosionInwardsCalculationActivity : NewHydraRingActivity
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(GrassCoverErosionInwardsCalculationActivity));
-
         private readonly GrassCoverErosionInwardsCalculation calculation;
         private readonly string hlcdDirectory;
         private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+        private readonly GrassCoverErosionInwardsCalculationService calculationService;
 
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationActivity"/>.
@@ -78,64 +74,42 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
+            calculationService = new GrassCoverErosionInwardsCalculationService
+            {
+                OnProgress = UpdateProgressText
+            };
+
             Name = calculation.Name;
         }
 
-        protected override void OnRun()
+        protected override bool Validate()
         {
+            return calculationService.Validate(calculation, assessmentSection);
+        }
+
+        protected override void PerformCalculation()
+        {
+            GrassCoverErosionInwardsDataSynchronizationService.ClearCalculationOutput(calculation);
+
             FailureMechanismSection failureMechanismSection =
-                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(failureMechanism.SectionResults, calculation);
+                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections, calculation);
 
-            PerformRun(() => GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection),
-                       () => GrassCoverErosionInwardsDataSynchronizationService.ClearCalculationOutput(calculation),
-                       () =>
-                       {
-                           log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_started_Time_1_,
-                                                  calculation.Name,
-                                                  DateTimeService.CurrentTimeAsString));
+            calculationService.CalculateDikeHeight(
+                calculation,
+                assessmentSection,
+                failureMechanismSection,
+                failureMechanism.GeneralInput,
+                failureMechanism.Contribution,
+                hlcdDirectory);
+        }
 
-                           ProgressText = Resources.GrassCoverErosionInwardsCalculationActivity_OnRun_Calculate_probability;
-                           GrassCoverErosionInwardsCalculationServiceOutput output =
-                               GrassCoverErosionInwardsCalculationService.CalculateProbability(calculation,
-                                                                                               hlcdDirectory,
-                                                                                               failureMechanismSection,
-                                                                                               assessmentSection.Id,
-                                                                                               failureMechanism.GeneralInput);
-
-                           if (output != null && calculation.InputParameters.CalculateDikeHeight)
-                           {
-                               ProgressText = Resources.GrassCoverErosionInwardsCalculationActivity_OnRun_Calculate_dikeHeight;
-                               output.DikeHeight =
-                                   GrassCoverErosionInwardsCalculationService.CalculateDikeHeight(calculation,
-                                                                                                  assessmentSection,
-                                                                                                  hlcdDirectory,
-                                                                                                  failureMechanismSection,
-                                                                                                  assessmentSection.Id,
-                                                                                                  failureMechanism.GeneralInput);
-                           }
-
-                           log.Info(string.Format(RingtoetsCommonServiceResources.Calculation_Subject_0_ended_Time_1_,
-                                                  calculation.Name,
-                                                  DateTimeService.CurrentTimeAsString));
-
-                           return output;
-                       });
+        protected override void OnCancel()
+        {
+            calculationService.Cancel();
         }
 
         protected override void OnFinish()
         {
-            PerformFinish(() =>
-            {
-                calculation.Output = new GrassCoverErosionInwardsOutput(
-                    Output.WaveHeight,
-                    Output.IsOvertoppingDominant,
-                    ProbabilityAssessmentService.Calculate(
-                        assessmentSection.FailureMechanismContribution.Norm,
-                        failureMechanism.Contribution,
-                        failureMechanism.GeneralInput.N,
-                        Output.Beta),
-                    Output.DikeHeight);
-            });
             calculation.NotifyObservers();
         }
     }

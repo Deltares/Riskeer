@@ -38,7 +38,9 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Service;
-using Ringtoets.Common.Service.TestUtil;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.TestUtil;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Forms.PresentationObjects;
@@ -342,19 +344,16 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     plugin.Activate();
 
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
+                    using (new HydraRingCalculatorFactoryConfig())
                     {
-                        using (new DesignWaterLevelCalculationServiceConfig())
-                        {
-                            var testService = (TestHydraulicBoundaryLocationCalculationService) DesignWaterLevelCalculationService.Instance;
-                            testService.CalculationConvergenceOutput = CalculationConvergence.NotCalculated;
+                        ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator.EndInFailure = true;
 
-                            // When
-                            contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
+                        // When
+                        contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
 
-                            // Then
-                            Assert.IsInstanceOf<DesignWaterLevelCalculationMessageProvider>(testService.MessageProvider);
-                            Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
-                        }
+                        // Then
+                        Assert.IsNaN(location.DesignWaterLevel);
+                        Assert.AreEqual(CalculationConvergence.NotCalculated, location.DesignWaterLevelCalculationConvergence);
                     }
                 }
             }

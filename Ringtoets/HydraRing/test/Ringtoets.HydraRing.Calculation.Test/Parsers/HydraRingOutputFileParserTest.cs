@@ -44,7 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         }
 
         [Test]
-        public void Parse_NotExistingWorkingDirectory_LogError()
+        public void Parse_NotExistingWorkingDirectory_ThrowsHydraRingFileParseException()
         {
             // Setup
             var outputFileParser = new HydraRingOutputFileParser();
@@ -52,28 +52,30 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             var nonExistentDirectory = "c:/niet_bestaande_map";
 
             // Call
-            Action call = () => outputFileParser.Parse(nonExistentDirectory, 1);
+            TestDelegate call = () => outputFileParser.Parse(nonExistentDirectory, 1);
 
             // Assert
+            var message = Assert.Throws<HydraRingFileParserException>(call).Message;
             var expectedMessage = string.Format("Kan het Hydra-Ring uitvoerbestand {0} noch het logbestand {1} lezen uit de map {2}.",
                                                 "1-output.txt", outputFileNameOnError, nonExistentDirectory);
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            Assert.AreEqual(expectedMessage, message);
         }
 
         [Test]
-        public void Parse_NotExistingOutputFiles_LogError()
+        public void Parse_NotExistingOutputFiles_ThrowsHydraRingFileParseException()
         {
             // Setup
             var outputFileParser = new HydraRingOutputFileParser();
 
             // Call
-            Action call = () => outputFileParser.Parse(testDataDirectory, 1234567890);
+            TestDelegate call = () => outputFileParser.Parse(testDataDirectory, 1234567890);
 
             // Assert
+            var message = Assert.Throws<HydraRingFileParserException>(call).Message;
             var outputFileNameOnError = "1234567890.log";
             var expectedMessage = string.Format("Kan het Hydra-Ring uitvoerbestand {0} noch het logbestand {1} lezen uit de map {2}.",
                                                 "1234567890-output.txt", outputFileNameOnError, testDataDirectory);
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage);
+            Assert.AreEqual(expectedMessage, message);
         }
 
         [Test]

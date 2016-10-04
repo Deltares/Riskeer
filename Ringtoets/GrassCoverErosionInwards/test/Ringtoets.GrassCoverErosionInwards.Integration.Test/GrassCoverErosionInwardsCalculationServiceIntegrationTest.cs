@@ -28,16 +28,18 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
+using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsCalculationServiceIntegrationTest
+    public class NewGrassCoverErosionInwardsCalculationServiceIntegrationTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
@@ -62,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -103,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -137,7 +139,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -168,7 +170,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -201,7 +203,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -236,7 +238,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -250,78 +252,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
         }
 
         [Test]
-        public void CalculateProbability_ValidCalculation_LogStartAndEndAndReturnOutput()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
-
-            var dikeProfile = GetDikeProfile();
-
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = dikeProfile
-                }
-            };
-
-            var failureMechanismSection = assessmentSection.GrassCoverErosionInwards.Sections.First();
-
-            // Call
-            GrassCoverErosionInwardsCalculationServiceOutput output = GrassCoverErosionInwardsCalculationService.CalculateProbability(calculation,
-                                                                                                                                      testDataPath,
-                                                                                                                                      failureMechanismSection,
-                                                                                                                                      failureMechanismSection.Name,
-                                                                                                                                      assessmentSection.GrassCoverErosionInwards.GeneralInput);
-
-            // Assert
-            Assert.IsNotNull(output);
-            Assert.IsNull(output.DikeHeight);
-        }
-
-        [Test]
-        public void CalculateProbability_InvalidCalculation_LogStartAndEndAndErrorMessageAndReturnNull()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
-            AddSectionToAssessmentSection(assessmentSection);
-
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
-                }
-            };
-
-            var failureMechanismSection = assessmentSection.GrassCoverErosionInwards.Sections.First();
-            GrassCoverErosionInwardsCalculationServiceOutput output = null;
-
-            // Call
-            Action call = () => output = GrassCoverErosionInwardsCalculationService.CalculateProbability(calculation,
-                                                                                                         testDataPath,
-                                                                                                         failureMechanismSection,
-                                                                                                         failureMechanismSection.Name,
-                                                                                                         assessmentSection.GrassCoverErosionInwards.GeneralInput);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[0]);
-                StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[1]);
-            });
-            Assert.IsNull(output);
-        }
-
-        [Test]
-        [TestCase(true, 15.7348)]
-        [TestCase(false, 15.5937)]
+        [TestCase(true, 15.73)]
+        [TestCase(false, 15.59)]
         public void CalculateDikeHeight_CalculationValid_DikeHeightCalculated(bool useForeland, double expectedHeight)
         {
             // Setup
@@ -345,19 +277,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             var failureMechanismSection = assessmentSection.GrassCoverErosionInwards.Sections.First();
 
             // Call
-            double output = GrassCoverErosionInwardsCalculationService.CalculateDikeHeight(calculation,
-                                                                                           assessmentSection,
-                                                                                           testDataPath,
-                                                                                           failureMechanismSection,
-                                                                                           failureMechanismSection.Name,
-                                                                                           assessmentSection.GrassCoverErosionInwards.GeneralInput);
+            new GrassCoverErosionInwardsCalculationService().CalculateDikeHeight(calculation,
+                                                                              assessmentSection,
+                                                                              failureMechanismSection,
+                                                                              assessmentSection.GrassCoverErosionInwards.GeneralInput,
+                                                                              assessmentSection.GrassCoverErosionInwards.Contribution,
+                                                                              testDataPath);
 
             // Assert
-            Assert.AreEqual(expectedHeight, output);
+            Assert.AreEqual(expectedHeight, calculation.Output.DikeHeight, calculation.Output.DikeHeight.GetAccuracy());
         }
 
         [Test]
-        public void CalculateDikeHeight_CalculationFails_DikeHeightOutputNaN()
+        public void CalculateDikeHeight_DikeHeightCalculationFails_DikeHeightOutputNaN()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -384,24 +316,41 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var failureMechanismSection = assessmentSection.GrassCoverErosionInwards.Sections.First();
             double? output = null;
+            bool expectedExceptionThrown = false;
 
             // Call
-            Action call = () => output = GrassCoverErosionInwardsCalculationService.CalculateDikeHeight(calculation,
-                                                                                                        assessmentSection,
-                                                                                                        testDataPath,
-                                                                                                        failureMechanismSection,
-                                                                                                        failureMechanismSection.Name,
-                                                                                                        assessmentSection.GrassCoverErosionInwards.GeneralInput);
+            Action call = () =>
+            {
+                try
+                {
+                    new GrassCoverErosionInwardsCalculationService().CalculateDikeHeight(calculation,
+                                                                                   assessmentSection,
+                                                                                   failureMechanismSection,
+                                                                                   assessmentSection.GrassCoverErosionInwards.GeneralInput,
+                                                                                   assessmentSection.GrassCoverErosionInwards.Contribution,
+                                                                                   testDataPath);
+                }
+                catch (HydraRingFileParserException)
+                {
+                    expectedExceptionThrown = true;
+                }
+            };
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
             {
                 var msgs = messages.ToArray();
-                Assert.AreEqual(2, msgs.Length);
-                StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[0]);
-                StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[1]);
+                Assert.AreEqual(5, msgs.Length);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith("Overloop berekeningsverslag. Klik op details voor meer informatie.\n", msgs[1]);
+                StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[2]);
+                StringAssert.StartsWith("Dijkhoogte berekeningsverslag. Klik op details voor meer informatie.\n", msgs[3]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
             });
-            Assert.IsNaN(output);
+            Assert.IsFalse(expectedExceptionThrown);
+            Assert.IsNotNull(calculation.Output);
+            Assert.IsNaN(calculation.Output.DikeHeight);
+            Assert.IsTrue(calculation.Output.DikeHeightCalculated);
         }
 
         private static void AddSectionToAssessmentSection(AssessmentSection assessmentSection)

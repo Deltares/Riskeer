@@ -238,7 +238,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
 
                 // Call
                 Action call = () => guiService.CalculateDesignWaterLevels(validDatabasePath,
-                                                                          new List<HydraulicBoundaryLocation>()
+                                                                          new List<HydraulicBoundaryLocation>
                                                                           {
                                                                               new HydraulicBoundaryLocation(1, hydraulicLocationName, 2, 3)
                                                                           },
@@ -248,7 +248,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
+                    Assert.AreEqual(5, msgs.Length);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[2]);
@@ -471,7 +471,7 @@ namespace Ringtoets.Common.Forms.Test.GuiServices
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();
-                    Assert.AreEqual(6, msgs.Length);
+                    Assert.AreEqual(5, msgs.Length);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[2]);

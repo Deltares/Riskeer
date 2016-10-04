@@ -61,7 +61,6 @@
     <Compile Include="DateTimeServiceTest.cs" />
     <Compile Include="DesignWaterLevelCalculationActivityTest.cs" />
     <Compile Include="DesignWaterLevelCalculationServiceTest.cs" />
-    <Compile Include="HydraulicBoundaryLocationCalculationServiceTest.cs" />
     <Compile Include="ProbabilityAssessmentServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RingtoetsCommonDataCalculationServiceTest.cs" />
@@ -99,6 +98,10 @@
     <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
       <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.Test\Ringtoets.HydraRing.Calculation.Test.csproj">
+      <Project>{175406DB-C0DA-42A7-968C-0C17CF2257B1}</Project>
+      <Name>Ringtoets.HydraRing.Calculation.Test</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Integration\src\Ringtoets.Integration.Plugin\Ringtoets.Integration.Plugin.csproj">
       <Project>{C8383B76-B3F1-4E6E-B56C-527B469FA20A}</Project>

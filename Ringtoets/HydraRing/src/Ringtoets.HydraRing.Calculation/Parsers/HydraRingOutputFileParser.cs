@@ -20,8 +20,8 @@
 // All rights reserved.
 
 using System.IO;
-using log4net;
 using Ringtoets.HydraRing.Calculation.Properties;
+using Ringtoets.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
@@ -30,8 +30,6 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// </summary>
     public class HydraRingOutputFileParser : IHydraRingFileParser
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(HydraRingOutputFileParser));
-
         /// <summary>
         /// Gets the output file content from a Hydra-Ring calculation, or the log file content in case of an error.
         /// </summary>
@@ -39,12 +37,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            string outputFileName = sectionId + "-output.txt";
+            string outputFileName = sectionId + HydraRingFileName.OutputFileSuffix;
             string outputFilePath = Path.Combine(workingDirectory, outputFileName);
 
             if (!File.Exists(outputFilePath))
             {
-                outputFileName = sectionId + ".log";
+                outputFileName = sectionId + HydraRingFileName.LogFileExtension;
                 outputFilePath = Path.Combine(workingDirectory, outputFileName);
             }
 
@@ -54,7 +52,11 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             }
             catch
             {
-                log.ErrorFormat(Resources.Parse_Cannot_read_FileName_0_nor_FileName_1_from_FolderPath_2_, sectionId + "-output.txt", outputFileName, workingDirectory);
+                var message = string.Format(Resources.Parse_Cannot_read_FileName_0_nor_FileName_1_from_FolderPath_2_,
+                    sectionId + HydraRingFileName.OutputFileSuffix,
+                    outputFileName,
+                    workingDirectory);
+                throw new HydraRingFileParserException(message);
             }
         }
     }

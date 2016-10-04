@@ -35,29 +35,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         private const string firstSectionName = "firstSection";
         private const string secondSectionName = "secondSection";
 
-        private readonly GrassCoverErosionInwardsFailureMechanismSectionResult[] oneSectionResult =
+        private readonly FailureMechanismSection[] oneSection =
         {
-            new GrassCoverErosionInwardsFailureMechanismSectionResult(
-                new FailureMechanismSection("testFailureMechanismSection", new List<Point2D>
-                {
-                    new Point2D(0.0, 0.0)
-                }))
+            new FailureMechanismSection("testFailureMechanismSection", new List<Point2D>
+            {
+                new Point2D(0.0, 0.0)
+            })
         };
 
-        private readonly GrassCoverErosionInwardsFailureMechanismSectionResult[] twoSectionResults =
+        private readonly FailureMechanismSection[] twoSections =
         {
-            new GrassCoverErosionInwardsFailureMechanismSectionResult(
-                new FailureMechanismSection(firstSectionName, new List<Point2D>
-                {
-                    new Point2D(0.0, 0.0),
-                    new Point2D(10.0, 10.0),
-                })),
-            new GrassCoverErosionInwardsFailureMechanismSectionResult(
-                new FailureMechanismSection(secondSectionName, new List<Point2D>
-                {
-                    new Point2D(11.0, 11.0),
-                    new Point2D(100.0, 100.0),
-                }))
+            new FailureMechanismSection(firstSectionName, new List<Point2D>
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(10.0, 10.0),
+            }),
+            new FailureMechanismSection(secondSectionName, new List<Point2D>
+            {
+                new Point2D(11.0, 11.0),
+                new Point2D(100.0, 100.0),
+            })
         };
 
         private readonly GrassCoverErosionInwardsCalculation[] twoCalculations =
@@ -91,14 +88,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("sectionResults", paramName);
+            Assert.AreEqual("sections", paramName);
         }
 
         [Test]
         public void CollectCalculationsPerSegment_CalculationsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSectionResult, null);
+            TestDelegate call = () => GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSection, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -109,11 +106,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         public void CollectCalculationsPerSegment_ValidEmptySectionResults_EmptyDictionary()
         {
             // Setup
-            var emptySectionResults = new GrassCoverErosionInwardsFailureMechanismSectionResult[0];
+            var emptySections = new FailureMechanismSection[0];
 
             // Call
             Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
-                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(emptySectionResults, twoCalculations);
+                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(emptySections, twoCalculations);
 
             // Assert
             Assert.AreEqual(0, collectCalculationsPerSegment.Count);
@@ -127,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
             // Call
             Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
-                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSectionResult, calculations);
+                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSection, calculations);
 
             // Assert
             Assert.AreEqual(0, collectCalculationsPerSegment.Count);
@@ -145,7 +142,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
             // Call
             Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
-                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSectionResult, calculations);
+                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSection, calculations);
 
             // Assert
             Assert.AreEqual(0, collectCalculationsPerSegment.Count);
@@ -156,7 +153,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         {
             // Call
             Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
-                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(twoSectionResults, twoCalculations);
+                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(twoSections, twoCalculations);
 
             // Assert
             Assert.AreEqual(1, collectCalculationsPerSegment.Count);
@@ -190,7 +187,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
             // Call
             Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
-                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(twoSectionResults, calculations);
+                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(twoSections, calculations);
 
             // Assert
             Assert.AreEqual(2, collectCalculationsPerSegment.Count);
@@ -221,14 +218,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("sectionResults", paramName);
+            Assert.AreEqual("sections", paramName);
         }
 
         [Test]
         public void FailureMechanismSectionForCalculation_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(oneSectionResult, null);
+            TestDelegate call = () => GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(oneSection, null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -243,7 +240,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
             // Call
             FailureMechanismSection failureMechanismSection =
-                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(oneSectionResult, calculation);
+                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(oneSection, calculation);
 
             // Assert
             Assert.IsNull(failureMechanismSection);
@@ -257,7 +254,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
             // Call
             FailureMechanismSection failureMechanismSection =
-                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(oneSectionResult, calculation);
+                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(oneSection, calculation);
 
             // Assert
             Assert.IsNull(failureMechanismSection);
@@ -267,12 +264,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         public void FailureMechanismSectionForCalculation_ValidEmptySectionResults_ReturnsNull()
         {
             // Setup
-            var emptySectionResults = new GrassCoverErosionInwardsFailureMechanismSectionResult[0];
+            var emptySections = new FailureMechanismSection[0];
             var calculation = new GrassCoverErosionInwardsCalculation();
 
             // Call
             FailureMechanismSection failureMechanismSection =
-                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(emptySectionResults, calculation);
+                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(emptySections, calculation);
 
             // Assert
             Assert.IsNull(failureMechanismSection);
@@ -293,10 +290,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
             // Call
             FailureMechanismSection failureMechanismSection =
-                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(twoSectionResults, calculation);
+                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(twoSections, calculation);
 
             // Assert
-            Assert.AreSame(twoSectionResults[0].Section, failureMechanismSection);
+            Assert.AreSame(twoSections[0], failureMechanismSection);
         }
 
         [Test]
@@ -314,10 +311,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
             // Call
             FailureMechanismSection failureMechanismSection =
-                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(twoSectionResults, calculation);
+                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(twoSections, calculation);
 
             // Assert
-            Assert.AreSame(twoSectionResults[1].Section, failureMechanismSection);
+            Assert.AreSame(twoSections[1], failureMechanismSection);
         }
     }
 }

@@ -705,10 +705,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
             {
-                WaveConditionsCalculationService.Instance.Validate(calculation.InputParameters,
-                                                                   database,
-                                                                   calculation.Name,
-                                                                   RingtoetsGrassCoverErosionOutwardsServiceResources.GrassCoverErosionOutwardsWaveConditionsCalculationActivity_LogMessage_DesignWaterLevel_name);
+                new GrassCoverErosionOutwardsWaveConditionsCalculationService().Validate(calculation, database.FilePath);
             }
         }
 
@@ -749,7 +746,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 Gui.MainWindow,
                 calculations
                     .Select(calculation => new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
-                                                                                                          Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                          assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                           failureMechanism,
                                                                                                           assessmentSection))
                     .ToList());
@@ -837,7 +834,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation,
-                                                                                                            Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                            context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                             context.FailureMechanism,
                                                                                                             context.AssessmentSection));
             calculation.NotifyObservers();

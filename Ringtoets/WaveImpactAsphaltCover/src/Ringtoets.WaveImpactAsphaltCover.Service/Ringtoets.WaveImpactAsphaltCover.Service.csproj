@@ -49,6 +49,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculationService.cs" />
     <Compile Include="WaveImpactAsphaltCoverDataSynchronizationService.cs" />
     <Compile Include="WaveImpactAsphaltCoverWaveConditionsCalculationActivity.cs" />
   </ItemGroup>

@@ -159,40 +159,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to de waterstand bij doorsnede-eis.
         /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsCalculationActivity_LogMessage_DesignWaterLevel_name {
+        public static string GrassCoverErosionOutwardsWaveConditionsCalculationService_LogMessage_DesignWaterLevel_name {
             get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationActivity_LogMessage_DesignWater" +
-                        "Level_name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waterstand &apos;{0}&apos; berekenen..
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Calculate_waterlevel_0_ {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Calculate_waterl" +
-                        "evel_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; beëindigd om: {2}.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_ended_time_2_ {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_wa" +
-                        "terlevel_1_ended_time_2_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; gestart om: {2}.
-        /// </summary>
-        public static string GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_waterlevel_1_started_time_2_ {
-            get {
-                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationActivity_OnRun_Subject_0_for_wa" +
-                        "terlevel_1_started_time_2_", resourceCulture);
+                return ResourceManager.GetString("GrassCoverErosionOutwardsWaveConditionsCalculationService_LogMessage_DesignWaterL" +
+                        "evel_name", resourceCulture);
             }
         }
     }

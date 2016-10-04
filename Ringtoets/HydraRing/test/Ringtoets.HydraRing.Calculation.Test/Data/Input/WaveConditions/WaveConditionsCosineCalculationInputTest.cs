@@ -72,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
             Assert.IsNotNull(waveConditionsCosineCalculationInput.Section);
             Assert.AreEqual(sectionId, waveConditionsCosineCalculationInput.Section.SectionId);
             Assert.AreEqual(sectionNormal, waveConditionsCosineCalculationInput.Section.CrossSectionNormal);
-            HydraRingVariableAssert.AreEqual(GetExpectedVariables(waterLevel, a, b, c).ToArray(), waveConditionsCosineCalculationInput.Variables.ToArray());
+            HydraRingDataEqualityHelper.AreEqual(GetExpectedVariables(waterLevel, a, b, c).ToArray(), waveConditionsCosineCalculationInput.Variables.ToArray());
             Assert.AreSame(forelandPoints, waveConditionsCosineCalculationInput.ForelandsPoints);
             Assert.AreSame(breakWater, waveConditionsCosineCalculationInput.BreakWater);
             Assert.AreEqual(expectedBeta, waveConditionsCosineCalculationInput.Beta);

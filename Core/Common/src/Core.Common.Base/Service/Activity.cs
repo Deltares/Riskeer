@@ -131,7 +131,7 @@ namespace Core.Common.Base.Service
 
             if (State == ActivityState.Canceled)
             {
-                log.WarnFormat(Resources.Activity_Finish_Execution_of_ActivityName_0_has_been_cancelled, Name);
+                log.WarnFormat(Resources.Activity_Finish_Execution_of_ActivityName_0_has_been_canceled, Name);
             }
 
             if (State == ActivityState.Failed)
@@ -192,11 +192,9 @@ namespace Core.Common.Base.Service
                     return;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 State = ActivityState.Failed;
-                log.Error(e.Message);
-
                 return;
             }
 

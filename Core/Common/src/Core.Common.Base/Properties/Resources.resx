@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activity_Finish_Execution_of_ActivityName_0_has_been_cancelled" xml:space="preserve">
+  <data name="Activity_Finish_Execution_of_ActivityName_0_has_been_canceled" xml:space="preserve">
     <value>Uitvoeren van '{0}' is geannuleerd.</value>
   </data>
   <data name="Activity_Finish_Execution_of_ActivityName_0_has_succeeded" xml:space="preserve">

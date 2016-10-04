@@ -129,7 +129,16 @@
   <data name="WaveConditionsCalculationService_ValidateInput_No_derived_WaterLevels" xml:space="preserve">
     <value>Kan geen waterstanden afleiden op basis van de invoer. Controleer de opgegeven boven- en ondergrenzen.</value>
   </data>
-  <data name="WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel__log_message_name" xml:space="preserve">
+  <data name="WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name" xml:space="preserve">
     <value>het toetspeil</value>
+  </data>
+  <data name="WaveConditionsCalculationService_OnRun_Subject_0_for_waterlevel_1_ended" xml:space="preserve">
+    <value>Berekening '{0}' voor waterstand '{1}' beëindigd.</value>
+  </data>
+  <data name="WaveConditionsCalculationService_OnRun_Subject_0_for_waterlevel_1_started" xml:space="preserve">
+    <value>Berekening '{0}' voor waterstand '{1}' gestart.</value>
+  </data>
+  <data name="WaveConditionsCalculationService_OnRun_Calculate_waterlevel_0_" xml:space="preserve">
+    <value>Waterstand '{0}' berekenen.</value>
   </data>
 </root>

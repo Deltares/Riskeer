@@ -56,7 +56,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
                         if (results.Any() && results.ElementAt(0) == sectionId.ToString())
                         {
-                            Output = new ReliabilityIndexCalculationOutput(GetDoubleValueFromElement(results.ElementAt(results.Length - 2)), GetDoubleValueFromElement(results.ElementAt(results.Length - 1)));
+                            Output = new ReliabilityIndexCalculationOutput(
+                                GetDoubleValueFromElement(results.ElementAt(results.Length - 2)), 
+                                GetDoubleValueFromElement(results.ElementAt(results.Length - 1)));
                         }
                     }
                 }
