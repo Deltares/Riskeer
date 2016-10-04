@@ -69,6 +69,9 @@ namespace Ringtoets.StabilityPointStructures.Data
             ModelFactorInflowVolume = new RoundedDouble(1, 1);
             ModificationFactorWavesSlowlyVaryingPressureComponent = new RoundedDouble(1, 1);
             ModificationFactorDynamicOrImpulsivePressureComponent = new RoundedDouble(1, 1);
+
+            WaveRatioMaxHMean = new RoundedDouble(2, 5000);
+            WaveRatioMaxHStandardDeviation = new RoundedDouble(2, 0.5);
         }
 
         /// <summary>
@@ -137,6 +140,19 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets the modification factor for waves dynamic or impulsive pressure component.
         /// </summary>
         public RoundedDouble ModificationFactorDynamicOrImpulsivePressureComponent { get; private set; }
+
+        #endregion
+
+        #region Rayleigh-N properties
+        /// <summary>
+        /// Gets the mean of the Rayleigh-N distribution for wave ratio max H. 
+        /// </summary>
+        public RoundedDouble WaveRatioMaxHMean { get; private set; }
+
+        /// <summary>
+        /// Gets the standard deviation of the Rayleigh-N distribution for wave ratio max H.
+        /// </summary>
+        public RoundedDouble WaveRatioMaxHStandardDeviation { get; private set; }
 
         #endregion
     }

@@ -67,6 +67,12 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             Assert.AreEqual(1, inputParameters.ModificationFactorDynamicOrImpulsivePressureComponent.NumberOfDecimalPlaces);
             Assert.AreEqual(1, inputParameters.ModificationFactorDynamicOrImpulsivePressureComponent, inputParameters.ModificationFactorDynamicOrImpulsivePressureComponent.GetAccuracy());
+
+            Assert.AreEqual(2, inputParameters.WaveRatioMaxHMean.NumberOfDecimalPlaces);
+            Assert.AreEqual(5000, inputParameters.WaveRatioMaxHMean, inputParameters.WaveRatioMaxHMean.GetAccuracy());
+
+            Assert.AreEqual(2, inputParameters.WaveRatioMaxHStandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.5, inputParameters.WaveRatioMaxHStandardDeviation, inputParameters.WaveRatioMaxHStandardDeviation.GetAccuracy());
         }
 
         [Test]
