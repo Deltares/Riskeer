@@ -57,6 +57,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="PresentationObjects\ClosingStructuresCollectionContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresContextBaseTest.cs" />

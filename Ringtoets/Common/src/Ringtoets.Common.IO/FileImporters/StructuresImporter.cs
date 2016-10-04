@@ -112,10 +112,6 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected void LogMessages(ValidationResult validationResult, int i)
         {
-            foreach (string message in validationResult.WarningMessages)
-            {
-                log.Warn(message);
-            }
             foreach (string message in validationResult.ErrorMessages)
             {
                 log.Error(message);

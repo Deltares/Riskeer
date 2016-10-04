@@ -30,12 +30,14 @@ using Core.Common.Gui.Plugin;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Views;
+using Ringtoets.ClosingStructures.IO;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Plugin
 {
@@ -300,6 +302,21 @@ namespace Ringtoets.ClosingStructures.Plugin
         private static void CalculateAll(ClosingStructuresFailureMechanism failureMechanism, IEnumerable<ClosingStructuresCalculation> calculations)
         {
             //Add calculate logic, part of WTI-554
+        }
+
+        public override IEnumerable<ImportInfo> GetImportInfos()
+        {
+            yield return new ImportInfo<ClosingStructuresCollectionContext>
+            {
+                CreateFileImporter = (context, filePath) => new ClosingStructuresImporter(context.WrappedData,
+                                                                                          context.AssessmentSection.ReferenceLine,
+                                                                                          filePath),
+                Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.StructuresIcon,
+                FileFilter = RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter,
+                IsEnabled = context => context.AssessmentSection.ReferenceLine != null
+            };
         }
     }
 }

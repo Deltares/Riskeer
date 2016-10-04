@@ -37,8 +37,6 @@ namespace Ringtoets.Common.IO.Test
             };
         }
 
-        #region Constructor one parameter
-
         [Test]
         public void Constructor_ErrorMessagesNull_ThrowsArgumentException()
         {
@@ -78,7 +76,6 @@ namespace Ringtoets.Common.IO.Test
             // Assert
             Assert.IsTrue(validationResult.IsValid);
             CollectionAssert.IsEmpty(validationResult.ErrorMessages);
-            CollectionAssert.IsEmpty(validationResult.WarningMessages);
         }
 
         [Test]
@@ -93,107 +90,6 @@ namespace Ringtoets.Common.IO.Test
             // Assert
             Assert.IsFalse(validationResult.IsValid);
             CollectionAssert.AreEqual(errorMessages, validationResult.ErrorMessages);
-            CollectionAssert.IsEmpty(validationResult.WarningMessages);
         }
-
-        #endregion
-
-        #region Constructor two parameters
-
-        [Test]
-        public void Constructor_ErrorMessagesNullWarningMessagesAreValid_ThrowsArgumentException()
-        {
-            // Setup
-            List<string> warningMessages = new List<string>();
-
-            // Call
-            TestDelegate call = () => new ValidationResult(null, warningMessages);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "errorMessages");
-        }
-
-        [Test]
-        public void Constructor_ErrorMessagesAreValidWarningMessagesNull_ThrowsArgumentException()
-        {
-            // Setup
-            List<string> errorMessages = new List<string>();
-
-            // Call
-            TestDelegate call = () => new ValidationResult(errorMessages, null);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "warningMessages");
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("   ")]
-        public void Constructor_ErrorMessagesContainsNullOrWhiteSpaceWarningMessagesAreValid_ThrowsArgumentException(string errormessage)
-        {
-            // Setup
-            List<string> errorMessages = TestMessages();
-            errorMessages.Add(errormessage);
-            List<string> warningMessages = new List<string>();
-
-            // Call
-            TestDelegate call = () => new ValidationResult(errorMessages, warningMessages);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "errorMessages");
-        }
-
-        [Test]
-        [TestCase(null)]
-        [TestCase("")]
-        [TestCase("   ")]
-        public void Constructor_ErrorMessagesAreValidWarningMessagesContainsNullOrWhiteSpace_ThrowsArgumentException(string warningMessage)
-        {
-            // Setup
-            List<string> errorMessages = new List<string>();
-            List<string> warningMessages = TestMessages();
-            warningMessages.Add(warningMessage);
-
-            // Call
-            TestDelegate call = () => new ValidationResult(errorMessages, warningMessages);
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "warningMessages");
-        }
-
-        [Test]
-        public void Constructor_ErrorMessagesEmptyWarningMessagesEmpty_ExpectedValues()
-        {
-            // Setup
-            List<string> errorMessages = new List<string>();
-            List<string> warningMessages = new List<string>();
-
-            // Call
-            var validationResult = new ValidationResult(errorMessages, warningMessages);
-
-            // Assert
-            Assert.IsTrue(validationResult.IsValid);
-            CollectionAssert.IsEmpty(validationResult.ErrorMessages);
-            CollectionAssert.IsEmpty(validationResult.WarningMessages);
-        }
-
-        [Test]
-        public void Constructor_ErrorMessagesWarningMessages_ExpectedValues()
-        {
-            // Setup
-            List<string> errorMessages = TestMessages();
-            List<string> warningMessages = TestMessages();
-
-            // Call
-            var validationResult = new ValidationResult(errorMessages, warningMessages);
-
-            // Assert
-            Assert.IsFalse(validationResult.IsValid);
-            CollectionAssert.AreEqual(errorMessages, validationResult.ErrorMessages);
-            CollectionAssert.AreEqual(warningMessages, validationResult.WarningMessages);
-        }
-
-        #endregion
     }
 }

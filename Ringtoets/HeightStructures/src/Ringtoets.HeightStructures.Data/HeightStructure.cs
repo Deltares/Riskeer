@@ -63,8 +63,8 @@ namespace Ringtoets.HeightStructures.Data
                                double widthOfFlowAperturesMean, double widthOfFlowAperturesStandardDeviation,
                                double failureProbabilityOfStructureGivenErosion,
                                double storageStructureAreaMean, double storageStructureAreaStandardDeviation,
-                               double allowableIncreaseOfLevelForStorageMean, double allowableIncreaseOfLevelForStorageStandardDeviation
-            ) : base(name, id, location)
+                               double allowableIncreaseOfLevelForStorageMean, double allowableIncreaseOfLevelForStorageStandardDeviation)
+            : base(name, id, location)
         {
             OrientationOfTheNormalOfTheStructure = new RoundedDouble(2, orientationOfTheNormalOfTheStructure);
             LevelOfCrestOfStructure = new NormalDistribution(2)

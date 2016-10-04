@@ -82,5 +82,20 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, closingStructuresResultViewInfo.Image);
             }
         }
+
+        [Test]
+        public void GetImportInfos_ReturnsExpectedImportInfos()
+        {
+            // Setup
+            using (var plugin = new ClosingStructuresPlugin())
+            {
+                // Call
+                ImportInfo[] importInfos = plugin.GetImportInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, importInfos.Length);
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ClosingStructuresCollectionContext)));
+            }
+        }
     }
 }

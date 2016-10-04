@@ -55,6 +55,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ClosingStructuresPluginTest.cs" />
+    <Compile Include="ImportInfos\ClosingStructuresCollectionContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewInfos\ClosingStructuresFailureMechanismResultViewInfoTest.cs" />
   </ItemGroup>
@@ -97,6 +98,11 @@
       <Project>{4d840673-3812-4338-a352-84854e32b8a0}</Project>
       <Name>Ringtoets.Common.Forms</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.Data\Ringtoets.ClosingStructures.Data.csproj">
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
       <Name>Ringtoets.ClosingStructures.Data</Name>
@@ -104,6 +110,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.Forms\Ringtoets.ClosingStructures.Forms.csproj">
       <Project>{22E191F2-B2E3-413C-9511-4C2CDEDB2EFF}</Project>
       <Name>Ringtoets.ClosingStructures.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.IO\Ringtoets.ClosingStructures.IO.csproj">
+      <Project>{24043F46-406D-4719-B94B-033D63D61153}</Project>
+      <Name>Ringtoets.ClosingStructures.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.ClosingStructures.Plugin\Ringtoets.ClosingStructures.Plugin.csproj">
       <Project>{7DA0AB85-828D-4B1D-B532-58B89E39BEF5}</Project>

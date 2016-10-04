@@ -30,7 +30,6 @@ namespace Ringtoets.Common.IO
     /// </summary>
     public class ValidationResult
     {
-        private readonly List<string> warningMessages = new List<string>();
         private readonly List<string> errorMessages = new List<string>();
 
         /// <summary>
@@ -54,26 +53,6 @@ namespace Ringtoets.Common.IO
         }
 
         /// <summary>
-        /// Create a new instance of <see cref="ValidationResult"/>.
-        /// </summary>
-        /// <param name="errorMessages">The error messages for this <see cref="ValidationResult"/>.</param>
-        /// <param name="warningMessages">The warning messages for this <see cref="ValidationResult"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="errorMessages"/> or <paramref name="warningMessages"/> is <c>null</c></item>
-        /// <item>any message in <paramref name="errorMessages"/> or <paramref name="warningMessages"/> is <c>null</c>, empty or consists of whitespace</item>
-        /// </list></exception>
-        public ValidationResult(ICollection<string> errorMessages, List<string> warningMessages) : this(errorMessages)
-        {
-            if (warningMessages == null || warningMessages.Any(string.IsNullOrWhiteSpace))
-            {
-                throw new ArgumentException("warningMessages");
-            }
-
-            this.warningMessages.AddRange(warningMessages);
-        }
-
-        /// <summary>
         /// Gets a value which indicates whether the validation subject is valid.
         /// </summary>
         public bool IsValid { get; private set; }
@@ -86,17 +65,6 @@ namespace Ringtoets.Common.IO
             get
             {
                 return errorMessages;
-            }
-        }
-
-        /// <summary>
-        /// Gets the warning messages resulting from the validation.
-        /// </summary>
-        public IEnumerable<string> WarningMessages
-        {
-            get
-            {
-                return warningMessages;
             }
         }
     }
