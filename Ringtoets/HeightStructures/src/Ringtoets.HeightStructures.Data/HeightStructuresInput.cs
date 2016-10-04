@@ -206,7 +206,7 @@ namespace Ringtoets.HeightStructures.Data
                 RoundedDouble newOrientationValue = value.ToPrecision(orientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
                 if (newOrientationValue < 0 || newOrientationValue > 360)
                 {
-                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
+                    throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
                 }
 
                 orientationOfTheNormalOfTheStructure = newOrientationValue;
@@ -296,7 +296,7 @@ namespace Ringtoets.HeightStructures.Data
             {
                 if (!ValidProbabilityValue(value))
                 {
-                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 failureProbabilityOfStructureGivenErosion = value;
             }

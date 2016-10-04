@@ -112,7 +112,7 @@ namespace Ringtoets.Revetment.Data
                 RoundedDouble newOrientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
                 if (newOrientation < 0 || newOrientation > 360)
                 {
-                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
+                    throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
                 }
                 orientation = newOrientation;
             }

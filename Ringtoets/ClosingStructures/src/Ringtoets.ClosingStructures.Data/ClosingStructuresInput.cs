@@ -364,7 +364,7 @@ namespace Ringtoets.ClosingStructures.Data
                 RoundedDouble newOrientationValue = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
                 if (newOrientationValue < 0 || newOrientationValue > 360)
                 {
-                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
+                    throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
                 }
 
                 structureNormalOrientation = newOrientationValue;
@@ -423,7 +423,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (!ValidProbabilityValue(value))
                 {
-                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 failureProbablityOpenStructure = value;
             }
@@ -445,7 +445,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (!ValidProbabilityValue(value))
                 {
-                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 failureProbabilityReparation = value;
             }
@@ -557,7 +557,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (!ValidProbabilityValue(value))
                 {
-                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 failureProbabilityStructureWithErosion = value;
             }
@@ -595,7 +595,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (!ValidProbabilityValue(value))
                 {
-                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 probabilityOpenStructureBeforeFlooding = value;
             }
