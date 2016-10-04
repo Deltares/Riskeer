@@ -28,6 +28,7 @@ using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
@@ -40,7 +41,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ClosingStructuresCalculationGroupContextTreeNodeInfoTest
+    public class ClosingStructuresCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuAddCalculationGroupIndexRootGroup = 0;
         private const int contextMenuAddCalculationIndexRootGroup = 1;
@@ -74,7 +75,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         }
 
         [TearDown]
-        public void TearDown()
+        public override void TearDown()
         {
             plugin.Dispose();
             mocks.VerifyAll();
@@ -125,6 +126,42 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.IsEmpty(children);
+        }
+
+        [Test]
+        public void ChildNodeObjects_GroupWithMixedContents_ReturnChildren()
+        {
+            // Setup
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var calculationItemMock = mocks.Stub<ICalculationBase>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var group = new CalculationGroup();
+            var childGroup = new CalculationGroup();
+            var childCalculation = new ClosingStructuresCalculation();
+
+            group.Children.Add(childGroup);
+            group.Children.Add(calculationItemMock);
+            group.Children.Add(childCalculation);
+
+            var groupContext = new ClosingStructuresCalculationGroupContext(group,
+                                                                            failureMechanism,
+                                                                            assessmentSectionMock);
+
+            // Call
+            var children = info.ChildNodeObjects(groupContext).ToArray();
+
+            // Assert
+            Assert.AreEqual(group.Children.Count, children.Length);
+            var calculationGroupContext = (ClosingStructuresCalculationGroupContext) children[0];
+            Assert.AreSame(childGroup, calculationGroupContext.WrappedData);
+            Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);
+            Assert.AreSame(assessmentSectionMock, calculationGroupContext.AssessmentSection);
+            Assert.AreSame(calculationItemMock, children[1]);
+            var calculationContext = (ClosingStructuresCalculationContext) children[2];
+            Assert.AreSame(childCalculation, calculationContext.WrappedData);
+            Assert.AreSame(assessmentSectionMock, calculationContext.AssessmentSection);
         }
 
         [Test]
@@ -288,11 +325,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                                                                                   assessmentSectionMock);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
-            mocks.ReplayAll();
-
             using (var treeViewControl = new TreeViewControl())
             {
                 guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                mocks.ReplayAll();
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
@@ -324,6 +360,149 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnAddGroupItem_AddGroupToCalculationGroupAndNotifyObservers()
+        {
+            // Setup
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var group = new CalculationGroup();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var nodeData = new ClosingStructuresCalculationGroupContext(group,
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
+            var calculationGroup = new CalculationGroup
+            {
+                Name = "Nieuwe map"
+            };
+
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                group.Children.Add(calculationGroup);
+                nodeData.Attach(observerMock);
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Precondition
+                    Assert.AreEqual(1, group.Children.Count);
+
+                    // Call
+                    contextMenu.Items[contextMenuAddCalculationGroupIndexRootGroup].PerformClick();
+
+                    // Assert
+                    Assert.AreEqual(2, group.Children.Count);
+                    var newlyAddedItem = group.Children.Last();
+                    Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
+                    Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
+                                    "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnAddCalculationItem_AddCalculationToCalculationGroupAndNotifyObservers()
+        {
+            // Setup
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var group = new CalculationGroup();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var nodeData = new ClosingStructuresCalculationGroupContext(group,
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
+            var calculation = new ClosingStructuresCalculation
+            {
+                Name = "Nieuwe berekening"
+            };
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                group.Children.Add(calculation);
+                nodeData.Attach(observerMock);
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Precondition
+                    Assert.AreEqual(1, group.Children.Count);
+
+                    // Call
+                    contextMenu.Items[contextMenuAddCalculationIndexRootGroup].PerformClick();
+
+                    // Assert
+                    Assert.AreEqual(2, group.Children.Count);
+                    var newlyAddedItem = group.Children.Last();
+                    Assert.IsInstanceOf<ClosingStructuresCalculation>(newlyAddedItem);
+                    Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
+                                    "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnRemoveAllInGroup_RemovesAllChildren()
+        {
+            // Setup
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+            var group = new CalculationGroup();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var nodeData = new ClosingStructuresCalculationGroupContext(group,
+                                                                       failureMechanism,
+                                                                       assessmentSectionMock);
+            var calculation = new ClosingStructuresCalculation
+            {
+                Name = "Nieuwe berekening"
+            };
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            viewCommandsMock.Expect(vc => vc.RemoveAllViewsForItem(calculation));
+
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
+
+                mocks.ReplayAll();
+
+                group.Children.Add(calculation);
+                nodeData.Attach(observerMock);
+
+                plugin.Gui = guiMock;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var dialog = new MessageBoxTester(wnd);
+                    dialog.ClickOk();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Call
+                    contextMenu.Items[contextMenuRemoveAllChildrenRootGroupIndex].PerformClick();
+
+                    // Assert
+                    Assert.IsEmpty(group.Children);
                 }
             }
         }

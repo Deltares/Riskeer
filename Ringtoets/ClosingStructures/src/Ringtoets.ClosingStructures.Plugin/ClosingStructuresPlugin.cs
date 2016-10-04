@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -34,10 +33,12 @@ using Ringtoets.ClosingStructures.IO;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Plugin
 {
@@ -61,9 +62,6 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
         }
 
-        /// <summary>
-        /// Returns all <see cref="TreeNodeInfo"/> instances provided for data of <see cref="ClosingStructuresPlugin"/>.
-        /// </summary>
         public override IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {
             yield return RingtoetsTreeNodeInfoFactory.CreateFailureMechanismContextTreeNodeInfo<ClosingStructuresFailureMechanismContext>(
@@ -76,6 +74,11 @@ namespace Ringtoets.ClosingStructures.Plugin
                 CalculationGroupContextChildNodeObjects,
                 CalculationGroupContextContextMenuStrip,
                 CalculationGroupContextOnNodeRemoved);
+
+            yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<ClosingStructuresCalculationContext>(
+                null,
+                null,
+                null);
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>>
             {
@@ -98,6 +101,21 @@ namespace Ringtoets.ClosingStructures.Plugin
                                                                                  .AddExpandAllItem()
                                                                                  .AddCollapseAllItem()
                                                                                  .Build()
+            };
+        }
+
+        public override IEnumerable<ImportInfo> GetImportInfos()
+        {
+            yield return new ImportInfo<ClosingStructuresCollectionContext>
+            {
+                CreateFileImporter = (context, filePath) => new ClosingStructuresImporter(context.WrappedData,
+                                                                                          context.AssessmentSection.ReferenceLine,
+                                                                                          filePath),
+                Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.StructuresIcon,
+                FileFilter = RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter,
+                IsEnabled = context => context.AssessmentSection.ReferenceLine != null
             };
         }
 
@@ -226,8 +244,32 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static object[] CalculationGroupContextChildNodeObjects(ClosingStructuresCalculationGroupContext context)
         {
-            //Part of WTI-550
-            return new object[0];
+            var childNodeObjects = new List<object>();
+
+            foreach (ICalculationBase calculationItem in context.WrappedData.Children)
+            {
+                var calculation = calculationItem as ClosingStructuresCalculation;
+                var group = calculationItem as CalculationGroup;
+
+                if (calculation != null)
+                {
+                    childNodeObjects.Add(new ClosingStructuresCalculationContext(calculation,
+                                                                                 context.FailureMechanism,
+                                                                                 context.AssessmentSection));
+                }
+                else if (group != null)
+                {
+                    childNodeObjects.Add(new ClosingStructuresCalculationGroupContext(group,
+                                                                                      context.FailureMechanism,
+                                                                                      context.AssessmentSection));
+                }
+                else
+                {
+                    childNodeObjects.Add(calculationItem);
+                }
+            }
+
+            return childNodeObjects.ToArray();
         }
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(ClosingStructuresCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
@@ -245,7 +287,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                     .AddSeparator()
                     .AddRemoveAllChildrenItem(group, Gui.ViewCommands);
             }
-            
+
             builder.AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(context, c => ValidateAll(), ValidateAllDataAvailableAndGetErrorMessage)
                    .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessage)
@@ -276,14 +318,19 @@ namespace Ringtoets.ClosingStructures.Plugin
             CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<ClosingStructuresCalculation>());
         }
 
-        private void AddCalculation(ClosingStructuresCalculationGroupContext closingStructuresCalculationGroupContext)
+        private void AddCalculation(ClosingStructuresCalculationGroupContext context)
         {
-            
+            var calculation = new ClosingStructuresCalculation
+            {
+                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, ClosingStructuresDataResources.ClosingStructuresCalculation_DefaultName, c => c.Name)
+            };
+            context.WrappedData.Children.Add(calculation);
+            context.WrappedData.NotifyObservers();
         }
 
         private static void CalculationGroupContextOnNodeRemoved(ClosingStructuresCalculationGroupContext context, object parentNodeData)
         {
-            var parentGroupContext = (ClosingStructuresCalculationGroupContext)parentNodeData;
+            var parentGroupContext = (ClosingStructuresCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
             parentGroupContext.NotifyObservers();
@@ -302,21 +349,6 @@ namespace Ringtoets.ClosingStructures.Plugin
         private static void CalculateAll(ClosingStructuresFailureMechanism failureMechanism, IEnumerable<ClosingStructuresCalculation> calculations)
         {
             //Add calculate logic, part of WTI-554
-        }
-
-        public override IEnumerable<ImportInfo> GetImportInfos()
-        {
-            yield return new ImportInfo<ClosingStructuresCollectionContext>
-            {
-                CreateFileImporter = (context, filePath) => new ClosingStructuresImporter(context.WrappedData,
-                                                                                          context.AssessmentSection.ReferenceLine,
-                                                                                          filePath),
-                Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
-                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
-                Image = RingtoetsCommonFormsResources.StructuresIcon,
-                FileFilter = RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter,
-                IsEnabled = context => context.AssessmentSection.ReferenceLine != null
-            };
         }
     }
 }

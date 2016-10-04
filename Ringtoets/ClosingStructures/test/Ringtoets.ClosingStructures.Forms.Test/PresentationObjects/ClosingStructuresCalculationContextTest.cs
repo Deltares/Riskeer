@@ -21,15 +21,15 @@
 
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms.PresentationObjects;
 
-namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
+namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class HeightStructuresCalculationContextTest
+    public class ClosingStructuresCalculationContextTest
     {
         [Test]
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
@@ -39,15 +39,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var calculation = new HeightStructuresCalculation();
-            var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation = new ClosingStructuresCalculation();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var context = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+            var context = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<HeightStructuresContextBase<HeightStructuresCalculation>>(context);
-            Assert.IsInstanceOf<ICalculationContext<HeightStructuresCalculation, HeightStructuresFailureMechanism>>(context);
+            Assert.IsInstanceOf<ClosingStructuresContextBase<ClosingStructuresCalculation>>(context);
+            Assert.IsInstanceOf<ICalculationContext<ClosingStructuresCalculation, ClosingStructuresFailureMechanism>>(context);
             Assert.AreEqual(calculation, context.WrappedData);
             Assert.AreEqual(failureMechanism, context.FailureMechanism);
             Assert.AreEqual(assessmentSectionMock, context.AssessmentSection);

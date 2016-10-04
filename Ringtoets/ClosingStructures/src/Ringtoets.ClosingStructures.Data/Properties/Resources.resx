@@ -132,4 +132,7 @@
   <data name="ClosingStructure_Type_FloodedCulvert_DisplayName" xml:space="preserve">
     <value>Verdronken koker</value>
   </data>
+  <data name="ClosingStructuresCalculation_DefaultName" xml:space="preserve">
+    <value>Nieuwe berekening</value>
+  </data>
 </root>
