@@ -325,7 +325,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                    criticalOvertoppingDischargeVariation, double.NaN);
                 yield return new HydraRingVariable(105, HydraRingDistributionType.Normal, double.NaN,
                                                    HydraRingDeviationType.Standard, failureProbabilityStructureWithErosion,
-                                                   0, double.NaN); // HACK: Pass the deterministic value as normal distribution (with standard deviation 0.0) as Hydra-Ring otherwise crashes
+                                                   0, double.NaN); // Note: Pass the deterministic value as normal distribution (with standard deviation 0.0) as Hydra-Ring otherwise crashes
                 yield return new HydraRingVariable(108, HydraRingDistributionType.LogNormal, double.NaN,
                                                    HydraRingDeviationType.Variation, stormDurationMean,
                                                    stormDurationVariation, double.NaN);
@@ -338,8 +338,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                    HydraRingDeviationType.Standard, modelFactorLoadEffectMean,
                                                    modelFactorLoadEffectStandardDeviation, double.NaN);
                 yield return new HydraRingVariable(133, HydraRingDistributionType.RayleighN, double.NaN,
-                                                   HydraRingDeviationType.Standard, waveRatioMaxHN,
-                                                   waveRatioMaxHStandardDeviation, double.NaN);
+                                                   HydraRingDeviationType.Standard, waveRatioMaxHStandardDeviation,
+                                                   waveRatioMaxHN, double.NaN); // Note: Pass the N as "variability" and the standard deviation as "mean"
                 yield return new HydraRingVariable(134, HydraRingDistributionType.Deterministic, verticalDistance,
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
                 yield return new HydraRingVariable(135, HydraRingDistributionType.Deterministic, modificationFactorWavesSlowlyVaryingPressureComponent,
