@@ -38,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void DefaultConstructor_SetDefaultValues()
         {
             // Call
-            var parser = new ExceedanceProbabilityCalculationExceptionParser();
+            var parser = new ExceedanceProbabilityCalculationParser();
 
             // Assert
             Assert.IsInstanceOf<IHydraRingFileParser>(parser);
@@ -49,7 +49,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_NotExistingOutputFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationExceptionParser();
+            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationParser();
 
             // Call
             TestDelegate test = () => exceedanceProbabilityCalculationExceptionParser.Parse(testDataPath, 1);
@@ -63,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_EmptyOutputFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationExceptionParser();
+            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "empty");
 
             // Call
@@ -79,7 +79,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_FileWithoutTableAlphaResults_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationExceptionParser();
+            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "withoutAlphaResults");
 
             // Call
@@ -96,7 +96,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         {
             // Setup
             var sectionId = 1;
-            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationExceptionParser();
+            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "complete");
 
             // Call
@@ -132,7 +132,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
                 new ExceedanceProbabilityCalculationAlphaOutput(0, 1, 101, 0, 101, 35, 1, 1, 17, 0, 0.0470275786268176)
             };
 
-            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationExceptionParser();
+            var exceedanceProbabilityCalculationExceptionParser = new ExceedanceProbabilityCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "complete");
 
             // Call

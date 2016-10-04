@@ -23,9 +23,27 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
+    /// <summary>
+    /// Interface for a calcultor which calculates a dike height associated to the result of iterating towards a
+    /// probability of failure given a norm.
+    /// </summary>
     public interface IDikeHeightCalculator {
+
+        /// <summary>
+        /// Gets the calculated dike height.
+        /// </summary>
         double DikeHeight { get; }
+
+        /// <summary>
+        /// Gets the content of the output file generated during the Hydra-Ring calculation.
+        /// </summary>
         string OutputFileContent { get; }
+
+        /// <summary>
+        /// Performs the actual calculation by running the Hydra-Ring executable.
+        /// </summary>
+        /// <param name="input">The <see cref="DikeHeightCalculationInput"/> which contains all the necessary input
+        /// for the calculation.</param>
         void Calculate(DikeHeightCalculationInput input);
 
         /// <summary>

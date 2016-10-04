@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void DefaultConstructor_SetDefaultValues()
         {
             // Call
-            var parser = new ReliabilityIndexCalculationExceptionParser();
+            var parser = new ReliabilityIndexCalculationParser();
 
             // Assert
             Assert.IsInstanceOf<IHydraRingFileParser>(parser);
@@ -47,7 +47,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_NotExistingOutputFile_OutputNull()
         {
             // Setup
-            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationExceptionParser();
+            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationParser();
 
             // Call
             TestDelegate test = () => reliabilityIndexCalculationExceptionParser.Parse(testDataPath, 1);
@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_EmptyOutputFile_OutputNull()
         {
             // Setup
-            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationExceptionParser();
+            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "empty");
 
             // Call
@@ -78,7 +78,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_ExampleHydraRingOutputFileContainingSectionIds_ReturnsExpectedReliabilityIndexCalculationResult(int sectionId, double result, double actual)
         {
             // Setup
-            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationExceptionParser();
+            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "exampleOutputTable");
 
             // Call
@@ -96,7 +96,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_ExampleHydraRingOutputFileContainingExtraWhiteLine_ReturnsExpectedReliabilityIndexCalculationResult()
         {
             // Setup
-            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationExceptionParser();
+            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "exampleOutputTableWithWhiteLine");
 
             // Call
@@ -114,7 +114,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_ExampleHydraRingOutputFileNotContainingSectionId_OutputNull()
         {
             // Setup
-            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationExceptionParser();
+            var reliabilityIndexCalculationExceptionParser = new ReliabilityIndexCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "exampleOutputTable");
 
             // Call

@@ -26,19 +26,28 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
-    public class OvertoppingCalculator : HydraRingCalculator, IOvertoppingCalculator
+    /// <summary>
+    /// Calculator for calculating probability of failure by overtopping or overflow and the
+    /// associated wave height. This is used in a Grass Cover Erosion Inwards assessment.
+    /// </summary>
+    public class OvertoppingCalculator : HydraRingCalculatorBase, IOvertoppingCalculator
     {
         private readonly string hlcdDirectory;
         private readonly string ringId;
-        private readonly ExceedanceProbabilityCalculationExceptionParser exceedanceProbabilityCalculationParser;
-        private readonly OvertoppingCalculationWaveHeightExceptionParser waveHeightParser;
+        private readonly ExceedanceProbabilityCalculationParser exceedanceProbabilityCalculationParser;
+        private readonly OvertoppingCalculationWaveHeightParser waveHeightParser;
 
+        /// <summary>
+        /// Create a new instance of <see cref="OvertoppingCalculator"/>.
+        /// </summary>
+        /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
+        /// <param name="ringId">The id of the traject which is used in the calculation.</param>
         internal OvertoppingCalculator(string hlcdDirectory, string ringId)
         {
             this.hlcdDirectory = hlcdDirectory;
             this.ringId = ringId;
-            exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationExceptionParser();
-            waveHeightParser = new OvertoppingCalculationWaveHeightExceptionParser();
+            exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
+            waveHeightParser = new OvertoppingCalculationWaveHeightParser();
 
             ExceedanceProbabilityBeta = double.NaN;
             WaveHeight = double.NaN;

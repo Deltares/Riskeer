@@ -930,16 +930,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Revetment.IO.Test
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Service.TestUtil", "Ringtoets\Common\test\Ringtoets.Common.Service.TestUtil\Ringtoets.Common.Service.TestUtil.csproj", "{73E7E100-C015-4874-A548-AD6E33E7955E}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Service.TestUtil.Test", "Ringtoets\Common\test\Ringtoets.Common.Service.TestUtil.Test\Ringtoets.Common.Service.TestUtil.Test.csproj", "{DF6BC3F7-1751-4F3F-9092-ABD9095A2A6C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.WaveImpactAsphaltCover.Service", "Ringtoets\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Service\Ringtoets.WaveImpactAsphaltCover.Service.csproj", "{9E4A7C0B-F8B5-4101-B9D5-90F3F3C0FF7C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
@@ -2475,22 +2465,6 @@ Global
 		{58463630-E5FD-431F-9C2E-52E88641C63E}.Release|x86.Build.0 = Release|x86
 		{58463630-E5FD-431F-9C2E-52E88641C63E}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
 		{58463630-E5FD-431F-9C2E-52E88641C63E}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{73E7E100-C015-4874-A548-AD6E33E7955E}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{73E7E100-C015-4874-A548-AD6E33E7955E}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
-		{73E7E100-C015-4874-A548-AD6E33E7955E}.Debug|x86.ActiveCfg = Debug|x86
-		{73E7E100-C015-4874-A548-AD6E33E7955E}.Debug|x86.Build.0 = Debug|x86
-		{73E7E100-C015-4874-A548-AD6E33E7955E}.Release|x86.ActiveCfg = Release|x86
-		{73E7E100-C015-4874-A548-AD6E33E7955E}.Release|x86.Build.0 = Release|x86
-		{73E7E100-C015-4874-A548-AD6E33E7955E}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{73E7E100-C015-4874-A548-AD6E33E7955E}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
-		{DF6BC3F7-1751-4F3F-9092-ABD9095A2A6C}.CreateInstaller|x86.ActiveCfg = Release|x86
-		{DF6BC3F7-1751-4F3F-9092-ABD9095A2A6C}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
-		{DF6BC3F7-1751-4F3F-9092-ABD9095A2A6C}.Debug|x86.ActiveCfg = Debug|x86
-		{DF6BC3F7-1751-4F3F-9092-ABD9095A2A6C}.Debug|x86.Build.0 = Debug|x86
-		{DF6BC3F7-1751-4F3F-9092-ABD9095A2A6C}.Release|x86.ActiveCfg = Release|x86
-		{DF6BC3F7-1751-4F3F-9092-ABD9095A2A6C}.Release|x86.Build.0 = Release|x86
-		{DF6BC3F7-1751-4F3F-9092-ABD9095A2A6C}.ReleaseForCodeCoverage|x86.ActiveCfg = ReleaseForCodeCoverage|x86
-		{DF6BC3F7-1751-4F3F-9092-ABD9095A2A6C}.ReleaseForCodeCoverage|x86.Build.0 = ReleaseForCodeCoverage|x86
 		{9E4A7C0B-F8B5-4101-B9D5-90F3F3C0FF7C}.CreateInstaller|x86.ActiveCfg = Release|x86
 		{9E4A7C0B-F8B5-4101-B9D5-90F3F3C0FF7C}.CreateInstaller|x86.Build.0 = Release|x86
 		{9E4A7C0B-F8B5-4101-B9D5-90F3F3C0FF7C}.CreateInstallerWithDemoProject|x86.ActiveCfg = Release|x86
@@ -2826,8 +2800,6 @@ Global
 		{4843D6E5-066F-4795-94F5-1D53932DD03C} = {B5F4F5A5-FD36-405D-ABA1-56C270207C8F}
 		{7C78463D-09B1-455C-B58E-B8EDC9FBCB60} = {B5F4F5A5-FD36-405D-ABA1-56C270207C8F}
 		{915A3B93-38F6-4D8B-8204-BE7F4FB0043F} = {B5F4F5A5-FD36-405D-ABA1-56C270207C8F}
-		{73E7E100-C015-4874-A548-AD6E33E7955E} = {B5F4F5A5-FD36-405D-ABA1-56C270207C8F}
-		{DF6BC3F7-1751-4F3F-9092-ABD9095A2A6C} = {B5F4F5A5-FD36-405D-ABA1-56C270207C8F}
 		{3ED34ACD-41C9-4251-81EC-7493E0BFF57D} = {F8FFD6DD-19DA-47CE-A0BD-53F4E7D8BB86}
 		{1F0D20C2-7F04-431D-AF22-95A31FD53733} = {F8FFD6DD-19DA-47CE-A0BD-53F4E7D8BB86}
 		{D64E4F0E-E341-496F-82B2-941AD202B4E3} = {3ED34ACD-41C9-4251-81EC-7493E0BFF57D}

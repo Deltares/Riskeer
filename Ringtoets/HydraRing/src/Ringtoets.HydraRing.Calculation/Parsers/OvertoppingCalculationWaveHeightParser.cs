@@ -31,7 +31,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// <summary>
     /// Class for parsing wave height results from a Grass Cover Erosion Inwards calculation.
     /// </summary>
-    public class OvertoppingCalculationWaveHeightExceptionParser : IHydraRingFileParser
+    public class OvertoppingCalculationWaveHeightParser : IHydraRingFileParser
     {
         private const string overtoppingStart = "Submechanism = Overtopping RTO";
         private const string overflowStart = "Submechanism = Overflow";
@@ -48,9 +48,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         private int governingWindDirection = -1;
 
         /// <summary>
-        /// Creates a new instance of <see cref="OvertoppingCalculationWaveHeightExceptionParser"/>.
+        /// Creates a new instance of <see cref="OvertoppingCalculationWaveHeightParser"/>.
         /// </summary>
-        public OvertoppingCalculationWaveHeightExceptionParser()
+        public OvertoppingCalculationWaveHeightParser()
         {
             overtoppingResults = new List<OvertoppingResult>();
             overflowResults = new List<GeneralResult>();

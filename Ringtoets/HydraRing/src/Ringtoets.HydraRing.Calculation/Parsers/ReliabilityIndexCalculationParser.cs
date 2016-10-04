@@ -35,10 +35,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     public class ReliabilityIndexCalculationParser : IHydraRingFileParser
     {
         /// <summary>
-        /// Gets the output of a successful parse of the output file.
+        /// Gets a <see cref="ReliabilityIndexCalculationOutput"/> 
+        /// corresponding to the section id if <see cref="Parse"/> executed successfully; or <c>null</c> otherwise.
         /// </summary>
-        /// <returns>A <see cref="ReliabilityIndexCalculationOutput"/> corresponding to the section id if <see cref="Parse"/> executed
-        /// successfully; or <c>null</c> otherwise.</returns>
         public ReliabilityIndexCalculationOutput Output { get; private set; }
 
         public void Parse(string workingDirectory, int sectionId)
@@ -56,16 +55,14 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
                         if (results.Any() && results.ElementAt(0) == sectionId.ToString())
                         {
-                            Output = new ReliabilityIndexCalculationOutput(
-                                GetDoubleValueFromElement(results.ElementAt(results.Length - 2)), 
-                                GetDoubleValueFromElement(results.ElementAt(results.Length - 1)));
+                            Output = new ReliabilityIndexCalculationOutput(GetDoubleValueFromElement(results.ElementAt(results.Length - 2)), GetDoubleValueFromElement(results.ElementAt(results.Length - 1)));
                         }
                     }
                 }
             }
             catch
             {
-                // ignored
+                throw new HydraRingFileParserException();
             }
         }
 

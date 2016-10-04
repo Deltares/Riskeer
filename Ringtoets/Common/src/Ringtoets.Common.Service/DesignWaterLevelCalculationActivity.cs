@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Service
     /// <summary>
     /// <see cref="Activity"/> for running a design water level calculation.
     /// </summary>
-    public class DesignWaterLevelCalculationActivity : NewHydraRingActivity
+    public class DesignWaterLevelCalculationActivity : HydraRingActivityBase
     {
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
         private readonly double norm;

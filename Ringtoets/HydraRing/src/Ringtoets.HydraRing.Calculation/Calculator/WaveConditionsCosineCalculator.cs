@@ -26,17 +26,26 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
-    public class WaveConditionsCosineCalculator : HydraRingCalculator, IWaveConditionsCosineCalculator
+    /// <summary>
+    /// Interface for a calculator which calculates values for a wave at a water level.
+    /// These are used in different failure mechanisms as input.
+    /// </summary>
+    public class WaveConditionsCosineCalculator : HydraRingCalculatorBase, IWaveConditionsCosineCalculator
     {
         private readonly string hlcdDirectory;
         private readonly string ringId;
-        private readonly WaveConditionsCalculationExceptionParser waveConditionsCalculationParser;
+        private readonly WaveConditionsCalculationParser waveConditionsCalculationParser;
 
+        /// <summary>
+        /// Create a new instance of <see cref="WaveConditionsCosineCalculator"/>.
+        /// </summary>
+        /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
+        /// <param name="ringId">The id of the traject which is used in the calculation.</param>
         internal WaveConditionsCosineCalculator(string hlcdDirectory, string ringId)
         {
             this.hlcdDirectory = hlcdDirectory;
             this.ringId = ringId;
-            waveConditionsCalculationParser = new WaveConditionsCalculationExceptionParser();
+            waveConditionsCalculationParser = new WaveConditionsCalculationParser();
 
             WaveHeight = double.NaN;
             WaveAngle = double.NaN;

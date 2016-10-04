@@ -32,7 +32,7 @@ namespace Ringtoets.StabilityStoneCover.Service
     /// <summary>
     /// <see cref="Activity"/> for running a stability stone cover wave conditions calculation.
     /// </summary>
-    public class StabilityStoneCoverWaveConditionsCalculationActivity : NewHydraRingActivity
+    public class StabilityStoneCoverWaveConditionsCalculationActivity : HydraRingActivityBase
     {
         private readonly StabilityStoneCoverWaveConditionsCalculation calculation;
         private readonly string hlcdFilePath;

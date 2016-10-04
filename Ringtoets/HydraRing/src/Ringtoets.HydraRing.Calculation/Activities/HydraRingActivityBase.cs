@@ -25,20 +25,15 @@ using Ringtoets.HydraRing.Calculation.Services;
 namespace Ringtoets.HydraRing.Calculation.Activities
 {
     /// <summary>
-    /// <see cref="Activity"/> for running calculations via Hydra-Ring.
+    /// Base implementation of an <see cref="Activity"/> for running calculations via Hydra-Ring.
     /// </summary>
-    public abstract class NewHydraRingActivity : Activity
+    public abstract class HydraRingActivityBase : Activity
     {
         protected override void OnCancel()
         {
             HydraRingCalculationService.CancelRunningCalculation();
         }
 
-        protected void UpdateProgressText(string currentStepName, int currentStep, int totalSteps)
-        {
-            ProgressText = string.Format("Stap {0} van {1} | {2}", currentStep, totalSteps, currentStepName);
-        }
-        
         protected override void OnRun()
         {
             if (!Validate())
@@ -51,8 +46,28 @@ namespace Ringtoets.HydraRing.Calculation.Activities
             }
         }
 
+        /// <summary>
+        /// Updates the progress text using the parameters in a predefined format.
+        /// </summary>
+        /// <param name="currentStepName">A short description of the current step.</param>
+        /// <param name="currentStep">The number of the current step.</param>
+        /// <param name="totalSteps">The total numbers of steps.</param>
+        protected void UpdateProgressText(string currentStepName, int currentStep, int totalSteps)
+        {
+            ProgressText = string.Format("Stap {0} van {1} | {2}", currentStep, totalSteps, currentStepName);
+        }
+
+        /// <summary>
+        /// Performs the calculation. May throw exceptions, which will result in a <see cref="ActivityState.Failed"/>
+        /// state for the <see cref="HydraRingActivityBase"/>.
+        /// </summary>
         protected abstract void PerformCalculation();
 
+        /// <summary>
+        /// Performs validation over the input of the <see cref="HydraRingActivityBase"/>. If the input is not valid
+        /// then <c>false</c> is returned and the problems are logged.
+        /// </summary>
+        /// <returns><c>true</c> if no validation problems were found, <c>false</c> otherwise.</returns>
         protected virtual bool Validate()
         {
             return true;

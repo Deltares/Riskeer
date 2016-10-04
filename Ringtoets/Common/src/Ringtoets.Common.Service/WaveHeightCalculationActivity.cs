@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Service
     /// <summary>
     /// <see cref="Activity"/> for running a water height calculation.
     /// </summary>
-    public class WaveHeightCalculationActivity : NewHydraRingActivity
+    public class WaveHeightCalculationActivity : HydraRingActivityBase
     {
         private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
         private readonly double norm;

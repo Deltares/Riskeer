@@ -47,7 +47,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, "", failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<NewHydraRingActivity>(activity);
+            Assert.IsInstanceOf<HydraRingActivityBase>(activity);
             Assert.AreEqual(calculation.Name, activity.Name);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);

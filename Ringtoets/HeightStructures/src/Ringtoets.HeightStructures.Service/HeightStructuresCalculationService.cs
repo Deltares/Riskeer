@@ -71,7 +71,7 @@ namespace Ringtoets.HeightStructures.Service
                                                                          string ringId, GeneralHeightStructuresInput generalInput)
         {
             StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanismSection, generalInput);
-            var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationExceptionParser();
+            var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
 
             CalculationServiceHelper.PerformCalculation(
                 calculation.Name,

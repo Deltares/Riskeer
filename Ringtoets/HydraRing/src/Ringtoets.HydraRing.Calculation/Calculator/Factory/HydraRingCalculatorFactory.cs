@@ -21,10 +21,17 @@
 
 namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
 {
+    /// <summary>
+    /// The factory for creating <see cref="HydraRingCalculatorBase"/> instances.
+    /// </summary>
     public class HydraRingCalculatorFactory : IHydraRingCalculatorFactory
     {
         private static IHydraRingCalculatorFactory instance;
 
+        /// <summary>
+        /// Sets the current <see cref="IHydraRingCalculatorFactory"/>, which is used to create 
+        /// <see cref="HydraRingCalculatorBase"/> instances.
+        /// </summary>
         public static IHydraRingCalculatorFactory Instance
         {
             get

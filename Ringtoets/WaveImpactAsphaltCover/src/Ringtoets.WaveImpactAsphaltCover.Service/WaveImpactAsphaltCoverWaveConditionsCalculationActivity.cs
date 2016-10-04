@@ -32,7 +32,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
     /// <summary>
     /// <see cref="Activity"/> for running a wave impact asphalt cover wave conditions calculation.
     /// </summary>
-    public class WaveImpactAsphaltCoverWaveConditionsCalculationActivity : NewHydraRingActivity
+    public class WaveImpactAsphaltCoverWaveConditionsCalculationActivity : HydraRingActivityBase
     {
         private readonly WaveImpactAsphaltCoverWaveConditionsCalculation calculation;
         private readonly string hlcdFilePath;

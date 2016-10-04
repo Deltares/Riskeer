@@ -23,11 +23,37 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
+    /// <summary>
+    /// Interface for a calculator which calculates probability of failure by overtopping or overflow
+    /// and the associated wave height.
+    /// </summary>
     public interface IOvertoppingCalculator {
+
+        /// <summary>
+        /// Gets the probability of failure.
+        /// </summary>
         double ExceedanceProbabilityBeta { get; }
+
+        /// <summary>
+        /// Gets an indication of the height of the wave.
+        /// </summary>
         double WaveHeight { get; }
+
+        /// <summary>
+        /// Gets a value representing whether overtopping is dominant over overflow.
+        /// </summary>
         bool IsOvertoppingDominant { get; }
+
+        /// <summary>
+        /// Gets the content of the output file generated during the Hydra-Ring calculation.
+        /// </summary>
         string OutputFileContent { get; }
+
+        /// <summary>
+        /// Performs the actual calculation by running the Hydra-Ring executable.
+        /// </summary>
+        /// <param name="input">The <see cref="OvertoppingCalculationInput"/> which contains all the necessary input
+        /// for the calculation.</param>
         void Calculate(OvertoppingCalculationInput input);
 
         /// <summary>

@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void DefaultConstructor_SetDefaultValues()
         {
             // Call
-            var parser = new OvertoppingCalculationWaveHeightExceptionParser();
+            var parser = new OvertoppingCalculationWaveHeightParser();
 
             // Assert
             Assert.IsInstanceOf<IHydraRingFileParser>(parser);
@@ -48,7 +48,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_NotExistingOutputFile_ThrowsHydraRingFileParserException()
         {
             // Setup
-            var parser = new OvertoppingCalculationWaveHeightExceptionParser();
+            var parser = new OvertoppingCalculationWaveHeightParser();
 
             // Call
             TestDelegate test = () => parser.Parse(testDataPath, 1);
@@ -66,7 +66,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_PartiallyOrCompletelyEmptyOutputFile_RetunsWithNullOutput(string testDir)
         {
             // Setup
-            var parser = new OvertoppingCalculationWaveHeightExceptionParser();
+            var parser = new OvertoppingCalculationWaveHeightParser();
             var workingDirectory = Path.Combine(testDataPath, testDir);
 
             // Call
@@ -90,7 +90,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_ExampleHydraRingOutputFileContainingSectionIds_OutputSetWithExpectedCalculationResult(string testDir, double expected, bool isOvertoppingDominant)
         {
             // Setup
-            var parser = new OvertoppingCalculationWaveHeightExceptionParser();
+            var parser = new OvertoppingCalculationWaveHeightParser();
             var workingDirectory = Path.Combine(testDataPath, testDir);
 
             // Call
@@ -111,7 +111,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_InvalidHydraRingOutputFile_ThrowsHydraRingFileParserException(string testDir)
         {
             // Setup
-            var parser = new OvertoppingCalculationWaveHeightExceptionParser();
+            var parser = new OvertoppingCalculationWaveHeightParser();
             var workingDirectory = Path.Combine(testDataPath, testDir);
 
             // Call

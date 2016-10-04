@@ -30,19 +30,25 @@ using Ringtoets.HydraRing.Calculation.Services;
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
     /// <summary>
-    /// Service that provides methods for performing Hydra-Ring calculations.
+    /// Base implementation for a calculator which uses Hydra-Ring to perform different calculations.
     /// </summary>
-    public abstract class HydraRingCalculator
+    public abstract class HydraRingCalculatorBase
     {
         private readonly HydraRingOutputFileParser outputFileParser;
-
         private Process hydraRingProcess;
 
-        protected HydraRingCalculator()
+        /// <summary>
+        /// Constructs a new <see cref="HydraRingCalculatorBase"/> which a default Hydra-Ring file parser
+        /// initialized.
+        /// </summary>
+        protected HydraRingCalculatorBase()
         {
             outputFileParser = new HydraRingOutputFileParser();
         }
 
+        /// <summary>
+        /// The content of the output file produced during calculation.
+        /// </summary>
         public string OutputFileContent { get; private set; }
 
         /// <summary>
@@ -56,11 +62,27 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             }
         }
 
+        /// <summary>
+        /// Gets the parsers that are executed on the output file(s) of Hydra-Ring.
+        /// </summary>
+        /// <returns></returns>
         protected virtual IEnumerable<IHydraRingFileParser> GetParsers()
         {
             yield break;
         }
 
+        /// <summary>
+        /// Sets the values on the output parameters of the calculation.
+        /// </summary>
+        protected abstract void SetOutputs();
+
+        /// <summary>
+        /// Performs the actual calculation by running the Hydra-Ring executable.
+        /// </summary>
+        /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
+        /// <param name="ringId">The id of the traject which is used in the calculation.</param>
+        /// <param name="uncertaintiesType">The uncertainty type used in the calculation.</param>
+        /// <param name="hydraRingCalculationInput">The object containing input data.</param>
         protected void Calculate(
             string hlcdDirectory,
             string ringId,
@@ -81,8 +103,6 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             ExecuteParsers(hydraRingInitializationService.TemporaryWorkingDirectory, sectionId);
             SetAllOutputs();
         }
-
-        protected virtual void SetOutputs() {}
 
         private void SetAllOutputs()
         {

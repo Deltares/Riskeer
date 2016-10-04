@@ -31,7 +31,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
     /// <summary>
     /// <see cref="Activity"/> for running a grass cover erosion outwards wave conditions calculation.
     /// </summary>
-    public class GrassCoverErosionOutwardsWaveConditionsCalculationActivity : NewHydraRingActivity
+    public class GrassCoverErosionOutwardsWaveConditionsCalculationActivity : HydraRingActivityBase
     {
         private readonly GrassCoverErosionOutwardsWaveConditionsCalculation calculation;
         private readonly string hlcdFilePath;

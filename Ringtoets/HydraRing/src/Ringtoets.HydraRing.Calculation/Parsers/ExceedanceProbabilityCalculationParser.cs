@@ -33,7 +33,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
     /// Parser for the output of a Hydra-Ring type I calculation via Hydra-Ring:
     /// Given a set of random variables, compute the probability of failure.
     /// </summary>
-    public class ExceedanceProbabilityCalculationExceptionParser : IHydraRingFileParser
+    public class ExceedanceProbabilityCalculationParser : IHydraRingFileParser
     {
         private const string betaResultQuery = "SELECT BetaId, RingCombinMethod, PresentationSectionId, MainMechanismId, MainMechanismCombinMethod, MechanismId, LayerId, AlternativeId, Beta " +
                                                "FROM BetaResults " +

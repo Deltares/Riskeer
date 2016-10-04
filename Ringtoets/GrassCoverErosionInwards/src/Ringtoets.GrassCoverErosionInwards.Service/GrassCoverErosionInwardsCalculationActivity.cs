@@ -33,7 +33,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
     /// <summary>
     /// <see cref="Activity"/> for running a grass cover erosion inwards calculation.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculationActivity : NewHydraRingActivity
+    public class GrassCoverErosionInwardsCalculationActivity : HydraRingActivityBase
     {
         private readonly GrassCoverErosionInwardsCalculation calculation;
         private readonly string hlcdDirectory;

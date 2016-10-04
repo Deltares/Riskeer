@@ -23,10 +23,32 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
+    /// <summary>
+    /// Interface for a calculator which calculates a wave height associated with a
+    /// reliability index.
+    /// </summary>
     public interface IWaveHeightCalculator {
+
+        /// <summary>
+        /// Gets the wave height resulting from iterating towards the reliability index.
+        /// </summary>
         double WaveHeight { get; }
+
+        /// <summary>
+        /// The reliability index towards which was iterated.
+        /// </summary>
         double ReliabilityIndex { get; }
+
+        /// <summary>
+        /// Gets the content of the output file generated during the Hydra-Ring calculation.
+        /// </summary>
         string OutputFileContent { get; }
+
+        /// <summary>
+        /// Performs the actual calculation by running the Hydra-Ring executable.
+        /// </summary>
+        /// <param name="input">The <see cref="WaveHeightCalculationInput"/> which contains all the necessary input
+        /// for the calculation.</param>
         void Calculate(WaveHeightCalculationInput input);
 
         /// <summary>

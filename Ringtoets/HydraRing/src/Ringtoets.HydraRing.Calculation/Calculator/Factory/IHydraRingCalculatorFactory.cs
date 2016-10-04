@@ -21,12 +21,50 @@
 
 namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
 {
+    /// <summary>
+    /// Interface for a factory which creates calculators that are used to perform a calculation using
+    /// Hydra-Ring.
+    /// </summary>
     public interface IHydraRingCalculatorFactory
     {
+        /// <summary>
+        /// Creates a calculator for calculating a design water level.
+        /// </summary>
+        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <param name="ringId">The id of the traject which is used in the calculation.</param>
+        /// <returns>A new <see cref="IDesignWaterLevelCalculator"/>.</returns>
         IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory, string ringId);
+
+        /// <summary>
+        /// Creates a calculator for calculating a dike height.
+        /// </summary>
+        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <param name="ringId">The id of the traject which is used in the calculation.</param>
+        /// <returns>A new <see cref="IDikeHeightCalculator"/>.</returns>
         IDikeHeightCalculator CreateDikeHeightCalculator(string hlcdDirectory, string ringId);
+
+        /// <summary>
+        /// Creates a calculator for performing an overtopping calculation.
+        /// </summary>
+        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <param name="ringId">The id of the traject which is used in the calculation.</param>
+        /// <returns>A new <see cref="IOvertoppingCalculator"/>.</returns>
         IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory, string ringId);
+
+        /// <summary>
+        /// Creates a calculator for calculating wave conditions.
+        /// </summary>
+        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <param name="ringId">The id of the traject which is used in the calculation.</param>
+        /// <returns>A new <see cref="IWaveConditionsCosineCalculator"/>.</returns>
         IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory, string ringId);
+
+        /// <summary>
+        /// Creates a calculator for calculating a wave height.
+        /// </summary>
+        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <param name="ringId">The id of the traject which is used in the calculation.</param>
+        /// <returns>A new <see cref="IWaveHeightCalculator"/>.</returns>
         IWaveHeightCalculator CreateWaveHeightCalculator(string hlcdDirectory, string ringId);
     }
 }

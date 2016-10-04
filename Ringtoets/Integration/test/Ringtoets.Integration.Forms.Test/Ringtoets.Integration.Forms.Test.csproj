@@ -193,10 +193,6 @@
       <Project>{22E191F2-B2E3-413C-9511-4C2CDEDB2EFF}</Project>
       <Name>Ringtoets.ClosingStructures.Forms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Common\test\Ringtoets.Common.Service.TestUtil\Ringtoets.Common.Service.TestUtil.csproj">
-      <Project>{73E7E100-C015-4874-A548-AD6E33E7955E}</Project>
-      <Name>Ringtoets.Common.Service.TestUtil</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
       <Name>Ringtoets.HydraRing.Calculation</Name>

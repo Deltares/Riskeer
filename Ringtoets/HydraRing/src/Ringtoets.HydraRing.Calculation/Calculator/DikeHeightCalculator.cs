@@ -26,17 +26,26 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
-    public class DikeHeightCalculator : HydraRingCalculator, IDikeHeightCalculator
+    /// <summary>
+    /// Calculator which calculates the dike height associated to the result of iterating towards a
+    /// probability of failure given a norm.
+    /// </summary>
+    public class DikeHeightCalculator : HydraRingCalculatorBase, IDikeHeightCalculator
     {
         private readonly string hlcdDirectory;
         private readonly string ringId;
-        private readonly ReliabilityIndexCalculationExceptionParser targetProbabilityParser;
+        private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
 
+        /// <summary>
+        /// Create a new instance of <see cref="DikeHeightCalculator"/>.
+        /// </summary>
+        /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
+        /// <param name="ringId">The id of the traject which is used in the calculation.</param>
         internal DikeHeightCalculator(string hlcdDirectory, string ringId)
         {
             this.hlcdDirectory = hlcdDirectory;
             this.ringId = ringId;
-            targetProbabilityParser = new ReliabilityIndexCalculationExceptionParser();
+            targetProbabilityParser = new ReliabilityIndexCalculationParser();
 
             DikeHeight = double.NaN;
         }

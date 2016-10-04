@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void DefaultConstructor_SetDefaultValues()
         {
             // Call
-            var parser = new WaveConditionsCalculationExceptionParser();
+            var parser = new WaveConditionsCalculationParser();
 
             // Assert
             Assert.IsInstanceOf<IHydraRingFileParser>(parser);
@@ -48,7 +48,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_NotExistingOutputFile_OutputNull()
         {
             // Setup
-            var parser = new WaveConditionsCalculationExceptionParser();
+            var parser = new WaveConditionsCalculationParser();
 
             // Call
             parser.Parse(testDataPath, sectionId);
@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_EmptyOutputFile_OutputNull()
         {
             // Setup
-            var parser = new WaveConditionsCalculationExceptionParser();
+            var parser = new WaveConditionsCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "empty");
 
             // Call
@@ -76,7 +76,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_ValidHydraRingOutputFile_OutputSetWithExpectedCalculationResult()
         {
             // Setup
-            var parser = new WaveConditionsCalculationExceptionParser();
+            var parser = new WaveConditionsCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "valid");
 
             // Call
@@ -93,7 +93,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_InvalidHydraRingOutputFileWaveAngleMissing_OutputNull()
         {
             // Setup
-            var parser = new WaveConditionsCalculationExceptionParser();
+            var parser = new WaveConditionsCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "output-no-waveAngle");
 
             // Call
@@ -108,7 +108,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_InvalidHydraRingOutputFileWaveHeightMissing_OutputNull()
         {
             // Setup
-            var parser = new WaveConditionsCalculationExceptionParser();
+            var parser = new WaveConditionsCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "output-no-waveHeight");
 
             // Call
@@ -123,7 +123,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
         public void Parse_InvalidHydraRingOutputFileWavePeakPeriodMissing_OutputNull()
         {
             // Setup
-            var parser = new WaveConditionsCalculationExceptionParser();
+            var parser = new WaveConditionsCalculationParser();
             var workingDirectory = Path.Combine(testDataPath, "output-no-wavePeakPeriod");
 
             // Call
