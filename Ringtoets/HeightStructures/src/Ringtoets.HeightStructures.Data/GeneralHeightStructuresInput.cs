@@ -80,6 +80,7 @@ namespace Ringtoets.HeightStructures.Data
 
         /// <summary>
         /// Gets the gravitational acceleration.
+        /// [m/s^2]
         /// </summary>
         public RoundedDouble GravitationalAcceleration { get; private set; }
 

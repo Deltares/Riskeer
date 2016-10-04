@@ -143,6 +143,76 @@ namespace Ringtoets.ClosingStructures.Data
             UpdateForeshoreProperties();
         }
 
+        private bool ValidProbabilityValue(double probability)
+        {
+            return !double.IsNaN(probability) && probability <= 1 && probability >= 0;
+        }
+
+        #region Structure properties
+
+        /// <summary>
+        /// Gets or sets the closing structure.
+        /// </summary>
+        public ClosingStructure ClosingStructure { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of closing structure.
+        /// </summary>
+        public ClosingStructureType ClosingStructureType { get; set; }
+
+        #endregion
+
+        #region Model Factors
+
+        /// <summary>
+        /// Gets or sets the model factor for the super critical flow.
+        /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
+        public NormalDistribution ModelFactorSuperCriticalFlow
+        {
+            get
+            {
+                return modelFactorSuperCriticalFlow;
+            }
+            set
+            {
+                modelFactorSuperCriticalFlow.Mean = value.Mean;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the drain coefficient.
+        /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
+        public NormalDistribution DrainCoefficient
+        {
+            get
+            {
+                return drainCoefficient;
+            }
+            set
+            {
+                drainCoefficient.Mean = value.Mean;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the storm duration for an open structure.
+        /// </summary>
+        public RoundedDouble FactorStormDurationOpenStructure
+        {
+            get
+            {
+                return factorStormDurationOpenStructure;
+            }
+            set
+            {
+                factorStormDurationOpenStructure = value.ToPrecision(factorStormDurationOpenStructure.NumberOfDecimalPlaces);
+            }
+        }
+
+        #endregion
+
         #region Hydraulic load and data properties
 
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
@@ -218,40 +288,65 @@ namespace Ringtoets.ClosingStructures.Data
 
         #endregion
 
-        #endregion
+        /// <summary>
+        /// Gets or sets the inside water level.
+        /// [m+NAP]
+        /// </summary>
+        public NormalDistribution InsideWaterLevel
+        {
+            get
+            {
+                return insideWaterLevel;
+            }
+            set
+            {
+                insideWaterLevel.Mean = value.Mean;
+                insideWaterLevel.StandardDeviation = value.StandardDeviation;
+            }
+        }
 
-        #region Model inputs
+        /// <summary>
+        /// Gets or sets the deviation of the wave direction.
+        /// [degrees]
+        /// </summary>
+        public RoundedDouble DeviationWaveDirection
+        {
+            get
+            {
+                return deviationWaveDirection;
+            }
+            set
+            {
+                deviationWaveDirection = value.ToPrecision(deviationWaveDirection.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the storm duration.
+        /// [hrs]
+        /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
+        public LogNormalDistribution StormDuration
+        {
+            get
+            {
+                return stormDuration;
+            }
+            set
+            {
+                stormDuration.Mean = value.Mean;
+            }
+        }
 
         #endregion
 
         #region Schematization
 
-        #endregion
-
-        #region Hydraulic Boundary Location
-
-        #endregion
-
-        #region Structure properties
-
-        /// <summary>
-        /// Gets or sets the closing structure.
-        /// </summary>
-        public ClosingStructure ClosingStructure { get; set; }
-
-        /// <summary>
-        /// Gets or sets the type of closing structure.
-        /// </summary>
-        public ClosingStructureType ClosingStructureType { get; set; }
-
-        #endregion
-
-        #region Deterministic inputs
-
         #region Structure Normal orientation
 
         /// <summary>
         /// Gets or sets the orientation of the normal of the structure.
+        /// [degrees]
         /// </summary>
         /// <remarks><list type="bullet">
         /// <item>When the value is smaller than 0, it will be set to 0.</item>
@@ -292,27 +387,42 @@ namespace Ringtoets.ClosingStructures.Data
         #endregion
 
         /// <summary>
-        /// Gets or sets the storm duration for an open structure.
+        /// Gets or sets the threshold height of the open weir.
+        /// [m+NAP]
         /// </summary>
-        public RoundedDouble FactorStormDurationOpenStructure
+        public NormalDistribution ThresholdHeightOpenWeir
         {
             get
             {
-                return factorStormDurationOpenStructure;
+                return thresholdHeightOpenWeir;
             }
             set
             {
-                factorStormDurationOpenStructure = value.ToPrecision(factorStormDurationOpenStructure.NumberOfDecimalPlaces);
+                thresholdHeightOpenWeir.Mean = value.Mean;
+                thresholdHeightOpenWeir.StandardDeviation = value.StandardDeviation;
             }
         }
 
         /// <summary>
-        /// Gets or sets the identical apertures to use during the calculation.
+        /// Gets or sets the area flow apertures.
+        /// [m^2]
         /// </summary>
-        public int IdenticalApertures { get; set; }
+        public LogNormalDistribution AreaFlowApertures
+        {
+            get
+            {
+                return areaFlowApertures;
+            }
+            set
+            {
+                areaFlowApertures.Mean = value.Mean;
+                areaFlowApertures.StandardDeviation = value.StandardDeviation;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the failure probability of an open structure.
+        /// [1/year]
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the value of the probability 
         /// is not between [0, 1].</exception>
@@ -334,6 +444,7 @@ namespace Ringtoets.ClosingStructures.Data
 
         /// <summary>
         /// Gets or sets the reparation failure probability.
+        /// [1/year]
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the value of the probability 
         /// is not between [0, 1].</exception>
@@ -354,7 +465,98 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
+        /// Gets or sets the identical apertures to use during the calculation.
+        /// </summary>
+        public int IdenticalApertures { get; set; }
+
+        /// <summary>
+        /// Gets or sets the level of crest of the structures that are not closed.
+        /// [m+NAP]
+        /// </summary>
+        public NormalDistribution LevelCrestStructureNotClosing
+        {
+            get
+            {
+                return levelCrestStructureNotClosing;
+            }
+            set
+            {
+                levelCrestStructureNotClosing.Mean = value.Mean;
+                levelCrestStructureNotClosing.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the allowable increase of level for storage.
+        /// [m]
+        /// </summary>
+        public LogNormalDistribution AllowedLevelIncreaseStorage
+        {
+            get
+            {
+                return allowedLevelIncreaseStorage;
+            }
+            set
+            {
+                allowedLevelIncreaseStorage.Mean = value.Mean;
+                allowedLevelIncreaseStorage.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the storage structure area.
+        /// [m^2]
+        /// </summary>
+        public LogNormalDistribution StorageStructureArea
+        {
+            get
+            {
+                return storageStructureArea;
+            }
+            set
+            {
+                storageStructureArea.Mean = value.Mean;
+                storageStructureArea.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the flow width at the bottom protection.
+        /// [m]
+        /// </summary>
+        public LogNormalDistribution FlowWidthAtBottomProtection
+        {
+            get
+            {
+                return flowWidthAtBottomProtection;
+            }
+            set
+            {
+                flowWidthAtBottomProtection.Mean = value.Mean;
+                flowWidthAtBottomProtection.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the critical overtopping discharge.
+        /// [m^3/s/m]
+        /// </summary>
+        public LogNormalDistribution CriticalOverToppingDischarge
+        {
+            get
+            {
+                return criticalOverToppingDischarge;
+            }
+            set
+            {
+                criticalOverToppingDischarge.Mean = value.Mean;
+                criticalOverToppingDischarge.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the failure probability of structure given erosion.
+        /// [1/year]
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when the value of the probability 
         /// is not between [0, 1].</exception>
@@ -375,17 +577,19 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the deviation of the wave direction.
+        /// Gets or sets the width of flow apertures.
+        /// [m]
         /// </summary>
-        public RoundedDouble DeviationWaveDirection
+        public NormalDistribution WidthFlowApertures
         {
             get
             {
-                return deviationWaveDirection;
+                return widthFlowApertures;
             }
             set
             {
-                deviationWaveDirection = value.ToPrecision(deviationWaveDirection.NumberOfDecimalPlaces);
+                widthFlowApertures.Mean = value.Mean;
+                widthFlowApertures.StandardDeviation = value.StandardDeviation;
             }
         }
 
@@ -411,206 +615,5 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         #endregion
-
-        #region Probabilistic inputs
-
-        /// <summary>
-        /// Gets or sets the drain coefficient.
-        /// </summary>
-        /// <remarks>Only sets the mean.</remarks>
-        public NormalDistribution DrainCoefficient
-        {
-            get
-            {
-                return drainCoefficient;
-            }
-            set
-            {
-                drainCoefficient.Mean = value.Mean;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the model factor super critical flow.
-        /// </summary>
-        /// <remarks>Only sets the mean.</remarks>
-        public NormalDistribution ModelFactorSuperCriticalFlow
-        {
-            get
-            {
-                return modelFactorSuperCriticalFlow;
-            }
-            set
-            {
-                modelFactorSuperCriticalFlow.Mean = value.Mean;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the threshold low weir height.
-        /// </summary>
-        public NormalDistribution ThresholdHeightOpenWeir
-        {
-            get
-            {
-                return thresholdHeightOpenWeir;
-            }
-            set
-            {
-                thresholdHeightOpenWeir.Mean = value.Mean;
-                thresholdHeightOpenWeir.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the area flow apertures.
-        /// </summary>
-        public LogNormalDistribution AreaFlowApertures
-        {
-            get
-            {
-                return areaFlowApertures;
-            }
-            set
-            {
-                areaFlowApertures.Mean = value.Mean;
-                areaFlowApertures.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the level crest of structure not closing.
-        /// </summary>
-        public NormalDistribution LevelCrestStructureNotClosing
-        {
-            get
-            {
-                return levelCrestStructureNotClosing;
-            }
-            set
-            {
-                levelCrestStructureNotClosing.Mean = value.Mean;
-                levelCrestStructureNotClosing.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the inside water level.
-        /// </summary>
-        public NormalDistribution InsideWaterLevel
-        {
-            get
-            {
-                return insideWaterLevel;
-            }
-            set
-            {
-                insideWaterLevel.Mean = value.Mean;
-                insideWaterLevel.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the allowable increase of level for storage.
-        /// </summary>
-        public LogNormalDistribution AllowedLevelIncreaseStorage
-        {
-            get
-            {
-                return allowedLevelIncreaseStorage;
-            }
-            set
-            {
-                allowedLevelIncreaseStorage.Mean = value.Mean;
-                allowedLevelIncreaseStorage.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the storage structure area.
-        /// </summary>
-        public LogNormalDistribution StorageStructureArea
-        {
-            get
-            {
-                return storageStructureArea;
-            }
-            set
-            {
-                storageStructureArea.Mean = value.Mean;
-                storageStructureArea.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the flow widt at bottom protection.
-        /// </summary>
-        public LogNormalDistribution FlowWidthAtBottomProtection
-        {
-            get
-            {
-                return flowWidthAtBottomProtection;
-            }
-            set
-            {
-                flowWidthAtBottomProtection.Mean = value.Mean;
-                flowWidthAtBottomProtection.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the critical overtopping discharge.
-        /// </summary>
-        public LogNormalDistribution CriticalOverToppingDischarge
-        {
-            get
-            {
-                return criticalOverToppingDischarge;
-            }
-            set
-            {
-                criticalOverToppingDischarge.Mean = value.Mean;
-                criticalOverToppingDischarge.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the width of flow apertures.
-        /// </summary>
-        public NormalDistribution WidthFlowApertures
-        {
-            get
-            {
-                return widthFlowApertures;
-            }
-            set
-            {
-                widthFlowApertures.Mean = value.Mean;
-                widthFlowApertures.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the storm duration.
-        /// </summary>
-        /// <remarks>Only sets the mean.</remarks>
-        public LogNormalDistribution StormDuration
-        {
-            get
-            {
-                return stormDuration;
-            }
-            set
-            {
-                stormDuration.Mean = value.Mean;
-            }
-        }
-
-        #endregion
-
-        private bool ValidProbabilityValue(double probability)
-        {
-            return !double.IsNaN(probability) && probability <= 1 && probability >= 0;
-        }
     }
 }

@@ -67,6 +67,7 @@ namespace Ringtoets.ClosingStructures.Data
 
         /// <summary>
         /// Gets the gravitational acceleration.
+        /// [m/s^2]
         /// </summary>
         public RoundedDouble GravitationalAcceleration { get; private set; }
 
@@ -125,7 +126,7 @@ namespace Ringtoets.ClosingStructures.Data
         public NormalDistribution ModelFactorSubCriticalFlow { get; private set; }
 
         /// <summary>
-        /// Get the model factor for incoming flow volume.
+        /// Gets the model factor for incoming flow volume.
         /// </summary>
         public RoundedDouble ModelFactorInflowVolume { get; private set; }
 
