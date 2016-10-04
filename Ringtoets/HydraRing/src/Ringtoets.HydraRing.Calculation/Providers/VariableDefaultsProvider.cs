@@ -351,15 +351,6 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     HydraRingFailureMechanismType.StructuresStructuralFailure, new Dictionary<int, VariableDefaults>
                     {
                         {
-                            20, new VariableDefaults(900)
-                        },
-                        {
-                            21, new VariableDefaults(900)
-                        },
-                        {
-                            23, new VariableDefaults(6000)
-                        },
-                        {
                             43, new VariableDefaults(99000)
                         },
                         {
@@ -384,13 +375,25 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                             65, new VariableDefaults(50)
                         },
                         {
+                            66, new VariableDefaults(50)
+                        },
+                        {
+                            67, new VariableDefaults(50)
+                        },
+                        {
                             80, new VariableDefaults(50)
+                        },
+                        {
+                            81, new VariableDefaults(50)
                         },
                         {
                             82, new VariableDefaults(50)
                         },
                         {
                             83, new VariableDefaults(50)
+                        },
+                        {
+                            84, new VariableDefaults(50)
                         },
                         {
                             85, new VariableDefaults(50)
