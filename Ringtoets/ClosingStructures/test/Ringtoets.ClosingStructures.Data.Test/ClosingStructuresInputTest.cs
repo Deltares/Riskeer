@@ -65,16 +65,28 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.IsNaN(input.FailureProbabilityStructureWithErosion);
             Assert.IsNaN(input.FailureProbablityReparation);
 
+            Assert.IsNaN(input.FactorStormDurationOpenStructure);
+            Assert.IsNaN(input.DeviationWaveDirection);
+
             AssertEqualValue(1.1, input.ModelFactorSuperCriticalFlow.Mean);
             AssertEqualValue(0.03, input.ModelFactorSuperCriticalFlow.StandardDeviation);
+            Assert.IsNaN(input.ThresholdHeightOpenWeir.Mean);
             AssertEqualValue(0.1, input.ThresholdHeightOpenWeir.StandardDeviation);
             AssertEqualValue(1, input.DrainCoefficient.Mean);
             AssertEqualValue(0.2, input.DrainCoefficient.StandardDeviation);
+            Assert.IsNaN(input.AreaFlowApertures.Mean);
             AssertEqualValue(0.01, input.AreaFlowApertures.StandardDeviation);
+            Assert.IsNaN(input.LevelCrestStructureNotClosing.Mean);
             AssertEqualValue(0.05, input.LevelCrestStructureNotClosing.StandardDeviation);
+            Assert.IsNaN(input.InsideWaterLevel.Mean);
             AssertEqualValue(0.1, input.InsideWaterLevel.StandardDeviation);
+            Assert.IsNaN(input.AllowedLevelIncreaseStorage.Mean);
             AssertEqualValue(0.1, input.AllowedLevelIncreaseStorage.StandardDeviation);
+            Assert.IsNaN(input.StorageStructureArea.Mean);
+            Assert.IsNaN(input.FlowWidthAtBottomProtection.Mean);
             AssertEqualValue(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
+            Assert.IsNaN(input.CriticalOverToppingDischarge.Mean);
+            Assert.IsNaN(input.WidthFlowApertures.Mean);
             AssertEqualValue(6.0, input.StormDuration.Mean);
             AssertEqualValue(0.25, input.StormDuration.GetVariationCoefficient());
             Assert.AreEqual(1.0, input.ProbabilityOpenStructureBeforeFlooding);
