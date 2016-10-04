@@ -104,8 +104,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 Output = null
             };
 
-            // Call & Assert
-            Assert.IsFalse(calculation.HasOutput);
+            // Call
+            bool calculationHasOutput = calculation.HasOutput;
+
+            // Assert
+            Assert.IsFalse(calculationHasOutput);
         }
 
         [Test]
@@ -117,8 +120,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
                 Output = new TestGrassCoverErosionInwardsOutput()
             };
 
-            // Call & Assert
-            Assert.IsTrue(calculation.HasOutput);
+            // Call
+            bool calculationHasOutput = calculation.HasOutput;
+
+            // Assert
+            Assert.IsTrue(calculationHasOutput);
         }
 
         [Test]
