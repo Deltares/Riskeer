@@ -281,7 +281,10 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static void CalculationGroupContextOnNodeRemoved(ClosingStructuresCalculationGroupContext context, object parentNodeData)
         {
-            //Part of WTI-550
+            var parentGroupContext = (ClosingStructuresCalculationGroupContext)parentNodeData;
+
+            parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
+            parentGroupContext.NotifyObservers();
         }
 
         #endregion

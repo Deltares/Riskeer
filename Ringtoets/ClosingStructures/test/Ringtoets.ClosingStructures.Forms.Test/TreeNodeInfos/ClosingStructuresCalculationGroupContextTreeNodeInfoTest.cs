@@ -21,6 +21,7 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -325,6 +326,74 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                                                                   false);
                 }
             }
+        }
+
+        [Test]
+        public void OnNodeRemoved_NestedCalculationGroup_RemoveGroupAndNotifyObservers()
+        {
+            // Setup
+            var observerMock = mocks.StrictMock<IObserver>();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+            var nodeData = new ClosingStructuresCalculationGroupContext(group,
+                                                                        failureMechanism,
+                                                                        assessmentSectionMock);
+            var parentNodeData = new ClosingStructuresCalculationGroupContext(parentGroup,
+                                                                              failureMechanism,
+                                                                              assessmentSectionMock);
+
+            observerMock.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            parentGroup.Children.Add(group);
+            parentNodeData.Attach(observerMock);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentNodeData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(parentGroup.Children, group);
+        }
+
+        [Test]
+        public void OnNodeRemoved_NestedCalculationGroupContainingCalculations_RemoveGroupAndCalculationsAndNotifyObservers()
+        {
+            // Setup
+            var observerMock = mocks.StrictMock<IObserver>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+            var nodeData = new ClosingStructuresCalculationGroupContext(group,
+                                                                        failureMechanism,
+                                                                        assessmentSectionMock);
+            var parentNodeData = new ClosingStructuresCalculationGroupContext(parentGroup,
+                                                                              failureMechanism,
+                                                                              assessmentSectionMock);
+            var calculation = new ClosingStructuresCalculation();
+
+            observerMock.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            group.Children.Add(calculation);
+            parentGroup.Children.Add(group);
+            parentNodeData.Attach(observerMock);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentNodeData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(parentGroup.Children, group);
         }
     }
 }
