@@ -182,7 +182,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             foreach (var calculation in heightStructuresCalculations)
             {
-                HeightStructuresCalculationService.Validate(calculation, assessmentSection);
+                new HeightStructuresCalculationService().Validate(calculation, assessmentSection);
             }
         }
 
@@ -465,7 +465,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
             return builder.AddValidateCalculationItem(
                 context,
-                c => HeightStructuresCalculationService.Validate(c.WrappedData, c.AssessmentSection),
+                c => new HeightStructuresCalculationService().Validate(c.WrappedData, c.AssessmentSection),
                 ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)

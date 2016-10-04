@@ -66,5 +66,13 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// <param name="ringId">The id of the traject which is used in the calculation.</param>
         /// <returns>A new <see cref="IWaveHeightCalculator"/>.</returns>
         IWaveHeightCalculator CreateWaveHeightCalculator(string hlcdDirectory, string ringId);
+
+        /// <summary>
+        /// Creates a calculator for performing an overtopping calculation for structures.
+        /// </summary>
+        /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
+        /// <param name="ringId">The id of the traject which is used in the calculation.</param>
+        /// <returns>A new <see cref="IStructuresOvertoppingCalculator"/>.</returns>
+        IStructuresOvertoppingCalculator CreateStructuresOvertoppingCalculator(string hlcdDirectory, string ringId);
     }
 }

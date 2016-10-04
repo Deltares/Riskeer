@@ -33,12 +33,13 @@ namespace Ringtoets.HeightStructures.Service
     /// <summary>
     /// <see cref="Activity"/> for running a height structures calculation.
     /// </summary>
-    public class HeightStructuresCalculationActivity : HydraRingActivity<ExceedanceProbabilityCalculationOutput>
+    public class HeightStructuresCalculationActivity : HydraRingActivityBase
     {
         private readonly HeightStructuresCalculation calculation;
         private readonly string hlcdDirectory;
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
+        private readonly HeightStructuresCalculationService calculationService;
 
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresCalculationActivity"/>.
@@ -73,31 +74,38 @@ namespace Ringtoets.HeightStructures.Service
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
+            calculationService = new HeightStructuresCalculationService();
+
             Name = calculation.Name;
         }
 
-        protected override void OnRun()
+        protected override bool Validate()
         {
+            return calculationService.Validate(calculation, assessmentSection);
+        }
+
+        protected override void PerformCalculation()
+        {
+            HeightStructuresDataSynchronizationService.ClearCalculationOutput(calculation);
+
             var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Obtain dike section based on cross section of structure with reference line
 
-            PerformRun(() => HeightStructuresCalculationService.Validate(calculation, assessmentSection),
-                       () => HeightStructuresDataSynchronizationService.ClearCalculationOutput(calculation),
-                       () => HeightStructuresCalculationService.Calculate(calculation,
-                                                                          hlcdDirectory,
-                                                                          failureMechanismSection,
-                                                                          assessmentSection.Id,
-                                                                          failureMechanism.GeneralInput));
+            calculationService.Calculate(calculation,
+                                         assessmentSection,
+                                         failureMechanismSection,
+                                         failureMechanism.GeneralInput,
+                                         failureMechanism.Contribution,
+                                         hlcdDirectory);
+
+        }
+
+        protected override void OnCancel()
+        {
+            calculationService.Cancel();
         }
 
         protected override void OnFinish()
         {
-            PerformFinish(() =>
-            {
-                calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
-                                                                            failureMechanism.Contribution,
-                                                                            failureMechanism.GeneralInput.N,
-                                                                            Output.Beta);
-            });
             calculation.NotifyObservers();
         }
     }

@@ -72,5 +72,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         {
             return new WaveHeightCalculator(hlcdDirectory, ringId);
         }
+
+        public IStructuresOvertoppingCalculator CreateStructuresOvertoppingCalculator(string hlcdDirectory, string ringId)
+        {
+            return new StructuresOvertoppingCalculator(hlcdDirectory, ringId);
+        }
     }
 }

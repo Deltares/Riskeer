@@ -24,6 +24,7 @@ using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
+using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.Parsers;
 
@@ -36,6 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public readonly TestOvertoppingCalculator OvertoppingCalculator = new TestOvertoppingCalculator();
         public readonly TestWaveConditionsCosineCalculator WaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
         public readonly TestWaveHeightCalculator WaveHeightCalculator = new TestWaveHeightCalculator();
+        public readonly TestStructuresOvertoppingCalculator StructuresOvertoppingCalculator = new TestStructuresOvertoppingCalculator();
 
         public IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory, string ringId)
         {
@@ -71,6 +73,13 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
             WaveHeightCalculator.RingId = ringId;
             return WaveHeightCalculator;
         }
+
+        public IStructuresOvertoppingCalculator CreateStructuresOvertoppingCalculator(string hlcdDirectory, string ringId)
+        {
+            StructuresOvertoppingCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
+            StructuresOvertoppingCalculator.RingId = ringId;
+            return StructuresOvertoppingCalculator;
+        }
     }
 
     public class TestWaveHeightCalculator : TestHydraRingCalculator<WaveHeightCalculationInput>, IWaveHeightCalculator
@@ -104,6 +113,11 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     public class TestDesignWaterLevelCalculator : TestHydraRingCalculator<AssessmentLevelCalculationInput>, IDesignWaterLevelCalculator {
         public double DesignWaterLevel { get; set; }
         public double ReliabilityIndex { get; set; }
+        public string OutputFileContent { get; set; }
+    }
+
+    public class TestStructuresOvertoppingCalculator : TestHydraRingCalculator<StructuresOvertoppingCalculationInput>, IStructuresOvertoppingCalculator {
+        public double ExceedanceProbabilityBeta { get; set; }
         public string OutputFileContent { get; set; }
     }
 

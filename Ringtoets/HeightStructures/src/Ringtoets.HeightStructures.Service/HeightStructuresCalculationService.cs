@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Core.Common.Base.IO;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -27,6 +28,8 @@ using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service.Properties;
+using Ringtoets.HydraRing.Calculation.Calculator;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Data.Output;
@@ -40,9 +43,12 @@ namespace Ringtoets.HeightStructures.Service
     /// <summary>
     /// Service that provides methods for performing Hydra-Ring calculations for height structures calculations.
     /// </summary>
-    public static class HeightStructuresCalculationService
+    public class HeightStructuresCalculationService
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(HeightStructuresCalculationService));
+
+        private IStructuresOvertoppingCalculator calculator;
+        private bool canceled;
 
         /// <summary>
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
@@ -51,7 +57,7 @@ namespace Ringtoets.HeightStructures.Service
         /// <param name="calculation">The <see cref="HeightStructuresCalculation"/> for which to validate the values.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <returns><c>True</c>c> if <paramref name="calculation"/> has no validation errors; <c>False</c>c> otherwise.</returns>
-        public static bool Validate(HeightStructuresCalculation calculation, IAssessmentSection assessmentSection)
+        public bool Validate(HeightStructuresCalculation calculation, IAssessmentSection assessmentSection)
         {
             return CalculationServiceHelper.PerformValidation(calculation.Name, () => ValidateInput(calculation.InputParameters, assessmentSection));
         }
@@ -61,44 +67,61 @@ namespace Ringtoets.HeightStructures.Service
         /// if the calculation was successful. Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculation">The <see cref="HeightStructuresCalculation"/> that holds all the information required to perform the calculation.</param>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
-        /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="generalInput">The <see cref="GeneralHeightStructuresInput"/> to create the input with for the calculation.</param>
+        /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
+        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
         /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
-        internal static ExceedanceProbabilityCalculationOutput Calculate(HeightStructuresCalculation calculation,
-                                                                         string hlcdDirectory, FailureMechanismSection failureMechanismSection,
-                                                                         string ringId, GeneralHeightStructuresInput generalInput)
+        internal void Calculate(HeightStructuresCalculation calculation,
+            IAssessmentSection assessmentSection, 
+            FailureMechanismSection failureMechanismSection,
+            GeneralHeightStructuresInput generalInput,
+            double failureMechanismContribution,
+            string hlcdDirectory)
         {
+            var calculationName = calculation.Name;
+
             StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanismSection, generalInput);
-            var exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
 
-            CalculationServiceHelper.PerformCalculation(
-                calculation.Name,
-                () =>
+            calculator = HydraRingCalculatorFactory.Instance.CreateStructuresOvertoppingCalculator(hlcdDirectory, assessmentSection.Id);
+
+            CalculationServiceHelper.LogCalculationBeginTime(calculationName);
+
+            try
+            {
+                calculator.Calculate(input);
+
+                if (!canceled)
                 {
-                    HydraRingCalculationService.Instance.PerformCalculation(
-                        hlcdDirectory,
-                        ringId,
-                        HydraRingUncertaintiesType.All,
-                        input,
-                        new[]
-                        {
-                            exceedanceProbabilityCalculationParser
-                        });
-
-                    VerifyOutput(exceedanceProbabilityCalculationParser.Output, calculation.Name);
-                });
-
-            return exceedanceProbabilityCalculationParser.Output;
+                    calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
+                                                                                failureMechanismContribution,
+                                                                                generalInput.N,
+                                                                                calculator.ExceedanceProbabilityBeta);
+                }
+            }
+            catch (HydraRingFileParserException)
+            {
+                if (!canceled)
+                {
+                    log.ErrorFormat(Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation, calculationName);
+                    throw;
+                }
+            }
+            finally
+            {
+                log.InfoFormat("Hoogte kunstwerken berekeningsverslag. Klik op details voor meer informatie.\n{0}", calculator.OutputFileContent);
+                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+            }
         }
 
-        private static void VerifyOutput(ExceedanceProbabilityCalculationOutput output, string name)
+        public void Cancel()
         {
-            if (output == null)
+            if (calculator != null)
             {
-                log.ErrorFormat(Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation, name);
+                calculator.Cancel();
             }
+            canceled = true;
         }
 
         private static StructuresOvertoppingCalculationInput CreateInput(HeightStructuresCalculation calculation, FailureMechanismSection failureMechanismSection, GeneralHeightStructuresInput generalInput)

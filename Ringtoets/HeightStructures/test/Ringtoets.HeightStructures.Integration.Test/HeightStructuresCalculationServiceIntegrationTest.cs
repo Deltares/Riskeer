@@ -57,7 +57,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -96,7 +96,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -130,7 +130,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSection);
+            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSection);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -165,10 +165,14 @@ namespace Ringtoets.HeightStructures.Integration.Test
             };
 
             var failureMechanismSection = assessmentSection.HeightStructures.Sections.First();
-            ExceedanceProbabilityCalculationOutput output = null;
 
             // Call
-            Action call = () => output = HeightStructuresCalculationService.Calculate(calculation, testDataPath, failureMechanismSection, failureMechanismSection.Name, assessmentSection.HeightStructures.GeneralInput);
+            Action call = () => new HeightStructuresCalculationService().Calculate(calculation,
+                                                                                   assessmentSection,
+                                                                                   failureMechanismSection,
+                                                                                   assessmentSection.HeightStructures.GeneralInput,
+                                                                                   assessmentSection.HeightStructures.Contribution,
+                                                                                   testDataPath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -176,14 +180,14 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
+                StringAssert.StartsWith("Hoogte kunstwerken berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
             });
-            Assert.IsNotNull(output);
+            Assert.IsNotNull(calculation.Output);
         }
 
         [Test]
-        public void Calculate_InvalidCalculation_LogStartAndEndAndErrorMessageAndReturnNull()
+        public void Calculate_InvalidCalculation_LogStartAndEndAndErrorMessageAndThrowsException()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -204,10 +208,25 @@ namespace Ringtoets.HeightStructures.Integration.Test
             };
 
             var failureMechanismSection = assessmentSection.HeightStructures.Sections.First();
-            ExceedanceProbabilityCalculationOutput output = null;
+            var exception = false;
 
             // Call
-            Action call = () => output = HeightStructuresCalculationService.Calculate(calculation, testDataPath, failureMechanismSection, failureMechanismSection.Name, assessmentSection.HeightStructures.GeneralInput);
+            Action call = () =>
+            {
+                try
+                {
+                    new HeightStructuresCalculationService().Calculate(calculation,
+                                                                       assessmentSection,
+                                                                       failureMechanismSection,
+                                                                       assessmentSection.HeightStructures.GeneralInput,
+                                                                       assessmentSection.HeightStructures.Contribution,
+                                                                       testDataPath);
+                }
+                catch
+                {
+                    exception = true;
+                }
+            };
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -215,11 +234,12 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(4, msgs.Length);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith("Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
-                StringAssert.StartsWith(string.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt.", calculation.Name), msgs[2]);
+                StringAssert.StartsWith(string.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt.", calculation.Name), msgs[1]);
+                StringAssert.StartsWith("Hoogte kunstwerken berekeningsverslag. Klik op details voor meer informatie.", msgs[2]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
             });
-            Assert.IsNull(output);
+            Assert.IsNull(calculation.Output);
+            Assert.IsTrue(exception);
         }
 
         private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)

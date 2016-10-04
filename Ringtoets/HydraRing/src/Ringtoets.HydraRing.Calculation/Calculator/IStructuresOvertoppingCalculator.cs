@@ -19,30 +19,16 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
+using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
-    /// <summary>
-    /// Interface for a calculator which calculates probability of failure by overtopping or overflow
-    /// and the associated wave height.
-    /// </summary>
-    public interface IOvertoppingCalculator 
+    public interface IStructuresOvertoppingCalculator
     {
         /// <summary>
         /// Gets the probability of failure.
         /// </summary>
         double ExceedanceProbabilityBeta { get; }
-
-        /// <summary>
-        /// Gets an indication of the height of the wave.
-        /// </summary>
-        double WaveHeight { get; }
-
-        /// <summary>
-        /// Gets a value representing whether overtopping is dominant over overflow.
-        /// </summary>
-        bool IsOvertoppingDominant { get; }
 
         /// <summary>
         /// Gets the content of the output file generated during the Hydra-Ring calculation.
@@ -52,9 +38,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <summary>
         /// Performs the actual calculation by running the Hydra-Ring executable.
         /// </summary>
-        /// <param name="input">The <see cref="OvertoppingCalculationInput"/> which contains all the necessary input
+        /// <param name="input">The <see cref="StructuresOvertoppingCalculationInput"/> which contains all the necessary input
         /// for the calculation.</param>
-        void Calculate(OvertoppingCalculationInput input);
+        void Calculate(StructuresOvertoppingCalculationInput input);
 
         /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.
