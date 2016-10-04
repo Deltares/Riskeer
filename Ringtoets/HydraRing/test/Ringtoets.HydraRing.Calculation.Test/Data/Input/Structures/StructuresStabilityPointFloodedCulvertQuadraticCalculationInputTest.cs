@@ -95,10 +95,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double drainCoefficientStandardDeviation = 53.3;
             const double areaFlowAperturesMean = 54.4;
             const double areaFlowAperturesStandardDeviation = 55.5;
-            const double stabilityQuadraticLoadModelMean = 56.6;
-            const double stabilityQuadraticLoadModelVariation = 57.7;
-            const double constructiveStrengthQuadraticLoadModelMean = 58.8;
-            const double constructiveStrengthQuadraticLoadModelVariation = 59.9;
+            const double constructiveStrengthQuadraticLoadModelMean = 56.6;
+            const double constructiveStrengthQuadraticLoadModelVariation = 57.7;
+            const double stabilityQuadraticLoadModelMean = 58.8;
+            const double stabilityQuadraticLoadModelVariation = 59.9;
 
             // Call
             var input = new StructuresStabilityPointFloodedCulvertQuadraticCalculationInput(hydraulicBoundaryLocationId, section,
@@ -137,8 +137,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                                             modificationFactorDynamicOrImpulsivePressureComponent,
                                                                                             drainCoefficientMean, drainCoefficientStandardDeviation,
                                                                                             areaFlowAperturesMean, areaFlowAperturesStandardDeviation,
-                                                                                            stabilityQuadraticLoadModelMean, stabilityQuadraticLoadModelVariation,
-                                                                                            constructiveStrengthQuadraticLoadModelMean, constructiveStrengthQuadraticLoadModelVariation);
+                                                                                            constructiveStrengthQuadraticLoadModelMean, constructiveStrengthQuadraticLoadModelVariation,
+                                                                                            stabilityQuadraticLoadModelMean, stabilityQuadraticLoadModelVariation);
 
             // Assert
             Assert.IsInstanceOf<StructuresStabilityPointCalculationInput>(input);
@@ -164,7 +164,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             // Setup
             var input = new StructuresStabilityPointFloodedCulvertQuadraticCalculationInput(111, new HydraRingSection(1, double.NaN, double.NaN),
                                                                                             Enumerable.Empty<HydraRingForelandPoint>(),
-                                                                                            new HydraRingBreakWater(1, 1.1), 
+                                                                                            new HydraRingBreakWater(1, 1.1),
                                                                                             1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.10,
                                                                                             11.11, 12.12, 13.13, 14.14, 15.15, 16.16, 17.17,
                                                                                             18.18, 19.19, 20.20, 21.21, 22, 23.23, 24.24,

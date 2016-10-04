@@ -31,10 +31,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
     {
         private readonly double modelFactorSuperCriticalFlowMean;
         private readonly double modelFactorSuperCriticalFlowStandardDeviation;
-        private readonly double stabilityLinearLoadModelMean;
-        private readonly double stabilityLinearLoadModelVariation;
         private readonly double constructiveStrengthLinearLoadModelMean;
         private readonly double constructiveStrengthLinearLoadModelVariation;
+        private readonly double stabilityLinearLoadModelMean;
+        private readonly double stabilityLinearLoadModelVariation;
         private readonly double widthFlowAperturesMean;
         private readonly double widthFlowAperturesVariation;
 
@@ -98,10 +98,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="modificationFactorDynamicOrImpulsivePressureComponent">The modification factor dynamic or impulsive pressure component.</param>
         /// <param name="modelFactorSuperCriticalFlowMean">The mean of the model factor super critical flow.</param>
         /// <param name="modelFactorSuperCriticalFlowStandardDeviation">The standard deviation of the model factor super critical flow.</param>
-        /// <param name="stabilityLinearLoadModelMean">The mean of the stability linear load model.</param>
-        /// <param name="stabilityLinearLoadModelVariation">The variation of the stability linear load model.</param>
         /// <param name="constructiveStrengthLinearLoadModelMean">The mean of the constructive strength linear load model.</param>
         /// <param name="constructiveStrengthLinearLoadModelVariation">The variation of the constructive strength linear load model.</param>
+        /// <param name="stabilityLinearLoadModelMean">The mean of the stability linear load model.</param>
+        /// <param name="stabilityLinearLoadModelVariation">The variation of the stability linear load model.</param>
         /// <param name="widthFlowAperturesMean">The mean of the width flow apertures.</param>
         /// <param name="widthFlowAperturesVariation">The variation of the width flow apertures.</param>
         public StructuresStabilityPointLowSillLinearCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
@@ -140,8 +140,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                      double modificationFactorWavesSlowlyVaryingPressureComponent,
                                                                      double modificationFactorDynamicOrImpulsivePressureComponent,
                                                                      double modelFactorSuperCriticalFlowMean, double modelFactorSuperCriticalFlowStandardDeviation,
-                                                                     double stabilityLinearLoadModelMean, double stabilityLinearLoadModelVariation,
                                                                      double constructiveStrengthLinearLoadModelMean, double constructiveStrengthLinearLoadModelVariation,
+                                                                     double stabilityLinearLoadModelMean, double stabilityLinearLoadModelVariation,
                                                                      double widthFlowAperturesMean, double widthFlowAperturesVariation)
             : base(hydraulicBoundaryLocationId, section,
                    forelandPoints, breakWater,
@@ -180,10 +180,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         {
             this.modelFactorSuperCriticalFlowMean = modelFactorSuperCriticalFlowMean;
             this.modelFactorSuperCriticalFlowStandardDeviation = modelFactorSuperCriticalFlowStandardDeviation;
-            this.stabilityLinearLoadModelMean = stabilityLinearLoadModelMean;
-            this.stabilityLinearLoadModelVariation = stabilityLinearLoadModelVariation;
             this.constructiveStrengthLinearLoadModelMean = constructiveStrengthLinearLoadModelMean;
             this.constructiveStrengthLinearLoadModelVariation = constructiveStrengthLinearLoadModelVariation;
+            this.stabilityLinearLoadModelMean = stabilityLinearLoadModelMean;
+            this.stabilityLinearLoadModelVariation = stabilityLinearLoadModelVariation;
             this.widthFlowAperturesMean = widthFlowAperturesMean;
             this.widthFlowAperturesVariation = widthFlowAperturesVariation;
         }
@@ -222,11 +222,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                HydraRingDeviationType.Standard, modelFactorSuperCriticalFlowMean,
                                                modelFactorSuperCriticalFlowStandardDeviation, double.NaN);
             yield return new HydraRingVariable(80, HydraRingDistributionType.LogNormal, double.NaN,
-                                               HydraRingDeviationType.Variation, stabilityLinearLoadModelMean,
-                                               stabilityLinearLoadModelVariation, double.NaN);
-            yield return new HydraRingVariable(83, HydraRingDistributionType.LogNormal, double.NaN,
                                                HydraRingDeviationType.Variation, constructiveStrengthLinearLoadModelMean,
                                                constructiveStrengthLinearLoadModelVariation, double.NaN);
+            yield return new HydraRingVariable(83, HydraRingDistributionType.LogNormal, double.NaN,
+                                               HydraRingDeviationType.Variation, stabilityLinearLoadModelMean,
+                                               stabilityLinearLoadModelVariation, double.NaN);
             yield return new HydraRingVariable(106, HydraRingDistributionType.Normal, double.NaN,
                                                HydraRingDeviationType.Variation, widthFlowAperturesMean,
                                                widthFlowAperturesVariation, double.NaN);

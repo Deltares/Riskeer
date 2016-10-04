@@ -31,10 +31,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
     {
         private readonly double modelFactorSuperCriticalFlowMean;
         private readonly double modelFactorSuperCriticalFlowStandardDeviation;
-        private readonly double stabilityQuadraticLoadModelMean;
-        private readonly double stabilityQuadraticLoadModelVariation;
         private readonly double constructiveStrengthQuadraticLoadModelMean;
         private readonly double constructiveStrengthQuadraticLoadModelVariation;
+        private readonly double stabilityQuadraticLoadModelMean;
+        private readonly double stabilityQuadraticLoadModelVariation;
         private readonly double widthFlowAperturesMean;
         private readonly double widthFlowAperturesVariation;
 
@@ -98,10 +98,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="modificationFactorDynamicOrImpulsivePressureComponent">The modification factor dynamic or impulsive pressure component.</param>
         /// <param name="modelFactorSuperCriticalFlowMean">The mean of the model factor super critical flow.</param>
         /// <param name="modelFactorSuperCriticalFlowStandardDeviation">The standard deviation of the model factor super critical flow.</param>
-        /// <param name="stabilityQuadraticLoadModelMean">The mean of the stability quadratic load model.</param>
-        /// <param name="stabilityQuadraticLoadModelVariation">The variation of the stability quadratic load model.</param>
         /// <param name="constructiveStrengthQuadraticLoadModelMean">The mean of the constructive strength quadratic load model.</param>
         /// <param name="constructiveStrengthQuadraticLoadModelVariation">The variation of the constructive strength quadratic load model.</param>
+        /// <param name="stabilityQuadraticLoadModelMean">The mean of the stability quadratic load model.</param>
+        /// <param name="stabilityQuadraticLoadModelVariation">The variation of the stability quadratic load model.</param>
         /// <param name="widthFlowAperturesMean">The mean of the width flow apertures.</param>
         /// <param name="widthFlowAperturesVariation">The variation of the width flow apertures.</param>
         public StructuresStabilityPointLowSillQuadraticCalculationInput(long hydraulicBoundaryLocationId, HydraRingSection section,
@@ -140,8 +140,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                         double modificationFactorWavesSlowlyVaryingPressureComponent,
                                                                         double modificationFactorDynamicOrImpulsivePressureComponent,
                                                                         double modelFactorSuperCriticalFlowMean, double modelFactorSuperCriticalFlowStandardDeviation,
-                                                                        double stabilityQuadraticLoadModelMean, double stabilityQuadraticLoadModelVariation,
                                                                         double constructiveStrengthQuadraticLoadModelMean, double constructiveStrengthQuadraticLoadModelVariation,
+                                                                        double stabilityQuadraticLoadModelMean, double stabilityQuadraticLoadModelVariation,
                                                                         double widthFlowAperturesMean, double widthFlowAperturesVariation)
             : base(hydraulicBoundaryLocationId, section,
                    forelandPoints, breakWater,
@@ -180,10 +180,10 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         {
             this.modelFactorSuperCriticalFlowMean = modelFactorSuperCriticalFlowMean;
             this.modelFactorSuperCriticalFlowStandardDeviation = modelFactorSuperCriticalFlowStandardDeviation;
-            this.stabilityQuadraticLoadModelMean = stabilityQuadraticLoadModelMean;
-            this.stabilityQuadraticLoadModelVariation = stabilityQuadraticLoadModelVariation;
             this.constructiveStrengthQuadraticLoadModelMean = constructiveStrengthQuadraticLoadModelMean;
             this.constructiveStrengthQuadraticLoadModelVariation = constructiveStrengthQuadraticLoadModelVariation;
+            this.stabilityQuadraticLoadModelMean = stabilityQuadraticLoadModelMean;
+            this.stabilityQuadraticLoadModelVariation = stabilityQuadraticLoadModelVariation;
             this.widthFlowAperturesMean = widthFlowAperturesMean;
             this.widthFlowAperturesVariation = widthFlowAperturesVariation;
         }
@@ -222,11 +222,11 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                HydraRingDeviationType.Standard, modelFactorSuperCriticalFlowMean,
                                                modelFactorSuperCriticalFlowStandardDeviation, double.NaN);
             yield return new HydraRingVariable(81, HydraRingDistributionType.LogNormal, double.NaN,
-                                               HydraRingDeviationType.Variation, stabilityQuadraticLoadModelMean,
-                                               stabilityQuadraticLoadModelVariation, double.NaN);
-            yield return new HydraRingVariable(84, HydraRingDistributionType.LogNormal, double.NaN,
                                                HydraRingDeviationType.Variation, constructiveStrengthQuadraticLoadModelMean,
                                                constructiveStrengthQuadraticLoadModelVariation, double.NaN);
+            yield return new HydraRingVariable(84, HydraRingDistributionType.LogNormal, double.NaN,
+                                               HydraRingDeviationType.Variation, stabilityQuadraticLoadModelMean,
+                                               stabilityQuadraticLoadModelVariation, double.NaN);
             yield return new HydraRingVariable(106, HydraRingDistributionType.Normal, double.NaN,
                                                HydraRingDeviationType.Variation, widthFlowAperturesMean,
                                                widthFlowAperturesVariation, double.NaN);

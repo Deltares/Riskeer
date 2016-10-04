@@ -93,10 +93,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double modificationFactorDynamicOrImpulsivePressureComponent = 51.1;
             const double modelFactorSuperCriticalFlowMean = 52.2;
             const double modelFactorSuperCriticalFlowStandardDeviation = 53.3;
-            const double stabilityLinearLoadModelMean = 54.4;
-            const double stabilityLinearLoadModelVariation = 55.5;
-            const double constructiveStrengthLinearLoadModelMean = 56.6;
-            const double constructiveStrengthLinearLoadModelVariation = 57.7;
+            const double constructiveStrengthLinearLoadModelMean = 54.4;
+            const double constructiveStrengthLinearLoadModelVariation = 55.5;
+            const double stabilityLinearLoadModelMean = 56.6;
+            const double stabilityLinearLoadModelVariation = 57.7;
             const double widthFlowAperturesMean = 58.8;
             const double widthFlowAperturesVariation = 59.9;
 
@@ -136,8 +136,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                                   modificationFactorWavesSlowlyVaryingPressureComponent,
                                                                                   modificationFactorDynamicOrImpulsivePressureComponent,
                                                                                   modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation,
-                                                                                  stabilityLinearLoadModelMean, stabilityLinearLoadModelVariation,
                                                                                   constructiveStrengthLinearLoadModelMean, constructiveStrengthLinearLoadModelVariation,
+                                                                                  stabilityLinearLoadModelMean, stabilityLinearLoadModelVariation,
                                                                                   widthFlowAperturesMean, widthFlowAperturesVariation);
 
             // Assert

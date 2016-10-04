@@ -95,10 +95,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double drainCoefficientStandardDeviation = 53.3;
             const double areaFlowAperturesMean = 54.4;
             const double areaFlowAperturesStandardDeviation = 55.5;
-            const double stabilityLinearLoadModelMean = 56.6;
-            const double stabilityLinearLoadModelVariation = 57.7;
-            const double constructiveStrengthLinearLoadModelMean = 58.8;
-            const double constructiveStrengthLinearLoadModelVariation = 59.9;
+            const double constructiveStrengthLinearLoadModelMean = 56.6;
+            const double constructiveStrengthLinearLoadModelVariation = 57.7;
+            const double stabilityLinearLoadModelMean = 58.8;
+            const double stabilityLinearLoadModelVariation = 59.9;
 
             // Call
             var input = new StructuresStabilityPointFloodedCulvertLinearCalculationInput(hydraulicBoundaryLocationId, section,
@@ -137,8 +137,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                                          modificationFactorDynamicOrImpulsivePressureComponent,
                                                                                          drainCoefficientMean, drainCoefficientStandardDeviation,
                                                                                          areaFlowAperturesMean, areaFlowAperturesStandardDeviation,
-                                                                                         stabilityLinearLoadModelMean, stabilityLinearLoadModelVariation,
-                                                                                         constructiveStrengthLinearLoadModelMean, constructiveStrengthLinearLoadModelVariation);
+                                                                                         constructiveStrengthLinearLoadModelMean, constructiveStrengthLinearLoadModelVariation,
+                                                                                         stabilityLinearLoadModelMean, stabilityLinearLoadModelVariation);
 
             // Assert
             Assert.IsInstanceOf<StructuresStabilityPointCalculationInput>(input);
