@@ -61,6 +61,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
 
+            Assert.IsNaN(input.FailureProbabilityOpenStructure);
+            Assert.IsNaN(input.FailureProbabilityStructureWithErosion);
+            Assert.IsNaN(input.FailureProbablityReparation);
+
             AssertEqualValue(1.1, input.ModelFactorSuperCriticalFlow.Mean);
             AssertEqualValue(0.03, input.ModelFactorSuperCriticalFlow.StandardDeviation);
             AssertEqualValue(0.1, input.ThresholdHeightOpenWeir.StandardDeviation);
@@ -226,21 +230,20 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        [TestCase(400, 360)]
-        [TestCase(360.05, 360)]
-        [TestCase(-0.005, 0)]
-        [TestCase(-23, 0)]
-        public void Properties_StructureNormalOrientationInValidValues_ValueRoundedToValidValue(double invalidValue, double validValue)
+        [TestCase(400)]
+        [TestCase(360.05)]
+        [TestCase(-0.005)]
+        [TestCase(-23)]
+        public void Properties_StructureNormalOrientationInValidValues_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
             var input = new ClosingStructuresInput();
 
             // Call
-            input.StructureNormalOrientation = (RoundedDouble) invalidValue;
+            TestDelegate call = () => input.StructureNormalOrientation = (RoundedDouble) invalidValue;
 
             // Assert
-            Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
-            AssertEqualValue(validValue, input.StructureNormalOrientation);
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik tussen [0, 360] graden liggen.");
         }
 
         [Test]
@@ -337,7 +340,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => input.FailureProbabilityOpenStructure = probability;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
         }
 
         [Test]
@@ -360,7 +363,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
-        public void Properties_FailureProbablityReparation_ThrowArgumentException(double probability)
+        public void Properties_FailureProbablityReparation_ThrowArgumentOutOfRangeException(double probability)
         {
             // Setup
             var input = new ClosingStructuresInput();
@@ -369,7 +372,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => input.FailureProbablityReparation = probability;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
         }
 
         [Test]
@@ -498,7 +501,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
-        public void Properties_FailureProbabilityStructureWithErosion_ThrowArgumentException(double probability)
+        public void Properties_FailureProbabilityStructureWithErosion_ThrowArgumentOutOfRangeException(double probability)
         {
             // Setup
             var input = new ClosingStructuresInput();
@@ -507,7 +510,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => input.FailureProbabilityStructureWithErosion = probability;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
         }
 
         [Test]
@@ -588,7 +591,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => input.ProbabilityOpenStructureBeforeFlooding = probability;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
         }
 
         [Test]

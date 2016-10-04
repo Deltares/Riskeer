@@ -29,6 +29,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Revetment.Data
 {
@@ -99,10 +100,7 @@ namespace Ringtoets.Revetment.Data
         /// Gets or sets the orientation of the foreshore profile geometry with respect to North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
-        /// <remarks><list type="bullet">
-        /// <item>When the value is smaller than 0, it will be set to 0.</item>
-        /// <item>When the value is larger than 360, it will be set to 360.</item>
-        /// </list></remarks>
+        ///<exception cref="ArgumentOutOfRangeException">Thrown when the value for the orientation is not between [0, 360] degrees.</exception>
         public RoundedDouble Orientation
         {
             get
@@ -112,9 +110,10 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 RoundedDouble newOrientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
-
-                newOrientation = ValidateOrientationInRange(newOrientation);
-
+                if (newOrientation < 0 || newOrientation > 360)
+                {
+                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
+                }
                 orientation = newOrientation;
             }
         }
@@ -277,24 +276,6 @@ namespace Ringtoets.Revetment.Data
             {
                 return DetermineWaterLevels();
             }
-        }
-
-        private RoundedDouble ValidateOrientationInRange(RoundedDouble newOrientation)
-        {
-            const int lowerBoundaryRange = 0;
-            const int upperBoundaryRange = 360;
-
-            if (newOrientation < lowerBoundaryRange)
-            {
-                newOrientation = new RoundedDouble(2, lowerBoundaryRange);
-            }
-
-            if (newOrientation > upperBoundaryRange)
-            {
-                newOrientation = new RoundedDouble(2, upperBoundaryRange);
-            }
-
-            return newOrientation;
         }
 
         private static RoundedDouble ValidateUpperBoundaryInRange(RoundedDouble boundary)

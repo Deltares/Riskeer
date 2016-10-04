@@ -293,20 +293,20 @@ namespace Ringtoets.Revetment.Data.Test
         }
 
         [Test]
-        [TestCase(400, 360)]
-        [TestCase(360.05, 360)]
-        [TestCase(-0.005, 0)]
-        [TestCase(-23, 0)]
-        public void Orientation_InvalidValue_ValueRoundedToValidValue(double invalidValue, double validValue)
+        [TestCase(400)]
+        [TestCase(360.05)]
+        [TestCase(-0.005)]
+        [TestCase(-23)]
+        public void Orientation_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
             var input = new WaveConditionsInput();
 
             // Call
-            input.Orientation = (RoundedDouble) invalidValue;
+            TestDelegate call = () => input.Orientation = (RoundedDouble) invalidValue;
 
             // Assert
-            Assert.AreEqual(validValue, input.Orientation, input.Orientation.GetAccuracy());
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik tussen [0, 360] graden liggen.");
         }
 
         [Test]

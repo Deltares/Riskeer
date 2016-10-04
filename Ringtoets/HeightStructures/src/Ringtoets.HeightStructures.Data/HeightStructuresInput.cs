@@ -124,6 +124,11 @@ namespace Ringtoets.HeightStructures.Data
 
         #endregion
 
+        private bool ValidProbabilityValue(double probability)
+        {
+            return !double.IsNaN(probability) && probability <= 1 && probability >= 0;
+        }
+
         #region Hydraulic pressure
 
         /// <summary>
@@ -133,6 +138,7 @@ namespace Ringtoets.HeightStructures.Data
 
         /// <summary>
         /// Gets or sets the deviation of the wave's direction.
+        /// [degrees]
         /// </summary>
         public RoundedDouble DeviationOfTheWaveDirection
         {
@@ -147,7 +153,8 @@ namespace Ringtoets.HeightStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the storm duration
+        /// Gets or sets the storm duration.
+        /// [hrs]
         /// </summary>
         /// <remarks>Only sets the mean.</remarks>
         public LogNormalDistribution StormDuration
@@ -168,6 +175,7 @@ namespace Ringtoets.HeightStructures.Data
 
         /// <summary>
         /// Gets or sets the level of crest of the structure.
+        /// [m+NAP]
         /// </summary>
         public NormalDistribution LevelOfCrestOfStructure
         {
@@ -184,11 +192,9 @@ namespace Ringtoets.HeightStructures.Data
 
         /// <summary>
         /// Gets or sets the orientation of the normal of the structure.
+        /// [degrees]
         /// </summary>
-        /// <remarks><list type="bullet">
-        /// <item>When the value is smaller than 0, it will be set to 0.</item>
-        /// <item>When the value is larger than 360, it will be set to 360.</item>
-        /// </list></remarks>
+        ///<exception cref="ArgumentOutOfRangeException">Thrown when the value for the orientation is not between [0, 360] degrees.</exception>
         public RoundedDouble OrientationOfTheNormalOfTheStructure
         {
             get
@@ -198,31 +204,18 @@ namespace Ringtoets.HeightStructures.Data
             set
             {
                 RoundedDouble newOrientationValue = value.ToPrecision(orientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
-                newOrientationValue = ValidateStructureNormalOrientationInRange(newOrientationValue);
+                if (newOrientationValue < 0 || newOrientationValue > 360)
+                {
+                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
+                }
 
                 orientationOfTheNormalOfTheStructure = newOrientationValue;
             }
         }
 
-        private RoundedDouble ValidateStructureNormalOrientationInRange(RoundedDouble newOrientationValue)
-        {
-            const double upperBoundaryRange = 360;
-            const double lowerBoundaryRange = 0.0;
-
-            if (newOrientationValue > upperBoundaryRange)
-            {
-                newOrientationValue = new RoundedDouble(2, upperBoundaryRange);
-            }
-            else if (newOrientationValue < lowerBoundaryRange)
-            {
-                newOrientationValue = new RoundedDouble(2, lowerBoundaryRange);
-            }
-
-            return newOrientationValue;
-        }
-
         /// <summary>
         /// Gets or sets the allowable increase of level for the storage.
+        /// [m]
         /// </summary>
         public LogNormalDistribution AllowableIncreaseOfLevelForStorage
         {
@@ -239,6 +232,7 @@ namespace Ringtoets.HeightStructures.Data
 
         /// <summary>
         /// Gets or sets the storage structure area.
+        /// [m^2]
         /// </summary>
         public LogNormalDistribution StorageStructureArea
         {
@@ -255,6 +249,7 @@ namespace Ringtoets.HeightStructures.Data
 
         /// <summary>
         /// Gets or sets the flow width at bottom protection.
+        /// [m]
         /// </summary>
         public LogNormalDistribution FlowWidthAtBottomProtection
         {
@@ -271,6 +266,7 @@ namespace Ringtoets.HeightStructures.Data
 
         /// <summary>
         /// Gets or sets the critical overtopping discharge.
+        /// [m^3/s/m]
         /// </summary>
         public LogNormalDistribution CriticalOvertoppingDischarge
         {
@@ -287,8 +283,9 @@ namespace Ringtoets.HeightStructures.Data
 
         /// <summary>
         /// Gets or sets the failure probability of structure given erosion.
+        /// [1/year]
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not in range [0, 1].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0, 1].</exception>
         public double FailureProbabilityOfStructureGivenErosion
         {
             get
@@ -297,9 +294,9 @@ namespace Ringtoets.HeightStructures.Data
             }
             set
             {
-                if (value < 0 || value > 1)
+                if (!ValidProbabilityValue(value))
                 {
-                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 failureProbabilityOfStructureGivenErosion = value;
             }
@@ -307,6 +304,7 @@ namespace Ringtoets.HeightStructures.Data
 
         /// <summary>
         /// Gets or sets the width of flow apertures.
+        /// [m]
         /// </summary>
         public NormalDistribution WidthOfFlowApertures
         {

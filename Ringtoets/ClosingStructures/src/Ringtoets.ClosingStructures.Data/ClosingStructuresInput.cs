@@ -66,6 +66,10 @@ namespace Ringtoets.ClosingStructures.Data
             structureNormalOrientation = new RoundedDouble(2);
             factorStormDurationOpenStructure = new RoundedDouble(2);
             deviationWaveDirection = new RoundedDouble(2);
+
+            failureProbablityOpenStructure = double.NaN;
+            failureProbabilityReparation = double.NaN;
+            failureProbabilityStructureWithErosion = double.NaN;
             probabilityOpenStructureBeforeFlooding = 1.0;
 
             modelFactorSuperCriticalFlow = new NormalDistribution(2)
@@ -348,10 +352,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets or sets the orientation of the normal of the structure.
         /// [degrees]
         /// </summary>
-        /// <remarks><list type="bullet">
-        /// <item>When the value is smaller than 0, it will be set to 0.</item>
-        /// <item>When the value is larger than 360, it will be set to 360.</item>
-        /// </list></remarks>
+        ///<exception cref="ArgumentOutOfRangeException">Thown when the value for the orientation is not between [0,360] degrees.</exception>
         public RoundedDouble StructureNormalOrientation
         {
             get
@@ -361,27 +362,13 @@ namespace Ringtoets.ClosingStructures.Data
             set
             {
                 RoundedDouble newOrientationValue = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
-                newOrientationValue = ValidateStructureNormalOrientationInRange(newOrientationValue);
+                if (newOrientationValue < 0 || newOrientationValue > 360)
+                {
+                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
+                }
 
                 structureNormalOrientation = newOrientationValue;
             }
-        }
-
-        private RoundedDouble ValidateStructureNormalOrientationInRange(RoundedDouble newOrientationValue)
-        {
-            const double upperBoundaryRange = 360;
-            const double lowerBoundaryRange = 0.0;
-
-            if (newOrientationValue > upperBoundaryRange)
-            {
-                newOrientationValue = new RoundedDouble(2, upperBoundaryRange);
-            }
-            else if (newOrientationValue < lowerBoundaryRange)
-            {
-                newOrientationValue = new RoundedDouble(2, lowerBoundaryRange);
-            }
-
-            return newOrientationValue;
         }
 
         #endregion
@@ -424,7 +411,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets or sets the failure probability of an open structure.
         /// [1/year]
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the value of the probability 
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
         /// is not between [0, 1].</exception>
         public double FailureProbabilityOpenStructure
         {
@@ -436,7 +423,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (!ValidProbabilityValue(value))
                 {
-                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 failureProbablityOpenStructure = value;
             }
@@ -446,7 +433,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets or sets the reparation failure probability.
         /// [1/year]
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the value of the probability 
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
         /// is not between [0, 1].</exception>
         public double FailureProbablityReparation
         {
@@ -458,14 +445,14 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (!ValidProbabilityValue(value))
                 {
-                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 failureProbabilityReparation = value;
             }
         }
 
         /// <summary>
-        /// Gets or sets the identical apertures to use during the calculation.
+        /// Gets or sets the amount of identical apertures to use during the calculation.
         /// </summary>
         public int IdenticalApertures { get; set; }
 
@@ -558,7 +545,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets or sets the failure probability of structure given erosion.
         /// [1/year]
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the value of the probability 
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
         /// is not between [0, 1].</exception>
         public double FailureProbabilityStructureWithErosion
         {
@@ -570,7 +557,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (!ValidProbabilityValue(value))
                 {
-                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 failureProbabilityStructureWithErosion = value;
             }
@@ -596,7 +583,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets or sets the failure probability of an open structure before flooding.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the value of the probability 
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
         /// is not between [0, 1].</exception>
         public double ProbabilityOpenStructureBeforeFlooding
         {
@@ -608,7 +595,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (!ValidProbabilityValue(value))
                 {
-                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                    throw new ArgumentOutOfRangeException(null, RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
                 probabilityOpenStructureBeforeFlooding = value;
             }

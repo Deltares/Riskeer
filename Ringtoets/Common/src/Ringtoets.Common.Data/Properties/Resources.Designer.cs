@@ -316,6 +316,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor de oriëntatie moet in het bereik tussen [0, 360] graden liggen..
+        /// </summary>
+        public static string Orientation_Value_needs_to_be_between_0_and_360 {
+            get {
+                return ResourceManager.GetString("Orientation_Value_needs_to_be_between_0_and_360", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -.
         /// </summary>
         public static string OtherFailureMechanism_Code {
