@@ -32,6 +32,9 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Data
 {
+    /// <summary>
+    /// Class that holds all closing structures calculation specific input parameters.
+    /// </summary>
     public class ClosingStructuresInput : Observable, ICalculationInput
     {
         private readonly NormalDistribution modelFactorSuperCriticalFlow;
@@ -55,6 +58,9 @@ namespace Ringtoets.ClosingStructures.Data
         private RoundedDouble deviationWaveDirection;
         private ForeshoreProfile foreshoreProfile;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="ClosingStructuresInput"/> class.
+        /// </summary>
         public ClosingStructuresInput()
         {
             structureNormalOrientation = new RoundedDouble(2);
@@ -137,388 +143,9 @@ namespace Ringtoets.ClosingStructures.Data
             UpdateForeshoreProperties();
         }
 
-        #region Hydraulic Boundary Location
+        #region Hydraulic load and data properties
 
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
-
-        #endregion
-
-        #region Structure properties
-
-        /// <summary>
-        /// Gets or sets the closing structure.
-        /// </summary>
-        public ClosingStructure ClosingStructure { get; set; }
-
-        /// <summary>
-        /// Gets or sets the type of closing structure.
-        /// </summary>
-        public ClosingStructureType ClosingStructureType { get; set; }
-
-        #endregion
-
-        #region Deterministic inputs
-
-        #region Structure Normal orientation
-
-        /// <summary>
-        /// Gets or sets the orientation of the normal of the structure.
-        /// </summary>
-        /// <remarks><list type="bullet">
-        /// <item>When the value is smaller than 0, it will be set to 0.</item>
-        /// <item>When the value is larger than 360, it will be set to 360.</item>
-        /// </list></remarks>
-        public RoundedDouble StructureNormalOrientation
-        {
-            get
-            {
-                return structureNormalOrientation;
-            }
-            set
-            {
-
-                RoundedDouble newOrientationValue = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
-                newOrientationValue = ValidateStructureNormalOrientationInRange(newOrientationValue);
-
-                structureNormalOrientation = newOrientationValue;                
-            }
-        }
-
-        private RoundedDouble ValidateStructureNormalOrientationInRange(RoundedDouble newOrientationValue)
-        {
-            const double upperBoundaryRange = 360;
-            const double lowerBoundaryRange = 0.0;
-
-            if (newOrientationValue > upperBoundaryRange)
-            {
-                newOrientationValue = new RoundedDouble(2, upperBoundaryRange);
-            }
-            else if (newOrientationValue < lowerBoundaryRange)
-            {
-                newOrientationValue = new RoundedDouble(2, lowerBoundaryRange);
-            }
-
-            return newOrientationValue;
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Gets or sets the storm duration for an open structure.
-        /// </summary>
-        public RoundedDouble FactorStormDurationOpenStructure
-        {
-            get
-            {
-                return factorStormDurationOpenStructure;
-            }
-            set
-            {
-                factorStormDurationOpenStructure = value.ToPrecision(factorStormDurationOpenStructure.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the identical apertures to use during the calculation.
-        /// </summary>
-        public int IdenticalApertures { get; set; }
-
-        /// <summary>
-        /// Gets or sets the failure probability of an open structure.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the value of the probability 
-        /// is not between [0, 1].</exception>
-        public double FailureProbabilityOpenStructure
-        {
-            get
-            {
-                return failureProbablityOpenStructure;
-            }
-            set
-            {
-                if (value < 0 || value > 1)
-                {
-                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
-                }
-                failureProbablityOpenStructure = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the reparation failure probability.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the value of the probability 
-        /// is not between [0, 1].</exception>
-        public double FailureProbablityReparation
-        {
-            get
-            {
-                return failureProbabilityReparation;
-            }
-            set
-            {
-                if (value < 0 || value > 1)
-                {
-                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
-                }
-                failureProbabilityReparation = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the failure probability of structure given erosion.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the value of the probability 
-        /// is not between [0, 1].</exception>
-        public double FailureProbabilityStructureWithErosion
-        {
-            get
-            {
-                return failureProbabilityStructureWithErosion;
-            }
-            set
-            {
-                if (value < 0 || value > 1)
-                {
-                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
-                }
-                failureProbabilityStructureWithErosion = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the deviation of the wave direction.
-        /// </summary>
-        public RoundedDouble DeviationWaveDirection
-        {
-            get
-            {
-                return deviationWaveDirection;
-            }
-            set
-            {
-                deviationWaveDirection = value.ToPrecision(deviationWaveDirection.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the failure probability of an open structure before flooding.
-        /// </summary>
-        /// <exception cref="ArgumentException">Thrown when the value of the probability 
-        /// is not between [0, 1].</exception>
-        public double ProbabilityOpenStructureBeforeFlooding
-        {
-            get
-            {
-                return probabilityOpenStructureBeforeFlooding;
-            }
-            set
-            {
-                if (value < 0 || value > 1)
-                {
-                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
-                }
-                probabilityOpenStructureBeforeFlooding = value;
-            }
-        }
-
-        #endregion
-
-        #region Probabilistic inputs
-
-        /// <summary>
-        /// Gets or sets the drain coefficient.
-        /// </summary>
-        /// <remarks>Only sets the mean.</remarks>
-        public NormalDistribution DrainCoefficient
-        {
-            get
-            {
-                return drainCoefficient;
-            }
-            set
-            {
-                drainCoefficient.Mean = value.Mean;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the model factor super critical flow.
-        /// </summary>
-        /// <remarks>Only sets the mean.</remarks>
-        public NormalDistribution ModelFactorSuperCriticalFlow
-        {
-            get
-            {
-                return modelFactorSuperCriticalFlow;
-            }
-            set
-            {
-                modelFactorSuperCriticalFlow.Mean = value.Mean;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the threshold low weir height.
-        /// </summary>
-        public NormalDistribution ThresholdHeightOpenWeir
-        {
-            get
-            {
-                return thresholdHeightOpenWeir;
-            }
-            set
-            {
-                thresholdHeightOpenWeir.Mean = value.Mean;
-                thresholdHeightOpenWeir.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the area flow apertures normal distribution.
-        /// </summary>
-        public LogNormalDistribution AreaFlowApertures
-        {
-            get
-            {
-                return areaFlowApertures;
-            }
-            set
-            {
-                areaFlowApertures.Mean = value.Mean;
-                areaFlowApertures.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the level crest of structure not closing normal distribution.
-        /// </summary>
-        public NormalDistribution LevelCrestStructureNotClosing
-        {
-            get
-            {
-                return levelCrestStructureNotClosing;
-            }
-            set
-            {
-                levelCrestStructureNotClosing.Mean = value.Mean;
-                levelCrestStructureNotClosing.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the water level inside normal distribution.
-        /// </summary>
-        public NormalDistribution InsideWaterLevel
-        {
-            get
-            {
-                return insideWaterLevel;
-            }
-            set
-            {
-                insideWaterLevel.Mean = value.Mean;
-                insideWaterLevel.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the allowable increase of level for storage log normal distribution.
-        /// </summary>
-        public LogNormalDistribution AllowedLevelIncreaseStorage
-        {
-            get
-            {
-                return allowedLevelIncreaseStorage;
-            }
-            set
-            {
-                allowedLevelIncreaseStorage.Mean = value.Mean;
-                allowedLevelIncreaseStorage.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the storage structure area log normal distribution.
-        /// </summary>
-        public LogNormalDistribution StorageStructureArea
-        {
-            get
-            {
-                return storageStructureArea;
-            }
-            set
-            {
-                storageStructureArea.Mean = value.Mean;
-                storageStructureArea.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the flow widt at bottom protection log normal distribution.
-        /// </summary>
-        public LogNormalDistribution FlowWidthAtBottomProtection
-        {
-            get
-            {
-                return flowWidthAtBottomProtection;
-            }
-            set
-            {
-                flowWidthAtBottomProtection.Mean = value.Mean;
-                flowWidthAtBottomProtection.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the critical overtopping discharge normal distribution.
-        /// </summary>
-        public LogNormalDistribution CriticalOverToppingDischarge
-        {
-            get
-            {
-                return criticalOverToppingDischarge;
-            }
-            set
-            {
-                criticalOverToppingDischarge.Mean = value.Mean;
-                criticalOverToppingDischarge.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the width of flow apertures normal distribution.
-        /// </summary>
-        public NormalDistribution WidthFlowApertures
-        {
-            get
-            {
-                return widthFlowApertures;
-            }
-            set
-            {
-                widthFlowApertures.Mean = value.Mean;
-                widthFlowApertures.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the storm duration.
-        /// </summary>
-        /// <remarks>Only sets the mean.</remarks>
-        public LogNormalDistribution StormDuration
-        {
-            get
-            {
-                return stormDuration;
-            }
-            set
-            {
-                stormDuration.Mean = value.Mean;
-            }
-        }
-
-        #endregion
 
         #region Foreshore Profile
 
@@ -590,5 +217,400 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         #endregion
+
+        #endregion
+
+        #region Model inputs
+
+        #endregion
+
+        #region Schematization
+
+        #endregion
+
+        #region Hydraulic Boundary Location
+
+        #endregion
+
+        #region Structure properties
+
+        /// <summary>
+        /// Gets or sets the closing structure.
+        /// </summary>
+        public ClosingStructure ClosingStructure { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of closing structure.
+        /// </summary>
+        public ClosingStructureType ClosingStructureType { get; set; }
+
+        #endregion
+
+        #region Deterministic inputs
+
+        #region Structure Normal orientation
+
+        /// <summary>
+        /// Gets or sets the orientation of the normal of the structure.
+        /// </summary>
+        /// <remarks><list type="bullet">
+        /// <item>When the value is smaller than 0, it will be set to 0.</item>
+        /// <item>When the value is larger than 360, it will be set to 360.</item>
+        /// </list></remarks>
+        public RoundedDouble StructureNormalOrientation
+        {
+            get
+            {
+                return structureNormalOrientation;
+            }
+            set
+            {
+                RoundedDouble newOrientationValue = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
+                newOrientationValue = ValidateStructureNormalOrientationInRange(newOrientationValue);
+
+                structureNormalOrientation = newOrientationValue;
+            }
+        }
+
+        private RoundedDouble ValidateStructureNormalOrientationInRange(RoundedDouble newOrientationValue)
+        {
+            const double upperBoundaryRange = 360;
+            const double lowerBoundaryRange = 0.0;
+
+            if (newOrientationValue > upperBoundaryRange)
+            {
+                newOrientationValue = new RoundedDouble(2, upperBoundaryRange);
+            }
+            else if (newOrientationValue < lowerBoundaryRange)
+            {
+                newOrientationValue = new RoundedDouble(2, lowerBoundaryRange);
+            }
+
+            return newOrientationValue;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Gets or sets the storm duration for an open structure.
+        /// </summary>
+        public RoundedDouble FactorStormDurationOpenStructure
+        {
+            get
+            {
+                return factorStormDurationOpenStructure;
+            }
+            set
+            {
+                factorStormDurationOpenStructure = value.ToPrecision(factorStormDurationOpenStructure.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the identical apertures to use during the calculation.
+        /// </summary>
+        public int IdenticalApertures { get; set; }
+
+        /// <summary>
+        /// Gets or sets the failure probability of an open structure.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown when the value of the probability 
+        /// is not between [0, 1].</exception>
+        public double FailureProbabilityOpenStructure
+        {
+            get
+            {
+                return failureProbablityOpenStructure;
+            }
+            set
+            {
+                if (!ValidProbabilityValue(value))
+                {
+                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                }
+                failureProbablityOpenStructure = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the reparation failure probability.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown when the value of the probability 
+        /// is not between [0, 1].</exception>
+        public double FailureProbablityReparation
+        {
+            get
+            {
+                return failureProbabilityReparation;
+            }
+            set
+            {
+                if (!ValidProbabilityValue(value))
+                {
+                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                }
+                failureProbabilityReparation = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the failure probability of structure given erosion.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown when the value of the probability 
+        /// is not between [0, 1].</exception>
+        public double FailureProbabilityStructureWithErosion
+        {
+            get
+            {
+                return failureProbabilityStructureWithErosion;
+            }
+            set
+            {
+                if (!ValidProbabilityValue(value))
+                {
+                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                }
+                failureProbabilityStructureWithErosion = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the deviation of the wave direction.
+        /// </summary>
+        public RoundedDouble DeviationWaveDirection
+        {
+            get
+            {
+                return deviationWaveDirection;
+            }
+            set
+            {
+                deviationWaveDirection = value.ToPrecision(deviationWaveDirection.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the failure probability of an open structure before flooding.
+        /// </summary>
+        /// <exception cref="ArgumentException">Thrown when the value of the probability 
+        /// is not between [0, 1].</exception>
+        public double ProbabilityOpenStructureBeforeFlooding
+        {
+            get
+            {
+                return probabilityOpenStructureBeforeFlooding;
+            }
+            set
+            {
+                if (!ValidProbabilityValue(value))
+                {
+                    throw new ArgumentException(RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
+                }
+                probabilityOpenStructureBeforeFlooding = value;
+            }
+        }
+
+        #endregion
+
+        #region Probabilistic inputs
+
+        /// <summary>
+        /// Gets or sets the drain coefficient.
+        /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
+        public NormalDistribution DrainCoefficient
+        {
+            get
+            {
+                return drainCoefficient;
+            }
+            set
+            {
+                drainCoefficient.Mean = value.Mean;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the model factor super critical flow.
+        /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
+        public NormalDistribution ModelFactorSuperCriticalFlow
+        {
+            get
+            {
+                return modelFactorSuperCriticalFlow;
+            }
+            set
+            {
+                modelFactorSuperCriticalFlow.Mean = value.Mean;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the threshold low weir height.
+        /// </summary>
+        public NormalDistribution ThresholdHeightOpenWeir
+        {
+            get
+            {
+                return thresholdHeightOpenWeir;
+            }
+            set
+            {
+                thresholdHeightOpenWeir.Mean = value.Mean;
+                thresholdHeightOpenWeir.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the area flow apertures.
+        /// </summary>
+        public LogNormalDistribution AreaFlowApertures
+        {
+            get
+            {
+                return areaFlowApertures;
+            }
+            set
+            {
+                areaFlowApertures.Mean = value.Mean;
+                areaFlowApertures.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the level crest of structure not closing.
+        /// </summary>
+        public NormalDistribution LevelCrestStructureNotClosing
+        {
+            get
+            {
+                return levelCrestStructureNotClosing;
+            }
+            set
+            {
+                levelCrestStructureNotClosing.Mean = value.Mean;
+                levelCrestStructureNotClosing.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the inside water level.
+        /// </summary>
+        public NormalDistribution InsideWaterLevel
+        {
+            get
+            {
+                return insideWaterLevel;
+            }
+            set
+            {
+                insideWaterLevel.Mean = value.Mean;
+                insideWaterLevel.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the allowable increase of level for storage.
+        /// </summary>
+        public LogNormalDistribution AllowedLevelIncreaseStorage
+        {
+            get
+            {
+                return allowedLevelIncreaseStorage;
+            }
+            set
+            {
+                allowedLevelIncreaseStorage.Mean = value.Mean;
+                allowedLevelIncreaseStorage.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the storage structure area.
+        /// </summary>
+        public LogNormalDistribution StorageStructureArea
+        {
+            get
+            {
+                return storageStructureArea;
+            }
+            set
+            {
+                storageStructureArea.Mean = value.Mean;
+                storageStructureArea.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the flow widt at bottom protection.
+        /// </summary>
+        public LogNormalDistribution FlowWidthAtBottomProtection
+        {
+            get
+            {
+                return flowWidthAtBottomProtection;
+            }
+            set
+            {
+                flowWidthAtBottomProtection.Mean = value.Mean;
+                flowWidthAtBottomProtection.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the critical overtopping discharge.
+        /// </summary>
+        public LogNormalDistribution CriticalOverToppingDischarge
+        {
+            get
+            {
+                return criticalOverToppingDischarge;
+            }
+            set
+            {
+                criticalOverToppingDischarge.Mean = value.Mean;
+                criticalOverToppingDischarge.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the width of flow apertures.
+        /// </summary>
+        public NormalDistribution WidthFlowApertures
+        {
+            get
+            {
+                return widthFlowApertures;
+            }
+            set
+            {
+                widthFlowApertures.Mean = value.Mean;
+                widthFlowApertures.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the storm duration.
+        /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
+        public LogNormalDistribution StormDuration
+        {
+            get
+            {
+                return stormDuration;
+            }
+            set
+            {
+                stormDuration.Mean = value.Mean;
+            }
+        }
+
+        #endregion
+
+        private bool ValidProbabilityValue(double probability)
+        {
+            return !double.IsNaN(probability) && probability <= 1 && probability >= 0;
+        }
     }
 }

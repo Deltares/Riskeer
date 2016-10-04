@@ -188,8 +188,11 @@ namespace Ringtoets.Piping.Data.Test
                 Output = null
             };
 
-            // Call & Assert
-            Assert.IsFalse(calculation.HasOutput);
+            // Call
+            bool calculationHasOutput = calculation.HasOutput;
+
+            // Assert
+            Assert.IsFalse(calculationHasOutput);
         }
 
         [Test]
@@ -201,8 +204,11 @@ namespace Ringtoets.Piping.Data.Test
                 Output = new TestPipingOutput()
             };
 
-            // Call & Assert
-            Assert.IsTrue(calculation.HasOutput);
+            // Call
+            bool calculationHasOutput = calculation.HasOutput;
+
+            // Assert
+            Assert.IsTrue(calculationHasOutput);
         }
 
         [Test]
