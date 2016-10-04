@@ -50,28 +50,29 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.IsNull(input.HydraulicBoundaryLocation);
             Assert.IsNull(input.ClosingStructure);
 
-            AssertEqualValues(0, input.StructureNormalOrientation);
+            AssertEqualValue(0, input.StructureNormalOrientation);
             Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
 
             Assert.IsNull(input.ForeshoreProfile);
             Assert.IsFalse(input.UseBreakWater);
             Assert.AreEqual(BreakWaterType.Dam, input.BreakWater.Type);
-            Assert.AreEqual(new RoundedDouble(2), input.BreakWater.Height);
+            Assert.AreEqual(0, input.BreakWater.Height.Value);
+            Assert.AreEqual(2, input.BreakWater.Height.NumberOfDecimalPlaces);
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
 
-            AssertEqualValues(1.1, input.ModelFactorSuperCriticalFlow.Mean);
-            AssertEqualValues(0.03, input.ModelFactorSuperCriticalFlow.StandardDeviation);
-            AssertEqualValues(0.1, input.ThresholdHeightOpenWeir.StandardDeviation);
-            AssertEqualValues(1, input.DrainCoefficient.Mean);
-            AssertEqualValues(0.2, input.DrainCoefficient.StandardDeviation);
-            AssertEqualValues(0.01, input.AreaFlowApertures.StandardDeviation);
-            AssertEqualValues(0.05, input.LevelCrestStructureNotClosing.StandardDeviation);
-            AssertEqualValues(0.1, input.InsideWaterLevel.StandardDeviation);
-            AssertEqualValues(0.1, input.AllowedLevelIncreaseStorage.StandardDeviation);
-            AssertEqualValues(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
-            AssertEqualValues(6.0, input.StormDuration.Mean);
-            AssertEqualValues(0.25, input.StormDuration.GetVariationCoefficient());
+            AssertEqualValue(1.1, input.ModelFactorSuperCriticalFlow.Mean);
+            AssertEqualValue(0.03, input.ModelFactorSuperCriticalFlow.StandardDeviation);
+            AssertEqualValue(0.1, input.ThresholdHeightOpenWeir.StandardDeviation);
+            AssertEqualValue(1, input.DrainCoefficient.Mean);
+            AssertEqualValue(0.2, input.DrainCoefficient.StandardDeviation);
+            AssertEqualValue(0.01, input.AreaFlowApertures.StandardDeviation);
+            AssertEqualValue(0.05, input.LevelCrestStructureNotClosing.StandardDeviation);
+            AssertEqualValue(0.1, input.InsideWaterLevel.StandardDeviation);
+            AssertEqualValue(0.1, input.AllowedLevelIncreaseStorage.StandardDeviation);
+            AssertEqualValue(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
+            AssertEqualValue(6.0, input.StormDuration.Mean);
+            AssertEqualValue(0.25, input.StormDuration.GetVariationCoefficient());
             Assert.AreEqual(1.0, input.ProbabilityOpenStructureBeforeFlooding);
         }
 
@@ -79,7 +80,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [TestCase(ClosingStructureType.VerticalWall)]
         [TestCase(ClosingStructureType.LowSill)]
         [TestCase(ClosingStructureType.FloodedCulvert)]
-        public void Properties_Type_ExpectedValues(ClosingStructureType type)
+        public void ClosingStructureType_SetValue_ReturnSetValue(ClosingStructureType type)
         {
             // Setup
             var input = new ClosingStructuresInput();
@@ -221,7 +222,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
-            AssertEqualValues(orientation, input.StructureNormalOrientation);
+            AssertEqualValue(orientation, input.StructureNormalOrientation);
         }
 
         [Test]
@@ -239,7 +240,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
-            AssertEqualValues(validValue, input.StructureNormalOrientation);
+            AssertEqualValue(validValue, input.StructureNormalOrientation);
         }
 
         [Test]
@@ -256,7 +257,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             //Assert
             Assert.AreEqual(modelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.Mean);
-            AssertEqualValues(initialStd, input.ModelFactorSuperCriticalFlow.StandardDeviation);
+            AssertEqualValue(initialStd, input.ModelFactorSuperCriticalFlow.StandardDeviation);
         }
 
         [Test]
@@ -273,7 +274,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, input.FactorStormDurationOpenStructure.NumberOfDecimalPlaces);
-            AssertEqualValues(factorStormDuration, input.FactorStormDurationOpenStructure);
+            AssertEqualValue(factorStormDuration, input.FactorStormDurationOpenStructure);
         }
 
         [Test]
@@ -305,7 +306,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             //Assert
             Assert.AreEqual(drainCoefficient.Mean, input.DrainCoefficient.Mean);
-            AssertEqualValues(initialStd, input.DrainCoefficient.StandardDeviation);
+            AssertEqualValue(initialStd, input.DrainCoefficient.StandardDeviation);
         }
 
         [Test]
@@ -320,12 +321,13 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             //Assert
             Assert.AreEqual(areaFlowApertures.Mean, input.AreaFlowApertures.Mean);
-            AssertEqualValues(areaFlowApertures.StandardDeviation, input.AreaFlowApertures.StandardDeviation);
+            AssertEqualValue(areaFlowApertures.StandardDeviation, input.AreaFlowApertures.StandardDeviation);
         }
 
         [Test]
         [TestCase(-1.1)]
         [TestCase(2)]
+        [TestCase(double.NaN)]
         public void Properties_FailureProbablityOpenStructure_ThrowArgumentException(double probability)
         {
             // Setup
@@ -357,6 +359,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [Test]
         [TestCase(-1.1)]
         [TestCase(2)]
+        [TestCase(double.NaN)]
         public void Properties_FailureProbablityReparation_ThrowArgumentException(double probability)
         {
             // Setup
@@ -488,12 +491,13 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             //Assert
             Assert.AreEqual(criticalOverToppingDischarge.Mean, input.CriticalOverToppingDischarge.Mean);
-            AssertEqualValues(criticalOverToppingDischarge.StandardDeviation, input.CriticalOverToppingDischarge.StandardDeviation);
+            AssertEqualValue(criticalOverToppingDischarge.StandardDeviation, input.CriticalOverToppingDischarge.StandardDeviation);
         }
 
         [Test]
         [TestCase(-1.1)]
         [TestCase(2)]
+        [TestCase(double.NaN)]
         public void Properties_FailureProbabilityStructureWithErosion_ThrowArgumentException(double probability)
         {
             // Setup
@@ -551,7 +555,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
-            AssertEqualValues(deviationWaveDirection, input.DeviationWaveDirection);
+            AssertEqualValue(deviationWaveDirection, input.DeviationWaveDirection);
         }
 
         [Test]
@@ -568,12 +572,13 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             //Assert
             Assert.AreEqual(stormDuration.Mean, input.StormDuration.Mean);
-            AssertEqualValues(initialStd, input.StormDuration.StandardDeviation);
+            AssertEqualValue(initialStd, input.StormDuration.StandardDeviation);
         }
 
         [Test]
         [TestCase(-1.1)]
         [TestCase(2)]
+        [TestCase(double.NaN)]
         public void Properties_ProbabilityOpenStructureBeforeFlooding_ThrowArgumentException(double probability)
         {
             // Setup
@@ -602,7 +607,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(probability, input.ProbabilityOpenStructureBeforeFlooding);
         }
 
-        private void AssertEqualValues(double expectedValue, RoundedDouble actualValue)
+        private void AssertEqualValue(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
         }

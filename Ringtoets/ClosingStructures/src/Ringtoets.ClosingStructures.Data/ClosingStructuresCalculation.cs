@@ -26,8 +26,14 @@ using Ringtoets.Common.Data.Properties;
 
 namespace Ringtoets.ClosingStructures.Data
 {
+    /// <summary>
+    /// This class holds information about a calculation for the <see cref="ClosingStructuresFailureMechanism"/>.
+    /// </summary>
     public class ClosingStructuresCalculation : Observable, ICalculation
     {
+        /// <summary>
+        /// Creates a new instance of <see cref="ClosingStructuresCalculation"/>.
+        /// </summary>
         public ClosingStructuresCalculation()
         {
             InputParameters = new ClosingStructuresInput();

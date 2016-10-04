@@ -37,30 +37,30 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, inputParameters.C.NumberOfDecimalPlaces);
-            AssertEqualValues(0.5, inputParameters.C);
+            AssertEqualValue(0.5, inputParameters.C);
 
             Assert.AreEqual(1, inputParameters.N2A);
 
             Assert.AreEqual(2, inputParameters.N.NumberOfDecimalPlaces);
-            AssertEqualValues(1, inputParameters.N);
+            AssertEqualValue(1, inputParameters.N);
 
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
-            AssertEqualValues(9.81, inputParameters.GravitationalAcceleration);
+            AssertEqualValue(9.81, inputParameters.GravitationalAcceleration);
 
             Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.ModelFactorOvertoppingFlow);
-            AssertEqualValues(0.09, inputParameters.ModelFactorOvertoppingFlow.Mean);
-            AssertEqualValues(0.06, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation);
+            AssertEqualValue(0.09, inputParameters.ModelFactorOvertoppingFlow.Mean);
+            AssertEqualValue(0.06, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation);
             
             Assert.IsInstanceOf<NormalDistribution>(inputParameters.ModelFactorSubCriticalFlow);
-            AssertEqualValues(1, inputParameters.ModelFactorSubCriticalFlow.Mean);
-            AssertEqualValues(0.1, inputParameters.ModelFactorSubCriticalFlow.GetVariationCoefficient());
+            AssertEqualValue(1, inputParameters.ModelFactorSubCriticalFlow.Mean);
+            AssertEqualValue(0.1, inputParameters.ModelFactorSubCriticalFlow.GetVariationCoefficient());
 
             Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.ModelFactorStorageVolume);
-            AssertEqualValues(1.0, inputParameters.ModelFactorStorageVolume.Mean);
-            AssertEqualValues(0.2, inputParameters.ModelFactorStorageVolume.StandardDeviation);
+            AssertEqualValue(1.0, inputParameters.ModelFactorStorageVolume.Mean);
+            AssertEqualValue(0.2, inputParameters.ModelFactorStorageVolume.StandardDeviation);
 
             Assert.AreEqual(2, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
-            AssertEqualValues(1.0, inputParameters.ModelFactorInflowVolume);
+            AssertEqualValue(1.0, inputParameters.ModelFactorInflowVolume);
         }
 
         [Test]
@@ -83,7 +83,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(expected, n, n.GetAccuracy());
         }
 
-        private void AssertEqualValues(double expected, RoundedDouble actual)
+        private void AssertEqualValue(double expected, RoundedDouble actual)
         {
             Assert.AreEqual(expected, actual, actual.GetAccuracy());
         }
