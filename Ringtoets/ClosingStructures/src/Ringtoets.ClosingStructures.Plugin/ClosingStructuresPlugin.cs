@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -31,6 +32,7 @@ using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -211,15 +213,9 @@ namespace Ringtoets.ClosingStructures.Plugin
             return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
         }
 
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, ClosingStructuresFailureMechanism failureMechanism)
-        {
-            //Check for database connection/part of a validation issue - currently a placeholder
-            return string.Empty;
-        }
-
         private void CalculateAll(ClosingStructuresFailureMechanismContext context)
         {
-            //Add calculate logic, part of WTI-554
+            CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<ClosingStructuresCalculation>());
         }
 
         #endregion
@@ -234,14 +230,53 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private ContextMenuStrip CalculationGroupContextContextMenuStrip(ClosingStructuresCalculationGroupContext context, object parentData, TreeViewControl treeViewControl)
         {
-            //Placeholder for time being, relevant for WTI-550
+            var group = context.WrappedData;
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+            var isNestedGroup = parentData is ClosingStructuresCalculationGroupContext;
+
+            builder.AddCreateCalculationGroupItem(group)
+                   .AddCreateCalculationItem(context, AddCalculation);
+
+            if (!isNestedGroup)
+            {
+                builder
+                    .AddSeparator()
+                    .AddRemoveAllChildrenItem(group, Gui.ViewCommands);
+            }
+            
+            builder.AddSeparator()
+                   .AddValidateAllCalculationsInGroupItem(context, c => ValidateAll(), ValidateAllDataAvailableAndGetErrorMessage)
+                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessage)
+                   .AddClearAllCalculationOutputInGroupItem(group)
+                   .AddSeparator();
+
+            if (isNestedGroup)
+            {
+                builder.AddRenameItem()
+                       .AddDeleteItem()
+                       .AddSeparator();
+            }
 
             return builder.AddExpandAllItem()
                           .AddCollapseAllItem()
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private static string ValidateAllDataAvailableAndGetErrorMessage(ClosingStructuresCalculationGroupContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+        }
+
+        private static void CalculateAll(CalculationGroup group, ClosingStructuresCalculationGroupContext context)
+        {
+            CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<ClosingStructuresCalculation>());
+        }
+
+        private void AddCalculation(ClosingStructuresCalculationGroupContext closingStructuresCalculationGroupContext)
+        {
+            
         }
 
         private static void CalculationGroupContextOnNodeRemoved(ClosingStructuresCalculationGroupContext context, object parentNodeData)
@@ -252,5 +287,16 @@ namespace Ringtoets.ClosingStructures.Plugin
         #endregion
 
         #endregion
+
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, ClosingStructuresFailureMechanism failureMechanism)
+        {
+            //Check for database connection/part of a validation issue - currently a placeholder
+            return string.Empty;
+        }
+
+        private static void CalculateAll(ClosingStructuresFailureMechanism failureMechanism, IEnumerable<ClosingStructuresCalculation> calculations)
+        {
+            //Add calculate logic, part of WTI-554
+        }
     }
 }
