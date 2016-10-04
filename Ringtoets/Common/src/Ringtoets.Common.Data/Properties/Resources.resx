@@ -222,4 +222,7 @@
   <data name="ClosingStructuresCalculation_DefaultName" xml:space="preserve">
     <value>Nieuwe berekening</value>
   </data>
+  <data name="CoefficientOfVariation_Should_be_greater_or_equal_to_zero" xml:space="preserve">
+    <value>Variatiecoëfficiënt (CV) moet groter of gelijk zijn aan 0.</value>
+  </data>
 </root>

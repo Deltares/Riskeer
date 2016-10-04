@@ -28,6 +28,7 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// <summary>
     /// Class representing a log-normal distribution.
     /// </summary>
+    /// <seealso cref="VariationCoefficientLogNormalDistribution"/>
     public class LogNormalDistribution : IDistribution
     {
         private RoundedDouble mean;
@@ -79,9 +80,11 @@ namespace Ringtoets.Common.Data.Probabilistics
         }
 
         /// <summary>
-        /// Gets or sets the mean of the normal distribution which is the log of the log-normal distribution.
+        /// Gets or sets the mean of the normal distribution which is the log of the
+        /// log-normal distribution.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Expected value is less than or equal to 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Expected value is less than or
+        /// equal to 0 or less then <see cref="Shift"/>.</exception>
         public RoundedDouble Mean
         {
             get
@@ -106,12 +109,11 @@ namespace Ringtoets.Common.Data.Probabilistics
         }
 
         /// <summary>
-        /// Gets or sets the standard deviation of the normal distribution which is the log of the log-normal distribution.
+        /// Gets or sets the standard deviation of the normal distribution which is the
+        /// log of the log-normal distribution.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when either:<list type="bullet">
-        /// <item>Standard deviation is less than 0.</item>
-        /// <item>The mean is smaller than the shift.</item>
-        /// </list></exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when standard deviation
+        /// is less than 0.</exception>
         public RoundedDouble StandardDeviation
         {
             get

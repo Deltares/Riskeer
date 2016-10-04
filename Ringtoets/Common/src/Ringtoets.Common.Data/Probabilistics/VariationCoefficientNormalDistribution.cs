@@ -26,26 +26,26 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
-    /// Class representing a normal (or Gaussian) distribution.
+    /// Class representing a normal (or Gaussian) distribution expressed in terms of a
+    /// coefficient of variation instead of standard deviation.
     /// </summary>
-    /// <seealso cref="VariationCoefficientNormalDistribution"/>
-    public class NormalDistribution : IDistribution
+    /// <seealso cref="NormalDistribution"/>
+    public class VariationCoefficientNormalDistribution : IVariationCoefficientDistribution
     {
-        private RoundedDouble standardDeviation;
+        private RoundedDouble coefficientOfVariation;
         private RoundedDouble mean;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NormalDistribution"/> class,
-        /// initialized as the standard normal distribution.
+        /// Initializes a new instance of the <see cref="VariationCoefficientNormalDistribution"/> class.
         /// </summary>
         /// <param name="numberOfDecimalPlaces">The number of decimal places of the distribution.</param>
         /// <exception cref="System.ArgumentOutOfRangeException">
         /// Thrown when <paramref name="numberOfDecimalPlaces"/> is not in range [0, <see cref="RoundedDouble.MaximumNumberOfDecimalPlaces"/>].
         /// </exception>
-        public NormalDistribution(int numberOfDecimalPlaces)
+        public VariationCoefficientNormalDistribution(int numberOfDecimalPlaces)
         {
-            mean = new RoundedDouble(numberOfDecimalPlaces);
-            standardDeviation = new RoundedDouble(numberOfDecimalPlaces, 1.0);
+            mean = new RoundedDouble(numberOfDecimalPlaces, 1.0);
+            coefficientOfVariation = new RoundedDouble(numberOfDecimalPlaces, 1.0);
         }
 
         public RoundedDouble Mean
@@ -60,22 +60,22 @@ namespace Ringtoets.Common.Data.Probabilistics
             }
         }
 
-        public RoundedDouble StandardDeviation
+        public RoundedDouble CoefficientOfVariation
         {
             get
             {
-                return standardDeviation;
+                return coefficientOfVariation;
             }
             set
             {
-                RoundedDouble roundedValue = value.ToPrecision(standardDeviation.NumberOfDecimalPlaces);
+                RoundedDouble roundedValue = value.ToPrecision(coefficientOfVariation.NumberOfDecimalPlaces);
 
                 if (roundedValue < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_than_zero);
+                    throw new ArgumentOutOfRangeException("value", Resources.CoefficientOfVariation_Should_be_greater_or_equal_to_zero);
                 }
 
-                standardDeviation = roundedValue;
+                coefficientOfVariation = value.ToPrecision(coefficientOfVariation.NumberOfDecimalPlaces);
             }
         }
     }

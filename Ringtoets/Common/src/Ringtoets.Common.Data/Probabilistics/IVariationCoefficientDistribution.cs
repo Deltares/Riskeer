@@ -27,18 +27,21 @@ namespace Ringtoets.Common.Data.Probabilistics
     /// <summary>
     /// This object represents a probabilistic distribution.
     /// </summary>
-    /// <seealso cref="IVariationCoefficientDistribution"/>
-    public interface IDistribution
+    /// <seealso cref="IDistribution"/>
+    public interface IVariationCoefficientDistribution
     {
         /// <summary>
         /// Gets or sets the mean (expected value, E(X)) of the distribution.
         /// </summary>
+        /// <remarks>As <see cref="CoefficientOfVariation"/> cannot be negative, the absolute
+        /// value of the mean is used when the standard deviation needs to be calculated.</remarks>
         RoundedDouble Mean { get; set; }
 
         /// <summary>
-        /// Gets or sets the standard deviation (square root of the Var(X)) of the distribution.
+        /// Gets or sets the coefficient of variation (CV, also known as relative standard
+        /// deviation (SRD). Defined as standard deviation / |E(X)|) of the distribution.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Standard deviation is less than 0.</exception>
-        RoundedDouble StandardDeviation { get; set; }
+        /// <exception cref="ArgumentOutOfRangeException">Coefficient of variation is less than 0.</exception>
+        RoundedDouble CoefficientOfVariation { get; set; }
     }
 }
