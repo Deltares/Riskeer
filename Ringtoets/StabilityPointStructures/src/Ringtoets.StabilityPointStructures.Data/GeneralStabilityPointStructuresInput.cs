@@ -70,7 +70,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             ModificationFactorWavesSlowlyVaryingPressureComponent = new RoundedDouble(1, 1);
             ModificationFactorDynamicOrImpulsivePressureComponent = new RoundedDouble(1, 1);
 
-            WaveRatioMaxHMean = new RoundedDouble(2, 5000);
+            WaveRatioMaxHN = new RoundedDouble(2, 5000);
             WaveRatioMaxHStandardDeviation = new RoundedDouble(2, 0.5);
         }
 
@@ -144,10 +144,11 @@ namespace Ringtoets.StabilityPointStructures.Data
         #endregion
 
         #region Rayleigh-N properties
+
         /// <summary>
-        /// Gets the mean of the Rayleigh-N distribution for wave ratio max H. 
+        /// Gets the N of the Rayleigh-N distribution for wave ratio max H. 
         /// </summary>
-        public RoundedDouble WaveRatioMaxHMean { get; private set; }
+        public RoundedDouble WaveRatioMaxHN { get; private set; }
 
         /// <summary>
         /// Gets the standard deviation of the Rayleigh-N distribution for wave ratio max H.

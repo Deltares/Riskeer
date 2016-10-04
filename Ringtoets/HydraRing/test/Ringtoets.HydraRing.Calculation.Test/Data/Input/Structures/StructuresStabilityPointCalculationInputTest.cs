@@ -88,7 +88,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double evaluationLevel = 44.4;
             const double modelFactorLoadEffectMean = 45.5;
             const double modelFactorLoadEffectStandardDeviation = 46.6;
-            const double waveRatioMaxHMean = 47.7;
+            const double waveRatioMaxHN = 47.7;
             const double waveRatioMaxHStandardDeviation = 48.8;
             const double verticalDistance = 49.9;
             const double modificationFactorWavesSlowlyVaryingPressureComponent = 50.0;
@@ -125,7 +125,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                          bermWidthMean, bermWidthStandardDeviation,
                                                                          evaluationLevel,
                                                                          modelFactorLoadEffectMean, modelFactorLoadEffectStandardDeviation,
-                                                                         waveRatioMaxHMean, waveRatioMaxHStandardDeviation,
+                                                                         waveRatioMaxHN, waveRatioMaxHStandardDeviation,
                                                                          verticalDistance,
                                                                          modificationFactorWavesSlowlyVaryingPressureComponent,
                                                                          modificationFactorDynamicOrImpulsivePressureComponent);
@@ -211,7 +211,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                 double bermWidthMean, double bermWidthStandardDeviation,
                                                                 double evaluationLevel,
                                                                 double modelFactorLoadEffectMean, double modelFactorLoadEffectStandardDeviation,
-                                                                double waveRatioMaxHMean, double waveRatioMaxHStandardDeviation,
+                                                                double waveRatioMaxHN, double waveRatioMaxHStandardDeviation,
                                                                 double verticalDistance,
                                                                 double modificationFactorWavesSlowlyVaryingPressureComponent,
                                                                 double modificationFactorDynamicOrImpulsivePressureComponent)
@@ -245,7 +245,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                        bermWidthMean, bermWidthStandardDeviation,
                        evaluationLevel,
                        modelFactorLoadEffectMean, modelFactorLoadEffectStandardDeviation,
-                       waveRatioMaxHMean, waveRatioMaxHStandardDeviation,
+                       waveRatioMaxHN, waveRatioMaxHStandardDeviation,
                        verticalDistance,
                        modificationFactorWavesSlowlyVaryingPressureComponent,
                        modificationFactorDynamicOrImpulsivePressureComponent) {}

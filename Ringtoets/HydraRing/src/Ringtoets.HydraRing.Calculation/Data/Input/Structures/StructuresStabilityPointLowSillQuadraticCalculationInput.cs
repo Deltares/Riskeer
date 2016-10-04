@@ -91,7 +91,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="evaluationLevel">The evaluation level.</param>
         /// <param name="modelFactorLoadEffectMean">The mean of the model factor load effect.</param>
         /// <param name="modelFactorLoadEffectStandardDeviation">The standard deviation of the model factor load effect.</param>
-        /// <param name="waveRatioMaxHMean">The mean of the wave ratio max h.</param>
+        /// <param name="waveRatioMaxHN">The N of the wave ratio max h.</param>
         /// <param name="waveRatioMaxHStandardDeviation">The standard deviation of the wave ratio max h.</param>
         /// <param name="verticalDistance">The vertical distance.</param>
         /// <param name="modificationFactorWavesSlowlyVaryingPressureComponent">The modification factor waves slowly-varying pressure component.</param>
@@ -135,7 +135,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                         double bermWidthMean, double bermWidthStandardDeviation,
                                                                         double evaluationLevel,
                                                                         double modelFactorLoadEffectMean, double modelFactorLoadEffectStandardDeviation,
-                                                                        double waveRatioMaxHMean, double waveRatioMaxHStandardDeviation,
+                                                                        double waveRatioMaxHN, double waveRatioMaxHStandardDeviation,
                                                                         double verticalDistance,
                                                                         double modificationFactorWavesSlowlyVaryingPressureComponent,
                                                                         double modificationFactorDynamicOrImpulsivePressureComponent,
@@ -173,7 +173,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                    bermWidthMean, bermWidthStandardDeviation,
                    evaluationLevel,
                    modelFactorLoadEffectMean, modelFactorLoadEffectStandardDeviation,
-                   waveRatioMaxHMean, waveRatioMaxHStandardDeviation,
+                   waveRatioMaxHN, waveRatioMaxHStandardDeviation,
                    verticalDistance,
                    modificationFactorWavesSlowlyVaryingPressureComponent,
                    modificationFactorDynamicOrImpulsivePressureComponent)

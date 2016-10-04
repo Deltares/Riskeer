@@ -77,7 +77,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double evaluationLevel;
         private readonly double modelFactorLoadEffectMean;
         private readonly double modelFactorLoadEffectStandardDeviation;
-        private readonly double waveRatioMaxHMean;
+        private readonly double waveRatioMaxHN;
         private readonly double waveRatioMaxHStandardDeviation;
         private readonly double verticalDistance;
         private readonly double modificationFactorWavesSlowlyVaryingPressureComponent;
@@ -136,7 +136,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="evaluationLevel">The evaluation level.</param>
         /// <param name="modelFactorLoadEffectMean">The mean of the model factor load effect.</param>
         /// <param name="modelFactorLoadEffectStandardDeviation">The standard deviation of the model factor load effect.</param>
-        /// <param name="waveRatioMaxHMean">The mean of the wave ratio max h.</param>
+        /// <param name="waveRatioMaxHN">The N of the wave ratio max h.</param>
         /// <param name="waveRatioMaxHStandardDeviation">The standard deviation of the wave ratio max h.</param>
         /// <param name="verticalDistance">The vertical distance.</param>
         /// <param name="modificationFactorWavesSlowlyVaryingPressureComponent">The modification factor waves slowly-varying pressure component.</param>
@@ -172,7 +172,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                            double bermWidthMean, double bermWidthStandardDeviation,
                                                            double evaluationLevel,
                                                            double modelFactorLoadEffectMean, double modelFactorLoadEffectStandardDeviation,
-                                                           double waveRatioMaxHMean, double waveRatioMaxHStandardDeviation,
+                                                           double waveRatioMaxHN, double waveRatioMaxHStandardDeviation,
                                                            double verticalDistance,
                                                            double modificationFactorWavesSlowlyVaryingPressureComponent,
                                                            double modificationFactorDynamicOrImpulsivePressureComponent)
@@ -227,7 +227,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.evaluationLevel = evaluationLevel;
             this.modelFactorLoadEffectMean = modelFactorLoadEffectMean;
             this.modelFactorLoadEffectStandardDeviation = modelFactorLoadEffectStandardDeviation;
-            this.waveRatioMaxHMean = waveRatioMaxHMean;
+            this.waveRatioMaxHN = waveRatioMaxHN;
             this.waveRatioMaxHStandardDeviation = waveRatioMaxHStandardDeviation;
             this.verticalDistance = verticalDistance;
             this.modificationFactorWavesSlowlyVaryingPressureComponent = modificationFactorWavesSlowlyVaryingPressureComponent;
@@ -338,7 +338,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                    HydraRingDeviationType.Standard, modelFactorLoadEffectMean,
                                                    modelFactorLoadEffectStandardDeviation, double.NaN);
                 yield return new HydraRingVariable(133, HydraRingDistributionType.RayleighN, double.NaN,
-                                                   HydraRingDeviationType.Standard, waveRatioMaxHMean,
+                                                   HydraRingDeviationType.Standard, waveRatioMaxHN,
                                                    waveRatioMaxHStandardDeviation, double.NaN);
                 yield return new HydraRingVariable(134, HydraRingDistributionType.Deterministic, verticalDistance,
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
