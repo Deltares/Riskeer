@@ -130,7 +130,7 @@ namespace Ringtoets.ClosingStructures.Data
 
             stormDuration = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) 7.5
+                Mean = (RoundedDouble) 6.0
             };
             stormDuration.SetStandardDeviationFromVariationCoefficient(0.25);
 

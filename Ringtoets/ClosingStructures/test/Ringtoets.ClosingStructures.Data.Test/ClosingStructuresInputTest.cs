@@ -70,7 +70,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             AssertEqualValues(0.1, input.InsideWaterLevel.StandardDeviation);
             AssertEqualValues(0.1, input.AllowedLevelIncreaseStorage.StandardDeviation);
             AssertEqualValues(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
-            AssertEqualValues(7.5, input.StormDuration.Mean);
+            AssertEqualValues(6.0, input.StormDuration.Mean);
             AssertEqualValues(0.25, input.StormDuration.GetVariationCoefficient());
             Assert.AreEqual(1.0, input.ProbabilityOpenStructureBeforeFlooding);
         }

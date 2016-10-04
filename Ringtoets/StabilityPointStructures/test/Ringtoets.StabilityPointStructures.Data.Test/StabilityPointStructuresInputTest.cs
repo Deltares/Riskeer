@@ -66,7 +66,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             AssertEqualValues(0.1, input.InsideWaterLevel.StandardDeviation);
 
             Assert.IsInstanceOf<LogNormalDistribution>(input.StormDuration);
-            AssertEqualValues(7.5, input.StormDuration.Mean);
+            AssertEqualValues(6.0, input.StormDuration.Mean);
             AssertEqualValues(0.25, input.StormDuration.GetVariationCoefficient());
         }
 
