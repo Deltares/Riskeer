@@ -76,6 +76,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.LevelOfCrestOfStructure.DynamicReadOnlyValidationMethod("Mean"));
             Assert.IsTrue(properties.LevelOfCrestOfStructure.DynamicReadOnlyValidationMethod("StandardDeviation"));
 
+            Assert.AreEqual("Lognormaal", properties.AllowableIncreaseOfLevelForStorage.DistributionType);
+            Assert.AreEqual(structure.AllowableIncreaseOfLevelForStorage, properties.AllowableIncreaseOfLevelForStorage.Data);
+            Assert.IsTrue(properties.AllowableIncreaseOfLevelForStorage.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.AllowableIncreaseOfLevelForStorage.DynamicReadOnlyValidationMethod("StandardDeviation"));
+
             Assert.AreEqual("Lognormaal", properties.StorageStructureArea.DistributionType);
             Assert.AreEqual(structure.StorageStructureArea, properties.StorageStructureArea.Data);
             Assert.IsTrue(properties.StorageStructureArea.DynamicReadOnlyValidationMethod("Mean"));
