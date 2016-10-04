@@ -46,7 +46,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double factorStormDurationOpenStructure = 2.2;
             const double failureProbabilityOpenStructure = 3.3;
             const double failureProbabilityReparation = 4.4;
-            const double identicalApertures = 5.5;
+            const int identicalApertures = 5;
             const double allowedLevelIncreaseStorageMean = 6.6;
             const double allowedLevelIncreaseStorageStandardDeviation = 7.7;
             const double modelFactorStorageVolumeMean = 8.8;
@@ -99,7 +99,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             yield return new HydraRingVariable(63, HydraRingDistributionType.Deterministic, 2.2, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
             yield return new HydraRingVariable(68, HydraRingDistributionType.Deterministic, 3.3, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
             yield return new HydraRingVariable(69, HydraRingDistributionType.Deterministic, 4.4, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-            yield return new HydraRingVariable(71, HydraRingDistributionType.Deterministic, 5.5, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(71, HydraRingDistributionType.Deterministic, 5, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
             yield return new HydraRingVariable(94, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Standard, 6.6, 7.7, double.NaN);
             yield return new HydraRingVariable(95, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Standard, 8.8, 9.9, double.NaN);
             yield return new HydraRingVariable(96, HydraRingDistributionType.LogNormal, double.NaN, HydraRingDeviationType.Variation, 10.0, 11.1, double.NaN);
@@ -120,7 +120,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                          double factorStormDurationOpenStructure,
                                                          double failureProbabilityOpenStructure,
                                                          double failureProbabilityReparation,
-                                                         double identicalApertures,
+                                                         int identicalApertures,
                                                          double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation,
                                                          double modelFactorStorageVolumeMean, double modelFactorStorageVolumeStandardDeviation,
                                                          double storageStructureAreaMean, double storageStructureAreaVariation,

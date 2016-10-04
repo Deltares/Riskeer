@@ -63,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double shipMassVariation = 19.9;
             const double shipVelocityMean = 20.0;
             const double shipVelocityVariation = 21.1;
-            const double levelingCount = 22.2;
+            const int levelingCount = 22;
             const double probabilityCollisionSecondaryStructure = 23.3;
             const double flowVelocityStructureClosableMean = 24.4;
             const double flowVelocityStructureClosableStandardDeviation = 25.5;
@@ -157,7 +157,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             yield return new HydraRingVariable(87, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Variation, 16.6, 17.7, double.NaN);
             yield return new HydraRingVariable(88, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Variation, 18.8, 19.9, double.NaN);
             yield return new HydraRingVariable(89, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Variation, 20.0, 21.1, double.NaN);
-            yield return new HydraRingVariable(90, HydraRingDistributionType.Deterministic, 22.2, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(90, HydraRingDistributionType.Deterministic, 22, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
             yield return new HydraRingVariable(91, HydraRingDistributionType.Deterministic, 23.3, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
             yield return new HydraRingVariable(92, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 24.4, 25.5, double.NaN);
             yield return new HydraRingVariable(93, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 26.6, 27.7, double.NaN);
@@ -196,7 +196,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                 double modelFactorCollisionLoadMean, double modelFactorCollisionLoadVariation,
                                                                 double shipMassMean, double shipMassVariation,
                                                                 double shipVelocityMean, double shipVelocityVariation,
-                                                                double levelingCount,
+                                                                int levelingCount,
                                                                 double probabilityCollisionSecondaryStructure,
                                                                 double flowVelocityStructureClosableMean, double flowVelocityStructureClosableStandardDeviation,
                                                                 double insideWaterLevelMean, double insideWaterLevelStandardDeviation,

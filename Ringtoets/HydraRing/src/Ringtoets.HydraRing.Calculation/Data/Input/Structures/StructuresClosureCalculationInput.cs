@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double factorStormDurationOpenStructure;
         private readonly double failureProbabilityOpenStructure;
         private readonly double failureProbabilityReparation;
-        private readonly double identicalApertures;
+        private readonly int identicalApertures;
         private readonly double allowedLevelIncreaseStorageMean;
         private readonly double allowedLevelIncreaseStorageStandardDeviation;
         private readonly double modelFactorStorageVolumeMean;
@@ -86,7 +86,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                     double factorStormDurationOpenStructure,
                                                     double failureProbabilityOpenStructure,
                                                     double failureProbabilityReparation,
-                                                    double identicalApertures,
+                                                    int identicalApertures,
                                                     double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation,
                                                     double modelFactorStorageVolumeMean, double modelFactorStorageVolumeStandardDeviation,
                                                     double storageStructureAreaMean, double storageStructureAreaVariation,

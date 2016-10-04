@@ -120,7 +120,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                             double modelFactorCollisionLoadMean, double modelFactorCollisionLoadVariation,
                                                                             double shipMassMean, double shipMassVariation,
                                                                             double shipVelocityMean, double shipVelocityVariation,
-                                                                            double levelingCount,
+                                                                            int levelingCount,
                                                                             double probabilityCollisionSecondaryStructure,
                                                                             double flowVelocityStructureClosableMean, double flowVelocityStructureClosableStandardDeviation,
                                                                             double insideWaterLevelMean, double insideWaterLevelStandardDeviation,

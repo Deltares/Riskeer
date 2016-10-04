@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double shipMassVariation = 19.9;
             const double shipVelocityMean = 20.0;
             const double shipVelocityVariation = 21.1;
-            const double levelingCount = 22.2;
+            const int levelingCount = 22;
             const double probabilityCollisionSecondaryStructure = 23.3;
             const double flowVelocityStructureClosableMean = 24.4;
             const double flowVelocityStructureClosableStandardDeviation = 25.5;
@@ -167,7 +167,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                                             new HydraRingBreakWater(1, 1.1), 
                                                                                             1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.10,
                                                                                             11.11, 12.12, 13.13, 14.14, 15.15, 16.16, 17.17,
-                                                                                            18.18, 19.19, 20.20, 21.21, 22.22, 23.23, 24.24,
+                                                                                            18.18, 19.19, 20.20, 21.21, 22, 23.23, 24.24,
                                                                                             25.25, 26.26, 27.27, 28.28, 29.29, 30.30, 31.31,
                                                                                             32.32, 33.33, 34.34, 35.35, 36.36, 37.37, 38.38,
                                                                                             39.39, 40.40, 41.41, 42.42, 43.43, 44.44, 45.45,
@@ -200,7 +200,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             yield return new HydraRingVariable(87, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Variation, 16.6, 17.7, double.NaN);
             yield return new HydraRingVariable(88, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Variation, 18.8, 19.9, double.NaN);
             yield return new HydraRingVariable(89, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Variation, 20.0, 21.1, double.NaN);
-            yield return new HydraRingVariable(90, HydraRingDistributionType.Deterministic, 22.2, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
+            yield return new HydraRingVariable(90, HydraRingDistributionType.Deterministic, 22, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
             yield return new HydraRingVariable(91, HydraRingDistributionType.Deterministic, 23.3, HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
             yield return new HydraRingVariable(92, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 24.4, 25.5, double.NaN);
             yield return new HydraRingVariable(93, HydraRingDistributionType.Normal, double.NaN, HydraRingDeviationType.Standard, 26.6, 27.7, double.NaN);
