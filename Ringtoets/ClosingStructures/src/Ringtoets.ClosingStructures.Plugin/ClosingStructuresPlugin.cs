@@ -398,8 +398,14 @@ namespace Ringtoets.ClosingStructures.Plugin
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
-        private static void CalculationContextOnNodeRemoved(ClosingStructuresCalculationContext arg1, object arg2)
+        private static void CalculationContextOnNodeRemoved(ClosingStructuresCalculationContext context, object parentData)
         {
+            var calculationGroupContext = parentData as ClosingStructuresCalculationGroupContext;
+            if (calculationGroupContext != null)
+            {
+                calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
+                calculationGroupContext.NotifyObservers();
+            }
         }
 
         #endregion

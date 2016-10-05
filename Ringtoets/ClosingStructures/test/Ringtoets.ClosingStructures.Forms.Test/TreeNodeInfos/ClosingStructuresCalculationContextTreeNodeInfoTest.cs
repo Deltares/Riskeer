@@ -21,6 +21,7 @@
 
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -33,6 +34,7 @@ using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -250,6 +252,42 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                                                                   false);
                 }
             }
+        }
+
+        [Test]
+        public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var elementToBeRemoved = new ClosingStructuresCalculation();
+            var observerMock = mocks.StrictMock<IObserver>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var calculationContext = new ClosingStructuresCalculationContext(elementToBeRemoved,
+                                                                            failureMechanism,
+                                                                            assessmentSectionMock);
+            var groupContext = new ClosingStructuresCalculationGroupContext(group,
+                                                                           failureMechanism,
+                                                                           assessmentSectionMock);
+
+            observerMock.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            group.Children.Add(elementToBeRemoved);
+            group.Children.Add(new ClosingStructuresCalculation());
+            group.Attach(observerMock);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(calculationContext, groupContext));
+            Assert.AreEqual(2, group.Children.Count);
+
+            // Call
+            info.OnNodeRemoved(calculationContext, groupContext);
+
+            // Assert
+            Assert.AreEqual(1, group.Children.Count);
+            CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
         }
 
         private class TestClosingStructuresOutput : ProbabilityAssessmentOutput
