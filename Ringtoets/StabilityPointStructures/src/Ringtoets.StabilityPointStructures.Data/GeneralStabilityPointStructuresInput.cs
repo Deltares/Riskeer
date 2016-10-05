@@ -76,6 +76,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets the gravitational acceleration.
+        /// [m/s^2]
         /// </summary>
         public RoundedDouble GravitationalAcceleration { get; private set; }
 
@@ -107,7 +108,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         #region Model Factors
 
         /// <summary>
-        /// Gets the model factor for storage volume.
+        /// Gets the model factor for the storage volume.
         /// </summary>
         public LogNormalDistribution ModelFactorStorageVolume { get; private set; }
 

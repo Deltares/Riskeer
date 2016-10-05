@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -52,22 +53,42 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.IsNull(input.ForeshoreProfile);
             Assert.IsFalse(input.UseBreakWater);
             Assert.AreEqual(BreakWaterType.Dam, input.BreakWater.Type);
-            Assert.AreEqual(new RoundedDouble(2), input.BreakWater.Height);
+            AssertEqualValue(0, input.BreakWater.Height);
+            Assert.AreEqual(2, input.BreakWater.Height.NumberOfDecimalPlaces);
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
 
             Assert.AreEqual(2, input.VolumicWeightWater.NumberOfDecimalPlaces);
-            AssertEqualValues(9.81, input.VolumicWeightWater);
+            AssertEqualValue(9.81, input.VolumicWeightWater);
+            Assert.IsNaN(input.FactorStormDurationOpenStructure);
 
-            Assert.IsInstanceOf<NormalDistribution>(input.InsideWaterLevelFailureConstruction);
-            AssertEqualValues(0.1, input.InsideWaterLevelFailureConstruction.StandardDeviation);
+            Assert.IsNaN(input.InsideWaterLevelFailureConstruction.Mean);
+            AssertEqualValue(0.1, input.InsideWaterLevelFailureConstruction.StandardDeviation);
 
-            Assert.IsInstanceOf<NormalDistribution>(input.InsideWaterLevel);
-            AssertEqualValues(0.1, input.InsideWaterLevel.StandardDeviation);
+            Assert.IsNaN(input.InsideWaterLevel.Mean);
+            AssertEqualValue(0.1, input.InsideWaterLevel.StandardDeviation);
 
-            Assert.IsInstanceOf<LogNormalDistribution>(input.StormDuration);
-            AssertEqualValues(6.0, input.StormDuration.Mean);
-            AssertEqualValues(0.25, input.StormDuration.GetVariationCoefficient());
+            AssertEqualValue(6.0, input.StormDuration.Mean);
+            AssertEqualValue(0.25, input.StormDuration.GetVariationCoefficient());
+
+            AssertEqualValue(1.1, input.ModelFactorSuperCriticalFlow.Mean);
+            AssertEqualValue(0.03, input.ModelFactorSuperCriticalFlow.StandardDeviation);
+
+            AssertEqualValue(1, input.DrainCoefficient.Mean);
+            AssertEqualValue(0.2, input.DrainCoefficient.StandardDeviation);
+
+            Assert.IsNaN(input.LevelCrestStructure.Mean);
+            AssertEqualValue(0.05, input.LevelCrestStructure.StandardDeviation);
+
+            Assert.IsNaN(input.ThresholdHeightOpenWeir.Mean);
+            AssertEqualValue(0.1, input.ThresholdHeightOpenWeir.StandardDeviation);
+
+            Assert.IsNaN(input.AreaFlowApertures.Mean);
+            AssertEqualValue(0.01, input.AreaFlowApertures.StandardDeviation);
+
+            Assert.IsNaN(input.ConstructiveStrengthLinearLoadModel.Mean);
+
+            Assert.IsNaN(input.ConstructiveStrengthQuadraticLoadModel.Mean);
         }
 
         #region Hydraulic loads and data
@@ -201,7 +222,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, input.VolumicWeightWater.NumberOfDecimalPlaces);
-            AssertEqualValues(volumicWeightWater, input.VolumicWeightWater);
+            AssertEqualValue(volumicWeightWater, input.VolumicWeightWater);
         }
 
         [Test]
@@ -248,7 +269,62 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             //Assert
             Assert.AreEqual(stormDuration.Mean, input.StormDuration.Mean);
-            AssertEqualValues(initialStd, input.StormDuration.StandardDeviation);
+            AssertEqualValue(initialStd, input.StormDuration.StandardDeviation);
+        }
+
+        #endregion
+
+        #region Model inputs
+
+        [Test]
+        public void Properties_ModelFactorSuperCriticalFlow_ExpectedValues()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+            NormalDistribution modelFactorSuperCriticalFlow = GenerateNormalDistribution();
+
+            RoundedDouble initialStd = input.ModelFactorSuperCriticalFlow.StandardDeviation;
+
+            //Call
+            input.ModelFactorSuperCriticalFlow = modelFactorSuperCriticalFlow;
+
+            //Assert
+            Assert.AreEqual(modelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.Mean);
+            Assert.AreEqual(initialStd, input.ModelFactorSuperCriticalFlow.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_FactorStormDurationOpenStructure_ExpectedValues()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+            var random = new Random(22);
+
+            var factorStormDuration = new RoundedDouble(5, random.NextDouble());
+
+            // Call
+            input.FactorStormDurationOpenStructure = factorStormDuration;
+
+            // Assert
+            Assert.AreEqual(2, input.FactorStormDurationOpenStructure.NumberOfDecimalPlaces);
+            AssertEqualValue(factorStormDuration, input.FactorStormDurationOpenStructure);
+        }
+
+        [Test]
+        public void Properties_DrainCoefficient_ExpectedValues()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+            NormalDistribution drainCoefficient = GenerateNormalDistribution();
+
+            RoundedDouble initialStd = input.DrainCoefficient.StandardDeviation;
+
+            //Call
+            input.DrainCoefficient = drainCoefficient;
+
+            //Assert
+            Assert.AreEqual(drainCoefficient.Mean, input.DrainCoefficient.Mean);
+            AssertEqualValue(initialStd, input.DrainCoefficient.StandardDeviation);
         }
 
         #endregion
@@ -260,6 +336,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         [TestCase(300)]
         [TestCase(0)]
         [TestCase(-0.004)]
+        [TestCase(double.NaN)]
         public void Properties_StructureNormalOrientationValidValues_NewValueSet(double orientation)
         {
             // Setup
@@ -270,32 +347,108 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
-            AssertEqualValues(orientation, input.StructureNormalOrientation);
+            AssertEqualValue(orientation, input.StructureNormalOrientation);
         }
 
         [Test]
-        [TestCase(400, 360)]
-        [TestCase(360.05, 360)]
-        [TestCase(-0.005, 0)]
-        [TestCase(-23, 0)]
-        public void Properties_StructureNormalOrientationInValidValues_ValueRoundedToValidValue(double invalidValue, double validValue)
+        [TestCase(400)]
+        [TestCase(360.05)]
+        [TestCase(-0.005)]
+        [TestCase(-23)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(double.PositiveInfinity)]
+        public void Properties_StructureNormalOrientationInValidValues_ThrowArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
             var input = new StabilityPointStructuresInput();
 
             // Call
-            input.StructureNormalOrientation = (RoundedDouble) invalidValue;
+            TestDelegate call = () => input.StructureNormalOrientation = (RoundedDouble) invalidValue;
 
             // Assert
-            Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
-            AssertEqualValues(validValue, input.StructureNormalOrientation);
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik tussen [0, 360] graden liggen.");
         }
 
+        [Test]
+        public void Properties_LevelCrestStructure_ExpectedValues()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+            NormalDistribution levelCrestStructure = GenerateNormalDistribution();
+
+            // Call
+            input.LevelCrestStructure = levelCrestStructure;
+
+            // Assert
+            AssertEqualValue(levelCrestStructure.Mean, input.LevelCrestStructure.Mean);
+            AssertEqualValue(levelCrestStructure.StandardDeviation, input.LevelCrestStructure.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_ThresholdHeightOpenWeir_ExpectedValues()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+            NormalDistribution thresholdHeightOpenWeir = GenerateNormalDistribution();
+
+            // Call
+            input.ThresholdHeightOpenWeir = thresholdHeightOpenWeir;
+
+            // Assert
+            AssertEqualValue(thresholdHeightOpenWeir.Mean, input.ThresholdHeightOpenWeir.Mean);
+            AssertEqualValue(thresholdHeightOpenWeir.StandardDeviation, input.ThresholdHeightOpenWeir.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_AreaFlowApertures_ExpectedValues()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+            LogNormalDistribution areaFlowApertures = GenerateLogNormalDistribution();
+
+            // Call
+            input.AreaFlowApertures = areaFlowApertures;
+
+            // Assert
+            AssertEqualValue(areaFlowApertures.Mean, input.AreaFlowApertures.Mean);
+            AssertEqualValue(areaFlowApertures.StandardDeviation, input.AreaFlowApertures.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_ConstructiveStrengthLinearLoadModel_ExpectedValues()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+            LogNormalDistribution constructiveStrengthLinearLoadModel = GenerateLogNormalDistribution();
+
+            // Call
+            input.ConstructiveStrengthLinearLoadModel = constructiveStrengthLinearLoadModel;
+
+            // Assert
+            AssertEqualValue(constructiveStrengthLinearLoadModel.Mean, input.ConstructiveStrengthLinearLoadModel.Mean);
+            AssertEqualValue(constructiveStrengthLinearLoadModel.StandardDeviation, input.ConstructiveStrengthLinearLoadModel.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_ConstructiveStrengthQuadraticLoadModel_ExpectectedValues()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+            LogNormalDistribution constructiveStrengthQuadraticLoadModel = GenerateLogNormalDistribution();
+
+            // Call
+            input.ConstructiveStrengthQuadraticLoadModel = constructiveStrengthQuadraticLoadModel;
+
+            // Assert
+            AssertEqualValue(constructiveStrengthQuadraticLoadModel.Mean, input.ConstructiveStrengthQuadraticLoadModel.Mean);
+            AssertEqualValue(constructiveStrengthQuadraticLoadModel.StandardDeviation, input.ConstructiveStrengthQuadraticLoadModel.StandardDeviation);
+        }
         #endregion
 
         #region Helpers
 
-        private void AssertEqualValues(double expectedValue, RoundedDouble actualValue)
+        private void AssertEqualValue(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
         }

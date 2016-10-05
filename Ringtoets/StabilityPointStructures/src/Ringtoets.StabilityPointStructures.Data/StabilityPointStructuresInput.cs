@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -27,6 +28,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
+using RingtoetsDataCommonProperties = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Data
 {
@@ -35,12 +37,20 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// </summary>
     public class StabilityPointStructuresInput : Observable, ICalculationInput
     {
-        private ForeshoreProfile foreshoreProfile;
-        private RoundedDouble structureNormalOrientation;
-        private RoundedDouble volumicWeightWater;
         private readonly NormalDistribution insideWaterLevelFailureConstruction;
         private readonly NormalDistribution insideWaterLevel;
         private readonly LogNormalDistribution stormDuration;
+        private readonly NormalDistribution modelFactorSuperCriticalFlow;
+        private readonly NormalDistribution drainCoefficient;
+        private readonly NormalDistribution levelCrestStructure;
+        private readonly NormalDistribution thresholdHeightOpenWeir;
+        private readonly LogNormalDistribution areaFlowApertures;
+        private readonly LogNormalDistribution constructiveStrengthLinearModel;
+        private readonly LogNormalDistribution constructiveStrengthQuadraticModel;
+        private ForeshoreProfile foreshoreProfile;
+        private RoundedDouble structureNormalOrientation;
+        private RoundedDouble volumicWeightWater;
+        private RoundedDouble factorStormDurationOpenStructure;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresInput"/>.
@@ -49,6 +59,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         {
             volumicWeightWater = new RoundedDouble(2, 9.81);
             structureNormalOrientation = new RoundedDouble(2);
+            factorStormDurationOpenStructure = new RoundedDouble(2, double.NaN);
 
             insideWaterLevelFailureConstruction = new NormalDistribution(2)
             {
@@ -67,6 +78,48 @@ namespace Ringtoets.StabilityPointStructures.Data
                 Mean = (RoundedDouble) 6.0
             };
             stormDuration.SetStandardDeviationFromVariationCoefficient(0.25);
+
+            modelFactorSuperCriticalFlow = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 0.03
+            };
+
+            drainCoefficient = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.0,
+                StandardDeviation = (RoundedDouble) 0.2
+            };
+
+            levelCrestStructure = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
+            thresholdHeightOpenWeir = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.1
+            };
+
+            areaFlowApertures = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.01
+            };
+
+            constructiveStrengthLinearModel = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN
+            };
+            constructiveStrengthLinearModel.SetStandardDeviationFromVariationCoefficient(0.1);
+
+            constructiveStrengthQuadraticModel = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN
+            };
+            constructiveStrengthQuadraticModel.SetStandardDeviationFromVariationCoefficient(0.1);
 
             UpdateForeshoreProperties();
         }
@@ -225,19 +278,62 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         #region Model Inputs
 
+        /// <summary>
+        /// Gets or sets the model factor for super critical flow. 
+        /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
+        public NormalDistribution ModelFactorSuperCriticalFlow
+        {
+            get
+            {
+                return modelFactorSuperCriticalFlow;
+            }
+            set
+            {
+                modelFactorSuperCriticalFlow.Mean = value.Mean;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the factor for the storm duration open structure.
+        /// </summary>
+        public RoundedDouble FactorStormDurationOpenStructure
+        {
+            get
+            {
+                return factorStormDurationOpenStructure;
+            }
+            set
+            {
+                factorStormDurationOpenStructure = value.ToPrecision(factorStormDurationOpenStructure.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the drain coefficient.
+        /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
+        public NormalDistribution DrainCoefficient
+        {
+            get
+            {
+                return drainCoefficient;
+            }
+            set
+            {
+                drainCoefficient.Mean = value.Mean;
+            }
+        }
+
         #endregion
 
         #region Schematization
 
-        #region Orientation
-
         /// <summary>
         /// Gets or sets the orientation of the normal of the structure.
+        /// [degrees]
         /// </summary>
-        /// <remarks><list type="bullet">
-        /// <item>When the value is smaller than 0, it will be set to 0.</item>
-        /// <item>When the value is larger than 360, it will be set to 360.</item>
-        /// </list></remarks>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the orientation is not between [0, 360] degrees.</exception>
         public RoundedDouble StructureNormalOrientation
         {
             get
@@ -246,31 +342,105 @@ namespace Ringtoets.StabilityPointStructures.Data
             }
             set
             {
-                RoundedDouble newOrientationValue = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
-                newOrientationValue = ValidateStructureNormalOrientationInRange(newOrientationValue);
+                if (double.IsNaN(value))
+                {
+                    structureNormalOrientation = new RoundedDouble(2, double.NaN);
+                    return;
+                }
 
-                structureNormalOrientation = newOrientationValue;
+                RoundedDouble newOrientation = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
+                if (newOrientation < 0 || newOrientation > 360)
+                {
+                    throw new ArgumentOutOfRangeException("value", RingtoetsDataCommonProperties.Orientation_Value_needs_to_be_between_0_and_360);
+                }
+                structureNormalOrientation = newOrientation;
             }
         }
 
-        private RoundedDouble ValidateStructureNormalOrientationInRange(RoundedDouble newOrientationValue)
+        /// <summary>
+        /// Gets or sets the level crest of the structure.
+        /// [m+NAP]
+        /// </summary>
+        public NormalDistribution LevelCrestStructure
         {
-            const double upperBoundaryRange = 360;
-            const double lowerBoundaryRange = 0.0;
-
-            if (newOrientationValue > upperBoundaryRange)
+            get
             {
-                newOrientationValue = new RoundedDouble(2, upperBoundaryRange);
+                return levelCrestStructure;
             }
-            else if (newOrientationValue < lowerBoundaryRange)
+            set
             {
-                newOrientationValue = new RoundedDouble(2, lowerBoundaryRange);
+                levelCrestStructure.Mean = value.Mean;
+                levelCrestStructure.StandardDeviation = value.StandardDeviation;
             }
-
-            return newOrientationValue;
         }
 
-        #endregion
+        /// <summary>
+        /// Gets or sets the threshold height of the open weir.
+        /// [m+MAP]
+        /// </summary>
+        public NormalDistribution ThresholdHeightOpenWeir
+        {
+            get
+            {
+                return thresholdHeightOpenWeir;
+            }
+            set
+            {
+                thresholdHeightOpenWeir.Mean = value.Mean;
+                thresholdHeightOpenWeir.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the area flow apertures
+        /// [m^2]
+        /// </summary>
+        public LogNormalDistribution AreaFlowApertures
+        {
+            get
+            {
+                return areaFlowApertures;
+            }
+            set
+            {
+                areaFlowApertures.Mean = value.Mean;
+                areaFlowApertures.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the constructive strength of the linear load model.
+        /// [kN/m^2]
+        /// </summary>
+        public LogNormalDistribution ConstructiveStrengthLinearLoadModel
+        {
+            get
+            {
+                return constructiveStrengthLinearModel;
+            }
+            set
+            {
+                constructiveStrengthLinearModel.Mean = value.Mean;
+                constructiveStrengthLinearModel.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the constructive strength of the quadratic load model.
+        /// [kN/m]
+        /// </summary>
+        public LogNormalDistribution ConstructiveStrengthQuadraticLoadModel
+        {
+            get
+            {
+                return constructiveStrengthQuadraticModel;
+            }
+            set
+            {
+                constructiveStrengthQuadraticModel.Mean = value.Mean;
+                constructiveStrengthQuadraticModel.StandardDeviation = value.StandardDeviation;
+            }
+        }
 
         #endregion
     }
