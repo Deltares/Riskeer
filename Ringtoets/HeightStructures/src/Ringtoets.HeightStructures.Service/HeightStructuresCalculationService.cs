@@ -143,8 +143,8 @@ namespace Ringtoets.HeightStructures.Service
                 calculation.InputParameters.FlowWidthAtBottomProtection.Mean, calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
                 calculation.InputParameters.CriticalOvertoppingDischarge.Mean, calculation.InputParameters.CriticalOvertoppingDischarge.GetVariationCoefficient(),
                 calculation.InputParameters.FailureProbabilityStructureWithErosion,
-                calculation.InputParameters.WidthOfFlowApertures.Mean, calculation.InputParameters.WidthOfFlowApertures.GetVariationCoefficient(),
-                calculation.InputParameters.DeviationOfTheWaveDirection,
+                calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.GetVariationCoefficient(),
+                calculation.InputParameters.DeviationWaveDirection,
                 calculation.InputParameters.StormDuration.Mean, calculation.InputParameters.StormDuration.GetVariationCoefficient());
         }
 

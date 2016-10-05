@@ -195,10 +195,10 @@
   <data name="StormDuration_DisplayName" xml:space="preserve">
     <value>Stormduur [uur]</value>
   </data>
-  <data name="WidthOfFlowApertures_Description" xml:space="preserve">
+  <data name="WidthFlowApertures_Description" xml:space="preserve">
     <value>De breedte van de kruin van het kunstwerk.</value>
   </data>
-  <data name="WidthOfFlowApertures_DisplayName" xml:space="preserve">
+  <data name="WidthFlowApertures_DisplayName" xml:space="preserve">
     <value>Breedte van de kruin van het kunstwerk [m]</value>
   </data>
   <data name="FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value" xml:space="preserve">

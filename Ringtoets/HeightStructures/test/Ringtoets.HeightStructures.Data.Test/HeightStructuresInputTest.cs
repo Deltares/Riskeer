@@ -55,7 +55,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             AssertAreEqual(0.1, input.StorageStructureArea.GetVariationCoefficient());
             AssertAreEqual(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
             AssertAreEqual(0.15, input.CriticalOvertoppingDischarge.GetVariationCoefficient());
-            AssertAreEqual(0.05, input.WidthOfFlowApertures.StandardDeviation);
+            AssertAreEqual(0.05, input.WidthFlowApertures.StandardDeviation);
             AssertAreEqual(6.0, input.StormDuration.Mean);
             AssertAreEqual(0.25, input.StormDuration.GetVariationCoefficient());
         }
@@ -97,19 +97,19 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void Properties_DeviationOfTheWaveDirection_ExpectedValues()
+        public void Properties_DeviationWaveDirection_ExpectedValues()
         {
             // Setup
             var input = new HeightStructuresInput();
             var random = new Random(22);
 
-            RoundedDouble deviationOfTheWaveDirection = new RoundedDouble(5, random.NextDouble());
+            RoundedDouble deviationWaveDirection = new RoundedDouble(5, random.NextDouble());
 
             // Call
-            input.DeviationOfTheWaveDirection = deviationOfTheWaveDirection;
+            input.DeviationWaveDirection = deviationWaveDirection;
 
             // Assert
-            AssertAreEqual(deviationOfTheWaveDirection, input.DeviationOfTheWaveDirection);
+            AssertAreEqual(deviationWaveDirection, input.DeviationWaveDirection);
         }
 
         [Test]
@@ -310,24 +310,24 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void Properties_WidthOfFlowApertures_ExpectedValues()
+        public void Properties_WidthFlowApertures_ExpectedValues()
         {
             // Setup
             var input = new HeightStructuresInput();
             var random = new Random(22);
 
-            NormalDistribution widthOfFlowApertures = new NormalDistribution(5)
+            NormalDistribution widthFlowApertures = new NormalDistribution(5)
             {
                 Mean = (RoundedDouble) random.NextDouble(),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
             };
 
             // Call
-            input.WidthOfFlowApertures = widthOfFlowApertures;
+            input.WidthFlowApertures = widthFlowApertures;
 
             // Assert
-            AssertAreEqual(widthOfFlowApertures.Mean, input.WidthOfFlowApertures.Mean);
-            AssertAreEqual(widthOfFlowApertures.StandardDeviation, input.WidthOfFlowApertures.StandardDeviation);
+            AssertAreEqual(widthFlowApertures.Mean, input.WidthFlowApertures.Mean);
+            AssertAreEqual(widthFlowApertures.StandardDeviation, input.WidthFlowApertures.StandardDeviation);
         }
 
         private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)

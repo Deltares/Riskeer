@@ -446,7 +446,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const double modelFactorInflowVolume = 1;
             const double flowWidthAtBottomProtectionStandardDeviation = 0.05;
             const double criticalOvertoppingDischargeMeanStandardDeviation = 0.15;
-            const double widthOfFlowAperturesStandardDeviation = 0.05;
+            const double widthFlowAperturesStandardDeviation = 0.05;
             const double stormDurationMean = 7.5;
             const double stormDurationStandardDeviation = 0.25;
 
@@ -457,8 +457,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const double flowWidthAtBottomProtectionMean = 5.5;
             const double criticalOvertoppingDischargeMean = 6.6;
             const double failureProbabilityStructureWithErosion = 7.7;
-            const double widthOfFlowAperturesMean = 8.8;
-            const double deviationOfTheWaveDirection = 9.9;
+            const double widthFlowAperturesMean = 8.8;
+            const double deviationWaveDirection = 9.9;
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, section,
                                                                                                                  forelandPoints, breakWater,
@@ -474,8 +474,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                                                  flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation,
                                                                                                                  criticalOvertoppingDischargeMean, criticalOvertoppingDischargeMeanStandardDeviation,
                                                                                                                  failureProbabilityStructureWithErosion,
-                                                                                                                 widthOfFlowAperturesMean, widthOfFlowAperturesStandardDeviation,
-                                                                                                                 deviationOfTheWaveDirection,
+                                                                                                                 widthFlowAperturesMean, widthFlowAperturesStandardDeviation,
+                                                                                                                 deviationWaveDirection,
                                                                                                                  stormDurationMean, stormDurationStandardDeviation));
             string expectedCreationScript =
                 "DELETE FROM [HydraulicModels];" + Environment.NewLine +

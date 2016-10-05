@@ -39,7 +39,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private const int allowedLevelIncreaseStorage = 4;
         private const int storageStructureArea = 5;
         private const int flowWidthAtBottomProtection = 6;
-        private const int widthOfFlowApertures = 7;
+        private const int widthFlowApertures = 7;
         private const int criticalOvertoppingDischarge = 8;
         private const int failureProbabilityStructureWithErosion = 9;
 
@@ -91,10 +91,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.FlowWidthAtBottomProtection.DynamicReadOnlyValidationMethod("Mean"));
             Assert.IsTrue(properties.FlowWidthAtBottomProtection.DynamicReadOnlyValidationMethod("StandardDeviation"));
 
-            Assert.AreEqual("Normaal", properties.WidthOfFlowApertures.DistributionType);
-            Assert.AreEqual(structure.WidthOfFlowApertures, properties.WidthOfFlowApertures.Data);
-            Assert.IsTrue(properties.WidthOfFlowApertures.DynamicReadOnlyValidationMethod("Mean"));
-            Assert.IsTrue(properties.WidthOfFlowApertures.DynamicReadOnlyValidationMethod("StandardDeviation"));
+            Assert.AreEqual("Normaal", properties.WidthFlowApertures.DistributionType);
+            Assert.AreEqual(structure.WidthFlowApertures, properties.WidthFlowApertures.Data);
+            Assert.IsTrue(properties.WidthFlowApertures.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.WidthFlowApertures.DynamicReadOnlyValidationMethod("StandardDeviation"));
 
             Assert.AreEqual("Lognormaal", properties.CriticalOvertoppingDischarge.DistributionType);
             Assert.AreEqual(structure.CriticalOvertoppingDischarge, properties.CriticalOvertoppingDischarge.Data);
@@ -169,11 +169,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Stroomvoerende breedte bij bodembescherming [m]", flowWidthAtBottomProtectionProperty.DisplayName);
             Assert.AreEqual("De stroomvoerende breedte bij bodembescherming.", flowWidthAtBottomProtectionProperty.Description);
 
-            PropertyDescriptor widthOfFlowAperturesProperty = dynamicProperties[widthOfFlowApertures];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(widthOfFlowAperturesProperty.Converter);
-            Assert.AreEqual(schematizationCategory, widthOfFlowAperturesProperty.Category);
-            Assert.AreEqual("Breedte van de kruin van het kunstwerk [m]", widthOfFlowAperturesProperty.DisplayName);
-            Assert.AreEqual("De breedte van de kruin van het kunstwerk.", widthOfFlowAperturesProperty.Description);
+            PropertyDescriptor widthFlowAperturesProperty = dynamicProperties[widthFlowApertures];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(widthFlowAperturesProperty.Converter);
+            Assert.AreEqual(schematizationCategory, widthFlowAperturesProperty.Category);
+            Assert.AreEqual("Breedte van de kruin van het kunstwerk [m]", widthFlowAperturesProperty.DisplayName);
+            Assert.AreEqual("De breedte van de kruin van het kunstwerk.", widthFlowAperturesProperty.Description);
 
             PropertyDescriptor criticalOvertoppingDischargeProperty = dynamicProperties[criticalOvertoppingDischarge];
             Assert.IsInstanceOf<ExpandableObjectConverter>(criticalOvertoppingDischargeProperty.Converter);

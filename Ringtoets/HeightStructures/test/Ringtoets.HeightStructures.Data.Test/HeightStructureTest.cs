@@ -80,12 +80,12 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(2, criticalOvertoppingDischarge.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.46, criticalOvertoppingDischarge.StandardDeviation.Value);
 
-            var widthOfFlowApertures = heightStructure.WidthOfFlowApertures;
-            Assert.IsInstanceOf<NormalDistribution>(widthOfFlowApertures);
-            Assert.AreEqual(2, widthOfFlowApertures.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(567.89, widthOfFlowApertures.Mean.Value);
-            Assert.AreEqual(2, widthOfFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.57, widthOfFlowApertures.StandardDeviation.Value);
+            var widthFlowApertures = heightStructure.WidthFlowApertures;
+            Assert.IsInstanceOf<NormalDistribution>(widthFlowApertures);
+            Assert.AreEqual(2, widthFlowApertures.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(567.89, widthFlowApertures.Mean.Value);
+            Assert.AreEqual(2, widthFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.57, widthFlowApertures.StandardDeviation.Value);
 
             Assert.AreEqual(0.67890, heightStructure.FailureProbabilityStructureWithErosion);
 

@@ -40,10 +40,10 @@ namespace Ringtoets.HeightStructures.Data
         private readonly LogNormalDistribution storageStructureArea;
         private readonly LogNormalDistribution flowWidthAtBottomProtection;
         private readonly LogNormalDistribution criticalOvertoppingDischarge;
-        private readonly NormalDistribution widthOfFlowApertures;
+        private readonly NormalDistribution widthFlowApertures;
         private readonly LogNormalDistribution stormDuration;
         private RoundedDouble structureNormalOrientation;
-        private RoundedDouble deviationOfTheWaveDirection;
+        private RoundedDouble deviationWaveDirection;
         private double failureProbabilityStructureWithErosion;
 
         /// <summary>
@@ -90,12 +90,12 @@ namespace Ringtoets.HeightStructures.Data
             };
             criticalOvertoppingDischarge.SetStandardDeviationFromVariationCoefficient(0.15);
 
-            widthOfFlowApertures = new NormalDistribution(2)
+            widthFlowApertures = new NormalDistribution(2)
             {
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
-            deviationOfTheWaveDirection = new RoundedDouble(2);
+            deviationWaveDirection = new RoundedDouble(2);
 
             stormDuration = new LogNormalDistribution(2)
             {
@@ -140,15 +140,15 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets or sets the deviation of the wave's direction.
         /// [degrees]
         /// </summary>
-        public RoundedDouble DeviationOfTheWaveDirection
+        public RoundedDouble DeviationWaveDirection
         {
             get
             {
-                return deviationOfTheWaveDirection;
+                return deviationWaveDirection;
             }
             set
             {
-                deviationOfTheWaveDirection = value.ToPrecision(deviationOfTheWaveDirection.NumberOfDecimalPlaces);
+                deviationWaveDirection = value.ToPrecision(deviationWaveDirection.NumberOfDecimalPlaces);
             }
         }
 
@@ -311,16 +311,16 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets or sets the width of flow apertures.
         /// [m]
         /// </summary>
-        public NormalDistribution WidthOfFlowApertures
+        public NormalDistribution WidthFlowApertures
         {
             get
             {
-                return widthOfFlowApertures;
+                return widthFlowApertures;
             }
             set
             {
-                widthOfFlowApertures.Mean = value.Mean;
-                widthOfFlowApertures.StandardDeviation = value.StandardDeviation;
+                widthFlowApertures.Mean = value.Mean;
+                widthFlowApertures.StandardDeviation = value.StandardDeviation;
             }
         }
 

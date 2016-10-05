@@ -136,10 +136,10 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(18, inputParameters.FlowWidthAtBottomProtection.Mean.Value);
             Assert.AreEqual(2, inputParameters.CriticalOvertoppingDischarge.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(1, inputParameters.CriticalOvertoppingDischarge.Mean.Value);
-            Assert.AreEqual(2, inputParameters.WidthOfFlowApertures.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(18, inputParameters.WidthOfFlowApertures.Mean.Value);
-            Assert.AreEqual(2, inputParameters.DeviationOfTheWaveDirection.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.0, inputParameters.DeviationOfTheWaveDirection.Value);
+            Assert.AreEqual(2, inputParameters.WidthFlowApertures.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(18, inputParameters.WidthFlowApertures.Mean.Value);
+            Assert.AreEqual(2, inputParameters.DeviationWaveDirection.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.0, inputParameters.DeviationWaveDirection.Value);
             Assert.AreEqual(1.0, inputParameters.FailureProbabilityStructureWithErosion);
         }
 

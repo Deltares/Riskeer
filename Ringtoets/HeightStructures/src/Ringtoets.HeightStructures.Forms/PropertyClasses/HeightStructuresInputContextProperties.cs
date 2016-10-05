@@ -49,7 +49,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int allowedLevelIncreaseStoragePropertyIndex = 3;
         private const int storageStructureAreaPropertyIndex = 4;
         private const int flowWidthAtBottomProtectionPropertyIndex = 5;
-        private const int widthOfFlowAperturesPropertyIndex = 6;
+        private const int widthFlowAperturesPropertyIndex = 6;
         private const int criticalOvertoppingDischargePropertyIndex = 7;
         private const int failureProbabilityStructureWithErosionPropertyIndex = 8;
         private const int modelFactorSuperCriticalFlowPropertyIndex = 9;
@@ -168,18 +168,18 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(widthOfFlowAperturesPropertyIndex)]
+        [PropertyOrder(widthFlowAperturesPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "WidthOfFlowApertures_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WidthOfFlowApertures_Description")]
-        public NormalDistributionProperties WidthOfFlowApertures
+        [ResourcesDisplayName(typeof(Resources), "WidthFlowApertures_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WidthFlowApertures_Description")]
+        public NormalDistributionProperties WidthFlowApertures
         {
             get
             {
                 return new NormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
                 {
-                    Data = data.WrappedData.WidthOfFlowApertures
+                    Data = data.WrappedData.WidthFlowApertures
                 };
             }
         }

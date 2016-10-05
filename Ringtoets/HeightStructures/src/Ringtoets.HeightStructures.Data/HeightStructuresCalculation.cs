@@ -86,8 +86,8 @@ namespace Ringtoets.HeightStructures.Data
             InputParameters.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) 1.0;
             InputParameters.FlowWidthAtBottomProtection.Mean = (RoundedDouble) 18;
             InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) 1;
-            InputParameters.WidthOfFlowApertures.Mean = (RoundedDouble) 18;
-            InputParameters.DeviationOfTheWaveDirection = (RoundedDouble) 0;
+            InputParameters.WidthFlowApertures.Mean = (RoundedDouble) 18;
+            InputParameters.DeviationWaveDirection = (RoundedDouble) 0;
         }
     }
 }

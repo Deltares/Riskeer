@@ -46,7 +46,7 @@ namespace Ringtoets.Common.IO.Structures
                     "KW_HOOGTE4", CriticalOvertoppingDischarge
                 },
                 {
-                    "KW_HOOGTE5", WidthOfFlowApertures
+                    "KW_HOOGTE5", WidthFlowApertures
                 },
                 {
                     "KW_HOOGTE6", FailureProbabilityStructureWithErosion
@@ -72,7 +72,7 @@ namespace Ringtoets.Common.IO.Structures
                     "KW_BETSLUIT3", StructureNormalOrientation
                 },
                 {
-                    "KW_BETSLUIT4", WidthOfFlowApertures
+                    "KW_BETSLUIT4", WidthFlowApertures
                 },
                 {
                     "KW_BETSLUIT5", LevelCrestStructureNotClosing
@@ -207,7 +207,7 @@ namespace Ringtoets.Common.IO.Structures
             return messages;
         }
 
-        private static List<string> WidthOfFlowApertures(StructuresParameterRow row)
+        private static List<string> WidthFlowApertures(StructuresParameterRow row)
         {
             List<string> messages = new List<string>();
             double meanWidth = row.NumericalValue;

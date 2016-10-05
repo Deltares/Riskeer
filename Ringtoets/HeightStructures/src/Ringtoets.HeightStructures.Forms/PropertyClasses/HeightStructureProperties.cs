@@ -140,15 +140,15 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [PropertyOrder(8)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "WidthOfFlowApertures_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WidthOfFlowApertures_Description")]
-        public NormalDistributionProperties WidthOfFlowApertures
+        [ResourcesDisplayName(typeof(Resources), "WidthFlowApertures_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "WidthFlowApertures_Description")]
+        public NormalDistributionProperties WidthFlowApertures
         {
             get
             {
                 return new NormalDistributionProperties
                 {
-                    Data = data.WidthOfFlowApertures
+                    Data = data.WidthFlowApertures
                 };
             }
         }
