@@ -70,7 +70,6 @@
     <Compile Include="PropertyClasses\HeightStructurePropertiesTest.cs" />
     <Compile Include="PropertyClasses\HeightStructuresFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HeightStructuresInputContextPropertiesTest.cs" />
-    <Compile Include="TreeNodeInfos\EmptyProbabilityAssessmentOutputTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresCalculationContextTreeNodeInfoTest.cs" />
@@ -79,7 +78,6 @@
     <Compile Include="PresentationObjects\HeightStructuresInputContextTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructureTreeNodeInfoTest.cs" />
-    <Compile Include="TreeNodeInfos\ProbabilisticOutputTreeNodeInfoTest.cs" />
     <Compile Include="UITypeEditors\HeightStructuresInputContextHydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="Views\HeightStructuresFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\HeightStructuresFailureMechanismSectionResultRowTest.cs" />

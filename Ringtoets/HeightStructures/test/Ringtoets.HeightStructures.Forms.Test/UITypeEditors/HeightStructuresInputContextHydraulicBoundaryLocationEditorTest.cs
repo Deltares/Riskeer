@@ -54,14 +54,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var heightStructuresInput = new HeightStructuresInput();
-            var heightStructuresCalculation = new HeightStructuresCalculation();
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
                                  .Return(hydraulicBoundaryDatabase)
                                  .Repeat.AtLeastOnce();
             var inputContext = new HeightStructuresInputContext(heightStructuresInput,
-                                                                heightStructuresCalculation,
                                                                 failureMechanism,
                                                                 assessmentSectionMock);
 
@@ -104,14 +102,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
             {
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation
             };
-            var heightStructuresCalculation = new HeightStructuresCalculation();
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
                                  .Return(hydraulicBoundaryDatabase)
                                  .Repeat.AtLeastOnce();
             var inputContext = new HeightStructuresInputContext(heightStructuresInput,
-                                                                heightStructuresCalculation,
                                                                 failureMechanism,
                                                                 assessmentSectionMock);
 

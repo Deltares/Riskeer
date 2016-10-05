@@ -22,7 +22,6 @@
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.PresentationObjects
@@ -37,30 +36,12 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// Creates a new instance of <see cref="HeightStructuresInputContext"/>.
         /// </summary>
         /// <param name="input">The height structures input instance wrapped by this context object.</param>
-        /// <param name="calculation">The calculation item which the <paramref name="input"/> belongs to.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
         public HeightStructuresInputContext(HeightStructuresInput input,
-                                            HeightStructuresCalculation calculation,
                                             HeightStructuresFailureMechanism failureMechanism,
                                             IAssessmentSection assessmentSection)
-            : base(input, failureMechanism, assessmentSection)
-        {
-            if (calculation == null)
-            {
-                var message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.HeightStructuresInputContext_DataDescription_HeightStructuresInputCalculationItem);
-
-                throw new ArgumentNullException("calculation", message);
-            }
-
-            Calculation = calculation;
-        }
-
-        /// <summary>
-        /// Gets the calculation item which the context belongs to.
-        /// </summary>
-        public HeightStructuresCalculation Calculation { get; private set; }
+            : base(input, failureMechanism, assessmentSection) {}
     }
 }

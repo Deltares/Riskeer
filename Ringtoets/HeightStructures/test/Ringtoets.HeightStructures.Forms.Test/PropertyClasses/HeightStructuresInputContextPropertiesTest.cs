@@ -81,11 +81,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new HeightStructuresCalculation();
             var input = new HeightStructuresInput();
             var properties = new HeightStructuresInputContextProperties();
 
-            var inputContext = new HeightStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
+            var inputContext = new HeightStructuresInputContext(input, failureMechanism, assessmentSectionMock);
 
             // Call
             properties.Data = inputContext;
@@ -164,7 +163,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var calculation = new HeightStructuresCalculation();
             var input = calculation.InputParameters;
             input.Attach(observerMock);
-            var inputContext = new HeightStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
+            var inputContext = new HeightStructuresInputContext(input, failureMechanism, assessmentSectionMock);
 
             var properties = new HeightStructuresInputContextProperties
             {
@@ -196,9 +195,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new HeightStructuresCalculation();
             var input = new HeightStructuresInput();
-            var inputContext = new HeightStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
+            var inputContext = new HeightStructuresInputContext(input, failureMechanism, assessmentSectionMock);
 
             var properties = new HeightStructuresInputContextProperties
             {
@@ -225,9 +223,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new HeightStructuresCalculation();
             var input = new HeightStructuresInput();
-            var inputContext = new HeightStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
+            var inputContext = new HeightStructuresInputContext(input, failureMechanism, assessmentSectionMock);
 
             var properties = new HeightStructuresInputContextProperties
             {
@@ -252,9 +249,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new HeightStructuresCalculation();
             var input = new HeightStructuresInput();
-            var inputContext = new HeightStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
+            var inputContext = new HeightStructuresInputContext(input, failureMechanism, assessmentSectionMock);
 
             var properties = new HeightStructuresInputContextProperties
             {
@@ -279,9 +275,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new HeightStructuresCalculation();
             var input = new HeightStructuresInput();
-            var inputContext = new HeightStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
+            var inputContext = new HeightStructuresInputContext(input, failureMechanism, assessmentSectionMock);
 
             // Call
             var properties = new HeightStructuresInputContextProperties

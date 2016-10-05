@@ -120,9 +120,6 @@
   <data name="HeightStructuresContextBase_DataDescription_HeightStructuresFailureMechanism" xml:space="preserve">
     <value>Het hoogte kunstwerk toetsspoor</value>
   </data>
-  <data name="HeightStructuresInputContext_DataDescription_HeightStructuresInputCalculationItem" xml:space="preserve">
-    <value>De berekening</value>
-  </data>
   <data name="HeightStructuresInputContext_NodeDisplayName" xml:space="preserve">
     <value>Invoer</value>
   </data>

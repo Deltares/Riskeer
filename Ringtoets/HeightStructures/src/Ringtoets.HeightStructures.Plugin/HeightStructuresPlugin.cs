@@ -145,18 +145,6 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                   .Build()
             };
 
-            yield return new TreeNodeInfo<ProbabilityAssessmentOutput>
-            {
-                Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
-
-            yield return RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(
-                EmptyProbabilityAssessmentOutputContextMenuStrip);
-
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -209,17 +197,6 @@ namespace Ringtoets.HeightStructures.Plugin
         }
 
         #region TreeNodeInfos
-
-        #region EmptyProbabilityAssessmentOutput TreeNodeInfo
-
-        private ContextMenuStrip EmptyProbabilityAssessmentOutputContextMenuStrip(EmptyProbabilityAssessmentOutput output, object parentData, TreeViewControl treeViewControl)
-        {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(output, treeViewControl));
-            return builder.AddPropertiesItem()
-                          .Build();
-        }
-
-        #endregion
 
         #region HeightStructuresFailureMechanismResultView ViewInfo
 
@@ -440,7 +417,6 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 new CommentContext<ICommentable>(context.WrappedData),
                 new HeightStructuresInputContext(context.WrappedData.InputParameters,
-                                                 context.WrappedData,
                                                  context.FailureMechanism,
                                                  context.AssessmentSection)
             };

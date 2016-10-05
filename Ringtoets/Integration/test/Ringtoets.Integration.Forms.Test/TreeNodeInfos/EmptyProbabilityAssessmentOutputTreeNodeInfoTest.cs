@@ -26,22 +26,22 @@ using Core.Common.Gui.ContextMenu;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.GrassCoverErosionInwards.Plugin;
+using Ringtoets.Integration.Plugin;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
+namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
     public class EmptyProbabilityAssessmentOutputTreeNodeInfoTest
     {
         private MockRepository mocksRepository;
-        private GrassCoverErosionInwardsPlugin plugin;
+        private RingtoetsPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocksRepository = new MockRepository();
-            plugin = new GrassCoverErosionInwardsPlugin();
+            plugin = new RingtoetsPlugin();
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(EmptyProbabilityAssessmentOutput));
         }
 
@@ -49,7 +49,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void TearDown()
         {
             plugin.Dispose();
-
             mocksRepository.VerifyAll();
         }
 
@@ -66,6 +65,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 guiMock.Expect(cmp => cmp.Get(null, treeViewControl)).Return(menuBuilderMock);
+                guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = guiMock;

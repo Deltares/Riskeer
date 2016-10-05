@@ -611,6 +611,9 @@ namespace Ringtoets.Integration.Plugin
                                                                                  .Build()
             };
 
+            yield return RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(
+                EmptyProbabilityAssessmentOutputContextMenuStrip);
+
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<DuneErosionFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffInwardsFailureMechanismSectionResult>();
@@ -796,39 +799,6 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        #region FailureMechanismSectionsContext
-
-        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(FailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
-        {
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddImportItem()
-                      .Build();
-        }
-
-        #endregion
-
-        private class FailureMechanismContextAssociation
-        {
-            private readonly Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext;
-            private readonly Type failureMechanismType;
-
-            public FailureMechanismContextAssociation(Type failureMechanismType, Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext)
-            {
-                this.createFailureMechanismContext = createFailureMechanismContext;
-                this.failureMechanismType = failureMechanismType;
-            }
-
-            public bool Match(IFailureMechanism failureMechanism)
-            {
-                return failureMechanism.GetType() == failureMechanismType;
-            }
-
-            public object Create(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            {
-                return createFailureMechanismContext(failureMechanism, assessmentSection);
-            }
-        }
-
         #region Comment ViewInfo
 
         private static bool CloseCommentViewForData(CommentView commentView, object o)
@@ -895,7 +865,29 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        #region AssessmentSection
+        private class FailureMechanismContextAssociation
+        {
+            private readonly Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext;
+            private readonly Type failureMechanismType;
+
+            public FailureMechanismContextAssociation(Type failureMechanismType, Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext)
+            {
+                this.createFailureMechanismContext = createFailureMechanismContext;
+                this.failureMechanismType = failureMechanismType;
+            }
+
+            public bool Match(IFailureMechanism failureMechanism)
+            {
+                return failureMechanism.GetType() == failureMechanismType;
+            }
+
+            public object Create(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            {
+                return createFailureMechanismContext(failureMechanism, assessmentSection);
+            }
+        }
+
+        #region AssessmentSection TreeNodeInfo
 
         private object[] AssessmentSectionChildNodeObjects(AssessmentSection nodeData)
         {
@@ -954,7 +946,18 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        #region StandAloneFailureMechanismContext
+        #region FailureMechanismSectionsContext TreeNodeInfo
+
+        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(FailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddImportItem()
+                      .Build();
+        }
+
+        #endregion
+
+        #region StandAloneFailureMechanismContext TreeNodeInfo
 
         private object[] StandAloneFailureMechanismEnabledChildNodeObjects(FailureMechanismContext<IFailureMechanism> nodeData)
         {
@@ -1108,7 +1111,7 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        #region CategoryTreeFolder
+        #region CategoryTreeFolder TreeNodeInfo
 
         private Image GetFolderIcon(TreeFolderCategory category)
         {
@@ -1135,7 +1138,7 @@ namespace Ringtoets.Integration.Plugin
 
         # endregion
 
-        #region HydraulicBoundaryDatabase
+        #region HydraulicBoundaryDatabase TreeNodeInfo
 
         private static object[] HydraulicBoundaryDatabaseChildNodeObjects(HydraulicBoundaryDatabaseContext nodeData)
         {
@@ -1329,6 +1332,17 @@ namespace Ringtoets.Integration.Plugin
             affectedCalculations.ForEachElementDo(ac => ac.NotifyObservers());
 
             log.Info(RingtoetsFormsResources.Calculations_Cleared);
+        }
+
+        #endregion
+
+        #region EmptyProbabilityAssessmentOutput TreeNodeInfo
+
+        private ContextMenuStrip EmptyProbabilityAssessmentOutputContextMenuStrip(EmptyProbabilityAssessmentOutput output, object parentData, TreeViewControl treeViewControl)
+        {
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(output, treeViewControl));
+            return builder.AddPropertiesItem()
+                          .Build();
         }
 
         #endregion
