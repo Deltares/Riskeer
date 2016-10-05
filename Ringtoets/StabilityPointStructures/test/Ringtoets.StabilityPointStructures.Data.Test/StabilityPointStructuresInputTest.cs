@@ -87,8 +87,50 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             AssertEqualValue(0.01, input.AreaFlowApertures.StandardDeviation);
 
             Assert.IsNaN(input.ConstructiveStrengthLinearLoadModel.Mean);
+            AssertEqualValue(0.1, input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation);
 
             Assert.IsNaN(input.ConstructiveStrengthQuadraticLoadModel.Mean);
+            AssertEqualValue(0.1, input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation);
+
+            Assert.IsNaN(input.StabilityLinearModel.Mean);
+            AssertEqualValue(0.1, input.StabilityLinearModel.CoefficientOfVariation);
+
+            Assert.IsNaN(input.StabilityQuadraticModel.Mean);
+            AssertEqualValue(0.1, input.StabilityQuadraticModel.CoefficientOfVariation);
+
+            Assert.IsNaN(input.FailureProbabilityRepairClosure);
+
+            Assert.IsNaN(input.FailureCollisionEnergy.Mean);
+            AssertEqualValue(0.3, input.FailureCollisionEnergy.CoefficientOfVariation);
+
+            Assert.IsNaN(input.ShipMass.Mean);
+            AssertEqualValue(0.2, input.ShipMass.CoefficientOfVariation);
+
+            Assert.IsNaN(input.ShipVelocity.Mean);
+            AssertEqualValue(0.2, input.ShipVelocity.CoefficientOfVariation);
+
+            Assert.AreEqual(0, input.LevellingCount);
+
+            Assert.AreEqual(double.NaN, input.ProbabilityCollisionSecondaryStructure);
+
+            AssertEqualValue(double.NaN, input.AllowedLevelIncreaseStorage.Mean);
+            AssertEqualValue(0.1, input.AllowedLevelIncreaseStorage.StandardDeviation);
+
+            Assert.IsNaN(input.StorageStructureArea.Mean);
+            AssertEqualValue(0.1, input.StorageStructureArea.CoefficientOfVariation);
+            AssertEqualValue(double.NaN, input.FlowWidthAtBottomProtection.Mean);
+            AssertEqualValue(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
+            AssertEqualValue(double.NaN, input.CriticalOvertoppingDischarge.Mean);
+            AssertEqualValue(0.15, input.CriticalOvertoppingDischarge.CoefficientOfVariation);
+            Assert.IsNaN(input.FailureProbabilityStructureWithErosion);
+            AssertEqualValue(double.NaN, input.WidthFlowApertures.Mean);
+            AssertEqualValue(0.05, input.WidthFlowApertures.CoefficientOfVariation);
+            Assert.IsNaN(input.BermWidth.Mean);
+            Assert.IsNaN(input.BermWidth.StandardDeviation);
+            Assert.AreEqual(2, input.EvaluationLevel.NumberOfDecimalPlaces);
+            AssertEqualValue(0, input.EvaluationLevel);
+            Assert.AreEqual(2, input.VerticalDistance.NumberOfDecimalPlaces);
+            AssertEqualValue(double.NaN, input.VerticalDistance);
         }
 
         #region Hydraulic loads and data
@@ -431,7 +473,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_ConstructiveStrengthQuadraticLoadModel_ExpectectedValues()
+        public void Properties_ConstructiveStrengthQuadraticLoadModel_ExpectedValues()
         {
             // Setup 
             var input = new StabilityPointStructuresInput();
@@ -444,6 +486,318 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             AssertEqualValue(constructiveStrengthQuadraticLoadModel.Mean, input.ConstructiveStrengthQuadraticLoadModel.Mean);
             AssertEqualValue(constructiveStrengthQuadraticLoadModel.CoefficientOfVariation, input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation);
         }
+
+        [Test]
+        public void Properties_StabilityLinearModel_ExpectedValues()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+            VariationCoefficientLogNormalDistribution stabilityLinearModel = GenerateVariationCoefficientLogNormalDistribution();
+
+            // Call
+            input.StabilityLinearModel = stabilityLinearModel;
+
+            // Assert
+            AssertEqualValue(stabilityLinearModel.Mean, input.StabilityLinearModel.Mean);
+            AssertEqualValue(stabilityLinearModel.CoefficientOfVariation, input.StabilityLinearModel.CoefficientOfVariation);
+        }
+
+        [Test]
+        public void Properties_StabilityQuadraticModel()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+            VariationCoefficientLogNormalDistribution stabilityQuadraticModel = GenerateVariationCoefficientLogNormalDistribution();
+
+            // Call
+            input.StabilityQuadraticModel = stabilityQuadraticModel;
+
+            // Assert 
+            AssertEqualValue(stabilityQuadraticModel.Mean, input.StabilityQuadraticModel.Mean);
+            AssertEqualValue(stabilityQuadraticModel.CoefficientOfVariation, input.StabilityQuadraticModel.CoefficientOfVariation);
+        }
+
+        [Test]
+        [TestCase(-1.1)]
+        [TestCase(2)]
+        [TestCase(double.NaN)]
+        public void Properties_FailureProbabilityRepairClosure_ThrowArgumentOutOfRangeException(double probability)
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.FailureProbabilityRepairClosure = probability;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(0.5)]
+        [TestCase(1.0)]
+        public void Properties_FailureProbabilityRepairClosure_ExpectedValues(double probability)
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+
+            // Call 
+            input.FailureProbabilityRepairClosure = probability;
+
+            // Assert
+            Assert.AreEqual(probability, input.FailureProbabilityRepairClosure);
+        }
+
+        [Test]
+        public void Properties_FailureCollisionEnergy_ExpectedValues()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+            VariationCoefficientLogNormalDistribution failureCollisionEnergy = GenerateVariationCoefficientLogNormalDistribution();
+
+            // Call
+            input.FailureCollisionEnergy = failureCollisionEnergy;
+
+            // Assert
+            AssertEqualValue(failureCollisionEnergy.Mean, input.FailureCollisionEnergy.Mean);
+            AssertEqualValue(failureCollisionEnergy.CoefficientOfVariation, input.FailureCollisionEnergy.CoefficientOfVariation);
+        }
+
+        [Test]
+        public void Properties_ShipMass_ExpectedValues()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+            VariationCoefficientNormalDistribution shipMass = GenerateVariationNormalDistribution();
+
+            // Call
+            input.ShipMass = shipMass;
+
+            // Assert
+            AssertEqualValue(shipMass.Mean, input.ShipMass.Mean);
+            AssertEqualValue(shipMass.CoefficientOfVariation, input.ShipMass.CoefficientOfVariation);
+        }
+
+        [Test]
+        public void Properties_ShipVelocity_ExpectedValues()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+            VariationCoefficientNormalDistribution shipVelocity = GenerateVariationNormalDistribution();
+
+            // Call
+            input.ShipVelocity = shipVelocity;
+
+            // Assert
+            AssertEqualValue(shipVelocity.Mean, input.ShipVelocity.Mean);
+            AssertEqualValue(shipVelocity.CoefficientOfVariation, input.ShipVelocity.CoefficientOfVariation);
+        }
+
+        [Test]
+        public void Properties_IdenticalApertures_ExpectedValues()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+            var random = new Random(22);
+
+            int levellingCount = random.Next();
+
+            // Call
+            input.LevellingCount = levellingCount;
+
+            // Assert
+            Assert.AreEqual(levellingCount, input.LevellingCount);
+        }
+
+        [Test]
+        [TestCase(-1.1)]
+        [TestCase(2)]
+        [TestCase(double.NaN)]
+        public void Properties_ProbabilityCollisionSecondaryStructure_ThrowArgumentOutOfRangeException(double probability)
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.ProbabilityCollisionSecondaryStructure = probability;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "Kans moet in het bereik [0, 1] opgegeven worden.");
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(0.5)]
+        [TestCase(1.0)]
+        public void Properties_ProbabilityCollisionSecondaryStructure_ExpectedValues(double probability)
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+
+            // Call 
+            input.ProbabilityCollisionSecondaryStructure = probability;
+
+            // Assert
+            Assert.AreEqual(probability, input.ProbabilityCollisionSecondaryStructure);
+        }
+
+        [Test]
+        public void Properties_AllowedLevelIncreaseStorage_ExpectedValues()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+            LogNormalDistribution allowedLevelIncreaseStorage = GenerateLogNormalDistribution();
+
+            // Call
+            input.AllowedLevelIncreaseStorage = allowedLevelIncreaseStorage;
+
+            // Assert
+            AssertEqualValue(allowedLevelIncreaseStorage.Mean, input.AllowedLevelIncreaseStorage.Mean);
+            AssertEqualValue(allowedLevelIncreaseStorage.StandardDeviation, input.AllowedLevelIncreaseStorage.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_StorageStructureArea_ExpectedValues()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+            VariationCoefficientLogNormalDistribution storageStructureArea = GenerateVariationCoefficientLogNormalDistribution();
+
+            // Call
+            input.StorageStructureArea = storageStructureArea;
+
+            // Assert
+            AssertEqualValue(storageStructureArea.Mean, input.StorageStructureArea.Mean);
+            AssertEqualValue(storageStructureArea.CoefficientOfVariation, input.StorageStructureArea.CoefficientOfVariation);
+        }
+
+        [Test]
+        public void Properties_FlowWidthAtBottomProtection_ExpectedValues()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+            LogNormalDistribution flowWidthAtBottomProtection = GenerateLogNormalDistribution();
+
+            // Call
+            input.FlowWidthAtBottomProtection = flowWidthAtBottomProtection;
+
+            // Assert
+            AssertEqualValue(flowWidthAtBottomProtection.Mean, input.FlowWidthAtBottomProtection.Mean);
+            AssertEqualValue(flowWidthAtBottomProtection.StandardDeviation, input.FlowWidthAtBottomProtection.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_CriticalOvertoppingDischarge_ExpectedValues()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+            VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge = GenerateVariationCoefficientLogNormalDistribution();
+
+            // Call
+            input.CriticalOvertoppingDischarge = criticalOvertoppingDischarge;
+
+            // Assert
+            AssertEqualValue(criticalOvertoppingDischarge.Mean, input.CriticalOvertoppingDischarge.Mean);
+            AssertEqualValue(criticalOvertoppingDischarge.CoefficientOfVariation, input.CriticalOvertoppingDischarge.CoefficientOfVariation);
+        }
+
+        [Test]
+        [TestCase(-1.1)]
+        [TestCase(2)]
+        [TestCase(double.NaN)]
+        public void Properties_FailureProbabilityStructureWithErosion_ThrowArgumentOutOfRangeException(double probability)
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.FailureProbabilityStructureWithErosion = probability;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(0.5)]
+        [TestCase(1.0)]
+        public void Properties_FailureProbabilityStructureWithErosion_ExpectedValues(double probability)
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+
+            // Call 
+            input.FailureProbabilityStructureWithErosion = probability;
+
+            // Assert
+            Assert.AreEqual(probability, input.FailureProbabilityStructureWithErosion);
+        }
+
+        [Test]
+        public void Properties_WidthFlowApertures_ExpectedValues()
+        {
+            //Setup 
+            var input = new StabilityPointStructuresInput();
+            VariationCoefficientNormalDistribution widthFlowApertures = GenerateVariationNormalDistribution();
+
+            // Call
+            input.WidthFlowApertures = widthFlowApertures;
+
+            // Assert
+            AssertEqualValue(widthFlowApertures.Mean, input.WidthFlowApertures.Mean);
+            AssertEqualValue(widthFlowApertures.CoefficientOfVariation, input.WidthFlowApertures.CoefficientOfVariation);
+        }
+
+        [Test]
+        public void Properties_BermWidth_ExpectedValues()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+            NormalDistribution bermWidth = GenerateNormalDistribution();
+
+            // Call
+            input.BermWidth = bermWidth;
+
+            // Assert
+            AssertEqualValue(bermWidth.Mean, input.BermWidth.Mean);
+            AssertEqualValue(bermWidth.StandardDeviation, input.BermWidth.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_EvaluationLevel_ExpectedValues()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+
+            var random = new Random(22);
+            var evaluationLevel = new RoundedDouble(5, random.NextDouble());
+
+            // Call
+            input.EvaluationLevel = evaluationLevel;
+
+            // Assert
+            Assert.AreEqual(2, input.EvaluationLevel.NumberOfDecimalPlaces);
+            AssertEqualValue(evaluationLevel, input.EvaluationLevel);
+        }
+
+        [Test]
+        public void Properties_VerticalDistance_ExpectedValues()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+
+            var random = new Random(22);
+            var verticalDistance = new RoundedDouble(5, random.NextDouble());
+
+            // Call
+            input.VerticalDistance = verticalDistance;
+
+            // Assert
+            Assert.AreEqual(2, input.VerticalDistance.NumberOfDecimalPlaces);
+            AssertEqualValue(verticalDistance, input.VerticalDistance);
+        }
+
         #endregion
 
         #region Helpers
@@ -468,8 +822,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var random = new Random(22);
             return new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)(0.01 + random.NextDouble()),
-                CoefficientOfVariation = (RoundedDouble)random.NextDouble()
+                Mean = (RoundedDouble) (0.01 + random.NextDouble()),
+                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
             };
         }
 
@@ -480,6 +834,16 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             {
                 Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
+            };
+        }
+
+        private static VariationCoefficientNormalDistribution GenerateVariationNormalDistribution()
+        {
+            var random = new Random(22);
+            return new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) (0.01 + random.NextDouble()),
+                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
             };
         }
 

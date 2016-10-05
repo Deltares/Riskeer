@@ -47,10 +47,26 @@ namespace Ringtoets.StabilityPointStructures.Data
         private readonly LogNormalDistribution areaFlowApertures;
         private readonly VariationCoefficientLogNormalDistribution constructiveStrengthLinearModel;
         private readonly VariationCoefficientLogNormalDistribution constructiveStrengthQuadraticModel;
+        private readonly VariationCoefficientLogNormalDistribution stabilityLinearModel;
+        private readonly VariationCoefficientLogNormalDistribution stabilityQuadraticModel;
+        private readonly VariationCoefficientLogNormalDistribution failureCollisionEnergy;
+        private readonly VariationCoefficientNormalDistribution shipMass;
+        private readonly VariationCoefficientNormalDistribution shipVelocity;
+        private readonly LogNormalDistribution allowedLevelIncreaseStorage;
+        private readonly VariationCoefficientLogNormalDistribution storageStructureArea;
+        private readonly LogNormalDistribution flowWidthAtBottomProtection;
+        private readonly VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge;
+        private readonly VariationCoefficientNormalDistribution widthFlowApertures;
+        private readonly NormalDistribution bermWidth;
         private ForeshoreProfile foreshoreProfile;
         private RoundedDouble structureNormalOrientation;
         private RoundedDouble volumicWeightWater;
         private RoundedDouble factorStormDurationOpenStructure;
+        private RoundedDouble evaluationLevel;
+        private RoundedDouble verticalDistance;
+        private double failureProbabilityRepairClosure;
+        private double probabilityCollisionSecondaryStructure;
+        private double failureProbabilityStructureWithErosion;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresInput"/>.
@@ -60,6 +76,11 @@ namespace Ringtoets.StabilityPointStructures.Data
             volumicWeightWater = new RoundedDouble(2, 9.81);
             structureNormalOrientation = new RoundedDouble(2);
             factorStormDurationOpenStructure = new RoundedDouble(2, double.NaN);
+            failureProbabilityRepairClosure = double.NaN;
+            probabilityCollisionSecondaryStructure = double.NaN;
+            failureProbabilityStructureWithErosion = double.NaN;
+            evaluationLevel = new RoundedDouble(2, 0);
+            verticalDistance = new RoundedDouble(2, double.NaN);
 
             insideWaterLevelFailureConstruction = new NormalDistribution(2)
             {
@@ -121,6 +142,72 @@ namespace Ringtoets.StabilityPointStructures.Data
                 CoefficientOfVariation = (RoundedDouble) 0.1
             };
 
+            stabilityLinearModel = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
+
+            stabilityQuadraticModel = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
+
+            failureCollisionEnergy = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.3
+            };
+
+            shipMass = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.2
+            };
+
+            shipVelocity = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.2
+            };
+
+            allowedLevelIncreaseStorage = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.1
+            };
+
+            storageStructureArea = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
+
+            flowWidthAtBottomProtection = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
+            criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.15
+            };
+
+            widthFlowApertures = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.05
+            };
+
+            bermWidth = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) double.NaN
+            };
+
             UpdateForeshoreProperties();
         }
 
@@ -132,6 +219,11 @@ namespace Ringtoets.StabilityPointStructures.Data
         public StabilityPointStructure StabilityPointStructure { get; set; }
 
         #endregion
+
+        private bool ValidProbabilityValue(double probability)
+        {
+            return !double.IsNaN(probability) && probability >= 0 && probability <= 1;
+        }
 
         #region Hydraulic data and loads
 
@@ -439,6 +531,291 @@ namespace Ringtoets.StabilityPointStructures.Data
             {
                 constructiveStrengthQuadraticModel.Mean = value.Mean;
                 constructiveStrengthQuadraticModel.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the stability properties of the linear model.
+        /// [kN/m^2]
+        /// </summary>
+        public VariationCoefficientLogNormalDistribution StabilityLinearModel
+        {
+            get
+            {
+                return stabilityLinearModel;
+            }
+            set
+            {
+                stabilityLinearModel.Mean = value.Mean;
+                stabilityLinearModel.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the stability properties of the quadratic model.
+        /// [kN/m^2]
+        /// </summary>
+        public VariationCoefficientLogNormalDistribution StabilityQuadraticModel
+        {
+            get
+            {
+                return stabilityQuadraticModel;
+            }
+            set
+            {
+                stabilityQuadraticModel.Mean = value.Mean;
+                stabilityQuadraticModel.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the failure probability of repairing a closure.
+        /// [1/year]
+        /// </summary>
+        public double FailureProbabilityRepairClosure
+        {
+            get
+            {
+                return failureProbabilityRepairClosure;
+            }
+            set
+            {
+                if (!ValidProbabilityValue(value))
+                {
+                    throw new ArgumentOutOfRangeException("value", RingtoetsDataCommonProperties.FailureProbability_Value_needs_to_be_between_0_and_1);
+                }
+                failureProbabilityRepairClosure = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the failure collision energy.
+        /// [kNm]
+        /// </summary>
+        public VariationCoefficientLogNormalDistribution FailureCollisionEnergy
+        {
+            get
+            {
+                return failureCollisionEnergy;
+            }
+            set
+            {
+                failureCollisionEnergy.Mean = value.Mean;
+                failureCollisionEnergy.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the mass of the ship.
+        /// [tons]
+        /// </summary>
+        public VariationCoefficientNormalDistribution ShipMass
+        {
+            get
+            {
+                return shipMass;
+            }
+            set
+            {
+                shipMass.Mean = value.Mean;
+                shipMass.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the velocity of the ship.
+        /// [m/s]
+        /// </summary>
+        public VariationCoefficientNormalDistribution ShipVelocity
+        {
+            get
+            {
+                return shipVelocity;
+            }
+            set
+            {
+                shipVelocity.Mean = value.Mean;
+                shipVelocity.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the levelling count.
+        /// [1/year]
+        /// </summary>
+        public int LevellingCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets the probability of a secondary collision on the structure.
+        /// [1/levelling]
+        /// </summary>
+        public double ProbabilityCollisionSecondaryStructure
+        {
+            get
+            {
+                return probabilityCollisionSecondaryStructure;
+            }
+            set
+            {
+                if (!ValidProbabilityValue(value))
+                {
+                    throw new ArgumentOutOfRangeException("value", RingtoetsDataCommonProperties.Probability_Must_be_in_range_zero_to_one);
+                }
+                probabilityCollisionSecondaryStructure = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the allowed level increase of the storage volume.
+        /// [m]
+        /// </summary>
+        public LogNormalDistribution AllowedLevelIncreaseStorage
+        {
+            get
+            {
+                return allowedLevelIncreaseStorage;
+            }
+            set
+            {
+                allowedLevelIncreaseStorage.Mean = value.Mean;
+                allowedLevelIncreaseStorage.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the storage structure area.
+        /// [m^2]
+        /// </summary>
+        public VariationCoefficientLogNormalDistribution StorageStructureArea
+        {
+            get
+            {
+                return storageStructureArea;
+            }
+            set
+            {
+                storageStructureArea.Mean = value.Mean;
+                storageStructureArea.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the flow width at the bottom protection.
+        /// [m]
+        /// </summary>
+        public LogNormalDistribution FlowWidthAtBottomProtection
+        {
+            get
+            {
+                return flowWidthAtBottomProtection;
+            }
+            set
+            {
+                flowWidthAtBottomProtection.Mean = value.Mean;
+                flowWidthAtBottomProtection.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the critical overtopping discharge.
+        /// [m^3/s/m]
+        /// </summary>
+        public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge
+        {
+            get
+            {
+                return criticalOvertoppingDischarge;
+            }
+            set
+            {
+                criticalOvertoppingDischarge.Mean = value.Mean;
+                criticalOvertoppingDischarge.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the failure probability of a structure with erosion.
+        /// [1/year]
+        /// </summary>
+        public double FailureProbabilityStructureWithErosion
+        {
+            get
+            {
+                return failureProbabilityStructureWithErosion;
+            }
+            set
+            {
+                if (!ValidProbabilityValue(value))
+                {
+                    throw new ArgumentOutOfRangeException("value", RingtoetsDataCommonProperties.FailureProbability_Value_needs_to_be_between_0_and_1);
+                }
+                failureProbabilityStructureWithErosion = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the width of the flow apertures.
+        /// [m]
+        /// </summary>
+        public VariationCoefficientNormalDistribution WidthFlowApertures
+        {
+            get
+            {
+                return widthFlowApertures;
+            }
+            set
+            {
+                widthFlowApertures.Mean = value.Mean;
+                widthFlowApertures.CoefficientOfVariation = value.CoefficientOfVariation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the berm width.
+        /// [m]
+        /// </summary>
+        public NormalDistribution BermWidth
+        {
+            get
+            {
+                return bermWidth;
+            }
+            set
+            {
+                bermWidth.Mean = value.Mean;
+                bermWidth.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the evaluation level.
+        /// [m+NAP]
+        /// </summary>
+        public RoundedDouble EvaluationLevel
+        {
+            get
+            {
+                return evaluationLevel;
+            }
+            set
+            {
+                evaluationLevel = value.ToPrecision(evaluationLevel.NumberOfDecimalPlaces);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the vertical distance.
+        /// [m]
+        /// </summary>
+        public RoundedDouble VerticalDistance
+        {
+            get
+            {
+                return verticalDistance;
+            }
+            set
+            {
+                verticalDistance = value.ToPrecision(verticalDistance.NumberOfDecimalPlaces);
             }
         }
 
