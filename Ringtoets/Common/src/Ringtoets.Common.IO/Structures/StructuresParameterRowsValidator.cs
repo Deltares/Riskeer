@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.Structures
 {
@@ -30,6 +31,10 @@ namespace Ringtoets.Common.IO.Structures
     /// </summary>
     public static class StructuresParameterRowsValidator
     {
+        private const int numericalValueColumn = 18;
+        private const int varianceValueColumn = 19;
+        private const int varianceTypeColumn = 20;
+
         private static readonly Dictionary<string, Func<StructuresParameterRow, List<string>>> heightStructuresRules =
             new Dictionary<string, Func<StructuresParameterRow, List<string>>>
             {
@@ -37,25 +42,25 @@ namespace Ringtoets.Common.IO.Structures
                     "KW_HOOGTE1", StructureNormalOrientation
                 },
                 {
-                    "KW_HOOGTE2", LevelCrestStructure
+                    "KW_HOOGTE2", DistributionRule
                 },
                 {
-                    "KW_HOOGTE3", FlowWidthAtBottomProtection
+                    "KW_HOOGTE3", DistributionRule
                 },
                 {
-                    "KW_HOOGTE4", CriticalOvertoppingDischarge
+                    "KW_HOOGTE4", DistributionRule
                 },
                 {
-                    "KW_HOOGTE5", WidthFlowApertures
+                    "KW_HOOGTE5", DistributionRule
                 },
                 {
-                    "KW_HOOGTE6", FailureProbabilityStructureWithErosion
+                    "KW_HOOGTE6", ProbabilityRule
                 },
                 {
-                    "KW_HOOGTE7", StorageStructureArea
+                    "KW_HOOGTE7", DistributionRule
                 },
                 {
-                    "KW_HOOGTE8", AllowedLevelIncreaseStorage
+                    "KW_HOOGTE8", DistributionRule
                 }
             };
 
@@ -63,46 +68,46 @@ namespace Ringtoets.Common.IO.Structures
             new Dictionary<string, Func<StructuresParameterRow, List<string>>>
             {
                 {
-                    "KW_BETSLUIT1", StorageStructureArea
+                    "KW_BETSLUIT1", DistributionRule
                 },
                 {
-                    "KW_BETSLUIT2", AllowedLevelIncreaseStorage
+                    "KW_BETSLUIT2", DistributionRule
                 },
                 {
                     "KW_BETSLUIT3", StructureNormalOrientation
                 },
                 {
-                    "KW_BETSLUIT4", WidthFlowApertures
+                    "KW_BETSLUIT4", DistributionRule
                 },
                 {
-                    "KW_BETSLUIT5", LevelCrestStructureNotClosing
+                    "KW_BETSLUIT5", DistributionRule
                 },
                 {
-                    "KW_BETSLUIT6", InsideWaterLevel
+                    "KW_BETSLUIT6", DistributionRule
                 },
                 {
-                    "KW_BETSLUIT7", ThresholdHeightOpenWeir
+                    "KW_BETSLUIT7", DistributionRule
                 },
                 {
-                    "KW_BETSLUIT8", AreaFlowApertures
+                    "KW_BETSLUIT8", DistributionRule
                 },
                 {
-                    "KW_BETSLUIT9", CriticalOvertoppingDischarge
+                    "KW_BETSLUIT9", DistributionRule
                 },
                 {
-                    "KW_BETSLUIT10", FlowWidthAtBottomProtection
+                    "KW_BETSLUIT10", DistributionRule
                 },
                 {
-                    "KW_BETSLUIT11", ProbabilityOpenStructureBeforeFlooding
+                    "KW_BETSLUIT11", ProbabilityRule
                 },
                 {
-                    "KW_BETSLUIT12", FailureProbablityOpenStructure
+                    "KW_BETSLUIT12", ProbabilityRule
                 },
                 {
                     "KW_BETSLUIT13", NumberOfIdenticalApertures
                 },
                 {
-                    "KW_BETSLUIT14", FailureProbabilityReparation
+                    "KW_BETSLUIT14", ProbabilityRule
                 },
                 {
                     "KW_BETSLUIT15", InflowModel
@@ -143,236 +148,73 @@ namespace Ringtoets.Common.IO.Structures
 
             foreach (string name in rules.Keys)
             {
-                int count = structureParameterRows.Count(row => row.ParameterId.Equals(name));
+                int count = structureParameterRows.Count(row => string.Equals(row.ParameterId, name, StringComparison.OrdinalIgnoreCase));
 
                 if (count < 1)
                 {
-                    errorMessages.Add(string.Format("Parameter '{0}' ontbreekt.", name));
+                    errorMessages.Add(string.Format(Resources.StructuresParameterRowsValidator_Parameter_0_missing, name));
                     continue;
                 }
 
                 if (count > 1)
                 {
-                    errorMessages.Add(string.Format("Parameter '{0}' komt meermaals voor.", name));
+                    errorMessages.Add(string.Format(Resources.StructuresParameterRowsValidator_Parameter_0_repeated, name));
                 }
 
-                errorMessages.AddRange(rules[name](structureParameterRows.First(row => row.ParameterId.Equals(name))));
+                errorMessages.AddRange(rules[name](structureParameterRows.First(row => string.Equals(row.ParameterId, name, StringComparison.OrdinalIgnoreCase))));
             }
 
             return new ValidationResult(errorMessages);
         }
 
-        #region SharedRules
-
-        private static List<string> StorageStructureArea(StructuresParameterRow row)
+        private static List<string> ProbabilityRule(StructuresParameterRow row)
         {
             List<string> messages = new List<string>();
-            double meanArea = row.NumericalValue;
-            if (double.IsNaN(meanArea) || double.IsInfinity(meanArea))
+
+            double mean = row.NumericalValue;
+            if (double.IsNaN(mean) || double.IsInfinity(mean))
             {
-                messages.Add("Het kombergend oppervlak van het kunstwerk heeft een ongeldige waarde.");
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_probability_out_of_range, row.LineNumber, numericalValueColumn));
             }
-            double variance = row.VarianceValue;
-            if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0 || row.VarianceType != VarianceType.CoefficientOfVariation)
-            {
-                messages.Add("De variantie van de kombergend oppervlak lognormaalverdeling heeft een ongeldige waarde.");
-            }
+
             return messages;
         }
 
-        private static List<string> AllowedLevelIncreaseStorage(StructuresParameterRow row)
+        private static List<string> DistributionRule(StructuresParameterRow row)
         {
             List<string> messages = new List<string>();
-            double meanAllowableIncrease = row.NumericalValue;
-            if (double.IsNaN(meanAllowableIncrease) || double.IsInfinity(meanAllowableIncrease))
+
+            double mean = row.NumericalValue;
+            if (double.IsNaN(mean) || double.IsInfinity(mean))
             {
-                messages.Add("De toegestane peilverhoging op het kombergend oppervlak van het kunstwerk heeft een ongeldige waarde.");
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, numericalValueColumn));
             }
+
+            VarianceType type = row.VarianceType;
+            if (type != VarianceType.StandardDeviation && type != VarianceType.CoefficientOfVariation)
+            {
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, varianceTypeColumn));
+            }
+
             double variance = row.VarianceValue;
-            if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0 || row.VarianceType != VarianceType.CoefficientOfVariation)
+            if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0)
             {
-                messages.Add("De variantie van de toegestane peilverhoging op het kombergend oppervlak lognormaalverdeling heeft een ongeldige waarde.");
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, varianceValueColumn));
             }
+
             return messages;
         }
 
         private static List<string> StructureNormalOrientation(StructuresParameterRow row)
         {
             List<string> messages = new List<string>();
+
             double orientation = row.NumericalValue;
             if (!(orientation >= 0 && orientation <= 360))
             {
-                messages.Add("De oriëntatie van het kunstwerk valt buiten het bereik [0, 360].");
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_orientation_out_of_range, row.LineNumber, numericalValueColumn));
             }
-            return messages;
-        }
 
-        private static List<string> WidthFlowApertures(StructuresParameterRow row)
-        {
-            List<string> messages = new List<string>();
-            double meanWidth = row.NumericalValue;
-            if (double.IsNaN(meanWidth) || double.IsInfinity(meanWidth))
-            {
-                messages.Add("De breedte van de kruin van het kunstwerk heeft een ongeldige waarde.");
-            }
-            double variance = row.VarianceValue;
-            if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0 || row.VarianceType != VarianceType.StandardDeviation)
-            {
-                messages.Add("De standaard afwijking van de breedte van de kruin normaalverdeling heeft een ongeldige waarde.");
-            }
-            return messages;
-        }
-
-        private static List<string> CriticalOvertoppingDischarge(StructuresParameterRow row)
-        {
-            List<string> messages = new List<string>();
-            double meanDischange = row.NumericalValue;
-            if (double.IsNaN(meanDischange) || double.IsInfinity(meanDischange))
-            {
-                messages.Add("Het kritieke overslagdebiet per strekkende meter van het kunstwerk heeft een ongeldige waarde.");
-            }
-            double variance = row.VarianceValue;
-            if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0 || row.VarianceType != VarianceType.CoefficientOfVariation)
-            {
-                messages.Add("De variantie van de kritieke overslagdebiet per strekkende meter lognormaalverdeling heeft een ongeldige waarde.");
-            }
-            return messages;
-        }
-
-        private static List<string> FlowWidthAtBottomProtection(StructuresParameterRow row)
-        {
-            List<string> messages = new List<string>();
-            double meanFlowWidth = row.NumericalValue;
-            if (double.IsNaN(meanFlowWidth) || double.IsInfinity(meanFlowWidth))
-            {
-                messages.Add("De stroomvoerende breedte bij bodembescherming van het kunstwerk heeft een ongeldige waarde.");
-            }
-            double variance = row.VarianceValue;
-            if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0 || row.VarianceType != VarianceType.CoefficientOfVariation)
-            {
-                messages.Add("De variantie van de stroomvoerende breedte bij bodembescherming lognormaalverdeling heeft een ongeldige waarde.");
-            }
-            return messages;
-        }
-
-        #endregion
-
-        #region HeightStructuesRules
-
-        private static List<string> LevelCrestStructure(StructuresParameterRow row)
-        {
-            List<string> messages = new List<string>();
-            double meanCrestLevel = row.NumericalValue;
-            if (double.IsNaN(meanCrestLevel) || double.IsInfinity(meanCrestLevel))
-            {
-                messages.Add("De kerende hoogte van het kunstwerk heeft een ongeldige waarde.");
-            }
-            double variance = row.VarianceValue;
-            if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0 || row.VarianceType != VarianceType.StandardDeviation)
-            {
-                messages.Add("De standaard afwijking van de kerende hoogte normaalverdeling heeft een ongeldige waarde.");
-            }
-            return messages;
-        }
-
-        private static List<string> FailureProbabilityStructureWithErosion(StructuresParameterRow row)
-        {
-            List<string> messages = new List<string>();
-            double failureProbability = row.NumericalValue;
-            if (failureProbability < 0.0 || failureProbability > 1.0)
-            {
-                messages.Add("De waarde voor de faalkans van het kunstwerk valt buiten het bereik [0, 1].");
-            }
-            return messages;
-        }
-
-        #endregion
-
-        #region ClosureStructuresRules
-
-        private static List<string> LevelCrestStructureNotClosing(StructuresParameterRow row)
-        {
-            List<string> messages = new List<string>();
-            double meanCrestLevel = row.NumericalValue;
-            if (double.IsNaN(meanCrestLevel) || double.IsInfinity(meanCrestLevel))
-            {
-                messages.Add("De kruinhoogte niet gesloten kering van het kunstwerk heeft een ongeldige waarde.");
-            }
-            double variance = row.VarianceValue;
-            if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0 || row.VarianceType != VarianceType.StandardDeviation)
-            {
-                messages.Add("De standaard afwijking van de kruinhoogte niet gesloten kering normaalverdeling heeft een ongeldige waarde.");
-            }
-            return messages;
-        }
-
-        private static List<string> InsideWaterLevel(StructuresParameterRow row)
-        {
-            List<string> messages = new List<string>();
-            double meanInsideWaterLevel = row.NumericalValue;
-            if (double.IsNaN(meanInsideWaterLevel) || double.IsInfinity(meanInsideWaterLevel))
-            {
-                messages.Add("De binnenwaterstand van het kunstwerk heeft een ongeldige waarde.");
-            }
-            double variance = row.VarianceValue;
-            if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0 || row.VarianceType != VarianceType.StandardDeviation)
-            {
-                messages.Add("De standaard afwijking van de binnenwaterstand normaalverdeling heeft een ongeldige waarde.");
-            }
-            return messages;
-        }
-
-        private static List<string> ThresholdHeightOpenWeir(StructuresParameterRow row)
-        {
-            List<string> messages = new List<string>();
-            double meanThreshold = row.NumericalValue;
-            if (double.IsNaN(meanThreshold) || double.IsInfinity(meanThreshold))
-            {
-                messages.Add("De drempelhoogte van het kunstwerk heeft een ongeldige waarde.");
-            }
-            double variance = row.VarianceValue;
-            if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0 || row.VarianceType != VarianceType.StandardDeviation)
-            {
-                messages.Add("De standaard afwijking van de drempelhoogte normaalverdeling heeft een ongeldige waarde.");
-            }
-            return messages;
-        }
-
-        private static List<string> AreaFlowApertures(StructuresParameterRow row)
-        {
-            List<string> messages = new List<string>();
-            double meanArea = row.NumericalValue;
-            if (double.IsNaN(meanArea) || double.IsInfinity(meanArea))
-            {
-                messages.Add("Het doorstroomoppervlak van het kunstwerk heeft een ongeldige waarde.");
-            }
-            double variance = row.VarianceValue;
-            if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0 || row.VarianceType != VarianceType.CoefficientOfVariation)
-            {
-                messages.Add("De variantie van het doorstroomoppervlak lognormaalverdeling heeft een ongeldige waarde.");
-            }
-            return messages;
-        }
-
-        private static List<string> ProbabilityOpenStructureBeforeFlooding(StructuresParameterRow row)
-        {
-            List<string> messages = new List<string>();
-            double value = row.NumericalValue;
-            if (!(value >= 0 && value <= 1))
-            {
-                messages.Add("De kans op open staan bij naderend hoogwater heeft een ongeldige waarde.");
-            }
-            return messages;
-        }
-
-        private static List<string> FailureProbablityOpenStructure(StructuresParameterRow row)
-        {
-            List<string> messages = new List<string>();
-            double value = row.NumericalValue;
-            if (!(value >= 0 && value <= 1))
-            {
-                messages.Add("De kans op mislukken sluiting van geopend kunstwerk heeft een ongeldige waarde.");
-            }
             return messages;
         }
 
@@ -382,18 +224,7 @@ namespace Ringtoets.Common.IO.Structures
             double value = row.NumericalValue;
             if (value < 0)
             {
-                messages.Add("Het aantal identieke doorstroomopeningen heeft een ongeldige waarde.");
-            }
-            return messages;
-        }
-
-        private static List<string> FailureProbabilityReparation(StructuresParameterRow row)
-        {
-            List<string> messages = new List<string>();
-            double value = row.NumericalValue;
-            if (!(value >= 0 && value <= 1))
-            {
-                messages.Add("De faalkans herstel van gefaalde situatie heeft een ongeldige waarde.");
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_cannot_be_smaller_than_zero, row.LineNumber, numericalValueColumn));
             }
             return messages;
         }
@@ -402,13 +233,11 @@ namespace Ringtoets.Common.IO.Structures
         {
             List<string> messages = new List<string>();
             double value = row.NumericalValue;
-            if (value < 0)
+            if (!(value >= 0) && (value <= 2))
             {
-                messages.Add("Het instroommodel heeft een ongeldige waarde.");
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_type_out_of_range, row.LineNumber, numericalValueColumn));
             }
             return messages;
         }
-
-        #endregion
     }
 }

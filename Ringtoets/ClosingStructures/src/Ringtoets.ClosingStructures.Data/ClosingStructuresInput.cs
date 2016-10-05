@@ -48,7 +48,7 @@ namespace Ringtoets.ClosingStructures.Data
         private readonly LogNormalDistribution flowWidthAtBottomProtection;
         private readonly NormalDistribution widthFlowApertures;
         private readonly LogNormalDistribution stormDuration;
-        private readonly LogNormalDistribution criticalOverToppingDischarge;
+        private readonly LogNormalDistribution criticalOvertoppingDischarge;
         private RoundedDouble structureNormalOrientation;
         private RoundedDouble factorStormDurationOpenStructure;
         private double failureProbablityOpenStructure;
@@ -126,11 +126,11 @@ namespace Ringtoets.ClosingStructures.Data
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
-            criticalOverToppingDischarge = new LogNormalDistribution(2)
+            criticalOvertoppingDischarge = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN
             };
-            criticalOverToppingDischarge.SetStandardDeviationFromVariationCoefficient(0.15);
+            criticalOvertoppingDischarge.SetStandardDeviationFromVariationCoefficient(0.15);
 
             widthFlowApertures = new NormalDistribution(2)
             {
@@ -533,16 +533,16 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets or sets the critical overtopping discharge.
         /// [m^3/s/m]
         /// </summary>
-        public LogNormalDistribution CriticalOverToppingDischarge
+        public LogNormalDistribution CriticalOvertoppingDischarge
         {
             get
             {
-                return criticalOverToppingDischarge;
+                return criticalOvertoppingDischarge;
             }
             set
             {
-                criticalOverToppingDischarge.Mean = value.Mean;
-                criticalOverToppingDischarge.StandardDeviation = value.StandardDeviation;
+                criticalOvertoppingDischarge.Mean = value.Mean;
+                criticalOvertoppingDischarge.StandardDeviation = value.StandardDeviation;
             }
         }
 

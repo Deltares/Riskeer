@@ -356,7 +356,7 @@ Er is geen referentielijn geëxporteerd.</value>
   <data name="StructuresImporter_ReadStructureParameterRowsData_reading_structuredata" xml:space="preserve">
     <value>Inlezen van kunstwerkgegevens.</value>
   </data>
-  <data name="StructuresImporter_CreateSpecificStructures_no_structuresdata_for_location_0_" xml:space="preserve">
+  <data name="StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_" xml:space="preserve">
     <value>Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT '{0}'.</value>
   </data>
   <data name="DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_" xml:space="preserve">
@@ -437,5 +437,35 @@ Er is geen vakindeling geïmporteerd.</value>
   </data>
   <data name="ProfilesImporter_ReadProfileLocations_reading_profilelocations" xml:space="preserve">
     <value>Inlezen van profiellocaties uit een shapebestand.</value>
+  </data>
+  <data name="StructuresImporter_User_cancelled" xml:space="preserve">
+    <value>Kunstwerken importeren is afgebroken. Geen gegevens ingelezen.</value>
+  </data>
+  <data name="StructuresImporter_Structure_number_0_is_skipped" xml:space="preserve">
+    <value>Kunstwerk nummer {0} wordt overgeslagen.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_Parameter_0_missing" xml:space="preserve">
+    <value>Parameter '{0}' ontbreekt.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_Parameter_0_repeated" xml:space="preserve">
+    <value>Parameter '{0}' komt meermaals voor.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_Line_0_column_1_probability_out_of_range" xml:space="preserve">
+    <value>De waarde op regel {0}, kolom {1} valt buiten het bereik [0, 1].</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_Line_0_column_1_value_invalid" xml:space="preserve">
+    <value>De waarde op regel {0}, kolom {1} is ongeldig.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_Line_0_column_1_orientation_out_of_range" xml:space="preserve">
+    <value>De waarde op regel {0}, kolom {1} valt buiten het bereik [0, 360].</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_Line_0_column_1_value_cannot_be_smaller_than_zero" xml:space="preserve">
+    <value>De waarde op regel {0}, kolom {1} mag niet kleiner dan nul zijn.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_Line_0_column_1_type_out_of_range" xml:space="preserve">
+    <value>De waarde op regel {0}, kolom {1} valt buiten het bereik [0, 2].</value>
+  </data>
+  <data name="StructuresImporter_ConvertVarianceToStandardDeviation_Converting_variation_on_line_0_" xml:space="preserve">
+    <value>De variatie op regel {0} wordt omgerekend in een standaard deviatie.</value>
   </data>
 </root>

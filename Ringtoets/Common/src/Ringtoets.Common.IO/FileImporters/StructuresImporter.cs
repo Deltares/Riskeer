@@ -110,13 +110,30 @@ namespace Ringtoets.Common.IO.FileImporters
         protected abstract void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows);
 
-        protected void LogMessages(ValidationResult validationResult, int i)
+        protected void LogMessages(ValidationResult validationResult, int lineNumber)
         {
             foreach (string message in validationResult.ErrorMessages)
             {
                 log.Error(message);
             }
-            log.ErrorFormat("Kunstwerk nummer {0} wordt overgeslagen.", i);
+            log.ErrorFormat(Resources.StructuresImporter_Structure_number_0_is_skipped, lineNumber);
+        }
+
+        /// <summary>
+        /// Convert the variance in a <see cref="StructuresParameterRow"/> into a standard deviation.
+        /// </summary>
+        /// <param name="structureParameterRows">The <see cref="StructuresParameterRow"/> object to operate on.</param>
+        protected void ConvertVarianceToStandardDeviation(List<StructuresParameterRow> structureParameterRows)
+        {
+            foreach (StructuresParameterRow row in structureParameterRows)
+            {
+                if (row.VarianceType == VarianceType.CoefficientOfVariation)
+                {
+                    log.WarnFormat(Resources.StructuresImporter_ConvertVarianceToStandardDeviation_Converting_variation_on_line_0_, row.LineNumber);
+                    row.VarianceValue = row.VarianceValue*row.NumericalValue;
+                    row.VarianceType = VarianceType.StandardDeviation;
+                }
+            }
         }
 
         private void CreateStructures(ReadResult<StructureLocation> importStructureLocationsResult,

@@ -36,8 +36,6 @@ namespace Ringtoets.Common.IO.FileImporters
     /// </summary>
     public class ForeshoreProfilesImporter : ProfilesImporter<ObservableList<ForeshoreProfile>>
     {
-        private readonly ObservableList<ForeshoreProfile> importTarget;
-
         /// <summary>
         /// Creates a new instance of <see cref="ForeshoreProfilesImporter"/>.
         /// </summary>
@@ -48,10 +46,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
         public ForeshoreProfilesImporter(ObservableList<ForeshoreProfile> importTarget, ReferenceLine referenceLine, string filePath)
-            : base(referenceLine, filePath, importTarget)
-        {
-            this.importTarget = importTarget;
-        }
+            : base(referenceLine, filePath, importTarget) {}
 
         protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult,
                                                ReadResult<DikeProfileData> importDikeProfileDataResult)
@@ -61,7 +56,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
             foreach (ForeshoreProfile foreshoreProfile in importedForeshoreProfiles)
             {
-                importTarget.Add(foreshoreProfile);
+                ImportTarget.Add(foreshoreProfile);
             }
         }
 

@@ -61,7 +61,7 @@ namespace Ringtoets.HeightStructures.IO.Test
         }
 
         [Test]
-        public void Import_ValidImcompleteFile_LogAndTrue()
+        public void Import_ValidIncompleteFile_LogAndTrue()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
@@ -107,9 +107,7 @@ namespace Ringtoets.HeightStructures.IO.Test
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
-                                                         Path.Combine("Structures", "CorrectShpIcompleteCsv", "Kunstwerken.shp"));
-
-            string csvFilePath = Path.ChangeExtension(filePath, ".csv");
+                                                         Path.Combine("Structures", "CorrectShpIncompleteCsv", "Kunstwerken.shp"));
 
             var referencePoints = new List<Point2D>
             {

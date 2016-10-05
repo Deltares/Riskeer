@@ -37,8 +37,6 @@ namespace Ringtoets.ClosingStructures.IO
     /// </summary>
     public class ClosingStructuresImporter : StructuresImporter<ObservableList<ClosingStructure>>
     {
-        private readonly ObservableList<ClosingStructure> importTarget;
-
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresImporter"/>.
         /// </summary>
@@ -49,10 +47,7 @@ namespace Ringtoets.ClosingStructures.IO
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
         public ClosingStructuresImporter(ObservableList<ClosingStructure> importTarget, ReferenceLine referenceLine, string filePath)
-            : base(importTarget, referenceLine, filePath)
-        {
-            this.importTarget = importTarget;
-        }
+            : base(importTarget, referenceLine, filePath) {}
 
         protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
@@ -61,8 +56,14 @@ namespace Ringtoets.ClosingStructures.IO
 
             foreach (ClosingStructure closingStructure in importedClosingStructures)
             {
-                importTarget.Add(closingStructure);
+                ImportTarget.Add(closingStructure);
             }
+        }
+
+        protected override void HandleUserCancellingImport()
+        {
+            log.Info(RingtoetsCommonIOResources.StructuresImporter_User_cancelled);
+            base.HandleUserCancellingImport();
         }
 
         private IEnumerable<ClosingStructure> CreateClosingStructures(IList<StructureLocation> structureLocations,
@@ -77,8 +78,8 @@ namespace Ringtoets.ClosingStructures.IO
 
                 if (!groupedStructureParameterRows.ContainsKey(id))
                 {
-                    log.WarnFormat(RingtoetsCommonIOResources.StructuresImporter_CreateSpecificStructures_no_structuresdata_for_location_0_, id);
-                    log.ErrorFormat("Kunstwerk nummer {0} wordt overgeslagen.", i + 1);
+                    log.WarnFormat(RingtoetsCommonIOResources.StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_, id);
+                    log.ErrorFormat(RingtoetsCommonIOResources.StructuresImporter_Structure_number_0_is_skipped, i + 1);
                     continue;
                 }
 
@@ -90,6 +91,8 @@ namespace Ringtoets.ClosingStructures.IO
                     LogMessages(parameterRowsValidationResult, i + 1);
                     continue;
                 }
+
+                ConvertVarianceToStandardDeviation(structureParameterRows);
 
                 ClosingStructure closingStructure = CreateClosingStructure(structureLocation, structureParameterRows);
                 closingStructures.Add(closingStructure);

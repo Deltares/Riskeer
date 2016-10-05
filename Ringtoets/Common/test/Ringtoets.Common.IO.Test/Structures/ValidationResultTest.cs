@@ -23,13 +23,14 @@ using System;
 using System.Collections.Generic;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.IO.Structures;
 
-namespace Ringtoets.Common.IO.Test
+namespace Ringtoets.Common.IO.Test.Structures
 {
     [TestFixture]
     public class ValidationResultTest
     {
-        List<string> TestMessages()
+        private List<string> TestMessages()
         {
             return new List<string>
             {
@@ -44,7 +45,8 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new ValidationResult(null);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "errorMessages");
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("errorMessages", paramName);
         }
 
         [Test]
@@ -61,7 +63,7 @@ namespace Ringtoets.Common.IO.Test
             TestDelegate call = () => new ValidationResult(errorMessages);
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "errorMessages");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Invalid error message string.");
         }
 
         [Test]

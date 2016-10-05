@@ -55,6 +55,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
         /// , empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when any parameter is out of range.</exception>
         public HeightStructure(string name, string id, Point2D location,
                                double structureNormalOrientation,
                                double levelCrestStructureMean, double levelCrestStructureStandardDeviation,

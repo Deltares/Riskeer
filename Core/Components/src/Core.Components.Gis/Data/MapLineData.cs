@@ -50,7 +50,7 @@ namespace Core.Components.Gis.Data
         /// </summary>
         /// <param name="featuresToValidate">The new features to validate.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="featuresToValidate"/> is <c>null</c>.</exception>
-        /// <exception cref="System.ArgumentException">Thrown when any feature in <paramref name="featuresToValidate"/> 
+        /// <exception cref="ArgumentException">Thrown when any feature in <paramref name="featuresToValidate"/> 
         /// contains multiple point-collections.</exception>
         /// <seealso cref="Features"/>
         protected override void ValidateFeatures(MapFeature[] featuresToValidate)

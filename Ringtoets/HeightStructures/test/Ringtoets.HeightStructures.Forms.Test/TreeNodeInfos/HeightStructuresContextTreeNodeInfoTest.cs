@@ -226,7 +226,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
         private static HeightStructure CreateHeightStructure()
         {
-            var heightStructure = new HeightStructure("aName", "anId", new Point2D(1.22, 2.333),
+            return new HeightStructure("aName", "anId", new Point2D(1.22, 2.333),
                                                       0.12345,
                                                       234.567, 0.23456,
                                                       345.678, 0.34567,
@@ -235,7 +235,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                       0.67890,
                                                       112.223, 0.11222,
                                                       225.336, 0.22533);
-            return heightStructure;
         }
     }
 }

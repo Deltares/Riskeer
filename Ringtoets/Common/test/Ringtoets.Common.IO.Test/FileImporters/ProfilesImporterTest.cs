@@ -495,7 +495,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
 
             testProfilesImporter.Cancel();
             bool importResult = testProfilesImporter.Import();
-            
+
             // Precondition
             Assert.IsFalse(importResult);
 

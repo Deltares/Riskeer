@@ -85,7 +85,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.IsNaN(input.StorageStructureArea.Mean);
             Assert.IsNaN(input.FlowWidthAtBottomProtection.Mean);
             AssertEqualValue(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
-            Assert.IsNaN(input.CriticalOverToppingDischarge.Mean);
+            Assert.IsNaN(input.CriticalOvertoppingDischarge.Mean);
             Assert.IsNaN(input.WidthFlowApertures.Mean);
             AssertEqualValue(6.0, input.StormDuration.Mean);
             AssertEqualValue(0.25, input.StormDuration.GetVariationCoefficient());
@@ -502,14 +502,14 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Setup
             var input = new ClosingStructuresInput();
-            LogNormalDistribution criticalOverToppingDischarge = GenerateLogNormalDistribution();
+            LogNormalDistribution criticalOvertoppingDischarge = GenerateLogNormalDistribution();
 
             //Call
-            input.CriticalOverToppingDischarge = criticalOverToppingDischarge;
+            input.CriticalOvertoppingDischarge = criticalOvertoppingDischarge;
 
             //Assert
-            Assert.AreEqual(criticalOverToppingDischarge.Mean, input.CriticalOverToppingDischarge.Mean);
-            AssertEqualValue(criticalOverToppingDischarge.StandardDeviation, input.CriticalOverToppingDischarge.StandardDeviation);
+            Assert.AreEqual(criticalOvertoppingDischarge.Mean, input.CriticalOvertoppingDischarge.Mean);
+            AssertEqualValue(criticalOvertoppingDischarge.StandardDeviation, input.CriticalOvertoppingDischarge.StandardDeviation);
         }
 
         [Test]

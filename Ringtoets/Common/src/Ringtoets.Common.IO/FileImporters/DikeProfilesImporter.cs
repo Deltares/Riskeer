@@ -36,8 +36,6 @@ namespace Ringtoets.Common.IO.FileImporters
     /// </summary>
     public class DikeProfilesImporter : ProfilesImporter<ObservableList<DikeProfile>>
     {
-        private readonly ObservableList<DikeProfile> importTarget;
-
         /// <summary>
         /// Creates a new instance of <see cref="DikeProfilesImporter"/>.
         /// </summary>
@@ -48,10 +46,7 @@ namespace Ringtoets.Common.IO.FileImporters
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
         public DikeProfilesImporter(ObservableList<DikeProfile> importTarget, ReferenceLine referenceLine, string filePath)
-            : base(referenceLine, filePath, importTarget)
-        {
-            this.importTarget = importTarget;
-        }
+            : base(referenceLine, filePath, importTarget) {}
 
         protected override void CreateProfiles(ReadResult<ProfileLocation> importProfileLocationResult,
                                                ReadResult<DikeProfileData> importDikeProfileDataResult)
@@ -61,7 +56,7 @@ namespace Ringtoets.Common.IO.FileImporters
 
             foreach (DikeProfile dikeProfile in importedDikeProfiles)
             {
-                importTarget.Add(dikeProfile);
+                ImportTarget.Add(dikeProfile);
             }
         }
 

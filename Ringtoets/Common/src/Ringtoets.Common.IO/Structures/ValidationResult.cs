@@ -23,7 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Ringtoets.Common.IO
+namespace Ringtoets.Common.IO.Structures
 {
     /// <summary>
     /// This class represents the result of a validation.
@@ -36,16 +36,18 @@ namespace Ringtoets.Common.IO
         /// Create a new instance of <see cref="ValidationResult"/>.
         /// </summary>
         /// <param name="errorMessages">The error messages for this <see cref="ValidationResult"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when:
-        /// <list type="bullet">
-        /// <item><paramref name="errorMessages"/> is <c>null</c></item>
-        /// <item>any message in <paramref name="errorMessages"/> is <c>null</c>, empty or consists of whitespace</item>
-        /// </list></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="errorMessages"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when any message in <paramref name="errorMessages"/> is <c>null</c>, 
+        /// empty or consists of whitespace.</exception>
         public ValidationResult(ICollection<string> errorMessages)
         {
-            if (errorMessages == null || errorMessages.Any(string.IsNullOrWhiteSpace))
+            if (errorMessages == null)
             {
-                throw new ArgumentException("errorMessages");
+                throw new ArgumentNullException("errorMessages");
+            }
+            if (errorMessages.Any(string.IsNullOrWhiteSpace))
+            {
+                throw new ArgumentException("Invalid error message string.");
             }
 
             IsValid = errorMessages.Count < 1;

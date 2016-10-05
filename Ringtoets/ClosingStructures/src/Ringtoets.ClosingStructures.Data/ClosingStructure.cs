@@ -53,8 +53,8 @@ namespace Ringtoets.ClosingStructures.Data
         /// <param name="thresholdHeightOpenWeirStandardDeviation">The standard deviation of the threshold height of the opened closure structure.</param>
         /// <param name="areaFlowAperturesMean">The mean area of the flow aperture of the closing structure.</param>
         /// <param name="areaFlowAperturesStandardDeviation">The standard deviation of the area of the flow aperture of the closing structure.</param>
-        /// <param name="criticalOverToppingDischargeMean">The mean critical overtopping discharge of the closing structure.</param>
-        /// <param name="criticalOverToppingDischargeStandardDeviation">The standard deviation of critical overtopping discharge of the closing structure.</param>
+        /// <param name="criticalOvertoppingDischargeMean">The mean critical overtopping discharge of the closing structure.</param>
+        /// <param name="criticalOvertoppingDischargeStandardDeviation">The standard deviation of critical overtopping discharge of the closing structure.</param>
         /// <param name="flowWidthAtBottomProtectionMean">The mean flow width of the closing structure at the bottom protection.</param>
         /// <param name="flowWidthAtBottomProtectionStandardDeviation">The standard deviation of the flow width of the closing structure at the bottom protection.</param>
         /// <param name="probabilityOpenStructureBeforeFlooding">The probability of the closing structure being open before flooding.</param>
@@ -65,6 +65,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
         /// , empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when any parameter is out of range.</exception>
         public ClosingStructure(string name, string id, Point2D location,
                                 double storageStructureAreaMean, double storageStructureAreaStandardDeviation,
                                 double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation,
@@ -74,7 +75,7 @@ namespace Ringtoets.ClosingStructures.Data
                                 double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
                                 double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
                                 double areaFlowAperturesMean, double areaFlowAperturesStandardDeviation,
-                                double criticalOverToppingDischargeMean, double criticalOverToppingDischargeStandardDeviation,
+                                double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeStandardDeviation,
                                 double flowWidthAtBottomProtectionMean, double flowWidthAtBottomProtectionStandardDeviation,
                                 double probabilityOpenStructureBeforeFlooding,
                                 double failureProbablityOpenStructure,
@@ -120,10 +121,10 @@ namespace Ringtoets.ClosingStructures.Data
                 Mean = new RoundedDouble(2, areaFlowAperturesMean),
                 StandardDeviation = new RoundedDouble(2, areaFlowAperturesStandardDeviation)
             };
-            CriticalOverToppingDischarge = new LogNormalDistribution(2)
+            CriticalOvertoppingDischarge = new LogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, criticalOverToppingDischargeMean),
-                StandardDeviation = new RoundedDouble(2, criticalOverToppingDischargeStandardDeviation)
+                Mean = new RoundedDouble(2, criticalOvertoppingDischargeMean),
+                StandardDeviation = new RoundedDouble(2, criticalOvertoppingDischargeStandardDeviation)
             };
             FlowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
@@ -180,7 +181,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets the critical overtopping discharge of the closing structure.
         /// </summary>
-        public LogNormalDistribution CriticalOverToppingDischarge { get; private set; }
+        public LogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
 
         /// <summary>
         /// Gets the flow width of the closing structure at the bottom protection.

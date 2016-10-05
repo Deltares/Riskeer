@@ -46,7 +46,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             var structuresParameterRow = new StructuresParameterRow
             {
-                ParameterId = "KW_HOOGTE1",
+                ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword1,
                 NumericalValue = 180.0
             };
 
@@ -83,51 +83,51 @@ namespace Ringtoets.Common.IO.Test.Structures
             {
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_HOOGTE1",
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword1,
                     NumericalValue = double.NaN
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_HOOGTE2",
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword2,
                     NumericalValue = double.NaN,
                     VarianceValue = -10.0
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_HOOGTE3",
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword3,
                     NumericalValue = double.NaN,
                     VarianceValue = double.NaN
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_HOOGTE4",
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword4,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = double.PositiveInfinity
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_HOOGTE5",
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword5,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
                     VarianceType = VarianceType.NotSpecified
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_HOOGTE6",
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword6,
                     NumericalValue = double.NegativeInfinity
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_HOOGTE7",
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword7,
                     NumericalValue = double.NegativeInfinity,
                     VarianceValue = -10.0
                 },
                 new StructuresParameterRow
                 {
-                    ParameterId = "KW_HOOGTE8",
-                    NumericalValue = double.PositiveInfinity,
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword8,
+                    NumericalValue = 0,
                     VarianceValue = 10.0,
-                    VarianceType = VarianceType.StandardDeviation
+                    VarianceType = VarianceType.CoefficientOfVariation
                 }
             };
 
@@ -138,20 +138,23 @@ namespace Ringtoets.Common.IO.Test.Structures
             Assert.IsFalse(validationResult.IsValid);
             List<string> expectedErrorMessages = new List<string>
             {
-                "De oriëntatie van het kunstwerk valt buiten het bereik [0, 360].",
-                "De kerende hoogte van het kunstwerk heeft een ongeldige waarde.",
-                "De standaard afwijking van de kerende hoogte normaalverdeling heeft een ongeldige waarde.",
-                "De stroomvoerende breedte bij bodembescherming van het kunstwerk heeft een ongeldige waarde.",
-                "De variantie van de stroomvoerende breedte bij bodembescherming lognormaalverdeling heeft een ongeldige waarde.",
-                "Het kritieke overslagdebiet per strekkende meter van het kunstwerk heeft een ongeldige waarde.",
-                "De variantie van de kritieke overslagdebiet per strekkende meter lognormaalverdeling heeft een ongeldige waarde.",
-                "De breedte van de kruin van het kunstwerk heeft een ongeldige waarde.",
-                "De standaard afwijking van de breedte van de kruin normaalverdeling heeft een ongeldige waarde.",
-                "De waarde voor de faalkans van het kunstwerk valt buiten het bereik [0, 1].",
-                "Het kombergend oppervlak van het kunstwerk heeft een ongeldige waarde.",
-                "De variantie van de kombergend oppervlak lognormaalverdeling heeft een ongeldige waarde.",
-                "De toegestane peilverhoging op het kombergend oppervlak van het kunstwerk heeft een ongeldige waarde.",
-                "De variantie van de toegestane peilverhoging op het kombergend oppervlak lognormaalverdeling heeft een ongeldige waarde."
+                "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 360].",
+                "De waarde op regel -1, kolom 18 is ongeldig.",
+                "De waarde op regel -1, kolom 20 is ongeldig.",
+                "De waarde op regel -1, kolom 19 is ongeldig.",
+                "De waarde op regel -1, kolom 18 is ongeldig.",
+                "De waarde op regel -1, kolom 20 is ongeldig.",
+                "De waarde op regel -1, kolom 19 is ongeldig.",
+                "De waarde op regel -1, kolom 18 is ongeldig.",
+                "De waarde op regel -1, kolom 20 is ongeldig.",
+                "De waarde op regel -1, kolom 19 is ongeldig.",
+                "De waarde op regel -1, kolom 18 is ongeldig.",
+                "De waarde op regel -1, kolom 20 is ongeldig.",
+                "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 1].",
+                "De waarde op regel -1, kolom 18 is ongeldig.",
+                "De waarde op regel -1, kolom 20 is ongeldig.",
+                "De waarde op regel -1, kolom 19 is ongeldig.",
+                "De waarde op regel -1, kolom 18 mag niet nul zijn."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
         }
@@ -236,9 +239,9 @@ namespace Ringtoets.Common.IO.Test.Structures
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT4",
-                    NumericalValue = double.PositiveInfinity,
+                    NumericalValue = 0,
                     VarianceValue = 10.0,
-                    VarianceType = VarianceType.NotSpecified
+                    VarianceType = VarianceType.CoefficientOfVariation
                 },
                 new StructuresParameterRow
                 {
@@ -313,30 +316,32 @@ namespace Ringtoets.Common.IO.Test.Structures
             Assert.IsFalse(validationResult.IsValid);
             List<string> expectedErrorMessages = new List<string>
             {
-                "Het kombergend oppervlak van het kunstwerk heeft een ongeldige waarde.",
-                "De variantie van de kombergend oppervlak lognormaalverdeling heeft een ongeldige waarde.",
-                "De toegestane peilverhoging op het kombergend oppervlak van het kunstwerk heeft een ongeldige waarde.",
-                "De variantie van de toegestane peilverhoging op het kombergend oppervlak lognormaalverdeling heeft een ongeldige waarde.",
-                "De oriëntatie van het kunstwerk valt buiten het bereik [0, 360].",
-                "De breedte van de kruin van het kunstwerk heeft een ongeldige waarde.",
-                "De standaard afwijking van de breedte van de kruin normaalverdeling heeft een ongeldige waarde.",
-                "De kruinhoogte niet gesloten kering van het kunstwerk heeft een ongeldige waarde.",
-                "De standaard afwijking van de kruinhoogte niet gesloten kering normaalverdeling heeft een ongeldige waarde.",
-                "De binnenwaterstand van het kunstwerk heeft een ongeldige waarde.",
-                "De standaard afwijking van de binnenwaterstand normaalverdeling heeft een ongeldige waarde.",
-                "De drempelhoogte van het kunstwerk heeft een ongeldige waarde.",
-                "De standaard afwijking van de drempelhoogte normaalverdeling heeft een ongeldige waarde.",
-                "Het doorstroomoppervlak van het kunstwerk heeft een ongeldige waarde.",
-                "De variantie van het doorstroomoppervlak lognormaalverdeling heeft een ongeldige waarde.",
-                "Het kritieke overslagdebiet per strekkende meter van het kunstwerk heeft een ongeldige waarde.",
-                "De variantie van de kritieke overslagdebiet per strekkende meter lognormaalverdeling heeft een ongeldige waarde.",
-                "De stroomvoerende breedte bij bodembescherming van het kunstwerk heeft een ongeldige waarde.",
-                "De variantie van de stroomvoerende breedte bij bodembescherming lognormaalverdeling heeft een ongeldige waarde.",
-                "De kans op open staan bij naderend hoogwater heeft een ongeldige waarde.",
-                "De kans op mislukken sluiting van geopend kunstwerk heeft een ongeldige waarde.",
-                "Het aantal identieke doorstroomopeningen heeft een ongeldige waarde.",
-                "De faalkans herstel van gefaalde situatie heeft een ongeldige waarde.",
-                "Het instroommodel heeft een ongeldige waarde."
+                "De waarde op regel -1, kolom 18 is ongeldig.",
+                "De waarde op regel -1, kolom 20 is ongeldig.",
+                "De waarde op regel -1, kolom 19 is ongeldig.",
+                "De waarde op regel -1, kolom 18 is ongeldig.",
+                "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 360].",
+                "De waarde op regel -1, kolom 18 mag niet nul zijn.",
+                "De waarde op regel -1, kolom 18 is ongeldig.",
+                "De waarde op regel -1, kolom 20 is ongeldig.",
+                "De waarde op regel -1, kolom 18 is ongeldig.",
+                "De waarde op regel -1, kolom 20 is ongeldig.",
+                "De waarde op regel -1, kolom 18 is ongeldig.",
+                "De waarde op regel -1, kolom 20 is ongeldig.",
+                "De waarde op regel -1, kolom 18 is ongeldig.",
+                "De waarde op regel -1, kolom 20 is ongeldig.",
+                "De waarde op regel -1, kolom 19 is ongeldig.",
+                "De waarde op regel -1, kolom 18 is ongeldig.",
+                "De waarde op regel -1, kolom 20 is ongeldig.",
+                "De waarde op regel -1, kolom 19 is ongeldig.",
+                "De waarde op regel -1, kolom 18 is ongeldig.",
+                "De waarde op regel -1, kolom 20 is ongeldig.",
+                "De waarde op regel -1, kolom 19 is ongeldig.",
+                "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 1].",
+                "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 1].",
+                "De waarde op regel -1, kolom 18 mag niet kleiner dan nul zijn.",
+                "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 1].",
+                "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 2]."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
         }

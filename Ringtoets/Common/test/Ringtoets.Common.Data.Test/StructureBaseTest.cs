@@ -39,7 +39,8 @@ namespace Ringtoets.Common.Data.Test
             TestDelegate call = () => new TestStructure(name, "anId", new Point2D(0, 0));
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "name");
+            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Parameter is null, empty or consists of whitespace.");
+            Assert.AreEqual("name", exception.ParamName);
         }
 
         [Test]
@@ -52,7 +53,8 @@ namespace Ringtoets.Common.Data.Test
             TestDelegate call = () => new TestStructure("aName", id, new Point2D(0, 0));
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "id");
+            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Parameter is null, empty or consists of whitespace.");
+            Assert.AreEqual("id", exception.ParamName);
         }
 
         [Test]

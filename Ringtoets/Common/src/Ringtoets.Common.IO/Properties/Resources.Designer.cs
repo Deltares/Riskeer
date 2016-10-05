@@ -1135,11 +1135,21 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De variatie op regel {0} wordt omgerekend in een standaard deviatie..
+        /// </summary>
+        public static string StructuresImporter_ConvertVarianceToStandardDeviation_Converting_variation_on_line_0_ {
+            get {
+                return ResourceManager.GetString("StructuresImporter_ConvertVarianceToStandardDeviation_Converting_variation_on_lin" +
+                        "e_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT &apos;{0}&apos;..
         /// </summary>
-        public static string StructuresImporter_CreateSpecificStructures_no_structuresdata_for_location_0_ {
+        public static string StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_ {
             get {
-                return ResourceManager.GetString("StructuresImporter_CreateSpecificStructures_no_structuresdata_for_location_0_", resourceCulture);
+                return ResourceManager.GetString("StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_", resourceCulture);
             }
         }
         
@@ -1186,6 +1196,88 @@ namespace Ringtoets.Common.IO.Properties {
         public static string StructuresImporter_ReadStructureParameterRowsData_reading_structuredata {
             get {
                 return ResourceManager.GetString("StructuresImporter_ReadStructureParameterRowsData_reading_structuredata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kunstwerk nummer {0} wordt overgeslagen..
+        /// </summary>
+        public static string StructuresImporter_Structure_number_0_is_skipped {
+            get {
+                return ResourceManager.GetString("StructuresImporter_Structure_number_0_is_skipped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kunstwerken importeren is afgebroken. Geen gegevens ingelezen..
+        /// </summary>
+        public static string StructuresImporter_User_cancelled {
+            get {
+                return ResourceManager.GetString("StructuresImporter_User_cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde op regel {0}, kolom {1} valt buiten het bereik [0, 360]..
+        /// </summary>
+        public static string StructuresParameterRowsValidator_Line_0_column_1_orientation_out_of_range {
+            get {
+                return ResourceManager.GetString("StructuresParameterRowsValidator_Line_0_column_1_orientation_out_of_range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde op regel {0}, kolom {1} valt buiten het bereik [0, 1]..
+        /// </summary>
+        public static string StructuresParameterRowsValidator_Line_0_column_1_probability_out_of_range {
+            get {
+                return ResourceManager.GetString("StructuresParameterRowsValidator_Line_0_column_1_probability_out_of_range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde op regel {0}, kolom {1} valt buiten het bereik [0, 2]..
+        /// </summary>
+        public static string StructuresParameterRowsValidator_Line_0_column_1_type_out_of_range {
+            get {
+                return ResourceManager.GetString("StructuresParameterRowsValidator_Line_0_column_1_type_out_of_range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde op regel {0}, kolom {1} mag niet kleiner dan nul zijn..
+        /// </summary>
+        public static string StructuresParameterRowsValidator_Line_0_column_1_value_cannot_be_smaller_than_zero {
+            get {
+                return ResourceManager.GetString("StructuresParameterRowsValidator_Line_0_column_1_value_cannot_be_smaller_than_zer" +
+                        "o", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De waarde op regel {0}, kolom {1} is ongeldig..
+        /// </summary>
+        public static string StructuresParameterRowsValidator_Line_0_column_1_value_invalid {
+            get {
+                return ResourceManager.GetString("StructuresParameterRowsValidator_Line_0_column_1_value_invalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; ontbreekt..
+        /// </summary>
+        public static string StructuresParameterRowsValidator_Parameter_0_missing {
+            get {
+                return ResourceManager.GetString("StructuresParameterRowsValidator_Parameter_0_missing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; komt meermaals voor..
+        /// </summary>
+        public static string StructuresParameterRowsValidator_Parameter_0_repeated {
+            get {
+                return ResourceManager.GetString("StructuresParameterRowsValidator_Parameter_0_repeated", resourceCulture);
             }
         }
         

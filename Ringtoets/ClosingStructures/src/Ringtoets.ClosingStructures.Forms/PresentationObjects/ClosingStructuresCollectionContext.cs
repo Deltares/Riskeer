@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// The presentation object for a collection of <see cref="ClosingStructure"/>.
+    /// The presentation object for an <see cref="ObservableList{T}"/> containing <see cref="ClosingStructure"/>.
     /// </summary>
     public class ClosingStructuresCollectionContext : ObservableWrappedObjectContextBase<ObservableList<ClosingStructure>>
     {

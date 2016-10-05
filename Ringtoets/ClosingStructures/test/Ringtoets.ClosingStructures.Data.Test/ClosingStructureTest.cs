@@ -115,12 +115,12 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, areaFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.89, areaFlowApertures.StandardDeviation.Value);
 
-            var criticalOverToppingDischarge = structure.CriticalOverToppingDischarge;
-            Assert.IsInstanceOf<LogNormalDistribution>(criticalOverToppingDischarge);
-            Assert.AreEqual(2, criticalOverToppingDischarge.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(901.23, criticalOverToppingDischarge.Mean.Value);
-            Assert.AreEqual(2, criticalOverToppingDischarge.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.90, criticalOverToppingDischarge.StandardDeviation.Value);
+            var criticalOvertoppingDischarge = structure.CriticalOvertoppingDischarge;
+            Assert.IsInstanceOf<LogNormalDistribution>(criticalOvertoppingDischarge);
+            Assert.AreEqual(2, criticalOvertoppingDischarge.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(901.23, criticalOvertoppingDischarge.Mean.Value);
+            Assert.AreEqual(2, criticalOvertoppingDischarge.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.90, criticalOvertoppingDischarge.StandardDeviation.Value);
 
             var flowWidthAtBottomProtection = structure.FlowWidthAtBottomProtection;
             Assert.IsInstanceOf<LogNormalDistribution>(flowWidthAtBottomProtection);

@@ -129,7 +129,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             {
                 string message = messages.First();
                 string expectedMessage = new FileReaderErrorMessageBuilder(invalidPath)
-                    .Build(string.Format(CoreCommonUtilsResources.Error_Path_cannot_contain_Characters_0_, string.Join(", ", Path.GetInvalidFileNameChars())));
+                    .Build(string.Format(CoreCommonUtilsResources.Error_Path_cannot_contain_Characters_0_, string.Join(", ", invalidFileNameChars)));
                 StringAssert.StartsWith(expectedMessage, message);
             });
             Assert.IsFalse(importResult);
@@ -148,14 +148,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testStructuresImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] messageArray = messages.ToArray();
-                string expectedMessage = new FileReaderErrorMessageBuilder(folderPath)
-                    .Build(CoreCommonUtilsResources.Error_Path_must_not_point_to_empty_file_name);
-                StringAssert.StartsWith(expectedMessage, messageArray[0]);
-            });
-            Assert.IsFalse(importResult);
+            string expectedMessage = new FileReaderErrorMessageBuilder(folderPath)
+                .Build(CoreCommonUtilsResources.Error_Path_must_not_point_to_empty_file_name);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
         }
 
         [Test]
@@ -178,14 +173,9 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = profilesImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] messageArray = messages.ToArray();
-                string expectedMessage =
-                    string.Format("Fout bij het lezen van bestand '{0}': Kon geen punten vinden in dit bestand.", filePath);
-                StringAssert.EndsWith(expectedMessage, messageArray[0]);
-            });
-            Assert.IsFalse(importResult);
+            string expectedMessage =
+                string.Format("Fout bij het lezen van bestand '{0}': Kon geen punten vinden in dit bestand.", filePath);
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
         }
 
         [Test]
@@ -268,7 +258,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             };
             ReferenceLine referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var testStructuresImporter = new TestStructuresImporter(new ObservableList<TestStructure>(), referenceLine, filePath);
+            var importTarget = new ObservableList<TestStructure>();
+            var testStructuresImporter = new TestStructuresImporter(importTarget, referenceLine, filePath);
 
             testStructuresImporter.Cancel();
             bool importResult = testStructuresImporter.Import();
@@ -341,13 +332,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testStructuresImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] messageArray = messages.ToArray();
-                string expectedMessage = "Kunstwerklocatie met KWKIDENT 'KUNST3' is opnieuw ingelezen.";
-                StringAssert.StartsWith(expectedMessage, messageArray[0]);
-            });
-            Assert.IsTrue(importResult);
+            string expectedMessage = "Kunstwerklocatie met KWKIDENT 'KUNST3' is opnieuw ingelezen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
         }
 
         [Test]
@@ -375,13 +361,8 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testStructuresImporter.Import();
 
             // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                string[] messageArray = messages.ToArray();
-                string expectedMessage = "Fout bij het lezen van kunstwerk op regel 1. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'. Dit kunstwerk wordt overgeslagen.";
-                StringAssert.StartsWith(expectedMessage, messageArray[0]);
-            });
-            Assert.IsFalse(importResult);
+            string expectedMessage = "Fout bij het lezen van kunstwerk op regel 1. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'. Dit kunstwerk wordt overgeslagen.";
+            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
         }
 
         [Test]
@@ -405,7 +386,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             var testStructuresImporter = new TestStructuresImporter(new ObservableList<TestStructure>(), referenceLine, filePath);
 
             // Call
-            var importResult =  testStructuresImporter.Import();
+            var importResult = testStructuresImporter.Import();
 
             // Assert
             Assert.IsFalse(importResult);
