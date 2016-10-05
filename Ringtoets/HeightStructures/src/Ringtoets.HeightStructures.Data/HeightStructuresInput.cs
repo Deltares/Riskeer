@@ -34,15 +34,15 @@ namespace Ringtoets.HeightStructures.Data
     /// </summary>
     public class HeightStructuresInput : Observable, ICalculationInput
     {
-        private readonly NormalDistribution levelOfCrestOfStructure;
-        private readonly NormalDistribution modelFactorOvertoppingSuperCriticalFlow;
-        private readonly LogNormalDistribution allowableIncreaseOfLevelForStorage;
+        private readonly NormalDistribution levelCrestStructure;
+        private readonly NormalDistribution modelFactorSuperCriticalFlow;
+        private readonly LogNormalDistribution allowedLevelIncreaseStorage;
         private readonly LogNormalDistribution storageStructureArea;
         private readonly LogNormalDistribution flowWidthAtBottomProtection;
         private readonly LogNormalDistribution criticalOvertoppingDischarge;
         private readonly NormalDistribution widthOfFlowApertures;
         private readonly LogNormalDistribution stormDuration;
-        private RoundedDouble orientationOfTheNormalOfTheStructure;
+        private RoundedDouble structureNormalOrientation;
         private RoundedDouble deviationOfTheWaveDirection;
         private double failureProbabilityOfStructureGivenErosion;
 
@@ -53,20 +53,20 @@ namespace Ringtoets.HeightStructures.Data
         {
             failureProbabilityOfStructureGivenErosion = 1.0;
 
-            levelOfCrestOfStructure = new NormalDistribution(2)
+            levelCrestStructure = new NormalDistribution(2)
             {
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
-            orientationOfTheNormalOfTheStructure = new RoundedDouble(2);
+            structureNormalOrientation = new RoundedDouble(2);
 
-            modelFactorOvertoppingSuperCriticalFlow = new NormalDistribution(2)
+            modelFactorSuperCriticalFlow = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1.1,
                 StandardDeviation = (RoundedDouble) 0.03
             };
 
-            allowableIncreaseOfLevelForStorage = new LogNormalDistribution(2)
+            allowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) 0.1
@@ -110,15 +110,15 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets or sets the model factor overtopping critical flow.
         /// </summary>
         /// <remarks>Only sets the mean.</remarks>
-        public NormalDistribution ModelFactorOvertoppingSuperCriticalFlow
+        public NormalDistribution ModelFactorSuperCriticalFlow
         {
             get
             {
-                return modelFactorOvertoppingSuperCriticalFlow;
+                return modelFactorSuperCriticalFlow;
             }
             set
             {
-                modelFactorOvertoppingSuperCriticalFlow.Mean = value.Mean;
+                modelFactorSuperCriticalFlow.Mean = value.Mean;
             }
         }
 
@@ -177,16 +177,16 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets or sets the level of crest of the structure.
         /// [m+NAP]
         /// </summary>
-        public NormalDistribution LevelOfCrestOfStructure
+        public NormalDistribution LevelCrestStructure
         {
             get
             {
-                return levelOfCrestOfStructure;
+                return levelCrestStructure;
             }
             set
             {
-                levelOfCrestOfStructure.Mean = value.Mean;
-                levelOfCrestOfStructure.StandardDeviation = value.StandardDeviation;
+                levelCrestStructure.Mean = value.Mean;
+                levelCrestStructure.StandardDeviation = value.StandardDeviation;
             }
         }
 
@@ -195,21 +195,21 @@ namespace Ringtoets.HeightStructures.Data
         /// [degrees]
         /// </summary>
         ///<exception cref="ArgumentOutOfRangeException">Thrown when the value for the orientation is not between [0, 360] degrees.</exception>
-        public RoundedDouble OrientationOfTheNormalOfTheStructure
+        public RoundedDouble StructureNormalOrientation
         {
             get
             {
-                return orientationOfTheNormalOfTheStructure;
+                return structureNormalOrientation;
             }
             set
             {
-                RoundedDouble newOrientationValue = value.ToPrecision(orientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
+                RoundedDouble newOrientationValue = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
                 if (newOrientationValue < 0 || newOrientationValue > 360)
                 {
                     throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
                 }
 
-                orientationOfTheNormalOfTheStructure = newOrientationValue;
+                structureNormalOrientation = newOrientationValue;
             }
         }
 
@@ -217,16 +217,16 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets or sets the allowable increase of level for the storage.
         /// [m]
         /// </summary>
-        public LogNormalDistribution AllowableIncreaseOfLevelForStorage
+        public LogNormalDistribution AllowedLevelIncreaseStorage
         {
             get
             {
-                return allowableIncreaseOfLevelForStorage;
+                return allowedLevelIncreaseStorage;
             }
             set
             {
-                allowableIncreaseOfLevelForStorage.Mean = value.Mean;
-                allowableIncreaseOfLevelForStorage.StandardDeviation = value.StandardDeviation;
+                allowedLevelIncreaseStorage.Mean = value.Mean;
+                allowedLevelIncreaseStorage.StandardDeviation = value.StandardDeviation;
             }
         }
 

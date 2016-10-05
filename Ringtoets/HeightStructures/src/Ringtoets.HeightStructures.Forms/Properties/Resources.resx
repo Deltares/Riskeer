@@ -144,10 +144,10 @@
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName" xml:space="preserve">
     <value>Modelfactor overslagdebiet [-]</value>
   </data>
-  <data name="AllowableIncreaseOfLevelForStorage_Description" xml:space="preserve">
+  <data name="AllowedLevelIncreaseStorage_Description" xml:space="preserve">
     <value>De toegestane peilverhoging op het kombergend oppervlak.</value>
   </data>
-  <data name="AllowableIncreaseOfLevelForStorage_DisplayName" xml:space="preserve">
+  <data name="AllowedLevelIncreaseStorage_DisplayName" xml:space="preserve">
     <value>Toegestane peilverhoging komberging [m]</value>
   </data>
   <data name="CriticalOvertoppingDischarge_Description" xml:space="preserve">
@@ -168,22 +168,22 @@
   <data name="FlowWidthAtBottomProtection_DisplayName" xml:space="preserve">
     <value>Stroomvoerende breedte bij bodembescherming [m]</value>
   </data>
-  <data name="LevelOfCrestOfStructure_Description" xml:space="preserve">
+  <data name="LevelCrestStructure_Description" xml:space="preserve">
     <value>De kerende hoogte van het kunstwerk.</value>
   </data>
-  <data name="LevelOfCrestOfStructure_DisplayName" xml:space="preserve">
+  <data name="LevelCrestStructure_DisplayName" xml:space="preserve">
     <value>Kerende hoogte [m]</value>
   </data>
-  <data name="ModelFactorOvertoppingSuperCriticalFlow_Description" xml:space="preserve">
+  <data name="ModelFactorSuperCriticalFlow_Description" xml:space="preserve">
     <value>Het modelfactor van overloopdebiet bij superkritische stroming.</value>
   </data>
-  <data name="ModelFactorOvertoppingSuperCriticalFlow_DisplayName" xml:space="preserve">
+  <data name="ModelFactorSuperCriticalFlow_DisplayName" xml:space="preserve">
     <value>Modelfactor van overloopdebiet bij superkritische stroming [-]</value>
   </data>
-  <data name="OrientationOfTheNormalOfTheStructure_Description" xml:space="preserve">
+  <data name="StructureNormalOrientation_Description" xml:space="preserve">
     <value>Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.</value>
   </data>
-  <data name="OrientationOfTheNormalOfTheStructure_DisplayName" xml:space="preserve">
+  <data name="StructureNormalOrientation_DisplayName" xml:space="preserve">
     <value>Oriëntatie [°]</value>
   </data>
   <data name="StorageStructureArea_Description" xml:space="preserve">

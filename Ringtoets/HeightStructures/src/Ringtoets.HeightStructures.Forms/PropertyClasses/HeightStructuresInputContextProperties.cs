@@ -44,32 +44,32 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
     /// </summary>
     public class HeightStructuresInputContextProperties : ObjectProperties<HeightStructuresInputContext>
     {
-        private const int orientationOfTheNormalOfTheStructurePropertyIndex = 1;
-        private const int levelOfCrestOfStructurePropertyIndex = 2;
-        private const int allowableIncreaseOfLevelForStoragePropertyIndex = 3;
+        private const int structureNormalOrientationPropertyIndex = 1;
+        private const int levelCrestStructurePropertyIndex = 2;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 3;
         private const int storageStructureAreaPropertyIndex = 4;
         private const int flowWidthAtBottomProtectionPropertyIndex = 5;
         private const int widthOfFlowAperturesPropertyIndex = 6;
         private const int criticalOvertoppingDischargePropertyIndex = 7;
         private const int failureProbabilityOfStructureGivenErosionPropertyIndex = 8;
-        private const int modelFactorOvertoppingSuperCriticalFlowPropertyIndex = 9;
+        private const int modelFactorSuperCriticalFlowPropertyIndex = 9;
         private const int hydraulicBoundaryLocationPropertyIndex = 10;
         private const int stormDurationPropertyIndex = 11;
 
         #region Model settings
 
-        [PropertyOrder(modelFactorOvertoppingSuperCriticalFlowPropertyIndex)]
+        [PropertyOrder(modelFactorSuperCriticalFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "ModelFactorOvertoppingSuperCriticalFlow_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ModelFactorOvertoppingSuperCriticalFlow_Description")]
-        public NormalDistributionProperties ModelFactorOvertoppingSuperCriticalFlow
+        [ResourcesDisplayName(typeof(Resources), "ModelFactorSuperCriticalFlow_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "ModelFactorSuperCriticalFlow_Description")]
+        public NormalDistributionProperties ModelFactorSuperCriticalFlow
         {
             get
             {
                 return new NormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.StandardDeviation)
                 {
-                    Data = data.WrappedData.ModelFactorOvertoppingSuperCriticalFlow
+                    Data = data.WrappedData.ModelFactorSuperCriticalFlow
                 };
             }
         }
@@ -87,51 +87,51 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         #region Schematisation
 
-        [PropertyOrder(orientationOfTheNormalOfTheStructurePropertyIndex)]
+        [PropertyOrder(structureNormalOrientationPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "OrientationOfTheNormalOfTheStructure_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "OrientationOfTheNormalOfTheStructure_Description")]
-        public RoundedDouble OrientationOfTheNormalOfTheStructure
+        [ResourcesDisplayName(typeof(Resources), "StructureNormalOrientation_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "StructureNormalOrientation_Description")]
+        public RoundedDouble StructureNormalOrientation
         {
             get
             {
-                return data.WrappedData.OrientationOfTheNormalOfTheStructure;
+                return data.WrappedData.StructureNormalOrientation;
             }
             set
             {
-                data.WrappedData.OrientationOfTheNormalOfTheStructure = value;
+                data.WrappedData.StructureNormalOrientation = value;
                 data.WrappedData.NotifyObservers();
             }
         }
 
-        [PropertyOrder(levelOfCrestOfStructurePropertyIndex)]
+        [PropertyOrder(levelCrestStructurePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "LevelOfCrestOfStructure_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "LevelOfCrestOfStructure_Description")]
-        public NormalDistributionProperties LevelOfCrestOfStructure
+        [ResourcesDisplayName(typeof(Resources), "LevelCrestStructure_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "LevelCrestStructure_Description")]
+        public NormalDistributionProperties LevelCrestStructure
         {
             get
             {
                 return new NormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
                 {
-                    Data = data.WrappedData.LevelOfCrestOfStructure
+                    Data = data.WrappedData.LevelCrestStructure
                 };
             }
         }
 
-        [PropertyOrder(allowableIncreaseOfLevelForStoragePropertyIndex)]
+        [PropertyOrder(allowedLevelIncreaseStoragePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "AllowableIncreaseOfLevelForStorage_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "AllowableIncreaseOfLevelForStorage_Description")]
-        public LogNormalDistributionProperties AllowableIncreaseOfLevelForStorage
+        [ResourcesDisplayName(typeof(Resources), "AllowedLevelIncreaseStorage_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "AllowedLevelIncreaseStorage_Description")]
+        public LogNormalDistributionProperties AllowedLevelIncreaseStorage
         {
             get
             {
                 return new LogNormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
                 {
-                    Data = data.WrappedData.AllowableIncreaseOfLevelForStorage
+                    Data = data.WrappedData.AllowedLevelIncreaseStorage
                 };
             }
         }

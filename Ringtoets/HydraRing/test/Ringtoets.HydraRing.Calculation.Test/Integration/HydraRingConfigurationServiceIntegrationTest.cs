@@ -436,10 +436,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const double gravitationalAcceleration = 9.81;
             const double modelFactorOvertoppingMean = 0.09;
             const double modelFactorOvertoppingStandardDeviation = 0.06;
-            const double levelOfCrestOfStructureStandardDeviation = 0.05;
-            const double modelFactorOvertoppingSuperCriticalFlowMean = 1.1;
-            const double modelFactorOvertoppingSuperCriticalFlowStandardDeviation = 0.03;
-            const double allowableIncreaseOfLevelForStorageStandardDeviation = 0.1;
+            const double levelCrestStructureStandardDeviation = 0.05;
+            const double modelFactorSuperCriticalFlowMean = 1.1;
+            const double modelFactorSuperCriticalFlowStandardDeviation = 0.03;
+            const double allowedLevelIncreaseStorageStandardDeviation = 0.1;
             const double modelFactorForStorageVolumeMean = 1.0;
             const double modelFactorForStorageVolumeStandardDeviation = 0.2;
             const double storageStructureAreaStandardDeviation = 0.1;
@@ -450,9 +450,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const double stormDurationMean = 7.5;
             const double stormDurationStandardDeviation = 0.25;
 
-            const double levelOfCrestOfStructureMean = 1.1;
-            const double orientationOfTheNormalOfTheStructure = 2.2;
-            const double allowableIncreaseOfLevelForStorageMean = 3.3;
+            const double levelCrestStructureMean = 1.1;
+            const double structureNormalOrientation = 2.2;
+            const double allowedLevelIncreaseStorageMean = 3.3;
             const double storageStructureAreaMean = 4.4;
             const double flowWidthAtBottomProtectionMean = 5.5;
             const double criticalOvertoppingDischargeMean = 6.6;
@@ -464,10 +464,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                                                  forelandPoints, breakWater,
                                                                                                                  gravitationalAcceleration,
                                                                                                                  modelFactorOvertoppingMean, modelFactorOvertoppingStandardDeviation,
-                                                                                                                 levelOfCrestOfStructureMean, levelOfCrestOfStructureStandardDeviation,
-                                                                                                                 orientationOfTheNormalOfTheStructure,
-                                                                                                                 modelFactorOvertoppingSuperCriticalFlowMean, modelFactorOvertoppingSuperCriticalFlowStandardDeviation,
-                                                                                                                 allowableIncreaseOfLevelForStorageMean, allowableIncreaseOfLevelForStorageStandardDeviation,
+                                                                                                                 levelCrestStructureMean, levelCrestStructureStandardDeviation,
+                                                                                                                 structureNormalOrientation,
+                                                                                                                 modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation,
+                                                                                                                 allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation,
                                                                                                                  modelFactorForStorageVolumeMean, modelFactorForStorageVolumeStandardDeviation,
                                                                                                                  storageStructureAreaMean, storageStructureAreaStandardDeviation,
                                                                                                                  modelFactorForIncomingFlowVolume,

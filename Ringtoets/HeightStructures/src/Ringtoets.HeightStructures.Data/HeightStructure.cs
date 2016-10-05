@@ -38,9 +38,9 @@ namespace Ringtoets.HeightStructures.Data
         /// <param name="name">The name of the height structure.</param>
         /// <param name="id">The identifier of the height structure.</param>
         /// <param name="location">The location of the height structure.</param>
-        /// <param name="orientationOfTheNormalOfTheStructure">The orientation of the height structure, relative to north.</param>
-        /// <param name="levelOfCrestOfStructureMean">The mean crest level of the height structure.</param>
-        /// <param name="levelOfCrestOfStructureStandardDeviation">The standard deviation of the crest level of the height structure.</param>
+        /// <param name="structureNormalOrientation">The orientation of the height structure, relative to north.</param>
+        /// <param name="levelCrestStructureMean">The mean crest level of the height structure.</param>
+        /// <param name="levelCrestStructureStandardDeviation">The standard deviation of the crest level of the height structure.</param>
         /// <param name="flowWidthAtBottomProtectionMean">The mean flow width of the height structure at the bottom protection.</param>
         /// <param name="flowWidthAtBottomProtectionStandardDeviation">The standard deviation of the flow width of the height structure at the bottom protection.</param>
         /// <param name="criticalOvertoppingDischargeMean">The mean critical overtopping discharge of the height structure.</param>
@@ -50,27 +50,27 @@ namespace Ringtoets.HeightStructures.Data
         /// <param name="failureProbabilityOfStructureGivenErosion">The failure probability of the height structure, given erosion.</param>
         /// <param name="storageStructureAreaMean">The mean storage area of the height structure.</param>
         /// <param name="storageStructureAreaStandardDeviation">The standard deviation of storage area of the height structure.</param>
-        /// <param name="allowableIncreaseOfLevelForStorageMean">The mean allowable increase of level for storage of the height structure.</param>
-        /// <param name="allowableIncreaseOfLevelForStorageStandardDeviation">The standard deviation of allowable increase of level for storage of the height structure.</param>
+        /// <param name="allowedLevelIncreaseStorageMean">The mean allowable increase of level for storage of the height structure.</param>
+        /// <param name="allowedLevelIncreaseStorageStandardDeviation">The standard deviation of allowable increase of level for storage of the height structure.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
         /// , empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
         public HeightStructure(string name, string id, Point2D location,
-                               double orientationOfTheNormalOfTheStructure,
-                               double levelOfCrestOfStructureMean, double levelOfCrestOfStructureStandardDeviation,
+                               double structureNormalOrientation,
+                               double levelCrestStructureMean, double levelCrestStructureStandardDeviation,
                                double flowWidthAtBottomProtectionMean, double flowWidthAtBottomProtectionStandardDeviation,
                                double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeStandardDeviation,
                                double widthOfFlowAperturesMean, double widthOfFlowAperturesStandardDeviation,
                                double failureProbabilityOfStructureGivenErosion,
                                double storageStructureAreaMean, double storageStructureAreaStandardDeviation,
-                               double allowableIncreaseOfLevelForStorageMean, double allowableIncreaseOfLevelForStorageStandardDeviation)
+                               double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation)
             : base(name, id, location)
         {
-            OrientationOfTheNormalOfTheStructure = new RoundedDouble(2, orientationOfTheNormalOfTheStructure);
-            LevelOfCrestOfStructure = new NormalDistribution(2)
+            StructureNormalOrientation = new RoundedDouble(2, structureNormalOrientation);
+            LevelCrestStructure = new NormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, levelOfCrestOfStructureMean),
-                StandardDeviation = new RoundedDouble(2, levelOfCrestOfStructureStandardDeviation)
+                Mean = new RoundedDouble(2, levelCrestStructureMean),
+                StandardDeviation = new RoundedDouble(2, levelCrestStructureStandardDeviation)
             };
             FlowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
@@ -93,22 +93,22 @@ namespace Ringtoets.HeightStructures.Data
                 Mean = new RoundedDouble(2, storageStructureAreaMean),
                 StandardDeviation = new RoundedDouble(2, storageStructureAreaStandardDeviation)
             };
-            AllowableIncreaseOfLevelForStorage = new LogNormalDistribution(2)
+            AllowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, allowableIncreaseOfLevelForStorageMean),
-                StandardDeviation = new RoundedDouble(2, allowableIncreaseOfLevelForStorageStandardDeviation)
+                Mean = new RoundedDouble(2, allowedLevelIncreaseStorageMean),
+                StandardDeviation = new RoundedDouble(2, allowedLevelIncreaseStorageStandardDeviation)
             };
         }
 
         /// <summary>
         /// Gets the orientation of the height structure, relative to north.
         /// </summary>
-        public RoundedDouble OrientationOfTheNormalOfTheStructure { get; private set; }
+        public RoundedDouble StructureNormalOrientation { get; private set; }
 
         /// <summary>
         /// Gets the crest level of the height structure.
         /// </summary>
-        public NormalDistribution LevelOfCrestOfStructure { get; private set; }
+        public NormalDistribution LevelCrestStructure { get; private set; }
 
         /// <summary>
         /// Gets the flow width of the height structure at the bottom protection.
@@ -138,6 +138,6 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets the allowable increase of level for storage of the height structure.
         /// </summary>
-        public LogNormalDistribution AllowableIncreaseOfLevelForStorage { get; private set; }
+        public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
     }
 }

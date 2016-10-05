@@ -55,16 +55,16 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(location.X, heightStructure.Location.X);
             Assert.AreEqual(location.Y, heightStructure.Location.Y);
 
-            Assert.IsInstanceOf<RoundedDouble>(heightStructure.OrientationOfTheNormalOfTheStructure);
-            Assert.AreEqual(2, heightStructure.OrientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.12, heightStructure.OrientationOfTheNormalOfTheStructure.Value);
+            Assert.IsInstanceOf<RoundedDouble>(heightStructure.StructureNormalOrientation);
+            Assert.AreEqual(2, heightStructure.StructureNormalOrientation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.12, heightStructure.StructureNormalOrientation.Value);
 
-            var levelOfCrestOfStructure = heightStructure.LevelOfCrestOfStructure;
-            Assert.IsInstanceOf<NormalDistribution>(levelOfCrestOfStructure);
-            Assert.AreEqual(2, levelOfCrestOfStructure.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(234.57, levelOfCrestOfStructure.Mean.Value);
-            Assert.AreEqual(2, levelOfCrestOfStructure.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.23, levelOfCrestOfStructure.StandardDeviation.Value);
+            var levelCrestStructure = heightStructure.LevelCrestStructure;
+            Assert.IsInstanceOf<NormalDistribution>(levelCrestStructure);
+            Assert.AreEqual(2, levelCrestStructure.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(234.57, levelCrestStructure.Mean.Value);
+            Assert.AreEqual(2, levelCrestStructure.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.23, levelCrestStructure.StandardDeviation.Value);
 
             var flowWidthAtBottomProtection = heightStructure.FlowWidthAtBottomProtection;
             Assert.IsInstanceOf<LogNormalDistribution>(flowWidthAtBottomProtection);
@@ -96,12 +96,12 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(2, storageStructureArea.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.11, storageStructureArea.StandardDeviation.Value);
 
-            var allowableIncreaseOfLevelForStorage = heightStructure.AllowableIncreaseOfLevelForStorage;
-            Assert.IsInstanceOf<LogNormalDistribution>(allowableIncreaseOfLevelForStorage);
-            Assert.AreEqual(2, allowableIncreaseOfLevelForStorage.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(225.34, allowableIncreaseOfLevelForStorage.Mean.Value);
-            Assert.AreEqual(2, allowableIncreaseOfLevelForStorage.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.23, allowableIncreaseOfLevelForStorage.StandardDeviation.Value);
+            var allowedLevelIncreaseStorage = heightStructure.AllowedLevelIncreaseStorage;
+            Assert.IsInstanceOf<LogNormalDistribution>(allowedLevelIncreaseStorage);
+            Assert.AreEqual(2, allowedLevelIncreaseStorage.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(225.34, allowedLevelIncreaseStorage.Mean.Value);
+            Assert.AreEqual(2, allowedLevelIncreaseStorage.StandardDeviation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.23, allowedLevelIncreaseStorage.StandardDeviation.Value);
         }
     }
 }

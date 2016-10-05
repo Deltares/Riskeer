@@ -63,28 +63,28 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(3)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "OrientationOfTheNormalOfTheStructure_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "OrientationOfTheNormalOfTheStructure_Description")]
-        public RoundedDouble OrientationOfTheNormalOfTheStructure
+        [ResourcesDisplayName(typeof(Resources), "StructureNormalOrientation_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "StructureNormalOrientation_Description")]
+        public RoundedDouble StructureNormalOrientation
         {
             get
             {
-                return data.OrientationOfTheNormalOfTheStructure;
+                return data.StructureNormalOrientation;
             }
         }
 
         [PropertyOrder(4)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "LevelOfCrestOfStructure_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "LevelOfCrestOfStructure_Description")]
-        public NormalDistributionProperties LevelOfCrestOfStructure
+        [ResourcesDisplayName(typeof(Resources), "LevelCrestStructure_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "LevelCrestStructure_Description")]
+        public NormalDistributionProperties LevelCrestStructure
         {
             get
             {
                 return new NormalDistributionProperties
                 {
-                    Data = data.LevelOfCrestOfStructure
+                    Data = data.LevelCrestStructure
                 };
             }
         }
@@ -92,15 +92,15 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [PropertyOrder(5)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "AllowableIncreaseOfLevelForStorage_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "AllowableIncreaseOfLevelForStorage_Description")]
-        public LogNormalDistributionProperties AllowableIncreaseOfLevelForStorage
+        [ResourcesDisplayName(typeof(Resources), "AllowedLevelIncreaseStorage_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "AllowedLevelIncreaseStorage_Description")]
+        public LogNormalDistributionProperties AllowedLevelIncreaseStorage
         {
             get
             {
                 return new LogNormalDistributionProperties
                 {
-                    Data = data.AllowableIncreaseOfLevelForStorage
+                    Data = data.AllowedLevelIncreaseStorage
                 };
             }
         }

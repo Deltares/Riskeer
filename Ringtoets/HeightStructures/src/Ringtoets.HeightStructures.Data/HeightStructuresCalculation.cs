@@ -81,9 +81,9 @@ namespace Ringtoets.HeightStructures.Data
 
         private void AddDemoInput()
         {
-            InputParameters.LevelOfCrestOfStructure.Mean = (RoundedDouble) 5.74;
-            InputParameters.OrientationOfTheNormalOfTheStructure = (RoundedDouble) 115;
-            InputParameters.AllowableIncreaseOfLevelForStorage.Mean = (RoundedDouble) 1.0;
+            InputParameters.LevelCrestStructure.Mean = (RoundedDouble) 5.74;
+            InputParameters.StructureNormalOrientation = (RoundedDouble) 115;
+            InputParameters.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) 1.0;
             InputParameters.FlowWidthAtBottomProtection.Mean = (RoundedDouble) 18;
             InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) 1;
             InputParameters.WidthOfFlowApertures.Mean = (RoundedDouble) 18;

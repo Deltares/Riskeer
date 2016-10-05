@@ -34,9 +34,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
     {
         private const int namePropertyIndex = 0;
         private const int locationPropertyIndex = 1;
-        private const int orientationOfTheNormalOfTheStructure = 2;
-        private const int levelOfCrestOfStructure = 3;
-        private const int allowableIncreaseOfLevelForStorage = 4;
+        private const int structureNormalOrientation = 2;
+        private const int levelCrestStructure = 3;
+        private const int allowedLevelIncreaseStorage = 4;
         private const int storageStructureArea = 5;
         private const int flowWidthAtBottomProtection = 6;
         private const int widthOfFlowApertures = 7;
@@ -69,17 +69,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(structure.Name, properties.Name);
             Assert.AreEqual(structure.Location, properties.Location);
-            Assert.AreEqual(structure.OrientationOfTheNormalOfTheStructure, properties.OrientationOfTheNormalOfTheStructure);
+            Assert.AreEqual(structure.StructureNormalOrientation, properties.StructureNormalOrientation);
 
-            Assert.AreEqual("Normaal", properties.LevelOfCrestOfStructure.DistributionType);
-            Assert.AreEqual(structure.LevelOfCrestOfStructure, properties.LevelOfCrestOfStructure.Data);
-            Assert.IsTrue(properties.LevelOfCrestOfStructure.DynamicReadOnlyValidationMethod("Mean"));
-            Assert.IsTrue(properties.LevelOfCrestOfStructure.DynamicReadOnlyValidationMethod("StandardDeviation"));
+            Assert.AreEqual("Normaal", properties.LevelCrestStructure.DistributionType);
+            Assert.AreEqual(structure.LevelCrestStructure, properties.LevelCrestStructure.Data);
+            Assert.IsTrue(properties.LevelCrestStructure.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.LevelCrestStructure.DynamicReadOnlyValidationMethod("StandardDeviation"));
 
-            Assert.AreEqual("Lognormaal", properties.AllowableIncreaseOfLevelForStorage.DistributionType);
-            Assert.AreEqual(structure.AllowableIncreaseOfLevelForStorage, properties.AllowableIncreaseOfLevelForStorage.Data);
-            Assert.IsTrue(properties.AllowableIncreaseOfLevelForStorage.DynamicReadOnlyValidationMethod("Mean"));
-            Assert.IsTrue(properties.AllowableIncreaseOfLevelForStorage.DynamicReadOnlyValidationMethod("StandardDeviation"));
+            Assert.AreEqual("Lognormaal", properties.AllowedLevelIncreaseStorage.DistributionType);
+            Assert.AreEqual(structure.AllowedLevelIncreaseStorage, properties.AllowedLevelIncreaseStorage.Data);
+            Assert.IsTrue(properties.AllowedLevelIncreaseStorage.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.AllowedLevelIncreaseStorage.DynamicReadOnlyValidationMethod("StandardDeviation"));
 
             Assert.AreEqual("Lognormaal", properties.StorageStructureArea.DistributionType);
             Assert.AreEqual(structure.StorageStructureArea, properties.StorageStructureArea.Data);
@@ -139,23 +139,23 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.", locationProperty.Description);
 
 
-            PropertyDescriptor orientationOfTheNormalOfTheStructureProperty = dynamicProperties[orientationOfTheNormalOfTheStructure];
-            Assert.IsTrue(orientationOfTheNormalOfTheStructureProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, orientationOfTheNormalOfTheStructureProperty.Category);
-            Assert.AreEqual("Oriëntatie [°]", orientationOfTheNormalOfTheStructureProperty.DisplayName);
-            Assert.AreEqual("Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.", orientationOfTheNormalOfTheStructureProperty.Description);
+            PropertyDescriptor structureNormalOrientationProperty = dynamicProperties[structureNormalOrientation];
+            Assert.IsTrue(structureNormalOrientationProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, structureNormalOrientationProperty.Category);
+            Assert.AreEqual("Oriëntatie [°]", structureNormalOrientationProperty.DisplayName);
+            Assert.AreEqual("Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.", structureNormalOrientationProperty.Description);
 
-            PropertyDescriptor levelOfCrestOfStructureProperty = dynamicProperties[levelOfCrestOfStructure];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(levelOfCrestOfStructureProperty.Converter);
-            Assert.AreEqual(schematizationCategory, levelOfCrestOfStructureProperty.Category);
-            Assert.AreEqual("Kerende hoogte [m]", levelOfCrestOfStructureProperty.DisplayName);
-            Assert.AreEqual("De kerende hoogte van het kunstwerk.", levelOfCrestOfStructureProperty.Description);
+            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructure];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
+            Assert.AreEqual(schematizationCategory, levelCrestStructureProperty.Category);
+            Assert.AreEqual("Kerende hoogte [m]", levelCrestStructureProperty.DisplayName);
+            Assert.AreEqual("De kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
 
-            PropertyDescriptor allowableIncreaseOfLevelForStorageProperty = dynamicProperties[allowableIncreaseOfLevelForStorage];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(allowableIncreaseOfLevelForStorageProperty.Converter);
-            Assert.AreEqual(schematizationCategory, allowableIncreaseOfLevelForStorageProperty.Category);
-            Assert.AreEqual("Toegestane peilverhoging komberging [m]", allowableIncreaseOfLevelForStorageProperty.DisplayName);
-            Assert.AreEqual("De toegestane peilverhoging op het kombergend oppervlak.", allowableIncreaseOfLevelForStorageProperty.Description);
+            PropertyDescriptor allowedLevelIncreaseStorageProperty = dynamicProperties[allowedLevelIncreaseStorage];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(allowedLevelIncreaseStorageProperty.Converter);
+            Assert.AreEqual(schematizationCategory, allowedLevelIncreaseStorageProperty.Category);
+            Assert.AreEqual("Toegestane peilverhoging komberging [m]", allowedLevelIncreaseStorageProperty.DisplayName);
+            Assert.AreEqual("De toegestane peilverhoging op het kombergend oppervlak.", allowedLevelIncreaseStorageProperty.Description);
 
             PropertyDescriptor storageStructureAreaProperty = dynamicProperties[storageStructureArea];
             Assert.IsInstanceOf<ExpandableObjectConverter>(storageStructureAreaProperty.Converter);

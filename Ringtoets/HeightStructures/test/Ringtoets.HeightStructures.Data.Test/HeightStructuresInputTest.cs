@@ -45,13 +45,13 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsInstanceOf<ICalculationInput>(input);
             Assert.IsNull(input.HydraulicBoundaryLocation);
 
-            AssertAreEqual(0, input.OrientationOfTheNormalOfTheStructure);
-            Assert.AreEqual(2, input.OrientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
+            AssertAreEqual(0, input.StructureNormalOrientation);
+            Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
 
-            AssertAreEqual(0.05, input.LevelOfCrestOfStructure.StandardDeviation);
-            AssertAreEqual(1.1, input.ModelFactorOvertoppingSuperCriticalFlow.Mean);
-            AssertAreEqual(0.03, input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation);
-            AssertAreEqual(0.1, input.AllowableIncreaseOfLevelForStorage.StandardDeviation);
+            AssertAreEqual(0.05, input.LevelCrestStructure.StandardDeviation);
+            AssertAreEqual(1.1, input.ModelFactorSuperCriticalFlow.Mean);
+            AssertAreEqual(0.03, input.ModelFactorSuperCriticalFlow.StandardDeviation);
+            AssertAreEqual(0.1, input.AllowedLevelIncreaseStorage.StandardDeviation);
             AssertAreEqual(0.1, input.StorageStructureArea.GetVariationCoefficient());
             AssertAreEqual(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
             AssertAreEqual(0.15, input.CriticalOvertoppingDischarge.GetVariationCoefficient());
@@ -61,25 +61,25 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void Properties_ModelFactorOvertoppingSuperCriticalFlow_ExpectedValues()
+        public void Properties_ModelFactorSuperCriticalFlow_ExpectedValues()
         {
             // Setup
             var input = new HeightStructuresInput();
             var random = new Random(22);
 
-            RoundedDouble defaultModelFactorOvertoppingSuperCriticalFlowStandardDeviation = input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation;
-            NormalDistribution modelFactorOvertoppingSuperCriticalFlow = new NormalDistribution(5)
+            RoundedDouble defaultModelFactorSuperCriticalFlowStandardDeviation = input.ModelFactorSuperCriticalFlow.StandardDeviation;
+            NormalDistribution modelFactorSuperCriticalFlow = new NormalDistribution(5)
             {
                 Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
             };
 
             // Call
-            input.ModelFactorOvertoppingSuperCriticalFlow = modelFactorOvertoppingSuperCriticalFlow;
+            input.ModelFactorSuperCriticalFlow = modelFactorSuperCriticalFlow;
 
             // Assert
-            AssertAreEqual(modelFactorOvertoppingSuperCriticalFlow.Mean, input.ModelFactorOvertoppingSuperCriticalFlow.Mean);
-            AssertAreEqual(defaultModelFactorOvertoppingSuperCriticalFlowStandardDeviation, input.ModelFactorOvertoppingSuperCriticalFlow.StandardDeviation);
+            AssertAreEqual(modelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.Mean);
+            AssertAreEqual(defaultModelFactorSuperCriticalFlowStandardDeviation, input.ModelFactorSuperCriticalFlow.StandardDeviation);
         }
 
         [Test]
@@ -135,24 +135,24 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void Properties_LevelOfCrestOfStructure_ExpectedValues()
+        public void Properties_LevelCrestStructure_ExpectedValues()
         {
             // Setup
             var input = new HeightStructuresInput();
             var random = new Random(22);
 
-            NormalDistribution levelOfCrestOfStructure = new NormalDistribution(5)
+            NormalDistribution levelCrestStructure = new NormalDistribution(5)
             {
                 Mean = (RoundedDouble) random.NextDouble(),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
             };
 
             // Call
-            input.LevelOfCrestOfStructure = levelOfCrestOfStructure;
+            input.LevelCrestStructure = levelCrestStructure;
 
             // Assert
-            AssertAreEqual(levelOfCrestOfStructure.Mean, input.LevelOfCrestOfStructure.Mean);
-            AssertAreEqual(levelOfCrestOfStructure.StandardDeviation, input.LevelOfCrestOfStructure.StandardDeviation);
+            AssertAreEqual(levelCrestStructure.Mean, input.LevelCrestStructure.Mean);
+            AssertAreEqual(levelCrestStructure.StandardDeviation, input.LevelCrestStructure.StandardDeviation);
         }
 
         [Test]
@@ -166,11 +166,11 @@ namespace Ringtoets.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
 
             // Call
-            input.OrientationOfTheNormalOfTheStructure = (RoundedDouble)orientation;
+            input.StructureNormalOrientation = (RoundedDouble)orientation;
 
             // Assert
-            Assert.AreEqual(2, input.OrientationOfTheNormalOfTheStructure.NumberOfDecimalPlaces);
-            AssertAreEqual(orientation, input.OrientationOfTheNormalOfTheStructure);
+            Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
+            AssertAreEqual(orientation, input.StructureNormalOrientation);
         }
 
         [Test]
@@ -184,31 +184,31 @@ namespace Ringtoets.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
 
             // Call
-            TestDelegate call = () => input.OrientationOfTheNormalOfTheStructure = (RoundedDouble)invalidValue;
+            TestDelegate call = () => input.StructureNormalOrientation = (RoundedDouble)invalidValue;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik tussen [0, 360] graden liggen.");
         }
 
         [Test]
-        public void Properties_AllowableIncreaseOfLevelForStorage_ExpectedValues()
+        public void Properties_AllowedLevelIncreaseStorage_ExpectedValues()
         {
             // Setup
             var input = new HeightStructuresInput();
             var random = new Random(22);
 
-            LogNormalDistribution allowableIncreaseOfLevelForStorage = new LogNormalDistribution(5)
+            LogNormalDistribution allowedLevelIncreaseStorage = new LogNormalDistribution(5)
             {
                 Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
             };
 
             // Call
-            input.AllowableIncreaseOfLevelForStorage = allowableIncreaseOfLevelForStorage;
+            input.AllowedLevelIncreaseStorage = allowedLevelIncreaseStorage;
 
             // Assert
-            AssertAreEqual(allowableIncreaseOfLevelForStorage.Mean, input.AllowableIncreaseOfLevelForStorage.Mean);
-            AssertAreEqual(allowableIncreaseOfLevelForStorage.StandardDeviation, input.AllowableIncreaseOfLevelForStorage.StandardDeviation);
+            AssertAreEqual(allowedLevelIncreaseStorage.Mean, input.AllowedLevelIncreaseStorage.Mean);
+            AssertAreEqual(allowedLevelIncreaseStorage.StandardDeviation, input.AllowedLevelIncreaseStorage.StandardDeviation);
         }
 
         [Test]

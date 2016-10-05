@@ -290,9 +290,9 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual("KUNST1", heightStructure.Name);
             Assert.AreEqual("KUNST1", heightStructure.Id);
             Assert.AreEqual(new Point2D(12345.56789, 9876.54321), heightStructure.Location);
-            Assert.AreEqual(45.0, heightStructure.OrientationOfTheNormalOfTheStructure.Value);
-            Assert.AreEqual(5.9, heightStructure.LevelOfCrestOfStructure.Mean.Value);
-            Assert.AreEqual(0.01, heightStructure.LevelOfCrestOfStructure.StandardDeviation.Value);
+            Assert.AreEqual(45.0, heightStructure.StructureNormalOrientation.Value);
+            Assert.AreEqual(5.9, heightStructure.LevelCrestStructure.Mean.Value);
+            Assert.AreEqual(0.01, heightStructure.LevelCrestStructure.StandardDeviation.Value);
             Assert.AreEqual(18.5, heightStructure.FlowWidthAtBottomProtection.Mean.Value);
             Assert.AreEqual(0.05, heightStructure.FlowWidthAtBottomProtection.StandardDeviation.Value);
             Assert.AreEqual(0.1, heightStructure.CriticalOvertoppingDischarge.Mean.Value);
@@ -302,8 +302,8 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(1.0, heightStructure.FailureProbabilityOfStructureGivenErosion);
             Assert.AreEqual(50000.0, heightStructure.StorageStructureArea.Mean.Value);
             Assert.AreEqual(0.02, heightStructure.StorageStructureArea.StandardDeviation.Value);
-            Assert.AreEqual(6.5, heightStructure.AllowableIncreaseOfLevelForStorage.Mean.Value);
-            Assert.AreEqual(0.1, heightStructure.AllowableIncreaseOfLevelForStorage.StandardDeviation.Value);
+            Assert.AreEqual(6.5, heightStructure.AllowedLevelIncreaseStorage.Mean.Value);
+            Assert.AreEqual(0.1, heightStructure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
         }
 
         private static void AssertExpectedHeightStructuresInput(HeightStructuresInput inputParameters)

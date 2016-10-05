@@ -43,15 +43,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
     [TestFixture]
     public class HeightStructuresInputContextPropertiesTest
     {
-        private const int orientationOfTheNormalOfTheStructurePropertyIndex = 0;
-        private const int levelOfCrestOfStructurePropertyIndex = 1;
-        private const int allowableIncreaseOfLevelForStoragePropertyIndex = 2;
+        private const int structureNormalOrientationPropertyIndex = 0;
+        private const int levelCrestStructurePropertyIndex = 1;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 2;
         private const int storageStructureAreaPropertyIndex = 3;
         private const int flowWidthAtBottomProtectionPropertyIndex = 4;
         private const int widthOfFlowAperturesPropertyIndex = 5;
         private const int criticalOvertoppingDischargePropertyIndex = 6;
         private const int failureProbabilityOfStructureGivenErosionPropertyIndex = 7;
-        private const int modelFactorOvertoppingSuperCriticalFlowPropertyIndex = 8;
+        private const int modelFactorSuperCriticalFlowPropertyIndex = 8;
         private const int hydraulicBoundaryLocationPropertyIndex = 9;
         private const int stormDurationPropertyIndex = 10;
         private MockRepository mockRepository;
@@ -91,25 +91,25 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             properties.Data = inputContext;
 
             // Assert
-            var modelFactorOvertoppingSuperCriticalFlowProperties = new NormalDistributionProperties
+            var modelFactorSuperCriticalFlowProperties = new NormalDistributionProperties
             {
-                Data = input.ModelFactorOvertoppingSuperCriticalFlow
+                Data = input.ModelFactorSuperCriticalFlow
             };
-            AssertDistributionProperties(modelFactorOvertoppingSuperCriticalFlowProperties, properties.ModelFactorOvertoppingSuperCriticalFlow);
+            AssertDistributionProperties(modelFactorSuperCriticalFlowProperties, properties.ModelFactorSuperCriticalFlow);
 
-            Assert.AreEqual(input.OrientationOfTheNormalOfTheStructure, properties.OrientationOfTheNormalOfTheStructure);
+            Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
 
-            var levelOfCrestOfStructureProperties = new NormalDistributionProperties
+            var levelCrestStructureProperties = new NormalDistributionProperties
             {
-                Data = input.LevelOfCrestOfStructure
+                Data = input.LevelCrestStructure
             };
-            AssertDistributionProperties(levelOfCrestOfStructureProperties, properties.LevelOfCrestOfStructure);
+            AssertDistributionProperties(levelCrestStructureProperties, properties.LevelCrestStructure);
 
-            var allowableIncreaseOfLevelForStorageProperties = new LogNormalDistributionProperties
+            var allowedLevelIncreaseStorageProperties = new LogNormalDistributionProperties
             {
-                Data = input.AllowableIncreaseOfLevelForStorage
+                Data = input.AllowedLevelIncreaseStorage
             };
-            AssertDistributionProperties(allowableIncreaseOfLevelForStorageProperties, properties.AllowableIncreaseOfLevelForStorage);
+            AssertDistributionProperties(allowedLevelIncreaseStorageProperties, properties.AllowedLevelIncreaseStorage);
 
             var storageStructureAreaProperties = new LogNormalDistributionVariationProperties
             {
@@ -172,15 +172,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
 
             var random = new Random(100);
-            var newOrientationOfTheNormalOfTheStructure = new RoundedDouble(2, random.NextDouble());
+            var newStructureNormalOrientation = new RoundedDouble(2, random.NextDouble());
 
             // Call
-            properties.OrientationOfTheNormalOfTheStructure = newOrientationOfTheNormalOfTheStructure;
+            properties.StructureNormalOrientation = newStructureNormalOrientation;
             properties.FailureProbabilityOfStructureGivenErosion = "1e-2";
             properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert
-            Assert.AreEqual(newOrientationOfTheNormalOfTheStructure, properties.OrientationOfTheNormalOfTheStructure);
+            Assert.AreEqual(newStructureNormalOrientation, properties.StructureNormalOrientation);
             Assert.AreEqual(0.01, input.FailureProbabilityOfStructureGivenErosion);
             Assert.AreEqual("1/100", properties.FailureProbabilityOfStructureGivenErosion);
             Assert.AreSame(hydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
@@ -297,23 +297,23 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             Assert.AreEqual(12, dynamicProperties.Count);
 
-            PropertyDescriptor orientationOfTheNormalOfTheStructureProperty = dynamicProperties[orientationOfTheNormalOfTheStructurePropertyIndex];
-            Assert.IsFalse(orientationOfTheNormalOfTheStructureProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, orientationOfTheNormalOfTheStructureProperty.Category);
-            Assert.AreEqual("Oriëntatie [°]", orientationOfTheNormalOfTheStructureProperty.DisplayName);
-            Assert.AreEqual("Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.", orientationOfTheNormalOfTheStructureProperty.Description);
+            PropertyDescriptor structureNormalOrientationProperty = dynamicProperties[structureNormalOrientationPropertyIndex];
+            Assert.IsFalse(structureNormalOrientationProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, structureNormalOrientationProperty.Category);
+            Assert.AreEqual("Oriëntatie [°]", structureNormalOrientationProperty.DisplayName);
+            Assert.AreEqual("Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.", structureNormalOrientationProperty.Description);
 
-            PropertyDescriptor levelOfCrestOfStructureProperty = dynamicProperties[levelOfCrestOfStructurePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(levelOfCrestOfStructureProperty.Converter);
-            Assert.AreEqual(schematizationCategory, levelOfCrestOfStructureProperty.Category);
-            Assert.AreEqual("Kerende hoogte [m]", levelOfCrestOfStructureProperty.DisplayName);
-            Assert.AreEqual("De kerende hoogte van het kunstwerk.", levelOfCrestOfStructureProperty.Description);
+            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
+            Assert.AreEqual(schematizationCategory, levelCrestStructureProperty.Category);
+            Assert.AreEqual("Kerende hoogte [m]", levelCrestStructureProperty.DisplayName);
+            Assert.AreEqual("De kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
 
-            PropertyDescriptor allowableIncreaseOfLevelForStorageProperty = dynamicProperties[allowableIncreaseOfLevelForStoragePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(allowableIncreaseOfLevelForStorageProperty.Converter);
-            Assert.AreEqual(schematizationCategory, allowableIncreaseOfLevelForStorageProperty.Category);
-            Assert.AreEqual("Toegestane peilverhoging komberging [m]", allowableIncreaseOfLevelForStorageProperty.DisplayName);
-            Assert.AreEqual("De toegestane peilverhoging op het kombergend oppervlak.", allowableIncreaseOfLevelForStorageProperty.Description);
+            PropertyDescriptor allowedLevelIncreaseStorageProperty = dynamicProperties[allowedLevelIncreaseStoragePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(allowedLevelIncreaseStorageProperty.Converter);
+            Assert.AreEqual(schematizationCategory, allowedLevelIncreaseStorageProperty.Category);
+            Assert.AreEqual("Toegestane peilverhoging komberging [m]", allowedLevelIncreaseStorageProperty.DisplayName);
+            Assert.AreEqual("De toegestane peilverhoging op het kombergend oppervlak.", allowedLevelIncreaseStorageProperty.Description);
 
             PropertyDescriptor storageStructureAreaProperty = dynamicProperties[storageStructureAreaPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(storageStructureAreaProperty.Converter);
@@ -345,11 +345,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Faalkans kunstwerk gegeven erosie bodem [-]", failureProbabilityOfStructureGivenErosionProperty.DisplayName);
             Assert.AreEqual("De faalkans van het kunstwerk gegeven de erosie in de bodem.", failureProbabilityOfStructureGivenErosionProperty.Description);
 
-            PropertyDescriptor modelFactorOvertoppingSuperCriticalFlowProperty = dynamicProperties[modelFactorOvertoppingSuperCriticalFlowPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorOvertoppingSuperCriticalFlowProperty.Converter);
-            Assert.AreEqual(modelSettingsCategory, modelFactorOvertoppingSuperCriticalFlowProperty.Category);
-            Assert.AreEqual("Modelfactor van overloopdebiet bij superkritische stroming [-]", modelFactorOvertoppingSuperCriticalFlowProperty.DisplayName);
-            Assert.AreEqual("Het modelfactor van overloopdebiet bij superkritische stroming.", modelFactorOvertoppingSuperCriticalFlowProperty.Description);
+            PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[modelFactorSuperCriticalFlowPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
+            Assert.AreEqual(modelSettingsCategory, modelFactorSuperCriticalFlowProperty.Category);
+            Assert.AreEqual("Modelfactor van overloopdebiet bij superkritische stroming [-]", modelFactorSuperCriticalFlowProperty.DisplayName);
+            Assert.AreEqual("Het modelfactor van overloopdebiet bij superkritische stroming.", modelFactorSuperCriticalFlowProperty.Description);
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
             Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);

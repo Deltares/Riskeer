@@ -34,10 +34,10 @@ namespace Ringtoets.Common.IO.Structures
             new Dictionary<string, Func<StructuresParameterRow, List<string>>>
             {
                 {
-                    "KW_HOOGTE1", OrientationOfTheNormalOfTheStructure
+                    "KW_HOOGTE1", StructureNormalOrientation
                 },
                 {
-                    "KW_HOOGTE2", LevelOfCrestOfStructure
+                    "KW_HOOGTE2", LevelCrestStructure
                 },
                 {
                     "KW_HOOGTE3", FlowWidthAtBottomProtection
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.IO.Structures
                     "KW_HOOGTE7", StorageStructureArea
                 },
                 {
-                    "KW_HOOGTE8", AllowableIncreaseOfLevelForStorage
+                    "KW_HOOGTE8", AllowedLevelIncreaseStorage
                 }
             };
 
@@ -66,10 +66,10 @@ namespace Ringtoets.Common.IO.Structures
                     "KW_BETSLUIT1", StorageStructureArea
                 },
                 {
-                    "KW_BETSLUIT2", AllowableIncreaseOfLevelForStorage
+                    "KW_BETSLUIT2", AllowedLevelIncreaseStorage
                 },
                 {
-                    "KW_BETSLUIT3", OrientationOfTheNormalOfTheStructure
+                    "KW_BETSLUIT3", StructureNormalOrientation
                 },
                 {
                     "KW_BETSLUIT4", WidthOfFlowApertures
@@ -180,7 +180,7 @@ namespace Ringtoets.Common.IO.Structures
             return messages;
         }
 
-        private static List<string> AllowableIncreaseOfLevelForStorage(StructuresParameterRow row)
+        private static List<string> AllowedLevelIncreaseStorage(StructuresParameterRow row)
         {
             List<string> messages = new List<string>();
             double meanAllowableIncrease = row.NumericalValue;
@@ -196,7 +196,7 @@ namespace Ringtoets.Common.IO.Structures
             return messages;
         }
 
-        private static List<string> OrientationOfTheNormalOfTheStructure(StructuresParameterRow row)
+        private static List<string> StructureNormalOrientation(StructuresParameterRow row)
         {
             List<string> messages = new List<string>();
             double orientation = row.NumericalValue;
@@ -259,7 +259,7 @@ namespace Ringtoets.Common.IO.Structures
 
         #region HeightStructuesRules
 
-        private static List<string> LevelOfCrestOfStructure(StructuresParameterRow row)
+        private static List<string> LevelCrestStructure(StructuresParameterRow row)
         {
             List<string> messages = new List<string>();
             double meanCrestLevel = row.NumericalValue;
