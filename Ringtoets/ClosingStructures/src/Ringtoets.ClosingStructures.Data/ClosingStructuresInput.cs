@@ -361,12 +361,17 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
+                if (double.IsNaN(value))
+                {
+                    structureNormalOrientation = (RoundedDouble) double.NaN;
+                    return;
+                }
+
                 RoundedDouble newOrientationValue = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
-                if (double.IsNaN(newOrientationValue) || newOrientationValue < 0 || newOrientationValue > 360)
+                if (newOrientationValue < 0 || newOrientationValue > 360)
                 {
                     throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
                 }
-
                 structureNormalOrientation = newOrientationValue;
             }
         }

@@ -280,6 +280,7 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(300)]
         [TestCase(0)]
         [TestCase(-0.004)]
+        [TestCase(double.NaN)]
         public void Orientation_ValidValue_NewValueSet(double orientation)
         {
             // Setup
@@ -297,7 +298,6 @@ namespace Ringtoets.Revetment.Data.Test
         [TestCase(360.05)]
         [TestCase(-0.005)]
         [TestCase(-23)]
-        [TestCase(double.NaN)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
         public void Orientation_InvalidValue_ThrowsArgumentOutOfRangeException(double invalidValue)
@@ -309,8 +309,6 @@ namespace Ringtoets.Revetment.Data.Test
             TestDelegate call = () => input.Orientation = (RoundedDouble) invalidValue;
 
             // Assert
-            string paramName = Assert.Throws<ArgumentOutOfRangeException>(call).ParamName;
-            Assert.AreEqual("value", paramName);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik tussen [0, 360] graden liggen.");
         }
 

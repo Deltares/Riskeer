@@ -109,8 +109,14 @@ namespace Ringtoets.Revetment.Data
             }
             set
             {
+                if (double.IsNaN(value))
+                {
+                    orientation = (RoundedDouble)double.NaN;
+                    return;
+                }
+
                 RoundedDouble newOrientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
-                if (double.IsNaN(newOrientation) || newOrientation < 0 || newOrientation > 360)
+                if (newOrientation < 0 || newOrientation > 360)
                 {
                     throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
                 }

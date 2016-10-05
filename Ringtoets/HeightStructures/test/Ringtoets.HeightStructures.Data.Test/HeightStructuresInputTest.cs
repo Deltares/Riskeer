@@ -160,6 +160,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         [TestCase(300)]
         [TestCase(0)]
         [TestCase(-0.004)]
+        [TestCase(double.NaN)]
         public void Properties_StructureNormalOrientationValidValues_NewValueSet(double orientation)
         {
             // Setup
@@ -178,7 +179,6 @@ namespace Ringtoets.HeightStructures.Data.Test
         [TestCase(360.05)]
         [TestCase(-0.005)]
         [TestCase(-23)]
-        [TestCase(double.NaN)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
         public void Properties_StructureNormalOrientationInValidValues_ThrowsArgumentOutOfRangeException(double invalidValue)
@@ -190,8 +190,6 @@ namespace Ringtoets.HeightStructures.Data.Test
             TestDelegate call = () => input.StructureNormalOrientation = (RoundedDouble)invalidValue;
 
             // Assert
-            string paramName = Assert.Throws<ArgumentOutOfRangeException>(call).ParamName;
-            Assert.AreEqual("value", paramName);
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik tussen [0, 360] graden liggen.");
         }
 
