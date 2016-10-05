@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.IO;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Structures;
 using Ringtoets.HeightStructures.Data;
@@ -37,8 +36,6 @@ namespace Ringtoets.HeightStructures.IO
     /// </summary>
     public class HeightStructuresImporter : StructuresImporter<ObservableList<HeightStructure>>
     {
-        private readonly ObservableList<HeightStructure> importTarget;
-
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresImporter"/>.
         /// </summary>
@@ -49,10 +46,7 @@ namespace Ringtoets.HeightStructures.IO
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
         /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
         public HeightStructuresImporter(ObservableList<HeightStructure> importTarget, ReferenceLine referenceLine, string filePath)
-            : base(importTarget, referenceLine, filePath)
-        {
-            this.importTarget = importTarget;
-        }
+            : base(importTarget, referenceLine, filePath) {}
 
         protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
@@ -61,8 +55,14 @@ namespace Ringtoets.HeightStructures.IO
 
             foreach (HeightStructure heightStructure in importedHeightStructures)
             {
-                importTarget.Add(heightStructure);
+                ImportTarget.Add(heightStructure);
             }
+        }
+
+        protected override void HandleUserCancellingImport()
+        {
+            log.Info(RingtoetsCommonIOResources.StructuresImporter_User_cancelled);
+            base.HandleUserCancellingImport();
         }
 
         private IEnumerable<HeightStructure> CreateHeightStructures(IList<StructureLocation> structureLocations,
@@ -77,8 +77,8 @@ namespace Ringtoets.HeightStructures.IO
 
                 if (!groupedStructureParameterRows.ContainsKey(id))
                 {
-                    log.WarnFormat(RingtoetsCommonIOResources.StructuresImporter_CreateSpecificStructures_no_structuresdata_for_location_0_, id);
-                    log.ErrorFormat("Kunstwerk nummer {0} wordt overgeslagen.", i + 1);
+                    log.WarnFormat(RingtoetsCommonIOResources.StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_, id);
+                    log.ErrorFormat(RingtoetsCommonIOResources.StructuresImporter_Structure_number_0_is_skipped, i + 1);
                     continue;
                 }
 
@@ -90,6 +90,8 @@ namespace Ringtoets.HeightStructures.IO
                     LogMessages(parameterRowsValidationResult, i + 1);
                     continue;
                 }
+
+                ConvertVarianceToStandardDeviation(structureParameterRows);
 
                 HeightStructure heightStructure = CreateHeightStructure(structureLocation, structureParameterRows);
                 heightStructures.Add(heightStructure);
@@ -103,14 +105,15 @@ namespace Ringtoets.HeightStructures.IO
                 structureLocation.Name,
                 structureLocation.Id,
                 structureLocation.Point,
-                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE1").NumericalValue,
-                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE2").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE2").VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE3").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE3").VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE4").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE4").VarianceValue, //TODO: Ensure Coefficient of variation is properly set
-                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE5").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE5").VarianceValue, //TODO: Ensure Coefficient of variation is properly set
-                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE6").NumericalValue,
-                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE7").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE7").VarianceValue, //TODO: Ensure Coefficient of variation is properly set
-                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE8").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE8").VarianceValue);
+                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword1).NumericalValue,
+                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword2).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword2).VarianceValue,
+                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword3).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword3).VarianceValue,
+                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword4).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword4).VarianceValue,
+                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword5).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword5).VarianceValue,
+                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword6).NumericalValue,
+                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword7).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword7).VarianceValue,
+                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword8).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword8).VarianceValue
+                );
             return heightStructure;
         }
     }
