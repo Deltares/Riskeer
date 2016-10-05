@@ -20,7 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Base.IO;
+using System.Linq;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -34,7 +34,6 @@ using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Parsers;
-using Ringtoets.HydraRing.Calculation.Services;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
@@ -62,6 +61,15 @@ namespace Ringtoets.HeightStructures.Service
             return CalculationServiceHelper.PerformValidation(calculation.Name, () => ValidateInput(calculation.InputParameters, assessmentSection));
         }
 
+        public void Cancel()
+        {
+            if (calculator != null)
+            {
+                calculator.Cancel();
+            }
+            canceled = true;
+        }
+
         /// <summary>
         /// Performs a height structures calculation based on the supplied <see cref="HeightStructuresCalculation"/> and sets <see cref="HeightStructuresCalculation.Output"/>
         /// if the calculation was successful. Error and status information is logged during the execution of the operation.
@@ -74,11 +82,11 @@ namespace Ringtoets.HeightStructures.Service
         /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
         /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
         internal void Calculate(HeightStructuresCalculation calculation,
-            IAssessmentSection assessmentSection, 
-            FailureMechanismSection failureMechanismSection,
-            GeneralHeightStructuresInput generalInput,
-            double failureMechanismContribution,
-            string hlcdDirectory)
+                                IAssessmentSection assessmentSection,
+                                FailureMechanismSection failureMechanismSection,
+                                GeneralHeightStructuresInput generalInput,
+                                double failureMechanismContribution,
+                                string hlcdDirectory)
         {
             var calculationName = calculation.Name;
 
@@ -115,22 +123,13 @@ namespace Ringtoets.HeightStructures.Service
             }
         }
 
-        public void Cancel()
-        {
-            if (calculator != null)
-            {
-                calculator.Cancel();
-            }
-            canceled = true;
-        }
-
         private static StructuresOvertoppingCalculationInput CreateInput(HeightStructuresCalculation calculation, FailureMechanismSection failureMechanismSection, GeneralHeightStructuresInput generalInput)
         {
             return new StructuresOvertoppingCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
                 new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
-                new HydraRingForelandPoint[0],
-                null,
+                ParseForeshore(calculation.InputParameters),
+                ParseBreakWater(calculation.InputParameters),
                 generalInput.GravitationalAcceleration,
                 generalInput.ModelFactorOvertoppingFlow.Mean, generalInput.ModelFactorOvertoppingFlow.StandardDeviation,
                 calculation.InputParameters.LevelCrestStructure.Mean, calculation.InputParameters.LevelCrestStructure.StandardDeviation,
@@ -146,6 +145,16 @@ namespace Ringtoets.HeightStructures.Service
                 calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.GetVariationCoefficient(),
                 calculation.InputParameters.DeviationWaveDirection,
                 calculation.InputParameters.StormDuration.Mean, calculation.InputParameters.StormDuration.GetVariationCoefficient());
+        }
+
+        private static IEnumerable<HydraRingForelandPoint> ParseForeshore(HeightStructuresInput input)
+        {
+            return input.UseForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0];
+        }
+
+        private static HydraRingBreakWater ParseBreakWater(HeightStructuresInput input)
+        {
+            return input.UseBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null;
         }
 
         private static string[] ValidateInput(HeightStructuresInput inputParameters, IAssessmentSection assessmentSection)
