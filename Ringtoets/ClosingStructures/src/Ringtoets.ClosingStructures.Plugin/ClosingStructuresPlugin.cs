@@ -373,9 +373,29 @@ namespace Ringtoets.ClosingStructures.Plugin
             return childNodes.ToArray();
         }
 
-        private static ContextMenuStrip CalculationContextContextMenuStrip(ClosingStructuresCalculationContext closingStructuresCalculationContext, object o, TreeViewControl arg3)
+        private ContextMenuStrip CalculationContextContextMenuStrip(ClosingStructuresCalculationContext context, object parentData, TreeViewControl treeViewControl)
         {
-            return new ContextMenuStrip();
+            var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
+
+            ClosingStructuresCalculation calculation = context.WrappedData;
+
+            return builder.AddValidateCalculationItem(context, null)
+                          .AddPerformCalculationItem(calculation, context, null, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                          .AddClearCalculationOutputItem(calculation)
+                          .AddSeparator()
+                          .AddRenameItem()
+                          .AddDeleteItem()
+                          .AddSeparator()
+                          .AddExpandAllItem()
+                          .AddCollapseAllItem()
+                          .AddSeparator()
+                          .AddPropertiesItem()
+                          .Build();
+        }
+
+        private string ValidateAllDataAvailableAndGetErrorMessageForCalculation(ClosingStructuresCalculationContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
         private static void CalculationContextOnNodeRemoved(ClosingStructuresCalculationContext arg1, object arg2)

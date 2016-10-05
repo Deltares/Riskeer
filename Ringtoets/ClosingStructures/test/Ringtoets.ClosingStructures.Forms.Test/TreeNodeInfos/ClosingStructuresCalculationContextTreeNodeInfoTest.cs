@@ -20,8 +20,11 @@
 // All rights reserved.
 
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -39,6 +42,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class ClosingStructuresCalculationContextTreeNodeInfoTest
     {
+        private const int contextMenuValidateIndex = 0;
+        private const int contextMenuCalculateIndex = 1;
+        private const int contextMenuClearIndex = 2;
+
         private IGui guiMock;
         private TreeNodeInfo info;
         private MockRepository mocks;
@@ -124,9 +131,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             Assert.IsNotNull(commentContext);
             Assert.AreSame(calculationContext.WrappedData, commentContext.WrappedData);
 
-            var ClosingStructuresInputContext = children[1] as ClosingStructuresInputContext;
-            Assert.IsNotNull(ClosingStructuresInputContext);
-            Assert.AreSame(calculationContext.WrappedData.InputParameters, ClosingStructuresInputContext.WrappedData);
+            var closingStructuresInputContext = children[1] as ClosingStructuresInputContext;
+            Assert.IsNotNull(closingStructuresInputContext);
+            Assert.AreSame(calculationContext.WrappedData.InputParameters, closingStructuresInputContext.WrappedData);
 
             var emptyOutput = children[2] as EmptyProbabilityAssessmentOutput;
             Assert.IsNotNull(emptyOutput);
@@ -156,12 +163,93 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             Assert.IsNotNull(commentContext);
             Assert.AreSame(calculationContext.WrappedData, commentContext.WrappedData);
 
-            var ClosingStructuresInputContext = children[1] as ClosingStructuresInputContext;
-            Assert.IsNotNull(ClosingStructuresInputContext);
-            Assert.AreSame(calculationContext.WrappedData.InputParameters, ClosingStructuresInputContext.WrappedData);
+            var closingStructuresInputContext = children[1] as ClosingStructuresInputContext;
+            Assert.IsNotNull(closingStructuresInputContext);
+            Assert.AreSame(calculationContext.WrappedData.InputParameters, closingStructuresInputContext.WrappedData);
 
             var output = children[2] as ProbabilityAssessmentOutput;
             Assert.IsNotNull(output);
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_CallsContextMenuBuilderMethods()
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var calculation = new ClosingStructuresCalculation();
+            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+            var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddRenameItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddDeleteItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddExpandAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCollapseAllItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = guiMock;
+
+                // Call
+                info.ContextMenuStrip(nodeData, null, treeViewControl);
+            }
+            // Assert
+            // Assert expectancies are called in TearDown()
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_AddCustomItems()
+        {
+            // Setup
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var calculation = new ClosingStructuresCalculation();
+            var nodeData = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = guiMock;
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSectionMock, treeViewControl))
+                {
+                    // Assert
+                    Assert.AreEqual(6, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
+                                                                  RingtoetsCommonFormsResources.Validate,
+                                                                  RingtoetsCommonFormsResources.Validate_ToolTip,
+                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateIndex,
+                                                                  RingtoetsCommonFormsResources.Calculate,
+                                                                  RingtoetsCommonFormsResources.Calculate_ToolTip,
+                                                                  RingtoetsCommonFormsResources.CalculateIcon);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearIndex,
+                                                                  RingtoetsCommonFormsResources.Clear_output,
+                                                                  RingtoetsCommonFormsResources.ClearOutput_No_output_to_clear,
+                                                                  RingtoetsCommonFormsResources.ClearIcon,
+                                                                  false);
+                }
+            }
         }
 
         private class TestClosingStructuresOutput : ProbabilityAssessmentOutput
