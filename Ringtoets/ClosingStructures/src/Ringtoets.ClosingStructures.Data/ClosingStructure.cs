@@ -39,12 +39,12 @@ namespace Ringtoets.ClosingStructures.Data
         /// <param name="id">The identifier of the closing structure.</param>
         /// <param name="location">The location of the closing structure.</param>
         /// <param name="storageStructureAreaMean">The mean of the storage area of the closing structure.</param>
-        /// <param name="storageStructureAreaStandardDeviation">The standard deviation of the storage area of the closing structure.</param>
+        /// <param name="storageStructureAreaCoefficientOfVariation">The coefficient of variation of the storage area of the closing structure.</param>
         /// <param name="allowedLevelIncreaseStorageMean">The mean allowed increase of level for storage of the closing structure.</param>
         /// <param name="allowedLevelIncreaseStorageStandardDeviation">The standard deviation of allowed increase of level for storage of the closing structure.</param>
         /// <param name="structureNormalOrientation">The orientation of the closing structure, relative to north.</param>
         /// <param name="widthFlowAperturesMean">The mean of the width of the flow apertures of the closing structure.</param>
-        /// <param name="widthFlowAperturesStandardDeviation">The standard deviation of the width of the flow apertures of the closing structure.</param>
+        /// <param name="widthFlowAperturesCoefficientOfVariation">The coefficient of variation of the width of the flow apertures of the closing structure.</param>
         /// <param name="levelCrestStructureNotClosingMean">The mean crest level of the opened closing structure.</param>
         /// <param name="levelCrestStructureNotClosingStandardDeviation">The standard deviation of the crest level of the opened closing structure.</param>
         /// <param name="insideWaterLevelMean">The mean interior water level of the closing structure.</param>
@@ -54,7 +54,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <param name="areaFlowAperturesMean">The mean area of the flow aperture of the closing structure.</param>
         /// <param name="areaFlowAperturesStandardDeviation">The standard deviation of the area of the flow aperture of the closing structure.</param>
         /// <param name="criticalOvertoppingDischargeMean">The mean critical overtopping discharge of the closing structure.</param>
-        /// <param name="criticalOvertoppingDischargeStandardDeviation">The standard deviation of critical overtopping discharge of the closing structure.</param>
+        /// <param name="criticalOvertoppingDischargeCoefficientOfVariation">The coefficient of variation of critical overtopping discharge of the closing structure.</param>
         /// <param name="flowWidthAtBottomProtectionMean">The mean flow width of the closing structure at the bottom protection.</param>
         /// <param name="flowWidthAtBottomProtectionStandardDeviation">The standard deviation of the flow width of the closing structure at the bottom protection.</param>
         /// <param name="probabilityOpenStructureBeforeFlooding">The probability of the closing structure being open before flooding.</param>
@@ -67,15 +67,15 @@ namespace Ringtoets.ClosingStructures.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when any parameter is out of range.</exception>
         public ClosingStructure(string name, string id, Point2D location,
-                                double storageStructureAreaMean, double storageStructureAreaStandardDeviation,
+                                double storageStructureAreaMean, double storageStructureAreaCoefficientOfVariation,
                                 double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation,
                                 double structureNormalOrientation,
-                                double widthFlowAperturesMean, double widthFlowAperturesStandardDeviation,
+                                double widthFlowAperturesMean, double widthFlowAperturesCoefficientOfVariation,
                                 double levelCrestStructureNotClosingMean, double levelCrestStructureNotClosingStandardDeviation,
                                 double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
                                 double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
                                 double areaFlowAperturesMean, double areaFlowAperturesStandardDeviation,
-                                double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeStandardDeviation,
+                                double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeCoefficientOfVariation,
                                 double flowWidthAtBottomProtectionMean, double flowWidthAtBottomProtectionStandardDeviation,
                                 double probabilityOpenStructureBeforeFlooding,
                                 double failureProbablityOpenStructure,
@@ -85,10 +85,10 @@ namespace Ringtoets.ClosingStructures.Data
             )
             : base(name, id, location)
         {
-            StorageStructureArea = new LogNormalDistribution(2)
+            StorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, storageStructureAreaMean),
-                StandardDeviation = new RoundedDouble(2, storageStructureAreaStandardDeviation)
+                CoefficientOfVariation = new RoundedDouble(2, storageStructureAreaCoefficientOfVariation)
             };
             AllowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
@@ -96,10 +96,10 @@ namespace Ringtoets.ClosingStructures.Data
                 StandardDeviation = new RoundedDouble(2, allowedLevelIncreaseStorageStandardDeviation)
             };
             StructureNormalOrientation = new RoundedDouble(2, structureNormalOrientation);
-            WidthFlowApertures = new NormalDistribution(2)
+            WidthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, widthFlowAperturesMean),
-                StandardDeviation = new RoundedDouble(2, widthFlowAperturesStandardDeviation)
+                CoefficientOfVariation = new RoundedDouble(2, widthFlowAperturesCoefficientOfVariation)
             };
             LevelCrestStructureNotClosing = new NormalDistribution(2)
             {
@@ -121,10 +121,10 @@ namespace Ringtoets.ClosingStructures.Data
                 Mean = new RoundedDouble(2, areaFlowAperturesMean),
                 StandardDeviation = new RoundedDouble(2, areaFlowAperturesStandardDeviation)
             };
-            CriticalOvertoppingDischarge = new LogNormalDistribution(2)
+            CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, criticalOvertoppingDischargeMean),
-                StandardDeviation = new RoundedDouble(2, criticalOvertoppingDischargeStandardDeviation)
+                CoefficientOfVariation = new RoundedDouble(2, criticalOvertoppingDischargeCoefficientOfVariation)
             };
             FlowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
@@ -141,7 +141,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets the storage area of the closing structure.
         /// </summary>
-        public LogNormalDistribution StorageStructureArea { get; private set; }
+        public VariationCoefficientLogNormalDistribution StorageStructureArea { get; private set; }
 
         /// <summary>
         /// Gets the allowed increase of level for storage of the closing structure.
@@ -156,7 +156,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets the width of the flow apertures of the closing structure.
         /// </summary>
-        public NormalDistribution WidthFlowApertures { get; private set; }
+        public VariationCoefficientNormalDistribution WidthFlowApertures { get; private set; }
 
         /// <summary>
         /// Gets the crest level of the opened closing structure.
@@ -181,7 +181,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets the critical overtopping discharge of the closing structure.
         /// </summary>
-        public LogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
+        public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
 
         /// <summary>
         /// Gets the flow width of the closing structure at the bottom protection.

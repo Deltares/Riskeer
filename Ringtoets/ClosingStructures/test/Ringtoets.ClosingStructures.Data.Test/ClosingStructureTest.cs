@@ -62,15 +62,13 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(location.X, structure.Location.X);
             Assert.AreEqual(location.Y, structure.Location.Y);
 
-            var storageStructureArea = structure.StorageStructureArea;
-            Assert.IsInstanceOf<LogNormalDistribution>(storageStructureArea);
+            VariationCoefficientLogNormalDistribution storageStructureArea = structure.StorageStructureArea;
             Assert.AreEqual(2, storageStructureArea.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(123.46, storageStructureArea.Mean.Value);
-            Assert.AreEqual(2, storageStructureArea.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.12, storageStructureArea.StandardDeviation.Value);
+            Assert.AreEqual(2, storageStructureArea.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.12, storageStructureArea.CoefficientOfVariation.Value);
 
-            var allowedLevelIncreaseStorage = structure.AllowedLevelIncreaseStorage;
-            Assert.IsInstanceOf<LogNormalDistribution>(allowedLevelIncreaseStorage);
+            LogNormalDistribution allowedLevelIncreaseStorage = structure.AllowedLevelIncreaseStorage;
             Assert.AreEqual(2, allowedLevelIncreaseStorage.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(234.57, allowedLevelIncreaseStorage.Mean.Value);
             Assert.AreEqual(2, allowedLevelIncreaseStorage.StandardDeviation.NumberOfDecimalPlaces);
@@ -80,50 +78,43 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, structure.StructureNormalOrientation.NumberOfDecimalPlaces);
             Assert.AreEqual(345.68, structure.StructureNormalOrientation.Value);
 
-            var widthFlowApertures = structure.WidthFlowApertures;
-            Assert.IsInstanceOf<NormalDistribution>(widthFlowApertures);
+            VariationCoefficientNormalDistribution widthFlowApertures = structure.WidthFlowApertures;
             Assert.AreEqual(2, widthFlowApertures.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(456.79, widthFlowApertures.Mean.Value);
-            Assert.AreEqual(2, widthFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.46, widthFlowApertures.StandardDeviation.Value);
+            Assert.AreEqual(2, widthFlowApertures.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.46, widthFlowApertures.CoefficientOfVariation.Value);
 
-            var levelCrestStructureNotClosing = structure.LevelCrestStructureNotClosing;
-            Assert.IsInstanceOf<NormalDistribution>(levelCrestStructureNotClosing);
+            NormalDistribution levelCrestStructureNotClosing = structure.LevelCrestStructureNotClosing;
             Assert.AreEqual(2, levelCrestStructureNotClosing.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(567.89, levelCrestStructureNotClosing.Mean.Value);
             Assert.AreEqual(2, levelCrestStructureNotClosing.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.57, levelCrestStructureNotClosing.StandardDeviation.Value);
 
-            var insideWaterLevel = structure.InsideWaterLevel;
-            Assert.IsInstanceOf<NormalDistribution>(insideWaterLevel);
+            NormalDistribution insideWaterLevel = structure.InsideWaterLevel;
             Assert.AreEqual(2, insideWaterLevel.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(678.90, insideWaterLevel.Mean.Value);
             Assert.AreEqual(2, insideWaterLevel.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.68, insideWaterLevel.StandardDeviation.Value);
 
-            var thresholdHeightOpenWeir = structure.ThresholdHeightOpenWeir;
-            Assert.IsInstanceOf<NormalDistribution>(thresholdHeightOpenWeir);
+            NormalDistribution thresholdHeightOpenWeir = structure.ThresholdHeightOpenWeir;
             Assert.AreEqual(2, thresholdHeightOpenWeir.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(789.01, thresholdHeightOpenWeir.Mean.Value);
             Assert.AreEqual(2, thresholdHeightOpenWeir.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.79, thresholdHeightOpenWeir.StandardDeviation.Value);
 
-            var areaFlowApertures = structure.AreaFlowApertures;
-            Assert.IsInstanceOf<LogNormalDistribution>(areaFlowApertures);
+            LogNormalDistribution areaFlowApertures = structure.AreaFlowApertures;
             Assert.AreEqual(2, areaFlowApertures.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(890.12, areaFlowApertures.Mean.Value);
             Assert.AreEqual(2, areaFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.89, areaFlowApertures.StandardDeviation.Value);
 
-            var criticalOvertoppingDischarge = structure.CriticalOvertoppingDischarge;
-            Assert.IsInstanceOf<LogNormalDistribution>(criticalOvertoppingDischarge);
+            VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge = structure.CriticalOvertoppingDischarge;
             Assert.AreEqual(2, criticalOvertoppingDischarge.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(901.23, criticalOvertoppingDischarge.Mean.Value);
-            Assert.AreEqual(2, criticalOvertoppingDischarge.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.90, criticalOvertoppingDischarge.StandardDeviation.Value);
+            Assert.AreEqual(2, criticalOvertoppingDischarge.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.90, criticalOvertoppingDischarge.CoefficientOfVariation.Value);
 
-            var flowWidthAtBottomProtection = structure.FlowWidthAtBottomProtection;
-            Assert.IsInstanceOf<LogNormalDistribution>(flowWidthAtBottomProtection);
+            LogNormalDistribution flowWidthAtBottomProtection = structure.FlowWidthAtBottomProtection;
             Assert.AreEqual(2, flowWidthAtBottomProtection.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(111.22, flowWidthAtBottomProtection.Mean.Value);
             Assert.AreEqual(2, flowWidthAtBottomProtection.StandardDeviation.NumberOfDecimalPlaces);
