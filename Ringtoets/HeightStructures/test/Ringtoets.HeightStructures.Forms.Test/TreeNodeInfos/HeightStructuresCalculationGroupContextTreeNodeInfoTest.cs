@@ -40,6 +40,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
+using Ringtoets.HeightStructures.Plugin.Properties;
 using Ringtoets.HydraRing.Data;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -50,12 +51,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class HeightStructuresCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 0;
-        private const int contextMenuAddCalculationIndexRootGroup = 1;
-        private const int contextMenuRemoveAllChildrenRootGroupIndex = 3;
-        private const int contextMenuValidateAllIndexRootGroup = 5;
-        private const int contextMenuCalculateAllIndexRootGroup = 6;
-        private const int contextMenuClearAllIndexRootGroup = 7;
+        private const int contextGenerateCalculationsIndexRootGroup = 0;
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 2;
+        private const int contextMenuAddCalculationIndexRootGroup = 3;
+        private const int contextMenuRemoveAllChildrenRootGroupIndex = 5;
+        private const int contextMenuValidateAllIndexRootGroup = 7;
+        private const int contextMenuCalculateAllIndexRootGroup = 8;
+        private const int contextMenuClearAllIndexRootGroup = 9;
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
         private const int contextMenuAddCalculationIndexNestedGroup = 1;
@@ -178,6 +180,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -229,8 +233,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(10, menu.Items.Count);
+                    Assert.AreEqual(12, menu.Items.Count);
 
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextGenerateCalculationsIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
+                                                                  Resources.HeightStructuresPlugin_No_structures_to_generate_for,
+                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                                                  false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
@@ -260,6 +269,41 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_WithoutParentNodeWithStructuresImported_GenerateItemEnabledWithTooltip()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.HeightStructures.Add(new TestHeightStructure());
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var groupContext = new HeightStructuresCalculationGroupContext(group,
+                                                                           failureMechanism,
+                                                                           assessmentSectionMock);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
+                {
+                    // Assert
+                    Assert.AreEqual(12, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextGenerateCalculationsIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
+                                                                  Resources.HeightStructuresPlugin_Generate_calculations_for_selected_strutures,
+                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon);
                 }
             }
         }
@@ -1116,6 +1160,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
+        }
+
+        private class TestHeightStructure : HeightStructure
+        {
+            public TestHeightStructure()
+                : base("Test", "Id", new Point2D(0, 0), 0.12345, 234.567, 0.23456,
+                       345.678, 0.34567, 456.789, 0.45678, 567.890, 0.56789,
+                       0.67890, 112.223, 0.11222, 225.336, 0.22533) {}
         }
 
         public override void TearDown()

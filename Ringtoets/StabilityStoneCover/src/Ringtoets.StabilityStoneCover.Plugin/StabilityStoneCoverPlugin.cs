@@ -301,11 +301,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(nodeData, treeViewControl));
             var isNestedGroup = parentData is StabilityStoneCoverWaveConditionsCalculationGroupContext;
 
-            StrictContextMenuItem generateCalculationsItem = CreateGenerateWaveConditionsCalculationsItem(nodeData);
-
             if (!isNestedGroup)
             {
-                builder.AddCustomItem(generateCalculationsItem);
+                builder.AddCustomItem(CreateGenerateWaveConditionsCalculationsItem(nodeData));
             }
 
             builder.AddExportItem()

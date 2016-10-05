@@ -25,7 +25,9 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.Common.Data;
@@ -36,10 +38,12 @@ using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Forms;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Forms.Views;
 using Ringtoets.HeightStructures.IO;
+using Ringtoets.HeightStructures.Plugin.Properties;
 using Ringtoets.HeightStructures.Service;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -347,6 +351,12 @@ namespace Ringtoets.HeightStructures.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
             var isNestedGroup = parentData is HeightStructuresCalculationGroupContext;
 
+            if (!isNestedGroup)
+            {
+                builder.AddCustomItem(CreateGenerateWaveConditionsCalculationsItem(context))
+                       .AddSeparator();
+            }
+
             builder.AddCreateCalculationGroupItem(group)
                    .AddCreateCalculationItem(context, AddCalculation);
 
@@ -377,6 +387,55 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(HeightStructuresCalculationGroupContext nodeData)
+        {
+            ObservableList<HeightStructure> heightStructures = nodeData.FailureMechanism.HeightStructures;
+            bool structuresAvailable = heightStructures.Any();
+
+            string stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip = structuresAvailable
+                                                                                         ? Resources.HeightStructuresPlugin_Generate_calculations_for_selected_strutures
+                                                                                         : Resources.HeightStructuresPlugin_No_structures_to_generate_for;
+
+            return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
+                                             stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip,
+                                             RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                             (sender, args) => { ShowHeightStructuresSelectionDialog(nodeData); })
+            {
+                Enabled = structuresAvailable
+            };
+        }
+
+        private void ShowHeightStructuresSelectionDialog(HeightStructuresCalculationGroupContext nodeData)
+        {
+            using (var dialog = new StructuresSelectionDialog(Gui.MainWindow, nodeData.FailureMechanism.HeightStructures))
+            {
+                dialog.ShowDialog();
+
+                if (dialog.SelectedItems.Any())
+                {
+                    GenerateHeightStructuresCalculations(dialog.SelectedItems, nodeData.WrappedData.Children);
+                    nodeData.NotifyObservers();
+                }
+            }
+        }
+
+        private static void GenerateHeightStructuresCalculations(IEnumerable<HeightStructure> structures,
+                                                                    IList<ICalculationBase> calculations)
+        {
+            foreach (var structure in structures)
+            {
+                var calculation = new HeightStructuresCalculation
+                {
+                    Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
+                    InputParameters =
+                    {
+                        HeightStructure = structure
+                    }
+                };
+                calculations.Add(calculation);
+            }
         }
 
         private static void CalculationGroupContextOnNodeRemoved(HeightStructuresCalculationGroupContext context, object parentNodeData)
