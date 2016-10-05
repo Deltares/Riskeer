@@ -37,7 +37,9 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.HydraRing.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properties.Resources;
 using ClosingStructuresFormsResources = Ringtoets.ClosingStructures.Forms.Properties.Resources;
@@ -204,11 +206,12 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(closingStructuresFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddValidateAllCalculationsInFailureMechanismItem(
-                              closingStructuresFailureMechanismContext,
-                              c => ValidateAll(),
-                              ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
-                          .AddPerformAllCalculationsInFailureMechanismItem(closingStructuresFailureMechanismContext, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                          .AddValidateAllCalculationsInFailureMechanismItem(closingStructuresFailureMechanismContext,
+                                                                            c => ValidateAll(),
+                                                                            ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                          .AddPerformAllCalculationsInFailureMechanismItem(closingStructuresFailureMechanismContext,
+                                                                           CalculateAll,
+                                                                           ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(closingStructuresFailureMechanismContext.WrappedData)
                           .AddSeparator()
                           .AddExpandAllItem()
@@ -379,7 +382,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             ClosingStructuresCalculation calculation = context.WrappedData;
 
-            return builder.AddValidateCalculationItem(context, null)
+            return builder.AddValidateCalculationItem(context, null, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, null, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
@@ -414,8 +417,24 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, ClosingStructuresFailureMechanism failureMechanism)
         {
-            //Check for database connection/part of a validation issue - currently a placeholder
-            return string.Empty;
+            if (!failureMechanism.Sections.Any())
+            {
+                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported;
+            }
+
+            if (assessmentSection.HydraulicBoundaryDatabase == null)
+            {
+                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
+            }
+
+            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            if (!string.IsNullOrEmpty(validationProblem))
+            {
+                return string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
+                                     validationProblem);
+            }
+
+            return null;
         }
 
         private static void CalculateAll(ClosingStructuresFailureMechanism failureMechanism, IEnumerable<ClosingStructuresCalculation> calculations)

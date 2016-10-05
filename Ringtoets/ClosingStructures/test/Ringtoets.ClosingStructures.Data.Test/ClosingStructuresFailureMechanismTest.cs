@@ -22,6 +22,8 @@
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.ClosingStructures.Data.Test
@@ -96,6 +98,36 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Assert
             Assert.AreEqual(0, failureMechanism.Sections.Count());
             Assert.AreEqual(0, failureMechanism.SectionResults.Count());
+        }
+
+        [Test]
+        public void Calculations_MultipleChildrenAdded_ReturnClosingStructuresCalculations()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                CalculationsGroup =
+                {
+                    Children =
+                    {
+                        new CalculationGroup(),
+                        new ClosingStructuresCalculation(),
+                        mocks.StrictMock<ICalculation>(),
+                        new ClosingStructuresCalculation()
+                    }
+                }
+            };
+
+            mocks.ReplayAll();
+
+            // Call
+            var calculations = failureMechanism.Calculations.ToList();
+
+            // Assert
+            Assert.AreEqual(2, calculations.Count);
+            Assert.IsTrue(calculations.All(c => c is ClosingStructuresCalculation));
+            mocks.VerifyAll();
         }
     }
 }

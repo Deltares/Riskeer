@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base;
 using Ringtoets.ClosingStructures.Data.Properties;
 using Ringtoets.Common.Data.Calculation;
@@ -54,7 +55,7 @@ namespace Ringtoets.ClosingStructures.Data
         {
             get
             {
-                yield break;
+                return CalculationsGroup.GetCalculations().OfType<ClosingStructuresCalculation>();
             }
         }
 
