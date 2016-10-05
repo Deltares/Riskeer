@@ -48,8 +48,6 @@
     <Compile Include="DikeProfiles\ForeshoreProfile.cs" />
     <Compile Include="DikeProfiles\IUseBreakWater.cs" />
     <Compile Include="DikeProfiles\IUseForeshore.cs" />
-    <Compile Include="Probabilistics\IDistributionExtensions.cs" />
-    <Compile Include="Probabilistics\IDistributionVariationCoefficient.cs" />
     <Compile Include="Probabilistics\IVariationCoefficientDistribution.cs" />
     <Compile Include="Probabilistics\VariationCoefficientLogNormalDistribution.cs" />
     <Compile Include="Probabilistics\VariationCoefficientNormalDistribution.cs" />

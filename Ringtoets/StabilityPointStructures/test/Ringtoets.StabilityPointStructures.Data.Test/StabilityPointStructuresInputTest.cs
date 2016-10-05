@@ -69,7 +69,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             AssertEqualValue(0.1, input.InsideWaterLevel.StandardDeviation);
 
             AssertEqualValue(6.0, input.StormDuration.Mean);
-            AssertEqualValue(0.25, input.StormDuration.GetVariationCoefficient());
+            AssertEqualValue(0.25, input.StormDuration.CoefficientOfVariation);
 
             AssertEqualValue(1.1, input.ModelFactorSuperCriticalFlow.Mean);
             AssertEqualValue(0.03, input.ModelFactorSuperCriticalFlow.StandardDeviation);
@@ -260,16 +260,16 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Setup
             var input = new StabilityPointStructuresInput();
-            LogNormalDistribution stormDuration = GenerateLogNormalDistribution();
+            VariationCoefficientLogNormalDistribution stormDuration = GenerateVariationCoefficientLogNormalDistribution();
 
-            RoundedDouble initialStd = input.StormDuration.StandardDeviation;
+            RoundedDouble initialStd = input.StormDuration.CoefficientOfVariation;
 
             //Call
             input.StormDuration = stormDuration;
 
             //Assert
             Assert.AreEqual(stormDuration.Mean, input.StormDuration.Mean);
-            AssertEqualValue(initialStd, input.StormDuration.StandardDeviation);
+            AssertEqualValue(initialStd, input.StormDuration.CoefficientOfVariation);
         }
 
         #endregion
@@ -420,14 +420,14 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Setup 
             var input = new StabilityPointStructuresInput();
-            LogNormalDistribution constructiveStrengthLinearLoadModel = GenerateLogNormalDistribution();
+            VariationCoefficientLogNormalDistribution constructiveStrengthLinearLoadModel = GenerateVariationCoefficientLogNormalDistribution();
 
             // Call
             input.ConstructiveStrengthLinearLoadModel = constructiveStrengthLinearLoadModel;
 
             // Assert
             AssertEqualValue(constructiveStrengthLinearLoadModel.Mean, input.ConstructiveStrengthLinearLoadModel.Mean);
-            AssertEqualValue(constructiveStrengthLinearLoadModel.StandardDeviation, input.ConstructiveStrengthLinearLoadModel.StandardDeviation);
+            AssertEqualValue(constructiveStrengthLinearLoadModel.CoefficientOfVariation, input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation);
         }
 
         [Test]
@@ -435,14 +435,14 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Setup 
             var input = new StabilityPointStructuresInput();
-            LogNormalDistribution constructiveStrengthQuadraticLoadModel = GenerateLogNormalDistribution();
+            VariationCoefficientLogNormalDistribution constructiveStrengthQuadraticLoadModel = GenerateVariationCoefficientLogNormalDistribution();
 
             // Call
             input.ConstructiveStrengthQuadraticLoadModel = constructiveStrengthQuadraticLoadModel;
 
             // Assert
             AssertEqualValue(constructiveStrengthQuadraticLoadModel.Mean, input.ConstructiveStrengthQuadraticLoadModel.Mean);
-            AssertEqualValue(constructiveStrengthQuadraticLoadModel.StandardDeviation, input.ConstructiveStrengthQuadraticLoadModel.StandardDeviation);
+            AssertEqualValue(constructiveStrengthQuadraticLoadModel.CoefficientOfVariation, input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation);
         }
         #endregion
 
@@ -460,6 +460,16 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             {
                 Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
+            };
+        }
+
+        private static VariationCoefficientLogNormalDistribution GenerateVariationCoefficientLogNormalDistribution()
+        {
+            var random = new Random(22);
+            return new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble)(0.01 + random.NextDouble()),
+                CoefficientOfVariation = (RoundedDouble)random.NextDouble()
             };
         }
 

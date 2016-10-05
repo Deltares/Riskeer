@@ -39,14 +39,14 @@ namespace Ringtoets.StabilityPointStructures.Data
     {
         private readonly NormalDistribution insideWaterLevelFailureConstruction;
         private readonly NormalDistribution insideWaterLevel;
-        private readonly LogNormalDistribution stormDuration;
+        private readonly VariationCoefficientLogNormalDistribution stormDuration;
         private readonly NormalDistribution modelFactorSuperCriticalFlow;
         private readonly NormalDistribution drainCoefficient;
         private readonly NormalDistribution levelCrestStructure;
         private readonly NormalDistribution thresholdHeightOpenWeir;
         private readonly LogNormalDistribution areaFlowApertures;
-        private readonly LogNormalDistribution constructiveStrengthLinearModel;
-        private readonly LogNormalDistribution constructiveStrengthQuadraticModel;
+        private readonly VariationCoefficientLogNormalDistribution constructiveStrengthLinearModel;
+        private readonly VariationCoefficientLogNormalDistribution constructiveStrengthQuadraticModel;
         private ForeshoreProfile foreshoreProfile;
         private RoundedDouble structureNormalOrientation;
         private RoundedDouble volumicWeightWater;
@@ -73,11 +73,11 @@ namespace Ringtoets.StabilityPointStructures.Data
                 StandardDeviation = (RoundedDouble) 0.1
             };
 
-            stormDuration = new LogNormalDistribution(2)
+            stormDuration = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) 6.0
+                Mean = (RoundedDouble) 6.0,
+                CoefficientOfVariation = (RoundedDouble) 0.25
             };
-            stormDuration.SetStandardDeviationFromVariationCoefficient(0.25);
 
             modelFactorSuperCriticalFlow = new NormalDistribution(2)
             {
@@ -109,17 +109,17 @@ namespace Ringtoets.StabilityPointStructures.Data
                 StandardDeviation = (RoundedDouble) 0.01
             };
 
-            constructiveStrengthLinearModel = new LogNormalDistribution(2)
+            constructiveStrengthLinearModel = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.1
             };
-            constructiveStrengthLinearModel.SetStandardDeviationFromVariationCoefficient(0.1);
 
-            constructiveStrengthQuadraticModel = new LogNormalDistribution(2)
+            constructiveStrengthQuadraticModel = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.1
             };
-            constructiveStrengthQuadraticModel.SetStandardDeviationFromVariationCoefficient(0.1);
 
             UpdateForeshoreProperties();
         }
@@ -262,7 +262,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets or sets the storm duration.
         /// </summary>
         /// <remarks>Only sets the mean.</remarks>
-        public LogNormalDistribution StormDuration
+        public VariationCoefficientLogNormalDistribution StormDuration
         {
             get
             {
@@ -412,7 +412,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets or sets the constructive strength of the linear load model.
         /// [kN/m^2]
         /// </summary>
-        public LogNormalDistribution ConstructiveStrengthLinearLoadModel
+        public VariationCoefficientLogNormalDistribution ConstructiveStrengthLinearLoadModel
         {
             get
             {
@@ -421,7 +421,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             set
             {
                 constructiveStrengthLinearModel.Mean = value.Mean;
-                constructiveStrengthLinearModel.StandardDeviation = value.StandardDeviation;
+                constructiveStrengthLinearModel.CoefficientOfVariation = value.CoefficientOfVariation;
             }
         }
 
@@ -429,7 +429,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets or sets the constructive strength of the quadratic load model.
         /// [kN/m]
         /// </summary>
-        public LogNormalDistribution ConstructiveStrengthQuadraticLoadModel
+        public VariationCoefficientLogNormalDistribution ConstructiveStrengthQuadraticLoadModel
         {
             get
             {
@@ -438,7 +438,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             set
             {
                 constructiveStrengthQuadraticModel.Mean = value.Mean;
-                constructiveStrengthQuadraticModel.StandardDeviation = value.StandardDeviation;
+                constructiveStrengthQuadraticModel.CoefficientOfVariation = value.CoefficientOfVariation;
             }
         }
 

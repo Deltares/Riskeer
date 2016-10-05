@@ -51,9 +51,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
             AssertEqualValue(0.09, inputParameters.ModelFactorOvertoppingFlow.Mean);
             AssertEqualValue(0.06, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation);
             
-            Assert.IsInstanceOf<NormalDistribution>(inputParameters.ModelFactorSubCriticalFlow);
+            Assert.IsInstanceOf<VariationCoefficientNormalDistribution>(inputParameters.ModelFactorSubCriticalFlow);
             AssertEqualValue(1, inputParameters.ModelFactorSubCriticalFlow.Mean);
-            AssertEqualValue(0.1, inputParameters.ModelFactorSubCriticalFlow.GetVariationCoefficient());
+            AssertEqualValue(0.1, inputParameters.ModelFactorSubCriticalFlow.CoefficientOfVariation);
 
             Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.ModelFactorStorageVolume);
             AssertEqualValue(1.0, inputParameters.ModelFactorStorageVolume.Mean);

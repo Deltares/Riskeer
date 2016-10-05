@@ -88,7 +88,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.IsNaN(input.CriticalOvertoppingDischarge.Mean);
             Assert.IsNaN(input.WidthFlowApertures.Mean);
             AssertEqualValue(6.0, input.StormDuration.Mean);
-            AssertEqualValue(0.25, input.StormDuration.GetVariationCoefficient());
+            AssertEqualValue(0.25, input.StormDuration.CoefficientOfVariation);
             Assert.AreEqual(1.0, input.ProbabilityOpenStructureBeforeFlooding);
         }
 
@@ -472,14 +472,14 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Setup
             var input = new ClosingStructuresInput();
-            LogNormalDistribution storageStructureArea = GenerateLogNormalDistribution();
+            VariationCoefficientLogNormalDistribution storageStructureArea = GenerateVariationVariationCoefficientLogNormalDistribution();
 
             //Call
             input.StorageStructureArea = storageStructureArea;
 
             //Assert
             Assert.AreEqual(storageStructureArea.Mean, input.StorageStructureArea.Mean);
-            Assert.AreEqual(storageStructureArea.StandardDeviation, input.StorageStructureArea.StandardDeviation);
+            Assert.AreEqual(storageStructureArea.CoefficientOfVariation, input.StorageStructureArea.CoefficientOfVariation);
         }
 
         [Test]
@@ -502,14 +502,14 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Setup
             var input = new ClosingStructuresInput();
-            LogNormalDistribution criticalOvertoppingDischarge = GenerateLogNormalDistribution();
+            VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge = GenerateVariationVariationCoefficientLogNormalDistribution();
 
             //Call
             input.CriticalOvertoppingDischarge = criticalOvertoppingDischarge;
 
             //Assert
             Assert.AreEqual(criticalOvertoppingDischarge.Mean, input.CriticalOvertoppingDischarge.Mean);
-            AssertEqualValue(criticalOvertoppingDischarge.StandardDeviation, input.CriticalOvertoppingDischarge.StandardDeviation);
+            AssertEqualValue(criticalOvertoppingDischarge.CoefficientOfVariation, input.CriticalOvertoppingDischarge.CoefficientOfVariation);
         }
 
         [Test]
@@ -549,14 +549,14 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Setup
             var input = new ClosingStructuresInput();
-            NormalDistribution widthApertures = GenerateNormalDistribution();
+            VariationCoefficientNormalDistribution widthApertures = GenerateVariationCoefficientNormalDistribution();
 
             //Call
             input.WidthFlowApertures = widthApertures;
 
             //Assert
             Assert.AreEqual(widthApertures.Mean, input.WidthFlowApertures.Mean);
-            Assert.AreEqual(widthApertures.StandardDeviation, input.WidthFlowApertures.StandardDeviation);
+            Assert.AreEqual(widthApertures.CoefficientOfVariation, input.WidthFlowApertures.CoefficientOfVariation);
         }
 
         [Test]
@@ -581,16 +581,16 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Setup
             var input = new ClosingStructuresInput();
-            LogNormalDistribution stormDuration = GenerateLogNormalDistribution();
+            VariationCoefficientLogNormalDistribution stormDuration = GenerateVariationVariationCoefficientLogNormalDistribution();
 
-            RoundedDouble initialStd = input.StormDuration.StandardDeviation;
+            RoundedDouble initialStd = input.StormDuration.CoefficientOfVariation;
 
             //Call
             input.StormDuration = stormDuration;
 
             //Assert
             Assert.AreEqual(stormDuration.Mean, input.StormDuration.Mean);
-            AssertEqualValue(initialStd, input.StormDuration.StandardDeviation);
+            AssertEqualValue(initialStd, input.StormDuration.CoefficientOfVariation);
         }
 
         [Test]
@@ -640,6 +640,16 @@ namespace Ringtoets.ClosingStructures.Data.Test
             };
         }
 
+        private static VariationCoefficientLogNormalDistribution GenerateVariationVariationCoefficientLogNormalDistribution()
+        {
+            var random = new Random(22);
+            return new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble)(0.01 + random.NextDouble()),
+                CoefficientOfVariation = (RoundedDouble)random.NextDouble()
+            };
+        }
+
         private static NormalDistribution GenerateNormalDistribution()
         {
             var random = new Random(22);
@@ -647,6 +657,16 @@ namespace Ringtoets.ClosingStructures.Data.Test
             {
                 Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
+            };
+        }
+
+        private static VariationCoefficientNormalDistribution GenerateVariationCoefficientNormalDistribution()
+        {
+            var random = new Random(22);
+            return new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = (RoundedDouble)(0.01 + random.NextDouble()),
+                CoefficientOfVariation = (RoundedDouble)random.NextDouble()
             };
         }
     }

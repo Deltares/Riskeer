@@ -48,17 +48,17 @@ namespace Ringtoets.StabilityPointStructures.Data
                 StandardDeviation = (RoundedDouble) 0.2
             };
 
-            ModelFactorSubCriticalFlow = new NormalDistribution(2)
+            ModelFactorSubCriticalFlow = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
+                CoefficientOfVariation = (RoundedDouble) 0.1
             };
-            ModelFactorSubCriticalFlow.SetStandardDeviationFromVariationCoefficient(0.1);
 
-            ModelFactorCollisionLoad = new NormalDistribution(1)
+            ModelFactorCollisionLoad = new VariationCoefficientNormalDistribution(1)
             {
                 Mean = (RoundedDouble) 1,
+                CoefficientOfVariation = (RoundedDouble) 0.2
             };
-            ModelFactorCollisionLoad.SetStandardDeviationFromVariationCoefficient(0.2);
 
             ModelFactorLoadEffect = new NormalDistribution(2)
             {
@@ -115,12 +115,12 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <summary>
         /// Gets the model factor for sub critical flow.
         /// </summary>
-        public NormalDistribution ModelFactorSubCriticalFlow { get; private set; }
+        public VariationCoefficientNormalDistribution ModelFactorSubCriticalFlow { get; private set; }
 
         /// <summary>
         /// Gets the model factor for collision load.
         /// </summary>
-        public NormalDistribution ModelFactorCollisionLoad { get; private set; }
+        public VariationCoefficientNormalDistribution ModelFactorCollisionLoad { get; private set; }
 
         /// <summary>
         /// Gets the model factor for load effect.
