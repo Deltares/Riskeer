@@ -55,7 +55,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ClosingStructuresPluginTest.cs" />
-    <Compile Include="ImportInfos\ClosingStructuresCollectionContextImportInfoTest.cs" />
+    <Compile Include="ImportInfos\ClosingStructuresContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewInfos\ClosingStructuresFailureMechanismResultViewInfoTest.cs" />
   </ItemGroup>

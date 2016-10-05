@@ -119,7 +119,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         public override IEnumerable<ImportInfo> GetImportInfos()
         {
-            yield return new ImportInfo<ClosingStructuresCollectionContext>
+            yield return new ImportInfo<ClosingStructuresContext>
             {
                 CreateFileImporter = (context, filePath) => new ClosingStructuresImporter(context.WrappedData,
                                                                                           context.AssessmentSection.ReferenceLine,

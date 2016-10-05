@@ -361,8 +361,15 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => importResult = testStructuresImporter.Import();
 
             // Assert
-            string expectedMessage = "Fout bij het lezen van kunstwerk op regel 1. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'. Dit kunstwerk wordt overgeslagen.";
-            TestHelper.AssertLogMessageIsGenerated(call, expectedMessage, 1);
+            string[] expectedMessages =
+            {
+                "Fout bij het lezen van kunstwerk op regel 1. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'. Dit kunstwerk wordt overgeslagen.",
+                "Fout bij het lezen van kunstwerk op regel 2. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'. Dit kunstwerk wordt overgeslagen.",
+                "Fout bij het lezen van kunstwerk op regel 3. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'. Dit kunstwerk wordt overgeslagen.",
+                "Fout bij het lezen van kunstwerk op regel 4. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'. Dit kunstwerk wordt overgeslagen.",
+                "Fout bij het lezen van kunstwerk op regel 5. Het kunstwerk heeft geen geldige waarde voor attribuut 'KWKIDENT'. Dit kunstwerk wordt overgeslagen."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
         }
 
         [Test]

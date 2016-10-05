@@ -129,10 +129,19 @@ namespace Ringtoets.HeightStructures.IO.Test
             // Assert
             string[] expectedMessages =
             {
+                "De waarde op regel 2, kolom 18 valt buiten het bereik [0, 360].",
                 "Parameter 'KW_HOOGTE2' komt meermaals voor.",
-                "De variantie van de stroomvoerende breedte bij bodembescherming lognormaalverdeling heeft een ongeldige waarde.",
-                "De variantie van de toegestane peilverhoging op het kombergend oppervlak lognormaalverdeling heeft een ongeldige waarde.",
-                "Kunstwerk nummer 1 wordt overgeslagen."
+                "Kunstwerk nummer 1 wordt overgeslagen.",
+                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST2'.",
+                "Kunstwerk nummer 2 wordt overgeslagen.",
+                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST3'.",
+                "Kunstwerk nummer 3 wordt overgeslagen.",
+                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST4'.",
+                "Kunstwerk nummer 4 wordt overgeslagen.",
+                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST5'.",
+                "Kunstwerk nummer 5 wordt overgeslagen.",
+                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST6'.",
+                "Kunstwerk nummer 6 wordt overgeslagen."
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);

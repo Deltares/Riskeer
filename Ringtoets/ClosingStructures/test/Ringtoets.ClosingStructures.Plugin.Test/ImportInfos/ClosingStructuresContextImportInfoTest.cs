@@ -36,7 +36,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
 {
     [TestFixture]
-    public class ClosingStructuresCollectionContextImportInfoTest
+    public class ClosingStructuresContextImportInfoTest
     {
         [Test]
         public void CreateFileImporter_Always_ExpectedPropertiesSet()
@@ -50,7 +50,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
 
             var list = new ObservableList<ClosingStructure>();
 
-            var importTarget = new ClosingStructuresCollectionContext(list, assessmentSection);
+            var importTarget = new ClosingStructuresContext(list, assessmentSection);
 
             using (var plugin = new ClosingStructuresPlugin())
             {
@@ -140,7 +140,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
 
             var list = new ObservableList<ClosingStructure>();
 
-            var context = new ClosingStructuresCollectionContext(list, assessmentSection);
+            var context = new ClosingStructuresContext(list, assessmentSection);
 
             using (var plugin = new ClosingStructuresPlugin())
             {
@@ -166,7 +166,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
 
             var list = new ObservableList<ClosingStructure>();
 
-            var context = new ClosingStructuresCollectionContext(list, assessmentSection);
+            var context = new ClosingStructuresContext(list, assessmentSection);
 
             using (var plugin = new ClosingStructuresPlugin())
             {
@@ -183,7 +183,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
 
         private static ImportInfo GetImportInfo(ClosingStructuresPlugin plugin)
         {
-            return plugin.GetImportInfos().First(ii => ii.DataType == typeof(ClosingStructuresCollectionContext));
+            return plugin.GetImportInfos().First(ii => ii.DataType == typeof(ClosingStructuresContext));
         }
     }
 }

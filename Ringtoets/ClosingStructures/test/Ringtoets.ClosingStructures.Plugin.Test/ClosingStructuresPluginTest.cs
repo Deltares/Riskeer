@@ -96,7 +96,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
 
                 // Assert
                 Assert.AreEqual(1, importInfos.Length);
-                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ClosingStructuresCollectionContext)));
+                Assert.IsTrue(importInfos.Any(i => i.DataType == typeof(ClosingStructuresContext)));
             }
         }
     }
