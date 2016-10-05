@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+
 namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
 {
     /// <summary>
@@ -33,6 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
         /// <param name="ringId">The id of the traject which is used in the calculation.</param>
         /// <returns>A new <see cref="IDesignWaterLevelCalculator"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
         IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory, string ringId);
 
         /// <summary>
@@ -41,6 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
         /// <param name="ringId">The id of the traject which is used in the calculation.</param>
         /// <returns>A new <see cref="IDikeHeightCalculator"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
         IDikeHeightCalculator CreateDikeHeightCalculator(string hlcdDirectory, string ringId);
 
         /// <summary>
@@ -49,6 +53,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
         /// <param name="ringId">The id of the traject which is used in the calculation.</param>
         /// <returns>A new <see cref="IOvertoppingCalculator"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
         IOvertoppingCalculator CreateOvertoppingCalculator(string hlcdDirectory, string ringId);
 
         /// <summary>
@@ -57,6 +62,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
         /// <param name="ringId">The id of the traject which is used in the calculation.</param>
         /// <returns>A new <see cref="IWaveConditionsCosineCalculator"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
         IWaveConditionsCosineCalculator CreateWaveConditionsCosineCalculator(string hlcdDirectory, string ringId);
 
         /// <summary>
@@ -65,6 +71,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
         /// <param name="ringId">The id of the traject which is used in the calculation.</param>
         /// <returns>A new <see cref="IWaveHeightCalculator"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
         IWaveHeightCalculator CreateWaveHeightCalculator(string hlcdDirectory, string ringId);
 
         /// <summary>
@@ -73,6 +80,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         /// <param name="hlcdDirectory">The directory where the hydraulic database can be found.</param>
         /// <param name="ringId">The id of the traject which is used in the calculation.</param>
         /// <returns>A new <see cref="IStructuresOvertoppingCalculator"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
         IStructuresOvertoppingCalculator CreateStructuresOvertoppingCalculator(string hlcdDirectory, string ringId);
     }
 }

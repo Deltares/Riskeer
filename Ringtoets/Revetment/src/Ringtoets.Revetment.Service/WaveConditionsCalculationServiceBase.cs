@@ -40,6 +40,9 @@ using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Reso
 
 namespace Ringtoets.Revetment.Service
 {
+    /// <summary>
+    /// Base class for calculating wave conditions for failure mechanisms.
+    /// </summary>
     public abstract class WaveConditionsCalculationServiceBase
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(WaveConditionsCalculationServiceBase));
@@ -118,7 +121,7 @@ namespace Ringtoets.Revetment.Service
             return outputs;
         }
 
-        private static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath,
+        protected static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath,
                                               WaveConditionsInput input,
                                               string calculatedValueName)
         {

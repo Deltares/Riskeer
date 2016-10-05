@@ -82,7 +82,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
         /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
         /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
-        /// <returns>A double with a  value on a successful calculation, <c>double.NaN</c> otherwise.</returns>
         internal void CalculateDikeHeight(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection, 
             FailureMechanismSection failureMechanismSection, GeneralGrassCoverErosionInwardsInput generalInput, double failureMechanismContribution,
             string hlcdDirectory)

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
@@ -30,10 +31,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// Calculator for calculating probability of failure by overtopping or overflow and the
     /// associated wave height. This is used in a Grass Cover Erosion Inwards assessment.
     /// </summary>
-    public class OvertoppingCalculator : HydraRingCalculatorBase, IOvertoppingCalculator
+    internal class OvertoppingCalculator : HydraRingCalculatorBase, IOvertoppingCalculator
     {
-        private readonly string hlcdDirectory;
-        private readonly string ringId;
         private readonly ExceedanceProbabilityCalculationParser exceedanceProbabilityCalculationParser;
         private readonly OvertoppingCalculationWaveHeightParser waveHeightParser;
 
@@ -42,10 +41,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
         /// <param name="ringId">The id of the traject which is used in the calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
         internal OvertoppingCalculator(string hlcdDirectory, string ringId)
+            : base(hlcdDirectory, ringId)
         {
-            this.hlcdDirectory = hlcdDirectory;
-            this.ringId = ringId;
             exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
             waveHeightParser = new OvertoppingCalculationWaveHeightParser();
 
@@ -60,7 +59,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
 
         public void Calculate(OvertoppingCalculationInput input)
         {
-            Calculate(hlcdDirectory, ringId, HydraRingUncertaintiesType.All, input);
+            Calculate(HydraRingUncertaintiesType.All, input);
         }
 
         protected override IEnumerable<IHydraRingFileParser> GetParsers()

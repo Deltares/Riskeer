@@ -101,6 +101,22 @@ namespace Ringtoets.HydraRing.IO.Test
         }
 
         [Test]
+        public void ValidatePathForCalculation_InvalidFilePath_ReturnsMessageWithError()
+        {
+            // Setup
+            var invalidFilePath = "C:\\Thisissomeverylongpath\\toadirectorywhich\\doesntevenexist\\Nowlets\\finishwithsomelongname\\" +
+                                  "loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong" +
+                                  "naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaame" +
+                                  "\\followedbythefile";
+
+            // Call
+            var result = HydraulicDatabaseHelper.ValidatePathForCalculation(invalidFilePath);
+
+            // Assert
+            StringAssert.StartsWith(string.Format("Het opgegeven bestandspad ({0}) is niet geldig.", invalidFilePath), result);
+        }
+
+        [Test]
         public void HaveEqualVersion_InvalidFile_ThrowsCriticalFileReadException()
         {
             // Setup

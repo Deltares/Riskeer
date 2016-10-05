@@ -23,12 +23,12 @@ using System.IO;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Parsers;
-using Ringtoets.HydraRing.Calculation.Services;
+using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 {
     [TestFixture]
-    public class ReliabilityIndexCalculationExceptionParserTest
+    public class ReliabilityIndexCalculationParserTest
     {
         private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "ReliabilityIndexCalculationParser");
 
@@ -69,7 +69,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 
             // Assert
             Assert.IsNull(reliabilityIndexCalculationExceptionParser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.DesignTablesFileName)));
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             Assert.IsNotNull(reliabilityIndexCalculationOutput);
             Assert.AreEqual(result, reliabilityIndexCalculationOutput.Result);
             Assert.AreEqual(actual, reliabilityIndexCalculationOutput.CalculatedReliabilityIndex);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.DesignTablesFileName)));
         }
 
         [Test]
@@ -107,7 +107,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             Assert.IsNotNull(reliabilityIndexCalculationOutput);
             Assert.AreEqual(1.1, reliabilityIndexCalculationOutput.Result);
             Assert.AreEqual(11.11, reliabilityIndexCalculationOutput.CalculatedReliabilityIndex);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.DesignTablesFileName)));
         }
 
         [Test]
@@ -122,7 +122,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 
             // Assert
             Assert.IsNull(reliabilityIndexCalculationExceptionParser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.DesignTablesFileName)));
         }
     }
 }

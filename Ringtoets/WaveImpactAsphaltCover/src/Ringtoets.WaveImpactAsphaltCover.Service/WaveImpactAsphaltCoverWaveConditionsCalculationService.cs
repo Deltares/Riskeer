@@ -22,6 +22,7 @@
 using System.Linq;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
+using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
 using Ringtoets.Revetment.Service.Properties;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -29,10 +30,17 @@ using Ringtoets.WaveImpactAsphaltCover.Data;
 namespace Ringtoets.WaveImpactAsphaltCover.Service
 {
     /// <summary>
-    /// Service that provides methods for performing Hydra-Ring wave conditions calculations.
+    /// Service that provides methods for performing Hydra-Ring wave conditions calculations for the wave impact on asphalt failure mechanism.
     /// </summary>
     public class WaveImpactAsphaltCoverWaveConditionsCalculationService : WaveConditionsCalculationServiceBase
     {
+        /// <summary>
+        /// Performs validation over the values on the given <paramref name="calculation"/> and <paramref name="hydraulicBoundaryDatabaseFilePath"/>.
+        /// Error and status information is logged during the execution of the operation.
+        /// </summary>
+        /// <param name="calculation">The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> for which to validate the values.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
+        /// <returns><c>True</c>c> if there were no validation errors; <c>False</c>c> otherwise.</returns>
         public bool Validate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, string hydraulicBoundaryDatabaseFilePath)
         {
             return ValidateWaveConditionsInput(
@@ -42,19 +50,25 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
                 Resources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
         }
 
-        public void Calculate(
-            WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
-            WaveImpactAsphaltCoverFailureMechanism failureMechanism, 
-            IAssessmentSection assessmentSection, 
-            string hlcdFilePath)
+        /// <summary>
+        /// Performs a wave conditions calculation for the wave impact on asphalt failure mechanism based on the supplied 
+        /// <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/>  and sets 
+        /// <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation.Output"/> if the calculation was successful. 
+        /// Error and status information is logged during the execution of the operation.
+        /// </summary>
+        /// <param name="calculation">The <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> that holds all the information required to perform the calculation.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
+        /// <param name="generalWaveConditionsInput">Calculation input parameters that apply to all <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> instances.</param>
+        /// <param name="hlcdFilePath">The path of the HLCD file that should be used for performing the calculation.</param>
+        public void Calculate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, IAssessmentSection assessmentSection, GeneralWaveConditionsInput generalWaveConditionsInput, string hlcdFilePath)
         {
             string calculationName = calculation.Name;
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
-            var a = failureMechanism.GeneralInput.A;
-            var b = failureMechanism.GeneralInput.B;
-            var c = failureMechanism.GeneralInput.C;
+            var a = generalWaveConditionsInput.A;
+            var b = generalWaveConditionsInput.B;
+            var c = generalWaveConditionsInput.C;
             
             var ringId = assessmentSection.Id;
             var norm = assessmentSection.FailureMechanismContribution.Norm;

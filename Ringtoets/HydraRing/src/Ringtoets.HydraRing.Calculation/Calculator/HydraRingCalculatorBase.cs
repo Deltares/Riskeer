@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -32,17 +33,30 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// <summary>
     /// Base implementation for a calculator which uses Hydra-Ring to perform different calculations.
     /// </summary>
-    public abstract class HydraRingCalculatorBase
+    internal abstract class HydraRingCalculatorBase
     {
         private readonly HydraRingOutputFileParser outputFileParser;
         private Process hydraRingProcess;
 
+        private readonly string hlcdDirectory;
+        private readonly string ringId;
+
         /// <summary>
-        /// Constructs a new <see cref="HydraRingCalculatorBase"/> which a default Hydra-Ring file parser
+        /// Creates a new instance of <see cref="HydraRingCalculatorBase"/> with a default Hydra-Ring file parser
         /// initialized.
         /// </summary>
-        protected HydraRingCalculatorBase()
+        /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
+        /// <param name="ringId">The id of the traject which is used in the calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
+        protected HydraRingCalculatorBase(string hlcdDirectory, string ringId)
         {
+            if (hlcdDirectory == null)
+            {
+                throw new ArgumentNullException("hlcdDirectory");
+            }
+            this.hlcdDirectory = hlcdDirectory;
+            this.ringId = ringId;
+
             outputFileParser = new HydraRingOutputFileParser();
         }
 
@@ -79,13 +93,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <summary>
         /// Performs the actual calculation by running the Hydra-Ring executable.
         /// </summary>
-        /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
-        /// <param name="ringId">The id of the traject which is used in the calculation.</param>
         /// <param name="uncertaintiesType">The uncertainty type used in the calculation.</param>
         /// <param name="hydraRingCalculationInput">The object containing input data.</param>
         protected void Calculate(
-            string hlcdDirectory,
-            string ringId,
             HydraRingUncertaintiesType uncertaintiesType,
             HydraRingCalculationInput hydraRingCalculationInput)
         {

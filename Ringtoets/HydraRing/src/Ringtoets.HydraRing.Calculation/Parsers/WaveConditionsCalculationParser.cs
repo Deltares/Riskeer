@@ -22,7 +22,7 @@
 using System.Globalization;
 using System.IO;
 using Ringtoets.HydraRing.Calculation.Data.Output;
-using Ringtoets.HydraRing.Calculation.Services;
+using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
@@ -49,7 +49,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            string fileName = string.Format("{0}{1}", sectionId, HydraRingFileName.OutputFileSuffix);
+            string fileName = string.Format("{0}{1}", sectionId, HydraRingFileConstants.OutputFileSuffix);
 
             try
             {

@@ -26,59 +26,74 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
-using Ringtoets.Revetment.Service.Properties;
 using Ringtoets.StabilityStoneCover.Data;
+using Ringtoets.StabilityStoneCover.Service.Properties;
+
+using RingtoetsRevetmentsServicesResources = Ringtoets.Revetment.Service.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Service
 {
     /// <summary>
-    /// Service that provides methods for performing Hydra-Ring wave conditions calculations.
+    /// Service that provides methods for performing Hydra-Ring wave conditions calculations for the stability of stone revetment failure mechanism.
     /// </summary>
     public class StabilityStoneCoverWaveConditionsCalculationService : WaveConditionsCalculationServiceBase
     {
         private readonly ILog log = LogManager.GetLogger(typeof(StabilityStoneCoverWaveConditionsCalculationService));
 
+        /// <summary>
+        /// Performs validation over the values on the given <paramref name="calculation"/> and <paramref name="hydraulicBoundaryDatabaseFilePath"/>.
+        /// Error and status information is logged during the execution of the operation.
+        /// </summary>
+        /// <param name="calculation">The <see cref="StabilityStoneCoverWaveConditionsCalculation"/> for which to validate the values.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
+        /// <returns><c>True</c>c> if there were no validation errors; <c>False</c>c> otherwise.</returns>
         public bool Validate(StabilityStoneCoverWaveConditionsCalculation calculation, string hydraulicBoundaryDatabaseFilePath)
         {
             return ValidateWaveConditionsInput(
                 calculation.InputParameters, 
                 calculation.Name, 
-                hydraulicBoundaryDatabaseFilePath, 
-                Resources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
+                hydraulicBoundaryDatabaseFilePath,
+                RingtoetsRevetmentsServicesResources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
         }
 
-        public void Calculate(
-            StabilityStoneCoverWaveConditionsCalculation calculation,
-            StabilityStoneCoverFailureMechanism failureMechanism, 
-            IAssessmentSection assessmentSection, 
-            string hlcdFilePath)
+        /// <summary>
+        /// Performs a wave conditions calculation for the stability of stone revetment failure mechanism based on the supplied 
+        /// <see cref="StabilityStoneCoverWaveConditionsCalculation"/>  and sets 
+        /// <see cref="StabilityStoneCoverWaveConditionsCalculation.Output"/> if the calculation was successful. 
+        /// Error and status information is logged during the execution of the operation.
+        /// </summary>
+        /// <param name="calculation">The <see cref="StabilityStoneCoverWaveConditionsCalculation"/> that holds all the information required to perform the calculation.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
+        /// <param name="generalWaveConditionsInput">Calculation input parameters that apply to all <see cref="StabilityStoneCoverWaveConditionsCalculation"/> instances.</param>
+        /// <param name="hlcdFilePath">The path of the HLCD file that should be used for performing the calculation.</param>
+        public void Calculate(StabilityStoneCoverWaveConditionsCalculation calculation, IAssessmentSection assessmentSection, GeneralStabilityStoneCoverWaveConditionsInput generalWaveConditionsInput, string hlcdFilePath)
         {
             string calculationName = calculation.Name;
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
-            var aBlocks = failureMechanism.GeneralInput.GeneralBlocksWaveConditionsInput.A;
-            var bBlocks = failureMechanism.GeneralInput.GeneralBlocksWaveConditionsInput.B;
-            var cBlocks = failureMechanism.GeneralInput.GeneralBlocksWaveConditionsInput.C;
+            var aBlocks = generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.A;
+            var bBlocks = generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.B;
+            var cBlocks = generalWaveConditionsInput.GeneralBlocksWaveConditionsInput.C;
 
-            var aColumns = failureMechanism.GeneralInput.GeneralColumnsWaveConditionsInput.A;
-            var bColumns = failureMechanism.GeneralInput.GeneralColumnsWaveConditionsInput.B;
-            var cColumns = failureMechanism.GeneralInput.GeneralColumnsWaveConditionsInput.C;
+            var aColumns = generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.A;
+            var bColumns = generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.B;
+            var cColumns = generalWaveConditionsInput.GeneralColumnsWaveConditionsInput.C;
 
             var ringId = assessmentSection.Id;
             var norm = assessmentSection.FailureMechanismContribution.Norm;
             TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count() * 2;
 
-            log.InfoFormat("Berekening '{0}' voor blokken gestart.", calculationName);
+            log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_blocks_started, calculationName);
             IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateWaveConditions(calculationName, calculation.InputParameters, aBlocks, bBlocks, cBlocks, norm, ringId, hlcdFilePath);
-            log.InfoFormat("Berekening '{0}' voor blokken beëindigd.", calculationName);
+            log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_blocks_finished, calculationName);
 
             IEnumerable<WaveConditionsOutput> columnsOutputs = null;
             if (!Canceled)
             {
-                log.InfoFormat("Berekening '{0}' voor zuilen gestart.", calculationName);
+                log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_columns_started, calculationName);
                 columnsOutputs = CalculateWaveConditions(calculationName, calculation.InputParameters, aColumns, bColumns, cColumns, norm, ringId, hlcdFilePath);
-                log.InfoFormat("Berekening '{0}' voor zuilen beëindigd.", calculationName);
+                log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_columns_finished, calculationName);
             }
 
             if (!Canceled)

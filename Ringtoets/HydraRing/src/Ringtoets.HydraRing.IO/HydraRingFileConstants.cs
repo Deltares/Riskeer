@@ -19,12 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Services
+namespace Ringtoets.HydraRing.IO
 {
     /// <summary>
     /// Class containing (parts of) file names that are generated during a Hydra-Ring calculation.
     /// </summary>
-    internal static class HydraRingFileName
+    internal static class HydraRingFileConstants
     {
         /// <summary>
         /// The tail and extension of the file containing output generated during a calculation.

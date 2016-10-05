@@ -127,6 +127,15 @@ namespace Ringtoets.HydraRing.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het opgegeven bestandspad ({0}) is niet geldig..
+        /// </summary>
+        public static string HydraulicDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_ {
+            get {
+                return ResourceManager.GetString("HydraulicDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bevragen van de database is mislukt..
         /// </summary>
         public static string HydraulicLocationConfigurationSqLiteDatabaseReader_Critical_Unexpected_Exception {

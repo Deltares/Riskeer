@@ -25,12 +25,12 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Calculation.Parsers;
-using Ringtoets.HydraRing.Calculation.Services;
+using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 {
     [TestFixture]
-    public class ExceedanceProbabilityCalculationExceptionParserTest
+    public class ExceedanceProbabilityCalculationParserTest
     {
         private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "ExceedanceProbabilityCalculationParser");
 
@@ -72,7 +72,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             Assert.Throws<HydraRingFileParserException>(test);
             Assert.IsNull(exceedanceProbabilityCalculationExceptionParser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.OutputDatabaseFileName)));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.OutputDatabaseFileName)));
         }
 
         [Test]
@@ -88,7 +88,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             Assert.Throws<HydraRingFileParserException>(test);
             Assert.IsNull(exceedanceProbabilityCalculationExceptionParser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.OutputDatabaseFileName)));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.OutputDatabaseFileName)));
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             Assert.Throws<HydraRingFileParserException>(test);
             Assert.IsNull(exceedanceProbabilityCalculationExceptionParser.Output);
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.OutputDatabaseFileName)));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.OutputDatabaseFileName)));
         }
 
         [Test]
@@ -168,7 +168,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
                 Assert.AreEqual(expectedAlpha.Alpha, actualAlpha.Alpha);
             }
 
-            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileName.OutputDatabaseFileName)));
+            Assert.IsTrue(TestHelper.CanOpenFileForWrite(Path.Combine(workingDirectory, HydraRingFileConstants.OutputDatabaseFileName)));
         }
     }
 }

@@ -51,7 +51,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="StabilityStoneCoverDataSynchronizationService.cs" />
-    <Compile Include="StabilityStoneCoverWaveConditionsCalculationActivityOutput.cs" />
     <Compile Include="StabilityStoneCoverWaveConditionsCalculationActivity.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -54,7 +54,14 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Activities\HydraRingActivityTest.cs" />
+    <Compile Include="Activities\HydraRingActivityBaseTest.cs" />
+    <Compile Include="Calculator\DesignWaterLevelCalculatorTest.cs" />
+    <Compile Include="Calculator\DikeHeightCalculatorTest.cs" />
+    <Compile Include="Calculator\HydraRingCalculatorBaseTest.cs" />
+    <Compile Include="Calculator\OvertoppingCalculatorTest.cs" />
+    <Compile Include="Calculator\StructuresOvertoppingCalculatorTest.cs" />
+    <Compile Include="Calculator\WaveConditionsCosineCalculatorTest.cs" />
+    <Compile Include="Calculator\WaveHeightCalculatorTest.cs" />
     <Compile Include="Data\HydraRingBreakWaterTest.cs" />
     <Compile Include="Data\HydraRingForelandPointTest.cs" />
     <Compile Include="Data\Input\Hydraulics\DikeHeightCalculationInputTest.cs" />
@@ -87,11 +94,12 @@
     <Compile Include="IO\HydraRingSettingsCsvReaderTest.cs" />
     <Compile Include="IO\HydraRingSettingsVariableCsvReaderTest.cs" />
     <Compile Include="IO\HydraulicModelsSettingsCsvReaderTest.cs" />
-    <Compile Include="Parsers\ExceedanceProbabilityCalculationExceptionParserTest.cs" />
+    <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
+    <Compile Include="Parsers\HydraRingFileParserExceptionTest.cs" />
     <Compile Include="Parsers\HydraRingOutputFileParserTest.cs" />
-    <Compile Include="Parsers\OvertoppingCalculationWaveHeightExceptionParserTest.cs" />
-    <Compile Include="Parsers\ReliabilityIndexCalculationExceptionParserTest.cs" />
-    <Compile Include="Parsers\WaveConditionsCalculationExceptionParserTest.cs" />
+    <Compile Include="Parsers\OvertoppingCalculationWaveHeightParserTest.cs" />
+    <Compile Include="Parsers\ReliabilityIndexCalculationParserTest.cs" />
+    <Compile Include="Parsers\WaveConditionsCalculationParserTest.cs" />
     <Compile Include="Providers\HydraulicModelsSettingsProviderTest.cs" />
     <Compile Include="Services\HydraRingConfigurationServiceTest.cs" />
     <Compile Include="Data\HydraRingSectionTest.cs" />
@@ -134,6 +142,10 @@
     <ProjectReference Include="..\..\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
       <Name>Ringtoets.HydraRing.Calculation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.HydraRing.IO\Ringtoets.HydraRing.IO.csproj">
+      <Project>{B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70}</Project>
+      <Name>Ringtoets.HydraRing.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
       <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -30,10 +31,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// Calculator which calculates the wave height associated to the result of iterating towards a
     /// probability of failure given a norm.
     /// </summary>
-    public class WaveHeightCalculator : HydraRingCalculatorBase, IWaveHeightCalculator
+    internal class WaveHeightCalculator : HydraRingCalculatorBase, IWaveHeightCalculator
     {
-        private readonly string hlcdDirectory;
-        private readonly string ringId;
         private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
 
         /// <summary>
@@ -41,10 +40,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
         /// <param name="ringId">The id of the traject which is used in the calculation.</param>
-        internal WaveHeightCalculator(string hlcdDirectory, string ringId)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
+        internal WaveHeightCalculator(string hlcdDirectory, string ringId) 
+            : base(hlcdDirectory, ringId)
         {
-            this.hlcdDirectory = hlcdDirectory;
-            this.ringId = ringId;
             targetProbabilityParser = new ReliabilityIndexCalculationParser();
 
             WaveHeight = double.NaN;
@@ -56,7 +55,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
 
         public void Calculate(WaveHeightCalculationInput input)
         {
-            Calculate(hlcdDirectory, ringId, HydraRingUncertaintiesType.All, input);
+            Calculate(HydraRingUncertaintiesType.All, input);
         }
 
         protected override IEnumerable<IHydraRingFileParser> GetParsers()

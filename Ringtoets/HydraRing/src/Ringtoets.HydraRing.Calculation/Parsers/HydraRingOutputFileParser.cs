@@ -21,7 +21,7 @@
 
 using System.IO;
 using Ringtoets.HydraRing.Calculation.Properties;
-using Ringtoets.HydraRing.Calculation.Services;
+using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
@@ -37,12 +37,12 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
 
         public void Parse(string workingDirectory, int sectionId)
         {
-            string outputFileName = sectionId + HydraRingFileName.OutputFileSuffix;
+            string outputFileName = sectionId + HydraRingFileConstants.OutputFileSuffix;
             string outputFilePath = Path.Combine(workingDirectory, outputFileName);
 
             if (!File.Exists(outputFilePath))
             {
-                outputFileName = sectionId + HydraRingFileName.LogFileExtension;
+                outputFileName = sectionId + HydraRingFileConstants.LogFileExtension;
                 outputFilePath = Path.Combine(workingDirectory, outputFileName);
             }
 
@@ -53,7 +53,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             catch
             {
                 var message = string.Format(Resources.Parse_Cannot_read_FileName_0_nor_FileName_1_from_FolderPath_2_,
-                    sectionId + HydraRingFileName.OutputFileSuffix,
+                    sectionId + HydraRingFileConstants.OutputFileSuffix,
                     outputFileName,
                     workingDirectory);
                 throw new HydraRingFileParserException(message);

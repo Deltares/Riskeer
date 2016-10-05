@@ -22,9 +22,11 @@
 using System;
 using System.IO;
 using Core.Common.IO.Exceptions;
+using Core.Common.Utils;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext;
+using Ringtoets.HydraRing.IO.Properties;
 
 namespace Ringtoets.HydraRing.IO
 {
@@ -44,11 +46,30 @@ namespace Ringtoets.HydraRing.IO
         {
             try
             {
+                FileUtils.ValidateFilePath(filePath);
+            }
+            catch (ArgumentException e)
+            {
+                return e.Message;
+            }
+
+            string directoryName;
+            try
+            {
+                directoryName = Path.GetDirectoryName(filePath);
+            }
+            catch (PathTooLongException)
+            {
+                return string.Format(Resources.HydraulicDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_, filePath);
+            }
+
+            try
+            {
                 using (var db = new HydraulicBoundarySqLiteDatabaseReader(filePath))
                 {
                     db.GetVersion();
                 }
-                string hlcdFilePath = Path.Combine(Path.GetDirectoryName(filePath), "hlcd.sqlite");
+                string hlcdFilePath = Path.Combine(directoryName, HydraRingFileConstants.HlcdDatabaseFileName);
                 new HydraulicLocationConfigurationSqLiteDatabaseReader(hlcdFilePath).Dispose();
             }
             catch (CriticalFileReadException e)

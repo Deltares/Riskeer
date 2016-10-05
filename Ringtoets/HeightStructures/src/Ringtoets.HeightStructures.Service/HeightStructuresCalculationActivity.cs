@@ -23,10 +23,8 @@ using System;
 using System.Linq;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Calculation.Activities;
-using Ringtoets.HydraRing.Calculation.Data.Output;
 
 namespace Ringtoets.HeightStructures.Service
 {

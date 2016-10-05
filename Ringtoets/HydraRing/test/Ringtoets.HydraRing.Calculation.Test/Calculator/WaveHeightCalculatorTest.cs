@@ -19,12 +19,23 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Calculator;
 
-[assembly: AssemblyTitle("Ringtoets.HydraRing.IO")]
-[assembly: AssemblyProduct("Ringtoets.HydraRing.IO")]
-[assembly: Guid("B69D5B6C-6E14-4FA9-9EBC-8F97678CDB70")]
-[assembly: InternalsVisibleTo("Ringtoets.HydraRing.Calculation")]
-[assembly: InternalsVisibleTo("Ringtoets.HydraRing.Calculation.Test")]
+namespace Ringtoets.HydraRing.Calculation.Test.Calculator
+{
+    [TestFixture]
+    public class WaveHeightCalculatorTest
+    {
+        [Test]
+        public void DefaultConstructor_InitializesOutputNaN()
+        {
+            // Call
+            var calculator = new WaveHeightCalculator(string.Empty, string.Empty);
+
+            // Assert
+            Assert.IsNaN(calculator.ReliabilityIndex);
+            Assert.IsNaN(calculator.WaveHeight);
+        }
+    }
+}

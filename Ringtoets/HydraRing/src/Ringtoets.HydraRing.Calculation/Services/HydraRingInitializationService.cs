@@ -24,6 +24,7 @@ using System.IO;
 using System.Reflection;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Providers;
+using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Services
 {
@@ -111,7 +112,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return Path.Combine(TemporaryWorkingDirectory, HydraRingFileName.DesignTablesFileName);
+                return Path.Combine(TemporaryWorkingDirectory, HydraRingFileConstants.DesignTablesFileName);
             }
         }
 
@@ -122,7 +123,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return Path.Combine(TemporaryWorkingDirectory, HydraRingFileName.OutputDatabaseFileName);
+                return Path.Combine(TemporaryWorkingDirectory, HydraRingFileConstants.OutputDatabaseFileName);
             }
         }
 
@@ -133,7 +134,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return Path.Combine(hlcdDirectory, HydraRingFileName.HlcdDatabaseFileName);
+                return Path.Combine(hlcdDirectory, HydraRingFileConstants.HlcdDatabaseFileName);
             }
         }
 
@@ -144,7 +145,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return Path.Combine(hydraRingDirectory, HydraRingFileName.HydraRingExecutableFileName);
+                return Path.Combine(hydraRingDirectory, HydraRingFileConstants.HydraRingExecutableFileName);
             }
         }
 
@@ -169,7 +170,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                                                         "outputverbosity     = basic",
                                                         "outputtofile        = file",
                                                         "projectdbfilename   = " + sectionId + databaseFileExtension,
-                                                        "outputfilename      = " + HydraRingFileName.DesignTablesFileName,
+                                                        "outputfilename      = " + HydraRingFileConstants.DesignTablesFileName,
                                                         "configdbfilename    = " + ConfigurationDatabaseFilePath,
                                                         "hydraulicdbfilename = " + HlcdFilePath);
 
@@ -183,7 +184,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             get
             {
-                return Path.Combine(hydraRingDirectory, HydraRingFileName.ConfigurationDatabaseFileName);
+                return Path.Combine(hydraRingDirectory, HydraRingFileConstants.ConfigurationDatabaseFileName);
             }
         }
     }

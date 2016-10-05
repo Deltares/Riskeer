@@ -24,7 +24,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using Ringtoets.HydraRing.Calculation.Data.Output;
-using Ringtoets.HydraRing.Calculation.Services;
+using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
@@ -44,7 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         {
             try
             {
-                using (var streamReader = new StreamReader(Path.Combine(workingDirectory, HydraRingFileName.DesignTablesFileName)))
+                using (var streamReader = new StreamReader(Path.Combine(workingDirectory, HydraRingFileConstants.DesignTablesFileName)))
                 {
                     var fileContents = streamReader.ReadToEnd();
                     var lines = fileContents.Split('\n');

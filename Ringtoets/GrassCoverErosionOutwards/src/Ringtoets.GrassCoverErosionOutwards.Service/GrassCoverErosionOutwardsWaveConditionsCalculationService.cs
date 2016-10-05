@@ -30,10 +30,17 @@ using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Reso
 namespace Ringtoets.GrassCoverErosionOutwards.Service
 {
     /// <summary>
-    /// Service that provides methods for performing Hydra-Ring wave conditions calculations.
+    /// Service that provides methods for performing Hydra-Ring wave conditions calculations for the grass cover erosion outwards failure mechanism.
     /// </summary>
     public class GrassCoverErosionOutwardsWaveConditionsCalculationService : WaveConditionsCalculationServiceBase
     {
+        /// <summary>
+        /// Performs validation over the values on the given <paramref name="calculation"/> and <paramref name="hydraulicBoundaryDatabaseFilePath"/>.
+        /// Error and status information is logged during the execution of the operation.
+        /// </summary>
+        /// <param name="calculation">The <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> for which to validate the values.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
+        /// <returns><c>True</c>c> if there were no validation errors; <c>False</c>c> otherwise.</returns>
         public bool Validate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation, string hydraulicBoundaryDatabaseFilePath)
         {
             return ValidateWaveConditionsInput(
@@ -43,6 +50,17 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                 Resources.GrassCoverErosionOutwardsWaveConditionsCalculationService_LogMessage_DesignWaterLevel_name);
         }
 
+        /// <summary>
+        /// Performs a wave conditions calculation for the grass cover erosion outwards failure mechanism based on the supplied 
+        /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/>  and sets 
+        /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation.Output"/> if the calculation was successful. 
+        /// Error and status information is logged during the execution of the operation.
+        /// </summary>
+        /// <param name="calculation">The <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> that holds all the information required to perform the calculation.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
+        /// <param name="failureMechanism">The grass cover erosion outwards failure mechanism, which contains general parameters that apply to all 
+        /// <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> instances.</param>
+        /// <param name="hlcdFilePath">The path of the HLCD file that should be used for performing the calculation.</param>
         public void Calculate(
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation,
             GrassCoverErosionOutwardsFailureMechanism failureMechanism,

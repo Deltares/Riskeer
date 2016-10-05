@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using System.Linq;
 using log4net;
 using Ringtoets.Common.Service.Properties;
 
@@ -32,50 +30,6 @@ namespace Ringtoets.Common.Service
     public static class CalculationServiceHelper
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(CalculationServiceHelper));
-
-        /// <summary>
-        /// Method for performing validation. Error and status information is logged during
-        /// the execution of the operation.
-        /// </summary>
-        /// <param name="name">The name of the calculation.</param>
-        /// <param name="validationFunc">The method used to perform the validation.</param>
-        /// <returns><c>True</c> if <paramref name="validationFunc"/> has no validation errors; <c>False</c> otherwise.</returns>
-        public static bool PerformValidation(string name, Func<string[]> validationFunc)
-        {
-            LogValidationBeginTime(name);
-
-            var inputValidationResults = validationFunc();
-
-            if (inputValidationResults.Any())
-            {
-                LogMessagesAsError(Resources.Error_in_validation_0, inputValidationResults);
-            }
-
-            LogValidationEndTime(name);
-
-            return !inputValidationResults.Any();
-        }
-
-        /// <summary>
-        /// Method for performing calculations. Error and status information is logged during
-        /// the execution of the operation.
-        /// </summary>
-        /// <param name="name">The name of the calculation.</param>
-        /// <param name="calculationFunc">The method used to perform the calculation.</param>
-        /// <remarks>When <paramref name="calculationFunc"/> throws an exception, this will not be caught in this method.</remarks>
-        public static void PerformCalculation(string name, Action calculationFunc)
-        {
-            LogCalculationBeginTime(name);
-
-            try
-            {
-                calculationFunc();
-            }
-            finally
-            {
-                LogCalculationEndTime(name);
-            }
-        }
 
         /// <summary>
         /// Logs messages as errors.

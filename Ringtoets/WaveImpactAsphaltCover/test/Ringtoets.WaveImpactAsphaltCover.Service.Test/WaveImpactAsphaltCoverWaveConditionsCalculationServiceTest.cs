@@ -275,9 +275,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             {
                 // Call
                 Action call = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                            waveImpactAsphaltCoverFailureMechanism,
-                                                                            assessmentSectionStub,
-                                                                            validFilePath);
+                                                                                                           assessmentSectionStub,
+                                                                                                           waveImpactAsphaltCoverFailureMechanism.GeneralInput,
+                                                                                                           validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -334,9 +334,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             {
                 // Call
                 Action call = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                            waveImpactAsphaltCoverFailureMechanism,
-                                                                            assessmentSectionStub,
-                                                                            validFilePath);
+                                                                                                           assessmentSectionStub,
+                                                                                                           waveImpactAsphaltCoverFailureMechanism.GeneralInput,
+                                                                                                           validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -377,9 +377,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
                 // Call
                 new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                            waveImpactAsphaltCoverFailureMechanism,
-                                                                            assessmentSectionStub,
-                                                                            validFilePath);
+                                                                                       assessmentSectionStub,
+                                                                                       waveImpactAsphaltCoverFailureMechanism.GeneralInput,
+                                                                                       validFilePath);
 
                 // Assert
                 WaveConditionsCosineCalculationInput[] testWaveConditionsInputs = testWaveConditionsCosineCalculator.ReceivedInputs.ToArray();
@@ -429,9 +429,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
                 // Call
                 waveImpactAsphaltCoverWaveConditionsCalculationService.Calculate(calculation,
-                                                                                        waveImpactAsphaltCoverFailureMechanism,
-                                                                                        assessmentSectionStub,
-                                                                                        validFilePath);
+                                                                                 assessmentSectionStub,
+                                                                                 waveImpactAsphaltCoverFailureMechanism.GeneralInput,
+                                                                                 validFilePath);
 
                 // Assert
                 Assert.IsFalse(calculation.HasOutput);
@@ -454,9 +454,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             {
                 // Call
                 new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                            waveImpactAsphaltCoverFailureMechanism,
-                                                                            assessmentSectionStub,
-                                                                            validFilePath);
+                                                                                       assessmentSectionStub,
+                                                                                       waveImpactAsphaltCoverFailureMechanism.GeneralInput,
+                                                                                       validFilePath);
 
                 // Assert
                 Assert.IsNotNull(calculation.Output);
@@ -482,9 +482,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
 
                 // Call
                 TestDelegate test = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                        waveImpactAsphaltCoverFailureMechanism,
-                                                                                        assessmentSectionStub,
-                                                                                        validFilePath);
+                                                                                                                 assessmentSectionStub,
+                                                                                                                 waveImpactAsphaltCoverFailureMechanism.GeneralInput,
+                                                                                                                 validFilePath);
 
                 // Assert
                 Assert.Throws<HydraRingFileParserException>(test);

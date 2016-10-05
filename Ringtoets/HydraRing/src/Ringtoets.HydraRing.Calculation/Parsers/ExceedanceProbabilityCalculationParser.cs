@@ -25,7 +25,7 @@ using System.Data;
 using System.Data.SQLite;
 using System.IO;
 using Ringtoets.HydraRing.Calculation.Data.Output;
-using Ringtoets.HydraRing.Calculation.Services;
+using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
@@ -56,7 +56,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         {
             try
             {
-                Output = DoParse(Path.Combine(workingDirectory, HydraRingFileName.OutputDatabaseFileName), sectionId);
+                Output = DoParse(Path.Combine(workingDirectory, HydraRingFileConstants.OutputDatabaseFileName), sectionId);
             }
             catch
             {

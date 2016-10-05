@@ -58,7 +58,14 @@ namespace Ringtoets.HeightStructures.Service
         /// <returns><c>True</c>c> if <paramref name="calculation"/> has no validation errors; <c>False</c>c> otherwise.</returns>
         public bool Validate(HeightStructuresCalculation calculation, IAssessmentSection assessmentSection)
         {
-            return CalculationServiceHelper.PerformValidation(calculation.Name, () => ValidateInput(calculation.InputParameters, assessmentSection));
+            CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
+
+            var messages = ValidateInput(calculation.InputParameters, assessmentSection);
+            CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
+
+            CalculationServiceHelper.LogValidationEndTime(calculation.Name);
+
+            return !messages.Any();
         }
 
         public void Cancel()
@@ -80,7 +87,6 @@ namespace Ringtoets.HeightStructures.Service
         /// <param name="generalInput">The <see cref="GeneralHeightStructuresInput"/> to create the input with for the calculation.</param>
         /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
         /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
-        /// <returns>A <see cref="ExceedanceProbabilityCalculationOutput"/> on a successful calculation, <c>null</c> otherwise.</returns>
         internal void Calculate(HeightStructuresCalculation calculation,
                                 IAssessmentSection assessmentSection,
                                 FailureMechanismSection failureMechanismSection,
@@ -118,7 +124,7 @@ namespace Ringtoets.HeightStructures.Service
             }
             finally
             {
-                log.InfoFormat("Hoogte kunstwerken berekeningsverslag. Klik op details voor meer informatie.\n{0}", calculator.OutputFileContent);
+                log.InfoFormat(Resources.HeightStructuresCalculationService_Calculate_Calculation_report_Click_details_for_full_report, calculator.OutputFileContent);
                 CalculationServiceHelper.LogCalculationEndTime(calculationName);
             }
         }

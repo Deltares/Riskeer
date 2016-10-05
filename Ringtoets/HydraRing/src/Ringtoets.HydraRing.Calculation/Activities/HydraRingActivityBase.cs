@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Base.Service;
-using Ringtoets.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HydraRing.Calculation.Activities
 {
@@ -29,11 +28,6 @@ namespace Ringtoets.HydraRing.Calculation.Activities
     /// </summary>
     public abstract class HydraRingActivityBase : Activity
     {
-        protected override void OnCancel()
-        {
-            HydraRingCalculationService.CancelRunningCalculation();
-        }
-
         protected override void OnRun()
         {
             if (!Validate())

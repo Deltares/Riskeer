@@ -27,7 +27,7 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 namespace Ringtoets.HydraRing.Calculation.Test.Parsers
 {
     [TestFixture]
-    public class OvertoppingCalculationWaveHeightExceptionParserTest
+    public class OvertoppingCalculationWaveHeightParserTest
     {
         private const int sectionId = 1;
         private readonly string testDataPath = Path.Combine(TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation, "Parsers"), "OvertoppingCalculationWaveHeightParser");

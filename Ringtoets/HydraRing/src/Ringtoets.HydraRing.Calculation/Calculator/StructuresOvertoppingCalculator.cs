@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
@@ -26,10 +27,8 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
-    public class StructuresOvertoppingCalculator : HydraRingCalculatorBase, IStructuresOvertoppingCalculator
+    internal class StructuresOvertoppingCalculator : HydraRingCalculatorBase, IStructuresOvertoppingCalculator
     {
-        private readonly string hlcdDirectory;
-        private readonly string ringId;
         private readonly ExceedanceProbabilityCalculationParser exceedanceProbabilityCalculationParser;
 
         /// <summary>
@@ -37,10 +36,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
         /// <param name="ringId">The id of the traject which is used in the calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
         internal StructuresOvertoppingCalculator(string hlcdDirectory, string ringId)
+            : base(hlcdDirectory, ringId)
         {
-            this.hlcdDirectory = hlcdDirectory;
-            this.ringId = ringId;
             exceedanceProbabilityCalculationParser = new ExceedanceProbabilityCalculationParser();
 
             ExceedanceProbabilityBeta = double.NaN;
@@ -50,7 +49,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
 
         public void Calculate(StructuresOvertoppingCalculationInput input)
         {
-            Calculate(hlcdDirectory, ringId, HydraRingUncertaintiesType.All, input);
+            Calculate(HydraRingUncertaintiesType.All, input);
         }
 
         protected override IEnumerable<IHydraRingFileParser> GetParsers()

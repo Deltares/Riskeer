@@ -49,7 +49,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Activities\HydraRingActivityBase.cs" />
-    <Compile Include="Activities\HydraRingActivity.cs" />
     <Compile Include="Calculator\Factory\HydraRingCalculatorFactory.cs" />
     <Compile Include="Calculator\Factory\IHydraRingCalculatorFactory.cs" />
     <Compile Include="Calculator\StructuresOvertoppingCalculator.cs" />
@@ -114,7 +113,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Providers\HydraulicModelsSettingsProvider.cs" />
-    <Compile Include="Services\HydraRingCalculationService.cs" />
     <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInput.cs" />
     <Compile Include="Data\Input\HydraRingCalculationInput.cs" />
     <Compile Include="IO\NumericsSettingsCsvReader.cs" />
@@ -135,10 +133,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\HydraRingTimeIntegrationSchemeType.cs" />
     <Compile Include="Data\HydraRingUncertaintiesType.cs" />
-    <Compile Include="Services\HydraRingFileName.cs" />
     <Compile Include="Services\HydraRingInitializationService.cs" />
     <Compile Include="Services\HydraRingProcessFactory.cs" />
-    <Compile Include="Services\IHydraRingCalculationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
@@ -150,6 +146,10 @@
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.HydraRing.IO\Ringtoets.HydraRing.IO.csproj">
+      <Project>{b69d5b6c-6e14-4fa9-9ebc-8f97678cdb70}</Project>
+      <Name>Ringtoets.HydraRing.IO</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

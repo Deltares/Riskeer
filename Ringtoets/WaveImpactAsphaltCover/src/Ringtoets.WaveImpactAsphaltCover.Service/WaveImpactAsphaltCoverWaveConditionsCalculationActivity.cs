@@ -89,7 +89,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
         {
             calculationService.OnProgress = UpdateProgressText;
             calculationService.Calculate(
-                calculation, failureMechanism, assessmentSection, hlcdFilePath);
+                calculation, assessmentSection, failureMechanism.GeneralInput, hlcdFilePath);
         }
 
         protected override void OnCancel()

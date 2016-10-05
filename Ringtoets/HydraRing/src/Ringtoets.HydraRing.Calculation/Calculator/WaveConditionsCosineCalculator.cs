@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
@@ -30,10 +31,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// Interface for a calculator which calculates values for a wave at a water level.
     /// These are used in different failure mechanisms as input.
     /// </summary>
-    public class WaveConditionsCosineCalculator : HydraRingCalculatorBase, IWaveConditionsCosineCalculator
+    internal class WaveConditionsCosineCalculator : HydraRingCalculatorBase, IWaveConditionsCosineCalculator
     {
-        private readonly string hlcdDirectory;
-        private readonly string ringId;
         private readonly WaveConditionsCalculationParser waveConditionsCalculationParser;
 
         /// <summary>
@@ -41,10 +40,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the Hydraulic Boundary Database can be found.</param>
         /// <param name="ringId">The id of the traject which is used in the calculation.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
         internal WaveConditionsCosineCalculator(string hlcdDirectory, string ringId)
+            : base(hlcdDirectory, ringId)
         {
-            this.hlcdDirectory = hlcdDirectory;
-            this.ringId = ringId;
             waveConditionsCalculationParser = new WaveConditionsCalculationParser();
 
             WaveHeight = double.NaN;
@@ -58,7 +57,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
 
         public void Calculate(WaveConditionsCosineCalculationInput input)
         {
-            Calculate(hlcdDirectory, ringId, HydraRingUncertaintiesType.All, input);
+            Calculate(HydraRingUncertaintiesType.All, input);
         }
 
         protected override IEnumerable<IHydraRingFileParser> GetParsers()
