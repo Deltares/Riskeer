@@ -59,7 +59,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <param name="flowWidthAtBottomProtectionStandardDeviation">The standard deviation of the flow width of the closing structure at the bottom protection.</param>
         /// <param name="probabilityOpenStructureBeforeFlooding">The probability of the closing structure being open before flooding.</param>
         /// <param name="failureProbablityOpenStructure">The probability of failing to close the closing structure.</param>
-        /// <param name="numberOfIdenticalApertures">The number of identical apertures of the closing structure.</param>
+        /// <param name="identicalApertures">The number of identical apertures of the closing structure.</param>
         /// <param name="failureProbabilityReparation">The probability of failing to repair a failed closure of the closing structure.</param>
         /// <param name="inflowModel">The type of closing structure.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
@@ -79,7 +79,7 @@ namespace Ringtoets.ClosingStructures.Data
                                 double flowWidthAtBottomProtectionMean, double flowWidthAtBottomProtectionStandardDeviation,
                                 double probabilityOpenStructureBeforeFlooding,
                                 double failureProbablityOpenStructure,
-                                int numberOfIdenticalApertures,
+                                int identicalApertures,
                                 double failureProbabilityReparation,
                                 ClosingStructureType inflowModel
             )
@@ -133,7 +133,7 @@ namespace Ringtoets.ClosingStructures.Data
             };
             ProbabilityOpenStructureBeforeFlooding = new RoundedDouble(2, probabilityOpenStructureBeforeFlooding);
             FailureProbablityOpenStructure = new RoundedDouble(2, failureProbablityOpenStructure);
-            NumberOfIdenticalApertures = numberOfIdenticalApertures;
+            IdenticalApertures = identicalApertures;
             FailureProbabilityReparation = new RoundedDouble(2, failureProbabilityReparation);
             InflowModel = inflowModel;
         }
@@ -201,7 +201,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets the number of identical apertures of the closing structure.
         /// </summary>
-        public int NumberOfIdenticalApertures { get; private set; }
+        public int IdenticalApertures { get; private set; }
 
         /// <summary>
         /// Gets the probability of failing to repair a failed closure of the closing structure.

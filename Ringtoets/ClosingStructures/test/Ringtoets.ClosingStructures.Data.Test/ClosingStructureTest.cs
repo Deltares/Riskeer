@@ -128,7 +128,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, structure.FailureProbablityOpenStructure.NumberOfDecimalPlaces);
             Assert.AreEqual(654.32, structure.FailureProbablityOpenStructure.Value);
 
-            Assert.AreEqual(42, structure.NumberOfIdenticalApertures);
+            Assert.AreEqual(42, structure.IdenticalApertures);
 
             Assert.IsInstanceOf<RoundedDouble>(structure.FailureProbabilityReparation);
             Assert.AreEqual(2, structure.FailureProbabilityReparation.NumberOfDecimalPlaces);

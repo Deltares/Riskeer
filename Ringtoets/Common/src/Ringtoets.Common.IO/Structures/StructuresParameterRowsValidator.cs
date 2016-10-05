@@ -104,7 +104,7 @@ namespace Ringtoets.Common.IO.Structures
                     "KW_BETSLUIT12", ProbabilityRule
                 },
                 {
-                    "KW_BETSLUIT13", NumberOfIdenticalApertures
+                    "KW_BETSLUIT13", IdenticalApertures
                 },
                 {
                     "KW_BETSLUIT14", ProbabilityRule
@@ -243,7 +243,7 @@ namespace Ringtoets.Common.IO.Structures
             return messages;
         }
 
-        private static List<string> NumberOfIdenticalApertures(StructuresParameterRow row)
+        private static List<string> IdenticalApertures(StructuresParameterRow row)
         {
             List<string> messages = new List<string>();
             double value = row.NumericalValue;
