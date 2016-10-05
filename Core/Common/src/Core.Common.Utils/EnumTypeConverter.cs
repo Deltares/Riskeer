@@ -59,7 +59,10 @@ namespace Core.Common.Utils
             {
                 return base.ConvertTo(context, culture, value, destinationType);
             }
-            var fieldInfo = EnumType.GetField(value.ToString());
+
+            var fieldInfo = EnumType.IsGenericType && EnumType.GetGenericTypeDefinition() == typeof(Nullable<>) ?
+                                EnumType.GetGenericArguments()[0].GetField(value.ToString()) :
+                                EnumType.GetField(value.ToString());
             return GetDisplayName(fieldInfo);
         }
 

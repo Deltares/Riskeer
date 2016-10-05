@@ -228,7 +228,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         {
             get
             {
-                return new UseBreakWaterProperties(data.WrappedData, UseBreakWaterEnabled);
+                return data.WrappedData.ForeshoreProfile == null ?
+                           new UseBreakWaterProperties(null) :
+                           new UseBreakWaterProperties(data.WrappedData);
             }
         }
 
@@ -295,11 +297,6 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         public virtual IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
         {
             return data.ForeshoreProfiles;
-        }
-
-        private bool UseBreakWaterEnabled()
-        {
-            return data.WrappedData.ForeshoreProfile != null;
         }
     }
 }

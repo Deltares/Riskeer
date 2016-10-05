@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
@@ -28,6 +27,7 @@ using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.Properties;
+using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
@@ -40,26 +40,15 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         private const int breakWaterTypePropertyIndex = 2;
         private const int breakWaterHeightPropertyIndex = 3;
         private readonly IUseBreakWater data;
-        private readonly Func<bool> useBreakWaterEnabled;
 
         /// <summary>
         /// Creates a new instance of <see cref="UseBreakWaterProperties"/>.
         /// </summary>
-        /// <param name="useBreakWaterData">The data to use for the properties.</param>
-        /// <param name="useBreakWaterEnabled">Function to check if <see cref="UseBreakWater"/> should be read-only or not.</param>
-        /// <exception cref="ArgumentNullException">Thrown if any of the input parameters is <c>null</c>.</exception>
-        public UseBreakWaterProperties(IUseBreakWater useBreakWaterData, Func<bool> useBreakWaterEnabled)
+        /// <param name="useBreakWaterData">The data to use for the properties. If <paramref name="useBreakWaterData"/> 
+        /// is <c>null</c>, all properties will be set to <see cref="ReadOnlyAttribute"/>.</param>
+        public UseBreakWaterProperties(IUseBreakWater useBreakWaterData)
         {
-            if (useBreakWaterData == null)
-            {
-                throw new ArgumentNullException("useBreakWaterData");
-            }
-            if (useBreakWaterEnabled == null)
-            {
-                throw new ArgumentNullException("useBreakWaterEnabled");
-            }
             data = useBreakWaterData;
-            this.useBreakWaterEnabled = useBreakWaterEnabled;
         }
 
         [DynamicReadOnly]
@@ -70,7 +59,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.UseBreakWater;
+                return data != null && data.UseBreakWater;
             }
             set
             {
@@ -84,16 +73,23 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesDisplayName(typeof(Resources), "BreakWaterType_DisplayName")]
         [ResourcesDescription(typeof(Resources), "BreakWaterType_Description")]
         [TypeConverter(typeof(EnumTypeConverter))]
-        public BreakWaterType BreakWaterType
+        public BreakWaterType? BreakWaterType
         {
             get
             {
-                return data.BreakWater == null ? BreakWaterType.Dam : data.BreakWater.Type;
+                if (data != null && data.BreakWater != null)
+                {
+                    return data.BreakWater.Type;
+                }
+                return null;
             }
             set
             {
-                data.BreakWater.Type = value;
-                data.NotifyObservers();
+                if (value.HasValue)
+                {
+                    data.BreakWater.Type = value.Value;
+                    data.NotifyObservers();
+                }
             }
         }
 
@@ -101,12 +97,16 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [PropertyOrder(breakWaterHeightPropertyIndex)]
         [ResourcesDisplayName(typeof(Resources), "BreakWaterHeight_DisplayName")]
         [ResourcesDescription(typeof(Resources), "BreakWaterHeight_Description")]
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble BreakWaterHeight
         {
             get
             {
-                return data.BreakWater == null ? (RoundedDouble) double.NaN
-                           : data.BreakWater.Height;
+                if (data != null && data.BreakWater != null)
+                {
+                    return data.BreakWater.Height;
+                }
+                return (RoundedDouble) double.NaN;
             }
             set
             {
@@ -118,7 +118,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            return !useBreakWaterEnabled()
+            return data == null
                    || !propertyName.Equals(TypeUtils.GetMemberName<UseBreakWaterProperties>(i => i.UseBreakWater))
                    && !UseBreakWater;
         }

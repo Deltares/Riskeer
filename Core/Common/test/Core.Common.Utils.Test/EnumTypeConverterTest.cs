@@ -134,7 +134,37 @@ namespace Core.Common.Utils.Test
             var result = converter.ConvertTo(enumValue, typeof(string));
 
             // Assert
-            var expectedText = "<first>";
+            const string expectedText = "<first>";
+            Assert.AreEqual(expectedText, result);
+        }
+
+        [Test]
+        public void ConvertTo_FromNullableToString_ReturnsExpectedEnumDisplayName()
+        {
+            // Setup
+            SimpleEnum? enumValue = SimpleEnum.FirstValue;
+            var converter = new EnumTypeConverter(typeof(SimpleEnum?));
+
+            // Call
+            var result = converter.ConvertTo(enumValue, typeof(string));
+
+            // Assert
+            const string expectedText = "<first>";
+            Assert.AreEqual(expectedText, result);
+        }
+
+        [Test]
+        public void ConvertTo_FromNullableWithNullValue_ReturnsEmptyDisplayName()
+        {
+            // Setup
+            SimpleEnum? enumValue = null;
+            var converter = new EnumTypeConverter(typeof(SimpleEnum?));
+
+            // Call
+            var result = converter.ConvertTo(enumValue, typeof(string));
+
+            // Assert
+            string expectedText = string.Empty;
             Assert.AreEqual(expectedText, result);
         }
 

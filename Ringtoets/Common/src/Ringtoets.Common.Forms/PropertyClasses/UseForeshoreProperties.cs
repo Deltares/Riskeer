@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -43,14 +42,10 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="UseForeshoreProperties"/>.
         /// </summary>
-        /// <param name="useForshoreData">The data to use for the properties.</param>
-        /// <exception cref="ArgumentNullException">Thrown if any of <paramref name="useForshoreData"/> is <c>null</c>.</exception>
+        /// <param name="useForshoreData">The data to use for the properties. If <paramref name="useForshoreData"/> 
+        /// is <c>null</c>, all properties will be set to <see cref="ReadOnlyAttribute"/>.</param>
         public UseForeshoreProperties(IUseForeshore useForshoreData)
         {
-            if (useForshoreData == null)
-            {
-                throw new ArgumentNullException("useForshoreData");
-            }
             data = useForshoreData;
         }
 
@@ -62,7 +57,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.UseForeshore;
+                return data != null && data.UseForeshore;
             }
             set
             {
@@ -79,14 +74,16 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.ForeshoreGeometry == null ? new Point2D[0] : data.ForeshoreGeometry.ToArray();
+                return data != null && data.ForeshoreGeometry != null ?
+                           data.ForeshoreGeometry.ToArray() :
+                           null;
             }
         }
 
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            return data.ForeshoreGeometry == null || data.ForeshoreGeometry.Count() < 2;
+            return data == null || data.ForeshoreGeometry == null || data.ForeshoreGeometry.Count() < 2;
         }
 
         public override string ToString()

@@ -37,18 +37,19 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     public class UseForeshorePropertiesTest
     {
         [Test]
-        public void Constructor_IUseForeshoreNullThrowsArgumentNullException()
+        public void Constructor_IUseForeshoreNull_ExpectedValues()
         {
             // Setup & Call
-            TestDelegate test = () => new UseForeshoreProperties(null);
+            var properties = new UseForeshoreProperties(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("useForshoreData", paramName);
+            Assert.IsFalse(properties.UseForeshore);
+            Assert.IsNull(properties.Coordinates);
+            Assert.AreEqual(string.Empty, properties.ToString());
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_ValidData_ExpectedValues()
         {
             // Setup
             var useForshoreData = new TestUseForeshore();
@@ -58,7 +59,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsFalse(properties.UseForeshore);
-            Assert.IsEmpty(properties.Coordinates);
+            Assert.IsNull(properties.Coordinates);
             Assert.AreEqual(string.Empty, properties.ToString());
         }
 
@@ -81,7 +82,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(properties.UseForeshore);
-            Assert.AreEqual(geometry,properties.Coordinates);
+            Assert.AreEqual(geometry, properties.Coordinates);
         }
 
         [Test]
@@ -120,7 +121,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Call
             var properties = new UseForeshoreProperties(useForshoreData);
-            
+
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]

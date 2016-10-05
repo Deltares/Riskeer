@@ -320,13 +320,10 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new UseBreakWaterProperties(data.WrappedData, UseBreakWaterEnabled);
+                return data.WrappedData.ForeshoreProfile == null ?
+                           new UseBreakWaterProperties(null) :
+                           new UseBreakWaterProperties(data.WrappedData);
             }
-        }
-
-        private bool UseBreakWaterEnabled()
-        {
-            return data.WrappedData.ForeshoreProfile != null;
         }
 
         [PropertyOrder(foreshoreGeometryPropertyIndex)]

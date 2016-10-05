@@ -35,43 +35,31 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
     public class UseBreakWaterPropertiesTest
     {
         [Test]
-        public void Constructor_IBreakWaterNullThrowsArgumentNullException()
+        public void Constructor_IBreakWaterNull_ExpectedValues()
         {
             // Setup & Call
-            TestDelegate test = () => new UseBreakWaterProperties(null, () => true);
-
-            // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("useBreakWaterData", paramName);
-        }
-        
-        [Test]
-        public void Constructor_UseBreakWaterEnabledNullThrowsArgumentNullException()
-        {
-            // Setup
-            var useBreakWaterData = new TestUseBreakWater();
-            
-            // Call
-            TestDelegate test = () => new UseBreakWaterProperties(useBreakWaterData, null);
-
-            // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("useBreakWaterEnabled", paramName);
-        }
-
-        [Test]
-        public void Constructor_ExpectedValues()
-        {
-            // Setup
-            var useBreakWaterData = new TestUseBreakWater();
-
-            // Call
-            var properties = new UseBreakWaterProperties(useBreakWaterData, () => true);
+            var properties = new UseBreakWaterProperties(null);
 
             // Assert
             Assert.IsFalse(properties.UseBreakWater);
-            Assert.AreEqual(BreakWaterType.Dam, properties.BreakWaterType);
-            Assert.AreEqual((RoundedDouble)double.NaN,properties.BreakWaterHeight);
+            Assert.IsNull(properties.BreakWaterType);
+            Assert.AreEqual((RoundedDouble) double.NaN, properties.BreakWaterHeight);
+            Assert.AreEqual(string.Empty, properties.ToString());
+        }
+
+        [Test]
+        public void Constructor_ValidData_ExpectedValues()
+        {
+            // Setup
+            var useBreakWaterData = new TestUseBreakWater();
+
+            // Call
+            var properties = new UseBreakWaterProperties(useBreakWaterData);
+
+            // Assert
+            Assert.IsFalse(properties.UseBreakWater);
+            Assert.IsNull(properties.BreakWaterType);
+            Assert.AreEqual((RoundedDouble) double.NaN, properties.BreakWaterHeight);
             Assert.AreEqual(string.Empty, properties.ToString());
         }
 
@@ -89,14 +77,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             {
                 BreakWater = breakWater
             };
-            var properties = new UseBreakWaterProperties(testUseBreakWater, ()=>true);
+            var properties = new UseBreakWaterProperties(testUseBreakWater);
 
             testUseBreakWater.Attach(observerMock);
 
             // Call
             properties.UseBreakWater = true;
             properties.BreakWaterType = BreakWaterType.Dam;
-            properties.BreakWaterHeight=(RoundedDouble)1.1;
+            properties.BreakWaterHeight = (RoundedDouble) 1.1;
 
             // Assert
             Assert.IsTrue(properties.UseBreakWater);
@@ -111,10 +99,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void PropertyAttributes_UseBreakWater_ReturnExpectedValues(bool useBreakWater, bool useBreakWaterEnabled)
         {
             // Setup
-            var testUseBreakWater = new TestUseBreakWater { UseBreakWater = useBreakWater };
+            TestUseBreakWater testUseBreakWater = useBreakWaterEnabled ? new TestUseBreakWater
+            {
+                UseBreakWater = useBreakWater
+            } : null;
 
             // Call
-            var properties = new UseBreakWaterProperties(testUseBreakWater, () => useBreakWaterEnabled);
+            var properties = new UseBreakWaterProperties(testUseBreakWater);
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);

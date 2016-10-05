@@ -115,7 +115,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return new UseBreakWaterProperties(data.WrappedData, UseBreakWaterEnabled);
+                return data.WrappedData.DikeProfile == null ?
+                           new UseBreakWaterProperties(null) :
+                           new UseBreakWaterProperties(data.WrappedData);
             }
         }
 
@@ -231,11 +233,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
         {
             return data.AvailableHydraulicBoundaryLocations;
-        }
-
-        private bool UseBreakWaterEnabled()
-        {
-            return data.WrappedData.DikeProfile != null;
         }
     }
 }
