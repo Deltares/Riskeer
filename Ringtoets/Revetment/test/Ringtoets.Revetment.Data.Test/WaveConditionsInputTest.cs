@@ -289,7 +289,8 @@ namespace Ringtoets.Revetment.Data.Test
             // Call
             input.Orientation = (RoundedDouble) orientation;
 
-            // Assert
+            //Assert
+            Assert.AreEqual(2, input.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(orientation, input.Orientation, input.Orientation.GetAccuracy());
         }
 

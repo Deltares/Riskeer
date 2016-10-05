@@ -205,7 +205,7 @@ namespace Ringtoets.HeightStructures.Data
             {
                 if (double.IsNaN(value))
                 {
-                    structureNormalOrientation = (RoundedDouble) double.NaN;
+                    structureNormalOrientation = new RoundedDouble(2, double.NaN);
                     return;
                 }
 

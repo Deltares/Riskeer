@@ -363,7 +363,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (double.IsNaN(value))
                 {
-                    structureNormalOrientation = (RoundedDouble) double.NaN;
+                    structureNormalOrientation = new RoundedDouble(2, double.NaN);
                     return;
                 }
 

@@ -111,7 +111,7 @@ namespace Ringtoets.Revetment.Data
             {
                 if (double.IsNaN(value))
                 {
-                    orientation = (RoundedDouble)double.NaN;
+                    orientation = new RoundedDouble(2, double.NaN);
                     return;
                 }
 
