@@ -153,7 +153,8 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 1].",
                 "De waarde op regel -1, kolom 18 is ongeldig.",
                 "De waarde op regel -1, kolom 20 is ongeldig.",
-                "De waarde op regel -1, kolom 19 is ongeldig."
+                "De waarde op regel -1, kolom 19 is ongeldig.",
+                "De waarde op regel -1, kolom 18 is ongeldig."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
         }

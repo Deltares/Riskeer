@@ -33,18 +33,18 @@ namespace Ringtoets.ClosingStructures.Data
         /// A vertical wall.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), "ClosingStructureType_VerticalWall_DisplayName")]
-        VerticalWall = 1,
+        VerticalWall,
 
         /// <summary>
         /// A low sill structure.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), "ClosingStructureType_LowSill_DisplayName")]
-        LowSill = 2,
+        LowSill,
 
         /// <summary>
         /// A flooded culvert structure.
         /// </summary>
         [ResourcesDisplayName(typeof(Resources), "ClosingStructureType_FloodedCulvert_DisplayName")]
-        FloodedCulvert = 3
+        FloodedCulvert
     }
 }

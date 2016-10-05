@@ -65,5 +65,80 @@ namespace Ringtoets.Common.IO.Structures
         /// The eighth height structure parameter keyword.
         /// </summary>
         public const string HeightStructureParameterKeyword8 = "KW_HOOGTE8";
+
+        /// <summary>
+        /// The first closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword1 = "KW_HOOGTE1";
+
+        /// <summary>
+        /// The second closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword2 = "KW_HOOGTE2";
+
+        /// <summary>
+        /// The third closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword3 = "KW_HOOGTE3";
+
+        /// <summary>
+        /// The fourth closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword4 = "KW_HOOGTE4";
+
+        /// <summary>
+        /// The fifth closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword5 = "KW_HOOGTE5";
+
+        /// <summary>
+        /// The sixth closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword6 = "KW_HOOGTE6";
+
+        /// <summary>
+        /// The seventh closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword7 = "KW_HOOGTE7";
+
+        /// <summary>
+        /// The eighth closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword8 = "KW_HOOGTE8";
+
+        /// <summary>
+        /// The ninth closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword9 = "KW_HOOGTE9";
+
+        /// <summary>
+        /// The tenth closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword10 = "KW_HOOGTE10";
+
+        /// <summary>
+        /// The eleventh closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword11 = "KW_HOOGTE11";
+
+        /// <summary>
+        /// The twelfth closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword12 = "KW_HOOGTE12";
+
+        /// <summary>
+        /// The thirteenth closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword13 = "KW_HOOGTE13";
+
+        /// <summary>
+        /// The fourteenth closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword14 = "KW_HOOGTE14";
+
+        /// <summary>
+        /// The fifteenth closing structure parameter keyword.
+        /// </summary>
+        public const string ClosingStructureParameterKeyword15 = "KW_HOOGTE15";
     }
 }

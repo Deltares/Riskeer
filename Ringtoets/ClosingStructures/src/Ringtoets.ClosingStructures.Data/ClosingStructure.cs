@@ -81,7 +81,7 @@ namespace Ringtoets.ClosingStructures.Data
                                 double failureProbablityOpenStructure,
                                 int numberOfIdenticalApertures,
                                 double failureProbabilityReparation,
-                                int inflowModel
+                                ClosingStructureType inflowModel
             )
             : base(name, id, location)
         {
@@ -211,6 +211,6 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets the type of closing structure.
         /// </summary>
-        public int InflowModel { get; private set; }
+        public ClosingStructureType InflowModel { get; private set; }
     }
 }

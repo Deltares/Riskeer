@@ -42,25 +42,25 @@ namespace Ringtoets.Common.IO.Structures
                     "KW_HOOGTE1", StructureNormalOrientation
                 },
                 {
-                    "KW_HOOGTE2", DistributionRule
+                    "KW_HOOGTE2", NormalDistributionRule
                 },
                 {
-                    "KW_HOOGTE3", DistributionRule
+                    "KW_HOOGTE3", LogNormalDistributionRule
                 },
                 {
-                    "KW_HOOGTE4", DistributionRule
+                    "KW_HOOGTE4", LogNormalDistributionRule
                 },
                 {
-                    "KW_HOOGTE5", DistributionRule
+                    "KW_HOOGTE5", NormalDistributionRule
                 },
                 {
                     "KW_HOOGTE6", ProbabilityRule
                 },
                 {
-                    "KW_HOOGTE7", DistributionRule
+                    "KW_HOOGTE7", LogNormalDistributionRule
                 },
                 {
-                    "KW_HOOGTE8", DistributionRule
+                    "KW_HOOGTE8", LogNormalDistributionRule
                 }
             };
 
@@ -68,34 +68,34 @@ namespace Ringtoets.Common.IO.Structures
             new Dictionary<string, Func<StructuresParameterRow, List<string>>>
             {
                 {
-                    "KW_BETSLUIT1", DistributionRule
+                    "KW_BETSLUIT1", LogNormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT2", DistributionRule
+                    "KW_BETSLUIT2", LogNormalDistributionRule
                 },
                 {
                     "KW_BETSLUIT3", StructureNormalOrientation
                 },
                 {
-                    "KW_BETSLUIT4", DistributionRule
+                    "KW_BETSLUIT4", NormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT5", DistributionRule
+                    "KW_BETSLUIT5", NormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT6", DistributionRule
+                    "KW_BETSLUIT6", NormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT7", DistributionRule
+                    "KW_BETSLUIT7", NormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT8", DistributionRule
+                    "KW_BETSLUIT8", LogNormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT9", DistributionRule
+                    "KW_BETSLUIT9", LogNormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT10", DistributionRule
+                    "KW_BETSLUIT10", LogNormalDistributionRule
                 },
                 {
                     "KW_BETSLUIT11", ProbabilityRule
@@ -180,12 +180,37 @@ namespace Ringtoets.Common.IO.Structures
             return messages;
         }
 
-        private static List<string> DistributionRule(StructuresParameterRow row)
+        private static List<string> NormalDistributionRule(StructuresParameterRow row)
         {
             List<string> messages = new List<string>();
 
             double mean = row.NumericalValue;
             if (double.IsNaN(mean) || double.IsInfinity(mean))
+            {
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, numericalValueColumn));
+            }
+
+            VarianceType type = row.VarianceType;
+            if (type != VarianceType.StandardDeviation && type != VarianceType.CoefficientOfVariation)
+            {
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, varianceTypeColumn));
+            }
+
+            double variance = row.VarianceValue;
+            if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0)
+            {
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, varianceValueColumn));
+            }
+
+            return messages;
+        }
+
+        private static List<string> LogNormalDistributionRule(StructuresParameterRow row)
+        {
+            List<string> messages = new List<string>();
+
+            double mean = row.NumericalValue;
+            if (double.IsNaN(mean) || double.IsInfinity(mean) || mean <= 0)
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, numericalValueColumn));
             }

@@ -52,7 +52,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                                                  654.321,
                                                  42,
                                                  987.654,
-                                                 1);
+                                                 ClosingStructureType.LowSill);
 
             // Assert
             Assert.IsInstanceOf<StructureBase>(structure);
@@ -134,7 +134,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, structure.FailureProbabilityReparation.NumberOfDecimalPlaces);
             Assert.AreEqual(987.65, structure.FailureProbabilityReparation.Value);
 
-            Assert.AreEqual(1, structure.InflowModel);
+            Assert.AreEqual(ClosingStructureType.LowSill, structure.InflowModel);
         }
     }
 }
