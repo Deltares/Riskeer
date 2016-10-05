@@ -78,7 +78,9 @@
     <Compile Include="PresentationObjects\HeightStructuresInputContextTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructureTreeNodeInfoTest.cs" />
+    <Compile Include="UITypeEditors\HeightStructuresInputContextForeshoreProfileEditorTest.cs" />
     <Compile Include="UITypeEditors\HeightStructuresInputContextHydraulicBoundaryLocationEditorTest.cs" />
+    <Compile Include="UITypeEditors\HeightStructuresInputContextStructureEditorTest.cs" />
     <Compile Include="Views\HeightStructuresFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\HeightStructuresFailureMechanismSectionResultRowTest.cs" />
   </ItemGroup>

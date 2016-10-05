@@ -56,7 +56,9 @@
     <Compile Include="PropertyClasses\HeightStructureProperties.cs" />
     <Compile Include="PropertyClasses\HeightStructuresFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\HeightStructuresInputContextProperties.cs" />
+    <Compile Include="UITypeEditors\HeightStructuresInputContextForeshoreProfileEditor.cs" />
     <Compile Include="UITypeEditors\HeightStructuresInputContextHydraulicBoundaryLocationEditor.cs" />
+    <Compile Include="UITypeEditors\HeightStructuresInputContextStructureEditor.cs" />
     <Compile Include="Views\HeightStructuresFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>

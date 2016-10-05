@@ -72,5 +72,10 @@ namespace Ringtoets.Common.Data
         /// Gets the location of the structure.
         /// </summary>
         public Point2D Location { get; private set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

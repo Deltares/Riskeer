@@ -79,6 +79,8 @@
     <Compile Include="PropertyClasses\ForeshoreGeometryPropertiesTest.cs" />
     <Compile Include="PropertyClasses\DistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ForeshoreProfilePropertiesTest.cs" />
+    <Compile Include="PropertyClasses\UseBreakWaterPropertiesTest.cs" />
+    <Compile Include="PropertyClasses\UseForeshorePropertiesTest.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionVariationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\NormalDistributionVariationPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ProbabilityAssessmentOutputPropertiesTest.cs" />

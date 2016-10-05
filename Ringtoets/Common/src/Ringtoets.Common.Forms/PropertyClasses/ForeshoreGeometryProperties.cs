@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Converters;
 using Core.Common.Gui.PropertyBag;
@@ -42,13 +44,20 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         {
             get
             {
-                return data.Geometry.ToArray();
+                return GetFormattedCoordinates().ToArray();
             }
         }
 
         public override string ToString()
         {
             return string.Empty;
+        }
+
+        private IEnumerable<Point2D> GetFormattedCoordinates()
+        {
+            return data.Geometry.Select(geometry => new Point2D(
+                                                        new RoundedDouble(0, geometry.X),
+                                                        new RoundedDouble(0, geometry.Y)));
         }
     }
 }

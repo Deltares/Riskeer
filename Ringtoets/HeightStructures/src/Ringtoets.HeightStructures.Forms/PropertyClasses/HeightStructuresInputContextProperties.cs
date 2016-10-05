@@ -24,9 +24,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
@@ -44,17 +46,22 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
     /// </summary>
     public class HeightStructuresInputContextProperties : ObjectProperties<HeightStructuresInputContext>
     {
-        private const int structureNormalOrientationPropertyIndex = 1;
-        private const int levelCrestStructurePropertyIndex = 2;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 3;
-        private const int storageStructureAreaPropertyIndex = 4;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 5;
-        private const int widthFlowAperturesPropertyIndex = 6;
-        private const int criticalOvertoppingDischargePropertyIndex = 7;
-        private const int failureProbabilityStructureWithErosionPropertyIndex = 8;
-        private const int modelFactorSuperCriticalFlowPropertyIndex = 9;
-        private const int hydraulicBoundaryLocationPropertyIndex = 10;
-        private const int stormDurationPropertyIndex = 11;
+        private const int heightStructurePropertyIndex = 1;
+        private const int heightStructureLocationPropertyIndex = 2;
+        private const int structureNormalOrientationPropertyIndex = 3;
+        private const int levelCrestStructurePropertyIndex = 4;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 5;
+        private const int storageStructureAreaPropertyIndex = 6;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 7;
+        private const int widthFlowAperturesPropertyIndex = 8;
+        private const int criticalOvertoppingDischargePropertyIndex = 9;
+        private const int failureProbabilityStructureWithErosionPropertyIndex = 10;
+        private const int foreshoreProfilePropertyIndex = 11;
+        private const int breakWaterPropertyIndex = 12;
+        private const int foreshoreGeometryPropertyIndex = 13;
+        private const int modelFactorSuperCriticalFlowPropertyIndex = 14;
+        private const int hydraulicBoundaryLocationPropertyIndex = 15;
+        private const int stormDurationPropertyIndex = 16;
 
         #region Model settings
 
@@ -78,14 +85,68 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         /// <summary>
         /// Returns the available hydraulic boundary locations in order for the user to select one to 
-        /// set <see cref="HeightStructuresInput.HydraulicBoundaryLocation"/>.</summary>
+        /// set <see cref="HeightStructuresInput.HydraulicBoundaryLocation"/>.
+        /// </summary>
         /// <returns>The available hydraulic boundary locations.</returns>
         public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
         {
             return data.AvailableHydraulicBoundaryLocations;
         }
 
+        /// <summary>
+        /// Returns the available height structures in order for the user to select one to 
+        /// set <see cref="HeightStructuresInput.HeightStructure"/>.
+        /// </summary>
+        /// <returns>The available height structures.</returns>
+        public IEnumerable<HeightStructure> GetAvailableHeightStructures()
+        {
+            return data.FailureMechanism.HeightStructures;
+        }
+
+        /// <summary>
+        /// Returns the available foreshore profiles in order for the user to select one to 
+        /// set <see cref="HeightStructuresInput.ForeshoreProfile"/>.
+        /// </summary>
+        /// <returns>The available foreshore profiles.</returns>
+        public IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
+        {
+            return data.FailureMechanism.ForeshoreProfiles;
+        }
+
         #region Schematisation
+
+        [PropertyOrder(heightStructurePropertyIndex)]
+        [Editor(typeof(HeightStructuresInputContextStructureEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_Description")]
+        public HeightStructure HeightStructure
+        {
+            get
+            {
+                return data.WrappedData.HeightStructure;
+            }
+            set
+            {
+                data.WrappedData.HeightStructure = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(heightStructureLocationPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "HeightStructure_Location_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HeightStructure_Location_Description")]
+        public Point2D HeightStructureLocation
+        {
+            get
+            {
+                return data.WrappedData.HeightStructure == null ? null :
+                           new Point2D(
+                               new RoundedDouble(0, data.WrappedData.HeightStructure.Location.X),
+                               new RoundedDouble(0, data.WrappedData.HeightStructure.Location.Y));
+            }
+        }
 
         [PropertyOrder(structureNormalOrientationPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -229,6 +290,55 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
                     throw new ArgumentException(Resources.FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value);
                 }
                 data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(foreshoreProfilePropertyIndex)]
+        [Editor(typeof(HeightStructuresInputContextForeshoreProfileEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "ForeshoreProfile_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "ForeshoreProfile_Description")]
+        public ForeshoreProfile ForeshoreProfile
+        {
+            get
+            {
+                return data.WrappedData.ForeshoreProfile;
+            }
+            set
+            {
+                data.WrappedData.ForeshoreProfile = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(breakWaterPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "BreakWaterProperties_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "BreakWaterProperties_Description")]
+        public UseBreakWaterProperties BreakWater
+        {
+            get
+            {
+                return new UseBreakWaterProperties(data.WrappedData, UseBreakWaterEnabled);
+            }
+        }
+
+        private bool UseBreakWaterEnabled()
+        {
+            return data.WrappedData.ForeshoreProfile != null;
+        }
+
+        [PropertyOrder(foreshoreGeometryPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "ForeshoreProperties_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "ForeshoreProperties_Description")]
+        public UseForeshoreProperties ForeshoreGeometry
+        {
+            get
+            {
+                return new UseForeshoreProperties(data.WrappedData);
             }
         }
 

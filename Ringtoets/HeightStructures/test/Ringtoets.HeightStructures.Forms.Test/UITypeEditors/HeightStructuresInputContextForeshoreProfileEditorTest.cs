@@ -21,21 +21,23 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms.Design;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
-using Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Forms.PresentationObjects;
+using Ringtoets.HeightStructures.Forms.PropertyClasses;
+using Ringtoets.HeightStructures.Forms.UITypeEditors;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
+namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditorTest
+    public class HeightStructuresInputContextForeshoreProfileEditorTest
     {
         private MockRepository mockRepository;
 
@@ -49,25 +51,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
         public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput();
-            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            var inputContext = new GrassCoverErosionInwardsInputContext(grassCoverErosionInwardsInput,
-                                                                        grassCoverErosionInwardsCalculation,
-                                                                        failureMechanism,
-                                                                        assessmentSectionMock);
+            var foreshoreProfile = new TestForeshoreProfile();
+            var inputContext = new HeightStructuresInputContext(
+                new HeightStructuresInput(),
+                new HeightStructuresFailureMechanism
+                {
+                    ForeshoreProfiles =
+                    {
+                        foreshoreProfile
+                    }
+                },
+                assessmentSectionMock);
 
-            var properties = new GrassCoverErosionInwardsInputContextProperties
+            var properties = new HeightStructuresInputContextProperties
             {
                 Data = inputContext
             };
-            var editor = new GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditor();
+
             var propertyBag = new DynamicPropertyBag(properties);
 
             var serviceProviderMock = mockRepository.Stub<IServiceProvider>();
@@ -77,6 +78,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             descriptorContextMock.Stub(c => c.Instance).Return(propertyBag);
             mockRepository.ReplayAll();
 
+            var editor = new HeightStructuresInputContextForeshoreProfileEditor();
             var someValue = new object();
 
             // Call
@@ -84,7 +86,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
 
             // Assert
             Assert.AreSame(someValue, result);
-
             mockRepository.VerifyAll();
         }
 
@@ -92,29 +93,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var hydraulicBoundaryLocation = new TestHydraulicBoundaryLocation();
-            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var grassCoverErosionInwardsInput = new GrassCoverErosionInwardsInput
-            {
-                HydraulicBoundaryLocation = hydraulicBoundaryLocation
-            };
-            var grassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            var inputContext = new GrassCoverErosionInwardsInputContext(grassCoverErosionInwardsInput,
-                                                                        grassCoverErosionInwardsCalculation,
-                                                                        failureMechanism,
-                                                                        assessmentSectionMock);
+            var foreshoreProfile = new TestForeshoreProfile();
+            var inputContext = new HeightStructuresInputContext(
+                new HeightStructuresInput
+                {
+                    ForeshoreProfile = foreshoreProfile
+                },
+                new HeightStructuresFailureMechanism
+                {
+                    ForeshoreProfiles =
+                    {
+                        foreshoreProfile
+                    }
+                },
+                assessmentSectionMock);
 
-            var properties = new GrassCoverErosionInwardsInputContextProperties
+            var properties = new HeightStructuresInputContextProperties
             {
                 Data = inputContext
             };
-            var editor = new GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditor();
+
             var propertyBag = new DynamicPropertyBag(properties);
 
             var serviceProviderMock = mockRepository.Stub<IServiceProvider>();
@@ -124,20 +123,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.UITypeEditors
             descriptorContextMock.Stub(c => c.Instance).Return(propertyBag);
             mockRepository.ReplayAll();
 
+            var editor = new HeightStructuresInputContextForeshoreProfileEditor();
             var someValue = new object();
 
             // Call
             var result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
 
             // Assert
-            Assert.AreSame(hydraulicBoundaryLocation, result);
-
+            Assert.AreSame(foreshoreProfile, result);
             mockRepository.VerifyAll();
         }
 
-        private class TestHydraulicBoundaryLocation : HydraulicBoundaryLocation
+        private class TestForeshoreProfile : ForeshoreProfile
         {
-            public TestHydraulicBoundaryLocation() : base(0, string.Empty, 0, 0) {}
+            public TestForeshoreProfile() : base(new Point2D(0, 0), Enumerable.Empty<Point2D>(),
+                                                 null, new ConstructionProperties()) {}
         }
     }
 }

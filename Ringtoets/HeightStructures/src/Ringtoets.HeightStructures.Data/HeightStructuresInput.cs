@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -32,7 +35,7 @@ namespace Ringtoets.HeightStructures.Data
     /// <summary>
     /// Class that holds all height structures calculation specific input parameters.
     /// </summary>
-    public class HeightStructuresInput : Observable, ICalculationInput
+    public class HeightStructuresInput : Observable, ICalculationInput, IUseBreakWater, IUseForeshore
     {
         private readonly NormalDistribution levelCrestStructure;
         private readonly NormalDistribution modelFactorSuperCriticalFlow;
@@ -45,6 +48,8 @@ namespace Ringtoets.HeightStructures.Data
         private RoundedDouble structureNormalOrientation;
         private RoundedDouble deviationWaveDirection;
         private double failureProbabilityStructureWithErosion;
+        private ForeshoreProfile foreshoreProfile;
+        private HeightStructure heightStructure;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresInput"/> class.
@@ -102,6 +107,9 @@ namespace Ringtoets.HeightStructures.Data
                 Mean = (RoundedDouble) 6.0
             };
             stormDuration.SetStandardDeviationFromVariationCoefficient(0.25);
+
+            UpdateHeightStructureProperties();
+            UpdateForeshoreProperties();
         }
 
         #region Model Factors
@@ -322,6 +330,94 @@ namespace Ringtoets.HeightStructures.Data
                 widthFlowApertures.Mean = value.Mean;
                 widthFlowApertures.StandardDeviation = value.StandardDeviation;
             }
+        }
+
+        /// <summary>
+        /// Gets or sets the height structure.
+        /// </summary>
+        public HeightStructure HeightStructure
+        {
+            get
+            {
+                return heightStructure;
+            }
+            set
+            {
+                heightStructure = value;
+                UpdateHeightStructureProperties();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the foreshore profile.
+        /// </summary>
+        public ForeshoreProfile ForeshoreProfile
+        {
+            get
+            {
+                return foreshoreProfile;
+            }
+            set
+            {
+                foreshoreProfile = value;
+                UpdateForeshoreProperties();
+            }
+        }
+
+        public bool UseBreakWater { get; set; }
+
+        
+        public bool UseForeshore { get; set; }
+
+        public RoundedPoint2DCollection ForeshoreGeometry
+        {
+            get
+            {
+                return foreshoreProfile != null
+                           ? foreshoreProfile.Geometry
+                           : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
+            }
+        }
+
+        
+        public BreakWater BreakWater { get; private set; }
+
+        private void UpdateHeightStructureProperties()
+        {
+            if (heightStructure != null)
+            {
+                StructureNormalOrientation = heightStructure.StructureNormalOrientation;
+                LevelCrestStructure = heightStructure.LevelCrestStructure;
+                FlowWidthAtBottomProtection = heightStructure.FlowWidthAtBottomProtection;
+                CriticalOvertoppingDischarge = heightStructure.CriticalOvertoppingDischarge;
+                WidthFlowApertures = heightStructure.WidthFlowApertures;
+                FailureProbabilityStructureWithErosion = heightStructure.FailureProbabilityStructureWithErosion;
+                StorageStructureArea = heightStructure.StorageStructureArea;
+                AllowedLevelIncreaseStorage = heightStructure.AllowedLevelIncreaseStorage;
+             }
+        }
+
+        private void UpdateForeshoreProperties()
+        {
+            if (foreshoreProfile == null)
+            {
+                UseForeshore = false;
+                UseBreakWater = false;
+                BreakWater = GetDefaultBreakWater();
+            }
+            else
+            {
+                UseForeshore = foreshoreProfile.Geometry.Count() > 1;
+                UseBreakWater = foreshoreProfile.HasBreakWater;
+                BreakWater = foreshoreProfile.HasBreakWater ?
+                                 new BreakWater(foreshoreProfile.BreakWater.Type, foreshoreProfile.BreakWater.Height) :
+                                 GetDefaultBreakWater();
+            }
+        }
+
+        private static BreakWater GetDefaultBreakWater()
+        {
+            return new BreakWater(BreakWaterType.Dam, 0.0);
         }
 
         #endregion

@@ -22,13 +22,16 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
@@ -43,17 +46,23 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
     [TestFixture]
     public class HeightStructuresInputContextPropertiesTest
     {
-        private const int structureNormalOrientationPropertyIndex = 0;
-        private const int levelCrestStructurePropertyIndex = 1;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 2;
-        private const int storageStructureAreaPropertyIndex = 3;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 4;
-        private const int widthFlowAperturesPropertyIndex = 5;
-        private const int criticalOvertoppingDischargePropertyIndex = 6;
-        private const int failureProbabilityStructureWithErosionPropertyIndex = 7;
-        private const int modelFactorSuperCriticalFlowPropertyIndex = 8;
-        private const int hydraulicBoundaryLocationPropertyIndex = 9;
-        private const int stormDurationPropertyIndex = 10;
+        private const int heightStructurePropertyIndex = 0;
+        private const int heightStructureLocationPropertyIndex = 1;
+        private const int structureNormalOrientationPropertyIndex = 2;
+        private const int levelCrestStructurePropertyIndex = 3;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 4;
+        private const int storageStructureAreaPropertyIndex = 5;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 6;
+        private const int widthFlowAperturesPropertyIndex = 7;
+        private const int criticalOvertoppingDischargePropertyIndex = 8;
+        private const int failureProbabilityStructureWithErosionPropertyIndex = 9;
+        private const int foreshoreProfilePropertyIndex = 10;
+        private const int breakWaterPropertyIndex = 11;
+        private const int foreshoreGeometryPropertyIndex = 12;
+        private const int modelFactorSuperCriticalFlowPropertyIndex = 13;
+        private const int hydraulicBoundaryLocationPropertyIndex = 14;
+        private const int stormDurationPropertyIndex = 15;
+
         private MockRepository mockRepository;
 
         [SetUp]
@@ -90,6 +99,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             properties.Data = inputContext;
 
             // Assert
+            Assert.IsNull(properties.HeightStructure);
+
+            Assert.IsNull(properties.HeightStructureLocation);
+
             var modelFactorSuperCriticalFlowProperties = new NormalDistributionProperties
             {
                 Data = input.ModelFactorSuperCriticalFlow
@@ -134,10 +147,108 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
             AssertLogNormalDistributionVariationProperties(criticalOvertoppingDischargeProperties, properties.CriticalOvertoppingDischarge);
 
+            Assert.IsNull(properties.ForeshoreProfile);
+
+            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
+
+            Assert.IsInstanceOf<UseForeshoreProperties>(properties.ForeshoreGeometry);
+
             var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
             Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
 
             Assert.AreEqual(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
+
+            var stormDurationProperties = new LogNormalDistributionVariationProperties
+            {
+                Data = input.StormDuration
+            };
+            AssertLogNormalDistributionVariationProperties(stormDurationProperties, properties.StormDuration);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Data_SetNewInputContextInstanceWithData_ReturnCorrectPropertyValues()
+        {
+            // Setup
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var input = new HeightStructuresInput
+            {
+                HeightStructure = CreateValidHeightStructure(),
+                HydraulicBoundaryLocation = CreateValidHydraulicBoundaryLocation(),
+                ForeshoreProfile = CreateValidForeshoreProfile()
+            };
+            var inputContext = new HeightStructuresInputContext(input,
+                                                                new HeightStructuresFailureMechanism(),
+                                                                assessmentSectionMock);
+
+            var properties = new HeightStructuresInputContextProperties();
+
+            // Call
+            properties.Data = inputContext;
+
+            // Assert
+            Assert.AreSame(input.HeightStructure, properties.HeightStructure);
+
+            var expectedHeightStructureLocation = new Point2D(new RoundedDouble(0, input.HeightStructure.Location.X), new RoundedDouble(0, input.HeightStructure.Location.Y));
+            Assert.AreEqual(expectedHeightStructureLocation, properties.HeightStructureLocation);
+
+            Assert.AreEqual(input.HeightStructure.StructureNormalOrientation, properties.StructureNormalOrientation);
+
+            var levelCrestStructureProperties = new NormalDistributionProperties
+            {
+                Data = input.LevelCrestStructure
+            };
+            AssertDistributionProperties(levelCrestStructureProperties, properties.LevelCrestStructure);
+
+            var allowedLevelIncreaseStorageProperties = new LogNormalDistributionProperties
+            {
+                Data = input.AllowedLevelIncreaseStorage
+            };
+            AssertDistributionProperties(allowedLevelIncreaseStorageProperties, properties.AllowedLevelIncreaseStorage);
+
+            var storageStructureAreaProperties = new LogNormalDistributionVariationProperties
+            {
+                Data = input.StorageStructureArea
+            };
+            AssertLogNormalDistributionVariationProperties(storageStructureAreaProperties, properties.StorageStructureArea);
+
+            var flowWidthAtBottomProtectionProperties = new LogNormalDistributionProperties
+            {
+                Data = input.FlowWidthAtBottomProtection
+            };
+            AssertDistributionProperties(flowWidthAtBottomProtectionProperties, properties.FlowWidthAtBottomProtection);
+
+            var widthFlowAperturesProperties = new NormalDistributionVariationProperties
+            {
+                Data = input.WidthFlowApertures
+            };
+            AssertDistributionProperties(widthFlowAperturesProperties, properties.WidthFlowApertures);
+
+            var criticalOvertoppingDischargeProperties = new LogNormalDistributionVariationProperties
+            {
+                Data = input.CriticalOvertoppingDischarge
+            };
+            AssertLogNormalDistributionVariationProperties(criticalOvertoppingDischargeProperties, properties.CriticalOvertoppingDischarge);
+
+            var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
+
+            Assert.AreSame(input.ForeshoreProfile, properties.ForeshoreProfile);
+
+            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
+
+            Assert.IsInstanceOf<UseForeshoreProperties>(properties.ForeshoreGeometry);
+
+            var modelFactorSuperCriticalFlowProperties = new NormalDistributionProperties
+            {
+                Data = input.ModelFactorSuperCriticalFlow
+            };
+            AssertDistributionProperties(modelFactorSuperCriticalFlowProperties, properties.ModelFactorSuperCriticalFlow);
+
+            Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
 
             var stormDurationProperties = new LogNormalDistributionVariationProperties
             {
@@ -155,8 +266,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var observerMock = mockRepository.StrictMock<IObserver>();
             const int numberProperties = 3;
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var hydraulicBoundaryLocation = CreateValidHydraulicBoundaryLocation();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -191,7 +302,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void SetFailureProbabilityStructureWithErosion_InvalidValues_ThrowsArgumentException(double newValue)
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -219,7 +330,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void SetFailureProbabilityStructureWithErosion_ValuesUnableToParse_ThrowsArgumentException(string newValue)
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -242,10 +353,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void SetFailureProbabilityStructureWithErosion_NullValue_ThrowsArgumentException()
+        public void SetFailureProbabilityStructureWithErosion_NullValue_ThrowsArgumentNullException()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -271,7 +382,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
@@ -285,12 +396,27 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var schematizationCategory = "Schematisatie";
-            var modelSettingsCategory = "Modelinstellingen";
+            const string schematizationCategory = "Schematisatie";
+            const string modelSettingsCategory = "Modelinstellingen";
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(12, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
+            {
+                new BrowsableAttribute(true)
+            });
+            Assert.AreEqual(16, dynamicProperties.Count);
+
+            PropertyDescriptor heightStructureProperty = dynamicProperties[heightStructurePropertyIndex];
+            Assert.IsFalse(heightStructureProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, heightStructureProperty.Category);
+            Assert.AreEqual("Kunstwerk", heightStructureProperty.DisplayName);
+            Assert.AreEqual("Het kunstwerk wat gebruikt wordt in de berekening.", heightStructureProperty.Description);
+
+            PropertyDescriptor heightStructureLocationProperty = dynamicProperties[heightStructureLocationPropertyIndex];
+            Assert.IsTrue(heightStructureLocationProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, heightStructureLocationProperty.Category);
+            Assert.AreEqual("Locatie (RD) [m]", heightStructureLocationProperty.DisplayName);
+            Assert.AreEqual("De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.", heightStructureLocationProperty.Description);
 
             PropertyDescriptor structureNormalOrientationProperty = dynamicProperties[structureNormalOrientationPropertyIndex];
             Assert.IsFalse(structureNormalOrientationProperty.IsReadOnly);
@@ -346,6 +472,26 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Modelfactor van overloopdebiet bij superkritische stroming [-]", modelFactorSuperCriticalFlowProperty.DisplayName);
             Assert.AreEqual("Het modelfactor van overloopdebiet bij superkritische stroming.", modelFactorSuperCriticalFlowProperty.Description);
 
+            PropertyDescriptor foreshoreProfileProperty = dynamicProperties[foreshoreProfilePropertyIndex];
+            Assert.IsFalse(foreshoreProfileProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, foreshoreProfileProperty.Category);
+            Assert.AreEqual("Voorlandprofiel", foreshoreProfileProperty.DisplayName);
+            Assert.AreEqual("De schematisatie van het voorlandprofiel.", foreshoreProfileProperty.Description);
+
+            PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(breakWaterProperty.Converter);
+            Assert.IsTrue(breakWaterProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, breakWaterProperty.Category);
+            Assert.AreEqual("Dam", breakWaterProperty.DisplayName);
+            Assert.AreEqual("Eigenschappen van de dam.", breakWaterProperty.Description);
+
+            PropertyDescriptor foreshoreGeometryProperty = dynamicProperties[foreshoreGeometryPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(foreshoreGeometryProperty.Converter);
+            Assert.IsTrue(foreshoreGeometryProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, foreshoreGeometryProperty.Category);
+            Assert.AreEqual("Voorlandgeometrie", foreshoreGeometryProperty.DisplayName);
+            Assert.AreEqual("Eigenschappen van de voorlandgeometrie.", foreshoreGeometryProperty.Description);
+
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
             Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
             Assert.AreEqual("Hydraulische gegevens", hydraulicBoundaryLocationProperty.Category);
@@ -359,6 +505,29 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("De duur van de storm.", stormDurationProperty.Description);
 
             mockRepository.VerifyAll();
+        }
+
+        private static ForeshoreProfile CreateValidForeshoreProfile()
+        {
+            return new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), new BreakWater(BreakWaterType.Caisson, 0), new ForeshoreProfile.ConstructionProperties());
+        }
+
+        private static HydraulicBoundaryLocation CreateValidHydraulicBoundaryLocation()
+        {
+            return new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
+        }
+
+        private static HeightStructure CreateValidHeightStructure()
+        {
+            return new HeightStructure("aName", "anId", new Point2D(1, 1),
+                                       0.12345,
+                                       234.567, 0.23456,
+                                       345.678, 0.34567,
+                                       456.789, 0.45678,
+                                       567.890, 0.56789,
+                                       0.67890,
+                                       112.223, 0.11222,
+                                       225.336, 0.22533);
         }
 
         private static void AssertDistributionProperties(DistributionProperties expected, DistributionProperties actual)

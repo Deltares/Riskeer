@@ -80,6 +80,7 @@ namespace Ringtoets.Common.Data.Test
             Assert.AreEqual("anId", structure.Id);
             Assert.AreEqual(location.X, structure.Location.X);
             Assert.AreEqual(location.Y, structure.Location.Y);
+            Assert.AreEqual("aName", structure.ToString());
         }
 
         private class TestStructure : StructureBase

@@ -57,7 +57,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return data.Location;
+                return new Point2D(new RoundedDouble(0, data.Location.X),
+                                   new RoundedDouble(0, data.Location.Y));
             }
         }
 

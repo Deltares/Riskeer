@@ -181,6 +181,24 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De schematisatie van het voorlandprofiel..
+        /// </summary>
+        public static string ForeshoreProfile_Description {
+            get {
+                return ResourceManager.GetString("ForeshoreProfile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voorlandprofiel.
+        /// </summary>
+        public static string ForeshoreProfile_DisplayName {
+            get {
+                return ResourceManager.GetString("ForeshoreProfile_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel..
         /// </summary>
         public static string HeightStructure_Location_Description {
@@ -372,6 +390,24 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         public static string StructureNormalOrientation_DisplayName {
             get {
                 return ResourceManager.GetString("StructureNormalOrientation_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het kunstwerk wat gebruikt wordt in de berekening..
+        /// </summary>
+        public static string Structure_Description {
+            get {
+                return ResourceManager.GetString("Structure_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kunstwerk.
+        /// </summary>
+        public static string Structure_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_DisplayName", resourceCulture);
             }
         }
         

@@ -219,4 +219,16 @@
   <data name="HeightStructure_Name_DisplayName" xml:space="preserve">
     <value>Naam</value>
   </data>
+  <data name="Structure_Description" xml:space="preserve">
+    <value>Het kunstwerk wat gebruikt wordt in de berekening.</value>
+  </data>
+  <data name="Structure_DisplayName" xml:space="preserve">
+    <value>Kunstwerk</value>
+  </data>
+  <data name="ForeshoreProfile_Description" xml:space="preserve">
+    <value>De schematisatie van het voorlandprofiel.</value>
+  </data>
+  <data name="ForeshoreProfile_DisplayName" xml:space="preserve">
+    <value>Voorlandprofiel</value>
+  </data>
 </root>
