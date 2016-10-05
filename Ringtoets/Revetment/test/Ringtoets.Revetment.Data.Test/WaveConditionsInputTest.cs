@@ -107,6 +107,8 @@ namespace Ringtoets.Revetment.Data.Test
             // Assert
             Assert.IsInstanceOf<Observable>(input);
             Assert.IsInstanceOf<ICalculationInput>(input);
+            Assert.IsInstanceOf<IUseBreakWater>(input);
+            Assert.IsInstanceOf<IUseForeshore>(input);
             Assert.IsNull(input.HydraulicBoundaryLocation);
             Assert.IsNull(input.ForeshoreProfile);
             Assert.IsFalse(input.UseBreakWater);

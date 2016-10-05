@@ -111,14 +111,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "BreakWaterProperties_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "BreakWaterProperties_Description")]
-        public GrassCoverErosionInwardsInputContextBreakWaterProperties BreakWater
+        public UseBreakWaterProperties BreakWater
         {
             get
             {
-                return new GrassCoverErosionInwardsInputContextBreakWaterProperties
-                {
-                    Data = data
-                };
+                return new UseBreakWaterProperties(data.WrappedData, UseBreakWaterEnabled);
             }
         }
 
@@ -127,14 +124,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "ForeshoreProperties_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "ForeshoreProperties_Description")]
-        public GrassCoverErosionInwardsInputContextForeshoreProperties Foreshore
+        public UseForeshoreProperties Foreshore
         {
             get
             {
-                return new GrassCoverErosionInwardsInputContextForeshoreProperties
-                {
-                    Data = data
-                };
+                return new UseForeshoreProperties(data.WrappedData);
             }
         }
 
@@ -237,6 +231,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
         {
             return data.AvailableHydraulicBoundaryLocations;
+        }
+
+        private bool UseBreakWaterEnabled()
+        {
+            return data.WrappedData.DikeProfile != null;
         }
     }
 }

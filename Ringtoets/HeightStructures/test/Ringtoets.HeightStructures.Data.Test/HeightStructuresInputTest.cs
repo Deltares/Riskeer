@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
@@ -43,6 +44,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<Observable>(input);
             Assert.IsInstanceOf<ICalculationInput>(input);
+            Assert.IsInstanceOf<IUseBreakWater>(input);
+            Assert.IsInstanceOf<IUseForeshore>(input);
             Assert.IsNull(input.HydraulicBoundaryLocation);
 
             AssertAreEqual(0, input.StructureNormalOrientation);

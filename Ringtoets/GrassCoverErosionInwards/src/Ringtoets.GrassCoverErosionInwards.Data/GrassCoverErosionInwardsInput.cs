@@ -33,7 +33,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
     /// <summary>
     /// Class that holds all grass cover erosion inwards calculation specific input parameters.
     /// </summary>
-    public class GrassCoverErosionInwardsInput : Observable, ICalculationInput
+    public class GrassCoverErosionInwardsInput : Observable, ICalculationInput, IUseBreakWater,
+                                                 IUseForeshore
     {
         private readonly LogNormalDistribution criticalFlowRate;
         private RoundedDouble orientation;
@@ -86,34 +87,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             set
             {
                 orientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets whether <see cref="BreakWater"/> needs to be taken into account.
-        /// </summary>
-        public bool UseBreakWater { get; set; }
-
-        /// <summary>
-        /// Gets the <see cref="BreakWater"/>.
-        /// </summary>
-        public BreakWater BreakWater { get; private set; }
-
-        /// <summary>
-        /// Gets or sets whether the <see cref="ForeshoreGeometry"/> needs to be taken into account.
-        /// </summary>
-        public bool UseForeshore { get; set; }
-
-        /// <summary>
-        /// Gets the geometry of the foreshore.
-        /// </summary>
-        public RoundedPoint2DCollection ForeshoreGeometry
-        {
-            get
-            {
-                return dikeProfile != null
-                           ? dikeProfile.ForeshoreGeometry
-                           : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
             }
         }
 
@@ -176,6 +149,34 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// Gets or sets whether the dike height should be calculated.
         /// </summary>
         public bool CalculateDikeHeight { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether <see cref="BreakWater"/> needs to be taken into account.
+        /// </summary>
+        public bool UseBreakWater { get; set; }
+
+        /// <summary>
+        /// Gets the <see cref="BreakWater"/>.
+        /// </summary>
+        public BreakWater BreakWater { get; private set; }
+
+        /// <summary>
+        /// Gets or sets whether the <see cref="ForeshoreGeometry"/> needs to be taken into account.
+        /// </summary>
+        public bool UseForeshore { get; set; }
+
+        /// <summary>
+        /// Gets the geometry of the foreshore.
+        /// </summary>
+        public RoundedPoint2DCollection ForeshoreGeometry
+        {
+            get
+            {
+                return dikeProfile != null
+                           ? dikeProfile.ForeshoreGeometry
+                           : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
+            }
+        }
 
         private void UpdateProfileParameters()
         {

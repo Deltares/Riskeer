@@ -43,6 +43,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<Observable>(input);
             Assert.IsInstanceOf<ICalculationInput>(input);
+            Assert.IsInstanceOf<IUseBreakWater>(input);
+            Assert.IsInstanceOf<IUseForeshore>(input);
 
             Assert.IsNull(input.DikeProfile);
             Assert.AreEqual(new RoundedDouble(2), input.Orientation);

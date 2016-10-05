@@ -45,7 +45,6 @@
     <Compile Include="PropertyClasses\GeneralWaveConditionsInputProperties.cs" />
     <Compile Include="PropertyClasses\IWaveConditionsInputContextProperties.cs" />
     <Compile Include="PropertyClasses\WaveConditionsInputContextProperties.cs" />
-    <Compile Include="PropertyClasses\WaveConditionsInputBreakWaterProperties.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

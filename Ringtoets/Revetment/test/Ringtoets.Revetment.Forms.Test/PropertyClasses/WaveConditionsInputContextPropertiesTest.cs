@@ -33,6 +33,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
@@ -104,8 +105,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             Assert.IsNull(properties.WorldReferencePoint);
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
             Assert.AreEqual(0, properties.Orientation.Value);
-            Assert.AreSame(input, properties.BreakWater.Data);
-            Assert.AreSame(input, properties.ForeshoreGeometry.Data);
+            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
+            Assert.IsInstanceOf<UseForeshoreProperties>(properties.ForeshoreGeometry);
             Assert.AreEqual("Test", properties.RevetmentType);
         }
 
