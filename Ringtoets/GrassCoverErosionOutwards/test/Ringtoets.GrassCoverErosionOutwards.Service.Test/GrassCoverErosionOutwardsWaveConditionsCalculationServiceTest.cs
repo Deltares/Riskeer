@@ -47,7 +47,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
     [TestFixture]
     public class GrassCoverErosionOutwardsWaveConditionsCalculationServiceTest
     {
-
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private string validFilePath;
 

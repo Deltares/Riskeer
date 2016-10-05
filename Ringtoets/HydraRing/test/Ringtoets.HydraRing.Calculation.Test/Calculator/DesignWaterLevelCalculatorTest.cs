@@ -20,12 +20,25 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Calculator;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 {
     [TestFixture]
     public class DesignWaterLevelCalculatorTest
     {
+        [Test]
+        public void DefaultConstructor_InitializesOutputWithoutValues()
+        {
+            // Call
+            var calculator = new DesignWaterLevelCalculator(string.Empty, string.Empty);
+
+            // Assert
+            Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
+            Assert.IsNaN(calculator.ReliabilityIndex);
+            Assert.IsNaN(calculator.DesignWaterLevel);
+            Assert.IsNull(calculator.OutputFileContent);
+        }
          
     }
 }

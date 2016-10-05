@@ -20,12 +20,26 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Calculator;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 {
     [TestFixture]
     public class WaveConditionsCosineCalculatorTest
     {
+        [Test]
+        public void DefaultConstructor_InitializesOutputWithoutValues()
+        {
+            // Call
+            var calculator = new WaveConditionsCosineCalculator(string.Empty, string.Empty);
+
+            // Assert
+            Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
+            Assert.IsNaN(calculator.WaveHeight);
+            Assert.IsNaN(calculator.WaveAngle);
+            Assert.IsNaN(calculator.WavePeakPeriod);
+            Assert.IsNull(calculator.OutputFileContent);
+        }
          
     }
 }

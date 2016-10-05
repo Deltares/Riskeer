@@ -20,12 +20,24 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Calculator;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 {
     [TestFixture]
     public class DikeHeightCalculatorTest
     {
+        [Test]
+        public void DefaultConstructor_InitializesOutputWithoutValues()
+        {
+            // Call
+            var calculator = new DikeHeightCalculator(string.Empty, string.Empty);
+
+            // Assert
+            Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
+            Assert.IsNaN(calculator.DikeHeight);
+            Assert.IsNull(calculator.OutputFileContent);
+        }
          
     }
 }

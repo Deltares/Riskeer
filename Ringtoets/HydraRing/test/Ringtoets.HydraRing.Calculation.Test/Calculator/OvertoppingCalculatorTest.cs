@@ -20,12 +20,26 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Calculator;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 {
     [TestFixture]
     public class OvertoppingCalculatorTest
     {
+        [Test]
+        public void DefaultConstructor_InitializesOutputWithoutValues()
+        {
+            // Call
+            var calculator = new OvertoppingCalculator(string.Empty, string.Empty);
+
+            // Assert
+            Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
+            Assert.IsNaN(calculator.WaveHeight);
+            Assert.IsNaN(calculator.ExceedanceProbabilityBeta);
+            Assert.IsFalse(calculator.IsOvertoppingDominant);
+            Assert.IsNull(calculator.OutputFileContent);
+        }
          
     }
 }

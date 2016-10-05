@@ -28,14 +28,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
     public class WaveHeightCalculatorTest
     {
         [Test]
-        public void DefaultConstructor_InitializesOutputNaN()
+        public void DefaultConstructor_InitializesOutputWithoutValues()
         {
             // Call
             var calculator = new WaveHeightCalculator(string.Empty, string.Empty);
 
             // Assert
+            Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
             Assert.IsNaN(calculator.ReliabilityIndex);
             Assert.IsNaN(calculator.WaveHeight);
+            Assert.IsNull(calculator.OutputFileContent);
         }
     }
 }
