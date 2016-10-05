@@ -82,16 +82,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het golfklappen op asfalt toetsspoor.
-        /// </summary>
-        public static string WaveImpactAsphaltCoverContext_DataDescription_WaveImpactAsphaltCoverFailureMechanism {
-            get {
-                return ResourceManager.GetString("WaveImpactAsphaltCoverContext_DataDescription_WaveImpactAsphaltCoverFailureMechan" +
-                        "ism", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Asfalt.
         /// </summary>
         public static string WaveImpactAsphaltCoverWaveConditionsInputContextProperties_RevetmentType {

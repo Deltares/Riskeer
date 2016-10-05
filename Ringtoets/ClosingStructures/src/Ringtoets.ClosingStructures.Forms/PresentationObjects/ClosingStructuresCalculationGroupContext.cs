@@ -43,7 +43,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are <c>null</c>.</exception>
         public ClosingStructuresCalculationGroupContext(CalculationGroup calculationGroup,
                                                         ClosingStructuresFailureMechanism failureMechanism,
-                                                        IAssessmentSection assessmentSection) :
-                                                            base(calculationGroup, failureMechanism, assessmentSection) {}
+                                                        IAssessmentSection assessmentSection)
+            : base(calculationGroup, failureMechanism, assessmentSection) {}
     }
 }

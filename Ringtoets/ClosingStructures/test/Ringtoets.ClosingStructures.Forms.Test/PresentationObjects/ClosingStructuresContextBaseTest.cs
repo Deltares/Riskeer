@@ -22,7 +22,6 @@
 using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
@@ -39,7 +38,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             var target = mockRepository.Stub<IObservable>();
             mockRepository.ReplayAll();
 
@@ -69,8 +68,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             TestDelegate call = () => new SimpleClosingStructuresContext<IObservable>(observableObject, null, assessmentSectionMock);
 
             // Assert
-            const string expectedMessage = "Het sluitings kunstwerk toetsspoor mag niet 'null' zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
@@ -88,8 +87,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             TestDelegate call = () => new SimpleClosingStructuresContext<IObservable>(observableObject, failureMechanism, null);
 
             // Assert
-            const string expectedMessage = "Het traject mag niet 'null' zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         private class SimpleClosingStructuresContext<T> : ClosingStructuresContextBase<T> where T : IObservable

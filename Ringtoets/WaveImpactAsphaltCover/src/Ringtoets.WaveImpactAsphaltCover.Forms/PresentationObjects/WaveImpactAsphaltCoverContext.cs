@@ -29,8 +29,6 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
-using Ringtoets.WaveImpactAsphaltCover.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
 {
@@ -55,17 +53,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
         {
             if (failureMechanism == null)
             {
-                var message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.WaveImpactAsphaltCoverContext_DataDescription_WaveImpactAsphaltCoverFailureMechanism);
-
-                throw new ArgumentNullException("failureMechanism", message);
+                throw new ArgumentNullException("failureMechanism");
             }
 
             if (assessmentSection == null)
             {
-                var message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            RingtoetsCommonFormsResources.FailureMechanismContext_DataDescription_AssessmentSection);
-                throw new ArgumentNullException("assessmentSection", message);
+                throw new ArgumentNullException("assessmentSection");
             }
 
             FailureMechanism = failureMechanism;

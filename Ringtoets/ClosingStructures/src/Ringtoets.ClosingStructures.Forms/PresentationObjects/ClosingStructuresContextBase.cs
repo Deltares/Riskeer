@@ -23,9 +23,7 @@ using System;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.Properties;
 using Ringtoets.Common.Data.AssessmentSection;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
 {
@@ -49,17 +47,12 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         {
             if (failureMechanism == null)
             {
-                string message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                               Resources.ClosingStructuresContextBase_DataDescription_ClosingStructuresFailureMechanism);
-                throw new ArgumentNullException("failureMechanism", message);
+                throw new ArgumentNullException("failureMechanism");
             }
 
             if (assessmentSection == null)
             {
-                string message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                               RingtoetsCommonFormsResources.FailureMechanismContext_DataDescription_AssessmentSection);
-
-                throw new ArgumentNullException("assessmentSection", message);
+                throw new ArgumentNullException("assessmentSection");
             }
 
             FailureMechanism = failureMechanism;

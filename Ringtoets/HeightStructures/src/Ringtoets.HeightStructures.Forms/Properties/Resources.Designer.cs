@@ -217,15 +217,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het hoogte kunstwerk toetsspoor.
-        /// </summary>
-        public static string HeightStructuresContextBase_DataDescription_HeightStructuresFailureMechanism {
-            get {
-                return ResourceManager.GetString("HeightStructuresContextBase_DataDescription_HeightStructuresFailureMechanism", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invoer.
         /// </summary>
         public static string HeightStructuresInputContext_NodeDisplayName {

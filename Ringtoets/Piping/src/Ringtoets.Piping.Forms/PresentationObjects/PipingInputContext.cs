@@ -23,9 +23,7 @@ using System;
 using System.Collections.Generic;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {
@@ -56,10 +54,7 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         {
             if (calculation == null)
             {
-                var message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.PipingContext_DataDescription_PipingCalculationItem);
-
-                throw new ArgumentNullException("calculation", message);
+                throw new ArgumentNullException("calculation");
             }
 
             PipingCalculation = calculation;

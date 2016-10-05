@@ -82,15 +82,6 @@ namespace Ringtoets.ClosingStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het sluitings kunstwerk toetsspoor.
-        /// </summary>
-        public static string ClosingStructuresContextBase_DataDescription_ClosingStructuresFailureMechanism {
-            get {
-                return ResourceManager.GetString("ClosingStructuresContextBase_DataDescription_ClosingStructuresFailureMechanism", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invoer.
         /// </summary>
         public static string ClosingStructuresInputContext_NodeDisplayName {

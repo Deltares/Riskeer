@@ -31,7 +31,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
     /// in order be able to create configurable grass cover erosion inwards calculations.
     /// </summary>
-    public class GrassCoverErosionInwardsCalculationGroupContext : GrassCoverErosionInwardsContext<CalculationGroup>, ICalculationContext<CalculationGroup, GrassCoverErosionInwardsFailureMechanism>
+    public class GrassCoverErosionInwardsCalculationGroupContext : GrassCoverErosionInwardsContext<CalculationGroup>,
+                                                                   ICalculationContext<CalculationGroup, GrassCoverErosionInwardsFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationGroupContext"/>.
@@ -40,7 +41,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsCalculationGroupContext(CalculationGroup calculationsGroup, GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public GrassCoverErosionInwardsCalculationGroupContext(CalculationGroup calculationsGroup,
+                                                               GrassCoverErosionInwardsFailureMechanism failureMechanism,
+                                                               IAssessmentSection assessmentSection)
             : base(calculationsGroup, failureMechanism, assessmentSection) {}
     }
 }

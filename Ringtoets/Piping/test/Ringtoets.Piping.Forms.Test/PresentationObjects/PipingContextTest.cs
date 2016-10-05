@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             RingtoetsPipingSurfaceLine[] surfaceLines =
@@ -80,7 +80,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var failureMechanism = new PipingFailureMechanism();
@@ -94,11 +94,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessage = exception.Message.Split(new[]
-            {
-                Environment.NewLine
-            }, StringSplitOptions.None)[0];
-            Assert.AreEqual("De verzameling van profielschematisaties mag niet 'null' zijn.", customMessage);
+            Assert.AreEqual("surfaceLines", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -107,7 +103,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
@@ -119,11 +115,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessage = exception.Message.Split(new[]
-            {
-                Environment.NewLine
-            }, StringSplitOptions.None)[0];
-            Assert.AreEqual("De verzameling van stochastische ondergrondmodellen mag niet 'null' zijn.", customMessage);
+            Assert.AreEqual("stochasticSoilModels", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -132,7 +124,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             // Call
@@ -144,11 +136,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessage = exception.Message.Split(new[]
-            {
-                Environment.NewLine
-            }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Het piping toetsspoor mag niet 'null' zijn.", customMessage);
+            Assert.AreEqual("pipingFailureMechanism", exception.ParamName);
             mocks.VerifyAll();
         }
 
@@ -164,11 +152,7 @@ namespace Ringtoets.Piping.Forms.Test.PresentationObjects
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            string customMessage = exception.Message.Split(new[]
-            {
-                Environment.NewLine
-            }, StringSplitOptions.None)[0];
-            Assert.AreEqual("Het traject mag niet 'null' zijn.", customMessage);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
         }
 
         private class SimplePipingContext<T> : PipingContext<T> where T : IObservable

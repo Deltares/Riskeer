@@ -47,8 +47,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(null);
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             var target = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 
@@ -70,7 +69,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
         public void ParameteredConstructor_FailureMechanismIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             var observableObject = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 
@@ -78,8 +77,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             TestDelegate call = () => new SimpleWaveImpactAsphaltCoverContext<IObservable>(observableObject, null, assessmentSectionMock);
 
             // Assert
-            const string expectedMessage = "Het golfklappen op asfalt toetsspoor mag niet 'null' zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
@@ -95,8 +94,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             TestDelegate call = () => new SimpleWaveImpactAsphaltCoverContext<IObservable>(observableObject, failureMechanism, null);
 
             // Assert
-            const string expectedMessage = "Het traject mag niet 'null' zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
@@ -107,8 +106,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PresentationObjects
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
 
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase).Return(hydraulicBoundaryDatabase).Repeat.Twice();
+            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             var target = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
 

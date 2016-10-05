@@ -47,7 +47,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
         public WaveImpactAsphaltCoverWaveConditionsInputContext(WaveConditionsInput wrappedData,
                                                                 IEnumerable<ForeshoreProfile> foreshoreProfiles,
-                                                                IAssessmentSection assessmentSection) : base(wrappedData)
+                                                                IAssessmentSection assessmentSection)
+            : base(wrappedData)
         {
             if (foreshoreProfiles == null)
             {

@@ -40,7 +40,10 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         public FailureMechanismContext(T wrappedFailureMechanism, IAssessmentSection parent)
             : base(wrappedFailureMechanism)
         {
-            AssertInputsAreNotNull(parent);
+            if (parent == null)
+            {
+                throw new ArgumentNullException("parent");
+            }
 
             Parent = parent;
         }
@@ -49,13 +52,5 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// Gets the parent of <see cref="WrappedObjectContextBase{T}.WrappedData"/>.
         /// </summary>
         public IAssessmentSection Parent { get; private set; }
-
-        private void AssertInputsAreNotNull(IAssessmentSection parent)
-        {
-            if (parent == null)
-            {
-                throw new ArgumentNullException("parent", "The assessment section cannot be null.");
-            }
-        }
     }
 }

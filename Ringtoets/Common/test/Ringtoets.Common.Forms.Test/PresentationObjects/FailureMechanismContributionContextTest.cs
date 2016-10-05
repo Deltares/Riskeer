@@ -67,8 +67,8 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             TestDelegate call = () => new FailureMechanismContributionContext(contribution, null);
 
             // Assert
-            const string expectedMessage = "Assessment section cannot be null.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("contributionOwner", exception.ParamName);
         }
     }
 }

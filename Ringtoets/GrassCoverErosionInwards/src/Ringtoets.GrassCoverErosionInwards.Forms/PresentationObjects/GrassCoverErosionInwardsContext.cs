@@ -27,9 +27,7 @@ using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.HydraRing.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
 {
@@ -54,17 +52,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         {
             if (failureMechanism == null)
             {
-                var message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.GrassCoverErosionInwardsContext_DataDescription_GrassCoverErosionInwardsFailureMechanism);
-
-                throw new ArgumentNullException("failureMechanism", message);
+                throw new ArgumentNullException("failureMechanism");
             }
 
             if (assessmentSection == null)
             {
-                var message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            RingtoetsCommonFormsResources.FailureMechanismContext_DataDescription_AssessmentSection);
-                throw new ArgumentNullException("assessmentSection", message);
+                throw new ArgumentNullException("assessmentSection");
             }
 
             FailureMechanism = failureMechanism;

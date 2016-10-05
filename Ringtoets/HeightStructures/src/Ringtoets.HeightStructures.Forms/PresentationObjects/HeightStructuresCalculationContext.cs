@@ -30,7 +30,8 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="HeightStructuresCalculation"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class HeightStructuresCalculationContext : HeightStructuresContextBase<HeightStructuresCalculation>, ICalculationContext<HeightStructuresCalculation, HeightStructuresFailureMechanism>
+    public class HeightStructuresCalculationContext : HeightStructuresContextBase<HeightStructuresCalculation>,
+                                                      ICalculationContext<HeightStructuresCalculation, HeightStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresCalculationContext"/>.
@@ -39,7 +40,9 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
-        public HeightStructuresCalculationContext(HeightStructuresCalculation calculation, HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        public HeightStructuresCalculationContext(HeightStructuresCalculation calculation,
+                                                  HeightStructuresFailureMechanism failureMechanism,
+                                                  IAssessmentSection assessmentSection)
             : base(calculation, failureMechanism, assessmentSection) {}
     }
 }

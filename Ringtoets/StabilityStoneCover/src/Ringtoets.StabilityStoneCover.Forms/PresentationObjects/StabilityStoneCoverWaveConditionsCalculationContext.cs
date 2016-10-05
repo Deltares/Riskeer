@@ -40,7 +40,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.PresentationObjects
         /// <exception cref="System.ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public StabilityStoneCoverWaveConditionsCalculationContext(StabilityStoneCoverWaveConditionsCalculation wrappedData,
                                                                    StabilityStoneCoverFailureMechanism failureMechanism,
-                                                                   IAssessmentSection assessmentSection) :
-                                                                       base(wrappedData, failureMechanism, assessmentSection) {}
+                                                                   IAssessmentSection assessmentSection)
+            : base(wrappedData, failureMechanism, assessmentSection) {}
     }
 }

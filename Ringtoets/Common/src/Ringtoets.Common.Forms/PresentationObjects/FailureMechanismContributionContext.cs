@@ -40,7 +40,10 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         public FailureMechanismContributionContext(FailureMechanismContribution wrappedContribution, IAssessmentSection contributionOwner)
             : base(wrappedContribution)
         {
-            AssertInputsAreNotNull(contributionOwner);
+            if (contributionOwner == null)
+            {
+                throw new ArgumentNullException("contributionOwner");
+            }
 
             Parent = contributionOwner;
         }
@@ -49,13 +52,5 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// Gets the assessment section to which <see cref="WrappedObjectContextBase{T}.WrappedData"/> belongs to.
         /// </summary>
         public IAssessmentSection Parent { get; private set; }
-
-        private void AssertInputsAreNotNull(IAssessmentSection contributionOwner)
-        {
-            if (contributionOwner == null)
-            {
-                throw new ArgumentNullException("contributionOwner", "Assessment section cannot be null.");
-            }
-        }
     }
 }

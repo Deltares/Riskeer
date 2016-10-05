@@ -355,15 +355,6 @@
   <data name="Categories_Uplift" xml:space="preserve">
     <value>Opbarsten</value>
   </data>
-  <data name="PipingContext_DataDescription_Surfacelines" xml:space="preserve">
-    <value>De verzameling van profielschematisaties</value>
-  </data>
-  <data name="PipingContext_DataDescription_StochasticSoilModels" xml:space="preserve">
-    <value>De verzameling van stochastische ondergrondmodellen</value>
-  </data>
-  <data name="PipingContext_DataDescription_PipingFailureMechanism" xml:space="preserve">
-    <value>Het piping toetsspoor</value>
-  </data>
   <data name="DesignVariableTypeConverter_DesignValue_Description" xml:space="preserve">
     <value>De representatieve waarde die gebruikt wordt door de berekening.</value>
   </data>
@@ -579,9 +570,6 @@
   </data>
   <data name="StochasticSoilModelCollection_DisplayName" xml:space="preserve">
     <value>Stochastische ondergrondmodellen</value>
-  </data>
-  <data name="PipingContext_DataDescription_PipingCalculationItem" xml:space="preserve">
-    <value>De berekening</value>
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityHeave" xml:space="preserve">
     <value>Kans op heave [1/jaar]</value>

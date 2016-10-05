@@ -27,9 +27,7 @@ using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
-using Ringtoets.Piping.Forms.Properties;
 using Ringtoets.Piping.Primitives;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Piping.Forms.PresentationObjects
 {
@@ -113,27 +111,19 @@ namespace Ringtoets.Piping.Forms.PresentationObjects
         {
             if (surfaceLines == null)
             {
-                var message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.PipingContext_DataDescription_Surfacelines);
-                throw new ArgumentNullException("surfaceLines", message);
+                throw new ArgumentNullException("surfaceLines");
             }
             if (stochasticSoilModels == null)
             {
-                var message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.PipingContext_DataDescription_StochasticSoilModels);
-                throw new ArgumentNullException("stochasticSoilModels", message);
+                throw new ArgumentNullException("stochasticSoilModels");
             }
             if (pipingFailureMechanism == null)
             {
-                var message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            Resources.PipingContext_DataDescription_PipingFailureMechanism);
-                throw new ArgumentNullException("pipingFailureMechanism", message);
+                throw new ArgumentNullException("pipingFailureMechanism");
             }
             if (assessmentSection == null)
             {
-                var message = string.Format(RingtoetsCommonFormsResources.AssertInputsAreNotNull_DataDescription_0_cannot_be_null,
-                                            RingtoetsCommonFormsResources.FailureMechanismContext_DataDescription_AssessmentSection);
-                throw new ArgumentNullException("assessmentSection", message);
+                throw new ArgumentNullException("assessmentSection");
             }
         }
     }
