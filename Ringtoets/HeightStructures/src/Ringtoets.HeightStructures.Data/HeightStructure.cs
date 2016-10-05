@@ -50,8 +50,8 @@ namespace Ringtoets.HeightStructures.Data
         /// <param name="failureProbabilityStructureWithErosion">The failure probability of the height structure, given erosion.</param>
         /// <param name="storageStructureAreaMean">The mean storage area of the height structure.</param>
         /// <param name="storageStructureAreaCoefficientOfVariation">The coefficient of variation of storage area of the height structure.</param>
-        /// <param name="allowedLevelIncreaseStorageMean">The mean allowable increase of level for storage of the height structure.</param>
-        /// <param name="allowedLevelIncreaseStorageStandardDeviation">The standard deviation of allowable increase of level for storage of the height structure.</param>
+        /// <param name="allowedLevelIncreaseStorageMean">The mean allowed increase of level for storage of the height structure.</param>
+        /// <param name="allowedLevelIncreaseStorageStandardDeviation">The standard deviation of allowed increase of level for storage of the height structure.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
         /// , empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
@@ -137,7 +137,7 @@ namespace Ringtoets.HeightStructures.Data
         public VariationCoefficientLogNormalDistribution StorageStructureArea { get; private set; }
 
         /// <summary>
-        /// Gets the allowable increase of level for storage of the height structure.
+        /// Gets the allowed increase of level for storage of the height structure.
         /// </summary>
         public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
     }

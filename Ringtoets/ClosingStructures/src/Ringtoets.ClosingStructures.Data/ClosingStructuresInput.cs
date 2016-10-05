@@ -479,7 +479,7 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the allowable increase of level for storage.
+        /// Gets or sets the allowed increase of level for storage.
         /// [m]
         /// </summary>
         public LogNormalDistribution AllowedLevelIncreaseStorage

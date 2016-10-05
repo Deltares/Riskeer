@@ -40,8 +40,8 @@ namespace Ringtoets.ClosingStructures.Data
         /// <param name="location">The location of the closing structure.</param>
         /// <param name="storageStructureAreaMean">The mean of the storage area of the closing structure.</param>
         /// <param name="storageStructureAreaStandardDeviation">The standard deviation of the storage area of the closing structure.</param>
-        /// <param name="allowedLevelIncreaseStorageMean">The mean allowable increase of level for storage of the closing structure.</param>
-        /// <param name="allowedLevelIncreaseStorageStandardDeviation">The standard deviation of allowable increase of level for storage of the closing structure.</param>
+        /// <param name="allowedLevelIncreaseStorageMean">The mean allowed increase of level for storage of the closing structure.</param>
+        /// <param name="allowedLevelIncreaseStorageStandardDeviation">The standard deviation of allowed increase of level for storage of the closing structure.</param>
         /// <param name="structureNormalOrientation">The orientation of the closing structure, relative to north.</param>
         /// <param name="widthFlowAperturesMean">The mean of the width of the flow apertures of the closing structure.</param>
         /// <param name="widthFlowAperturesStandardDeviation">The standard deviation of the width of the flow apertures of the closing structure.</param>
@@ -144,7 +144,7 @@ namespace Ringtoets.ClosingStructures.Data
         public LogNormalDistribution StorageStructureArea { get; private set; }
 
         /// <summary>
-        /// Gets the allowable increase of level for storage of the closing structure.
+        /// Gets the allowed increase of level for storage of the closing structure.
         /// </summary>
         public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
 

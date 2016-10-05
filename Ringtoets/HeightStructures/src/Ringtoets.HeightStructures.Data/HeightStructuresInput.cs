@@ -115,7 +115,7 @@ namespace Ringtoets.HeightStructures.Data
         #region Model Factors
 
         /// <summary>
-        /// Gets or sets the model factor overtopping critical flow.
+        /// Gets or sets the model factor for super critical flow.
         /// </summary>
         /// <remarks>Only sets the mean.</remarks>
         public NormalDistribution ModelFactorSuperCriticalFlow
@@ -145,7 +145,7 @@ namespace Ringtoets.HeightStructures.Data
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
-        /// Gets or sets the deviation of the wave's direction.
+        /// Gets or sets the deviation of the wave direction.
         /// [degrees]
         /// </summary>
         public RoundedDouble DeviationWaveDirection
@@ -182,7 +182,7 @@ namespace Ringtoets.HeightStructures.Data
         #region Schematisation
 
         /// <summary>
-        /// Gets or sets the level of crest of the structure.
+        /// Gets or sets the level crest of the structure.
         /// [m+NAP]
         /// </summary>
         public NormalDistribution LevelCrestStructure
@@ -202,7 +202,7 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets or sets the orientation of the normal of the structure.
         /// [degrees]
         /// </summary>
-        ///<exception cref="ArgumentOutOfRangeException">Thrown when the value for the orientation is not between [0, 360] degrees.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value for the orientation is not between [0, 360] degrees.</exception>
         public RoundedDouble StructureNormalOrientation
         {
             get
@@ -227,7 +227,7 @@ namespace Ringtoets.HeightStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the allowable increase of level for the storage.
+        /// Gets or sets the allowed increase of level for the storage.
         /// [m]
         /// </summary>
         public LogNormalDistribution AllowedLevelIncreaseStorage
@@ -261,7 +261,7 @@ namespace Ringtoets.HeightStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the flow width at bottom protection.
+        /// Gets or sets the flow width at the bottom protection.
         /// [m]
         /// </summary>
         public LogNormalDistribution FlowWidthAtBottomProtection
@@ -298,7 +298,8 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets or sets the failure probability of structure given erosion.
         /// [1/year]
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0, 1].</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
+        /// is not between [0, 1].</exception>
         public double FailureProbabilityStructureWithErosion
         {
             get
