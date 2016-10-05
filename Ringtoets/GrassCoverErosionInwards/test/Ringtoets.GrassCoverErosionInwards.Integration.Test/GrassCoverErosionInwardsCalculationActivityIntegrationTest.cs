@@ -474,7 +474,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
-            activity.Run();
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                activity.Run();
+            }
 
             // Call
             activity.Finish();
@@ -482,8 +485,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             // Assert
             Assert.IsNotNull(calculation.Output);
             ProbabilityAssessmentOutput probabilisticAssessmentOutput = calculation.Output.ProbabilityAssessmentOutput;
-            Assert.AreEqual((RoundedDouble) 5.954, probabilisticAssessmentOutput.Reliability);
-            Assert.AreEqual((RoundedDouble) 5.76, calculation.Output.DikeHeight);
+            Assert.IsFalse(double.IsNaN(probabilisticAssessmentOutput.Reliability));
+            Assert.IsFalse(double.IsNaN(calculation.Output.DikeHeight));
             Assert.IsTrue(calculation.Output.DikeHeightCalculated);
             mocks.VerifyAll();
         }
