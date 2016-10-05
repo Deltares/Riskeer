@@ -111,11 +111,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "StorageStructureArea_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StorageStructureArea_Description")]
-        public LogNormalDistributionProperties StorageStructureArea
+        public LogNormalDistributionVariationProperties StorageStructureArea
         {
             get
             {
-                return new LogNormalDistributionProperties
+                return new LogNormalDistributionVariationProperties
                 {
                     Data = data.StorageStructureArea
                 };
@@ -143,11 +143,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "WidthFlowApertures_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WidthFlowApertures_Description")]
-        public NormalDistributionProperties WidthFlowApertures
+        public NormalDistributionVariationProperties WidthFlowApertures
         {
             get
             {
-                return new NormalDistributionProperties
+                return new NormalDistributionVariationProperties
                 {
                     Data = data.WidthFlowApertures
                 };
@@ -159,11 +159,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "CriticalOvertoppingDischarge_DisplayName")]
         [ResourcesDescription(typeof(Resources), "CriticalOvertoppingDischarge_Description")]
-        public LogNormalDistributionProperties CriticalOvertoppingDischarge
+        public LogNormalDistributionVariationProperties CriticalOvertoppingDischarge
         {
             get
             {
-                return new LogNormalDistributionProperties
+                return new LogNormalDistributionVariationProperties
                 {
                     Data = data.CriticalOvertoppingDischarge
                 };

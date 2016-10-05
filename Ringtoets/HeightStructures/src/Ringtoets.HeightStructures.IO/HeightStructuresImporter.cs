@@ -106,12 +106,11 @@ namespace Ringtoets.HeightStructures.IO
                 structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE1").NumericalValue,
                 structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE2").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE2").VarianceValue,
                 structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE3").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE3").VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE4").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE4").VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE5").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE5").VarianceValue,
+                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE4").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE4").VarianceValue, //TODO: Ensure Coefficient of variation is properly set
+                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE5").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE5").VarianceValue, //TODO: Ensure Coefficient of variation is properly set
                 structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE6").NumericalValue,
-                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE7").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE7").VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE8").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE8").VarianceValue
-                );
+                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE7").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE7").VarianceValue, //TODO: Ensure Coefficient of variation is properly set
+                structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE8").NumericalValue, structureParameterRows.First(row => row.ParameterId == "KW_HOOGTE8").VarianceValue);
             return heightStructure;
         }
     }

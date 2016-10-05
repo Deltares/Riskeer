@@ -25,10 +25,12 @@ using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.PropertyClasses;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
@@ -51,9 +53,23 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new NormalDistributionProperties();
 
             // Assert
-            Assert.IsInstanceOf<DistributionProperties>(properties);
+            Assert.IsInstanceOf<DistributionPropertiesBase<NormalDistribution>>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Normaal", properties.DistributionType);
+        }
+
+        [Test]
+        [TestCase(DistributionPropertiesReadOnly.Mean)]
+        [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
+        [TestCase(DistributionPropertiesReadOnly.None)]
+        public void Constructor_NoObservableSetWhileChangesPossible_ThrowArgumentException(
+            DistributionPropertiesReadOnly flags)
+        {
+            // Call
+            TestDelegate call = () => new NormalDistributionProperties(flags, null);
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Observable must be specified unless no property can be set.");
         }
 
         [Test]
@@ -64,10 +80,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new NormalDistributionProperties(observerableMock, DistributionPropertiesReadOnly.None);
+            var properties = new NormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock);
 
             // Assert
-            Assert.IsInstanceOf<DistributionProperties>(properties);
+            Assert.IsInstanceOf<DistributionPropertiesBase<NormalDistribution>>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Normaal", properties.DistributionType);
             mockRepository.VerifyAll();
@@ -81,7 +97,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new NormalDistributionProperties(observerableMock, DistributionPropertiesReadOnly.None);
+            var properties = new NormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock);
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);

@@ -192,7 +192,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
+                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
                 {
                     Data = data.WrappedData.CriticalFlowRate
                 };

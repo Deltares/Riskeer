@@ -74,7 +74,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.StandardDeviation)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.StandardDeviation, data.WrappedData)
                 {
                     Data = data.WrappedData.ModelFactorSuperCriticalFlow
                 };
@@ -174,7 +174,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new NormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
                 {
                     Data = data.WrappedData.LevelCrestStructure
                 };
@@ -190,7 +190,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
+                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
                 {
                     Data = data.WrappedData.AllowedLevelIncreaseStorage
                 };
@@ -206,7 +206,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionVariationProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
+                return new LogNormalDistributionVariationProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
                 {
                     Data = data.WrappedData.StorageStructureArea
                 };
@@ -222,7 +222,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
+                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
                 {
                     Data = data.WrappedData.FlowWidthAtBottomProtection
                 };
@@ -234,11 +234,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "WidthFlowApertures_DisplayName")]
         [ResourcesDescription(typeof(Resources), "WidthFlowApertures_Description")]
-        public NormalDistributionProperties WidthFlowApertures
+        public NormalDistributionVariationProperties WidthFlowApertures
         {
             get
             {
-                return new NormalDistributionProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
+                return new NormalDistributionVariationProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
                 {
                     Data = data.WrappedData.WidthFlowApertures
                 };
@@ -254,7 +254,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionVariationProperties(data.WrappedData, DistributionPropertiesReadOnly.None)
+                return new LogNormalDistributionVariationProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
                 {
                     Data = data.WrappedData.CriticalOvertoppingDischarge
                 };
@@ -373,7 +373,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return new LogNormalDistributionVariationProperties(data.WrappedData, DistributionPropertiesReadOnly.VariationCoefficient)
+                return new LogNormalDistributionVariationProperties(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation, data.WrappedData)
                 {
                     Data = data.WrappedData.StormDuration
                 };

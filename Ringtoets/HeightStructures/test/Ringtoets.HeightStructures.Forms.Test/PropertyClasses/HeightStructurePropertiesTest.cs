@@ -84,7 +84,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Lognormaal", properties.StorageStructureArea.DistributionType);
             Assert.AreEqual(structure.StorageStructureArea, properties.StorageStructureArea.Data);
             Assert.IsTrue(properties.StorageStructureArea.DynamicReadOnlyValidationMethod("Mean"));
-            Assert.IsTrue(properties.StorageStructureArea.DynamicReadOnlyValidationMethod("StandardDeviation"));
+            Assert.IsTrue(properties.StorageStructureArea.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
 
             Assert.AreEqual("Lognormaal", properties.FlowWidthAtBottomProtection.DistributionType);
             Assert.AreEqual(structure.FlowWidthAtBottomProtection, properties.FlowWidthAtBottomProtection.Data);
@@ -94,12 +94,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Normaal", properties.WidthFlowApertures.DistributionType);
             Assert.AreEqual(structure.WidthFlowApertures, properties.WidthFlowApertures.Data);
             Assert.IsTrue(properties.WidthFlowApertures.DynamicReadOnlyValidationMethod("Mean"));
-            Assert.IsTrue(properties.WidthFlowApertures.DynamicReadOnlyValidationMethod("StandardDeviation"));
+            Assert.IsTrue(properties.WidthFlowApertures.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
 
             Assert.AreEqual("Lognormaal", properties.CriticalOvertoppingDischarge.DistributionType);
             Assert.AreEqual(structure.CriticalOvertoppingDischarge, properties.CriticalOvertoppingDischarge.Data);
             Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("Mean"));
-            Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("StandardDeviation"));
+            Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
 
             Assert.AreEqual(structure.FailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
         }

@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
@@ -32,24 +33,24 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="LogNormalDistribution"/>
     /// properties.
     /// </summary>
-    public class LogNormalDistributionProperties : DistributionProperties
+    public class LogNormalDistributionProperties : DistributionPropertiesBase<LogNormalDistribution>
     {
         /// <summary>
         /// Creates a new read-only instance of <see cref="LogNormalDistributionProperties"/>.
         /// </summary>
-        public LogNormalDistributionProperties() : this(null, DistributionPropertiesReadOnly.All) {}
+        public LogNormalDistributionProperties() : this(DistributionPropertiesReadOnly.All, null) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="LogNormalDistributionProperties"/>.
         /// </summary>
-        /// <param name="observerable">Object to notify upon change.</param>
-        /// <param name="propertiesReadOnly">Sets if <see cref="DistributionProperties.Mean"/> and/or 
-        /// <see cref="DistributionProperties.StandardDeviation"/> should be marked read-only.</param>
-        public LogNormalDistributionProperties(IObservable observerable, DistributionPropertiesReadOnly propertiesReadOnly)
-            : base(propertiesReadOnly)
-        {
-            Observerable = observerable;
-        }
+        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
+        ///     marked as read-only.</param>
+        /// <param name="observable">The object to be notified of changes to properties.
+        ///     Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="observable"/>
+        /// is null and any number of properties in this class is editable.</exception>
+        public LogNormalDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly, IObservable observable)
+            : base(propertiesReadOnly, observable) {}
 
         public override string DistributionType
         {

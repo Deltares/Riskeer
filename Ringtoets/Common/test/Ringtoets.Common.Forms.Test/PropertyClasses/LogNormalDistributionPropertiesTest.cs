@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new LogNormalDistributionProperties();
 
             // Assert
-            Assert.IsInstanceOf<DistributionProperties>(properties);
+            Assert.IsInstanceOf<DistributionPropertiesBase<LogNormalDistribution>>(properties);
             Assert.IsNull(properties.Data);
             Assert.AreEqual("Lognormaal", properties.DistributionType);
         }
@@ -67,7 +67,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new LogNormalDistributionProperties(observerableMock, DistributionPropertiesReadOnly.None);
+            var properties = new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock);
 
             // Assert
             Assert.IsNull(properties.Data);
@@ -76,44 +76,17 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(DistributionPropertiesReadOnly.None)]
-        [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
-        public void SetProperties_EditableMeanWithoutObserverable_ThrowsArgumentException(DistributionPropertiesReadOnly propertiesReadOnly)
-        {
-            // Setup
-            var properties = new LogNormalDistributionProperties(null, propertiesReadOnly)
-            {
-                Data = new LogNormalDistribution(2)
-            };
-
-            // Call
-            TestDelegate test = () => properties.Mean = new RoundedDouble(2, 20);
-
-            // Assert
-            const string expectedMessage = "No observerable object set.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
-        [TestCase(DistributionPropertiesReadOnly.All)]
         [TestCase(DistributionPropertiesReadOnly.Mean)]
-        public void SetProperties_ReadOnlyMeanWithObserverable_ThrowsArgumentException(DistributionPropertiesReadOnly propertiesReadOnly)
+        [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
+        [TestCase(DistributionPropertiesReadOnly.None)]
+        public void Constructor_NoObservableSetWhileChangesPossible_ThrowArgumentException(
+            DistributionPropertiesReadOnly flags)
         {
-            // Setup
-            var observerableMock = mockRepository.StrictMock<IObservable>();
-            mockRepository.ReplayAll();
-            var properties = new LogNormalDistributionProperties(observerableMock, propertiesReadOnly)
-            {
-                Data = new LogNormalDistribution(2)
-            };
-
             // Call
-            TestDelegate test = () => properties.Mean = new RoundedDouble(2, 20);
+            TestDelegate call = () => new LogNormalDistributionProperties(flags, null);
 
             // Assert
-            const string expectedMessage = "Mean is set to be read-only.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-            mockRepository.VerifyAll();
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Observable must be specified unless no property can be set.");
         }
 
         [Test]
@@ -122,7 +95,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var observerableMock = mockRepository.StrictMock<IObservable>();
             observerableMock.Expect(o => o.NotifyObservers()).Repeat.Once();
-            var properties = new LogNormalDistributionProperties(observerableMock, DistributionPropertiesReadOnly.None)
+            var properties = new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock)
             {
                 Data = new LogNormalDistribution(2)
             };
@@ -138,25 +111,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(DistributionPropertiesReadOnly.None)]
-        [TestCase(DistributionPropertiesReadOnly.Mean)]
-        public void SetProperties_EditableStandardDeviationWithoutObserverable_ThrowsArgumentException(DistributionPropertiesReadOnly propertiesReadOnly)
-        {
-            // Setup
-            var properties = new LogNormalDistributionProperties(null, propertiesReadOnly)
-            {
-                Data = new LogNormalDistribution(2)
-            };
-
-            // Call
-            TestDelegate test = () => properties.StandardDeviation = new RoundedDouble(2, 20);
-
-            // Assert
-            const string expectedMessage = "No observerable object set.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(test, expectedMessage);
-        }
-
-        [Test]
         [TestCase(DistributionPropertiesReadOnly.All)]
         [TestCase(DistributionPropertiesReadOnly.StandardDeviation)]
         public void SetProperties_ReadOnlyStandardDeviationWithObserverable_ThrowsArgumentException(DistributionPropertiesReadOnly propertiesReadOnly)
@@ -164,7 +118,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Setup
             var observerableMock = mockRepository.StrictMock<IObservable>();
             mockRepository.ReplayAll();
-            var properties = new LogNormalDistributionProperties(observerableMock, propertiesReadOnly)
+            var properties = new LogNormalDistributionProperties(propertiesReadOnly, observerableMock)
             {
                 Data = new LogNormalDistribution(2)
             };
@@ -185,7 +139,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var observerableMock = mockRepository.StrictMock<IObservable>();
             observerableMock.Expect(o => o.NotifyObservers()).Repeat.Once();
             mockRepository.ReplayAll();
-            var properties = new LogNormalDistributionProperties(observerableMock, DistributionPropertiesReadOnly.None)
+            var properties = new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock)
             {
                 Data = new LogNormalDistribution(2)
             };
@@ -207,7 +161,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             // Call
-            var properties = new LogNormalDistributionProperties(observerableMock, DistributionPropertiesReadOnly.None);
+            var properties = new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock);
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);

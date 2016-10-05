@@ -40,11 +40,11 @@ namespace Ringtoets.HeightStructures.Data
         private readonly NormalDistribution levelCrestStructure;
         private readonly NormalDistribution modelFactorSuperCriticalFlow;
         private readonly LogNormalDistribution allowedLevelIncreaseStorage;
-        private readonly LogNormalDistribution storageStructureArea;
+        private readonly VariationCoefficientLogNormalDistribution storageStructureArea;
         private readonly LogNormalDistribution flowWidthAtBottomProtection;
-        private readonly LogNormalDistribution criticalOvertoppingDischarge;
-        private readonly NormalDistribution widthFlowApertures;
-        private readonly LogNormalDistribution stormDuration;
+        private readonly VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge;
+        private readonly VariationCoefficientNormalDistribution widthFlowApertures;
+        private readonly VariationCoefficientLogNormalDistribution stormDuration;
         private RoundedDouble structureNormalOrientation;
         private RoundedDouble deviationWaveDirection;
         private double failureProbabilityStructureWithErosion;
@@ -77,11 +77,11 @@ namespace Ringtoets.HeightStructures.Data
                 StandardDeviation = (RoundedDouble) 0.1
             };
 
-            storageStructureArea = new LogNormalDistribution(2)
+            storageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) 1.0
+                Mean = (RoundedDouble) 1.0,
+                CoefficientOfVariation = (RoundedDouble) 0.1
             };
-            storageStructureArea.SetStandardDeviationFromVariationCoefficient(0.1);
 
             flowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
@@ -89,24 +89,24 @@ namespace Ringtoets.HeightStructures.Data
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
-            criticalOvertoppingDischarge = new LogNormalDistribution(2)
+            criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) 1.0
+                Mean = (RoundedDouble) 1.0,
+                CoefficientOfVariation = (RoundedDouble) 0.15
             };
-            criticalOvertoppingDischarge.SetStandardDeviationFromVariationCoefficient(0.15);
 
-            widthFlowApertures = new NormalDistribution(2)
+            widthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
-                StandardDeviation = (RoundedDouble) 0.05
+                CoefficientOfVariation = (RoundedDouble) 0.05
             };
 
             deviationWaveDirection = new RoundedDouble(2);
 
-            stormDuration = new LogNormalDistribution(2)
+            stormDuration = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) 6.0
+                Mean = (RoundedDouble) 6.0,
+                CoefficientOfVariation = (RoundedDouble) 0.25
             };
-            stormDuration.SetStandardDeviationFromVariationCoefficient(0.25);
 
             UpdateHeightStructureProperties();
             UpdateForeshoreProperties();
@@ -165,7 +165,7 @@ namespace Ringtoets.HeightStructures.Data
         /// [hrs]
         /// </summary>
         /// <remarks>Only sets the mean.</remarks>
-        public LogNormalDistribution StormDuration
+        public VariationCoefficientLogNormalDistribution StormDuration
         {
             get
             {
@@ -247,7 +247,7 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets or sets the storage structure area.
         /// [m^2]
         /// </summary>
-        public LogNormalDistribution StorageStructureArea
+        public VariationCoefficientLogNormalDistribution StorageStructureArea
         {
             get
             {
@@ -256,7 +256,7 @@ namespace Ringtoets.HeightStructures.Data
             set
             {
                 storageStructureArea.Mean = value.Mean;
-                storageStructureArea.StandardDeviation = value.StandardDeviation;
+                storageStructureArea.CoefficientOfVariation = value.CoefficientOfVariation;
             }
         }
 
@@ -281,7 +281,7 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets or sets the critical overtopping discharge.
         /// [m^3/s/m]
         /// </summary>
-        public LogNormalDistribution CriticalOvertoppingDischarge
+        public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge
         {
             get
             {
@@ -290,7 +290,7 @@ namespace Ringtoets.HeightStructures.Data
             set
             {
                 criticalOvertoppingDischarge.Mean = value.Mean;
-                criticalOvertoppingDischarge.StandardDeviation = value.StandardDeviation;
+                criticalOvertoppingDischarge.CoefficientOfVariation = value.CoefficientOfVariation;
             }
         }
 
@@ -319,7 +319,7 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets or sets the width of flow apertures.
         /// [m]
         /// </summary>
-        public NormalDistribution WidthFlowApertures
+        public VariationCoefficientNormalDistribution WidthFlowApertures
         {
             get
             {
@@ -328,7 +328,7 @@ namespace Ringtoets.HeightStructures.Data
             set
             {
                 widthFlowApertures.Mean = value.Mean;
-                widthFlowApertures.StandardDeviation = value.StandardDeviation;
+                widthFlowApertures.CoefficientOfVariation = value.CoefficientOfVariation;
             }
         }
 
@@ -366,7 +366,6 @@ namespace Ringtoets.HeightStructures.Data
 
         public bool UseBreakWater { get; set; }
 
-        
         public bool UseForeshore { get; set; }
 
         public RoundedPoint2DCollection ForeshoreGeometry
@@ -379,7 +378,6 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
-        
         public BreakWater BreakWater { get; private set; }
 
         private void UpdateHeightStructureProperties()
@@ -394,7 +392,7 @@ namespace Ringtoets.HeightStructures.Data
                 FailureProbabilityStructureWithErosion = heightStructure.FailureProbabilityStructureWithErosion;
                 StorageStructureArea = heightStructure.StorageStructureArea;
                 AllowedLevelIncreaseStorage = heightStructure.AllowedLevelIncreaseStorage;
-             }
+            }
         }
 
         private void UpdateForeshoreProperties()

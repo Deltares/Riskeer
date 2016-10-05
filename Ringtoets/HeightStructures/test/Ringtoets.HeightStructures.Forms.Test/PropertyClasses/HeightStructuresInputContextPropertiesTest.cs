@@ -32,6 +32,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
@@ -530,7 +531,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                                        225.336, 0.22533);
         }
 
-        private static void AssertDistributionProperties(DistributionProperties expected, DistributionProperties actual)
+        private static void AssertDistributionProperties<T>(DistributionPropertiesBase<T> expected, DistributionPropertiesBase<T> actual) where T : IDistribution
+        {
+            Assert.AreEqual(expected.DistributionType, actual.DistributionType);
+            Assert.AreEqual(expected.Data, actual.Data);
+        }
+
+        private static void AssertDistributionProperties<T>(VariationCoefficientDistributionPropertiesBase<T> expected, VariationCoefficientDistributionPropertiesBase<T> actual) where T : IVariationCoefficientDistribution
         {
             Assert.AreEqual(expected.DistributionType, actual.DistributionType);
             Assert.AreEqual(expected.Data, actual.Data);

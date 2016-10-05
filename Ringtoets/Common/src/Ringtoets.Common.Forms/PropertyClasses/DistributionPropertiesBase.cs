@@ -32,27 +32,39 @@ using Ringtoets.Common.Forms.Properties;
 namespace Ringtoets.Common.Forms.PropertyClasses
 {
     /// <summary>
-    /// Property for probabilistic distribution.
+    /// Properties class for implementations of <see cref="IDistribution"/>.
     /// </summary>
-    public abstract class DistributionProperties : ObjectProperties<IDistribution>
+    public abstract class DistributionPropertiesBase<T> : ObjectProperties<T> where T : IDistribution
     {
         private static string meanDisplayName;
         private static string standardDeviationDisplayName;
-        private static string variationCoefficientDisplayName;
-        protected readonly bool IsVariationCoefficientReadOnly;
         private readonly bool isMeanReadOnly;
         private readonly bool isStandardDeviationReadOnly;
-        protected IObservable Observerable;
+        private readonly IObservable observable;
 
-        protected DistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DistributionPropertiesBase{T}"/> class.
+        /// </summary>
+        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
+        /// marked as read-only.</param>
+        /// <param name="observable">The object to be notified of changes to properties.
+        /// Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="observable"/>
+        /// is null and any number of properties in this class is editable.</exception>
+        protected DistributionPropertiesBase(DistributionPropertiesReadOnly propertiesReadOnly, IObservable observable)
         {
-            isStandardDeviationReadOnly = propertiesReadOnly == DistributionPropertiesReadOnly.All || propertiesReadOnly == DistributionPropertiesReadOnly.StandardDeviation;
-            isMeanReadOnly = propertiesReadOnly == DistributionPropertiesReadOnly.All || propertiesReadOnly == DistributionPropertiesReadOnly.Mean;
-            IsVariationCoefficientReadOnly = propertiesReadOnly == DistributionPropertiesReadOnly.All || propertiesReadOnly == DistributionPropertiesReadOnly.VariationCoefficient;
+            if (observable == null && !propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.All))
+            {
+                throw new ArgumentException("Observable must be specified unless no property can be set.", "observable");
+            }
 
-            meanDisplayName = TypeUtils.GetMemberName<IDistribution>(rd => rd.Mean);
-            standardDeviationDisplayName = TypeUtils.GetMemberName<IDistribution>(rd => rd.StandardDeviation);
-            variationCoefficientDisplayName = TypeUtils.GetMemberName<IDistributionVariationCoefficient>(rd => rd.VariationCoefficient);
+            isMeanReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.Mean);
+            isStandardDeviationReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.StandardDeviation);
+
+            meanDisplayName = TypeUtils.GetMemberName<DistributionPropertiesBase<T>>(rd => rd.Mean);
+            standardDeviationDisplayName = TypeUtils.GetMemberName<DistributionPropertiesBase<T>>(rd => rd.StandardDeviation);
+
+            this.observable = observable;
         }
 
         [PropertyOrder(1)]
@@ -63,7 +75,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [PropertyOrder(2)]
         [DynamicReadOnly]
         [ResourcesDisplayName(typeof(Resources), "NormalDistribution_Mean_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "NormalDistribution_Mean_Description")]
         public virtual RoundedDouble Mean
         {
             get
@@ -72,8 +83,12 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                SetMean(value);
-                Observerable.NotifyObservers();
+                if (isMeanReadOnly)
+                {
+                    throw new ArgumentException("Mean is set to be read-only.");
+                }
+                data.Mean = value;
+                observable.NotifyObservers();
             }
         }
 
@@ -93,12 +108,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 {
                     throw new ArgumentException("StandardDeviation is set to be read-only.");
                 }
-                if (Observerable == null)
-                {
-                    throw new ArgumentException("No observerable object set.");
-                }
                 data.StandardDeviation = value;
-                Observerable.NotifyObservers();
+                observable.NotifyObservers();
             }
         }
 
@@ -113,38 +124,14 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             {
                 return isStandardDeviationReadOnly;
             }
-            if (propertyName == variationCoefficientDisplayName)
-            {
-                return IsVariationCoefficientReadOnly;
-            }
             return false;
         }
 
         public override string ToString()
         {
-            return data == null ? Resources.NormalDistribution_StandardDeviation_DisplayName :
-                       string.Format("{0} ({1} = {2})", Mean, Resources.NormalDistribution_StandardDeviation_DisplayName, StandardDeviation);
-        }
-
-        /// <summary>
-        /// Sets <paramref name="value"/> to <see cref="Mean"/>.
-        /// </summary>
-        /// <param name="value">The new value for <see cref="Mean"/>.</param>
-        /// <exception cref="ArgumentException">Thrown when <list type="bullet">
-        /// <item><see cref="Mean"/> is set to be read-only.</item>
-        /// <item>No observerable object is set.</item>
-        /// </list> </exception>
-        protected void SetMean(RoundedDouble value)
-        {
-            if (isMeanReadOnly)
-            {
-                throw new ArgumentException("Mean is set to be read-only.");
-            }
-            if (Observerable == null)
-            {
-                throw new ArgumentException("No observerable object set.");
-            }
-            data.Mean = value;
+            return data == null ? string.Empty :
+                       string.Format("{0} ({1} = {2})",
+                                     Mean, Resources.NormalDistribution_StandardDeviation_DisplayName, StandardDeviation);
         }
     }
 }

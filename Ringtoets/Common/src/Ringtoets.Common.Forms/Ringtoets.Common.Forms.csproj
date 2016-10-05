@@ -71,7 +71,7 @@
     </Compile>
     <Compile Include="PropertyClasses\BreakWaterProperties.cs" />
     <Compile Include="PropertyClasses\ForeshoreGeometryProperties.cs" />
-    <Compile Include="PropertyClasses\DistributionProperties.cs" />
+    <Compile Include="PropertyClasses\DistributionPropertiesBase.cs" />
     <Compile Include="PropertyClasses\DistributionPropertiesReadOnly.cs" />
     <Compile Include="PropertyClasses\ForeshoreProfileProperties.cs" />
     <Compile Include="PropertyClasses\UseBreakWaterProperties.cs" />
@@ -81,6 +81,8 @@
     <Compile Include="PropertyClasses\ProbabilityAssessmentOutputProperties.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\NormalDistributionProperties.cs" />
+    <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesBase.cs" />
+    <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesReadOnly.cs" />
     <Compile Include="SelectionDialogBase.cs">
       <SubType>Form</SubType>
     </Compile>

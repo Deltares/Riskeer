@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
@@ -35,22 +33,34 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="NormalDistribution"/>
     /// properties that displays variation coefficient.
     /// </summary>
-    public class NormalDistributionVariationProperties : NormalDistributionProperties, IDistributionVariationCoefficient
+    public class NormalDistributionVariationProperties : VariationCoefficientDistributionPropertiesBase<VariationCoefficientNormalDistribution>
     {
         /// <summary>
         /// Creates a new read-only instance of <see cref="NormalDistributionVariationProperties"/>.
         /// </summary>
-        public NormalDistributionVariationProperties() : this(null, DistributionPropertiesReadOnly.All) {}
+        public NormalDistributionVariationProperties() : this(VariationCoefficientDistributionPropertiesReadOnly.All, null) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="NormalDistributionVariationProperties"/>.
         /// </summary>
-        /// <param name="observerable">Object to notify upon change.</param>
-        /// <param name="propertiesReadOnly">Sets if <see cref="DistributionProperties.Mean"/> and/or 
-        /// <see cref="DistributionProperties.StandardDeviation"/> should be marked read-only.</param>
-        public NormalDistributionVariationProperties(IObservable observerable, DistributionPropertiesReadOnly propertiesReadOnly)
-            : base(observerable, propertiesReadOnly) {}
+        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
+        /// marked as read-only.</param>
+        /// <param name="observable">The object to be notified of changes to properties.
+        /// Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
+        /// <exception cref="InvalidOperationException">Thrown when <paramref name="observable"/>
+        /// is null and any number of properties in this class is editable.</exception>
+        public NormalDistributionVariationProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly, IObservable observable)
+            : base(propertiesReadOnly, observable) {}
 
+        public override string DistributionType
+        {
+            get
+            {
+                return Resources.DistributionType_Normal;
+            }
+        }
+
+        [ResourcesDescription(typeof(Resources), "NormalDistribution_Mean_Description")]
         public override RoundedDouble Mean
         {
             get
@@ -59,48 +69,21 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                var variationCoefficient = data.GetVariationCoefficient();
                 base.Mean = value;
-                if (!double.IsInfinity(variationCoefficient))
-                {
-                    data.SetStandardDeviationFromVariationCoefficient(variationCoefficient);
-                    Observerable.NotifyObservers();
-                }
             }
         }
 
-        [Browsable(false)]
-        public override RoundedDouble StandardDeviation { get; set; }
-
-        [PropertyOrder(3)]
-        [DynamicReadOnly]
-        [ResourcesDisplayName(typeof(Resources), "Distribution_VariationCoefficient_DisplayName")]
         [ResourcesDescription(typeof(Resources), "NormalDistribution_VariationCoefficient_Description")]
-        public RoundedDouble VariationCoefficient
+        public override RoundedDouble CoefficientOfVariation
         {
             get
             {
-                return data.GetVariationCoefficient();
+                return base.CoefficientOfVariation;
             }
             set
             {
-                if (IsVariationCoefficientReadOnly)
-                {
-                    throw new ArgumentException("Variation coefficient is set to be read-only.");
-                }
-                if (Observerable == null)
-                {
-                    throw new ArgumentException("No observerable object set.");
-                }
-                data.SetStandardDeviationFromVariationCoefficient(value);
-                Observerable.NotifyObservers();
+                base.CoefficientOfVariation = value;
             }
-        }
-
-        public override string ToString()
-        {
-            return data == null ? Resources.Distribution_VariationCoefficient_DisplayName :
-                       string.Format("{0} ({1} = {2})", Mean, Resources.Distribution_VariationCoefficient_DisplayName, VariationCoefficient);
         }
     }
 }

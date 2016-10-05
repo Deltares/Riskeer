@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Forms.Properties;
 
@@ -30,29 +33,56 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="NormalDistribution"/>
     /// properties.
     /// </summary>
-    public class NormalDistributionProperties : DistributionProperties
+    public class NormalDistributionProperties : DistributionPropertiesBase<NormalDistribution>
     {
         /// <summary>
         /// Creates a new read-only instance of <see cref="NormalDistributionProperties"/>.
         /// </summary>
-        public NormalDistributionProperties() : this(null, DistributionPropertiesReadOnly.All) {}
+        public NormalDistributionProperties() : this(DistributionPropertiesReadOnly.All, null) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="NormalDistributionProperties"/>.
         /// </summary>
-        /// <param name="observerable">Object to notify upon change.</param>
-        /// <param name="propertiesReadOnly">Sets if <see cref="DistributionProperties.Mean"/> and/or 
-        /// <see cref="DistributionProperties.StandardDeviation"/> should be marked read-only.</param>
-        public NormalDistributionProperties(IObservable observerable, DistributionPropertiesReadOnly propertiesReadOnly) : base(propertiesReadOnly)
-        {
-            Observerable = observerable;
-        }
+        /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
+        /// marked as read-only.</param>
+        /// <param name="observable">The object to be notified of changes to properties.
+        /// Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="observable"/>
+        /// is null and any number of properties in this class is editable.</exception>
+        public NormalDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly, IObservable observable) :
+            base(propertiesReadOnly, observable) {}
 
         public override string DistributionType
         {
             get
             {
                 return Resources.DistributionType_Normal;
+            }
+        }
+
+        [ResourcesDescription(typeof(Resources), "NormalDistribution_Mean_Description")]
+        public override RoundedDouble Mean
+        {
+            get
+            {
+                return base.Mean;
+            }
+            set
+            {
+                base.Mean = value;
+            }
+        }
+
+        [ResourcesDescription(typeof(Resources), "NormalDistribution_StandardDeviation_Description")]
+        public override RoundedDouble StandardDeviation
+        {
+            get
+            {
+                return base.StandardDeviation;
+            }
+            set
+            {
+                base.StandardDeviation = value;
             }
         }
     }
