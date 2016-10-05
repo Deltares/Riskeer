@@ -36,6 +36,8 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Service;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
@@ -354,8 +356,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
-            // Call
-            activity.Run();
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                // Call
+                activity.Run();
+            }
 
             // Assert
             Assert.AreEqual("Stap 2 van 2 | Uitvoeren dijkhoogte berekening", activity.ProgressText);
@@ -388,14 +393,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
-            activity.Run();
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                activity.Run();
+            }
 
             // Call
             activity.Finish();
 
             // Assert
             Assert.IsNotNull(calculation.Output);
-            Assert.AreEqual((RoundedDouble) 5.954, calculation.Output.ProbabilityAssessmentOutput.Reliability);
+            Assert.IsFalse(double.IsNaN(calculation.Output.ProbabilityAssessmentOutput.Reliability));
             Assert.IsNaN(calculation.Output.DikeHeight);
             Assert.IsFalse(calculation.Output.DikeHeightCalculated);
             mocks.VerifyAll();

@@ -33,6 +33,8 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 
@@ -149,22 +151,24 @@ namespace Ringtoets.HeightStructures.Integration.Test
             };
 
             var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
-
-            // Call
-            Action call = () => activity.Run();
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            using (new HydraRingCalculatorFactoryConfig())
             {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(5, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
-                StringAssert.StartsWith("Hoogte kunstwerken berekeningsverslag. Klik op details voor meer informatie.", msgs[3]);
-            });
-            Assert.AreEqual(ActivityState.Executed, activity.State);
+                // Call
+                Action call = () => activity.Run();
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(5, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                    StringAssert.StartsWith("Hoogte kunstwerken berekeningsverslag. Klik op details voor meer informatie.", msgs[3]);
+                });
+                Assert.AreEqual(ActivityState.Executed, activity.State);
+            }
         }
 
         [Test]

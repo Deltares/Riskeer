@@ -25,27 +25,29 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Service;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.Integration.Data;
 
-namespace Ringtoets.HeightStructures.Integration.Test
+namespace Ringtoets.HeightStructures.Service.Test
 {
     [TestFixture]
-    public class HeightStructuresCalculationServiceIntegrationTest
+    public class HeightStructuresCalculationServiceTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private readonly static string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
         [Test]
         public void Validate_InvalidCalculationInputValidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             const string name = "<very nice name>";
 
@@ -56,7 +58,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSection);
+            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -68,19 +70,19 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
             });
             Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Validate_ValidCalculationInputAndInvalidHydraulicBoundaryDatabase_ReturnsFalse()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
-            {
-                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-                {
-                    FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
-                }
-            };
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "notexisting.sqlite");
 
             const string name = "<very nice name>";
 
@@ -95,7 +97,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSection);
+            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -107,14 +109,19 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
             });
             Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Validate_ValidCalculationInputAndHydraulicBoundaryDatabase_ReturnsTrue()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             const string name = "<very nice name>";
 
@@ -129,7 +136,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSection);
+            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -140,16 +147,21 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
             });
             Assert.IsTrue(isValid);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Calculate_ValidCalculation_LogStartAndEndAndReturnOutput()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
+            var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
 
-            assessmentSection.HeightStructures.AddSection(new FailureMechanismSection("test section", new[]
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -159,18 +171,18 @@ namespace Ringtoets.HeightStructures.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
-            var failureMechanismSection = assessmentSection.HeightStructures.Sections.First();
+            var failureMechanismSection = heightStructuresFailureMechanism.Sections.First();
 
             // Call
             Action call = () => new HeightStructuresCalculationService().Calculate(calculation,
-                                                                                   assessmentSection,
+                                                                                   assessmentSectionStub,
                                                                                    failureMechanismSection,
-                                                                                   assessmentSection.HeightStructures.GeneralInput,
-                                                                                   assessmentSection.HeightStructures.Contribution,
+                                                                                   heightStructuresFailureMechanism.GeneralInput,
+                                                                                   heightStructuresFailureMechanism.Contribution,
                                                                                    testDataPath);
 
             // Assert
@@ -183,16 +195,21 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
             });
             Assert.IsNotNull(calculation.Output);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]
         public void Calculate_InvalidCalculation_LogStartAndEndAndErrorMessageAndThrowsException()
         {
             // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            ImportHydraulicBoundaryDatabase(assessmentSection);
+            var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
 
-            assessmentSection.HeightStructures.AddSection(new FailureMechanismSection("test section", new[]
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -206,7 +223,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            var failureMechanismSection = assessmentSection.HeightStructures.Sections.First();
+            var failureMechanismSection = heightStructuresFailureMechanism.Sections.First();
             var exception = false;
 
             // Call
@@ -215,10 +232,10 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 try
                 {
                     new HeightStructuresCalculationService().Calculate(calculation,
-                                                                       assessmentSection,
+                                                                       assessmentSectionStub,
                                                                        failureMechanismSection,
-                                                                       assessmentSection.HeightStructures.GeneralInput,
-                                                                       assessmentSection.HeightStructures.Contribution,
+                                                                       heightStructuresFailureMechanism.GeneralInput,
+                                                                       heightStructuresFailureMechanism.Contribution,
                                                                        testDataPath);
                 }
                 catch
@@ -239,15 +256,26 @@ namespace Ringtoets.HeightStructures.Integration.Test
             });
             Assert.IsNull(calculation.Output);
             Assert.IsTrue(exception);
+
+            mockRepository.VerifyAll();
         }
 
-        private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
+        private static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism, MockRepository mockRepository)
         {
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionStub.Stub(a => a.Id).Return("21");
+            assessmentSectionStub.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
             {
-                importer.Import(assessmentSection, validFilePath);
-            }
+                failureMechanism
+            }, 1, 2));
+            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(1300001, String.Empty, 0, 0)
+                }
+            };
+            return assessmentSectionStub;
         }
     }
 }
