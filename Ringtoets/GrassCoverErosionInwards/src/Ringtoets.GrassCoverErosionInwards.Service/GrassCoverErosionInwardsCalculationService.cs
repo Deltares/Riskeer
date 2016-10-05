@@ -274,28 +274,35 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         {
             List<string> validationResult = new List<string>();
 
-            if (inputParameters.HydraulicBoundaryLocation == null)
+            if (assessmentSection.HydraulicBoundaryDatabase == null)
             {
-                validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+                validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_database_selected);
             }
-
-            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
-
-            if (!string.IsNullOrEmpty(validationProblem))
+            else
             {
-                validationResult.Add(validationProblem);
-            }
-
-            if (inputParameters.DikeProfile == null)
-            {
-                validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_dike_profile_selected);
-            }
-
-            if (inputParameters.UseBreakWater)
-            {
-                if (double.IsNaN(inputParameters.BreakWater.Height) || double.IsInfinity(inputParameters.BreakWater.Height))
+                if (inputParameters.HydraulicBoundaryLocation == null)
                 {
-                    validationResult.Add(RingtoetsCommonServiceResources.ValidationService_ValidateInput_invalid_BreakWaterHeight_value);
+                    validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+                }
+
+                var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+
+                if (!string.IsNullOrEmpty(validationProblem))
+                {
+                    validationResult.Add(validationProblem);
+                }
+
+                if (inputParameters.DikeProfile == null)
+                {
+                    validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_dike_profile_selected);
+                }
+
+                if (inputParameters.UseBreakWater)
+                {
+                    if (double.IsNaN(inputParameters.BreakWater.Height) || double.IsInfinity(inputParameters.BreakWater.Height))
+                    {
+                        validationResult.Add(RingtoetsCommonServiceResources.Validation_Invalid_BreakWaterHeight_value);
+                    }
                 }
             }
 

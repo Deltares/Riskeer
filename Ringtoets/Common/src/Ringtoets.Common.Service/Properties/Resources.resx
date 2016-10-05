@@ -168,4 +168,7 @@
   <data name="Validation_Invalid_BreakWaterHeight_value" xml:space="preserve">
     <value>Er is geen geldige damhoogte ingevoerd.</value>
   </data>
+  <data name="CalculationService_ValidateInput_No_hydraulic_boundary_database_selected" xml:space="preserve">
+    <value>Er is geen hydraulische randvoorwaardendatabase geïmporteerd.</value>
+  </data>
 </root>

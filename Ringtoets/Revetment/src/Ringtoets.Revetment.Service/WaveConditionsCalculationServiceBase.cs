@@ -241,7 +241,7 @@ namespace Ringtoets.Revetment.Service
             {
                 if (double.IsInfinity(input.BreakWater.Height) || double.IsNaN(input.BreakWater.Height))
                 {
-                    return RingtoetsCommonServiceResources.ValidationService_ValidateInput_invalid_BreakWaterHeight_value;
+                    return RingtoetsCommonServiceResources.Validation_Invalid_BreakWaterHeight_value;
                 }
             }
 

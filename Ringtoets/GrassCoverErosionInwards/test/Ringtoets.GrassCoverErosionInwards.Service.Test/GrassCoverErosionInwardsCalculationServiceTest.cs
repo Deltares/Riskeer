@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
@@ -40,7 +41,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationServiceTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private readonly static string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
         [Test]
         public void Validate_NoHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
@@ -53,6 +54,46 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase = null;
+
+            const string name = "<very nice name>";
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties())
+                }
+            };
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardendatabase geïmporteerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_NoHydraulicBoundarLocation_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
 
@@ -94,10 +135,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var assessmentSectionStub = CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
-            };
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "notexisting.sqlite");
 
             const string name = "<very nice name>";
 
@@ -368,12 +406,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             {
                 try
                 {
-                    new GrassCoverErosionInwardsCalculationService().CalculateDikeHeight(calculation,
-                                                                                   assessmentSectionStub,
-                                                                                   failureMechanismSection,
-                                                                                   grassCoverErosionInwardsFailureMechanism.GeneralInput,
-                                                                                   grassCoverErosionInwardsFailureMechanism.Contribution,
-                                                                                   testDataPath);
+                    using (new HydraRingCalculatorFactoryConfig())
+                    {
+                        var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                        calculator.EndInFailure = true;
+
+                        new GrassCoverErosionInwardsCalculationService().CalculateDikeHeight(calculation,
+                                                                                             assessmentSectionStub,
+                                                                                             failureMechanismSection,
+                                                                                             grassCoverErosionInwardsFailureMechanism.GeneralInput,
+                                                                                             grassCoverErosionInwardsFailureMechanism.Contribution,
+                                                                                             testDataPath);
+                    }
                 }
                 catch (HydraRingFileParserException)
                 {
@@ -394,8 +438,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             });
             Assert.IsFalse(expectedExceptionThrown);
             Assert.IsNotNull(calculation.Output);
-            Assert.IsNaN(calculation.Output.DikeHeight);
-            Assert.IsTrue(calculation.Output.DikeHeightCalculated);
 
             mockRepository.VerifyAll();
         }
@@ -457,6 +499,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             }, 1, 2));
             assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
+                FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite"),
                 Locations =
                 {
                     new HydraulicBoundaryLocation(1300001, String.Empty, 0, 0)
