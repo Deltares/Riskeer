@@ -120,4 +120,7 @@
   <data name="ClosingStructuresContextBase_DataDescription_ClosingStructuresFailureMechanism" xml:space="preserve">
     <value>Het sluitings kunstwerk toetsspoor</value>
   </data>
+  <data name="ClosingStructuresInputContext_NodeDisplayName" xml:space="preserve">
+    <value>Invoer</value>
+  </data>
 </root>

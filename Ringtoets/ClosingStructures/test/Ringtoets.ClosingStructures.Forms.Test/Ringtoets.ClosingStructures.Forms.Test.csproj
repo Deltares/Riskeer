@@ -63,12 +63,14 @@
     <Compile Include="PresentationObjects\ClosingStructuresCalculationGroupContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresContextBaseTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresFailureMechanismContextTest.cs" />
+    <Compile Include="PresentationObjects\ClosingStructuresInputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructuresCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructuresContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructureFailureMechanismContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructuresCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructuresFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ClosingStructuresInputContextTreeNodeInfoTest.cs" />
     <Compile Include="Views\ClosingStructuresFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\ClosingStructuresFailureMechanismSectionResultRowTest.cs" />
   </ItemGroup>

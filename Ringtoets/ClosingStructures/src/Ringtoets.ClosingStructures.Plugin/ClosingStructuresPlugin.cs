@@ -33,12 +33,14 @@ using Ringtoets.ClosingStructures.IO;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properties.Resources;
+using ClosingStructuresFormsResources = Ringtoets.ClosingStructures.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Plugin
 {
@@ -76,9 +78,9 @@ namespace Ringtoets.ClosingStructures.Plugin
                 CalculationGroupContextOnNodeRemoved);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<ClosingStructuresCalculationContext>(
-                null,
-                null,
-                null);
+                CalculationContextChildNodeObjects, 
+                CalculationContextContextMenuStrip,
+                CalculationContextOnNodeRemoved);
 
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>>
             {
@@ -89,7 +91,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                                                                                  .Build()
             };
 
-            yield return new TreeNodeInfo<ClosingStructuresContext>()
+            yield return new TreeNodeInfo<ClosingStructuresContext>
             {
                 Text = context => RingtoetsCommonFormsResources.StructuresCollection_DisplayName,
                 Image = context => RingtoetsCommonFormsResources.GeneralFolderIcon,
@@ -100,6 +102,15 @@ namespace Ringtoets.ClosingStructures.Plugin
                                                                                  .AddSeparator()
                                                                                  .AddExpandAllItem()
                                                                                  .AddCollapseAllItem()
+                                                                                 .Build()
+            };
+
+            yield return new TreeNodeInfo<ClosingStructuresInputContext>
+            {
+                Text = inputContext => ClosingStructuresFormsResources.ClosingStructuresInputContext_NodeDisplayName,
+                Image = inputContext => RingtoetsCommonFormsResources.GenericInputOutputIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddPropertiesItem()
                                                                                  .Build()
             };
         }
@@ -318,7 +329,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<ClosingStructuresCalculation>());
         }
 
-        private void AddCalculation(ClosingStructuresCalculationGroupContext context)
+        private static void AddCalculation(ClosingStructuresCalculationGroupContext context)
         {
             var calculation = new ClosingStructuresCalculation
             {
@@ -334,6 +345,41 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
             parentGroupContext.NotifyObservers();
+        }
+
+        #endregion
+
+        #region ClosingStructuresCalculationContext TreeNodeInfo
+
+        private static object[] CalculationContextChildNodeObjects(ClosingStructuresCalculationContext context)
+        {
+            var childNodes = new List<object>
+            {
+                new CommentContext<ICommentable>(context.WrappedData),
+                new ClosingStructuresInputContext(context.WrappedData.InputParameters,
+                                                 context.FailureMechanism,
+                                                 context.AssessmentSection)
+            };
+
+            if (context.WrappedData.HasOutput)
+            {
+                childNodes.Add(context.WrappedData.Output);
+            }
+            else
+            {
+                childNodes.Add(new EmptyProbabilityAssessmentOutput());
+            }
+
+            return childNodes.ToArray();
+        }
+
+        private static ContextMenuStrip CalculationContextContextMenuStrip(ClosingStructuresCalculationContext closingStructuresCalculationContext, object o, TreeViewControl arg3)
+        {
+            return new ContextMenuStrip();
+        }
+
+        private static void CalculationContextOnNodeRemoved(ClosingStructuresCalculationContext arg1, object arg2)
+        {
         }
 
         #endregion
