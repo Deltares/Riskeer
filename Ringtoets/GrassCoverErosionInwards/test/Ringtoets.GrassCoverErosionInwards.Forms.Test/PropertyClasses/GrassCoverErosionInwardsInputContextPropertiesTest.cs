@@ -134,7 +134,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             Assert.AreSame(input.DikeProfile, properties.DikeProfile);
             Assert.AreEqual(0.0, properties.Orientation.Value);
             Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
-            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.Foreshore);
+            Assert.IsInstanceOf<UseForeshoreProperties>(properties.Foreshore);
             Assert.AreSame(inputContext, properties.DikeGeometry.Data);
             Assert.AreEqual(2, properties.DikeHeight.NumberOfDecimalPlaces);
             Assert.AreEqual(0.0, properties.DikeHeight.Value);
