@@ -50,7 +50,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private const int flowWidthAtBottomProtectionPropertyIndex = 4;
         private const int widthOfFlowAperturesPropertyIndex = 5;
         private const int criticalOvertoppingDischargePropertyIndex = 6;
-        private const int failureProbabilityOfStructureGivenErosionPropertyIndex = 7;
+        private const int failureProbabilityStructureWithErosionPropertyIndex = 7;
         private const int modelFactorSuperCriticalFlowPropertyIndex = 8;
         private const int hydraulicBoundaryLocationPropertyIndex = 9;
         private const int stormDurationPropertyIndex = 10;
@@ -134,8 +134,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
             AssertLogNormalDistributionVariationProperties(criticalOvertoppingDischargeProperties, properties.CriticalOvertoppingDischarge);
 
-            var expectedFailureProbabilityOfStructureGivenErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityOfStructureGivenErosion);
-            Assert.AreEqual(expectedFailureProbabilityOfStructureGivenErosion, properties.FailureProbabilityOfStructureGivenErosion);
+            var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
 
             Assert.AreEqual(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
 
@@ -175,20 +175,20 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Call
             properties.StructureNormalOrientation = newStructureNormalOrientation;
-            properties.FailureProbabilityOfStructureGivenErosion = "1e-2";
+            properties.FailureProbabilityStructureWithErosion = "1e-2";
             properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
 
             // Assert
             Assert.AreEqual(newStructureNormalOrientation, properties.StructureNormalOrientation);
-            Assert.AreEqual(0.01, input.FailureProbabilityOfStructureGivenErosion);
-            Assert.AreEqual("1/100", properties.FailureProbabilityOfStructureGivenErosion);
+            Assert.AreEqual(0.01, input.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual("1/100", properties.FailureProbabilityStructureWithErosion);
             Assert.AreSame(hydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
             mockRepository.VerifyAll();
         }
 
         [Test]
         [TestCase(double.MaxValue)]
-        public void SetFailureProbabilityOfStructureGivenErosion_InvalidValues_ThrowsArgumentException(double newValue)
+        public void SetFailureProbabilityStructureWithErosion_InvalidValues_ThrowsArgumentException(double newValue)
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -204,10 +204,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
 
             // Call
-            TestDelegate call = () => properties.FailureProbabilityOfStructureGivenErosion = newValue.ToString(CultureInfo.InvariantCulture);
+            TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = newValue.ToString(CultureInfo.InvariantCulture);
 
             // Assert
-            var expectedMessage = Resources.FailureProbabilityOfStructureGivenErosion_Value_too_large;
+            var expectedMessage = Resources.FailureProbabilityStructureWithErosion_Value_too_large;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -216,7 +216,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase("no double value")]
         [TestCase("")]
-        public void SetFailureProbabilityOfStructureGivenErosion_ValuesUnableToParse_ThrowsArgumentException(string newValue)
+        public void SetFailureProbabilityStructureWithErosion_ValuesUnableToParse_ThrowsArgumentException(string newValue)
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -232,17 +232,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
 
             // Call
-            TestDelegate call = () => properties.FailureProbabilityOfStructureGivenErosion = newValue;
+            TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = newValue;
 
             // Assert
-            var expectedMessage = Resources.FailureProbabilityOfStructureGivenErosion_Could_not_parse_string_to_double_value;
+            var expectedMessage = Resources.FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void SetFailureProbabilityOfStructureGivenErosion_NullValue_ThrowsArgumentException()
+        public void SetFailureProbabilityStructureWithErosion_NullValue_ThrowsArgumentException()
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
@@ -258,10 +258,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
 
             // Call
-            TestDelegate call = () => properties.FailureProbabilityOfStructureGivenErosion = null;
+            TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = null;
 
             // Assert
-            var expectedMessage = Resources.FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null;
+            var expectedMessage = Resources.FailureProbabilityStructureWithErosion_Value_cannot_be_null;
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -334,11 +334,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Kritiek overslagdebiet [m³/s/m]", criticalOvertoppingDischargeProperty.DisplayName);
             Assert.AreEqual("Het kritieke overslagdebiet per strekkende meter.", criticalOvertoppingDischargeProperty.Description);
 
-            PropertyDescriptor failureProbabilityOfStructureGivenErosionProperty = dynamicProperties[failureProbabilityOfStructureGivenErosionPropertyIndex];
-            Assert.IsFalse(failureProbabilityOfStructureGivenErosionProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, failureProbabilityOfStructureGivenErosionProperty.Category);
-            Assert.AreEqual("Faalkans kunstwerk gegeven erosie bodem [-]", failureProbabilityOfStructureGivenErosionProperty.DisplayName);
-            Assert.AreEqual("De faalkans van het kunstwerk gegeven de erosie in de bodem.", failureProbabilityOfStructureGivenErosionProperty.Description);
+            PropertyDescriptor failureProbabilityStructureWithErosionProperty = dynamicProperties[failureProbabilityStructureWithErosionPropertyIndex];
+            Assert.IsFalse(failureProbabilityStructureWithErosionProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, failureProbabilityStructureWithErosionProperty.Category);
+            Assert.AreEqual("Faalkans kunstwerk gegeven erosie bodem [-]", failureProbabilityStructureWithErosionProperty.DisplayName);
+            Assert.AreEqual("De faalkans van het kunstwerk gegeven de erosie in de bodem.", failureProbabilityStructureWithErosionProperty.Description);
 
             PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[modelFactorSuperCriticalFlowPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);

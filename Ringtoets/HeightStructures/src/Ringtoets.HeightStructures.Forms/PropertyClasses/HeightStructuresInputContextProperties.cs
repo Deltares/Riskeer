@@ -51,7 +51,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int flowWidthAtBottomProtectionPropertyIndex = 5;
         private const int widthOfFlowAperturesPropertyIndex = 6;
         private const int criticalOvertoppingDischargePropertyIndex = 7;
-        private const int failureProbabilityOfStructureGivenErosionPropertyIndex = 8;
+        private const int failureProbabilityStructureWithErosionPropertyIndex = 8;
         private const int modelFactorSuperCriticalFlowPropertyIndex = 9;
         private const int hydraulicBoundaryLocationPropertyIndex = 10;
         private const int stormDurationPropertyIndex = 11;
@@ -200,33 +200,33 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(failureProbabilityOfStructureGivenErosionPropertyIndex)]
+        [PropertyOrder(failureProbabilityStructureWithErosionPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "FailureProbabilityOfStructureGivenErosion_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FailureProbabilityOfStructureGivenErosion_Description")]
-        public string FailureProbabilityOfStructureGivenErosion
+        [ResourcesDisplayName(typeof(Resources), "FailureProbabilityStructureWithErosion_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "FailureProbabilityStructureWithErosion_Description")]
+        public string FailureProbabilityStructureWithErosion
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.WrappedData.FailureProbabilityOfStructureGivenErosion);
+                return ProbabilityFormattingHelper.Format(data.WrappedData.FailureProbabilityStructureWithErosion);
             }
             set
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("value", Resources.FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null);
+                    throw new ArgumentNullException("value", Resources.FailureProbabilityStructureWithErosion_Value_cannot_be_null);
                 }
                 try
                 {
-                    data.WrappedData.FailureProbabilityOfStructureGivenErosion = (RoundedDouble) double.Parse(value);
+                    data.WrappedData.FailureProbabilityStructureWithErosion = (RoundedDouble) double.Parse(value);
                 }
                 catch (OverflowException)
                 {
-                    throw new ArgumentException(Resources.FailureProbabilityOfStructureGivenErosion_Value_too_large);
+                    throw new ArgumentException(Resources.FailureProbabilityStructureWithErosion_Value_too_large);
                 }
                 catch (FormatException)
                 {
-                    throw new ArgumentException(Resources.FailureProbabilityOfStructureGivenErosion_Could_not_parse_string_to_double_value);
+                    throw new ArgumentException(Resources.FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value);
                 }
                 data.WrappedData.NotifyObservers();
             }

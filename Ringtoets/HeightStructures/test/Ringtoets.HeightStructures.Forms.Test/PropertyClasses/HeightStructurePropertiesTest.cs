@@ -41,7 +41,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private const int flowWidthAtBottomProtection = 6;
         private const int widthOfFlowApertures = 7;
         private const int criticalOvertoppingDischarge = 8;
-        private const int failureProbabilityOfStructureGivenErosion = 9;
+        private const int failureProbabilityStructureWithErosion = 9;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -101,7 +101,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("Mean"));
             Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("StandardDeviation"));
 
-            Assert.AreEqual(structure.FailureProbabilityOfStructureGivenErosion, properties.FailureProbabilityOfStructureGivenErosion);
+            Assert.AreEqual(structure.FailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
         }
 
         [Test]
@@ -181,11 +181,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Kritiek overslagdebiet [m³/s/m]", criticalOvertoppingDischargeProperty.DisplayName);
             Assert.AreEqual("Het kritieke overslagdebiet per strekkende meter.", criticalOvertoppingDischargeProperty.Description);
 
-            PropertyDescriptor failureProbabilityOfStructureGivenErosionProperty = dynamicProperties[failureProbabilityOfStructureGivenErosion];
-            Assert.IsTrue(failureProbabilityOfStructureGivenErosionProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, failureProbabilityOfStructureGivenErosionProperty.Category);
-            Assert.AreEqual("Faalkans kunstwerk gegeven erosie bodem [-]", failureProbabilityOfStructureGivenErosionProperty.DisplayName);
-            Assert.AreEqual("De faalkans van het kunstwerk gegeven de erosie in de bodem.", failureProbabilityOfStructureGivenErosionProperty.Description);
+            PropertyDescriptor failureProbabilityStructureWithErosionProperty = dynamicProperties[failureProbabilityStructureWithErosion];
+            Assert.IsTrue(failureProbabilityStructureWithErosionProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, failureProbabilityStructureWithErosionProperty.Category);
+            Assert.AreEqual("Faalkans kunstwerk gegeven erosie bodem [-]", failureProbabilityStructureWithErosionProperty.DisplayName);
+            Assert.AreEqual("De faalkans van het kunstwerk gegeven de erosie in de bodem.", failureProbabilityStructureWithErosionProperty.Description);
         }
     }
 }

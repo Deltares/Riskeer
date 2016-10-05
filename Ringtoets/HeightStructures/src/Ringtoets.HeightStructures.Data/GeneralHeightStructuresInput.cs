@@ -48,13 +48,13 @@ namespace Ringtoets.HeightStructures.Data
                 StandardDeviation = (RoundedDouble) 0.06
             };
 
-            ModelFactorForStorageVolume = new LogNormalDistribution(2)
+            ModelFactorStorageVolume = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
                 StandardDeviation = (RoundedDouble) 0.2
             };
 
-            ModelFactorForIncomingFlowVolume = new RoundedDouble(2, 1);
+            ModelFactorInflowVolume = new RoundedDouble(2, 1);
         }
 
         /// <summary>
@@ -92,11 +92,11 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets the model factor for storage volume.
         /// </summary>
-        public LogNormalDistribution ModelFactorForStorageVolume { get; private set; }
+        public LogNormalDistribution ModelFactorStorageVolume { get; private set; }
 
         /// <summary>
         /// Gets the model factor for incoming flow volume.
         /// </summary>
-        public RoundedDouble ModelFactorForIncomingFlowVolume { get; private set; }
+        public RoundedDouble ModelFactorInflowVolume { get; private set; }
     }
 }

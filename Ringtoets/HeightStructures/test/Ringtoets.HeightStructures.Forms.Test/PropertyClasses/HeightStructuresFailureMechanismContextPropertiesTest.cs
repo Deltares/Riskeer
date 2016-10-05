@@ -40,7 +40,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private const int gravitationalAccelerationPropertyIndex = 2;
         private const int lengthEffectPropertyIndex = 3;
         private const int modelFactorOvertoppingFlowPropertyIndex = 4;
-        private const int modelFactorForStorageVolumePropertyIndex = 5;
+        private const int modelFactorStorageVolumePropertyIndex = 5;
         private MockRepository mockRepository;
 
         [SetUp]
@@ -83,8 +83,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.Mean, properties.ModelFactorOvertoppingFlow.Mean);
             Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.StandardDeviation, properties.ModelFactorOvertoppingFlow.StandardDeviation);
 
-            Assert.AreEqual(generalInput.ModelFactorForStorageVolume.Mean, properties.ModelFactorForStorageVolume.Mean);
-            Assert.AreEqual(generalInput.ModelFactorForStorageVolume.StandardDeviation, properties.ModelFactorForStorageVolume.StandardDeviation);
+            Assert.AreEqual(generalInput.ModelFactorStorageVolume.Mean, properties.ModelFactorStorageVolume.Mean);
+            Assert.AreEqual(generalInput.ModelFactorStorageVolume.StandardDeviation, properties.ModelFactorStorageVolume.StandardDeviation);
 
             mockRepository.VerifyAll();
         }
@@ -175,13 +175,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Modelfactor overslagdebiet [-]", modelFactorOvertoppingFlowProperty.DisplayName);
             Assert.AreEqual("Het modelfactor overslagdebiet.", modelFactorOvertoppingFlowProperty.Description);
 
-            PropertyDescriptor modelFactorForStorageVolumeProperty = dynamicProperties[modelFactorForStorageVolumePropertyIndex];
-            Assert.IsNotNull(modelFactorForStorageVolumeProperty);
-            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorForStorageVolumeProperty.Converter);
-            Assert.IsTrue(modelFactorForStorageVolumeProperty.IsReadOnly);
-            Assert.AreEqual(modelSettingsCategory, modelFactorForStorageVolumeProperty.Category);
-            Assert.AreEqual("Modelfactor kombergingsvolume [-]", modelFactorForStorageVolumeProperty.DisplayName);
-            Assert.AreEqual("Het modelfactor kombergingsvolume.", modelFactorForStorageVolumeProperty.Description);
+            PropertyDescriptor modelFactorStorageVolumeProperty = dynamicProperties[modelFactorStorageVolumePropertyIndex];
+            Assert.IsNotNull(modelFactorStorageVolumeProperty);
+            Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorStorageVolumeProperty.Converter);
+            Assert.IsTrue(modelFactorStorageVolumeProperty.IsReadOnly);
+            Assert.AreEqual(modelSettingsCategory, modelFactorStorageVolumeProperty.Category);
+            Assert.AreEqual("Modelfactor kombergingsvolume [-]", modelFactorStorageVolumeProperty.DisplayName);
+            Assert.AreEqual("Het modelfactor kombergingsvolume.", modelFactorStorageVolumeProperty.Description);
 
             mockRepository.VerifyAll();
         }

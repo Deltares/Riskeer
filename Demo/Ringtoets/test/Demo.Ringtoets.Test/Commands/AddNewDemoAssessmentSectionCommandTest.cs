@@ -299,7 +299,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(1.5, heightStructure.CriticalOvertoppingDischarge.StandardDeviation.Value);
             Assert.AreEqual(4.0, heightStructure.WidthOfFlowApertures.Mean.Value);
             Assert.AreEqual(0.05, heightStructure.WidthOfFlowApertures.StandardDeviation.Value);
-            Assert.AreEqual(1.0, heightStructure.FailureProbabilityOfStructureGivenErosion);
+            Assert.AreEqual(1.0, heightStructure.FailureProbabilityStructureWithErosion);
             Assert.AreEqual(50000.0, heightStructure.StorageStructureArea.Mean.Value);
             Assert.AreEqual(0.02, heightStructure.StorageStructureArea.StandardDeviation.Value);
             Assert.AreEqual(6.5, heightStructure.AllowedLevelIncreaseStorage.Mean.Value);

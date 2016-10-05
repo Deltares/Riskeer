@@ -87,7 +87,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(2, widthOfFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.57, widthOfFlowApertures.StandardDeviation.Value);
 
-            Assert.AreEqual(0.67890, heightStructure.FailureProbabilityOfStructureGivenErosion);
+            Assert.AreEqual(0.67890, heightStructure.FailureProbabilityStructureWithErosion);
 
             var storageStructureArea = heightStructure.StorageStructureArea;
             Assert.IsInstanceOf<LogNormalDistribution>(storageStructureArea);

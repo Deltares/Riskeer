@@ -171,13 +171,13 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(10)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "FailureProbabilityOfStructureGivenErosion_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FailureProbabilityOfStructureGivenErosion_Description")]
-        public double FailureProbabilityOfStructureGivenErosion
+        [ResourcesDisplayName(typeof(Resources), "FailureProbabilityStructureWithErosion_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "FailureProbabilityStructureWithErosion_Description")]
+        public double FailureProbabilityStructureWithErosion
         {
             get
             {
-                return data.FailureProbabilityOfStructureGivenErosion;
+                return data.FailureProbabilityStructureWithErosion;
             }
         }
     }

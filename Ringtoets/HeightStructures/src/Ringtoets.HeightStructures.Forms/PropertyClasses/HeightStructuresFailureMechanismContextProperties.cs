@@ -42,7 +42,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int gravitationalAccelerationPropertyIndex = 3;
         private const int lengthEffectPropertyIndex = 4;
         private const int modelFactorOvertoppingFlowPropertyIndex = 5;
-        private const int modelFactorForStorageVolumePropertyIndex = 6;
+        private const int modelFactorStorageVolumePropertyIndex = 6;
 
         #region Length effect parameters
 
@@ -123,18 +123,18 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(modelFactorForStorageVolumePropertyIndex)]
+        [PropertyOrder(modelFactorStorageVolumePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_Description")]
-        public LogNormalDistributionProperties ModelFactorForStorageVolume
+        [ResourcesDisplayName(typeof(Resources), "HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_Description")]
+        public LogNormalDistributionProperties ModelFactorStorageVolume
         {
             get
             {
                 return new LogNormalDistributionProperties
                 {
-                    Data = data.WrappedData.GeneralInput.ModelFactorForStorageVolume
+                    Data = data.WrappedData.GeneralInput.ModelFactorStorageVolume
                 };
             }
         }

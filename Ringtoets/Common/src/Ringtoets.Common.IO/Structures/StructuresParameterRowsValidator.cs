@@ -49,7 +49,7 @@ namespace Ringtoets.Common.IO.Structures
                     "KW_HOOGTE5", WidthOfFlowApertures
                 },
                 {
-                    "KW_HOOGTE6", FailureProbabilityOfStructureGivenErosion
+                    "KW_HOOGTE6", FailureProbabilityStructureWithErosion
                 },
                 {
                     "KW_HOOGTE7", StorageStructureArea
@@ -275,7 +275,7 @@ namespace Ringtoets.Common.IO.Structures
             return messages;
         }
 
-        private static List<string> FailureProbabilityOfStructureGivenErosion(StructuresParameterRow row)
+        private static List<string> FailureProbabilityStructureWithErosion(StructuresParameterRow row)
         {
             List<string> messages = new List<string>();
             double failureProbability = row.NumericalValue;

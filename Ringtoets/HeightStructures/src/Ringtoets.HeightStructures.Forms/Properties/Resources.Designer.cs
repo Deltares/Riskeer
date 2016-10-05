@@ -120,45 +120,45 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal..
         /// </summary>
-        public static string FailureProbabilityOfStructureGivenErosion_Could_not_parse_string_to_double_value {
+        public static string FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value {
             get {
-                return ResourceManager.GetString("FailureProbabilityOfStructureGivenErosion_Could_not_parse_string_to_double_value", resourceCulture);
+                return ResourceManager.GetString("FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De faalkans van het kunstwerk gegeven de erosie in de bodem..
         /// </summary>
-        public static string FailureProbabilityOfStructureGivenErosion_Description {
+        public static string FailureProbabilityStructureWithErosion_Description {
             get {
-                return ResourceManager.GetString("FailureProbabilityOfStructureGivenErosion_Description", resourceCulture);
+                return ResourceManager.GetString("FailureProbabilityStructureWithErosion_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Faalkans kunstwerk gegeven erosie bodem [-].
         /// </summary>
-        public static string FailureProbabilityOfStructureGivenErosion_DisplayName {
+        public static string FailureProbabilityStructureWithErosion_DisplayName {
             get {
-                return ResourceManager.GetString("FailureProbabilityOfStructureGivenErosion_DisplayName", resourceCulture);
+                return ResourceManager.GetString("FailureProbabilityStructureWithErosion_DisplayName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De waarde voor de faalkans moet ingevuld zijn..
         /// </summary>
-        public static string FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null {
+        public static string FailureProbabilityStructureWithErosion_Value_cannot_be_null {
             get {
-                return ResourceManager.GetString("FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null", resourceCulture);
+                return ResourceManager.GetString("FailureProbabilityStructureWithErosion_Value_cannot_be_null", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to De waarde voor de faalkans is te groot of te klein..
         /// </summary>
-        public static string FailureProbabilityOfStructureGivenErosion_Value_too_large {
+        public static string FailureProbabilityStructureWithErosion_Value_too_large {
             get {
-                return ResourceManager.GetString("FailureProbabilityOfStructureGivenErosion_Value_too_large", resourceCulture);
+                return ResourceManager.GetString("FailureProbabilityStructureWithErosion_Value_too_large", resourceCulture);
             }
         }
         
@@ -255,26 +255,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het modelfactor kombergingsvolume..
-        /// </summary>
-        public static string HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_Description {
-            get {
-                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_Descript" +
-                        "ion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modelfactor kombergingsvolume [-].
-        /// </summary>
-        public static string HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_DisplayName {
-            get {
-                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_DisplayN" +
-                        "ame", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Het modelfactor overslagdebiet..
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description {
@@ -291,6 +271,26 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
             get {
                 return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayNa" +
                         "me", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Het modelfactor kombergingsvolume..
+        /// </summary>
+        public static string HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_Description {
+            get {
+                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_Description" +
+                        "", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modelfactor kombergingsvolume [-].
+        /// </summary>
+        public static string HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_DisplayName {
+            get {
+                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_DisplayName" +
+                        "", resourceCulture);
             }
         }
         

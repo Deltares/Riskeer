@@ -281,29 +281,29 @@ namespace Ringtoets.HeightStructures.Data.Test
         [TestCase(0)]
         [TestCase(0.5)]
         [TestCase(1)]
-        public void Properties_ValidFailureProbabilityOfStructureGivenErosion_ExpectedValues(double failureProbabilityOfStructureGivenErosion)
+        public void Properties_ValidFailureProbabilityStructureWithErosion_ExpectedValues(double failureProbabilityStructureWithErosion)
         {
             // Setup
             var input = new HeightStructuresInput();
 
             // Call
-            input.FailureProbabilityOfStructureGivenErosion = failureProbabilityOfStructureGivenErosion;
+            input.FailureProbabilityStructureWithErosion = failureProbabilityStructureWithErosion;
 
             // Assert
-            Assert.AreEqual(failureProbabilityOfStructureGivenErosion, input.FailureProbabilityOfStructureGivenErosion);
+            Assert.AreEqual(failureProbabilityStructureWithErosion, input.FailureProbabilityStructureWithErosion);
         }
 
         [Test]
         [TestCase(-0.1)]
         [TestCase(1.1)]
         [TestCase(double.NaN)]
-        public void Properties_InvalidFailureProbabilityOfStructureGivenErosion_ThrowArgumentOutOfRangeException(double failureProbabilityOfStructureGivenErosion)
+        public void Properties_InvalidFailureProbabilityStructureWithErosion_ThrowArgumentOutOfRangeException(double failureProbabilityStructureWithErosion)
         {
             // Setup
             var input = new HeightStructuresInput();
 
             // Call
-            TestDelegate call = () => input.FailureProbabilityOfStructureGivenErosion = (RoundedDouble) failureProbabilityOfStructureGivenErosion;
+            TestDelegate call = () => input.FailureProbabilityStructureWithErosion = (RoundedDouble) failureProbabilityStructureWithErosion;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");

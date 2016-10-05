@@ -49,15 +49,15 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(modelFactorOvertopping.Mean, generalHeightStructuresInput.ModelFactorOvertoppingFlow.Mean);
             Assert.AreEqual(modelFactorOvertopping.StandardDeviation, generalHeightStructuresInput.ModelFactorOvertoppingFlow.StandardDeviation);
 
-            var modelFactorForStorageVolume = new NormalDistribution(2)
+            var modelFactorStorageVolume = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, 1.00),
                 StandardDeviation = new RoundedDouble(2, 0.20)
             };
-            Assert.AreEqual(modelFactorForStorageVolume.Mean, generalHeightStructuresInput.ModelFactorForStorageVolume.Mean);
-            Assert.AreEqual(modelFactorForStorageVolume.StandardDeviation, generalHeightStructuresInput.ModelFactorForStorageVolume.StandardDeviation);
+            Assert.AreEqual(modelFactorStorageVolume.Mean, generalHeightStructuresInput.ModelFactorStorageVolume.Mean);
+            Assert.AreEqual(modelFactorStorageVolume.StandardDeviation, generalHeightStructuresInput.ModelFactorStorageVolume.StandardDeviation);
 
-            Assert.AreEqual(1, generalHeightStructuresInput.ModelFactorForIncomingFlowVolume, 1e-6);
+            Assert.AreEqual(1, generalHeightStructuresInput.ModelFactorInflowVolume, 1e-6);
         }
 
         [Test]

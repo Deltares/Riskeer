@@ -44,14 +44,14 @@ namespace Ringtoets.HeightStructures.Data
         private readonly LogNormalDistribution stormDuration;
         private RoundedDouble structureNormalOrientation;
         private RoundedDouble deviationOfTheWaveDirection;
-        private double failureProbabilityOfStructureGivenErosion;
+        private double failureProbabilityStructureWithErosion;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HeightStructuresInput"/> class.
         /// </summary>
         public HeightStructuresInput()
         {
-            failureProbabilityOfStructureGivenErosion = 1.0;
+            failureProbabilityStructureWithErosion = 1.0;
 
             levelCrestStructure = new NormalDistribution(2)
             {
@@ -291,11 +291,11 @@ namespace Ringtoets.HeightStructures.Data
         /// [1/year]
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="value"/> is not in range [0, 1].</exception>
-        public double FailureProbabilityOfStructureGivenErosion
+        public double FailureProbabilityStructureWithErosion
         {
             get
             {
-                return failureProbabilityOfStructureGivenErosion;
+                return failureProbabilityStructureWithErosion;
             }
             set
             {
@@ -303,7 +303,7 @@ namespace Ringtoets.HeightStructures.Data
                 {
                     throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
-                failureProbabilityOfStructureGivenErosion = value;
+                failureProbabilityStructureWithErosion = value;
             }
         }
 

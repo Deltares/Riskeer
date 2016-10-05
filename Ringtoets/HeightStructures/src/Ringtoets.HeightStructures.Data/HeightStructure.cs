@@ -47,7 +47,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <param name="criticalOvertoppingDischargeStandardDeviation">The standard deviation of critical overtopping discharge of the height structure.</param>
         /// <param name="widthOfFlowAperturesMean">The mean flow apertures width of the height structure.</param>
         /// <param name="widthOfFlowAperturesStandardDeviation">The standard deviation of flow apertures width of the height structure.</param>
-        /// <param name="failureProbabilityOfStructureGivenErosion">The failure probability of the height structure, given erosion.</param>
+        /// <param name="failureProbabilityStructureWithErosion">The failure probability of the height structure, given erosion.</param>
         /// <param name="storageStructureAreaMean">The mean storage area of the height structure.</param>
         /// <param name="storageStructureAreaStandardDeviation">The standard deviation of storage area of the height structure.</param>
         /// <param name="allowedLevelIncreaseStorageMean">The mean allowable increase of level for storage of the height structure.</param>
@@ -61,7 +61,7 @@ namespace Ringtoets.HeightStructures.Data
                                double flowWidthAtBottomProtectionMean, double flowWidthAtBottomProtectionStandardDeviation,
                                double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeStandardDeviation,
                                double widthOfFlowAperturesMean, double widthOfFlowAperturesStandardDeviation,
-                               double failureProbabilityOfStructureGivenErosion,
+                               double failureProbabilityStructureWithErosion,
                                double storageStructureAreaMean, double storageStructureAreaStandardDeviation,
                                double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation)
             : base(name, id, location)
@@ -87,7 +87,7 @@ namespace Ringtoets.HeightStructures.Data
                 Mean = new RoundedDouble(2, widthOfFlowAperturesMean),
                 StandardDeviation = new RoundedDouble(2, widthOfFlowAperturesStandardDeviation)
             };
-            FailureProbabilityOfStructureGivenErosion = failureProbabilityOfStructureGivenErosion;
+            FailureProbabilityStructureWithErosion = failureProbabilityStructureWithErosion;
             StorageStructureArea = new LogNormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, storageStructureAreaMean),
@@ -128,7 +128,7 @@ namespace Ringtoets.HeightStructures.Data
         /// <summary>
         /// Gets the failure probability of the height structure, given erosion.
         /// </summary>
-        public double FailureProbabilityOfStructureGivenErosion { get; private set; }
+        public double FailureProbabilityStructureWithErosion { get; private set; }
 
         /// <summary>
         /// Gets the storage area of the height structure.

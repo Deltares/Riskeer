@@ -440,10 +440,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const double modelFactorSuperCriticalFlowMean = 1.1;
             const double modelFactorSuperCriticalFlowStandardDeviation = 0.03;
             const double allowedLevelIncreaseStorageStandardDeviation = 0.1;
-            const double modelFactorForStorageVolumeMean = 1.0;
-            const double modelFactorForStorageVolumeStandardDeviation = 0.2;
+            const double modelFactorStorageVolumeMean = 1.0;
+            const double modelFactorStorageVolumeStandardDeviation = 0.2;
             const double storageStructureAreaStandardDeviation = 0.1;
-            const double modelFactorForIncomingFlowVolume = 1;
+            const double modelFactorInflowVolume = 1;
             const double flowWidthAtBottomProtectionStandardDeviation = 0.05;
             const double criticalOvertoppingDischargeMeanStandardDeviation = 0.15;
             const double widthOfFlowAperturesStandardDeviation = 0.05;
@@ -456,7 +456,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const double storageStructureAreaMean = 4.4;
             const double flowWidthAtBottomProtectionMean = 5.5;
             const double criticalOvertoppingDischargeMean = 6.6;
-            const double failureProbabilityOfStructureGivenErosion = 7.7;
+            const double failureProbabilityStructureWithErosion = 7.7;
             const double widthOfFlowAperturesMean = 8.8;
             const double deviationOfTheWaveDirection = 9.9;
 
@@ -468,12 +468,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                                                  structureNormalOrientation,
                                                                                                                  modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation,
                                                                                                                  allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation,
-                                                                                                                 modelFactorForStorageVolumeMean, modelFactorForStorageVolumeStandardDeviation,
+                                                                                                                 modelFactorStorageVolumeMean, modelFactorStorageVolumeStandardDeviation,
                                                                                                                  storageStructureAreaMean, storageStructureAreaStandardDeviation,
-                                                                                                                 modelFactorForIncomingFlowVolume,
+                                                                                                                 modelFactorInflowVolume,
                                                                                                                  flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation,
                                                                                                                  criticalOvertoppingDischargeMean, criticalOvertoppingDischargeMeanStandardDeviation,
-                                                                                                                 failureProbabilityOfStructureGivenErosion,
+                                                                                                                 failureProbabilityStructureWithErosion,
                                                                                                                  widthOfFlowAperturesMean, widthOfFlowAperturesStandardDeviation,
                                                                                                                  deviationOfTheWaveDirection,
                                                                                                                  stormDurationMean, stormDurationStandardDeviation));

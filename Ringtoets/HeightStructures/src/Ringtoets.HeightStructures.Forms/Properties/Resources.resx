@@ -129,10 +129,10 @@
   <data name="HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_DisplayName" xml:space="preserve">
     <value>Valversnelling [m/s²]</value>
   </data>
-  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_Description" xml:space="preserve">
+  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_Description" xml:space="preserve">
     <value>Het modelfactor kombergingsvolume.</value>
   </data>
-  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorForStorageVolume_DisplayName" xml:space="preserve">
+  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_DisplayName" xml:space="preserve">
     <value>Modelfactor kombergingsvolume [-]</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description" xml:space="preserve">
@@ -153,10 +153,10 @@
   <data name="CriticalOvertoppingDischarge_DisplayName" xml:space="preserve">
     <value>Kritiek overslagdebiet [m³/s/m]</value>
   </data>
-  <data name="FailureProbabilityOfStructureGivenErosion_Description" xml:space="preserve">
+  <data name="FailureProbabilityStructureWithErosion_Description" xml:space="preserve">
     <value>De faalkans van het kunstwerk gegeven de erosie in de bodem.</value>
   </data>
-  <data name="FailureProbabilityOfStructureGivenErosion_DisplayName" xml:space="preserve">
+  <data name="FailureProbabilityStructureWithErosion_DisplayName" xml:space="preserve">
     <value>Faalkans kunstwerk gegeven erosie bodem [-]</value>
   </data>
   <data name="FlowWidthAtBottomProtection_Description" xml:space="preserve">
@@ -201,13 +201,13 @@
   <data name="WidthOfFlowApertures_DisplayName" xml:space="preserve">
     <value>Breedte van de kruin van het kunstwerk [m]</value>
   </data>
-  <data name="FailureProbabilityOfStructureGivenErosion_Could_not_parse_string_to_double_value" xml:space="preserve">
+  <data name="FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value" xml:space="preserve">
     <value>De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.</value>
   </data>
-  <data name="FailureProbabilityOfStructureGivenErosion_Value_too_large" xml:space="preserve">
+  <data name="FailureProbabilityStructureWithErosion_Value_too_large" xml:space="preserve">
     <value>De waarde voor de faalkans is te groot of te klein.</value>
   </data>
-  <data name="FailureProbabilityOfStructureGivenErosion_Value_cannot_be_null" xml:space="preserve">
+  <data name="FailureProbabilityStructureWithErosion_Value_cannot_be_null" xml:space="preserve">
     <value>De waarde voor de faalkans moet ingevuld zijn.</value>
   </data>
   <data name="HeightStructure_Location_Description" xml:space="preserve">
