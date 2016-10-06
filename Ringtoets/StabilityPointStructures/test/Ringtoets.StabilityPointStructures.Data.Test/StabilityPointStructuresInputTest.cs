@@ -81,43 +81,29 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             Assert.IsNaN(input.LevelCrestStructure.Mean);
             AssertEqualValue(0.05, input.LevelCrestStructure.StandardDeviation);
-
             Assert.IsNaN(input.ThresholdHeightOpenWeir.Mean);
             AssertEqualValue(0.1, input.ThresholdHeightOpenWeir.StandardDeviation);
-
             Assert.IsNaN(input.AreaFlowApertures.Mean);
             AssertEqualValue(0.01, input.AreaFlowApertures.StandardDeviation);
-
             Assert.IsNaN(input.ConstructiveStrengthLinearLoadModel.Mean);
             AssertEqualValue(0.1, input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation);
-
             Assert.IsNaN(input.ConstructiveStrengthQuadraticLoadModel.Mean);
             AssertEqualValue(0.1, input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation);
-
             Assert.IsNaN(input.StabilityLinearModel.Mean);
             AssertEqualValue(0.1, input.StabilityLinearModel.CoefficientOfVariation);
-
             Assert.IsNaN(input.StabilityQuadraticModel.Mean);
             AssertEqualValue(0.1, input.StabilityQuadraticModel.CoefficientOfVariation);
-
             Assert.IsNaN(input.FailureProbabilityRepairClosure);
-
             Assert.IsNaN(input.FailureCollisionEnergy.Mean);
             AssertEqualValue(0.3, input.FailureCollisionEnergy.CoefficientOfVariation);
-
             Assert.IsNaN(input.ShipMass.Mean);
             AssertEqualValue(0.2, input.ShipMass.CoefficientOfVariation);
-
             Assert.IsNaN(input.ShipVelocity.Mean);
             AssertEqualValue(0.2, input.ShipVelocity.CoefficientOfVariation);
-
-            Assert.AreEqual(0, input.LevellingCount);
-
+            Assert.AreEqual(0, input.LevelingCount);
             Assert.AreEqual(double.NaN, input.ProbabilityCollisionSecondaryStructure);
-
             AssertEqualValue(double.NaN, input.AllowedLevelIncreaseStorage.Mean);
             AssertEqualValue(0.1, input.AllowedLevelIncreaseStorage.StandardDeviation);
-
             Assert.IsNaN(input.StorageStructureArea.Mean);
             AssertEqualValue(0.1, input.StorageStructureArea.CoefficientOfVariation);
             AssertEqualValue(double.NaN, input.FlowWidthAtBottomProtection.Mean);
@@ -134,6 +120,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(2, input.VerticalDistance.NumberOfDecimalPlaces);
             AssertEqualValue(double.NaN, input.VerticalDistance);
         }
+
+        # region Calculation inputs
+
+        #endregion
 
         #region Hydraulic loads and data
 
@@ -612,19 +602,19 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_IdenticalApertures_ExpectedValues()
+        public void Properties_LevelingCount_ExpectedValues()
         {
             // Setup
             var input = new StabilityPointStructuresInput();
             var random = new Random(22);
 
-            int levellingCount = random.Next();
+            int levelingCount = random.Next();
 
             // Call
-            input.LevellingCount = levellingCount;
+            input.LevelingCount = levelingCount;
 
             // Assert
-            Assert.AreEqual(levellingCount, input.LevellingCount);
+            Assert.AreEqual(levelingCount, input.LevelingCount);
         }
 
         [Test]

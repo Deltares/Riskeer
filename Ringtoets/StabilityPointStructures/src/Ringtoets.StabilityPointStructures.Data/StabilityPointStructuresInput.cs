@@ -450,6 +450,23 @@ namespace Ringtoets.StabilityPointStructures.Data
         #region Schematization
 
         /// <summary>
+        /// Gets or sets the level crest of the structure.
+        /// [m+NAP]
+        /// </summary>
+        public NormalDistribution LevelCrestStructure
+        {
+            get
+            {
+                return levelCrestStructure;
+            }
+            set
+            {
+                levelCrestStructure.Mean = value.Mean;
+                levelCrestStructure.StandardDeviation = value.StandardDeviation;
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the orientation of the normal of the structure.
         /// [degrees]
         /// </summary>
@@ -478,25 +495,8 @@ namespace Ringtoets.StabilityPointStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the level crest of the structure.
-        /// [m+NAP]
-        /// </summary>
-        public NormalDistribution LevelCrestStructure
-        {
-            get
-            {
-                return levelCrestStructure;
-            }
-            set
-            {
-                levelCrestStructure.Mean = value.Mean;
-                levelCrestStructure.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the threshold height of the open weir.
-        /// [m+MAP]
+        /// [m+NAP]
         /// </summary>
         public NormalDistribution ThresholdHeightOpenWeir
         {
@@ -581,7 +581,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets or sets the stability properties of the quadratic model.
-        /// [kN/m^2]
+        /// [kN/m]
         /// </summary>
         public VariationCoefficientLogNormalDistribution StabilityQuadraticModel
         {
@@ -671,7 +671,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets or sets the levelling count.
         /// [1/year]
         /// </summary>
-        public int LevellingCount { get; set; }
+        public int LevelingCount { get; set; }
 
         /// <summary>
         /// Gets or sets the probability of a secondary collision on the structure.
