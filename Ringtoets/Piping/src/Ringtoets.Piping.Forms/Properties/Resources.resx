@@ -589,4 +589,7 @@
   <data name="GeneralPipingInput_UpliftCriticalSafetyFactor_DisplayName" xml:space="preserve">
     <value>Kritische veiligheidsfactor voor opbarsten [-]</value>
   </data>
+  <data name="PipingSurfaceLineSelectionDialog_Select_SurfaceLines" xml:space="preserve">
+    <value>Selecteer profielschematisaties</value>
+  </data>
 </root>

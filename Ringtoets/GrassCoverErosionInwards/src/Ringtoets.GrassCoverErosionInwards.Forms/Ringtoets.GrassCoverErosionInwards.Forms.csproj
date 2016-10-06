@@ -44,9 +44,6 @@
     <Compile Include="GrassCoverErosionInwardsDikeProfileSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GrassCoverErosionInwardsDikeProfileSelectionDialog.Designer.cs">
-      <DependentUpon>GrassCoverErosionInwardsDikeProfileSelectionDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="PresentationObjects\DikeProfilesContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsCalculationContext.cs" />
     <Compile Include="PresentationObjects\GrassCoverErosionInwardsContext.cs" />
@@ -157,9 +154,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GrassCoverErosionInwardsDikeProfileSelectionDialog.resx">
-      <DependentUpon>GrassCoverErosionInwardsDikeProfileSelectionDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

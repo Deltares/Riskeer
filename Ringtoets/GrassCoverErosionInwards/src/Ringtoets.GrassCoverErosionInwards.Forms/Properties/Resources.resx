@@ -225,4 +225,7 @@
   <data name="WorldReferencePoint_DikeProfile_Description" xml:space="preserve">
     <value>De coördinaten van de locatie van de dijk in het Rijksdriehoeksstelsel.</value>
   </data>
+  <data name="GrassCoverErosionInwardsDikeProfileSelectionDialog_Select_DikeProfiles" xml:space="preserve">
+    <value>Selecteer dijkprofielen</value>
+  </data>
 </root>

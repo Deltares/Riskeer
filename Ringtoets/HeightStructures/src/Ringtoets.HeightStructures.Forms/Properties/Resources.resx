@@ -231,7 +231,7 @@
   <data name="ForeshoreProfile_DisplayName" xml:space="preserve">
     <value>Voorlandprofiel</value>
   </data>
-  <data name="StructureSelectionDialog_StructureSelectionDialog_Select_structures" xml:space="preserve">
+  <data name="StructureSelectionDialog_Select_Structures" xml:space="preserve">
     <value>Selecteer kunstwerken</value>
   </data>
 </root>

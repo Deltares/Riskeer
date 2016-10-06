@@ -34,7 +34,7 @@ namespace Ringtoets.Piping.Forms
     /// A dialog which allows the user to make a selection form a given set of <see cref="RingtoetsPipingSurfaceLine"/>. Upon
     /// closing of the dialog, the selected <see cref="RingtoetsPipingSurfaceLine"/> can be obtained.
     /// </summary>
-    public partial class PipingSurfaceLineSelectionDialog : SelectionDialogBase<RingtoetsPipingSurfaceLine>
+    public class PipingSurfaceLineSelectionDialog : SelectionDialogBase<RingtoetsPipingSurfaceLine>
     {
         /// <summary>
         /// Creates a new instance of <see cref="PipingSurfaceLineSelectionDialog"/>.
@@ -49,8 +49,10 @@ namespace Ringtoets.Piping.Forms
             {
                 throw new ArgumentNullException("surfaceLines");
             }
-            InitializeComponent();
+
+            Text = Resources.PipingSurfaceLineSelectionDialog_Select_SurfaceLines;
             InitializeDataGridView(Resources.RingtoetsPipingSurfaceLine_DisplayName);
+
             SetDataSource(surfaceLines.Select(sl => new SelectableRow<RingtoetsPipingSurfaceLine>(sl, sl.Name)).ToArray());
         }
     }

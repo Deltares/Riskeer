@@ -414,9 +414,9 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Selecteer kunstwerken.
         /// </summary>
-        public static string StructureSelectionDialog_StructureSelectionDialog_Select_structures {
+        public static string StructureSelectionDialog_Select_Structures {
             get {
-                return ResourceManager.GetString("StructureSelectionDialog_StructureSelectionDialog_Select_structures", resourceCulture);
+                return ResourceManager.GetString("StructureSelectionDialog_Select_Structures", resourceCulture);
             }
         }
         

@@ -46,7 +46,7 @@ namespace Ringtoets.HeightStructures.Forms
                 throw new ArgumentNullException("structures");
             }
 
-            Text = Resources.StructureSelectionDialog_StructureSelectionDialog_Select_structures;
+            Text = Resources.StructureSelectionDialog_Select_Structures;
             InitializeDataGridView(Resources.Structure_DisplayName);
 
             SetDataSource(structures.Select(structure => new SelectableRow<HeightStructure>(structure, structure.Name)).ToArray());

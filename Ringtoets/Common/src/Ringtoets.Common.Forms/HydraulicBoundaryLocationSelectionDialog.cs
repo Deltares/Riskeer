@@ -33,7 +33,7 @@ namespace Ringtoets.Common.Forms
     /// A dialog which allows the user to make a selection form a given set of <see cref="HydraulicBoundaryLocation"/>. Upon
     /// closing of the dialog, the selected <see cref="HydraulicBoundaryLocation"/> can be obtained.
     /// </summary>
-    public partial class HydraulicBoundaryLocationSelectionDialog : SelectionDialogBase<HydraulicBoundaryLocation>
+    public class HydraulicBoundaryLocationSelectionDialog : SelectionDialogBase<HydraulicBoundaryLocation>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationSelectionDialog"/>.
@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms
                 throw new ArgumentNullException("hydraulicBoundaryLocations");
             }
 
-            InitializeComponent();
+            Text = Resources.HydraulicBoundaryLocationSelectionDialog_Select_HydraulicBoundaryLocations;
             InitializeDataGridView(Resources.HydraulicBoundaryLocationSelectionDialog_Location_Name);
 
             SetDataSource(hydraulicBoundaryLocations.Select(loc => new SelectableRow<HydraulicBoundaryLocation>(loc, loc.Name)).ToArray());

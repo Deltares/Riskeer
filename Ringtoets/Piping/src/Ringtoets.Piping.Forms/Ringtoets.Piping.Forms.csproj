@@ -55,9 +55,6 @@
     <Compile Include="PipingSurfaceLineSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PipingSurfaceLineSelectionDialog.Designer.cs">
-      <DependentUpon>PipingSurfaceLineSelectionDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="PresentationObjects\EmptyPipingOutput.cs" />
     <Compile Include="PresentationObjects\PipingScenariosContext.cs" />
     <Compile Include="PresentationObjects\PipingCalculationScenarioContext.cs" />
@@ -215,9 +212,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="PipingSurfaceLineSelectionDialog.resx">
-      <DependentUpon>PipingSurfaceLineSelectionDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

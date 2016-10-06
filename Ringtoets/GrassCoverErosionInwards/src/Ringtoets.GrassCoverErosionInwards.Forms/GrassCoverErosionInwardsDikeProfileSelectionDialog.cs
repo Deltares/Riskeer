@@ -34,7 +34,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms
     /// A dialog which allows the user to make a selection form a given set of <see cref="GrassCoverErosionInwardsDikeProfileSelectionDialog"/>. Upon
     /// closing of the dialog, the selected <see cref="DikeProfile"/> can be obtained.
     /// </summary>
-    public partial class GrassCoverErosionInwardsDikeProfileSelectionDialog : SelectionDialogBase<DikeProfile>
+    public class GrassCoverErosionInwardsDikeProfileSelectionDialog : SelectionDialogBase<DikeProfile>
     {
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsDikeProfileSelectionDialog"/>.
@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms
                 throw new ArgumentNullException("dikeProfiles");
             }
 
-            InitializeComponent();
+            Text = Resources.GrassCoverErosionInwardsDikeProfileSelectionDialog_Select_DikeProfiles;
             InitializeDataGridView(Resources.DikeProfile_DisplayName);
 
             SetDataSource(dikeProfiles.Select(p => new SelectableRow<DikeProfile>(p, p.Name)).ToArray());

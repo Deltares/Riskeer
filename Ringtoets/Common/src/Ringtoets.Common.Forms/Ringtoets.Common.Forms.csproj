@@ -92,9 +92,6 @@
     <Compile Include="HydraulicBoundaryLocationSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HydraulicBoundaryLocationSelectionDialog.Designer.cs">
-      <DependentUpon>HydraulicBoundaryLocationSelectionDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\DesignWaterLevelLocationRow.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationRow.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationsView.cs">
@@ -131,9 +128,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="HydraulicBoundaryLocationSelectionDialog.resx">
-      <DependentUpon>HydraulicBoundaryLocationSelectionDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CommentView.resx">
       <DependentUpon>CommentView.cs</DependentUpon>
