@@ -105,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             Assert.IsNull(properties.ForeshoreProfile);
             Assert.IsNull(properties.WorldReferencePoint);
             Assert.AreEqual(2, properties.Orientation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0, properties.Orientation.Value);
+            Assert.IsNaN(properties.Orientation);
             Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
             Assert.IsInstanceOf<UseForeshoreProperties>(properties.ForeshoreGeometry);
             Assert.AreEqual("Gras", properties.RevetmentType);

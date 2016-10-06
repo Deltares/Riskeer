@@ -111,7 +111,7 @@ namespace Ringtoets.Revetment.Data
             {
                 if (double.IsNaN(value))
                 {
-                    orientation = new RoundedDouble(2, double.NaN);
+                    orientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
                     return;
                 }
 
@@ -121,34 +121,6 @@ namespace Ringtoets.Revetment.Data
                     throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
                 }
                 orientation = newOrientation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets whether <see cref="BreakWater"/> needs to be taken into account.
-        /// </summary>
-        public bool UseBreakWater { get; set; }
-
-        /// <summary>
-        /// Gets the <see cref="BreakWater"/>.
-        /// </summary>
-        public BreakWater BreakWater { get; private set; }
-
-        /// <summary>
-        /// Gets or sets whether the <see cref="ForeshoreGeometry"/> needs to be taken into account.
-        /// </summary>
-        public bool UseForeshore { get; set; }
-
-        /// <summary>
-        /// Gets the geometry of the foreshore.
-        /// </summary>
-        public RoundedPoint2DCollection ForeshoreGeometry
-        {
-            get
-            {
-                return foreshoreProfile != null
-                           ? foreshoreProfile.Geometry
-                           : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
             }
         }
 
@@ -284,6 +256,34 @@ namespace Ringtoets.Revetment.Data
             }
         }
 
+        /// <summary>
+        /// Gets or sets whether <see cref="BreakWater"/> needs to be taken into account.
+        /// </summary>
+        public bool UseBreakWater { get; set; }
+
+        /// <summary>
+        /// Gets the <see cref="BreakWater"/>.
+        /// </summary>
+        public BreakWater BreakWater { get; private set; }
+
+        /// <summary>
+        /// Gets or sets whether the <see cref="ForeshoreGeometry"/> needs to be taken into account.
+        /// </summary>
+        public bool UseForeshore { get; set; }
+
+        /// <summary>
+        /// Gets the geometry of the foreshore.
+        /// </summary>
+        public RoundedPoint2DCollection ForeshoreGeometry
+        {
+            get
+            {
+                return foreshoreProfile != null
+                           ? foreshoreProfile.Geometry
+                           : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
+            }
+        }
+
         private static RoundedDouble ValidateUpperBoundaryInRange(RoundedDouble boundary)
         {
             if (boundary > 1000)
@@ -364,7 +364,7 @@ namespace Ringtoets.Revetment.Data
         {
             if (foreshoreProfile == null)
             {
-                Orientation = (RoundedDouble) 0.0;
+                Orientation = (RoundedDouble) double.NaN;
                 UseForeshore = false;
                 UseBreakWater = false;
                 BreakWater = GetDefaultBreakWater();

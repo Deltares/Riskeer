@@ -116,7 +116,7 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.AreEqual(new RoundedDouble(2), input.BreakWater.Height);
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
-            Assert.AreEqual(0, input.Orientation.Value);
+            Assert.IsNaN(input.Orientation);
             Assert.AreEqual(2, input.Orientation.NumberOfDecimalPlaces);
             Assert.IsNaN(input.AssessmentLevel.Value);
             Assert.AreEqual(2, input.AssessmentLevel.NumberOfDecimalPlaces);
@@ -273,7 +273,7 @@ namespace Ringtoets.Revetment.Data.Test
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
             Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
-            Assert.AreEqual(0, input.Orientation.Value);
+            Assert.IsNaN(input.Orientation);
             Assert.AreEqual(2, input.Orientation.NumberOfDecimalPlaces);
         }
 
