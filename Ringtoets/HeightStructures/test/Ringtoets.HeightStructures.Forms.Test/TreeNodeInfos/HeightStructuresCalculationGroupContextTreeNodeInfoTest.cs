@@ -806,7 +806,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             failureMechanism.AddSection(new FailureMechanismSection("A", new[]
             {
-                new Point2D(0, 0)
+                new Point2D(0, 0),
+                new Point2D(2, 2)
             }));
 
             failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation
@@ -814,7 +815,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                    HeightStructure = new HeightStructure("test", "1", new Point2D(1.1, 2.2),
+                                                          0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7,
+                                                          0.8, 0.9, 0.11, 0.12, 0.13, 0.14, 0.15)
                 }
             });
 
@@ -823,7 +827,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                    HeightStructure = new HeightStructure("test", "1", new Point2D(1.1, 2.2),
+                                                          0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7,
+                                                          0.8, 0.9, 0.11, 0.12, 0.13, 0.14, 0.15)
                 }
             });
 

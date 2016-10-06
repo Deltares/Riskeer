@@ -20,10 +20,11 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Utils;
 using Ringtoets.HydraRing.Calculation.Activities;
 
 namespace Ringtoets.HeightStructures.Service
@@ -86,7 +87,8 @@ namespace Ringtoets.HeightStructures.Service
         {
             HeightStructuresDataSynchronizationService.ClearCalculationOutput(calculation);
 
-            var failureMechanismSection = failureMechanism.Sections.First(); // TODO: Obtain dike section based on cross section of structure with reference line
+            FailureMechanismSection failureMechanismSection =
+                HeightStructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections, calculation);
 
             calculationService.Calculate(calculation,
                                          assessmentSection,
@@ -94,7 +96,6 @@ namespace Ringtoets.HeightStructures.Service
                                          failureMechanism.GeneralInput,
                                          failureMechanism.Contribution,
                                          hlcdDirectory);
-
         }
 
         protected override void OnCancel()
