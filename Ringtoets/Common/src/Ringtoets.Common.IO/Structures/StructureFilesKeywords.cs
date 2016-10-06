@@ -69,76 +69,76 @@ namespace Ringtoets.Common.IO.Structures
         /// <summary>
         /// The first closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword1 = "KW_HOOGTE1";
+        public const string ClosingStructureParameterKeyword1 = "KW_BETSLUIT1";
 
         /// <summary>
         /// The second closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword2 = "KW_HOOGTE2";
+        public const string ClosingStructureParameterKeyword2 = "KW_BETSLUIT2";
 
         /// <summary>
         /// The third closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword3 = "KW_HOOGTE3";
+        public const string ClosingStructureParameterKeyword3 = "KW_BETSLUIT3";
 
         /// <summary>
         /// The fourth closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword4 = "KW_HOOGTE4";
+        public const string ClosingStructureParameterKeyword4 = "KW_BETSLUIT4";
 
         /// <summary>
         /// The fifth closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword5 = "KW_HOOGTE5";
+        public const string ClosingStructureParameterKeyword5 = "KW_BETSLUIT5";
 
         /// <summary>
         /// The sixth closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword6 = "KW_HOOGTE6";
+        public const string ClosingStructureParameterKeyword6 = "KW_BETSLUIT6";
 
         /// <summary>
         /// The seventh closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword7 = "KW_HOOGTE7";
+        public const string ClosingStructureParameterKeyword7 = "KW_BETSLUIT7";
 
         /// <summary>
         /// The eighth closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword8 = "KW_HOOGTE8";
+        public const string ClosingStructureParameterKeyword8 = "KW_BETSLUIT8";
 
         /// <summary>
         /// The ninth closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword9 = "KW_HOOGTE9";
+        public const string ClosingStructureParameterKeyword9 = "KW_BETSLUIT9";
 
         /// <summary>
         /// The tenth closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword10 = "KW_HOOGTE10";
+        public const string ClosingStructureParameterKeyword10 = "KW_BETSLUIT10";
 
         /// <summary>
         /// The eleventh closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword11 = "KW_HOOGTE11";
+        public const string ClosingStructureParameterKeyword11 = "KW_BETSLUIT11";
 
         /// <summary>
         /// The twelfth closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword12 = "KW_HOOGTE12";
+        public const string ClosingStructureParameterKeyword12 = "KW_BETSLUIT12";
 
         /// <summary>
         /// The thirteenth closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword13 = "KW_HOOGTE13";
+        public const string ClosingStructureParameterKeyword13 = "KW_BETSLUIT13";
 
         /// <summary>
         /// The fourteenth closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword14 = "KW_HOOGTE14";
+        public const string ClosingStructureParameterKeyword14 = "KW_BETSLUIT14";
 
         /// <summary>
         /// The fifteenth closing structure parameter keyword.
         /// </summary>
-        public const string ClosingStructureParameterKeyword15 = "KW_HOOGTE15";
+        public const string ClosingStructureParameterKeyword15 = "KW_BETSLUIT15";
     }
 }

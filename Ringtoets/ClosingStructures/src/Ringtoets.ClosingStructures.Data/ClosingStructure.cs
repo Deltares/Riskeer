@@ -83,7 +83,7 @@ namespace Ringtoets.ClosingStructures.Data
                                 double failureProbabilityReparation,
                                 ClosingStructureType inflowModel
             )
-            : base(name, id, location)
+            : base(name, id, location, structureNormalOrientation)
         {
             StorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
@@ -95,7 +95,6 @@ namespace Ringtoets.ClosingStructures.Data
                 Mean = new RoundedDouble(2, allowedLevelIncreaseStorageMean),
                 StandardDeviation = new RoundedDouble(2, allowedLevelIncreaseStorageStandardDeviation)
             };
-            StructureNormalOrientation = new RoundedDouble(2, structureNormalOrientation);
             WidthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, widthFlowAperturesMean),
@@ -147,11 +146,6 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets the allowed increase of level for storage of the closing structure.
         /// </summary>
         public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
-
-        /// <summary>
-        /// Gets the orientation of the closing structure, relative to north.
-        /// </summary>
-        public RoundedDouble StructureNormalOrientation { get; private set; }
 
         /// <summary>
         /// Gets the width of the flow apertures of the closing structure.

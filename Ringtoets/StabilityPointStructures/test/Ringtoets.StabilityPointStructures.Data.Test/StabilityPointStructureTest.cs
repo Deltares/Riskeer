@@ -35,7 +35,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var location = new Point2D(1.22, 2.333);
 
             // Call
-            var structure = new StabilityPointStructure("aName", "anId", location);
+            var structure = new StabilityPointStructure("aName", "anId", location, 11.22);
 
             // Assert
             Assert.IsInstanceOf<StructureBase>(structure);

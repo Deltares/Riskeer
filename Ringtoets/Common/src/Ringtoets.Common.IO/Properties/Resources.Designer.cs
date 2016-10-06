@@ -1236,15 +1236,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde op regel {0}, kolom {1} valt buiten het bereik [0, 2]..
-        /// </summary>
-        public static string StructuresParameterRowsValidator_Line_0_column_1_type_out_of_range {
-            get {
-                return ResourceManager.GetString("StructuresParameterRowsValidator_Line_0_column_1_type_out_of_range", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De waarde op regel {0}, kolom {1} mag niet kleiner dan nul zijn..
         /// </summary>
         public static string StructuresParameterRowsValidator_Line_0_column_1_value_cannot_be_smaller_than_zero {

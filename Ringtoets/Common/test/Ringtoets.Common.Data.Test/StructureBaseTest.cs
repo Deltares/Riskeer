@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data.Test
         public void Constructor_NameNullOrWhiteSpace_ThrowArgumentException(string name)
         {
             // Call
-            TestDelegate call = () => new TestStructure(name, "anId", new Point2D(0, 0));
+            TestDelegate call = () => new TestStructure(name, "anId", new Point2D(0, 0), 0.0);
 
             // Assert
             ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Parameter is null, empty or consists of whitespace.");
@@ -50,7 +50,7 @@ namespace Ringtoets.Common.Data.Test
         public void Constructor_IdNullOrWhiteSpace_ThrowArgumentException(string id)
         {
             // Call
-            TestDelegate call = () => new TestStructure("aName", id, new Point2D(0, 0));
+            TestDelegate call = () => new TestStructure("aName", id, new Point2D(0, 0), 0.0);
 
             // Assert
             ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, "Parameter is null, empty or consists of whitespace.");
@@ -61,7 +61,7 @@ namespace Ringtoets.Common.Data.Test
         public void Constructor_LocationNull_ThrowArgumentNullException()
         {
             // Call
-            TestDelegate call = () => new TestStructure("aName", "anId", null);
+            TestDelegate call = () => new TestStructure("aName", "anId", null, 0.0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Data.Test
             var location = new Point2D(1.22, 2.333);
 
             // Call
-            var structure = new TestStructure("aName", "anId", location);
+            var structure = new TestStructure("aName", "anId", location, 0.0);
 
             // Assert
             Assert.AreEqual("aName", structure.Name);
@@ -87,7 +87,7 @@ namespace Ringtoets.Common.Data.Test
 
         private class TestStructure : StructureBase
         {
-            public TestStructure(string name, string id, Point2D location) : base(name, id, location) {}
+            public TestStructure(string name, string id, Point2D location, double normal) : base(name, id, location, normal) {}
         }
     }
 }

@@ -36,9 +36,10 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <param name="name">The name of the structure.</param>
         /// <param name="id">The identifier of the structure.</param>
         /// <param name="location">The location of the structure.</param>
+        /// <param name="structureNormalOrientation">The orientation of the stability point structure, relative to north.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
         /// , empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
-        public StabilityPointStructure(string name, string id, Point2D location) : base(name, id, location) {}
+        public StabilityPointStructure(string name, string id, Point2D location, double structureNormalOrientation) : base(name, id, location, structureNormalOrientation) { }
     }
 }

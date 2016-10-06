@@ -101,20 +101,21 @@ namespace Ringtoets.HeightStructures.IO
 
         private static HeightStructure CreateHeightStructure(StructureLocation structureLocation, List<StructuresParameterRow> structureParameterRows)
         {
-            var heightStructure = new HeightStructure(
+            Dictionary<string, StructuresParameterRow> rowData = structureParameterRows.ToDictionary(row => row.ParameterId, row => row);
+
+            return new HeightStructure(
                 structureLocation.Name,
                 structureLocation.Id,
                 structureLocation.Point,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword1).NumericalValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword2).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword2).VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword3).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword3).VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword4).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword4).VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword5).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword5).VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword6).NumericalValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword7).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword7).VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword8).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.HeightStructureParameterKeyword8).VarianceValue
+                rowData[StructureFilesKeywords.HeightStructureParameterKeyword1].NumericalValue,
+                rowData[StructureFilesKeywords.HeightStructureParameterKeyword2].NumericalValue, rowData[StructureFilesKeywords.HeightStructureParameterKeyword2].VarianceValue,
+                rowData[StructureFilesKeywords.HeightStructureParameterKeyword3].NumericalValue, rowData[StructureFilesKeywords.HeightStructureParameterKeyword3].VarianceValue,
+                rowData[StructureFilesKeywords.HeightStructureParameterKeyword4].NumericalValue, rowData[StructureFilesKeywords.HeightStructureParameterKeyword4].VarianceValue,
+                rowData[StructureFilesKeywords.HeightStructureParameterKeyword5].NumericalValue, rowData[StructureFilesKeywords.HeightStructureParameterKeyword5].VarianceValue,
+                rowData[StructureFilesKeywords.HeightStructureParameterKeyword6].NumericalValue,
+                rowData[StructureFilesKeywords.HeightStructureParameterKeyword7].NumericalValue, rowData[StructureFilesKeywords.HeightStructureParameterKeyword7].VarianceValue,
+                rowData[StructureFilesKeywords.HeightStructureParameterKeyword8].NumericalValue, rowData[StructureFilesKeywords.HeightStructureParameterKeyword8].VarianceValue
                 );
-            return heightStructure;
         }
     }
 }

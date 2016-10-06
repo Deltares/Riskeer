@@ -244,7 +244,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
         private static StabilityPointStructure CreateStabilityPointStructure()
         {
-            return new StabilityPointStructure("Name", "Id", new Point2D(1, 2));
+            return new StabilityPointStructure("Name", "Id", new Point2D(1, 2), 11.22);
         }
     }
 }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
 namespace Ringtoets.Common.Data
@@ -35,10 +36,11 @@ namespace Ringtoets.Common.Data
         /// <param name="name">The name of the structure.</param>
         /// <param name="id">The identifier of the structure.</param>
         /// <param name="location">The location of the structure.</param>
+        /// <param name="structureNormalOrientation">The orientation of the structure, relative to north.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
         /// , empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
-        protected StructureBase(string name, string id, Point2D location)
+        protected StructureBase(string name, string id, Point2D location, double structureNormalOrientation)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -56,6 +58,7 @@ namespace Ringtoets.Common.Data
             Name = name;
             Id = id;
             Location = location;
+            StructureNormalOrientation = new RoundedDouble(2, structureNormalOrientation);
         }
 
         /// <summary>
@@ -77,5 +80,10 @@ namespace Ringtoets.Common.Data
         {
             return Name;
         }
+
+        /// <summary>
+        /// Gets the orientation of the closing structure, relative to north.
+        /// </summary>
+        public RoundedDouble StructureNormalOrientation { get; private set; }
     }
 }

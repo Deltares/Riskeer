@@ -305,7 +305,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT15",
-                    NumericalValue = -11
+                    AlphanumericValue = "oei"
                 }
             };
 
@@ -340,7 +340,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 1].",
                 "De waarde op regel -1, kolom 18 mag niet kleiner dan nul zijn.",
                 "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 1].",
-                "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 2]."
+                "De waarde op regel -1, kolom 17 is ongeldig."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
         }

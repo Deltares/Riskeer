@@ -31,9 +31,17 @@ namespace Ringtoets.Common.IO.Structures
     /// </summary>
     public static class StructuresParameterRowsValidator
     {
+        private const int alphanumericalValueColumn = 17;
         private const int numericalValueColumn = 18;
         private const int varianceValueColumn = 19;
         private const int varianceTypeColumn = 20;
+
+        private static List<string> alphaNumericalKeywords = new List<string>
+        {
+            "verticalewand",
+            "lagedrempel",
+            "verdronkenkoker"
+        };
 
         private static readonly Dictionary<string, Func<StructuresParameterRow, List<string>>> heightStructuresRules =
             new Dictionary<string, Func<StructuresParameterRow, List<string>>>
@@ -257,10 +265,10 @@ namespace Ringtoets.Common.IO.Structures
         private static List<string> InflowModel(StructuresParameterRow row)
         {
             List<string> messages = new List<string>();
-            double value = row.NumericalValue;
-            if (!(value >= 0) && (value <= 2))
+            string value = row.AlphanumericValue.ToLower();
+            if (!alphaNumericalKeywords.Contains(value))
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_type_out_of_range, row.LineNumber, numericalValueColumn));
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, alphanumericalValueColumn));
             }
             return messages;
         }

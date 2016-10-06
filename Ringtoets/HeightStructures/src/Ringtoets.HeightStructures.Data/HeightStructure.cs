@@ -65,9 +65,8 @@ namespace Ringtoets.HeightStructures.Data
                                double failureProbabilityStructureWithErosion,
                                double storageStructureAreaMean, double storageStructureAreaCoefficientOfVariation,
                                double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation)
-            : base(name, id, location)
+            : base(name, id, location, structureNormalOrientation)
         {
-            StructureNormalOrientation = new RoundedDouble(2, structureNormalOrientation);
             LevelCrestStructure = new NormalDistribution(2)
             {
                 Mean = new RoundedDouble(2, levelCrestStructureMean),
@@ -100,11 +99,6 @@ namespace Ringtoets.HeightStructures.Data
                 StandardDeviation = new RoundedDouble(2, allowedLevelIncreaseStorageStandardDeviation)
             };
         }
-
-        /// <summary>
-        /// Gets the orientation of the height structure, relative to north.
-        /// </summary>
-        public RoundedDouble StructureNormalOrientation { get; private set; }
 
         /// <summary>
         /// Gets the crest level of the height structure.

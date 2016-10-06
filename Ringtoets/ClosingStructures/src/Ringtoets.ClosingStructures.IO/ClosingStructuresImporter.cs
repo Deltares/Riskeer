@@ -101,28 +101,37 @@ namespace Ringtoets.ClosingStructures.IO
 
         private static ClosingStructure CreateClosingStructure(StructureLocation structureLocation, List<StructuresParameterRow> structureParameterRows)
         {
-            int closingStructureTypeInteger = (int) structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword15).NumericalValue;
-            ClosingStructureType closingStructureType = (ClosingStructureType) closingStructureTypeInteger;
+            Dictionary<string, StructuresParameterRow> rowData = structureParameterRows.ToDictionary(row => row.ParameterId, row => row);
 
             return new ClosingStructure(
                 structureLocation.Name,
                 structureLocation.Id,
                 structureLocation.Point,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword1).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword1).VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword2).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword2).VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword3).NumericalValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword4).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword4).VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword5).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword5).VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword6).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword6).VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword7).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword7).VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword8).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword8).VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword9).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword9).VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword10).NumericalValue, structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword10).VarianceValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword11).NumericalValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword12).NumericalValue,
-                (int) structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword13).NumericalValue,
-                structureParameterRows.First(row => row.ParameterId == StructureFilesKeywords.ClosingStructureParameterKeyword14).NumericalValue,
-                closingStructureType);
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword1].NumericalValue, rowData[StructureFilesKeywords.ClosingStructureParameterKeyword1].VarianceValue,
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword2].NumericalValue, rowData[StructureFilesKeywords.ClosingStructureParameterKeyword2].VarianceValue,
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword3].NumericalValue,
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword4].NumericalValue, rowData[StructureFilesKeywords.ClosingStructureParameterKeyword4].VarianceValue,
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword5].NumericalValue, rowData[StructureFilesKeywords.ClosingStructureParameterKeyword5].VarianceValue,
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword6].NumericalValue, rowData[StructureFilesKeywords.ClosingStructureParameterKeyword6].VarianceValue,
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword7].NumericalValue, rowData[StructureFilesKeywords.ClosingStructureParameterKeyword7].VarianceValue,
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword8].NumericalValue, rowData[StructureFilesKeywords.ClosingStructureParameterKeyword8].VarianceValue,
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword9].NumericalValue, rowData[StructureFilesKeywords.ClosingStructureParameterKeyword9].VarianceValue,
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword10].NumericalValue, rowData[StructureFilesKeywords.ClosingStructureParameterKeyword10].VarianceValue,
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword11].NumericalValue,
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword12].NumericalValue,
+                (int)rowData[StructureFilesKeywords.ClosingStructureParameterKeyword13].NumericalValue,
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword14].NumericalValue,
+                GetClosingStructureType(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword15]));
+        }
+
+        private static ClosingStructureType GetClosingStructureType(StructuresParameterRow structureParameterRow)
+        {
+            string keywordValue = structureParameterRow.AlphanumericValue.ToLower();
+            if (keywordValue == "verticalewand")
+            {
+                return ClosingStructureType.VerticalWall;
+            }
+            return keywordValue == "lagedrempel" ? ClosingStructureType.LowSill : ClosingStructureType.FloodedCulvert;
         }
     }
 }
