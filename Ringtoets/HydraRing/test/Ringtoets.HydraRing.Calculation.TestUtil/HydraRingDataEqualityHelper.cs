@@ -23,6 +23,7 @@ using System.Linq;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 
 namespace Ringtoets.HydraRing.Calculation.TestUtil
@@ -40,6 +41,23 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         /// <param name="expectedInput">The expected calculation input.</param>
         /// <param name="actualInput">The actual calculation input.</param>
         public static void AreEqual(WaveConditionsCosineCalculationInput expectedInput, HydraRingCalculationInput actualInput)
+        {
+            Assert.AreEqual(expectedInput.FailureMechanismType, actualInput.FailureMechanismType);
+            Assert.AreEqual(expectedInput.CalculationTypeId, actualInput.CalculationTypeId);
+            Assert.AreEqual(expectedInput.VariableId, actualInput.VariableId);
+            Assert.AreEqual(expectedInput.HydraulicBoundaryLocationId, actualInput.HydraulicBoundaryLocationId);
+            Assert.AreEqual(expectedInput.Section.SectionId, actualInput.Section.SectionId);
+
+            Assert.AreEqual(expectedInput.Beta, actualInput.Beta, accuracy);
+            Assert.AreEqual(expectedInput.Section.CrossSectionNormal, actualInput.Section.CrossSectionNormal, accuracy);
+
+            AreEqual(expectedInput.BreakWater, actualInput.BreakWater);
+            AreEqual(expectedInput.Section, actualInput.Section);
+            AreEqual(expectedInput.ForelandsPoints.ToArray(), actualInput.ForelandsPoints.ToArray());
+            AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
+        }
+
+        public static void AreEqual(StructuresOvertoppingCalculationInput expectedInput, StructuresOvertoppingCalculationInput actualInput)
         {
             Assert.AreEqual(expectedInput.FailureMechanismType, actualInput.FailureMechanismType);
             Assert.AreEqual(expectedInput.CalculationTypeId, actualInput.CalculationTypeId);

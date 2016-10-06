@@ -30,8 +30,8 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 
 namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 {
-    public class TestHydraRingCalculatorFactory : IHydraRingCalculatorFactory {
-
+    public class TestHydraRingCalculatorFactory : IHydraRingCalculatorFactory
+    {
         public readonly TestDesignWaterLevelCalculator DesignWaterLevelCalculator = new TestDesignWaterLevelCalculator();
         public readonly TestDikeHeightCalculator DikeHeightCalculator = new TestDikeHeightCalculator();
         public readonly TestOvertoppingCalculator OvertoppingCalculator = new TestOvertoppingCalculator();
@@ -105,26 +105,29 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public string OutputFileContent { get; set; }
     }
 
-    public class TestDikeHeightCalculator : TestHydraRingCalculator<DikeHeightCalculationInput>, IDikeHeightCalculator {
+    public class TestDikeHeightCalculator : TestHydraRingCalculator<DikeHeightCalculationInput>, IDikeHeightCalculator
+    {
         public double DikeHeight { get; set; }
         public string OutputFileContent { get; set; }
     }
 
-    public class TestDesignWaterLevelCalculator : TestHydraRingCalculator<AssessmentLevelCalculationInput>, IDesignWaterLevelCalculator {
+    public class TestDesignWaterLevelCalculator : TestHydraRingCalculator<AssessmentLevelCalculationInput>, IDesignWaterLevelCalculator
+    {
         public double DesignWaterLevel { get; set; }
         public double ReliabilityIndex { get; set; }
         public string OutputFileContent { get; set; }
     }
 
-    public class TestStructuresOvertoppingCalculator : TestHydraRingCalculator<StructuresOvertoppingCalculationInput>, IStructuresOvertoppingCalculator {
+    public class TestStructuresOvertoppingCalculator : TestHydraRingCalculator<StructuresOvertoppingCalculationInput>, IStructuresOvertoppingCalculator
+    {
         public double ExceedanceProbabilityBeta { get; set; }
         public string OutputFileContent { get; set; }
     }
 
     public class TestHydraRingCalculator<T>
     {
-        public bool IsCanceled = false;
         public readonly List<T> ReceivedInputs = new List<T>();
+        public bool IsCanceled = false;
         public string RingId { get; set; }
         public string HydraulicBoundaryDatabaseDirectory { get; set; }
         public bool EndInFailure { get; set; }
@@ -137,7 +140,6 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
             }
             ReceivedInputs.Add(input);
         }
-
 
         public void Cancel()
         {
