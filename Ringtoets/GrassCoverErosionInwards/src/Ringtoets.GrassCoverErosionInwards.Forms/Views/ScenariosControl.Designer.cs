@@ -19,14 +19,28 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Controls.DataGrid;
+
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
-    partial class GrassCoverErosionInwardsScenariosView
+    partial class ScenariosControl
     {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
+        private DataGridViewControl dataGridViewControl;
 
         #region Component Designer generated code
 
@@ -36,32 +50,31 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.scenariosControl = new Ringtoets.GrassCoverErosionInwards.Forms.Views.ScenariosControl();
+            this.dataGridViewControl = new Core.Common.Controls.DataGrid.DataGridViewControl();
             this.SuspendLayout();
             // 
-            // scenariosControl
+            // dataGridViewControl
             // 
-            this.scenariosControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scenariosControl.Location = new System.Drawing.Point(0, 0);
-            this.scenariosControl.Name = "scenariosControl";
-            this.scenariosControl.Size = new System.Drawing.Size(160, 160);
-            this.scenariosControl.TabIndex = 0;
+            this.dataGridViewControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewControl.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewControl.MultiSelect = true;
+            this.dataGridViewControl.Name = "dataGridViewControl";
+            this.dataGridViewControl.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.RowHeaderSelect;
+            this.dataGridViewControl.Size = new System.Drawing.Size(368, 426);
+            this.dataGridViewControl.TabIndex = 0;
             // 
             // GrassCoverErosionInwardsScenariosView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.Controls.Add(this.scenariosControl);
-            this.MinimumSize = new System.Drawing.Size(160, 160);
+            this.Controls.Add(this.dataGridViewControl);
             this.Name = "GrassCoverErosionInwardsScenariosView";
-            this.Size = new System.Drawing.Size(160, 160);
+            this.Size = new System.Drawing.Size(368, 426);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private ScenariosControl scenariosControl;
     }
 }

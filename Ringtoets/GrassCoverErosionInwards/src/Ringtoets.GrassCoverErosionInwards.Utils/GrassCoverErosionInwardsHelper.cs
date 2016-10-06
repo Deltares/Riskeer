@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Utils;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -43,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects 
         /// for each section name which has calculations.</returns>
         /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
-        public static Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> CollectCalculationsPerSegment(
+        public static Dictionary<string, IList<ICalculation>> CollectCalculationsPerSegment(
             IEnumerable<FailureMechanismSection> sections,
             IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
@@ -59,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
 
             SectionSegments[] sectionSegments = SectionSegmentsHelper.MakeSectionSegments(sections);
 
-            var calculationsPerSegment = new Dictionary<string, IList<GrassCoverErosionInwardsCalculation>>();
+            var calculationsPerSegment = new Dictionary<string, IList<ICalculation>>();
 
             foreach (var calculation in calculations)
             {
@@ -110,12 +111,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
                        : null;
         }
 
-        private static void UpdateCalculationsOfSegment(Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegment,
+        private static void UpdateCalculationsOfSegment(Dictionary<string, IList<ICalculation>> calculationsPerSegment,
                                                         string sectionName, GrassCoverErosionInwardsCalculation calculation)
         {
             if (!calculationsPerSegment.ContainsKey(sectionName))
             {
-                calculationsPerSegment.Add(sectionName, new List<GrassCoverErosionInwardsCalculation>());
+                calculationsPerSegment.Add(sectionName, new List<ICalculation>());
             }
             calculationsPerSegment[sectionName].Add(calculation);
         }

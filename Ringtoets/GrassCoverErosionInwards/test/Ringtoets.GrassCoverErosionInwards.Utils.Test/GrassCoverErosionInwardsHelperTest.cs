@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -109,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var emptySections = new FailureMechanismSection[0];
 
             // Call
-            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
+            Dictionary<string, IList<ICalculation>> collectCalculationsPerSegment =
                 GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(emptySections, twoCalculations);
 
             // Assert
@@ -123,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             var calculations = new GrassCoverErosionInwardsCalculation[0];
 
             // Call
-            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
+            Dictionary<string, IList<ICalculation>> collectCalculationsPerSegment =
                 GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSection, calculations);
 
             // Assert
@@ -141,7 +142,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             };
 
             // Call
-            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
+            Dictionary<string, IList<ICalculation>> collectCalculationsPerSegment =
                 GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSection, calculations);
 
             // Assert
@@ -152,7 +153,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         public void CollectCalculationsPerSegment_MultipleCalculationsInSegment_OneSegmentHasAllCalculations()
         {
             // Call
-            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
+            Dictionary<string, IList<ICalculation>> collectCalculationsPerSegment =
                 GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(twoSections, twoCalculations);
 
             // Assert
@@ -186,7 +187,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             };
 
             // Call
-            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> collectCalculationsPerSegment =
+            Dictionary<string, IList<ICalculation>> collectCalculationsPerSegment =
                 GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(twoSections, calculations);
 
             // Assert

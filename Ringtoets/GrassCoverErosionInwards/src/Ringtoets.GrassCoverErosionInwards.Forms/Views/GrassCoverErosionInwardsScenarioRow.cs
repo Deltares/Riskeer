@@ -29,7 +29,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
     /// Container of a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>,
     /// which takes care of the representation of properties in a grid.
     /// </summary>
-    internal class GrassCoverErosionInwardsScenarioRow
+    internal class GrassCoverErosionInwardsScenarioRow : IScenarioRow<GrassCoverErosionInwardsCalculation>
     {
         private readonly GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult;
 

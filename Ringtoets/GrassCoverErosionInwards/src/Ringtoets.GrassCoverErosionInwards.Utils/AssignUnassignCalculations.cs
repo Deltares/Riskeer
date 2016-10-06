@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
@@ -87,7 +88,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
 
             var sectionResultsArray = sectionResults.ToArray();
 
-            Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName =
+            Dictionary<string, IList<ICalculation>> calculationsPerSegmentName =
                 GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(sectionResultsArray.Select(sr => sr.Section), calculations);
 
             UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(sectionResultsArray, calculation, calculationsPerSegmentName);
@@ -95,7 +96,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
 
         private static void UnassignCalculationInAllSectionResultsAndAssignSingleRemainingCalculation(
             IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
-            GrassCoverErosionInwardsCalculation calculation, Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegmentName)
+            GrassCoverErosionInwardsCalculation calculation, Dictionary<string, IList<ICalculation>> calculationsPerSegmentName)
         {
             IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResultsUsingCalculation =
                 sectionResults.Where(sr => sr.Calculation != null && sr.Calculation.Equals(calculation));
@@ -104,7 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
                 string sectionName = sectionResult.Section.Name;
                 if (calculationsPerSegmentName.ContainsKey(sectionName) && calculationsPerSegmentName[sectionName].Count == 1)
                 {
-                    sectionResult.Calculation = calculationsPerSegmentName[sectionName].Single();
+                    sectionResult.Calculation = calculationsPerSegmentName[sectionName].OfType<GrassCoverErosionInwardsCalculation>().Single();
                     continue;
                 }
                 sectionResult.Calculation = null;

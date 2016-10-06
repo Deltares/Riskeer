@@ -33,8 +33,6 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// </summary>
     internal class DesignWaterLevelCalculator : HydraRingCalculatorBase, IDesignWaterLevelCalculator
     {
-        private readonly string hlcdDirectory;
-        private readonly string ringId;
         private readonly ReliabilityIndexCalculationParser targetProbabilityParser;
 
         /// <summary>

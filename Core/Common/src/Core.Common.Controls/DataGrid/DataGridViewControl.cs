@@ -404,6 +404,17 @@ namespace Core.Common.Controls.DataGrid
             dataGridView.CellEndEdit += DataGridViewOnCellEndEdit;
             dataGridView.DataError += DataGridViewOnDataError;
             dataGridView.Leave += DataGridViewOnLeave;
+            dataGridView.CellClick += DataGridViewOnCellClick;
+        }
+
+        private void DataGridViewOnCellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridView.BeginEdit(true);
+            ComboBox combobox = dataGridView.EditingControl as ComboBox;
+            if (combobox != null)
+            {
+                combobox.DroppedDown = true;
+            }
         }
 
         private void DataGridViewOnColumnAdded(object sender, DataGridViewColumnEventArgs e)
