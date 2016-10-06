@@ -84,50 +84,59 @@ namespace Ringtoets.Common.IO.Test.Structures
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword1,
-                    NumericalValue = double.NaN
+                    NumericalValue = double.NaN,
+                    LineNumber = 1
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword2,
                     NumericalValue = double.NaN,
-                    VarianceValue = -10.0
+                    VarianceValue = -10.0,
+                    LineNumber = 2
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword3,
                     NumericalValue = double.NaN,
-                    VarianceValue = double.NaN
+                    VarianceValue = double.NaN,
+                    LineNumber = 3
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword4,
                     NumericalValue = double.PositiveInfinity,
-                    VarianceValue = double.PositiveInfinity
+                    VarianceValue = double.PositiveInfinity,
+                    LineNumber = 4
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword5,
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
-                    VarianceType = VarianceType.NotSpecified
+                    VarianceType = VarianceType.NotSpecified,
+                    LineNumber = 5
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword6,
-                    NumericalValue = double.NegativeInfinity
+                    NumericalValue = double.NegativeInfinity,
+                    LineNumber = 6
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword7,
-                    NumericalValue = double.NegativeInfinity,
-                    VarianceValue = -10.0
+                    NumericalValue = 9.9e-5,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 7
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword8,
                     NumericalValue = 0,
                     VarianceValue = 10.0,
-                    VarianceType = VarianceType.CoefficientOfVariation
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 8
                 }
             };
 
@@ -138,23 +147,22 @@ namespace Ringtoets.Common.IO.Test.Structures
             Assert.IsFalse(validationResult.IsValid);
             List<string> expectedErrorMessages = new List<string>
             {
-                "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 360].",
-                "De waarde op regel -1, kolom 18 is ongeldig.",
-                "De waarde op regel -1, kolom 20 is ongeldig.",
-                "De waarde op regel -1, kolom 19 is ongeldig.",
-                "De waarde op regel -1, kolom 18 is ongeldig.",
-                "De waarde op regel -1, kolom 20 is ongeldig.",
-                "De waarde op regel -1, kolom 19 is ongeldig.",
-                "De waarde op regel -1, kolom 18 is ongeldig.",
-                "De waarde op regel -1, kolom 20 is ongeldig.",
-                "De waarde op regel -1, kolom 19 is ongeldig.",
-                "De waarde op regel -1, kolom 18 is ongeldig.",
-                "De waarde op regel -1, kolom 20 is ongeldig.",
-                "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 1].",
-                "De waarde op regel -1, kolom 18 is ongeldig.",
-                "De waarde op regel -1, kolom 20 is ongeldig.",
-                "De waarde op regel -1, kolom 19 is ongeldig.",
-                "De waarde op regel -1, kolom 18 is ongeldig."
+                "De waarde op regel 1, kolom 18 valt buiten het bereik [0, 360].",
+                "De waarde op regel 2, kolom 18 is ongeldig.",
+                "De waarde op regel 2, kolom 20 is ongeldig.",
+                "De waarde op regel 2, kolom 19 is ongeldig.",
+                "De waarde op regel 3, kolom 18 is ongeldig.",
+                "De waarde op regel 3, kolom 20 is ongeldig.",
+                "De waarde op regel 3, kolom 19 is ongeldig.",
+                "De waarde op regel 4, kolom 18 is ongeldig.",
+                "De waarde op regel 4, kolom 20 is ongeldig.",
+                "De waarde op regel 4, kolom 19 is ongeldig.",
+                "De waarde op regel 5, kolom 18 is ongeldig.",
+                "De waarde op regel 5, kolom 20 is ongeldig.",
+                "De waarde op regel 6, kolom 18 valt buiten het bereik [0, 1].",
+                "Voor een betrouwbare conversie tussen standaard deviatie en variatiecoëfficiënt mag de gemiddelde waarde (op regel 7, kolom numeriekewaarde) niet te dicht op 0 zijn.",
+                "De waarde op regel 8, kolom 18 is ongeldig.",
+                "Voor een betrouwbare conversie tussen standaard deviatie en variatiecoëfficiënt mag de gemiddelde waarde (op regel 8, kolom numeriekewaarde) niet te dicht op 0 zijn."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
         }
@@ -221,91 +229,107 @@ namespace Ringtoets.Common.IO.Test.Structures
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT1",
-                    NumericalValue = double.NegativeInfinity,
-                    VarianceValue = -10.0
+                    NumericalValue = 1e-5,
+                    VarianceValue = 1.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 1
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT2",
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
-                    VarianceType = VarianceType.StandardDeviation
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 2
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT3",
-                    NumericalValue = double.NaN
+                    NumericalValue = double.NaN,
+                    LineNumber = 3
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT4",
                     NumericalValue = 0,
                     VarianceValue = 10.0,
-                    VarianceType = VarianceType.CoefficientOfVariation
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 4
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT5",
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
-                    VarianceType = VarianceType.NotSpecified
+                    VarianceType = VarianceType.NotSpecified,
+                    LineNumber = 5
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT6",
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
-                    VarianceType = VarianceType.NotSpecified
+                    VarianceType = VarianceType.NotSpecified,
+                    LineNumber = 6
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT7",
                     NumericalValue = double.PositiveInfinity,
                     VarianceValue = 10.0,
-                    VarianceType = VarianceType.NotSpecified
+                    VarianceType = VarianceType.NotSpecified,
+                    LineNumber = 7
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT8",
                     NumericalValue = double.PositiveInfinity,
-                    VarianceValue = double.PositiveInfinity
+                    VarianceValue = double.PositiveInfinity,
+                    LineNumber = 8
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT9",
                     NumericalValue = double.PositiveInfinity,
-                    VarianceValue = double.PositiveInfinity
+                    VarianceValue = double.PositiveInfinity,
+                    LineNumber = 9
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT10",
                     NumericalValue = double.NaN,
-                    VarianceValue = double.NaN
+                    VarianceValue = double.NaN,
+                    LineNumber = 10
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT11",
-                    NumericalValue = double.NegativeInfinity
+                    NumericalValue = double.NegativeInfinity,
+                    LineNumber = 11
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT12",
-                    NumericalValue = double.NegativeInfinity
+                    NumericalValue = double.NegativeInfinity,
+                    LineNumber = 12
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT13",
-                    NumericalValue = -11
+                    NumericalValue = -11,
+                    LineNumber = 13
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT14",
-                    NumericalValue = double.NegativeInfinity
+                    NumericalValue = double.NegativeInfinity,
+                    LineNumber = 14
                 },
                 new StructuresParameterRow
                 {
                     ParameterId = "KW_BETSLUIT15",
-                    AlphanumericValue = "oei"
+                    AlphanumericValue = "oei",
+                    LineNumber = 15
                 }
             };
 
@@ -316,31 +340,30 @@ namespace Ringtoets.Common.IO.Test.Structures
             Assert.IsFalse(validationResult.IsValid);
             List<string> expectedErrorMessages = new List<string>
             {
-                "De waarde op regel -1, kolom 18 is ongeldig.",
-                "De waarde op regel -1, kolom 20 is ongeldig.",
-                "De waarde op regel -1, kolom 19 is ongeldig.",
-                "De waarde op regel -1, kolom 18 is ongeldig.",
-                "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 360].",
-                "De waarde op regel -1, kolom 18 is ongeldig.",
-                "De waarde op regel -1, kolom 20 is ongeldig.",
-                "De waarde op regel -1, kolom 18 is ongeldig.",
-                "De waarde op regel -1, kolom 20 is ongeldig.",
-                "De waarde op regel -1, kolom 18 is ongeldig.",
-                "De waarde op regel -1, kolom 20 is ongeldig.",
-                "De waarde op regel -1, kolom 18 is ongeldig.",
-                "De waarde op regel -1, kolom 20 is ongeldig.",
-                "De waarde op regel -1, kolom 19 is ongeldig.",
-                "De waarde op regel -1, kolom 18 is ongeldig.",
-                "De waarde op regel -1, kolom 20 is ongeldig.",
-                "De waarde op regel -1, kolom 19 is ongeldig.",
-                "De waarde op regel -1, kolom 18 is ongeldig.",
-                "De waarde op regel -1, kolom 20 is ongeldig.",
-                "De waarde op regel -1, kolom 19 is ongeldig.",
-                "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 1].",
-                "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 1].",
-                "De waarde op regel -1, kolom 18 mag niet kleiner dan nul zijn.",
-                "De waarde op regel -1, kolom 18 valt buiten het bereik [0, 1].",
-                "De waarde op regel -1, kolom 17 is ongeldig."
+                "Voor een betrouwbare conversie tussen standaard deviatie en variatiecoëfficiënt mag de gemiddelde waarde (op regel 1, kolom numeriekewaarde) niet te dicht op 0 zijn.",
+                "De waarde op regel 2, kolom 18 is ongeldig.",
+                "De waarde op regel 3, kolom 18 valt buiten het bereik [0, 360].",
+                "De waarde op regel 4, kolom 18 is ongeldig.",
+                "De waarde op regel 5, kolom 18 is ongeldig.",
+                "De waarde op regel 5, kolom 20 is ongeldig.",
+                "De waarde op regel 6, kolom 18 is ongeldig.",
+                "De waarde op regel 6, kolom 20 is ongeldig.",
+                "De waarde op regel 7, kolom 18 is ongeldig.",
+                "De waarde op regel 7, kolom 20 is ongeldig.",
+                "De waarde op regel 8, kolom 18 is ongeldig.",
+                "De waarde op regel 8, kolom 20 is ongeldig.",
+                "De waarde op regel 8, kolom 19 is ongeldig.",
+                "De waarde op regel 9, kolom 18 is ongeldig.",
+                "De waarde op regel 9, kolom 20 is ongeldig.",
+                "De waarde op regel 9, kolom 19 is ongeldig.",
+                "De waarde op regel 10, kolom 18 is ongeldig.",
+                "De waarde op regel 10, kolom 20 is ongeldig.",
+                "De waarde op regel 10, kolom 19 is ongeldig.",
+                "De waarde op regel 11, kolom 18 valt buiten het bereik [0, 1].",
+                "De waarde op regel 12, kolom 18 valt buiten het bereik [0, 1].",
+                "De waarde op regel 13, kolom 18 mag niet kleiner dan nul zijn.",
+                "De waarde op regel 14, kolom 18 valt buiten het bereik [0, 1].",
+                "De waarde op regel 15, kolom 17 is ongeldig."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
         }

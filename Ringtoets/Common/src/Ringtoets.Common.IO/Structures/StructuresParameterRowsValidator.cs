@@ -43,6 +43,13 @@ namespace Ringtoets.Common.IO.Structures
             "verdronkenkoker"
         };
 
+        /// <summary>
+        /// Denotes a small enough value, taking possible rounding into account, that the
+        /// value is too close to the value <c>0.0</c> that makes a coefficient of variation
+        /// to unreliable.
+        /// </summary>
+        private const double valueTooCloseToZero = 1e-4;
+
         private static readonly Dictionary<string, Func<StructuresParameterRow, List<string>>> heightStructuresRules =
             new Dictionary<string, Func<StructuresParameterRow, List<string>>>
             {
@@ -56,16 +63,16 @@ namespace Ringtoets.Common.IO.Structures
                     "KW_HOOGTE3", LogNormalDistributionRule
                 },
                 {
-                    "KW_HOOGTE4", LogNormalDistributionRule
+                    "KW_HOOGTE4", VariationCoefficientLogNormalDistributionRule
                 },
                 {
-                    "KW_HOOGTE5", NormalDistributionRule
+                    "KW_HOOGTE5", VariationCoefficientNormalDistributionRule
                 },
                 {
                     "KW_HOOGTE6", ProbabilityRule
                 },
                 {
-                    "KW_HOOGTE7", LogNormalDistributionRule
+                    "KW_HOOGTE7", VariationCoefficientLogNormalDistributionRule
                 },
                 {
                     "KW_HOOGTE8", LogNormalDistributionRule
@@ -76,7 +83,7 @@ namespace Ringtoets.Common.IO.Structures
             new Dictionary<string, Func<StructuresParameterRow, List<string>>>
             {
                 {
-                    "KW_BETSLUIT1", LogNormalDistributionRule
+                    "KW_BETSLUIT1", VariationCoefficientLogNormalDistributionRule
                 },
                 {
                     "KW_BETSLUIT2", LogNormalDistributionRule
@@ -85,7 +92,7 @@ namespace Ringtoets.Common.IO.Structures
                     "KW_BETSLUIT3", StructureNormalOrientation
                 },
                 {
-                    "KW_BETSLUIT4", NormalDistributionRule
+                    "KW_BETSLUIT4", VariationCoefficientNormalDistributionRule
                 },
                 {
                     "KW_BETSLUIT5", NormalDistributionRule
@@ -100,7 +107,7 @@ namespace Ringtoets.Common.IO.Structures
                     "KW_BETSLUIT8", LogNormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT9", LogNormalDistributionRule
+                    "KW_BETSLUIT9", VariationCoefficientLogNormalDistributionRule
                 },
                 {
                     "KW_BETSLUIT10", LogNormalDistributionRule
@@ -190,35 +197,30 @@ namespace Ringtoets.Common.IO.Structures
 
         private static List<string> NormalDistributionRule(StructuresParameterRow row)
         {
-            List<string> messages = new List<string>();
+            return ValidateStochasticVariableParameters(row, false, true);
+        }
 
-            double mean = row.NumericalValue;
-            if (double.IsNaN(mean) || double.IsInfinity(mean))
-            {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, numericalValueColumn));
-            }
-
-            VarianceType type = row.VarianceType;
-            if (type != VarianceType.StandardDeviation && type != VarianceType.CoefficientOfVariation)
-            {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, varianceTypeColumn));
-            }
-
-            double variance = row.VarianceValue;
-            if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0)
-            {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, varianceValueColumn));
-            }
-
-            return messages;
+        private static List<string> VariationCoefficientNormalDistributionRule(StructuresParameterRow row)
+        {
+            return ValidateStochasticVariableParameters(row, false, false);
         }
 
         private static List<string> LogNormalDistributionRule(StructuresParameterRow row)
         {
+            return ValidateStochasticVariableParameters(row, true, true);
+        }
+
+        private static List<string> VariationCoefficientLogNormalDistributionRule(StructuresParameterRow row)
+        {
+            return ValidateStochasticVariableParameters(row, true, false);
+        }
+
+        private static List<string> ValidateStochasticVariableParameters(StructuresParameterRow row, bool meanMustBeGreaterThanZero, bool variationAsStandardDeviation)
+        {
             List<string> messages = new List<string>();
 
             double mean = row.NumericalValue;
-            if (double.IsNaN(mean) || double.IsInfinity(mean) || mean <= 0)
+            if (double.IsNaN(mean) || double.IsInfinity(mean) || (!meanMustBeGreaterThanZero || mean <= 0))
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, numericalValueColumn));
             }
@@ -233,6 +235,23 @@ namespace Ringtoets.Common.IO.Structures
             if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0)
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, varianceValueColumn));
+            }
+
+            if (variationAsStandardDeviation)
+            {
+                if (row.VarianceType == VarianceType.CoefficientOfVariation && mean < valueTooCloseToZero)
+                {
+                    messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Mean_on_Line_0_ColumnName_1_causes_unreliable_variation_value_conversion,
+                                               row.LineNumber, StructureFilesKeywords.NumericalValueColumnName));
+                }
+            }
+            else
+            {
+                if (row.VarianceType == VarianceType.StandardDeviation && mean < valueTooCloseToZero)
+                {
+                    messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Mean_on_Line_0_ColumnName_1_causes_unreliable_variation_value_conversion,
+                                               row.LineNumber, StructureFilesKeywords.NumericalValueColumnName));
+                }
             }
 
             return messages;

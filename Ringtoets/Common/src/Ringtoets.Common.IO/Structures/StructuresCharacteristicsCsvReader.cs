@@ -43,12 +43,12 @@ namespace Ringtoets.Common.IO.Structures
 
         private readonly string[] requiredHeaderColumns =
         {
-            "identificatie",
-            "kunstwerken.identificatie",
-            "alphanumeriekewaarde",
-            "numeriekewaarde",
-            "standarddeviatie.variance",
-            "boolean"
+            StructureFilesKeywords.IdentificationColumnName,
+            StructureFilesKeywords.StructureIdentificationColumnName,
+            StructureFilesKeywords.AlphanumericalValueColumnName,
+            StructureFilesKeywords.NumericalValueColumnName,
+            StructureFilesKeywords.VariationValueColumnName,
+            StructureFilesKeywords.VariationTypeColumnName
         };
 
         private int locationIdIndex, parameterIdIndex, alphanumericValueIndex, numericValueIndex, varianceValueIndex, varianceTypeIndex;

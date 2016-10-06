@@ -140,5 +140,41 @@ namespace Ringtoets.Common.IO.Structures
         /// The fifteenth closing structure parameter keyword.
         /// </summary>
         public const string ClosingStructureParameterKeyword15 = "KW_BETSLUIT15";
+
+        #region Required Structure *.csv header column names
+
+        /// <summary>
+        /// The column name for the identifier of a structure.
+        /// </summary>
+        public const string IdentificationColumnName = "identificatie";
+
+        /// <summary>
+        /// The column name for the identifier of a structure parameter.
+        /// </summary>
+        public const string StructureIdentificationColumnName = "kunstwerken.identificatie";
+
+        /// <summary>
+        /// The column name for the alphanumerical value associated with the structure parameter.
+        /// </summary>
+        public const string AlphanumericalValueColumnName = "alphanumeriekewaarde";
+
+        /// <summary>
+        /// The column name for the numerical value associated with the structure parameter.
+        /// </summary>
+        public const string NumericalValueColumnName = "numeriekewaarde";
+
+        /// <summary>
+        /// The column name for the variation value (standard deviation or coefficient of variation)
+        /// associated with the structure parameter.
+        /// </summary>
+        public const string VariationValueColumnName = "standarddeviatie.variance";
+
+        /// <summary>
+        /// The column name for the descriptor on how to interpret the value in the column
+        /// named <see cref="VariationValueColumnName"/>.
+        /// </summary>
+        public const string VariationTypeColumnName = "boolean";
+
+        #endregion
     }
 }
