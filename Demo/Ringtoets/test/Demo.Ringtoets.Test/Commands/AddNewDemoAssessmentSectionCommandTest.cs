@@ -31,6 +31,7 @@ using Core.Common.Gui;
 using Demo.Ringtoets.Commands;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
@@ -107,6 +108,7 @@ namespace Demo.Ringtoets.Test.Commands
             AssertGrassCoverErosionInwardsFailureMechanism(demoAssessmentSection);
             AssertGrassCoverErosionOutwardsFailureMechanism(demoAssessmentSection);
             AssertHeightStructuresFailureMechanism(demoAssessmentSection);
+            AssertClosingStructuresFailureMechanism(demoAssessmentSection);
             AssertPipingFailureMechanism(demoAssessmentSection);
             AssertStabilityPointStructuresFailureMechanism(demoAssessmentSection);
             AssertStabilityStoneCoverFailureMechanism(demoAssessmentSection);
@@ -290,23 +292,76 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual("KUNST1", heightStructure.Name);
             Assert.AreEqual("KUNST1", heightStructure.Id);
             Assert.AreEqual(new Point2D(12345.56789, 9876.54321), heightStructure.Location);
-            Assert.AreEqual(45.0, heightStructure.StructureNormalOrientation.Value);
-            Assert.AreEqual(5.9, heightStructure.LevelCrestStructure.Mean.Value);
-            Assert.AreEqual(0.01, heightStructure.LevelCrestStructure.StandardDeviation.Value);
-            Assert.AreEqual(18.5, heightStructure.FlowWidthAtBottomProtection.Mean.Value);
+            Assert.AreEqual(10.0, heightStructure.StructureNormalOrientation.Value);
+            Assert.AreEqual(4.95, heightStructure.LevelCrestStructure.Mean.Value);
+            Assert.AreEqual(0.05, heightStructure.LevelCrestStructure.StandardDeviation.Value);
+            Assert.AreEqual(25.0, heightStructure.FlowWidthAtBottomProtection.Mean.Value);
             Assert.AreEqual(0.05, heightStructure.FlowWidthAtBottomProtection.StandardDeviation.Value);
             Assert.AreEqual(0.1, heightStructure.CriticalOvertoppingDischarge.Mean.Value);
-            Assert.AreEqual(1.5, heightStructure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
-            Assert.AreEqual(4.0, heightStructure.WidthFlowApertures.Mean.Value);
+            Assert.AreEqual(0.15, heightStructure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
+            Assert.AreEqual(21.0, heightStructure.WidthFlowApertures.Mean.Value);
             Assert.AreEqual(0.05, heightStructure.WidthFlowApertures.CoefficientOfVariation.Value);
             Assert.AreEqual(1.0, heightStructure.FailureProbabilityStructureWithErosion);
-            Assert.AreEqual(50000.0, heightStructure.StorageStructureArea.Mean.Value);
-            Assert.AreEqual(0.02, heightStructure.StorageStructureArea.CoefficientOfVariation.Value);
-            Assert.AreEqual(6.5, heightStructure.AllowedLevelIncreaseStorage.Mean.Value);
+            Assert.AreEqual(20000.0, heightStructure.StorageStructureArea.Mean.Value);
+            Assert.AreEqual(0.1, heightStructure.StorageStructureArea.CoefficientOfVariation.Value);
+            Assert.AreEqual(0.2, heightStructure.AllowedLevelIncreaseStorage.Mean.Value);
             Assert.AreEqual(0.1, heightStructure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
         }
 
         private static void AssertExpectedHeightStructuresInput(HeightStructuresInput inputParameters)
+        {
+            Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
+        }
+
+        #endregion
+
+        #region ClosingStructuresFailureMechanism
+
+        private static void AssertClosingStructuresFailureMechanism(AssessmentSection demoAssessmentSection)
+        {
+            Assert.AreEqual(1, demoAssessmentSection.ClosingStructures.ClosingStructures.Count);
+            AssertExpectedClosingStructureValues(demoAssessmentSection.ClosingStructures.ClosingStructures[0]);
+
+            Assert.AreEqual(1, demoAssessmentSection.ClosingStructures.CalculationsGroup.Children.Count);
+            ClosingStructuresCalculation calculation = demoAssessmentSection.ClosingStructures
+                                                                            .CalculationsGroup.GetCalculations()
+                                                                            .OfType<ClosingStructuresCalculation>()
+                                                                            .First();
+            AssertExpectedClosingStructuresInput(calculation.InputParameters);
+        }
+
+        private static void AssertExpectedClosingStructureValues(ClosingStructure closingStructure)
+        {
+            Assert.AreEqual("KUNST1", closingStructure.Name);
+            Assert.AreEqual("KUNST1", closingStructure.Id);
+            Assert.AreEqual(new Point2D(12345.56789, 9876.54321), closingStructure.Location);
+            Assert.AreEqual(20000.0, closingStructure.StorageStructureArea.Mean.Value);
+            Assert.AreEqual(0.1, closingStructure.StorageStructureArea.CoefficientOfVariation.Value);
+            Assert.AreEqual(0.2, closingStructure.AllowedLevelIncreaseStorage.Mean.Value);
+            Assert.AreEqual(0.1, closingStructure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+            Assert.AreEqual(10.0, closingStructure.StructureNormalOrientation.Value);
+            Assert.AreEqual(21.0, closingStructure.WidthFlowApertures.Mean.Value);
+            Assert.AreEqual(0.05, closingStructure.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(4.95, closingStructure.LevelCrestStructureNotClosing.Mean.Value);
+            Assert.AreEqual(0.05, closingStructure.LevelCrestStructureNotClosing.StandardDeviation.Value);
+            Assert.AreEqual(0.5, closingStructure.InsideWaterLevel.Mean.Value);
+            Assert.AreEqual(0.1, closingStructure.InsideWaterLevel.StandardDeviation.Value);
+            Assert.AreEqual(4.95, closingStructure.ThresholdHeightOpenWeir.Mean.Value);
+            Assert.AreEqual(0.1, closingStructure.ThresholdHeightOpenWeir.StandardDeviation.Value);
+            Assert.AreEqual(31.5, closingStructure.AreaFlowApertures.Mean.Value);
+            Assert.AreEqual(0.01, closingStructure.AreaFlowApertures.StandardDeviation.Value);
+            Assert.AreEqual(1.0, closingStructure.CriticalOvertoppingDischarge.Mean.Value);
+            Assert.AreEqual(0.15, closingStructure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
+            Assert.AreEqual(25.0, closingStructure.FlowWidthAtBottomProtection.Mean.Value);
+            Assert.AreEqual(0.05, closingStructure.FlowWidthAtBottomProtection.StandardDeviation.Value);
+            Assert.AreEqual(1.0, closingStructure.ProbabilityOpenStructureBeforeFlooding.Value);
+            Assert.AreEqual(0.1, closingStructure.FailureProbablityOpenStructure.Value);
+            Assert.AreEqual(4, closingStructure.IdenticalApertures);
+            Assert.AreEqual(1.0, closingStructure.FailureProbabilityReparation.Value);
+            Assert.AreEqual(ClosingStructureType.VerticalWall, closingStructure.InflowModel);
+        }
+
+        private static void AssertExpectedClosingStructuresInput(ClosingStructuresInput inputParameters)
         {
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
         }
@@ -451,9 +506,9 @@ namespace Demo.Ringtoets.Test.Commands
         {
             Assert.AreEqual(1, demoAssessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Count);
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = demoAssessmentSection.WaveImpactAsphaltCover
-                                                                                            .WaveConditionsCalculationGroup.GetCalculations()
-                                                                                            .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>()
-                                                                                            .First();
+                                                                                               .WaveConditionsCalculationGroup.GetCalculations()
+                                                                                               .OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>()
+                                                                                               .First();
             AssertExpectedWaveImpactAsphaltCoverWaveConditionsInputInput(calculation.InputParameters);
         }
 

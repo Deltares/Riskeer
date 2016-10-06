@@ -28,6 +28,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Controls.Commands;
 using Core.Common.Gui;
 using Core.Common.Utils.IO;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probabilistics;
@@ -87,10 +88,12 @@ namespace Demo.Ringtoets.Commands
             InitializeGrassCoverErosionInwardsData(demoAssessmentSection);
             InitializeGrassCoverErosionOutwardsData(demoAssessmentSection);
             InitializeHeightStructuresData(demoAssessmentSection);
+            InitializeClosingStructuresData(demoAssessmentSection);
             InitializeDemoPipingData(demoAssessmentSection);
             InitializeStabilityPointStructuresData(demoAssessmentSection);
             InitializeStabilityStoneCoverData(demoAssessmentSection);
             InitializeWaveImpactAsphaltCoverData(demoAssessmentSection);
+
             return demoAssessmentSection;
         }
 
@@ -243,8 +246,52 @@ namespace Demo.Ringtoets.Commands
 
         private static HeightStructure CreateDemoHeightStructure()
         {
-            return new HeightStructure("KUNST1", "KUNST1", new Point2D(12345.56789, 9876.54321),
-                                       45.0, 5.9, 0.01, 18.5, 0.05, 0.1, 1.5, 4.0, 0.05, 1.0, 50000.0, 0.02, 6.5, 0.1);
+            return new HeightStructure("KUNST1", "KUNST1",
+                                       new Point2D(12345.56789, 9876.54321),
+                                       10.0,
+                                       4.95, 0.05,
+                                       25.0, 0.05,
+                                       0.1, 0.15,
+                                       21.0, 0.05,
+                                       1.0,
+                                       20000.0, 0.1,
+                                       0.2, 0.1);
+        }
+
+        #endregion
+
+        #region ClosingStructuresFailureMechanism
+
+        private static void InitializeClosingStructuresData(AssessmentSection demoAssessmentSection)
+        {
+            ClosingStructuresFailureMechanism failureMechanism = demoAssessmentSection.ClosingStructures;
+            failureMechanism.ClosingStructures.Add(CreateDemoClosingStructure());
+
+            var calculation = new ClosingStructuresCalculation();
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+            calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
+            calculation.InputParameters.NotifyObservers();
+        }
+
+        private static ClosingStructure CreateDemoClosingStructure()
+        {
+            return new ClosingStructure("KUNST1", "KUNST1",
+                                        new Point2D(12345.56789, 9876.54321),
+                                        20000, 0.1,
+                                        0.2, 0.1,
+                                        10.0,
+                                        21, 0.05,
+                                        4.95, 0.05,
+                                        0.5, 0.1,
+                                        4.95, 0.1,
+                                        31.5, 0.01,
+                                        1.0, 0.15,
+                                        25.0, 0.05,
+                                        1.0,
+                                        0.1,
+                                        4,
+                                        1.0,
+                                        ClosingStructureType.VerticalWall);
         }
 
         #endregion
