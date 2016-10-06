@@ -124,15 +124,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
-
-            yield return new TreeNodeInfo<StabilityPointStructuresOutput>
-            {
-                Text = output => RingtoetsCommonFormsResources.CalculationOutput_DisplayName,
-                Image = output => RingtoetsCommonFormsResources.GeneralOutputIcon,
-                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
-                                                                                 .AddPropertiesItem()
-                                                                                 .Build()
-            };
         }
 
         #region ViewInfo

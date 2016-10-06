@@ -52,7 +52,6 @@
     <Compile Include="StabilityPointStructuresFailureMechanism.cs" />
     <Compile Include="StabilityPointStructuresFailureMechanismSectionResult.cs" />
     <Compile Include="StabilityPointStructuresInput.cs" />
-    <Compile Include="StabilityPointStructuresOutput.cs" />
     <Compile Include="StabilityPointStructureType.cs" />
   </ItemGroup>
   <ItemGroup>

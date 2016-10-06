@@ -22,6 +22,7 @@
 using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.StabilityPointStructures.Data.Test
 {
@@ -173,6 +174,9 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreSame(output, calculationOutput);
         }
 
-        private class TestStabilityPointStructuresOutput : StabilityPointStructuresOutput {}
+        private class TestStabilityPointStructuresOutput : ProbabilityAssessmentOutput
+        {
+            public TestStabilityPointStructuresOutput() : base(0, 0, 0, 0, 0) {}
+        }
     }
 }

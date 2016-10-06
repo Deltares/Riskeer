@@ -21,6 +21,7 @@
 
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.StabilityPointStructures.Data.Properties;
 
 namespace Ringtoets.StabilityPointStructures.Data
@@ -45,9 +46,9 @@ namespace Ringtoets.StabilityPointStructures.Data
         public StabilityPointStructuresInput InputParameters { get; private set; }
 
         /// <summary>
-        /// Gets or sets <see cref="StabilityPointStructuresOutput"/>, which contains the results of a calculation.
+        /// Gets or sets <see cref="ProbabilityAssessmentOutput"/>, which contains the results of a calculation.
         /// </summary>
-        public StabilityPointStructuresOutput Output { get; set; }
+        public ProbabilityAssessmentOutput Output { get; set; }
 
         public string Comments { get; set; }
 

@@ -143,7 +143,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
             var calculation = new StabilityPointStructuresCalculation
             {
-                Output = new StabilityPointStructuresOutput()
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
@@ -162,7 +162,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             Assert.IsNotNull(stabilityPointStructuresInputContext);
             Assert.AreSame(calculationContext.WrappedData.InputParameters, stabilityPointStructuresInputContext.WrappedData);
 
-            var output = children[2] as StabilityPointStructuresOutput;
+            var output = children[2] as ProbabilityAssessmentOutput;
             Assert.IsNotNull(output);
         }
 
