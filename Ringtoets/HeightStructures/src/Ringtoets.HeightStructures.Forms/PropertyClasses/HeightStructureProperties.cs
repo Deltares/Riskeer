@@ -39,8 +39,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
     {
         [PropertyOrder(1)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "HeightStructure_Name_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HeightStructure_Name_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_Name_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_Name_Description")]
         public string Name
         {
             get
@@ -51,8 +51,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(2)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "HeightStructure_Location_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HeightStructure_Location_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_Location_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_Location_Description")]
         public Point2D Location
         {
             get
@@ -64,8 +64,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(3)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "StructureNormalOrientation_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StructureNormalOrientation_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StructureNormalOrientation_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StructureNormalOrientation_Description")]
         public RoundedDouble StructureNormalOrientation
         {
             get

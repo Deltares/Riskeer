@@ -199,42 +199,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel..
-        /// </summary>
-        public static string HeightStructure_Location_Description {
-            get {
-                return ResourceManager.GetString("HeightStructure_Location_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Locatie (RD) [m].
-        /// </summary>
-        public static string HeightStructure_Location_DisplayName {
-            get {
-                return ResourceManager.GetString("HeightStructure_Location_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De naam van het kunstwerk..
-        /// </summary>
-        public static string HeightStructure_Name_Description {
-            get {
-                return ResourceManager.GetString("HeightStructure_Name_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Naam.
-        /// </summary>
-        public static string HeightStructure_Name_DisplayName {
-            get {
-                return ResourceManager.GetString("HeightStructure_Name_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Invoer.
         /// </summary>
         public static string HeightStructuresInputContext_NodeDisplayName {
@@ -390,24 +354,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         public static string Structure_DisplayName {
             get {
                 return ResourceManager.GetString("Structure_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden..
-        /// </summary>
-        public static string StructureNormalOrientation_Description {
-            get {
-                return ResourceManager.GetString("StructureNormalOrientation_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Oriëntatie [°].
-        /// </summary>
-        public static string StructureNormalOrientation_DisplayName {
-            get {
-                return ResourceManager.GetString("StructureNormalOrientation_DisplayName", resourceCulture);
             }
         }
         

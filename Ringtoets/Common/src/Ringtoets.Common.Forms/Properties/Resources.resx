@@ -664,4 +664,23 @@
   <data name="HydraulicBoundaryLocationSelectionDialog_Select_HydraulicBoundaryLocations" xml:space="preserve">
     <value>Selecteer hydraulische randvoorwaardenlocaties</value>
   </data>
+  <data name="Structure_Location_Description" xml:space="preserve">
+    <value>De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.</value>
+  </data>
+  <data name="Structure_Location_DisplayName" xml:space="preserve">
+    <value>Locatie (RD) [m]</value>
+  </data>
+  <data name="Structure_Name_Description" xml:space="preserve">
+    <value>De naam van het kunstwerk.</value>
+  </data>
+  <data name="Structure_Name_DisplayName" xml:space="preserve">
+    <value>Naam</value>
+  </data>
+  <data name="Structure_StructureNormalOrientation_Description" xml:space="preserve">
+    <value>Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.</value>
+  </data>
+  <data name="Structure_StructureNormalOrientation_DisplayName" xml:space="preserve">
+    <value>Oriëntatie [°]</value>
+  </data>
+
 </root>

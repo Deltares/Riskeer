@@ -23,10 +23,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
+using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -44,6 +46,27 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
             {
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
+            }
+        }
+
+        [Test]
+        public void GetPropertyInfos_ReturnsSupportedPropertyClasses()
+        {
+            // setup
+            using (var plugin = new ClosingStructuresPlugin())
+            {
+                // call
+                PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
+
+                // assert
+                Assert.AreEqual(1, propertyInfos.Length);
+                PropertyInfo closingStructureProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ClosingStructure),
+                    typeof(ClosingStructureProperties));
+                Assert.IsNull(closingStructureProperties.AdditionalDataCheck);
+                Assert.IsNull(closingStructureProperties.GetObjectPropertiesData);
+                Assert.IsNull(closingStructureProperties.AfterCreate);
             }
         }
 

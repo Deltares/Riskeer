@@ -28,6 +28,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
+using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.ClosingStructures.IO;
 using Ringtoets.Common.Data;
@@ -51,6 +52,11 @@ namespace Ringtoets.ClosingStructures.Plugin
     /// </summary>
     public class ClosingStructuresPlugin : PluginBase
     {
+        public override IEnumerable<PropertyInfo> GetPropertyInfos()
+        {
+            yield return new PropertyInfo<ClosingStructure, ClosingStructureProperties>();
+        }
+
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new ViewInfo<

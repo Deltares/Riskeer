@@ -174,12 +174,6 @@
   <data name="ModelFactorSuperCriticalFlow_DisplayName" xml:space="preserve">
     <value>Modelfactor van overloopdebiet bij superkritische stroming [-]</value>
   </data>
-  <data name="StructureNormalOrientation_Description" xml:space="preserve">
-    <value>Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.</value>
-  </data>
-  <data name="StructureNormalOrientation_DisplayName" xml:space="preserve">
-    <value>Oriëntatie [°]</value>
-  </data>
   <data name="StorageStructureArea_Description" xml:space="preserve">
     <value>Het kombergend oppervlak.</value>
   </data>
@@ -206,18 +200,6 @@
   </data>
   <data name="FailureProbabilityStructureWithErosion_Value_cannot_be_null" xml:space="preserve">
     <value>De waarde voor de faalkans moet ingevuld zijn.</value>
-  </data>
-  <data name="HeightStructure_Location_Description" xml:space="preserve">
-    <value>De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.</value>
-  </data>
-  <data name="HeightStructure_Location_DisplayName" xml:space="preserve">
-    <value>Locatie (RD) [m]</value>
-  </data>
-  <data name="HeightStructure_Name_Description" xml:space="preserve">
-    <value>De naam van het kunstwerk.</value>
-  </data>
-  <data name="HeightStructure_Name_DisplayName" xml:space="preserve">
-    <value>Naam</value>
   </data>
   <data name="Structure_Description" xml:space="preserve">
     <value>Het kunstwerk dat gebruikt wordt in de berekening.</value>

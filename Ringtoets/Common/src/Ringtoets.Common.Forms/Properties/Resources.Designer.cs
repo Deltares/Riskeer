@@ -1641,6 +1641,60 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel..
+        /// </summary>
+        public static string Structure_Location_Description {
+            get {
+                return ResourceManager.GetString("Structure_Location_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Locatie (RD) [m].
+        /// </summary>
+        public static string Structure_Location_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_Location_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De naam van het kunstwerk..
+        /// </summary>
+        public static string Structure_Name_Description {
+            get {
+                return ResourceManager.GetString("Structure_Name_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Naam.
+        /// </summary>
+        public static string Structure_Name_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_Name_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden..
+        /// </summary>
+        public static string Structure_StructureNormalOrientation_Description {
+            get {
+                return ResourceManager.GetString("Structure_StructureNormalOrientation_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oriëntatie [°].
+        /// </summary>
+        public static string Structure_StructureNormalOrientation_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_StructureNormalOrientation_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kunstwerken.
         /// </summary>
         public static string StructuresCollection_DisplayName {
