@@ -58,24 +58,26 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
 
-            Assert.AreEqual(2, input.VolumicWeightWater.NumberOfDecimalPlaces);
-            AssertEqualValue(9.81, input.VolumicWeightWater);
-            Assert.IsNaN(input.FactorStormDurationOpenStructure);
+//            Assert.IsNaN(input.StructureNormalOrientation);
+            Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
 
+            AssertEqualValue(9.81, input.VolumicWeightWater);
+            Assert.AreEqual(2, input.VolumicWeightWater.NumberOfDecimalPlaces);
             Assert.IsNaN(input.InsideWaterLevelFailureConstruction.Mean);
             AssertEqualValue(0.1, input.InsideWaterLevelFailureConstruction.StandardDeviation);
-
             Assert.IsNaN(input.InsideWaterLevel.Mean);
             AssertEqualValue(0.1, input.InsideWaterLevel.StandardDeviation);
-
             AssertEqualValue(6.0, input.StormDuration.Mean);
             AssertEqualValue(0.25, input.StormDuration.CoefficientOfVariation);
 
             AssertEqualValue(1.1, input.ModelFactorSuperCriticalFlow.Mean);
             AssertEqualValue(0.03, input.ModelFactorSuperCriticalFlow.StandardDeviation);
-
+            Assert.IsNaN(input.FactorStormDurationOpenStructure);
+            Assert.AreEqual(2, input.FactorStormDurationOpenStructure.NumberOfDecimalPlaces);
             AssertEqualValue(1, input.DrainCoefficient.Mean);
             AssertEqualValue(0.2, input.DrainCoefficient.StandardDeviation);
+            Assert.IsNaN(input.FlowVelocityStructureClosable.Mean);
+            AssertEqualValue(1, input.FlowVelocityStructureClosable.StandardDeviation);
 
             Assert.IsNaN(input.LevelCrestStructure.Mean);
             AssertEqualValue(0.05, input.LevelCrestStructure.StandardDeviation);
@@ -304,14 +306,14 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var input = new StabilityPointStructuresInput();
             VariationCoefficientLogNormalDistribution stormDuration = GenerateVariationCoefficientLogNormalDistribution();
 
-            RoundedDouble initialStd = input.StormDuration.CoefficientOfVariation;
+            RoundedDouble initialVariation = input.StormDuration.CoefficientOfVariation;
 
             //Call
             input.StormDuration = stormDuration;
 
             //Assert
             Assert.AreEqual(stormDuration.Mean, input.StormDuration.Mean);
-            AssertEqualValue(initialStd, input.StormDuration.CoefficientOfVariation);
+            AssertEqualValue(initialVariation, input.StormDuration.CoefficientOfVariation);
         }
 
         #endregion
@@ -327,10 +329,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             RoundedDouble initialStd = input.ModelFactorSuperCriticalFlow.StandardDeviation;
 
-            //Call
+            // Call
             input.ModelFactorSuperCriticalFlow = modelFactorSuperCriticalFlow;
 
-            //Assert
+            // Assert
             Assert.AreEqual(modelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.Mean);
             Assert.AreEqual(initialStd, input.ModelFactorSuperCriticalFlow.StandardDeviation);
         }
@@ -361,12 +363,27 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             RoundedDouble initialStd = input.DrainCoefficient.StandardDeviation;
 
-            //Call
+            // Call
             input.DrainCoefficient = drainCoefficient;
 
-            //Assert
+            // Assert
             Assert.AreEqual(drainCoefficient.Mean, input.DrainCoefficient.Mean);
             AssertEqualValue(initialStd, input.DrainCoefficient.StandardDeviation);
+        }
+
+        [Test]
+        public void Properties_FlowVelocityStructureClosable_ExpectedValues()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+            NormalDistribution flowVelocityStructureClosable = GenerateNormalDistribution();
+
+            // Call
+            input.FlowVelocityStructureClosable = flowVelocityStructureClosable;
+
+            // Assert
+            Assert.AreEqual(flowVelocityStructureClosable.Mean, input.FlowVelocityStructureClosable.Mean);
+            Assert.AreEqual(flowVelocityStructureClosable.StandardDeviation, input.FlowVelocityStructureClosable.StandardDeviation);
         }
 
         #endregion

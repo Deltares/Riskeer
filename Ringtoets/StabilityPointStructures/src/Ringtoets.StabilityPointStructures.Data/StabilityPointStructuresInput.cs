@@ -58,6 +58,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         private readonly VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge;
         private readonly VariationCoefficientNormalDistribution widthFlowApertures;
         private readonly NormalDistribution bermWidth;
+        private readonly NormalDistribution flowVelocityStructureClosable;
         private ForeshoreProfile foreshoreProfile;
         private RoundedDouble structureNormalOrientation;
         private RoundedDouble volumicWeightWater;
@@ -110,6 +111,12 @@ namespace Ringtoets.StabilityPointStructures.Data
             {
                 Mean = (RoundedDouble) 1.0,
                 StandardDeviation = (RoundedDouble) 0.2
+            };
+
+            flowVelocityStructureClosable = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 1
             };
 
             levelCrestStructure = new NormalDistribution(2)
@@ -211,7 +218,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             UpdateForeshoreProperties();
         }
 
-        #region Structure properties
+        #region Structure / calculation properties
 
         /// <summary>
         /// Gets or sets the stability point structure.
@@ -305,6 +312,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets or sets the volumic weight of water.
+        /// [kN/m^3]
         /// </summary>
         public RoundedDouble VolumicWeightWater
         {
@@ -320,6 +328,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets or sets the inside water level failure construction.
+        /// [m+NAP]
         /// </summary>
         public NormalDistribution InsideWaterLevelFailureConstruction
         {
@@ -336,6 +345,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets or sets the inside water level.
+        /// [m+NAP]
         /// </summary>
         public NormalDistribution InsideWaterLevel
         {
@@ -352,6 +362,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets or sets the storm duration.
+        /// [hrs]
         /// </summary>
         /// <remarks>Only sets the mean.</remarks>
         public VariationCoefficientLogNormalDistribution StormDuration
@@ -368,7 +379,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         #endregion
 
-        #region Model Inputs
+        #region Model Inputs and critical values
 
         /// <summary>
         /// Gets or sets the model factor for super critical flow. 
@@ -414,6 +425,23 @@ namespace Ringtoets.StabilityPointStructures.Data
             set
             {
                 drainCoefficient.Mean = value.Mean;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the flow velocity structure closable.
+        /// [m/s]
+        /// </summary>
+        public NormalDistribution FlowVelocityStructureClosable
+        {
+            get
+            {
+                return flowVelocityStructureClosable;
+            }
+            set
+            {
+                flowVelocityStructureClosable.Mean = value.Mean;
+                flowVelocityStructureClosable.StandardDeviation = value.StandardDeviation;
             }
         }
 
