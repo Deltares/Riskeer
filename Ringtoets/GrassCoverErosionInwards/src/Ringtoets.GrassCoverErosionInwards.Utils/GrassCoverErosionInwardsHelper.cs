@@ -34,7 +34,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
     public static class GrassCoverErosionInwardsHelper
     {
         /// <summary>
-        /// Determine which <see cref="GrassCoverErosionInwardsCalculation"/> objects are available for a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
+        /// Determine which <see cref="GrassCoverErosionInwardsCalculation"/> objects are available for a
+        /// <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="sections">The <see cref="GrassCoverErosionInwardsCalculation"/> objects.</param>
         /// <param name="calculations">The <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> objects.</param>
