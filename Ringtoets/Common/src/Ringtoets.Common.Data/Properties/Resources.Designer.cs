@@ -388,6 +388,24 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Verdronken koker.
+        /// </summary>
+        public static string StructureType_FloodedCulvert_DisplayName {
+            get {
+                return ResourceManager.GetString("StructureType_FloodedCulvert_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lage drempel.
+        /// </summary>
+        public static string StructureType_LowSill_DisplayName {
+            get {
+                return ResourceManager.GetString("StructureType_LowSill_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Variatiecoëfficiënt moet groter zijn dan 0..
         /// </summary>
         public static string VariationCoefficient_Should_be_greater_than_zero {

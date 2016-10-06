@@ -20,22 +20,15 @@
 // All rights reserved.
 
 using Core.Common.Utils.Attributes;
-using Ringtoets.ClosingStructures.Data.Properties;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.ClosingStructures.Data
+namespace Ringtoets.StabilityPointStructures.Data
 {
     /// <summary>
-    /// Defines the types of the various <see cref="ClosingStructure"/>.
+    /// Defines the types of the various <see cref="StabilityPointStructure"/>
     /// </summary>
-    public enum ClosingStructureType
+    public enum StabilityPointStructureType
     {
-        /// <summary>
-        /// A vertical wall.
-        /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "ClosingStructureType_VerticalWall_DisplayName")]
-        VerticalWall,
-
         /// <summary>
         /// A low sill structure.
         /// </summary>

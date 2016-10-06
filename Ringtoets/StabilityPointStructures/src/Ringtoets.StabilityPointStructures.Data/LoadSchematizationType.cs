@@ -20,32 +20,26 @@
 // All rights reserved.
 
 using Core.Common.Utils.Attributes;
-using Ringtoets.ClosingStructures.Data.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using Ringtoets.StabilityPointStructures.Data.Properties;
 
-namespace Ringtoets.ClosingStructures.Data
+namespace Ringtoets.StabilityPointStructures.Data
 {
     /// <summary>
-    /// Defines the types of the various <see cref="ClosingStructure"/>.
+    /// Defines the types of load represemtations that can be used 
+    /// for the schematization of <see cref="StabilityPointStructure"/>.
     /// </summary>
-    public enum ClosingStructureType
+    public enum LoadSchematizationType
     {
         /// <summary>
-        /// A vertical wall.
+        /// A linear schematization. 
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "ClosingStructureType_VerticalWall_DisplayName")]
-        VerticalWall,
+        [ResourcesDisplayName(typeof(Resources), "LoadSchematizationType_Linear_DisplayName")]
+        Linear,
 
         /// <summary>
-        /// A low sill structure.
+        /// A quadratic schematization.
         /// </summary>
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "StructureType_LowSill_DisplayName")]
-        LowSill,
-
-        /// <summary>
-        /// A flooded culvert structure.
-        /// </summary>
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "StructureType_FloodedCulvert_DisplayName")]
-        FloodedCulvert
+        [ResourcesDisplayName(typeof(Resources), "LoadSchematizationType_Quadratic_DisplayName")]
+        Quadratic
     }
 }

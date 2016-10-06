@@ -225,6 +225,16 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// </summary>
         public StabilityPointStructure StabilityPointStructure { get; set; }
 
+        /// <summary>
+        /// Gets or sets the type of stability point structure.
+        /// </summary>
+        public StabilityPointStructureType StabilityPointStructureType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of load schematization to use for the calculations.
+        /// </summary>
+        public LoadSchematizationType LoadSchematizationType { get; set; }
+
         #endregion
 
         private bool ValidProbabilityValue(double probability)

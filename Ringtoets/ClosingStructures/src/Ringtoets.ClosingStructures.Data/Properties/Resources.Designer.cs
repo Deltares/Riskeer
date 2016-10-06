@@ -82,15 +82,6 @@ namespace Ringtoets.ClosingStructures.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Verdronken koker.
-        /// </summary>
-        public static string ClosingStructure_Type_FloodedCulvert_DisplayName {
-            get {
-                return ResourceManager.GetString("ClosingStructure_Type_FloodedCulvert_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Nieuwe berekening.
         /// </summary>
         public static string ClosingStructuresCalculation_DefaultName {
@@ -114,15 +105,6 @@ namespace Ringtoets.ClosingStructures.Data.Properties {
         public static string ClosingStructuresFailureMechanism_DisplayName {
             get {
                 return ResourceManager.GetString("ClosingStructuresFailureMechanism_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lage drempel.
-        /// </summary>
-        public static string ClosingStructureType_LowSill_DisplayName {
-            get {
-                return ResourceManager.GetString("ClosingStructureType_LowSill_DisplayName", resourceCulture);
             }
         }
         

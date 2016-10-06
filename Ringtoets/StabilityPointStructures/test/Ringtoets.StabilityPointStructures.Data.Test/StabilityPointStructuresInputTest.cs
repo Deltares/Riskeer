@@ -122,7 +122,35 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         # region Calculation inputs
+        [Test]
+        [TestCase(StabilityPointStructureType.LowSill)]
+        [TestCase(StabilityPointStructureType.FloodedCulvert)]
+        public void StabilityPointStructureType_SetValue_ReturnSetValue(StabilityPointStructureType type)
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
 
+            // Call
+            input.StabilityPointStructureType = type;
+
+            // Assert
+            Assert.AreEqual(type, input.StabilityPointStructureType);
+        }
+
+        [Test]
+        [TestCase(LoadSchematizationType.Linear)]
+        [TestCase(LoadSchematizationType.Quadratic)]
+        public void LoadSchematizationType_SetValue_ReturnSetValue(LoadSchematizationType type)
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+
+            // Call
+            input.LoadSchematizationType = type;
+
+            // Assert
+            Assert.AreEqual(type, input.LoadSchematizationType);
+        }
         #endregion
 
         #region Hydraulic loads and data

@@ -82,6 +82,24 @@ namespace Ringtoets.StabilityPointStructures.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Linear.
+        /// </summary>
+        public static string LoadSchematizationType_Linear_DisplayName {
+            get {
+                return ResourceManager.GetString("LoadSchematizationType_Linear_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kwadratisch.
+        /// </summary>
+        public static string LoadSchematizationType_Quadratic_DisplayName {
+            get {
+                return ResourceManager.GetString("LoadSchematizationType_Quadratic_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nieuwe berekening.
         /// </summary>
         public static string StabilityPointStructuresCalculation_DefaultName {
