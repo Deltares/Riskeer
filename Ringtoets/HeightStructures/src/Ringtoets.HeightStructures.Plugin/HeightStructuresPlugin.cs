@@ -149,6 +149,15 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                   .Build()
             };
 
+            yield return new TreeNodeInfo<HeightStructuresScenariosContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.ScenariosIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
+
             yield return new TreeNodeInfo<FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>>
             {
                 Text = context => RingtoetsCommonFormsResources.FailureMechanism_AssessmentResult_DisplayName,
@@ -253,6 +262,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             return new ArrayList
             {
+                new HeightStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
             };
         }
