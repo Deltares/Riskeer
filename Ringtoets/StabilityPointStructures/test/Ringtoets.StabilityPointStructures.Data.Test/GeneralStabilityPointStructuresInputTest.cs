@@ -48,24 +48,24 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(new RoundedDouble(2, 0.2), inputParameters.ModelFactorStorageVolume.StandardDeviation);
 
             Assert.IsInstanceOf<VariationCoefficientNormalDistribution>(inputParameters.ModelFactorSubCriticalFlow);
-            Assert.AreEqual(new RoundedDouble(2, 1), inputParameters.ModelFactorSubCriticalFlow.Mean);
-            Assert.AreEqual(new RoundedDouble(2, 0.1), inputParameters.ModelFactorSubCriticalFlow.CoefficientOfVariation);
+            Assert.AreEqual(new RoundedDouble(1, 1), inputParameters.ModelFactorSubCriticalFlow.Mean);
+            Assert.AreEqual(new RoundedDouble(1, 0.1), inputParameters.ModelFactorSubCriticalFlow.CoefficientOfVariation);
 
             Assert.IsInstanceOf<VariationCoefficientNormalDistribution>(inputParameters.ModelFactorCollisionLoad);
-            Assert.AreEqual(new RoundedDouble(1, 1), inputParameters.ModelFactorCollisionLoad.Mean);
+            Assert.AreEqual(new RoundedDouble(2, 1), inputParameters.ModelFactorCollisionLoad.Mean);
             Assert.AreEqual(new RoundedDouble(2, 0.2), inputParameters.ModelFactorCollisionLoad.CoefficientOfVariation);
 
             Assert.IsInstanceOf<NormalDistribution>(inputParameters.ModelFactorLoadEffect);
             Assert.AreEqual(new RoundedDouble(2, 1), inputParameters.ModelFactorLoadEffect.Mean);
             Assert.AreEqual(new RoundedDouble(2, 0.05), inputParameters.ModelFactorLoadEffect.StandardDeviation);
 
-            Assert.AreEqual(1, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
+            Assert.AreEqual(2, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
             Assert.AreEqual(1, inputParameters.ModelFactorInflowVolume, inputParameters.ModelFactorInflowVolume.GetAccuracy());
 
-            Assert.AreEqual(1, inputParameters.ModificationFactorWavesSlowlyVaryingPressureComponent.NumberOfDecimalPlaces);
+            Assert.AreEqual(0, inputParameters.ModificationFactorWavesSlowlyVaryingPressureComponent.NumberOfDecimalPlaces);
             Assert.AreEqual(1, inputParameters.ModificationFactorWavesSlowlyVaryingPressureComponent, inputParameters.ModificationFactorWavesSlowlyVaryingPressureComponent.GetAccuracy());
 
-            Assert.AreEqual(1, inputParameters.ModificationFactorDynamicOrImpulsivePressureComponent.NumberOfDecimalPlaces);
+            Assert.AreEqual(0, inputParameters.ModificationFactorDynamicOrImpulsivePressureComponent.NumberOfDecimalPlaces);
             Assert.AreEqual(1, inputParameters.ModificationFactorDynamicOrImpulsivePressureComponent, inputParameters.ModificationFactorDynamicOrImpulsivePressureComponent.GetAccuracy());
 
             Assert.AreEqual(2, inputParameters.WaveRatioMaxHN.NumberOfDecimalPlaces);

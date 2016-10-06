@@ -66,9 +66,9 @@ namespace Ringtoets.StabilityPointStructures.Data
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
-            ModelFactorInflowVolume = new RoundedDouble(1, 1);
-            ModificationFactorWavesSlowlyVaryingPressureComponent = new RoundedDouble(1, 1);
-            ModificationFactorDynamicOrImpulsivePressureComponent = new RoundedDouble(1, 1);
+            ModelFactorInflowVolume = new RoundedDouble(2, 1);
+            ModificationFactorWavesSlowlyVaryingPressureComponent = new RoundedDouble(0, 1);
+            ModificationFactorDynamicOrImpulsivePressureComponent = new RoundedDouble(0, 1);
 
             WaveRatioMaxHN = new RoundedDouble(2, 5000);
             WaveRatioMaxHStandardDeviation = new RoundedDouble(2, 0.5);
