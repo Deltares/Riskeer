@@ -22,6 +22,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -33,11 +34,14 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Plugin;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 {
@@ -255,6 +259,275 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    new StabilityPointStructuresCalculation()
+                }
+            };
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSectionMock);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.Calculate_all,
+                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    new StabilityPointStructuresCalculation()
+                }
+            };
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
+            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = null;
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSectionMock);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.Calculate_all,
+                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                                  RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismSectionsSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    new StabilityPointStructuresCalculation()
+                }
+            };
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
+            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSectionMock);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndexRootGroup];
+
+                    Assert.AreEqual(RingtoetsCommonFormsResources.Calculate_all, contextMenuItem.Text);
+                    StringAssert.Contains(string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
+                    Assert.IsFalse(contextMenuItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemValidateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    new StabilityPointStructuresCalculation()
+                }
+            };
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSectionMock);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.Validate_all,
+                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemValidateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    new StabilityPointStructuresCalculation()
+                }
+            };
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
+            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSectionMock);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndexRootGroup,
+                                                                  RingtoetsCommonFormsResources.Validate_all,
+                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
+                                                                  false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_FailureMechanismSectionsSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemValidateAllDisabledAndTooltipSet()
+        {
+            // Setup
+            var group = new CalculationGroup
+            {
+                Children =
+                {
+                    new StabilityPointStructuresCalculation()
+                }
+            };
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            }));
+            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                               failureMechanism,
+                                                                               assessmentSectionMock);
+
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // Assert
+                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateAllIndexRootGroup];
+
+                    Assert.AreEqual(RingtoetsCommonFormsResources.Validate_all, contextMenuItem.Text);
+                    StringAssert.Contains(string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateAllIcon, contextMenuItem.Image);
+                    Assert.IsFalse(contextMenuItem.Enabled);
+                }
+            }
+        }
+
+        [Test]
         public void ContextMenuStrip_NestedCalculationGroup_CallsContextMenuBuilderMethods()
         {
             // Setup
@@ -286,7 +559,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-                
+
                 guiMock.Expect(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
                 mocks.ReplayAll();
 
