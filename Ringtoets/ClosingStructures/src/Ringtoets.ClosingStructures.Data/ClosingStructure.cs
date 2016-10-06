@@ -163,7 +163,7 @@ namespace Ringtoets.ClosingStructures.Data
         public NormalDistribution InsideWaterLevel { get; private set; }
 
         /// <summary>
-        /// Gets the threshold height of the opened closure structure.
+        /// Gets the threshold height of the opened closing structure.
         /// </summary>
         public NormalDistribution ThresholdHeightOpenWeir { get; private set; }
 
