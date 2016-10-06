@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.HydraRing.IO;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.Views;
@@ -157,8 +158,26 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, StabilityPointStructuresFailureMechanism failureMechanism)
         {
+            if (!failureMechanism.Sections.Any())
+            {
+                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported;
+            }
+
+            if (assessmentSection.HydraulicBoundaryDatabase == null)
+            {
+                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
+            }
+
+            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            if (!string.IsNullOrEmpty(validationProblem))
+            {
+                return string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
+                                     validationProblem);
+            }
+
             return null;
         }
+
         private static void ValidateAll(IEnumerable<StabilityPointStructuresCalculation> calculations, IAssessmentSection assessmentSection) {}
         private static void CalculateAll(StabilityPointStructuresFailureMechanismContext context) {}
         private static void CalculateAll(CalculationGroup group, StabilityPointStructuresCalculationGroupContext context) {}
@@ -220,10 +239,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             return builder.AddToggleRelevancyOfFailureMechanismItem(failureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
-                          .AddValidateAllCalculationsInFailureMechanismItem(failureMechanismContext,
-                                                                            c => ValidateAll(c.WrappedData.Calculations.OfType<StabilityPointStructuresCalculation>(), c.Parent),
-                                                                            ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
-                          .AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, CalculateAll)
+                          .AddValidateAllCalculationsInFailureMechanismItem(
+                              failureMechanismContext,
+                              c => ValidateAll(c.WrappedData.Calculations.OfType<StabilityPointStructuresCalculation>(), c.Parent),
+                              ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
+                          .AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(failureMechanismContext.WrappedData)
                           .AddSeparator()
                           .AddExpandAllItem()
@@ -251,7 +271,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                           .Build();
         }
 
-        private string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(StabilityPointStructuresFailureMechanismContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(StabilityPointStructuresFailureMechanismContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
         }
@@ -317,8 +337,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             builder.AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(context,
-                                                          c => ValidateAll(c.WrappedData.GetCalculations().OfType<StabilityPointStructuresCalculation>(), c.AssessmentSection))
-                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll)
+                                                          c => ValidateAll(c.WrappedData.GetCalculations().OfType<StabilityPointStructuresCalculation>(), c.AssessmentSection),
+                                                          ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
+                   .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
 
@@ -366,6 +387,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             context.WrappedData.NotifyObservers();
         }
 
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup(StabilityPointStructuresCalculationGroupContext context)
+        {
+            return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+        }
+
         #endregion
 
         #region StabilityPointStructuresCalculationContext TreeNodeInfo
@@ -400,7 +426,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             StabilityPointStructuresCalculation calculation = context.WrappedData;
 
             return builder.AddValidateCalculationItem(context, delegate { }, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                          .AddPerformCalculationItem(calculation, context, Calculate)
+                          .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
