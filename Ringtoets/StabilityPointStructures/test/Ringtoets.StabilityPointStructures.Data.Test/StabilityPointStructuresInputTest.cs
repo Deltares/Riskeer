@@ -381,6 +381,21 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         #region Schematization
 
         [Test]
+        public void Properties_LevelCrestStructure_ExpectedValues()
+        {
+            // Setup 
+            var input = new StabilityPointStructuresInput();
+            NormalDistribution levelCrestStructure = GenerateNormalDistribution();
+
+            // Call
+            input.LevelCrestStructure = levelCrestStructure;
+
+            // Assert
+            AssertEqualValue(levelCrestStructure.Mean, input.LevelCrestStructure.Mean);
+            AssertEqualValue(levelCrestStructure.StandardDeviation, input.LevelCrestStructure.StandardDeviation);
+        }
+
+        [Test]
         [TestCase(360.004)]
         [TestCase(300)]
         [TestCase(0)]
@@ -406,7 +421,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         [TestCase(-23)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(double.PositiveInfinity)]
-        public void Properties_StructureNormalOrientationInValidValues_ThrowArgumentOutOfRangeException(double invalidValue)
+        public void Properties_StructureNormalOrientationInvalidValues_ThrowArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
             var input = new StabilityPointStructuresInput();
@@ -415,23 +430,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             TestDelegate call = () => input.StructureNormalOrientation = (RoundedDouble) invalidValue;
 
             // Assert
-            // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik tussen [0, 360] graden liggen.");
-        }
-
-        [Test]
-        public void Properties_LevelCrestStructure_ExpectedValues()
-        {
-            // Setup 
-            var input = new StabilityPointStructuresInput();
-            NormalDistribution levelCrestStructure = GenerateNormalDistribution();
-
-            // Call
-            input.LevelCrestStructure = levelCrestStructure;
-
-            // Assert
-            AssertEqualValue(levelCrestStructure.Mean, input.LevelCrestStructure.Mean);
-            AssertEqualValue(levelCrestStructure.StandardDeviation, input.LevelCrestStructure.StandardDeviation);
         }
 
         [Test]
