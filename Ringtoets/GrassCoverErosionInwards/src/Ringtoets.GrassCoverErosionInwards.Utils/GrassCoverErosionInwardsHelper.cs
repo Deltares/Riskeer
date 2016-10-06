@@ -22,8 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Utils;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Utils
@@ -57,7 +57,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
                 throw new ArgumentNullException("calculations");
             }
 
-            SectionSegments[] sectionSegments = MakeSectionSegments(sections);
+            SectionSegments[] sectionSegments = SectionSegmentsHelper.MakeSectionSegments(sections);
 
             var calculationsPerSegment = new Dictionary<string, IList<GrassCoverErosionInwardsCalculation>>();
 
@@ -96,14 +96,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
                 throw new ArgumentNullException("calculation");
             }
 
-            SectionSegments[] sectionSegments = MakeSectionSegments(sections);
+            SectionSegments[] sectionSegments = SectionSegmentsHelper.MakeSectionSegments(sections);
 
             return FindSectionForCalculation(sectionSegments, calculation);
-        }
-
-        private static SectionSegments[] MakeSectionSegments(IEnumerable<FailureMechanismSection> sectionResults)
-        {
-            return sectionResults.Select(s => new SectionSegments(s)).ToArray();
         }
 
         private static FailureMechanismSection FindSectionForCalculation(SectionSegments[] sectionSegmentsCollection, GrassCoverErosionInwardsCalculation calculation)
@@ -137,40 +132,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
                 calculationsPerSegment.Add(sectionName, new List<GrassCoverErosionInwardsCalculation>());
             }
             calculationsPerSegment[sectionName].Add(calculation);
-        }
-
-        /// <summary>
-        /// This class represents the geometry of a <see cref="FailureMechanismSection"/> as a collection of <see cref="Segment2D"/> objects.
-        /// </summary>
-        private class SectionSegments
-        {
-            private readonly IEnumerable<Segment2D> segments;
-
-            /// <summary>
-            /// Creates a new instance of <see cref="SectionSegments"/>.
-            /// </summary>
-            /// <param name="section">The <see cref="FailureMechanismSection"/> whose <see cref="FailureMechanismSection.Points"/> 
-            /// this class represents as a collection of <see cref="Segment2D"/> objects.</param>
-            public SectionSegments(FailureMechanismSection section)
-            {
-                Section = section;
-                segments = Math2D.ConvertLinePointsToLineSegments(section.Points);
-            }
-
-            /// <summary>
-            /// Gets the <see cref="FailureMechanismSection"/>.
-            /// </summary>
-            public FailureMechanismSection Section { get; private set; }
-
-            /// <summary>
-            /// Calculate the Euclidean distance between the <see cref="FailureMechanismSection"/> and a <see cref="Point2D"/>.
-            /// </summary>
-            /// <param name="point">The <see cref="Point2D"/>.</param>
-            /// <returns>The Euclidean distance as a <see cref="double"/>.</returns>
-            public double Distance(Point2D point)
-            {
-                return segments.Min(segment => segment.GetEuclideanDistanceToPoint(point));
-            }
         }
     }
 }
