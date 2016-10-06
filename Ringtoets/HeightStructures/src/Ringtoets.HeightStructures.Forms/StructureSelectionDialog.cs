@@ -30,7 +30,7 @@ using Ringtoets.HeightStructures.Forms.Properties;
 
 namespace Ringtoets.HeightStructures.Forms
 {
-    public class StructuresSelectionDialog : SelectionDialogBase<HeightStructure>
+    public class StructureSelectionDialog : SelectionDialogBase<HeightStructure>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationSelectionDialog"/>.
@@ -38,7 +38,7 @@ namespace Ringtoets.HeightStructures.Forms
         /// <param name="dialogParent">The parent of the dialog.</param>
         /// <param name="structures">The collection of <see cref="HeightStructure"/> to show in the dialog.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StructuresSelectionDialog(IWin32Window dialogParent, IEnumerable<HeightStructure> structures)
+        public StructureSelectionDialog(IWin32Window dialogParent, IEnumerable<HeightStructure> structures)
             : base(dialogParent)
         {
             if (structures == null)
@@ -46,6 +46,7 @@ namespace Ringtoets.HeightStructures.Forms
                 throw new ArgumentNullException("structures");
             }
 
+            Text = Resources.StructureSelectionDialog_StructureSelectionDialog_Select_structures;
             InitializeDataGridView(Resources.Structure_DisplayName);
 
             SetDataSource(structures.Select(structure => new SelectableRow<HeightStructure>(structure, structure.Name)).ToArray());

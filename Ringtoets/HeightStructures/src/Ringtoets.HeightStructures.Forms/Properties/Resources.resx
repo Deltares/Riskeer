@@ -220,7 +220,7 @@
     <value>Naam</value>
   </data>
   <data name="Structure_Description" xml:space="preserve">
-    <value>Het kunstwerk wat gebruikt wordt in de berekening.</value>
+    <value>Het kunstwerk dat gebruikt wordt in de berekening.</value>
   </data>
   <data name="Structure_DisplayName" xml:space="preserve">
     <value>Kunstwerk</value>
@@ -230,5 +230,8 @@
   </data>
   <data name="ForeshoreProfile_DisplayName" xml:space="preserve">
     <value>Voorlandprofiel</value>
+  </data>
+  <data name="StructureSelectionDialog_StructureSelectionDialog_Select_structures" xml:space="preserve">
+    <value>Selecteer kunstwerken</value>
   </data>
 </root>

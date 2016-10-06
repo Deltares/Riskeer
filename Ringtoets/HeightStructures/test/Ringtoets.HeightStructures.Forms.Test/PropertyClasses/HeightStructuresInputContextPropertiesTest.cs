@@ -417,7 +417,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsFalse(heightStructureProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, heightStructureProperty.Category);
             Assert.AreEqual("Kunstwerk", heightStructureProperty.DisplayName);
-            Assert.AreEqual("Het kunstwerk wat gebruikt wordt in de berekening.", heightStructureProperty.Description);
+            Assert.AreEqual("Het kunstwerk dat gebruikt wordt in de berekening.", heightStructureProperty.Description);
 
             PropertyDescriptor heightStructureLocationProperty = dynamicProperties[heightStructureLocationPropertyIndex];
             Assert.IsTrue(heightStructureLocationProperty.IsReadOnly);

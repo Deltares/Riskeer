@@ -376,6 +376,24 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het kunstwerk dat gebruikt wordt in de berekening..
+        /// </summary>
+        public static string Structure_Description {
+            get {
+                return ResourceManager.GetString("Structure_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kunstwerk.
+        /// </summary>
+        public static string Structure_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden..
         /// </summary>
         public static string StructureNormalOrientation_Description {
@@ -394,20 +412,11 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het kunstwerk wat gebruikt wordt in de berekening..
+        ///   Looks up a localized string similar to Selecteer kunstwerken.
         /// </summary>
-        public static string Structure_Description {
+        public static string StructureSelectionDialog_StructureSelectionDialog_Select_structures {
             get {
-                return ResourceManager.GetString("Structure_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kunstwerk.
-        /// </summary>
-        public static string Structure_DisplayName {
-            get {
-                return ResourceManager.GetString("Structure_DisplayName", resourceCulture);
+                return ResourceManager.GetString("StructureSelectionDialog_StructureSelectionDialog_Select_structures", resourceCulture);
             }
         }
         

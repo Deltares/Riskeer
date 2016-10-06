@@ -56,7 +56,7 @@
     <Compile Include="PropertyClasses\HeightStructureProperties.cs" />
     <Compile Include="PropertyClasses\HeightStructuresFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\HeightStructuresInputContextProperties.cs" />
-    <Compile Include="StructuresSelectionDialog.cs">
+    <Compile Include="StructureSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UITypeEditors\HeightStructuresInputContextForeshoreProfileEditor.cs" />

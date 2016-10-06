@@ -409,7 +409,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private void ShowHeightStructuresSelectionDialog(HeightStructuresCalculationGroupContext nodeData)
         {
-            using (var dialog = new StructuresSelectionDialog(Gui.MainWindow, nodeData.FailureMechanism.HeightStructures))
+            using (var dialog = new StructureSelectionDialog(Gui.MainWindow, nodeData.FailureMechanism.HeightStructures))
             {
                 dialog.ShowDialog();
 
