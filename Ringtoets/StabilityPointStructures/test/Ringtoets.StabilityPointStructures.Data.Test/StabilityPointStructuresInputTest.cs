@@ -58,7 +58,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
 
-//            Assert.IsNaN(input.StructureNormalOrientation);
+            Assert.IsNaN(input.StructureNormalOrientation);
             Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
 
             AssertEqualValue(9.81, input.VolumicWeightWater);

@@ -56,7 +56,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsNull(input.HydraulicBoundaryLocation);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
 
-            AssertAreEqual(0, input.StructureNormalOrientation);
+            AssertAreEqual(double.NaN, input.StructureNormalOrientation);
             Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
 
             AssertAreEqual(0.05, input.LevelCrestStructure.StandardDeviation);

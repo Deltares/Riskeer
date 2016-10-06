@@ -50,7 +50,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.IsNull(input.HydraulicBoundaryLocation);
             Assert.IsNull(input.ClosingStructure);
 
-            AssertEqualValue(0, input.StructureNormalOrientation);
+            AssertEqualValue(double.NaN, input.StructureNormalOrientation);
             Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
 
             Assert.IsNull(input.ForeshoreProfile);

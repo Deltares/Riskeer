@@ -63,7 +63,7 @@ namespace Ringtoets.HeightStructures.Data
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
-            structureNormalOrientation = new RoundedDouble(2);
+            structureNormalOrientation = new RoundedDouble(2, double.NaN);
 
             modelFactorSuperCriticalFlow = new NormalDistribution(2)
             {

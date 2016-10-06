@@ -63,7 +63,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// </summary>
         public ClosingStructuresInput()
         {
-            structureNormalOrientation = new RoundedDouble(2);
+            structureNormalOrientation = new RoundedDouble(2, double.NaN);
             factorStormDurationOpenStructure = new RoundedDouble(2, double.NaN);
             deviationWaveDirection = new RoundedDouble(2, double.NaN);
 

@@ -75,7 +75,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         public StabilityPointStructuresInput()
         {
             volumicWeightWater = new RoundedDouble(2, 9.81);
-            structureNormalOrientation = new RoundedDouble(2);
+            structureNormalOrientation = new RoundedDouble(2, double.NaN);
             factorStormDurationOpenStructure = new RoundedDouble(2, double.NaN);
             failureProbabilityRepairClosure = double.NaN;
             probabilityCollisionSecondaryStructure = double.NaN;
