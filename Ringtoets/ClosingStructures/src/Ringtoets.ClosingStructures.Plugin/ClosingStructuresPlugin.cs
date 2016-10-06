@@ -107,6 +107,15 @@ namespace Ringtoets.ClosingStructures.Plugin
                                                                                  .Build()
             };
 
+            yield return new TreeNodeInfo<ClosingStructure>
+            {
+                Text = structure => structure.Name,
+                Image = structure => RingtoetsCommonFormsResources.StructuresIcon,
+                ContextMenuStrip = (structure, parentData, treeViewControl) => Gui.Get(structure, treeViewControl)
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
+            };
+
             yield return new TreeNodeInfo<ClosingStructuresInputContext>
             {
                 Text = inputContext => ClosingStructuresFormsResources.ClosingStructuresInputContext_NodeDisplayName,

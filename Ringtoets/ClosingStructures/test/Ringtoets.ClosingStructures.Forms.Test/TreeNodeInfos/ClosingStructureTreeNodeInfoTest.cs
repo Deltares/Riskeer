@@ -28,25 +28,25 @@ using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Plugin;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
+namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class HeightStructureTreeNodeInfoTest
+    public class ClosingStructureTreeNodeInfoTest
     {
         private MockRepository mocks;
-        private HeightStructuresPlugin plugin;
+        private ClosingStructuresPlugin plugin;
         private TreeNodeInfo info;
 
         [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository();
-            plugin = new HeightStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructure));
+            plugin = new ClosingStructuresPlugin();
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructure));
         }
 
         [TearDown]
@@ -63,7 +63,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(HeightStructure), info.TagType);
+            Assert.AreEqual(typeof(ClosingStructure), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);
@@ -89,7 +89,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
             string name = "very nice name!";
-            HeightStructure structure = CreateSimpleHeightStructure(name);
+            ClosingStructure structure = CreateSimpleClosingStructure(name);
 
             // Call
             string text = info.Text(structure);
@@ -121,7 +121,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                HeightStructure nodeData = CreateSimpleHeightStructure("A");
+                ClosingStructure nodeData = CreateSimpleClosingStructure("A");
 
                 var guiMock = mocks.StrictMock<IGui>();
                 guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
@@ -137,16 +137,24 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Assert expectancies are called in TearDown()
         }
 
-        private static HeightStructure CreateSimpleHeightStructure(string name)
+        private static ClosingStructure CreateSimpleClosingStructure(string name)
         {
-            return new HeightStructure(name, "1", new Point2D(1, 2), 12.34,
-                                       1.1, 0.4,
-                                       2.2, 0.5,
-                                       3.3, 0.6,
-                                       4.4, 0.7,
-                                       5.5,
-                                       6.6, 0.8,
-                                       7.7, 0.9);
+            return new ClosingStructure(name, "1", new Point2D(1, 2),
+                                        1.1, 2.2,
+                                        3.3, 4.4,
+                                        5.5,
+                                        6.6, 7.7,
+                                        8.8, 9.9,
+                                        10.10, 11.11,
+                                        12.12, 13.13,
+                                        14.14, 15.15,
+                                        16.16, 17.17,
+                                        18.18, 19.19,
+                                        20.20,
+                                        21.21,
+                                        22,
+                                        23.23,
+                                        ClosingStructureType.FloodedCulvert);
         }
     }
 }
