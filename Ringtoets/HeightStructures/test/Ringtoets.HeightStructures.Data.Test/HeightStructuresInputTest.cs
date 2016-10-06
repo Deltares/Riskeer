@@ -20,14 +20,17 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Data.Test
@@ -46,7 +49,12 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsInstanceOf<ICalculationInput>(input);
             Assert.IsInstanceOf<IUseBreakWater>(input);
             Assert.IsInstanceOf<IUseForeshore>(input);
+
+            Assert.IsNull(input.HeightStructure);
+            AssertForeshoreProfile(null, input);
+
             Assert.IsNull(input.HydraulicBoundaryLocation);
+            CollectionAssert.IsEmpty(input.ForeshoreGeometry);
 
             AssertAreEqual(0, input.StructureNormalOrientation);
             Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
@@ -331,6 +339,179 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Assert
             AssertAreEqual(widthFlowApertures.Mean, input.WidthFlowApertures.Mean);
             AssertAreEqual(widthFlowApertures.CoefficientOfVariation, input.WidthFlowApertures.CoefficientOfVariation);
+        }
+
+        [Test]
+        public void Properties_ForeshoreProfileIsNull_ExpectedValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput
+            {
+                UseForeshore = true,
+                UseBreakWater = true
+            };
+
+            // Call
+            input.ForeshoreProfile = null;
+
+            // Assert
+            AssertForeshoreProfile(null, input);
+        }
+
+        [Test]
+        public void Properties_ForeshoreProfileWithoutBreakwater_ExpectedValues()
+        {
+            // Setup
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new[]
+            {
+                new Point2D(1, 1)
+            }, null, new ForeshoreProfile.ConstructionProperties());
+            var input = new HeightStructuresInput();
+
+            // Call
+            input.ForeshoreProfile = foreshoreProfile;
+
+            // Assert
+            AssertForeshoreProfile(foreshoreProfile, input);
+        }
+
+        [Test]
+        public void Properties_ForeshoreProfileWithBreakwater_ExpectedValues()
+        {
+            // Setup
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new[]
+            {
+                new Point2D(1, 1)
+            }, new BreakWater(BreakWaterType.Wall, 2), new ForeshoreProfile.ConstructionProperties());
+            var input = new HeightStructuresInput();
+
+            // Call
+            input.ForeshoreProfile = foreshoreProfile;
+
+            // Assert
+            AssertForeshoreProfile(foreshoreProfile, input);
+        }
+
+        [Test]
+        public void Properties_HeightStructureNull_DoesNotChangeValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput();
+
+            // Call
+            input.HeightStructure = null;
+
+            // Assert
+            AssertHeightStructure(null, input);
+        }
+
+        [Test]
+        public void Properties_HeightStructure_UpdateValuesAccordingly()
+        {
+            // Setup
+            var input = new HeightStructuresInput();
+            TestHeightStructure structure = new TestHeightStructure();
+
+            // Call
+            input.HeightStructure = structure;
+
+            // Assert
+            AssertHeightStructure(structure, input);
+        }
+
+        private static void AssertHeightStructure(HeightStructure expectedHeightStructure, HeightStructuresInput input)
+        {
+            if (expectedHeightStructure == null)
+            {
+                Assert.IsNull(input.HeightStructure);
+                var defaultInput = new HeightStructuresInput();
+                AssertAreEqual(defaultInput.StructureNormalOrientation, input.StructureNormalOrientation);
+
+                Assert.AreEqual(defaultInput.LevelCrestStructure.Mean, input.LevelCrestStructure.Mean);
+                Assert.AreEqual(defaultInput.LevelCrestStructure.StandardDeviation,
+                                input.LevelCrestStructure.StandardDeviation);
+
+                Assert.AreEqual(defaultInput.CriticalOvertoppingDischarge.Mean,
+                                input.CriticalOvertoppingDischarge.Mean);
+                Assert.AreEqual(defaultInput.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                                input.CriticalOvertoppingDischarge.CoefficientOfVariation);
+
+                Assert.AreEqual(defaultInput.WidthFlowApertures.Mean, input.WidthFlowApertures.Mean);
+                Assert.AreEqual(defaultInput.WidthFlowApertures.CoefficientOfVariation,
+                                input.WidthFlowApertures.CoefficientOfVariation);
+
+                Assert.AreEqual(defaultInput.FailureProbabilityStructureWithErosion,
+                                input.FailureProbabilityStructureWithErosion);
+
+                Assert.AreEqual(defaultInput.StorageStructureArea.Mean, input.StorageStructureArea.Mean);
+                Assert.AreEqual(defaultInput.StorageStructureArea.CoefficientOfVariation,
+                                input.StorageStructureArea.CoefficientOfVariation);
+
+                Assert.AreEqual(defaultInput.AllowedLevelIncreaseStorage.Mean, input.AllowedLevelIncreaseStorage.Mean);
+                Assert.AreEqual(defaultInput.AllowedLevelIncreaseStorage.Shift, input.AllowedLevelIncreaseStorage.Shift);
+                Assert.AreEqual(defaultInput.AllowedLevelIncreaseStorage.StandardDeviation,
+                                input.AllowedLevelIncreaseStorage.StandardDeviation);
+            }
+            else
+            {
+                AssertAreEqual(expectedHeightStructure.StructureNormalOrientation, input.StructureNormalOrientation);
+
+                Assert.AreEqual(expectedHeightStructure.LevelCrestStructure.Mean, input.LevelCrestStructure.Mean);
+                Assert.AreEqual(expectedHeightStructure.LevelCrestStructure.StandardDeviation,
+                                input.LevelCrestStructure.StandardDeviation);
+
+                Assert.AreEqual(expectedHeightStructure.CriticalOvertoppingDischarge.Mean,
+                                input.CriticalOvertoppingDischarge.Mean);
+                Assert.AreEqual(expectedHeightStructure.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                                input.CriticalOvertoppingDischarge.CoefficientOfVariation);
+
+                Assert.AreEqual(expectedHeightStructure.WidthFlowApertures.Mean, input.WidthFlowApertures.Mean);
+                Assert.AreEqual(expectedHeightStructure.WidthFlowApertures.CoefficientOfVariation,
+                                input.WidthFlowApertures.CoefficientOfVariation);
+
+                Assert.AreEqual(expectedHeightStructure.FailureProbabilityStructureWithErosion,
+                                input.FailureProbabilityStructureWithErosion);
+
+                Assert.AreEqual(expectedHeightStructure.StorageStructureArea.Mean, input.StorageStructureArea.Mean);
+                Assert.AreEqual(expectedHeightStructure.StorageStructureArea.CoefficientOfVariation,
+                                input.StorageStructureArea.CoefficientOfVariation);
+
+                Assert.AreEqual(expectedHeightStructure.AllowedLevelIncreaseStorage.Mean,
+                                input.AllowedLevelIncreaseStorage.Mean);
+                Assert.AreEqual(expectedHeightStructure.AllowedLevelIncreaseStorage.Shift,
+                                input.AllowedLevelIncreaseStorage.Shift);
+                Assert.AreEqual(expectedHeightStructure.AllowedLevelIncreaseStorage.StandardDeviation,
+                                input.AllowedLevelIncreaseStorage.StandardDeviation);
+            }
+        }
+
+        private static void AssertForeshoreProfile(ForeshoreProfile expectedForeshoreProfile, HeightStructuresInput input)
+        {
+            if (expectedForeshoreProfile == null)
+            {
+                Assert.IsNull(input.ForeshoreProfile);
+                Assert.IsFalse(input.UseForeshore);
+
+                Assert.IsNull(input.BreakWater);
+                Assert.IsFalse(input.UseBreakWater);
+            }
+            else
+            {
+                Assert.AreEqual(expectedForeshoreProfile, input.ForeshoreProfile);
+                Assert.AreEqual(expectedForeshoreProfile.Geometry.Count() > 1, input.UseForeshore);
+
+                Assert.AreEqual(expectedForeshoreProfile.HasBreakWater, input.UseBreakWater);
+                BreakWater breakWater = expectedForeshoreProfile.HasBreakWater ?
+                                            new BreakWater(expectedForeshoreProfile.BreakWater.Type, expectedForeshoreProfile.BreakWater.Height) :
+                                            GetDefaultBreakWater();
+                Assert.AreEqual(breakWater.Type, input.BreakWater.Type);
+                AssertAreEqual(breakWater.Height, input.BreakWater.Height);
+            }
+        }
+
+        private static BreakWater GetDefaultBreakWater()
+        {
+            return new BreakWater(BreakWaterType.Dam, 0.0);
         }
 
         private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)

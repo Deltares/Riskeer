@@ -402,7 +402,7 @@ namespace Ringtoets.HeightStructures.Data
             {
                 UseForeshore = false;
                 UseBreakWater = false;
-                BreakWater = GetDefaultBreakWater();
+                BreakWater = null;
             }
             else
             {
