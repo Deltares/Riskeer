@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Common.Utils
@@ -39,6 +41,35 @@ namespace Ringtoets.Common.Utils
         public static SectionSegments[] MakeSectionSegments(IEnumerable<FailureMechanismSection> sectionResults)
         {
             return sectionResults.Select(s => new SectionSegments(s)).ToArray();
+        }
+
+        /// <summary>
+        /// Gets the <see cref="FailureMechanismSection"/> for the given <paramref name="point"/>.
+        /// </summary>
+        /// <param name="sectionSegmentsCollection">The segment sections to get the <see cref="FailureMechanismSection"/> from.</param>
+        /// <param name="point">The <see cref="Point2D"/> to get the <see cref="FailureMechanismSection"/> for.</param>
+        /// <returns>The <see cref="FailureMechanismSection"/> that corresponds to the given <paramref name="point"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when any paramater is <c>null</c>.</exception>
+        public static FailureMechanismSection GetSectionForPoint(IEnumerable<SectionSegments> sectionSegmentsCollection, Point2D point)
+        {
+            if (sectionSegmentsCollection == null)
+            {
+                throw new ArgumentNullException("sectionSegmentsCollection");
+            }
+
+            var minimumDistance = double.PositiveInfinity;
+            FailureMechanismSection section = null;
+
+            foreach (var sectionSegments in sectionSegmentsCollection)
+            {
+                var distance = sectionSegments.Distance(point);
+                if (distance < minimumDistance)
+                {
+                    minimumDistance = distance;
+                    section = sectionSegments.Section;
+                }
+            }
+            return section;
         }
     }
 }

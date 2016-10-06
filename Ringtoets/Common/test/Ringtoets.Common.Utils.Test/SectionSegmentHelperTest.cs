@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -33,12 +34,24 @@ namespace Ringtoets.Common.Utils.Test
         public void MakeSectionSegments_Always_ReturnSectionSegmentsFromFailureMechanismSection()
         {
             // Setup
-            FailureMechanismSection[] failureMechanismSections = 
+            FailureMechanismSection[] failureMechanismSections =
             {
-                new FailureMechanismSection(string.Empty, new[] { new Point2D(0, 0) }),
-                new FailureMechanismSection(string.Empty, new[] { new Point2D(1, 1) }),
-                new FailureMechanismSection(string.Empty, new[] { new Point2D(2, 2) }),
-                new FailureMechanismSection(string.Empty, new[] { new Point2D(3, 3) })
+                new FailureMechanismSection(string.Empty, new[]
+                {
+                    new Point2D(0, 0)
+                }),
+                new FailureMechanismSection(string.Empty, new[]
+                {
+                    new Point2D(1, 1)
+                }),
+                new FailureMechanismSection(string.Empty, new[]
+                {
+                    new Point2D(2, 2)
+                }),
+                new FailureMechanismSection(string.Empty, new[]
+                {
+                    new Point2D(3, 3)
+                })
             };
 
             // Call
@@ -47,6 +60,104 @@ namespace Ringtoets.Common.Utils.Test
             // Assert
             Assert.AreEqual(failureMechanismSections.Length, segmentSections.Length);
             CollectionAssert.AreEqual(failureMechanismSections, segmentSections.Select(ss => ss.Section));
+        }
+
+        [Test]
+        public void GetSectionForPoint_SectionSegmentsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => SectionSegmentsHelper.GetSectionForPoint(null, new Point2D(0, 0));
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("sectionSegmentsCollection", exception.ParamName);
+        }
+
+        [Test]
+        public void GetSectionForPoint_PointNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            SectionSegments[] sectionSegments =
+            {
+                new SectionSegments(new FailureMechanismSection(string.Empty, new[]
+                {
+                    new Point2D(0, 0),
+                    new Point2D(2, 2)
+                }))
+            };
+
+            // Call
+            TestDelegate test = () => SectionSegmentsHelper.GetSectionForPoint(sectionSegments, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("point", exception.ParamName);
+        }
+
+        [Test]
+        public void GetSectionForPoint_SectionSegmentsEmpty_ReturnNull()
+        {
+            // Call
+            FailureMechanismSection section = SectionSegmentsHelper.GetSectionForPoint(Enumerable.Empty<SectionSegments>(), new Point2D(0, 0));
+
+            // Assert
+            Assert.IsNull(section);
+        }
+        
+        [Test]
+        public void GetSectionForPoint_PointNotOnSection_ReturnClosestSection()
+        {
+            // Setup
+            var failureMechanismSection1 = new FailureMechanismSection(string.Empty, new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(2, 2)
+            });
+            var failureMechanismSection2 = new FailureMechanismSection(string.Empty, new[]
+            {
+                new Point2D(10, 10),
+                new Point2D(12, 12)
+            });
+
+            SectionSegments[] sectionSegments =
+            {
+                new SectionSegments(failureMechanismSection1),
+                new SectionSegments(failureMechanismSection2), 
+            };
+
+            // Call
+            FailureMechanismSection sectionForPoint = SectionSegmentsHelper.GetSectionForPoint(sectionSegments, new Point2D(3, 4));
+
+            // Assert
+            Assert.AreSame(failureMechanismSection1, sectionForPoint);
+        }
+        
+        [Test]
+        public void GetSectionForPoint_PointOnSection_ReturnSection()
+        {
+            // Setup
+            var failureMechanismSection1 = new FailureMechanismSection(string.Empty, new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(2, 2)
+            });
+            var failureMechanismSection2 = new FailureMechanismSection(string.Empty, new[]
+            {
+                new Point2D(10, 10),
+                new Point2D(12, 12)
+            });
+
+            SectionSegments[] sectionSegments =
+            {
+                new SectionSegments(failureMechanismSection1),
+                new SectionSegments(failureMechanismSection2), 
+            };
+
+            // Call
+            FailureMechanismSection sectionForPoint = SectionSegmentsHelper.GetSectionForPoint(sectionSegments, new Point2D(11, 11));
+
+            // Assert
+            Assert.AreSame(failureMechanismSection2, sectionForPoint);
         }
     }
 }

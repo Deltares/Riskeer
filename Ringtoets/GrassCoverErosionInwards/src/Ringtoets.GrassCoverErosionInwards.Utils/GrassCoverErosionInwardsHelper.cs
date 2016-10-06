@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Utils;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -101,27 +100,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
             return FindSectionForCalculation(sectionSegments, calculation);
         }
 
-        private static FailureMechanismSection FindSectionForCalculation(SectionSegments[] sectionSegmentsCollection, GrassCoverErosionInwardsCalculation calculation)
+        private static FailureMechanismSection FindSectionForCalculation(SectionSegments[] sectionSegmentsCollection,
+                                                                         GrassCoverErosionInwardsCalculation calculation)
         {
             var dikeProfile = calculation.InputParameters.DikeProfile;
-            if (dikeProfile == null)
-            {
-                return null;
-            }
-
-            var minimumDistance = double.PositiveInfinity;
-            FailureMechanismSection section = null;
-
-            foreach (var sectionSegments in sectionSegmentsCollection)
-            {
-                var distance = sectionSegments.Distance(dikeProfile.WorldReferencePoint);
-                if (distance < minimumDistance)
-                {
-                    minimumDistance = distance;
-                    section = sectionSegments.Section;
-                }
-            }
-            return section;
+            return dikeProfile != null
+                       ? SectionSegmentsHelper.GetSectionForPoint(sectionSegmentsCollection, dikeProfile.WorldReferencePoint)
+                       : null;
         }
 
         private static void UpdateCalculationsOfSegment(Dictionary<string, IList<GrassCoverErosionInwardsCalculation>> calculationsPerSegment,
