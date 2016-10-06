@@ -38,6 +38,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
 using Ringtoets.HeightStructures.Plugin.Properties;
@@ -1160,14 +1161,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
-        }
-
-        private class TestHeightStructure : HeightStructure
-        {
-            public TestHeightStructure()
-                : base("Test", "Id", new Point2D(0, 0), 0.12345, 234.567, 0.23456,
-                       345.678, 0.34567, 456.789, 0.45678, 567.890, 0.56789,
-                       0.67890, 112.223, 0.11222, 225.336, 0.22533) {}
         }
 
         public override void TearDown()

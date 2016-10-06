@@ -104,6 +104,10 @@
       <Project>{20DD96D3-001E-407A-AE2E-432887088F1F}</Project>
       <Name>Ringtoets.HeightStructures.Service</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.HeightStructures.Data.TestUtil\Ringtoets.HeightStructures.Data.TestUtil.csproj">
+      <Project>{F67E8AE8-1FF0-4680-9817-99E025CD9FF6}</Project>
+      <Name>Ringtoets.HeightStructures.Data.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\build\net40\System.Data.SQLite.Core.targets')" />

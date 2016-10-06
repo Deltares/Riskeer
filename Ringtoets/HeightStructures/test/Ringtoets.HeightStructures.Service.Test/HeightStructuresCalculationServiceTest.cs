@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Service.Test
@@ -37,7 +38,7 @@ namespace Ringtoets.HeightStructures.Service.Test
     [TestFixture]
     public class HeightStructuresCalculationServiceTest
     {
-        private readonly static string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
         [Test]
         public void Validate_InvalidCalculationInputValidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
@@ -167,7 +168,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new HeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculation
             {
                 InputParameters =
                 {

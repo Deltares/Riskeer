@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.HeightStructures.Data.Properties;
@@ -39,7 +38,6 @@ namespace Ringtoets.HeightStructures.Data
         {
             InputParameters = new HeightStructuresInput();
             Name = Resources.HeightStructuresCalculation_DefaultName;
-            AddDemoInput();
         }
 
         /// <summary>
@@ -77,17 +75,6 @@ namespace Ringtoets.HeightStructures.Data
         public ICalculationOutput GetObservableOutput()
         {
             return Output;
-        }
-
-        private void AddDemoInput()
-        {
-            InputParameters.LevelCrestStructure.Mean = (RoundedDouble) 5.74;
-            InputParameters.StructureNormalOrientation = (RoundedDouble) 115;
-            InputParameters.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) 1.0;
-            InputParameters.FlowWidthAtBottomProtection.Mean = (RoundedDouble) 18;
-            InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) 1;
-            InputParameters.WidthFlowApertures.Mean = (RoundedDouble) 18;
-            InputParameters.DeviationWaveDirection = (RoundedDouble) 0;
         }
     }
 }
