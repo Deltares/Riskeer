@@ -24,27 +24,32 @@ using System.ComponentModel;
 using Core.Common.Utils.Attributes;
 using Core.Common.Utils.Test.Properties;
 using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Core.Common.Utils.Test
 {
     [TestFixture]
-    public class EnumTypeConverterTest
+    public class NullableEnumTypeConverterTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var converter = new EnumTypeConverter(typeof(object));
+            var nullableType = typeof(SimpleEnum?);
+            var converter = new NullableEnumTypeConverter(nullableType);
 
             // Assert
-            Assert.IsInstanceOf<EnumConverter>(converter);
+            Assert.IsInstanceOf<NullableConverter>(converter);
+            Assert.AreEqual(nullableType, converter.NullableType);
+            Assert.AreEqual(typeof(SimpleEnum), converter.UnderlyingType);
+            Assert.AreEqual(typeof(EnumConverter), converter.UnderlyingTypeConverter.GetType());
         }
 
         [Test]
         public void CanConvertTo_DestinationTypeIsInvalid_ReturnsFalse()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(object));
+            var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
             var canConvert = converter.CanConvertTo(typeof(NotSupportedType));
@@ -57,7 +62,7 @@ namespace Core.Common.Utils.Test
         public void CanConvertTo_DestinationTypeIsString_ReturnsTrue()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(object));
+            var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
             var canConvert = converter.CanConvertTo(typeof(string));
@@ -71,7 +76,7 @@ namespace Core.Common.Utils.Test
         {
             // Setup
             var notSupportedValue = new NotSupportedType();
-            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+            var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
             TestDelegate test = () => converter.ConvertTo(notSupportedValue, typeof(SimpleEnum));
@@ -84,7 +89,7 @@ namespace Core.Common.Utils.Test
         public void ConvertTo_ValueIsNull_DoesNotThrowException()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+            var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
             object result = new object();
@@ -100,7 +105,7 @@ namespace Core.Common.Utils.Test
         {
             // Setup
             const SimpleEnum enumValue = SimpleEnum.FirstValue;
-            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+            var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
             TestDelegate test = () => converter.ConvertTo(enumValue, null);
@@ -114,7 +119,7 @@ namespace Core.Common.Utils.Test
         {
             // Setup
             const SimpleEnum enumValue = SimpleEnum.FirstValue;
-            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+            var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
             TestDelegate test = () => converter.ConvertTo(enumValue, typeof(NotSupportedType));
@@ -128,7 +133,7 @@ namespace Core.Common.Utils.Test
         {
             // Setup
             const SimpleEnum enumValue = SimpleEnum.FirstValue;
-            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+            var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
             var result = converter.ConvertTo(enumValue, typeof(string));
@@ -142,7 +147,7 @@ namespace Core.Common.Utils.Test
         public void CanConvertFrom_SourceTypeIsInvalid_ReturnsFalse()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(object));
+            var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
             var canConvert = converter.CanConvertFrom(typeof(NotSupportedType));
@@ -155,7 +160,7 @@ namespace Core.Common.Utils.Test
         public void CanConvertFrom_SourceTypeIsString_ReturnsTrue()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(object));
+            var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
             var canConvert = converter.CanConvertFrom(typeof(string));
@@ -168,7 +173,7 @@ namespace Core.Common.Utils.Test
         public void ConvertFrom_ValueIsOfInvalidType_ThrowsNotSupportedException()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+            var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
             TestDelegate test = () => converter.ConvertFrom(typeof(NotSupportedType));
@@ -181,7 +186,7 @@ namespace Core.Common.Utils.Test
         public void ConvertFrom_ValueIsNull_ThrowsNotSupportedException()
         {
             // Setup
-            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+            var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
             TestDelegate test = () => converter.ConvertFrom(null);
@@ -195,7 +200,7 @@ namespace Core.Common.Utils.Test
         {
             // Setup
             const string second = "<second>";
-            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+            var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
             var result = converter.ConvertFrom(second);
@@ -203,6 +208,43 @@ namespace Core.Common.Utils.Test
             // Assert
             var expectedEnumValue = SimpleEnum.SecondValue;
             Assert.AreEqual(expectedEnumValue, result);
+        }
+
+        [Test]
+        public void GetStandardValues_ITypeDescriptorContextIsNull_ReturnEnumValues()
+        {
+            // Setup
+            var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
+
+            // Call
+            TypeConverter.StandardValuesCollection result = converter.GetStandardValues(null);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(SimpleEnum.FirstValue, result[0]);
+            Assert.AreEqual(SimpleEnum.SecondValue, result[1]);
+        }
+
+        [Test]
+        public void GetStandardValues_ITypeDescriptorContext_ReturnEnumValues()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var typeDescriptorContextStub = mockRepository.Stub<ITypeDescriptorContext>();
+            mockRepository.ReplayAll();
+
+            var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
+
+            // Call
+            TypeConverter.StandardValuesCollection result = converter.GetStandardValues(typeDescriptorContextStub);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Count);
+            Assert.AreEqual(SimpleEnum.FirstValue, result[0]);
+            Assert.AreEqual(SimpleEnum.SecondValue, result[1]);
+            mockRepository.VerifyAll();
         }
 
         private enum SimpleEnum

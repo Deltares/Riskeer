@@ -24,10 +24,12 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.TypeConverters;
 
 namespace Ringtoets.Common.Forms.Test.PropertyClasses
 {
@@ -124,12 +126,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
             Assert.IsNotNull(breakWaterTypeProperty);
             Assert.AreEqual(!useBreakWaterEnabled || !useBreakWater, breakWaterTypeProperty.IsReadOnly);
+            Assert.IsInstanceOf<NullableEnumTypeConverter>(breakWaterTypeProperty.Converter);
             Assert.AreEqual("Type", breakWaterTypeProperty.DisplayName);
             Assert.AreEqual("Het type van de dam.", breakWaterTypeProperty.Description);
 
             PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
             Assert.IsNotNull(breakWaterHeightProperty);
             Assert.AreEqual(!useBreakWaterEnabled || !useBreakWater, breakWaterHeightProperty.IsReadOnly);
+            Assert.IsInstanceOf<NoValueRoundedDoubleConverter>(breakWaterHeightProperty.Converter);
             Assert.AreEqual("Hoogte [m+NAP]", breakWaterHeightProperty.DisplayName);
             Assert.AreEqual("De hoogte van de dam.", breakWaterHeightProperty.Description);
         }

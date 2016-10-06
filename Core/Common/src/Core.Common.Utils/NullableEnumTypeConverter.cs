@@ -29,25 +29,30 @@ using Core.Common.Utils.Attributes;
 namespace Core.Common.Utils
 {
     /// <summary>
-    /// A type converter to convert Enum objects to and from various other representations.
+    /// A type converter to convert nullable Enum objects to and from various other representations.
     /// </summary>
-    public class EnumTypeConverter : EnumConverter
+    public class NullableEnumTypeConverter : NullableConverter
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EnumTypeConverter"/> class for the given Enum <paramref name="type"/>.
+        /// Initializes a new instance of the <see cref="NullableEnumTypeConverter"/> class for the given a nullable Enum <paramref name="type"/>.
         /// </summary>
         /// <remarks>This class is designed such that it looks for <see cref="ResourcesDisplayNameAttribute"/> on each Enum value.</remarks>
         /// <param name="type">A <see cref="Type"/> that represents the type of enumeration to associate with this enumeration converter.</param>
-        public EnumTypeConverter(Type type) : base(type) {}
+        /// <exception cref="ArgumentException">Thrown when <paramref name="type"/> is not a nullable type.</exception>
+        public NullableEnumTypeConverter(Type type) : base(type) {}
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
+            if (value == null)
+            {
+                throw new NotSupportedException("NullableEnumTypeConverter cannot convert from (null).");
+            }
             var valueString = value as string;
             if (valueString != null)
             {
-                foreach (var fieldInfo in EnumType.GetFields().Where(fieldInfo => valueString == GetDisplayName(fieldInfo)))
+                foreach (var fieldInfo in UnderlyingType.GetFields().Where(fieldInfo => valueString == GetDisplayName(fieldInfo)))
                 {
-                    return Enum.Parse(EnumType, fieldInfo.Name);
+                    return Enum.Parse(UnderlyingType, fieldInfo.Name);
                 }
             }
             return base.ConvertFrom(context, culture, value);
@@ -60,8 +65,33 @@ namespace Core.Common.Utils
                 return base.ConvertTo(context, culture, value, destinationType);
             }
 
-            var fieldInfo = EnumType.GetField(value.ToString());
+            var fieldInfo = UnderlyingType.GetField(value.ToString());
             return GetDisplayName(fieldInfo);
+        }
+
+        /// <summary>
+        /// Gets a collection of standard values for the data type this type converted is designed for.
+        /// </summary>
+        /// <param name="context">An <see cref="ITypeDescriptorContext"/> that provides a format 
+        /// context that can be used to extract additional information about the environment 
+        /// from which this converter is invoked. This parameter or properties of this parameter can be <c>null</c>.</param>
+        /// <returns>A <see cref="TypeConverter.StandardValuesCollection"/> that holds a standard 
+        /// set of valid values, or <c>null</c> if the data type does not support a standard set of values.</returns>
+        /// <note>Does not add a value for <c>null</c> to the <see cref="TypeConverter.StandardValuesCollection"/>.</note>
+        public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+        {
+            if (UnderlyingTypeConverter == null)
+            {
+                return base.GetStandardValues(context);
+            }
+
+            StandardValuesCollection values = UnderlyingTypeConverter.GetStandardValues(context);
+            if (GetStandardValuesSupported(context) && values != null)
+            {
+                return new StandardValuesCollection(values);
+            }
+
+            return base.GetStandardValues(context);
         }
 
         private static string GetDisplayName(MemberInfo memberInfo)
