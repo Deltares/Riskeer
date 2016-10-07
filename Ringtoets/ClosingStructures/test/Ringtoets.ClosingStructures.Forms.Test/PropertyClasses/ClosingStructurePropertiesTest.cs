@@ -35,6 +35,20 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int locationPropertyIndex = 1;
         private const int structureNormalOrientationPropertyIndex = 2;
+        private const int closingStructureTypePropertyIndex = 3;
+        private const int widthFlowAperturesPropertyIndex = 4;
+        private const int areaFlowAperturesPropertyIndex = 5;
+        private const int identicalAperturesPropertyIndex = 6;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 7;
+        private const int storageStructureAreaPropertyIndex = 8;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 9;
+        private const int levelCrestStructureNotClosingPropertyIndex = 10;
+        private const int thresholdHeightOpenWeirPropertyIndex = 11;
+        private const int insideWaterLevelPropertyIndex = 12;
+        private const int criticalOvertoppingDischargePropertyIndex = 13;
+        private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 14;
+        private const int failureProbablityOpenStructurePropertyIndex = 15;
+        private const int failureProbabilityReparationPropertyIndex = 16;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -65,6 +79,54 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(structure.Name, properties.Name);
             Assert.AreEqual(structure.Location, properties.Location);
             Assert.AreEqual(structure.StructureNormalOrientation, properties.StructureNormalOrientation);
+            Assert.AreEqual(structure.InflowModel, properties.InflowModel);
+
+            Assert.AreEqual("Normaal", properties.WidthFlowApertures.DistributionType);
+            Assert.AreEqual(structure.WidthFlowApertures, properties.WidthFlowApertures.Data);
+            Assert.IsTrue(properties.WidthFlowApertures.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.WidthFlowApertures.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
+
+            Assert.AreEqual("Lognormaal", properties.AreaFlowApertures.DistributionType);
+            Assert.AreEqual(structure.AreaFlowApertures, properties.AreaFlowApertures.Data);
+            Assert.IsTrue(properties.AreaFlowApertures.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.AreaFlowApertures.DynamicReadOnlyValidationMethod("StandardDeviation"));
+
+            Assert.AreEqual(structure.IdenticalApertures, properties.IdenticalApertures);
+
+            Assert.AreEqual("Lognormaal", properties.FlowWidthAtBottomProtection.DistributionType);
+            Assert.AreEqual(structure.FlowWidthAtBottomProtection, properties.FlowWidthAtBottomProtection.Data);
+            Assert.IsTrue(properties.FlowWidthAtBottomProtection.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.FlowWidthAtBottomProtection.DynamicReadOnlyValidationMethod("StandardDeviation"));
+
+            Assert.AreEqual("Lognormaal", properties.StorageStructureArea.DistributionType);
+            Assert.AreEqual(structure.StorageStructureArea, properties.StorageStructureArea.Data);
+            Assert.IsTrue(properties.StorageStructureArea.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.StorageStructureArea.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
+
+            Assert.AreEqual("Lognormaal", properties.AllowedLevelIncreaseStorage.DistributionType);
+            Assert.AreEqual(structure.AllowedLevelIncreaseStorage, properties.AllowedLevelIncreaseStorage.Data);
+            Assert.IsTrue(properties.AllowedLevelIncreaseStorage.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.AllowedLevelIncreaseStorage.DynamicReadOnlyValidationMethod("StandardDeviation"));
+
+            Assert.AreEqual("Normaal", properties.LevelCrestStructureNotClosing.DistributionType);
+            Assert.AreEqual(structure.LevelCrestStructureNotClosing, properties.LevelCrestStructureNotClosing.Data);
+            Assert.IsTrue(properties.LevelCrestStructureNotClosing.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.LevelCrestStructureNotClosing.DynamicReadOnlyValidationMethod("StandardDeviation"));
+
+            Assert.AreEqual("Normaal", properties.ThresholdHeightOpenWeir.DistributionType);
+            Assert.AreEqual(structure.ThresholdHeightOpenWeir, properties.ThresholdHeightOpenWeir.Data);
+            Assert.IsTrue(properties.ThresholdHeightOpenWeir.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.ThresholdHeightOpenWeir.DynamicReadOnlyValidationMethod("StandardDeviation"));
+
+            Assert.AreEqual("Normaal", properties.InsideWaterLevel.DistributionType);
+            Assert.AreEqual(structure.InsideWaterLevel, properties.InsideWaterLevel.Data);
+            Assert.IsTrue(properties.InsideWaterLevel.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.InsideWaterLevel.DynamicReadOnlyValidationMethod("StandardDeviation"));
+
+            Assert.AreEqual("Lognormaal", properties.CriticalOvertoppingDischarge.DistributionType);
+            Assert.AreEqual(structure.CriticalOvertoppingDischarge, properties.CriticalOvertoppingDischarge.Data);
+            Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
         }
 
         [Test]
