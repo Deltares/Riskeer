@@ -26,6 +26,7 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.Helpers;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 {
@@ -47,7 +48,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         private const int insideWaterLevelPropertyIndex = 12;
         private const int criticalOvertoppingDischargePropertyIndex = 13;
         private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 14;
-        private const int failureProbablityOpenStructurePropertyIndex = 15;
+        private const int failureProbabilityOpenStructurePropertyIndex = 15;
         private const int failureProbabilityReparationPropertyIndex = 16;
 
         [Test]
@@ -127,6 +128,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(structure.CriticalOvertoppingDischarge, properties.CriticalOvertoppingDischarge.Data);
             Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("Mean"));
             Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
+
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.ProbabilityOpenStructureBeforeFlooding), properties.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.FailureProbabilityOpenStructure), properties.FailureProbabilityOpenStructure);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.FailureProbabilityReparation), properties.FailureProbabilityReparation);
         }
 
         [Test]

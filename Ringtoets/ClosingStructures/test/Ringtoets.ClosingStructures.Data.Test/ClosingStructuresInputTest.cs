@@ -63,7 +63,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             Assert.IsNaN(input.FailureProbabilityOpenStructure);
             Assert.IsNaN(input.FailureProbabilityStructureWithErosion);
-            Assert.IsNaN(input.FailureProbablityReparation);
+            Assert.IsNaN(input.FailureProbabilityReparation);
 
             Assert.IsNaN(input.FactorStormDurationOpenStructure);
             Assert.IsNaN(input.DeviationWaveDirection);
@@ -348,7 +348,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
-        public void Properties_FailureProbablityOpenStructure_ThrowArgumentException(double probability)
+        public void Properties_FailureProbabilityOpenStructure_ThrowArgumentException(double probability)
         {
             // Setup
             var input = new ClosingStructuresInput();
@@ -380,13 +380,13 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
-        public void Properties_FailureProbablityReparation_ThrowArgumentOutOfRangeException(double probability)
+        public void Properties_FailureProbabilityReparation_ThrowArgumentOutOfRangeException(double probability)
         {
             // Setup
             var input = new ClosingStructuresInput();
 
             // Call
-            TestDelegate call = () => input.FailureProbablityReparation = probability;
+            TestDelegate call = () => input.FailureProbabilityReparation = probability;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
@@ -402,10 +402,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
             var input = new ClosingStructuresInput();
 
             // Call 
-            input.FailureProbablityReparation = probability;
+            input.FailureProbabilityReparation = probability;
 
             // Assert
-            Assert.AreEqual(probability, input.FailureProbablityReparation);
+            Assert.AreEqual(probability, input.FailureProbabilityReparation);
         }
 
         [Test]

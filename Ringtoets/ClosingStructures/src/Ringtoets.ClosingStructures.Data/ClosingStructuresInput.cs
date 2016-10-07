@@ -51,7 +51,7 @@ namespace Ringtoets.ClosingStructures.Data
         private readonly VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge;
         private RoundedDouble structureNormalOrientation;
         private RoundedDouble factorStormDurationOpenStructure;
-        private double failureProbablityOpenStructure;
+        private double failureProbabilityOpenStructure;
         private double failureProbabilityReparation;
         private double failureProbabilityStructureWithErosion;
         private double probabilityOpenStructureBeforeFlooding;
@@ -67,7 +67,7 @@ namespace Ringtoets.ClosingStructures.Data
             factorStormDurationOpenStructure = new RoundedDouble(2, double.NaN);
             deviationWaveDirection = new RoundedDouble(2, double.NaN);
 
-            failureProbablityOpenStructure = double.NaN;
+            failureProbabilityOpenStructure = double.NaN;
             failureProbabilityReparation = double.NaN;
             failureProbabilityStructureWithErosion = double.NaN;
             probabilityOpenStructureBeforeFlooding = 1.0;
@@ -418,7 +418,7 @@ namespace Ringtoets.ClosingStructures.Data
         {
             get
             {
-                return failureProbablityOpenStructure;
+                return failureProbabilityOpenStructure;
             }
             set
             {
@@ -426,7 +426,7 @@ namespace Ringtoets.ClosingStructures.Data
                 {
                     throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
                 }
-                failureProbablityOpenStructure = value;
+                failureProbabilityOpenStructure = value;
             }
         }
 
@@ -436,7 +436,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
         /// is not between [0, 1].</exception>
-        public double FailureProbablityReparation
+        public double FailureProbabilityReparation
         {
             get
             {

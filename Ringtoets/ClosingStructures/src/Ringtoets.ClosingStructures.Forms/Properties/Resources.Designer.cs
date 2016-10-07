@@ -109,6 +109,24 @@ namespace Ringtoets.ClosingStructures.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kans op mislukken sluiting van geopend kunstwerk..
+        /// </summary>
+        public static string FailureProbabilityOpenStructure_Description {
+            get {
+                return ResourceManager.GetString("FailureProbabilityOpenStructure_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kans mislukken sluiting [1/jaar].
+        /// </summary>
+        public static string FailureProbabilityOpenStructure_DisplayName {
+            get {
+                return ResourceManager.GetString("FailureProbabilityOpenStructure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Faalkans herstel van gefaalde situatie..
         /// </summary>
         public static string FailureProbabilityReparation_Description {
@@ -123,24 +141,6 @@ namespace Ringtoets.ClosingStructures.Forms.Properties {
         public static string FailureProbabilityReparation_DisplayName {
             get {
                 return ResourceManager.GetString("FailureProbabilityReparation_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kans op mislukken sluiting van geopend kunstwerk..
-        /// </summary>
-        public static string FailureProbablityOpenStructure_Description {
-            get {
-                return ResourceManager.GetString("FailureProbablityOpenStructure_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kans mislukken sluiting [1/jaar].
-        /// </summary>
-        public static string FailureProbablityOpenStructure_DisplayName {
-            get {
-                return ResourceManager.GetString("FailureProbablityOpenStructure_DisplayName", resourceCulture);
             }
         }
         
@@ -217,7 +217,7 @@ namespace Ringtoets.ClosingStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel..
+        ///   Looks up a localized string similar to Drempelhoogte niet gesloten kering..
         /// </summary>
         public static string ThresholdHeightOpenWeir_Description {
             get {
