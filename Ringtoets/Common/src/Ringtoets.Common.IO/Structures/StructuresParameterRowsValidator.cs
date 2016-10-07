@@ -346,7 +346,7 @@ namespace Ringtoets.Common.IO.Structures
             List<string> messages = new List<string>();
 
             double mean = row.NumericalValue;
-            if (double.IsNaN(mean) || double.IsInfinity(mean) || (!meanMustBeGreaterThanZero || mean <= 0))
+            if (double.IsNaN(mean) || double.IsInfinity(mean) || (meanMustBeGreaterThanZero && mean <= 0))
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, numericalValueColumn));
             }

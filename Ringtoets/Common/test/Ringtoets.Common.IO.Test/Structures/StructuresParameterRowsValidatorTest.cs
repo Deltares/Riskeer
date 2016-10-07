@@ -343,7 +343,6 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "Voor een betrouwbare conversie tussen standaard deviatie en variatiecoëfficiënt mag de gemiddelde waarde (op regel 1, kolom numeriekewaarde) niet te dicht op 0 zijn.",
                 "De waarde op regel 2, kolom 18 is ongeldig.",
                 "De waarde op regel 3, kolom 18 valt buiten het bereik [0, 360].",
-                "De waarde op regel 4, kolom 18 is ongeldig.",
                 "De waarde op regel 5, kolom 18 is ongeldig.",
                 "De waarde op regel 5, kolom 20 is ongeldig.",
                 "De waarde op regel 6, kolom 18 is ongeldig.",
