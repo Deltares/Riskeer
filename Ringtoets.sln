@@ -1106,8 +1106,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HeightStructures.
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Utils", "Ringtoets\Common\src\Ringtoets.Common.Utils\Ringtoets.Common.Utils.csproj", "{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.Common.Utils.Test", "Ringtoets\Common\test\Ringtoets.Common.Utils.Test\Ringtoets.Common.Utils.Test.csproj", "{DEC38676-268F-4A45-BB45-D705FDF5541E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C90B77DA-E421-43CC-B82E-529651BC21AC} = {C90B77DA-E421-43CC-B82E-529651BC21AC}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ringtoets.HeightStructures.Utils", "Ringtoets\HeightStructures\src\Ringtoets.HeightStructures.Utils\Ringtoets.HeightStructures.Utils.csproj", "{0FD0C7E1-E712-48D1-91AB-FBC78461FD76}"
 	ProjectSection(ProjectDependencies) = postProject

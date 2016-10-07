@@ -271,7 +271,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         [TestCase(true, false)]
         [TestCase(true, true)]
         [TestCase(false, false)]
-        public void Calculate_Always_InputPropertiesCorrectlySendToCalculator(bool useForeshore, bool useBreakWater)
+        public void Calculate_VariousCalculations_InputPropertiesCorrectlySentToCalculator(bool useForeshore, bool useBreakWater)
         {
             // Setup
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
@@ -306,7 +306,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                                                                                     new ForeshoreProfile.ConstructionProperties());
             }
 
-            var failureMechanismSection = heightStructuresFailureMechanism.Sections.First();
+            FailureMechanismSection failureMechanismSection = heightStructuresFailureMechanism.Sections.First();
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -323,35 +323,33 @@ namespace Ringtoets.HeightStructures.Service.Test
                 // Assert
                 StructuresOvertoppingCalculationInput[] overtoppingCalculationInputs = testStructuresOvertoppingCalculator.ReceivedInputs.ToArray();
                 Assert.AreEqual(1, overtoppingCalculationInputs.Length);
-
                 Assert.AreEqual(testDataPath, testStructuresOvertoppingCalculator.HydraulicBoundaryDatabaseDirectory);
                 Assert.AreEqual(assessmentSectionStub.Id, testStructuresOvertoppingCalculator.RingId);
 
-                var actualInput = overtoppingCalculationInputs[0];
-
                 GeneralHeightStructuresInput generalInput = heightStructuresFailureMechanism.GeneralInput;
+                HeightStructuresInput input = calculation.InputParameters;
+                var expectedInput = new StructuresOvertoppingCalculationInput(
+                    1300001,
+                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), input.StructureNormalOrientation),
+                    useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
+                    useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
+                    generalInput.GravitationalAcceleration,
+                    generalInput.ModelFactorOvertoppingFlow.Mean, generalInput.ModelFactorOvertoppingFlow.StandardDeviation,
+                    input.LevelCrestStructure.Mean, input.LevelCrestStructure.StandardDeviation,
+                    input.StructureNormalOrientation,
+                    input.ModelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.StandardDeviation,
+                    input.AllowedLevelIncreaseStorage.Mean, input.AllowedLevelIncreaseStorage.StandardDeviation,
+                    generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
+                    input.StorageStructureArea.Mean, input.StorageStructureArea.CoefficientOfVariation,
+                    generalInput.ModelFactorInflowVolume,
+                    input.FlowWidthAtBottomProtection.Mean, input.FlowWidthAtBottomProtection.StandardDeviation,
+                    input.CriticalOvertoppingDischarge.Mean, input.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                    input.FailureProbabilityStructureWithErosion,
+                    input.WidthFlowApertures.Mean, input.WidthFlowApertures.CoefficientOfVariation,
+                    input.DeviationWaveDirection,
+                    input.StormDuration.Mean, input.StormDuration.CoefficientOfVariation);
 
-                var input = calculation.InputParameters;
-                var expectedInput = new StructuresOvertoppingCalculationInput(1300001,
-                                                                              new HydraRingSection(1, failureMechanismSection.GetSectionLength(), input.StructureNormalOrientation),
-                                                                              useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
-                                                                              useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
-                                                                              generalInput.GravitationalAcceleration,
-                                                                              generalInput.ModelFactorOvertoppingFlow.Mean, generalInput.ModelFactorOvertoppingFlow.StandardDeviation,
-                                                                              calculation.InputParameters.LevelCrestStructure.Mean, calculation.InputParameters.LevelCrestStructure.StandardDeviation,
-                                                                              calculation.InputParameters.StructureNormalOrientation,
-                                                                              calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean, calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation,
-                                                                              calculation.InputParameters.AllowedLevelIncreaseStorage.Mean, calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation,
-                                                                              generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
-                                                                              calculation.InputParameters.StorageStructureArea.Mean, calculation.InputParameters.StorageStructureArea.CoefficientOfVariation,
-                                                                              generalInput.ModelFactorInflowVolume,
-                                                                              calculation.InputParameters.FlowWidthAtBottomProtection.Mean, calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
-                                                                              calculation.InputParameters.CriticalOvertoppingDischarge.Mean, calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
-                                                                              calculation.InputParameters.FailureProbabilityStructureWithErosion,
-                                                                              calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation,
-                                                                              calculation.InputParameters.DeviationWaveDirection,
-                                                                              calculation.InputParameters.StormDuration.Mean, calculation.InputParameters.StormDuration.CoefficientOfVariation);
-
+                StructuresOvertoppingCalculationInput actualInput = overtoppingCalculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
             }
             mockRepository.VerifyAll();
@@ -369,7 +367,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 Locations =
                 {
-                    new HydraulicBoundaryLocation(1300001, String.Empty, 0, 0)
+                    new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
                 }
             };
             return assessmentSectionStub;

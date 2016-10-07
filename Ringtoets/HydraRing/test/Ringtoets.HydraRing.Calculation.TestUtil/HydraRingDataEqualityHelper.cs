@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         private const double accuracy = 1e-6;
 
         /// <summary>
-        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are the same.
+        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to eachother.
         /// </summary>
         /// <param name="expectedInput">The expected calculation input.</param>
         /// <param name="actualInput">The actual calculation input.</param>
@@ -56,7 +56,11 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
             AreEqual(expectedInput.ForelandsPoints.ToArray(), actualInput.ForelandsPoints.ToArray());
             AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
         }
-
+        /// <summary>
+        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to eachother.
+        /// </summary>
+        /// <param name="expectedInput">The expected calculation input.</param>
+        /// <param name="actualInput">The actual calculation input.</param>
         public static void AreEqual(StructuresOvertoppingCalculationInput expectedInput, StructuresOvertoppingCalculationInput actualInput)
         {
             Assert.AreEqual(expectedInput.FailureMechanismType, actualInput.FailureMechanismType);
@@ -106,7 +110,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
         }
 
         /// <summary>
-        /// Asserts whether or not <paramref name="expected"/> and <paramref name="actual"/> are the same.
+        /// Asserts whether or not <paramref name="expected"/> and <paramref name="actual"/> are equal to eachother.
         /// </summary>
         /// <param name="expected">The array of expected <see cref="HydraRingVariable"/>.</param>
         /// <param name="actual">The array of actual <see cref="HydraRingVariable"/>.</param>

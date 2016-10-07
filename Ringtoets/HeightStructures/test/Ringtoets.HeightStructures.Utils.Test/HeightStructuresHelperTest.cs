@@ -57,16 +57,6 @@ namespace Ringtoets.HeightStructures.Utils.Test
         };
 
         [Test]
-        public void FailureMechanismSectionForCalculation_SectionResultAndCalculationNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => HeightStructuresHelper.FailureMechanismSectionForCalculation(null, null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(call);
-        }
-
-        [Test]
         public void FailureMechanismSectionForCalculation_SectionResultsNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -92,7 +82,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_CalculationWithoutDikeProfile_ReturnsNull()
+        public void FailureMechanismSectionForCalculation_ValidSectionWithoutCalculationStructureSet_ReturnsNull()
         {
             // Setup
             var calculation = new HeightStructuresCalculation();
@@ -106,21 +96,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_SectionResultsEmpty_ReturnsNull()
-        {
-            // Setup
-            var calculation = new HeightStructuresCalculation();
-
-            // Call
-            FailureMechanismSection failureMechanismSection =
-                HeightStructuresHelper.FailureMechanismSectionForCalculation(oneSection, calculation);
-
-            // Assert
-            Assert.IsNull(failureMechanismSection);
-        }
-
-        [Test]
-        public void FailureMechanismSectionForCalculation_ValidEmptySectionResults_ReturnsNull()
+        public void FailureMechanismSectionForCalculation_EmptySectionWithoutCalculationStructureSet_ReturnsNull()
         {
             // Setup
             var emptySections = new FailureMechanismSection[0];
@@ -135,7 +111,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_FirstSectionResultContainsCalculation_FailureMechanismSectionOfFirstSectionResult()
+        public void FailureMechanismSectionForCalculation_FirstSectionContainsCalculation_FailureMechanismSectionOfFirstSection()
         {
             // Setup
             var calculation = new HeightStructuresCalculation
@@ -143,7 +119,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
                 InputParameters =
                 {
                     HeightStructure = new HeightStructure("test", "1", new Point2D(1.1, 2.2),
-                                                          0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 
+                                                          0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7,
                                                           0.8, 0.9, 0.11, 0.12, 0.13, 0.14, 0.15)
                 }
             };
@@ -157,7 +133,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_SecondSectionResultContainsCalculation_FailureMechanismSectionOfSecondSectionResult()
+        public void FailureMechanismSectionForCalculation_SecondSectionContainsCalculation_FailureMechanismSectionOfSecondSection()
         {
             // Setup
             var calculation = new HeightStructuresCalculation

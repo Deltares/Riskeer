@@ -28,7 +28,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Common.Utils
 {
     /// <summary>
-    /// Class that holds helper methods for <see cref="SectionSegments"/>
+    /// Class that holds helper methods for <see cref="SectionSegments"/>.
     /// </summary>
     public static class SectionSegmentsHelper
     {
@@ -38,8 +38,13 @@ namespace Ringtoets.Common.Utils
         /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/>
         /// to create <see cref="SectionSegments"/> for.</param>
         /// <returns>An array of <see cref="SectionSegments"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResults"/> is <c>null</c>.</exception>
         public static SectionSegments[] MakeSectionSegments(IEnumerable<FailureMechanismSection> sectionResults)
         {
+            if (sectionResults == null)
+            {
+                throw new ArgumentNullException("sectionResults");
+            }
             return sectionResults.Select(s => new SectionSegments(s)).ToArray();
         }
 
@@ -48,7 +53,7 @@ namespace Ringtoets.Common.Utils
         /// </summary>
         /// <param name="sectionSegmentsCollection">The segment sections to get the <see cref="FailureMechanismSection"/> from.</param>
         /// <param name="point">The <see cref="Point2D"/> to get the <see cref="FailureMechanismSection"/> for.</param>
-        /// <returns>The <see cref="FailureMechanismSection"/> that corresponds to the given <paramref name="point"/>.</returns>
+        /// <returns>The <see cref="FailureMechanismSection"/> that corresponds to the given <paramref name="point"/> or <c>null</c> if none found.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any paramater is <c>null</c>.</exception>
         public static FailureMechanismSection GetSectionForPoint(IEnumerable<SectionSegments> sectionSegmentsCollection, Point2D point)
         {

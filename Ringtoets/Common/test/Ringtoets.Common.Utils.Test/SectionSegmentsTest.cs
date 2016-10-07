@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Utils.Test
             Assert.AreEqual(expectedDistance, distance);
         }
 
-        private IEnumerable<TestCaseData> Distances
+        private static IEnumerable<TestCaseData> Distances
         {
             get
             {

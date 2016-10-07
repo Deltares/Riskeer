@@ -28,10 +28,21 @@ using Ringtoets.Common.Data.FailureMechanism;
 namespace Ringtoets.Common.Utils.Test
 {
     [TestFixture]
-    public class SectionSegmentHelperTest
+    public class SectionSegmentsHelperTest
     {
         [Test]
-        public void MakeSectionSegments_Always_ReturnSectionSegmentsFromFailureMechanismSection()
+        public void MakeSectionSegments_SectionResultsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => SectionSegmentsHelper.MakeSectionSegments(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("sectionResults", exception.ParamName);
+        }
+
+        [Test]
+        public void MakeSectionSegments_ValidFailureMechanismSections_ReturnSectionSegmentsFromFailureMechanismSection()
         {
             // Setup
             FailureMechanismSection[] failureMechanismSections =

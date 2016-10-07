@@ -38,6 +38,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
 using Ringtoets.HydraRing.Data;
@@ -141,7 +142,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-            var scenariosContext = (HeightStructuresScenariosContext)outputsFolder.Contents[0];
+            var scenariosContext = (HeightStructuresScenariosContext) outputsFolder.Contents[0];
             Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
             Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
 
@@ -733,9 +734,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    HeightStructure = new HeightStructure("test", "1", new Point2D(1.1, 2.2),
-                                                          0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7,
-                                                          0.8, 0.9, 0.11, 0.12, 0.13, 0.14, 0.15)
+                    HeightStructure = new TestHeightStructure()
                 }
             });
             failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation
@@ -744,9 +743,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    HeightStructure = new HeightStructure("test", "1", new Point2D(1.1, 2.2),
-                                                          0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7,
-                                                          0.8, 0.9, 0.11, 0.12, 0.13, 0.14, 0.15)
+                    HeightStructure = new TestHeightStructure()
                 }
             });
 

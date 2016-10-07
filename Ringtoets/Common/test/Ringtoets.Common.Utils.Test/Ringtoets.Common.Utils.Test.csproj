@@ -51,7 +51,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SectionSegmentHelperTest.cs" />
+    <Compile Include="SectionSegmentsHelperTest.cs" />
     <Compile Include="SectionSegmentsTest.cs" />
   </ItemGroup>
   <ItemGroup>

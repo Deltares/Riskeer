@@ -39,7 +39,7 @@ namespace Ringtoets.HeightStructures.Utils
         /// <param name="sections">The <see cref="FailureMechanismSection"/> objects 
         /// whose <see cref="FailureMechanismSection"/> are considered.</param>
         /// <param name="calculation">The <see cref="HeightStructuresCalculation"/>.</param>
-        /// <returns>The containing <see cref="FailureMechanismSection"/>, or <c>null</c>.</returns>
+        /// <returns>The containing <see cref="FailureMechanismSection"/>, or <c>null</c> if none found.</returns>
         /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
         public static FailureMechanismSection FailureMechanismSectionForCalculation(IEnumerable<FailureMechanismSection> sections,
                                                                                     HeightStructuresCalculation calculation)
