@@ -20,12 +20,17 @@
 // All rights reserved.
 
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 
@@ -54,56 +59,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Call
             using (var view = ShowScenariosView())
             {
-                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
-
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
                 Assert.IsInstanceOf<IView>(view);
-
-                Assert.AreEqual(new Size(0, 0), dataGridViewControl.MinimumSize);
                 Assert.IsTrue(view.AutoScroll);
                 Assert.IsNull(view.Data);
                 Assert.IsNull(view.FailureMechanism);
 
-                Assert.AreEqual(0, dataGridView.RowCount);
-                Assert.AreEqual(2, dataGridView.ColumnCount);
+                var scenarioSelectionControl = new ControlTester("scenarioSelectionControl").TheObject as ScenarioSelectionControl;
 
-                var sectionColumn = dataGridView.Columns[0];
-                var calculationColumn = dataGridView.Columns[1];
-
-                Assert.AreEqual("Vak", sectionColumn.HeaderText);
-                Assert.AreEqual("Berekening", calculationColumn.HeaderText);
-
-                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(sectionColumn);
-                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(calculationColumn);
-
-                Assert.IsTrue(sectionColumn.ReadOnly);
-
-                DataGridViewComboBoxColumn comboBoxColumn = (DataGridViewComboBoxColumn) calculationColumn;
-                Assert.AreEqual("WrappedObject", comboBoxColumn.ValueMember);
-                Assert.AreEqual("DisplayName", comboBoxColumn.DisplayMember);
+                Assert.NotNull(scenarioSelectionControl);
+                Assert.AreEqual(new Size(0, 0), scenarioSelectionControl.MinimumSize);
             }
         }
 
         [Test]
         public void Data_ValidDataSet_ValidData()
-        {
-            // Setup
-            using (var view = ShowScenariosView())
-            {
-                var calculationGroup = new CalculationGroup();
-
-                // Call
-                view.Data = calculationGroup;
-
-                // Assert
-                Assert.AreSame(calculationGroup, view.Data);
-            }
-        }
-
-        [Test]
-        public void Data_NullifyValidData_DataIsNull()
         {
             // Setup
             using (var view = ShowScenariosView())
@@ -135,19 +106,245 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanism_NullifyValidFailureMechanism_FailureMechanismIsNull()
+        public void Data_WithFailureMechanism_UpdateScenarioControl()
         {
             // Setup
             using (var view = ShowScenariosView())
             {
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var failureMechanism = CreateCompleteFailureMechanism();
+                view.FailureMechanism = failureMechanism;
+
+                // Call
+                view.Data = failureMechanism.CalculationsGroup;
+
+                // Assert
+                AssertDataGridView(failureMechanism, false, new []
+                {
+                    new [] { "<geen>", "CalculationA"},
+                    new [] { "<geen>", "CalculationB"}
+                });
+            }
+        }
+
+        [Test]
+        public void Data_SetToNullAfterGridViewShowsData_ClearsScenarioControl()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanism = CreateCompleteFailureMechanism();
+                view.FailureMechanism = failureMechanism;
+                view.Data = failureMechanism.CalculationsGroup;
+
+                // Call
+                view.Data = null;
+
+                // Assert
+                AssertDataGridView(failureMechanism, true);
+            }
+        }
+
+        [Test]
+        public void FailureMechanism_WithData_UpdateScenarioControl()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanism = CreateCompleteFailureMechanism();
+                view.Data = failureMechanism.CalculationsGroup;
 
                 // Call
                 view.FailureMechanism = failureMechanism;
 
                 // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
+                AssertDataGridView(failureMechanism, false, new []
+                {
+                    new [] { "<geen>", "CalculationA"},
+                    new [] { "<geen>", "CalculationB"}
+                });
             }
+        }
+
+        [Test]
+        public void FailureMechanism_WithoutData_ClearsScenarioControl()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanism = CreateCompleteFailureMechanism();
+                view.Data = failureMechanism.CalculationsGroup;
+                view.FailureMechanism = failureMechanism;
+
+                // Call
+                view.FailureMechanism = null;
+
+                // Assert
+                AssertDataGridView(failureMechanism, true);
+            }
+        }
+
+        [Test]
+        public void NotifyFailureMechanism_SectionsAddedAfterFullInitialization_NewRowAddedToView()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanism = CreateCompleteFailureMechanism();
+                view.Data = failureMechanism.CalculationsGroup;
+                view.FailureMechanism = failureMechanism;
+
+                view.FailureMechanism.AddSection(new FailureMechanismSection("SectionC", new []
+                {
+                    view.FailureMechanism.Sections.Last().GetLast(), new Point2D(30,30) 
+                }));
+
+                // Call
+                failureMechanism.NotifyObservers();
+
+                // Assert
+                AssertDataGridView(failureMechanism, false, new []
+                {
+                    new [] { "<geen>", "CalculationA"},
+                    new [] { "<geen>", "CalculationB"},
+                    new [] { "<geen>"}
+                });
+            }
+        }
+
+        [Test]
+        public void NotifyCalculation_CalculationChangedDikeProfile_CalculationMovedToOtherSectionResultOptions()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanism = CreateCompleteFailureMechanism();
+                view.Data = failureMechanism.CalculationsGroup;
+                view.FailureMechanism = failureMechanism;
+
+                var calculationA = (GrassCoverErosionInwardsCalculation) failureMechanism.CalculationsGroup.Children[0];
+                var calculationB = (GrassCoverErosionInwardsCalculation) failureMechanism.CalculationsGroup.Children[1];
+
+                calculationA.InputParameters.DikeProfile = calculationB.InputParameters.DikeProfile;
+
+                // Call
+                calculationA.NotifyObservers();
+
+                // Assert
+                AssertDataGridView(failureMechanism, false, new []
+                {
+                    new [] { "<geen>"},
+                    new [] { "<geen>", "CalculationA", "CalculationB"},
+                });
+            }
+        }
+
+        [Test]
+        public void NotifyCalculationGroup_CalculationAdded_CalculationAddedToSectionResultOptions()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanism = CreateCompleteFailureMechanism();
+                view.Data = failureMechanism.CalculationsGroup;
+                view.FailureMechanism = failureMechanism;
+
+                var calculationB = ((GrassCoverErosionInwardsCalculation)failureMechanism.CalculationsGroup.Children[1]);
+                var calculationC = new GrassCoverErosionInwardsCalculation
+                {
+                    Name = "CalculationC",
+                    InputParameters =
+                    {
+                        DikeProfile = calculationB.InputParameters.DikeProfile
+                    }
+                };
+                failureMechanism.CalculationsGroup.Children.Add(calculationC);
+
+                calculationC.InputParameters.DikeProfile = calculationC.InputParameters.DikeProfile;
+
+                // Call
+                failureMechanism.CalculationsGroup.NotifyObservers();
+
+                // Assert
+                AssertDataGridView(failureMechanism, false, new []
+                {
+                    new [] { "<geen>", "CalculationA"},
+                    new [] { "<geen>", "CalculationB", "CalculationC"},
+                });
+            }
+        }
+
+        private void AssertDataGridView(
+            GrassCoverErosionInwardsFailureMechanism failureMechanism, 
+            bool shouldBeCleared, 
+            string[][] expectedComboBoxItemTexts = null)
+        {
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+            var rowCount = dataGridView.RowCount;
+
+            if (shouldBeCleared)
+            {
+                Assert.AreEqual(0, rowCount);
+            }
+            else
+            {
+                var dataGridViewColumn = (DataGridViewComboBoxColumn) dataGridView.Columns[1];
+
+                Assert.AreEqual(failureMechanism.SectionResults.Count(), rowCount);
+                Assert.AreEqual(failureMechanism.CalculationsGroup.GetCalculations().Count(), dataGridViewColumn.Items.Count);
+
+                for (int i = 0; i < rowCount; i++)
+                {
+                    var cell = (DataGridViewComboBoxCell) dataGridView[1, i];
+                    var items = cell.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>();
+                    Assert.AreEqual(expectedComboBoxItemTexts[i], items.Select(r => r.DisplayName));
+                }
+            }
+        }
+
+        private GrassCoverErosionInwardsFailureMechanism CreateCompleteFailureMechanism()
+        {
+            GrassCoverErosionInwardsFailureMechanism failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var matchingPointA = new Point2D(0, 0);
+            var matchingPointB = new Point2D(20, 20);
+            var calculationA = new GrassCoverErosionInwardsCalculation
+            {
+                Name = "CalculationA",
+                InputParameters =
+                {
+                    DikeProfile = CreateDikeProfile(matchingPointA)
+                }
+            };
+            var calculationB = new GrassCoverErosionInwardsCalculation
+            {
+                Name = "CalculationB",
+                InputParameters =
+                {
+                    DikeProfile = CreateDikeProfile(matchingPointB)
+                }
+            };
+            Point2D connectionPoint = new Point2D(10, 10);
+            var failureMechanismSectionA = new FailureMechanismSection("sectionA", new[]
+            {
+                matchingPointA,
+                connectionPoint
+            });
+            var failureMechanismSectionB = new FailureMechanismSection("sectionB", new[]
+            {
+                connectionPoint,
+                matchingPointB
+            });
+
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
+            failureMechanism.AddSection(failureMechanismSectionA);
+            failureMechanism.AddSection(failureMechanismSectionB);
+
+            return failureMechanism;
+        }
+
+        private static DikeProfile CreateDikeProfile(Point2D worldLocation)
+        {
+            return new DikeProfile(worldLocation, Enumerable.Empty<RoughnessPoint>(), Enumerable.Empty<Point2D>(), null, new DikeProfile.ConstructionProperties());
         }
 
         private GrassCoverErosionInwardsScenariosView ShowScenariosView()

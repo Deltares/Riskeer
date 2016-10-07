@@ -86,13 +86,6 @@
     <Compile Include="Views\GrassCoverErosionInwardsScenariosView.Designer.cs">
       <DependentUpon>GrassCoverErosionInwardsScenariosView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\IScenarioRow.cs" />
-    <Compile Include="Views\ScenariosControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\ScenariosControl.Designer.cs">
-      <DependentUpon>ScenariosControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\GrassCoverErosionInwardsScenarioRow.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -173,9 +166,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\GrassCoverErosionInwardsScenariosView.resx">
       <DependentUpon>GrassCoverErosionInwardsScenariosView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ScenariosControl.resx">
-      <DependentUpon>ScenariosControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

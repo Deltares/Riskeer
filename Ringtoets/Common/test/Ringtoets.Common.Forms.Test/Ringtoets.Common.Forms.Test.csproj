@@ -87,6 +87,7 @@
     <Compile Include="PropertyClasses\LogNormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\NormalDistributionPropertiesTest.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesBaseTest.cs" />
+    <Compile Include="ScenarioSelectionControlTest.cs" />
     <Compile Include="SelectionDialogBaseTest.cs" />
     <Compile Include="HydraulicBoundaryLocationSelectionDialogTest.cs" />
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuBuilderTest.cs" />

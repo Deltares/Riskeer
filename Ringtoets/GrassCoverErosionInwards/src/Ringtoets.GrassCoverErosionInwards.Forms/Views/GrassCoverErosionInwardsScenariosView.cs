@@ -117,11 +117,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         private void UpdateDataGridViewDataSource()
         {
-            scenariosControl.EndEdit();
+            scenarioSelectionControl.EndEdit();
 
             if (FailureMechanism == null || FailureMechanism.SectionResults == null || data == null || data.Children == null)
             {
-                scenariosControl.ClearDataSource();
+                scenarioSelectionControl.ClearDataSource();
             }
             else
             {
@@ -133,7 +133,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 List<GrassCoverErosionInwardsScenarioRow> scenarioRows = 
                     FailureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsScenarioRow(sectionResult)).ToList();
 
-                scenariosControl.UpdateDataGridViewDataSource(calculations, scenarioRows, caculationsPerSegment);
+                scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, caculationsPerSegment);
             }
         }
     }

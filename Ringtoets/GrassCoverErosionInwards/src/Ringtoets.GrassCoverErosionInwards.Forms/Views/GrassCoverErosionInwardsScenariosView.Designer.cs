@@ -19,6 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Ringtoets.Common.Forms;
+
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 {
     partial class GrassCoverErosionInwardsScenariosView
@@ -36,23 +38,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// </summary>
         private void InitializeComponent()
         {
-            this.scenariosControl = new Ringtoets.GrassCoverErosionInwards.Forms.Views.ScenariosControl();
+            this.scenarioSelectionControl = new Ringtoets.Common.Forms.ScenarioSelectionControl();
             this.SuspendLayout();
             // 
-            // scenariosControl
+            // scenarioSelectionControl
             // 
-            this.scenariosControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scenariosControl.Location = new System.Drawing.Point(0, 0);
-            this.scenariosControl.Name = "scenariosControl";
-            this.scenariosControl.Size = new System.Drawing.Size(160, 160);
-            this.scenariosControl.TabIndex = 0;
+            this.scenarioSelectionControl.AutoScroll = true;
+            this.scenarioSelectionControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.scenarioSelectionControl.Location = new System.Drawing.Point(0, 0);
+            this.scenarioSelectionControl.Name = "scenarioSelectionControl";
+            this.scenarioSelectionControl.Size = new System.Drawing.Size(160, 160);
+            this.scenarioSelectionControl.TabIndex = 0;
             // 
             // GrassCoverErosionInwardsScenariosView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.Controls.Add(this.scenariosControl);
+            this.Controls.Add(this.scenarioSelectionControl);
             this.MinimumSize = new System.Drawing.Size(160, 160);
             this.Name = "GrassCoverErosionInwardsScenariosView";
             this.Size = new System.Drawing.Size(160, 160);
@@ -62,6 +65,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
         #endregion
 
-        private ScenariosControl scenariosControl;
+        private ScenarioSelectionControl scenarioSelectionControl;
     }
 }

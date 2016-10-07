@@ -21,9 +21,9 @@
 
 using Core.Common.Controls.DataGrid;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
+namespace Ringtoets.Common.Forms
 {
-    partial class ScenariosControl
+    partial class ScenarioSelectionControl
     {
         /// <summary> 
         /// Required designer variable.

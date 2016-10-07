@@ -50,6 +50,7 @@
     <Compile Include="Helpers\SuspendDataGridViewColumnResizes.cs" />
     <Compile Include="Helpers\NamingHelper.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelper.cs" />
+    <Compile Include="IScenarioRow.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContext.cs" />
     <Compile Include="PresentationObjects\ICalculationContext.cs" />
     <Compile Include="PresentationObjects\CommentContext.cs" />
@@ -83,6 +84,12 @@
     <Compile Include="PropertyClasses\NormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesBase.cs" />
     <Compile Include="PropertyClasses\VariationCoefficientDistributionPropertiesReadOnly.cs" />
+    <Compile Include="ScenarioSelectionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ScenarioSelectionControl.Designer.cs">
+      <DependentUpon>ScenarioSelectionControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectionDialogBase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +135,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScenarioSelectionControl.resx">
+      <DependentUpon>ScenarioSelectionControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CommentView.resx">
       <DependentUpon>CommentView.cs</DependentUpon>

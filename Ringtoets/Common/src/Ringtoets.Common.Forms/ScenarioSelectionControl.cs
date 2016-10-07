@@ -1,4 +1,4 @@
-﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+// Copyright (C) Stichting Deltares 2016. All rights reserved.
 //
 // This file is part of Ringtoets.
 //
@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -29,19 +30,19 @@ using Ringtoets.Common.Forms.Helpers;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
+namespace Ringtoets.Common.Forms
 {
     /// <summary>
     /// Control for displaying and configuring scenarios.
     /// </summary>
-    public partial class ScenariosControl : UserControl
+    public partial class ScenarioSelectionControl : UserControl
     {
         private const int calculationsColumnIndex = 1;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ScenariosControl"/>.
+        /// Creates a new instance of <see cref="ScenarioSelectionControl"/>.
         /// </summary>
-        public ScenariosControl()
+        public ScenarioSelectionControl()
         {
             InitializeComponent();
             AddDataGridColumns();
@@ -53,11 +54,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <typeparam name="T">The type of rows to be added to the grid view.</typeparam>
         /// <param name="calculations">The collection of calculations known in the failure mechanism.</param>
         /// <param name="scenarioRows">The collection of rows to be added to the grid view.</param>
-        /// <param name="collectCalculationsPerSection">The allowed calculations grouped by the name of the failure mechanism sections.</param>
+        /// <param name="calculationsPerSection">The allowed calculations grouped by the name of the failure mechanism sections.</param>
         public void UpdateDataGridViewDataSource<T>(
-            IEnumerable<ICalculation> calculations, List<T> scenarioRows, Dictionary<string, IList<ICalculation>> collectCalculationsPerSection)
+            IEnumerable<ICalculation> calculations, IEnumerable<T> scenarioRows, Dictionary<string, IList<ICalculation>> calculationsPerSection)
             where T : IScenarioRow<ICalculation>
         {
+            if (calculations == null)
+            {
+                throw new ArgumentNullException("calculations");
+            }
+            if (scenarioRows == null)
+            {
+                throw new ArgumentNullException("scenarioRows");
+            }
+            if (calculationsPerSection == null)
+            {
+                throw new ArgumentNullException("calculationsPerSection");
+            }
             dataGridViewControl.SetDataSource(scenarioRows);
 
             using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)))
@@ -69,7 +82,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
 
             using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)))
             {
-                UpdateDataGridViewDataComboBoxesContent(collectCalculationsPerSection);
+                UpdateDataGridViewDataComboBoxesContent(calculationsPerSection);
             }
         }
 

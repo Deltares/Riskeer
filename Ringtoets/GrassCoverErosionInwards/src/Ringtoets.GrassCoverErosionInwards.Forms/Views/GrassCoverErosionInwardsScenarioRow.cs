@@ -21,6 +21,7 @@
 
 using System;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms;
 using Ringtoets.GrassCoverErosionInwards.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Views

@@ -1,0 +1,306 @@
+﻿// Copyright (C) Stichting Deltares 2016. All rights reserved.
+//
+// This file is part of Ringtoets.
+//
+// Ringtoets is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>.
+//
+// All names, logos, and references to "Deltares" are registered trademarks of
+// Stichting Deltares and remain full property of Stichting Deltares at all times.
+// All rights reserved.
+
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using Core.Common.Controls.DataGrid;
+using NUnit.Extensions.Forms;
+using NUnit.Framework;
+using Rhino.Mocks;
+using Ringtoets.Common.Data.Calculation;
+
+namespace Ringtoets.Common.Forms.Test
+{
+    [TestFixture]
+    public class ScenarioSelectionControlTest
+    {
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
+        [Test]
+        public void DefaultConstructor_DataGridViewCorrectlyInitialized()
+        {
+            // Call
+            using (var control = ShowScenariosControl())
+            {
+                // Assert
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
+
+                Assert.IsInstanceOf<UserControl>(control);
+
+                Assert.AreEqual(new Size(0, 0), dataGridViewControl.MinimumSize);
+                Assert.IsTrue(control.AutoScroll);
+
+                Assert.AreEqual(0, dataGridView.RowCount);
+                Assert.AreEqual(2, dataGridView.ColumnCount);
+
+                var sectionColumn = dataGridView.Columns[0];
+                var calculationColumn = dataGridView.Columns[1];
+
+                Assert.AreEqual("Vak", sectionColumn.HeaderText);
+                Assert.AreEqual("Berekening", calculationColumn.HeaderText);
+
+                Assert.IsInstanceOf<DataGridViewTextBoxColumn>(sectionColumn);
+                Assert.IsInstanceOf<DataGridViewComboBoxColumn>(calculationColumn);
+
+                Assert.IsTrue(sectionColumn.ReadOnly);
+
+                DataGridViewComboBoxColumn comboBoxColumn = (DataGridViewComboBoxColumn) calculationColumn;
+                Assert.AreEqual("WrappedObject", comboBoxColumn.ValueMember);
+                Assert.AreEqual("DisplayName", comboBoxColumn.DisplayMember);
+            }
+        }
+
+        [Test]
+        public void UpdateDataGridViewDataSource_WithoutCalculations_ThrowsArgumentNullException()
+        {
+            // Setup
+            using (var control = new ScenarioSelectionControl())
+            {
+                // Call
+                TestDelegate call = () => control.UpdateDataGridViewDataSource<IScenarioRow<ICalculation>>(null, null, null);
+
+                // Assert
+                var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+
+                Assert.AreEqual("calculations", paramName);
+            }
+        }
+
+        [Test]
+        public void UpdateDataGridViewDataSource_WithoutScenarioRows_ThrowsArgumentNullException()
+        {
+            // Setup
+            using (var control = new ScenarioSelectionControl())
+            {
+                // Call
+                TestDelegate call = () => control.UpdateDataGridViewDataSource<IScenarioRow<ICalculation>>(Enumerable.Empty<ICalculation>(), null, null);
+
+                // Assert
+                var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+
+                Assert.AreEqual("scenarioRows", paramName);
+            }
+        }
+
+        [Test]
+        public void UpdateDataGridViewDataSource_WithoutCalculationsPerSection_ThrowsArgumentNullException()
+        {
+            // Setup
+            using (var control = new ScenarioSelectionControl())
+            {
+                // Call
+                TestDelegate call = () => control.UpdateDataGridViewDataSource(Enumerable.Empty<ICalculation>(), Enumerable.Empty<IScenarioRow<ICalculation>>(), null);
+
+                // Assert
+                var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+
+                Assert.AreEqual("calculationsPerSection", paramName);
+            }
+        }
+
+        [Test]
+        public void UpdateDataGridViewDataSource_WithCalculationsRowsAndCalculationsPerSection_DataGridViewCorrectlyInitialized()
+        {
+            // Setup
+            string sectionNameA = "sectionNameA";
+            string sectionNameB = "sectionNameB";
+
+            var mockRepository = new MockRepository();
+            var calculationA = mockRepository.Stub<ICalculation>();
+            var calculationB = mockRepository.Stub<ICalculation>();
+            var rowA = new EditableScenarioRow(calculationA, sectionNameA);
+            var rowB = new EditableScenarioRow(calculationB, sectionNameB);
+            mockRepository.ReplayAll();
+
+            using (var control = ShowScenariosControl())
+            {
+                // Call
+                control.UpdateDataGridViewDataSource(new[]
+                {
+                    calculationA,
+                    calculationB
+                }, new[]
+                {
+                    rowA,
+                    rowB
+                }, new Dictionary<string, IList<ICalculation>>
+                {
+                    {
+                        sectionNameA, new[]
+                        {
+                            calculationA
+                        }
+                    },
+                    {
+                        sectionNameB, new[]
+                        {
+                            calculationB
+                        }
+                    }
+                });
+
+                // Assert
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                Assert.AreEqual(2, dataGridView.RowCount);
+
+                DataGridViewComboBoxColumn comboBoxColumn = (DataGridViewComboBoxColumn) dataGridView.Columns[1];
+                Assert.AreEqual(2, comboBoxColumn.Items.Count);
+
+                var cellA = (DataGridViewComboBoxCell) dataGridView[1, 0];
+                CollectionAssert.AreEqual(
+                    new [] { "<geen>", calculationA.ToString() }, 
+                    cellA.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>().Select(r => r.DisplayName));
+
+                var cellB = (DataGridViewComboBoxCell) dataGridView[1, 1];
+                CollectionAssert.AreEqual(
+                    new[] { "<geen>", calculationB.ToString() }, 
+                    cellB.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>().Select(r => r.DisplayName));
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void ClearData_WithPreviousData_DataGridViewEmpty()
+        {
+            // Setup
+            string sectionName = "sectionName";
+
+            var mockRepository = new MockRepository();
+            var calculation = mockRepository.Stub<ICalculation>();
+            var row = new EditableScenarioRow(calculation, sectionName);
+            mockRepository.ReplayAll();
+
+            using (var control = ShowScenariosControl())
+            {
+                control.UpdateDataGridViewDataSource(new[]
+                {
+                    calculation
+                }, new[]
+                {
+                    row
+                }, new Dictionary<string, IList<ICalculation>>
+                {
+                    {
+                        sectionName, new[]
+                        {
+                            calculation
+                        }
+                    }
+                });
+
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
+
+                // Call
+                control.ClearDataSource();
+
+                // Assert
+                Assert.AreEqual(0, dataGridView.RowCount);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void EndEdit_DataGridViewInEditMode_DataGridViewNotInEditMode()
+        {
+            // Setup
+            string sectionName = "sectionName";
+
+            var mockRepository = new MockRepository();
+            var calculation = mockRepository.Stub<ICalculation>();
+            var row = new EditableScenarioRow(calculation, sectionName);
+            mockRepository.ReplayAll();
+
+            using (var control = ShowScenariosControl())
+            {
+                control.UpdateDataGridViewDataSource(new[]
+                {
+                    calculation
+                }, new[]
+                {
+                    row
+                }, new Dictionary<string, IList<ICalculation>>
+                {
+                    {
+                        sectionName, new[]
+                        {
+                            calculation
+                        }
+                    }
+                });
+
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Make sure we can set edit mode programmatically in order for the test to work
+                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
+
+                dataGridView.CurrentCell = dataGridView[1, 0];
+                dataGridView.BeginEdit(false);
+                
+                // Precondition
+                Assert.IsTrue(dataGridView.IsCurrentCellInEditMode, "Current cell should be in edit mode before EndEdit is called.");
+
+                // Call
+                control.EndEdit();
+
+                // Assert
+                Assert.IsFalse(dataGridView.IsCurrentCellInEditMode);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        private ScenarioSelectionControl ShowScenariosControl()
+        {
+            var control = new ScenarioSelectionControl();
+            testForm.Controls.Add(control);
+            testForm.Show();
+
+            return control;
+        }
+    }
+
+    public class EditableScenarioRow : IScenarioRow<ICalculation>
+    {
+        public EditableScenarioRow(ICalculation calculation, string sectionName)
+        {
+            Name = sectionName;
+            Calculation = calculation;
+        }
+
+        public string Name { get; private set; }
+        public ICalculation Calculation { get; set; }
+    }
+}
