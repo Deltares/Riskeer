@@ -57,7 +57,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         private readonly LogNormalDistribution flowWidthAtBottomProtection;
         private readonly VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge;
         private readonly VariationCoefficientNormalDistribution widthFlowApertures;
-        private readonly NormalDistribution bermWidth;
+        private readonly NormalDistribution bankWidth;
         private readonly NormalDistribution flowVelocityStructureClosable;
         private ForeshoreProfile foreshoreProfile;
         private RoundedDouble structureNormalOrientation;
@@ -209,7 +209,7 @@ namespace Ringtoets.StabilityPointStructures.Data
                 CoefficientOfVariation = (RoundedDouble) 0.05
             };
 
-            bermWidth = new NormalDistribution(2)
+            bankWidth = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) double.NaN
@@ -809,19 +809,19 @@ namespace Ringtoets.StabilityPointStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the berm width.
+        /// Gets or sets the bank width.
         /// [m]
         /// </summary>
-        public NormalDistribution BermWidth
+        public NormalDistribution BankWidth
         {
             get
             {
-                return bermWidth;
+                return bankWidth;
             }
             set
             {
-                bermWidth.Mean = value.Mean;
-                bermWidth.StandardDeviation = value.StandardDeviation;
+                bankWidth.Mean = value.Mean;
+                bankWidth.StandardDeviation = value.StandardDeviation;
             }
         }
 

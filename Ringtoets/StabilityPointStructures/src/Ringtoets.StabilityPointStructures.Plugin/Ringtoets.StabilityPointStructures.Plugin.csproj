@@ -85,6 +85,11 @@
       <Name>Ringtoets.Common.Forms</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52ba7627-cbab-4209-be77-3b5f31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Service\Ringtoets.Common.Service.csproj">
       <Project>{d951d6da-fe83-4920-9fdb-63bf96480b54}</Project>
       <Name>Ringtoets.Common.Service</Name>
@@ -108,6 +113,11 @@
     <ProjectReference Include="..\Ringtoets.StabilityPointStructures.Forms\Ringtoets.StabilityPointStructures.Forms.csproj">
       <Project>{D5F0A6B0-8710-4345-ABA1-D934C8E6783D}</Project>
       <Name>Ringtoets.StabilityPointStructures.Forms</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.StabilityPointStructures.IO\Ringtoets.StabilityPointStructures.IO.csproj">
+      <Project>{9A80CDD2-4681-4A5D-9A2C-A2FEE133E0F9}</Project>
+      <Name>Ringtoets.StabilityPointStructures.IO</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

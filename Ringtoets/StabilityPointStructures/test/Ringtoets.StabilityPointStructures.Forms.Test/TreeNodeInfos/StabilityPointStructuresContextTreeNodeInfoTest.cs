@@ -79,7 +79,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var context = new StabilityPointStructuresContext(new ObservableList<StabilityPointStructure>(),
-                                                             assessmentSection);
+                                                              assessmentSection);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             {
@@ -104,7 +104,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var context = new StabilityPointStructuresContext(new ObservableList<StabilityPointStructure>(),
-                                                             assessmentSection);
+                                                              assessmentSection);
 
             using (var plugin = new StabilityPointStructuresPlugin())
             {
@@ -244,7 +244,34 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
         private static StabilityPointStructure CreateStabilityPointStructure()
         {
-            return new StabilityPointStructure("Name", "Id", new Point2D(1, 2), 11.22);
+            return new StabilityPointStructure("Name", "Id", new Point2D(1, 2),
+                                               123.456,
+                                               234.567, 0.234,
+                                               345.678, 0.345,
+                                               456.789, 0.456,
+                                               567.890, 0.567,
+                                               678.901, 0.678,
+                                               789.012, 0.789,
+                                               890.123, 0.890,
+                                               901.234, 0.901,
+                                               123.546, 0.123,
+                                               234.567, 0.234,
+                                               345.678, 0.345,
+                                               555.555,
+                                               456.789, 0.456,
+                                               555.55,
+                                               0.55,
+                                               567.890, 0.567,
+                                               7777777.777, 0.777,
+                                               567.890, 0.567,
+                                               42,
+                                               0.55,
+                                               678.901, 0.678,
+                                               789.012, 0.789,
+                                               890.123, 0.890,
+                                               901.234, 0.901,
+                                               StabilityPointStructureType.FloodedCulvert
+                );
         }
     }
 }

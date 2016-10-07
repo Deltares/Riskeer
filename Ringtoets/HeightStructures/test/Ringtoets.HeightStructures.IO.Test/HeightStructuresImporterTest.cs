@@ -50,17 +50,6 @@ namespace Ringtoets.HeightStructures.IO.Test
         }
 
         [Test]
-        public void Constructor_ImportTargetNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new HeightStructuresImporter(null, testReferenceLine, testFilePath);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("importTarget", exception.ParamName);
-        }
-
-        [Test]
         public void Import_ValidIncompleteFile_LogAndTrue()
         {
             // Setup

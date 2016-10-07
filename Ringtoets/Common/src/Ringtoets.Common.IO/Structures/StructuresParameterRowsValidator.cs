@@ -36,19 +36,25 @@ namespace Ringtoets.Common.IO.Structures
         private const int varianceValueColumn = 19;
         private const int varianceTypeColumn = 20;
 
-        private static List<string> alphaNumericalKeywords = new List<string>
-        {
-            "verticalewand",
-            "lagedrempel",
-            "verdronkenkoker"
-        };
-
         /// <summary>
         /// Denotes a small enough value, taking possible rounding into account, that the
         /// value is too close to the value <c>0.0</c> that makes a coefficient of variation
         /// to unreliable.
         /// </summary>
         private const double valueTooCloseToZero = 1e-4;
+
+        private static readonly List<string> closingStructureInflowModelRuleKeywords = new List<string>
+        {
+            "verticalewand",
+            "lagedrempel",
+            "verdronkenkoker"
+        };
+
+        private static readonly List<string> stabilityPointStructureInflowModelRuleKeywords = new List<string>
+        {
+            "lagedrempel",
+            "verdronkenkoker"
+        };
 
         private static readonly Dictionary<string, Func<StructuresParameterRow, List<string>>> heightStructuresRules =
             new Dictionary<string, Func<StructuresParameterRow, List<string>>>
@@ -125,8 +131,91 @@ namespace Ringtoets.Common.IO.Structures
                     "KW_BETSLUIT14", ProbabilityRule
                 },
                 {
-                    "KW_BETSLUIT15", InflowModel
+                    "KW_BETSLUIT15", ClosingStructureInflowModelRule
                 }
+            };
+
+        private static readonly Dictionary<string, Func<StructuresParameterRow, List<string>>> stabilityPointStructuresRules =
+            new Dictionary<string, Func<StructuresParameterRow, List<string>>>
+            {
+                {
+                    "KW_STERSTAB1", StructureNormalOrientation
+                },
+                {
+                    "KW_STERSTAB2", VariationCoefficientLogNormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB3", LogNormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB4", VariationCoefficientNormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB5", NormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB6", NormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB7", VariationCoefficientLogNormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB8", LogNormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB9", VariationCoefficientLogNormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB10", VariationCoefficientLogNormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB11", NormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB12", NormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB13", DoubleRule
+                },
+                {
+                    "KW_STERSTAB14", NormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB15", PositiveDoubleRule
+                },
+                {
+                    "KW_STERSTAB16", ProbabilityRule
+                },
+                {
+                    "KW_STERSTAB17", PositiveDoubleRule
+                },
+                {
+                    "KW_STERSTAB18", VariationCoefficientNormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB19", VariationCoefficientNormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB20", PositiveDoubleRule
+                },
+                {
+                    "KW_STERSTAB21", PositiveDoubleRule
+                },
+                {
+                    "KW_STERSTAB22", NormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB23", VariationCoefficientLogNormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB24", VariationCoefficientLogNormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB25", LogNormalDistributionRule
+                },
+                {
+                    "KW_STERSTAB26", StabilityPointStructureInflowModelRule
+                },
             };
 
         /// <summary>
@@ -149,6 +238,17 @@ namespace Ringtoets.Common.IO.Structures
         public static ValidationResult ValidateClosingStructuresParameters(IList<StructuresParameterRow> structureParameterRows)
         {
             return ValidateStructuresParameters(structureParameterRows, closingStructuresRules);
+        }
+
+        /// <summary>
+        /// Validates a collection of <see cref="StructuresParameterRow"/> for a stability point structure.
+        /// </summary>
+        /// <param name="structureParameterRows">The <see cref="StructuresParameterRow"/> objects to validate.</param>
+        /// <returns>A <see cref="ValidationResult"/> object containing the validation result.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="structureParameterRows"/> is <c>null</c>.</exception>
+        public static ValidationResult ValidateStabilityPointStructuresParameters(IList<StructuresParameterRow> structureParameterRows)
+        {
+            return ValidateStructuresParameters(structureParameterRows, stabilityPointStructuresRules);
         }
 
         private static ValidationResult ValidateStructuresParameters(IList<StructuresParameterRow> structureParameterRows,
@@ -182,12 +282,38 @@ namespace Ringtoets.Common.IO.Structures
             return new ValidationResult(errorMessages);
         }
 
+        private static List<string> DoubleRule(StructuresParameterRow row)
+        {
+            List<string> messages = new List<string>();
+
+            double value = row.NumericalValue;
+            if (double.IsNaN(value) || double.IsInfinity(value))
+            {
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_probability_out_of_range, row.LineNumber, numericalValueColumn));
+            }
+
+            return messages;
+        }
+
+        private static List<string> PositiveDoubleRule(StructuresParameterRow row)
+        {
+            List<string> messages = new List<string>();
+
+            double value = row.NumericalValue;
+            if (double.IsNaN(value) || double.IsInfinity(value) || value < 0)
+            {
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_probability_out_of_range, row.LineNumber, numericalValueColumn));
+            }
+
+            return messages;
+        }
+
         private static List<string> ProbabilityRule(StructuresParameterRow row)
         {
             List<string> messages = new List<string>();
 
             double mean = row.NumericalValue;
-            if (double.IsNaN(mean) || double.IsInfinity(mean))
+            if (double.IsNaN(mean) || double.IsInfinity(mean) || mean < 0 || mean > 1)
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_probability_out_of_range, row.LineNumber, numericalValueColumn));
             }
@@ -281,11 +407,22 @@ namespace Ringtoets.Common.IO.Structures
             return messages;
         }
 
-        private static List<string> InflowModel(StructuresParameterRow row)
+        private static List<string> ClosingStructureInflowModelRule(StructuresParameterRow row)
         {
             List<string> messages = new List<string>();
             string value = row.AlphanumericValue.ToLower();
-            if (!alphaNumericalKeywords.Contains(value))
+            if (!closingStructureInflowModelRuleKeywords.Contains(value))
+            {
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, alphanumericalValueColumn));
+            }
+            return messages;
+        }
+
+        private static List<string> StabilityPointStructureInflowModelRule(StructuresParameterRow row)
+        {
+            List<string> messages = new List<string>();
+            string value = row.AlphanumericValue.ToLower();
+            if (!stabilityPointStructureInflowModelRuleKeywords.Contains(value))
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, alphanumericalValueColumn));
             }

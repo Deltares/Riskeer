@@ -113,8 +113,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.IsNaN(input.FailureProbabilityStructureWithErosion);
             AssertEqualValue(double.NaN, input.WidthFlowApertures.Mean);
             AssertEqualValue(0.05, input.WidthFlowApertures.CoefficientOfVariation);
-            Assert.IsNaN(input.BermWidth.Mean);
-            Assert.IsNaN(input.BermWidth.StandardDeviation);
+            Assert.IsNaN(input.BankWidth.Mean);
+            Assert.IsNaN(input.BankWidth.StandardDeviation);
             Assert.AreEqual(2, input.EvaluationLevel.NumberOfDecimalPlaces);
             AssertEqualValue(0, input.EvaluationLevel);
             Assert.AreEqual(2, input.VerticalDistance.NumberOfDecimalPlaces);
@@ -791,11 +791,11 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             NormalDistribution bermWidth = GenerateNormalDistribution();
 
             // Call
-            input.BermWidth = bermWidth;
+            input.BankWidth = bermWidth;
 
             // Assert
-            AssertEqualValue(bermWidth.Mean, input.BermWidth.Mean);
-            AssertEqualValue(bermWidth.StandardDeviation, input.BermWidth.StandardDeviation);
+            AssertEqualValue(bermWidth.Mean, input.BankWidth.Mean);
+            AssertEqualValue(bermWidth.StandardDeviation, input.BankWidth.StandardDeviation);
         }
 
         [Test]

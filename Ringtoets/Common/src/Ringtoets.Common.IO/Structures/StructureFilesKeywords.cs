@@ -141,6 +141,136 @@ namespace Ringtoets.Common.IO.Structures
         /// </summary>
         public const string ClosingStructureParameterKeyword15 = "KW_BETSLUIT15";
 
+        /// <summary>
+        /// The first stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword1 = "KW_STERSTAB1";
+
+        /// <summary>
+        /// The second stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword2 = "KW_STERSTAB2";
+
+        /// <summary>
+        /// The third stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword3 = "KW_STERSTAB3";
+
+        /// <summary>
+        /// The fourth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword4 = "KW_STERSTAB4";
+
+        /// <summary>
+        /// The fifth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword5 = "KW_STERSTAB5";
+
+        /// <summary>
+        /// The sixth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword6 = "KW_STERSTAB6";
+
+        /// <summary>
+        /// The seventh stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword7 = "KW_STERSTAB7";
+
+        /// <summary>
+        /// The eighth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword8 = "KW_STERSTAB8";
+
+        /// <summary>
+        /// The ninth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword9 = "KW_STERSTAB9";
+
+        /// <summary>
+        /// The tenth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword10 = "KW_STERSTAB10";
+
+        /// <summary>
+        /// The eleventh stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword11 = "KW_STERSTAB11";
+
+        /// <summary>
+        /// The twelfth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword12 = "KW_STERSTAB12";
+
+        /// <summary>
+        /// The thirteenth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword13 = "KW_STERSTAB13";
+
+        /// <summary>
+        /// The fourteenth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword14 = "KW_STERSTAB14";
+
+        /// <summary>
+        /// The fifteenth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword15 = "KW_STERSTAB15";
+
+        /// <summary>
+        /// The sixteenth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword16 = "KW_STERSTAB16";
+
+        /// <summary>
+        /// The seventeenth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword17 = "KW_STERSTAB17";
+
+        /// <summary>
+        /// The eighteenth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword18 = "KW_STERSTAB18";
+
+        /// <summary>
+        /// The nineteenth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword19 = "KW_STERSTAB19";
+
+        /// <summary>
+        /// The twentieth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword20 = "KW_STERSTAB20";
+
+        /// <summary>
+        /// The twenty-first stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword21 = "KW_STERSTAB21";
+
+        /// <summary>
+        /// The twenty-second stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword22 = "KW_STERSTAB22";
+
+        /// <summary>
+        /// The twenty-third stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword23 = "KW_STERSTAB23";
+
+        /// <summary>
+        /// The twenty-fourth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword24 = "KW_STERSTAB24";
+
+        /// <summary>
+        /// The twenty-fifth stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword25 = "KW_STERSTAB25";
+
+        /// <summary>
+        /// The twenty-six stability point structure parameter keyword.
+        /// </summary>
+        public const string StabilityPointStructureParameterKeyword26 = "KW_STERSTAB26";
+
         #region Required Structure *.csv header column names
 
         /// <summary>

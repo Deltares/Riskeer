@@ -279,11 +279,11 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "FailureProbablityOpenStructure_DisplayName")]
         [ResourcesDescription(typeof(Resources), "FailureProbablityOpenStructure_Description")]
-        public string FailureProbablityOpenStructure
+        public string FailureProbabilityOpenStructure
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.FailureProbablityOpenStructure);
+                return ProbabilityFormattingHelper.Format(data.FailureProbabilityOpenStructure);
             }
         }
 

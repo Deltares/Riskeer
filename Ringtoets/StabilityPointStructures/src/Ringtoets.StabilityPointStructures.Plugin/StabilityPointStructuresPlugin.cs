@@ -37,11 +37,13 @@ using Ringtoets.HydraRing.IO;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.Views;
+using Ringtoets.StabilityPointStructures.IO;
 using Ringtoets.StabilityPointStructures.Plugin.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using StabilityPointStructuresDataResources = Ringtoets.StabilityPointStructures.Data.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Plugin
 {
@@ -124,6 +126,21 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                                                                                  .AddSeparator()
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
+            };
+        }
+
+        public override IEnumerable<ImportInfo> GetImportInfos()
+        {
+            yield return new ImportInfo<StabilityPointStructuresContext>
+            {
+                CreateFileImporter = (context, filePath) => new StabilityPointStructuresImporter(context.WrappedData,
+                                                                                                 context.AssessmentSection.ReferenceLine,
+                                                                                                 filePath),
+                Name = RingtoetsCommonFormsResources.StructuresImporter_DisplayName,
+                Category = RingtoetsCommonFormsResources.Ringtoets_Category,
+                Image = RingtoetsCommonFormsResources.StructuresIcon,
+                FileFilter = RingtoetsCommonIOResources.DataTypeDisplayName_shape_file_filter,
+                IsEnabled = context => context.AssessmentSection.ReferenceLine != null
             };
         }
 
