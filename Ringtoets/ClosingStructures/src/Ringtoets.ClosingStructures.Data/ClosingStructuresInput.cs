@@ -346,8 +346,6 @@ namespace Ringtoets.ClosingStructures.Data
 
         #region Schematization
 
-        #region Structure Normal orientation
-
         /// <summary>
         /// Gets or sets the orientation of the normal of the structure.
         /// [degrees]
@@ -363,7 +361,7 @@ namespace Ringtoets.ClosingStructures.Data
             {
                 if (double.IsNaN(value))
                 {
-                    structureNormalOrientation = new RoundedDouble(2, double.NaN);
+                    structureNormalOrientation = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
                     return;
                 }
 
@@ -375,8 +373,6 @@ namespace Ringtoets.ClosingStructures.Data
                 structureNormalOrientation = newOrientationValue;
             }
         }
-
-        #endregion
 
         /// <summary>
         /// Gets or sets the threshold height of the open weir.

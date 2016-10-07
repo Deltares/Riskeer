@@ -491,7 +491,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             {
                 if (double.IsNaN(value))
                 {
-                    structureNormalOrientation = new RoundedDouble(2, double.NaN);
+                    structureNormalOrientation = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
                     return;
                 }
 
