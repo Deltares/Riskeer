@@ -355,7 +355,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(25.0, closingStructure.FlowWidthAtBottomProtection.Mean.Value);
             Assert.AreEqual(0.05, closingStructure.FlowWidthAtBottomProtection.StandardDeviation.Value);
             Assert.AreEqual(1.0, closingStructure.ProbabilityOpenStructureBeforeFlooding.Value);
-            Assert.AreEqual(0.1, closingStructure.FailureProbablityOpenStructure.Value);
+            Assert.AreEqual(0.1, closingStructure.FailureProbabilityOpenStructure.Value);
             Assert.AreEqual(4, closingStructure.IdenticalApertures);
             Assert.AreEqual(1.0, closingStructure.FailureProbabilityReparation.Value);
             Assert.AreEqual(ClosingStructureType.VerticalWall, closingStructure.InflowModel);

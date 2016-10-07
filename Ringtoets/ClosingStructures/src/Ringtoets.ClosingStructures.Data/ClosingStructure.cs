@@ -58,7 +58,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <param name="flowWidthAtBottomProtectionMean">The mean flow width of the closing structure at the bottom protection.</param>
         /// <param name="flowWidthAtBottomProtectionStandardDeviation">The standard deviation of the flow width of the closing structure at the bottom protection.</param>
         /// <param name="probabilityOpenStructureBeforeFlooding">The probability of the closing structure being open before flooding.</param>
-        /// <param name="failureProbablityOpenStructure">The probability of failing to close the closing structure.</param>
+        /// <param name="failureProbabilityOpenStructure">The probability of failing to close the closing structure.</param>
         /// <param name="identicalApertures">The number of identical apertures of the closing structure.</param>
         /// <param name="failureProbabilityReparation">The probability of failing to repair a failed closure of the closing structure.</param>
         /// <param name="inflowModel">The type of closing structure.</param>
@@ -78,7 +78,7 @@ namespace Ringtoets.ClosingStructures.Data
                                 double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeCoefficientOfVariation,
                                 double flowWidthAtBottomProtectionMean, double flowWidthAtBottomProtectionStandardDeviation,
                                 double probabilityOpenStructureBeforeFlooding,
-                                double failureProbablityOpenStructure,
+                                double failureProbabilityOpenStructure,
                                 int identicalApertures,
                                 double failureProbabilityReparation,
                                 ClosingStructureType inflowModel
@@ -87,51 +87,51 @@ namespace Ringtoets.ClosingStructures.Data
         {
             StorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, storageStructureAreaMean),
-                CoefficientOfVariation = new RoundedDouble(2, storageStructureAreaCoefficientOfVariation)
+                Mean = (RoundedDouble) storageStructureAreaMean,
+                CoefficientOfVariation = (RoundedDouble) storageStructureAreaCoefficientOfVariation
             };
             AllowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, allowedLevelIncreaseStorageMean),
-                StandardDeviation = new RoundedDouble(2, allowedLevelIncreaseStorageStandardDeviation)
+                Mean = (RoundedDouble) allowedLevelIncreaseStorageMean,
+                StandardDeviation = (RoundedDouble) allowedLevelIncreaseStorageStandardDeviation
             };
             WidthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, widthFlowAperturesMean),
-                CoefficientOfVariation = new RoundedDouble(2, widthFlowAperturesCoefficientOfVariation)
+                Mean = (RoundedDouble) widthFlowAperturesMean,
+                CoefficientOfVariation = (RoundedDouble) widthFlowAperturesCoefficientOfVariation
             };
             LevelCrestStructureNotClosing = new NormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, levelCrestStructureNotClosingMean),
-                StandardDeviation = new RoundedDouble(2, levelCrestStructureNotClosingStandardDeviation)
+                Mean = (RoundedDouble) levelCrestStructureNotClosingMean,
+                StandardDeviation = (RoundedDouble) levelCrestStructureNotClosingStandardDeviation
             };
             InsideWaterLevel = new NormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, insideWaterLevelMean),
-                StandardDeviation = new RoundedDouble(2, insideWaterLevelStandardDeviation)
+                Mean = (RoundedDouble) insideWaterLevelMean,
+                StandardDeviation = (RoundedDouble) insideWaterLevelStandardDeviation
             };
             ThresholdHeightOpenWeir = new NormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, thresholdHeightOpenWeirMean),
-                StandardDeviation = new RoundedDouble(2, thresholdHeightOpenWeirStandardDeviation)
+                Mean = (RoundedDouble) thresholdHeightOpenWeirMean,
+                StandardDeviation = (RoundedDouble) thresholdHeightOpenWeirStandardDeviation
             };
             AreaFlowApertures = new LogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, areaFlowAperturesMean),
-                StandardDeviation = new RoundedDouble(2, areaFlowAperturesStandardDeviation)
+                Mean = (RoundedDouble) areaFlowAperturesMean,
+                StandardDeviation = (RoundedDouble) areaFlowAperturesStandardDeviation
             };
             CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, criticalOvertoppingDischargeMean),
-                CoefficientOfVariation = new RoundedDouble(2, criticalOvertoppingDischargeCoefficientOfVariation)
+                Mean = (RoundedDouble) criticalOvertoppingDischargeMean,
+                CoefficientOfVariation = (RoundedDouble) criticalOvertoppingDischargeCoefficientOfVariation
             };
             FlowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, flowWidthAtBottomProtectionMean),
-                StandardDeviation = new RoundedDouble(2, flowWidthAtBottomProtectionStandardDeviation)
+                Mean = (RoundedDouble) flowWidthAtBottomProtectionMean,
+                StandardDeviation = (RoundedDouble) flowWidthAtBottomProtectionStandardDeviation
             };
             ProbabilityOpenStructureBeforeFlooding = new RoundedDouble(2, probabilityOpenStructureBeforeFlooding);
-            FailureProbablityOpenStructure = new RoundedDouble(2, failureProbablityOpenStructure);
+            FailureProbabilityOpenStructure = new RoundedDouble(2, failureProbabilityOpenStructure);
             IdenticalApertures = identicalApertures;
             FailureProbabilityReparation = new RoundedDouble(2, failureProbabilityReparation);
             InflowModel = inflowModel;
@@ -190,7 +190,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets the probability of failing to close the closing structure.
         /// </summary>
-        public RoundedDouble FailureProbablityOpenStructure { get; private set; }
+        public RoundedDouble FailureProbabilityOpenStructure { get; private set; }
 
         /// <summary>
         /// Gets the number of identical apertures of the closing structure.

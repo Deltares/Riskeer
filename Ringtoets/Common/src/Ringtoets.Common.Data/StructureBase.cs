@@ -76,14 +76,14 @@ namespace Ringtoets.Common.Data
         /// </summary>
         public Point2D Location { get; private set; }
 
+        /// <summary>
+        /// Gets the orientation of the structure, relative to north.
+        /// </summary>
+        public RoundedDouble StructureNormalOrientation { get; private set; }
+
         public override string ToString()
         {
             return Name;
         }
-
-        /// <summary>
-        /// Gets the orientation of the closing structure, relative to north.
-        /// </summary>
-        public RoundedDouble StructureNormalOrientation { get; private set; }
     }
 }

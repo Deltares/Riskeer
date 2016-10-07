@@ -44,7 +44,7 @@ namespace Ringtoets.ClosingStructures.IO
         /// objects found in the file are intersecting it.</param>
         /// <param name="filePath">The path to the file to import from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="referenceLine"/>, 
-        /// <paramref name="filePath"/> or <paramref name="importTarget"/> is <c>null</c>.</exception>
+        /// <paramref name="filePath"/>, or <paramref name="importTarget"/> is <c>null</c>.</exception>
         public ClosingStructuresImporter(ObservableList<ClosingStructure> importTarget, ReferenceLine referenceLine, string filePath)
             : base(importTarget, referenceLine, filePath) {}
 

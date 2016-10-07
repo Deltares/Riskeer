@@ -43,14 +43,13 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            ReferenceLine referenceLine = mocks.Stub<ReferenceLine>();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = referenceLine;
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            assessmentSectionMock.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
             var list = new ObservableList<ClosingStructure>();
 
-            var importTarget = new ClosingStructuresContext(list, assessmentSection);
+            var importTarget = new ClosingStructuresContext(list, assessmentSectionMock);
 
             using (var plugin = new ClosingStructuresPlugin())
             {
@@ -134,13 +133,12 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = new ReferenceLine();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            assessmentSectionMock.ReferenceLine = new ReferenceLine();
             mocks.ReplayAll();
 
             var list = new ObservableList<ClosingStructure>();
-
-            var context = new ClosingStructuresContext(list, assessmentSection);
+            var context = new ClosingStructuresContext(list, assessmentSectionMock);
 
             using (var plugin = new ClosingStructuresPlugin())
             {
@@ -160,13 +158,11 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ImportInfos
         {
             // Setup
             var mocks = new MockRepository();
-            var assessmentSection = mocks.Stub<IAssessmentSection>();
-            assessmentSection.ReferenceLine = null;
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var list = new ObservableList<ClosingStructure>();
-
-            var context = new ClosingStructuresContext(list, assessmentSection);
+            var context = new ClosingStructuresContext(list, assessmentSectionMock);
 
             using (var plugin = new ClosingStructuresPlugin())
             {

@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test
 {
@@ -73,9 +74,10 @@ namespace Ringtoets.Common.Data.Test
         {
             // Setup
             var location = new Point2D(1.22, 2.333);
+            const double structureNormalOrientation = 0.0;
 
             // Call
-            var structure = new TestStructure("aName", "anId", location, 0.0);
+            var structure = new TestStructure("aName", "anId", location, structureNormalOrientation);
 
             // Assert
             Assert.AreEqual("aName", structure.Name);
@@ -83,6 +85,9 @@ namespace Ringtoets.Common.Data.Test
             Assert.AreEqual(location.X, structure.Location.X);
             Assert.AreEqual(location.Y, structure.Location.Y);
             Assert.AreEqual("aName", structure.ToString());
+            Assert.AreEqual(2, structure.StructureNormalOrientation.NumberOfDecimalPlaces);
+            Assert.AreEqual(structureNormalOrientation, structure.StructureNormalOrientation,
+                            structure.StructureNormalOrientation.GetAccuracy());
         }
 
         private class TestStructure : StructureBase

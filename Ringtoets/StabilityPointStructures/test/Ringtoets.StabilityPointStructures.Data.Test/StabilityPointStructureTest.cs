@@ -33,16 +33,13 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         {
             // Setup
             var location = new Point2D(1.22, 2.333);
+            const double structureNormalOrientation = 11.22;
 
             // Call
-            var structure = new StabilityPointStructure("aName", "anId", location, 11.22);
+            var structure = new StabilityPointStructure("aName", "anId", location, structureNormalOrientation);
 
             // Assert
             Assert.IsInstanceOf<StructureBase>(structure);
-            Assert.AreEqual("aName", structure.Name);
-            Assert.AreEqual("anId", structure.Id);
-            Assert.AreEqual(location.X, structure.Location.X);
-            Assert.AreEqual(location.Y, structure.Location.Y);
         }
     }
 }

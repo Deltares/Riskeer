@@ -40,24 +40,13 @@ namespace Ringtoets.ClosingStructures.IO.Test
         private readonly string testFilePath = string.Empty;
 
         [Test]
-        public void Constructor_Always_ExcpectedValues()
+        public void Constructor_Always_ExpectedValues()
         {
             // Call
             var importer = new ClosingStructuresImporter(testImportTarget, testReferenceLine, testFilePath);
 
             // Assert
             Assert.IsInstanceOf<StructuresImporter<ObservableList<ClosingStructure>>>(importer);
-        }
-
-        [Test]
-        public void Constructor_ImportTargetNull_ThrowArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new ClosingStructuresImporter(null, testReferenceLine, testFilePath);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("importTarget", exception.ParamName);
         }
 
         [Test]

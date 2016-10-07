@@ -40,7 +40,7 @@ namespace Ringtoets.HeightStructures.IO.Test
         private readonly string testFilePath = string.Empty;
 
         [Test]
-        public void Constructor_Always_ExcpectedValues()
+        public void Constructor_Always_ExpectedValues()
         {
             // Call
             var importer = new HeightStructuresImporter(testImportTarget, testReferenceLine, testFilePath);
