@@ -138,29 +138,11 @@
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName" xml:space="preserve">
     <value>Modelfactor overslagdebiet [-]</value>
   </data>
-  <data name="AllowedLevelIncreaseStorage_Description" xml:space="preserve">
-    <value>De toegestane peilverhoging op het kombergend oppervlak.</value>
-  </data>
-  <data name="AllowedLevelIncreaseStorage_DisplayName" xml:space="preserve">
-    <value>Toegestane peilverhoging komberging [m]</value>
-  </data>
-  <data name="CriticalOvertoppingDischarge_Description" xml:space="preserve">
-    <value>Het kritieke overslagdebiet per strekkende meter.</value>
-  </data>
-  <data name="CriticalOvertoppingDischarge_DisplayName" xml:space="preserve">
-    <value>Kritiek overslagdebiet [m³/s/m]</value>
-  </data>
   <data name="FailureProbabilityStructureWithErosion_Description" xml:space="preserve">
     <value>De faalkans van het kunstwerk gegeven de erosie in de bodem.</value>
   </data>
   <data name="FailureProbabilityStructureWithErosion_DisplayName" xml:space="preserve">
     <value>Faalkans kunstwerk gegeven erosie bodem [-]</value>
-  </data>
-  <data name="FlowWidthAtBottomProtection_Description" xml:space="preserve">
-    <value>De stroomvoerende breedte bij bodembescherming.</value>
-  </data>
-  <data name="FlowWidthAtBottomProtection_DisplayName" xml:space="preserve">
-    <value>Stroomvoerende breedte bij bodembescherming [m]</value>
   </data>
   <data name="LevelCrestStructure_Description" xml:space="preserve">
     <value>De kerende hoogte van het kunstwerk.</value>
@@ -174,23 +156,11 @@
   <data name="ModelFactorSuperCriticalFlow_DisplayName" xml:space="preserve">
     <value>Modelfactor van overloopdebiet bij superkritische stroming [-]</value>
   </data>
-  <data name="StorageStructureArea_Description" xml:space="preserve">
-    <value>Het kombergend oppervlak.</value>
-  </data>
-  <data name="StorageStructureArea_DisplayName" xml:space="preserve">
-    <value>Kombergend oppervlak [m²]</value>
-  </data>
   <data name="StormDuration_Description" xml:space="preserve">
     <value>De duur van de storm.</value>
   </data>
   <data name="StormDuration_DisplayName" xml:space="preserve">
     <value>Stormduur [uur]</value>
-  </data>
-  <data name="WidthFlowApertures_Description" xml:space="preserve">
-    <value>De breedte van de kruin van het kunstwerk.</value>
-  </data>
-  <data name="WidthFlowApertures_DisplayName" xml:space="preserve">
-    <value>Breedte van de kruin van het kunstwerk [m]</value>
   </data>
   <data name="FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value" xml:space="preserve">
     <value>De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.</value>

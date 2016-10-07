@@ -568,6 +568,9 @@
   <data name="Categories_HydraulicData" xml:space="preserve">
     <value>Hydraulische gegevens</value>
   </data>
+  <data name="Categories_HydraulicLoad" xml:space="preserve">
+    <value>Hydraulische belasting</value>
+  </data>
   <data name="HydraulicBoundaryLocation_Description" xml:space="preserve">
     <value>De locatie met hydraulische randvoorwaarden.</value>
   </data>
@@ -682,5 +685,40 @@
   <data name="Structure_StructureNormalOrientation_DisplayName" xml:space="preserve">
     <value>Oriëntatie [°]</value>
   </data>
-
+  <data name="Structure_WidthFlowApertures_Description" xml:space="preserve">
+    <value>Breedte van de doorstroomopening.</value>
+  </data>
+  <data name="Structure_WidthFlowApertures_DisplayName" xml:space="preserve">
+    <value>Breedte van doorstroomopening [m]</value>
+  </data>
+  <data name="Structure_AreaFlowApertures_Description" xml:space="preserve">
+    <value>Doorstroomoppervlak van doorstroomopeningen.</value>
+  </data>
+  <data name="Structure_AreaFlowApertures_DisplayName" xml:space="preserve">
+    <value>Doorstroomoppervlak [m²]</value>
+  </data>
+  <data name="Structure_FlowWidthAtBottomProtection_Description" xml:space="preserve">
+    <value>Stroomvoerende breedte bodembescherming.</value>
+  </data>
+  <data name="Structure_FlowWidthAtBottomProtection_DisplayName" xml:space="preserve">
+    <value>Stroomvoerende breedte bodembescherming [m]</value>
+  </data>
+  <data name="Structure_StorageStructureArea_Description" xml:space="preserve">
+    <value>Kombergend oppervlak.</value>
+  </data>
+  <data name="Structure_StorageStructureArea_DisplayName" xml:space="preserve">
+    <value>Kombergend oppervlak [m²]</value>
+  </data>
+  <data name="Structure_AllowedLevelIncreaseStorage_Description" xml:space="preserve">
+    <value>Toegestane peilverhoging komberging.</value>
+  </data>
+  <data name="Structure_AllowedLevelIncreaseStorage_DisplayName" xml:space="preserve">
+    <value>Toegestane peilverhoging komberging [m]</value>
+  </data>
+  <data name="Structure_CriticalOvertoppingDischarge_Description" xml:space="preserve">
+    <value>Kritiek instromend debiet directe invoer.</value>
+  </data>
+  <data name="Structure_CriticalOvertoppingDischarge_DisplayName" xml:space="preserve">
+    <value>Kritiek instromend debiet [m³/s/m]</value>
+  </data>
 </root>

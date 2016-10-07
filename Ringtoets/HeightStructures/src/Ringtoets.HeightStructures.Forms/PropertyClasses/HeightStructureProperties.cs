@@ -93,8 +93,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [PropertyOrder(5)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "AllowedLevelIncreaseStorage_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "AllowedLevelIncreaseStorage_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_AllowedLevelIncreaseStorage_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_AllowedLevelIncreaseStorage_Description")]
         public LogNormalDistributionProperties AllowedLevelIncreaseStorage
         {
             get
@@ -109,8 +109,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [PropertyOrder(6)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "StorageStructureArea_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StorageStructureArea_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_Description")]
         public LogNormalDistributionVariationProperties StorageStructureArea
         {
             get
@@ -125,8 +125,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [PropertyOrder(7)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "FlowWidthAtBottomProtection_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FlowWidthAtBottomProtection_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_FlowWidthAtBottomProtection_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_FlowWidthAtBottomProtection_Description")]
         public LogNormalDistributionProperties FlowWidthAtBottomProtection
         {
             get
@@ -141,8 +141,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [PropertyOrder(8)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "WidthFlowApertures_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "WidthFlowApertures_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_Description")]
         public NormalDistributionVariationProperties WidthFlowApertures
         {
             get
@@ -157,8 +157,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [PropertyOrder(9)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "CriticalOvertoppingDischarge_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "CriticalOvertoppingDischarge_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_CriticalOvertoppingDischarge_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_CriticalOvertoppingDischarge_Description")]
         public LogNormalDistributionVariationProperties CriticalOvertoppingDischarge
         {
             get

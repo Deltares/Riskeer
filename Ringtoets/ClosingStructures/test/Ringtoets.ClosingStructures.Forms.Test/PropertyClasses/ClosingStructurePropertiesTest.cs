@@ -89,7 +89,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             {
                 BrowsableAttribute.Yes
             });
-            Assert.AreEqual(3, dynamicProperties.Count);
+            Assert.AreEqual(17, dynamicProperties.Count);
 
             const string schematizationCategory = "Schematisatie";
             const string generalCategory = "Algemeen";

@@ -19,12 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Forms.Properties;
+using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.PropertyClasses;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
@@ -34,7 +39,25 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
     /// </summary>
     public class ClosingStructureProperties : ObjectProperties<ClosingStructure>
     {
-        [PropertyOrder(1)]
+        private const int namePropertyIndex = 1;
+        private const int locationPropertyIndex = 2;
+        private const int structureNormalOrientationPropertyIndex = 3;
+        private const int closingStructureTypePropertyIndex = 4;
+        private const int widthFlowAperturesPropertyIndex = 5;
+        private const int areaFlowAperturesPropertyIndex = 6;
+        private const int identicalAperturesPropertyIndex = 7;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 8;
+        private const int storageStructureAreaPropertyIndex = 9;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 10;
+        private const int levelCrestStructureNotClosingPropertyIndex = 11;
+        private const int thresholdHeightOpenWeirPropertyIndex = 12;
+        private const int insideWaterLevelPropertyIndex = 13;
+        private const int criticalOvertoppingDischargePropertyIndex = 14;
+        private const int probabilityOpenStructureBeforeFloodingPropertyIndex = 15;
+        private const int failureProbablityOpenStructurePropertyIndex = 16;
+        private const int failureProbabilityReparationPropertyIndex = 17;
+
+        [PropertyOrder(namePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_Name_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_Name_Description")]
@@ -46,7 +69,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(2)]
+        [PropertyOrder(locationPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_Location_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_Location_Description")]
@@ -59,7 +82,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(3)]
+        [PropertyOrder(structureNormalOrientationPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StructureNormalOrientation_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StructureNormalOrientation_Description")]
@@ -68,6 +91,211 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return data.StructureNormalOrientation;
+            }
+        }
+
+        [PropertyOrder(closingStructureTypePropertyIndex)]
+        [TypeConverter(typeof(EnumTypeConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "ClosingStructureType_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "ClosingStructureType_Description")]
+        public ClosingStructureType InflowModel
+        {
+            get
+            {
+                return data.InflowModel;
+            }
+        }
+
+        [PropertyOrder(widthFlowAperturesPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_Description")]
+        public NormalDistributionVariationProperties WidthFlowApertures
+        {
+            get
+            {
+                return new NormalDistributionVariationProperties
+                {
+                    Data = data.WidthFlowApertures
+                };
+            }
+        }
+
+        [PropertyOrder(areaFlowAperturesPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_AreaFlowApertures_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_AreaFlowApertures_Description")]
+        public LogNormalDistributionProperties AreaFlowApertures
+        {
+            get
+            {
+                return new LogNormalDistributionProperties
+                {
+                    Data = data.AreaFlowApertures
+                };
+            }
+        }
+
+        [PropertyOrder(identicalAperturesPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "IdenticalApertures_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "IdenticalApertures_Description")]
+        public int IdenticalApertures
+        {
+            get
+            {
+                return data.IdenticalApertures;
+            }
+        }
+
+        [PropertyOrder(flowWidthAtBottomProtectionPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_FlowWidthAtBottomProtection_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_FlowWidthAtBottomProtection_Description")]
+        public LogNormalDistributionProperties FlowWidthAtBottomProtection
+        {
+            get
+            {
+                return new LogNormalDistributionProperties
+                {
+                    Data = data.FlowWidthAtBottomProtection
+                };
+            }
+        }
+
+        [PropertyOrder(storageStructureAreaPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_Description")]
+        public LogNormalDistributionVariationProperties StorageStructureArea
+        {
+            get
+            {
+                return new LogNormalDistributionVariationProperties
+                {
+                    Data = data.StorageStructureArea
+                };
+            }
+        }
+
+        [PropertyOrder(allowedLevelIncreaseStoragePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_AllowedLevelIncreaseStorage_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_AllowedLevelIncreaseStorage_Description")]
+        public LogNormalDistributionProperties AllowedLevelIncreaseStorage
+        {
+            get
+            {
+                return new LogNormalDistributionProperties
+                {
+                    Data = data.AllowedLevelIncreaseStorage
+                };
+            }
+        }
+
+        [PropertyOrder(levelCrestStructureNotClosingPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "LevelCrestStructureNotClosing_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "LevelCrestStructureNotClosing_Description")]
+        public NormalDistributionProperties LevelCrestStructureNotClosing
+        {
+            get
+            {
+                return new NormalDistributionProperties
+                {
+                    Data = data.LevelCrestStructureNotClosing
+                };
+            }
+        }
+
+        [PropertyOrder(thresholdHeightOpenWeirPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "ThresholdHeightOpenWeir_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "ThresholdHeightOpenWeir_Description")]
+        public NormalDistributionProperties ThresholdHeightOpenWeir
+        {
+            get
+            {
+                return new NormalDistributionProperties
+                {
+                    Data = data.ThresholdHeightOpenWeir
+                };
+            }
+        }
+
+        [PropertyOrder(insideWaterLevelPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicLoad")]
+        [ResourcesDisplayName(typeof(Resources), "InsideWaterLevel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "InsideWaterLevel_Description")]
+        public NormalDistributionProperties InsideWaterLevel
+        {
+            get
+            {
+                return new NormalDistributionProperties
+                {
+                    Data = data.InsideWaterLevel
+                };
+            }
+        }
+
+        [PropertyOrder(criticalOvertoppingDischargePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_CriticalOvertoppingDischarge_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_CriticalOvertoppingDischarge_Description")]
+        public LogNormalDistributionVariationProperties CriticalOvertoppingDischarge
+        {
+            get
+            {
+                return new LogNormalDistributionVariationProperties
+                {
+                    Data = data.CriticalOvertoppingDischarge
+                };
+            }
+        }
+
+        [PropertyOrder(probabilityOpenStructureBeforeFloodingPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "ProbabilityOpenStructureBeforeFlooding_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "ProbabilityOpenStructureBeforeFlooding_Description")]
+        public string ProbabilityOpenStructureBeforeFlooding
+        {
+            get
+            {
+                return ProbabilityFormattingHelper.Format(data.ProbabilityOpenStructureBeforeFlooding);
+            }
+        }
+
+        [PropertyOrder(failureProbablityOpenStructurePropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "FailureProbablityOpenStructure_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "FailureProbablityOpenStructure_Description")]
+        public string FailureProbablityOpenStructure
+        {
+            get
+            {
+                return ProbabilityFormattingHelper.Format(data.FailureProbablityOpenStructure);
+            }
+        }
+
+        [PropertyOrder(failureProbabilityReparationPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "FailureProbabilityReparation_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "FailureProbabilityReparation_Description")]
+        public string FailureProbabilityReparation
+        {
+            get
+            {
+                return ProbabilityFormattingHelper.Format(data.FailureProbabilityReparation);
             }
         }
     }

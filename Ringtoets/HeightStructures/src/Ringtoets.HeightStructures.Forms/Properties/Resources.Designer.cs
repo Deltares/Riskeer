@@ -82,42 +82,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De toegestane peilverhoging op het kombergend oppervlak..
-        /// </summary>
-        public static string AllowedLevelIncreaseStorage_Description {
-            get {
-                return ResourceManager.GetString("AllowedLevelIncreaseStorage_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Toegestane peilverhoging komberging [m].
-        /// </summary>
-        public static string AllowedLevelIncreaseStorage_DisplayName {
-            get {
-                return ResourceManager.GetString("AllowedLevelIncreaseStorage_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Het kritieke overslagdebiet per strekkende meter..
-        /// </summary>
-        public static string CriticalOvertoppingDischarge_Description {
-            get {
-                return ResourceManager.GetString("CriticalOvertoppingDischarge_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kritiek overslagdebiet [m³/s/m].
-        /// </summary>
-        public static string CriticalOvertoppingDischarge_DisplayName {
-            get {
-                return ResourceManager.GetString("CriticalOvertoppingDischarge_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal..
         /// </summary>
         public static string FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value {
@@ -159,24 +123,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         public static string FailureProbabilityStructureWithErosion_Value_too_large {
             get {
                 return ResourceManager.GetString("FailureProbabilityStructureWithErosion_Value_too_large", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De stroomvoerende breedte bij bodembescherming..
-        /// </summary>
-        public static string FlowWidthAtBottomProtection_Description {
-            get {
-                return ResourceManager.GetString("FlowWidthAtBottomProtection_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Stroomvoerende breedte bij bodembescherming [m].
-        /// </summary>
-        public static string FlowWidthAtBottomProtection_DisplayName {
-            get {
-                return ResourceManager.GetString("FlowWidthAtBottomProtection_DisplayName", resourceCulture);
             }
         }
         
@@ -304,24 +250,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het kombergend oppervlak..
-        /// </summary>
-        public static string StorageStructureArea_Description {
-            get {
-                return ResourceManager.GetString("StorageStructureArea_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kombergend oppervlak [m²].
-        /// </summary>
-        public static string StorageStructureArea_DisplayName {
-            get {
-                return ResourceManager.GetString("StorageStructureArea_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De duur van de storm..
         /// </summary>
         public static string StormDuration_Description {
@@ -363,24 +291,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         public static string StructureSelectionDialog_Select_Structures {
             get {
                 return ResourceManager.GetString("StructureSelectionDialog_Select_Structures", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De breedte van de kruin van het kunstwerk..
-        /// </summary>
-        public static string WidthFlowApertures_Description {
-            get {
-                return ResourceManager.GetString("WidthFlowApertures_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Breedte van de kruin van het kunstwerk [m].
-        /// </summary>
-        public static string WidthFlowApertures_DisplayName {
-            get {
-                return ResourceManager.GetString("WidthFlowApertures_DisplayName", resourceCulture);
             }
         }
     }

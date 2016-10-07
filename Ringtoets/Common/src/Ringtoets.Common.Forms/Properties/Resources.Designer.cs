@@ -483,6 +483,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hydraulische belasting.
+        /// </summary>
+        public static string Categories_HydraulicLoad {
+            get {
+                return ResourceManager.GetString("Categories_HydraulicLoad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lengte-effect parameters.
         /// </summary>
         public static string Categories_LengthEffect {
@@ -1641,6 +1650,78 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Toegestane peilverhoging komberging..
+        /// </summary>
+        public static string Structure_AllowedLevelIncreaseStorage_Description {
+            get {
+                return ResourceManager.GetString("Structure_AllowedLevelIncreaseStorage_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toegestane peilverhoging komberging [m].
+        /// </summary>
+        public static string Structure_AllowedLevelIncreaseStorage_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_AllowedLevelIncreaseStorage_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doorstroomoppervlak van doorstroomopeningen..
+        /// </summary>
+        public static string Structure_AreaFlowApertures_Description {
+            get {
+                return ResourceManager.GetString("Structure_AreaFlowApertures_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doorstroomoppervlak [m²].
+        /// </summary>
+        public static string Structure_AreaFlowApertures_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_AreaFlowApertures_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kritiek instromend debiet directe invoer..
+        /// </summary>
+        public static string Structure_CriticalOvertoppingDischarge_Description {
+            get {
+                return ResourceManager.GetString("Structure_CriticalOvertoppingDischarge_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kritiek instromend debiet [m³/s/m].
+        /// </summary>
+        public static string Structure_CriticalOvertoppingDischarge_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_CriticalOvertoppingDischarge_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stroomvoerende breedte bodembescherming..
+        /// </summary>
+        public static string Structure_FlowWidthAtBottomProtection_Description {
+            get {
+                return ResourceManager.GetString("Structure_FlowWidthAtBottomProtection_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stroomvoerende breedte bodembescherming [m].
+        /// </summary>
+        public static string Structure_FlowWidthAtBottomProtection_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_FlowWidthAtBottomProtection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel..
         /// </summary>
         public static string Structure_Location_Description {
@@ -1677,6 +1758,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kombergend oppervlak..
+        /// </summary>
+        public static string Structure_StorageStructureArea_Description {
+            get {
+                return ResourceManager.GetString("Structure_StorageStructureArea_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kombergend oppervlak [m²].
+        /// </summary>
+        public static string Structure_StorageStructureArea_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_StorageStructureArea_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden..
         /// </summary>
         public static string Structure_StructureNormalOrientation_Description {
@@ -1691,6 +1790,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Structure_StructureNormalOrientation_DisplayName {
             get {
                 return ResourceManager.GetString("Structure_StructureNormalOrientation_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breedte van de doorstroomopening..
+        /// </summary>
+        public static string Structure_WidthFlowApertures_Description {
+            get {
+                return ResourceManager.GetString("Structure_WidthFlowApertures_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Breedte van doorstroomopening [m].
+        /// </summary>
+        public static string Structure_WidthFlowApertures_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_WidthFlowApertures_DisplayName", resourceCulture);
             }
         }
         
