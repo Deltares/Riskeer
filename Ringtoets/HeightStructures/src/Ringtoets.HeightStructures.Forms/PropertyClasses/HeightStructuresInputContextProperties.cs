@@ -62,6 +62,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int modelFactorSuperCriticalFlowPropertyIndex = 14;
         private const int hydraulicBoundaryLocationPropertyIndex = 15;
         private const int stormDurationPropertyIndex = 16;
+        private const int deviationWaveDirectionPropertyIndex = 17;
 
         #region Model settings
 
@@ -374,6 +375,23 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
                 {
                     Data = data.WrappedData.StormDuration
                 };
+            }
+        }
+
+        [PropertyOrder(deviationWaveDirectionPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
+        [ResourcesDisplayName(typeof(Resources), "DeviationWaveDirection_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "DeviationWaveDirection_Description")]
+        public RoundedDouble DeviationWaveDirection
+        {
+            get
+            {
+                return data.WrappedData.DeviationWaveDirection;
+            }
+            set
+            {
+                data.WrappedData.DeviationWaveDirection = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 

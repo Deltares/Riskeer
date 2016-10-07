@@ -132,7 +132,7 @@ namespace Ringtoets.HeightStructures.Data
 
         #endregion
 
-        private bool ValidProbabilityValue(double probability)
+        private static bool ValidProbabilityValue(double probability)
         {
             return !double.IsNaN(probability) && probability <= 1 && probability >= 0;
         }
@@ -402,7 +402,7 @@ namespace Ringtoets.HeightStructures.Data
             {
                 UseForeshore = false;
                 UseBreakWater = false;
-                BreakWater = null;
+                BreakWater = GetDefaultBreakWater();
             }
             else
             {

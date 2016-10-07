@@ -492,8 +492,10 @@ namespace Ringtoets.HeightStructures.Data.Test
                 Assert.IsNull(input.ForeshoreProfile);
                 Assert.IsFalse(input.UseForeshore);
 
-                Assert.IsNull(input.BreakWater);
                 Assert.IsFalse(input.UseBreakWater);
+                BreakWater breakWater = GetDefaultBreakWater();
+                Assert.AreEqual(breakWater.Type, input.BreakWater.Type);
+                AssertAreEqual(breakWater.Height, input.BreakWater.Height);
             }
             else
             {

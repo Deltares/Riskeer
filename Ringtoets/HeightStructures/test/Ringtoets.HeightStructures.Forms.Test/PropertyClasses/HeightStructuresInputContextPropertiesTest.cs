@@ -33,6 +33,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
@@ -63,6 +64,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private const int modelFactorSuperCriticalFlowPropertyIndex = 13;
         private const int hydraulicBoundaryLocationPropertyIndex = 14;
         private const int stormDurationPropertyIndex = 15;
+        private const int deviationWaveDirectionPropertyIndex = 16;
 
         private MockRepository mockRepository;
 
@@ -165,6 +167,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
             AssertLogNormalDistributionVariationProperties(stormDurationProperties, properties.StormDuration);
 
+            Assert.AreEqual(input.DeviationWaveDirection, properties.DeviationWaveDirection);
+
             mockRepository.VerifyAll();
         }
 
@@ -257,6 +261,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
             AssertLogNormalDistributionVariationProperties(stormDurationProperties, properties.StormDuration);
 
+            Assert.AreEqual(input.DeviationWaveDirection, properties.DeviationWaveDirection);
+
             mockRepository.VerifyAll();
         }
 
@@ -265,7 +271,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
-            const int numberProperties = 5;
+            const int numberProperties = 6;
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
             var hydraulicBoundaryLocation = CreateValidHydraulicBoundaryLocation();
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
@@ -283,24 +289,29 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             };
 
             var random = new Random(100);
-            var newStructureNormalOrientation = new RoundedDouble(2, random.NextDouble());
+            double newStructureNormalOrientation = random.NextDouble();
             HeightStructure newHeightStructure = CreateValidHeightStructure();
             ForeshoreProfile newForeshoreProfile = CreateValidForeshoreProfile();
+            double newDeviationWaveDirection = random.NextDouble();
 
             // Call
             properties.HeightStructure = newHeightStructure;
-            properties.StructureNormalOrientation = newStructureNormalOrientation;
+            properties.StructureNormalOrientation = (RoundedDouble) newStructureNormalOrientation;
             properties.FailureProbabilityStructureWithErosion = "1e-2";
             properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
             properties.ForeshoreProfile = newForeshoreProfile;
+            properties.DeviationWaveDirection = (RoundedDouble) newDeviationWaveDirection;
 
             // Assert
             Assert.AreSame(newHeightStructure, properties.HeightStructure);
-            Assert.AreEqual(newStructureNormalOrientation, properties.StructureNormalOrientation);
+            Assert.AreEqual(newStructureNormalOrientation, properties.StructureNormalOrientation,
+                            properties.StructureNormalOrientation.GetAccuracy());
             Assert.AreEqual(0.01, input.FailureProbabilityStructureWithErosion);
             Assert.AreEqual("1/100", properties.FailureProbabilityStructureWithErosion);
             Assert.AreSame(hydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
             Assert.AreSame(newForeshoreProfile, properties.ForeshoreProfile);
+            Assert.AreEqual(newDeviationWaveDirection, properties.DeviationWaveDirection,
+                            properties.DeviationWaveDirection.GetAccuracy());
             mockRepository.VerifyAll();
         }
 
@@ -411,7 +422,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             {
                 new BrowsableAttribute(true)
             });
-            Assert.AreEqual(16, dynamicProperties.Count);
+            Assert.AreEqual(17, dynamicProperties.Count);
 
             PropertyDescriptor heightStructureProperty = dynamicProperties[heightStructurePropertyIndex];
             Assert.IsFalse(heightStructureProperty.IsReadOnly);
@@ -510,6 +521,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Hydraulische gegevens", stormDurationProperty.Category);
             Assert.AreEqual("Stormduur [uur]", stormDurationProperty.DisplayName);
             Assert.AreEqual("De duur van de storm.", stormDurationProperty.Description);
+
+            PropertyDescriptor deviationWaveDirectionProperty = dynamicProperties[deviationWaveDirectionPropertyIndex];
+            Assert.AreEqual("Hydraulische gegevens", deviationWaveDirectionProperty.Category);
+            Assert.AreEqual("Afwijking van de golfrichting [°]", deviationWaveDirectionProperty.DisplayName);
+            Assert.AreEqual("De afwijking van de golfrichting.", deviationWaveDirectionProperty.Description);
 
             mockRepository.VerifyAll();
         }
