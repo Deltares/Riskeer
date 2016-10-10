@@ -139,16 +139,16 @@
     <value>Modelfactor overslagdebiet [-]</value>
   </data>
   <data name="FailureProbabilityStructureWithErosion_Description" xml:space="preserve">
-    <value>De faalkans van het kunstwerk gegeven de erosie in de bodem.</value>
+    <value>Faalkans kunstwerk gegeven erosie bodem.</value>
   </data>
   <data name="FailureProbabilityStructureWithErosion_DisplayName" xml:space="preserve">
     <value>Faalkans gegeven erosie bodem [1/jaar]</value>
   </data>
   <data name="LevelCrestStructure_Description" xml:space="preserve">
-    <value>De kerende hoogte van het kunstwerk.</value>
+    <value>Kerende hoogte van het kunstwerk.</value>
   </data>
   <data name="LevelCrestStructure_DisplayName" xml:space="preserve">
-    <value>Kerende hoogte [m]</value>
+    <value>Kerende hoogte [m+NAP]</value>
   </data>
   <data name="ModelFactorSuperCriticalFlow_Description" xml:space="preserve">
     <value>Het modelfactor van overloopdebiet bij superkritische stroming.</value>

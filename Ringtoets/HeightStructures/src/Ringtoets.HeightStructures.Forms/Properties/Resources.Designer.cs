@@ -109,7 +109,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De faalkans van het kunstwerk gegeven de erosie in de bodem..
+        ///   Looks up a localized string similar to Faalkans kunstwerk gegeven erosie bodem..
         /// </summary>
         public static string FailureProbabilityStructureWithErosion_Description {
             get {
@@ -232,7 +232,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kerende hoogte van het kunstwerk..
+        ///   Looks up a localized string similar to Kerende hoogte van het kunstwerk..
         /// </summary>
         public static string LevelCrestStructure_Description {
             get {
@@ -241,7 +241,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kerende hoogte [m].
+        ///   Looks up a localized string similar to Kerende hoogte [m+NAP].
         /// </summary>
         public static string LevelCrestStructure_DisplayName {
             get {

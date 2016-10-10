@@ -25,6 +25,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Properties;
@@ -185,11 +186,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "FailureProbabilityStructureWithErosion_DisplayName")]
         [ResourcesDescription(typeof(Resources), "FailureProbabilityStructureWithErosion_Description")]
-        public double FailureProbabilityStructureWithErosion
+        public string FailureProbabilityStructureWithErosion
         {
             get
             {
-                return data.FailureProbabilityStructureWithErosion;
+                return ProbabilityFormattingHelper.Format(data.FailureProbabilityStructureWithErosion);
             }
         }
     }

@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 
@@ -101,7 +102,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("Mean"));
             Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
 
-            Assert.AreEqual(structure.FailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.FailureProbabilityStructureWithErosion), properties.FailureProbabilityStructureWithErosion);
         }
 
         [Test]
@@ -150,8 +151,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
             Assert.AreEqual(schematizationCategory, levelCrestStructureProperty.Category);
-            Assert.AreEqual("Kerende hoogte [m]", levelCrestStructureProperty.DisplayName);
-            Assert.AreEqual("De kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
+            Assert.AreEqual("Kerende hoogte [m+NAP]", levelCrestStructureProperty.DisplayName);
+            Assert.AreEqual("Kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
 
             PropertyDescriptor allowedLevelIncreaseStorageProperty = dynamicProperties[allowedLevelIncreaseStoragePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(allowedLevelIncreaseStorageProperty.Converter);
@@ -186,8 +187,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             PropertyDescriptor failureProbabilityStructureWithErosionProperty = dynamicProperties[failureProbabilityStructureWithErosionPropertyIndex];
             Assert.IsTrue(failureProbabilityStructureWithErosionProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, failureProbabilityStructureWithErosionProperty.Category);
-            Assert.AreEqual("Faalkans kunstwerk gegeven erosie bodem [-]", failureProbabilityStructureWithErosionProperty.DisplayName);
-            Assert.AreEqual("De faalkans van het kunstwerk gegeven de erosie in de bodem.", failureProbabilityStructureWithErosionProperty.Description);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", failureProbabilityStructureWithErosionProperty.DisplayName);
+            Assert.AreEqual("Faalkans kunstwerk gegeven erosie bodem.", failureProbabilityStructureWithErosionProperty.Description);
         }
     }
 }

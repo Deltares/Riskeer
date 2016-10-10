@@ -445,8 +445,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
             Assert.AreEqual(schematizationCategory, levelCrestStructureProperty.Category);
-            Assert.AreEqual("Kerende hoogte [m]", levelCrestStructureProperty.DisplayName);
-            Assert.AreEqual("De kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
+            Assert.AreEqual("Kerende hoogte [m+NAP]", levelCrestStructureProperty.DisplayName);
+            Assert.AreEqual("Kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
 
             PropertyDescriptor allowedLevelIncreaseStorageProperty = dynamicProperties[allowedLevelIncreaseStoragePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(allowedLevelIncreaseStorageProperty.Converter);
@@ -482,7 +482,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsFalse(failureProbabilityStructureWithErosionProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, failureProbabilityStructureWithErosionProperty.Category);
             Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", failureProbabilityStructureWithErosionProperty.DisplayName);
-            Assert.AreEqual("De faalkans van het kunstwerk gegeven de erosie in de bodem.", failureProbabilityStructureWithErosionProperty.Description);
+            Assert.AreEqual("Faalkans kunstwerk gegeven erosie bodem.", failureProbabilityStructureWithErosionProperty.Description);
 
             PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[modelFactorSuperCriticalFlowPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
