@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
+using BaseConstructionProperties = Ringtoets.Common.Data.StructureBase.ConstructionProperties;
 
 namespace Ringtoets.HeightStructures.Data
 {
@@ -33,70 +33,46 @@ namespace Ringtoets.HeightStructures.Data
     public class HeightStructure : StructureBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HeightStructure"/>.
+        /// Initializes a new instance of the <see cref="HeightStructure"/> class.
         /// </summary>
-        /// <param name="name">The name of the height structure.</param>
-        /// <param name="id">The identifier of the height structure.</param>
-        /// <param name="location">The location of the height structure.</param>
-        /// <param name="structureNormalOrientation">The orientation of the height structure, relative to north.</param>
-        /// <param name="levelCrestStructureMean">The mean crest level of the height structure.</param>
-        /// <param name="levelCrestStructureStandardDeviation">The standard deviation of the crest level of the height structure.</param>
-        /// <param name="flowWidthAtBottomProtectionMean">The mean flow width of the height structure at the bottom protection.</param>
-        /// <param name="flowWidthAtBottomProtectionStandardDeviation">The standard deviation of the flow width of the height structure at the bottom protection.</param>
-        /// <param name="criticalOvertoppingDischargeMean">The mean critical overtopping discharge of the height structure.</param>
-        /// <param name="criticalOvertoppingDischargeCoefficientOfVariation">The coefficient of variation of critical overtopping discharge of the height structure.</param>
-        /// <param name="widthFlowAperturesMean">The mean flow apertures width of the height structure.</param>
-        /// <param name="widthFlowAperturesCoefficientOfVariation">The coefficient of variation of flow apertures width of the height structure.</param>
-        /// <param name="failureProbabilityStructureWithErosion">The failure probability of the height structure, given erosion.</param>
-        /// <param name="storageStructureAreaMean">The mean storage area of the height structure.</param>
-        /// <param name="storageStructureAreaCoefficientOfVariation">The coefficient of variation of storage area of the height structure.</param>
-        /// <param name="allowedLevelIncreaseStorageMean">The mean allowed increase of level for storage of the height structure.</param>
-        /// <param name="allowedLevelIncreaseStorageStandardDeviation">The standard deviation of allowed increase of level for storage of the height structure.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
-        /// , empty or consists of whitespace.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when any parameter is out of range.</exception>
-        public HeightStructure(string name, string id, Point2D location,
-                               double structureNormalOrientation,
-                               double levelCrestStructureMean, double levelCrestStructureStandardDeviation,
-                               double flowWidthAtBottomProtectionMean, double flowWidthAtBottomProtectionStandardDeviation,
-                               double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeCoefficientOfVariation,
-                               double widthFlowAperturesMean, double widthFlowAperturesCoefficientOfVariation,
-                               double failureProbabilityStructureWithErosion,
-                               double storageStructureAreaMean, double storageStructureAreaCoefficientOfVariation,
-                               double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation)
-            : base(name, id, location, structureNormalOrientation)
+        /// <param name="constructionProperties">The construction properties.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="ConstructionProperties.Name"/>
+        /// or <see cref="ConstructionProperties.Id"/> is <c>null</c> , empty or consists of whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="ConstructionProperties.Location"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When any stochastic variable parameter
+        /// is out if its valid domain.</exception>
+        public HeightStructure(ConstructionProperties constructionProperties) : base(constructionProperties)
         {
             LevelCrestStructure = new NormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, levelCrestStructureMean),
-                StandardDeviation = new RoundedDouble(2, levelCrestStructureStandardDeviation)
+                Mean = new RoundedDouble(2, constructionProperties.LevelCrestStructure.Mean),
+                StandardDeviation = new RoundedDouble(2, constructionProperties.LevelCrestStructure.StandardDeviation)
             };
             FlowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, flowWidthAtBottomProtectionMean),
-                StandardDeviation = new RoundedDouble(2, flowWidthAtBottomProtectionStandardDeviation)
+                Mean = new RoundedDouble(2, constructionProperties.FlowWidthAtBottomProtection.Mean),
+                StandardDeviation = new RoundedDouble(2, constructionProperties.FlowWidthAtBottomProtection.StandardDeviation)
             };
             CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, criticalOvertoppingDischargeMean),
-                CoefficientOfVariation = new RoundedDouble(2, criticalOvertoppingDischargeCoefficientOfVariation)
+                Mean = new RoundedDouble(2, constructionProperties.CriticalOvertoppingDischarge.Mean),
+                CoefficientOfVariation = new RoundedDouble(2, constructionProperties.CriticalOvertoppingDischarge.CoefficientOfVariation)
             };
             WidthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, widthFlowAperturesMean),
-                CoefficientOfVariation = new RoundedDouble(2, widthFlowAperturesCoefficientOfVariation)
+                Mean = new RoundedDouble(2, constructionProperties.WidthFlowApertures.Mean),
+                CoefficientOfVariation = new RoundedDouble(2, constructionProperties.WidthFlowApertures.CoefficientOfVariation)
             };
-            FailureProbabilityStructureWithErosion = failureProbabilityStructureWithErosion;
+            FailureProbabilityStructureWithErosion = constructionProperties.FailureProbabilityStructureWithErosion;
             StorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, storageStructureAreaMean),
-                CoefficientOfVariation = new RoundedDouble(2, storageStructureAreaCoefficientOfVariation)
+                Mean = new RoundedDouble(2, constructionProperties.StorageStructureArea.Mean),
+                CoefficientOfVariation = new RoundedDouble(2, constructionProperties.StorageStructureArea.CoefficientOfVariation)
             };
             AllowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, allowedLevelIncreaseStorageMean),
-                StandardDeviation = new RoundedDouble(2, allowedLevelIncreaseStorageStandardDeviation)
+                Mean = new RoundedDouble(2, constructionProperties.AllowedLevelIncreaseStorage.Mean),
+                StandardDeviation = new RoundedDouble(2, constructionProperties.AllowedLevelIncreaseStorage.StandardDeviation)
             };
         }
 
@@ -134,5 +110,59 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets the allowed increase of level for storage of the height structure.
         /// </summary>
         public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="HeightStructure"/>.
+        /// </summary>
+        public new class ConstructionProperties : BaseConstructionProperties
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="ConstructionProperties"/> class.
+            /// </summary>
+            public ConstructionProperties()
+            {
+                LevelCrestStructure = new NormalDistribution(2);
+                FlowWidthAtBottomProtection = new LogNormalDistribution(2);
+                CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2);
+                WidthFlowApertures = new VariationCoefficientNormalDistribution(2);
+                StorageStructureArea = new VariationCoefficientLogNormalDistribution(2);
+                AllowedLevelIncreaseStorage = new LogNormalDistribution(2);
+            }
+
+            /// <summary>
+            /// Gets the crest level of the height structure.
+            /// </summary>
+            public NormalDistribution LevelCrestStructure { get; private set; }
+
+            /// <summary>
+            /// Gets the flow width of the height structure at the bottom protection.
+            /// </summary>
+            public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
+
+            /// <summary>
+            /// Gets the critical overtopping discharge of the height structure.
+            /// </summary>
+            public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
+
+            /// <summary>
+            /// Gets the flow apertures width of the height structure.
+            /// </summary>
+            public VariationCoefficientNormalDistribution WidthFlowApertures { get; private set; }
+
+            /// <summary>
+            /// Gets the failure probability of the height structure, given erosion.
+            /// </summary>
+            public double FailureProbabilityStructureWithErosion { get; set; }
+
+            /// <summary>
+            /// Gets the storage area of the height structure.
+            /// </summary>
+            public VariationCoefficientLogNormalDistribution StorageStructureArea { get; private set; }
+
+            /// <summary>
+            /// Gets the allowed increase of level for storage of the height structure.
+            /// </summary>
+            public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
+        }
     }
 }

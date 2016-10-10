@@ -37,6 +37,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.Properties;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
@@ -181,7 +182,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             var input = new HeightStructuresInput
             {
-                HeightStructure = CreateValidHeightStructure(),
+                HeightStructure = new TestHeightStructure(),
                 HydraulicBoundaryLocation = CreateValidHydraulicBoundaryLocation(),
                 ForeshoreProfile = CreateValidForeshoreProfile()
             };
@@ -290,7 +291,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             var random = new Random(100);
             double newStructureNormalOrientation = random.NextDouble();
-            HeightStructure newHeightStructure = CreateValidHeightStructure();
+            HeightStructure newHeightStructure = new TestHeightStructure();
             ForeshoreProfile newForeshoreProfile = CreateValidForeshoreProfile();
             double newDeviationWaveDirection = random.NextDouble();
 
@@ -538,19 +539,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private static HydraulicBoundaryLocation CreateValidHydraulicBoundaryLocation()
         {
             return new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
-        }
-
-        private static HeightStructure CreateValidHeightStructure()
-        {
-            return new HeightStructure("aName", "anId", new Point2D(1, 1),
-                                       0.12345,
-                                       234.567, 0.23456,
-                                       345.678, 0.34567,
-                                       456.789, 0.45678,
-                                       567.890, 0.56789,
-                                       0.67890,
-                                       112.223, 0.11222,
-                                       225.336, 0.22533);
         }
 
         private static void AssertDistributionProperties<T>(DistributionPropertiesBase<T> expected, DistributionPropertiesBase<T> actual) where T : IDistribution

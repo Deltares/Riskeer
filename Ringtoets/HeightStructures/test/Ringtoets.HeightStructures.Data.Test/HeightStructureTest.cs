@@ -37,15 +37,43 @@ namespace Ringtoets.HeightStructures.Data.Test
             var location = new Point2D(1.22, 2.333);
 
             // Call
-            var heightStructure = new HeightStructure("aName", "anId", location, 
-                                                      0.12345, 
-                                                      234.567, 0.23456, 
-                                                      345.678, 0.34567, 
-                                                      456.789, 0.45678, 
-                                                      567.890, 0.56789, 
-                                                      0.67890, 
-                                                      112.223, 0.11222, 
-                                                      225.336, 0.22533);
+            var heightStructure = new HeightStructure(
+                new HeightStructure.ConstructionProperties
+                {
+                    Name = "aName", Id = "anId", Location = location,
+                    StructureNormalOrientation = 0.12345,
+                    LevelCrestStructure =
+                    {
+                        Mean = (RoundedDouble) 234.567,
+                        StandardDeviation = (RoundedDouble) 0.23456
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) 345.678,
+                        StandardDeviation = (RoundedDouble) 0.34567
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = (RoundedDouble) 456.789,
+                        CoefficientOfVariation = (RoundedDouble) 0.45678
+                    },
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 567.890,
+                        CoefficientOfVariation = (RoundedDouble) 0.56789
+                    },
+                    FailureProbabilityStructureWithErosion = 0.67890,
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) 112.223,
+                        CoefficientOfVariation = (RoundedDouble) 0.11222
+                    },
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) 225.336,
+                        StandardDeviation = (RoundedDouble) 0.22533
+                    }
+                });
 
             // Assert
             Assert.IsInstanceOf<StructureBase>(heightStructure);

@@ -25,6 +25,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 
 namespace Ringtoets.HeightStructures.Utils.Test
 {
@@ -118,9 +119,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
             {
                 InputParameters =
                 {
-                    HeightStructure = new HeightStructure("test", "1", new Point2D(1.1, 2.2),
-                                                          0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7,
-                                                          0.8, 0.9, 0.11, 0.12, 0.13, 0.14, 0.15)
+                    HeightStructure = new TestHeightStructure("test", new Point2D(1.1, 2.2))
                 }
             };
 
@@ -140,9 +139,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
             {
                 InputParameters =
                 {
-                    HeightStructure = new HeightStructure("test", "1", new Point2D(55.0, 66.0),
-                                                          0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7,
-                                                          0.8, 0.9, 0.11, 0.12, 0.13, 0.14, 0.15)
+                    HeightStructure = new TestHeightStructure("test", new Point2D(55.0, 66.0))
                 }
             };
 

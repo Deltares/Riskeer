@@ -22,7 +22,6 @@
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -31,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -131,7 +131,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var heightStructures = new ObservableList<HeightStructure>
             {
-                CreateHeightStructure()
+                new TestHeightStructure()
             };
 
             // Precondition
@@ -155,8 +155,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            HeightStructure heightStructure1 = CreateHeightStructure();
-            HeightStructure heightStructure2 = CreateHeightStructure();
+            HeightStructure heightStructure1 = new TestHeightStructure();
+            HeightStructure heightStructure2 = new TestHeightStructure();
             var heightStructures = new ObservableList<HeightStructure>
             {
                 heightStructure1,
@@ -222,19 +222,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             }
             // Assert
             mocks.VerifyAll();
-        }
-
-        private static HeightStructure CreateHeightStructure()
-        {
-            return new HeightStructure("aName", "anId", new Point2D(1.22, 2.333),
-                                                      0.12345,
-                                                      234.567, 0.23456,
-                                                      345.678, 0.34567,
-                                                      456.789, 0.45678,
-                                                      567.890, 0.56789,
-                                                      0.67890,
-                                                      112.223, 0.11222,
-                                                      225.336, 0.22533);
         }
     }
 }

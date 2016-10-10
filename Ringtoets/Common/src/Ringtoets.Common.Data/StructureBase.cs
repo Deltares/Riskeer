@@ -33,6 +33,35 @@ namespace Ringtoets.Common.Data
         /// <summary>
         /// Creates a new instance of <see cref="StructureBase"/>.
         /// </summary>
+        /// <param name="constructionProperties">The parameters required to construct a new
+        /// instance of <see cref="StructureBase"/>.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="ConstructionProperties.Name"/>
+        /// or <see cref="ConstructionProperties.Id"/> is <c>null</c> , empty or consists of whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="ConstructionProperties.Location"/> is <c>null</c>.</exception>
+        protected StructureBase(ConstructionProperties constructionProperties)
+        {
+            if (string.IsNullOrWhiteSpace(constructionProperties.Name))
+            {
+                throw new ArgumentException("Name is null, empty or consists of whitespace.", "constructionProperties");
+            }
+            if (string.IsNullOrWhiteSpace(constructionProperties.Id))
+            {
+                throw new ArgumentException("Id is null, empty or consists of whitespace.", "constructionProperties");
+            }
+            if (constructionProperties.Location == null)
+            {
+                throw new ArgumentNullException("constructionProperties", "Location is null.");
+            }
+
+            Name = constructionProperties.Name;
+            Id = constructionProperties.Id;
+            Location = constructionProperties.Location;
+            StructureNormalOrientation = new RoundedDouble(2, constructionProperties.StructureNormalOrientation);
+        }
+
+        /// <summary>
+        /// Creates a new instance of <see cref="StructureBase"/>.
+        /// </summary>
         /// <param name="name">The name of the structure.</param>
         /// <param name="id">The identifier of the structure.</param>
         /// <param name="location">The location of the structure.</param>
@@ -40,26 +69,14 @@ namespace Ringtoets.Common.Data
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
         /// , empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
-        protected StructureBase(string name, string id, Point2D location, double structureNormalOrientation)
-        {
-            if (string.IsNullOrWhiteSpace(name))
+        protected StructureBase(string name, string id, Point2D location, double structureNormalOrientation) :
+            this(new ConstructionProperties
             {
-                throw new ArgumentException("Parameter is null, empty or consists of whitespace.", "name");
-            }
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                throw new ArgumentException("Parameter is null, empty or consists of whitespace.", "id");
-            }
-            if (location == null)
-            {
-                throw new ArgumentNullException("location");
-            }
-
-            Name = name;
-            Id = id;
-            Location = location;
-            StructureNormalOrientation = new RoundedDouble(2, structureNormalOrientation);
-        }
+                Name = name,
+                Id = id,
+                Location = location,
+                StructureNormalOrientation = (RoundedDouble) structureNormalOrientation
+            }) {}
 
         /// <summary>
         /// Gets the name of the structure.
@@ -84,6 +101,32 @@ namespace Ringtoets.Common.Data
         public override string ToString()
         {
             return Name;
+        }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="StructureBase"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Gets the name of the structure.
+            /// </summary>
+            public string Name { get; set; }
+
+            /// <summary>
+            /// Gets the identifier of the structure.
+            /// </summary>
+            public string Id { get; set; }
+
+            /// <summary>
+            /// Gets the location of the structure.
+            /// </summary>
+            public Point2D Location { get; set; }
+
+            /// <summary>
+            /// Gets the orientation of the closing structure, relative to north.
+            /// </summary>
+            public double StructureNormalOrientation { get; set; }
         }
     }
 }

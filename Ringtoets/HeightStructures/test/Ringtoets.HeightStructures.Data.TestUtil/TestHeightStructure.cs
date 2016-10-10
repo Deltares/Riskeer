@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 
 namespace Ringtoets.HeightStructures.Data.TestUtil
@@ -26,13 +27,49 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
     public class TestHeightStructure : HeightStructure
     {
         public TestHeightStructure()
-            : base("Test", "Id", new Point2D(0, 0), 0.12345, 234.567, 0.23456,
-                   345.678, 0.34567, 456.789, 0.45678, 567.890, 0.56789,
-                   0.67890, 112.223, 0.11222, 225.336, 0.22533) {}
+            : this("Test") {}
 
         public TestHeightStructure(string name)
-            : base(name, "Id", new Point2D(0, 0), 0.12345, 234.567, 0.23456,
-                   345.678, 0.34567, 456.789, 0.45678, 567.890, 0.56789,
-                   0.67890, 112.223, 0.11222, 225.336, 0.22533) {}
+            : this(name, new Point2D(0.0, 0.0)) {}
+
+        public TestHeightStructure(string name, Point2D location)
+            : base(new ConstructionProperties
+            {
+                Name = name,
+                Id = "Id",
+                Location = location,
+                StructureNormalOrientation = 0.12345,
+                LevelCrestStructure =
+                {
+                    Mean = (RoundedDouble) 234.567,
+                    StandardDeviation = (RoundedDouble) 0.23456
+                },
+                FlowWidthAtBottomProtection =
+                {
+                    Mean = (RoundedDouble) 345.678,
+                    StandardDeviation = (RoundedDouble) 0.34567
+                },
+                CriticalOvertoppingDischarge =
+                {
+                    Mean = (RoundedDouble) 456.789,
+                    CoefficientOfVariation = (RoundedDouble) 0.45678
+                },
+                WidthFlowApertures =
+                {
+                    Mean = (RoundedDouble) 567.890,
+                    CoefficientOfVariation = (RoundedDouble) 0.56789
+                },
+                FailureProbabilityStructureWithErosion = 0.67890,
+                StorageStructureArea =
+                {
+                    Mean = (RoundedDouble) 112.223,
+                    CoefficientOfVariation = (RoundedDouble) 0.11222
+                },
+                AllowedLevelIncreaseStorage =
+                {
+                    Mean = (RoundedDouble) 225.336,
+                    StandardDeviation = (RoundedDouble) 0.22533
+                }
+            }) {}
     }
 }

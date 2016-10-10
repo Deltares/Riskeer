@@ -21,11 +21,11 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 
 namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
@@ -59,9 +59,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void Data_SetNewHeightStructureInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var structure = new HeightStructure("A", "B", new Point2D(1, 2),
-                                                1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9,
-                                                10.10, 11.11, 12.12, 13.13, 14.14);
+            var structure = new TestHeightStructure();
             var properties = new HeightStructureProperties();
 
             // Call
@@ -109,9 +107,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var structure = new HeightStructure("A", "B", new Point2D(1, 2),
-                                                1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9,
-                                                10.10, 11.11, 12.12, 13.13, 14.14);
+            var structure = new TestHeightStructure();
 
             // Call
             var properties = new HeightStructureProperties

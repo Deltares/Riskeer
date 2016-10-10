@@ -21,7 +21,6 @@
 
 using System.Drawing;
 using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -29,6 +28,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -89,7 +89,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             mocks.ReplayAll();
             string name = "very nice name!";
-            HeightStructure structure = CreateSimpleHeightStructure(name);
+            HeightStructure structure = new TestHeightStructure(name);
 
             // Call
             string text = info.Text(structure);
@@ -121,7 +121,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                HeightStructure nodeData = CreateSimpleHeightStructure("A");
+                HeightStructure nodeData = new TestHeightStructure("A");
 
                 var guiMock = mocks.StrictMock<IGui>();
                 guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilderMock);
@@ -135,18 +135,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             // Assert
             // Assert expectancies are called in TearDown()
-        }
-
-        private static HeightStructure CreateSimpleHeightStructure(string name)
-        {
-            return new HeightStructure(name, "1", new Point2D(1, 2), 12.34,
-                                       1.1, 0.4,
-                                       2.2, 0.5,
-                                       3.3, 0.6,
-                                       4.4, 0.7,
-                                       5.5,
-                                       6.6, 0.8,
-                                       7.7, 0.9);
         }
     }
 }

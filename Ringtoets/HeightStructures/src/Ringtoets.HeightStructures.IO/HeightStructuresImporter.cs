@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Structures;
@@ -91,31 +92,53 @@ namespace Ringtoets.HeightStructures.IO
                     continue;
                 }
 
-                ConvertVarianceToStandardDeviation(structureParameterRows);
-
                 HeightStructure heightStructure = CreateHeightStructure(structureLocation, structureParameterRows);
                 heightStructures.Add(heightStructure);
             }
             return heightStructures;
         }
 
-        private static HeightStructure CreateHeightStructure(StructureLocation structureLocation, List<StructuresParameterRow> structureParameterRows)
+        private HeightStructure CreateHeightStructure(StructureLocation structureLocation, List<StructuresParameterRow> structureParameterRows)
         {
             Dictionary<string, StructuresParameterRow> rowData = structureParameterRows.ToDictionary(row => row.ParameterId, row => row);
 
-            return new HeightStructure(
-                structureLocation.Name,
-                structureLocation.Id,
-                structureLocation.Point,
-                rowData[StructureFilesKeywords.HeightStructureParameterKeyword1].NumericalValue,
-                rowData[StructureFilesKeywords.HeightStructureParameterKeyword2].NumericalValue, rowData[StructureFilesKeywords.HeightStructureParameterKeyword2].VarianceValue,
-                rowData[StructureFilesKeywords.HeightStructureParameterKeyword3].NumericalValue, rowData[StructureFilesKeywords.HeightStructureParameterKeyword3].VarianceValue,
-                rowData[StructureFilesKeywords.HeightStructureParameterKeyword4].NumericalValue, rowData[StructureFilesKeywords.HeightStructureParameterKeyword4].VarianceValue,
-                rowData[StructureFilesKeywords.HeightStructureParameterKeyword5].NumericalValue, rowData[StructureFilesKeywords.HeightStructureParameterKeyword5].VarianceValue,
-                rowData[StructureFilesKeywords.HeightStructureParameterKeyword6].NumericalValue,
-                rowData[StructureFilesKeywords.HeightStructureParameterKeyword7].NumericalValue, rowData[StructureFilesKeywords.HeightStructureParameterKeyword7].VarianceValue,
-                rowData[StructureFilesKeywords.HeightStructureParameterKeyword8].NumericalValue, rowData[StructureFilesKeywords.HeightStructureParameterKeyword8].VarianceValue
-                );
+            return new HeightStructure(new HeightStructure.ConstructionProperties
+            {
+                Name = structureLocation.Name, Id = structureLocation.Id,
+                Location = structureLocation.Point,
+                StructureNormalOrientation = rowData[StructureFilesKeywords.HeightStructureParameterKeyword1].NumericalValue,
+                LevelCrestStructure =
+                {
+                    Mean = (RoundedDouble) rowData[StructureFilesKeywords.HeightStructureParameterKeyword2].NumericalValue,
+                    StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.HeightStructureParameterKeyword2])
+                },
+                FlowWidthAtBottomProtection =
+                {
+                    Mean = (RoundedDouble) rowData[StructureFilesKeywords.HeightStructureParameterKeyword3].NumericalValue,
+                    StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.HeightStructureParameterKeyword3])
+                },
+                CriticalOvertoppingDischarge =
+                {
+                    Mean = (RoundedDouble) rowData[StructureFilesKeywords.HeightStructureParameterKeyword4].NumericalValue,
+                    CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.HeightStructureParameterKeyword4])
+                },
+                WidthFlowApertures =
+                {
+                    Mean = (RoundedDouble) rowData[StructureFilesKeywords.HeightStructureParameterKeyword5].NumericalValue,
+                    CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.HeightStructureParameterKeyword5])
+                },
+                FailureProbabilityStructureWithErosion = rowData[StructureFilesKeywords.HeightStructureParameterKeyword6].NumericalValue,
+                StorageStructureArea =
+                {
+                    Mean = (RoundedDouble) rowData[StructureFilesKeywords.HeightStructureParameterKeyword7].NumericalValue,
+                    CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.HeightStructureParameterKeyword7])
+                },
+                AllowedLevelIncreaseStorage =
+                {
+                    Mean = (RoundedDouble) rowData[StructureFilesKeywords.HeightStructureParameterKeyword8].NumericalValue,
+                    StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.HeightStructureParameterKeyword8])
+                }
+            });
         }
     }
 }
