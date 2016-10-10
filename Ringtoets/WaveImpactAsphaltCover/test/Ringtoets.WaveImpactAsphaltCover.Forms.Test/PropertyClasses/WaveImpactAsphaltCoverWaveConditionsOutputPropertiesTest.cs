@@ -32,7 +32,7 @@ using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class GrassCoverErosionOutwardsOutputPropertiesTest
+    public class WaveImpactAsphaltCoverWaveConditionsOutputPropertiesTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
