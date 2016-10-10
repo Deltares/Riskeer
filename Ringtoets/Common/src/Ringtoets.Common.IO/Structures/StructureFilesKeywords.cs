@@ -26,6 +26,8 @@ namespace Ringtoets.Common.IO.Structures
     /// </summary>
     public static class StructureFilesKeywords
     {
+        #region Height Structure Keywords
+
         /// <summary>
         /// The first height structure parameter keyword.
         /// </summary>
@@ -65,6 +67,10 @@ namespace Ringtoets.Common.IO.Structures
         /// The eighth height structure parameter keyword.
         /// </summary>
         public const string HeightStructureParameterKeyword8 = "KW_HOOGTE8";
+
+        #endregion
+
+        #region Closing Structure Keywords
 
         /// <summary>
         /// The first closing structure parameter keyword.
@@ -140,6 +146,10 @@ namespace Ringtoets.Common.IO.Structures
         /// The fifteenth closing structure parameter keyword.
         /// </summary>
         public const string ClosingStructureParameterKeyword15 = "KW_BETSLUIT15";
+
+        #endregion
+
+        #region Stability Point Structure Keywords
 
         /// <summary>
         /// The first stability point structure parameter keyword.
@@ -267,9 +277,11 @@ namespace Ringtoets.Common.IO.Structures
         public const string StabilityPointStructureParameterKeyword25 = "KW_STERSTAB25";
 
         /// <summary>
-        /// The twenty-six stability point structure parameter keyword.
+        /// The twenty-sixth stability point structure parameter keyword.
         /// </summary>
         public const string StabilityPointStructureParameterKeyword26 = "KW_STERSTAB26";
+
+        #endregion
 
         #region Required Structure *.csv header column names
 
