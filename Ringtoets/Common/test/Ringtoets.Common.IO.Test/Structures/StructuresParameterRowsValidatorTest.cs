@@ -366,5 +366,312 @@ namespace Ringtoets.Common.IO.Test.Structures
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
         }
+
+        [Test]
+        public void ValidateStabilityPointStructuresParameters_StructureParameterRowsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("structureParameterRows", paramName);
+        }
+
+        [Test]
+        public void ValidateStabilityPointStructuresParameters_ParameterIdsMissingOrDuplicated_ExpectedValues()
+        {
+            // Setup
+            var structuresParameterRow = new StructuresParameterRow
+            {
+                ParameterId = "KW_STERSTAB1",
+                NumericalValue = 180.0
+            };
+
+            List<StructuresParameterRow> structureParameterRows = new List<StructuresParameterRow>
+            {
+                structuresParameterRow,
+                structuresParameterRow
+            };
+
+            // Call
+            ValidationResult validationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(structureParameterRows);
+
+            // Assert
+            Assert.IsFalse(validationResult.IsValid);
+            List<string> expectedErrorMessages = new List<string>
+            {
+                "Parameter 'KW_STERSTAB1' komt meermaals voor.",
+                "Parameter 'KW_STERSTAB2' ontbreekt.",
+                "Parameter 'KW_STERSTAB3' ontbreekt.",
+                "Parameter 'KW_STERSTAB4' ontbreekt.",
+                "Parameter 'KW_STERSTAB5' ontbreekt.",
+                "Parameter 'KW_STERSTAB6' ontbreekt.",
+                "Parameter 'KW_STERSTAB7' ontbreekt.",
+                "Parameter 'KW_STERSTAB8' ontbreekt.",
+                "Parameter 'KW_STERSTAB9' ontbreekt.",
+                "Parameter 'KW_STERSTAB10' ontbreekt.",
+                "Parameter 'KW_STERSTAB11' ontbreekt.",
+                "Parameter 'KW_STERSTAB12' ontbreekt.",
+                "Parameter 'KW_STERSTAB13' ontbreekt.",
+                "Parameter 'KW_STERSTAB14' ontbreekt.",
+                "Parameter 'KW_STERSTAB15' ontbreekt.",
+                "Parameter 'KW_STERSTAB16' ontbreekt.",
+                "Parameter 'KW_STERSTAB17' ontbreekt.",
+                "Parameter 'KW_STERSTAB18' ontbreekt.",
+                "Parameter 'KW_STERSTAB19' ontbreekt.",
+                "Parameter 'KW_STERSTAB20' ontbreekt.",
+                "Parameter 'KW_STERSTAB21' ontbreekt.",
+                "Parameter 'KW_STERSTAB22' ontbreekt.",
+                "Parameter 'KW_STERSTAB23' ontbreekt.",
+                "Parameter 'KW_STERSTAB24' ontbreekt.",
+                "Parameter 'KW_STERSTAB25' ontbreekt.",
+                "Parameter 'KW_STERSTAB26' ontbreekt."
+            };
+            CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
+        }
+
+        [Test]
+        public void ValidateStabilityPointStructuresParameters_ParametersAllInvalid_ExpectedValues()
+        {
+            // Setup
+            List<StructuresParameterRow> structureParameterRows = new List<StructuresParameterRow>
+            {
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB1",
+                    NumericalValue = double.NaN,
+                    LineNumber = 1
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB2",
+                    NumericalValue = 1e-5,
+                    VarianceValue = 1.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 2
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB3",
+                    NumericalValue = double.NaN,
+                    VarianceValue = double.NaN,
+                    LineNumber = 3
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB4",
+                    NumericalValue = 0,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 4
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB5",
+                    NumericalValue = double.PositiveInfinity,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.NotSpecified,
+                    LineNumber = 5
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB6",
+                    NumericalValue = double.PositiveInfinity,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.NotSpecified,
+                    LineNumber = 6
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB7",
+                    NumericalValue = 1e-5,
+                    VarianceValue = 1.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 7
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB8",
+                    NumericalValue = double.NaN,
+                    VarianceValue = double.NaN,
+                    LineNumber = 8
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB9",
+                    NumericalValue = 1e-5,
+                    VarianceValue = 1.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 9
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB10",
+                    NumericalValue = 1e-5,
+                    VarianceValue = 1.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 10
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB11",
+                    NumericalValue = double.PositiveInfinity,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.NotSpecified,
+                    LineNumber = 11
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB12",
+                    NumericalValue = double.PositiveInfinity,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.NotSpecified,
+                    LineNumber = 12
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB13",
+                    NumericalValue = double.NaN,
+                    LineNumber = 13
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB14",
+                    NumericalValue = double.PositiveInfinity,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.NotSpecified,
+                    LineNumber = 14
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB15",
+                    NumericalValue = -1.0,
+                    LineNumber = 15
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB16",
+                    NumericalValue = double.NegativeInfinity,
+                    LineNumber = 16
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB17",
+                    NumericalValue = -1.0,
+                    LineNumber = 17
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB18",
+                    NumericalValue = 0,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 18
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB19",
+                    NumericalValue = 0,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    LineNumber = 19
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB20",
+                    NumericalValue = -1.0,
+                    LineNumber = 20
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB21",
+                    NumericalValue = -1.0,
+                    LineNumber = 21
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB22",
+                    NumericalValue = double.PositiveInfinity,
+                    VarianceValue = 10.0,
+                    VarianceType = VarianceType.NotSpecified,
+                    LineNumber = 22
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB23",
+                    NumericalValue = 1e-5,
+                    VarianceValue = 1.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 23
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB24",
+                    NumericalValue = 1e-5,
+                    VarianceValue = 1.0,
+                    VarianceType = VarianceType.StandardDeviation,
+                    LineNumber = 24
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB25",
+                    NumericalValue = double.NaN,
+                    VarianceValue = double.NaN,
+                    LineNumber = 25
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = "KW_STERSTAB26",
+                    AlphanumericValue = "oei",
+                    LineNumber = 26
+                }
+            };
+
+            // Call
+            ValidationResult validationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(structureParameterRows);
+
+            // Assert
+            Assert.IsFalse(validationResult.IsValid);
+            List<string> expectedErrorMessages = new List<string>
+            {
+                "De waarde op regel 1, kolom 'NumeriekeWaarde' valt buiten het bereik [0, 360].",
+                "Voor een betrouwbare conversie tussen standaard deviatie en variatiecoëfficiënt mag de gemiddelde waarde (op regel 2, kolom numeriekewaarde) niet te dicht op 0 zijn.",
+                "De waarde op regel 3, kolom 'NumeriekeWaarde' is ongeldig.",
+                "De waarde op regel 3, kolom 'Boolean' is ongeldig.",
+                "De waarde op regel 3, kolom 'Standarddeviatie.variance' is ongeldig.",
+                "De waarde op regel 5, kolom 'NumeriekeWaarde' is ongeldig.",
+                "De waarde op regel 5, kolom 'Boolean' is ongeldig.",
+                "De waarde op regel 6, kolom 'NumeriekeWaarde' is ongeldig.",
+                "De waarde op regel 6, kolom 'Boolean' is ongeldig.",
+                "Voor een betrouwbare conversie tussen standaard deviatie en variatiecoëfficiënt mag de gemiddelde waarde (op regel 7, kolom numeriekewaarde) niet te dicht op 0 zijn.",
+                "De waarde op regel 8, kolom 'NumeriekeWaarde' is ongeldig.",
+                "De waarde op regel 8, kolom 'Boolean' is ongeldig.",
+                "De waarde op regel 8, kolom 'Standarddeviatie.variance' is ongeldig.",
+                "Voor een betrouwbare conversie tussen standaard deviatie en variatiecoëfficiënt mag de gemiddelde waarde (op regel 9, kolom numeriekewaarde) niet te dicht op 0 zijn.",
+                "Voor een betrouwbare conversie tussen standaard deviatie en variatiecoëfficiënt mag de gemiddelde waarde (op regel 10, kolom numeriekewaarde) niet te dicht op 0 zijn.",
+                "De waarde op regel 11, kolom 'NumeriekeWaarde' is ongeldig.",
+                "De waarde op regel 11, kolom 'Boolean' is ongeldig.",
+                "De waarde op regel 12, kolom 'NumeriekeWaarde' is ongeldig.",
+                "De waarde op regel 12, kolom 'Boolean' is ongeldig.",
+                "De waarde op regel 13, kolom 'NumeriekeWaarde' valt buiten het bereik (0, 1].",
+                "De waarde op regel 14, kolom 'NumeriekeWaarde' is ongeldig.",
+                "De waarde op regel 14, kolom 'Boolean' is ongeldig.",
+                "De waarde op regel 15, kolom 'NumeriekeWaarde' valt buiten het bereik (0, 1].",
+                "De waarde op regel 16, kolom 'NumeriekeWaarde' valt buiten het bereik (0, 1].",
+                "De waarde op regel 17, kolom 'NumeriekeWaarde' valt buiten het bereik (0, 1].",
+                "De waarde op regel 20, kolom 'NumeriekeWaarde' valt buiten het bereik (0, 1].",
+                "De waarde op regel 21, kolom 'NumeriekeWaarde' valt buiten het bereik (0, 1].",
+                "De waarde op regel 22, kolom 'NumeriekeWaarde' is ongeldig.",
+                "De waarde op regel 22, kolom 'Boolean' is ongeldig.",
+                "Voor een betrouwbare conversie tussen standaard deviatie en variatiecoëfficiënt mag de gemiddelde waarde (op regel 23, kolom numeriekewaarde) niet te dicht op 0 zijn.",
+                "Voor een betrouwbare conversie tussen standaard deviatie en variatiecoëfficiënt mag de gemiddelde waarde (op regel 24, kolom numeriekewaarde) niet te dicht op 0 zijn.",
+                "De waarde op regel 25, kolom 'NumeriekeWaarde' is ongeldig.",
+                "De waarde op regel 25, kolom 'Boolean' is ongeldig.",
+                "De waarde op regel 25, kolom 'Standarddeviatie.variance' is ongeldig.",
+                "De waarde op regel 26, kolom 'AlphanumeriekeWaarde' is ongeldig."
+            };
+            CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
+        }
     }
 }

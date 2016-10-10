@@ -60,28 +60,28 @@ namespace Ringtoets.Common.IO.Structures
             new Dictionary<string, Func<StructuresParameterRow, List<string>>>
             {
                 {
-                    "KW_HOOGTE1", StructureNormalOrientation
+                    StructureFilesKeywords.HeightStructureParameterKeyword1, StructureNormalOrientation
                 },
                 {
-                    "KW_HOOGTE2", NormalDistributionRule
+                    StructureFilesKeywords.HeightStructureParameterKeyword2, NormalDistributionRule
                 },
                 {
-                    "KW_HOOGTE3", LogNormalDistributionRule
+                    StructureFilesKeywords.HeightStructureParameterKeyword3, LogNormalDistributionRule
                 },
                 {
-                    "KW_HOOGTE4", VariationCoefficientLogNormalDistributionRule
+                    StructureFilesKeywords.HeightStructureParameterKeyword4, VariationCoefficientLogNormalDistributionRule
                 },
                 {
-                    "KW_HOOGTE5", VariationCoefficientNormalDistributionRule
+                    StructureFilesKeywords.HeightStructureParameterKeyword5, VariationCoefficientNormalDistributionRule
                 },
                 {
-                    "KW_HOOGTE6", ProbabilityRule
+                    StructureFilesKeywords.HeightStructureParameterKeyword6, ProbabilityRule
                 },
                 {
-                    "KW_HOOGTE7", VariationCoefficientLogNormalDistributionRule
+                    StructureFilesKeywords.HeightStructureParameterKeyword7, VariationCoefficientLogNormalDistributionRule
                 },
                 {
-                    "KW_HOOGTE8", LogNormalDistributionRule
+                    StructureFilesKeywords.HeightStructureParameterKeyword8, LogNormalDistributionRule
                 }
             };
 
@@ -89,49 +89,49 @@ namespace Ringtoets.Common.IO.Structures
             new Dictionary<string, Func<StructuresParameterRow, List<string>>>
             {
                 {
-                    "KW_BETSLUIT1", VariationCoefficientLogNormalDistributionRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword1, VariationCoefficientLogNormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT2", LogNormalDistributionRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword2, LogNormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT3", StructureNormalOrientation
+                    StructureFilesKeywords.ClosingStructureParameterKeyword3, StructureNormalOrientation
                 },
                 {
-                    "KW_BETSLUIT4", VariationCoefficientNormalDistributionRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword4, VariationCoefficientNormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT5", NormalDistributionRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword5, NormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT6", NormalDistributionRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword6, NormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT7", NormalDistributionRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword7, NormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT8", LogNormalDistributionRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword8, LogNormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT9", VariationCoefficientLogNormalDistributionRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword9, VariationCoefficientLogNormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT10", LogNormalDistributionRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword10, LogNormalDistributionRule
                 },
                 {
-                    "KW_BETSLUIT11", ProbabilityRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword11, ProbabilityRule
                 },
                 {
-                    "KW_BETSLUIT12", ProbabilityRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword12, ProbabilityRule
                 },
                 {
-                    "KW_BETSLUIT13", IdenticalApertures
+                    StructureFilesKeywords.ClosingStructureParameterKeyword13, IdenticalApertures
                 },
                 {
-                    "KW_BETSLUIT14", ProbabilityRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword14, ProbabilityRule
                 },
                 {
-                    "KW_BETSLUIT15", ClosingStructureInflowModelRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword15, ClosingStructureInflowModelRule
                 }
             };
 
@@ -139,82 +139,82 @@ namespace Ringtoets.Common.IO.Structures
             new Dictionary<string, Func<StructuresParameterRow, List<string>>>
             {
                 {
-                    "KW_STERSTAB1", StructureNormalOrientation
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword1, StructureNormalOrientation
                 },
                 {
-                    "KW_STERSTAB2", VariationCoefficientLogNormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword2, VariationCoefficientLogNormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB3", LogNormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword3, LogNormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB4", VariationCoefficientNormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword4, VariationCoefficientNormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB5", NormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword5, NormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB6", NormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword6, NormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB7", VariationCoefficientLogNormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword7, VariationCoefficientLogNormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB8", LogNormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword8, LogNormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB9", VariationCoefficientLogNormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword9, VariationCoefficientLogNormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB10", VariationCoefficientLogNormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword10, VariationCoefficientLogNormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB11", NormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword11, NormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB12", NormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword12, NormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB13", DoubleRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword13, DoubleRule
                 },
                 {
-                    "KW_STERSTAB14", NormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword14, NormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB15", PositiveDoubleRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword15, PositiveDoubleRule
                 },
                 {
-                    "KW_STERSTAB16", ProbabilityRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword16, ProbabilityRule
                 },
                 {
-                    "KW_STERSTAB17", PositiveDoubleRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword17, PositiveDoubleRule
                 },
                 {
-                    "KW_STERSTAB18", VariationCoefficientNormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword18, VariationCoefficientNormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB19", VariationCoefficientNormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword19, VariationCoefficientNormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB20", PositiveDoubleRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword20, PositiveDoubleRule
                 },
                 {
-                    "KW_STERSTAB21", PositiveDoubleRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword21, PositiveDoubleRule
                 },
                 {
-                    "KW_STERSTAB22", NormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword22, NormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB23", VariationCoefficientLogNormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword23, VariationCoefficientLogNormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB24", VariationCoefficientLogNormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword24, VariationCoefficientLogNormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB25", LogNormalDistributionRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword25, LogNormalDistributionRule
                 },
                 {
-                    "KW_STERSTAB26", StabilityPointStructureInflowModelRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword26, StabilityPointStructureInflowModelRule
                 },
             };
 
