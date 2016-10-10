@@ -483,15 +483,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hydraulische belasting.
-        /// </summary>
-        public static string Categories_HydraulicLoad {
-            get {
-                return ResourceManager.GetString("Categories_HydraulicLoad", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Lengte-effect parameters.
         /// </summary>
         public static string Categories_LengthEffect {

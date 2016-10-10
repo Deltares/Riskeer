@@ -568,9 +568,6 @@
   <data name="Categories_HydraulicData" xml:space="preserve">
     <value>Hydraulische gegevens</value>
   </data>
-  <data name="Categories_HydraulicLoad" xml:space="preserve">
-    <value>Hydraulische belasting</value>
-  </data>
   <data name="HydraulicBoundaryLocation_Description" xml:space="preserve">
     <value>De locatie met hydraulische randvoorwaarden.</value>
   </data>

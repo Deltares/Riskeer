@@ -159,7 +159,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(17, dynamicProperties.Count);
 
             const string schematizationCategory = "Schematisatie";
-            const string hydraulicLoadCategory = "Hydraulische belasting";
+            const string hydraulicDataCategory = "Hydraulische gegevens";
             const string generalCategory = "Algemeen";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
@@ -236,7 +236,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor insideWaterLevelProperty = dynamicProperties[insideWaterLevelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
-            Assert.AreEqual(hydraulicLoadCategory, insideWaterLevelProperty.Category);
+            Assert.AreEqual(hydraulicDataCategory, insideWaterLevelProperty.Category);
             Assert.AreEqual("Binnenwaterstand [m+NAP]", insideWaterLevelProperty.DisplayName);
             Assert.AreEqual("Binnenwaterstand.", insideWaterLevelProperty.Description);
 

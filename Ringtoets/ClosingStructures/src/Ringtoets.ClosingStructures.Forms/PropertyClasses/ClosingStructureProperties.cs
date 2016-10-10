@@ -233,7 +233,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         [PropertyOrder(insideWaterLevelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicLoad")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "InsideWaterLevel_DisplayName")]
         [ResourcesDescription(typeof(Resources), "InsideWaterLevel_Description")]
         public NormalDistributionProperties InsideWaterLevel
