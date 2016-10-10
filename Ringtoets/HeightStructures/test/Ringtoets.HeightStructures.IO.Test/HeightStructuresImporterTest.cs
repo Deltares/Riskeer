@@ -67,7 +67,8 @@ namespace Ringtoets.HeightStructures.IO.Test
             };
             ReferenceLine referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var structuresImporter = new HeightStructuresImporter(new ObservableList<HeightStructure>(), referenceLine, filePath);
+            var importTarget = new ObservableList<HeightStructure>();
+            var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
 
             // Call
             bool importResult = false;
@@ -89,6 +90,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
+            Assert.AreEqual(1, importTarget.Count);
         }
 
         [Test]
@@ -109,7 +111,8 @@ namespace Ringtoets.HeightStructures.IO.Test
             };
             ReferenceLine referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var structuresImporter = new HeightStructuresImporter(new ObservableList<HeightStructure>(), referenceLine, filePath);
+            var importTarget = new ObservableList<HeightStructure>();
+            var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
 
             // Call
             bool importResult = false;
@@ -118,7 +121,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             // Assert
             string[] expectedMessages =
             {
-                "De waarde op regel 2, kolom 18 valt buiten het bereik [0, 360].",
+                "De waarde op regel 2, kolom 'NumeriekeWaarde' valt buiten het bereik [0, 360].",
                 "Parameter 'KW_HOOGTE2' komt meermaals voor.",
                 "Kunstwerk nummer 1 wordt overgeslagen.",
                 "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST2'.",
@@ -134,6 +137,7 @@ namespace Ringtoets.HeightStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
+            Assert.AreEqual(0, importTarget.Count);
         }
     }
 }

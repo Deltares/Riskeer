@@ -122,7 +122,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             string[] expectedMessages =
             {
                 "Parameter 'KW_STERSTAB9' komt meermaals voor.",
-                "De waarde op regel 37, kolom 18 is ongeldig.",
+                "De waarde op regel 37, kolom 'NumeriekeWaarde' is ongeldig.",
                 "Kunstwerk nummer 1 wordt overgeslagen.",
                 "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST2'.",
                 "Kunstwerk nummer 2 wordt overgeslagen.",

@@ -450,18 +450,6 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="StructuresParameterRowsValidator_Parameter_0_repeated" xml:space="preserve">
     <value>Parameter '{0}' komt meermaals voor.</value>
   </data>
-  <data name="StructuresParameterRowsValidator_Line_0_column_1_probability_out_of_range" xml:space="preserve">
-    <value>De waarde op regel {0}, kolom {1} valt buiten het bereik [0, 1].</value>
-  </data>
-  <data name="StructuresParameterRowsValidator_Line_0_column_1_value_invalid" xml:space="preserve">
-    <value>De waarde op regel {0}, kolom {1} is ongeldig.</value>
-  </data>
-  <data name="StructuresParameterRowsValidator_Line_0_column_1_orientation_out_of_range" xml:space="preserve">
-    <value>De waarde op regel {0}, kolom {1} valt buiten het bereik [0, 360].</value>
-  </data>
-  <data name="StructuresParameterRowsValidator_Line_0_column_1_value_cannot_be_smaller_than_zero" xml:space="preserve">
-    <value>De waarde op regel {0}, kolom {1} mag niet kleiner dan nul zijn.</value>
-  </data>
   <data name="StructuresImporter_StandardDeviation_Converting_variation_on_Line_0_" xml:space="preserve">
     <value>De variatie op regel {0} wordt omgerekend in een standaard deviatie.</value>
   </data>
@@ -470,5 +458,17 @@ Er is geen vakindeling geïmporteerd.</value>
   </data>
   <data name="StructuresImporter_GetCoefficientOfVariation_Converting_variation_on_Line_0_" xml:space="preserve">
     <value>De variatie op regel {0} wordt omgerekend in een variatiecoëfficiënt.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_Line_0_ColumnName_1_orientation_out_of_range" xml:space="preserve">
+    <value>De waarde op regel {0}, kolom '{1}' valt buiten het bereik [0, 360].</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_Line_0_ColumnName_1_probability_out_of_range" xml:space="preserve">
+    <value>De waarde op regel {0}, kolom '{1}' valt buiten het bereik (0, 1].</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_Line_0_ColumnName_1_value_cannot_be_smaller_than_zero" xml:space="preserve">
+    <value>De waarde op regel {0}, kolom '{1}' mag niet kleiner dan nul zijn.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_Line_0_ColumnName_1_value_invalid" xml:space="preserve">
+    <value>De waarde op regel {0}, kolom '{1}' is ongeldig.</value>
   </data>
 </root>

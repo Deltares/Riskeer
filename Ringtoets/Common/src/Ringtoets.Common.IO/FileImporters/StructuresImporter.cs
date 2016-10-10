@@ -111,13 +111,13 @@ namespace Ringtoets.Common.IO.FileImporters
         protected abstract void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                          Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows);
 
-        protected void LogMessages(ValidationResult validationResult, int lineNumber)
+        protected void LogMessages(ValidationResult validationResult, int structureIndex)
         {
             foreach (string message in validationResult.ErrorMessages)
             {
                 log.Error(message);
             }
-            log.ErrorFormat(Resources.StructuresImporter_Structure_number_0_is_skipped, lineNumber);
+            log.ErrorFormat(Resources.StructuresImporter_Structure_number_0_is_skipped, structureIndex);
         }
 
         protected RoundedDouble GetStandardDeviation(StructuresParameterRow structuresParameterRow)

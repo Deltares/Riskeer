@@ -31,10 +31,10 @@ namespace Ringtoets.Common.IO.Structures
     /// </summary>
     public static class StructuresParameterRowsValidator
     {
-        private const int alphanumericalValueColumn = 17;
-        private const int numericalValueColumn = 18;
-        private const int varianceValueColumn = 19;
-        private const int varianceTypeColumn = 20;
+        private const string alphanumericalValueColumn = "AlphanumeriekeWaarde";
+        private const string numericalValueColumn = "NumeriekeWaarde";
+        private const string varianceValueColumn = "Standarddeviatie.variance";
+        private const string varianceTypeColumn = "Boolean";
 
         /// <summary>
         /// Denotes a small enough value, taking possible rounding into account, that the
@@ -259,7 +259,7 @@ namespace Ringtoets.Common.IO.Structures
                 throw new ArgumentNullException("structureParameterRows");
             }
 
-            List<string> errorMessages = new List<string>();
+            var errorMessages = new List<string>();
 
             foreach (string name in rules.Keys)
             {
@@ -284,12 +284,12 @@ namespace Ringtoets.Common.IO.Structures
 
         private static List<string> DoubleRule(StructuresParameterRow row)
         {
-            List<string> messages = new List<string>();
+            var messages = new List<string>();
 
             double value = row.NumericalValue;
             if (double.IsNaN(value) || double.IsInfinity(value))
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_probability_out_of_range, row.LineNumber, numericalValueColumn));
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_ColumnName_1_probability_out_of_range, row.LineNumber, numericalValueColumn));
             }
 
             return messages;
@@ -302,7 +302,7 @@ namespace Ringtoets.Common.IO.Structures
             double value = row.NumericalValue;
             if (double.IsNaN(value) || double.IsInfinity(value) || value < 0)
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_probability_out_of_range, row.LineNumber, numericalValueColumn));
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_ColumnName_1_probability_out_of_range, row.LineNumber, numericalValueColumn));
             }
 
             return messages;
@@ -310,12 +310,12 @@ namespace Ringtoets.Common.IO.Structures
 
         private static List<string> ProbabilityRule(StructuresParameterRow row)
         {
-            List<string> messages = new List<string>();
+            var messages = new List<string>();
 
             double mean = row.NumericalValue;
-            if (double.IsNaN(mean) || double.IsInfinity(mean) || mean < 0 || mean > 1)
+            if (double.IsNaN(mean) || double.IsInfinity(mean) || mean <= 0 || mean > 1)
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_probability_out_of_range, row.LineNumber, numericalValueColumn));
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_ColumnName_1_probability_out_of_range, row.LineNumber, numericalValueColumn));
             }
 
             return messages;
@@ -343,24 +343,24 @@ namespace Ringtoets.Common.IO.Structures
 
         private static List<string> ValidateStochasticVariableParameters(StructuresParameterRow row, bool meanMustBeGreaterThanZero, bool variationAsStandardDeviation)
         {
-            List<string> messages = new List<string>();
+            var messages = new List<string>();
 
             double mean = row.NumericalValue;
             if (double.IsNaN(mean) || double.IsInfinity(mean) || (meanMustBeGreaterThanZero && mean <= 0))
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, numericalValueColumn));
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_ColumnName_1_value_invalid, row.LineNumber, numericalValueColumn));
             }
 
             VarianceType type = row.VarianceType;
             if (type != VarianceType.StandardDeviation && type != VarianceType.CoefficientOfVariation)
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, varianceTypeColumn));
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_ColumnName_1_value_invalid, row.LineNumber, varianceTypeColumn));
             }
 
             double variance = row.VarianceValue;
             if (double.IsNaN(variance) || double.IsInfinity(variance) || variance < 0.0)
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, varianceValueColumn));
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_ColumnName_1_value_invalid, row.LineNumber, varianceValueColumn));
             }
 
             if (variationAsStandardDeviation)
@@ -385,12 +385,12 @@ namespace Ringtoets.Common.IO.Structures
 
         private static List<string> StructureNormalOrientation(StructuresParameterRow row)
         {
-            List<string> messages = new List<string>();
+            var messages = new List<string>();
 
             double orientation = row.NumericalValue;
             if (!(orientation >= 0 && orientation <= 360))
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_orientation_out_of_range, row.LineNumber, numericalValueColumn));
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_ColumnName_1_orientation_out_of_range, row.LineNumber, numericalValueColumn));
             }
 
             return messages;
@@ -398,33 +398,33 @@ namespace Ringtoets.Common.IO.Structures
 
         private static List<string> IdenticalApertures(StructuresParameterRow row)
         {
-            List<string> messages = new List<string>();
+            var messages = new List<string>();
             double value = row.NumericalValue;
             if (value < 0)
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_cannot_be_smaller_than_zero, row.LineNumber, numericalValueColumn));
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_ColumnName_1_value_cannot_be_smaller_than_zero, row.LineNumber, numericalValueColumn));
             }
             return messages;
         }
 
         private static List<string> ClosingStructureInflowModelRule(StructuresParameterRow row)
         {
-            List<string> messages = new List<string>();
+            var messages = new List<string>();
             string value = row.AlphanumericValue.ToLower();
             if (!closingStructureInflowModelRuleKeywords.Contains(value))
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, alphanumericalValueColumn));
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_ColumnName_1_value_invalid, row.LineNumber, alphanumericalValueColumn));
             }
             return messages;
         }
 
         private static List<string> StabilityPointStructureInflowModelRule(StructuresParameterRow row)
         {
-            List<string> messages = new List<string>();
+            var messages = new List<string>();
             string value = row.AlphanumericValue.ToLower();
             if (!stabilityPointStructureInflowModelRuleKeywords.Contains(value))
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_column_1_value_invalid, row.LineNumber, alphanumericalValueColumn));
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_ColumnName_1_value_invalid, row.LineNumber, alphanumericalValueColumn));
             }
             return messages;
         }

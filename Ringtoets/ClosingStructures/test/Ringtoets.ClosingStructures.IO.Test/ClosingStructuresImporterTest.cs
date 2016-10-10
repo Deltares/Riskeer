@@ -120,7 +120,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             // Assert
             string[] expectedMessages =
             {
-                "De waarde op regel 13, kolom 18 valt buiten het bereik [0, 360].",
+                "De waarde op regel 13, kolom 'NumeriekeWaarde' valt buiten het bereik [0, 360].",
                 "Parameter 'KW_BETSLUIT5' komt meermaals voor.",
                 "Kunstwerk nummer 1 wordt overgeslagen.",
                 "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST2'.",
