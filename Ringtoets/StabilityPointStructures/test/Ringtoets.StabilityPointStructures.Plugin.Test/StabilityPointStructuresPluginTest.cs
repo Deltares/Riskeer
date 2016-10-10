@@ -25,12 +25,14 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.Plugin;
+using Core.Common.Gui.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
+using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
 using Ringtoets.StabilityPointStructures.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -47,6 +49,28 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
             {
                 // Assert
                 Assert.IsInstanceOf<PluginBase>(plugin);
+            }
+        }
+
+        [Test]
+        public void GetPropertyInfos_ReturnsSupportedPropertyClasses()
+        {
+            // Setup
+            using (var plugin = new StabilityPointStructuresPlugin())
+            {
+                // Call
+                PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
+
+                // Assert
+                Assert.AreEqual(1, propertyInfos.Length);
+
+                PropertyInfo failureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(StabilityPointStructure),
+                    typeof(StabilityPointStructureProperties));
+                Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
+                Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(failureMechanismContextProperties.AfterCreate);
             }
         }
 

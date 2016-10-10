@@ -36,6 +36,7 @@ using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HydraRing.IO;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
+using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
 using Ringtoets.StabilityPointStructures.Forms.Views;
 using Ringtoets.StabilityPointStructures.IO;
 using Ringtoets.StabilityPointStructures.Plugin.Properties;
@@ -51,6 +52,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin
     /// </summary>
     public class StabilityPointStructuresPlugin : PluginBase
     {
+        public override IEnumerable<PropertyInfo> GetPropertyInfos()
+        {
+            yield return new PropertyInfo<StabilityPointStructure, StabilityPointStructureProperties>();
+        }
+
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
             yield return new ViewInfo<
@@ -103,7 +109,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             yield return new TreeNodeInfo<StabilityPointStructure>
             {
                 Text = structure => structure.Name,
-                Image = structure => RingtoetsCommonFormsResources.StructuresIcon
+                Image = structure => RingtoetsCommonFormsResources.StructuresIcon,
+                ContextMenuStrip = (structure, parentData, treeViewControl) => Gui.Get(structure, treeViewControl)
+                                                                                  .AddPropertiesItem()
+                                                                                  .Build()
             };
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<StabilityPointStructuresCalculationGroupContext>(

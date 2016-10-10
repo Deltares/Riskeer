@@ -50,7 +50,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 Assert.IsNull(info.CanRemove);
                 Assert.IsNull(info.CanRename);
                 Assert.IsNull(info.ChildNodeObjects);
-                Assert.IsNull(info.ContextMenuStrip);
+                Assert.IsNotNull(info.ContextMenuStrip);
                 Assert.IsNull(info.EnsureVisibleOnCreate);
                 Assert.IsNull(info.ForeColor);
                 Assert.IsNotNull(info.Image);
