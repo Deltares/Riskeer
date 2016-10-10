@@ -61,7 +61,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double shipMassVariation = 19.9;
             const double shipVelocityMean = 20.0;
             const double shipVelocityVariation = 21.1;
-            const int levelingCount = 22;
+            const int levellingCount = 22;
             const double probabilityCollisionSecondaryStructure = 23.3;
             const double flowVelocityStructureClosableMean = 24.4;
             const double flowVelocityStructureClosableStandardDeviation = 25.5;
@@ -116,7 +116,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                                             modelFactorCollisionLoadMean, modelFactorCollisionLoadVariation,
                                                                                             shipMassMean, shipMassVariation,
                                                                                             shipVelocityMean, shipVelocityVariation,
-                                                                                            levelingCount,
+                                                                                            levellingCount,
                                                                                             probabilityCollisionSecondaryStructure,
                                                                                             flowVelocityStructureClosableMean, flowVelocityStructureClosableStandardDeviation,
                                                                                             insideWaterLevelMean, insideWaterLevelStandardDeviation,

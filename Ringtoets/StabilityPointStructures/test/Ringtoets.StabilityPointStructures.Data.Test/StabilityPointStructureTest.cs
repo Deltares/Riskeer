@@ -172,11 +172,11 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(2, shipVelocity.CoefficientOfVariation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.57, shipVelocity.CoefficientOfVariation, shipVelocity.CoefficientOfVariation.GetAccuracy());
 
-            Assert.AreEqual(42, structure.LevellingsPerYear);
+            Assert.AreEqual(42, structure.LevellingCount);
 
-            Assert.IsInstanceOf<RoundedDouble>(structure.CollisionChanceSecondRetainingStructurePerLevelling);
-            Assert.AreEqual(2, structure.CollisionChanceSecondRetainingStructurePerLevelling.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.55, structure.CollisionChanceSecondRetainingStructurePerLevelling, structure.CollisionChanceSecondRetainingStructurePerLevelling.GetAccuracy());
+            Assert.IsInstanceOf<RoundedDouble>(structure.ProbabilityCollisionSecondaryStructure);
+            Assert.AreEqual(2, structure.ProbabilityCollisionSecondaryStructure.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.55, structure.ProbabilityCollisionSecondaryStructure, structure.ProbabilityCollisionSecondaryStructure.GetAccuracy());
 
             NormalDistribution flowVelocityStructureClosable = structure.FlowVelocityStructureClosable;
             Assert.AreEqual(2, flowVelocityStructureClosable.Mean.NumberOfDecimalPlaces);

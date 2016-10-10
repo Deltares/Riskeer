@@ -52,7 +52,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double shipMassVariation;
         private readonly double shipVelocityMean;
         private readonly double shipVelocityVariation;
-        private readonly int levelingCount;
+        private readonly int levellingCount;
         private readonly double probabilityCollisionSecondaryStructure;
         private readonly double flowVelocityStructureClosableMean;
         private readonly double flowVelocityStructureClosableStandardDeviation;
@@ -111,7 +111,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="shipMassVariation">The variation of the ship mass.</param>
         /// <param name="shipVelocityMean">The mean of the ship velocity.</param>
         /// <param name="shipVelocityVariation">The variation of the ship velocity.</param>
-        /// <param name="levelingCount">The leveling count.</param>
+        /// <param name="levellingCount">The levelling count.</param>
         /// <param name="probabilityCollisionSecondaryStructure">The probability of collision of the secondary structure.</param>
         /// <param name="flowVelocityStructureClosableMean">The mean of the flow velocity structure closable.</param>
         /// <param name="flowVelocityStructureClosableStandardDeviation">The standard deviation of the flow velocity structure closable.</param>
@@ -157,7 +157,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                            double modelFactorCollisionLoadMean, double modelFactorCollisionLoadVariation,
                                                            double shipMassMean, double shipMassVariation,
                                                            double shipVelocityMean, double shipVelocityVariation,
-                                                           int levelingCount,
+                                                           int levellingCount,
                                                            double probabilityCollisionSecondaryStructure,
                                                            double flowVelocityStructureClosableMean, double flowVelocityStructureClosableStandardDeviation,
                                                            double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
@@ -202,7 +202,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.shipMassVariation = shipMassVariation;
             this.shipVelocityMean = shipVelocityMean;
             this.shipVelocityVariation = shipVelocityVariation;
-            this.levelingCount = levelingCount;
+            this.levellingCount = levellingCount;
             this.probabilityCollisionSecondaryStructure = probabilityCollisionSecondaryStructure;
             this.flowVelocityStructureClosableMean = flowVelocityStructureClosableMean;
             this.flowVelocityStructureClosableStandardDeviation = flowVelocityStructureClosableStandardDeviation;
@@ -296,7 +296,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 yield return new HydraRingVariable(89, HydraRingDistributionType.Normal, double.NaN,
                                                    HydraRingDeviationType.Variation, shipVelocityMean,
                                                    shipVelocityVariation, double.NaN);
-                yield return new HydraRingVariable(90, HydraRingDistributionType.Deterministic, levelingCount,
+                yield return new HydraRingVariable(90, HydraRingDistributionType.Deterministic, levellingCount,
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
                 yield return new HydraRingVariable(91, HydraRingDistributionType.Deterministic, probabilityCollisionSecondaryStructure,
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);

@@ -100,7 +100,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             AssertEqualValue(0.2, input.ShipMass.CoefficientOfVariation);
             Assert.IsNaN(input.ShipVelocity.Mean);
             AssertEqualValue(0.2, input.ShipVelocity.CoefficientOfVariation);
-            Assert.AreEqual(0, input.LevelingCount);
+            Assert.AreEqual(0, input.LevellingCount);
             Assert.AreEqual(double.NaN, input.ProbabilityCollisionSecondaryStructure);
             AssertEqualValue(double.NaN, input.AllowedLevelIncreaseStorage.Mean);
             AssertEqualValue(0.1, input.AllowedLevelIncreaseStorage.StandardDeviation);
@@ -631,19 +631,19 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_LevelingCount_ExpectedValues()
+        public void Properties_LevellingCount_ExpectedValues()
         {
             // Setup
             var input = new StabilityPointStructuresInput();
             var random = new Random(22);
 
-            int levelingCount = random.Next();
+            int levellingCount = random.Next();
 
             // Call
-            input.LevelingCount = levelingCount;
+            input.LevellingCount = levellingCount;
 
             // Assert
-            Assert.AreEqual(levelingCount, input.LevelingCount);
+            Assert.AreEqual(levellingCount, input.LevellingCount);
         }
 
         [Test]

@@ -679,10 +679,10 @@ namespace Ringtoets.StabilityPointStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the leveling count.
+        /// Gets or sets the levelling count.
         /// [1/year]
         /// </summary>
-        public int LevelingCount { get; set; }
+        public int LevellingCount { get; set; }
 
         /// <summary>
         /// Gets or sets the probability of a secondary collision on the structure.

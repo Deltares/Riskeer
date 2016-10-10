@@ -66,7 +66,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="shipMassVariation">The variation of the ship mass.</param>
         /// <param name="shipVelocityMean">The mean of the ship velocity.</param>
         /// <param name="shipVelocityVariation">The variation of the ship velocity.</param>
-        /// <param name="levelingCount">The leveling count.</param>
+        /// <param name="levellingCount">The levelling count.</param>
         /// <param name="probabilityCollisionSecondaryStructure">The probability of collision of the secondary structure.</param>
         /// <param name="flowVelocityStructureClosableMean">The mean of the flow velocity structure closable.</param>
         /// <param name="flowVelocityStructureClosableStandardDeviation">The standard deviation of the flow velocity structure closable.</param>
@@ -120,7 +120,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                             double modelFactorCollisionLoadMean, double modelFactorCollisionLoadVariation,
                                                                             double shipMassMean, double shipMassVariation,
                                                                             double shipVelocityMean, double shipVelocityVariation,
-                                                                            int levelingCount,
+                                                                            int levellingCount,
                                                                             double probabilityCollisionSecondaryStructure,
                                                                             double flowVelocityStructureClosableMean, double flowVelocityStructureClosableStandardDeviation,
                                                                             double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
@@ -158,7 +158,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                    modelFactorCollisionLoadMean, modelFactorCollisionLoadVariation,
                    shipMassMean, shipMassVariation,
                    shipVelocityMean, shipVelocityVariation,
-                   levelingCount,
+                   levellingCount,
                    probabilityCollisionSecondaryStructure,
                    flowVelocityStructureClosableMean, flowVelocityStructureClosableStandardDeviation,
                    insideWaterLevelMean, insideWaterLevelStandardDeviation,

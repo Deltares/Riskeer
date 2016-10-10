@@ -72,10 +72,10 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <param name="shipMassCoefficientOfVariation">The coefficient of variation of the mass of the ship.</param>
         /// <param name="shipVelocityMean">The mean velocity of the ship.</param>
         /// <param name="shipVelocityCoefficientOfVariation">The coefficient of variation of the velocity of the ship.</param>
-        /// <param name="levellingsPerYear">Number of levellings per year.</param>
-        /// <param name="collisionChanceSecondRetainingStructurePerLevelling">The chance per levelling at a collision with the second retaining structure.</param>
+        /// <param name="levellingCount">Number of levellings per year.</param>
+        /// <param name="probabilityCollisionSecondaryStructure">The chance per levelling at a collision with the second retaining structure.</param>
         /// <param name="flowVelocityStructureClosableMean">The mean maximum flow velocity at which the structure is closable.</param>
-        /// <param name="flowVelocityStructureClosableStandarDeviation">The standard deviation of the maximum flow velocity at which the structure is closable.</param>
+        /// <param name="flowVelocityStructureClosableStandardDeviation">The standard deviation of the maximum flow velocity at which the structure is closable.</param>
         /// <param name="stabilityLinearModelMean">The mean stability properties of the linear model of the stability point structure.</param>
         /// <param name="stabilityLinearModelCoefficientOfVariation">The coefficient of variation of the stability properties of the linear model of the stability point structure.</param>
         /// <param name="stabilityQuadraticModelMean">The mean stability properties of the quadratic model of the stability point structure.</param>
@@ -107,9 +107,9 @@ namespace Ringtoets.StabilityPointStructures.Data
                                        double failureCollisionEnergyMean, double failureCollisionEnergyCoefficientOfVariation,
                                        double shipMassMean, double shipMassCoefficientOfVariation,
                                        double shipVelocityMean, double shipVelocityCoefficientOfVariation,
-                                       int levellingsPerYear,
-                                       double collisionChanceSecondRetainingStructurePerLevelling,
-                                       double flowVelocityStructureClosableMean, double flowVelocityStructureClosableStandarDeviation,
+                                       int levellingCount,
+                                       double probabilityCollisionSecondaryStructure,
+                                       double flowVelocityStructureClosableMean, double flowVelocityStructureClosableStandardDeviation,
                                        double stabilityLinearModelMean, double stabilityLinearModelCoefficientOfVariation,
                                        double stabilityQuadraticModelMean, double stabilityQuadraticModelCoefficientOfVariation,
                                        double areaFlowAperturesMean, double areaFlowAperturesStandardDeviation,
@@ -195,12 +195,12 @@ namespace Ringtoets.StabilityPointStructures.Data
                 Mean = (RoundedDouble) shipVelocityMean,
                 CoefficientOfVariation = (RoundedDouble) shipVelocityCoefficientOfVariation
             };
-            LevellingsPerYear = levellingsPerYear;
-            CollisionChanceSecondRetainingStructurePerLevelling = new RoundedDouble(2, collisionChanceSecondRetainingStructurePerLevelling);
+            LevellingCount = levellingCount;
+            ProbabilityCollisionSecondaryStructure = new RoundedDouble(2, probabilityCollisionSecondaryStructure);
             FlowVelocityStructureClosable = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) flowVelocityStructureClosableMean,
-                StandardDeviation = (RoundedDouble) flowVelocityStructureClosableStandarDeviation
+                StandardDeviation = (RoundedDouble) flowVelocityStructureClosableStandardDeviation
             };
             StabilityLinearModel = new VariationCoefficientLogNormalDistribution(2)
             {
@@ -311,14 +311,14 @@ namespace Ringtoets.StabilityPointStructures.Data
         public VariationCoefficientNormalDistribution ShipVelocity { get; private set; }
 
         /// <summary>
-        /// Gets the number of levellings per year.
+        /// Gets the number of levelling count.
         /// </summary>
-        public int LevellingsPerYear { get; private set; }
+        public int LevellingCount { get; private set; }
 
         /// <summary>
-        /// Gets the chance per levelling at a collision with the second retaining structure.
+        /// Gets the probability of a secondary collision on the structure.
         /// </summary>
-        public RoundedDouble CollisionChanceSecondRetainingStructurePerLevelling { get; private set; }
+        public RoundedDouble ProbabilityCollisionSecondaryStructure { get; private set; }
 
         /// <summary>
         /// Gets the maximum flow velocity at which the structure is closable.
