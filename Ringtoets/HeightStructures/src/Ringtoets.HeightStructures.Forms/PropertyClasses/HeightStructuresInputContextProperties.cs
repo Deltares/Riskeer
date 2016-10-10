@@ -49,11 +49,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int heightStructurePropertyIndex = 1;
         private const int heightStructureLocationPropertyIndex = 2;
         private const int structureNormalOrientationPropertyIndex = 3;
-        private const int levelCrestStructurePropertyIndex = 4;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 5;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 4;
+        private const int widthFlowAperturesPropertyIndex = 5;
         private const int storageStructureAreaPropertyIndex = 6;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 7;
-        private const int widthFlowAperturesPropertyIndex = 8;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 7;
+        private const int levelCrestStructurePropertyIndex = 8;
         private const int criticalOvertoppingDischargePropertyIndex = 9;
         private const int failureProbabilityStructureWithErosionPropertyIndex = 10;
         private const int foreshoreProfilePropertyIndex = 11;
@@ -166,54 +166,6 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(levelCrestStructurePropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "LevelCrestStructure_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "LevelCrestStructure_Description")]
-        public NormalDistributionProperties LevelCrestStructure
-        {
-            get
-            {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
-                {
-                    Data = data.WrappedData.LevelCrestStructure
-                };
-            }
-        }
-
-        [PropertyOrder(allowedLevelIncreaseStoragePropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_AllowedLevelIncreaseStorage_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_AllowedLevelIncreaseStorage_Description")]
-        public LogNormalDistributionProperties AllowedLevelIncreaseStorage
-        {
-            get
-            {
-                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
-                {
-                    Data = data.WrappedData.AllowedLevelIncreaseStorage
-                };
-            }
-        }
-
-        [PropertyOrder(storageStructureAreaPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_Description")]
-        public LogNormalDistributionVariationProperties StorageStructureArea
-        {
-            get
-            {
-                return new LogNormalDistributionVariationProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
-                {
-                    Data = data.WrappedData.StorageStructureArea
-                };
-            }
-        }
-
         [PropertyOrder(flowWidthAtBottomProtectionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -242,6 +194,54 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
                 return new NormalDistributionVariationProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
                 {
                     Data = data.WrappedData.WidthFlowApertures
+                };
+            }
+        }
+
+        [PropertyOrder(storageStructureAreaPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_Description")]
+        public LogNormalDistributionVariationProperties StorageStructureArea
+        {
+            get
+            {
+                return new LogNormalDistributionVariationProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.StorageStructureArea
+                };
+            }
+        }
+
+        [PropertyOrder(allowedLevelIncreaseStoragePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_AllowedLevelIncreaseStorage_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_AllowedLevelIncreaseStorage_Description")]
+        public LogNormalDistributionProperties AllowedLevelIncreaseStorage
+        {
+            get
+            {
+                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.AllowedLevelIncreaseStorage
+                };
+            }
+        }
+
+        [PropertyOrder(levelCrestStructurePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "LevelCrestStructure_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "LevelCrestStructure_Description")]
+        public NormalDistributionProperties LevelCrestStructure
+        {
+            get
+            {
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.LevelCrestStructure
                 };
             }
         }

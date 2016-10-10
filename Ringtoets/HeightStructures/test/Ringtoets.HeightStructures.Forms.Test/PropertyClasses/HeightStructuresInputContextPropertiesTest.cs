@@ -52,11 +52,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private const int heightStructurePropertyIndex = 0;
         private const int heightStructureLocationPropertyIndex = 1;
         private const int structureNormalOrientationPropertyIndex = 2;
-        private const int levelCrestStructurePropertyIndex = 3;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 4;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 3;
+        private const int widthFlowAperturesPropertyIndex = 4;
         private const int storageStructureAreaPropertyIndex = 5;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 6;
-        private const int widthFlowAperturesPropertyIndex = 7;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 6;
+        private const int levelCrestStructurePropertyIndex = 7;
         private const int criticalOvertoppingDischargePropertyIndex = 8;
         private const int failureProbabilityStructureWithErosionPropertyIndex = 9;
         private const int foreshoreProfilePropertyIndex = 10;
@@ -416,6 +416,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             const string schematizationCategory = "Schematisatie";
+            const string hydraulicDataCategory = "Hydraulische gegevens";
             const string modelSettingsCategory = "Modelinstellingen";
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
@@ -443,24 +444,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Oriëntatie [°]", structureNormalOrientationProperty.DisplayName);
             Assert.AreEqual("Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.", structureNormalOrientationProperty.Description);
 
-            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
-            Assert.AreEqual(schematizationCategory, levelCrestStructureProperty.Category);
-            Assert.AreEqual("Kerende hoogte [m+NAP]", levelCrestStructureProperty.DisplayName);
-            Assert.AreEqual("Kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
-
-            PropertyDescriptor allowedLevelIncreaseStorageProperty = dynamicProperties[allowedLevelIncreaseStoragePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(allowedLevelIncreaseStorageProperty.Converter);
-            Assert.AreEqual(schematizationCategory, allowedLevelIncreaseStorageProperty.Category);
-            Assert.AreEqual("Toegestane peilverhoging komberging [m]", allowedLevelIncreaseStorageProperty.DisplayName);
-            Assert.AreEqual("Toegestane peilverhoging komberging.", allowedLevelIncreaseStorageProperty.Description);
-
-            PropertyDescriptor storageStructureAreaProperty = dynamicProperties[storageStructureAreaPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(storageStructureAreaProperty.Converter);
-            Assert.AreEqual(schematizationCategory, storageStructureAreaProperty.Category);
-            Assert.AreEqual("Kombergend oppervlak [m²]", storageStructureAreaProperty.DisplayName);
-            Assert.AreEqual("Kombergend oppervlak.", storageStructureAreaProperty.Description);
-
             PropertyDescriptor flowWidthAtBottomProtectionProperty = dynamicProperties[flowWidthAtBottomProtectionPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(flowWidthAtBottomProtectionProperty.Converter);
             Assert.AreEqual(schematizationCategory, flowWidthAtBottomProtectionProperty.Category);
@@ -472,6 +455,24 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(schematizationCategory, widthFlowAperturesProperty.Category);
             Assert.AreEqual("Breedte van doorstroomopening [m]", widthFlowAperturesProperty.DisplayName);
             Assert.AreEqual("Breedte van de doorstroomopening.", widthFlowAperturesProperty.Description);
+
+            PropertyDescriptor storageStructureAreaProperty = dynamicProperties[storageStructureAreaPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(storageStructureAreaProperty.Converter);
+            Assert.AreEqual(schematizationCategory, storageStructureAreaProperty.Category);
+            Assert.AreEqual("Kombergend oppervlak [m²]", storageStructureAreaProperty.DisplayName);
+            Assert.AreEqual("Kombergend oppervlak.", storageStructureAreaProperty.Description);
+
+            PropertyDescriptor allowedLevelIncreaseStorageProperty = dynamicProperties[allowedLevelIncreaseStoragePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(allowedLevelIncreaseStorageProperty.Converter);
+            Assert.AreEqual(schematizationCategory, allowedLevelIncreaseStorageProperty.Category);
+            Assert.AreEqual("Toegestane peilverhoging komberging [m]", allowedLevelIncreaseStorageProperty.DisplayName);
+            Assert.AreEqual("Toegestane peilverhoging komberging.", allowedLevelIncreaseStorageProperty.Description);
+
+            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
+            Assert.AreEqual(schematizationCategory, levelCrestStructureProperty.Category);
+            Assert.AreEqual("Kerende hoogte [m+NAP]", levelCrestStructureProperty.DisplayName);
+            Assert.AreEqual("Kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
 
             PropertyDescriptor criticalOvertoppingDischargeProperty = dynamicProperties[criticalOvertoppingDischargePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(criticalOvertoppingDischargeProperty.Converter);
@@ -513,18 +514,18 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
             Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
-            Assert.AreEqual("Hydraulische gegevens", hydraulicBoundaryLocationProperty.Category);
+            Assert.AreEqual(hydraulicDataCategory, hydraulicBoundaryLocationProperty.Category);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
             Assert.AreEqual("De locatie met hydraulische randvoorwaarden.", hydraulicBoundaryLocationProperty.Description);
 
             PropertyDescriptor stormDurationProperty = dynamicProperties[stormDurationPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(stormDurationProperty.Converter);
-            Assert.AreEqual("Hydraulische gegevens", stormDurationProperty.Category);
+            Assert.AreEqual(hydraulicDataCategory, stormDurationProperty.Category);
             Assert.AreEqual("Stormduur [uur]", stormDurationProperty.DisplayName);
             Assert.AreEqual("De duur van de storm.", stormDurationProperty.Description);
 
             PropertyDescriptor deviationWaveDirectionProperty = dynamicProperties[deviationWaveDirectionPropertyIndex];
-            Assert.AreEqual("Hydraulische gegevens", deviationWaveDirectionProperty.Category);
+            Assert.AreEqual(hydraulicDataCategory, deviationWaveDirectionProperty.Category);
             Assert.AreEqual("Afwijking van de golfrichting [°]", deviationWaveDirectionProperty.DisplayName);
             Assert.AreEqual("De afwijking van de golfrichting.", deviationWaveDirectionProperty.Description);
 
