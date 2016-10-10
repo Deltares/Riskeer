@@ -218,6 +218,11 @@ namespace Ringtoets.StabilityPointStructures.Data
             UpdateForeshoreProperties();
         }
 
+        private static bool ValidProbabilityValue(double probability)
+        {
+            return !double.IsNaN(probability) && probability >= 0 && probability <= 1;
+        }
+
         #region Structure / calculation properties
 
         /// <summary>
@@ -236,11 +241,6 @@ namespace Ringtoets.StabilityPointStructures.Data
         public LoadSchematizationType LoadSchematizationType { get; set; }
 
         #endregion
-
-        private bool ValidProbabilityValue(double probability)
-        {
-            return !double.IsNaN(probability) && probability >= 0 && probability <= 1;
-        }
 
         #region Hydraulic data and loads
 
@@ -392,7 +392,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         #region Model Inputs and critical values
 
         /// <summary>
-        /// Gets or sets the model factor for super critical flow. 
+        /// Gets or sets the model factor for super critical flow.
         /// </summary>
         /// <remarks>Only sets the mean.</remarks>
         public NormalDistribution ModelFactorSuperCriticalFlow
@@ -610,6 +610,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets or sets the failure probability of repairing a closure.
         /// [1/year]
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the probability is not in interval [0,1].</exception>
         public double FailureProbabilityRepairClosure
         {
             get
@@ -678,7 +679,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the levelling count.
+        /// Gets or sets the leveling count.
         /// [1/year]
         /// </summary>
         public int LevelingCount { get; set; }
@@ -687,6 +688,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets or sets the probability of a secondary collision on the structure.
         /// [1/levelling]
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the probability is not in interval [0,1].</exception>
         public double ProbabilityCollisionSecondaryStructure
         {
             get
@@ -775,6 +777,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets or sets the failure probability of a structure with erosion.
         /// [1/year]
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the probability is not in interval [0,1].</exception>
         public double FailureProbabilityStructureWithErosion
         {
             get

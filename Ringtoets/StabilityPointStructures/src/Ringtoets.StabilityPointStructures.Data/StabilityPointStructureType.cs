@@ -25,7 +25,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.StabilityPointStructures.Data
 {
     /// <summary>
-    /// Defines the types of the various <see cref="StabilityPointStructure"/>
+    /// Defines the types of the various <see cref="StabilityPointStructure"/>.
     /// </summary>
     public enum StabilityPointStructureType
     {

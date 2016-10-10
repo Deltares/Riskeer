@@ -122,6 +122,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         # region Calculation inputs
+
         [Test]
         [TestCase(StabilityPointStructureType.LowSill)]
         [TestCase(StabilityPointStructureType.FloodedCulvert)]
@@ -151,6 +152,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.AreEqual(type, input.LoadSchematizationType);
         }
+
         #endregion
 
         #region Hydraulic loads and data
