@@ -1066,6 +1066,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valversnelling..
+        /// </summary>
+        public static string GravitationalAcceleration_Description {
+            get {
+                return ResourceManager.GetString("GravitationalAcceleration_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valversnelling [m/s²].
+        /// </summary>
+        public static string GravitationalAcceleration_DisplayName {
+            get {
+                return ResourceManager.GetString("GravitationalAcceleration_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hydraulische randvoorwaarden.
         /// </summary>
         public static string HydraulicBoundaryConditions_DisplayName {

@@ -172,26 +172,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valversnelling..
-        /// </summary>
-        public static string HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_Description {
-            get {
-                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_Descriptio" +
-                        "n", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valversnelling [m/s²].
-        /// </summary>
-        public static string HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_DisplayName {
-            get {
-                return ResourceManager.GetString("HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_DisplayNam" +
-                        "e", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Modelfactor voor het overslagdebiet..
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description {

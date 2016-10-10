@@ -224,8 +224,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         [PropertyOrder(55)]
         [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_Gravity_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_Gravity_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "GravitationalAcceleration_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "GravitationalAcceleration_Description")]
         public double Gravity
         {
             get

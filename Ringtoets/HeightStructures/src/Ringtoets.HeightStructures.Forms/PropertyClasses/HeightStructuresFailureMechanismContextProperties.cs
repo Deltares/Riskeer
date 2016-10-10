@@ -93,8 +93,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(gravitationalAccelerationPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_General")]
-        [ResourcesDisplayName(typeof(Resources), "HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "GravitationalAcceleration_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "GravitationalAcceleration_Description")]
         public RoundedDouble GravitationalAcceleration
         {
             get

@@ -147,12 +147,6 @@
   <data name="PipingInput_Diameter70_DisplayName" xml:space="preserve">
     <value>70%-fraktiel van de korreldiameter in de bovenste zandlaag [m]</value>
   </data>
-  <data name="GeneralPipingInput_Gravity_Description" xml:space="preserve">
-    <value>Valversnelling.</value>
-  </data>
-  <data name="GeneralPipingInput_Gravity_DisplayName" xml:space="preserve">
-    <value>Valversnelling [m/s²]</value>
-  </data>
   <data name="GeneralPipingInput_MeanDiameter70_Description" xml:space="preserve">
     <value>Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop de formule van Sellmeijer is gefit.</value>
   </data>

@@ -120,12 +120,6 @@
   <data name="HeightStructuresInputContext_NodeDisplayName" xml:space="preserve">
     <value>Invoer</value>
   </data>
-  <data name="HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_Description" xml:space="preserve">
-    <value>Valversnelling.</value>
-  </data>
-  <data name="HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_DisplayName" xml:space="preserve">
-    <value>Valversnelling [m/s²]</value>
-  </data>
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_Description" xml:space="preserve">
     <value>Modelfactor kombergend vermogen.</value>
   </data>

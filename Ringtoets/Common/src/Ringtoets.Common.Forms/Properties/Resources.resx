@@ -718,4 +718,10 @@
   <data name="Structure_CriticalOvertoppingDischarge_DisplayName" xml:space="preserve">
     <value>Kritiek instromend debiet [m³/s/m]</value>
   </data>
+  <data name="GravitationalAcceleration_Description" xml:space="preserve">
+    <value>Valversnelling.</value>
+  </data>
+  <data name="GravitationalAcceleration_DisplayName" xml:space="preserve">
+    <value>Valversnelling [m/s²]</value>
+  </data>
 </root>

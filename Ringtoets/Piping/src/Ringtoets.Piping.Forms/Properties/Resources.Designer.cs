@@ -235,24 +235,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valversnelling..
-        /// </summary>
-        public static string GeneralPipingInput_Gravity_Description {
-            get {
-                return ResourceManager.GetString("GeneralPipingInput_Gravity_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valversnelling [m/s²].
-        /// </summary>
-        public static string GeneralPipingInput_Gravity_DisplayName {
-            get {
-                return ResourceManager.GetString("GeneralPipingInput_Gravity_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop de formule van Sellmeijer is gefit..
         /// </summary>
         public static string GeneralPipingInput_MeanDiameter70_Description {
