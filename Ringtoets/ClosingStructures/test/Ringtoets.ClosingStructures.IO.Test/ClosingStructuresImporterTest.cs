@@ -67,7 +67,8 @@ namespace Ringtoets.ClosingStructures.IO.Test
             };
             ReferenceLine referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var structuresImporter = new ClosingStructuresImporter(new ObservableList<ClosingStructure>(), referenceLine, filePath);
+            var importTarget = new ObservableList<ClosingStructure>();
+            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath);
 
             // Call
             bool importResult = false;
@@ -88,6 +89,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
+            Assert.AreEqual(1, importTarget.Count);
         }
 
         [Test]
@@ -108,7 +110,8 @@ namespace Ringtoets.ClosingStructures.IO.Test
             };
             ReferenceLine referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
-            var structuresImporter = new ClosingStructuresImporter(new ObservableList<ClosingStructure>(), referenceLine, filePath);
+            var importTarget = new ObservableList<ClosingStructure>();
+            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath);
 
             // Call
             bool importResult = false;
@@ -133,6 +136,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
+            Assert.AreEqual(0, importTarget.Count);
         }
     }
 }
