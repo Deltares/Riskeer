@@ -208,7 +208,7 @@ namespace Ringtoets.ClosingStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans op open staan bij naderend hoogwater [-].
+        ///   Looks up a localized string similar to Kans op open staan bij naderend hoogwater [1/jaar].
         /// </summary>
         public static string ProbabilityOpenStructureBeforeFlooding_DisplayName {
             get {

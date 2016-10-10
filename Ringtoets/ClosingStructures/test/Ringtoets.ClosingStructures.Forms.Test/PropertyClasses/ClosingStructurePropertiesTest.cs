@@ -249,7 +249,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[probabilityOpenStructureBeforeFloodingPropertyIndex];
             Assert.IsTrue(probabilityOpenStructureBeforeFloodingProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, probabilityOpenStructureBeforeFloodingProperty.Category);
-            Assert.AreEqual("Kans op open staan bij naderend hoogwater [-]", probabilityOpenStructureBeforeFloodingProperty.DisplayName);
+            Assert.AreEqual("Kans op open staan bij naderend hoogwater [1/jaar]", probabilityOpenStructureBeforeFloodingProperty.DisplayName);
             Assert.AreEqual("Kans op open staan bij naderend hoogwater.", probabilityOpenStructureBeforeFloodingProperty.Description);
 
             PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[failureProbabilityOpenStructurePropertyIndex];
