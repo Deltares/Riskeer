@@ -37,7 +37,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         /// Creates a new instance of <see cref="ClosingStructuresCalculationContext"/>.
         /// </summary>
         /// <param name="wrappedData">The <see cref="ClosingStructuresCalculation"/> instance wrapped by this context object.</param>
-        /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism which the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
         public ClosingStructuresCalculationContext(ClosingStructuresCalculation wrappedData,

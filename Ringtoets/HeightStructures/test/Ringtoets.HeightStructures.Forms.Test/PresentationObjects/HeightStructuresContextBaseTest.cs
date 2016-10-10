@@ -40,19 +40,19 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var target = new ObservableObject();
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var context = new SimpleHeightStructuresContext<ObservableObject>(target, failureMechanism, assessmentSectionMock);
+            var context = new SimpleHeightStructuresContext<ObservableObject>(target, failureMechanism, assessmentSectionStub);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableObject>>(context);
             Assert.AreSame(target, context.WrappedData);
-            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
+            Assert.AreSame(assessmentSectionStub, context.AssessmentSection);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             mockRepository.VerifyAll();
         }
@@ -62,13 +62,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var observableObject = new ObservableObject();
 
             // Call
-            TestDelegate call = () => new SimpleHeightStructuresContext<ObservableObject>(observableObject, null, assessmentSectionMock);
+            TestDelegate call = () => new SimpleHeightStructuresContext<ObservableObject>(observableObject, null, assessmentSectionStub);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -99,9 +99,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();            
             mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var target = new ObservableObject();
             var failureMechanism = new HeightStructuresFailureMechanism();

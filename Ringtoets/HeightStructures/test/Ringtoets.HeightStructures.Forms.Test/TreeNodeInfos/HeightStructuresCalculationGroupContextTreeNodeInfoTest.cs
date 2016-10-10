@@ -67,7 +67,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         private const int contextMenuClearAllIndexNestedGroup = 5;
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO, "HydraulicBoundaryLocationReader");
 
-        private IGui guiMock;
+        private IGui guiStub;
         private TreeNodeInfo info;
         private MockRepository mocks;
         private HeightStructuresPlugin plugin;
@@ -76,10 +76,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void SetUp()
         {
             mocks = new MockRepository();
-            guiMock = mocks.Stub<IGui>();
+            guiStub = mocks.Stub<IGui>();
             plugin = new HeightStructuresPlugin
             {
-                Gui = guiMock
+                Gui = guiStub
             };
 
             info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(HeightStructuresCalculationGroupContext));
@@ -118,12 +118,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
-                                                                           assessmentSectionMock);
+                                                                           assessmentSectionStub);
 
             // Call
             var children = info.ChildNodeObjects(groupContext);
@@ -136,7 +136,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void ChildNodeObjects_GroupWithMixedContents_ReturnChildren()
         {
             // Setup
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var calculationItemMock = mocks.Stub<ICalculationBase>();
             mocks.ReplayAll();
 
@@ -151,7 +151,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
-                                                                           assessmentSectionMock);
+                                                                           assessmentSectionStub);
 
             // Call
             var children = info.ChildNodeObjects(groupContext).ToArray();
@@ -161,11 +161,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var calculationGroupContext = (HeightStructuresCalculationGroupContext) children[0];
             Assert.AreSame(childGroup, calculationGroupContext.WrappedData);
             Assert.AreSame(failureMechanism, calculationGroupContext.FailureMechanism);
-            Assert.AreSame(assessmentSectionMock, calculationGroupContext.AssessmentSection);
+            Assert.AreSame(assessmentSectionStub, calculationGroupContext.AssessmentSection);
             Assert.AreSame(calculationItemMock, children[1]);
             var calculationContext = (HeightStructuresCalculationContext) children[2];
             Assert.AreSame(childCalculation, calculationContext.WrappedData);
-            Assert.AreSame(assessmentSectionMock, calculationContext.AssessmentSection);
+            Assert.AreSame(assessmentSectionStub, calculationContext.AssessmentSection);
         }
 
         [Test]
@@ -174,10 +174,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
-                                                                           assessmentSectionMock);
+                                                                           assessmentSectionStub);
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -199,8 +199,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -217,16 +217,16 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
-                                                                           assessmentSectionMock);
+                                                                           assessmentSectionStub);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -281,17 +281,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.HeightStructures.Add(new TestHeightStructure());
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
-                                                                           assessmentSectionMock);
+                                                                           assessmentSectionStub);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -316,13 +316,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
-                                                                           assessmentSectionMock);
+                                                                           assessmentSectionStub);
             var parentGroupContext = new HeightStructuresCalculationGroupContext(parentGroup,
                                                                                  failureMechanism,
-                                                                                 assessmentSectionMock);
+                                                                                 assessmentSectionStub);
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -343,7 +343,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
+                guiStub.Expect(cmp => cmp.Get(groupContext, treeViewControl)).Return(menuBuilderMock);
 
                 mocks.ReplayAll();
 
@@ -361,20 +361,20 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var groupContext = new HeightStructuresCalculationGroupContext(group,
                                                                            failureMechanism,
-                                                                           assessmentSectionMock);
+                                                                           assessmentSectionStub);
             var parentGroupContext = new HeightStructuresCalculationGroupContext(parentGroup,
                                                                                  failureMechanism,
-                                                                                 assessmentSectionMock);
+                                                                                 assessmentSectionStub);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             mocks.ReplayAll();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                guiStub.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
@@ -415,7 +415,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
             var group = new CalculationGroup
             {
@@ -427,14 +427,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionMock);
+                                                                       assessmentSectionStub);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -470,19 +470,18 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             }));
             failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
 
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = null;
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionMock);
+                                                                       assessmentSectionStub);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -518,21 +517,21 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             }));
             failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
 
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionMock);
+                                                                       assessmentSectionStub);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
+
+                assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -575,21 +574,21 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             }));
             failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
 
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionMock);
+                                                                       assessmentSectionStub);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
+
+                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -608,7 +607,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
             var group = new CalculationGroup
             {
@@ -620,14 +619,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionMock);
+                                                                       assessmentSectionStub);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -663,18 +662,18 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             }));
             failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
 
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionMock);
+                                                                       assessmentSectionStub);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -710,21 +709,21 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             }));
             failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
 
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionMock);
+                                                                       assessmentSectionStub);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
+
+                assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
 
                 // Call
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -767,21 +766,21 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             }));
             failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
 
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionMock);
+                                                                       assessmentSectionStub);
 
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
+
+                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
                 // Call
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
@@ -835,22 +834,22 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var hydraulicBoundaryDatabaseStub = mocks.Stub<HydraulicBoundaryDatabase>();
             hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
 
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
-
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var groupContext = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                            failureMechanism,
-                                                                           assessmentSectionMock);
+                                                                           assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                guiMock.Expect(g => g.MainWindow).Return(mainWindowStub);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                guiStub.Expect(g => g.MainWindow).Return(mainWindowStub);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+
+                plugin.Gui = guiStub;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -921,21 +920,21 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var hydraulicBoundaryDatabaseStub = mocks.Stub<HydraulicBoundaryDatabase>();
             hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
 
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
-
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var groupContext = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                            failureMechanism,
-                                                                           assessmentSectionMock);
+                                                                           assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
-                plugin.Gui = guiMock;
+                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+
+                plugin.Gui = guiStub;
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
@@ -962,10 +961,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionMock);
+                                                                       assessmentSectionStub);
             var calculationGroup = new CalculationGroup
             {
                 Name = "Nieuwe map"
@@ -976,8 +975,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -1009,10 +1008,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionMock);
+                                                                       assessmentSectionStub);
             var calculation = new HeightStructuresCalculation
             {
                 Name = "Nieuwe berekening"
@@ -1022,8 +1021,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+                guiStub.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
 
                 mocks.ReplayAll();
 
@@ -1055,10 +1054,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionMock);
+                                                                       assessmentSectionStub);
             var calculation = new HeightStructuresCalculation
             {
                 Name = "Nieuwe berekening"
@@ -1071,15 +1070,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
+                guiStub.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
 
                 mocks.ReplayAll();
 
                 group.Children.Add(calculation);
                 nodeData.Attach(observerMock);
 
-                plugin.Gui = guiMock;
+                plugin.Gui = guiStub;
 
                 DialogBoxHandler = (name, wnd) =>
                 {
@@ -1104,15 +1103,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var observerMock = mocks.StrictMock<IObserver>();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionMock);
+                                                                       assessmentSectionStub);
             var parentNodeData = new HeightStructuresCalculationGroupContext(parentGroup,
                                                                              failureMechanism,
-                                                                             assessmentSectionMock);
+                                                                             assessmentSectionStub);
 
             observerMock.Expect(o => o.UpdateObserver());
 
@@ -1136,16 +1135,16 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             var observerMock = mocks.StrictMock<IObserver>();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
-                                                                       assessmentSectionMock);
+                                                                       assessmentSectionStub);
             var parentNodeData = new HeightStructuresCalculationGroupContext(parentGroup,
                                                                              failureMechanism,
-                                                                             assessmentSectionMock);
+                                                                             assessmentSectionStub);
             var calculation = new HeightStructuresCalculation();
 
             observerMock.Expect(o => o.UpdateObserver());

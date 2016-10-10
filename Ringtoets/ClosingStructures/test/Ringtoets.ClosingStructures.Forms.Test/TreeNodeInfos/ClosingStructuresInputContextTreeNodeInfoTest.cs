@@ -87,17 +87,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         [Test]
         public void Text_Always_ReturnsTextFromResource()
         {
-            // Setup
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var context = new ClosingStructuresInputContext(
-                new ClosingStructuresInput(),
-                new ClosingStructuresFailureMechanism(),
-                assessmentSectionMock);
-
             // Call
-            var text = info.Text(context);
+            var text = info.Text(null);
 
             // Assert
             Assert.AreEqual("Invoer", text);
@@ -106,17 +97,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         [Test]
         public void Image_Always_ReturnsSetImage()
         {
-            // Setup
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var context = new ClosingStructuresInputContext(
-                new ClosingStructuresInput(),
-                new ClosingStructuresFailureMechanism(),
-                assessmentSectionMock);
-
             // Call
-            var image = info.Image(context);
+            var image = info.Image(null);
 
             // Assert
             TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);

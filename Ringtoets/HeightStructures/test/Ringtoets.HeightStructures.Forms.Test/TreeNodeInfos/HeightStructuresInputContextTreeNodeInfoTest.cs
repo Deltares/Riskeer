@@ -88,13 +88,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             var heightStructuresInputContext = new HeightStructuresInputContext(
                 new HeightStructuresInput(),
                 new HeightStructuresFailureMechanism(),
-                assessmentSectionMock);
+                assessmentSectionStub);
 
             // Call
             var text = info.Text(heightStructuresInputContext);
@@ -107,13 +107,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();           
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();           
             mocksRepository.ReplayAll();
 
             var heightStructuresInputContext = new HeightStructuresInputContext(
                 new HeightStructuresInput(),
                 new HeightStructuresFailureMechanism(),
-                assessmentSectionMock);
+                assessmentSectionStub);
 
             // Call
             var image = info.Image(heightStructuresInputContext);

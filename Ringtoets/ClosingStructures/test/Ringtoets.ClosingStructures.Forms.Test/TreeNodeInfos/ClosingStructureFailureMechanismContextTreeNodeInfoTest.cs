@@ -82,26 +82,26 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         {
             // Setup
             mocksRepository.ReplayAll();
-            
-                // Assert
-                Assert.AreEqual(typeof(ClosingStructuresFailureMechanismContext), info.TagType);
-                Assert.IsNotNull(info.Text);
-                Assert.IsNotNull(info.ForeColor);
-                Assert.IsNotNull(info.Image);
-                Assert.IsNotNull(info.ChildNodeObjects);
-                Assert.IsNotNull(info.ContextMenuStrip);
-                Assert.IsNull(info.EnsureVisibleOnCreate);
-                Assert.IsNull(info.CanRename);
-                Assert.IsNull(info.OnNodeRenamed);
-                Assert.IsNull(info.CanRemove);
-                Assert.IsNull(info.OnNodeRemoved);
-                Assert.IsNull(info.CanCheck);
-                Assert.IsNull(info.IsChecked);
-                Assert.IsNull(info.OnNodeChecked);
-                Assert.IsNull(info.CanDrag);
-                Assert.IsNull(info.CanDrop);
-                Assert.IsNull(info.CanInsert);
-                Assert.IsNull(info.OnDrop);
+
+            // Assert
+            Assert.AreEqual(typeof(ClosingStructuresFailureMechanismContext), info.TagType);
+            Assert.IsNotNull(info.Text);
+            Assert.IsNotNull(info.ForeColor);
+            Assert.IsNotNull(info.Image);
+            Assert.IsNotNull(info.ChildNodeObjects);
+            Assert.IsNotNull(info.ContextMenuStrip);
+            Assert.IsNull(info.EnsureVisibleOnCreate);
+            Assert.IsNull(info.CanRename);
+            Assert.IsNull(info.OnNodeRenamed);
+            Assert.IsNull(info.CanRemove);
+            Assert.IsNull(info.OnNodeRemoved);
+            Assert.IsNull(info.CanCheck);
+            Assert.IsNull(info.IsChecked);
+            Assert.IsNull(info.OnNodeChecked);
+            Assert.IsNull(info.CanDrag);
+            Assert.IsNull(info.CanDrop);
+            Assert.IsNull(info.CanInsert);
+            Assert.IsNull(info.OnDrop);
         }
 
         [Test]
@@ -113,41 +113,41 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
-            
-                // Call
-                var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
 
-                // Assert
-                Assert.AreEqual(3, children.Length);
+            // Call
+            var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
 
-                var inputsFolder = (CategoryTreeFolder) children[0];
-                Assert.AreEqual("Invoer", inputsFolder.Name);
-                Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
-                Assert.AreEqual(3, inputsFolder.Contents.Count);
-                var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
-                Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
-                Assert.AreSame(assessmentSectionMock, failureMechanismSectionsContext.ParentAssessmentSection);
+            // Assert
+            Assert.AreEqual(3, children.Length);
 
-                var closingStructuresContext = (ClosingStructuresContext) inputsFolder.Contents[1];
-                Assert.AreSame(failureMechanism.ClosingStructures, closingStructuresContext.WrappedData);
-                Assert.AreSame(assessmentSectionMock, closingStructuresContext.AssessmentSection);
+            var inputsFolder = (CategoryTreeFolder) children[0];
+            Assert.AreEqual("Invoer", inputsFolder.Name);
+            Assert.AreEqual(TreeFolderCategory.Input, inputsFolder.Category);
+            Assert.AreEqual(3, inputsFolder.Contents.Count);
+            var failureMechanismSectionsContext = (FailureMechanismSectionsContext) inputsFolder.Contents[0];
+            Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
+            Assert.AreSame(assessmentSectionMock, failureMechanismSectionsContext.ParentAssessmentSection);
 
-                var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
-                Assert.AreSame(failureMechanism, commentContext.WrappedData);
+            var closingStructuresContext = (ClosingStructuresContext) inputsFolder.Contents[1];
+            Assert.AreSame(failureMechanism.ClosingStructures, closingStructuresContext.WrappedData);
+            Assert.AreSame(assessmentSectionMock, closingStructuresContext.AssessmentSection);
 
-                var calculationsFolder = (ClosingStructuresCalculationGroupContext) children[1];
-                Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
-                Assert.AreEqual(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);
-                Assert.AreEqual(failureMechanism, calculationsFolder.FailureMechanism);
+            var commentContext = (CommentContext<ICommentable>) inputsFolder.Contents[2];
+            Assert.AreSame(failureMechanism, commentContext.WrappedData);
 
-                var outputsFolder = (CategoryTreeFolder) children[2];
-                Assert.AreEqual("Oordeel", outputsFolder.Name);
-                Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-                Assert.AreEqual(1, outputsFolder.Contents.Count);
+            var calculationsFolder = (ClosingStructuresCalculationGroupContext) children[1];
+            Assert.AreEqual("Berekeningen", calculationsFolder.WrappedData.Name);
+            Assert.AreEqual(failureMechanism.CalculationsGroup, calculationsFolder.WrappedData);
+            Assert.AreEqual(failureMechanism, calculationsFolder.FailureMechanism);
 
-                var failureMechanismResultsContext = (FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>) outputsFolder.Contents[0];
-                Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
-                Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
+            var outputsFolder = (CategoryTreeFolder) children[2];
+            Assert.AreEqual("Oordeel", outputsFolder.Name);
+            Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
+            Assert.AreEqual(1, outputsFolder.Contents.Count);
+
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>) outputsFolder.Contents[0];
+            Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
+            Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
         }
 
         [Test]
@@ -163,14 +163,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             };
             var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
+            // Call
+            var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
 
-                // Call
-                var children = info.ChildNodeObjects(failureMechanismContext).ToArray();
-
-                // Assert
-                Assert.AreEqual(1, children.Length);
-                var commentContext = (CommentContext<ICommentable>) children[0];
-                Assert.AreSame(failureMechanism, commentContext.WrappedData);
+            // Assert
+            Assert.AreEqual(1, children.Length);
+            var commentContext = (CommentContext<ICommentable>) children[0];
+            Assert.AreSame(failureMechanism, commentContext.WrappedData);
         }
 
         [Test]
@@ -270,24 +269,24 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                     Assert.AreEqual(7, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
-                                                                  RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
-                                                                  RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                                                                  "I&s relevant",
+                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                   RingtoetsCommonFormsResources.Checkbox_ticked);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
-                                                                  RingtoetsCommonFormsResources.ValidateAll_No_calculations_to_validate,
+                                                                  "Alles &valideren",
+                                                                  "Er zijn geen berekeningen om te valideren.",
                                                                   RingtoetsCommonFormsResources.ValidateAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run,
+                                                                  "Alles be&rekenen",
+                                                                  "Er zijn geen berekeningen om uit te voeren.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndex,
-                                                                  RingtoetsCommonFormsResources.Clear_all_output,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
+                                                                  "&Wis alle uitvoer...",
+                                                                  "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
                 }
@@ -323,8 +322,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                     Assert.AreEqual(2, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotRelevant,
-                                                                  RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
-                                                                  RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant_Tooltip,
+                                                                  "I&s relevant",
+                                                                  "Geeft aan of dit toetsspoor relevant is of niet.",
                                                                   RingtoetsCommonFormsResources.Checkbox_empty);
                 }
             }
@@ -394,7 +393,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
@@ -419,16 +418,22 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                                  "Alles be&rekenen",
+                                                                  "Er is geen vakindeling geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
+                                                                  "Alles &valideren",
+                                                                  "Er is geen vakindeling geïmporteerd.",
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
                                                                   false);
                 }
             }
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
@@ -457,16 +462,22 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndex,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                                  "Alles be&rekenen",
+                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
+                                                                  false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
+                                                                  "Alles &valideren",
+                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
+                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
                                                                   false);
                 }
             }
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemCalculateAllDisabledAndTooltipSet()
+        public void ContextMenuStrip_FailureMechanismSectionsSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemCalculateAllAndValidateAllDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
@@ -495,18 +506,25 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
+                    ToolStripItem calculateAllContextMenuItem = contextMenu.Items[contextMenuCalculateAllIndex];
 
-                    Assert.AreEqual(RingtoetsCommonFormsResources.Calculate_all, contextMenuItem.Text);
-                    StringAssert.Contains(string.Format(RingtoetsCommonServicesResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
-                    Assert.IsFalse(contextMenuItem.Enabled);
+                    Assert.AreEqual("Alles be&rekenen", calculateAllContextMenuItem.Text);
+                    StringAssert.Contains(string.Format("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}", ""), calculateAllContextMenuItem.ToolTipText);
+                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, calculateAllContextMenuItem.Image);
+                    Assert.IsFalse(calculateAllContextMenuItem.Enabled);
+
+                    ToolStripItem validateAllContextMenuItem = contextMenu.Items[contextMenuValidateAllIndex];
+
+                    Assert.AreEqual("Alles &valideren", validateAllContextMenuItem.Text);
+                    StringAssert.Contains(string.Format("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}", ""), validateAllContextMenuItem.ToolTipText);
+                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateAllIcon, validateAllContextMenuItem.Image);
+                    Assert.IsFalse(validateAllContextMenuItem.Enabled);
                 }
             }
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicDatabaseSet_ContextMenuItemCalculateAllEnabled()
+        public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicDatabaseSet_ContextMenuItemCalculateAllAndValidateAllEnabled()
         {
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
@@ -544,167 +562,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndex,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.Calculate_all_ToolTip,
+                                                                  "Alles be&rekenen",
+                                                                  "Voer alle berekeningen binnen dit toetsspoor uit.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon);
-                }
-            }
-        }
 
-        [Test]
-        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new ClosingStructuresCalculation());
-            var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
-
-            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
-
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = guiMock;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
-            failureMechanism.CalculationsGroup.Children.Add(new ClosingStructuresCalculation());
-
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
-
-            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = guiMock;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndex,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemValidateAllDisabledAndTooltipSet()
-        {
-            // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
-            failureMechanism.CalculationsGroup.Children.Add(new ClosingStructuresCalculation());
-
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-
-            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = guiMock;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateAllIndex];
-
-                    Assert.AreEqual(RingtoetsCommonFormsResources.Validate_all, contextMenuItem.Text);
-                    StringAssert.Contains(string.Format(RingtoetsCommonServicesResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateAllIcon, contextMenuItem.Image);
-                    Assert.IsFalse(contextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicDatabaseSet_ContextMenuItemValidateAllEnabled()
-        {
-            // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
-            failureMechanism.CalculationsGroup.Children.Add(new ClosingStructuresCalculation());
-
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Version = "1.0"
-            };
-
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-
-            var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(g => g.Get(nodeData, treeViewControl)).Return(menuBuilder);
-
-                mocksRepository.ReplayAll();
-
-                plugin.Gui = guiMock;
-
-                // Call
-                using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndex,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
-                                                                  RingtoetsCommonFormsResources.FailureMechanism_Validate_all_ToolTip,
-                                                                  RingtoetsCommonFormsResources.ValidateAllIcon);
+                                                                 "Alles &valideren",
+                                                                 "Valideer alle berekeningen binnen dit toetsspoor.",
+                                                                 RingtoetsCommonFormsResources.ValidateAllIcon);
                 }
             }
         }

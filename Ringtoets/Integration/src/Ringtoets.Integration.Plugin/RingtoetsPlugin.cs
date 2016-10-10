@@ -612,7 +612,9 @@ namespace Ringtoets.Integration.Plugin
             };
 
             yield return RingtoetsTreeNodeInfoFactory.CreateEmptyProbabilityAssessmentOutputTreeNodeInfo(
-                EmptyProbabilityAssessmentOutputContextMenuStrip);
+                (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                              .AddPropertiesItem()
+                                                              .Build());
 
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<DuneErosionFailureMechanismSectionResult>();
             yield return CreateFailureMechanismSectionResultTreeNodeInfo<GrassCoverSlipOffOutwardsFailureMechanismSectionResult>();
@@ -1332,17 +1334,6 @@ namespace Ringtoets.Integration.Plugin
             affectedCalculations.ForEachElementDo(ac => ac.NotifyObservers());
 
             log.Info(RingtoetsFormsResources.Calculations_Cleared);
-        }
-
-        #endregion
-
-        #region EmptyProbabilityAssessmentOutput TreeNodeInfo
-
-        private ContextMenuStrip EmptyProbabilityAssessmentOutputContextMenuStrip(EmptyProbabilityAssessmentOutput output, object parentData, TreeViewControl treeViewControl)
-        {
-            var builder = new RingtoetsContextMenuBuilder(Gui.Get(output, treeViewControl));
-            return builder.AddPropertiesItem()
-                          .Build();
         }
 
         #endregion

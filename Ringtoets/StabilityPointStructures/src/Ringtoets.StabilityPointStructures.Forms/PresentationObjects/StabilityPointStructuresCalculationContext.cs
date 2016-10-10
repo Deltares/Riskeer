@@ -31,7 +31,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
     /// in order to prepare it for performing a calculation.
     /// </summary>
     public class StabilityPointStructuresCalculationContext : StabilityPointStructuresContextBase<StabilityPointStructuresCalculation>,
-                                                              ICalculationContext<StabilityPointStructuresCalculation, StabilityPointStructuresFailureMechanism>
+                                                              ICalculationContext<StabilityPointStructuresCalculation,
+                                                                  StabilityPointStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationContext"/>.

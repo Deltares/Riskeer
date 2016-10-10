@@ -44,7 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void ConstructorWithData_Always_ExpectedPropertiesSet()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             var input = new GrassCoverErosionInwardsInput();
@@ -52,14 +52,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var context = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionMock);
+            var context = new GrassCoverErosionInwardsInputContext(input, calculation, failureMechanism, assessmentSectionStub);
 
             // Assert
             Assert.IsInstanceOf<GrassCoverErosionInwardsContext<GrassCoverErosionInwardsInput>>(context);
             Assert.AreSame(input, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
-            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
+            Assert.AreSame(assessmentSectionStub, context.AssessmentSection);
             mocksRepository.VerifyAll();
         }
 
@@ -67,14 +67,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         public void Constructor_NullCalculation_ThrowsArgumentNullException()
         {
             // Setup
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
             var input = new GrassCoverErosionInwardsInput();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsInputContext(input, null, failureMechanism, assessmentSectionMock);
+            TestDelegate test = () => new GrassCoverErosionInwardsInputContext(input, null, failureMechanism, assessmentSectionStub);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);

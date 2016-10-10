@@ -40,19 +40,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var target = new ObservableObject();
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
             // Call
-            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanism, assessmentSectionMock);
+            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanism, assessmentSectionStub);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableObject>>(context);
             Assert.AreSame(target, context.WrappedData);
-            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
+            Assert.AreSame(assessmentSectionStub, context.AssessmentSection);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             CollectionAssert.IsEmpty(context.AvailableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
@@ -63,13 +63,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var observableObject = new ObservableObject();
 
             // Call
-            TestDelegate call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, null, assessmentSectionMock);
+            TestDelegate call = () => new SimpleGrassCoverErosionInwardsContext<ObservableObject>(observableObject, null, assessmentSectionStub);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -100,13 +100,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
 
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             var target = new ObservableObject();
-            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanism, assessmentSectionMock);
+            var context = new SimpleGrassCoverErosionInwardsContext<ObservableObject>(target, failureMechanism, assessmentSectionStub);
 
             // Call
             var availableHydraulicBoundaryLocations = context.AvailableHydraulicBoundaryLocations;

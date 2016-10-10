@@ -27,16 +27,16 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
 {
     /// <summary>
     /// Presentation object for all data required to configure an instance of <see cref="ClosingStructuresInput"/>
-    /// in order to be able to configure height structures calculations.
+    /// in order to be able to configure closing structures calculations.
     /// </summary>
     public class ClosingStructuresInputContext : ClosingStructuresContextBase<ClosingStructuresInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresInputContext"/>.
         /// </summary>
-        /// <param name="input">The height structures input instance wrapped by this context object.</param>
-        /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
-        /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
+        /// <param name="input">The closing structures input instance wrapped by this context object.</param>
+        /// <param name="failureMechanism">The failure mechanism which the calculation belongs to.</param>
+        /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
         public ClosingStructuresInputContext(ClosingStructuresInput input,
                                              ClosingStructuresFailureMechanism failureMechanism,

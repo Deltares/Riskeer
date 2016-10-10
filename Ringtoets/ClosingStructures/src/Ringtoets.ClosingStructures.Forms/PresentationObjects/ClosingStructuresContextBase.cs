@@ -37,8 +37,8 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         /// Initializes a new instance of <see cref="ClosingStructuresContextBase{T}"/>.
         /// </summary>
         /// <param name="wrappedData">The concrete data instance wrapped by the context object.</param>
-        /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
-        /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
+        /// <param name="failureMechanism">The failure mechanism which the wrapped data belongs to.</param>
+        /// <param name="assessmentSection">The assessment section which the wrapped data belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are <c>null</c>.</exception>
         protected ClosingStructuresContextBase(T wrappedData,
                                                ClosingStructuresFailureMechanism failureMechanism,
