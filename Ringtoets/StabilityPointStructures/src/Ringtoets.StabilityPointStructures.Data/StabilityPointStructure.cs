@@ -72,7 +72,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <param name="shipMassCoefficientOfVariation">The coefficient of variation of the mass of the ship.</param>
         /// <param name="shipVelocityMean">The mean velocity of the ship.</param>
         /// <param name="shipVelocityCoefficientOfVariation">The coefficient of variation of the velocity of the ship.</param>
-        /// <param name="levellingCount">Number of levellings per year.</param>
+        /// <param name="levellingCount">The levelling count.</param>
         /// <param name="probabilityCollisionSecondaryStructure">The chance per levelling at a collision with the second retaining structure.</param>
         /// <param name="flowVelocityStructureClosableMean">The mean maximum flow velocity at which the structure is closable.</param>
         /// <param name="flowVelocityStructureClosableStandardDeviation">The standard deviation of the maximum flow velocity at which the structure is closable.</param>
@@ -311,7 +311,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         public VariationCoefficientNormalDistribution ShipVelocity { get; private set; }
 
         /// <summary>
-        /// Gets the number of levelling count.
+        /// Gets the levelling count.
         /// </summary>
         public int LevellingCount { get; private set; }
 

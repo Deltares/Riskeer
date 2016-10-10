@@ -41,7 +41,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateHeightStructuresParameters_ParameterIdsMissingOrDuplicated_ExpectedValues()
+        public void ValidateHeightStructuresParameters_ParameterIdsMissingOrDuplicated_ValidIsFalseAndErrorMessages()
         {
             // Setup
             var structuresParameterRow = new StructuresParameterRow
@@ -76,7 +76,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateHeightStructuresParameters_ParametersAllInvalid_ExpectedValues()
+        public void ValidateHeightStructuresParameters_ParametersAllInvalid_ValidIsFalseAndErrorMessages()
         {
             // Setup
             List<StructuresParameterRow> structureParameterRows = new List<StructuresParameterRow>
@@ -179,7 +179,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateClosingStructuresParameters_ParameterIdsMissingOrDuplicated_ExpectedValues()
+        public void ValidateClosingStructuresParameters_ParameterIdsMissingOrDuplicated_ValidIsFalseAndErrorMessages()
         {
             // Setup
             var structuresParameterRow = new StructuresParameterRow
@@ -221,7 +221,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateClosingStructuresParameters_ParametersAllInvalid_ExpectedValues()
+        public void ValidateClosingStructuresParameters_ParametersAllInvalid_ValidIsFalseAndErrorMessages()
         {
             // Setup
             List<StructuresParameterRow> structureParameterRows = new List<StructuresParameterRow>
@@ -379,7 +379,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateStabilityPointStructuresParameters_ParameterIdsMissingOrDuplicated_ExpectedValues()
+        public void ValidateStabilityPointStructuresParameters_ParameterIdsMissingOrDuplicated_ValidIsFalseAndErrorMessages()
         {
             // Setup
             var structuresParameterRow = new StructuresParameterRow
@@ -432,7 +432,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
-        public void ValidateStabilityPointStructuresParameters_ParametersAllInvalid_ExpectedValues()
+        public void ValidateStabilityPointStructuresParameters_ParametersAllInvalid_ValidIsFalseAndErrorMessages()
         {
             // Setup
             List<StructuresParameterRow> structureParameterRows = new List<StructuresParameterRow>
