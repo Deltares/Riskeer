@@ -82,7 +82,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De afwijking van de golfrichting..
+        ///   Looks up a localized string similar to Afwijking van de golfrichting..
         /// </summary>
         public static string DeviationWaveDirection_Description {
             get {
@@ -91,7 +91,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Afwijking van de golfrichting [°].
+        ///   Looks up a localized string similar to Afwijking golfrichting [°].
         /// </summary>
         public static string DeviationWaveDirection_DisplayName {
             get {
@@ -172,7 +172,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De valversnelling van de zwaartekracht..
+        ///   Looks up a localized string similar to Valversnelling..
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_Description {
             get {
@@ -192,7 +192,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het modelfactor overslagdebiet..
+        ///   Looks up a localized string similar to Modelfactor voor het overslagdebiet..
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description {
             get {
@@ -212,7 +212,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het modelfactor kombergingsvolume..
+        ///   Looks up a localized string similar to Modelfactor kombergend vermogen..
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_Description {
             get {
@@ -222,7 +222,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modelfactor kombergingsvolume [-].
+        ///   Looks up a localized string similar to Modelfactor kombergend vermogen [-].
         /// </summary>
         public static string HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_DisplayName {
             get {
@@ -250,7 +250,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het modelfactor van overloopdebiet bij superkritische stroming..
+        ///   Looks up a localized string similar to Modelfactor voor het overloopdebiet over een volkomen overlaat..
         /// </summary>
         public static string ModelFactorSuperCriticalFlow_Description {
             get {
@@ -259,7 +259,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modelfactor van overloopdebiet bij superkritische stroming [-].
+        ///   Looks up a localized string similar to Modelfactor overloopdebiet volkomen overlaat [-].
         /// </summary>
         public static string ModelFactorSuperCriticalFlow_DisplayName {
             get {
@@ -268,7 +268,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De duur van de storm..
+        ///   Looks up a localized string similar to Stormduur..
         /// </summary>
         public static string StormDuration_Description {
             get {

@@ -121,19 +121,19 @@
     <value>Invoer</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_Description" xml:space="preserve">
-    <value>De valversnelling van de zwaartekracht.</value>
+    <value>Valversnelling.</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_GravitationalAcceleration_DisplayName" xml:space="preserve">
     <value>Valversnelling [m/s²]</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_Description" xml:space="preserve">
-    <value>Het modelfactor kombergingsvolume.</value>
+    <value>Modelfactor kombergend vermogen.</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_DisplayName" xml:space="preserve">
-    <value>Modelfactor kombergingsvolume [-]</value>
+    <value>Modelfactor kombergend vermogen [-]</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description" xml:space="preserve">
-    <value>Het modelfactor overslagdebiet.</value>
+    <value>Modelfactor voor het overslagdebiet.</value>
   </data>
   <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName" xml:space="preserve">
     <value>Modelfactor overslagdebiet [-]</value>
@@ -151,13 +151,13 @@
     <value>Kerende hoogte [m+NAP]</value>
   </data>
   <data name="ModelFactorSuperCriticalFlow_Description" xml:space="preserve">
-    <value>Het modelfactor van overloopdebiet bij superkritische stroming.</value>
+    <value>Modelfactor voor het overloopdebiet over een volkomen overlaat.</value>
   </data>
   <data name="ModelFactorSuperCriticalFlow_DisplayName" xml:space="preserve">
-    <value>Modelfactor van overloopdebiet bij superkritische stroming [-]</value>
+    <value>Modelfactor overloopdebiet volkomen overlaat [-]</value>
   </data>
   <data name="StormDuration_Description" xml:space="preserve">
-    <value>De duur van de storm.</value>
+    <value>Stormduur.</value>
   </data>
   <data name="StormDuration_DisplayName" xml:space="preserve">
     <value>Stormduur [uur]</value>
@@ -187,9 +187,9 @@
     <value>Selecteer kunstwerken</value>
   </data>
   <data name="DeviationWaveDirection_Description" xml:space="preserve">
-    <value>De afwijking van de golfrichting.</value>
+    <value>Afwijking van de golfrichting.</value>
   </data>
   <data name="DeviationWaveDirection_DisplayName" xml:space="preserve">
-    <value>Afwijking van de golfrichting [°]</value>
+    <value>Afwijking golfrichting [°]</value>
   </data>
 </root>

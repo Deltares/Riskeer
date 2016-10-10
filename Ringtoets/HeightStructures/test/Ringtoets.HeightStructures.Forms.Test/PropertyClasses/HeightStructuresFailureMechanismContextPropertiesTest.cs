@@ -158,7 +158,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(gravitationalAccelerationProperty.IsReadOnly);
             Assert.AreEqual(generalCategory, gravitationalAccelerationProperty.Category);
             Assert.AreEqual("Valversnelling [m/s²]", gravitationalAccelerationProperty.DisplayName);
-            Assert.AreEqual("De valversnelling van de zwaartekracht.", gravitationalAccelerationProperty.Description);
+            Assert.AreEqual("Valversnelling.", gravitationalAccelerationProperty.Description);
 
             PropertyDescriptor lengthEffectProperty = dynamicProperties[lengthEffectPropertyIndex];
             Assert.IsNotNull(lengthEffectProperty);
@@ -173,15 +173,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(modelFactorOvertoppingFlowProperty.IsReadOnly);
             Assert.AreEqual(modelSettingsCategory, modelFactorOvertoppingFlowProperty.Category);
             Assert.AreEqual("Modelfactor overslagdebiet [-]", modelFactorOvertoppingFlowProperty.DisplayName);
-            Assert.AreEqual("Het modelfactor overslagdebiet.", modelFactorOvertoppingFlowProperty.Description);
+            Assert.AreEqual("Modelfactor voor het overslagdebiet.", modelFactorOvertoppingFlowProperty.Description);
 
             PropertyDescriptor modelFactorStorageVolumeProperty = dynamicProperties[modelFactorStorageVolumePropertyIndex];
             Assert.IsNotNull(modelFactorStorageVolumeProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorStorageVolumeProperty.Converter);
             Assert.IsTrue(modelFactorStorageVolumeProperty.IsReadOnly);
             Assert.AreEqual(modelSettingsCategory, modelFactorStorageVolumeProperty.Category);
-            Assert.AreEqual("Modelfactor kombergingsvolume [-]", modelFactorStorageVolumeProperty.DisplayName);
-            Assert.AreEqual("Het modelfactor kombergingsvolume.", modelFactorStorageVolumeProperty.Description);
+            Assert.AreEqual("Modelfactor kombergend vermogen [-]", modelFactorStorageVolumeProperty.DisplayName);
+            Assert.AreEqual("Modelfactor kombergend vermogen.", modelFactorStorageVolumeProperty.Description);
 
             mockRepository.VerifyAll();
         }

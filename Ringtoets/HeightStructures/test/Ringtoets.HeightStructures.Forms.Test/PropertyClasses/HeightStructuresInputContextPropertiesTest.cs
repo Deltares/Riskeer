@@ -489,8 +489,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[modelFactorSuperCriticalFlowPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
             Assert.AreEqual(modelSettingsCategory, modelFactorSuperCriticalFlowProperty.Category);
-            Assert.AreEqual("Modelfactor van overloopdebiet bij superkritische stroming [-]", modelFactorSuperCriticalFlowProperty.DisplayName);
-            Assert.AreEqual("Het modelfactor van overloopdebiet bij superkritische stroming.", modelFactorSuperCriticalFlowProperty.Description);
+            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", modelFactorSuperCriticalFlowProperty.DisplayName);
+            Assert.AreEqual("Modelfactor voor het overloopdebiet over een volkomen overlaat.", modelFactorSuperCriticalFlowProperty.Description);
 
             PropertyDescriptor foreshoreProfileProperty = dynamicProperties[foreshoreProfilePropertyIndex];
             Assert.IsFalse(foreshoreProfileProperty.IsReadOnly);
@@ -522,12 +522,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(stormDurationProperty.Converter);
             Assert.AreEqual(hydraulicDataCategory, stormDurationProperty.Category);
             Assert.AreEqual("Stormduur [uur]", stormDurationProperty.DisplayName);
-            Assert.AreEqual("De duur van de storm.", stormDurationProperty.Description);
+            Assert.AreEqual("Stormduur.", stormDurationProperty.Description);
 
             PropertyDescriptor deviationWaveDirectionProperty = dynamicProperties[deviationWaveDirectionPropertyIndex];
             Assert.AreEqual(hydraulicDataCategory, deviationWaveDirectionProperty.Category);
-            Assert.AreEqual("Afwijking van de golfrichting [°]", deviationWaveDirectionProperty.DisplayName);
-            Assert.AreEqual("De afwijking van de golfrichting.", deviationWaveDirectionProperty.Description);
+            Assert.AreEqual("Afwijking golfrichting [°]", deviationWaveDirectionProperty.DisplayName);
+            Assert.AreEqual("Afwijking van de golfrichting.", deviationWaveDirectionProperty.Description);
 
             mockRepository.VerifyAll();
         }
