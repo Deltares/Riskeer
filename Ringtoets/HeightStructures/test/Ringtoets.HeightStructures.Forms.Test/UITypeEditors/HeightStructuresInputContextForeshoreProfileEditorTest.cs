@@ -48,7 +48,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
         }
 
         [Test]
-        public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
+        public void EditValue_NoCurrentItemInAvailableItems_ReturnsNullValue()
         {
             // Setup
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
@@ -85,7 +85,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
             var result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
 
             // Assert
-            Assert.AreSame(someValue, result);
+            Assert.IsNull(result);
             mockRepository.VerifyAll();
         }
 

@@ -481,7 +481,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             PropertyDescriptor failureProbabilityStructureWithErosionProperty = dynamicProperties[failureProbabilityStructureWithErosionPropertyIndex];
             Assert.IsFalse(failureProbabilityStructureWithErosionProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, failureProbabilityStructureWithErosionProperty.Category);
-            Assert.AreEqual("Faalkans kunstwerk gegeven erosie bodem [-]", failureProbabilityStructureWithErosionProperty.DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", failureProbabilityStructureWithErosionProperty.DisplayName);
             Assert.AreEqual("De faalkans van het kunstwerk gegeven de erosie in de bodem.", failureProbabilityStructureWithErosionProperty.Description);
 
             PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[modelFactorSuperCriticalFlowPropertyIndex];

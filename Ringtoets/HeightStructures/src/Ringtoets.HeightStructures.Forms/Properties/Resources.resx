@@ -142,7 +142,7 @@
     <value>De faalkans van het kunstwerk gegeven de erosie in de bodem.</value>
   </data>
   <data name="FailureProbabilityStructureWithErosion_DisplayName" xml:space="preserve">
-    <value>Faalkans kunstwerk gegeven erosie bodem [-]</value>
+    <value>Faalkans gegeven erosie bodem [1/jaar]</value>
   </data>
   <data name="LevelCrestStructure_Description" xml:space="preserve">
     <value>De kerende hoogte van het kunstwerk.</value>

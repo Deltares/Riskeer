@@ -118,7 +118,7 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Faalkans kunstwerk gegeven erosie bodem [-].
+        ///   Looks up a localized string similar to Faalkans gegeven erosie bodem [1/jaar].
         /// </summary>
         public static string FailureProbabilityStructureWithErosion_DisplayName {
             get {
