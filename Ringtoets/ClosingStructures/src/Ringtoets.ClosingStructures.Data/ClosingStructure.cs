@@ -40,8 +40,8 @@ namespace Ringtoets.ClosingStructures.Data
         /// <param name="location">The location of the closing structure.</param>
         /// <param name="storageStructureAreaMean">The mean of the storage area of the closing structure.</param>
         /// <param name="storageStructureAreaCoefficientOfVariation">The coefficient of variation of the storage area of the closing structure.</param>
-        /// <param name="allowedLevelIncreaseStorageMean">The mean allowed increase of level for storage of the closing structure.</param>
-        /// <param name="allowedLevelIncreaseStorageStandardDeviation">The standard deviation of allowed increase of level for storage of the closing structure.</param>
+        /// <param name="allowedLevelIncreaseStorageMean">The mean of the allowed increase of level for storage of the closing structure.</param>
+        /// <param name="allowedLevelIncreaseStorageStandardDeviation">The standard deviation of the allowed increase of level for storage of the closing structure.</param>
         /// <param name="structureNormalOrientation">The orientation of the closing structure, relative to north.</param>
         /// <param name="widthFlowAperturesMean">The mean of the width of the flow apertures of the closing structure.</param>
         /// <param name="widthFlowAperturesCoefficientOfVariation">The coefficient of variation of the width of the flow apertures of the closing structure.</param>
@@ -65,7 +65,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
         /// , empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when any parameter is out of range.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When any stochastic variable parameter is out if its valid domain.</exception>
         public ClosingStructure(string name, string id, Point2D location,
                                 double storageStructureAreaMean, double storageStructureAreaCoefficientOfVariation,
                                 double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation,

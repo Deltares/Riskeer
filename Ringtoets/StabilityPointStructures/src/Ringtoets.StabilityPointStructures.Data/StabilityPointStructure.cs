@@ -41,8 +41,8 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <param name="structureNormalOrientation">The orientation of the stability point structure, relative to north.</param>
         /// <param name="storageStructureAreaMean">The mean of the storage area of the stability point structure.</param>
         /// <param name="storageStructureAreaCoefficientOfVariation">The coefficient of variation of the storage area of the stability point structure.</param>
-        /// <param name="allowedLevelIncreaseStorageMean">The mean allowed increase of level for storage of the stability point structure.</param>
-        /// <param name="allowedLevelIncreaseStorageStandardDeviation">The standard deviation of allowed increase of level for storage of the stability point structure.</param>
+        /// <param name="allowedLevelIncreaseStorageMean">The mean of the allowed increase of level for storage of the stability point structure.</param>
+        /// <param name="allowedLevelIncreaseStorageStandardDeviation">The standard deviation of the allowed increase of level for storage of the stability point structure.</param>
         /// <param name="widthFlowAperturesMean">The mean of the width of the flow apertures of the stability point structure.</param>
         /// <param name="widthFlowAperturesCoefficientOfVariation">The coefficient of variation of the width of the flow apertures of the stability point structure.</param>
         /// <param name="insideWaterLevelMean">The mean interior water level of the stability point structure.</param>
@@ -86,6 +86,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
         /// , empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When any stochastic variable parameter is out if its valid domain.</exception>
         public StabilityPointStructure(string name, string id, Point2D location,
                                        double structureNormalOrientation,
                                        double storageStructureAreaMean, double storageStructureAreaCoefficientOfVariation,
