@@ -136,15 +136,6 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuwe berekening.
-        /// </summary>
-        public static string PipingCalculation_DefaultName {
-            get {
-                return ResourceManager.GetString("PipingCalculation_DefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to STPH.
         /// </summary>
         public static string PipingFailureMechanism_DisplayCode {

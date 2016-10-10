@@ -40,9 +40,9 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
-using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properties.Resources;
 using ClosingStructuresFormsResources = Ringtoets.ClosingStructures.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Plugin
@@ -124,7 +124,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             yield return new TreeNodeInfo<ClosingStructuresInputContext>
             {
-                Text = inputContext => ClosingStructuresFormsResources.ClosingStructuresInputContext_NodeDisplayName,
+                Text = inputContext => RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                 Image = inputContext => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
@@ -351,7 +351,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             var calculation = new ClosingStructuresCalculation
             {
-                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, ClosingStructuresDataResources.ClosingStructuresCalculation_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RingtoetsCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
             context.WrappedData.Children.Add(calculation);
             context.WrappedData.NotifyObservers();

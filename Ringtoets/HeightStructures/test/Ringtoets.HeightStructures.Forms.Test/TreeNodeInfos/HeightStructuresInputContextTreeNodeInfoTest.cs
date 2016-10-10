@@ -100,7 +100,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var text = info.Text(heightStructuresInputContext);
 
             // Assert
-            Assert.AreEqual(HeightStructuresFormsResources.HeightStructuresInputContext_NodeDisplayName, text);
+            Assert.AreEqual("Invoer", text);
         }
 
         [Test]

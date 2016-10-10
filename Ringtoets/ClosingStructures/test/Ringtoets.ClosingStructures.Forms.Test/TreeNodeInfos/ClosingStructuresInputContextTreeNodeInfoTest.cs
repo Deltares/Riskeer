@@ -100,7 +100,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var text = info.Text(context);
 
             // Assert
-            Assert.AreEqual(ClosingStructuresFormsResources.ClosingStructuresInputContext_NodeDisplayName, text);
+            Assert.AreEqual("Invoer", text);
         }
 
         [Test]

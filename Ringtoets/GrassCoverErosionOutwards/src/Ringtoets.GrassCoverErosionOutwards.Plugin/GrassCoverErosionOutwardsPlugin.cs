@@ -23,7 +23,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -52,9 +51,7 @@ using Ringtoets.GrassCoverErosionOutwards.Service;
 using Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using Ringtoets.Revetment.Service;
 using RingtoetsGrassCoverErosionOutwardsFormsResources = Ringtoets.GrassCoverErosionOutwards.Forms.Properties.Resources;
-using RingtoetsGrassCoverErosionOutwardsDataResources = Ringtoets.GrassCoverErosionOutwards.Data.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonIoResources = Ringtoets.Common.IO.Properties.Resources;
@@ -694,7 +691,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children,
-                                                  RingtoetsGrassCoverErosionOutwardsDataResources.GrassCoverErosionOutwardsWaveConditionsCalculation_DefaultName,
+                                                  RingtoetsCommonDataResources.Calculation_DefaultName,
                                                   c => c.Name)
             };
             nodeData.WrappedData.Children.Add(calculation);

@@ -24,7 +24,6 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
-using Ringtoets.WaveImpactAsphaltCover.Data.Properties;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
 {
@@ -41,7 +40,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data.Test
             Assert.IsInstanceOf<ICalculation>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
 
-            Assert.AreEqual(Resources.WaveImpactAsphaltCoverWaveConditionsCalculation_DefaultName, calculation.Name);
+            Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsFalse(calculation.HasOutput);
             Assert.IsNull(calculation.Comments);

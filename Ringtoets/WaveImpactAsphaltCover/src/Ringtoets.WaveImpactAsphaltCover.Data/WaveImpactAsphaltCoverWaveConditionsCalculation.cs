@@ -22,7 +22,7 @@
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
-using Ringtoets.WaveImpactAsphaltCover.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Data
 {
@@ -36,7 +36,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         /// </summary>
         public WaveImpactAsphaltCoverWaveConditionsCalculation()
         {
-            Name = Resources.WaveImpactAsphaltCoverWaveConditionsCalculation_DefaultName;
+            Name = RingtoetsCommonDataResources.Calculation_DefaultName;
             InputParameters = new WaveConditionsInput();
         }
 

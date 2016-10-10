@@ -22,7 +22,7 @@
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.StabilityPointStructures.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Data
 {
@@ -36,7 +36,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// </summary>
         public StabilityPointStructuresCalculation()
         {
-            Name = Resources.StabilityPointStructuresCalculation_DefaultName;
+            Name = RingtoetsCommonDataResources.Calculation_DefaultName;
             InputParameters = new StabilityPointStructuresInput();
         }
 

@@ -21,8 +21,8 @@
 
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionOutwards.Data.Properties;
 using Ringtoets.Revetment.Data;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Data
 {
@@ -36,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data
         /// </summary>
         public GrassCoverErosionOutwardsWaveConditionsCalculation()
         {
-            Name = Resources.GrassCoverErosionOutwardsWaveConditionsCalculation_DefaultName;
+            Name = RingtoetsCommonDataResources.Calculation_DefaultName;
             InputParameters = new WaveConditionsInput();
         }
 

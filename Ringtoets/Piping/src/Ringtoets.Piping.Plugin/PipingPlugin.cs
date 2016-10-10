@@ -701,7 +701,7 @@ namespace Ringtoets.Piping.Plugin
         {
             var calculation = new PipingCalculationScenario(nodeData.FailureMechanism.GeneralInput)
             {
-                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children, PipingDataResources.PipingCalculation_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children, RingtoetsCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
 
             nodeData.WrappedData.Children.Add(calculation);

@@ -82,15 +82,6 @@ namespace Ringtoets.ClosingStructures.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nieuwe berekening.
-        /// </summary>
-        public static string ClosingStructuresCalculation_DefaultName {
-            get {
-                return ResourceManager.GetString("ClosingStructuresCalculation_DefaultName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to BSKW.
         /// </summary>
         public static string ClosingStructuresFailureMechanism_Code {

@@ -126,7 +126,4 @@
   <data name="ClosingStructureType_VerticalWall_DisplayName" xml:space="preserve">
     <value>Verticale wand</value>
   </data>
-  <data name="ClosingStructuresCalculation_DefaultName" xml:space="preserve">
-    <value>Nieuwe berekening</value>
-  </data>
 </root>

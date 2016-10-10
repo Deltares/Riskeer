@@ -126,7 +126,4 @@
   <data name="GrassCoverErosionOutwardsFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Grasbekleding erosie buitentalud</value>
   </data>
-  <data name="GrassCoverErosionOutwardsWaveConditionsCalculation_DefaultName" xml:space="preserve">
-    <value>Nieuwe berekening</value>
-  </data>
 </root>

@@ -22,7 +22,7 @@
 using System;
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Piping.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.Piping.Data
 {
@@ -39,7 +39,7 @@ namespace Ringtoets.Piping.Data
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="generalInputParameters"/> is <c>null</c>.</exception>
         public PipingCalculation(GeneralPipingInput generalInputParameters)
         {
-            Name = Resources.PipingCalculation_DefaultName;
+            Name = RingtoetsCommonDataResources.Calculation_DefaultName;
 
             InputParameters = new PipingInput(generalInputParameters);
         }

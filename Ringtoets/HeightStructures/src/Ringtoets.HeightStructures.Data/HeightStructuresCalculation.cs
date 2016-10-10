@@ -22,7 +22,7 @@
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.HeightStructures.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Data
 {
@@ -37,7 +37,7 @@ namespace Ringtoets.HeightStructures.Data
         public HeightStructuresCalculation()
         {
             InputParameters = new HeightStructuresInput();
-            Name = Resources.HeightStructuresCalculation_DefaultName;
+            Name = RingtoetsCommonDataResources.Calculation_DefaultName;
         }
 
         /// <summary>

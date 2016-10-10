@@ -123,9 +123,6 @@
   <data name="LoadSchematizationType_Quadratic_DisplayName" xml:space="preserve">
     <value>Kwadratisch</value>
   </data>
-  <data name="StabilityPointStructuresCalculation_DefaultName" xml:space="preserve">
-    <value>Nieuwe berekening</value>
-  </data>
   <data name="StabilityPointStructuresFailureMechanism_Code" xml:space="preserve">
     <value>STKWp</value>
   </data>

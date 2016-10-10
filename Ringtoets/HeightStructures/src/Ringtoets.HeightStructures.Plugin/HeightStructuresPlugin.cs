@@ -48,7 +48,6 @@ using Ringtoets.HeightStructures.Service;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using HeightStructuresDataResources = Ringtoets.HeightStructures.Data.Properties.Resources;
 using HeightStructuresFormsResources = Ringtoets.HeightStructures.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
@@ -117,7 +116,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
             yield return new TreeNodeInfo<HeightStructuresInputContext>
             {
-                Text = inputContext => HeightStructuresFormsResources.HeightStructuresInputContext_NodeDisplayName,
+                Text = inputContext => RingtoetsCommonFormsResources.FailureMechanism_Inputs_DisplayName,
                 Image = inputContext => RingtoetsCommonFormsResources.GenericInputOutputIcon,
                 ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
                                                                                  .AddPropertiesItem()
@@ -460,7 +459,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             var calculation = new HeightStructuresCalculation
             {
-                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, HeightStructuresDataResources.HeightStructuresCalculation_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RingtoetsCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
             context.WrappedData.Children.Add(calculation);
             context.WrappedData.NotifyObservers();

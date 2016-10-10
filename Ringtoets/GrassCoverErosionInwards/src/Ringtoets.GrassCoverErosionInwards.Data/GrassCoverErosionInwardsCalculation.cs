@@ -22,7 +22,7 @@
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
-using Ringtoets.GrassCoverErosionInwards.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
@@ -36,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public GrassCoverErosionInwardsCalculation()
         {
-            Name = Resources.GrassCoverErosionInwardsCalculation_DefaultName;
+            Name = RingtoetsCommonDataResources.Calculation_DefaultName;
             InputParameters = new GrassCoverErosionInwardsInput();
         }
 

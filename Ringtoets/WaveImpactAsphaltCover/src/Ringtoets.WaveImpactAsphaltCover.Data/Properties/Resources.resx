@@ -123,7 +123,4 @@
   <data name="WaveImpactAsphaltCoverFailureMechanism_DisplayName" xml:space="preserve">
     <value>Dijken en dammen - Golfklappen op asfaltbekleding</value>
   </data>
-  <data name="WaveImpactAsphaltCoverWaveConditionsCalculation_DefaultName" xml:space="preserve">
-    <value>Nieuwe berekening</value>
-  </data>
 </root>

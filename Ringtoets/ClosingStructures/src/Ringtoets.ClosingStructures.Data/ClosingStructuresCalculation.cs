@@ -37,7 +37,7 @@ namespace Ringtoets.ClosingStructures.Data
         public ClosingStructuresCalculation()
         {
             InputParameters = new ClosingStructuresInput();
-            Name = Resources.ClosingStructuresCalculation_DefaultName;
+            Name = Resources.Calculation_DefaultName;
         }
 
         /// <summary>

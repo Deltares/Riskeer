@@ -45,7 +45,6 @@ using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using Ringtoets.GrassCoverErosionInwards.Service;
 using Ringtoets.GrassCoverErosionInwards.Utils;
 using Ringtoets.HydraRing.IO;
-using GrassCoverErosionInwardsDataResources = Ringtoets.GrassCoverErosionInwards.Data.Properties.Resources;
 using GrassCoverErosionInwardsFormsResources = Ringtoets.GrassCoverErosionInwards.Forms.Properties.Resources;
 using GrassCoverErosionInwardsPluginResources = Ringtoets.GrassCoverErosionInwards.Plugin.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -534,7 +533,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             var calculation = new GrassCoverErosionInwardsCalculation
             {
-                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, GrassCoverErosionInwardsDataResources.GrassCoverErosionInwardsCalculation_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RingtoetsCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
             context.WrappedData.Children.Add(calculation);
             context.WrappedData.NotifyObservers();

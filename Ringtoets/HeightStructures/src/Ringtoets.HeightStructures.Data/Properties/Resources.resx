@@ -123,7 +123,4 @@
   <data name="HeightStructuresFailureMechanism_DisplayName" xml:space="preserve">
     <value>Kunstwerken - Hoogte kunstwerk</value>
   </data>
-  <data name="HeightStructuresCalculation_DefaultName" xml:space="preserve">
-    <value>Nieuwe berekening</value>
-  </data>
 </root>

@@ -219,7 +219,7 @@
   <data name="FailureProbability_Value_needs_to_be_between_0_and_1" xml:space="preserve">
     <value>De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.</value>
   </data>
-  <data name="ClosingStructuresCalculation_DefaultName" xml:space="preserve">
+  <data name="Calculation_DefaultName" xml:space="preserve">
     <value>Nieuwe berekening</value>
   </data>
   <data name="CoefficientOfVariation_Should_be_greater_or_equal_to_zero" xml:space="preserve">

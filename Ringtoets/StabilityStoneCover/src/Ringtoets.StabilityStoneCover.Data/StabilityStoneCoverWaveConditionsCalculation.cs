@@ -22,7 +22,7 @@
 using Core.Common.Base;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Revetment.Data;
-using Ringtoets.StabilityStoneCover.Data.Properties;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Data
 {
@@ -36,7 +36,7 @@ namespace Ringtoets.StabilityStoneCover.Data
         /// </summary>
         public StabilityStoneCoverWaveConditionsCalculation()
         {
-            Name = Resources.StabilityStoneCoverWaveConditionsCalculation_DefaultName;
+            Name = RingtoetsCommonDataResources.Calculation_DefaultName;
             InputParameters = new WaveConditionsInput();
         }
 

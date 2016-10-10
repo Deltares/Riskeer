@@ -41,7 +41,6 @@ using Ringtoets.StabilityPointStructures.IO;
 using Ringtoets.StabilityPointStructures.Plugin.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
-using StabilityPointStructuresDataResources = Ringtoets.StabilityPointStructures.Data.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
 
@@ -398,7 +397,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             var calculation = new StabilityPointStructuresCalculation
             {
-                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, StabilityPointStructuresDataResources.StabilityPointStructuresCalculation_DefaultName, c => c.Name)
+                Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RingtoetsCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
             context.WrappedData.Children.Add(calculation);
             context.WrappedData.NotifyObservers();

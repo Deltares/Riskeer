@@ -22,7 +22,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
@@ -38,7 +37,6 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.HydraRing.IO;
-using Ringtoets.Revetment.Service;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Forms;
 using Ringtoets.WaveImpactAsphaltCover.Forms.PresentationObjects;
@@ -46,10 +44,10 @@ using Ringtoets.WaveImpactAsphaltCover.Forms.PropertyClasses;
 using Ringtoets.WaveImpactAsphaltCover.Forms.Views;
 using Ringtoets.WaveImpactAsphaltCover.IO;
 using Ringtoets.WaveImpactAsphaltCover.Service;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsRevetmentServiceResources = Ringtoets.Revetment.Service.Properties.Resources;
-using WaveImpactAsphaltCoverDataResources = Ringtoets.WaveImpactAsphaltCover.Data.Properties.Resources;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 {
@@ -418,7 +416,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = NamingHelper.GetUniqueName(nodeData.WrappedData.Children,
-                                                  WaveImpactAsphaltCoverDataResources.WaveImpactAsphaltCoverWaveConditionsCalculation_DefaultName,
+                                                  RingtoetsCommonDataResources.Calculation_DefaultName,
                                                   c => c.Name)
             };
             nodeData.WrappedData.Children.Add(calculation);

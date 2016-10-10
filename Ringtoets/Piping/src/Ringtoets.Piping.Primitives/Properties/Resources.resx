@@ -135,9 +135,6 @@
   <data name="RingtoetsPipingSurfaceLine_Collection_of_points_for_geometry_is_null" xml:space="preserve">
     <value>De geometrie die opgegeven werd voor de profielschematisatie heeft geen waarde.</value>
   </data>
-  <data name="PipingCalculation_DefaultName" xml:space="preserve">
-    <value>Nieuwe berekening</value>
-  </data>
   <data name="RingtoetsPipingSurfaceLine_0_L_needs_to_be_in_1_2_range" xml:space="preserve">
     <value>{0} De lokale coördinaat moet in het bereik [{1}, {2}] liggen.</value>
   </data>
