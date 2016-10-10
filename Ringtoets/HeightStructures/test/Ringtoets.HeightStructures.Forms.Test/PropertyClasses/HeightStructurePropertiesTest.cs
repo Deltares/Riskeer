@@ -35,11 +35,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int locationPropertyIndex = 1;
         private const int structureNormalOrientationPropertyIndex = 2;
-        private const int levelCrestStructurePropertyIndex = 3;
-        private const int allowedLevelIncreaseStoragePropertyIndex = 4;
+        private const int flowWidthAtBottomProtectionPropertyIndex = 3;
+        private const int widthFlowAperturesPropertyIndex = 4;
         private const int storageStructureAreaPropertyIndex = 5;
-        private const int flowWidthAtBottomProtectionPropertyIndex = 6;
-        private const int widthFlowAperturesPropertyIndex = 7;
+        private const int allowedLevelIncreaseStoragePropertyIndex = 6;
+        private const int levelCrestStructurePropertyIndex = 7;
         private const int criticalOvertoppingDischargePropertyIndex = 8;
         private const int failureProbabilityStructureWithErosionPropertyIndex = 9;
 
