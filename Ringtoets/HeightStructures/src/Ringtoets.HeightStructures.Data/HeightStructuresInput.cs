@@ -56,10 +56,9 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         public HeightStructuresInput()
         {
-            failureProbabilityStructureWithErosion = 1.0;
-
             levelCrestStructure = new NormalDistribution(2)
             {
+                Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
@@ -79,7 +78,7 @@ namespace Ringtoets.HeightStructures.Data
 
             storageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) 1.0,
+                Mean = (RoundedDouble) double.NaN,
                 CoefficientOfVariation = (RoundedDouble) 0.1
             };
 
@@ -91,16 +90,19 @@ namespace Ringtoets.HeightStructures.Data
 
             criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) 1.0,
+                Mean = (RoundedDouble) double.NaN,
                 CoefficientOfVariation = (RoundedDouble) 0.15
             };
 
+            failureProbabilityStructureWithErosion = double.NaN;
+
             widthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
+                Mean = (RoundedDouble) double.NaN,
                 CoefficientOfVariation = (RoundedDouble) 0.05
             };
 
-            deviationWaveDirection = new RoundedDouble(2);
+            deviationWaveDirection = new RoundedDouble(2, double.NaN);
 
             stormDuration = new VariationCoefficientLogNormalDistribution(2)
             {

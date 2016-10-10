@@ -28,11 +28,13 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         public TestHeightStructuresCalculation()
         {
             InputParameters.LevelCrestStructure.Mean = (RoundedDouble) 5.74;
+            InputParameters.StorageStructureArea.Mean = (RoundedDouble) 1.0;
             InputParameters.StructureNormalOrientation = (RoundedDouble) 115;
             InputParameters.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) 1.0;
             InputParameters.FlowWidthAtBottomProtection.Mean = (RoundedDouble) 18;
             InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) 1;
             InputParameters.WidthFlowApertures.Mean = (RoundedDouble) 18;
+            InputParameters.FailureProbabilityStructureWithErosion = 1.0;
             InputParameters.DeviationWaveDirection = (RoundedDouble) 0;
         }
     }
