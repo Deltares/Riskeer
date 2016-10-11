@@ -737,7 +737,7 @@
     <value>Kerende hoogte [m+NAP]</value>
   </data>
   <data name="Structure_ThresholdHeightOpenWeir_Description" xml:space="preserve">
-    <value>Drempelhoogte niet gesloten kering.</value>
+    <value>Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.</value>
   </data>
   <data name="Structure_ThresholdHeightOpenWeir_DisplayName" xml:space="preserve">
     <value>Drempelhoogte [m+NAP]</value>

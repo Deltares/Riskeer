@@ -1839,7 +1839,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Drempelhoogte niet gesloten kering..
+        ///   Looks up a localized string similar to Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.
         /// </summary>
         public static string Structure_ThresholdHeightOpenWeir_Description {
             get {
