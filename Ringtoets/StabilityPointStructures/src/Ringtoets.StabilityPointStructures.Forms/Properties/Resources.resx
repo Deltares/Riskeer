@@ -121,7 +121,7 @@
     <value>Instroommodel van het kunstwerk.</value>
   </data>
   <data name="StabilityPointStructureInflowModelType_DisplayName" xml:space="preserve">
-    <value>Instroommodel</value>
+    <value>Instroommodel [-]</value>
   </data>
   <data name="Structure_BankWidth_Description" xml:space="preserve">
     <value>Bermbreedte.</value>
@@ -181,7 +181,7 @@
     <value>Kans op aanvaring tweede keermiddel per nivellering.</value>
   </data>
   <data name="Structure_ProbabilityCollisionSecondaryStructure_DisplayName" xml:space="preserve">
-    <value>Kans op aanvaring tweede keermiddel per nivellering [1/niveau]</value>
+    <value>Kans op aanvaring tweede keermiddel per nivellering [1/niv]</value>
   </data>
   <data name="Structure_ShipMass_Description" xml:space="preserve">
     <value>Massa van het schip.</value>

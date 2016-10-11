@@ -257,7 +257,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor stabilityPointStructureTypeProperty = dynamicProperties[stabilityPointStructureInflowModelTypePropertyIndex];
             Assert.IsInstanceOf<EnumConverter>(stabilityPointStructureTypeProperty.Converter);
             Assert.AreEqual(schematizationCategory, stabilityPointStructureTypeProperty.Category);
-            Assert.AreEqual("Instroommodel", stabilityPointStructureTypeProperty.DisplayName);
+            Assert.AreEqual("Instroommodel [-]", stabilityPointStructureTypeProperty.DisplayName);
             Assert.AreEqual("Instroommodel van het kunstwerk.", stabilityPointStructureTypeProperty.Description);
 
             PropertyDescriptor widthFlowAperturesProperty = dynamicProperties[widthFlowAperturesPropertyIndex];
@@ -366,7 +366,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor probabilityCollisionSecondaryStructureProperty = dynamicProperties[probabilityCollisionSecondaryStructurePropertyIndex];
             Assert.AreEqual(schematizationCategory, probabilityCollisionSecondaryStructureProperty.Category);
-            Assert.AreEqual("Kans op aanvaring tweede keermiddel per nivellering [1/niveau]", probabilityCollisionSecondaryStructureProperty.DisplayName);
+            Assert.AreEqual("Kans op aanvaring tweede keermiddel per nivellering [1/niv]", probabilityCollisionSecondaryStructureProperty.DisplayName);
             Assert.AreEqual("Kans op aanvaring tweede keermiddel per nivellering.", probabilityCollisionSecondaryStructureProperty.Description);
 
             PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[flowVelocityStructureClosablePropertyIndex];

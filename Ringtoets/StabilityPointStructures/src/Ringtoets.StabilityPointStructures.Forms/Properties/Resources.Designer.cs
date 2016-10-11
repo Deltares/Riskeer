@@ -91,7 +91,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instroommodel.
+        ///   Looks up a localized string similar to Instroommodel [-].
         /// </summary>
         internal static string StabilityPointStructureInflowModelType_DisplayName {
             get {
@@ -271,7 +271,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans op aanvaring tweede keermiddel per nivellering [1/niveau].
+        ///   Looks up a localized string similar to Kans op aanvaring tweede keermiddel per nivellering [1/niv].
         /// </summary>
         internal static string Structure_ProbabilityCollisionSecondaryStructure_DisplayName {
             get {
