@@ -64,6 +64,11 @@ namespace Core.Common.TestUtil
 
         public static class Ringtoets
         {
+            public static class ClosingStructures
+            {
+                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "ClosingStructures", "test", "Ringtoets.ClosingStructures.IO.Test");
+            }
+
             public static class Common
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Common", "test", "Ringtoets.Common.IO.Test");
@@ -82,11 +87,6 @@ namespace Core.Common.TestUtil
             public static class HeightStructures
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "HeightStructures", "test", "Ringtoets.HeightStructures.IO.Test");
-            }
-
-            public static class ClosingStructures
-            {
-                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "ClosingStructures", "test", "Ringtoets.ClosingStructures.IO.Test");
             }
 
             public static class HydraRing
@@ -111,6 +111,11 @@ namespace Core.Common.TestUtil
             public static class Revetment
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Revetment", "test", "Ringtoets.Revetment.IO.Test");
+            }
+
+            public static class StabilityPointStructures
+            {
+                public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "StabilityPointStructures", "test", "Ringtoets.StabilityPointStructures.IO.Test");
             }
 
             public static class StabilityStoneCover

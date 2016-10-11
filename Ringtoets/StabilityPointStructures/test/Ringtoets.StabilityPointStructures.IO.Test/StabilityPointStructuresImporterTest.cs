@@ -94,6 +94,81 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         }
 
         [Test]
+        public void Import_VarianceValuesNeedConversion_WarnUserAboutConversion()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityPointStructures.IO,
+                                                         Path.Combine("StructuresVarianceValueConversion", "Kunstwerken.shp"));
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(131144.094, 549979.893),
+                new Point2D(131538.705, 548316.752),
+                new Point2D(135878.442, 532149.859),
+                new Point2D(131225.017, 548395.948),
+                new Point2D(131270.38, 548367.462),
+                new Point2D(131507.119, 548322.951)
+            };
+            ReferenceLine referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+
+            var importTarget = new ObservableList<StabilityPointStructure>();
+            var structuresImporter = new StabilityPointStructuresImporter(importTarget, referenceLine, filePath);
+
+            // Call
+            bool importResult = false;
+            Action call = () => importResult = structuresImporter.Import();
+
+            // Assert
+            string[] expectedMessages =
+            {
+                "De variatie voor parameter 'KW_STERSTAB2' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 26).",
+                "De variatie voor parameter 'KW_STERSTAB3' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 27).",
+                "De variatie voor parameter 'KW_STERSTAB4' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 28).",
+                "De variatie voor parameter 'KW_STERSTAB5' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 29).",
+                "De variatie voor parameter 'KW_STERSTAB6' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 30).",
+                "De variatie voor parameter 'KW_STERSTAB7' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 31).",
+                "De variatie voor parameter 'KW_STERSTAB8' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 32).",
+                "De variatie voor parameter 'KW_STERSTAB9' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 33).",
+                "De variatie voor parameter 'KW_STERSTAB10' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 34).",
+                "De variatie voor parameter 'KW_STERSTAB11' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 35).",
+                "De variatie voor parameter 'KW_STERSTAB12' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 36).",
+                "De variatie voor parameter 'KW_STERSTAB14' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 38).",
+                "De variatie voor parameter 'KW_STERSTAB17' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 41).",
+                "De variatie voor parameter 'KW_STERSTAB18' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 42).",
+                "De variatie voor parameter 'KW_STERSTAB19' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 43).",
+                "De variatie voor parameter 'KW_STERSTAB22' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 46).",
+                "De variatie voor parameter 'KW_STERSTAB23' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 47).",
+                "De variatie voor parameter 'KW_STERSTAB24' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 48).",
+                "De variatie voor parameter 'KW_STERSTAB25' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 49)."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+            Assert.IsTrue(importResult);
+
+            Assert.AreEqual(1, importTarget.Count);
+            StabilityPointStructure structure = importTarget[0];
+            Assert.AreEqual(0.5, structure.StorageStructureArea.CoefficientOfVariation.Value);
+            Assert.AreEqual(2, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+            Assert.AreEqual(1, structure.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(4, structure.InsideWaterLevel.StandardDeviation.Value);
+            Assert.AreEqual(6, structure.ThresholdHeightOpenWeir.StandardDeviation.Value);
+            Assert.AreEqual(1.5, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
+            Assert.AreEqual(8, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
+            Assert.AreEqual(2, structure.ConstructiveStrengthLinearModel.CoefficientOfVariation.Value);
+            Assert.AreEqual(2.5, structure.ConstructiveStrengthQuadraticModel.CoefficientOfVariation.Value);
+            Assert.AreEqual(10, structure.BankWidth.StandardDeviation.Value);
+            Assert.AreEqual(12, structure.InsideWaterLevelFailureConstruction.StandardDeviation.Value);
+            Assert.AreEqual(14, structure.LevelCrestStructure.StandardDeviation.Value);
+            Assert.AreEqual(3.5, structure.FailureCollisionEnergy.CoefficientOfVariation.Value);
+            Assert.AreEqual(4, structure.ShipMass.CoefficientOfVariation.Value);
+            Assert.AreEqual(4.5, structure.ShipVelocity.CoefficientOfVariation.Value);
+            Assert.AreEqual(18, structure.FlowVelocityStructureClosable.StandardDeviation.Value);
+            Assert.AreEqual(5, structure.StabilityLinearModel.CoefficientOfVariation.Value);
+            Assert.AreEqual(5.5, structure.StabilityQuadraticModel.CoefficientOfVariation.Value);
+            Assert.AreEqual(22, structure.AreaFlowApertures.StandardDeviation.Value);
+        }
+
+        [Test]
         public void Import_InvalidCsvFile_LogAndTrue()
         {
             // Setup
