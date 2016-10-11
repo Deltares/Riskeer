@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
@@ -37,6 +38,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup 
+            var criticalFlowRate = new LogNormalDistribution(4)
+            {
+                Mean = (RoundedDouble) 0.004,
+                StandardDeviation = (RoundedDouble) 0.0006
+            };
+
             // Call
             var input = new GrassCoverErosionInwardsInput();
 
@@ -58,13 +66,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsNull(input.HydraulicBoundaryLocation);
             Assert.IsFalse(input.CalculateDikeHeight);
 
-            var criticalFlowRate = new LogNormalDistribution(4)
-            {
-                Mean = new RoundedDouble(4, 0.004),
-                StandardDeviation = new RoundedDouble(4, 0.0006)
-            };
-            Assert.AreEqual(criticalFlowRate.Mean, input.CriticalFlowRate.Mean);
-            Assert.AreEqual(criticalFlowRate.StandardDeviation, input.CriticalFlowRate.StandardDeviation);
+            DistributionAssert.AreEqual(criticalFlowRate, input.CriticalFlowRate);
         }
 
         [Test]
