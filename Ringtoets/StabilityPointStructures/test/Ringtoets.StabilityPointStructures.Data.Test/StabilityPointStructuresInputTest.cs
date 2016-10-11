@@ -155,7 +155,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
         #endregion
 
-        #region Hydraulic loads and data
+        #region Hydraulic data
 
         [Test]
         public void Properties_HydraulicBoundaryLocation_ExpectedValues()

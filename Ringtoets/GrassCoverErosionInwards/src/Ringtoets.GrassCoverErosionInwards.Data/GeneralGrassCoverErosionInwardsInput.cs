@@ -102,7 +102,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
 
         #endregion
 
-        #region Model Factors
+        #region Model factors
 
         /// <summary>
         /// Gets the model factor critical overtopping.

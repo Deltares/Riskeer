@@ -223,7 +223,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             return !double.IsNaN(probability) && probability >= 0 && probability <= 1;
         }
 
-        #region Structure / calculation properties
+        #region Structure / calculation
 
         /// <summary>
         /// Gets or sets the stability point structure.
@@ -242,7 +242,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         #endregion
 
-        #region Hydraulic data and loads
+        #region Hydraulic data
 
         /// <summary>
         /// Gets or sets the hydraulic boundary location from which to use the assessment level.

@@ -76,36 +76,43 @@ namespace Ringtoets.HeightStructures.Data
 
         /// <summary>
         /// Gets the crest level of the height structure.
+        /// [m+NAP]
         /// </summary>
         public NormalDistribution LevelCrestStructure { get; private set; }
 
         /// <summary>
         /// Gets the flow width of the height structure at the bottom protection.
+        /// [m]
         /// </summary>
         public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
 
         /// <summary>
         /// Gets the critical overtopping discharge of the height structure.
+        /// [m^3/s/m]
         /// </summary>
         public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
 
         /// <summary>
         /// Gets the flow apertures width of the height structure.
+        /// [m]
         /// </summary>
         public VariationCoefficientNormalDistribution WidthFlowApertures { get; private set; }
 
         /// <summary>
         /// Gets the failure probability of the height structure, given erosion.
+        /// [1/year]
         /// </summary>
         public double FailureProbabilityStructureWithErosion { get; private set; }
 
         /// <summary>
         /// Gets the storage area of the height structure.
+        /// [m^2]
         /// </summary>
         public VariationCoefficientLogNormalDistribution StorageStructureArea { get; private set; }
 
         /// <summary>
         /// Gets the allowed increase of level for storage of the height structure.
+        /// [m]
         /// </summary>
         public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
 
@@ -129,36 +136,43 @@ namespace Ringtoets.HeightStructures.Data
 
             /// <summary>
             /// Gets the crest level of the height structure.
+            /// [m+NAP]
             /// </summary>
             public NormalDistribution LevelCrestStructure { get; private set; }
 
             /// <summary>
             /// Gets the flow width of the height structure at the bottom protection.
+            /// [m]
             /// </summary>
             public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
 
             /// <summary>
             /// Gets the critical overtopping discharge of the height structure.
+            /// [m^3/s/m]
             /// </summary>
             public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
 
             /// <summary>
             /// Gets the flow apertures width of the height structure.
+            /// [m]
             /// </summary>
             public VariationCoefficientNormalDistribution WidthFlowApertures { get; private set; }
 
             /// <summary>
             /// Gets the failure probability of the height structure, given erosion.
+            /// [1/year]
             /// </summary>
             public double FailureProbabilityStructureWithErosion { get; set; }
 
             /// <summary>
             /// Gets the storage area of the height structure.
+            /// [m^2]
             /// </summary>
             public VariationCoefficientLogNormalDistribution StorageStructureArea { get; private set; }
 
             /// <summary>
             /// Gets the allowed increase of level for storage of the height structure.
+            /// [m]
             /// </summary>
             public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
         }

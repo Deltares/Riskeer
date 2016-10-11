@@ -64,7 +64,7 @@ namespace Ringtoets.Piping.Data
 
         #endregion
 
-        #region Model Factors
+        #region Model factors
 
         /// <summary>
         /// Gets the calculation value used to account for uncertainty in the model for uplift.

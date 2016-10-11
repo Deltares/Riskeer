@@ -111,7 +111,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #endregion
 
-        #region Model Factors
+        #region Model factors
 
         [PropertyOrder(11)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]

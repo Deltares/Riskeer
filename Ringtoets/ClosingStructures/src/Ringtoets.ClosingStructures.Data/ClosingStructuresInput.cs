@@ -147,12 +147,12 @@ namespace Ringtoets.ClosingStructures.Data
             UpdateForeshoreProperties();
         }
 
-        private bool ValidProbabilityValue(double probability)
+        private static bool ValidProbabilityValue(double probability)
         {
             return !double.IsNaN(probability) && probability <= 1 && probability >= 0;
         }
 
-        #region Structure properties
+        #region Structure
 
         /// <summary>
         /// Gets or sets the closing structure.
@@ -166,7 +166,7 @@ namespace Ringtoets.ClosingStructures.Data
 
         #endregion
 
-        #region Model Factors
+        #region Model factors
 
         /// <summary>
         /// Gets or sets the model factor for the super critical flow.
@@ -217,7 +217,7 @@ namespace Ringtoets.ClosingStructures.Data
 
         #endregion
 
-        #region Hydraulic load and data properties
+        #region Hydraulic data
 
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 

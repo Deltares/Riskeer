@@ -105,7 +105,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         #endregion
 
-        #region Model Factors
+        #region Model factors
 
         /// <summary>
         /// Gets the model factor for the storage volume.

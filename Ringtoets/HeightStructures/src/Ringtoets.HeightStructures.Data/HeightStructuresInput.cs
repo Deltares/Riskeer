@@ -114,7 +114,12 @@ namespace Ringtoets.HeightStructures.Data
             UpdateForeshoreProperties();
         }
 
-        #region Model Factors
+        private static bool ValidProbabilityValue(double probability)
+        {
+            return !double.IsNaN(probability) && probability <= 1 && probability >= 0;
+        }
+
+        #region Model factors
 
         /// <summary>
         /// Gets or sets the model factor for super critical flow.
@@ -134,12 +139,7 @@ namespace Ringtoets.HeightStructures.Data
 
         #endregion
 
-        private static bool ValidProbabilityValue(double probability)
-        {
-            return !double.IsNaN(probability) && probability <= 1 && probability >= 0;
-        }
-
-        #region Hydraulic pressure
+        #region Hydraulic data
 
         /// <summary>
         /// Gets or sets the hydraulic boundary location from which to use the assessment level.
