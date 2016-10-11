@@ -1,4 +1,4 @@
-Namespace;Identificatie;Versie;Kunstwerken.identificatie;Parameter.code;Parameter.omschrijving;Grootheid.code;Grootheid.omschrijving;Eenheid.code;Eenheid.omschrijving;Hoedanigheid.code;Hoedanigheid.omschrijving;Waardebepalingsmethode.code;Waardebepalingsmethode.codespace;Waardebewerkingsmethode.code;Waardebewerkingsmethode.codespace;AlphanumeriekeWaarde;NumeriekeWaarde;Boolean;Kwaliteitsoordeel.code
+Namespace;Identificatie;Versie;Kunstwerken.identificatie;Parameter.code;Parameter.omschrijving;Grootheid.code;Grootheid.omschrijving;Eenheid.code;Eenheid.omschrijving;Hoedanigheid.code;Hoedanigheid.omschrijving;Waardebepalingsmethode.code;Waardebepalingsmethode.codespace;Waardebewerkingsmethode.code;Waardebewerkingsmethode.codespace;AlfanumeriekeWaarde;NumeriekeWaarde;Boolean;Kwaliteitsoordeel.code
 12;KUNST1;1;KW_HOOGTE1;KUNSTW;Kunstwerk;ORIENTATIE;Oriëntatie;grad;graden;;;Schematiseringshandleiding;;;;;45;0;
 12;KUNST1;1;KW_HOOGTE2;KRUIN;Kruin;NIVEAU;Niveau;m;meter;;;Schematiseringshandleiding;;;;;5.9;1;
 12;KUNST1;1;KW_HOOGTE3;STROM;Stroming;BREEDTE;Breedte;m;meter;;;Schematiseringshandleiding;;;;;18.5;1;

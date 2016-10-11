@@ -140,7 +140,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         [Test]
         [TestCase("InvalidFile_LocationIdMissing.csv")]
         [TestCase("InvalidFile_ParameterIdMissing.csv")]
-        [TestCase("InvalidFile_AlphanumericValueMissing.csv")]
+        [TestCase("InvalidFile_AlfanumericValueMissing.csv")]
         [TestCase("InvalidFile_NumericValueMissing.csv")]
         [TestCase("InvalidFile_VarianceValueMissing.csv")]
         [TestCase("InvalidFile_BooleanMissing.csv")]
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedHeaderColumnsText = "identificatie, kunstwerken.identificatie, alphanumeriekewaarde, numeriekewaarde, standarddeviatie.variance, boolean";
+                string expectedHeaderColumnsText = "identificatie, kunstwerken.identificatie, alfanumeriekewaarde, numeriekewaarde, standarddeviatie.variance, boolean";
                 string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen (Verwachte koptekst moet de volgende kolommen bevatten: {1}.",
                                                        filePath, expectedHeaderColumnsText);
                 Assert.AreEqual(expectedMessage, message);
@@ -226,7 +226,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         [Test]
         [TestCase("InvalidFile_DuplicateLocationId.csv", "identificatie")]
         [TestCase("InvalidFile_DuplicateParameterId.csv", "kunstwerken.identificatie")]
-        [TestCase("InvalidFile_DuplicateAlphanumericValue.csv", "alphanumeriekewaarde")]
+        [TestCase("InvalidFile_DuplicateAlfanumericValue.csv", "alfanumeriekewaarde")]
         [TestCase("InvalidFile_DuplicateNumericalValue.csv", "numeriekewaarde")]
         [TestCase("InvalidFile_DuplicateVarianceValue.csv", "standarddeviatie.variance")]
         [TestCase("InvalidFile_DuplicateBoolean.csv", "boolean")]
@@ -310,7 +310,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         [Test]
         [TestCase("InvalidFile_LocationIdMissing.csv")]
         [TestCase("InvalidFile_ParameterIdMissing.csv")]
-        [TestCase("InvalidFile_AlphanumericValueMissing.csv")]
+        [TestCase("InvalidFile_AlfanumericValueMissing.csv")]
         [TestCase("InvalidFile_NumericValueMissing.csv")]
         [TestCase("InvalidFile_VarianceValueMissing.csv")]
         [TestCase("InvalidFile_BooleanMissing.csv")]
@@ -329,7 +329,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedHeaderColumnsText = "identificatie, kunstwerken.identificatie, alphanumeriekewaarde, numeriekewaarde, standarddeviatie.variance, boolean";
+                string expectedHeaderColumnsText = "identificatie, kunstwerken.identificatie, alfanumeriekewaarde, numeriekewaarde, standarddeviatie.variance, boolean";
                 string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen (Verwachte koptekst moet de volgende kolommen bevatten: {1}.",
                                                        filePath, expectedHeaderColumnsText);
                 Assert.AreEqual(expectedMessage, message);
@@ -339,7 +339,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         [Test]
         [TestCase("InvalidFile_DuplicateLocationId.csv", "identificatie")]
         [TestCase("InvalidFile_DuplicateParameterId.csv", "kunstwerken.identificatie")]
-        [TestCase("InvalidFile_DuplicateAlphanumericValue.csv", "alphanumeriekewaarde")]
+        [TestCase("InvalidFile_DuplicateAlfanumericValue.csv", "alfanumeriekewaarde")]
         [TestCase("InvalidFile_DuplicateNumericalValue.csv", "numeriekewaarde")]
         [TestCase("InvalidFile_DuplicateVarianceValue.csv", "standarddeviatie.variance")]
         [TestCase("InvalidFile_DuplicateBoolean.csv", "boolean")]

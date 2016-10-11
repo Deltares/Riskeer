@@ -48,8 +48,8 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             Assert.AreEqual(21, structure.WidthFlowApertures.Mean.Value);
             Assert.AreEqual(0.05, structure.WidthFlowApertures.CoefficientOfVariation.Value);
 
-            Assert.AreEqual(4.95, structure.AllowedLevelIncreaseStorage.Mean.Value);
-            Assert.AreEqual(0.05, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+            Assert.AreEqual(4.95, structure.LevelCrestStructureNotClosing.Mean.Value);
+            Assert.AreEqual(0.05, structure.LevelCrestStructureNotClosing.StandardDeviation.Value);
 
             Assert.AreEqual(0.5, structure.InsideWaterLevel.Mean.Value);
             Assert.AreEqual(0.1, structure.InsideWaterLevel.StandardDeviation.Value);
@@ -69,7 +69,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             Assert.AreEqual(1.0, structure.ProbabilityOpenStructureBeforeFlooding.Value);
             Assert.AreEqual(0.1, structure.FailureProbabilityOpenStructure.Value);
             Assert.AreEqual(4, structure.IdenticalApertures);
-            Assert.AreEqual(1.0, structure.FailureProbabilityReparation);
+            Assert.AreEqual(1.0, structure.FailureProbabilityReparation.Value);
             Assert.AreEqual(ClosingStructureInflowModelType.VerticalWall, structure.InflowModelType);
         }
 
@@ -97,8 +97,8 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             Assert.AreEqual(21, structure.WidthFlowApertures.Mean.Value);
             Assert.AreEqual(0.05, structure.WidthFlowApertures.CoefficientOfVariation.Value);
 
-            Assert.AreEqual(4.95, structure.AllowedLevelIncreaseStorage.Mean.Value);
-            Assert.AreEqual(0.05, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+            Assert.AreEqual(4.95, structure.LevelCrestStructureNotClosing.Mean.Value);
+            Assert.AreEqual(0.05, structure.LevelCrestStructureNotClosing.StandardDeviation.Value);
 
             Assert.AreEqual(0.5, structure.InsideWaterLevel.Mean.Value);
             Assert.AreEqual(0.1, structure.InsideWaterLevel.StandardDeviation.Value);
@@ -118,7 +118,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             Assert.AreEqual(1.0, structure.ProbabilityOpenStructureBeforeFlooding.Value);
             Assert.AreEqual(0.1, structure.FailureProbabilityOpenStructure.Value);
             Assert.AreEqual(4, structure.IdenticalApertures);
-            Assert.AreEqual(1.0, structure.FailureProbabilityReparation);
+            Assert.AreEqual(1.0, structure.FailureProbabilityReparation.Value);
             Assert.AreEqual(ClosingStructureInflowModelType.VerticalWall, structure.InflowModelType);
         }
     }

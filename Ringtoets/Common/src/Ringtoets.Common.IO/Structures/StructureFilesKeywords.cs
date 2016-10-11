@@ -298,7 +298,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <summary>
         /// The column name for the alphanumerical value associated with the structure parameter.
         /// </summary>
-        public const string AlphanumericalValueColumnName = "alphanumeriekewaarde";
+        public const string AlphanumericalValueColumnName = "alfanumeriekewaarde";
 
         /// <summary>
         /// The column name for the numerical value associated with the structure parameter.
