@@ -168,6 +168,82 @@ namespace Ringtoets.Common.IO.Test.Structures
         }
 
         [Test]
+        public void ValidateHeightStructuresParameters_VarianceValueConversionWithNegativeMean_NoErrorMessage()
+        {
+            // Setup
+            var parameters = new[]
+            {
+                // Parameters of interest for test:
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword2,
+                    NumericalValue = -1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation // Expected Standard Deviation for normal distribution
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword5,
+                    NumericalValue = -1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.StandardDeviation // Expected Coefficient of Variation for normal distribution
+                },
+
+                // Remainder:
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword1,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword3,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword4,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword6,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword7,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword8,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                }
+            };
+
+            // Call
+            ValidationResult validationResult = StructuresParameterRowsValidator.ValidateHeightStructuresParameters(parameters);
+
+            // Assert
+            Assert.IsTrue(validationResult.IsValid,
+                          "Expected to be valid, but found following errors: {0}",
+                          string.Join(Environment.NewLine, validationResult.ErrorMessages));
+        }
+
+        [Test]
         public void ValidateClosingStructuresParameters_StructureParameterRowsNull_ThrowsArgumentNullException()
         {
             // Call
@@ -365,6 +441,132 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde op regel 15, kolom 'AlphanumeriekeWaarde' is ongeldig."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
+        }
+
+        [Test]
+        public void ValidateClosingStructuresParameters_VarianceValueConversionWithNegativeMean_NoErrorMessage()
+        {
+            // Setup
+            var parameters = new[]
+            {
+                // Parameters of interest for test:
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword4,
+                    NumericalValue = -1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.StandardDeviation // Expected Coefficient of Variation for normal distribution
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword5,
+                    NumericalValue = -1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation // Expected Standard Deviation for normal distribution
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword6,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation // Expected Standard Deviation for normal distribution
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword7,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation // Expected Standard Deviation for normal distribution
+                },
+
+                // Remainder:
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword1,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword2,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword3,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword8,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword9,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword10,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword11,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword12,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword13,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword14,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword15,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    AlphanumericValue = "verticalewand"
+                }
+            };
+
+            // Call
+            ValidationResult validationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(parameters);
+
+            // Assert
+            Assert.IsTrue(validationResult.IsValid,
+                          "Expected to be valid, but found following errors: {0}",
+                          string.Join(Environment.NewLine, validationResult.ErrorMessages));
         }
 
         [Test]
@@ -672,6 +874,209 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde op regel 26, kolom 'AlphanumeriekeWaarde' is ongeldig."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
+        }
+
+        [Test]
+        public void ValidateStabilityPointStructuresParameters_VarianceValueConversionWithNegativeMean_NoErrorMessage()
+        {
+            // Setup
+            var parameters = new[]
+            {
+                // Parameters of interest for test:
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword4,
+                    NumericalValue = -1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.StandardDeviation // Expected Coefficient of Variation for normal distribution
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword5,
+                    NumericalValue = -1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation // Expected Standard Deviation for normal distribution
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword6,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation // Expected Standard Deviation for normal distribution
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword11,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation // Expected Standard Deviation for normal distribution
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword12,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation // Expected Standard Deviation for normal distribution
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword14,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation // Expected Standard Deviation for normal distribution
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword18,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.StandardDeviation // Expected Coefficient of Variation for normal distribution
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword19,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.StandardDeviation // Expected Coefficient of Variation for normal distribution
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword22,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation // Expected Standard Deviation for normal distribution
+                },
+
+                // Remainder:
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword1,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword2,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword3,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword7,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword8,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword9,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword10,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword13,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword15,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword16,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword17,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword20,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword21,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword23,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword24,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword25,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation
+                },
+                new StructuresParameterRow
+                {
+                    ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword26,
+                    NumericalValue = 1,
+                    VarianceValue = 1,
+                    VarianceType = VarianceType.CoefficientOfVariation,
+                    AlphanumericValue = "lagedrempel"
+                }
+            };
+
+            // Call
+            ValidationResult validationResult = StructuresParameterRowsValidator.ValidateStabilityPointStructuresParameters(parameters);
+
+            // Assert
+            Assert.IsTrue(validationResult.IsValid,
+                          "Expected to be valid, but found following errors: {0}",
+                          string.Join(Environment.NewLine, validationResult.ErrorMessages));
         }
     }
 }

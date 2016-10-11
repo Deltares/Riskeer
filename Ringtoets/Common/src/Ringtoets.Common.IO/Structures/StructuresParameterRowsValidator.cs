@@ -363,9 +363,10 @@ namespace Ringtoets.Common.IO.Structures
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_ColumnName_1_value_invalid, row.LineNumber, varianceValueColumn));
             }
 
+            double absoluteMean = Math.Abs(mean);
             if (variationAsStandardDeviation)
             {
-                if (row.VarianceType == VarianceType.CoefficientOfVariation && mean < valueTooCloseToZero)
+                if (row.VarianceType == VarianceType.CoefficientOfVariation && absoluteMean < valueTooCloseToZero)
                 {
                     messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Mean_on_Line_0_ColumnName_1_causes_unreliable_variation_value_conversion,
                                                row.LineNumber, StructureFilesKeywords.NumericalValueColumnName));
@@ -373,7 +374,7 @@ namespace Ringtoets.Common.IO.Structures
             }
             else
             {
-                if (row.VarianceType == VarianceType.StandardDeviation && mean < valueTooCloseToZero)
+                if (row.VarianceType == VarianceType.StandardDeviation && absoluteMean < valueTooCloseToZero)
                 {
                     messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Mean_on_Line_0_ColumnName_1_causes_unreliable_variation_value_conversion,
                                                row.LineNumber, StructureFilesKeywords.NumericalValueColumnName));
