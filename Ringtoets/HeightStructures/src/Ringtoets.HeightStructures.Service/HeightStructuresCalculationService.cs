@@ -66,6 +66,9 @@ namespace Ringtoets.HeightStructures.Service
             return !messages.Any();
         }
 
+        /// <summary>
+        /// Cancels any currently running height structures calculation.
+        /// </summary>
         public void Cancel()
         {
             if (calculator != null)
@@ -163,7 +166,7 @@ namespace Ringtoets.HeightStructures.Service
 
         private static string[] ValidateInput(HeightStructuresInput inputParameters, IAssessmentSection assessmentSection)
         {
-            List<string> validationResult = new List<string>();
+            var validationResult = new List<string>();
 
             if (inputParameters.HydraulicBoundaryLocation == null)
             {
