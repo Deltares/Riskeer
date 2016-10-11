@@ -296,10 +296,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var input = new StabilityPointStructuresInput();
             NormalDistribution insideWaterLevelFailureConstruction = GenerateNormalDistribution();
 
-            //Call
+            // Call
             input.InsideWaterLevelFailureConstruction = insideWaterLevelFailureConstruction;
 
-            //Assert
+            // Assert
             Assert.AreEqual(insideWaterLevelFailureConstruction.Mean, input.InsideWaterLevelFailureConstruction.Mean);
             Assert.AreEqual(insideWaterLevelFailureConstruction.StandardDeviation, input.InsideWaterLevelFailureConstruction.StandardDeviation);
         }
@@ -311,10 +311,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var input = new StabilityPointStructuresInput();
             NormalDistribution insideWaterLevel = GenerateNormalDistribution();
 
-            //Call
+            // Call
             input.InsideWaterLevel = insideWaterLevel;
 
-            //Assert
+            // Assert
             Assert.AreEqual(insideWaterLevel.Mean, input.InsideWaterLevel.Mean);
             Assert.AreEqual(insideWaterLevel.StandardDeviation, input.InsideWaterLevel.StandardDeviation);
         }
@@ -328,10 +328,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             RoundedDouble initialVariation = input.StormDuration.CoefficientOfVariation;
 
-            //Call
+            // Call
             input.StormDuration = stormDuration;
 
-            //Assert
+            // Assert
             Assert.AreEqual(stormDuration.Mean, input.StormDuration.Mean);
             AssertEqualValue(initialVariation, input.StormDuration.CoefficientOfVariation);
         }

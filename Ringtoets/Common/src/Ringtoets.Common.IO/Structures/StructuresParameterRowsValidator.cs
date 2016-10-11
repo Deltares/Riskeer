@@ -43,14 +43,14 @@ namespace Ringtoets.Common.IO.Structures
         /// </summary>
         private const double valueTooCloseToZero = 1e-4;
 
-        private static readonly List<string> closingStructureInflowModelRuleKeywords = new List<string>
+        private static readonly List<string> closingStructureInflowModelTypeRuleKeywords = new List<string>
         {
             "verticalewand",
             "lagedrempel",
             "verdronkenkoker"
         };
 
-        private static readonly List<string> stabilityPointStructureInflowModelRuleKeywords = new List<string>
+        private static readonly List<string> stabilityPointStructureInflowModelTypeRuleKeywords = new List<string>
         {
             "lagedrempel",
             "verdronkenkoker"
@@ -131,7 +131,7 @@ namespace Ringtoets.Common.IO.Structures
                     StructureFilesKeywords.ClosingStructureParameterKeyword14, ProbabilityRule
                 },
                 {
-                    StructureFilesKeywords.ClosingStructureParameterKeyword15, ClosingStructureInflowModelRule
+                    StructureFilesKeywords.ClosingStructureParameterKeyword15, ClosingStructureInflowModelTypeRule
                 }
             };
 
@@ -214,7 +214,7 @@ namespace Ringtoets.Common.IO.Structures
                     StructureFilesKeywords.StabilityPointStructureParameterKeyword25, LogNormalDistributionRule
                 },
                 {
-                    StructureFilesKeywords.StabilityPointStructureParameterKeyword26, StabilityPointStructureInflowModelRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword26, StabilityPointStructureInflowModelTypeRule
                 },
             };
 
@@ -407,22 +407,22 @@ namespace Ringtoets.Common.IO.Structures
             return messages;
         }
 
-        private static List<string> ClosingStructureInflowModelRule(StructuresParameterRow row)
+        private static List<string> ClosingStructureInflowModelTypeRule(StructuresParameterRow row)
         {
             var messages = new List<string>();
             string value = row.AlphanumericValue.ToLower();
-            if (!closingStructureInflowModelRuleKeywords.Contains(value))
+            if (!closingStructureInflowModelTypeRuleKeywords.Contains(value))
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_ColumnName_1_value_invalid, row.LineNumber, alphanumericalValueColumn));
             }
             return messages;
         }
 
-        private static List<string> StabilityPointStructureInflowModelRule(StructuresParameterRow row)
+        private static List<string> StabilityPointStructureInflowModelTypeRule(StructuresParameterRow row)
         {
             var messages = new List<string>();
             string value = row.AlphanumericValue.ToLower();
-            if (!stabilityPointStructureInflowModelRuleKeywords.Contains(value))
+            if (!stabilityPointStructureInflowModelTypeRuleKeywords.Contains(value))
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_Line_0_ColumnName_1_value_invalid, row.LineNumber, alphanumericalValueColumn));
             }
