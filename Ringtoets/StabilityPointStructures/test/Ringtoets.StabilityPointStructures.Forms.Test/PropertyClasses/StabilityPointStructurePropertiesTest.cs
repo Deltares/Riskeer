@@ -89,7 +89,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(structure.Name, properties.Name);
             var expectedLocation = new Point2D(new RoundedDouble(0, structure.Location.X),
-                                   new RoundedDouble(0, structure.Location.Y));
+                                               new RoundedDouble(0, structure.Location.Y));
             Assert.AreEqual(expectedLocation, properties.Location);
 
             Assert.AreEqual("Normaal", properties.InsideWaterLevel.DistributionType);
@@ -101,7 +101,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(structure.InsideWaterLevelFailureConstruction, properties.InsideWaterLevelFailureConstruction.Data);
             Assert.IsTrue(properties.InsideWaterLevelFailureConstruction.DynamicReadOnlyValidationMethod("Mean"));
             Assert.IsTrue(properties.InsideWaterLevelFailureConstruction.DynamicReadOnlyValidationMethod("StandardDeviation"));
-            
+
             Assert.AreEqual(structure.StructureNormalOrientation, properties.StructureNormalOrientation);
             Assert.AreEqual(structure.InflowModelType, properties.InflowModelType);
 
@@ -245,6 +245,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor insideWaterLevelFailureConstructionProperty = dynamicProperties[insideWaterLevelFailureConstructionPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelFailureConstructionProperty.Converter);
             Assert.AreEqual(hydraulicDataCategory, insideWaterLevelFailureConstructionProperty.Category);
+            Assert.AreEqual("Binnenwaterstand bij constructief falen [m+NAP]", insideWaterLevelFailureConstructionProperty.DisplayName);
+            Assert.AreEqual("Binnenwaterstand bij constructief falen.", insideWaterLevelFailureConstructionProperty.Description);
 
             PropertyDescriptor structureNormalOrientationProperty = dynamicProperties[structureNormalOrientationPropertyIndex];
             Assert.IsTrue(structureNormalOrientationProperty.IsReadOnly);
@@ -309,53 +311,81 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor constructiveStrengthLinearLoadModelProperty = dynamicProperties[constructiveStrengthLinearLoadModelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthLinearLoadModelProperty.Converter);
             Assert.AreEqual(schematizationCategory, constructiveStrengthLinearLoadModelProperty.Category);
+            Assert.AreEqual("Lineair belastingschematisering constructieve sterkte [kN/m²]", constructiveStrengthLinearLoadModelProperty.DisplayName);
+            Assert.AreEqual("Kritieke sterkte constructie volgens de lineaire belastingschematisatie.", constructiveStrengthLinearLoadModelProperty.Description);
 
             PropertyDescriptor constructiveStrengthQuadraticLoadModelProperty = dynamicProperties[constructiveStrengthQuadraticLoadModelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthQuadraticLoadModelProperty.Converter);
             Assert.AreEqual(schematizationCategory, constructiveStrengthQuadraticLoadModelProperty.Category);
+            Assert.AreEqual("Kwadratisch belastingschematisering constructieve sterkte [kN/m]", constructiveStrengthQuadraticLoadModelProperty.DisplayName);
+            Assert.AreEqual("Kritieke sterkte constructie volgens de kwadratische belastingschematisatie.", constructiveStrengthQuadraticLoadModelProperty.Description);
 
             PropertyDescriptor bankWidthProperty = dynamicProperties[bankWidthPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(bankWidthProperty.Converter);
             Assert.AreEqual(schematizationCategory, bankWidthProperty.Category);
+            Assert.AreEqual("Bermbreedte [m]", bankWidthProperty.DisplayName);
+            Assert.AreEqual("Bermbreedte.", bankWidthProperty.Description);
 
             PropertyDescriptor evaluationLevelProperty = dynamicProperties[evaluationLevelPropertyIndex];
             Assert.AreEqual(schematizationCategory, evaluationLevelProperty.Category);
+            Assert.AreEqual("Analysehoogte [m+NAP]", evaluationLevelProperty.DisplayName);
+            Assert.AreEqual("Hoogte waarop de constructieve sterkte wordt beoordeeld.", evaluationLevelProperty.Description);
 
             PropertyDescriptor verticalDistanceProperty = dynamicProperties[verticalDistancePropertyIndex];
             Assert.AreEqual(schematizationCategory, verticalDistanceProperty.Category);
+            Assert.AreEqual("Afstand onderkant wand en teen van de dijk/berm [m]", verticalDistanceProperty.DisplayName);
+            Assert.AreEqual("Verticale afstand tussen de onderkant van de wand en de teen van de dijk/berm.", verticalDistanceProperty.Description);
 
             PropertyDescriptor failureProbabilityRepairClosureProperty = dynamicProperties[failureProbabilityRepairClosurePropertyIndex];
             Assert.AreEqual(schematizationCategory, failureProbabilityRepairClosureProperty.Category);
+            Assert.AreEqual("Faalkans herstel van gefaalde situatie [1/jaar]", failureProbabilityRepairClosureProperty.DisplayName);
+            Assert.AreEqual("Faalkans herstel van gefaalde situatie.", failureProbabilityRepairClosureProperty.Description);
 
             PropertyDescriptor failureCollisionEnergyProperty = dynamicProperties[failureCollisionEnergyPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(failureCollisionEnergyProperty.Converter);
             Assert.AreEqual(schematizationCategory, failureCollisionEnergyProperty.Category);
+            Assert.AreEqual("Bezwijkwaarde aanvaarenergie [kNm]", failureCollisionEnergyProperty.DisplayName);
+            Assert.AreEqual("Bezwijkwaarde aanvaarenergie.", failureCollisionEnergyProperty.Description);
 
             PropertyDescriptor shipMassProperty = dynamicProperties[shipMassPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipMassProperty.Converter);
             Assert.AreEqual(schematizationCategory, shipMassProperty.Category);
+            Assert.AreEqual("Massa van het schip [ton]", shipMassProperty.DisplayName);
+            Assert.AreEqual("Massa van het schip.", shipMassProperty.Description);
 
             PropertyDescriptor shipVelocityProperty = dynamicProperties[shipVelocityPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(shipVelocityProperty.Converter);
             Assert.AreEqual(schematizationCategory, shipVelocityProperty.Category);
+            Assert.AreEqual("Aanvaarsnelheid [m/s]", shipVelocityProperty.DisplayName);
+            Assert.AreEqual("Aanvaarsnelheid.", shipVelocityProperty.Description);
 
             PropertyDescriptor levellingCountProperty = dynamicProperties[levellingCountPropertyIndex];
             Assert.AreEqual(schematizationCategory, levellingCountProperty.Category);
+            Assert.AreEqual("Aantal nivelleringen per jaar [1/jaar]", levellingCountProperty.DisplayName);
+            Assert.AreEqual("Aantal nivelleringen per jaar.", levellingCountProperty.Description);
 
             PropertyDescriptor probabilityCollisionSecondaryStructureProperty = dynamicProperties[probabilityCollisionSecondaryStructurePropertyIndex];
             Assert.AreEqual(schematizationCategory, probabilityCollisionSecondaryStructureProperty.Category);
+            Assert.AreEqual("Kans op aanvaring tweede keermiddel per nivellering [1/niveau]", probabilityCollisionSecondaryStructureProperty.DisplayName);
+            Assert.AreEqual("Kans op aanvaring tweede keermiddel per nivellering.", probabilityCollisionSecondaryStructureProperty.Description);
 
             PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[flowVelocityStructureClosablePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
             Assert.AreEqual(schematizationCategory, flowVelocityStructureClosableProperty.Category);
+            Assert.AreEqual("Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]", flowVelocityStructureClosableProperty.DisplayName);
+            Assert.AreEqual("Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.", flowVelocityStructureClosableProperty.Description);
 
             PropertyDescriptor stabilityLinearLoadModelProperty = dynamicProperties[stabilityLinearLoadModelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(stabilityLinearLoadModelProperty.Converter);
             Assert.AreEqual(schematizationCategory, stabilityLinearLoadModelProperty.Category);
+            Assert.AreEqual("Lineaire belastingschematisering stabiliteit [kN/m²]", stabilityLinearLoadModelProperty.DisplayName);
+            Assert.AreEqual("Kritieke stabiliteit constructie volgens de lineaire belastingschematisatie.", stabilityLinearLoadModelProperty.Description);
 
             PropertyDescriptor stabilityQuadraticLoadModelProperty = dynamicProperties[stabilityQuadraticLoadModelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(stabilityQuadraticLoadModelProperty.Converter);
             Assert.AreEqual(schematizationCategory, stabilityQuadraticLoadModelProperty.Category);
+            Assert.AreEqual("Kwadratisch belastingschematisering stabiliteit [kN/m]", stabilityQuadraticLoadModelProperty.DisplayName);
+            Assert.AreEqual("Kritieke stabiliteit constructie volgens de kwadratische belastingschematisatie.", stabilityQuadraticLoadModelProperty.Description);
         }
 
         private static StabilityPointStructure CreateSimpleStabilityPointStructure()

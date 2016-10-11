@@ -98,5 +98,275 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
                 return ResourceManager.GetString("StabilityPointStructureInflowModelType_DisplayName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bermbreedte..
+        /// </summary>
+        internal static string Structure_BankWidth_Description {
+            get {
+                return ResourceManager.GetString("Structure_BankWidth_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bermbreedte [m].
+        /// </summary>
+        internal static string Structure_BankWidth_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_BankWidth_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kritieke sterkte constructie volgens de lineaire belastingschematisatie..
+        /// </summary>
+        internal static string Structure_ConstructiveStrengthLinearLoadModel_Description {
+            get {
+                return ResourceManager.GetString("Structure_ConstructiveStrengthLinearLoadModel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lineair belastingschematisering constructieve sterkte [kN/m²].
+        /// </summary>
+        internal static string Structure_ConstructiveStrengthLinearLoadModel_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_ConstructiveStrengthLinearLoadModel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kritieke sterkte constructie volgens de kwadratische belastingschematisatie..
+        /// </summary>
+        internal static string Structure_ConstructiveStrengthQuadraticLoadModel_Description {
+            get {
+                return ResourceManager.GetString("Structure_ConstructiveStrengthQuadraticLoadModel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kwadratisch belastingschematisering constructieve sterkte [kN/m].
+        /// </summary>
+        internal static string Structure_ConstructiveStrengthQuadraticLoadModel_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_ConstructiveStrengthQuadraticLoadModel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hoogte waarop de constructieve sterkte wordt beoordeeld..
+        /// </summary>
+        internal static string Structure_EvaluationLevel_Description {
+            get {
+                return ResourceManager.GetString("Structure_EvaluationLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Analysehoogte [m+NAP].
+        /// </summary>
+        internal static string Structure_EvaluationLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_EvaluationLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bezwijkwaarde aanvaarenergie..
+        /// </summary>
+        internal static string Structure_FailureCollisionEnergy_Description {
+            get {
+                return ResourceManager.GetString("Structure_FailureCollisionEnergy_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bezwijkwaarde aanvaarenergie [kNm].
+        /// </summary>
+        internal static string Structure_FailureCollisionEnergy_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_FailureCollisionEnergy_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkans herstel van gefaalde situatie..
+        /// </summary>
+        internal static string Structure_FailureProbabilityRepairClosure_Description {
+            get {
+                return ResourceManager.GetString("Structure_FailureProbabilityRepairClosure_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkans herstel van gefaalde situatie [1/jaar].
+        /// </summary>
+        internal static string Structure_FailureProbabilityRepairClosure_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_FailureProbabilityRepairClosure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten..
+        /// </summary>
+        internal static string Structure_FlowVelocityStructureClosable_Description {
+            get {
+                return ResourceManager.GetString("Structure_FlowVelocityStructureClosable_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kritieke stroomsnelheid sluiting eerste keermiddel [m/s].
+        /// </summary>
+        internal static string Structure_FlowVelocityStructureClosable_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_FlowVelocityStructureClosable_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Binnenwaterstand bij constructief falen..
+        /// </summary>
+        internal static string Structure_InsideWaterLevelFailureConstruction_Description {
+            get {
+                return ResourceManager.GetString("Structure_InsideWaterLevelFailureConstruction_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Binnenwaterstand bij constructief falen [m+NAP].
+        /// </summary>
+        internal static string Structure_InsideWaterLevelFailureConstruction_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_InsideWaterLevelFailureConstruction_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal nivelleringen per jaar..
+        /// </summary>
+        internal static string Structure_LevellingCount_Description {
+            get {
+                return ResourceManager.GetString("Structure_LevellingCount_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aantal nivelleringen per jaar [1/jaar].
+        /// </summary>
+        internal static string Structure_LevellingCount_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_LevellingCount_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kans op aanvaring tweede keermiddel per nivellering..
+        /// </summary>
+        internal static string Structure_ProbabilityCollisionSecondaryStructure_Description {
+            get {
+                return ResourceManager.GetString("Structure_ProbabilityCollisionSecondaryStructure_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kans op aanvaring tweede keermiddel per nivellering [1/niveau].
+        /// </summary>
+        internal static string Structure_ProbabilityCollisionSecondaryStructure_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_ProbabilityCollisionSecondaryStructure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Massa van het schip..
+        /// </summary>
+        internal static string Structure_ShipMass_Description {
+            get {
+                return ResourceManager.GetString("Structure_ShipMass_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Massa van het schip [ton].
+        /// </summary>
+        internal static string Structure_ShipMass_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_ShipMass_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aanvaarsnelheid..
+        /// </summary>
+        internal static string Structure_ShipVelocity_Description {
+            get {
+                return ResourceManager.GetString("Structure_ShipVelocity_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aanvaarsnelheid [m/s].
+        /// </summary>
+        internal static string Structure_ShipVelocity_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_ShipVelocity_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kritieke stabiliteit constructie volgens de lineaire belastingschematisatie..
+        /// </summary>
+        internal static string Structure_StabilityLinearLoadModel_Description {
+            get {
+                return ResourceManager.GetString("Structure_StabilityLinearLoadModel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lineaire belastingschematisering stabiliteit [kN/m²].
+        /// </summary>
+        internal static string Structure_StabilityLinearLoadModel_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_StabilityLinearLoadModel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kritieke stabiliteit constructie volgens de kwadratische belastingschematisatie..
+        /// </summary>
+        internal static string Structure_StabilityQuadraticLoadModel_Description {
+            get {
+                return ResourceManager.GetString("Structure_StabilityQuadraticLoadModel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kwadratisch belastingschematisering stabiliteit [kN/m].
+        /// </summary>
+        internal static string Structure_StabilityQuadraticLoadModel_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_StabilityQuadraticLoadModel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verticale afstand tussen de onderkant van de wand en de teen van de dijk/berm..
+        /// </summary>
+        internal static string Structure_VerticalDistance_Description {
+            get {
+                return ResourceManager.GetString("Structure_VerticalDistance_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Afstand onderkant wand en teen van de dijk/berm [m].
+        /// </summary>
+        internal static string Structure_VerticalDistance_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_VerticalDistance_DisplayName", resourceCulture);
+            }
+        }
     }
 }

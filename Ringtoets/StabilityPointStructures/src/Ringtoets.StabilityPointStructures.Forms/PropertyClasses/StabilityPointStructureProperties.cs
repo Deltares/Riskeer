@@ -69,7 +69,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         private const int flowVelocityStructureClosablePropertyIndex = 26;
         private const int stabilityLinearLoadModelPropertyIndex = 27;
         private const int stabilityQuadraticLoadModelPropertyIndex = 28;
-        
+
         #region General
 
         [PropertyOrder(namePropertyIndex)]
@@ -120,6 +120,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(insideWaterLevelFailureConstructionPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_InsideWaterLevelFailureConstruction_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_InsideWaterLevelFailureConstruction_Description")]
         public NormalDistributionProperties InsideWaterLevelFailureConstruction
         {
             get
@@ -223,7 +225,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
                 };
             }
         }
-        
+
         [PropertyOrder(allowedLevelIncreaseStoragePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -287,10 +289,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
                 };
             }
         }
-        
+
         [PropertyOrder(constructiveStrengthLinearLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_ConstructiveStrengthLinearLoadModel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_ConstructiveStrengthLinearLoadModel_Description")]
         public LogNormalDistributionVariationProperties ConstructiveStrengthLinearLoadModel
         {
             get
@@ -305,6 +309,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(constructiveStrengthQuadraticLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_ConstructiveStrengthQuadraticLoadModel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_ConstructiveStrengthQuadraticLoadModel_Description")]
         public LogNormalDistributionVariationProperties ConstructiveStrengthQuadraticLoadModel
         {
             get
@@ -319,6 +325,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(bankWidthPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_BankWidth_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_BankWidth_Description")]
         public NormalDistributionProperties BankWidth
         {
             get
@@ -332,6 +340,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(evaluationLevelPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_EvaluationLevel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_EvaluationLevel_Description")]
         public RoundedDouble EvaluationLevel
         {
             get
@@ -342,6 +352,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(verticalDistancePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_VerticalDistance_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_VerticalDistance_Description")]
         public RoundedDouble VerticalDistance
         {
             get
@@ -352,6 +364,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(failureProbabilityRepairClosurePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_FailureProbabilityRepairClosure_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_FailureProbabilityRepairClosure_Description")]
         public string FailureProbabilityRepairClosure
         {
             get
@@ -363,6 +377,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(failureCollisionEnergyPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_FailureCollisionEnergy_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_FailureCollisionEnergy_Description")]
         public LogNormalDistributionVariationProperties FailureCollisionEnergy
         {
             get
@@ -377,6 +393,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(shipMassPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_ShipMass_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_ShipMass_Description")]
         public NormalDistributionVariationProperties ShipMass
         {
             get
@@ -391,6 +409,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(shipVelocityPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_ShipVelocity_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_ShipVelocity_Description")]
         public NormalDistributionVariationProperties ShipVelocity
         {
             get
@@ -404,6 +424,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(levellingCountPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_LevellingCount_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_LevellingCount_Description")]
         public string LevellingCount
         {
             get
@@ -414,6 +436,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(probabilityCollisionSecondaryStructurePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_ProbabilityCollisionSecondaryStructure_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_ProbabilityCollisionSecondaryStructure_Description")]
         public string ProbabilityCollisionSecondaryStructure
         {
             get
@@ -425,6 +449,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(flowVelocityStructureClosablePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_FlowVelocityStructureClosable_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_FlowVelocityStructureClosable_Description")]
         public NormalDistributionProperties FlowVelocityStructureClosable
         {
             get
@@ -439,6 +465,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(stabilityLinearLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_StabilityLinearLoadModel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_StabilityLinearLoadModel_Description")]
         public LogNormalDistributionVariationProperties StabilityLinearLoadModel
         {
             get
@@ -453,6 +481,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(stabilityQuadraticLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_StabilityQuadraticLoadModel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_StabilityQuadraticLoadModel_Description")]
         public LogNormalDistributionVariationProperties StabilityQuadraticLoadModel
         {
             get

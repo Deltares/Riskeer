@@ -123,4 +123,94 @@
   <data name="StabilityPointStructureInflowModelType_DisplayName" xml:space="preserve">
     <value>Instroommodel</value>
   </data>
+  <data name="Structure_BankWidth_Description" xml:space="preserve">
+    <value>Bermbreedte.</value>
+  </data>
+  <data name="Structure_BankWidth_DisplayName" xml:space="preserve">
+    <value>Bermbreedte [m]</value>
+  </data>
+  <data name="Structure_ConstructiveStrengthLinearLoadModel_Description" xml:space="preserve">
+    <value>Kritieke sterkte constructie volgens de lineaire belastingschematisatie.</value>
+  </data>
+  <data name="Structure_ConstructiveStrengthLinearLoadModel_DisplayName" xml:space="preserve">
+    <value>Lineair belastingschematisering constructieve sterkte [kN/m²]</value>
+  </data>
+  <data name="Structure_ConstructiveStrengthQuadraticLoadModel_Description" xml:space="preserve">
+    <value>Kritieke sterkte constructie volgens de kwadratische belastingschematisatie.</value>
+  </data>
+  <data name="Structure_ConstructiveStrengthQuadraticLoadModel_DisplayName" xml:space="preserve">
+    <value>Kwadratisch belastingschematisering constructieve sterkte [kN/m]</value>
+  </data>
+  <data name="Structure_EvaluationLevel_Description" xml:space="preserve">
+    <value>Hoogte waarop de constructieve sterkte wordt beoordeeld.</value>
+  </data>
+  <data name="Structure_EvaluationLevel_DisplayName" xml:space="preserve">
+    <value>Analysehoogte [m+NAP]</value>
+  </data>
+  <data name="Structure_FailureCollisionEnergy_Description" xml:space="preserve">
+    <value>Bezwijkwaarde aanvaarenergie.</value>
+  </data>
+  <data name="Structure_FailureCollisionEnergy_DisplayName" xml:space="preserve">
+    <value>Bezwijkwaarde aanvaarenergie [kNm]</value>
+  </data>
+  <data name="Structure_FailureProbabilityRepairClosure_Description" xml:space="preserve">
+    <value>Faalkans herstel van gefaalde situatie.</value>
+  </data>
+  <data name="Structure_FailureProbabilityRepairClosure_DisplayName" xml:space="preserve">
+    <value>Faalkans herstel van gefaalde situatie [1/jaar]</value>
+  </data>
+  <data name="Structure_FlowVelocityStructureClosable_Description" xml:space="preserve">
+    <value>Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.</value>
+  </data>
+  <data name="Structure_FlowVelocityStructureClosable_DisplayName" xml:space="preserve">
+    <value>Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]</value>
+  </data>
+  <data name="Structure_InsideWaterLevelFailureConstruction_Description" xml:space="preserve">
+    <value>Binnenwaterstand bij constructief falen.</value>
+  </data>
+  <data name="Structure_InsideWaterLevelFailureConstruction_DisplayName" xml:space="preserve">
+    <value>Binnenwaterstand bij constructief falen [m+NAP]</value>
+  </data>
+  <data name="Structure_LevellingCount_Description" xml:space="preserve">
+    <value>Aantal nivelleringen per jaar.</value>
+  </data>
+  <data name="Structure_LevellingCount_DisplayName" xml:space="preserve">
+    <value>Aantal nivelleringen per jaar [1/jaar]</value>
+  </data>
+  <data name="Structure_ProbabilityCollisionSecondaryStructure_Description" xml:space="preserve">
+    <value>Kans op aanvaring tweede keermiddel per nivellering.</value>
+  </data>
+  <data name="Structure_ProbabilityCollisionSecondaryStructure_DisplayName" xml:space="preserve">
+    <value>Kans op aanvaring tweede keermiddel per nivellering [1/niveau]</value>
+  </data>
+  <data name="Structure_ShipMass_Description" xml:space="preserve">
+    <value>Massa van het schip.</value>
+  </data>
+  <data name="Structure_ShipMass_DisplayName" xml:space="preserve">
+    <value>Massa van het schip [ton]</value>
+  </data>
+  <data name="Structure_ShipVelocity_Description" xml:space="preserve">
+    <value>Aanvaarsnelheid.</value>
+  </data>
+  <data name="Structure_ShipVelocity_DisplayName" xml:space="preserve">
+    <value>Aanvaarsnelheid [m/s]</value>
+  </data>
+  <data name="Structure_StabilityLinearLoadModel_Description" xml:space="preserve">
+    <value>Kritieke stabiliteit constructie volgens de lineaire belastingschematisatie.</value>
+  </data>
+  <data name="Structure_StabilityLinearLoadModel_DisplayName" xml:space="preserve">
+    <value>Lineaire belastingschematisering stabiliteit [kN/m²]</value>
+  </data>
+  <data name="Structure_StabilityQuadraticLoadModel_Description" xml:space="preserve">
+    <value>Kritieke stabiliteit constructie volgens de kwadratische belastingschematisatie.</value>
+  </data>
+  <data name="Structure_StabilityQuadraticLoadModel_DisplayName" xml:space="preserve">
+    <value>Kwadratisch belastingschematisering stabiliteit [kN/m]</value>
+  </data>
+  <data name="Structure_VerticalDistance_Description" xml:space="preserve">
+    <value>Verticale afstand tussen de onderkant van de wand en de teen van de dijk/berm.</value>
+  </data>
+  <data name="Structure_VerticalDistance_DisplayName" xml:space="preserve">
+    <value>Afstand onderkant wand en teen van de dijk/berm [m]</value>
+  </data>
 </root>
