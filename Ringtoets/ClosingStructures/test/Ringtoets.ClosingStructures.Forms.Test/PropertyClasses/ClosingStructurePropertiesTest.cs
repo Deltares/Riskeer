@@ -36,7 +36,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         private const int namePropertyIndex = 0;
         private const int locationPropertyIndex = 1;
         private const int structureNormalOrientationPropertyIndex = 2;
-        private const int closingStructureTypePropertyIndex = 3;
+        private const int inflowModelTypePropertyIndex = 3;
         private const int widthFlowAperturesPropertyIndex = 4;
         private const int areaFlowAperturesPropertyIndex = 5;
         private const int identicalAperturesPropertyIndex = 6;
@@ -70,7 +70,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                  1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9,
                                                  10.10, 11.11, 12.12, 13.13, 14.14, 15.15, 16.16,
                                                  17.17, 18.18, 19.19, 20.20, 21.21, 22, 23.23,
-                                                 ClosingStructureType.VerticalWall);
+                                                 ClosingStructureInflowModelType.VerticalWall);
             var properties = new ClosingStructureProperties();
 
             // Call
@@ -80,7 +80,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(structure.Name, properties.Name);
             Assert.AreEqual(structure.Location, properties.Location);
             Assert.AreEqual(structure.StructureNormalOrientation, properties.StructureNormalOrientation);
-            Assert.AreEqual(structure.InflowModel, properties.InflowModel);
+            Assert.AreEqual(structure.InflowModelType, properties.InflowModelType);
 
             Assert.AreEqual("Normaal", properties.WidthFlowApertures.DistributionType);
             Assert.AreEqual(structure.WidthFlowApertures, properties.WidthFlowApertures.Data);
@@ -142,7 +142,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                                                  1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9,
                                                  10.10, 11.11, 12.12, 13.13, 14.14, 15.15, 16.16,
                                                  17.17, 18.18, 19.19, 20.20, 21.21, 22, 23.23,
-                                                 ClosingStructureType.VerticalWall);
+                                                 ClosingStructureInflowModelType.VerticalWall);
 
             // Call
             var properties = new ClosingStructureProperties
@@ -180,11 +180,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Oriëntatie [°]", structureNormalOrientationProperty.DisplayName);
             Assert.AreEqual("Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.", structureNormalOrientationProperty.Description);
 
-            PropertyDescriptor closingStructureTypeProperty = dynamicProperties[closingStructureTypePropertyIndex];
-            Assert.IsInstanceOf<EnumConverter>(closingStructureTypeProperty.Converter);
-            Assert.AreEqual(schematizationCategory, closingStructureTypeProperty.Category);
-            Assert.AreEqual("Instroommodel", closingStructureTypeProperty.DisplayName);
-            Assert.AreEqual("Instroommodel van het kunstwerk.", closingStructureTypeProperty.Description);
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[inflowModelTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
+            Assert.AreEqual(schematizationCategory, inflowModelTypeProperty.Category);
+            Assert.AreEqual("Instroommodel", inflowModelTypeProperty.DisplayName);
+            Assert.AreEqual("Instroommodel van het kunstwerk.", inflowModelTypeProperty.Description);
 
             PropertyDescriptor widthFlowAperturesProperty = dynamicProperties[widthFlowAperturesPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(widthFlowAperturesProperty.Converter);

@@ -318,7 +318,7 @@ namespace Demo.Ringtoets.Commands
                                         0.1,
                                         4,
                                         1.0,
-                                        ClosingStructureType.VerticalWall);
+                                        ClosingStructureInflowModelType.VerticalWall);
         }
 
         #endregion

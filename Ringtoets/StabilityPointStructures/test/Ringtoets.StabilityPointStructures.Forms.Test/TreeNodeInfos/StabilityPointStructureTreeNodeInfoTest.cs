@@ -131,7 +131,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                                                789.012, 0.789,
                                                890.123, 0.890,
                                                901.234, 0.901,
-                                               StabilityPointStructureType.FloodedCulvert
+                                               StabilityPointStructureInflowModelType.FloodedCulvert
                 );
         }
     }

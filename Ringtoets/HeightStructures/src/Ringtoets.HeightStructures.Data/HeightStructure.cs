@@ -40,7 +40,7 @@ namespace Ringtoets.HeightStructures.Data
         /// or <see cref="ConstructionProperties.Id"/> is <c>null</c> , empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="ConstructionProperties.Location"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentOutOfRangeException">When any stochastic variable parameter
-        /// is out if its valid domain.</exception>
+        /// is out of its valid domain.</exception>
         public HeightStructure(ConstructionProperties constructionProperties) : base(constructionProperties)
         {
             LevelCrestStructure = new NormalDistribution(2)

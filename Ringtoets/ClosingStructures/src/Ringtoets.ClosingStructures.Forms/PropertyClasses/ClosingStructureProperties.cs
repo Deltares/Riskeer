@@ -42,7 +42,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         private const int namePropertyIndex = 1;
         private const int locationPropertyIndex = 2;
         private const int structureNormalOrientationPropertyIndex = 3;
-        private const int closingStructureTypePropertyIndex = 4;
+        private const int inflowModelTypePropertyIndex = 4;
         private const int widthFlowAperturesPropertyIndex = 5;
         private const int areaFlowAperturesPropertyIndex = 6;
         private const int identicalAperturesPropertyIndex = 7;
@@ -94,16 +94,16 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(closingStructureTypePropertyIndex)]
+        [PropertyOrder(inflowModelTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "ClosingStructureType_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ClosingStructureType_Description")]
-        public ClosingStructureType InflowModel
+        [ResourcesDisplayName(typeof(Resources), "ClosingStructureInflowModelType_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "ClosingStructureInflowModelType_Description")]
+        public ClosingStructureInflowModelType InflowModelType
         {
             get
             {
-                return data.InflowModel;
+                return data.InflowModelType;
             }
         }
 

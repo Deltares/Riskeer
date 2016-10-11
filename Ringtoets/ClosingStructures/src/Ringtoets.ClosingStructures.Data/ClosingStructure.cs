@@ -61,11 +61,11 @@ namespace Ringtoets.ClosingStructures.Data
         /// <param name="failureProbabilityOpenStructure">The probability of failing to close the closing structure.</param>
         /// <param name="identicalApertures">The number of identical apertures of the closing structure.</param>
         /// <param name="failureProbabilityReparation">The probability of failing to repair a failed closure of the closing structure.</param>
-        /// <param name="inflowModel">The type of closing structure.</param>
+        /// <param name="inflowModelType">The type of closing structure inflow model.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
         /// , empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">When any stochastic variable parameter is out if its valid domain.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When any stochastic variable parameter is out of its valid domain.</exception>
         public ClosingStructure(string name, string id, Point2D location,
                                 double storageStructureAreaMean, double storageStructureAreaCoefficientOfVariation,
                                 double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation,
@@ -81,7 +81,7 @@ namespace Ringtoets.ClosingStructures.Data
                                 double failureProbabilityOpenStructure,
                                 int identicalApertures,
                                 double failureProbabilityReparation,
-                                ClosingStructureType inflowModel
+                                ClosingStructureInflowModelType inflowModelType
             )
             : base(name, id, location, structureNormalOrientation)
         {
@@ -134,7 +134,7 @@ namespace Ringtoets.ClosingStructures.Data
             FailureProbabilityOpenStructure = new RoundedDouble(2, failureProbabilityOpenStructure);
             IdenticalApertures = identicalApertures;
             FailureProbabilityReparation = new RoundedDouble(2, failureProbabilityReparation);
-            InflowModel = inflowModel;
+            InflowModelType = inflowModelType;
         }
 
         /// <summary>
@@ -203,8 +203,8 @@ namespace Ringtoets.ClosingStructures.Data
         public RoundedDouble FailureProbabilityReparation { get; private set; }
 
         /// <summary>
-        /// Gets the type of closing structure.
+        /// Gets the type of closing structure inflow model.
         /// </summary>
-        public ClosingStructureType InflowModel { get; private set; }
+        public ClosingStructureInflowModelType InflowModelType { get; private set; }
     }
 }

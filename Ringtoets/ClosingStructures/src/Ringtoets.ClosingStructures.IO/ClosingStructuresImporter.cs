@@ -118,19 +118,21 @@ namespace Ringtoets.ClosingStructures.IO
                 rowData[StructureFilesKeywords.ClosingStructureParameterKeyword10].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword10], structureName),
                 rowData[StructureFilesKeywords.ClosingStructureParameterKeyword11].NumericalValue,
                 rowData[StructureFilesKeywords.ClosingStructureParameterKeyword12].NumericalValue,
-                (int)rowData[StructureFilesKeywords.ClosingStructureParameterKeyword13].NumericalValue,
+                (int) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword13].NumericalValue,
                 rowData[StructureFilesKeywords.ClosingStructureParameterKeyword14].NumericalValue,
-                GetClosingStructureType(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword15]));
+                GetClosingStructureInflowModelType(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword15]));
         }
 
-        private static ClosingStructureType GetClosingStructureType(StructuresParameterRow structureParameterRow)
+        private static ClosingStructureInflowModelType GetClosingStructureInflowModelType(StructuresParameterRow structureParameterRow)
         {
             string keywordValue = structureParameterRow.AlphanumericValue.ToLower();
             if (keywordValue == "verticalewand")
             {
-                return ClosingStructureType.VerticalWall;
+                return ClosingStructureInflowModelType.VerticalWall;
             }
-            return keywordValue == "lagedrempel" ? ClosingStructureType.LowSill : ClosingStructureType.FloodedCulvert;
+            return keywordValue == "lagedrempel"
+                       ? ClosingStructureInflowModelType.LowSill
+                       : ClosingStructureInflowModelType.FloodedCulvert;
         }
     }
 }

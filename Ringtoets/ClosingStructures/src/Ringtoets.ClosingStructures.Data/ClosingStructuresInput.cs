@@ -160,9 +160,9 @@ namespace Ringtoets.ClosingStructures.Data
         public ClosingStructure ClosingStructure { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of closing structure.
+        /// Gets or sets the type of closing structure inflow model.
         /// </summary>
-        public ClosingStructureType ClosingStructureType { get; set; }
+        public ClosingStructureInflowModelType InflowModelType { get; set; }
 
         #endregion
 

@@ -124,18 +124,18 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         # region Calculation inputs
 
         [Test]
-        [TestCase(StabilityPointStructureType.LowSill)]
-        [TestCase(StabilityPointStructureType.FloodedCulvert)]
-        public void StabilityPointStructureType_SetValue_ReturnSetValue(StabilityPointStructureType type)
+        [TestCase(StabilityPointStructureInflowModelType.LowSill)]
+        [TestCase(StabilityPointStructureInflowModelType.FloodedCulvert)]
+        public void InflowModelType_SetValue_ReturnSetValue(StabilityPointStructureInflowModelType inflowModelType)
         {
             // Setup
             var input = new StabilityPointStructuresInput();
 
             // Call
-            input.StabilityPointStructureType = type;
+            input.InflowModelType = inflowModelType;
 
             // Assert
-            Assert.AreEqual(type, input.StabilityPointStructureType);
+            Assert.AreEqual(inflowModelType, input.InflowModelType);
         }
 
         [Test]

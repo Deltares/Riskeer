@@ -93,24 +93,23 @@ namespace Ringtoets.ClosingStructures.Data.Test
             AssertEqualValue(6.0, input.StormDuration.Mean);
             AssertEqualValue(0.25, input.StormDuration.CoefficientOfVariation);
             Assert.AreEqual(1.0, input.ProbabilityOpenStructureBeforeFlooding);
-
             Assert.AreEqual(0, input.IdenticalApertures);
         }
 
         [Test]
-        [TestCase(ClosingStructureType.VerticalWall)]
-        [TestCase(ClosingStructureType.LowSill)]
-        [TestCase(ClosingStructureType.FloodedCulvert)]
-        public void ClosingStructureType_SetValue_ReturnSetValue(ClosingStructureType type)
+        [TestCase(ClosingStructureInflowModelType.VerticalWall)]
+        [TestCase(ClosingStructureInflowModelType.LowSill)]
+        [TestCase(ClosingStructureInflowModelType.FloodedCulvert)]
+        public void InflowModelType_SetValue_ReturnSetValue(ClosingStructureInflowModelType inflowModelType)
         {
             // Setup
             var input = new ClosingStructuresInput();
 
             // Call
-            input.ClosingStructureType = type;
+            input.InflowModelType = inflowModelType;
 
             // Assert
-            Assert.AreEqual(type, input.ClosingStructureType);
+            Assert.AreEqual(inflowModelType, input.InflowModelType);
         }
 
         [Test]

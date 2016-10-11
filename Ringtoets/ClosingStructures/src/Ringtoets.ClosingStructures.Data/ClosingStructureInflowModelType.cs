@@ -26,26 +26,26 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.ClosingStructures.Data
 {
     /// <summary>
-    /// Defines the types of the various <see cref="ClosingStructure"/>.
+    /// Defines the types of the various <see cref="ClosingStructure"/> inflow models.
     /// </summary>
-    public enum ClosingStructureType
+    public enum ClosingStructureInflowModelType
     {
         /// <summary>
         /// A vertical wall.
         /// </summary>
-        [ResourcesDisplayName(typeof(Resources), "ClosingStructureType_VerticalWall_DisplayName")]
+        [ResourcesDisplayName(typeof(Resources), "ClosingStructureInflowModelType_VerticalWall_DisplayName")]
         VerticalWall,
 
         /// <summary>
         /// A low sill structure.
         /// </summary>
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "StructureType_LowSill_DisplayName")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "StructureInflowModelType_LowSill_DisplayName")]
         LowSill,
 
         /// <summary>
         /// A flooded culvert structure.
         /// </summary>
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "StructureType_FloodedCulvert_DisplayName")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "StructureInflowModelType_FloodedCulvert_DisplayName")]
         FloodedCulvert
     }
 }

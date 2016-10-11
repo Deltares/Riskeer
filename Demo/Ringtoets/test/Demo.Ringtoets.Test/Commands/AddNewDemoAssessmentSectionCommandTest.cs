@@ -358,7 +358,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(0.1, closingStructure.FailureProbabilityOpenStructure.Value);
             Assert.AreEqual(4, closingStructure.IdenticalApertures);
             Assert.AreEqual(1.0, closingStructure.FailureProbabilityReparation.Value);
-            Assert.AreEqual(ClosingStructureType.VerticalWall, closingStructure.InflowModel);
+            Assert.AreEqual(ClosingStructureInflowModelType.VerticalWall, closingStructure.InflowModelType);
         }
 
         private static void AssertExpectedClosingStructuresInput(ClosingStructuresInput inputParameters)

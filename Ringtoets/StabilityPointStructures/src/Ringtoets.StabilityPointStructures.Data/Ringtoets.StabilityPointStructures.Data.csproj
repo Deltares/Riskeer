@@ -52,7 +52,7 @@
     <Compile Include="StabilityPointStructuresFailureMechanism.cs" />
     <Compile Include="StabilityPointStructuresFailureMechanismSectionResult.cs" />
     <Compile Include="StabilityPointStructuresInput.cs" />
-    <Compile Include="StabilityPointStructureType.cs" />
+    <Compile Include="StabilityPointStructureInflowModelType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

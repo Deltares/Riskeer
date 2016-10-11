@@ -231,9 +231,9 @@ namespace Ringtoets.StabilityPointStructures.Data
         public StabilityPointStructure StabilityPointStructure { get; set; }
 
         /// <summary>
-        /// Gets or sets the type of stability point structure.
+        /// Gets or sets the type of stability point structure inflow model.
         /// </summary>
-        public StabilityPointStructureType StabilityPointStructureType { get; set; }
+        public StabilityPointStructureInflowModelType InflowModelType { get; set; }
 
         /// <summary>
         /// Gets or sets the type of load schematization to use for the calculations.

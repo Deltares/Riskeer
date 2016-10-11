@@ -154,7 +154,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                                         21.21,
                                         22,
                                         23.23,
-                                        ClosingStructureType.FloodedCulvert);
+                                        ClosingStructureInflowModelType.FloodedCulvert);
         }
     }
 }

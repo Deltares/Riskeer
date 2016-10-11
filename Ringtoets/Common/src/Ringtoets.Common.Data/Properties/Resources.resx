@@ -231,10 +231,10 @@
   <data name="ICalculation_DisplayName" xml:space="preserve">
     <value>Berekening</value>
   </data>
-  <data name="StructureType_FloodedCulvert_DisplayName" xml:space="preserve">
+  <data name="StructureInflowModelType_FloodedCulvert_DisplayName" xml:space="preserve">
     <value>Verdronken koker</value>
   </data>
-  <data name="StructureType_LowSill_DisplayName" xml:space="preserve">
+  <data name="StructureInflowModelType_LowSill_DisplayName" xml:space="preserve">
     <value>Lage drempel</value>
   </data>
 </root>

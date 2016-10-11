@@ -25,20 +25,20 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 namespace Ringtoets.StabilityPointStructures.Data
 {
     /// <summary>
-    /// Defines the types of the various <see cref="StabilityPointStructure"/>.
+    /// Defines the types of the various <see cref="StabilityPointStructure"/> inflow models.
     /// </summary>
-    public enum StabilityPointStructureType
+    public enum StabilityPointStructureInflowModelType
     {
         /// <summary>
         /// A low sill structure.
         /// </summary>
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "StructureType_LowSill_DisplayName")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "StructureInflowModelType_LowSill_DisplayName")]
         LowSill,
 
         /// <summary>
         /// A flooded culvert structure.
         /// </summary>
-        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "StructureType_FloodedCulvert_DisplayName")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonDataResources), "StructureInflowModelType_FloodedCulvert_DisplayName")]
         FloodedCulvert
     }
 }

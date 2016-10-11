@@ -82,11 +82,11 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <param name="stabilityQuadraticModelCoefficientOfVariation">The coefficient of variation of the stability properties of the quadratic model of the stability point structure.</param>
         /// <param name="areaFlowAperturesMean">The mean of the area of the flow aperture of the stability point structure.</param>
         /// <param name="areaFlowAperturesStandardDeviation">The standard deviation of the area of the flow aperture of the stability point structure.</param>
-        /// <param name="inflowModel">The type of stability point structure.</param>
+        /// <param name="inflowModelType">The type of stability point structure inflow model.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
         /// , empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">When any stochastic variable parameter is out if its valid domain.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When any stochastic variable parameter is out of its valid domain.</exception>
         public StabilityPointStructure(string name, string id, Point2D location,
                                        double structureNormalOrientation,
                                        double storageStructureAreaMean, double storageStructureAreaCoefficientOfVariation,
@@ -113,7 +113,7 @@ namespace Ringtoets.StabilityPointStructures.Data
                                        double stabilityLinearModelMean, double stabilityLinearModelCoefficientOfVariation,
                                        double stabilityQuadraticModelMean, double stabilityQuadraticModelCoefficientOfVariation,
                                        double areaFlowAperturesMean, double areaFlowAperturesStandardDeviation,
-                                       StabilityPointStructureType inflowModel
+                                       StabilityPointStructureInflowModelType inflowModelType
             )
             : base(name, id, location, structureNormalOrientation)
         {
@@ -217,7 +217,7 @@ namespace Ringtoets.StabilityPointStructures.Data
                 Mean = (RoundedDouble) areaFlowAperturesMean,
                 StandardDeviation = (RoundedDouble) areaFlowAperturesStandardDeviation
             };
-            InflowModel = inflowModel;
+            InflowModelType = inflowModelType;
         }
 
         /// <summary>
@@ -341,8 +341,8 @@ namespace Ringtoets.StabilityPointStructures.Data
         public LogNormalDistribution AreaFlowApertures { get; private set; }
 
         /// <summary>
-        /// Gets the type of stability point structure.
+        /// Gets the type of stability point structure inflow model.
         /// </summary>
-        public StabilityPointStructureType InflowModel { get; private set; }
+        public StabilityPointStructureInflowModelType InflowModelType { get; private set; }
     }
 }

@@ -123,7 +123,7 @@
   <data name="ClosingStructuresFailureMechanism_DisplayName" xml:space="preserve">
     <value>Kunstwerken - Betrouwbaarheid sluiting kunstwerk</value>
   </data>
-  <data name="ClosingStructureType_VerticalWall_DisplayName" xml:space="preserve">
+  <data name="ClosingStructureInflowModelType_VerticalWall_DisplayName" xml:space="preserve">
     <value>Verticale wand</value>
   </data>
 </root>

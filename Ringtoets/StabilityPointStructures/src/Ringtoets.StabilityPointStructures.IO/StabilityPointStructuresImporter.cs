@@ -131,14 +131,16 @@ namespace Ringtoets.StabilityPointStructures.IO
                 rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword23].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword23], structureName),
                 rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword24].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword24], structureName),
                 rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword25].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword25], structureName),
-                GetStabilityPointStructureType(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword26])
+                GetStabilityPointStructureInflowModelType(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword26])
                 );
         }
 
-        private static StabilityPointStructureType GetStabilityPointStructureType(StructuresParameterRow structureParameterRow)
+        private static StabilityPointStructureInflowModelType GetStabilityPointStructureInflowModelType(StructuresParameterRow structureParameterRow)
         {
             string keywordValue = structureParameterRow.AlphanumericValue.ToLower();
-            return keywordValue == "lagedrempel" ? StabilityPointStructureType.LowSill : StabilityPointStructureType.FloodedCulvert;
+            return keywordValue == "lagedrempel"
+                       ? StabilityPointStructureInflowModelType.LowSill
+                       : StabilityPointStructureInflowModelType.FloodedCulvert;
         }
     }
 }

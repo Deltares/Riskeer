@@ -64,7 +64,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                                                         789.012, 0.789,
                                                         890.123, 0.890,
                                                         901.234, 0.901,
-                                                        StabilityPointStructureType.FloodedCulvert
+                                                        StabilityPointStructureInflowModelType.FloodedCulvert
                 );
 
             // Assert
@@ -202,7 +202,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(2, areaFlowApertures.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.90, areaFlowApertures.StandardDeviation, areaFlowApertures.StandardDeviation.GetAccuracy());
 
-            Assert.AreEqual(StabilityPointStructureType.FloodedCulvert, structure.InflowModel);
+            Assert.AreEqual(StabilityPointStructureInflowModelType.FloodedCulvert, structure.InflowModelType);
         }
     }
 }
