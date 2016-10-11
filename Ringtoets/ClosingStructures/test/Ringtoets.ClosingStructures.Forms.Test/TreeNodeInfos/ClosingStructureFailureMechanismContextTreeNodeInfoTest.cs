@@ -143,9 +143,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var outputsFolder = (CategoryTreeFolder) children[2];
             Assert.AreEqual("Oordeel", outputsFolder.Name);
             Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
-            Assert.AreEqual(1, outputsFolder.Contents.Count);
+            Assert.AreEqual(2, outputsFolder.Contents.Count);
 
-            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>) outputsFolder.Contents[0];
+            var scenariosContext = (ClosingStructuresScenariosContext) outputsFolder.Contents[0];
+            Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
+            Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
+
+            var failureMechanismResultsContext = (FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>) outputsFolder.Contents[1];
             Assert.AreSame(failureMechanism, failureMechanismResultsContext.FailureMechanism);
             Assert.AreSame(failureMechanism.SectionResults, failureMechanismResultsContext.WrappedData);
         }

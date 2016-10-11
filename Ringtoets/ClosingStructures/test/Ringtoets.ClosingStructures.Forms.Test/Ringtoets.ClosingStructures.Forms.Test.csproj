@@ -76,6 +76,7 @@
     <Compile Include="TreeNodeInfos\ClosingStructuresCalculationGroupContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructuresFailureMechanismSectionResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructuresInputContextTreeNodeInfoTest.cs" />
+    <Compile Include="TreeNodeInfos\ClosingStructuresScenariosContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructureTreeNodeInfoTest.cs" />
     <Compile Include="Views\ClosingStructuresFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\ClosingStructuresFailureMechanismSectionResultRowTest.cs" />

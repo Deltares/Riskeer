@@ -130,6 +130,15 @@ namespace Ringtoets.ClosingStructures.Plugin
                                                                                  .AddPropertiesItem()
                                                                                  .Build()
             };
+
+            yield return new TreeNodeInfo<ClosingStructuresScenariosContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.ScenariosIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
         }
 
         public override IEnumerable<ImportInfo> GetImportInfos()
@@ -211,6 +220,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             return new ArrayList
             {
+                new ClosingStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
             };
         }

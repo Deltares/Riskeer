@@ -29,12 +29,11 @@ using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using ClosingStructuresFormsResources = Ringtoets.ClosingStructures.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class ClosingStructuresInputContextTreeNodeInfoTest
+    public class ClosingStructuresScenariosContextTreeNodeInfoTest
     {
         private MockRepository mocks;
         private ClosingStructuresPlugin plugin;
@@ -45,7 +44,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             plugin = new ClosingStructuresPlugin();
-            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresInputContext));
+            info = plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(ClosingStructuresScenariosContext));
         }
 
         [TearDown]
@@ -62,7 +61,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             // Assert
-            Assert.AreEqual(typeof(ClosingStructuresInputContext), info.TagType);
+            Assert.AreEqual(typeof(ClosingStructuresScenariosContext), info.TagType);
             Assert.IsNotNull(info.Text);
             Assert.IsNotNull(info.Image);
             Assert.IsNotNull(info.ContextMenuStrip);
@@ -89,7 +88,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var text = info.Text(null);
 
             // Assert
-            Assert.AreEqual("Invoer", text);
+            Assert.AreEqual("Scenario's", text);
         }
 
         [Test]
@@ -99,7 +98,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var image = info.Image(null);
 
             // Assert
-            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.GenericInputOutputIcon, image);
+            TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ScenariosIcon, image);
         }
 
         [Test]
@@ -113,7 +112,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 guiMock.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
 
-                menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+                menuBuilderMock.Expect(mb => mb.AddOpenItem()).Return(menuBuilderMock);
                 menuBuilderMock.Expect(mb => mb.Build()).Return(null);
                 mocks.ReplayAll();
 
