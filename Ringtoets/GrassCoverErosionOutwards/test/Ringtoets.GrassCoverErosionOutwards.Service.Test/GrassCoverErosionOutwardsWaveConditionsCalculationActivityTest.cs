@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HydraRing.Calculation.Activities;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 {
@@ -46,6 +47,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             var activity = new GrassCoverErosionOutwardsWaveConditionsCalculationActivity(calculation, string.Empty, failureMechanism, assessmentSectionMock);
 
             // Assert
+            Assert.IsInstanceOf<HydraRingActivityBase>(activity);
             Assert.IsNull(activity.ProgressText);
             Assert.AreEqual(ActivityState.None, activity.State);
             Assert.AreEqual(calculation.Name, activity.Name);
