@@ -63,6 +63,13 @@
     <Compile Include="UITypeEditors\HeightStructuresInputContextForeshoreProfileEditor.cs" />
     <Compile Include="UITypeEditors\HeightStructuresInputContextHydraulicBoundaryLocationEditor.cs" />
     <Compile Include="UITypeEditors\HeightStructuresInputContextStructureEditor.cs" />
+    <Compile Include="Views\HeightStructuresScenarioRow.cs" />
+    <Compile Include="Views\HeightStructuresScenariosView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\HeightStructuresScenariosView.Designer.cs">
+      <DependentUpon>HeightStructuresScenariosView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\HeightStructuresFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -120,6 +127,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\HeightStructuresScenariosView.resx">
+      <DependentUpon>HeightStructuresScenariosView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

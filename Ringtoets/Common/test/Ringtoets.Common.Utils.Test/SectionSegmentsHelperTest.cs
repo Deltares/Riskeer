@@ -31,14 +31,27 @@ namespace Ringtoets.Common.Utils.Test
     public class SectionSegmentsHelperTest
     {
         [Test]
-        public void MakeSectionSegments_SectionResultsNull_ThrowsArgumentNullException()
+        public void MakeSectionSegments_SectionsNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => SectionSegmentsHelper.MakeSectionSegments(null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("sectionResults", exception.ParamName);
+            Assert.AreEqual("sections", exception.ParamName);
+        }
+        [Test]
+        public void MakeSectionSegments_SectionsElementNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => SectionSegmentsHelper.MakeSectionSegments(new FailureMechanismSection[]
+            {
+                null
+            });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("section", exception.ParamName);
         }
 
         [Test]

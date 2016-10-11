@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
@@ -30,7 +31,18 @@ namespace Ringtoets.Common.Utils.Test
     public class SectionSegmentsTest
     {
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_WithoutFailureMechanismSection_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => new SectionSegments(null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("section", exception.ParamName);
+        }
+
+        [Test]
+        public void Constructor_WithFailureMechanismSection_ExpectedValues()
         {
             // Setup
             var failureMechanismSection = new FailureMechanismSection(string.Empty, new[]

@@ -20,34 +20,32 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Utils;
+using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
+namespace Ringtoets.HeightStructures.Forms.Views
 {
     /// <summary>
     /// View for configuring scenarios for the grass cover erosion inwards failure mechanism.
     /// Shows a grid view where for each failure mechanism section, a calculation within the section
     /// can be selected.
     /// </summary>
-    public partial class GrassCoverErosionInwardsScenariosView : UserControl, IView
+    public partial class HeightStructuresScenariosView : UserControl, IView
     {
         private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
         private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
         private readonly Observer failureMechanismObserver;
-        private GrassCoverErosionInwardsFailureMechanism failureMechanism;
+        private HeightStructuresFailureMechanism failureMechanism;
         private CalculationGroup data;
 
         /// <summary>
-        /// Creates a new instance of <see cref="GrassCoverErosionInwardsScenariosView"/>.
+        /// Creates a new instance of <see cref="HeightStructuresScenariosView"/>.
         /// </summary>
-        public GrassCoverErosionInwardsScenariosView()
+        public HeightStructuresScenariosView()
         {
             InitializeComponent();
 
@@ -61,7 +59,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         /// <summary>
         /// Gets or sets the failure mechanism.
         /// </summary>
-        public GrassCoverErosionInwardsFailureMechanism FailureMechanism
+        public HeightStructuresFailureMechanism FailureMechanism
         {
             get
             {
@@ -125,15 +123,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
             else
             {
-                var calculations = data.GetCalculations();
+//                var calculations = data.GetCalculations();
 
-                Dictionary<string, IList<ICalculation>> caculationsPerSegment = 
-                    GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.OfType<GrassCoverErosionInwardsCalculation>());
+//                Dictionary<string, IList<ICalculation>> caculationsPerSegment = 
+//                    HeightStructuresHelper.CollectCalculationsPerSegment(failureMechanism.Sections, calculations.OfType<HeightStructuresCalculation>());
 
-                List<GrassCoverErosionInwardsScenarioRow> scenarioRows = 
-                    FailureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsScenarioRow(sectionResult)).ToList();
+//                List<HeightStructuresScenarioRow> scenarioRows = 
+//                    FailureMechanism.SectionResults.Select(sectionResult => new HeightStructuresScenarioRow(sectionResult)).ToList();
 
-                scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, caculationsPerSegment);
+//                scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, caculationsPerSegment);
             }
         }
     }

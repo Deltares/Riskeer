@@ -21,9 +21,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -36,201 +37,161 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         private const string firstSectionName = "firstSection";
         private const string secondSectionName = "secondSection";
 
+        #region Prepared data
+
+        private static readonly FailureMechanismSection failureMechanismSectionA = new FailureMechanismSection(firstSectionName, new List<Point2D>
+        {
+            new Point2D(0.0, 0.0),
+            new Point2D(10.0, 10.0),
+        });
+
+        private static readonly FailureMechanismSection failureMechanismSectionB = new FailureMechanismSection(secondSectionName, new List<Point2D>
+        {
+            new Point2D(11.0, 11.0),
+            new Point2D(100.0, 100.0),
+        });
+
+        private static readonly GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(
+            failureMechanismSectionA);
+
         private readonly FailureMechanismSection[] oneSection =
         {
-            new FailureMechanismSection("testFailureMechanismSection", new List<Point2D>
-            {
-                new Point2D(0.0, 0.0)
-            })
+            failureMechanismSectionA
         };
 
         private readonly FailureMechanismSection[] twoSections =
         {
-            new FailureMechanismSection(firstSectionName, new List<Point2D>
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(10.0, 10.0),
-            }),
-            new FailureMechanismSection(secondSectionName, new List<Point2D>
-            {
-                new Point2D(11.0, 11.0),
-                new Point2D(100.0, 100.0),
-            })
+            failureMechanismSectionA,
+            failureMechanismSectionB
         };
 
-        private readonly GrassCoverErosionInwardsCalculation[] twoCalculations =
+        private readonly GrassCoverErosionInwardsCalculation calculationInSectionA = new GrassCoverErosionInwardsCalculation
         {
-            new GrassCoverErosionInwardsCalculation
+            InputParameters =
             {
-                InputParameters =
-                {
-                    DikeProfile = new DikeProfile(new Point2D(1.1, 2.2), new RoughnessPoint[0], new Point2D[0],
-                                                  null, new DikeProfile.ConstructionProperties())
-                }
-            },
-            new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    DikeProfile = new DikeProfile(new Point2D(3.3, 4.4), new RoughnessPoint[0], new Point2D[0],
-                                                  null, new DikeProfile.ConstructionProperties())
-                }
+                DikeProfile = new DikeProfile(new Point2D(1.1, 2.2), new RoughnessPoint[0], new Point2D[0], null,
+                                              new DikeProfile.ConstructionProperties())
             }
         };
 
-        [Test]
-        public void CollectCalculationsPerSegment_SectionResultsNull_ThrowsArgumentNullException()
+        private readonly GrassCoverErosionInwardsCalculation calculationInSectionB = new GrassCoverErosionInwardsCalculation
         {
-            // Setup
-            var calculations = new GrassCoverErosionInwardsCalculation[0];
-
-            // Call
-            TestDelegate call = () => GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(null, calculations);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("sections", paramName);
-        }
-
-        [Test]
-        public void CollectCalculationsPerSegment_CalculationsNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSection, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("calculations", paramName);
-        }
-
-        [Test]
-        public void CollectCalculationsPerSegment_ValidEmptySectionResults_EmptyDictionary()
-        {
-            // Setup
-            var emptySections = new FailureMechanismSection[0];
-
-            // Call
-            Dictionary<string, IList<ICalculation>> collectCalculationsPerSegment =
-                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(emptySections, twoCalculations);
-
-            // Assert
-            Assert.AreEqual(0, collectCalculationsPerSegment.Count);
-        }
-
-        [Test]
-        public void CollectCalculationsPerSegment_ValidEmptyCalculations_EmptyDictionary()
-        {
-            // Setup
-            var calculations = new GrassCoverErosionInwardsCalculation[0];
-
-            // Call
-            Dictionary<string, IList<ICalculation>> collectCalculationsPerSegment =
-                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSection, calculations);
-
-            // Assert
-            Assert.AreEqual(0, collectCalculationsPerSegment.Count);
-        }
-
-        [Test]
-        public void CollectCalculationsPerSegment_CalculationsWithoutDikeProfiles_EmptyDictionary()
-        {
-            // Setup
-            GrassCoverErosionInwardsCalculation[] calculations =
+            InputParameters =
             {
-                new GrassCoverErosionInwardsCalculation(),
-                new GrassCoverErosionInwardsCalculation()
-            };
+                DikeProfile = new DikeProfile(new Point2D(50.0, 66.0), new RoughnessPoint[0], new Point2D[0],
+                                              null, new DikeProfile.ConstructionProperties())
+            }
+        };
 
-            // Call
-            Dictionary<string, IList<ICalculation>> collectCalculationsPerSegment =
-                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(oneSection, calculations);
+        #endregion
 
-            // Assert
-            Assert.AreEqual(0, collectCalculationsPerSegment.Count);
-        }
 
         [Test]
-        public void CollectCalculationsPerSegment_MultipleCalculationsInSegment_OneSegmentHasAllCalculations()
+        public void CollectCalculationsPerSection_SectionsAreNull_ThrowsArgumentNullException()
         {
             // Call
-            Dictionary<string, IList<ICalculation>> collectCalculationsPerSegment =
-                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(twoSections, twoCalculations);
-
-            // Assert
-            Assert.AreEqual(1, collectCalculationsPerSegment.Count);
-            Assert.IsTrue(collectCalculationsPerSegment.ContainsKey(firstSectionName));
-            CollectionAssert.AreEqual(twoCalculations, collectCalculationsPerSegment[firstSectionName]);
-        }
-
-        [Test]
-        public void CollectCalculationsPerSegment_SingleCalculationPerSegment_OneCalculationPerSegment()
-        {
-            // Setup
-            GrassCoverErosionInwardsCalculation[] calculations =
-            {
-                new GrassCoverErosionInwardsCalculation
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(
+                null,
+                new GrassCoverErosionInwardsCalculation[]
                 {
-                    InputParameters =
-                    {
-                        DikeProfile = new DikeProfile(new Point2D(1.1, 2.2), new RoughnessPoint[0], new Point2D[0],
-                                                      null, new DikeProfile.ConstructionProperties())
-                    }
+                    null
+                });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("sections", exception.ParamName);
+        }
+
+        [Test]
+        public void CollectCalculationsPerSection_SectionElementsAreNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(
+                new FailureMechanismSection[]
+                {
+                    null,
+                    null
                 },
-                new GrassCoverErosionInwardsCalculation
+                new[]
                 {
-                    InputParameters =
-                    {
-                        DikeProfile = new DikeProfile(new Point2D(50.0, 66.0), new RoughnessPoint[0], new Point2D[0],
-                                                      null, new DikeProfile.ConstructionProperties())
-                    }
-                }
-            };
-
-            // Call
-            Dictionary<string, IList<ICalculation>> collectCalculationsPerSegment =
-                GrassCoverErosionInwardsHelper.CollectCalculationsPerSegment(twoSections, calculations);
+                    calculationInSectionA
+                });
 
             // Assert
-            Assert.AreEqual(2, collectCalculationsPerSegment.Count);
-            Assert.AreEqual(1, collectCalculationsPerSegment[firstSectionName].Count);
-            Assert.AreSame(calculations[0], collectCalculationsPerSegment[firstSectionName][0]);
-            Assert.AreEqual(1, collectCalculationsPerSegment[secondSectionName].Count);
-            Assert.AreSame(calculations[1], collectCalculationsPerSegment[secondSectionName][0]);
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("sections", exception.ParamName);
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_SectionResultAndCalculationNull_ThrowsArgumentNullException()
+        public void CollectCalculationsPerSection_CalculationsAreNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(null, null);
-
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(
+                twoSections,
+                null);
+            
             // Assert
-            Assert.Throws<ArgumentNullException>(call);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculations", exception.ParamName);
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_SectionResultsNull_ThrowsArgumentNullException()
+        public void CollectCalculationsPerSection_CalculationElementsAreNull_ThrowsArgumentNullException()
         {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(null, calculation);
-
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(
+                twoSections,
+                new GrassCoverErosionInwardsCalculation[]
+                {
+                    null
+                });
+            
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("sections", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
         }
 
         [Test]
         public void FailureMechanismSectionForCalculation_CalculationNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate call = () => GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(oneSection, null);
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(
+                twoSections,
+                null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("calculation", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        public void FailureMechanismSectionForCalculation_SectionsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(
+                null,
+                calculationInSectionA);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("sections", exception.ParamName);
+        }
+
+        [Test]
+        public void FailureMechanismSectionForCalculation_SectionElementsNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(
+                new FailureMechanismSection[]
+                {
+                    null,
+                    null
+                },
+                calculationInSectionA);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("sections", exception.ParamName);
         }
 
         [Test]
@@ -248,25 +209,21 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_SectionResultsEmpty_ReturnsNull()
-        {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation();
-
-            // Call
-            FailureMechanismSection failureMechanismSection =
-                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(oneSection, calculation);
-
-            // Assert
-            Assert.IsNull(failureMechanismSection);
-        }
-
-        [Test]
         public void FailureMechanismSectionForCalculation_ValidEmptySectionResults_ReturnsNull()
         {
             // Setup
             var emptySections = new FailureMechanismSection[0];
-            var calculation = new GrassCoverErosionInwardsCalculation();
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    DikeProfile = new DikeProfile(new Point2D(0, 0),
+                                                  Enumerable.Empty<RoughnessPoint>(),
+                                                  Enumerable.Empty<Point2D>(),
+                                                  null,
+                                                  new DikeProfile.ConstructionProperties())
+                }
+            };
 
             // Call
             FailureMechanismSection failureMechanismSection =
@@ -279,19 +236,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         [Test]
         public void FailureMechanismSectionForCalculation_FirstSectionResultContainsCalculation_FailureMechanismSectionOfFirstSectionResult()
         {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    DikeProfile = new DikeProfile(new Point2D(1.1, 2.2), new RoughnessPoint[0], new Point2D[0],
-                                                  null, new DikeProfile.ConstructionProperties())
-                }
-            };
-
             // Call
             FailureMechanismSection failureMechanismSection =
-                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(twoSections, calculation);
+                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(twoSections, calculationInSectionA);
 
             // Assert
             Assert.AreSame(twoSections[0], failureMechanismSection);
@@ -300,22 +247,127 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
         [Test]
         public void FailureMechanismSectionForCalculation_SecondSectionResultContainsCalculation_FailureMechanismSectionOfSecondSectionResult()
         {
-            // Setup
-            var calculation = new GrassCoverErosionInwardsCalculation
-            {
-                InputParameters =
-                {
-                    DikeProfile = new DikeProfile(new Point2D(50.0, 66.0), new RoughnessPoint[0], new Point2D[0],
-                                                  null, new DikeProfile.ConstructionProperties())
-                }
-            };
-
             // Call
             FailureMechanismSection failureMechanismSection =
-                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(twoSections, calculation);
+                GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(twoSections, calculationInSectionB);
 
             // Assert
             Assert.AreSame(twoSections[1], failureMechanismSection);
+        }
+
+        [Test]
+        public void Update_SectionResultsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.Update(
+                null,
+                calculationInSectionA);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("sectionResults", exception.ParamName);
+        }
+
+        [Test]
+        public void Update_SectionResultElementsNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.Update(
+                new GrassCoverErosionInwardsFailureMechanismSectionResult[]
+                {
+                    null,
+                    null
+                },
+                calculationInSectionA);
+
+            // Assert
+            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                test, "SectionResults contains an entry without value.");
+            Assert.AreEqual("sectionResults", exception.ParamName);
+        }
+
+        [Test]
+        public void Delete_SectionResultsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.Delete(
+                null,
+                calculationInSectionA,
+                new [] { calculationInSectionB });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("sectionResults", exception.ParamName);
+        }
+
+        [Test]
+        public void Delete_SectionResultElementsNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.Delete(
+                new GrassCoverErosionInwardsFailureMechanismSectionResult[]
+                {
+                    null,
+                    null
+                },
+                calculationInSectionA,
+                new [] { calculationInSectionB });
+
+            // Assert
+            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                test, "SectionResults contains an entry without value.");
+            Assert.AreEqual("sectionResults", exception.ParamName);
+        }
+
+        [Test]
+        public void Delete_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.Delete(
+                new[]
+                {
+                    sectionResult
+                },
+                null,
+                new[] { calculationInSectionA });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        public void Delete_CalculationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.Delete(
+                new[]
+                {
+                    sectionResult
+                },
+                calculationInSectionA,
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        public void Delete_CalculationsElementNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => GrassCoverErosionInwardsHelper.Delete(
+                new[]
+                {
+                    sectionResult
+                },
+                calculationInSectionA,
+                new GrassCoverErosionInwardsCalculation[] { null });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
         }
     }
 }

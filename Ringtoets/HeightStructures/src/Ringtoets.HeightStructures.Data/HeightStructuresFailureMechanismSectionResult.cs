@@ -64,5 +64,11 @@ namespace Ringtoets.HeightStructures.Data
         /// Gets or sets the state of the assessment layer one.
         /// </summary>
         public bool AssessmentLayerOne { get; set; }
+
+        /// <summary>
+        /// Gets or sets the <see cref="HeightStructuresCalculation"/>, which is chosen 
+        /// to be representative for the whole section.
+        /// </summary>
+        public HeightStructuresCalculation Calculation { get; set; }
     }
 }

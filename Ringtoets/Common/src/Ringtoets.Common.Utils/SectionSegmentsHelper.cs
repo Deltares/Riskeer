@@ -33,19 +33,20 @@ namespace Ringtoets.Common.Utils
     public static class SectionSegmentsHelper
     {
         /// <summary>
-        /// Creates <see cref="SectionSegments"/> from an <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/>.
+        /// Creates <see cref="SectionSegments"/> from an <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSection"/>.
         /// </summary>
-        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSectionResult"/>
+        /// <param name="sections">The <see cref="IEnumerable{T}"/> of <see cref="FailureMechanismSection"/>
         /// to create <see cref="SectionSegments"/> for.</param>
         /// <returns>An array of <see cref="SectionSegments"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResults"/> is <c>null</c>.</exception>
-        public static SectionSegments[] MakeSectionSegments(IEnumerable<FailureMechanismSection> sectionResults)
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sections"/> is <c>null</c> or when 
+        /// an element in <paramref name="sections"/> is <c>null</c>.</exception>
+        public static SectionSegments[] MakeSectionSegments(IEnumerable<FailureMechanismSection> sections)
         {
-            if (sectionResults == null)
+            if (sections == null)
             {
-                throw new ArgumentNullException("sectionResults");
+                throw new ArgumentNullException("sections");
             }
-            return sectionResults.Select(s => new SectionSegments(s)).ToArray();
+            return sections.Select(s => new SectionSegments(s)).ToArray();
         }
 
         /// <summary>

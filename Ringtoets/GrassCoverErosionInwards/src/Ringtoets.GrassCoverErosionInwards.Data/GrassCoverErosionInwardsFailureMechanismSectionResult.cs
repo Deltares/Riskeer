@@ -67,7 +67,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         public bool AssessmentLayerOne { get; set; }
 
         /// <summary>
-        /// Gets or sets the single relevant <see cref="GrassCoverErosionInwardsCalculation"/>.
+        /// Gets or sets the <see cref="GrassCoverErosionInwardsCalculation"/>, which is chosen 
+        /// to be representative for the whole section.
         /// </summary>
         public GrassCoverErosionInwardsCalculation Calculation { get; set; }
     }

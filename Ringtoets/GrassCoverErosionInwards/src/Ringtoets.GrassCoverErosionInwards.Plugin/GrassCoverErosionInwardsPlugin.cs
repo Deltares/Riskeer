@@ -517,7 +517,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                     }
                 };
                 target.Children.Add(calculation);
-                AssignUnassignCalculations.Update(failureMechanism.SectionResults, calculation);
+                GrassCoverErosionInwardsHelper.Update(failureMechanism.SectionResults, calculation);
             }
         }
 
@@ -618,7 +618,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                AssignUnassignCalculations.Delete(context.FailureMechanism.SectionResults, context.WrappedData, context.FailureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>());
+                GrassCoverErosionInwardsHelper.Delete(context.FailureMechanism.SectionResults, context.WrappedData, context.FailureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>());
                 calculationGroupContext.NotifyObservers();
             }
         }

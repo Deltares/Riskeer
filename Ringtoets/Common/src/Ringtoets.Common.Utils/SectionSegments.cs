@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -38,8 +39,13 @@ namespace Ringtoets.Common.Utils
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> whose <see cref="FailureMechanismSection.Points"/> 
         /// this class represents as a collection of <see cref="Segment2D"/> objects.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
         public SectionSegments(FailureMechanismSection section)
         {
+            if (section == null)
+            {
+                throw new ArgumentNullException("section");
+            }
             Section = section;
             segments = Math2D.ConvertLinePointsToLineSegments(section.Points);
         }

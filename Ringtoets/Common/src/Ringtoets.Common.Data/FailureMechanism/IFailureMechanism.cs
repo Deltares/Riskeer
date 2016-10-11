@@ -54,7 +54,8 @@ namespace Ringtoets.Common.Data.FailureMechanism
         bool IsRelevant { get; set; }
 
         /// <summary>
-        /// Gets a <see cref="IEnumerable{T}"/> of <see cref="ICalculation"/>.
+        /// Gets a <see cref="IEnumerable{T}"/> of all the <see cref="ICalculation"/> instances added to
+        /// the failure mechanism.
         /// </summary>
         IEnumerable<ICalculation> Calculations { get; }
 

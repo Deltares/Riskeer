@@ -290,7 +290,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 var dataGridViewColumn = (DataGridViewComboBoxColumn) dataGridView.Columns[1];
 
                 Assert.AreEqual(failureMechanism.SectionResults.Count(), rowCount);
-                Assert.AreEqual(failureMechanism.CalculationsGroup.GetCalculations().Count(), dataGridViewColumn.Items.Count);
+                Assert.AreEqual(failureMechanism.Calculations.Count(), dataGridViewColumn.Items.Count);
 
                 for (int i = 0; i < rowCount; i++)
                 {

@@ -68,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             set
             {
                 data.WrappedData.DikeProfile = value;
-                AssignUnassignCalculations.Update(data.FailureMechanism.SectionResults, data.Calculation);
+                GrassCoverErosionInwardsHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
                 data.WrappedData.NotifyObservers();
             }
         }
