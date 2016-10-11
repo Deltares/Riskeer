@@ -206,10 +206,6 @@
       <Project>{87C2C553-C0BC-40BF-B1EA-B83BFF357F27}</Project>
       <Name>Ringtoets.Revetment.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.Forms\Ringtoets.Revetment.Forms.csproj">
-      <Project>{AF1ACFA2-AEE5-4DB7-98CA-8B3720E46AD9}</Project>
-      <Name>Ringtoets.Revetment.Forms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Revetment\src\Ringtoets.Revetment.IO\Ringtoets.Revetment.IO.csproj">
       <Project>{E3347B16-BB18-41C1-8D34-FBCBF20DB695}</Project>
       <Name>Ringtoets.Revetment.IO</Name>

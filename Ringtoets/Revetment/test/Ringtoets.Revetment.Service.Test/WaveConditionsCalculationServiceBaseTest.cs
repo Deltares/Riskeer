@@ -64,7 +64,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(action);
-            Assert.AreEqual("calculatedValueName", exception.ParamName);
+            Assert.AreEqual("designWaterLevelName", exception.ParamName);
         }
 
         [Test]

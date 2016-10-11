@@ -52,6 +52,9 @@ namespace Ringtoets.Revetment.Service
         private int currentStep = 1;
         private IWaveConditionsCosineCalculator calculator;
 
+        /// <summary>
+        /// Cancels any currently running wave conditions calculation.
+        /// </summary>
         public void Cancel()
         {
             if (calculator != null)
@@ -61,18 +64,34 @@ namespace Ringtoets.Revetment.Service
             Canceled = true;
         }
 
-        protected bool Canceled { get; set; }
+        /// <summary>
+        /// Gets whether the calculation is canceled or not.
+        /// </summary>
+        protected bool Canceled { get; private set; }
 
-        protected static bool ValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput, string name, string hydraulicBoundaryDatabaseFilePath, string calculatedValueName)
+        /// <summary>
+        /// Performs validation over the values on the given <paramref name="waveConditionsInput"/>.
+        /// Error and status information is logged during the execution of the operation.
+        /// </summary>
+        /// <param name="waveConditionsInput">The input of the calculation.</param>
+        /// <param name="name">The name of the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The directory of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="designWaterLevelName">The name of the design water level property.</param>
+        /// <returns><c>True</c>c> if <paramref name="waveConditionsInput"/> has no validation errors; <c>False</c>c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="designWaterLevelName"/> is <c>null</c>.</exception>
+        protected static bool ValidateWaveConditionsInput(WaveConditionsInput waveConditionsInput,
+                                                          string name,
+                                                          string hydraulicBoundaryDatabaseFilePath,
+                                                          string designWaterLevelName)
         {
-            if (calculatedValueName == null)
+            if (designWaterLevelName == null)
             {
-                throw new ArgumentNullException("calculatedValueName");
+                throw new ArgumentNullException("designWaterLevelName");
             }
 
             CalculationServiceHelper.LogValidationBeginTime(name);
 
-            string[] messages = ValidateInput(hydraulicBoundaryDatabaseFilePath, waveConditionsInput, calculatedValueName);
+            string[] messages = ValidateInput(hydraulicBoundaryDatabaseFilePath, waveConditionsInput, designWaterLevelName);
 
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
 
@@ -81,21 +100,36 @@ namespace Ringtoets.Revetment.Service
             return !messages.Any();
         }
 
-        protected IEnumerable<WaveConditionsOutput> CalculateWaveConditions(string calculationName, WaveConditionsInput waveConditionsInput, RoundedDouble a, RoundedDouble b, RoundedDouble c, double norm, string ringId, string hlcdFilePath)
+        /// <summary>
+        /// Performs a wave conditoins calculation based on the supplied <see cref="WaveConditionsInput"/> and returns the output.
+        /// Error and status information is logged during the execution of the operation.
+        /// </summary>
+        /// <param name="calculationName">The name of the calculation.</param>
+        /// <param name="waveConditionsInput">The <see cref="WaveConditionsInput"/> that holds all the information required to perform the calculation.</param>
+        /// <param name="a">The 'a' factor decided on failure mechanism level.</param>
+        /// <param name="b">The 'b' factor decided on failure mechanism level.</param>
+        /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
+        /// <param name="norm">The norm to use as the target.</param>
+        /// <param name="ringId">The id of the assessment section for which calculations are performed.</param>
+        /// <param name="hlcdFilePath">The directory of the hydraulic boundary database.</param>
+        /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="WaveConditionsOutput"/>.</returns>
+        protected IEnumerable<WaveConditionsOutput> CalculateWaveConditions(string calculationName,
+                                                                            WaveConditionsInput waveConditionsInput,
+                                                                            RoundedDouble a,
+                                                                            RoundedDouble b,
+                                                                            RoundedDouble c,
+                                                                            double norm,
+                                                                            string ringId,
+                                                                            string hlcdFilePath)
         {
             var outputs = new List<WaveConditionsOutput>();
 
             var waterLevels = waveConditionsInput.WaterLevels.ToArray();
-            foreach (var waterLevel in waterLevels)
+            foreach (var waterLevel in waterLevels.TakeWhile(waterLevel => !Canceled))
             {
-                if (Canceled)
-                {
-                    break;
-                }
-
                 log.Info(string.Format(Resources.WaveConditionsCalculationService_OnRun_Subject_0_for_waterlevel_1_started,
-                               calculationName,
-                               waterLevel));
+                                       calculationName,
+                                       waterLevel));
 
                 NotifyProgress(waterLevel, currentStep++, TotalWaterLevelCalculations);
 
@@ -115,33 +149,33 @@ namespace Ringtoets.Revetment.Service
                 }
 
                 log.Info(string.Format(Resources.WaveConditionsCalculationService_OnRun_Subject_0_for_waterlevel_1_ended,
-                               calculationName,
-                               waterLevel));
+                                       calculationName,
+                                       waterLevel));
             }
             return outputs;
         }
 
-        protected static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath,
+        private static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath,
                                               WaveConditionsInput input,
-                                              string calculatedValueName)
+                                              string designWaterLevelName)
         {
-            List<string> validationResult = new List<string>();
+            var validationResults = new List<string>();
 
             string validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
             if (!string.IsNullOrEmpty(validationProblem))
             {
-                validationResult.Add(validationProblem);
+                validationResults.Add(validationProblem);
             }
             else
             {
-                string message = ValidateWaveConditionsInput(input, calculatedValueName);
+                string message = ValidateWaveConditionsInput(input, designWaterLevelName);
                 if (!string.IsNullOrEmpty(message))
                 {
-                    validationResult.Add(message);
+                    validationResults.Add(message);
                 }
             }
 
-            return validationResult.ToArray();
+            return validationResults.ToArray();
         }
 
         private void NotifyProgress(RoundedDouble waterLevel, int currentStepNumber, int totalStepsNumber)
@@ -166,7 +200,15 @@ namespace Ringtoets.Revetment.Service
         /// <param name="ringId">The id of the assessment section for which calculations are performed.</param>
         /// <param name="name">The name used for logging.</param>
         /// <returns>A <see cref="WaveConditionsOutput"/> if the calcultion was succesful; or <c>null</c> if it was canceled.</returns>
-        private WaveConditionsOutput CalculateWaterLevel(RoundedDouble waterLevel, double a, double b, double c, double norm, WaveConditionsInput input, string hlcdDirectory, string ringId, string name)
+        private WaveConditionsOutput CalculateWaterLevel(RoundedDouble waterLevel,
+                                                         RoundedDouble a,
+                                                         RoundedDouble b,
+                                                         RoundedDouble c,
+                                                         double norm,
+                                                         WaveConditionsInput input,
+                                                         string hlcdDirectory,
+                                                         string ringId,
+                                                         string name)
         {
             calculator = HydraRingCalculatorFactory.Instance.CreateWaveConditionsCosineCalculator(hlcdDirectory, ringId);
             WaveConditionsCosineCalculationInput calculationInput = CreateInput(waterLevel, a, b, c, norm, input);
@@ -184,17 +226,20 @@ namespace Ringtoets.Revetment.Service
             {
                 if (!Canceled)
                 {
-                    log.ErrorFormat(CultureInfo.CurrentCulture, Resources.WaveConditionsCalculationService_VerifyWaveConditionsCalculationOutput_Error_in_wave_conditions_calculation_0_for_waterlevel_1, name, waterLevel);
+                    log.ErrorFormat(CultureInfo.CurrentCulture,
+                                    Resources.WaveConditionsCalculationService_VerifyWaveConditionsCalculationOutput_Error_in_wave_conditions_calculation_0_for_waterlevel_1,
+                                    name,
+                                    waterLevel);
                     throw;
                 }
                 return null;
             }
         }
 
-        private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel,
-                                                                        double a,
-                                                                        double b,
-                                                                        double c,
+        private static WaveConditionsCosineCalculationInput CreateInput(RoundedDouble waterLevel,
+                                                                        RoundedDouble a,
+                                                                        RoundedDouble b,
+                                                                        RoundedDouble c,
                                                                         double norm,
                                                                         WaveConditionsInput input)
         {
