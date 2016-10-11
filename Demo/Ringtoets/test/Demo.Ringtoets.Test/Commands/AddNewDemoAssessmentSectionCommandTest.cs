@@ -467,11 +467,76 @@ namespace Demo.Ringtoets.Test.Commands
         private static void AssertStabilityPointStructuresFailureMechanism(AssessmentSection demoAssessmentSection)
         {
             Assert.AreEqual(1, demoAssessmentSection.StabilityPointStructures.CalculationsGroup.Children.Count);
+            AssertExpectedStabilityPointStructureValues(demoAssessmentSection.StabilityPointStructures.StabilityPointStructures[0]);
             StabilityPointStructuresCalculation calculation = demoAssessmentSection.StabilityPointStructures
                                                                                    .CalculationsGroup.GetCalculations()
                                                                                    .OfType<StabilityPointStructuresCalculation>()
                                                                                    .First();
             AssertExpectedStabilityPointStructuresInput(calculation.InputParameters);
+        }
+
+        private static void AssertExpectedStabilityPointStructureValues(StabilityPointStructure structure)
+        {
+            Assert.AreEqual("Kunstwerk", structure.Name);
+            Assert.AreEqual("Kunstwerk id", structure.Id);
+            Assert.AreEqual(new Point2D(131470.777221421, 548329.82912364), structure.Location);
+            Assert.AreEqual(10, structure.StructureNormalOrientation, structure.StructureNormalOrientation.GetAccuracy());
+            Assert.AreEqual(20000, structure.StorageStructureArea.Mean, structure.StorageStructureArea.Mean.GetAccuracy());
+            Assert.AreEqual(0.1, structure.StorageStructureArea.CoefficientOfVariation,
+                            structure.StorageStructureArea.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(0.2, structure.AllowedLevelIncreaseStorage.Mean, structure.AllowedLevelIncreaseStorage.Mean.GetAccuracy());
+            Assert.AreEqual(0.1, structure.AllowedLevelIncreaseStorage.StandardDeviation,
+                            structure.AllowedLevelIncreaseStorage.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(21, structure.WidthFlowApertures.Mean, structure.WidthFlowApertures.Mean.GetAccuracy());
+            Assert.AreEqual(0.05, structure.WidthFlowApertures.CoefficientOfVariation, structure.WidthFlowApertures.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(0.5, structure.InsideWaterLevel.Mean, structure.InsideWaterLevel.Mean.GetAccuracy());
+            Assert.AreEqual(0.1, structure.InsideWaterLevel.StandardDeviation, structure.InsideWaterLevel.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(4.95, structure.ThresholdHeightOpenWeir.Mean, structure.ThresholdHeightOpenWeir.Mean.GetAccuracy());
+            Assert.AreEqual(0.1, structure.ThresholdHeightOpenWeir.StandardDeviation, structure.ThresholdHeightOpenWeir.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(1, structure.CriticalOvertoppingDischarge.Mean, structure.CriticalOvertoppingDischarge.Mean.GetAccuracy());
+            Assert.AreEqual(0.15, structure.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                            structure.CriticalOvertoppingDischarge.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(25, structure.FlowWidthAtBottomProtection.Mean, structure.FlowWidthAtBottomProtection.Mean.GetAccuracy());
+            Assert.AreEqual(1.25, structure.FlowWidthAtBottomProtection.StandardDeviation,
+                            structure.FlowWidthAtBottomProtection.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(10, structure.ConstructiveStrengthLinearLoadModel.Mean, structure.ConstructiveStrengthLinearLoadModel.Mean.GetAccuracy());
+            Assert.AreEqual(0.1, structure.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
+                            structure.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(10, structure.ConstructiveStrengthQuadraticLoadModel.Mean,
+                            structure.ConstructiveStrengthQuadraticLoadModel.Mean.GetAccuracy());
+            Assert.AreEqual(0.1, structure.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
+                            structure.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(0, structure.BankWidth.Mean, structure.BankWidth.Mean.GetAccuracy());
+            Assert.AreEqual(0, structure.BankWidth.StandardDeviation, structure.BankWidth.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(0.5, structure.InsideWaterLevelFailureConstruction.Mean, structure.InsideWaterLevelFailureConstruction.Mean.GetAccuracy());
+            Assert.AreEqual(0.1, structure.InsideWaterLevelFailureConstruction.StandardDeviation,
+                            structure.InsideWaterLevelFailureConstruction.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(0, structure.EvaluationLevel, structure.EvaluationLevel.GetAccuracy());
+            Assert.AreEqual(4.95, structure.LevelCrestStructure.Mean, structure.LevelCrestStructure.Mean.GetAccuracy());
+            Assert.AreEqual(0.05, structure.LevelCrestStructure.StandardDeviation, structure.LevelCrestStructure.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(0, structure.VerticalDistance, structure.VerticalDistance.GetAccuracy());
+            Assert.AreEqual(0.5, structure.FailureProbabilityRepairClosure, structure.FailureProbabilityRepairClosure.GetAccuracy());
+            Assert.AreEqual(10, structure.FailureCollisionEnergy.Mean, structure.FailureCollisionEnergy.Mean.GetAccuracy());
+            Assert.AreEqual(0.3, structure.FailureCollisionEnergy.CoefficientOfVariation,
+                            structure.FailureCollisionEnergy.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(16000, structure.ShipMass.Mean, structure.ShipMass.Mean.GetAccuracy());
+            Assert.AreEqual(0.2, structure.ShipMass.CoefficientOfVariation, structure.ShipMass.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(2, structure.ShipVelocity.Mean, structure.ShipVelocity.Mean.GetAccuracy());
+            Assert.AreEqual(0.2, structure.ShipVelocity.CoefficientOfVariation, structure.ShipVelocity.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(0, structure.LevellingCount);
+            Assert.AreEqual(0, structure.ProbabilityCollisionSecondaryStructure, structure.ProbabilityCollisionSecondaryStructure.GetAccuracy());
+            Assert.AreEqual(1, structure.FlowVelocityStructureClosable.Mean, structure.FlowVelocityStructureClosable.Mean.GetAccuracy());
+            Assert.AreEqual(1, structure.FlowVelocityStructureClosable.StandardDeviation,
+                            structure.FlowVelocityStructureClosable.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(15, structure.StabilityLinearLoadModel.Mean, structure.StabilityLinearLoadModel.Mean.GetAccuracy());
+            Assert.AreEqual(0.1, structure.StabilityLinearLoadModel.CoefficientOfVariation,
+                            structure.StabilityLinearLoadModel.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(15, structure.StabilityQuadraticLoadModel.Mean, structure.StabilityQuadraticLoadModel.Mean.GetAccuracy());
+            Assert.AreEqual(0.1, structure.StabilityQuadraticLoadModel.CoefficientOfVariation,
+                            structure.StabilityQuadraticLoadModel.CoefficientOfVariation.GetAccuracy());
+            Assert.AreEqual(2.5, structure.AreaFlowApertures.Mean, structure.AreaFlowApertures.Mean.GetAccuracy());
+            Assert.AreEqual(0.01, structure.AreaFlowApertures.StandardDeviation, structure.AreaFlowApertures.StandardDeviation.GetAccuracy());
+            Assert.AreEqual(StabilityPointStructureInflowModelType.FloodedCulvert, structure.InflowModelType);
         }
 
         private static void AssertExpectedStabilityPointStructuresInput(StabilityPointStructuresInput inputParameters)

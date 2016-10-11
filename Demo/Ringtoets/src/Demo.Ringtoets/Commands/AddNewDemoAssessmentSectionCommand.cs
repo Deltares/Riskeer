@@ -408,11 +408,43 @@ namespace Demo.Ringtoets.Commands
         private static void InitializeStabilityPointStructuresData(AssessmentSection demoAssessmentSection)
         {
             StabilityPointStructuresFailureMechanism failureMechanism = demoAssessmentSection.StabilityPointStructures;
+            failureMechanism.StabilityPointStructures.Add(CreateDemoStabilityPointStructure());
 
             var calculation = new StabilityPointStructuresCalculation();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();
+        }
+
+        private static StabilityPointStructure CreateDemoStabilityPointStructure()
+        {
+            return new StabilityPointStructure("Kunstwerk", "Kunstwerk id", new Point2D(131470.777221421, 548329.82912364),
+                                               10,
+                                               20000, 0.1,
+                                               0.2, 0.1,
+                                               21.0, 0.05,
+                                               0.5, 0.1,
+                                               4.95, 0.1,
+                                               1, 0.15,
+                                               25, 1.25,
+                                               10, 0.1,
+                                               10, 0.1,
+                                               0, 0,
+                                               0.5, 0.1,
+                                               0,
+                                               4.95, 0.05,
+                                               0,
+                                               0.5,
+                                               10, 0.3,
+                                               16000, 0.2,
+                                               2, 0.2,
+                                               0,
+                                               0,
+                                               1, 1,
+                                               15, 0.1,
+                                               15, 0.1,
+                                               2.5, 0.01,
+                                               StabilityPointStructureInflowModelType.FloodedCulvert);
         }
 
         #endregion
