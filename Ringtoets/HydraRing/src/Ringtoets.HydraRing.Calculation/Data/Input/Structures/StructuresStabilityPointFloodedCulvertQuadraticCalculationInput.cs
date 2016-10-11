@@ -86,8 +86,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="failureProbabilityStructureWithErosion">The failure probability structure with erosion.</param>
         /// <param name="stormDurationMean">The mean of the storm duration.</param>
         /// <param name="stormDurationVariation">The variation of the storm duration.</param>
-        /// <param name="bermWidthMean">The mean of the berm width.</param>
-        /// <param name="bermWidthStandardDeviation">The standard deviation of the berm width.</param>
+        /// <param name="bankWidthMean">The mean of the berm width.</param>
+        /// <param name="bankWidthStandardDeviation">The standard deviation of the berm width.</param>
         /// <param name="evaluationLevel">The evaluation level.</param>
         /// <param name="modelFactorLoadEffectMean">The mean of the model factor load effect.</param>
         /// <param name="modelFactorLoadEffectStandardDeviation">The standard deviation of the model factor load effect.</param>
@@ -132,7 +132,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                                                double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeVariation,
                                                                                double failureProbabilityStructureWithErosion,
                                                                                double stormDurationMean, double stormDurationVariation,
-                                                                               double bermWidthMean, double bermWidthStandardDeviation,
+                                                                               double bankWidthMean, double bankWidthStandardDeviation,
                                                                                double evaluationLevel,
                                                                                double modelFactorLoadEffectMean, double modelFactorLoadEffectStandardDeviation,
                                                                                double waveRatioMaxHN, double waveRatioMaxHStandardDeviation,
@@ -170,7 +170,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                    criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
                    failureProbabilityStructureWithErosion,
                    stormDurationMean, stormDurationVariation,
-                   bermWidthMean, bermWidthStandardDeviation,
+                   bankWidthMean, bankWidthStandardDeviation,
                    evaluationLevel,
                    modelFactorLoadEffectMean, modelFactorLoadEffectStandardDeviation,
                    waveRatioMaxHN, waveRatioMaxHStandardDeviation,

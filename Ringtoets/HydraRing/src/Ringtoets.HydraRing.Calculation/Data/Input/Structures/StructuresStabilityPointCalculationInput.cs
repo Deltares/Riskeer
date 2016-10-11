@@ -72,8 +72,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         private readonly double failureProbabilityStructureWithErosion;
         private readonly double stormDurationMean;
         private readonly double stormDurationVariation;
-        private readonly double bermWidthMean;
-        private readonly double bermWidthStandardDeviation;
+        private readonly double bankWidthMean;
+        private readonly double bankWidthStandardDeviation;
         private readonly double evaluationLevel;
         private readonly double modelFactorLoadEffectMean;
         private readonly double modelFactorLoadEffectStandardDeviation;
@@ -131,8 +131,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="failureProbabilityStructureWithErosion">The failure probability structure with erosion.</param>
         /// <param name="stormDurationMean">The mean of the storm duration.</param>
         /// <param name="stormDurationVariation">The variation of the storm duration.</param>
-        /// <param name="bermWidthMean">The mean of the berm width.</param>
-        /// <param name="bermWidthStandardDeviation">The standard deviation of the berm width.</param>
+        /// <param name="bankWidthMean">The mean of the berm width.</param>
+        /// <param name="bankWidthStandardDeviation">The standard deviation of the berm width.</param>
         /// <param name="evaluationLevel">The evaluation level.</param>
         /// <param name="modelFactorLoadEffectMean">The mean of the model factor load effect.</param>
         /// <param name="modelFactorLoadEffectStandardDeviation">The standard deviation of the model factor load effect.</param>
@@ -169,7 +169,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                            double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeVariation,
                                                            double failureProbabilityStructureWithErosion,
                                                            double stormDurationMean, double stormDurationVariation,
-                                                           double bermWidthMean, double bermWidthStandardDeviation,
+                                                           double bankWidthMean, double bankWidthStandardDeviation,
                                                            double evaluationLevel,
                                                            double modelFactorLoadEffectMean, double modelFactorLoadEffectStandardDeviation,
                                                            double waveRatioMaxHN, double waveRatioMaxHStandardDeviation,
@@ -222,8 +222,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
             this.failureProbabilityStructureWithErosion = failureProbabilityStructureWithErosion;
             this.stormDurationMean = stormDurationMean;
             this.stormDurationVariation = stormDurationVariation;
-            this.bermWidthMean = bermWidthMean;
-            this.bermWidthStandardDeviation = bermWidthStandardDeviation;
+            this.bankWidthMean = bankWidthMean;
+            this.bankWidthStandardDeviation = bankWidthStandardDeviation;
             this.evaluationLevel = evaluationLevel;
             this.modelFactorLoadEffectMean = modelFactorLoadEffectMean;
             this.modelFactorLoadEffectStandardDeviation = modelFactorLoadEffectStandardDeviation;
@@ -330,8 +330,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                    HydraRingDeviationType.Variation, stormDurationMean,
                                                    stormDurationVariation, double.NaN);
                 yield return new HydraRingVariable(130, HydraRingDistributionType.Normal, double.NaN,
-                                                   HydraRingDeviationType.Standard, bermWidthMean,
-                                                   bermWidthStandardDeviation, double.NaN);
+                                                   HydraRingDeviationType.Standard, bankWidthMean,
+                                                   bankWidthStandardDeviation, double.NaN);
                 yield return new HydraRingVariable(131, HydraRingDistributionType.Deterministic, evaluationLevel,
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
                 yield return new HydraRingVariable(132, HydraRingDistributionType.Normal, double.NaN,

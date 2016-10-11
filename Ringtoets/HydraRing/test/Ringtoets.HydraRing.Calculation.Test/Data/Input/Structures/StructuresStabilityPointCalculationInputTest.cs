@@ -83,8 +83,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
             const double failureProbabilityStructureWithErosion = 39.9;
             const double stormDurationMean = 40.0;
             const double stormDurationVariation = 41.1;
-            const double bermWidthMean = 42.2;
-            const double bermWidthStandardDeviation = 43.3;
+            const double bankWidthMean = 42.2;
+            const double bankWidthStandardDeviation = 43.3;
             const double evaluationLevel = 44.4;
             const double modelFactorLoadEffectMean = 45.5;
             const double modelFactorLoadEffectStandardDeviation = 46.6;
@@ -122,7 +122,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                          criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
                                                                          failureProbabilityStructureWithErosion,
                                                                          stormDurationMean, stormDurationVariation,
-                                                                         bermWidthMean, bermWidthStandardDeviation,
+                                                                         bankWidthMean, bankWidthStandardDeviation,
                                                                          evaluationLevel,
                                                                          modelFactorLoadEffectMean, modelFactorLoadEffectStandardDeviation,
                                                                          waveRatioMaxHN, waveRatioMaxHStandardDeviation,
@@ -208,7 +208,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                                                                 double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeVariation,
                                                                 double failureProbabilityStructureWithErosion,
                                                                 double stormDurationMean, double stormDurationVariation,
-                                                                double bermWidthMean, double bermWidthStandardDeviation,
+                                                                double bankWidthMean, double bankWidthStandardDeviation,
                                                                 double evaluationLevel,
                                                                 double modelFactorLoadEffectMean, double modelFactorLoadEffectStandardDeviation,
                                                                 double waveRatioMaxHN, double waveRatioMaxHStandardDeviation,
@@ -242,7 +242,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Structures
                        criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
                        failureProbabilityStructureWithErosion,
                        stormDurationMean, stormDurationVariation,
-                       bermWidthMean, bermWidthStandardDeviation,
+                       bankWidthMean, bankWidthStandardDeviation,
                        evaluationLevel,
                        modelFactorLoadEffectMean, modelFactorLoadEffectStandardDeviation,
                        waveRatioMaxHN, waveRatioMaxHStandardDeviation,
