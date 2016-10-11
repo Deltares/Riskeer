@@ -24,6 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -37,15 +38,16 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
-using Ringtoets.HeightStructures.Plugin.Properties;
 using Ringtoets.HydraRing.Data;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using HeighStructuresPluginResources = Ringtoets.HeightStructures.Plugin.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 {
@@ -237,37 +239,37 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     Assert.AreEqual(12, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextGenerateCalculationsIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
-                                                                  Resources.HeightStructuresPlugin_No_structures_to_generate_for,
+                                                                  "Genereer &berekeningen...",
+                                                                  "Er zijn geen kunstwerken beschikbaar om de berekeningen te genereren.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
+                                                                  "&Map toevoegen",
+                                                                  "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.AddFolderIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation_Tooltip,
+                                                                  "Berekening &toevoegen",
+                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenRootGroupIndex,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove,
+                                                                  "Map &leegmaken...",
+                                                                  "Er zijn geen berekeningen of mappen om te verwijderen.",
                                                                   RingtoetsCommonFormsResources.RemoveAllIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
-                                                                  RingtoetsCommonFormsResources.ValidateAll_No_calculations_to_validate,
+                                                                  "Alles &valideren",
+                                                                  "Er zijn geen berekeningen om te valideren.",
                                                                   RingtoetsCommonFormsResources.ValidateAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
+                                                                  "Alles be&rekenen",
+                                                                  "Er zijn geen berekeningen om uit te voeren.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Clear_all_output,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
+                                                                  "&Wis alle uitvoer...",
+                                                                  "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
                 }
@@ -302,8 +304,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     Assert.AreEqual(12, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextGenerateCalculationsIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
-                                                                  Resources.HeightStructuresPlugin_Generate_calculations_for_selected_strutures,
+                                                                  "Genereer &berekeningen...",
+                                                                  "Genereer berekeningen op basis van geselecteerde kunstwerken.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon);
                 }
             }
@@ -383,27 +385,27 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     Assert.AreEqual(9, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
+                                                                  "&Map toevoegen",
+                                                                  "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.AddFolderIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexNestedGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation_Tooltip,
+                                                                  "Berekening &toevoegen",
+                                                                  "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexNestedGroup,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
-                                                                  RingtoetsCommonFormsResources.ValidateAll_No_calculations_to_validate,
+                                                                  "Alles &valideren",
+                                                                  "Er zijn geen berekeningen om te valideren.",
                                                                   RingtoetsCommonFormsResources.ValidateAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexNestedGroup,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_CalculateAll_No_calculations_to_run,
+                                                                  "Alles be&rekenen",
+                                                                  "Er zijn geen berekeningen om uit te voeren.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuClearAllIndexNestedGroup,
-                                                                  RingtoetsCommonFormsResources.Clear_all_output,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_ClearOutput_No_calculation_with_output_to_clear,
+                                                                  "&Wis alle uitvoer...",
+                                                                  "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
                 }
@@ -443,8 +445,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                                  "Alles be&rekenen",
+                                                                  "Er is geen vakindeling geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
                                                                   false);
                 }
@@ -490,8 +492,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuCalculateAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                                  "Alles be&rekenen",
+                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon,
                                                                   false);
                 }
@@ -539,8 +541,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     // Assert
                     ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateAllIndexRootGroup];
 
-                    Assert.AreEqual(RingtoetsCommonFormsResources.Calculate_all, contextMenuItem.Text);
-                    StringAssert.Contains(string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                    Assert.AreEqual("Alles be&rekenen", contextMenuItem.Text);
+                    StringAssert.Contains(string.Format("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}", ""), contextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateAllIcon, contextMenuItem.Image);
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }
@@ -595,8 +597,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCalculateAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Calculate_all,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_CalculateAll_ToolTip,
+                                                                  "Alles be&rekenen",
+                                                                  "Voer alle berekeningen binnen deze berekeningsmap uit.",
                                                                   RingtoetsCommonFormsResources.CalculateAllIcon);
                 }
             }
@@ -635,8 +637,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported,
+                                                                  "Alles &valideren",
+                                                                  "Er is geen vakindeling geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.ValidateAllIcon,
                                                                   false);
                 }
@@ -682,8 +684,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
-                                                                  RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported,
+                                                                  "Alles &valideren",
+                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.ValidateAllIcon,
                                                                   false);
                 }
@@ -731,8 +733,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     // Assert
                     ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateAllIndexRootGroup];
 
-                    Assert.AreEqual(RingtoetsCommonFormsResources.Validate_all, contextMenuItem.Text);
-                    StringAssert.Contains(string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_, ""), contextMenuItem.ToolTipText);
+                    Assert.AreEqual("Alles &valideren", contextMenuItem.Text);
+                    StringAssert.Contains(string.Format("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}", ""), contextMenuItem.ToolTipText);
                     TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateAllIcon, contextMenuItem.Image);
                     Assert.IsFalse(contextMenuItem.Enabled);
                 }
@@ -787,8 +789,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.Validate_all,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Validate_all_ToolTip,
+                                                                  "Alles &valideren",
+                                                                  "Valideer alle berekeningen binnen deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.ValidateAllIcon);
                 }
             }
@@ -1093,6 +1095,188 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
                     // Assert
                     Assert.IsEmpty(group.Children);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenDikeProfileSelectedAndDialogClosed_ThenCalculationsAddedWithProfileAssigned()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+                HeightStructure structure1 = new TestHeightStructure("Structure 1");
+                HeightStructure structure2 = new TestHeightStructure("Structure 2");
+
+                var failureMechanism = new HeightStructuresFailureMechanism
+                {
+                    HeightStructures =
+                    {
+                        structure1,
+                        structure2
+                    }
+                };
+
+                var nodeData = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                           failureMechanism,
+                                                                           assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                guiStub.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Expect(g => g.MainWindow).Return(mainWindow);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                plugin.Gui = guiStub;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var selectionDialog = (StructureSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+
+                    grid.Rows[0].Cells[0].Value = true;
+
+                    new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextGenerateCalculationsIndexRootGroup].PerformClick();
+
+                    // Then
+                    var HeightStructuresCalculations = failureMechanism.Calculations.OfType<HeightStructuresCalculation>().ToArray();
+                    Assert.AreEqual(1, HeightStructuresCalculations.Length);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenCalculationsNotUpdated()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+                HeightStructure structure1 = new TestHeightStructure("Structure 1");
+                HeightStructure structure2 = new TestHeightStructure("Structure 2");
+
+                var failureMechanism = new HeightStructuresFailureMechanism
+                {
+                    HeightStructures =
+                    {
+                        structure1,
+                        structure2
+                    }
+                };
+
+                var nodeData = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                           failureMechanism,
+                                                                           assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                guiStub.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Expect(g => g.MainWindow).Return(mainWindow);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                plugin.Gui = guiStub;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var selectionDialog = (StructureSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+
+                    grid.Rows[0].Cells[0].Value = true;
+
+                    new ButtonTester("CustomCancelButton", selectionDialog).Click();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextGenerateCalculationsIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.AreEqual(0, failureMechanism.Calculations.OfType<HeightStructuresCalculation>().Count());
+                }
+            }
+        }
+
+        [Test]
+        public void GivenScenariosWithExistingCalculationWithSameName_WhenOkButtonClickedAndDialogClosed_ThenCalculationWithUniqueNameAdded()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+                var existingCalculationName = "Height structure";
+                HeightStructure heightStructure = new TestHeightStructure(existingCalculationName);
+
+                var failureMechanism = new HeightStructuresFailureMechanism
+                {
+                    HeightStructures =
+                    {
+                        heightStructure
+                    },
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new HeightStructuresCalculation
+                            {
+                                Name = existingCalculationName
+                            }
+                        }
+                    }
+                };
+
+                var nodeData = new HeightStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                           failureMechanism,
+                                                                           assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                guiStub.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiStub.Expect(g => g.MainWindow).Return(mainWindow);
+                guiStub.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                plugin.Gui = guiStub;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var selectionDialog = (StructureSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+
+                    grid.Rows[0].Cells[0].Value = true;
+
+                    new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    string expectedNewName = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, existingCalculationName, c => c.Name);
+
+                    // When
+                    contextMenu.Items[contextGenerateCalculationsIndexRootGroup].PerformClick();
+
+                    // Then
+                    var heightStructuresCalculations = failureMechanism.Calculations.OfType<HeightStructuresCalculation>().ToArray();
+                    Assert.AreEqual(2, heightStructuresCalculations.Length);
+                    Assert.AreEqual(expectedNewName, heightStructuresCalculations[1].Name);
                 }
             }
         }

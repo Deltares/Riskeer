@@ -31,7 +31,7 @@ using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 namespace Ringtoets.GrassCoverErosionInwards.Forms
 {
     /// <summary>
-    /// A dialog which allows the user to make a selection form a given set of <see cref="GrassCoverErosionInwardsDikeProfileSelectionDialog"/>. Upon
+    /// A dialog which allows the user to make a selection form a given set of <see cref="DikeProfile"/>. Upon
     /// closing of the dialog, the selected <see cref="DikeProfile"/> can be obtained.
     /// </summary>
     public class GrassCoverErosionInwardsDikeProfileSelectionDialog : SelectionDialogBase<DikeProfile>

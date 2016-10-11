@@ -22,7 +22,6 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
@@ -67,17 +66,14 @@ namespace Ringtoets.HeightStructures.Forms.Test
         [Test]
         public void Constructor_WithParentAndSurfaceLines_DefaultProperties()
         {
-            // Setup
+            // Setup & Call
             using (var viewParent = new Form())
+            using (var dialog = new StructureSelectionDialog(viewParent, Enumerable.Empty<HeightStructure>()))
             {
-                // Call
-                using (var dialog = new StructureSelectionDialog(viewParent, Enumerable.Empty<HeightStructure>()))
-                {
-                    // Assert
-                    Assert.IsInstanceOf<SelectionDialogBase<HeightStructure>>(dialog);
-                    Assert.IsEmpty(dialog.SelectedItems);
-                    Assert.AreEqual("Selecteer kunstwerken", dialog.Text);
-                }
+                // Assert
+                Assert.IsInstanceOf<SelectionDialogBase<HeightStructure>>(dialog);
+                Assert.IsEmpty(dialog.SelectedItems);
+                Assert.AreEqual("Selecteer kunstwerken", dialog.Text);
             }
         }
 
@@ -133,6 +129,5 @@ namespace Ringtoets.HeightStructures.Forms.Test
                 Assert.AreEqual(testname, (string) dataGridViewControl.Rows[0].Cells[nameColumnIndex].Value);
             }
         }
-
     }
 }
