@@ -32,6 +32,25 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var modelFactorOverToppingFlow = new LogNormalDistribution(3)
+            {
+                Mean = (RoundedDouble) 0.09,
+                StandardDeviation = (RoundedDouble) 0.06
+            };
+
+            var modelFactorSubCriticalFlow = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
+
+            var modelFactorStorageVolume = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.0,
+                StandardDeviation = (RoundedDouble) 0.2
+            };
+
             // Call
             var inputParameters = new GeneralClosingStructuresInput();
 
@@ -47,17 +66,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
             AssertEqualValue(9.81, inputParameters.GravitationalAcceleration);
 
-            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.ModelFactorOvertoppingFlow);
-            AssertEqualValue(0.09, inputParameters.ModelFactorOvertoppingFlow.Mean);
-            AssertEqualValue(0.06, inputParameters.ModelFactorOvertoppingFlow.StandardDeviation);
-            
-            Assert.IsInstanceOf<VariationCoefficientNormalDistribution>(inputParameters.ModelFactorSubCriticalFlow);
-            AssertEqualValue(1, inputParameters.ModelFactorSubCriticalFlow.Mean);
-            AssertEqualValue(0.1, inputParameters.ModelFactorSubCriticalFlow.CoefficientOfVariation);
-
-            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.ModelFactorStorageVolume);
-            AssertEqualValue(1.0, inputParameters.ModelFactorStorageVolume.Mean);
-            AssertEqualValue(0.2, inputParameters.ModelFactorStorageVolume.StandardDeviation);
+            DistributionAssert.AreEqual(modelFactorOverToppingFlow, inputParameters.ModelFactorOvertoppingFlow);
+            DistributionAssert.AreEqual(modelFactorSubCriticalFlow, inputParameters.ModelFactorSubCriticalFlow);
+            DistributionAssert.AreEqual(modelFactorStorageVolume, inputParameters.ModelFactorStorageVolume);
 
             Assert.AreEqual(2, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
             AssertEqualValue(1.0, inputParameters.ModelFactorInflowVolume);

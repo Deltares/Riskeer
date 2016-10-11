@@ -34,6 +34,31 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup 
+            var modelFactorStorageVolume = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1,
+                StandardDeviation = (RoundedDouble) 0.2
+            };
+
+            var modelFactorSubCriticalFlow = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
+
+            var modelFactorCollisionLoad = new VariationCoefficientNormalDistribution(1)
+            {
+                Mean = (RoundedDouble) 1,
+                CoefficientOfVariation = (RoundedDouble) 0.2
+            };
+
+            var modelFactorLoadEffect = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
             // Call
             var inputParameters = new GeneralStabilityPointStructuresInput();
 
@@ -43,21 +68,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
             Assert.AreEqual(9.81, inputParameters.GravitationalAcceleration, inputParameters.GravitationalAcceleration.GetAccuracy());
 
-            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.ModelFactorStorageVolume);
-            Assert.AreEqual(new RoundedDouble(2, 1), inputParameters.ModelFactorStorageVolume.Mean);
-            Assert.AreEqual(new RoundedDouble(2, 0.2), inputParameters.ModelFactorStorageVolume.StandardDeviation);
-
-            Assert.IsInstanceOf<VariationCoefficientNormalDistribution>(inputParameters.ModelFactorSubCriticalFlow);
-            Assert.AreEqual(new RoundedDouble(1, 1), inputParameters.ModelFactorSubCriticalFlow.Mean);
-            Assert.AreEqual(new RoundedDouble(1, 0.1), inputParameters.ModelFactorSubCriticalFlow.CoefficientOfVariation);
-
-            Assert.IsInstanceOf<VariationCoefficientNormalDistribution>(inputParameters.ModelFactorCollisionLoad);
-            Assert.AreEqual(new RoundedDouble(2, 1), inputParameters.ModelFactorCollisionLoad.Mean);
-            Assert.AreEqual(new RoundedDouble(2, 0.2), inputParameters.ModelFactorCollisionLoad.CoefficientOfVariation);
-
-            Assert.IsInstanceOf<NormalDistribution>(inputParameters.ModelFactorLoadEffect);
-            Assert.AreEqual(new RoundedDouble(2, 1), inputParameters.ModelFactorLoadEffect.Mean);
-            Assert.AreEqual(new RoundedDouble(2, 0.05), inputParameters.ModelFactorLoadEffect.StandardDeviation);
+            DistributionAssert.AreEqual(modelFactorStorageVolume, inputParameters.ModelFactorStorageVolume);
+            DistributionAssert.AreEqual(modelFactorSubCriticalFlow, inputParameters.ModelFactorSubCriticalFlow);
+            DistributionAssert.AreEqual(modelFactorCollisionLoad, inputParameters.ModelFactorCollisionLoad);
+            DistributionAssert.AreEqual(modelFactorLoadEffect, inputParameters.ModelFactorLoadEffect);
 
             Assert.AreEqual(2, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
             Assert.AreEqual(1, inputParameters.ModelFactorInflowVolume, inputParameters.ModelFactorInflowVolume.GetAccuracy());

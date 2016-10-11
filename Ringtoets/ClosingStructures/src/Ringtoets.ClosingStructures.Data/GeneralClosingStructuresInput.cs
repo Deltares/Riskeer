@@ -54,7 +54,7 @@ namespace Ringtoets.ClosingStructures.Data
                 StandardDeviation = (RoundedDouble) 0.2
             };
 
-            ModelFactorSubCriticalFlow = new VariationCoefficientNormalDistribution(1)
+            ModelFactorSubCriticalFlow = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = (RoundedDouble) 1,
                 CoefficientOfVariation = (RoundedDouble) 0.1

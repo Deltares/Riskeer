@@ -34,6 +34,19 @@ namespace Ringtoets.HeightStructures.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var modelFactorStorageVolume = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.00,
+                StandardDeviation = (RoundedDouble) 0.20
+            };
+
+            var modelFactorOvertoppingFlow = new LogNormalDistribution(3)
+            {
+                Mean = (RoundedDouble) 0.09,
+                StandardDeviation = (RoundedDouble) 0.06
+            };
+
             // Call
             var generalHeightStructuresInput = new GeneralHeightStructuresInput();
 
@@ -43,23 +56,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(2, generalHeightStructuresInput.GravitationalAcceleration.NumberOfDecimalPlaces);
             Assert.AreEqual(9.81, generalHeightStructuresInput.GravitationalAcceleration, generalHeightStructuresInput.GravitationalAcceleration.GetAccuracy());
 
-            var modelFactorOvertopping = new LogNormalDistribution(3)
-            {
-                Mean = new RoundedDouble(3, 0.09),
-                StandardDeviation = new RoundedDouble(3, 0.06)
-            };
-            Assert.IsInstanceOf<LogNormalDistribution>(generalHeightStructuresInput.ModelFactorOvertoppingFlow);
-            Assert.AreEqual(modelFactorOvertopping.Mean, generalHeightStructuresInput.ModelFactorOvertoppingFlow.Mean);
-            Assert.AreEqual(modelFactorOvertopping.StandardDeviation, generalHeightStructuresInput.ModelFactorOvertoppingFlow.StandardDeviation);
-
-            var modelFactorStorageVolume = new LogNormalDistribution(2)
-            {
-                Mean = new RoundedDouble(2, 1.00),
-                StandardDeviation = new RoundedDouble(2, 0.20)
-            };
-            Assert.IsInstanceOf<LogNormalDistribution>(generalHeightStructuresInput.ModelFactorStorageVolume);
-            Assert.AreEqual(modelFactorStorageVolume.Mean, generalHeightStructuresInput.ModelFactorStorageVolume.Mean);
-            Assert.AreEqual(modelFactorStorageVolume.StandardDeviation, generalHeightStructuresInput.ModelFactorStorageVolume.StandardDeviation);
+            DistributionAssert.AreEqual(modelFactorOvertoppingFlow, generalHeightStructuresInput.ModelFactorOvertoppingFlow);
+            DistributionAssert.AreEqual(modelFactorStorageVolume, generalHeightStructuresInput.ModelFactorStorageVolume);
 
             Assert.AreEqual(2, generalHeightStructuresInput.ModelFactorInflowVolume.NumberOfDecimalPlaces);
             Assert.AreEqual(1, generalHeightStructuresInput.ModelFactorInflowVolume, generalHeightStructuresInput.ModelFactorInflowVolume.GetAccuracy());

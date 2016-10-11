@@ -25,6 +25,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Properties;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 {
@@ -34,39 +35,41 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup
+            var fbFactor = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 4.75,
+                StandardDeviation = (RoundedDouble) 0.5
+            };
+
+            var fnFactor = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 2.6,
+                StandardDeviation = (RoundedDouble) 0.35
+            };
+
+            var fshallow = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 0.92,
+                StandardDeviation = (RoundedDouble) 0.24
+            };
+
+            var frunupModelFactor = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1,
+                StandardDeviation = (RoundedDouble) 0.07
+            };
+
             // Call
             var inputParameters = new GeneralGrassCoverErosionInwardsInput();
 
             // Assert
             Assert.AreEqual(2, inputParameters.N);
 
-            var fbFactor = new NormalDistribution(2)
-            {
-                Mean = new RoundedDouble(2, 4.75), StandardDeviation = new RoundedDouble(2, 0.5)
-            };
-            Assert.AreEqual(fbFactor.Mean, inputParameters.FbFactor.Mean);
-            Assert.AreEqual(fbFactor.StandardDeviation, inputParameters.FbFactor.StandardDeviation);
-
-            var fnFactor = new NormalDistribution(2)
-            {
-                Mean = new RoundedDouble(2, 2.6), StandardDeviation = new RoundedDouble(2, 0.35)
-            };
-            Assert.AreEqual(fnFactor.Mean, inputParameters.FnFactor.Mean);
-            Assert.AreEqual(fnFactor.StandardDeviation, inputParameters.FnFactor.StandardDeviation);
-
-            var fshallow = new NormalDistribution(2)
-            {
-                Mean = new RoundedDouble(2, 0.92), StandardDeviation = new RoundedDouble(2, 0.24)
-            };
-            Assert.AreEqual(fshallow.Mean, inputParameters.FshallowModelFactor.Mean);
-            Assert.AreEqual(fshallow.StandardDeviation, inputParameters.FshallowModelFactor.StandardDeviation);
-
-            var frunupModelFactor = new NormalDistribution(2)
-            {
-                Mean = new RoundedDouble(2, 1), StandardDeviation = new RoundedDouble(2, 0.07)
-            };
-            Assert.AreEqual(frunupModelFactor.Mean, inputParameters.FrunupModelFactor.Mean);
-            Assert.AreEqual(frunupModelFactor.StandardDeviation, inputParameters.FrunupModelFactor.StandardDeviation);
+            DistributionAssert.AreEqual(fbFactor, inputParameters.FbFactor);
+            DistributionAssert.AreEqual(fnFactor, inputParameters.FnFactor);
+            DistributionAssert.AreEqual(fshallow, inputParameters.FshallowModelFactor);
+            DistributionAssert.AreEqual(frunupModelFactor, inputParameters.FrunupModelFactor);
 
             Assert.AreEqual(1, inputParameters.CriticalOvertoppingModelFactor);
             Assert.AreEqual(1, inputParameters.OvertoppingModelFactor);
