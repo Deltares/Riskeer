@@ -19,10 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Data.Output;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Service.Test
 {
@@ -30,29 +30,17 @@ namespace Ringtoets.Common.Service.Test
     public class RingtoetsCommonDataCalculationServiceTest
     {
         [Test]
-        public void CalculationConverged_WithNullOutput_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => RingtoetsCommonDataCalculationService.CalculationConverged(null, 1.0);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("output", exception.ParamName);
-        }
-
-        [Test]
         public void CalculationConverged_WithConvergedResults_CalculationConvergedTrue()
         {
             // Setup
             double norm = 1.0e3;
             double reliabilityIndex = StatisticsConverter.NormToBeta(norm);
-            var output = new ReliabilityIndexCalculationOutput(reliabilityIndex, reliabilityIndex);
 
             // Call
-            bool calculationConverged = RingtoetsCommonDataCalculationService.CalculationConverged(output, norm);
+            CalculationConvergence calculationConverged = RingtoetsCommonDataCalculationService.CalculationConverged(reliabilityIndex, norm);
 
             // Assert
-            Assert.IsTrue(calculationConverged);
+            Assert.AreEqual(CalculationConvergence.CalculatedConverged, calculationConverged);
         }
 
         [Test]
@@ -63,10 +51,10 @@ namespace Ringtoets.Common.Service.Test
             double norm = 1;
 
             // Call
-            bool calculationConverged = RingtoetsCommonDataCalculationService.CalculationConverged(output, norm);
+            CalculationConvergence calculationConverged = RingtoetsCommonDataCalculationService.CalculationConverged(output.CalculatedReliabilityIndex, norm);
 
             // Assert
-            Assert.IsFalse(calculationConverged);
+            Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, calculationConverged);
         }
     }
 }

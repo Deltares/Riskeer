@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Utils;
-using Ringtoets.HydraRing.Calculation.Data.Output;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Service
@@ -33,23 +32,11 @@ namespace Ringtoets.Common.Service
     {
         /// <summary>
         /// Determines whether the calculated output is converged,
-        /// based on the <paramref name="output"/> and the <paramref name="norm"/>
+        /// based on the <paramref name="reliabilityIndex"/> and the <paramref name="norm"/>
         /// </summary>
-        /// <param name="output">The resultant <see cref="ReliabilityIndexCalculationOutput"/> 
-        /// object after a calculation.</param>
+        /// <param name="reliabilityIndex">The resultant reliability index after a calculation.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <returns>True if the solution converged, false if otherwise</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="output"/> 
-        /// is <c>null</c></exception>
-        public static bool CalculationConverged(ReliabilityIndexCalculationOutput output, double norm)
-        {
-            if (output == null)
-            {
-                throw new ArgumentNullException("output");
-            }
-            return CalculationConverged(output.CalculatedReliabilityIndex, norm) == CalculationConvergence.CalculatedConverged;
-        }
-
         public static CalculationConvergence CalculationConverged(double reliabilityIndex, double norm)
         {
             return Math.Abs(reliabilityIndex - StatisticsConverter.NormToBeta(norm)) <= 1.0e-3 ?

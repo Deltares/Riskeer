@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Service.Test
         public void ParameteredConstructor_HydraulicBoundaryLocationNull_ThrowsArgumentNullException()
         {
             // Setup
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
+            var calculationMessageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -113,7 +113,7 @@ namespace Ringtoets.Common.Service.Test
                                                                               validFilePath,
                                                                               string.Empty,
                                                                               1,
-                                                                              calculationMessageProviderMock);
+                                                                              calculationMessageProviderStub);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

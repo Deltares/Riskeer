@@ -47,7 +47,8 @@ namespace Ringtoets.Common.Service
         /// <param name="ringId">The id of the ring to perform the calculation for.</param>
         /// <param name="norm">The norm to use during the calculation.</param>
         /// <param name="messageProvider">The provider of the messages to use during the calculation.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="hydraulicBoundaryLocation"/> or 
+        /// <paramref name="messageProvider"/>is <c>null</c>.</exception>
         public DesignWaterLevelCalculationActivity(HydraulicBoundaryLocation hydraulicBoundaryLocation,
                                                    string hydraulicBoundaryDatabaseFilePath,
                                                    string ringId,

@@ -48,6 +48,7 @@ namespace Ringtoets.Common.Service
         /// Performs validation over the values on the given <paramref name="hydraulicBoundaryDatabaseFilePath"/>.
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
+        /// <param name="name">The name of the calculation.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <returns><c>True</c>c> if there were no validation errors; <c>False</c>c> otherwise.</returns>
@@ -57,14 +58,14 @@ namespace Ringtoets.Common.Service
 
             CalculationServiceHelper.LogValidationBeginTime(calculationName);
 
-            string[] validationProblem = ValidateInput(hydraulicBoundaryDatabaseFilePath);
+            string[] validationProblems = ValidateInput(hydraulicBoundaryDatabaseFilePath);
 
             CalculationServiceHelper.LogMessagesAsError(Resources.Hydraulic_boundary_database_connection_failed_0_,
-                                                        validationProblem);
+                                                        validationProblems);
 
             CalculationServiceHelper.LogValidationEndTime(calculationName);
 
-            return !validationProblem.Any();
+            return !validationProblems.Any();
         }
 
         /// <summary>
@@ -75,7 +76,11 @@ namespace Ringtoets.Common.Service
         /// <param name="ringId">The id of the assessment section.</param>
         /// <param name="norm">The norm of the assessment section.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
-        public void Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation, string hydraulicBoundaryDatabaseFilePath, string ringId, double norm, ICalculationMessageProvider messageProvider)
+        public void Calculate(HydraulicBoundaryLocation hydraulicBoundaryLocation,
+                              string hydraulicBoundaryDatabaseFilePath,
+                              string ringId,
+                              double norm,
+                              ICalculationMessageProvider messageProvider)
         {
             string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             string calculationName = messageProvider.GetCalculationName(hydraulicBoundaryLocation.Name);
@@ -111,6 +116,9 @@ namespace Ringtoets.Common.Service
             }
         }
 
+        /// <summary>
+        /// Cancels the currently running design water level calculation.
+        /// </summary>
         public void Cancel()
         {
             if (calculator != null)
@@ -127,7 +135,7 @@ namespace Ringtoets.Common.Service
 
         private static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath)
         {
-            List<string> validationResult = new List<string>();
+            var validationResult = new List<string>();
 
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(hydraulicBoundaryDatabaseFilePath);
 
