@@ -118,5 +118,47 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
                         "sion_inwards_0_calculation", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dijkhoogte berekeningsverslag. Klik op details voor meer informatie.
+        ///{0}.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_calculation_report_message_text_0 {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_calculation_report" +
+                        "_message_text_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uitvoeren dijkhoogte berekening.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_Executing_dikeheight_calculation {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_Executing_dikeheig" +
+                        "ht_calculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uitvoeren overloop en overslag berekening.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_Executing_overtopping_calculation {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_Executing_overtopp" +
+                        "ing_calculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Overloop berekeningsverslag. Klik op details voor meer informatie.
+        ///{0}.
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_CalculateOvertopping_calculation_report_message_text_0 {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_CalculateOvertopping_calculation_repor" +
+                        "t_message_text_0", resourceCulture);
+            }
+        }
     }
 }

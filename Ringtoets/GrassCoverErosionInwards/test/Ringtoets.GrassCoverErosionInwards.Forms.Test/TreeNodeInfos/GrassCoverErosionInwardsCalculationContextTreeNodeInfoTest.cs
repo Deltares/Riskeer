@@ -664,7 +664,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
         public void GivenCalculation_WhenValidatingFromContextMenu_ThenLogMessagesAdded()
         {
             // Given
-            var gui = mocks.DynamicMock<IGui>();
+            var gui = mocks.StrictMock<IGui>();
             var observerMock = mocks.StrictMock<IObserver>();
 
             var section = new FailureMechanismSection("A", new[]

@@ -398,7 +398,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             };
 
             var failureMechanismSection = grassCoverErosionInwardsFailureMechanism.Sections.First();
-            double? output = null;
             bool expectedExceptionThrown = false;
 
             // Call
@@ -431,9 +430,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith("Overloop berekeningsverslag. Klik op details voor meer informatie.\n", msgs[1]);
+                StringAssert.StartsWith("Overloop berekeningsverslag. Klik op details voor meer informatie.\r\n", msgs[1]);
                 StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[2]);
-                StringAssert.StartsWith("Dijkhoogte berekeningsverslag. Klik op details voor meer informatie.\n", msgs[3]);
+                StringAssert.StartsWith("Dijkhoogte berekeningsverslag. Klik op details voor meer informatie.\r\n", msgs[3]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
             });
             Assert.IsFalse(expectedExceptionThrown);

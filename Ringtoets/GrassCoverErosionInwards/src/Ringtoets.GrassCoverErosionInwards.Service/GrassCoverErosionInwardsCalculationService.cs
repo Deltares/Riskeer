@@ -72,6 +72,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
+        /// Cancels any currently running grass cover erosion inwards calculation.
+        /// </summary>
+        public void Cancel()
+        {
+            if (overtoppingCalculator != null)
+            {
+                overtoppingCalculator.Cancel();
+            }
+            if (dikeHeightCalculator != null)
+            {
+                dikeHeightCalculator.Cancel();
+            }
+            canceled = true;
+        }
+
+        /// <summary>
         /// Performs a grass cover erosion inwards dike height calculation based on the supplied <see cref="GrassCoverErosionInwardsCalculation"/> 
         /// and sets <see cref="GrassCoverErosionInwardsCalculation.Output"/> if the calculation was successful. 
         /// Error and status information is logged during the execution of the operation.
@@ -82,15 +98,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
         /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
         /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
-        internal void CalculateDikeHeight(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection, 
-            FailureMechanismSection failureMechanismSection, GeneralGrassCoverErosionInwardsInput generalInput, double failureMechanismContribution,
-            string hlcdDirectory)
+        internal void CalculateDikeHeight(GrassCoverErosionInwardsCalculation calculation,
+                                          IAssessmentSection assessmentSection,
+                                          FailureMechanismSection failureMechanismSection,
+                                          GeneralGrassCoverErosionInwardsInput generalInput,
+                                          double failureMechanismContribution,
+                                          string hlcdDirectory)
         {
             var calculateDikeHeight = calculation.InputParameters.CalculateDikeHeight;
             var totalSteps = calculateDikeHeight ? 2 : 1;
             var calculationName = calculation.Name;
 
-            NotifyProgress("Uitvoeren overloop en overslag berekening", 1, totalSteps);
+            NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_Executing_overtopping_calculation, 1, totalSteps);
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
@@ -100,15 +119,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
             try
             {
-                CalculateOvertopping(overtoppingCalculator, overtoppingCalculationInput, calculationName);
+                CalculateOvertopping(overtoppingCalculationInput, calculationName);
 
                 if (calculateDikeHeight)
                 {
-                    NotifyProgress("Uitvoeren dijkhoogte berekening", 2, totalSteps);
+                    NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_Executing_dikeheight_calculation, 2, totalSteps);
 
                     dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory, assessmentSection.Id);
                     var dikeHeightCalculationInput = CreateDikeHeightInput(calculation, assessmentSection, failureMechanismSection, generalInput);
-                    CalculateDikeHeight(dikeHeightCalculator, dikeHeightCalculationInput, calculationName);
+                    CalculateDikeHeight(dikeHeightCalculationInput, calculationName);
                     dikeHeight = dikeHeightCalculator.DikeHeight;
                 }
 
@@ -131,19 +150,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        public void Cancel()
-        {
-            if (overtoppingCalculator != null)
-            {
-                overtoppingCalculator.Cancel();
-            }
-            if (dikeHeightCalculator != null)
-            {
-                dikeHeightCalculator.Cancel();
-            }
-            canceled = true;
-        }
-
         private void NotifyProgress(string stepName, int currentStepNumber, int totalStepNumber)
         {
             if (OnProgress != null)
@@ -152,7 +158,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
         }
 
-        private void CalculateOvertopping(IOvertoppingCalculator overtoppingCalculator, OvertoppingCalculationInput overtoppingCalculationInput, string calculationName)
+        private void CalculateOvertopping(OvertoppingCalculationInput overtoppingCalculationInput, string calculationName)
         {
             try
             {
@@ -168,11 +174,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             finally
             {
-                log.InfoFormat("Overloop berekeningsverslag. Klik op details voor meer informatie.\n{0}", overtoppingCalculator.OutputFileContent);
+                log.InfoFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_calculation_report_message_text_0, overtoppingCalculator.OutputFileContent);
             }
         }
 
-        private void CalculateDikeHeight(IDikeHeightCalculator dikeHeightCalculator, DikeHeightCalculationInput dikeHeightCalculationInput, string calculationName)
+        private void CalculateDikeHeight(DikeHeightCalculationInput dikeHeightCalculationInput, string calculationName)
         {
             if (!canceled)
             {
@@ -189,7 +195,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 }
                 finally
                 {
-                    log.InfoFormat("Dijkhoogte berekeningsverslag. Klik op details voor meer informatie.\n{0}", dikeHeightCalculator.OutputFileContent);
+                    log.InfoFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_calculation_report_message_text_0, dikeHeightCalculator.OutputFileContent);
                 }
             }
         }

@@ -129,4 +129,18 @@
   <data name="GrassCoverErosionInwardsCalculationActivity_OnRun_Calculate_dikeHeight" xml:space="preserve">
     <value>HBN berekenen</value>
   </data>
+  <data name="GrassCoverErosionInwardsCalculationService_CalculateOvertopping_calculation_report_message_text_0" xml:space="preserve">
+    <value>Overloop berekeningsverslag. Klik op details voor meer informatie.
+{0}</value>
+  </data>
+  <data name="GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_calculation_report_message_text_0" xml:space="preserve">
+    <value>Dijkhoogte berekeningsverslag. Klik op details voor meer informatie.
+{0}</value>
+  </data>
+  <data name="GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_Executing_overtopping_calculation" xml:space="preserve">
+    <value>Uitvoeren overloop en overslag berekening</value>
+  </data>
+  <data name="GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_Executing_dikeheight_calculation" xml:space="preserve">
+    <value>Uitvoeren dijkhoogte berekening</value>
+  </data>
 </root>

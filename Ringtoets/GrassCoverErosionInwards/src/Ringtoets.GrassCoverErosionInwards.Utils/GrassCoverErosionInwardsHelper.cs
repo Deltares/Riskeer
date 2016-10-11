@@ -42,13 +42,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <param name="sections">The <see cref="FailureMechanismSection"/> objects.</param>
         /// <param name="calculations">The <see cref="CalculationWithLocation"/> objects.</param>
         /// <returns>A <see cref="Dictionary{K, V}"/> containing a <see cref="IList{T}"/> 
-        /// of <see cref="FailureMechanismSectionResult"/> objects 
+        /// of <see cref="GrassCoverErosionInwardsCalculation"/> objects 
         /// for each section name which has calculations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>
         /// or when an element in <paramref name="calculations"/> is <c>null</c></exception>
         /// <exception cref="ArgumentException">Thrown when an element in <paramref name="sections"/> is 
         /// <c>null</c>.</exception>
-        public static Dictionary<string, IList<ICalculation>> CollectCalculationsPerSection(IEnumerable<FailureMechanismSection> sections, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+        public static Dictionary<string, IList<ICalculation>> CollectCalculationsPerSection(IEnumerable<FailureMechanismSection> sections,
+                                                                                            IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             return AssignUnassignCalculations.CollectCalculationsPerSection(sections, CalculationsToCalculationsWithLocations(calculations));
         }
@@ -66,7 +67,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sections"/> is <c>null</c></exception>
         /// <exception cref="ArgumentException">Thrown when  an element in <paramref name="sections"/> is <c>null</c>.
         /// </exception>
-        public static FailureMechanismSection FailureMechanismSectionForCalculation(IEnumerable<FailureMechanismSection> sections, GrassCoverErosionInwardsCalculation calculation)
+        public static FailureMechanismSection FailureMechanismSectionForCalculation(IEnumerable<FailureMechanismSection> sections,
+                                                                                    GrassCoverErosionInwardsCalculation calculation)
         {
             var asCalculationWithLocation = AsCalculationWithLocation(calculation);
             if (asCalculationWithLocation != null)
@@ -86,7 +88,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <exception cref="ArgumentNullException">When <paramref name="sectionResults"/> is <c>null</c></exception>
         /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
         /// <c>null</c>.</exception>
-        public static void Update(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults, GrassCoverErosionInwardsCalculation calculation)
+        public static void Update(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
+                                  GrassCoverErosionInwardsCalculation calculation)
         {
             ValidateSectionResults(sectionResults);
 
@@ -110,7 +113,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// in <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
         /// <c>null</c>.</exception>
-        public static void Delete(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults, GrassCoverErosionInwardsCalculation calculation, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+        public static void Delete(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
+                                  GrassCoverErosionInwardsCalculation calculation, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             ValidateSectionResults(sectionResults);
 
@@ -128,7 +132,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <returns>A collection of <see cref="CalculationWithLocation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c> or when
         /// an element in <paramref name="calculations"/> is <c>null</c>.</exception>
-        private static IEnumerable<CalculationWithLocation> CalculationsToCalculationsWithLocations(IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+        private static IEnumerable<CalculationWithLocation> CalculationsToCalculationsWithLocations(
+            IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
         {
             if (calculations == null)
             {
@@ -169,7 +174,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
             }
         }
 
-        private static SectionResultWithCalculationAssignment AsCalculationAssignment(GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult)
+        private static SectionResultWithCalculationAssignment AsCalculationAssignment(
+            GrassCoverErosionInwardsFailureMechanismSectionResult failureMechanismSectionResult)
         {
             return new SectionResultWithCalculationAssignment(failureMechanismSectionResult,
                                                               result => ((GrassCoverErosionInwardsFailureMechanismSectionResult) result).Calculation,
