@@ -29,6 +29,9 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         public TestHeightStructure()
             : this("Test") {}
 
+        public TestHeightStructure(Point2D location)
+            : this("Test", location) {}
+
         public TestHeightStructure(string name)
             : this(name, new Point2D(0.0, 0.0)) {}
 

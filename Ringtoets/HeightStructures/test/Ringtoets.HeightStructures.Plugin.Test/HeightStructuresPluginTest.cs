@@ -138,9 +138,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, viewInfos.Length);
+                Assert.AreEqual(2, viewInfos.Length);
 
                 Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(HeightStructuresFailureMechanismResultView)));
+                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(HeightStructuresScenariosView)));
             }
             mocks.VerifyAll();
         }

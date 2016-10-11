@@ -142,6 +142,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
             return calculations.Select(AsCalculationWithLocation).Where(c => c != null);
         }
 
+        private static void ValidateSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults)
+        {
+            if (sectionResults == null)
+            {
+                throw new ArgumentNullException("sectionResults");
+            }
+            if (sectionResults.Any(sr => sr == null))
+            {
+                throw new ArgumentException("SectionResults contains an entry without value.", "sectionResults");
+            }
+        }
+
         /// <summary>
         /// Transforms the <paramref name="calculation"/> into a <see cref="CalculationWithLocation"/>.
         /// </summary>
@@ -160,18 +172,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
                 return null;
             }
             return new CalculationWithLocation(calculation, calculation.InputParameters.DikeProfile.WorldReferencePoint);
-        }
-
-        private static void ValidateSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults)
-        {
-            if (sectionResults == null)
-            {
-                throw new ArgumentNullException("sectionResults");
-            }
-            if (sectionResults.Any(sr => sr == null))
-            {
-                throw new ArgumentException("SectionResults contains an entry without value.", "sectionResults");
-            }
         }
 
         private static SectionResultWithCalculationAssignment AsCalculationAssignment(

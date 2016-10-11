@@ -45,6 +45,7 @@ using Ringtoets.HeightStructures.Forms.Views;
 using Ringtoets.HeightStructures.IO;
 using Ringtoets.HeightStructures.Plugin.Properties;
 using Ringtoets.HeightStructures.Service;
+using Ringtoets.HeightStructures.Utils;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -83,6 +84,18 @@ namespace Ringtoets.HeightStructures.Plugin
 
         public override IEnumerable<ViewInfo> GetViewInfos()
         {
+            yield return new ViewInfo<
+                HeightStructuresScenariosContext,
+                CalculationGroup,
+                HeightStructuresScenariosView>
+            {
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
+                CloseForData = CloseScenariosViewForData,
+                Image = RingtoetsCommonFormsResources.ScenariosIcon
+            };
+
             yield return new ViewInfo<
                 FailureMechanismSectionResultContext<HeightStructuresFailureMechanismSectionResult>,
                 IEnumerable<HeightStructuresFailureMechanismSectionResult>,
@@ -208,9 +221,34 @@ namespace Ringtoets.HeightStructures.Plugin
             return null;
         }
 
-        #region TreeNodeInfos
+        #region ViewInfo
 
         #region HeightStructuresFailureMechanismResultView ViewInfo
+
+        #region HeightStructuresScenariosView ViewInfo
+
+        private static bool CloseScenariosViewForData(HeightStructuresScenariosView view, object removedData)
+        {
+            var failureMechanism = removedData as HeightStructuresFailureMechanism;
+
+            var failureMechanismContext = removedData as HeightStructuresFailureMechanismContext;
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
+            var assessmentSection = removedData as IAssessmentSection;
+            if (assessmentSection != null)
+            {
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<HeightStructuresFailureMechanism>()
+                                                    .FirstOrDefault();
+            }
+
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
+        }
+
+        #endregion
 
         private static bool CloseFailureMechanismResultViewForData(HeightStructuresFailureMechanismResultView view, object o)
         {
@@ -232,6 +270,10 @@ namespace Ringtoets.HeightStructures.Plugin
         }
 
         #endregion
+
+        #endregion
+
+        #region TreeNodeInfos
 
         #region HeightStructuresFailureMechanismContext TreeNodeInfo
 
@@ -424,14 +466,13 @@ namespace Ringtoets.HeightStructures.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateHeightStructuresCalculations(dialog.SelectedItems, nodeData.WrappedData.Children);
+                    GenerateHeightStructuresCalculations(nodeData.FailureMechanism.SectionResults, dialog.SelectedItems, nodeData.WrappedData.Children);
                     nodeData.NotifyObservers();
                 }
             }
         }
 
-        private static void GenerateHeightStructuresCalculations(IEnumerable<HeightStructure> structures,
-                                                                    IList<ICalculationBase> calculations)
+        private static void GenerateHeightStructuresCalculations(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<HeightStructure> structures, IList<ICalculationBase> calculations)
         {
             foreach (var structure in structures)
             {
@@ -444,6 +485,7 @@ namespace Ringtoets.HeightStructures.Plugin
                     }
                 };
                 calculations.Add(calculation);
+                HeightStructuresHelper.Update(sectionResults, calculation);
             }
         }
 
@@ -484,7 +526,7 @@ namespace Ringtoets.HeightStructures.Plugin
             var childNodes = new List<object>
             {
                 new CommentContext<ICommentable>(context.WrappedData),
-                new HeightStructuresInputContext(context.WrappedData.InputParameters,
+                new HeightStructuresInputContext(context.WrappedData,
                                                  context.FailureMechanism,
                                                  context.AssessmentSection)
             };
@@ -543,6 +585,7 @@ namespace Ringtoets.HeightStructures.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
+                HeightStructuresHelper.Delete(context.FailureMechanism.SectionResults, context.WrappedData, context.FailureMechanism.Calculations.OfType<HeightStructuresCalculation>());
                 calculationGroupContext.NotifyObservers();
             }
         }

@@ -53,7 +53,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             var heightStructure = new TestHeightStructure();
             var inputContext = new HeightStructuresInputContext(
-                new HeightStructuresInput(),
+                new HeightStructuresCalculation(), 
                 new HeightStructuresFailureMechanism
                 {
                     HeightStructures =
@@ -95,10 +95,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             var heightStructure = new TestHeightStructure();
             var inputContext = new HeightStructuresInputContext(
-                new HeightStructuresInput
+                new HeightStructuresCalculation
                 {
-                    HeightStructure = heightStructure
-                },
+                    InputParameters =
+                    {
+                        HeightStructure = heightStructure
+                    }
+                }, 
                 new HeightStructuresFailureMechanism
                 {
                     HeightStructures =

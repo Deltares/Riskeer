@@ -87,6 +87,7 @@ namespace Core.Common.TestUtil
             public static class HeightStructures
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "HeightStructures", "test", "Ringtoets.HeightStructures.IO.Test");
+                public static readonly TestDataPath Integration = System.IO.Path.Combine("Ringtoets", "HeightStructures", "test", "Ringtoets.HeightStructures.Integration.Test");
             }
 
             public static class HydraRing

@@ -53,13 +53,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
             hydraulicBoundaryDatabase.Locations.Add(new TestHydraulicBoundaryLocation());
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var heightStructuresInput = new HeightStructuresInput();
+            var calculation = new HeightStructuresCalculation();
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
                                  .Return(hydraulicBoundaryDatabase)
                                  .Repeat.AtLeastOnce();
-            var inputContext = new HeightStructuresInputContext(heightStructuresInput,
+            var inputContext = new HeightStructuresInputContext(calculation,
                                                                 failureMechanism,
                                                                 assessmentSectionMock);
 
@@ -98,16 +98,19 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var heightStructuresInput = new HeightStructuresInput
+            var calculation = new HeightStructuresCalculation
             {
-                HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
+                }
             };
 
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.HydraulicBoundaryDatabase)
                                  .Return(hydraulicBoundaryDatabase)
                                  .Repeat.AtLeastOnce();
-            var inputContext = new HeightStructuresInputContext(heightStructuresInput,
+            var inputContext = new HeightStructuresInputContext(calculation,
                                                                 failureMechanism,
                                                                 assessmentSectionMock);
 

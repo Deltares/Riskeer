@@ -85,7 +85,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
 
         #endregion
 
-
         [Test]
         public void CollectCalculationsPerSection_SectionsAreNull_ThrowsArgumentNullException()
         {
@@ -255,6 +254,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             Assert.AreSame(twoSections[1], failureMechanismSection);
         }
 
+
         [Test]
         public void Update_SectionResultsNull_ThrowsArgumentNullException()
         {
@@ -368,6 +368,5 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils.Test
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("calculation", exception.ParamName);
-        }
-    }
+        }    }
 }

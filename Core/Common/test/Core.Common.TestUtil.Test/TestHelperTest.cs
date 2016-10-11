@@ -113,6 +113,11 @@ namespace Core.Common.TestUtil.Test
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.GrassCoverErosionOutwards.IO);
             Assert.IsTrue(Directory.Exists(path));
 
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.IO);
+            Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.Integration);
+            Assert.IsTrue(Directory.Exists(path));
+
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO);
             Assert.IsTrue(Directory.Exists(path));
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.Plugin);

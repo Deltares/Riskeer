@@ -35,6 +35,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.Properties;
 using Ringtoets.HeightStructures.Forms.UITypeEditors;
+using Ringtoets.HeightStructures.Utils;
 using Ringtoets.HydraRing.Data;
 using CoreCommonBasePropertiesResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -130,6 +131,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             set
             {
                 data.WrappedData.HeightStructure = value;
+                HeightStructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
                 data.WrappedData.NotifyObservers();
             }
         }

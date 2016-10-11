@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HeightStructures.Data;
@@ -35,40 +36,142 @@ namespace Ringtoets.HeightStructures.Utils.Test
         private const string firstSectionName = "firstSection";
         private const string secondSectionName = "secondSection";
 
+        #region Prepared data
+
+        private static readonly FailureMechanismSection failureMechanismSectionA = new FailureMechanismSection(firstSectionName, new List<Point2D>
+        {
+            new Point2D(0.0, 0.0),
+            new Point2D(10.0, 10.0),
+        });
+
+        private static readonly FailureMechanismSection failureMechanismSectionB = new FailureMechanismSection(secondSectionName, new List<Point2D>
+        {
+            new Point2D(11.0, 11.0),
+            new Point2D(100.0, 100.0),
+        });
+
+        private static readonly HeightStructuresFailureMechanismSectionResult sectionResult = new HeightStructuresFailureMechanismSectionResult(
+            failureMechanismSectionA);
+
         private readonly FailureMechanismSection[] oneSection =
         {
-            new FailureMechanismSection("testFailureMechanismSection", new List<Point2D>
-            {
-                new Point2D(0.0, 0.0)
-            })
+            failureMechanismSectionA
         };
 
         private readonly FailureMechanismSection[] twoSections =
         {
-            new FailureMechanismSection(firstSectionName, new List<Point2D>
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(10.0, 10.0),
-            }),
-            new FailureMechanismSection(secondSectionName, new List<Point2D>
-            {
-                new Point2D(11.0, 11.0),
-                new Point2D(100.0, 100.0),
-            })
+            failureMechanismSectionA,
+            failureMechanismSectionB
         };
 
-        [Test]
-        public void FailureMechanismSectionForCalculation_SectionResultsNull_ThrowsArgumentNullException()
+        private readonly HeightStructuresCalculation calculationInSectionA = new HeightStructuresCalculation
         {
-            // Setup
-            var calculation = new HeightStructuresCalculation();
+            InputParameters =
+            {
+                HeightStructure = new TestHeightStructure(new Point2D(1.1, 2.2))
+            }
+        };
 
+        private readonly HeightStructuresCalculation calculationInSectionB = new HeightStructuresCalculation
+        {
+            InputParameters =
+            {
+                HeightStructure = new TestHeightStructure(new Point2D(50.0, 66.0))
+            }
+        };
+
+        #endregion
+        [Test]
+        public void CollectCalculationsPerSection_SectionsAreNull_ThrowsArgumentNullException()
+        {
             // Call
-            TestDelegate call = () => HeightStructuresHelper.FailureMechanismSectionForCalculation(null, calculation);
+            TestDelegate test = () => HeightStructuresHelper.CollectCalculationsPerSection(
+                null,
+                new HeightStructuresCalculation[]
+                {
+                    null
+                });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("sections", exception.ParamName);
+        }
+
+        [Test]
+        public void CollectCalculationsPerSection_SectionElementsAreNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => HeightStructuresHelper.CollectCalculationsPerSection(
+                new FailureMechanismSection[]
+                {
+                    null,
+                    null
+                },
+                new[]
+                {
+                    calculationInSectionA
+                });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("sections", exception.ParamName);
+        }
+
+        [Test]
+        public void CollectCalculationsPerSection_CalculationsAreNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => HeightStructuresHelper.CollectCalculationsPerSection(
+                twoSections,
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        public void CollectCalculationsPerSection_CalculationElementsAreNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => HeightStructuresHelper.CollectCalculationsPerSection(
+                twoSections,
+                new HeightStructuresCalculation[]
+                {
+                    null
+                });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        public void FailureMechanismSectionForCalculation_SectionsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate call = () => HeightStructuresHelper.FailureMechanismSectionForCalculation(null, calculationInSectionA);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("sections", paramName);
+        }
+
+        [Test]
+        public void FailureMechanismSectionForCalculation_SectionElementsNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => HeightStructuresHelper.FailureMechanismSectionForCalculation(
+                new FailureMechanismSection[]
+                {
+                    null,
+                    null
+                },
+                calculationInSectionA);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentException>(test);
+            Assert.AreEqual("sections", exception.ParamName);
         }
 
         [Test]
@@ -114,18 +217,9 @@ namespace Ringtoets.HeightStructures.Utils.Test
         [Test]
         public void FailureMechanismSectionForCalculation_FirstSectionContainsCalculation_FailureMechanismSectionOfFirstSection()
         {
-            // Setup
-            var calculation = new HeightStructuresCalculation
-            {
-                InputParameters =
-                {
-                    HeightStructure = new TestHeightStructure("test", new Point2D(1.1, 2.2))
-                }
-            };
-
             // Call
             FailureMechanismSection failureMechanismSection =
-                HeightStructuresHelper.FailureMechanismSectionForCalculation(twoSections, calculation);
+                HeightStructuresHelper.FailureMechanismSectionForCalculation(twoSections, calculationInSectionA);
 
             // Assert
             Assert.AreSame(twoSections[0], failureMechanismSection);
@@ -134,21 +228,127 @@ namespace Ringtoets.HeightStructures.Utils.Test
         [Test]
         public void FailureMechanismSectionForCalculation_SecondSectionContainsCalculation_FailureMechanismSectionOfSecondSection()
         {
-            // Setup
-            var calculation = new HeightStructuresCalculation
-            {
-                InputParameters =
-                {
-                    HeightStructure = new TestHeightStructure("test", new Point2D(55.0, 66.0))
-                }
-            };
-
             // Call
             FailureMechanismSection failureMechanismSection =
-                HeightStructuresHelper.FailureMechanismSectionForCalculation(twoSections, calculation);
+                HeightStructuresHelper.FailureMechanismSectionForCalculation(twoSections, calculationInSectionB);
 
             // Assert
             Assert.AreSame(twoSections[1], failureMechanismSection);
+        }
+
+        [Test]
+        public void Update_SectionResultsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => HeightStructuresHelper.Update(
+                null,
+                calculationInSectionA);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("sectionResults", exception.ParamName);
+        }
+
+        [Test]
+        public void Update_SectionResultElementsNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => HeightStructuresHelper.Update(
+                new HeightStructuresFailureMechanismSectionResult[]
+                {
+                    null,
+                    null
+                },
+                calculationInSectionA);
+
+            // Assert
+            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                test, "SectionResults contains an entry without value.");
+            Assert.AreEqual("sectionResults", exception.ParamName);
+        }
+
+        [Test]
+        public void Delete_SectionResultsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => HeightStructuresHelper.Delete(
+                null,
+                calculationInSectionA,
+                new[] { calculationInSectionB });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("sectionResults", exception.ParamName);
+        }
+
+        [Test]
+        public void Delete_SectionResultElementsNull_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => HeightStructuresHelper.Delete(
+                new HeightStructuresFailureMechanismSectionResult[]
+                {
+                    null,
+                    null
+                },
+                calculationInSectionA,
+                new[] { calculationInSectionB });
+
+            // Assert
+            ArgumentException exception = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(
+                test, "SectionResults contains an entry without value.");
+            Assert.AreEqual("sectionResults", exception.ParamName);
+        }
+
+        [Test]
+        public void Delete_CalculationNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => HeightStructuresHelper.Delete(
+                new[]
+                {
+                    sectionResult
+                },
+                null,
+                new[] { calculationInSectionA });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
+        }
+
+        [Test]
+        public void Delete_CalculationsNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => HeightStructuresHelper.Delete(
+                new[]
+                {
+                    sectionResult
+                },
+                calculationInSectionA,
+                null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculations", exception.ParamName);
+        }
+
+        [Test]
+        public void Delete_CalculationsElementNull_ThrowsArgumentNullException()
+        {
+            // Call
+            TestDelegate test = () => HeightStructuresHelper.Delete(
+                new[]
+                {
+                    sectionResult
+                },
+                calculationInSectionA,
+                new HeightStructuresCalculation[] { null });
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("calculation", exception.ParamName);
         }
     }
 }

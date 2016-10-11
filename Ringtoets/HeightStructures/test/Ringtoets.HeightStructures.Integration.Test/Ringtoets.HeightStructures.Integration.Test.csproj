@@ -40,6 +40,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="NUnitForms">
+      <HintPath>..\..\..\..\lib\NUnitForms.dll</HintPath>
+    </Reference>
     <Reference Include="Rhino.Mocks">
       <HintPath>..\..\..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
     </Reference>
@@ -49,12 +52,15 @@
       <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net40\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="HeightStructuresScenariosViewIntegrationTest.cs" />
     <Compile Include="HeightStructuresCalculationActivityIntegrationTest.cs" />
+    <Compile Include="IntegrationTestHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -62,11 +68,27 @@
       <Link>Copying.licenseheader</Link>
     </None>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Resources\traject_6-3.dbf" />
+    <EmbeddedResource Include="Resources\traject_6-3.prj" />
+    <EmbeddedResource Include="Resources\traject_6-3.shp" />
+    <EmbeddedResource Include="Resources\traject_6-3.shx" />
+    <EmbeddedResource Include="Resources\traject_6-3_vakken.dbf" />
+    <EmbeddedResource Include="Resources\traject_6-3_vakken.prj" />
+    <EmbeddedResource Include="Resources\traject_6-3_vakken.shp" />
+    <EmbeddedResource Include="Resources\traject_6-3_vakken.shx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
       <Project>{3BBFD65B-B277-4E50-AE6D-BD24C3434609}</Project>
       <Name>Core.Common.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Controls\Core.Common.Controls.csproj">
+      <Project>{9a2d67e6-26ac-4d17-b11a-2b4372f2f572}</Project>
+      <Name>Core.Common.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
+      <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
+      <Name>Core.Common.Utils</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{D749EE4C-CE50-4C17-BF01-9A953028C126}</Project>
@@ -75,6 +97,10 @@
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Data\Ringtoets.Common.Data.csproj">
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Forms\Ringtoets.Common.Forms.csproj">
+      <Project>{4D840673-3812-4338-A352-84854E32B8A0}</Project>
+      <Name>Ringtoets.Common.Forms</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
       <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
@@ -99,6 +125,14 @@
     <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
       <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
       <Name>Ringtoets.HeightStructures.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Forms\Ringtoets.HeightStructures.Forms.csproj">
+      <Project>{F0BCF06A-3D01-4D65-A249-E2A14AEC6EFD}</Project>
+      <Name>Ringtoets.HeightStructures.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.IO\Ringtoets.HeightStructures.IO.csproj">
+      <Project>{D63FCFEC-34E8-4C68-8B4F-99338D2447AC}</Project>
+      <Name>Ringtoets.HeightStructures.IO</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Service\Ringtoets.HeightStructures.Service.csproj">
       <Project>{20DD96D3-001E-407A-AE2E-432887088F1F}</Project>

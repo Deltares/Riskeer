@@ -76,5 +76,10 @@ namespace Ringtoets.HeightStructures.Data
         {
             return Output;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

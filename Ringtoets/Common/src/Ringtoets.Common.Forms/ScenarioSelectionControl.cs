@@ -71,17 +71,15 @@ namespace Ringtoets.Common.Forms
             {
                 throw new ArgumentNullException("calculationsPerSection");
             }
-            dataGridViewControl.SetDataSource(scenarioRows);
 
             using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)))
             {
-                var columnItems = ((DataGridViewComboBoxColumn) dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)).Items;
+                dataGridViewControl.SetDataSource(scenarioRows);
+
+                var columnItems = ((DataGridViewComboBoxColumn)dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)).Items;
                 var items = calculations.Select(c => new DataGridViewComboBoxItemWrapper<ICalculation>(c));
                 SetItemsOnObjectCollection(columnItems, items.Cast<object>().ToArray());
-            }
 
-            using (new SuspendDataGridViewColumnResizes(dataGridViewControl.GetColumnFromIndex(calculationsColumnIndex)))
-            {
                 UpdateDataGridViewDataComboBoxesContent(calculationsPerSection);
             }
         }

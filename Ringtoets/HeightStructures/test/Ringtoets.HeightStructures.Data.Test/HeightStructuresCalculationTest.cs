@@ -121,6 +121,23 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreSame(calculation.Output, output);
         }
 
+        [Test]
+        public void ToString_Always_ReturnName()
+        {
+            // Setup
+            var expectedName = "someTestName";
+            var calculation = new HeightStructuresCalculation
+            {
+                Name = expectedName
+            };
+
+            // Call
+            var result = calculation.ToString();
+
+            // Assert
+            Assert.AreEqual(expectedName, result);
+        }
+
         private class TestHeightStructuresOutput : ProbabilityAssessmentOutput
         {
             public TestHeightStructuresOutput() : base(0, 0, 0, 0, 0) {}

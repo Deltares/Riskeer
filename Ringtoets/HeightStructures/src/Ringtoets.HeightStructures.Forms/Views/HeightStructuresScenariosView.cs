@@ -20,12 +20,14 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Utils;
 
 namespace Ringtoets.HeightStructures.Forms.Views
 {
@@ -123,15 +125,15 @@ namespace Ringtoets.HeightStructures.Forms.Views
             }
             else
             {
-//                var calculations = data.GetCalculations();
+                var calculations = data.GetCalculations();
 
-//                Dictionary<string, IList<ICalculation>> caculationsPerSegment = 
-//                    HeightStructuresHelper.CollectCalculationsPerSegment(failureMechanism.Sections, calculations.OfType<HeightStructuresCalculation>());
+                Dictionary<string, IList<ICalculation>> caculationsPerSegment =
+                    HeightStructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.OfType<HeightStructuresCalculation>());
 
-//                List<HeightStructuresScenarioRow> scenarioRows = 
-//                    FailureMechanism.SectionResults.Select(sectionResult => new HeightStructuresScenarioRow(sectionResult)).ToList();
+                List<HeightStructuresScenarioRow> scenarioRows = 
+                    FailureMechanism.SectionResults.Select(sectionResult => new HeightStructuresScenarioRow(sectionResult)).ToList();
 
-//                scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, caculationsPerSegment);
+                scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, caculationsPerSegment);
             }
         }
     }

@@ -54,7 +54,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             var foreshoreProfile = new TestForeshoreProfile();
             var inputContext = new HeightStructuresInputContext(
-                new HeightStructuresInput(),
+                new HeightStructuresCalculation(),
                 new HeightStructuresFailureMechanism
                 {
                     ForeshoreProfiles =
@@ -96,10 +96,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             var foreshoreProfile = new TestForeshoreProfile();
             var inputContext = new HeightStructuresInputContext(
-                new HeightStructuresInput
+                new HeightStructuresCalculation
                 {
-                    ForeshoreProfile = foreshoreProfile
-                },
+                    InputParameters =
+                    {
+                        ForeshoreProfile = foreshoreProfile
+                    }
+                }, 
                 new HeightStructuresFailureMechanism
                 {
                     ForeshoreProfiles =

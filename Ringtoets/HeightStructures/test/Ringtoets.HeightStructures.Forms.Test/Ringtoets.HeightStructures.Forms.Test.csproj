@@ -84,6 +84,8 @@
     <Compile Include="UITypeEditors\HeightStructuresInputContextForeshoreProfileEditorTest.cs" />
     <Compile Include="UITypeEditors\HeightStructuresInputContextHydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="UITypeEditors\HeightStructuresInputContextStructureEditorTest.cs" />
+    <Compile Include="Views\HeightStructuresScenarioRowTest.cs" />
+    <Compile Include="Views\HeightStructuresScenariosViewTest.cs" />
     <Compile Include="Views\HeightStructuresFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\HeightStructuresFailureMechanismSectionResultRowTest.cs" />
   </ItemGroup>

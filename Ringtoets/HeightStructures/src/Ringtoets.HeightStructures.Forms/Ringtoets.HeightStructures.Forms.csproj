@@ -116,6 +116,10 @@
       <Name>Ringtoets.HeightStructures.Data</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.HeightStructures.Utils\Ringtoets.HeightStructures.Utils.csproj">
+      <Project>{0FD0C7E1-E712-48D1-91AB-FBC78461FD76}</Project>
+      <Name>Ringtoets.HeightStructures.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">
