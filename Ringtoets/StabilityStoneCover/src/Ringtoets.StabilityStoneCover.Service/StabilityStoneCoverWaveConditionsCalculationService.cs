@@ -28,7 +28,6 @@ using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service.Properties;
-
 using RingtoetsRevetmentsServicesResources = Ringtoets.Revetment.Service.Properties.Resources;
 
 namespace Ringtoets.StabilityStoneCover.Service
@@ -50,8 +49,8 @@ namespace Ringtoets.StabilityStoneCover.Service
         public bool Validate(StabilityStoneCoverWaveConditionsCalculation calculation, string hydraulicBoundaryDatabaseFilePath)
         {
             return ValidateWaveConditionsInput(
-                calculation.InputParameters, 
-                calculation.Name, 
+                calculation.InputParameters,
+                calculation.Name,
                 hydraulicBoundaryDatabaseFilePath,
                 RingtoetsRevetmentsServicesResources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
         }
@@ -66,7 +65,10 @@ namespace Ringtoets.StabilityStoneCover.Service
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="generalWaveConditionsInput">Calculation input parameters that apply to all <see cref="StabilityStoneCoverWaveConditionsCalculation"/> instances.</param>
         /// <param name="hlcdFilePath">The path of the HLCD file that should be used for performing the calculation.</param>
-        public void Calculate(StabilityStoneCoverWaveConditionsCalculation calculation, IAssessmentSection assessmentSection, GeneralStabilityStoneCoverWaveConditionsInput generalWaveConditionsInput, string hlcdFilePath)
+        public void Calculate(StabilityStoneCoverWaveConditionsCalculation calculation,
+                              IAssessmentSection assessmentSection,
+                              GeneralStabilityStoneCoverWaveConditionsInput generalWaveConditionsInput,
+                              string hlcdFilePath)
         {
             string calculationName = calculation.Name;
 
@@ -82,7 +84,7 @@ namespace Ringtoets.StabilityStoneCover.Service
 
             var ringId = assessmentSection.Id;
             var norm = assessmentSection.FailureMechanismContribution.Norm;
-            TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count() * 2;
+            TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count()*2;
 
             log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_blocks_started, calculationName);
             IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateWaveConditions(calculationName, calculation.InputParameters, aBlocks, bBlocks, cBlocks, norm, ringId, hlcdFilePath);
