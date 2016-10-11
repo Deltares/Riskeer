@@ -163,8 +163,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreEqual(4, structure.ShipMass.CoefficientOfVariation.Value);
             Assert.AreEqual(4.5, structure.ShipVelocity.CoefficientOfVariation.Value);
             Assert.AreEqual(18, structure.FlowVelocityStructureClosable.StandardDeviation.Value);
-            Assert.AreEqual(5, structure.StabilityLinearModel.CoefficientOfVariation.Value);
-            Assert.AreEqual(5.5, structure.StabilityQuadraticModel.CoefficientOfVariation.Value);
+            Assert.AreEqual(5, structure.StabilityLinearLoadModel.CoefficientOfVariation.Value);
+            Assert.AreEqual(5.5, structure.StabilityQuadraticLoadModel.CoefficientOfVariation.Value);
             Assert.AreEqual(22, structure.AreaFlowApertures.StandardDeviation.Value);
         }
 

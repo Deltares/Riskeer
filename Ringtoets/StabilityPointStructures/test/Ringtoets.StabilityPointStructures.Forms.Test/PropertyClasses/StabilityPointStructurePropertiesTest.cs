@@ -55,15 +55,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int bankWidthPropertyIndex = 16;
         private const int evaluationLevelPropertyIndex = 17;
         private const int verticalDistancePropertyIndex = 18;
-        private const int failureProbabilityReparationPropertyIndex = 19;
+        private const int failureProbabilityRepairClosurePropertyIndex = 19;
         private const int failureCollisionEnergyPropertyIndex = 20;
         private const int shipMassPropertyIndex = 21;
         private const int shipVelocityPropertyIndex = 22;
         private const int levellingCountPropertyIndex = 23;
         private const int probabilityCollisionSecondaryStructurePropertyIndex = 24;
         private const int flowVelocityStructureClosablePropertyIndex = 25;
-        private const int stabilityLinearModelPropertyIndex = 26;
-        private const int stabilityQuadraticModelPropertyIndex = 27;
+        private const int stabilityLinearLoadModelPropertyIndex = 26;
+        private const int stabilityQuadraticLoadModelPropertyIndex = 27;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -161,8 +161,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.BankWidth.DynamicReadOnlyValidationMethod("StandardDeviation"));
 
             Assert.AreEqual(structure.EvaluationLevel, properties.EvaluationLevel);
+
             Assert.AreEqual(structure.VerticalDistance, properties.VerticalDistance);
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.FailureProbabilityReparation), properties.FailureProbabilityReparation);
+
+            Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.FailureProbabilityRepairClosure), properties.FailureProbabilityRepairClosure);
 
             Assert.AreEqual("Lognormaal", properties.FailureCollisionEnergy.DistributionType);
             Assert.AreEqual(structure.FailureCollisionEnergy, properties.FailureCollisionEnergy.Data);
@@ -187,15 +189,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.FlowVelocityStructureClosable.DynamicReadOnlyValidationMethod("Mean"));
             Assert.IsTrue(properties.FlowVelocityStructureClosable.DynamicReadOnlyValidationMethod("StandardDeviation"));
 
-            Assert.AreEqual("Lognormaal", properties.StabilityLinearModel.DistributionType);
-            Assert.AreEqual(structure.StabilityLinearModel, properties.StabilityLinearModel.Data);
-            Assert.IsTrue(properties.StabilityLinearModel.DynamicReadOnlyValidationMethod("Mean"));
-            Assert.IsTrue(properties.StabilityLinearModel.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
+            Assert.AreEqual("Lognormaal", properties.StabilityLinearLoadModel.DistributionType);
+            Assert.AreEqual(structure.StabilityLinearLoadModel, properties.StabilityLinearLoadModel.Data);
+            Assert.IsTrue(properties.StabilityLinearLoadModel.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.StabilityLinearLoadModel.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
 
-            Assert.AreEqual("Lognormaal", properties.StabilityQuadraticModel.DistributionType);
-            Assert.AreEqual(structure.StabilityQuadraticModel, properties.StabilityQuadraticModel.Data);
-            Assert.IsTrue(properties.StabilityQuadraticModel.DynamicReadOnlyValidationMethod("Mean"));
-            Assert.IsTrue(properties.StabilityQuadraticModel.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
+            Assert.AreEqual("Lognormaal", properties.StabilityQuadraticLoadModel.DistributionType);
+            Assert.AreEqual(structure.StabilityQuadraticLoadModel, properties.StabilityQuadraticLoadModel.Data);
+            Assert.IsTrue(properties.StabilityQuadraticLoadModel.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.StabilityQuadraticLoadModel.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
         }
 
         [Test]
@@ -314,8 +316,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor verticalDistanceProperty = dynamicProperties[verticalDistancePropertyIndex];
             Assert.AreEqual(schematizationCategory, verticalDistanceProperty.Category);
 
-            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[failureProbabilityReparationPropertyIndex];
-            Assert.AreEqual(schematizationCategory, failureProbabilityReparationProperty.Category);
+            PropertyDescriptor failureProbabilityRepairClosureProperty = dynamicProperties[failureProbabilityRepairClosurePropertyIndex];
+            Assert.AreEqual(schematizationCategory, failureProbabilityRepairClosureProperty.Category);
 
             PropertyDescriptor failureCollisionEnergyProperty = dynamicProperties[failureCollisionEnergyPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(failureCollisionEnergyProperty.Converter);
@@ -339,13 +341,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
             Assert.AreEqual(schematizationCategory, flowVelocityStructureClosableProperty.Category);
 
-            PropertyDescriptor stabilityLinearModelProperty = dynamicProperties[stabilityLinearModelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(stabilityLinearModelProperty.Converter);
-            Assert.AreEqual(schematizationCategory, stabilityLinearModelProperty.Category);
+            PropertyDescriptor stabilityLinearLoadModelProperty = dynamicProperties[stabilityLinearLoadModelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(stabilityLinearLoadModelProperty.Converter);
+            Assert.AreEqual(schematizationCategory, stabilityLinearLoadModelProperty.Category);
 
-            PropertyDescriptor stabilityQuadraticModelProperty = dynamicProperties[stabilityQuadraticModelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(stabilityQuadraticModelProperty.Converter);
-            Assert.AreEqual(schematizationCategory, stabilityQuadraticModelProperty.Category);
+            PropertyDescriptor stabilityQuadraticLoadModelProperty = dynamicProperties[stabilityQuadraticLoadModelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(stabilityQuadraticLoadModelProperty.Converter);
+            Assert.AreEqual(schematizationCategory, stabilityQuadraticLoadModelProperty.Category);
         }
 
         private static StabilityPointStructure CreateSimpleStabilityPointStructure()

@@ -65,7 +65,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <param name="levelCrestStructureMean">The mean of the crest level of the stability point structure.</param>
         /// <param name="levelCrestStructureStandardDeviation">The standard deviation of the crest level of the stability point structure.</param>
         /// <param name="verticalDistance">The vertical distance of the stability point structure.</param>
-        /// <param name="failureProbabilityReparation">The probability of failing to repair a failed closure of the stability point structure.</param>
+        /// <param name="failureProbabilityRepairClosure">The probability of failing to repair a failed closure of the stability point structure.</param>
         /// <param name="failureCollisionEnergyMean">The mean of the failure collision energy of the stability point structure.</param>
         /// <param name="failureCollisionEnergyCoefficientOfVariation">The coefficient of variation of the failure collision energy of the stability point structure.</param>
         /// <param name="shipMassMean">The mean of the mass of the ship.</param>
@@ -76,10 +76,10 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <param name="probabilityCollisionSecondaryStructure">The probability of a secondary collision on the stability point structure.</param>
         /// <param name="flowVelocityStructureClosableMean">The mean of the maximum flow velocity at which the structure is closable.</param>
         /// <param name="flowVelocityStructureClosableStandardDeviation">The standard deviation of the maximum flow velocity at which the structure is closable.</param>
-        /// <param name="stabilityLinearModelMean">The mean of the stability properties of the linear model of the stability point structure.</param>
-        /// <param name="stabilityLinearModelCoefficientOfVariation">The coefficient of variation of the stability properties of the linear model of the stability point structure.</param>
-        /// <param name="stabilityQuadraticModelMean">The mean of the stability properties of the quadratic model of the stability point structure.</param>
-        /// <param name="stabilityQuadraticModelCoefficientOfVariation">The coefficient of variation of the stability properties of the quadratic model of the stability point structure.</param>
+        /// <param name="stabilityLinearLoadModelMean">The mean of the stability properties of the linear load model of the stability point structure.</param>
+        /// <param name="stabilityLinearLoadModelCoefficientOfVariation">The coefficient of variation of the stability properties of the linear load model of the stability point structure.</param>
+        /// <param name="stabilityQuadraticLoadModelMean">The mean of the stability properties of the quadratic load model of the stability point structure.</param>
+        /// <param name="stabilityQuadraticLoadModelCoefficientOfVariation">The coefficient of variation of the stability properties of the quadratic load model of the stability point structure.</param>
         /// <param name="areaFlowAperturesMean">The mean of the area of the flow aperture of the stability point structure.</param>
         /// <param name="areaFlowAperturesStandardDeviation">The standard deviation of the area of the flow aperture of the stability point structure.</param>
         /// <param name="inflowModelType">The type of stability point structure inflow model.</param>
@@ -103,15 +103,15 @@ namespace Ringtoets.StabilityPointStructures.Data
                                        double evaluationLevel,
                                        double levelCrestStructureMean, double levelCrestStructureStandardDeviation,
                                        double verticalDistance,
-                                       double failureProbabilityReparation,
+                                       double failureProbabilityRepairClosure,
                                        double failureCollisionEnergyMean, double failureCollisionEnergyCoefficientOfVariation,
                                        double shipMassMean, double shipMassCoefficientOfVariation,
                                        double shipVelocityMean, double shipVelocityCoefficientOfVariation,
                                        int levellingCount,
                                        double probabilityCollisionSecondaryStructure,
                                        double flowVelocityStructureClosableMean, double flowVelocityStructureClosableStandardDeviation,
-                                       double stabilityLinearModelMean, double stabilityLinearModelCoefficientOfVariation,
-                                       double stabilityQuadraticModelMean, double stabilityQuadraticModelCoefficientOfVariation,
+                                       double stabilityLinearLoadModelMean, double stabilityLinearLoadModelCoefficientOfVariation,
+                                       double stabilityQuadraticLoadModelMean, double stabilityQuadraticLoadModelCoefficientOfVariation,
                                        double areaFlowAperturesMean, double areaFlowAperturesStandardDeviation,
                                        StabilityPointStructureInflowModelType inflowModelType
             )
@@ -179,7 +179,7 @@ namespace Ringtoets.StabilityPointStructures.Data
                 StandardDeviation = (RoundedDouble) levelCrestStructureStandardDeviation
             };
             VerticalDistance = new RoundedDouble(2, verticalDistance);
-            FailureProbabilityReparation = new RoundedDouble(2, failureProbabilityReparation);
+            FailureProbabilityRepairClosure = new RoundedDouble(2, failureProbabilityRepairClosure);
             FailureCollisionEnergy = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) failureCollisionEnergyMean,
@@ -202,15 +202,15 @@ namespace Ringtoets.StabilityPointStructures.Data
                 Mean = (RoundedDouble) flowVelocityStructureClosableMean,
                 StandardDeviation = (RoundedDouble) flowVelocityStructureClosableStandardDeviation
             };
-            StabilityLinearModel = new VariationCoefficientLogNormalDistribution(2)
+            StabilityLinearLoadModel = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) stabilityLinearModelMean,
-                CoefficientOfVariation = (RoundedDouble) stabilityLinearModelCoefficientOfVariation
+                Mean = (RoundedDouble) stabilityLinearLoadModelMean,
+                CoefficientOfVariation = (RoundedDouble) stabilityLinearLoadModelCoefficientOfVariation
             };
-            StabilityQuadraticModel = new VariationCoefficientLogNormalDistribution(2)
+            StabilityQuadraticLoadModel = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) stabilityQuadraticModelMean,
-                CoefficientOfVariation = (RoundedDouble) stabilityQuadraticModelCoefficientOfVariation
+                Mean = (RoundedDouble) stabilityQuadraticLoadModelMean,
+                CoefficientOfVariation = (RoundedDouble) stabilityQuadraticLoadModelCoefficientOfVariation
             };
             AreaFlowApertures = new LogNormalDistribution(2)
             {
@@ -293,7 +293,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <summary>
         /// Gets the probability of failing to repair a failed closure of the stability point structure.
         /// </summary>
-        public RoundedDouble FailureProbabilityReparation { get; private set; }
+        public RoundedDouble FailureProbabilityRepairClosure { get; private set; }
 
         /// <summary>
         /// Gets the failure collision energy of the stability point structure.
@@ -326,14 +326,14 @@ namespace Ringtoets.StabilityPointStructures.Data
         public NormalDistribution FlowVelocityStructureClosable { get; private set; }
 
         /// <summary>
-        /// Gets the stability properties of the linear model of the stability point structure.
+        /// Gets the stability properties of the linear load model of the stability point structure.
         /// </summary>
-        public VariationCoefficientLogNormalDistribution StabilityLinearModel { get; private set; }
+        public VariationCoefficientLogNormalDistribution StabilityLinearLoadModel { get; private set; }
 
         /// <summary>
-        /// Gets the stability properties of the quadratic model of the stability point structure.
+        /// Gets the stability properties of the quadratic load model of the stability point structure.
         /// </summary>
-        public VariationCoefficientLogNormalDistribution StabilityQuadraticModel { get; private set; }
+        public VariationCoefficientLogNormalDistribution StabilityQuadraticLoadModel { get; private set; }
 
         /// <summary>
         /// Gets the area of the flow aperture of the stability point structure.

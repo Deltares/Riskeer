@@ -47,8 +47,8 @@ namespace Ringtoets.StabilityPointStructures.Data
         private readonly LogNormalDistribution areaFlowApertures;
         private readonly VariationCoefficientLogNormalDistribution constructiveStrengthLinearModel;
         private readonly VariationCoefficientLogNormalDistribution constructiveStrengthQuadraticModel;
-        private readonly VariationCoefficientLogNormalDistribution stabilityLinearModel;
-        private readonly VariationCoefficientLogNormalDistribution stabilityQuadraticModel;
+        private readonly VariationCoefficientLogNormalDistribution stabilityLinearLoadModel;
+        private readonly VariationCoefficientLogNormalDistribution stabilityQuadraticLoadModel;
         private readonly VariationCoefficientLogNormalDistribution failureCollisionEnergy;
         private readonly VariationCoefficientNormalDistribution shipMass;
         private readonly VariationCoefficientNormalDistribution shipVelocity;
@@ -149,13 +149,13 @@ namespace Ringtoets.StabilityPointStructures.Data
                 CoefficientOfVariation = (RoundedDouble) 0.1
             };
 
-            stabilityLinearModel = new VariationCoefficientLogNormalDistribution(2)
+            stabilityLinearLoadModel = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 CoefficientOfVariation = (RoundedDouble) 0.1
             };
 
-            stabilityQuadraticModel = new VariationCoefficientLogNormalDistribution(2)
+            stabilityQuadraticLoadModel = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 CoefficientOfVariation = (RoundedDouble) 0.1
@@ -573,36 +573,36 @@ namespace Ringtoets.StabilityPointStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the stability properties of the linear model.
+        /// Gets or sets the stability properties of the linear load model.
         /// [kN/m^2]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution StabilityLinearModel
+        public VariationCoefficientLogNormalDistribution StabilityLinearLoadModel
         {
             get
             {
-                return stabilityLinearModel;
+                return stabilityLinearLoadModel;
             }
             set
             {
-                stabilityLinearModel.Mean = value.Mean;
-                stabilityLinearModel.CoefficientOfVariation = value.CoefficientOfVariation;
+                stabilityLinearLoadModel.Mean = value.Mean;
+                stabilityLinearLoadModel.CoefficientOfVariation = value.CoefficientOfVariation;
             }
         }
 
         /// <summary>
-        /// Gets or sets the stability properties of the quadratic model.
+        /// Gets or sets the stability properties of the quadratic load model.
         /// [kN/m]
         /// </summary>
-        public VariationCoefficientLogNormalDistribution StabilityQuadraticModel
+        public VariationCoefficientLogNormalDistribution StabilityQuadraticLoadModel
         {
             get
             {
-                return stabilityQuadraticModel;
+                return stabilityQuadraticLoadModel;
             }
             set
             {
-                stabilityQuadraticModel.Mean = value.Mean;
-                stabilityQuadraticModel.CoefficientOfVariation = value.CoefficientOfVariation;
+                stabilityQuadraticLoadModel.Mean = value.Mean;
+                stabilityQuadraticLoadModel.CoefficientOfVariation = value.CoefficientOfVariation;
             }
         }
 

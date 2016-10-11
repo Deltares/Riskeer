@@ -150,9 +150,9 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(2, structure.VerticalDistance.NumberOfDecimalPlaces);
             Assert.AreEqual(555.55, structure.VerticalDistance, structure.VerticalDistance.GetAccuracy());
 
-            Assert.IsInstanceOf<RoundedDouble>(structure.FailureProbabilityReparation);
-            Assert.AreEqual(2, structure.FailureProbabilityReparation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.55, structure.FailureProbabilityReparation, structure.FailureProbabilityReparation.GetAccuracy());
+            Assert.IsInstanceOf<RoundedDouble>(structure.FailureProbabilityRepairClosure);
+            Assert.AreEqual(2, structure.FailureProbabilityRepairClosure.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.55, structure.FailureProbabilityRepairClosure, structure.FailureProbabilityRepairClosure.GetAccuracy());
 
             VariationCoefficientLogNormalDistribution failureCollisionEnergy = structure.FailureCollisionEnergy;
             Assert.AreEqual(2, failureCollisionEnergy.Mean.NumberOfDecimalPlaces);
@@ -184,17 +184,17 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(2, flowVelocityStructureClosable.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.68, flowVelocityStructureClosable.StandardDeviation, flowVelocityStructureClosable.StandardDeviation.GetAccuracy());
 
-            VariationCoefficientLogNormalDistribution stabilityLinearModel = structure.StabilityLinearModel;
-            Assert.AreEqual(2, stabilityLinearModel.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(789.01, stabilityLinearModel.Mean, stabilityLinearModel.Mean.GetAccuracy());
-            Assert.AreEqual(2, stabilityLinearModel.CoefficientOfVariation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.79, stabilityLinearModel.CoefficientOfVariation, stabilityLinearModel.CoefficientOfVariation.GetAccuracy());
+            VariationCoefficientLogNormalDistribution stabilityLinearLoadModel = structure.StabilityLinearLoadModel;
+            Assert.AreEqual(2, stabilityLinearLoadModel.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(789.01, stabilityLinearLoadModel.Mean, stabilityLinearLoadModel.Mean.GetAccuracy());
+            Assert.AreEqual(2, stabilityLinearLoadModel.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.79, stabilityLinearLoadModel.CoefficientOfVariation, stabilityLinearLoadModel.CoefficientOfVariation.GetAccuracy());
 
-            VariationCoefficientLogNormalDistribution stabilityQuadraticModel = structure.StabilityQuadraticModel;
-            Assert.AreEqual(2, stabilityQuadraticModel.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(890.12, stabilityQuadraticModel.Mean, stabilityQuadraticModel.Mean.GetAccuracy());
-            Assert.AreEqual(2, stabilityQuadraticModel.CoefficientOfVariation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.89, stabilityQuadraticModel.CoefficientOfVariation, stabilityQuadraticModel.CoefficientOfVariation.GetAccuracy());
+            VariationCoefficientLogNormalDistribution stabilityQuadraticLoadModel = structure.StabilityQuadraticLoadModel;
+            Assert.AreEqual(2, stabilityQuadraticLoadModel.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(890.12, stabilityQuadraticLoadModel.Mean, stabilityQuadraticLoadModel.Mean.GetAccuracy());
+            Assert.AreEqual(2, stabilityQuadraticLoadModel.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.89, stabilityQuadraticLoadModel.CoefficientOfVariation, stabilityQuadraticLoadModel.CoefficientOfVariation.GetAccuracy());
 
             LogNormalDistribution areaFlowApertures = structure.AreaFlowApertures;
             Assert.AreEqual(2, areaFlowApertures.Mean.NumberOfDecimalPlaces);

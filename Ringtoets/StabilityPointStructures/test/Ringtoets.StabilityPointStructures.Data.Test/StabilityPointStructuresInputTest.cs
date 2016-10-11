@@ -89,10 +89,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             AssertEqualValue(0.1, input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation);
             Assert.IsNaN(input.ConstructiveStrengthQuadraticLoadModel.Mean);
             AssertEqualValue(0.1, input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation);
-            Assert.IsNaN(input.StabilityLinearModel.Mean);
-            AssertEqualValue(0.1, input.StabilityLinearModel.CoefficientOfVariation);
-            Assert.IsNaN(input.StabilityQuadraticModel.Mean);
-            AssertEqualValue(0.1, input.StabilityQuadraticModel.CoefficientOfVariation);
+            Assert.IsNaN(input.StabilityLinearLoadModel.Mean);
+            AssertEqualValue(0.1, input.StabilityLinearLoadModel.CoefficientOfVariation);
+            Assert.IsNaN(input.StabilityQuadraticLoadModel.Mean);
+            AssertEqualValue(0.1, input.StabilityQuadraticLoadModel.CoefficientOfVariation);
             Assert.IsNaN(input.FailureProbabilityRepairClosure);
             Assert.IsNaN(input.FailureCollisionEnergy.Mean);
             AssertEqualValue(0.3, input.FailureCollisionEnergy.CoefficientOfVariation);
@@ -524,33 +524,33 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_StabilityLinearModel_ExpectedValues()
+        public void Properties_StabilityLinearLoadModel_ExpectedValues()
         {
             // Setup 
             var input = new StabilityPointStructuresInput();
-            VariationCoefficientLogNormalDistribution stabilityLinearModel = GenerateVariationCoefficientLogNormalDistribution();
+            VariationCoefficientLogNormalDistribution stabilityLinearLoadModel = GenerateVariationCoefficientLogNormalDistribution();
 
             // Call
-            input.StabilityLinearModel = stabilityLinearModel;
+            input.StabilityLinearLoadModel = stabilityLinearLoadModel;
 
             // Assert
-            AssertEqualValue(stabilityLinearModel.Mean, input.StabilityLinearModel.Mean);
-            AssertEqualValue(stabilityLinearModel.CoefficientOfVariation, input.StabilityLinearModel.CoefficientOfVariation);
+            AssertEqualValue(stabilityLinearLoadModel.Mean, input.StabilityLinearLoadModel.Mean);
+            AssertEqualValue(stabilityLinearLoadModel.CoefficientOfVariation, input.StabilityLinearLoadModel.CoefficientOfVariation);
         }
 
         [Test]
-        public void Properties_StabilityQuadraticModel()
+        public void Properties_StabilityQuadraticLoadModel()
         {
             // Setup 
             var input = new StabilityPointStructuresInput();
-            VariationCoefficientLogNormalDistribution stabilityQuadraticModel = GenerateVariationCoefficientLogNormalDistribution();
+            VariationCoefficientLogNormalDistribution stabilityQuadraticLoadModel = GenerateVariationCoefficientLogNormalDistribution();
 
             // Call
-            input.StabilityQuadraticModel = stabilityQuadraticModel;
+            input.StabilityQuadraticLoadModel = stabilityQuadraticLoadModel;
 
             // Assert 
-            AssertEqualValue(stabilityQuadraticModel.Mean, input.StabilityQuadraticModel.Mean);
-            AssertEqualValue(stabilityQuadraticModel.CoefficientOfVariation, input.StabilityQuadraticModel.CoefficientOfVariation);
+            AssertEqualValue(stabilityQuadraticLoadModel.Mean, input.StabilityQuadraticLoadModel.Mean);
+            AssertEqualValue(stabilityQuadraticLoadModel.CoefficientOfVariation, input.StabilityQuadraticLoadModel.CoefficientOfVariation);
         }
 
         [Test]

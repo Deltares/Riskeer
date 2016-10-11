@@ -59,15 +59,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         private const int bankWidthPropertyIndex = 17;
         private const int evaluationLevelPropertyIndex = 18;
         private const int verticalDistancePropertyIndex = 19;
-        private const int failureProbabilityReparationPropertyIndex = 20;
+        private const int failureProbabilityRepairClosurePropertyIndex = 20;
         private const int failureCollisionEnergyPropertyIndex = 21;
         private const int shipMassPropertyIndex = 22;
         private const int shipVelocityPropertyIndex = 23;
         private const int levellingCountPropertyIndex = 24;
         private const int probabilityCollisionSecondaryStructurePropertyIndex = 25;
         private const int flowVelocityStructureClosablePropertyIndex = 26;
-        private const int stabilityLinearModelPropertyIndex = 27;
-        private const int stabilityQuadraticModelPropertyIndex = 28;
+        private const int stabilityLinearLoadModelPropertyIndex = 27;
+        private const int stabilityQuadraticLoadModelPropertyIndex = 28;
         
         #region General
 
@@ -341,13 +341,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(failureProbabilityReparationPropertyIndex)]
+        [PropertyOrder(failureProbabilityRepairClosurePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        public string FailureProbabilityReparation
+        public string FailureProbabilityRepairClosure
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.FailureProbabilityReparation);
+                return ProbabilityFormattingHelper.Format(data.FailureProbabilityRepairClosure);
             }
         }
 
@@ -427,30 +427,30 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(stabilityLinearModelPropertyIndex)]
+        [PropertyOrder(stabilityLinearLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        public LogNormalDistributionVariationProperties StabilityLinearModel
+        public LogNormalDistributionVariationProperties StabilityLinearLoadModel
         {
             get
             {
                 return new LogNormalDistributionVariationProperties
                 {
-                    Data = data.StabilityLinearModel
+                    Data = data.StabilityLinearLoadModel
                 };
             }
         }
 
-        [PropertyOrder(stabilityQuadraticModelPropertyIndex)]
+        [PropertyOrder(stabilityQuadraticLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        public LogNormalDistributionVariationProperties StabilityQuadraticModel
+        public LogNormalDistributionVariationProperties StabilityQuadraticLoadModel
         {
             get
             {
                 return new LogNormalDistributionVariationProperties
                 {
-                    Data = data.StabilityQuadraticModel
+                    Data = data.StabilityQuadraticLoadModel
                 };
             }
         }
