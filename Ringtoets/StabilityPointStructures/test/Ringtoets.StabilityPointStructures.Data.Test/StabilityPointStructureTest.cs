@@ -112,17 +112,17 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(2, flowWidthAtBottomProtection.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.89, flowWidthAtBottomProtection.StandardDeviation, flowWidthAtBottomProtection.StandardDeviation.GetAccuracy());
 
-            VariationCoefficientLogNormalDistribution constructiveStrengthLinearModel = structure.ConstructiveStrengthLinearModel;
-            Assert.AreEqual(2, constructiveStrengthLinearModel.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(901.23, constructiveStrengthLinearModel.Mean, constructiveStrengthLinearModel.Mean.GetAccuracy());
-            Assert.AreEqual(2, constructiveStrengthLinearModel.CoefficientOfVariation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.90, constructiveStrengthLinearModel.CoefficientOfVariation, constructiveStrengthLinearModel.CoefficientOfVariation.GetAccuracy());
+            VariationCoefficientLogNormalDistribution constructiveStrengthLinearLoadModel = structure.ConstructiveStrengthLinearLoadModel;
+            Assert.AreEqual(2, constructiveStrengthLinearLoadModel.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(901.23, constructiveStrengthLinearLoadModel.Mean, constructiveStrengthLinearLoadModel.Mean.GetAccuracy());
+            Assert.AreEqual(2, constructiveStrengthLinearLoadModel.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.90, constructiveStrengthLinearLoadModel.CoefficientOfVariation, constructiveStrengthLinearLoadModel.CoefficientOfVariation.GetAccuracy());
 
-            VariationCoefficientLogNormalDistribution constructiveStrengthQuadraticModel = structure.ConstructiveStrengthQuadraticModel;
-            Assert.AreEqual(2, constructiveStrengthQuadraticModel.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(123.46, constructiveStrengthQuadraticModel.Mean, constructiveStrengthQuadraticModel.Mean.GetAccuracy());
-            Assert.AreEqual(2, constructiveStrengthQuadraticModel.CoefficientOfVariation.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.12, constructiveStrengthQuadraticModel.CoefficientOfVariation, constructiveStrengthQuadraticModel.CoefficientOfVariation.GetAccuracy());
+            VariationCoefficientLogNormalDistribution constructiveStrengthQuadraticLoadModel = structure.ConstructiveStrengthQuadraticLoadModel;
+            Assert.AreEqual(2, constructiveStrengthQuadraticLoadModel.Mean.NumberOfDecimalPlaces);
+            Assert.AreEqual(123.46, constructiveStrengthQuadraticLoadModel.Mean, constructiveStrengthQuadraticLoadModel.Mean.GetAccuracy());
+            Assert.AreEqual(2, constructiveStrengthQuadraticLoadModel.CoefficientOfVariation.NumberOfDecimalPlaces);
+            Assert.AreEqual(0.12, constructiveStrengthQuadraticLoadModel.CoefficientOfVariation, constructiveStrengthQuadraticLoadModel.CoefficientOfVariation.GetAccuracy());
 
             NormalDistribution bankWidth = structure.BankWidth;
             Assert.AreEqual(2, bankWidth.Mean.NumberOfDecimalPlaces);

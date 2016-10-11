@@ -50,8 +50,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int levelCrestStructurePropertyIndex = 11;
         private const int thresholdHeightOpenWeirPropertyIndex = 12;
         private const int criticalOvertoppingDischargePropertyIndex = 13;
-        private const int constructiveStrengthLinearModelPropertyIndex = 14;
-        private const int constructiveStrengthQuadraticModelPropertyIndex = 15;
+        private const int constructiveStrengthLinearLoadModelPropertyIndex = 14;
+        private const int constructiveStrengthQuadraticLoadModelPropertyIndex = 15;
         private const int bankWidthPropertyIndex = 16;
         private const int evaluationLevelPropertyIndex = 17;
         private const int verticalDistancePropertyIndex = 18;
@@ -145,15 +145,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("Mean"));
             Assert.IsTrue(properties.CriticalOvertoppingDischarge.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
 
-            Assert.AreEqual("Lognormaal", properties.ConstructiveStrengthLinearModel.DistributionType);
-            Assert.AreEqual(structure.ConstructiveStrengthLinearModel, properties.ConstructiveStrengthLinearModel.Data);
-            Assert.IsTrue(properties.ConstructiveStrengthLinearModel.DynamicReadOnlyValidationMethod("Mean"));
-            Assert.IsTrue(properties.ConstructiveStrengthLinearModel.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
+            Assert.AreEqual("Lognormaal", properties.ConstructiveStrengthLinearLoadModel.DistributionType);
+            Assert.AreEqual(structure.ConstructiveStrengthLinearLoadModel, properties.ConstructiveStrengthLinearLoadModel.Data);
+            Assert.IsTrue(properties.ConstructiveStrengthLinearLoadModel.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.ConstructiveStrengthLinearLoadModel.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
 
-            Assert.AreEqual("Lognormaal", properties.ConstructiveStrengthQuadraticModel.DistributionType);
-            Assert.AreEqual(structure.ConstructiveStrengthQuadraticModel, properties.ConstructiveStrengthQuadraticModel.Data);
-            Assert.IsTrue(properties.ConstructiveStrengthQuadraticModel.DynamicReadOnlyValidationMethod("Mean"));
-            Assert.IsTrue(properties.ConstructiveStrengthQuadraticModel.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
+            Assert.AreEqual("Lognormaal", properties.ConstructiveStrengthQuadraticLoadModel.DistributionType);
+            Assert.AreEqual(structure.ConstructiveStrengthQuadraticLoadModel, properties.ConstructiveStrengthQuadraticLoadModel.Data);
+            Assert.IsTrue(properties.ConstructiveStrengthQuadraticLoadModel.DynamicReadOnlyValidationMethod("Mean"));
+            Assert.IsTrue(properties.ConstructiveStrengthQuadraticLoadModel.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
 
             Assert.AreEqual("Normaal", properties.BankWidth.DistributionType);
             Assert.AreEqual(structure.BankWidth, properties.BankWidth.Data);
@@ -298,13 +298,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", criticalOvertoppingDischargeProperty.DisplayName);
             Assert.AreEqual("Kritiek instromend debiet directe invoer.", criticalOvertoppingDischargeProperty.Description);
 
-            PropertyDescriptor constructiveStrengthLinearModelProperty = dynamicProperties[constructiveStrengthLinearModelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthLinearModelProperty.Converter);
-            Assert.AreEqual(schematizationCategory, constructiveStrengthLinearModelProperty.Category);
+            PropertyDescriptor constructiveStrengthLinearLoadModelProperty = dynamicProperties[constructiveStrengthLinearLoadModelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthLinearLoadModelProperty.Converter);
+            Assert.AreEqual(schematizationCategory, constructiveStrengthLinearLoadModelProperty.Category);
 
-            PropertyDescriptor constructiveStrengthQuadraticModelProperty = dynamicProperties[constructiveStrengthQuadraticModelPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthQuadraticModelProperty.Converter);
-            Assert.AreEqual(schematizationCategory, constructiveStrengthQuadraticModelProperty.Category);
+            PropertyDescriptor constructiveStrengthQuadraticLoadModelProperty = dynamicProperties[constructiveStrengthQuadraticLoadModelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(constructiveStrengthQuadraticLoadModelProperty.Converter);
+            Assert.AreEqual(schematizationCategory, constructiveStrengthQuadraticLoadModelProperty.Category);
 
             PropertyDescriptor bankWidthProperty = dynamicProperties[bankWidthPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(bankWidthProperty.Converter);

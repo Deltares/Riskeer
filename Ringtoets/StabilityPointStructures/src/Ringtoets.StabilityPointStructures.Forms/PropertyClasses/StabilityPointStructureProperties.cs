@@ -54,8 +54,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         private const int levelCrestStructurePropertyIndex = 12;
         private const int thresholdHeightOpenWeirPropertyIndex = 13;
         private const int criticalOvertoppingDischargePropertyIndex = 14;
-        private const int constructiveStrengthLinearModelPropertyIndex = 15;
-        private const int constructiveStrengthQuadraticModelPropertyIndex = 16;
+        private const int constructiveStrengthLinearLoadModelPropertyIndex = 15;
+        private const int constructiveStrengthQuadraticLoadModelPropertyIndex = 16;
         private const int bankWidthPropertyIndex = 17;
         private const int evaluationLevelPropertyIndex = 18;
         private const int verticalDistancePropertyIndex = 19;
@@ -279,30 +279,30 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
         
-        [PropertyOrder(constructiveStrengthLinearModelPropertyIndex)]
+        [PropertyOrder(constructiveStrengthLinearLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        public LogNormalDistributionVariationProperties ConstructiveStrengthLinearModel
+        public LogNormalDistributionVariationProperties ConstructiveStrengthLinearLoadModel
         {
             get
             {
                 return new LogNormalDistributionVariationProperties
                 {
-                    Data = data.ConstructiveStrengthLinearModel
+                    Data = data.ConstructiveStrengthLinearLoadModel
                 };
             }
         }
 
-        [PropertyOrder(constructiveStrengthQuadraticModelPropertyIndex)]
+        [PropertyOrder(constructiveStrengthQuadraticLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        public LogNormalDistributionVariationProperties ConstructiveStrengthQuadraticModel
+        public LogNormalDistributionVariationProperties ConstructiveStrengthQuadraticLoadModel
         {
             get
             {
                 return new LogNormalDistributionVariationProperties
                 {
-                    Data = data.ConstructiveStrengthQuadraticModel
+                    Data = data.ConstructiveStrengthQuadraticLoadModel
                 };
             }
         }

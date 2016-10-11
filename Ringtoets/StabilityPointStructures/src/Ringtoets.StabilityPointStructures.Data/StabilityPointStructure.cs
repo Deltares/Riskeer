@@ -53,10 +53,10 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <param name="criticalOvertoppingDischargeCoefficientOfVariation">The coefficient of variation of the critical overtopping discharge of the stability point structure.</param>
         /// <param name="flowWidthAtBottomProtectionMean">The mean of the flow width of the stability point structure at the bottom protection.</param>
         /// <param name="flowWidthAtBottomProtectionStandardDeviation">The standard deviation of the flow width of the stability point structure at the bottom protection.</param>
-        /// <param name="constructiveStrengthLinearModelMean">The mean of the constructive strength of the linear load model of the stability point structure.</param>
-        /// <param name="constructiveStrengthLinearModelCoefficientOfVariation">The coefficient of variation of the constructive strength of the linear load model of the stability point structure.</param>
-        /// <param name="constructiveStrengthQuadraticModelMean">The mean of the constructive strength of the quadratic load model of the stability point structure.</param>
-        /// <param name="constructiveStrengthQuadraticModelCoefficientOfVariation">The coefficient of variation of the constructive strength of the quadratic load model of the stability point structure.</param>
+        /// <param name="constructiveStrengthLinearLoadModelMean">The mean of the constructive strength of the linear load model of the stability point structure.</param>
+        /// <param name="constructiveStrengthLinearLoadModelCoefficientOfVariation">The coefficient of variation of the constructive strength of the linear load model of the stability point structure.</param>
+        /// <param name="constructiveStrengthQuadraticLoadModelMean">The mean of the constructive strength of the quadratic load model of the stability point structure.</param>
+        /// <param name="constructiveStrengthQuadraticLoadModelCoefficientOfVariation">The coefficient of variation of the constructive strength of the quadratic load model of the stability point structure.</param>
         /// <param name="bankWidthMean">The mean of the bank width of the stability point structure.</param>
         /// <param name="bankWidthStandardDeviation">The standard deviation of the bank width of the stability point structure.</param>
         /// <param name="insideWaterLevelFailureConstructionMean">The mean of the inside water level failure construction of the stability point structure.</param>
@@ -96,8 +96,8 @@ namespace Ringtoets.StabilityPointStructures.Data
                                        double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
                                        double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeCoefficientOfVariation,
                                        double flowWidthAtBottomProtectionMean, double flowWidthAtBottomProtectionStandardDeviation,
-                                       double constructiveStrengthLinearModelMean, double constructiveStrengthLinearModelCoefficientOfVariation,
-                                       double constructiveStrengthQuadraticModelMean, double constructiveStrengthQuadraticModelCoefficientOfVariation,
+                                       double constructiveStrengthLinearLoadModelMean, double constructiveStrengthLinearLoadModelCoefficientOfVariation,
+                                       double constructiveStrengthQuadraticLoadModelMean, double constructiveStrengthQuadraticLoadModelCoefficientOfVariation,
                                        double bankWidthMean, double bankWidthStandardDeviation,
                                        double insideWaterLevelFailureConstructionMean, double insideWaterLevelFailureConstructionStandardDeviation,
                                        double evaluationLevel,
@@ -152,15 +152,15 @@ namespace Ringtoets.StabilityPointStructures.Data
                 Mean = (RoundedDouble) flowWidthAtBottomProtectionMean,
                 StandardDeviation = (RoundedDouble) flowWidthAtBottomProtectionStandardDeviation
             };
-            ConstructiveStrengthLinearModel = new VariationCoefficientLogNormalDistribution(2)
+            ConstructiveStrengthLinearLoadModel = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) constructiveStrengthLinearModelMean,
-                CoefficientOfVariation = (RoundedDouble) constructiveStrengthLinearModelCoefficientOfVariation
+                Mean = (RoundedDouble) constructiveStrengthLinearLoadModelMean,
+                CoefficientOfVariation = (RoundedDouble) constructiveStrengthLinearLoadModelCoefficientOfVariation
             };
-            ConstructiveStrengthQuadraticModel = new VariationCoefficientLogNormalDistribution(2)
+            ConstructiveStrengthQuadraticLoadModel = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) constructiveStrengthQuadraticModelMean,
-                CoefficientOfVariation = (RoundedDouble) constructiveStrengthQuadraticModelCoefficientOfVariation
+                Mean = (RoundedDouble) constructiveStrengthQuadraticLoadModelMean,
+                CoefficientOfVariation = (RoundedDouble) constructiveStrengthQuadraticLoadModelCoefficientOfVariation
             };
             BankWidth = new NormalDistribution(2)
             {
@@ -258,12 +258,12 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <summary>
         /// Gets the constructive strength of the linear load model of the stability point structure.
         /// </summary>
-        public VariationCoefficientLogNormalDistribution ConstructiveStrengthLinearModel { get; private set; }
+        public VariationCoefficientLogNormalDistribution ConstructiveStrengthLinearLoadModel { get; private set; }
 
         /// <summary>
         /// Gets the constructive strength of the quadratic load model of the stability point structure.
         /// </summary>
-        public VariationCoefficientLogNormalDistribution ConstructiveStrengthQuadraticModel { get; private set; }
+        public VariationCoefficientLogNormalDistribution ConstructiveStrengthQuadraticLoadModel { get; private set; }
 
         /// <summary>
         /// Gets the bank width of the stability point structure.

@@ -154,8 +154,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
             Assert.AreEqual(6, structure.ThresholdHeightOpenWeir.StandardDeviation.Value);
             Assert.AreEqual(1.5, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
             Assert.AreEqual(8, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
-            Assert.AreEqual(2, structure.ConstructiveStrengthLinearModel.CoefficientOfVariation.Value);
-            Assert.AreEqual(2.5, structure.ConstructiveStrengthQuadraticModel.CoefficientOfVariation.Value);
+            Assert.AreEqual(2, structure.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation.Value);
+            Assert.AreEqual(2.5, structure.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation.Value);
             Assert.AreEqual(10, structure.BankWidth.StandardDeviation.Value);
             Assert.AreEqual(12, structure.InsideWaterLevelFailureConstruction.StandardDeviation.Value);
             Assert.AreEqual(14, structure.LevelCrestStructure.StandardDeviation.Value);

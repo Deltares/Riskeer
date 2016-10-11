@@ -45,8 +45,8 @@ namespace Ringtoets.StabilityPointStructures.Data
         private readonly NormalDistribution levelCrestStructure;
         private readonly NormalDistribution thresholdHeightOpenWeir;
         private readonly LogNormalDistribution areaFlowApertures;
-        private readonly VariationCoefficientLogNormalDistribution constructiveStrengthLinearModel;
-        private readonly VariationCoefficientLogNormalDistribution constructiveStrengthQuadraticModel;
+        private readonly VariationCoefficientLogNormalDistribution constructiveStrengthLinearLoadModel;
+        private readonly VariationCoefficientLogNormalDistribution constructiveStrengthQuadraticLoadModel;
         private readonly VariationCoefficientLogNormalDistribution stabilityLinearLoadModel;
         private readonly VariationCoefficientLogNormalDistribution stabilityQuadraticLoadModel;
         private readonly VariationCoefficientLogNormalDistribution failureCollisionEnergy;
@@ -137,13 +137,13 @@ namespace Ringtoets.StabilityPointStructures.Data
                 StandardDeviation = (RoundedDouble) 0.01
             };
 
-            constructiveStrengthLinearModel = new VariationCoefficientLogNormalDistribution(2)
+            constructiveStrengthLinearLoadModel = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 CoefficientOfVariation = (RoundedDouble) 0.1
             };
 
-            constructiveStrengthQuadraticModel = new VariationCoefficientLogNormalDistribution(2)
+            constructiveStrengthQuadraticLoadModel = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 CoefficientOfVariation = (RoundedDouble) 0.1
@@ -546,12 +546,12 @@ namespace Ringtoets.StabilityPointStructures.Data
         {
             get
             {
-                return constructiveStrengthLinearModel;
+                return constructiveStrengthLinearLoadModel;
             }
             set
             {
-                constructiveStrengthLinearModel.Mean = value.Mean;
-                constructiveStrengthLinearModel.CoefficientOfVariation = value.CoefficientOfVariation;
+                constructiveStrengthLinearLoadModel.Mean = value.Mean;
+                constructiveStrengthLinearLoadModel.CoefficientOfVariation = value.CoefficientOfVariation;
             }
         }
 
@@ -563,12 +563,12 @@ namespace Ringtoets.StabilityPointStructures.Data
         {
             get
             {
-                return constructiveStrengthQuadraticModel;
+                return constructiveStrengthQuadraticLoadModel;
             }
             set
             {
-                constructiveStrengthQuadraticModel.Mean = value.Mean;
-                constructiveStrengthQuadraticModel.CoefficientOfVariation = value.CoefficientOfVariation;
+                constructiveStrengthQuadraticLoadModel.Mean = value.Mean;
+                constructiveStrengthQuadraticLoadModel.CoefficientOfVariation = value.CoefficientOfVariation;
             }
         }
 
