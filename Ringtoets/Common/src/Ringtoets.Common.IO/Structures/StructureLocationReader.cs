@@ -65,7 +65,7 @@ namespace Ringtoets.Common.IO.Structures
 
             pointsShapeFileReader = OpenPointsShapeFile(shapeFilePath);
 
-            CheckRequiredAttributePresence();
+            CheckRequiredAttributePresence(shapeFilePath);
         }
 
         /// <summary>
@@ -157,12 +157,12 @@ namespace Ringtoets.Common.IO.Structures
             }
         }
 
-        private void CheckRequiredAttributePresence()
+        private void CheckRequiredAttributePresence(string shapeFilePath)
         {
             if (!pointsShapeFileReader.HasAttribute(idAttributeName))
             {
-                throw new CriticalFileReadException(
-                    string.Format(Resources.ProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_, idAttributeName));
+                string fullMessage = new FileReaderErrorMessageBuilder(shapeFilePath).Build(string.Format(Resources.ProfileLocationReader_CheckRequiredAttributePresence_Missing_attribute_0_, idAttributeName));
+                throw new CriticalFileReadException(fullMessage);
             }
         }
     }

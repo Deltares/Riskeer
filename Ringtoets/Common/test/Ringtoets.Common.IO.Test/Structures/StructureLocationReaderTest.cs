@@ -147,8 +147,8 @@ namespace Ringtoets.Common.IO.Test.Structures
             TestDelegate call = () => new StructureLocationReader(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Het bestand heeft geen attribuut '{0}'. Dit attribuut is vereist.",
-                                                "KWKIDENT");
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand heeft geen attribuut '{1}'. Dit attribuut is vereist.",
+                                                invalidFilePath, "KWKIDENT");
             string message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);
         }
