@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters;
@@ -103,24 +104,62 @@ namespace Ringtoets.ClosingStructures.IO
 
             string structureName = structureLocation.Name;
             return new ClosingStructure(
-                structureName,
-                structureLocation.Id,
-                structureLocation.Point,
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword1].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword1], structureName),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword2].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword2], structureName),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword3].NumericalValue,
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword4].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword4], structureName),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword5].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword5], structureName),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword6].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword6], structureName),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword7].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword7], structureName),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword8].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword8], structureName),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword9].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword9], structureName),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword10].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword10], structureName),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword11].NumericalValue,
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword12].NumericalValue,
-                (int) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword13].NumericalValue,
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword14].NumericalValue,
-                GetClosingStructureInflowModelType(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword15]));
+                new ClosingStructure.ConstructionProperties
+                {
+                    Name = structureName, Id = structureLocation.Id,
+                    Location = structureLocation.Point,
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword1].NumericalValue,
+                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword1], structureName)
+                    },
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword2].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword2], structureName)
+                    },
+                    StructureNormalOrientation = rowData[StructureFilesKeywords.ClosingStructureParameterKeyword3].NumericalValue,
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword4].NumericalValue,
+                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword4], structureName)
+                    },
+                    LevelCrestStructureNotClosing =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword5].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword5], structureName)
+                    },
+                    InsideWaterLevel =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword6].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword6], structureName)
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword7].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword7], structureName)
+                    },
+                    AreaFlowApertures =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword8].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword8], structureName)
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword9].NumericalValue,
+                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword9], structureName)
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword10].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword10], structureName)
+                    },
+                    ProbabilityOpenStructureBeforeFlooding = rowData[StructureFilesKeywords.ClosingStructureParameterKeyword11].NumericalValue,
+                    FailureProbabilityOpenStructure = rowData[StructureFilesKeywords.ClosingStructureParameterKeyword12].NumericalValue,
+                    IdenticalApertures = (int) rowData[StructureFilesKeywords.ClosingStructureParameterKeyword13].NumericalValue,
+                    FailureProbabilityReparation = rowData[StructureFilesKeywords.ClosingStructureParameterKeyword14].NumericalValue,
+                    InflowModelType = GetClosingStructureInflowModelType(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword15])
+                });
         }
 
         private static ClosingStructureInflowModelType GetClosingStructureInflowModelType(StructuresParameterRow structureParameterRow)

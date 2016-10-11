@@ -21,10 +21,10 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.Helpers;
 
@@ -66,11 +66,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         public void Data_SetNewClosingStructureInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var structure = new ClosingStructure("A", "B", new Point2D(1, 2),
-                                                 1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9,
-                                                 10.10, 11.11, 12.12, 13.13, 14.14, 15.15, 16.16,
-                                                 17.17, 18.18, 19.19, 20.20, 21.21, 22, 23.23,
-                                                 ClosingStructureInflowModelType.VerticalWall);
+            ClosingStructure structure = new TestClosingStructure();
             var properties = new ClosingStructureProperties();
 
             // Call
@@ -78,7 +74,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(structure.Name, properties.Name);
-            Assert.AreEqual(structure.Location, properties.Location);
+            Assert.AreEqual(Math.Round(structure.Location.X), properties.Location.X);
+            Assert.AreEqual(Math.Round(structure.Location.Y), properties.Location.Y);
             Assert.AreEqual(structure.StructureNormalOrientation, properties.StructureNormalOrientation);
             Assert.AreEqual(structure.InflowModelType, properties.InflowModelType);
 
@@ -138,11 +135,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var structure = new ClosingStructure("A", "B", new Point2D(1, 2),
-                                                 1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9,
-                                                 10.10, 11.11, 12.12, 13.13, 14.14, 15.15, 16.16,
-                                                 17.17, 18.18, 19.19, 20.20, 21.21, 22, 23.23,
-                                                 ClosingStructureInflowModelType.VerticalWall);
+            ClosingStructure structure = new TestClosingStructure();
 
             // Call
             var properties = new ClosingStructureProperties

@@ -32,7 +32,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup & Call
+            // Call
             var heightStructure = new TestHeightStructure();
 
             // Assert

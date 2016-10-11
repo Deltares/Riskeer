@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data;
@@ -37,22 +38,64 @@ namespace Ringtoets.ClosingStructures.Data.Test
             var location = new Point2D(1.22, 2.333);
 
             // Call
-            var structure = new ClosingStructure("aName", "anId", location,
-                                                 123.456, 0.123,
-                                                 234.567, 0.234,
-                                                 345.678,
-                                                 456.789, 0.456,
-                                                 567.890, 0.567,
-                                                 678.901, 0.678,
-                                                 789.012, 0.789,
-                                                 890.123, 0.890,
-                                                 901.234, 0.901,
-                                                 111.222, 0.111,
-                                                 321.987,
-                                                 654.321,
-                                                 42,
-                                                 987.654,
-                                                 ClosingStructureInflowModelType.LowSill);
+            var structure = new ClosingStructure(
+                new ClosingStructure.ConstructionProperties
+                {
+                    Name = "aName",
+                    Id = "anId",
+                    Location = location,
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) 123.456,
+                        CoefficientOfVariation = (RoundedDouble) 0.123
+                    },
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) 234.567,
+                        StandardDeviation = (RoundedDouble) 0.234
+                    },
+                    StructureNormalOrientation = 345.678,
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 456.789,
+                        CoefficientOfVariation = (RoundedDouble) 0.456
+                    },
+                    LevelCrestStructureNotClosing =
+                    {
+                        Mean = (RoundedDouble) 567.890,
+                        StandardDeviation = (RoundedDouble) 0.567
+                    },
+                    InsideWaterLevel =
+                    {
+                        Mean = (RoundedDouble) 678.901,
+                        StandardDeviation = (RoundedDouble) 0.678
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        Mean = (RoundedDouble) 789.012,
+                        StandardDeviation = (RoundedDouble) 0.789
+                    },
+                    AreaFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 890.123,
+                        StandardDeviation = (RoundedDouble) 0.890
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = (RoundedDouble) 901.234,
+                        CoefficientOfVariation = (RoundedDouble) 0.901
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) 111.222,
+                        StandardDeviation = (RoundedDouble) 0.111
+                    },
+                    ProbabilityOpenStructureBeforeFlooding = 321.987,
+                    FailureProbabilityOpenStructure = 654.321,
+                    IdenticalApertures = 42,
+                    FailureProbabilityReparation = 987.654,
+                    InflowModelType = ClosingStructureInflowModelType.LowSill
+                });
 
             // Assert
             Assert.IsInstanceOf<StructureBase>(structure);

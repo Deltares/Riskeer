@@ -21,9 +21,9 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
+using BaseConstructionProperties = Ringtoets.Common.Data.StructureBase.ConstructionProperties;
 
 namespace Ringtoets.ClosingStructures.Data
 {
@@ -33,108 +33,64 @@ namespace Ringtoets.ClosingStructures.Data
     public class ClosingStructure : StructureBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructure"/>.
+        /// Initializes a new instance of the <see cref="ClosingStructure"/> class.
         /// </summary>
-        /// <param name="name">The name of the closing structure.</param>
-        /// <param name="id">The identifier of the closing structure.</param>
-        /// <param name="location">The location of the closing structure.</param>
-        /// <param name="storageStructureAreaMean">The mean of the storage area of the closing structure.</param>
-        /// <param name="storageStructureAreaCoefficientOfVariation">The coefficient of variation of the storage area of the closing structure.</param>
-        /// <param name="allowedLevelIncreaseStorageMean">The mean of the allowed increase of level for storage of the closing structure.</param>
-        /// <param name="allowedLevelIncreaseStorageStandardDeviation">The standard deviation of the allowed increase of level for storage of the closing structure.</param>
-        /// <param name="structureNormalOrientation">The orientation of the closing structure, relative to north.</param>
-        /// <param name="widthFlowAperturesMean">The mean of the width of the flow apertures of the closing structure.</param>
-        /// <param name="widthFlowAperturesCoefficientOfVariation">The coefficient of variation of the width of the flow apertures of the closing structure.</param>
-        /// <param name="levelCrestStructureNotClosingMean">The mean crest level of the opened closing structure.</param>
-        /// <param name="levelCrestStructureNotClosingStandardDeviation">The standard deviation of the crest level of the opened closing structure.</param>
-        /// <param name="insideWaterLevelMean">The mean interior water level of the closing structure.</param>
-        /// <param name="insideWaterLevelStandardDeviation">The standard deviation of the interior water level of the closing structure.</param>
-        /// <param name="thresholdHeightOpenWeirMean">The mean threshold height of the opened closure structure.</param>
-        /// <param name="thresholdHeightOpenWeirStandardDeviation">The standard deviation of the threshold height of the opened closure structure.</param>
-        /// <param name="areaFlowAperturesMean">The mean area of the flow aperture of the closing structure.</param>
-        /// <param name="areaFlowAperturesStandardDeviation">The standard deviation of the area of the flow aperture of the closing structure.</param>
-        /// <param name="criticalOvertoppingDischargeMean">The mean critical overtopping discharge of the closing structure.</param>
-        /// <param name="criticalOvertoppingDischargeCoefficientOfVariation">The coefficient of variation of critical overtopping discharge of the closing structure.</param>
-        /// <param name="flowWidthAtBottomProtectionMean">The mean flow width of the closing structure at the bottom protection.</param>
-        /// <param name="flowWidthAtBottomProtectionStandardDeviation">The standard deviation of the flow width of the closing structure at the bottom protection.</param>
-        /// <param name="probabilityOpenStructureBeforeFlooding">The probability of the closing structure being open before flooding.</param>
-        /// <param name="failureProbabilityOpenStructure">The probability of failing to close the closing structure.</param>
-        /// <param name="identicalApertures">The number of identical apertures of the closing structure.</param>
-        /// <param name="failureProbabilityReparation">The probability of failing to repair a failed closure of the closing structure.</param>
-        /// <param name="inflowModelType">The type of closing structure inflow model.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
-        /// , empty or consists of whitespace.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">When any stochastic variable parameter is out of its valid domain.</exception>
-        public ClosingStructure(string name, string id, Point2D location,
-                                double storageStructureAreaMean, double storageStructureAreaCoefficientOfVariation,
-                                double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation,
-                                double structureNormalOrientation,
-                                double widthFlowAperturesMean, double widthFlowAperturesCoefficientOfVariation,
-                                double levelCrestStructureNotClosingMean, double levelCrestStructureNotClosingStandardDeviation,
-                                double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
-                                double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
-                                double areaFlowAperturesMean, double areaFlowAperturesStandardDeviation,
-                                double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeCoefficientOfVariation,
-                                double flowWidthAtBottomProtectionMean, double flowWidthAtBottomProtectionStandardDeviation,
-                                double probabilityOpenStructureBeforeFlooding,
-                                double failureProbabilityOpenStructure,
-                                int identicalApertures,
-                                double failureProbabilityReparation,
-                                ClosingStructureInflowModelType inflowModelType
-            )
-            : base(name, id, location, structureNormalOrientation)
+        /// <param name="constructionProperties">The construction properties.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="ConstructionProperties.Name"/>
+        /// or <see cref="ConstructionProperties.Id"/> is <c>null</c> , empty or consists of whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="ConstructionProperties.Location"/> is <c>null</c>.</exception>
+        public ClosingStructure(ConstructionProperties constructionProperties) : base(constructionProperties)
         {
             StorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) storageStructureAreaMean,
-                CoefficientOfVariation = (RoundedDouble) storageStructureAreaCoefficientOfVariation
+                Mean = constructionProperties.StorageStructureArea.Mean,
+                CoefficientOfVariation = constructionProperties.StorageStructureArea.CoefficientOfVariation
             };
             AllowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) allowedLevelIncreaseStorageMean,
-                StandardDeviation = (RoundedDouble) allowedLevelIncreaseStorageStandardDeviation
+                Mean = constructionProperties.AllowedLevelIncreaseStorage.Mean,
+                StandardDeviation = constructionProperties.AllowedLevelIncreaseStorage.StandardDeviation
             };
             WidthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
-                Mean = (RoundedDouble) widthFlowAperturesMean,
-                CoefficientOfVariation = (RoundedDouble) widthFlowAperturesCoefficientOfVariation
+                Mean = constructionProperties.WidthFlowApertures.Mean,
+                CoefficientOfVariation = constructionProperties.WidthFlowApertures.CoefficientOfVariation
             };
             LevelCrestStructureNotClosing = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble) levelCrestStructureNotClosingMean,
-                StandardDeviation = (RoundedDouble) levelCrestStructureNotClosingStandardDeviation
+                Mean = constructionProperties.LevelCrestStructureNotClosing.Mean,
+                StandardDeviation = constructionProperties.LevelCrestStructureNotClosing.StandardDeviation
             };
             InsideWaterLevel = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble) insideWaterLevelMean,
-                StandardDeviation = (RoundedDouble) insideWaterLevelStandardDeviation
+                Mean = constructionProperties.InsideWaterLevel.Mean,
+                StandardDeviation = constructionProperties.InsideWaterLevel.StandardDeviation
             };
             ThresholdHeightOpenWeir = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble) thresholdHeightOpenWeirMean,
-                StandardDeviation = (RoundedDouble) thresholdHeightOpenWeirStandardDeviation
+                Mean = constructionProperties.ThresholdHeightOpenWeir.Mean,
+                StandardDeviation = constructionProperties.ThresholdHeightOpenWeir.StandardDeviation
             };
             AreaFlowApertures = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) areaFlowAperturesMean,
-                StandardDeviation = (RoundedDouble) areaFlowAperturesStandardDeviation
+                Mean = constructionProperties.AreaFlowApertures.Mean,
+                StandardDeviation = constructionProperties.AreaFlowApertures.StandardDeviation
             };
             CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) criticalOvertoppingDischargeMean,
-                CoefficientOfVariation = (RoundedDouble) criticalOvertoppingDischargeCoefficientOfVariation
+                Mean = constructionProperties.CriticalOvertoppingDischarge.Mean,
+                CoefficientOfVariation = constructionProperties.CriticalOvertoppingDischarge.CoefficientOfVariation
             };
             FlowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) flowWidthAtBottomProtectionMean,
-                StandardDeviation = (RoundedDouble) flowWidthAtBottomProtectionStandardDeviation
+                Mean = constructionProperties.FlowWidthAtBottomProtection.Mean,
+                StandardDeviation = constructionProperties.FlowWidthAtBottomProtection.StandardDeviation
             };
-            ProbabilityOpenStructureBeforeFlooding = new RoundedDouble(2, probabilityOpenStructureBeforeFlooding);
-            FailureProbabilityOpenStructure = new RoundedDouble(2, failureProbabilityOpenStructure);
-            IdenticalApertures = identicalApertures;
-            FailureProbabilityReparation = new RoundedDouble(2, failureProbabilityReparation);
-            InflowModelType = inflowModelType;
+            ProbabilityOpenStructureBeforeFlooding = new RoundedDouble(2, constructionProperties.ProbabilityOpenStructureBeforeFlooding);
+            FailureProbabilityOpenStructure = new RoundedDouble(2, constructionProperties.FailureProbabilityOpenStructure);
+            IdenticalApertures = constructionProperties.IdenticalApertures;
+            FailureProbabilityReparation = new RoundedDouble(2, constructionProperties.FailureProbabilityReparation);
+            InflowModelType = constructionProperties.InflowModelType;
         }
 
         /// <summary>
@@ -206,5 +162,97 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets the type of closing structure inflow model.
         /// </summary>
         public ClosingStructureInflowModelType InflowModelType { get; private set; }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="ClosingStructure"/>.
+        /// </summary>
+        public new class ConstructionProperties : BaseConstructionProperties
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="ConstructionProperties"/> class.
+            /// </summary>
+            public ConstructionProperties()
+            {
+                StorageStructureArea = new VariationCoefficientLogNormalDistribution(2);
+                AllowedLevelIncreaseStorage = new LogNormalDistribution(2);
+                WidthFlowApertures = new VariationCoefficientNormalDistribution(2);
+                LevelCrestStructureNotClosing = new NormalDistribution(2);
+                InsideWaterLevel = new NormalDistribution(2);
+                ThresholdHeightOpenWeir = new NormalDistribution(2);
+                AreaFlowApertures = new LogNormalDistribution(2);
+                CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2);
+                FlowWidthAtBottomProtection = new LogNormalDistribution(2);
+            }
+
+            /// <summary>
+            /// Gets the storage area of the closing structure.
+            /// </summary>
+            public VariationCoefficientLogNormalDistribution StorageStructureArea { get; private set; }
+
+            /// <summary>
+            /// Gets the allowed increase of level for storage of the closing structure.
+            /// </summary>
+            public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
+
+            /// <summary>
+            /// Gets the width of the flow apertures of the closing structure.
+            /// </summary>
+            public VariationCoefficientNormalDistribution WidthFlowApertures { get; private set; }
+
+            /// <summary>
+            /// Gets the crest level of the opened closing structure.
+            /// </summary>
+            public NormalDistribution LevelCrestStructureNotClosing { get; private set; }
+
+            /// <summary>
+            /// Gets the interior water level of the closing structure.
+            /// </summary>
+            public NormalDistribution InsideWaterLevel { get; private set; }
+
+            /// <summary>
+            /// Gets the threshold height of the opened closing structure.
+            /// </summary>
+            public NormalDistribution ThresholdHeightOpenWeir { get; private set; }
+
+            /// <summary>
+            /// Gets the area of the flow aperture of the closing structure.
+            /// </summary>
+            public LogNormalDistribution AreaFlowApertures { get; private set; }
+
+            /// <summary>
+            /// Gets the critical overtopping discharge of the closing structure.
+            /// </summary>
+            public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
+
+            /// <summary>
+            /// Gets the flow width of the closing structure at the bottom protection.
+            /// </summary>
+            public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
+
+            /// <summary>
+            /// Gets the probability of the closing structure being open before flooding.
+            /// </summary>
+            public double ProbabilityOpenStructureBeforeFlooding { get; set; }
+
+            /// <summary>
+            /// Gets the probability of failing to close the closing structure.
+            /// </summary>
+            public double FailureProbabilityOpenStructure { get; set; }
+
+            /// <summary>
+            /// Gets the number of identical apertures of the closing structure.
+            /// </summary>
+            public int IdenticalApertures { get; set; }
+
+            /// <summary>
+            /// Gets the probability of failing to repair a failed closure of the closing structure.
+            /// </summary>
+            public double FailureProbabilityReparation { get; set; }
+
+            /// <summary>
+            /// Gets the type of closing structure inflow model.
+            /// </summary>
+            public ClosingStructureInflowModelType InflowModelType { get; set; }
+        }
     }
 }

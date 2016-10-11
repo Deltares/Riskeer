@@ -302,23 +302,63 @@ namespace Demo.Ringtoets.Commands
 
         private static ClosingStructure CreateDemoClosingStructure()
         {
-            return new ClosingStructure("KUNST1", "KUNST1",
-                                        new Point2D(12345.56789, 9876.54321),
-                                        20000, 0.1,
-                                        0.2, 0.1,
-                                        10.0,
-                                        21, 0.05,
-                                        4.95, 0.05,
-                                        0.5, 0.1,
-                                        4.95, 0.1,
-                                        31.5, 0.01,
-                                        1.0, 0.15,
-                                        25.0, 0.05,
-                                        1.0,
-                                        0.1,
-                                        4,
-                                        1.0,
-                                        ClosingStructureInflowModelType.VerticalWall);
+            return new ClosingStructure(
+                new ClosingStructure.ConstructionProperties
+                {
+                    Name = "KUNST1", Id = "KUNST1",
+                    Location = new Point2D(12345.56789, 9876.54321),
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) 20000,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) 0.2,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    StructureNormalOrientation = 10.0,
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 21,
+                        CoefficientOfVariation = (RoundedDouble) 0.05
+                    },
+                    LevelCrestStructureNotClosing =
+                    {
+                        Mean = (RoundedDouble) 4.95,
+                        StandardDeviation = (RoundedDouble) 0.05
+                    },
+                    InsideWaterLevel =
+                    {
+                        Mean = (RoundedDouble) 0.5,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        Mean = (RoundedDouble) 4.95,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    AreaFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 31.5,
+                        StandardDeviation = (RoundedDouble) 0.01
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = (RoundedDouble) 1.0,
+                        CoefficientOfVariation = (RoundedDouble) 0.15
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) 25.0,
+                        StandardDeviation = (RoundedDouble) 0.05
+                    },
+                    ProbabilityOpenStructureBeforeFlooding = 1.0,
+                    FailureProbabilityOpenStructure = 0.1,
+                    IdenticalApertures = 4,
+                    FailureProbabilityReparation = 1.0,
+                    InflowModelType = ClosingStructureInflowModelType.VerticalWall
+                });
         }
 
         #endregion
