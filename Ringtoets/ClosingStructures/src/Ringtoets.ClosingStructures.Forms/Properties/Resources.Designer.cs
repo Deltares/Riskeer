@@ -154,24 +154,6 @@ namespace Ringtoets.ClosingStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Binnenwaterstand..
-        /// </summary>
-        public static string InsideWaterLevel_Description {
-            get {
-                return ResourceManager.GetString("InsideWaterLevel_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Binnenwaterstand [m+NAP].
-        /// </summary>
-        public static string InsideWaterLevel_DisplayName {
-            get {
-                return ResourceManager.GetString("InsideWaterLevel_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Niveau kruin bij niet gesloten maximaal kerende keermiddelen..
         /// </summary>
         public static string LevelCrestStructureNotClosing_Description {
@@ -204,24 +186,6 @@ namespace Ringtoets.ClosingStructures.Forms.Properties {
         public static string ProbabilityOpenStructureBeforeFlooding_DisplayName {
             get {
                 return ResourceManager.GetString("ProbabilityOpenStructureBeforeFlooding_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Drempelhoogte niet gesloten kering..
-        /// </summary>
-        public static string ThresholdHeightOpenWeir_Description {
-            get {
-                return ResourceManager.GetString("ThresholdHeightOpenWeir_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Drempelhoogte [m+NAP].
-        /// </summary>
-        public static string ThresholdHeightOpenWeir_DisplayName {
-            get {
-                return ResourceManager.GetString("ThresholdHeightOpenWeir_DisplayName", resourceCulture);
             }
         }
     }

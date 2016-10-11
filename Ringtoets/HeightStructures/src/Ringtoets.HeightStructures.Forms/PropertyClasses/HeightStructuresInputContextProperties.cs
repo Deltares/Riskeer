@@ -233,8 +233,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [PropertyOrder(levelCrestStructurePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "LevelCrestStructure_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "LevelCrestStructure_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_LevelCrestStructure_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_LevelCrestStructure_Description")]
         public NormalDistributionProperties LevelCrestStructure
         {
             get

@@ -239,6 +239,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor insideWaterLevelProperty = dynamicProperties[insideWaterLevelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
             Assert.AreEqual(hydraulicDataCategory, insideWaterLevelProperty.Category);
+            Assert.AreEqual("Binnenwaterstand [m+NAP]", insideWaterLevelProperty.DisplayName);
+            Assert.AreEqual("Binnenwaterstand.", insideWaterLevelProperty.Description);
 
             PropertyDescriptor insideWaterLevelFailureConstructionProperty = dynamicProperties[insideWaterLevelFailureConstructionPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelFailureConstructionProperty.Converter);
@@ -253,6 +255,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor stabilityPointStructureTypeProperty = dynamicProperties[stabilityPointStructureInflowModelTypePropertyIndex];
             Assert.IsInstanceOf<EnumConverter>(stabilityPointStructureTypeProperty.Converter);
             Assert.AreEqual(schematizationCategory, stabilityPointStructureTypeProperty.Category);
+            Assert.AreEqual("Instroommodel", stabilityPointStructureTypeProperty.DisplayName);
+            Assert.AreEqual("Instroommodel van het kunstwerk.", stabilityPointStructureTypeProperty.Description);
 
             PropertyDescriptor widthFlowAperturesProperty = dynamicProperties[widthFlowAperturesPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(widthFlowAperturesProperty.Converter);
@@ -287,10 +291,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
             Assert.AreEqual(schematizationCategory, levelCrestStructureProperty.Category);
+            Assert.AreEqual("Kerende hoogte [m+NAP]", levelCrestStructureProperty.DisplayName);
+            Assert.AreEqual("Kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
 
             PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[thresholdHeightOpenWeirPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
             Assert.AreEqual(schematizationCategory, thresholdHeightOpenWeirProperty.Category);
+            Assert.AreEqual("Drempelhoogte [m+NAP]", thresholdHeightOpenWeirProperty.DisplayName);
+            Assert.AreEqual("Drempelhoogte niet gesloten kering.", thresholdHeightOpenWeirProperty.Description);
 
             PropertyDescriptor criticalOvertoppingDischargeProperty = dynamicProperties[criticalOvertoppingDischargePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(criticalOvertoppingDischargeProperty.Converter);

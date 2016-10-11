@@ -724,4 +724,22 @@
   <data name="GravitationalAcceleration_DisplayName" xml:space="preserve">
     <value>Valversnelling [m/s²]</value>
   </data>
+  <data name="Structure_InsideWaterLevel_Description" xml:space="preserve">
+    <value>Binnenwaterstand.</value>
+  </data>
+  <data name="Structure_InsideWaterLevel_DisplayName" xml:space="preserve">
+    <value>Binnenwaterstand [m+NAP]</value>
+  </data>
+  <data name="Structure_LevelCrestStructure_Description" xml:space="preserve">
+    <value>Kerende hoogte van het kunstwerk.</value>
+  </data>
+  <data name="Structure_LevelCrestStructure_DisplayName" xml:space="preserve">
+    <value>Kerende hoogte [m+NAP]</value>
+  </data>
+  <data name="Structure_ThresholdHeightOpenWeir_Description" xml:space="preserve">
+    <value>Drempelhoogte niet gesloten kering.</value>
+  </data>
+  <data name="Structure_ThresholdHeightOpenWeir_DisplayName" xml:space="preserve">
+    <value>Drempelhoogte [m+NAP]</value>
+  </data>
 </root>

@@ -218,8 +218,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [PropertyOrder(thresholdHeightOpenWeirPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "ThresholdHeightOpenWeir_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ThresholdHeightOpenWeir_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_ThresholdHeightOpenWeir_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_ThresholdHeightOpenWeir_Description")]
         public NormalDistributionProperties ThresholdHeightOpenWeir
         {
             get
@@ -234,8 +234,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [PropertyOrder(insideWaterLevelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "InsideWaterLevel_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "InsideWaterLevel_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_InsideWaterLevel_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_InsideWaterLevel_Description")]
         public NormalDistributionProperties InsideWaterLevel
         {
             get

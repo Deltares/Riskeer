@@ -29,6 +29,7 @@ using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
@@ -103,6 +104,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(insideWaterLevelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_InsideWaterLevel_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_InsideWaterLevel_Description")]
         public NormalDistributionProperties InsideWaterLevel
         {
             get
@@ -147,6 +150,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(stabilityPointStructureInflowModelTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "StabilityPointStructureInflowModelType_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "StabilityPointStructureInflowModelType_Description")]
         public StabilityPointStructureInflowModelType InflowModelType
         {
             get
@@ -238,6 +243,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(levelCrestStructurePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_LevelCrestStructure_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_LevelCrestStructure_Description")]
         public NormalDistributionProperties LevelCrestStructure
         {
             get
@@ -252,6 +259,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(thresholdHeightOpenWeirPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_ThresholdHeightOpenWeir_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_ThresholdHeightOpenWeir_Description")]
         public NormalDistributionProperties ThresholdHeightOpenWeir
         {
             get

@@ -117,64 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_Description" xml:space="preserve">
-    <value>Modelfactor kombergend vermogen.</value>
+  <data name="StabilityPointStructureInflowModelType_Description" xml:space="preserve">
+    <value>Instroommodel van het kunstwerk.</value>
   </data>
-  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_DisplayName" xml:space="preserve">
-    <value>Modelfactor kombergend vermogen [-]</value>
-  </data>
-  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description" xml:space="preserve">
-    <value>Modelfactor voor het overslagdebiet.</value>
-  </data>
-  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName" xml:space="preserve">
-    <value>Modelfactor overslagdebiet [-]</value>
-  </data>
-  <data name="FailureProbabilityStructureWithErosion_Description" xml:space="preserve">
-    <value>Faalkans kunstwerk gegeven erosie bodem.</value>
-  </data>
-  <data name="FailureProbabilityStructureWithErosion_DisplayName" xml:space="preserve">
-    <value>Faalkans gegeven erosie bodem [1/jaar]</value>
-  </data>
-  <data name="ModelFactorSuperCriticalFlow_Description" xml:space="preserve">
-    <value>Modelfactor voor het overloopdebiet over een volkomen overlaat.</value>
-  </data>
-  <data name="ModelFactorSuperCriticalFlow_DisplayName" xml:space="preserve">
-    <value>Modelfactor overloopdebiet volkomen overlaat [-]</value>
-  </data>
-  <data name="StormDuration_Description" xml:space="preserve">
-    <value>Stormduur.</value>
-  </data>
-  <data name="StormDuration_DisplayName" xml:space="preserve">
-    <value>Stormduur [uur]</value>
-  </data>
-  <data name="FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value" xml:space="preserve">
-    <value>De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.</value>
-  </data>
-  <data name="FailureProbabilityStructureWithErosion_Value_too_large" xml:space="preserve">
-    <value>De waarde voor de faalkans is te groot of te klein.</value>
-  </data>
-  <data name="FailureProbabilityStructureWithErosion_Value_cannot_be_null" xml:space="preserve">
-    <value>De waarde voor de faalkans moet ingevuld zijn.</value>
-  </data>
-  <data name="Structure_Description" xml:space="preserve">
-    <value>Het kunstwerk dat gebruikt wordt in de berekening.</value>
-  </data>
-  <data name="Structure_DisplayName" xml:space="preserve">
-    <value>Kunstwerk</value>
-  </data>
-  <data name="ForeshoreProfile_Description" xml:space="preserve">
-    <value>De schematisatie van het voorlandprofiel.</value>
-  </data>
-  <data name="ForeshoreProfile_DisplayName" xml:space="preserve">
-    <value>Voorlandprofiel</value>
-  </data>
-  <data name="StructureSelectionDialog_Select_Structures" xml:space="preserve">
-    <value>Selecteer kunstwerken</value>
-  </data>
-  <data name="DeviationWaveDirection_Description" xml:space="preserve">
-    <value>Afwijking van de golfrichting.</value>
-  </data>
-  <data name="DeviationWaveDirection_DisplayName" xml:space="preserve">
-    <value>Afwijking golfrichting [°]</value>
+  <data name="StabilityPointStructureInflowModelType_DisplayName" xml:space="preserve">
+    <value>Instroommodel</value>
   </data>
 </root>

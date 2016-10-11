@@ -1731,6 +1731,42 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Binnenwaterstand..
+        /// </summary>
+        public static string Structure_InsideWaterLevel_Description {
+            get {
+                return ResourceManager.GetString("Structure_InsideWaterLevel_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Binnenwaterstand [m+NAP].
+        /// </summary>
+        public static string Structure_InsideWaterLevel_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_InsideWaterLevel_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kerende hoogte van het kunstwerk..
+        /// </summary>
+        public static string Structure_LevelCrestStructure_Description {
+            get {
+                return ResourceManager.GetString("Structure_LevelCrestStructure_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kerende hoogte [m+NAP].
+        /// </summary>
+        public static string Structure_LevelCrestStructure_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_LevelCrestStructure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel..
         /// </summary>
         public static string Structure_Location_Description {
@@ -1799,6 +1835,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Structure_StructureNormalOrientation_DisplayName {
             get {
                 return ResourceManager.GetString("Structure_StructureNormalOrientation_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drempelhoogte niet gesloten kering..
+        /// </summary>
+        public static string Structure_ThresholdHeightOpenWeir_Description {
+            get {
+                return ResourceManager.GetString("Structure_ThresholdHeightOpenWeir_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Drempelhoogte [m+NAP].
+        /// </summary>
+        public static string Structure_ThresholdHeightOpenWeir_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_ThresholdHeightOpenWeir_DisplayName", resourceCulture);
             }
         }
         

@@ -135,18 +135,6 @@
   <data name="LevelCrestStructureNotClosing_DisplayName" xml:space="preserve">
     <value>Kruinhoogte niet gesloten kering [m+NAP]</value>
   </data>
-  <data name="ThresholdHeightOpenWeir_Description" xml:space="preserve">
-    <value>Drempelhoogte niet gesloten kering.</value>
-  </data>
-  <data name="ThresholdHeightOpenWeir_DisplayName" xml:space="preserve">
-    <value>Drempelhoogte [m+NAP]</value>
-  </data>
-  <data name="InsideWaterLevel_Description" xml:space="preserve">
-    <value>Binnenwaterstand.</value>
-  </data>
-  <data name="InsideWaterLevel_DisplayName" xml:space="preserve">
-    <value>Binnenwaterstand [m+NAP]</value>
-  </data>
   <data name="ProbabilityOpenStructureBeforeFlooding_Description" xml:space="preserve">
     <value>Kans op open staan bij naderend hoogwater.</value>
   </data>
