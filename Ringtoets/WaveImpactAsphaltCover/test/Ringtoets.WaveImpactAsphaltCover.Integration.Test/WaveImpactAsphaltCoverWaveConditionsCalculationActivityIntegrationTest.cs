@@ -651,11 +651,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
 
         private void ImportHydraulicBoundaryDatabase(AssessmentSection assessmentSection)
         {
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            string filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
-                importer.Import(assessmentSection, validFilePath);
+                importer.Import(assessmentSection, filePath);
             }
         }
 

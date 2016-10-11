@@ -44,9 +44,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
         public bool Validate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, string hydraulicBoundaryDatabaseFilePath)
         {
             return ValidateWaveConditionsInput(
-                calculation.InputParameters, 
-                calculation.Name, 
-                hydraulicBoundaryDatabaseFilePath, 
+                calculation.InputParameters,
+                calculation.Name,
+                hydraulicBoundaryDatabaseFilePath,
                 Resources.WaveConditionsCalculationService_ValidateInput_default_DesignWaterLevel_name);
         }
 
@@ -60,7 +60,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="generalWaveConditionsInput">Calculation input parameters that apply to all <see cref="WaveImpactAsphaltCoverWaveConditionsCalculation"/> instances.</param>
         /// <param name="hlcdFilePath">The path of the HLCD file that should be used for performing the calculation.</param>
-        public void Calculate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, IAssessmentSection assessmentSection, GeneralWaveConditionsInput generalWaveConditionsInput, string hlcdFilePath)
+        public void Calculate(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,
+                              IAssessmentSection assessmentSection,
+                              GeneralWaveConditionsInput generalWaveConditionsInput,
+                              string hlcdFilePath)
         {
             string calculationName = calculation.Name;
 
@@ -69,7 +72,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             var a = generalWaveConditionsInput.A;
             var b = generalWaveConditionsInput.B;
             var c = generalWaveConditionsInput.C;
-            
+
             var ringId = assessmentSection.Id;
             var norm = assessmentSection.FailureMechanismContribution.Norm;
             TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count();
