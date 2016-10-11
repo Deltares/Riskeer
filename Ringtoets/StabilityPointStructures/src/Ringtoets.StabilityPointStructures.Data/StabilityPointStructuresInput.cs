@@ -686,7 +686,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets or sets the probability of a secondary collision on the structure.
-        /// [1/levelling]
+        /// [1/year/levelling]
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the probability is not in interval [0,1].</exception>
         public double ProbabilityCollisionSecondaryStructure

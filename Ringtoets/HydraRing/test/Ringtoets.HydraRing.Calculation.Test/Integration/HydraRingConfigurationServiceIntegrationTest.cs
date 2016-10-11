@@ -454,18 +454,18 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             const double modelFactorStorageVolumeMean = 14.14;
             const double modelFactorStorageVolumeStandardDeviation = 15.15;
             const double storageStructureAreaMean = 16.16;
-            const double storageStructureAreaStandardDeviation = 17.17;
+            const double storageStructureAreaVariation = 17.17;
             const double modelFactorInflowVolume = 18.18;
             const double flowWidthAtBottomProtectionMean = 19.19;
             const double flowWidthAtBottomProtectionStandardDeviation = 20.20;
             const double criticalOvertoppingDischargeMean = 21.21;
-            const double criticalOvertoppingDischargeMeanStandardDeviation = 22.22;
+            const double criticalOvertoppingDischargeVariation = 22.22;
             const double failureProbabilityStructureWithErosion = 23.23;
             const double widthFlowAperturesMean = 24.24;
             const double widthFlowAperturesStandardDeviation = 25.25;
             const double deviationWaveDirection = 26.26;
             const double stormDurationMean = 27.27;
-            const double stormDurationStandardDeviation = 28.28;
+            const double stormDurationVariation = 28.28;
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new StructuresOvertoppingCalculationInput(hydraulicBoundaryLocationId, section,
                                                                                                                  forelandPoints, breakWater,
@@ -476,14 +476,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                                                  modelFactorSuperCriticalFlowMean, modelFactorSuperCriticalFlowStandardDeviation,
                                                                                                                  allowedLevelIncreaseStorageMean, allowedLevelIncreaseStorageStandardDeviation,
                                                                                                                  modelFactorStorageVolumeMean, modelFactorStorageVolumeStandardDeviation,
-                                                                                                                 storageStructureAreaMean, storageStructureAreaStandardDeviation,
+                                                                                                                 storageStructureAreaMean, storageStructureAreaVariation,
                                                                                                                  modelFactorInflowVolume,
                                                                                                                  flowWidthAtBottomProtectionMean, flowWidthAtBottomProtectionStandardDeviation,
-                                                                                                                 criticalOvertoppingDischargeMean, criticalOvertoppingDischargeMeanStandardDeviation,
+                                                                                                                 criticalOvertoppingDischargeMean, criticalOvertoppingDischargeVariation,
                                                                                                                  failureProbabilityStructureWithErosion,
                                                                                                                  widthFlowAperturesMean, widthFlowAperturesStandardDeviation,
                                                                                                                  deviationWaveDirection,
-                                                                                                                 stormDurationMean, stormDurationStandardDeviation));
+                                                                                                                 stormDurationMean, stormDurationVariation));
             string expectedCreationScript =
                 "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                 "INSERT INTO [HydraulicModels] VALUES (3, 1, 'WTI 2017');" + Environment.NewLine +

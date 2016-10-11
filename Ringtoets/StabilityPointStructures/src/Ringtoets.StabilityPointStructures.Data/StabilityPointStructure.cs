@@ -222,121 +222,145 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets the storage area of the stability point structure.
+        /// [m^2]
         /// </summary>
         public VariationCoefficientLogNormalDistribution StorageStructureArea { get; private set; }
 
         /// <summary>
         /// Gets the allowed increase of level for storage of the stability point structure.
+        /// [m]
         /// </summary>
         public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
 
         /// <summary>
         /// Gets the width of the flow apertures of the stability point structure.
+        /// [m]
         /// </summary>
         public VariationCoefficientNormalDistribution WidthFlowApertures { get; private set; }
 
         /// <summary>
         /// Gets the interior water level of the stability point structure.
+        /// [m+NAP]
         /// </summary>
         public NormalDistribution InsideWaterLevel { get; private set; }
 
         /// <summary>
         /// Gets the threshold height of the opened stability point structure.
+        /// [m+NAP]
         /// </summary>
         public NormalDistribution ThresholdHeightOpenWeir { get; private set; }
 
         /// <summary>
         /// Gets the critical overtopping discharge of the stability point structure.
+        /// [m^3/s/m]
         /// </summary>
         public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
 
         /// <summary>
         /// Gets the flow width of the stability point structure at the bottom protection.
+        /// [m]
         /// </summary>
         public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
 
         /// <summary>
         /// Gets the constructive strength of the linear load model of the stability point structure.
+        /// [kN/m^2]
         /// </summary>
         public VariationCoefficientLogNormalDistribution ConstructiveStrengthLinearLoadModel { get; private set; }
 
         /// <summary>
         /// Gets the constructive strength of the quadratic load model of the stability point structure.
+        /// [kN/m]
         /// </summary>
         public VariationCoefficientLogNormalDistribution ConstructiveStrengthQuadraticLoadModel { get; private set; }
 
         /// <summary>
         /// Gets the bank width of the stability point structure.
+        /// [m]
         /// </summary>
         public NormalDistribution BankWidth { get; private set; }
 
         /// <summary>
         /// Gets the inside water level failure construction of the stability point structure.
+        /// [m+NAP]
         /// </summary>
         public NormalDistribution InsideWaterLevelFailureConstruction { get; private set; }
 
         /// <summary>
         /// Gets the evaluation level of the stability point structure.
+        /// [m+NAP]
         /// </summary>
         public RoundedDouble EvaluationLevel { get; private set; }
 
         /// <summary>
         /// Gets the crest level of the stability point structure.
+        /// [m+NAP]
         /// </summary>
         public NormalDistribution LevelCrestStructure { get; private set; }
 
         /// <summary>
         /// Gets the vertical distance of the stability point structure.
+        /// [m]
         /// </summary>
         public RoundedDouble VerticalDistance { get; private set; }
 
         /// <summary>
         /// Gets the probability of failing to repair a failed closure of the stability point structure.
+        /// [1/year]
         /// </summary>
         public RoundedDouble FailureProbabilityRepairClosure { get; private set; }
 
         /// <summary>
         /// Gets the failure collision energy of the stability point structure.
+        /// [kNm]
         /// </summary>
         public VariationCoefficientLogNormalDistribution FailureCollisionEnergy { get; private set; }
 
         /// <summary>
         /// Gets the mass of the ship.
+        /// [tons]
         /// </summary>
         public VariationCoefficientNormalDistribution ShipMass { get; private set; }
 
         /// <summary>
         /// Gets the velocity of the ship.
+        /// [m/s]
         /// </summary>
         public VariationCoefficientNormalDistribution ShipVelocity { get; private set; }
 
         /// <summary>
         /// Gets the levelling count.
+        /// [1/year]
         /// </summary>
         public int LevellingCount { get; private set; }
 
         /// <summary>
         /// Gets the probability of a secondary collision on the structure.
+        /// [1/year/levelling]
         /// </summary>
         public RoundedDouble ProbabilityCollisionSecondaryStructure { get; private set; }
 
         /// <summary>
         /// Gets the maximum flow velocity at which the structure is closable.
+        /// [m/s]
         /// </summary>
         public NormalDistribution FlowVelocityStructureClosable { get; private set; }
 
         /// <summary>
         /// Gets the stability properties of the linear load model of the stability point structure.
+        /// [kN/m^2]
         /// </summary>
         public VariationCoefficientLogNormalDistribution StabilityLinearLoadModel { get; private set; }
 
         /// <summary>
         /// Gets the stability properties of the quadratic load model of the stability point structure.
+        /// [kN/m]
         /// </summary>
         public VariationCoefficientLogNormalDistribution StabilityQuadraticLoadModel { get; private set; }
 
         /// <summary>
         /// Gets the area of the flow aperture of the stability point structure.
+        /// [m^2]
         /// </summary>
         public LogNormalDistribution AreaFlowApertures { get; private set; }
 

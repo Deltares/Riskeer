@@ -95,6 +95,7 @@ namespace Ringtoets.Common.Data
 
         /// <summary>
         /// Gets the orientation of the structure, relative to north.
+        /// [degrees]
         /// </summary>
         public RoundedDouble StructureNormalOrientation { get; private set; }
 
@@ -125,6 +126,7 @@ namespace Ringtoets.Common.Data
 
             /// <summary>
             /// Gets the orientation of the closing structure, relative to north.
+            /// [degrees]
             /// </summary>
             public double StructureNormalOrientation { get; set; }
         }

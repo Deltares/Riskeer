@@ -39,10 +39,8 @@ using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
-using Ringtoets.HeightStructures.Forms.Properties;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 using Ringtoets.HydraRing.Data;
-using CoreCommonBasePropertiesResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 {
@@ -337,7 +335,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = newValue.ToString(CultureInfo.InvariantCulture);
 
             // Assert
-            var expectedMessage = Resources.FailureProbabilityStructureWithErosion_Value_too_large;
+            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -365,7 +363,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = newValue;
 
             // Assert
-            var expectedMessage = Resources.FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value;
+            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
@@ -391,7 +389,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = null;
 
             // Assert
-            var expectedMessage = Resources.FailureProbabilityStructureWithErosion_Value_cannot_be_null;
+            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
