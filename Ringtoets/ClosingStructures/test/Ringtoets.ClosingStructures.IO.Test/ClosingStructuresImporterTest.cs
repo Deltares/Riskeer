@@ -93,6 +93,61 @@ namespace Ringtoets.ClosingStructures.IO.Test
         }
 
         [Test]
+        public void Import_VarianceValuesNeedConversion_WarnUserAboutConversion()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO,
+                                                         Path.Combine("StructuresVarianceValueConversion", "Kunstwerken.shp"));
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(131144.094, 549979.893),
+                new Point2D(131538.705, 548316.752),
+                new Point2D(135878.442, 532149.859),
+                new Point2D(131225.017, 548395.948),
+                new Point2D(131270.38, 548367.462),
+                new Point2D(131507.119, 548322.951)
+            };
+            ReferenceLine referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+
+            var importTarget = new ObservableList<ClosingStructure>();
+            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath);
+
+            // Call
+            bool importResult = false;
+            Action call = () => importResult = structuresImporter.Import();
+
+            // Assert
+            string[] expectedMessages =
+            {
+                "De variatie voor parameter 'KW_BETSLUIT1' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 10).",
+                "De variatie voor parameter 'KW_BETSLUIT2' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 11).",
+                "De variatie voor parameter 'KW_BETSLUIT4' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 13).",
+                "De variatie voor parameter 'KW_BETSLUIT5' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 14).",
+                "De variatie voor parameter 'KW_BETSLUIT6' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 15).",
+                "De variatie voor parameter 'KW_BETSLUIT7' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 16).",
+                "De variatie voor parameter 'KW_BETSLUIT8' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 17).",
+                "De variatie voor parameter 'KW_BETSLUIT9' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 18).",
+                "De variatie voor parameter 'KW_BETSLUIT10' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 19)."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+            Assert.IsTrue(importResult);
+
+            Assert.AreEqual(1, importTarget.Count);
+            ClosingStructure structure = importTarget[0];
+            Assert.AreEqual(0.2, structure.StorageStructureArea.CoefficientOfVariation.Value);
+            Assert.AreEqual(20, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+            Assert.AreEqual(0.5, structure.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(2.2, structure.LevelCrestStructureNotClosing.StandardDeviation.Value);
+            Assert.AreEqual(3.3, structure.InsideWaterLevel.StandardDeviation.Value);
+            Assert.AreEqual(4.4, structure.ThresholdHeightOpenWeir.StandardDeviation.Value);
+            Assert.AreEqual(5.5, structure.AreaFlowApertures.StandardDeviation.Value);
+            Assert.AreEqual(0.1, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
+            Assert.AreEqual(6.6, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
+        }
+
+        [Test]
         public void Import_InvalidCsvFile_LogAndTrue()
         {
             // Setup

@@ -61,7 +61,7 @@ namespace Ringtoets.ClosingStructures.IO
 
         protected override void HandleUserCancellingImport()
         {
-            log.Info(RingtoetsCommonIOResources.StructuresImporter_User_cancelled);
+            Log.Info(RingtoetsCommonIOResources.StructuresImporter_User_cancelled);
             base.HandleUserCancellingImport();
         }
 
@@ -77,8 +77,8 @@ namespace Ringtoets.ClosingStructures.IO
 
                 if (!groupedStructureParameterRows.ContainsKey(id))
                 {
-                    log.WarnFormat(RingtoetsCommonIOResources.StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_, id);
-                    log.ErrorFormat(RingtoetsCommonIOResources.StructuresImporter_Structure_number_0_is_skipped, i + 1);
+                    Log.WarnFormat(RingtoetsCommonIOResources.StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_, id);
+                    Log.ErrorFormat(RingtoetsCommonIOResources.StructuresImporter_Structure_number_0_is_skipped, i + 1);
                     continue;
                 }
 
@@ -101,20 +101,21 @@ namespace Ringtoets.ClosingStructures.IO
         {
             Dictionary<string, StructuresParameterRow> rowData = structureParameterRows.ToDictionary(row => row.ParameterId, row => row);
 
+            string structureName = structureLocation.Name;
             return new ClosingStructure(
-                structureLocation.Name,
+                structureName,
                 structureLocation.Id,
                 structureLocation.Point,
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword1].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword1]),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword2].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword2]),
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword1].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword1], structureName),
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword2].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword2], structureName),
                 rowData[StructureFilesKeywords.ClosingStructureParameterKeyword3].NumericalValue,
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword4].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword4]),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword5].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword5]),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword6].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword6]),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword7].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword7]),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword8].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword8]),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword9].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword9]),
-                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword10].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword10]),
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword4].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword4], structureName),
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword5].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword5], structureName),
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword6].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword6], structureName),
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword7].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword7], structureName),
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword8].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword8], structureName),
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword9].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword9], structureName),
+                rowData[StructureFilesKeywords.ClosingStructureParameterKeyword10].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.ClosingStructureParameterKeyword10], structureName),
                 rowData[StructureFilesKeywords.ClosingStructureParameterKeyword11].NumericalValue,
                 rowData[StructureFilesKeywords.ClosingStructureParameterKeyword12].NumericalValue,
                 (int)rowData[StructureFilesKeywords.ClosingStructureParameterKeyword13].NumericalValue,

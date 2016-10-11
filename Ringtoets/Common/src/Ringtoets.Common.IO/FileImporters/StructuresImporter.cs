@@ -42,7 +42,7 @@ namespace Ringtoets.Common.IO.FileImporters
     /// </summary>
     public abstract class StructuresImporter<T> : FileImporterBase<T>
     {
-        protected readonly ILog log = LogManager.GetLogger(typeof(StructuresImporter<T>));
+        protected readonly ILog Log = LogManager.GetLogger(typeof(StructuresImporter<T>));
         private readonly ReferenceLine referenceLine;
 
         /// <summary>
@@ -115,28 +115,28 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             foreach (string message in validationResult.ErrorMessages)
             {
-                log.Error(message);
+                Log.Error(message);
             }
-            log.ErrorFormat(Resources.StructuresImporter_Structure_number_0_is_skipped, structureIndex);
+            Log.ErrorFormat(Resources.StructuresImporter_Structure_number_0_is_skipped, structureIndex);
         }
 
-        protected RoundedDouble GetStandardDeviation(StructuresParameterRow structuresParameterRow)
+        protected RoundedDouble GetStandardDeviation(StructuresParameterRow structuresParameterRow, string structureName)
         {
             if (structuresParameterRow.VarianceType == VarianceType.CoefficientOfVariation)
             {
-                log.WarnFormat(Resources.StructuresImporter_StandardDeviation_Converting_variation_on_Line_0_,
-                    structuresParameterRow.LineNumber);
+                Log.WarnFormat(Resources.StructuresImporter_GetStandardDeviation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_,
+                               structureName, structuresParameterRow.LocationId, structuresParameterRow.ParameterId, structuresParameterRow.LineNumber);
                 return (RoundedDouble) structuresParameterRow.VarianceValue*Math.Abs(structuresParameterRow.NumericalValue);
             }
             return (RoundedDouble) structuresParameterRow.VarianceValue;
         }
 
-        protected RoundedDouble GetCoefficientOfVariation(StructuresParameterRow structuresParameterRow)
+        protected RoundedDouble GetCoefficientOfVariation(StructuresParameterRow structuresParameterRow, string structureName)
         {
             if (structuresParameterRow.VarianceType == VarianceType.StandardDeviation)
             {
-                log.WarnFormat(Resources.StructuresImporter_GetCoefficientOfVariation_Converting_variation_on_Line_0_,
-                    structuresParameterRow.LineNumber);
+                Log.WarnFormat(Resources.StructuresImporter_GetCoefficientOfVariation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_,
+                               structureName, structuresParameterRow.LocationId, structuresParameterRow.ParameterId, structuresParameterRow.LineNumber);
                 return (RoundedDouble) (structuresParameterRow.VarianceValue/Math.Abs(structuresParameterRow.NumericalValue));
             }
             return (RoundedDouble) structuresParameterRow.VarianceValue;
@@ -168,7 +168,7 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             catch (CriticalFileReadException exception)
             {
-                log.Error(exception.Message);
+                Log.Error(exception.Message);
                 return new ReadResult<StructuresParameterRow>(true);
             }
 
@@ -190,11 +190,11 @@ namespace Ringtoets.Common.IO.FileImporters
                 }
                 catch (CriticalFileReadException exception)
                 {
-                    log.Error(exception.Message);
+                    Log.Error(exception.Message);
                 }
                 catch (LineParseException exception)
                 {
-                    log.Error(exception.Message);
+                    Log.Error(exception.Message);
                 }
             }
 
@@ -216,11 +216,11 @@ namespace Ringtoets.Common.IO.FileImporters
             }
             catch (CriticalFileReadException exception)
             {
-                log.Error(exception.Message);
+                Log.Error(exception.Message);
             }
             catch (ArgumentException exception)
             {
-                log.Error(exception.Message);
+                Log.Error(exception.Message);
             }
             return new ReadResult<StructureLocation>(true);
         }
@@ -248,7 +248,7 @@ namespace Ringtoets.Common.IO.FileImporters
                         Resources.StructuresImporter_GetStructureLocationReadResult_Error_reading_Structure_LineNumber_0_Error_1_The_Structure_is_skipped,
                         i + 1,
                         exception.Message);
-                    log.Warn(message);
+                    Log.Warn(message);
                 }
             }
             return new ReadResult<StructureLocation>(false)
@@ -274,12 +274,12 @@ namespace Ringtoets.Common.IO.FileImporters
             double distanceToReferenceLine = GetDistanceToReferenceLine(structureLocation.Point);
             if (distanceToReferenceLine > 1.0)
             {
-                log.ErrorFormat(Resources.StructuresImporter_AddNextStructureLocation_0_skipping_location_outside_referenceline, structureLocation.Id);
+                Log.ErrorFormat(Resources.StructuresImporter_AddNextStructureLocation_0_skipping_location_outside_referenceline, structureLocation.Id);
                 return;
             }
             if (structureLocations.Any(dpl => dpl.Id.Equals(structureLocation.Id)))
             {
-                log.WarnFormat(Resources.StructuresImporter_AddNextStructureLocation_Location_with_kwkident_0_already_read, structureLocation.Id);
+                Log.WarnFormat(Resources.StructuresImporter_AddNextStructureLocation_Location_with_kwkident_0_already_read, structureLocation.Id);
             }
             structureLocations.Add(structureLocation);
         }

@@ -1144,11 +1144,22 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De variatie op regel {0} wordt omgerekend in een variatiecoëfficiënt..
+        ///   Looks up a localized string similar to De variatie voor parameter &apos;{2}&apos; van kunstwerk &apos;{0}&apos; ({1}) wordt omgerekend in een variatiecoëfficiënt (regel {3})..
         /// </summary>
-        public static string StructuresImporter_GetCoefficientOfVariation_Converting_variation_on_Line_0_ {
+        public static string StructuresImporter_GetCoefficientOfVariation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_ {
             get {
-                return ResourceManager.GetString("StructuresImporter_GetCoefficientOfVariation_Converting_variation_on_Line_0_", resourceCulture);
+                return ResourceManager.GetString("StructuresImporter_GetCoefficientOfVariation_Converting_variation_StructureName_0" +
+                        "_StructureId_1_ParameterId_2_on_Line_3_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De variatie voor parameter &apos;{2}&apos; van kunstwerk &apos;{0}&apos; ({1}) wordt omgerekend in een standaard deviatie (regel {3})..
+        /// </summary>
+        public static string StructuresImporter_GetStandardDeviation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_ {
+            get {
+                return ResourceManager.GetString("StructuresImporter_GetStandardDeviation_Converting_variation_StructureName_0_Stru" +
+                        "ctureId_1_ParameterId_2_on_Line_3_", resourceCulture);
             }
         }
         
@@ -1195,15 +1206,6 @@ namespace Ringtoets.Common.IO.Properties {
         public static string StructuresImporter_ReadStructureParameterRowsData_reading_structuredata {
             get {
                 return ResourceManager.GetString("StructuresImporter_ReadStructureParameterRowsData_reading_structuredata", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De variatie op regel {0} wordt omgerekend in een standaard deviatie..
-        /// </summary>
-        public static string StructuresImporter_StandardDeviation_Converting_variation_on_Line_0_ {
-            get {
-                return ResourceManager.GetString("StructuresImporter_StandardDeviation_Converting_variation_on_Line_0_", resourceCulture);
             }
         }
         

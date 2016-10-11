@@ -61,7 +61,7 @@ namespace Ringtoets.StabilityPointStructures.IO
 
         protected override void HandleUserCancellingImport()
         {
-            log.Info(RingtoetsCommonIOResources.StructuresImporter_User_cancelled);
+            Log.Info(RingtoetsCommonIOResources.StructuresImporter_User_cancelled);
             base.HandleUserCancellingImport();
         }
 
@@ -77,8 +77,8 @@ namespace Ringtoets.StabilityPointStructures.IO
 
                 if (!groupedStructureParameterRows.ContainsKey(id))
                 {
-                    log.WarnFormat(RingtoetsCommonIOResources.StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_, id);
-                    log.ErrorFormat(RingtoetsCommonIOResources.StructuresImporter_Structure_number_0_is_skipped, i + 1);
+                    Log.WarnFormat(RingtoetsCommonIOResources.StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_, id);
+                    Log.ErrorFormat(RingtoetsCommonIOResources.StructuresImporter_Structure_number_0_is_skipped, i + 1);
                     continue;
                 }
 
@@ -101,35 +101,36 @@ namespace Ringtoets.StabilityPointStructures.IO
         {
             Dictionary<string, StructuresParameterRow> rowData = structureParameterRows.ToDictionary(row => row.ParameterId, row => row);
 
+            string structureName = structureLocation.Name;
             return new StabilityPointStructure(
-                structureLocation.Name,
+                structureName,
                 structureLocation.Id,
                 structureLocation.Point,
                 rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword1].NumericalValue,
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword2].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword2]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword3].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword3]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword4].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword4]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword5].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword5]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword6].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword6]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword7].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword7]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword8].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword8]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword9].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword9]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword10].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword10]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword11].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword11]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword12].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword12]),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword2].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword2], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword3].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword3], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword4].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword4], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword5].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword5], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword6].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword6], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword7].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword7], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword8].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword8], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword9].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword9], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword10].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword10], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword11].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword11], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword12].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword12], structureName),
                 rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword13].NumericalValue,
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword14].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword14]),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword14].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword14], structureName),
                 rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword15].NumericalValue,
                 rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword16].NumericalValue,
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword17].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword17]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword18].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword18]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword19].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword19]),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword17].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword17], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword18].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword18], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword19].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword19], structureName),
                 (int) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword20].NumericalValue,
                 rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword21].NumericalValue,
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword22].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword22]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword23].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword23]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword24].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword24]),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword25].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword25]),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword22].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword22], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword23].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword23], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword24].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword24], structureName),
+                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword25].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword25], structureName),
                 GetStabilityPointStructureType(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword26])
                 );
         }

@@ -24,12 +24,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.TestUtil;
 using Core.Common.Utils.Builders;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Structures;
 using CoreCommonUtilsResources = Core.Common.Utils.Properties.Resources;
@@ -399,10 +401,158 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Assert.IsFalse(importResult);
         }
 
+        [Test]
+        public void GetStandardDeviation_RowHasStandardDeviation_ReturnVarianceValue()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
+
+            ReferenceLine referenceLine = new ReferenceLine();
+            var importTarget = new ObservableList<TestStructure>();
+
+            var importer = new TestStructuresImporter(importTarget, referenceLine, filePath);
+
+            var parameter = new StructuresParameterRow
+            {
+                AlphanumericValue = "",
+                LineNumber = 3,
+                LocationId = "A",
+                NumericalValue = -2,
+                ParameterId = "B",
+                VarianceType = VarianceType.StandardDeviation,
+                VarianceValue = 1.2
+            };
+
+            // Call
+            RoundedDouble standardDeviation = (RoundedDouble) 0.0;
+            Action call = () => standardDeviation = importer.GetStandardDeviation(parameter, "<naam kunstwerk>");
+
+            // Assert
+            TestHelper.AssertLogMessagesCount(call, 0);
+            Assert.AreEqual(parameter.VarianceValue, standardDeviation, standardDeviation.GetAccuracy());
+        }
+
+        [Test]
+        public void GetStandardDeviation_RowHasCoefficientOfVariation_ReturnConvertedVarianceValue()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
+
+            ReferenceLine referenceLine = new ReferenceLine();
+            var importTarget = new ObservableList<TestStructure>();
+
+            var importer = new TestStructuresImporter(importTarget, referenceLine, filePath);
+
+            var parameter = new StructuresParameterRow
+            {
+                AlphanumericValue = "",
+                LineNumber = 3,
+                LocationId = "A",
+                NumericalValue = -2,
+                ParameterId = "B",
+                VarianceType = VarianceType.CoefficientOfVariation,
+                VarianceValue = 1.2
+            };
+
+            const string structureName = "<naam kunstwerk>";
+
+            // Call
+            RoundedDouble standardDeviation = (RoundedDouble) 0.0;
+            Action call = () => standardDeviation = importer.GetStandardDeviation(parameter, structureName);
+
+            // Assert
+            string message = string.Format("De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een standaard deviatie (regel {3}).",
+                                           structureName, parameter.LocationId, parameter.ParameterId, parameter.LineNumber);
+            TestHelper.AssertLogMessageIsGenerated(call, message, 1);
+            double expectedStandardDeviation = parameter.VarianceValue*Math.Abs(parameter.NumericalValue);
+            Assert.AreEqual(expectedStandardDeviation, standardDeviation, standardDeviation.GetAccuracy());
+        }
+
+        [Test]
+        public void GetCoefficientOfVariation_RowHasCoefficientOfVariation_ReturnVarianceValue()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
+
+            ReferenceLine referenceLine = new ReferenceLine();
+            var importTarget = new ObservableList<TestStructure>();
+
+            var importer = new TestStructuresImporter(importTarget, referenceLine, filePath);
+
+            var parameter = new StructuresParameterRow
+            {
+                AlphanumericValue = "",
+                LineNumber = 3,
+                LocationId = "A",
+                NumericalValue = -3,
+                ParameterId = "B",
+                VarianceType = VarianceType.CoefficientOfVariation,
+                VarianceValue = 2.3
+            };
+
+            // Call
+            RoundedDouble coefficientOfVariation = (RoundedDouble) 0.0;
+            Action call = () => coefficientOfVariation = importer.GetCoefficientOfVariation(parameter, "<naam kunstwerk>");
+
+            // Assert
+            TestHelper.AssertLogMessagesCount(call, 0);
+            Assert.AreEqual(parameter.VarianceValue, coefficientOfVariation, coefficientOfVariation.GetAccuracy());
+        }
+
+        [Test]
+        public void GetCoefficientOfVariation_RowHasStandardDeviation_ReturnConvertedVarianceValue()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures", "CorrectFiles", "Kunstwerken.shp"));
+
+            ReferenceLine referenceLine = new ReferenceLine();
+            var importTarget = new ObservableList<TestStructure>();
+
+            var importer = new TestStructuresImporter(importTarget, referenceLine, filePath);
+
+            var parameter = new StructuresParameterRow
+            {
+                AlphanumericValue = "",
+                LineNumber = 3,
+                LocationId = "A",
+                NumericalValue = -3,
+                ParameterId = "B",
+                VarianceType = VarianceType.StandardDeviation,
+                VarianceValue = 2.3
+            };
+
+            const string structureName = "<naam kunstwerk>";
+
+            // Call
+            RoundedDouble coefficientOfVariation = (RoundedDouble) 0.0;
+            Action call = () => coefficientOfVariation = importer.GetCoefficientOfVariation(parameter, structureName);
+
+            // Assert
+            string message = string.Format("De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een variatiecoëfficiënt (regel {3}).",
+                                           structureName, parameter.LocationId, parameter.ParameterId, parameter.LineNumber);
+            TestHelper.AssertLogMessageIsGenerated(call, message, 1);
+            double expectedStandardDeviation = parameter.VarianceValue/Math.Abs(parameter.NumericalValue);
+            Assert.AreEqual(expectedStandardDeviation, coefficientOfVariation, coefficientOfVariation.GetAccuracy());
+        }
+
         private class TestStructuresImporter : StructuresImporter<ObservableList<TestStructure>>
         {
             public TestStructuresImporter(ObservableList<TestStructure> importTarget, ReferenceLine referenceLine, string filePath)
                 : base(importTarget, referenceLine, filePath) {}
+
+            public new RoundedDouble GetStandardDeviation(StructuresParameterRow parameter, string structureName)
+            {
+                return base.GetStandardDeviation(parameter, structureName);
+            }
+
+            public new RoundedDouble GetCoefficientOfVariation(StructuresParameterRow parameter, string structureName)
+            {
+                return base.GetCoefficientOfVariation(parameter, structureName);
+            }
 
             protected override void CreateSpecificStructures(ICollection<StructureLocation> structureLocations,
                                                              Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows) {}

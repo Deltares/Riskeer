@@ -94,6 +94,54 @@ namespace Ringtoets.HeightStructures.IO.Test
         }
 
         [Test]
+        public void Import_ValidFileWithConversionsBetweenVarianceTypes_WarnUserAboutConversion()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.IO,
+                                                         Path.Combine("HeightStructuresVarianceConvert", "StructureNeedVarianceValueConversion.shp"));
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(131144.094, 549979.893),
+                new Point2D(131538.705, 548316.752),
+                new Point2D(135878.442, 532149.859),
+                new Point2D(131225.017, 548395.948),
+                new Point2D(131270.38, 548367.462),
+                new Point2D(131507.119, 548322.951)
+            };
+            ReferenceLine referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+
+            var importTarget = new ObservableList<HeightStructure>();
+            var structuresImporter = new HeightStructuresImporter(importTarget, referenceLine, filePath);
+
+            // Call
+            bool importResult = false;
+            Action call = () => importResult = structuresImporter.Import();
+
+            // Assert
+            string[] expectedMessages =
+            {
+                "De variatie voor parameter 'KW_HOOGTE4' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 5).",
+                "De variatie voor parameter 'KW_HOOGTE5' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 6).",
+                "De variatie voor parameter 'KW_HOOGTE7' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een variatiecoëfficiënt (regel 8).",
+                "De variatie voor parameter 'KW_HOOGTE2' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 3).",
+                "De variatie voor parameter 'KW_HOOGTE3' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 4).",
+                "De variatie voor parameter 'KW_HOOGTE8' van kunstwerk 'Coupure Den Oever (90k1)' (KUNST1) wordt omgerekend in een standaard deviatie (regel 9)."
+            };
+            TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(1, importTarget.Count);
+            HeightStructure structure = importTarget[0];
+            Assert.AreEqual(0.12, structure.LevelCrestStructure.StandardDeviation.Value);
+            Assert.AreEqual(0.24, structure.FlowWidthAtBottomProtection.StandardDeviation.Value);
+            Assert.AreEqual(1.0, structure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
+            Assert.AreEqual(0.5, structure.WidthFlowApertures.CoefficientOfVariation.Value);
+            Assert.AreEqual(1.84, structure.StorageStructureArea.CoefficientOfVariation.Value);
+            Assert.AreEqual(2.18, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+        }
+
+        [Test]
         public void Import_InvalidCsvFile_LogAndTrue()
         {
             // Setup
