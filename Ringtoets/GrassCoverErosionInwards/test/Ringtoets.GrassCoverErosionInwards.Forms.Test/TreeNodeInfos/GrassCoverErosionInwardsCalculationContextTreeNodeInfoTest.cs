@@ -53,7 +53,7 @@ using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Reso
 namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 {
     [TestFixture]
-    public class LGrassCoverErosionInwardsCalculationContextTreeNodeInfoTest : NUnitFormTest
+    public class GrassCoverErosionInwardsCalculationContextTreeNodeInfoTest : NUnitFormTest
     {
         private const int contextMenuValidateIndex = 0;
         private const int contextMenuCalculateIndex = 1;

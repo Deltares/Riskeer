@@ -31,7 +31,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
     /// in order to prepare it for performing a calculation.
     /// </summary>
     public class StabilityPointStructuresCalculationContext : StabilityPointStructuresContextBase<StabilityPointStructuresCalculation>,
-                                                              ICalculationContext<StabilityPointStructuresCalculation,
+                                                              ICalculationContext<
+                                                                  StabilityPointStructuresCalculation,
                                                                   StabilityPointStructuresFailureMechanism>
     {
         /// <summary>

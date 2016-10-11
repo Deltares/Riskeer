@@ -32,7 +32,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
     /// in order be able to create configurable stability point structures calculations.
     /// </summary>
     public class StabilityPointStructuresCalculationGroupContext : StabilityPointStructuresContextBase<CalculationGroup>,
-                                                                   ICalculationContext<CalculationGroup,
+                                                                   ICalculationContext<
+                                                                       CalculationGroup,
                                                                        StabilityPointStructuresFailureMechanism>
     {
         /// <summary>
