@@ -21,24 +21,24 @@
 
 using System;
 using Core.Common.Controls.PresentationObjects;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
-using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Forms.PresentationObjects
+namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for configuration of scenarios for the height structures
+    /// Presentation object for configuration of scenarios for the closing structures
     /// failure mechanism.
     /// </summary>
-    public class HeightStructuresScenariosContext : WrappedObjectContextBase<CalculationGroup>
+    public class ClosingStructuresScenariosContext : WrappedObjectContextBase<CalculationGroup>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HeightStructuresScenariosContext"/>.
+        /// Creates a new instance of <see cref="ClosingStructuresScenariosContext"/>.
         /// </summary>
         /// <param name="wrappedData">The wrapped <see cref="CalculationGroup"/>.</param>
-        /// <param name="failureMechanism">A <see cref="HeightStructuresFailureMechanism"/> forming the context.</param>
+        /// <param name="failureMechanism">A <see cref="ClosingStructuresFailureMechanism"/> forming the context.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public HeightStructuresScenariosContext(CalculationGroup wrappedData, HeightStructuresFailureMechanism failureMechanism)
+        public ClosingStructuresScenariosContext(CalculationGroup wrappedData, ClosingStructuresFailureMechanism failureMechanism)
             : base(wrappedData)
         {
             if (failureMechanism == null)
@@ -52,6 +52,6 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// <summary>
         /// The parent failure mechanism of the calculation group.
         /// </summary>
-        public HeightStructuresFailureMechanism ParentFailureMechanism { get; private set; }
+        public ClosingStructuresFailureMechanism ParentFailureMechanism { get; private set; }
     }
 }
