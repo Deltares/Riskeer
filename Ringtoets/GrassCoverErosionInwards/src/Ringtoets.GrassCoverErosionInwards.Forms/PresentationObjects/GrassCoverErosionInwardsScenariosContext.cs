@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -40,9 +41,17 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
                                                         GrassCoverErosionInwardsFailureMechanism failureMechanism)
             : base(wrappedData)
         {
+            if (failureMechanism == null)
+            {
+                throw new ArgumentNullException("failureMechanism");
+            }
+
             ParentFailureMechanism = failureMechanism;
         }
 
+        /// <summary>
+        /// The parent failure mechanism of the calculation group.
+        /// </summary>
         public GrassCoverErosionInwardsFailureMechanism ParentFailureMechanism { get; private set; }
     }
 }

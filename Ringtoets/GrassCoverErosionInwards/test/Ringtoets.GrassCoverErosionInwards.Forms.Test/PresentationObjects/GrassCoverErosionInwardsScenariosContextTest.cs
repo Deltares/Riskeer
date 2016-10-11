@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
@@ -44,6 +45,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PresentationObjects
             Assert.IsInstanceOf<WrappedObjectContextBase<CalculationGroup>>(context);
             Assert.AreSame(calculationGroup, context.WrappedData);
             Assert.AreSame(failureMechanism, context.ParentFailureMechanism);
+        }
+
+        [Test]
+        public void Constructor_FailureMechanismNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var calculationGroup = new CalculationGroup();
+
+            // Call
+            TestDelegate test = () => new GrassCoverErosionInwardsScenariosContext(calculationGroup, null);
+
+            // Assert
+            var exception = Assert.Throws<ArgumentNullException>(test);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
         }
     }
 }
