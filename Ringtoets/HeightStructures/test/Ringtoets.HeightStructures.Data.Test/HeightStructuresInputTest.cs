@@ -41,6 +41,55 @@ namespace Ringtoets.HeightStructures.Data.Test
         [Test]
         public void Constructor_DefaultPropertyValuesAreSet()
         {
+            // Setup
+            var levelCrestStructure = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
+            var modelFactorSuperCriticalFlow = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 0.03
+            };
+
+            var allowedLevelIncreaseStorage = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.1
+            };
+
+            var storageStructureArea = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
+
+            var flowWidthAtBottomProtection = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
+            var criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.15
+            };
+
+            var widthFlowApertures = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.05
+            };
+
+            var stormDuration = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 6.0,
+                CoefficientOfVariation = (RoundedDouble) 0.25
+            };
+
             // Call
             var input = new HeightStructuresInput();
 
@@ -58,25 +107,19 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             AssertAreEqual(double.NaN, input.StructureNormalOrientation);
             Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
-            AssertAreEqual(double.NaN, input.LevelCrestStructure.Mean);
-            AssertAreEqual(0.05, input.LevelCrestStructure.StandardDeviation);
-            AssertAreEqual(1.1, input.ModelFactorSuperCriticalFlow.Mean);
-            AssertAreEqual(0.03, input.ModelFactorSuperCriticalFlow.StandardDeviation);
-            AssertAreEqual(double.NaN, input.AllowedLevelIncreaseStorage.Mean);
-            AssertAreEqual(0.1, input.AllowedLevelIncreaseStorage.StandardDeviation);
-            AssertAreEqual(double.NaN, input.StorageStructureArea.Mean);
-            AssertAreEqual(0.1, input.StorageStructureArea.CoefficientOfVariation);
-            AssertAreEqual(double.NaN, input.FlowWidthAtBottomProtection.Mean);
-            AssertAreEqual(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
-            AssertAreEqual(double.NaN, input.CriticalOvertoppingDischarge.Mean);
-            AssertAreEqual(0.15, input.CriticalOvertoppingDischarge.CoefficientOfVariation);
+
+            DistributionAssert.AreEqual(levelCrestStructure, input.LevelCrestStructure);
+            DistributionAssert.AreEqual(modelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow);
+            DistributionAssert.AreEqual(allowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
+            DistributionAssert.AreEqual(storageStructureArea, input.StorageStructureArea);
+            DistributionAssert.AreEqual(flowWidthAtBottomProtection, input.FlowWidthAtBottomProtection);
+            DistributionAssert.AreEqual(criticalOvertoppingDischarge, input.CriticalOvertoppingDischarge);
+            DistributionAssert.AreEqual(widthFlowApertures, input.WidthFlowApertures);
+            DistributionAssert.AreEqual(stormDuration, input.StormDuration);
+
             Assert.IsNaN(input.FailureProbabilityStructureWithErosion);
-            AssertAreEqual(double.NaN, input.WidthFlowApertures.Mean);
-            AssertAreEqual(0.05, input.WidthFlowApertures.CoefficientOfVariation);
-            Assert.IsNaN(input.DeviationWaveDirection);
             Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
-            AssertAreEqual(6.0, input.StormDuration.Mean);
-            AssertAreEqual(0.25, input.StormDuration.CoefficientOfVariation);
+            Assert.IsNaN(input.DeviationWaveDirection);
         }
 
         [Test]

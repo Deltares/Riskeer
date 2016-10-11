@@ -147,6 +147,17 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                         Mean = (RoundedDouble) 1,
                         StandardDeviation = (RoundedDouble) 2
                     },
+                    new LogNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        StandardDeviation = (RoundedDouble) 2
+                    });
+                yield return new TestCaseData(
+                    new NormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        StandardDeviation = (RoundedDouble) 2
+                    },
                     new NormalDistribution(3)
                     {
                         Mean = (RoundedDouble) 1,
@@ -214,6 +225,17 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         {
             get
             {
+                yield return new TestCaseData(
+                    new VariationCoefficientNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        CoefficientOfVariation = (RoundedDouble) 2
+                    },
+                    new VariationCoefficientLogNormalDistribution(2)
+                    {
+                        Mean = (RoundedDouble) 1,
+                        CoefficientOfVariation = (RoundedDouble) 2
+                    });
                 yield return new TestCaseData(
                     new VariationCoefficientNormalDistribution(2)
                     {
