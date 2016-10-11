@@ -79,7 +79,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <summary>
         /// Gets the parsers that are executed on the output file(s) of Hydra-Ring.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The parsers to execute.</returns>
         protected virtual IEnumerable<IHydraRingFileParser> GetParsers()
         {
             yield break;

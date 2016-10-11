@@ -27,8 +27,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// Interface for a calculator which calculates values for a wave at a water level.
     /// These are used in different failure mechanisms as input.
     /// </summary>
-    public interface IWaveConditionsCosineCalculator {
-
+    public interface IWaveConditionsCosineCalculator
+    {
         /// <summary>
         /// Gets the height of the wave.
         /// </summary>
@@ -43,12 +43,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Gets the peak period of the wave.
         /// </summary>
         double WavePeakPeriod { get; }
-
-        /// <summary>
-        /// Gets the content of the output file generated during the Hydra-Ring calculation.
-        /// </summary>
-        string OutputFileContent { get; }
-
+        
         /// <summary>
         /// Performs the actual calculation by running the Hydra-Ring executable.
         /// </summary>

@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-
 namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
 {
     /// <summary>
@@ -38,11 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new HydraRingCalculatorFactory();
-                }
-                return instance;
+                return instance ?? (instance = new HydraRingCalculatorFactory());
             }
             internal set
             {

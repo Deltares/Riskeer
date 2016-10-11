@@ -77,7 +77,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             parser = new TestParser();
         }
 
-        public bool Output { get; set; }
+        public bool Output { get; private set; }
 
         public void PublicCalculate()
         {
@@ -136,7 +136,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 
     internal class TestParser : IHydraRingFileParser
     {
-        public bool Parsed { get; set; }
+        public bool Parsed { get; private set; }
 
         public void Parse(string workingDirectory, int sectionId)
         {

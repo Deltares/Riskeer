@@ -27,6 +27,10 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
+    /// <summary>
+    /// Calculator for calculating probability of failure by overtopping or overflow and the
+    /// associated wave height. This is used in a height structures assessment.
+    /// </summary>
     internal class StructuresOvertoppingCalculator : HydraRingCalculatorBase, IStructuresOvertoppingCalculator
     {
         private readonly ExceedanceProbabilityCalculationParser exceedanceProbabilityCalculationParser;
@@ -45,7 +49,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             ExceedanceProbabilityBeta = double.NaN;
         }
 
-        public double ExceedanceProbabilityBeta { get; set; }
+        public double ExceedanceProbabilityBeta { get; private set; }
 
         public void Calculate(StructuresOvertoppingCalculationInput input)
         {
