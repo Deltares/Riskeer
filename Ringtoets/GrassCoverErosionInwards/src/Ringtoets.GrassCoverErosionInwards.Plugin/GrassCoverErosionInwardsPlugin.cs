@@ -450,7 +450,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             if (!isNestedGroup)
             {
                 builder.AddSeparator()
-                       .AddRemoveAllChildrenItem(group, Gui.ViewCommands);
+                       .AddRemoveAllChildrenItem();
             }
 
             builder.AddSeparator()
@@ -526,6 +526,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
+            foreach (var calculation in context.WrappedData.GetCalculations().Cast<GrassCoverErosionInwardsCalculation>())
+            {
+                GrassCoverErosionInwardsHelper.Delete(context.FailureMechanism.SectionResults,
+                                                      calculation,
+                                                      context.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
+            }
             parentGroupContext.NotifyObservers();
         }
 

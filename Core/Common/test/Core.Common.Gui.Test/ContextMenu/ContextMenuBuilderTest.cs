@@ -341,6 +341,43 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
+        public void AddRemoveAllChildrenItem_WhenBuild_ItemAddedToContextMenu(bool hasChildren)
+        {
+            // Setup
+            var dataObject = new object();
+            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
+            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
+            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
+            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            
+            treeViewControlMock.Expect(tvc => tvc.CanRemoveChildNodesOfData(dataObject)).Return(hasChildren);
+
+            mocks.ReplayAll();
+
+            var builder = new ContextMenuBuilder(applicationFeatureCommandsMock,
+                                                 importCommandHandlerMock,
+                                                 exportCommandHandlerMock,
+                                                 viewCommandsMock,
+                                                 dataObject,
+                                                 treeViewControlMock);
+
+            // Call
+            ContextMenuStrip result = builder.AddDeleteChildrenItem().Build();
+
+            // Assert
+            Assert.IsInstanceOf<ContextMenuStrip>(result);
+            Assert.AreEqual(1, result.Items.Count);
+            TestHelper.AssertContextMenuStripContainsItem(result, 0,
+                                                            Resources.DeleteChildren,
+                                                            Resources.DeleteChildren_ToolTip,
+                                                            Resources.DeleteChildrenIcon,
+                                                            hasChildren);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
         public void AddExpandAllItem_WhenBuild_ItemAddedToContextMenu(bool hasChildren)
         {
             // Setup

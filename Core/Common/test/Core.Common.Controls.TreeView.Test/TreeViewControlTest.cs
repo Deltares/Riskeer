@@ -488,6 +488,247 @@ namespace Core.Common.Controls.TreeView.Test
 
         [Test]
         [RequiresSTA]
+        public void TryRemoveChildNodesOfData_CancelClicked_OnNodeRemovedOnChildrenNotCalled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var onNodeRemovedHit = 0;
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    ChildNodeObjects = o => new[]
+                    {
+                        string.Empty
+                    }
+                };
+                var childTreeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(string),
+                    CanRemove = (o, p) => true,
+                    OnNodeRemoved = (o, p) => onNodeRemovedHit++
+                };
+                treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+                var dataObject = new object();
+                treeViewControl.Data = dataObject;
+
+                try
+                {
+                    WindowsFormsTestHelper.Show(treeViewControl);
+
+                    string messageBoxText = null;
+                    DialogBoxHandler = (name, wnd) =>
+                    {
+                        var helper = new MessageBoxTester(wnd);
+
+                        messageBoxText = helper.Text;
+
+                        helper.ClickCancel();
+                    };
+
+                    // Call
+                    treeViewControl.TryRemoveChildNodesOfData(dataObject);
+
+                    // Assert
+                    Assert.AreEqual(0, onNodeRemovedHit);
+
+                    Assert.AreEqual("Weet u zeker dat u de subonderdelen van het geselecteerde element wilt verwijderen?", messageBoxText);
+                }
+                finally
+                {
+                    WindowsFormsTestHelper.CloseAll();
+                }
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void TryRemoveChildNodesOfData_OkClicked_OnNodeRemovedAndDataDeletedOnChildrenCalled()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var onNodeRemovedHit = 0;
+                var onDataDeletedHit = 0;
+
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    ChildNodeObjects = o => new[]
+                    {
+                        string.Empty
+                    }
+                };
+                var childTreeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(string),
+                    CanRemove = (o, p) => true,
+                    OnNodeRemoved = (o, p) => onNodeRemovedHit++
+                };
+                treeViewControl.DataDeleted += (sender, args) => onDataDeletedHit++;
+                treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+                var dataObject = new object();
+                treeViewControl.Data = dataObject;
+
+                try
+                {
+                    WindowsFormsTestHelper.Show(treeViewControl);
+
+                    string messageBoxText = null;
+                    DialogBoxHandler = (name, wnd) =>
+                    {
+                        var helper = new MessageBoxTester(wnd);
+
+                        messageBoxText = helper.Text;
+
+                        helper.ClickOk();
+                    };
+
+                    // Call
+                    treeViewControl.TryRemoveChildNodesOfData(dataObject);
+
+                    // Assert
+                    Assert.AreEqual(1, onNodeRemovedHit);
+                    Assert.AreEqual(1, onDataDeletedHit);
+
+                    Assert.AreEqual("Weet u zeker dat u de subonderdelen van het geselecteerde element wilt verwijderen?", messageBoxText);
+                }
+                finally
+                {
+                    WindowsFormsTestHelper.CloseAll();
+                }
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void CanRemoveChildNodesOfData_NoChildren_ReturnsFalse()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object)
+                };
+                treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                var dataObject = new object();
+                treeViewControl.Data = dataObject;
+
+                try
+                {
+                    WindowsFormsTestHelper.Show(treeViewControl);
+
+                    // Call
+                    var result = treeViewControl.CanRemoveChildNodesOfData(dataObject);
+
+                    // Assert
+                    Assert.IsFalse(result);
+
+                }
+                finally
+                {
+                    WindowsFormsTestHelper.CloseAll();
+                }
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void CanRemoveChildNodesOfData_NoRemovableChildren_ReturnsFalse()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    ChildNodeObjects = o => new[]
+                    {
+                        string.Empty
+                    }
+                };
+                var childTreeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(string),
+                    CanRemove = (o, p) => false,
+                };
+                treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                treeViewControl.RegisterTreeNodeInfo(childTreeNodeInfo);
+                var dataObject = new object();
+                treeViewControl.Data = dataObject;
+
+                try
+                {
+                    WindowsFormsTestHelper.Show(treeViewControl);
+
+                    // Call
+                    var result = treeViewControl.CanRemoveChildNodesOfData(dataObject);
+
+                    // Assert
+                    Assert.IsFalse(result);
+                }
+                finally
+                {
+                    WindowsFormsTestHelper.CloseAll();
+                }
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
+        public void CanRemoveChildNodesOfData_OneRemovableChild_ReturnsTrue()
+        {
+            // Setup
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var treeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(object),
+                    ChildNodeObjects = o => new object[]
+                    {
+                        0,
+                        string.Empty,
+                        1
+                    }
+                };
+                var childStringTreeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(string),
+                    CanRemove = (o, p) => true,
+                };
+                var childIntTreeNodeInfo = new TreeNodeInfo
+                {
+                    TagType = typeof(int),
+                    CanRemove = (o, p) => false,
+                };
+                treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
+                treeViewControl.RegisterTreeNodeInfo(childStringTreeNodeInfo);
+                treeViewControl.RegisterTreeNodeInfo(childIntTreeNodeInfo);
+                var dataObject = new object();
+                treeViewControl.Data = dataObject;
+
+                try
+                {
+                    WindowsFormsTestHelper.Show(treeViewControl);
+
+                    // Call
+                    var result = treeViewControl.CanRemoveChildNodesOfData(dataObject);
+
+                    // Assert
+                    Assert.IsTrue(result);
+                }
+                finally
+                {
+                    WindowsFormsTestHelper.CloseAll();
+                }
+            }
+        }
+
+        [Test]
+        [RequiresSTA]
         public void TryRemoveNodeForData_RemoveableCancelClicked_OnNodeRemovedNotCalled()
         {
             // Setup

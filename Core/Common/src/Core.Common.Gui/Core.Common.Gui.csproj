@@ -363,6 +363,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\project-16.png" />
+    <Content Include="Resources\broom.png" />
     <Content Include="Resources\textfield_rename.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

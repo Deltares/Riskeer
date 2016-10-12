@@ -91,6 +91,23 @@ namespace Core.Common.Gui.ContextMenu
         }
 
         /// <summary>
+        /// Creates a <see cref="ToolStripItem"/> which is bound to the action of deleting
+        /// the children of <see cref="TreeNode"/>.
+        /// </summary>
+        /// <returns>The created <see cref="ToolStripItem"/>.</returns>
+        public ToolStripItem CreateDeleteChildrenItem()
+        {
+            var toolStripMenuItem = new ToolStripMenuItem(Resources.DeleteChildren)
+            {
+                ToolTipText = Resources.DeleteChildren_ToolTip,
+                Image = Resources.DeleteChildrenIcon,
+                Enabled = treeViewControl.CanRemoveChildNodesOfData(dataObject)
+            };
+            toolStripMenuItem.Click += (s, e) => treeViewControl.TryRemoveChildNodesOfData(dataObject);
+            return toolStripMenuItem;
+        }
+
+        /// <summary>
         /// Creates a <see cref="ToolStripItem"/> which is bound to the action of expanding
         /// the <see cref="TreeNode"/>.
         /// </summary>

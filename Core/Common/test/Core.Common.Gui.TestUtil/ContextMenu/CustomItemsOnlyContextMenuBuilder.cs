@@ -40,6 +40,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddRenameItem()
         {
+            contextMenu.Items.Add(StubItem());
             return this;
         }
 
@@ -49,6 +50,17 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddDeleteItem()
         {
+            contextMenu.Items.Add(StubItem());
+            return this;
+        }
+
+        /// <summary>
+        /// Does nothing.
+        /// </summary>
+        /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
+        public IContextMenuBuilder AddDeleteChildrenItem()
+        {
+            contextMenu.Items.Add(StubItem());
             return this;
         }
 
@@ -67,6 +79,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddCollapseAllItem()
         {
+            contextMenu.Items.Add(StubItem());
             return this;
         }
 
@@ -85,6 +98,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddExportItem()
         {
+            contextMenu.Items.Add(StubItem());
             return this;
         }
 
@@ -94,6 +108,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddImportItem()
         {
+            contextMenu.Items.Add(StubItem());
             return this;
         }
 
@@ -103,6 +118,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddPropertiesItem()
         {
+            contextMenu.Items.Add(StubItem());
             return this;
         }
 
@@ -134,6 +150,11 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         public ContextMenuStrip Build()
         {
             return contextMenu;
+        }
+
+        private static StrictContextMenuItem StubItem()
+        {
+            return new StrictContextMenuItem(string.Empty, string.Empty, null, (sender, args) => { });
         }
     }
 }

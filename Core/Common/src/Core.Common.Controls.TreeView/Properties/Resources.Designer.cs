@@ -82,6 +82,15 @@ namespace Core.Common.Controls.TreeView.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Weet u zeker dat u de subonderdelen van het geselecteerde element wilt verwijderen?.
+        /// </summary>
+        internal static string TreeViewControl_Are_you_sure_you_want_to_remove_children_of_the_selected_item {
+            get {
+                return ResourceManager.GetString("TreeViewControl_Are_you_sure_you_want_to_remove_children_of_the_selected_item", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Weet u zeker dat u het geselecteerde element wilt verwijderen?.
         /// </summary>
         internal static string TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item {

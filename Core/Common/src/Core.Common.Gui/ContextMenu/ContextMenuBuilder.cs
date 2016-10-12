@@ -91,6 +91,12 @@ namespace Core.Common.Gui.ContextMenu
             return this;
         }
 
+        public IContextMenuBuilder AddDeleteChildrenItem()
+        {
+            AddItem(treeViewItemsFactory.CreateDeleteChildrenItem());
+            return this;
+        }
+
         public IContextMenuBuilder AddExpandAllItem()
         {
             AddItem(treeViewItemsFactory.CreateExpandAllItem());

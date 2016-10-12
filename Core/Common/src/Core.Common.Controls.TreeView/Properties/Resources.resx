@@ -126,4 +126,7 @@
   <data name="TreeViewControl_The_selected_item_cannot_be_renamed" xml:space="preserve">
     <value>Het geselecteerde element kan niet worden hernoemd.</value>
   </data>
+  <data name="TreeViewControl_Are_you_sure_you_want_to_remove_children_of_the_selected_item" xml:space="preserve">
+    <value>Weet u zeker dat u de subonderdelen van het geselecteerde element wilt verwijderen?</value>
+  </data>
 </root>

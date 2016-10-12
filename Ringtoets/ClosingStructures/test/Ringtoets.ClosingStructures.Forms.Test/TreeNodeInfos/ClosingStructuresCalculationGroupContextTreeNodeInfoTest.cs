@@ -28,6 +28,7 @@ using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Properties;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -50,7 +51,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
     {
         private const int contextMenuAddCalculationGroupIndexRootGroup = 0;
         private const int contextMenuAddCalculationIndexRootGroup = 1;
-        private const int contextMenuRemoveAllChildrenRootGroupIndex = 3;
         private const int contextMenuValidateAllIndexRootGroup = 5;
         private const int contextMenuCalculateAllIndexRootGroup = 6;
         private const int contextMenuClearAllIndexRootGroup = 7;
@@ -186,7 +186,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -236,7 +236,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(10, menu.Items.Count);
+                    Assert.AreEqual(12, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",
@@ -245,12 +245,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationIndexRootGroup,
                                                                   "Berekening &toevoegen",
                                                                   "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
-                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenRootGroupIndex,
-                                                                  "Map &leegmaken...",
-                                                                  "Er zijn geen berekeningen of mappen om te verwijderen.",
-                                                                  RingtoetsCommonFormsResources.RemoveAllIcon,
-                                                                  false);
+                                                                  RingtoetsCommonFormsResources.FailureMechanismIcon);;
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   "Alles &valideren",
@@ -341,7 +336,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(9, menu.Items.Count);
+                    Assert.AreEqual(13, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                                   "&Map toevoegen",
@@ -677,56 +672,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                     Assert.IsInstanceOf<ClosingStructuresCalculation>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_ClickOnRemoveAllInGroup_RemovesAllChildren()
-        {
-            // Setup
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-            var group = new CalculationGroup();
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            var nodeData = new ClosingStructuresCalculationGroupContext(group,
-                                                                       failureMechanism,
-                                                                       assessmentSectionMock);
-            var calculation = new ClosingStructuresCalculation
-            {
-                Name = "Nieuwe berekening"
-            };
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-            viewCommandsMock.Expect(vc => vc.RemoveAllViewsForItem(calculation));
-
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
-
-                mocks.ReplayAll();
-
-                group.Children.Add(calculation);
-                nodeData.Attach(observerMock);
-
-                plugin.Gui = guiMock;
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var dialog = new MessageBoxTester(wnd);
-                    dialog.ClickOk();
-                };
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRemoveAllChildrenRootGroupIndex].PerformClick();
-
-                    // Assert
-                    Assert.IsEmpty(group.Children);
                 }
             }
         }

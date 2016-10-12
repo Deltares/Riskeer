@@ -238,7 +238,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSectionMock, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(6, menu.Items.Count);
+                    Assert.AreEqual(10, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
                                                                   RingtoetsCommonFormsResources.Validate,

@@ -368,35 +368,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
                 });
         }
 
-        /// <summary>
-        /// Creates a <see cref="StrictContextMenuItem"/> which is bound to the action of removing all children 
-        /// in the <paramref name="calculationGroup"/>.
-        /// </summary>
-        /// <param name="calculationGroup">The calculation from which to remove all children.</param>
-        /// <param name="viewCommands">The object implementing a method for closing views for the removed children.</param>
-        /// <returns>The created <see cref="StrictContextMenuItem"/>.</returns>
-        public static StrictContextMenuItem CreateRemoveAllChildrenFromGroupItem(CalculationGroup calculationGroup, IViewCommands viewCommands)
-        {
-            if (viewCommands == null)
-            {
-                throw new ArgumentNullException("viewCommands");
-            }
-            var menuItem = new StrictContextMenuItem(
-                Resources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
-                Resources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip,
-                Resources.RemoveAllIcon,
-                (sender, args) => RemoveAllChildrenFromGroup(calculationGroup, viewCommands));
-
-            var errorMessage = calculationGroup.Children.Any() ? null : Resources.CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove;
-
-            if (errorMessage != null)
-            {
-                menuItem.Enabled = false;
-                menuItem.ToolTipText = errorMessage;
-            }
-            return menuItem;
-        }
-
         private static void RemoveAllChildrenFromGroup(CalculationGroup calculationGroup, IViewCommands viewCommands)
         {
             if (MessageBox.Show(Resources.CalculationGroup_RemoveAllChildrenFromGroup_Are_you_sure_you_want_to_remove_everything_from_this_group, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)

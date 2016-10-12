@@ -421,9 +421,6 @@
   <data name="RingtoetsProject_ToolTip" xml:space="preserve">
     <value>Voeg een nieuw traject toe aan het project.</value>
   </data>
-  <data name="RemoveAllIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\broom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="CalculationGroup_RemoveAllChildrenFromGroup_Remove_all" xml:space="preserve">
     <value>Map &amp;leegmaken...</value>
   </data>

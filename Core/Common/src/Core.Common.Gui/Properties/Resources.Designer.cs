@@ -330,6 +330,34 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Onderliggende elementen verwijderen....
+        /// </summary>
+        public static string DeleteChildren {
+            get {
+                return ResourceManager.GetString("DeleteChildren", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verwijder alle onderliggende elementen van dit element..
+        /// </summary>
+        public static string DeleteChildren_ToolTip {
+            get {
+                return ResourceManager.GetString("DeleteChildren_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap DeleteChildrenIcon {
+            get {
+                object obj = ResourceManager.GetObject("DeleteChildrenIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap DeleteIcon {

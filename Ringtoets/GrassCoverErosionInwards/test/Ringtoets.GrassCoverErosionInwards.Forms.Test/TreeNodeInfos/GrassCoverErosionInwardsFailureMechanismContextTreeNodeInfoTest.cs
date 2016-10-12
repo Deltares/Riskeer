@@ -265,7 +265,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSectionMock, treeView))
                 {
                     // Assert
-                    Assert.AreEqual(7, menu.Items.Count);
+                    Assert.AreEqual(9, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenRelevant,
                                                                   RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,
@@ -320,7 +320,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(failureMechanismContext, assessmentSectionMock, treeView))
                 {
                     // Assert
-                    Assert.AreEqual(2, menu.Items.Count);
+                    Assert.AreEqual(3, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRelevancyIndexWhenNotRelevant,
                                                                   RingtoetsCommonFormsResources.FailureMechanismContextMenuStrip_Is_relevant,

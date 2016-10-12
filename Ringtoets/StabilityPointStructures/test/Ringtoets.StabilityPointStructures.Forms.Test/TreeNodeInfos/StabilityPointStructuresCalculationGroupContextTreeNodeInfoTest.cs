@@ -51,7 +51,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
     {
         private const int contextMenuAddCalculationGroupIndexRootGroup = 2;
         private const int contextMenuAddCalculationIndexRootGroup = 3;
-        private const int contextMenuRemoveAllChildrenRootGroupIndex = 5;
         private const int contextMenuValidateAllIndexRootGroup = 7;
         private const int contextMenuCalculateAllIndexRootGroup = 8;
         private const int contextMenuClearAllIndexRootGroup = 9;
@@ -178,7 +177,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
-            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddDeleteChildrenItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
@@ -227,7 +226,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(12, menu.Items.Count);
+                    Assert.AreEqual(14, menu.Items.Count);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup_Tooltip,
@@ -236,11 +235,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation_Tooltip,
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenRootGroupIndex,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove,
-                                                                  RingtoetsCommonFormsResources.RemoveAllIcon,
-                                                                  false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   RingtoetsCommonFormsResources.Validate_all,
                                                                   RingtoetsCommonFormsResources.ValidateAll_No_calculations_to_validate,
@@ -707,7 +701,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, parentGroupContext, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(9, menu.Items.Count);
+                    Assert.AreEqual(13, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
@@ -825,55 +819,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                     Assert.IsInstanceOf<StabilityPointStructuresCalculation>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_ClickOnRemoveAllInGroup_RemovesAllChildren()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var calculation = mocks.Stub<ICalculation>();
-                var group = new CalculationGroup
-                {
-                    Children =
-                    {
-                        calculation
-                    }
-                };
-
-                var failureMechanism = new StabilityPointStructuresFailureMechanism();
-                var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-                var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
-                                                                                   failureMechanism,
-                                                                                   assessmentSectionMock);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-                viewCommandsMock.Expect(vc => vc.RemoveAllViewsForItem(calculation));
-
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                guiMock.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = guiMock;
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var dialog = new MessageBoxTester(wnd);
-                    dialog.ClickOk();
-                };
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRemoveAllChildrenRootGroupIndex].PerformClick();
-
-                    // Assert
-                    Assert.IsEmpty(group.Children);
                 }
             }
         }

@@ -357,7 +357,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             if (!isNestedGroup)
             {
                 builder.AddSeparator()
-                       .AddRemoveAllChildrenItem(group, Gui.ViewCommands);
+                       .AddRemoveAllChildrenItem();
             }
 
             builder.AddSeparator()

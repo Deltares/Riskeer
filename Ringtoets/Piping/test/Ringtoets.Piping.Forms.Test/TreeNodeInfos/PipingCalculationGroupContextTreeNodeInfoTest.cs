@@ -338,11 +338,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                                                               "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                               RingtoetsCommonFormsResources.CalculationIcon);
 
-                TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
-                                                              RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
-                                                              RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip,
-                                                              RingtoetsCommonFormsResources.RemoveAllIcon);
-
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                               RingtoetsCommonFormsResources.Validate_all,
                                                               "Valideer alle berekeningen binnen deze berekeningsmap.",
@@ -556,86 +551,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     Assert.IsFalse(calculateItem.Enabled);
                     Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
                     Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateValidateAllItem_No_calculations_to_validate, validateItem.ToolTipText);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_WithoutParentNodeWithNoChildren_RemoveAllChildrenDisabled()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var group = new CalculationGroup();
-
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<StochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSectionMock);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem removeAllItemDisabled = contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex];
-                    Assert.IsFalse(removeAllItemDisabled.Enabled);
-                    Assert.AreEqual(RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove, removeAllItemDisabled.ToolTipText);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_WithoutParentNodeWithChildren_RemoveAllChildrenEnabled()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var group = new CalculationGroup
-                {
-                    Children =
-                    {
-                        mocks.Stub<ICalculation>()
-                    }
-                };
-
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<StochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSectionMock);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem removeAllItemEnabled = contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex];
-                    Assert.IsTrue(removeAllItemEnabled.Enabled);
-                    Assert.AreEqual(RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip, removeAllItemEnabled.ToolTipText);
                 }
             }
         }
@@ -1046,58 +961,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                     Assert.NotNull(selectionDialog);
                     Assert.NotNull(grid);
                     Assert.AreEqual(2, rowCount);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_ClickOnRemoveAllInGroup_RemovesAllChildren()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var calculation = mocks.Stub<ICalculation>();
-                var group = new CalculationGroup
-                {
-                    Children =
-                    {
-                        calculation
-                    }
-                };
-
-                var pipingFailureMechanism = new PipingFailureMechanism();
-                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-                var nodeData = new PipingCalculationGroupContext(group,
-                                                                 Enumerable.Empty<RingtoetsPipingSurfaceLine>(),
-                                                                 Enumerable.Empty<StochasticSoilModel>(),
-                                                                 pipingFailureMechanism,
-                                                                 assessmentSectionMock);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-                viewCommandsMock.Expect(vc => vc.RemoveAllViewsForItem(calculation));
-
-                var gui = mocks.StrictMock<IGui>();
-                gui.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var dialog = new MessageBoxTester(wnd);
-                    dialog.ClickOk();
-                };
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex].PerformClick();
-
-                    // Assert
-                    Assert.IsEmpty(group.Children);
                 }
             }
         }

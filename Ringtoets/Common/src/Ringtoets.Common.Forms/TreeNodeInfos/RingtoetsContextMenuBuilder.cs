@@ -21,7 +21,6 @@
 
 using System;
 using System.Windows.Forms;
-using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -248,19 +247,6 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
             return this;
         }
 
-        /// <summary>
-        /// Adds an item to the <see cref="ContextMenuStrip"/>, which removes all children of the given
-        /// <paramref name="calculationGroup"/>.
-        /// </summary>
-        /// <param name="calculationGroup">The calculation group from which all the children will be removed.</param>
-        /// <param name="viewCommands">The object implementing a method for closing views for the removed children.</param>
-        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
-        public RingtoetsContextMenuBuilder AddRemoveAllChildrenItem(CalculationGroup calculationGroup, IViewCommands viewCommands)
-        {
-            contextMenuBuilder.AddCustomItem(RingtoetsContextMenuItemFactory.CreateRemoveAllChildrenFromGroupItem(calculationGroup, viewCommands));
-            return this;
-        }
-
         # region Decorated members
 
         /// <summary>
@@ -280,6 +266,17 @@ namespace Ringtoets.Common.Forms.TreeNodeInfos
         public RingtoetsContextMenuBuilder AddDeleteItem()
         {
             contextMenuBuilder.AddDeleteItem();
+            return this;
+        }
+
+        /// <summary>
+        /// Adds an item to the <see cref="ContextMenuStrip"/>, which removes all children of the given 
+        /// <see cref="TreeNode"/>.
+        /// </summary>
+        /// <returns>The <see cref="RingtoetsContextMenuBuilder"/> itself.</returns>
+        public RingtoetsContextMenuBuilder AddRemoveAllChildrenItem()
+        {
+            contextMenuBuilder.AddDeleteChildrenItem();
             return this;
         }
 

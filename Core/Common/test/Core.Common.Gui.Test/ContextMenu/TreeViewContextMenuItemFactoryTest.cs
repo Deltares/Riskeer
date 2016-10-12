@@ -92,18 +92,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
-            var parentNodeData = new object();
             var nodeData = new object();
-
-            treeNodeInfoMock.CanRemove = (nd, pnd) =>
-            {
-                if (nd == nodeData && pnd == parentNodeData)
-                {
-                    return canDelete;
-                }
-
-                return !canDelete;
-            };
 
             treeViewControlMock.Expect(tvc => tvc.CanRemoveNodeForData(nodeData)).Return(canDelete);
 
@@ -132,22 +121,46 @@ namespace Core.Common.Gui.Test.ContextMenu
         [Test]
         [TestCase(true)]
         [TestCase(false)]
+        public void CreateDeleteChildrenItem_DependingOnCanRemoveChildNodesOfData_ItemWithDeleteChildrenFunctionWillBeEnabled(bool canDelete)
+        {
+            // Setup
+            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+
+            var nodeData = new object();
+
+            treeViewControlMock.Expect(tvc => tvc.CanRemoveChildNodesOfData(nodeData)).Return(canDelete);
+
+            if (canDelete)
+            {
+                treeViewControlMock.Expect(tvc => tvc.TryRemoveChildNodesOfData(nodeData));
+            }
+
+            mocks.ReplayAll();
+
+            var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewControlMock);
+
+            // Call
+            var item = factory.CreateDeleteChildrenItem();
+            item.PerformClick();
+
+            // Assert
+            Assert.AreEqual(Resources.DeleteChildren, item.Text);
+            Assert.AreEqual(Resources.DeleteChildren_ToolTip, item.ToolTipText);
+            TestHelper.AssertImagesAreEqual(Resources.DeleteChildrenIcon, item.Image);
+            Assert.AreEqual(canDelete, item.Enabled);
+
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
         public void CreateRenameItem_DependingOnCanRenameNodeForData_ItemWithDeleteFunctionWillBeEnabled(bool canRename)
         {
             // Setup
             var dataObject = new object();
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-
-            treeNodeInfoMock.CanRename = (data, parentData) =>
-            {
-                if (data == dataObject)
-                {
-                    return canRename;
-                }
-
-                return !canRename;
-            };
 
             treeViewControlMock.Expect(tvc => tvc.CanRenameNodeForData(dataObject)).Return(canRename);
 

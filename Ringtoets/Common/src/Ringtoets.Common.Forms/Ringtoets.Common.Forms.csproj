@@ -233,11 +233,9 @@
   <ItemGroup>
     <None Include="Resources\cards.png" />
     <None Include="Resources\application_form.png" />
-    <Content Include="Resources\broom.png" />
     <None Include="Resources\DikeProfile.png" />
     <None Include="Resources\calculation_icon.png" />
     <None Include="Resources\text_columns.png" />
-    <None Include="Resources\point_shape_file.png" />
     <None Include="Resources\PointShapefileIcon.png" />
     <None Include="Resources\Structures.png" />
     <Content Include="Resources\wand-hat.png" />

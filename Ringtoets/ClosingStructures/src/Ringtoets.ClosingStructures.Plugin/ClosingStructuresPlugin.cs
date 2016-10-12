@@ -324,7 +324,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             {
                 builder
                     .AddSeparator()
-                    .AddRemoveAllChildrenItem(group, Gui.ViewCommands);
+                    .AddRemoveAllChildrenItem();
             }
 
             builder.AddSeparator()

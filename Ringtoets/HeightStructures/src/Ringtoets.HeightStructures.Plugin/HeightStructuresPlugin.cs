@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -27,6 +28,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
@@ -52,6 +54,7 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using HeightStructuresFormsResources = Ringtoets.HeightStructures.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
+using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Plugin
 {
@@ -414,7 +417,8 @@ namespace Ringtoets.HeightStructures.Plugin
             if (!isNestedGroup)
             {
                 builder.AddSeparator()
-                       .AddRemoveAllChildrenItem(group, Gui.ViewCommands);
+                       .AddRemoveAllChildrenItem();
+//                       .AddRemoveAllChildrenItem(group, Gui.ViewCommands);
             }
 
             builder.AddSeparator()
@@ -494,6 +498,12 @@ namespace Ringtoets.HeightStructures.Plugin
             var parentGroupContext = (HeightStructuresCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
+            foreach (var calculation in context.WrappedData.GetCalculations().Cast<HeightStructuresCalculation>())
+            {
+                HeightStructuresHelper.Delete(context.FailureMechanism.SectionResults,
+                                              calculation,
+                                              context.FailureMechanism.Calculations.Cast<HeightStructuresCalculation>());
+            }
             parentGroupContext.NotifyObservers();
         }
 
@@ -585,7 +595,7 @@ namespace Ringtoets.HeightStructures.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                HeightStructuresHelper.Delete(context.FailureMechanism.SectionResults, context.WrappedData, context.FailureMechanism.Calculations.OfType<HeightStructuresCalculation>());
+                HeightStructuresHelper.Delete(context.FailureMechanism.SectionResults, context.WrappedData, context.FailureMechanism.Calculations.Cast<HeightStructuresCalculation>());
                 calculationGroupContext.NotifyObservers();
             }
         }

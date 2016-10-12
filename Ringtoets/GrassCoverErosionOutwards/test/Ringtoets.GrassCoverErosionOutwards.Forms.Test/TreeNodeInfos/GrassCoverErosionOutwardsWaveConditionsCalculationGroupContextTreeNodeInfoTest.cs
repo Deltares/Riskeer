@@ -32,7 +32,6 @@ using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.MainWindow;
-using Core.Common.Gui.Properties;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -50,6 +49,7 @@ using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
 {
@@ -66,19 +66,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         private const int contextMenuCollapseAllIndexRootGroup = 13;
         private const int contextMenuPropertiesIndexRootGroup = 15;
 
+        private const int contextMenuAddGenerateCalculationsIndex = 0;
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 2;
         private const int contextMenuAddCalculationIndexNestedGroup = 3;
         private const int contextMenuValidateAllIndexNestedGroup = 5;
         private const int contextMenuCalculateAllIndexNestedGroup = 6;
         private const int contextMenuClearOutputNestedGroupIndex = 7;
-
-        private const int customOnlyContextMenuAddGenerateCalculationsIndex = 0;
-        private const int contextMenuValidateAllIndexNestedGroupNoCalculations = 4;
-        private const int contextMenuCalculateAllIndexNestedGroupNoCalculations = 5;
-
-        private const int contextMenuRemoveAllInGroup = 5;
-
-        private const int customOnlyContextMenuRemoveAllChildrenIndex = 5;
 
         private MockRepository mocks;
         private GrassCoverErosionOutwardsPlugin plugin;
@@ -251,9 +244,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(16, menu.Items.Count);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, 0,
-                                                              Resources.Export,
-                                                              Resources.Export_ToolTip,
-                                                              Resources.ExportIcon);
+                                                              CoreCommonGuiResources.Export,
+                                                              CoreCommonGuiResources.Export_ToolTip,
+                                                              CoreCommonGuiResources.ExportIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexNestedGroup,
                                                               RingtoetsCommonFormsResources.CalculationGroup_Add_CalculationGroup,
@@ -280,29 +273,29 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                               false);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, 9,
-                                                              Resources.Rename,
-                                                              Resources.Rename_ToolTip,
-                                                              Resources.RenameIcon);
+                                                              CoreCommonGuiResources.Rename,
+                                                              CoreCommonGuiResources.Rename_ToolTip,
+                                                              CoreCommonGuiResources.RenameIcon);
                 TestHelper.AssertContextMenuStripContainsItem(menu, 10,
-                                                              Resources.Delete,
-                                                              Resources.Delete_ToolTip,
-                                                              Resources.DeleteIcon);
+                                                              CoreCommonGuiResources.Delete,
+                                                              CoreCommonGuiResources.Delete_ToolTip,
+                                                              CoreCommonGuiResources.DeleteIcon);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, 12,
-                                                              Resources.Expand_all,
-                                                              Resources.Expand_all_ToolTip,
-                                                              Resources.ExpandAllIcon,
+                                                              CoreCommonGuiResources.Expand_all,
+                                                              CoreCommonGuiResources.Expand_all_ToolTip,
+                                                              CoreCommonGuiResources.ExpandAllIcon,
                                                               false);
                 TestHelper.AssertContextMenuStripContainsItem(menu, 13,
-                                                              Resources.Collapse_all,
-                                                              Resources.Collapse_all_ToolTip,
-                                                              Resources.CollapseAllIcon,
+                                                              CoreCommonGuiResources.Collapse_all,
+                                                              CoreCommonGuiResources.Collapse_all_ToolTip,
+                                                              CoreCommonGuiResources.CollapseAllIcon,
                                                               false);
 
                 TestHelper.AssertContextMenuStripContainsItem(menu, 15,
-                                                              Resources.Properties,
-                                                              Resources.Properties_ToolTip,
-                                                              Resources.PropertiesHS,
+                                                              CoreCommonGuiResources.Properties,
+                                                              CoreCommonGuiResources.Properties_ToolTip,
+                                                              CoreCommonGuiResources.PropertiesHS,
                                                               false);
 
                 CollectionAssert.AllItemsAreInstancesOfType(new[]
@@ -354,7 +347,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     Assert.AreEqual(16, menu.Items.Count);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
                                                                   "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon, false);
@@ -366,11 +359,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                                                                   "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
+
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
-                                                                  "Er zijn geen berekeningen of mappen om te verwijderen.",
-                                                                  RingtoetsCommonFormsResources.RemoveAllIcon,
+                                                                  CoreCommonGuiResources.DeleteChildren,
+                                                                  CoreCommonGuiResources.DeleteChildren_ToolTip,
+                                                                  CoreCommonGuiResources.DeleteChildrenIcon,
                                                                   false);
+
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   RingtoetsCommonFormsResources.Validate_all,
                                                                   "Er zijn geen berekeningen om te valideren.",
@@ -388,20 +383,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
-                                                                  Resources.Expand_all,
-                                                                  Resources.Expand_all_ToolTip,
-                                                                  Resources.ExpandAllIcon,
+                                                                  CoreCommonGuiResources.Expand_all,
+                                                                  CoreCommonGuiResources.Expand_all_ToolTip,
+                                                                  CoreCommonGuiResources.ExpandAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
-                                                                  Resources.Collapse_all,
-                                                                  Resources.Collapse_all_ToolTip,
-                                                                  Resources.CollapseAllIcon,
+                                                                  CoreCommonGuiResources.Collapse_all,
+                                                                  CoreCommonGuiResources.Collapse_all_ToolTip,
+                                                                  CoreCommonGuiResources.CollapseAllIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
-                                                                  Resources.Properties,
-                                                                  Resources.Properties_ToolTip,
-                                                                  Resources.PropertiesHS,
+                                                                  CoreCommonGuiResources.Properties,
+                                                                  CoreCommonGuiResources.Properties_ToolTip,
+                                                                  CoreCommonGuiResources.PropertiesHS,
                                                                   false);
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
                     {
@@ -459,7 +454,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     Assert.AreEqual(16, menu.Items.Count);
-                    TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddGenerateCalculationsIndex,
                                                                   "Genereer &berekeningen...",
                                                                   "Genereer randvoorwaardenberekeningen.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon);
@@ -473,9 +468,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all,
-                                                                  "Er zijn geen berekeningen of mappen om te verwijderen.",
-                                                                  RingtoetsCommonFormsResources.RemoveAllIcon,
+                                                                  CoreCommonGuiResources.DeleteChildren,
+                                                                  CoreCommonGuiResources.DeleteChildren_ToolTip,
+                                                                  CoreCommonGuiResources.DeleteChildrenIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
@@ -495,20 +490,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
-                                                                  Resources.Expand_all,
-                                                                  Resources.Expand_all_ToolTip,
-                                                                  Resources.ExpandAllIcon,
+                                                                  CoreCommonGuiResources.Expand_all,
+                                                                  CoreCommonGuiResources.Expand_all_ToolTip,
+                                                                  CoreCommonGuiResources.ExpandAllIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuCollapseAllIndexRootGroup,
-                                                                  Resources.Collapse_all,
-                                                                  Resources.Collapse_all_ToolTip,
-                                                                  Resources.CollapseAllIcon,
+                                                                  CoreCommonGuiResources.Collapse_all,
+                                                                  CoreCommonGuiResources.Collapse_all_ToolTip,
+                                                                  CoreCommonGuiResources.CollapseAllIcon,
                                                                   false);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
-                                                                  Resources.Properties,
-                                                                  Resources.Properties_ToolTip,
-                                                                  Resources.PropertiesHS,
+                                                                  CoreCommonGuiResources.Properties,
+                                                                  CoreCommonGuiResources.Properties_ToolTip,
+                                                                  CoreCommonGuiResources.PropertiesHS,
                                                                   false);
                     CollectionAssert.AllItemsAreInstancesOfType(new[]
                     {
@@ -552,8 +547,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Assert
-                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroupNoCalculations];
-                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroupNoCalculations];
+                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
+                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
                     Assert.IsFalse(validateItem.Enabled);
                     Assert.IsFalse(calculateItem.Enabled);
                     Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanism_CreateCalculateAllItem_No_calculations_to_run, calculateItem.ToolTipText);
@@ -593,8 +588,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Assert
-                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroupNoCalculations];
-                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroupNoCalculations];
+                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
+                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
                     Assert.IsFalse(validateItem.Enabled);
                     Assert.IsFalse(calculateItem.Enabled);
                     Assert.AreEqual(RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported, calculateItem.ToolTipText);
@@ -638,8 +633,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Assert
-                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroupNoCalculations];
-                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroupNoCalculations];
+                    ToolStripItem validateItem = contextMenu.Items[contextMenuValidateAllIndexNestedGroup];
+                    ToolStripItem calculateItem = contextMenu.Items[contextMenuCalculateAllIndexNestedGroup];
                     Assert.IsFalse(validateItem.Enabled);
                     Assert.IsFalse(calculateItem.Enabled);
                     var message = "Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand '': Bestandspad mag niet leeg of ongedefinieerd zijn.";
@@ -723,7 +718,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action test = () => contextMenu.Items[4].PerformClick();
+                    Action test = () => contextMenu.Items[contextMenuValidateAllIndexNestedGroup].PerformClick();
 
                     // Assert
                     TestHelper.AssertLogMessages(test, m =>
@@ -802,7 +797,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    Action test = () => contextMenu.Items[5].PerformClick();
+                    Action test = () => contextMenu.Items[contextMenuCalculateAllIndexNestedGroup].PerformClick();
 
                     // Assert
                     TestHelper.AssertLogMessages(test, m =>
@@ -922,7 +917,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    var clearAllOutputItem = contextMenu.Items[6];
+                    var clearAllOutputItem = contextMenu.Items[contextMenuClearOutputNestedGroupIndex];
 
                     // Assert
                     Assert.IsFalse(clearAllOutputItem.Enabled);
@@ -1005,7 +1000,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, parentNodeData, treeViewControl))
                 {
                     // Call
-                    contextMenu.Items[6].PerformClick();
+                    contextMenu.Items[contextMenuClearOutputNestedGroupIndex].PerformClick();
 
                     // Assert
                     if (confirm)
@@ -1013,74 +1008,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         Assert.IsNull(calculationA.Output);
                         Assert.IsNull(calculationB.Output);
                     }
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_WithoutParentNodeWithNoChildren_RemoveAllChildrenDisabled()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem removeAllItemDisabled = contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex];
-                    Assert.IsFalse(removeAllItemDisabled.Enabled);
-                    Assert.AreEqual(RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove, removeAllItemDisabled.ToolTipText);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_WithoutParentNodeWithChildren_RemoveAllChildrenEnabled()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(mocks.Stub<ICalculation>());
-                var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem removeAllItemEnabled = contextMenu.Items[customOnlyContextMenuRemoveAllChildrenIndex];
-                    Assert.IsTrue(removeAllItemEnabled.Enabled);
-                    Assert.AreEqual(RingtoetsCommonFormsResources.CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip, removeAllItemEnabled.ToolTipText);
                 }
             }
         }
@@ -1129,7 +1056,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     Assert.AreEqual(1, group.Children.Count);
 
                     // Call
-                    contextMenu.Items[1].PerformClick();
+                    contextMenu.Items[contextMenuAddCalculationGroupIndexNestedGroup].PerformClick();
 
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
@@ -1137,98 +1064,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     Assert.IsInstanceOf<CalculationGroup>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe map (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_ClickOnRemoveAllInGroupAndConfirm_RemovesAllChildren()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var calculation = mocks.Stub<ICalculation>();
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-                var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-                viewCommandsMock.Expect(vc => vc.RemoveAllViewsForItem(calculation));
-
-                var observer = mocks.StrictMock<IObserver>();
-                observer.Expect(o => o.UpdateObserver());
-                failureMechanism.WaveConditionsCalculationGroup.Attach(observer);
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var dialog = new MessageBoxTester(wnd);
-                    dialog.ClickOk();
-                };
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRemoveAllInGroup].PerformClick();
-
-                    // Assert
-                    Assert.IsEmpty(failureMechanism.WaveConditionsCalculationGroup.Children);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_ClickOnRemoveAllInGroupAndCancel_ChildrenNotRemoved()
-        {
-            // Setup
-            using (var treeViewControl = new TreeViewControl())
-            {
-                var assessmentSection = mocks.Stub<IAssessmentSection>();
-                var calculation = mocks.Stub<ICalculation>();
-                var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
-                failureMechanism.WaveConditionsCalculationGroup.Children.Add(calculation);
-                var nodeData = new GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext(failureMechanism.WaveConditionsCalculationGroup,
-                                                                                                  failureMechanism,
-                                                                                                  assessmentSection);
-
-                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-                var viewCommandsMock = mocks.StrictMock<IViewCommands>();
-
-                var gui = mocks.Stub<IGui>();
-                gui.Stub(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
-                gui.Stub(cmp => cmp.ViewCommands).Return(viewCommandsMock);
-
-                mocks.ReplayAll();
-
-                plugin.Gui = gui;
-
-                DialogBoxHandler = (name, wnd) =>
-                {
-                    var dialog = new MessageBoxTester(wnd);
-                    dialog.ClickCancel();
-                };
-
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Call
-                    contextMenu.Items[contextMenuRemoveAllInGroup].PerformClick();
-
-                    // Assert
-                    Assert.AreEqual(new[]
-                    {
-                        calculation
-                    }, failureMechanism.WaveConditionsCalculationGroup.Children);
                 }
             }
         }

@@ -224,6 +224,19 @@ namespace Core.Common.Controls.TreeView
         }
 
         /// <summary>
+        /// This method returns whether or not the tree node corresponding to the <paramref name="dataObject"/>
+        /// has children which can be removed.
+        /// </summary>
+        /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
+        /// <returns><c>true</c> if the tree node has a child node which can be removed or <c>false</c> otherwise.</returns>
+        public bool CanRemoveChildNodesOfData(object dataObject)
+        {
+            var treeNode = GetNodeByTag(dataObject);
+
+            return treeNode != null && CanRemoveChildNodes(treeNode);
+        }
+
+        /// <summary>
         /// This method tries to remove the tree node corresponding to the <paramref name="dataObject"/>.
         /// </summary>
         /// <param name="dataObject">The data object to obtain the corresponding tree node for.</param>
@@ -238,7 +251,17 @@ namespace Core.Common.Controls.TreeView
 
             if (treeNode != null)
             {
-                Remove(treeNode);
+                TryRemoveNode(treeNode);
+            }
+        }
+
+        public void TryRemoveChildNodesOfData(object dataObject)
+        {
+            var treeNode = GetNodeByTag(dataObject);
+
+            if (treeNode != null)
+            {
+                TryRemoveChildNodes(treeNode);
             }
         }
 
@@ -340,7 +363,17 @@ namespace Core.Common.Controls.TreeView
             return treeNodeInfo.CanRemove != null && treeNodeInfo.CanRemove(treeNode.Tag, parentTag);
         }
 
-        private void Remove(TreeNode treeNode)
+        private bool CanRemoveChildNodes(TreeNode treeNode)
+        {
+            var treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
+            if (treeNodeInfo.ChildNodeObjects != null)
+            {
+                return treeNodeInfo.ChildNodeObjects(treeNode.Tag).Any(childData => CanRemove(GetNodeByTag(childData)));
+            }
+            return false;
+        }
+
+        private void TryRemoveNode(TreeNode treeNode)
         {
             if (!CanRemove(treeNode))
             {
@@ -348,12 +381,46 @@ namespace Core.Common.Controls.TreeView
                 return;
             }
 
-            var message = string.Format(Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item);
+            var message = Resources.TreeViewControl_Are_you_sure_you_want_to_remove_the_selected_item;
             if (MessageBox.Show(message, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
             {
                 return;
             }
 
+            RemoveNode(treeNode);
+        }
+
+        private void TryRemoveChildNodes(TreeNode treeNode)
+        {
+            var message = Resources.TreeViewControl_Are_you_sure_you_want_to_remove_children_of_the_selected_item;
+            if (MessageBox.Show(message, BaseResources.Confirm, MessageBoxButtons.OKCancel) != DialogResult.OK)
+            {
+                return;
+            }
+
+            RemoveChildNodes(treeNode);
+        }
+
+        private void RemoveChildNodes(TreeNode treeNode)
+        {
+            var treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
+
+            if (treeNodeInfo.ChildNodeObjects != null)
+            {
+                foreach (var childNodeObject in treeNodeInfo.ChildNodeObjects(treeNode.Tag))
+                {
+                    var childNode = GetNodeByTag(childNodeObject);
+
+                    if (CanRemove(childNode))
+                    {
+                        RemoveNode(childNode);
+                    }
+                }
+            }
+        }
+
+        private void RemoveNode(TreeNode treeNode)
+        {
             var treeNodeInfo = TryGetTreeNodeInfoForData(treeNode.Tag);
 
             if (treeNodeInfo.OnNodeRemoved != null)
@@ -774,7 +841,7 @@ namespace Core.Common.Controls.TreeView
                 }
                 case Keys.Delete: // Try to delete the selected tree node
                 {
-                    Remove(selectedNode);
+                    TryRemoveNode(selectedNode);
 
                     break;
                 }
