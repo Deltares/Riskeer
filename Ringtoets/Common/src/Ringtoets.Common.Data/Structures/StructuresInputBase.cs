@@ -91,18 +91,43 @@ namespace Ringtoets.Common.Data.Structures
 
             widthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
-                Mean = (RoundedDouble)double.NaN,
-                CoefficientOfVariation = (RoundedDouble)0.05
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.05
             };
 
             stormDuration = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)6.0,
-                CoefficientOfVariation = (RoundedDouble)0.25
+                Mean = (RoundedDouble) 6.0,
+                CoefficientOfVariation = (RoundedDouble) 0.25
             };
 
             UpdateForeshoreProperties();
         }
+
+        #region Model factors
+
+        /// <summary>
+        /// Gets or sets the model factor for the super critical flow.
+        /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
+        public NormalDistribution ModelFactorSuperCriticalFlow
+        {
+            get
+            {
+                return modelFactorSuperCriticalFlow;
+            }
+            set
+            {
+                modelFactorSuperCriticalFlow.Mean = value.Mean;
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Synchronizes the input properties with the properties of the structure.
+        /// </summary>
+        protected abstract void UpdateStructureProperties();
 
         private static bool ValidProbabilityValue(double probability)
         {
@@ -131,6 +156,22 @@ namespace Ringtoets.Common.Data.Structures
         }
 
         #region Schematization
+
+        /// <summary>
+        /// Gets or sets the structure.
+        /// </summary>
+        public T Structure
+        {
+            get
+            {
+                return structure;
+            }
+            set
+            {
+                structure = value;
+                UpdateStructureProperties();
+            }
+        }
 
         /// <summary>
         /// Gets or sets the orientation of the normal of the structure.
@@ -268,26 +309,6 @@ namespace Ringtoets.Common.Data.Structures
         }
 
         #endregion
-
-        #endregion
-
-        #region Model factors
-
-        /// <summary>
-        /// Gets or sets the model factor for the super critical flow.
-        /// </summary>
-        /// <remarks>Only sets the mean.</remarks>
-        public NormalDistribution ModelFactorSuperCriticalFlow
-        {
-            get 
-            {
-                return modelFactorSuperCriticalFlow;
-            }
-            set
-            {
-                modelFactorSuperCriticalFlow.Mean = value.Mean;
-            }
-        }
 
         #endregion
 

@@ -93,6 +93,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.IsInstanceOf<IUseBreakWater>(input);
             Assert.IsInstanceOf<IUseForeshore>(input);
 
+            Assert.IsNull(input.Structure);
             Assert.IsNull(input.HydraulicBoundaryLocation);
 
             AssertEqualValue(double.NaN, input.StructureNormalOrientation);
@@ -482,6 +483,31 @@ namespace Ringtoets.Common.Data.Test.Structures
             AssertDistributionCorrectlySet(input.StormDuration, distributionToSet, expectedDistribution);
         }
 
+        [Test]
+        public void Properties_Structure_UpdateValuesAccordingly()
+        {
+            // Setup
+            var structure = new SimpleStructure(new StructureBase.ConstructionProperties
+            {
+                Name = "<awesome name>",
+                Location = new Point2D(0, 0),
+                Id = "id"
+            });
+
+            var input = new SimpleStructuresInput();
+
+            // Precondition
+            Assert.IsNull(input.Structure);
+            Assert.IsFalse(input.Updated);
+
+            // Call
+            input.Structure = structure;
+
+            // Assert
+            Assert.AreSame(structure, input.Structure);
+            Assert.IsTrue(input.Updated);
+        }
+
         private static void AssertEqualValue(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
@@ -499,6 +525,20 @@ namespace Ringtoets.Common.Data.Test.Structures
             DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
         }
 
-        private class SimpleStructuresInput : StructuresInputBase<StructureBase> {}
+        private class SimpleStructuresInput : StructuresInputBase<StructureBase> 
+        {
+            protected override void UpdateStructureProperties()
+            {
+                Updated = true;
+            }
+
+            public bool Updated { get; private set; }
+        }
+
+        private class SimpleStructure : StructureBase
+        {
+            public SimpleStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
+            public SimpleStructure(string name, string id, Point2D location, double structureNormalOrientation) : base(name, id, location, structureNormalOrientation) {}
+        }
     }
 }
