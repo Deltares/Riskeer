@@ -86,7 +86,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                 CalculationGroupContextOnNodeRemoved);
 
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationContextTreeNodeInfo<ClosingStructuresCalculationContext>(
-                CalculationContextChildNodeObjects, 
+                CalculationContextChildNodeObjects,
                 CalculationContextContextMenuStrip,
                 CalculationContextOnNodeRemoved);
 
@@ -182,6 +182,33 @@ namespace Ringtoets.ClosingStructures.Plugin
         #endregion
 
         #endregion
+
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, ClosingStructuresFailureMechanism failureMechanism)
+        {
+            if (!failureMechanism.Sections.Any())
+            {
+                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported;
+            }
+
+            if (assessmentSection.HydraulicBoundaryDatabase == null)
+            {
+                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
+            }
+
+            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            if (!string.IsNullOrEmpty(validationProblem))
+            {
+                return string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
+                                     validationProblem);
+            }
+
+            return null;
+        }
+
+        private static void CalculateAll(ClosingStructuresFailureMechanism failureMechanism, IEnumerable<ClosingStructuresCalculation> calculations)
+        {
+            //Add calculate logic, part of WTI-554
+        }
 
         #region TreeNodeInfo
 
@@ -385,8 +412,8 @@ namespace Ringtoets.ClosingStructures.Plugin
             {
                 new CommentContext<ICommentable>(context.WrappedData),
                 new ClosingStructuresInputContext(context.WrappedData.InputParameters,
-                                                 context.FailureMechanism,
-                                                 context.AssessmentSection)
+                                                  context.FailureMechanism,
+                                                  context.AssessmentSection)
             };
 
             if (context.WrappedData.HasOutput)
@@ -407,8 +434,8 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             ClosingStructuresCalculation calculation = context.WrappedData;
 
-            return builder.AddValidateCalculationItem(context, null, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                          .AddPerformCalculationItem(calculation, context, null, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+            return builder.AddValidateCalculationItem(context, ValidateAction, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                          .AddPerformCalculationItem(calculation, context, CalculateAction, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
@@ -420,6 +447,10 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .AddPropertiesItem()
                           .Build();
         }
+
+        private void CalculateAction(ClosingStructuresCalculation closingStructuresCalculation, ClosingStructuresCalculationContext closingStructuresCalculationContext) {}
+
+        private void ValidateAction(ClosingStructuresCalculationContext closingStructuresCalculationContext) {}
 
         private string ValidateAllDataAvailableAndGetErrorMessageForCalculation(ClosingStructuresCalculationContext context)
         {
@@ -439,32 +470,5 @@ namespace Ringtoets.ClosingStructures.Plugin
         #endregion
 
         #endregion
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, ClosingStructuresFailureMechanism failureMechanism)
-        {
-            if (!failureMechanism.Sections.Any())
-            {
-                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported;
-            }
-
-            if (assessmentSection.HydraulicBoundaryDatabase == null)
-            {
-                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
-            }
-
-            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
-            if (!string.IsNullOrEmpty(validationProblem))
-            {
-                return string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
-                                     validationProblem);
-            }
-
-            return null;
-        }
-
-        private static void CalculateAll(ClosingStructuresFailureMechanism failureMechanism, IEnumerable<ClosingStructuresCalculation> calculations)
-        {
-            //Add calculate logic, part of WTI-554
-        }
     }
 }
