@@ -306,7 +306,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor criticalOvertoppingDischargeProperty = dynamicProperties[criticalOvertoppingDischargePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(criticalOvertoppingDischargeProperty.Converter);
             Assert.AreEqual(schematizationCategory, criticalOvertoppingDischargeProperty.Category);
-            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", criticalOvertoppingDischargeProperty.DisplayName);
+            Assert.AreEqual("Kritiek instromend debiet [m²/s]", criticalOvertoppingDischargeProperty.DisplayName);
             Assert.AreEqual("Kritiek instromend debiet directe invoer.", criticalOvertoppingDischargeProperty.Description);
 
             PropertyDescriptor constructiveStrengthLinearLoadModelProperty = dynamicProperties[constructiveStrengthLinearLoadModelPropertyIndex];
@@ -345,7 +345,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor failureCollisionEnergyProperty = dynamicProperties[failureCollisionEnergyPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(failureCollisionEnergyProperty.Converter);
             Assert.AreEqual(schematizationCategory, failureCollisionEnergyProperty.Category);
-            Assert.AreEqual("Bezwijkwaarde aanvaarenergie [kNm]", failureCollisionEnergyProperty.DisplayName);
+            Assert.AreEqual("Bezwijkwaarde aanvaarenergie [kN m]", failureCollisionEnergyProperty.DisplayName);
             Assert.AreEqual("Bezwijkwaarde aanvaarenergie.", failureCollisionEnergyProperty.Description);
 
             PropertyDescriptor shipMassProperty = dynamicProperties[shipMassPropertyIndex];
@@ -367,7 +367,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor probabilityCollisionSecondaryStructureProperty = dynamicProperties[probabilityCollisionSecondaryStructurePropertyIndex];
             Assert.AreEqual(schematizationCategory, probabilityCollisionSecondaryStructureProperty.Category);
-            Assert.AreEqual("Kans op aanvaring tweede keermiddel per nivellering [1/jaar/niv]", probabilityCollisionSecondaryStructureProperty.DisplayName);
+            Assert.AreEqual("Kans op aanvaring tweede keermiddel per nivellering [1/(jaar niv)]", probabilityCollisionSecondaryStructureProperty.DisplayName);
             Assert.AreEqual("Kans op aanvaring tweede keermiddel per nivellering.", probabilityCollisionSecondaryStructureProperty.Description);
 
             PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[flowVelocityStructureClosablePropertyIndex];

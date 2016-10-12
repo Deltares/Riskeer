@@ -1694,7 +1694,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kritiek instromend debiet [m³/s/m].
+        ///   Looks up a localized string similar to Kritiek instromend debiet [m²/s].
         /// </summary>
         public static string Structure_CriticalOvertoppingDischarge_DisplayName {
             get {
@@ -1829,7 +1829,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.
+        ///   Looks up a localized string similar to Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel..
         /// </summary>
         public static string Structure_ThresholdHeightOpenWeir_Description {
             get {

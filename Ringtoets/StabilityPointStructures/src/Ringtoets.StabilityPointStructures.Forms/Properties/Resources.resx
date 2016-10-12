@@ -151,7 +151,7 @@
     <value>Bezwijkwaarde aanvaarenergie.</value>
   </data>
   <data name="Structure_FailureCollisionEnergy_DisplayName" xml:space="preserve">
-    <value>Bezwijkwaarde aanvaarenergie [kNm]</value>
+    <value>Bezwijkwaarde aanvaarenergie [kN m]</value>
   </data>
   <data name="Structure_FailureProbabilityRepairClosure_Description" xml:space="preserve">
     <value>Faalkans herstel van gefaalde situatie.</value>
@@ -181,7 +181,7 @@
     <value>Kans op aanvaring tweede keermiddel per nivellering.</value>
   </data>
   <data name="Structure_ProbabilityCollisionSecondaryStructure_DisplayName" xml:space="preserve">
-    <value>Kans op aanvaring tweede keermiddel per nivellering [1/jaar/niv]</value>
+    <value>Kans op aanvaring tweede keermiddel per nivellering [1/(jaar niv)]</value>
   </data>
   <data name="Structure_ShipMass_Description" xml:space="preserve">
     <value>Massa van het schip.</value>

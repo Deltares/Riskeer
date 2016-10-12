@@ -53,7 +53,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
         }
 
         [Test]
-        public void GetPropertyInfos_ReturnsSupportedPropertyClasses()
+        public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
         {
             // Setup
             using (var plugin = new StabilityPointStructuresPlugin())

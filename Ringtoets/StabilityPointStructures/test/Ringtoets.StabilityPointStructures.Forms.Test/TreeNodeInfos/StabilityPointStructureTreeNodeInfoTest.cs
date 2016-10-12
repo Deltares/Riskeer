@@ -111,7 +111,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
             menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.Build()).Return(null);
-            mocksRepository.ReplayAll();
 
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
@@ -120,6 +119,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 var info = GetInfo(plugin);
 
                 guiMock.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                mocksRepository.ReplayAll();
 
                 // Call
                 info.ContextMenuStrip(null, null, treeViewControl);

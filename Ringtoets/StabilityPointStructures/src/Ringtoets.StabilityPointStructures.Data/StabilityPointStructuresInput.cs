@@ -372,7 +372,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets or sets the storm duration.
-        /// [hrs]
+        /// [h]
         /// </summary>
         /// <remarks>Only sets the mean.</remarks>
         public VariationCoefficientLogNormalDistribution StormDuration
@@ -629,7 +629,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets or sets the failure collision energy.
-        /// [kNm]
+        /// [kN m]
         /// </summary>
         public VariationCoefficientLogNormalDistribution FailureCollisionEnergy
         {
@@ -646,7 +646,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets or sets the mass of the ship.
-        /// [tons]
+        /// [ton]
         /// </summary>
         public VariationCoefficientNormalDistribution ShipMass
         {
@@ -758,7 +758,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets or sets the critical overtopping discharge.
-        /// [m^3/s/m]
+        /// [m^2/s]
         /// </summary>
         public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge
         {

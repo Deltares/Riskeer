@@ -254,7 +254,7 @@ namespace Ringtoets.Common.Data.Structures
 
         /// <summary>
         /// Gets or sets the critical overtopping discharge.
-        /// [m^3/s/m]
+        /// [m^2/s]
         /// </summary>
         public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge
         {

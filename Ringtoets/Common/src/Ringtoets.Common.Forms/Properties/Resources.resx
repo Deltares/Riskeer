@@ -713,7 +713,7 @@
     <value>Kritiek instromend debiet directe invoer.</value>
   </data>
   <data name="Structure_CriticalOvertoppingDischarge_DisplayName" xml:space="preserve">
-    <value>Kritiek instromend debiet [m³/s/m]</value>
+    <value>Kritiek instromend debiet [m²/s]</value>
   </data>
   <data name="GravitationalAcceleration_Description" xml:space="preserve">
     <value>Valversnelling.</value>

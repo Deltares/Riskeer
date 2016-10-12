@@ -176,7 +176,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets the critical overtopping discharge of the stability point structure.
-        /// [m^3/s/m]
+        /// [m^2/s]
         /// </summary>
         public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
 
@@ -236,7 +236,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets the failure collision energy of the stability point structure.
-        /// [kNm]
+        /// [kN m]
         /// </summary>
         public VariationCoefficientLogNormalDistribution FailureCollisionEnergy { get; private set; }
 
@@ -260,7 +260,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets the probability of a secondary collision on the structure.
-        /// [1/year/levelling]
+        /// [1/(year levelling)]
         /// </summary>
         public double ProbabilityCollisionSecondaryStructure { get; private set; }
 
@@ -356,7 +356,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
             /// <summary>
             /// Gets the critical overtopping discharge of the stability point structure.
-            /// [m^3/s/m]
+            /// [m^2/s]
             /// </summary>
             public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
 
@@ -391,7 +391,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             public NormalDistribution InsideWaterLevelFailureConstruction { get; private set; }
 
             /// <summary>
-            /// Gets the evaluation level of the stability point structure.
+            /// Gets or sets the evaluation level of the stability point structure.
             /// [m+NAP]
             /// </summary>
             public double EvaluationLevel { get; set; }
@@ -403,26 +403,26 @@ namespace Ringtoets.StabilityPointStructures.Data
             public NormalDistribution LevelCrestStructure { get; private set; }
 
             /// <summary>
-            /// Gets the vertical distance of the stability point structure.
+            /// Gets or sets the vertical distance of the stability point structure.
             /// [m]
             /// </summary>
             public double VerticalDistance { get; set; }
 
             /// <summary>
-            /// Gets the probability of failing to repair a failed closure of the stability point structure.
+            /// Gets or sets the probability of failing to repair a failed closure of the stability point structure.
             /// [1/year]
             /// </summary>
             public double FailureProbabilityRepairClosure { get; set; }
 
             /// <summary>
             /// Gets the failure collision energy of the stability point structure.
-            /// [kNm]
+            /// [kN m]
             /// </summary>
             public VariationCoefficientLogNormalDistribution FailureCollisionEnergy { get; private set; }
 
             /// <summary>
             /// Gets the mass of the ship.
-            /// [tons]
+            /// [ton]
             /// </summary>
             public VariationCoefficientNormalDistribution ShipMass { get; private set; }
 
@@ -433,14 +433,14 @@ namespace Ringtoets.StabilityPointStructures.Data
             public VariationCoefficientNormalDistribution ShipVelocity { get; private set; }
 
             /// <summary>
-            /// Gets the levelling count.
+            /// Gets or sets the levelling count.
             /// [1/year]
             /// </summary>
             public int LevellingCount { get; set; }
 
             /// <summary>
-            /// Gets the probability of a secondary collision on the structure.
-            /// [1/year/levelling]
+            /// Gets or sets the probability of a secondary collision on the structure.
+            /// [1/(year levelling)]
             /// </summary>
             public double ProbabilityCollisionSecondaryStructure { get; set; }
 
@@ -469,7 +469,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             public LogNormalDistribution AreaFlowApertures { get; private set; }
 
             /// <summary>
-            /// Gets the type of stability point structure inflow model.
+            /// Gets or sets the type of stability point structure inflow model.
             /// </summary>
             public StabilityPointStructureInflowModelType InflowModelType { get; set; }
         }

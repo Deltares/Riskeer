@@ -181,7 +181,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bezwijkwaarde aanvaarenergie [kNm].
+        ///   Looks up a localized string similar to Bezwijkwaarde aanvaarenergie [kN m].
         /// </summary>
         internal static string Structure_FailureCollisionEnergy_DisplayName {
             get {
@@ -271,7 +271,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans op aanvaring tweede keermiddel per nivellering [1/jaar/niv].
+        ///   Looks up a localized string similar to Kans op aanvaring tweede keermiddel per nivellering [1/(jaar niv)].
         /// </summary>
         internal static string Structure_ProbabilityCollisionSecondaryStructure_DisplayName {
             get {
