@@ -447,23 +447,23 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="StructuresImporter_GetStandardDeviation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_" xml:space="preserve">
     <value>De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een standaard deviatie (regel {3}).</value>
   </data>
-  <data name="StructuresParameterRowsValidator_Mean_on_Line_0_ColumnName_1_causes_unreliable_variation_value_conversion" xml:space="preserve">
-    <value>Voor een betrouwbare conversie tussen standaard deviatie en variatiecoëfficiënt mag de gemiddelde waarde (op regel {0}, kolom {1}) niet te dicht op 0 zijn.</value>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_mean_too_small_for_reliable_variation_value_conversion" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', is te dicht op 0 waardoor een betrouwbare conversie tussen standaard deviatie en variatiecoëfficiënt niet mogelijk is.</value>
   </data>
   <data name="StructuresImporter_GetCoefficientOfVariation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_" xml:space="preserve">
     <value>De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een variatiecoëfficiënt (regel {3}).</value>
   </data>
-  <data name="StructuresParameterRowsValidator_Line_0_ColumnName_1_orientation_out_of_range" xml:space="preserve">
-    <value>De waarde op regel {0}, kolom '{1}' valt buiten het bereik [0, 360].</value>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_orientation_out_of_range" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', valt buiten het bereik [0, 360].</value>
   </data>
-  <data name="StructuresParameterRowsValidator_Line_0_ColumnName_1_probability_out_of_range" xml:space="preserve">
-    <value>De waarde op regel {0}, kolom '{1}' valt buiten het bereik (0, 1].</value>
+  <data name="StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_2_probability_out_of_range" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', valt buiten het bereik (0, 1].</value>
   </data>
-  <data name="StructuresParameterRowsValidator_Line_0_ColumnName_1_value_cannot_be_smaller_than_zero" xml:space="preserve">
-    <value>De waarde op regel {0}, kolom '{1}' mag niet kleiner dan nul zijn.</value>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_positive_whole_number" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een positief geheel getal zijn.</value>
   </data>
-  <data name="StructuresParameterRowsValidator_Line_0_ColumnName_1_value_invalid" xml:space="preserve">
-    <value>De waarde op regel {0}, kolom '{1}' is ongeldig.</value>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_structure_type_invalid" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een geldig kunstwerk type zijn.</value>
   </data>
   <data name="StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_" xml:space="preserve">
     <value>Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT '{0}'.</value>
@@ -477,5 +477,14 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="StructuresImporter_LogValidationErrorForStructure_One_or_more_erors_skip_structure_ErrorMessageList_0_" xml:space="preserve">
     <value>Er zijn 1 of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:
 {0}</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ValidateDoubleParameter_ParameterId_0_Line_1_ColumnName_2_not_number" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', is geen getal.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_not_positive_number" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een getal zijn dat niet negatief is.</value>
+  </data>
+  <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_invalid_variancetype_value" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet de waarde 0 (variatiecoëfficiënt) of 1 (standaard deviatie) hebben.</value>
   </data>
 </root>

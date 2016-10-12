@@ -190,7 +190,7 @@ namespace Ringtoets.HeightStructures.IO.Test
                 CreateExpectedErrorMessage(csvFilePath, "Coupure Den Oever (90k1)", "KUNST1",
                                            new[]
                                            {
-                                               "De waarde op regel 2, kolom 'NumeriekeWaarde' valt buiten het bereik [0, 360].",
+                                               "De waarde voor parameter 'KW_HOOGTE1' op regel 2, kolom 'numeriekewaarde', valt buiten het bereik [0, 360].",
                                                "Parameter 'KW_HOOGTE2' komt meermaals voor."
                                            }),
                 CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2",
