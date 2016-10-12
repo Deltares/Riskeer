@@ -42,7 +42,6 @@ namespace Core.Common.Utils.Test
             Assert.IsInstanceOf<NullableConverter>(converter);
             Assert.AreEqual(nullableType, converter.NullableType);
             Assert.AreEqual(typeof(SimpleEnum), converter.UnderlyingType);
-            Assert.AreEqual(typeof(EnumConverter), converter.UnderlyingTypeConverter.GetType());
         }
 
         [Test]
@@ -52,7 +51,7 @@ namespace Core.Common.Utils.Test
             var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
-            var canConvert = converter.CanConvertTo(typeof(NotSupportedType));
+            bool canConvert = converter.CanConvertTo(typeof(NotSupportedType));
 
             // Assert
             Assert.IsFalse(canConvert);
@@ -65,7 +64,7 @@ namespace Core.Common.Utils.Test
             var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
-            var canConvert = converter.CanConvertTo(typeof(string));
+            bool canConvert = converter.CanConvertTo(typeof(string));
 
             // Assert
             Assert.IsTrue(canConvert);
@@ -136,7 +135,7 @@ namespace Core.Common.Utils.Test
             var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
-            var result = converter.ConvertTo(enumValue, typeof(string));
+            object result = converter.ConvertTo(enumValue, typeof(string));
 
             // Assert
             const string expectedText = "<first>";
@@ -150,7 +149,7 @@ namespace Core.Common.Utils.Test
             var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
-            var canConvert = converter.CanConvertFrom(typeof(NotSupportedType));
+            bool canConvert = converter.CanConvertFrom(typeof(NotSupportedType));
 
             // Assert
             Assert.IsFalse(canConvert);
@@ -163,7 +162,7 @@ namespace Core.Common.Utils.Test
             var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
-            var canConvert = converter.CanConvertFrom(typeof(string));
+            bool canConvert = converter.CanConvertFrom(typeof(string));
 
             // Assert
             Assert.IsTrue(canConvert);
@@ -203,7 +202,7 @@ namespace Core.Common.Utils.Test
             var converter = new NullableEnumTypeConverter(typeof(SimpleEnum?));
 
             // Call
-            var result = converter.ConvertFrom(second);
+            object result = converter.ConvertFrom(second);
 
             // Assert
             var expectedEnumValue = SimpleEnum.SecondValue;
