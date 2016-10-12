@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -225,25 +226,27 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void CriticalFlowRate_SetNewValue_GetNewValues()
         {
             // Setup
-            const double meanValue = 1.2345689;
-            const double standardDeviationValue = 9.87654321;
+            var random = new Random(22);
             var input = new GrassCoverErosionInwardsInput();
-
-            int originalNumberOfDecimalPlacesMean = input.CriticalFlowRate.Mean.NumberOfDecimalPlaces;
-            int originalNumberOfDecimalPlacesStandardDeviation = input.CriticalFlowRate.StandardDeviation.NumberOfDecimalPlaces;
-
-            // Call
-            input.CriticalFlowRate = new LogNormalDistribution(10)
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new LogNormalDistribution(4)
             {
-                Mean = (RoundedDouble) meanValue,
-                StandardDeviation = (RoundedDouble) standardDeviationValue
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            var distributionToSet = new LogNormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
             };
 
+            // Call
+            input.CriticalFlowRate = distributionToSet;
+
             // Assert
-            Assert.AreEqual(originalNumberOfDecimalPlacesMean, input.CriticalFlowRate.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlacesMean, meanValue), input.CriticalFlowRate.Mean);
-            Assert.AreEqual(originalNumberOfDecimalPlacesStandardDeviation, input.CriticalFlowRate.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(new RoundedDouble(originalNumberOfDecimalPlacesStandardDeviation, standardDeviationValue), input.CriticalFlowRate.StandardDeviation);
+            Assert.AreNotSame(distributionToSet, input.CriticalFlowRate);
+            DistributionAssert.AreEqual(expectedDistribution, input.CriticalFlowRate);
         }
     }
 }

@@ -330,50 +330,52 @@ namespace Ringtoets.Piping.Data.Test
         public void PhreaticLevelExit_SetNewValue_UpdateMeanAndStandardDeviation()
         {
             // Setup
-            PipingInput inputs = new PipingInput(new GeneralPipingInput());
-            NormalDistribution originalPhreaticLevelExit = inputs.PhreaticLevelExit;
-
-            NormalDistribution newValue = new NormalDistribution(5)
+            var random = new Random(22);
+            var input = new PipingInput(new GeneralPipingInput());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new NormalDistribution(3)
             {
-                Mean = (RoundedDouble) 1.23456,
-                StandardDeviation = (RoundedDouble) 7.89123
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            var distributionToSet = new NormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
             };
 
             // Call
-            inputs.PhreaticLevelExit = newValue;
+            input.PhreaticLevelExit = distributionToSet;
 
             // Assert
-            Assert.AreSame(originalPhreaticLevelExit, inputs.PhreaticLevelExit,
-                           "Stochast instance hasn't changed to 'newValue'.");
-            Assert.AreEqual(3, originalPhreaticLevelExit.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.235, originalPhreaticLevelExit.Mean.Value);
-            Assert.AreEqual(3, originalPhreaticLevelExit.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(7.891, originalPhreaticLevelExit.StandardDeviation.Value);
+            AssertDistributionCorrectlySet(input.PhreaticLevelExit, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void DampingFactorExit_SetNewValue_UpdateMeanAndStandardDeviation()
         {
             // Setup
-            PipingInput inputs = new PipingInput(new GeneralPipingInput());
-            LogNormalDistribution originalDampingFactorExit = inputs.DampingFactorExit;
-
-            LogNormalDistribution newValue = new LogNormalDistribution(5)
+            var random = new Random(22);
+            var input = new PipingInput(new GeneralPipingInput());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new LogNormalDistribution(3)
             {
-                Mean = (RoundedDouble) 4.56789,
-                StandardDeviation = (RoundedDouble) 1.23456
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            var distributionToSet = new LogNormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
             };
 
             // Call
-            inputs.DampingFactorExit = newValue;
+            input.DampingFactorExit = distributionToSet;
 
             // Assert
-            Assert.AreSame(originalDampingFactorExit, inputs.DampingFactorExit,
-                           "Stochast instance hasn't changed to 'newValue'.");
-            Assert.AreEqual(3, originalDampingFactorExit.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(4.568, originalDampingFactorExit.Mean.Value);
-            Assert.AreEqual(3, originalDampingFactorExit.StandardDeviation.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.235, originalDampingFactorExit.StandardDeviation.Value);
+            AssertDistributionCorrectlySet(input.DampingFactorExit, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -806,6 +808,12 @@ namespace Ringtoets.Piping.Data.Test
             });
 
             return surfaceLine;
+        }
+
+        private static void AssertDistributionCorrectlySet(IDistribution distributionToAssert, IDistribution setDistribution, IDistribution expectedDistribution)
+        {
+            Assert.AreNotSame(setDistribution, distributionToAssert);
+            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
         }
     }
 }
