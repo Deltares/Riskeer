@@ -44,6 +44,54 @@ namespace Ringtoets.Piping.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
+            var phreaticLevelExit = new NormalDistribution(3)
+            {
+                Mean = (RoundedDouble) 0,
+                StandardDeviation = (RoundedDouble) 1
+            };
+
+            var dampingFactorExit = new LogNormalDistribution(3)
+            {
+                Mean = (RoundedDouble) 0.7,
+                StandardDeviation = (RoundedDouble) 0.0
+            };
+
+            var diameter70 = new LogNormalDistribution(6)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) double.NaN
+            };
+
+            var darcyPermeability = new LogNormalDistribution(6)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) double.NaN
+            };
+
+            var thicknessCoverageLayer = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.5
+            };
+
+            var saturatedVolumicWeightOfCoverageLayer = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) double.NaN
+            };
+
+            var thicknessAquiferLayer = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.5
+            };
+
+            var seepageLength = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) double.NaN
+            };
+
             GeneralPipingInput generalInputParameters = new GeneralPipingInput();
 
             // Call
@@ -53,30 +101,10 @@ namespace Ringtoets.Piping.Data.Test
             Assert.IsInstanceOf<Observable>(inputParameters);
             Assert.IsInstanceOf<ICalculationInput>(inputParameters);
 
-            Assert.IsInstanceOf<NormalDistribution>(inputParameters.PhreaticLevelExit);
-            Assert.AreEqual(0, inputParameters.PhreaticLevelExit.Mean.Value);
-            Assert.AreEqual(3, inputParameters.PhreaticLevelExit.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(1, inputParameters.PhreaticLevelExit.StandardDeviation.Value);
-            Assert.AreEqual(3, inputParameters.PhreaticLevelExit.StandardDeviation.NumberOfDecimalPlaces);
-
-            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.DampingFactorExit);
-            Assert.AreEqual(0.7, inputParameters.DampingFactorExit.Mean.Value);
-            Assert.AreEqual(3, inputParameters.DampingFactorExit.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.0, inputParameters.DampingFactorExit.StandardDeviation,
-                            GetErrorTolerance(inputParameters.DampingFactorExit.StandardDeviation));
-            Assert.AreEqual(3, inputParameters.DampingFactorExit.StandardDeviation.NumberOfDecimalPlaces);
-
-            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.Diameter70);
-            Assert.IsNaN(inputParameters.Diameter70.Mean);
-            Assert.IsNaN(inputParameters.Diameter70.StandardDeviation);
-            Assert.AreEqual(6, inputParameters.Diameter70.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(6, inputParameters.Diameter70.StandardDeviation.NumberOfDecimalPlaces);
-
-            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.DarcyPermeability);
-            Assert.IsNaN(inputParameters.DarcyPermeability.Mean);
-            Assert.IsNaN(inputParameters.DarcyPermeability.StandardDeviation);
-            Assert.AreEqual(6, inputParameters.DarcyPermeability.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(6, inputParameters.DarcyPermeability.StandardDeviation.NumberOfDecimalPlaces);
+            DistributionAssert.AreEqual(phreaticLevelExit, inputParameters.PhreaticLevelExit);
+            DistributionAssert.AreEqual(dampingFactorExit, inputParameters.DampingFactorExit);
+            DistributionAssert.AreEqual(diameter70, inputParameters.Diameter70);
+            DistributionAssert.AreEqual(darcyPermeability, inputParameters.DarcyPermeability);
 
             Assert.IsNull(inputParameters.SurfaceLine);
             Assert.IsNull(inputParameters.StochasticSoilModel);
@@ -95,31 +123,14 @@ namespace Ringtoets.Piping.Data.Test
             Assert.AreEqual(generalInputParameters.BeddingAngle, inputParameters.BeddingAngle);
             Assert.AreEqual(generalInputParameters.MeanDiameter70, inputParameters.MeanDiameter70);
 
-            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.ThicknessCoverageLayer);
-            Assert.IsNaN(inputParameters.ThicknessCoverageLayer.Mean);
-            Assert.AreEqual(2, inputParameters.ThicknessCoverageLayer.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.5, inputParameters.ThicknessCoverageLayer.StandardDeviation.Value);
-            Assert.AreEqual(2, inputParameters.ThicknessCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
+            DistributionAssert.AreEqual(thicknessCoverageLayer, inputParameters.ThicknessCoverageLayer);
 
-            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.SaturatedVolumicWeightOfCoverageLayer);
-            Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.NumberOfDecimalPlaces);
+            DistributionAssert.AreEqual(saturatedVolumicWeightOfCoverageLayer, inputParameters.SaturatedVolumicWeightOfCoverageLayer);
             Assert.AreEqual(2, inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift.NumberOfDecimalPlaces);
-            Assert.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Mean.Value);
-            Assert.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.StandardDeviation.Value);
             Assert.IsNaN(inputParameters.SaturatedVolumicWeightOfCoverageLayer.Shift.Value);
 
-            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.ThicknessAquiferLayer);
-            Assert.IsNaN(inputParameters.ThicknessAquiferLayer.Mean);
-            Assert.AreEqual(2, inputParameters.ThicknessAquiferLayer.Mean.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.5, inputParameters.ThicknessAquiferLayer.StandardDeviation.Value);
-            Assert.AreEqual(2, inputParameters.ThicknessAquiferLayer.StandardDeviation.NumberOfDecimalPlaces);
-
-            Assert.IsInstanceOf<LogNormalDistribution>(inputParameters.SeepageLength);
-            Assert.IsNaN(inputParameters.SeepageLength.Mean);
-            Assert.AreEqual(2, inputParameters.SeepageLength.Mean.NumberOfDecimalPlaces);
-            Assert.IsNaN(inputParameters.SeepageLength.StandardDeviation);
-            Assert.AreEqual(2, inputParameters.SeepageLength.StandardDeviation.NumberOfDecimalPlaces);
+            DistributionAssert.AreEqual(thicknessAquiferLayer, inputParameters.ThicknessAquiferLayer);
+            DistributionAssert.AreEqual(seepageLength, inputParameters.SeepageLength);
 
             Assert.IsNaN(inputParameters.ExitPointL);
             Assert.AreEqual(2, inputParameters.ExitPointL.NumberOfDecimalPlaces);
