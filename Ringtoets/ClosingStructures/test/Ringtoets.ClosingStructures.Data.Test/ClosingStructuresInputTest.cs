@@ -40,6 +40,79 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
+            // Setup 
+            var insideWaterLevel = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.1
+            };
+
+            var stormDuration = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 6,
+                CoefficientOfVariation = (RoundedDouble) 0.25
+            };
+
+            var modelFactorSuperCriticalFlow = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 0.03
+            };
+
+            var drainCoefficient = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) 1,
+                StandardDeviation = (RoundedDouble) 0.2
+            };
+
+            var thresholdHeightOpenWeir = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.1
+            };
+
+            var areaFlowApertures = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.01
+            };
+
+            var levelCrestStructureNotClosing = new NormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
+            var allowedLevelIncreaseStorage = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.1
+            };
+
+            var storageStructureArea = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.1
+            };
+
+            var flowWidthAtBottomProtection = new LogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.05
+            };
+
+            var criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.15
+            };
+
+            var widthFlowApertures = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.05
+            };
+
             // Call
             var input = new ClosingStructuresInput();
 
@@ -68,30 +141,19 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.IsNaN(input.FactorStormDurationOpenStructure);
             Assert.IsNaN(input.DeviationWaveDirection);
 
-            AssertEqualValue(1.1, input.ModelFactorSuperCriticalFlow.Mean);
-            AssertEqualValue(0.03, input.ModelFactorSuperCriticalFlow.StandardDeviation);
-            Assert.IsNaN(input.ThresholdHeightOpenWeir.Mean);
-            AssertEqualValue(0.1, input.ThresholdHeightOpenWeir.StandardDeviation);
-            AssertEqualValue(1, input.DrainCoefficient.Mean);
-            AssertEqualValue(0.2, input.DrainCoefficient.StandardDeviation);
-            Assert.IsNaN(input.AreaFlowApertures.Mean);
-            AssertEqualValue(0.01, input.AreaFlowApertures.StandardDeviation);
-            Assert.IsNaN(input.LevelCrestStructureNotClosing.Mean);
-            AssertEqualValue(0.05, input.LevelCrestStructureNotClosing.StandardDeviation);
-            Assert.IsNaN(input.InsideWaterLevel.Mean);
-            AssertEqualValue(0.1, input.InsideWaterLevel.StandardDeviation);
-            Assert.IsNaN(input.AllowedLevelIncreaseStorage.Mean);
-            AssertEqualValue(0.1, input.AllowedLevelIncreaseStorage.StandardDeviation);
-            Assert.IsNaN(input.StorageStructureArea.Mean);
-            AssertEqualValue(0.1, input.StorageStructureArea.CoefficientOfVariation);
-            Assert.IsNaN(input.FlowWidthAtBottomProtection.Mean);
-            AssertEqualValue(0.05, input.FlowWidthAtBottomProtection.StandardDeviation);
-            Assert.IsNaN(input.CriticalOvertoppingDischarge.Mean);
-            AssertEqualValue(0.15, input.CriticalOvertoppingDischarge.CoefficientOfVariation);
-            Assert.IsNaN(input.WidthFlowApertures.Mean);
-            AssertEqualValue(0.05, input.WidthFlowApertures.CoefficientOfVariation);
-            AssertEqualValue(6.0, input.StormDuration.Mean);
-            AssertEqualValue(0.25, input.StormDuration.CoefficientOfVariation);
+            DistributionAssert.AreEqual(insideWaterLevel, input.InsideWaterLevel);
+            DistributionAssert.AreEqual(stormDuration, input.StormDuration);
+            DistributionAssert.AreEqual(modelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow);
+            DistributionAssert.AreEqual(drainCoefficient, input.DrainCoefficient);
+            DistributionAssert.AreEqual(thresholdHeightOpenWeir, input.ThresholdHeightOpenWeir);
+            DistributionAssert.AreEqual(areaFlowApertures, input.AreaFlowApertures);
+            DistributionAssert.AreEqual(levelCrestStructureNotClosing, input.LevelCrestStructureNotClosing);
+            DistributionAssert.AreEqual(allowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
+            DistributionAssert.AreEqual(storageStructureArea, input.StorageStructureArea);
+            DistributionAssert.AreEqual(flowWidthAtBottomProtection, input.FlowWidthAtBottomProtection);
+            DistributionAssert.AreEqual(criticalOvertoppingDischarge, input.CriticalOvertoppingDischarge);
+            DistributionAssert.AreEqual(widthFlowApertures, input.WidthFlowApertures);
+
             Assert.AreEqual(1.0, input.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(0, input.IdenticalApertures);
         }
