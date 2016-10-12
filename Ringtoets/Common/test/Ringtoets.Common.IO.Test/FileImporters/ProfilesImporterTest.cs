@@ -325,7 +325,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_InvalidDamType_TrueAndLogMessage()
+        public void Import_InvalidDamType_FalseAndLogMessage()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
@@ -345,7 +345,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 Assert.IsTrue(found);
             };
             TestHelper.AssertLogMessages(call, asserts);
-            Assert.IsTrue(importResult);
+            Assert.IsFalse(importResult);
         }
 
         [Test]
@@ -430,7 +430,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
         }
 
         [Test]
-        public void Import_PrflIsIncomplete_TrueAndErrorLog()
+        public void Import_PrflIsIncomplete_FalseAndErrorLog()
         {
             // Setup
             string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Plugin,
@@ -456,7 +456,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
                 Assert.IsTrue(found);
             };
             TestHelper.AssertLogMessages(call, asserts);
-            Assert.IsTrue(importResult);
+            Assert.IsFalse(importResult);
         }
 
         [Test]

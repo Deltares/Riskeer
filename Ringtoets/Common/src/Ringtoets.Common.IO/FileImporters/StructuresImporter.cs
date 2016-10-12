@@ -191,6 +191,7 @@ namespace Ringtoets.Common.IO.FileImporters
                 catch (CriticalFileReadException exception)
                 {
                     Log.Error(exception.Message);
+                    return new ReadResult<StructuresParameterRow>(true);
                 }
                 catch (LineParseException exception)
                 {
