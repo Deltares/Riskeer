@@ -123,7 +123,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             input.HydraulicBoundaryLocation = location;
 
             // Assert
-            Assert.AreEqual(location, input.HydraulicBoundaryLocation);
+            Assert.AreSame(location, input.HydraulicBoundaryLocation);
         }
 
         [Test]

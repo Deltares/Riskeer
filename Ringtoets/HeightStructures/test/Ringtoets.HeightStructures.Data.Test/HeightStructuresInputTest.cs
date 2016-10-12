@@ -129,8 +129,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
             var random = new Random(22);
 
-            RoundedDouble defaultModelFactorSuperCriticalFlowStandardDeviation = input.ModelFactorSuperCriticalFlow.StandardDeviation;
-            NormalDistribution modelFactorSuperCriticalFlow = new NormalDistribution(5)
+            RoundedDouble initialStandardDeviation = input.ModelFactorSuperCriticalFlow.StandardDeviation;
+            NormalDistribution modelFactorSuperCriticalFlow = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
@@ -140,8 +140,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             input.ModelFactorSuperCriticalFlow = modelFactorSuperCriticalFlow;
 
             // Assert
-            AssertAreEqual(modelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.Mean);
-            AssertAreEqual(defaultModelFactorSuperCriticalFlowStandardDeviation, input.ModelFactorSuperCriticalFlow.StandardDeviation);
+            AssertDistributionCorrectlySet(modelFactorSuperCriticalFlow, input.ModelFactorSuperCriticalFlow, initialStandardDeviation);
         }
 
         [Test]
@@ -155,7 +154,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             input.HydraulicBoundaryLocation = location;
 
             // Assert
-            Assert.AreEqual(location, input.HydraulicBoundaryLocation);
+            Assert.AreSame(location, input.HydraulicBoundaryLocation);
         }
 
         [Test]
@@ -171,6 +170,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             input.DeviationWaveDirection = deviationWaveDirection;
 
             // Assert
+            Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
             AssertAreEqual(deviationWaveDirection, input.DeviationWaveDirection);
         }
 
@@ -181,8 +181,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
             var random = new Random(22);
 
-            RoundedDouble defaultStormDurationCoefficientOfVariation = input.StormDuration.CoefficientOfVariation;
-            var stormDuration = new VariationCoefficientLogNormalDistribution(5)
+            RoundedDouble initialVariation = input.StormDuration.CoefficientOfVariation;
+            var stormDuration = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 CoefficientOfVariation = (RoundedDouble) random.NextDouble()
@@ -192,8 +192,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             input.StormDuration = stormDuration;
 
             // Assert
-            AssertAreEqual(stormDuration.Mean, input.StormDuration.Mean);
-            AssertAreEqual(defaultStormDurationCoefficientOfVariation, input.StormDuration.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(stormDuration, input.StormDuration, initialVariation);
         }
 
         [Test]
@@ -203,7 +202,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
             var random = new Random(22);
 
-            NormalDistribution levelCrestStructure = new NormalDistribution(5)
+            NormalDistribution levelCrestStructure = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) random.NextDouble(),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
@@ -213,8 +212,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             input.LevelCrestStructure = levelCrestStructure;
 
             // Assert
-            AssertAreEqual(levelCrestStructure.Mean, input.LevelCrestStructure.Mean);
-            AssertAreEqual(levelCrestStructure.StandardDeviation, input.LevelCrestStructure.StandardDeviation);
+            AssertDistributionCorrectlySet(levelCrestStructure, input.LevelCrestStructure);
         }
 
         [Test]
@@ -262,7 +260,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
             var random = new Random(22);
 
-            LogNormalDistribution allowedLevelIncreaseStorage = new LogNormalDistribution(5)
+            LogNormalDistribution allowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
@@ -272,8 +270,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             input.AllowedLevelIncreaseStorage = allowedLevelIncreaseStorage;
 
             // Assert
-            AssertAreEqual(allowedLevelIncreaseStorage.Mean, input.AllowedLevelIncreaseStorage.Mean);
-            AssertAreEqual(allowedLevelIncreaseStorage.StandardDeviation, input.AllowedLevelIncreaseStorage.StandardDeviation);
+            AssertDistributionCorrectlySet(allowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
         }
 
         [Test]
@@ -283,7 +280,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
             var random = new Random(22);
 
-            var storageStructureArea = new VariationCoefficientLogNormalDistribution(5)
+            var storageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 CoefficientOfVariation = (RoundedDouble) random.NextDouble()
@@ -293,8 +290,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             input.StorageStructureArea = storageStructureArea;
 
             // Assert
-            AssertAreEqual(storageStructureArea.Mean, input.StorageStructureArea.Mean);
-            AssertAreEqual(storageStructureArea.CoefficientOfVariation, input.StorageStructureArea.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(storageStructureArea, input.StorageStructureArea);
         }
 
         [Test]
@@ -304,7 +300,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
             var random = new Random(22);
 
-            LogNormalDistribution flowWidthAtBottomProtection = new LogNormalDistribution(5)
+            LogNormalDistribution flowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 StandardDeviation = (RoundedDouble) random.NextDouble()
@@ -314,8 +310,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             input.FlowWidthAtBottomProtection = flowWidthAtBottomProtection;
 
             // Assert
-            AssertAreEqual(flowWidthAtBottomProtection.Mean, input.FlowWidthAtBottomProtection.Mean);
-            AssertAreEqual(flowWidthAtBottomProtection.StandardDeviation, input.FlowWidthAtBottomProtection.StandardDeviation);
+            AssertDistributionCorrectlySet(flowWidthAtBottomProtection, input.FlowWidthAtBottomProtection);
         }
 
         [Test]
@@ -325,7 +320,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
             var random = new Random(22);
 
-            var criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(5)
+            var criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) (0.01 + random.NextDouble()),
                 CoefficientOfVariation = (RoundedDouble) random.NextDouble()
@@ -335,8 +330,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             input.CriticalOvertoppingDischarge = criticalOvertoppingDischarge;
 
             // Assert
-            AssertAreEqual(criticalOvertoppingDischarge.Mean, input.CriticalOvertoppingDischarge.Mean);
-            AssertAreEqual(criticalOvertoppingDischarge.CoefficientOfVariation, input.CriticalOvertoppingDischarge.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(criticalOvertoppingDischarge, input.CriticalOvertoppingDischarge);
         }
 
         [Test]
@@ -378,7 +372,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             var input = new HeightStructuresInput();
             var random = new Random(22);
 
-            var widthFlowApertures = new VariationCoefficientNormalDistribution(5)
+            var widthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = (RoundedDouble) random.NextDouble(),
                 CoefficientOfVariation = (RoundedDouble) random.NextDouble()
@@ -388,8 +382,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             input.WidthFlowApertures = widthFlowApertures;
 
             // Assert
-            AssertAreEqual(widthFlowApertures.Mean, input.WidthFlowApertures.Mean);
-            AssertAreEqual(widthFlowApertures.CoefficientOfVariation, input.WidthFlowApertures.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(widthFlowApertures, input.WidthFlowApertures);
         }
 
         [Test]
@@ -570,6 +563,32 @@ namespace Ringtoets.HeightStructures.Data.Test
         private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
+        }
+
+        private static void AssertDistributionCorrectlySet(IDistribution expectedDistribution, IDistribution distribution, RoundedDouble? initialStandardDeviation = null)
+        {
+            Assert.AreNotSame(expectedDistribution, distribution);
+
+            // If necessary, first adapt the expected distribution
+            if (initialStandardDeviation != null)
+            {
+                expectedDistribution.StandardDeviation = (RoundedDouble) initialStandardDeviation;
+            }
+
+            DistributionAssert.AreEqual(expectedDistribution, distribution);
+        }
+
+        private static void AssertDistributionCorrectlySet(IVariationCoefficientDistribution expectedDistribution, IVariationCoefficientDistribution distribution, RoundedDouble? initialCoefficientOfVariation = null)
+        {
+            Assert.AreNotSame(expectedDistribution, distribution);
+
+            // If necessary, first adapt the expected distribution
+            if (initialCoefficientOfVariation != null)
+            {
+                expectedDistribution.CoefficientOfVariation = (RoundedDouble) initialCoefficientOfVariation;
+            }
+
+            DistributionAssert.AreEqual(expectedDistribution, distribution);
         }
     }
 }
