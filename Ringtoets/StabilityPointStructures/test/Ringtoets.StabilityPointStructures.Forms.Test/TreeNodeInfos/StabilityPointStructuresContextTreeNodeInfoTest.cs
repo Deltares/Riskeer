@@ -22,7 +22,6 @@
 using System.Drawing;
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Base.Geometry;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.ContextMenu;
@@ -31,6 +30,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Plugin;
 using RingtoetsCommonFormsProperties = Ringtoets.Common.Forms.Properties.Resources;
@@ -129,7 +129,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
             var structures = new ObservableList<StabilityPointStructure>
             {
-                CreateStabilityPointStructure()
+                new TestStabilityPointStructure()
             };
 
             // Precondition
@@ -157,8 +157,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            StabilityPointStructure structure1 = CreateStabilityPointStructure();
-            StabilityPointStructure structure2 = CreateStabilityPointStructure();
+            StabilityPointStructure structure1 = new TestStabilityPointStructure();
+            StabilityPointStructure structure2 = new TestStabilityPointStructure();
             var closingStructures = new ObservableList<StabilityPointStructure>
             {
                 structure1,
@@ -240,38 +240,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         private static TreeNodeInfo GetInfo(StabilityPointStructuresPlugin gui)
         {
             return gui.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresContext));
-        }
-
-        private static StabilityPointStructure CreateStabilityPointStructure()
-        {
-            return new StabilityPointStructure("Name", "Id", new Point2D(1, 2),
-                                               123.456,
-                                               234.567, 0.234,
-                                               345.678, 0.345,
-                                               456.789, 0.456,
-                                               567.890, 0.567,
-                                               678.901, 0.678,
-                                               789.012, 0.789,
-                                               890.123, 0.890,
-                                               901.234, 0.901,
-                                               123.546, 0.123,
-                                               234.567, 0.234,
-                                               345.678, 0.345,
-                                               555.555,
-                                               456.789, 0.456,
-                                               555.55,
-                                               0.55,
-                                               567.890, 0.567,
-                                               7777777.777, 0.777,
-                                               567.890, 0.567,
-                                               42,
-                                               0.55,
-                                               678.901, 0.678,
-                                               789.012, 0.789,
-                                               890.123, 0.890,
-                                               901.234, 0.901,
-                                               StabilityPointStructureInflowModelType.FloodedCulvert
-                );
         }
     }
 }

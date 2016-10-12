@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.Structures;
@@ -103,36 +104,112 @@ namespace Ringtoets.StabilityPointStructures.IO
 
             string structureName = structureLocation.Name;
             return new StabilityPointStructure(
-                structureName,
-                structureLocation.Id,
-                structureLocation.Point,
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword1].NumericalValue,
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword2].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword2], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword3].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword3], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword4].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword4], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword5].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword5], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword6].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword6], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword7].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword7], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword8].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword8], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword9].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword9], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword10].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword10], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword11].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword11], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword12].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword12], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword13].NumericalValue,
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword14].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword14], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword15].NumericalValue,
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword16].NumericalValue,
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword17].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword17], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword18].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword18], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword19].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword19], structureName),
-                (int) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword20].NumericalValue,
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword21].NumericalValue,
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword22].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword22], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword23].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword23], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword24].NumericalValue, GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword24], structureName),
-                rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword25].NumericalValue, GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword25], structureName),
-                GetStabilityPointStructureInflowModelType(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword26])
-                );
+                new StabilityPointStructure.ConstructionProperties
+                {
+                    Name = structureName, Id = structureLocation.Id, Location = structureLocation.Point,
+                    StructureNormalOrientation = rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword1].NumericalValue,
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword2].NumericalValue,
+                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword2], structureName)
+                    },
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword3].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword3], structureName)
+                    },
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword4].NumericalValue,
+                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword4], structureName)
+                    },
+                    InsideWaterLevel =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword5].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword5], structureName)
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword6].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword6], structureName)
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword7].NumericalValue,
+                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword7], structureName)
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword8].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword8], structureName)
+                    },
+                    ConstructiveStrengthLinearLoadModel =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword9].NumericalValue,
+                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword9], structureName)
+                    },
+                    ConstructiveStrengthQuadraticLoadModel =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword10].NumericalValue,
+                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword10], structureName)
+                    },
+                    BankWidth =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword11].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword11], structureName)
+                    },
+                    InsideWaterLevelFailureConstruction =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword12].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword12], structureName)
+                    },
+                    EvaluationLevel = rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword13].NumericalValue,
+                    LevelCrestStructure =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword14].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword14], structureName)
+                    },
+                    VerticalDistance = rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword15].NumericalValue,
+                    FailureProbabilityRepairClosure = rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword16].NumericalValue,
+                    FailureCollisionEnergy =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword17].NumericalValue,
+                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword17], structureName)
+                    },
+                    ShipMass =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword18].NumericalValue,
+                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword18], structureName)
+                    },
+                    ShipVelocity =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword19].NumericalValue,
+                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword19], structureName)
+                    },
+                    LevellingCount = (int) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword20].NumericalValue,
+                    ProbabilityCollisionSecondaryStructure = rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword21].NumericalValue,
+                    FlowVelocityStructureClosable =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword22].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword22], structureName)
+                    },
+                    StabilityLinearLoadModel =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword23].NumericalValue,
+                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword23], structureName)
+                    },
+                    StabilityQuadraticLoadModel =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword24].NumericalValue,
+                        CoefficientOfVariation = GetCoefficientOfVariation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword24], structureName)
+                    },
+                    AreaFlowApertures =
+                    {
+                        Mean = (RoundedDouble) rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword25].NumericalValue,
+                        StandardDeviation = GetStandardDeviation(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword25], structureName)
+                    },
+                    InflowModelType = GetStabilityPointStructureInflowModelType(rowData[StructureFilesKeywords.StabilityPointStructureParameterKeyword26])
+                });
         }
 
         private static StabilityPointStructureInflowModelType GetStabilityPointStructureInflowModelType(StructuresParameterRow structureParameterRow)

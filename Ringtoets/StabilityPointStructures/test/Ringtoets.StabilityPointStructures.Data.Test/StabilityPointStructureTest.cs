@@ -38,34 +38,113 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             var location = new Point2D(1.22, 2.333);
 
             // Call
-            var structure = new StabilityPointStructure("aName", "anId", location,
-                                                        123.456,
-                                                        234.567, 0.234,
-                                                        345.678, 0.345,
-                                                        456.789, 0.456,
-                                                        567.890, 0.567,
-                                                        678.901, 0.678,
-                                                        789.012, 0.789,
-                                                        890.123, 0.890,
-                                                        901.234, 0.901,
-                                                        123.456, 0.123,
-                                                        234.567, 0.234,
-                                                        345.678, 0.345,
-                                                        555.555,
-                                                        456.789, 0.456,
-                                                        555.55,
-                                                        0.55,
-                                                        567.890, 0.567,
-                                                        7777777.777, 0.777,
-                                                        567.890, 0.567,
-                                                        42,
-                                                        0.55,
-                                                        678.901, 0.678,
-                                                        789.012, 0.789,
-                                                        890.123, 0.890,
-                                                        901.234, 0.901,
-                                                        StabilityPointStructureInflowModelType.FloodedCulvert
-                );
+            var structure = new StabilityPointStructure(
+                new StabilityPointStructure.ConstructionProperties
+                {
+                    Name = "aName", Id = "anId", Location = location,
+                    StructureNormalOrientation = 123.456,
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) 234.567,
+                        CoefficientOfVariation = (RoundedDouble) 0.234
+                    },
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) 345.678,
+                        StandardDeviation = (RoundedDouble) 0.345
+                    },
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 456.789,
+                        CoefficientOfVariation = (RoundedDouble) 0.456
+                    },
+                    InsideWaterLevel =
+                    {
+                        Mean = (RoundedDouble) 567.890,
+                        StandardDeviation = (RoundedDouble) 0.567
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        Mean = (RoundedDouble) 678.901,
+                        StandardDeviation = (RoundedDouble) 0.678
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = (RoundedDouble) 789.012,
+                        CoefficientOfVariation = (RoundedDouble) 0.789
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) 890.123,
+                        StandardDeviation = (RoundedDouble) 0.890
+                    },
+                    ConstructiveStrengthLinearLoadModel =
+                    {
+                        Mean = (RoundedDouble) 901.234,
+                        CoefficientOfVariation = (RoundedDouble) 0.901
+                    },
+                    ConstructiveStrengthQuadraticLoadModel =
+                    {
+                        Mean = (RoundedDouble) 123.456,
+                        CoefficientOfVariation = (RoundedDouble) 0.123
+                    },
+                    BankWidth =
+                    {
+                        Mean = (RoundedDouble) 234.567,
+                        StandardDeviation = (RoundedDouble) 0.234
+                    },
+                    InsideWaterLevelFailureConstruction =
+                    {
+                        Mean = (RoundedDouble) 345.678,
+                        StandardDeviation = (RoundedDouble) 0.345
+                    },
+                    EvaluationLevel = 555.555,
+                    LevelCrestStructure =
+                    {
+                        Mean = (RoundedDouble) 456.789,
+                        StandardDeviation = (RoundedDouble) 0.456
+                    },
+                    VerticalDistance = 555.55,
+                    FailureProbabilityRepairClosure = 0.55,
+                    FailureCollisionEnergy =
+                    {
+                        Mean = (RoundedDouble) 567.890,
+                        CoefficientOfVariation = (RoundedDouble) 0.567
+                    },
+                    ShipMass =
+                    {
+                        Mean = (RoundedDouble) 7777777.777,
+                        CoefficientOfVariation = (RoundedDouble) 0.777
+                    },
+                    ShipVelocity =
+                    {
+                        Mean = (RoundedDouble) 567.890,
+                        CoefficientOfVariation = (RoundedDouble) 0.567
+                    },
+                    LevellingCount = 42,
+                    ProbabilityCollisionSecondaryStructure = 0.55,
+                    FlowVelocityStructureClosable =
+                    {
+                        Mean = (RoundedDouble) 678.901,
+                        StandardDeviation = (RoundedDouble) 0.678
+                    },
+                    StabilityLinearLoadModel =
+                    {
+                        Mean = (RoundedDouble) 789.012,
+                        CoefficientOfVariation = (RoundedDouble) 0.789
+                    },
+                    StabilityQuadraticLoadModel =
+                    {
+                        Mean = (RoundedDouble) 890.123,
+                        CoefficientOfVariation = (RoundedDouble) 0.890
+                    },
+                    AreaFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 901.234,
+                        StandardDeviation = (RoundedDouble) 0.901
+                    },
+                    InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert
+                });
 
             // Assert
             Assert.IsInstanceOf<StructureBase>(structure);

@@ -146,6 +146,10 @@
       <Project>{E3DF5559-97D9-4038-BBE6-2E3DFB4F4C68}</Project>
       <Name>Ringtoets.StabilityPointStructures.Plugin</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.StabilityPointStructures.Data.TestUtil\Ringtoets.StabilityPointStructures.Data.TestUtil.csproj">
+      <Project>{e9ac095b-8f10-41d2-9456-4a85e3ba91ad}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

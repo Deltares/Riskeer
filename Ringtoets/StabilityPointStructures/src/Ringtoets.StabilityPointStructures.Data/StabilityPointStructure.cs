@@ -24,6 +24,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
+using BaseConstructionProperties = Ringtoets.Common.Data.StructureBase.ConstructionProperties;
 
 namespace Ringtoets.StabilityPointStructures.Data
 {
@@ -33,193 +34,117 @@ namespace Ringtoets.StabilityPointStructures.Data
     public class StabilityPointStructure : StructureBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="StabilityPointStructure"/>.
+        /// Initializes a new instance of the <see cref="StabilityPointStructure"/> class.
         /// </summary>
-        /// <param name="name">The name of the structure.</param>
-        /// <param name="id">The identifier of the structure.</param>
-        /// <param name="location">The location of the structure.</param>
-        /// <param name="structureNormalOrientation">The orientation of the stability point structure, relative to north.</param>
-        /// <param name="storageStructureAreaMean">The mean of the storage area of the stability point structure.</param>
-        /// <param name="storageStructureAreaCoefficientOfVariation">The coefficient of variation of the storage area of the stability point structure.</param>
-        /// <param name="allowedLevelIncreaseStorageMean">The mean of the allowed increase of level for storage of the stability point structure.</param>
-        /// <param name="allowedLevelIncreaseStorageStandardDeviation">The standard deviation of the allowed increase of level for storage of the stability point structure.</param>
-        /// <param name="widthFlowAperturesMean">The mean of the width of the flow apertures of the stability point structure.</param>
-        /// <param name="widthFlowAperturesCoefficientOfVariation">The coefficient of variation of the width of the flow apertures of the stability point structure.</param>
-        /// <param name="insideWaterLevelMean">The mean of the interior water level of the stability point structure.</param>
-        /// <param name="insideWaterLevelStandardDeviation">The standard deviation of the interior water level of the stability point structure.</param>
-        /// <param name="thresholdHeightOpenWeirMean">The mean of the threshold height of the opened stability point structure.</param>
-        /// <param name="thresholdHeightOpenWeirStandardDeviation">The standard deviation of the threshold height of the opened stability point structure.</param>
-        /// <param name="criticalOvertoppingDischargeMean">The mean of the critical overtopping discharge of the stability point structure.</param>
-        /// <param name="criticalOvertoppingDischargeCoefficientOfVariation">The coefficient of variation of the critical overtopping discharge of the stability point structure.</param>
-        /// <param name="flowWidthAtBottomProtectionMean">The mean of the flow width of the stability point structure at the bottom protection.</param>
-        /// <param name="flowWidthAtBottomProtectionStandardDeviation">The standard deviation of the flow width of the stability point structure at the bottom protection.</param>
-        /// <param name="constructiveStrengthLinearLoadModelMean">The mean of the constructive strength of the linear load model of the stability point structure.</param>
-        /// <param name="constructiveStrengthLinearLoadModelCoefficientOfVariation">The coefficient of variation of the constructive strength of the linear load model of the stability point structure.</param>
-        /// <param name="constructiveStrengthQuadraticLoadModelMean">The mean of the constructive strength of the quadratic load model of the stability point structure.</param>
-        /// <param name="constructiveStrengthQuadraticLoadModelCoefficientOfVariation">The coefficient of variation of the constructive strength of the quadratic load model of the stability point structure.</param>
-        /// <param name="bankWidthMean">The mean of the bank width of the stability point structure.</param>
-        /// <param name="bankWidthStandardDeviation">The standard deviation of the bank width of the stability point structure.</param>
-        /// <param name="insideWaterLevelFailureConstructionMean">The mean of the inside water level failure construction of the stability point structure.</param>
-        /// <param name="insideWaterLevelFailureConstructionStandardDeviation">The standard deviation of the inside water level failure construction of the stability point structure.</param>
-        /// <param name="evaluationLevel">The evaluation level of the stability point structure.</param>
-        /// <param name="levelCrestStructureMean">The mean of the crest level of the stability point structure.</param>
-        /// <param name="levelCrestStructureStandardDeviation">The standard deviation of the crest level of the stability point structure.</param>
-        /// <param name="verticalDistance">The vertical distance of the stability point structure.</param>
-        /// <param name="failureProbabilityRepairClosure">The probability of failing to repair a failed closure of the stability point structure.</param>
-        /// <param name="failureCollisionEnergyMean">The mean of the failure collision energy of the stability point structure.</param>
-        /// <param name="failureCollisionEnergyCoefficientOfVariation">The coefficient of variation of the failure collision energy of the stability point structure.</param>
-        /// <param name="shipMassMean">The mean of the mass of the ship.</param>
-        /// <param name="shipMassCoefficientOfVariation">The coefficient of variation of the mass of the ship.</param>
-        /// <param name="shipVelocityMean">The mean of the velocity of the ship.</param>
-        /// <param name="shipVelocityCoefficientOfVariation">The coefficient of variation of the velocity of the ship.</param>
-        /// <param name="levellingCount">The levelling count.</param>
-        /// <param name="probabilityCollisionSecondaryStructure">The probability of a secondary collision on the stability point structure.</param>
-        /// <param name="flowVelocityStructureClosableMean">The mean of the maximum flow velocity at which the structure is closable.</param>
-        /// <param name="flowVelocityStructureClosableStandardDeviation">The standard deviation of the maximum flow velocity at which the structure is closable.</param>
-        /// <param name="stabilityLinearLoadModelMean">The mean of the stability properties of the linear load model of the stability point structure.</param>
-        /// <param name="stabilityLinearLoadModelCoefficientOfVariation">The coefficient of variation of the stability properties of the linear load model of the stability point structure.</param>
-        /// <param name="stabilityQuadraticLoadModelMean">The mean of the stability properties of the quadratic load model of the stability point structure.</param>
-        /// <param name="stabilityQuadraticLoadModelCoefficientOfVariation">The coefficient of variation of the stability properties of the quadratic load model of the stability point structure.</param>
-        /// <param name="areaFlowAperturesMean">The mean of the area of the flow aperture of the stability point structure.</param>
-        /// <param name="areaFlowAperturesStandardDeviation">The standard deviation of the area of the flow aperture of the stability point structure.</param>
-        /// <param name="inflowModelType">The type of stability point structure inflow model.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="name"/> or <paramref name="id"/> is <c>null</c>
-        /// , empty or consists of whitespace.</exception>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="location"/> is <c>null</c>.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">When any stochastic variable parameter is out of its valid domain.</exception>
-        public StabilityPointStructure(string name, string id, Point2D location,
-                                       double structureNormalOrientation,
-                                       double storageStructureAreaMean, double storageStructureAreaCoefficientOfVariation,
-                                       double allowedLevelIncreaseStorageMean, double allowedLevelIncreaseStorageStandardDeviation,
-                                       double widthFlowAperturesMean, double widthFlowAperturesCoefficientOfVariation,
-                                       double insideWaterLevelMean, double insideWaterLevelStandardDeviation,
-                                       double thresholdHeightOpenWeirMean, double thresholdHeightOpenWeirStandardDeviation,
-                                       double criticalOvertoppingDischargeMean, double criticalOvertoppingDischargeCoefficientOfVariation,
-                                       double flowWidthAtBottomProtectionMean, double flowWidthAtBottomProtectionStandardDeviation,
-                                       double constructiveStrengthLinearLoadModelMean, double constructiveStrengthLinearLoadModelCoefficientOfVariation,
-                                       double constructiveStrengthQuadraticLoadModelMean, double constructiveStrengthQuadraticLoadModelCoefficientOfVariation,
-                                       double bankWidthMean, double bankWidthStandardDeviation,
-                                       double insideWaterLevelFailureConstructionMean, double insideWaterLevelFailureConstructionStandardDeviation,
-                                       double evaluationLevel,
-                                       double levelCrestStructureMean, double levelCrestStructureStandardDeviation,
-                                       double verticalDistance,
-                                       double failureProbabilityRepairClosure,
-                                       double failureCollisionEnergyMean, double failureCollisionEnergyCoefficientOfVariation,
-                                       double shipMassMean, double shipMassCoefficientOfVariation,
-                                       double shipVelocityMean, double shipVelocityCoefficientOfVariation,
-                                       int levellingCount,
-                                       double probabilityCollisionSecondaryStructure,
-                                       double flowVelocityStructureClosableMean, double flowVelocityStructureClosableStandardDeviation,
-                                       double stabilityLinearLoadModelMean, double stabilityLinearLoadModelCoefficientOfVariation,
-                                       double stabilityQuadraticLoadModelMean, double stabilityQuadraticLoadModelCoefficientOfVariation,
-                                       double areaFlowAperturesMean, double areaFlowAperturesStandardDeviation,
-                                       StabilityPointStructureInflowModelType inflowModelType
-            )
-            : base(name, id, location, structureNormalOrientation)
+        /// <param name="constructionProperties">The construction properties.</param>
+        /// <exception cref="ArgumentException">Thrown when <see cref="ConstructionProperties.Name"/>
+        /// or <see cref="ConstructionProperties.Id"/> is <c>null</c> , empty or consists of whitespace.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <see cref="ConstructionProperties.Location"/> is <c>null</c>.</exception>
+        public StabilityPointStructure(ConstructionProperties constructionProperties) : base(constructionProperties)
         {
             StorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) storageStructureAreaMean,
-                CoefficientOfVariation = (RoundedDouble) storageStructureAreaCoefficientOfVariation
+                Mean = constructionProperties.StorageStructureArea.Mean,
+                CoefficientOfVariation = constructionProperties.StorageStructureArea.CoefficientOfVariation
             };
             AllowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) allowedLevelIncreaseStorageMean,
-                StandardDeviation = (RoundedDouble) allowedLevelIncreaseStorageStandardDeviation
+                Mean = constructionProperties.AllowedLevelIncreaseStorage.Mean,
+                StandardDeviation = constructionProperties.AllowedLevelIncreaseStorage.StandardDeviation
             };
             WidthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
-                Mean = (RoundedDouble) widthFlowAperturesMean,
-                CoefficientOfVariation = (RoundedDouble) widthFlowAperturesCoefficientOfVariation
+                Mean = constructionProperties.WidthFlowApertures.Mean,
+                CoefficientOfVariation = constructionProperties.WidthFlowApertures.CoefficientOfVariation
             };
             InsideWaterLevel = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble) insideWaterLevelMean,
-                StandardDeviation = (RoundedDouble) insideWaterLevelStandardDeviation
+                Mean = constructionProperties.InsideWaterLevel.Mean,
+                StandardDeviation = constructionProperties.InsideWaterLevel.StandardDeviation
             };
             ThresholdHeightOpenWeir = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble) thresholdHeightOpenWeirMean,
-                StandardDeviation = (RoundedDouble) thresholdHeightOpenWeirStandardDeviation
+                Mean = constructionProperties.ThresholdHeightOpenWeir.Mean,
+                StandardDeviation = constructionProperties.ThresholdHeightOpenWeir.StandardDeviation
             };
             CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) criticalOvertoppingDischargeMean,
-                CoefficientOfVariation = (RoundedDouble) criticalOvertoppingDischargeCoefficientOfVariation
+                Mean = constructionProperties.CriticalOvertoppingDischarge.Mean,
+                CoefficientOfVariation = constructionProperties.CriticalOvertoppingDischarge.CoefficientOfVariation
             };
             FlowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) flowWidthAtBottomProtectionMean,
-                StandardDeviation = (RoundedDouble) flowWidthAtBottomProtectionStandardDeviation
+                Mean = constructionProperties.FlowWidthAtBottomProtection.Mean,
+                StandardDeviation = constructionProperties.FlowWidthAtBottomProtection.StandardDeviation
             };
             ConstructiveStrengthLinearLoadModel = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) constructiveStrengthLinearLoadModelMean,
-                CoefficientOfVariation = (RoundedDouble) constructiveStrengthLinearLoadModelCoefficientOfVariation
+                Mean = constructionProperties.ConstructiveStrengthLinearLoadModel.Mean,
+                CoefficientOfVariation = constructionProperties.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation
             };
             ConstructiveStrengthQuadraticLoadModel = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) constructiveStrengthQuadraticLoadModelMean,
-                CoefficientOfVariation = (RoundedDouble) constructiveStrengthQuadraticLoadModelCoefficientOfVariation
+                Mean = constructionProperties.ConstructiveStrengthQuadraticLoadModel.Mean,
+                CoefficientOfVariation = constructionProperties.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation
             };
             BankWidth = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble) bankWidthMean,
-                StandardDeviation = (RoundedDouble) bankWidthStandardDeviation
+                Mean = constructionProperties.BankWidth.Mean,
+                StandardDeviation = constructionProperties.BankWidth.StandardDeviation
             };
             InsideWaterLevelFailureConstruction = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble) insideWaterLevelFailureConstructionMean,
-                StandardDeviation = (RoundedDouble) insideWaterLevelFailureConstructionStandardDeviation
+                Mean = constructionProperties.InsideWaterLevelFailureConstruction.Mean,
+                StandardDeviation = constructionProperties.InsideWaterLevelFailureConstruction.StandardDeviation
             };
-            EvaluationLevel = new RoundedDouble(2, evaluationLevel);
+            EvaluationLevel = new RoundedDouble(2, constructionProperties.EvaluationLevel);
             LevelCrestStructure = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble) levelCrestStructureMean,
-                StandardDeviation = (RoundedDouble) levelCrestStructureStandardDeviation
+                Mean = constructionProperties.LevelCrestStructure.Mean,
+                StandardDeviation = constructionProperties.LevelCrestStructure.StandardDeviation
             };
-            VerticalDistance = new RoundedDouble(2, verticalDistance);
-            FailureProbabilityRepairClosure = new RoundedDouble(2, failureProbabilityRepairClosure);
+            VerticalDistance = new RoundedDouble(2, constructionProperties.VerticalDistance);
+            FailureProbabilityRepairClosure = new RoundedDouble(2, constructionProperties.FailureProbabilityRepairClosure);
             FailureCollisionEnergy = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) failureCollisionEnergyMean,
-                CoefficientOfVariation = (RoundedDouble) failureCollisionEnergyCoefficientOfVariation
+                Mean = constructionProperties.FailureCollisionEnergy.Mean,
+                CoefficientOfVariation = constructionProperties.FailureCollisionEnergy.CoefficientOfVariation
             };
             ShipMass = new VariationCoefficientNormalDistribution(2)
             {
-                Mean = (RoundedDouble) shipMassMean,
-                CoefficientOfVariation = (RoundedDouble) shipMassCoefficientOfVariation
+                Mean = constructionProperties.ShipMass.Mean,
+                CoefficientOfVariation = constructionProperties.ShipMass.CoefficientOfVariation
             };
             ShipVelocity = new VariationCoefficientNormalDistribution(2)
             {
-                Mean = (RoundedDouble) shipVelocityMean,
-                CoefficientOfVariation = (RoundedDouble) shipVelocityCoefficientOfVariation
+                Mean = constructionProperties.ShipVelocity.Mean,
+                CoefficientOfVariation = constructionProperties.ShipVelocity.CoefficientOfVariation
             };
-            LevellingCount = levellingCount;
-            ProbabilityCollisionSecondaryStructure = new RoundedDouble(2, probabilityCollisionSecondaryStructure);
+            LevellingCount = constructionProperties.LevellingCount;
+            ProbabilityCollisionSecondaryStructure = new RoundedDouble(2, constructionProperties.ProbabilityCollisionSecondaryStructure);
             FlowVelocityStructureClosable = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble) flowVelocityStructureClosableMean,
-                StandardDeviation = (RoundedDouble) flowVelocityStructureClosableStandardDeviation
+                Mean = constructionProperties.FlowVelocityStructureClosable.Mean,
+                StandardDeviation = constructionProperties.FlowVelocityStructureClosable.StandardDeviation
             };
             StabilityLinearLoadModel = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) stabilityLinearLoadModelMean,
-                CoefficientOfVariation = (RoundedDouble) stabilityLinearLoadModelCoefficientOfVariation
+                Mean = constructionProperties.StabilityLinearLoadModel.Mean,
+                CoefficientOfVariation = constructionProperties.StabilityLinearLoadModel.CoefficientOfVariation
             };
             StabilityQuadraticLoadModel = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) stabilityQuadraticLoadModelMean,
-                CoefficientOfVariation = (RoundedDouble) stabilityQuadraticLoadModelCoefficientOfVariation
+                Mean = constructionProperties.StabilityQuadraticLoadModel.Mean,
+                CoefficientOfVariation = constructionProperties.StabilityQuadraticLoadModel.CoefficientOfVariation
             };
             AreaFlowApertures = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) areaFlowAperturesMean,
-                StandardDeviation = (RoundedDouble) areaFlowAperturesStandardDeviation
+                Mean = constructionProperties.AreaFlowApertures.Mean,
+                StandardDeviation = constructionProperties.AreaFlowApertures.StandardDeviation
             };
-            InflowModelType = inflowModelType;
+            InflowModelType = constructionProperties.InflowModelType;
         }
-
+        
         /// <summary>
         /// Gets the storage area of the stability point structure.
         /// [m^2]
@@ -368,5 +293,186 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets the type of stability point structure inflow model.
         /// </summary>
         public StabilityPointStructureInflowModelType InflowModelType { get; private set; }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="StabilityPointStructure"/>.
+        /// </summary>
+        public new class ConstructionProperties : BaseConstructionProperties
+        {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="ConstructionProperties"/> class.
+            /// </summary>
+            public ConstructionProperties()
+            {
+                StorageStructureArea = new VariationCoefficientLogNormalDistribution(2);
+                AllowedLevelIncreaseStorage = new LogNormalDistribution(2);
+                WidthFlowApertures = new VariationCoefficientNormalDistribution(2);
+                InsideWaterLevel = new NormalDistribution(2);
+                ThresholdHeightOpenWeir = new NormalDistribution(2);
+                CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2);
+                FlowWidthAtBottomProtection = new LogNormalDistribution(2);
+                ConstructiveStrengthLinearLoadModel = new VariationCoefficientLogNormalDistribution(2);
+                ConstructiveStrengthQuadraticLoadModel = new VariationCoefficientLogNormalDistribution(2);
+                BankWidth = new NormalDistribution(2);
+                InsideWaterLevelFailureConstruction = new NormalDistribution(2);
+                LevelCrestStructure = new NormalDistribution(2);
+                FailureCollisionEnergy = new VariationCoefficientLogNormalDistribution(2);
+                ShipMass = new VariationCoefficientNormalDistribution(2);
+                ShipVelocity = new VariationCoefficientNormalDistribution(2);
+                FlowVelocityStructureClosable = new NormalDistribution(2);
+                StabilityLinearLoadModel = new VariationCoefficientLogNormalDistribution(2);
+                StabilityQuadraticLoadModel = new VariationCoefficientLogNormalDistribution(2);
+                AreaFlowApertures = new LogNormalDistribution(2);
+            }
+
+            /// <summary>
+            /// Gets the storage area of the stability point structure.
+            /// [m^2]
+            /// </summary>
+            public VariationCoefficientLogNormalDistribution StorageStructureArea { get; private set; }
+
+            /// <summary>
+            /// Gets the allowed increase of level for storage of the stability point structure.
+            /// [m]
+            /// </summary>
+            public LogNormalDistribution AllowedLevelIncreaseStorage { get; private set; }
+
+            /// <summary>
+            /// Gets the width of the flow apertures of the stability point structure.
+            /// [m]
+            /// </summary>
+            public VariationCoefficientNormalDistribution WidthFlowApertures { get; private set; }
+
+            /// <summary>
+            /// Gets the interior water level of the stability point structure.
+            /// [m+NAP]
+            /// </summary>
+            public NormalDistribution InsideWaterLevel { get; private set; }
+
+            /// <summary>
+            /// Gets the threshold height of the opened stability point structure.
+            /// [m+NAP]
+            /// </summary>
+            public NormalDistribution ThresholdHeightOpenWeir { get; private set; }
+
+            /// <summary>
+            /// Gets the critical overtopping discharge of the stability point structure.
+            /// [m^3/s/m]
+            /// </summary>
+            public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
+
+            /// <summary>
+            /// Gets the flow width of the stability point structure at the bottom protection.
+            /// [m]
+            /// </summary>
+            public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
+
+            /// <summary>
+            /// Gets the constructive strength of the linear load model of the stability point structure.
+            /// [kN/m^2]
+            /// </summary>
+            public VariationCoefficientLogNormalDistribution ConstructiveStrengthLinearLoadModel { get; private set; }
+
+            /// <summary>
+            /// Gets the constructive strength of the quadratic load model of the stability point structure.
+            /// [kN/m]
+            /// </summary>
+            public VariationCoefficientLogNormalDistribution ConstructiveStrengthQuadraticLoadModel { get; private set; }
+
+            /// <summary>
+            /// Gets the bank width of the stability point structure.
+            /// [m]
+            /// </summary>
+            public NormalDistribution BankWidth { get; private set; }
+
+            /// <summary>
+            /// Gets the inside water level failure construction of the stability point structure.
+            /// [m+NAP]
+            /// </summary>
+            public NormalDistribution InsideWaterLevelFailureConstruction { get; private set; }
+
+            /// <summary>
+            /// Gets the evaluation level of the stability point structure.
+            /// [m+NAP]
+            /// </summary>
+            public double EvaluationLevel { get; set; }
+
+            /// <summary>
+            /// Gets the crest level of the stability point structure.
+            /// [m+NAP]
+            /// </summary>
+            public NormalDistribution LevelCrestStructure { get; private set; }
+
+            /// <summary>
+            /// Gets the vertical distance of the stability point structure.
+            /// [m]
+            /// </summary>
+            public double VerticalDistance { get; set; }
+
+            /// <summary>
+            /// Gets the probability of failing to repair a failed closure of the stability point structure.
+            /// [1/year]
+            /// </summary>
+            public double FailureProbabilityRepairClosure { get; set; }
+
+            /// <summary>
+            /// Gets the failure collision energy of the stability point structure.
+            /// [kNm]
+            /// </summary>
+            public VariationCoefficientLogNormalDistribution FailureCollisionEnergy { get; private set; }
+
+            /// <summary>
+            /// Gets the mass of the ship.
+            /// [tons]
+            /// </summary>
+            public VariationCoefficientNormalDistribution ShipMass { get; private set; }
+
+            /// <summary>
+            /// Gets the velocity of the ship.
+            /// [m/s]
+            /// </summary>
+            public VariationCoefficientNormalDistribution ShipVelocity { get; private set; }
+
+            /// <summary>
+            /// Gets the levelling count.
+            /// [1/year]
+            /// </summary>
+            public int LevellingCount { get; set; }
+
+            /// <summary>
+            /// Gets the probability of a secondary collision on the structure.
+            /// [1/year/levelling]
+            /// </summary>
+            public double ProbabilityCollisionSecondaryStructure { get; set; }
+
+            /// <summary>
+            /// Gets the maximum flow velocity at which the structure is closable.
+            /// [m/s]
+            /// </summary>
+            public NormalDistribution FlowVelocityStructureClosable { get; private set; }
+
+            /// <summary>
+            /// Gets the stability properties of the linear load model of the stability point structure.
+            /// [kN/m^2]
+            /// </summary>
+            public VariationCoefficientLogNormalDistribution StabilityLinearLoadModel { get; private set; }
+
+            /// <summary>
+            /// Gets the stability properties of the quadratic load model of the stability point structure.
+            /// [kN/m]
+            /// </summary>
+            public VariationCoefficientLogNormalDistribution StabilityQuadraticLoadModel { get; private set; }
+
+            /// <summary>
+            /// Gets the area of the flow aperture of the stability point structure.
+            /// [m^2]
+            /// </summary>
+            public LogNormalDistribution AreaFlowApertures { get; private set; }
+
+            /// <summary>
+            /// Gets the type of stability point structure inflow model.
+            /// </summary>
+            public StabilityPointStructureInflowModelType InflowModelType { get; set; }
+        }
     }
 }

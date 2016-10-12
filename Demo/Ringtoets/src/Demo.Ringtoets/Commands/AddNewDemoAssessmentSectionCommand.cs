@@ -418,33 +418,113 @@ namespace Demo.Ringtoets.Commands
 
         private static StabilityPointStructure CreateDemoStabilityPointStructure()
         {
-            return new StabilityPointStructure("Kunstwerk", "Kunstwerk id", new Point2D(131470.777221421, 548329.82912364),
-                                               10,
-                                               20000, 0.1,
-                                               0.2, 0.1,
-                                               21.0, 0.05,
-                                               0.5, 0.1,
-                                               4.95, 0.1,
-                                               1, 0.15,
-                                               25, 1.25,
-                                               10, 0.1,
-                                               10, 0.1,
-                                               0, 0,
-                                               0.5, 0.1,
-                                               0,
-                                               4.95, 0.05,
-                                               0,
-                                               0.5,
-                                               10, 0.3,
-                                               16000, 0.2,
-                                               2, 0.2,
-                                               0,
-                                               0,
-                                               1, 1,
-                                               15, 0.1,
-                                               15, 0.1,
-                                               2.5, 0.01,
-                                               StabilityPointStructureInflowModelType.FloodedCulvert);
+            return new StabilityPointStructure(
+                new StabilityPointStructure.ConstructionProperties
+                {
+                    Name = "Kunstwerk", Id = "Kunstwerk id", Location = new Point2D(131470.777221421, 548329.82912364),
+                    StructureNormalOrientation = 10,
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) 20000,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) 0.2,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 21.0,
+                        CoefficientOfVariation = (RoundedDouble) 0.05
+                    },
+                    InsideWaterLevel =
+                    {
+                        Mean = (RoundedDouble) 0.5,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        Mean = (RoundedDouble) 4.95,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = (RoundedDouble) 1,
+                        CoefficientOfVariation = (RoundedDouble) 0.15
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) 25,
+                        StandardDeviation = (RoundedDouble) 1.25
+                    },
+                    ConstructiveStrengthLinearLoadModel =
+                    {
+                        Mean = (RoundedDouble) 10,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    ConstructiveStrengthQuadraticLoadModel =
+                    {
+                        Mean = (RoundedDouble) 10,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    BankWidth =
+                    {
+                        Mean = (RoundedDouble) 0,
+                        StandardDeviation = (RoundedDouble) 0
+                    },
+                    InsideWaterLevelFailureConstruction =
+                    {
+                        Mean = (RoundedDouble) 0.5,
+                        StandardDeviation = (RoundedDouble) 0.1
+                    },
+                    EvaluationLevel = 0,
+                    LevelCrestStructure =
+                    {
+                        Mean = (RoundedDouble) 4.95,
+                        StandardDeviation = (RoundedDouble) 0.05
+                    },
+                    VerticalDistance = 0,
+                    FailureProbabilityRepairClosure = 0.5,
+                    FailureCollisionEnergy =
+                    {
+                        Mean = (RoundedDouble) 10,
+                        CoefficientOfVariation = (RoundedDouble) 0.3
+                    },
+                    ShipMass =
+                    {
+                        Mean = (RoundedDouble) 16000,
+                        CoefficientOfVariation = (RoundedDouble) 0.2
+                    },
+                    ShipVelocity =
+                    {
+                        Mean = (RoundedDouble) 2,
+                        CoefficientOfVariation = (RoundedDouble) 0.2
+                    },
+                    LevellingCount = 0,
+                    ProbabilityCollisionSecondaryStructure = 0,
+                    FlowVelocityStructureClosable =
+                    {
+                        Mean = (RoundedDouble) 1,
+                        StandardDeviation = (RoundedDouble) 1
+                    },
+                    StabilityLinearLoadModel =
+                    {
+                        Mean = (RoundedDouble) 15,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    StabilityQuadraticLoadModel =
+                    {
+                        Mean = (RoundedDouble) 15,
+                        CoefficientOfVariation = (RoundedDouble) 0.1
+                    },
+                    AreaFlowApertures =
+                    {
+                        Mean = (RoundedDouble) 2.5,
+                        StandardDeviation = (RoundedDouble) 0.01
+                    },
+                    InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert
+                });
         }
 
         #endregion

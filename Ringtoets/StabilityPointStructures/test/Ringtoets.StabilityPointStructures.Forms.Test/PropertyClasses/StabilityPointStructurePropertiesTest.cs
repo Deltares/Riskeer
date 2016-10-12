@@ -27,6 +27,7 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
 
 namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
@@ -80,7 +81,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void Data_SetNewStabilityPointStructureInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            StabilityPointStructure structure = CreateSimpleStabilityPointStructure();
+            StabilityPointStructure structure = new TestStabilityPointStructure();
             var properties = new StabilityPointStructureProperties();
 
             // Call
@@ -204,7 +205,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            StabilityPointStructure structure = CreateSimpleStabilityPointStructure();
+            StabilityPointStructure structure = new TestStabilityPointStructure();
 
             // Call
             var properties = new StabilityPointStructureProperties
@@ -386,38 +387,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(schematizationCategory, stabilityQuadraticLoadModelProperty.Category);
             Assert.AreEqual("Kwadratisch belastingschematisering stabiliteit [kN/m]", stabilityQuadraticLoadModelProperty.DisplayName);
             Assert.AreEqual("Kritieke stabiliteit constructie volgens de kwadratische belastingschematisatie.", stabilityQuadraticLoadModelProperty.Description);
-        }
-
-        private static StabilityPointStructure CreateSimpleStabilityPointStructure()
-        {
-            return new StabilityPointStructure("Name", "Id", new Point2D(1.234, 2.3456),
-                                               123.456,
-                                               234.567, 0.234,
-                                               345.678, 0.345,
-                                               456.789, 0.456,
-                                               567.890, 0.567,
-                                               678.901, 0.678,
-                                               789.012, 0.789,
-                                               890.123, 0.890,
-                                               901.234, 0.901,
-                                               123.546, 0.123,
-                                               234.567, 0.234,
-                                               345.678, 0.345,
-                                               555.555,
-                                               456.789, 0.456,
-                                               555.55,
-                                               0.55,
-                                               567.890, 0.567,
-                                               7777777.777, 0.777,
-                                               567.890, 0.567,
-                                               42,
-                                               0.55,
-                                               678.901, 0.678,
-                                               789.012, 0.789,
-                                               890.123, 0.890,
-                                               901.234, 0.901,
-                                               StabilityPointStructureInflowModelType.FloodedCulvert
-                );
         }
     }
 }
