@@ -99,7 +99,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
                 {
                     InputParameters =
                     {
-                        HeightStructure = heightStructure
+                        Structure = heightStructure
                     }
                 }, 
                 new HeightStructuresFailureMechanism

@@ -68,7 +68,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
         {
             InputParameters =
             {
-                HeightStructure = new TestHeightStructure(new Point2D(1.1, 2.2))
+                Structure = new TestHeightStructure(new Point2D(1.1, 2.2))
             }
         };
 
@@ -76,7 +76,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
         {
             InputParameters =
             {
-                HeightStructure = new TestHeightStructure(new Point2D(50.0, 66.0))
+                Structure = new TestHeightStructure(new Point2D(50.0, 66.0))
             }
         };
 

@@ -110,7 +110,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                         Name = NamingHelper.GetUniqueName(((CalculationGroup) view.Data).Children, profile.Name, c => c.Name),
                         InputParameters =
                         {
-                            HeightStructure = profile
+                            Structure = profile
                         }
                     });
                 }
@@ -157,7 +157,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                         Name = NamingHelper.GetUniqueName(calculationsGroup.Children, profile.Name, c => c.Name),
                         InputParameters =
                         {
-                            HeightStructure = profile
+                            Structure = profile
                         }
                     });
                 }
@@ -209,15 +209,15 @@ namespace Ringtoets.HeightStructures.Integration.Test
                         Name = NamingHelper.GetUniqueName(assessmentSection.HeightStructures.CalculationsGroup.Children, profile.Name + "Calculation", c => c.Name),
                         InputParameters =
                         {
-                            HeightStructure = profile
+                            Structure = profile
                         }
                     });
                 }
 
                 // Call
                 var calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
-                ((HeightStructuresCalculation) calculationsGroup.Children[1]).InputParameters.HeightStructure =
-                    ((HeightStructuresCalculation) calculationsGroup.Children[0]).InputParameters.HeightStructure;
+                ((HeightStructuresCalculation) calculationsGroup.Children[1]).InputParameters.Structure =
+                    ((HeightStructuresCalculation) calculationsGroup.Children[0]).InputParameters.Structure;
                 calculationsGroup.NotifyObservers();
 
                 // Assert

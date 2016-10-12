@@ -126,11 +126,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.HeightStructure;
+                return data.WrappedData.Structure;
             }
             set
             {
-                data.WrappedData.HeightStructure = value;
+                data.WrappedData.Structure = value;
                 HeightStructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
                 data.WrappedData.NotifyObservers();
             }
@@ -144,10 +144,10 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.HeightStructure == null ? null :
+                return data.WrappedData.Structure == null ? null :
                            new Point2D(
-                               new RoundedDouble(0, data.WrappedData.HeightStructure.Location.X),
-                               new RoundedDouble(0, data.WrappedData.HeightStructure.Location.Y));
+                               new RoundedDouble(0, data.WrappedData.Structure.Location.X),
+                               new RoundedDouble(0, data.WrappedData.Structure.Location.Y));
             }
         }
 
