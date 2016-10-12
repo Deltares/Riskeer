@@ -354,10 +354,10 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(0.15, closingStructure.CriticalOvertoppingDischarge.CoefficientOfVariation.Value);
             Assert.AreEqual(25.0, closingStructure.FlowWidthAtBottomProtection.Mean.Value);
             Assert.AreEqual(0.05, closingStructure.FlowWidthAtBottomProtection.StandardDeviation.Value);
-            Assert.AreEqual(1.0, closingStructure.ProbabilityOpenStructureBeforeFlooding.Value);
-            Assert.AreEqual(0.1, closingStructure.FailureProbabilityOpenStructure.Value);
+            Assert.AreEqual(1.0, closingStructure.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(0.1, closingStructure.FailureProbabilityOpenStructure);
             Assert.AreEqual(4, closingStructure.IdenticalApertures);
-            Assert.AreEqual(1.0, closingStructure.FailureProbabilityReparation.Value);
+            Assert.AreEqual(1.0, closingStructure.FailureProbabilityReparation);
             Assert.AreEqual(ClosingStructureInflowModelType.VerticalWall, closingStructure.InflowModelType);
         }
 
@@ -515,7 +515,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(4.95, structure.LevelCrestStructure.Mean, structure.LevelCrestStructure.Mean.GetAccuracy());
             Assert.AreEqual(0.05, structure.LevelCrestStructure.StandardDeviation, structure.LevelCrestStructure.StandardDeviation.GetAccuracy());
             Assert.AreEqual(0, structure.VerticalDistance, structure.VerticalDistance.GetAccuracy());
-            Assert.AreEqual(0.5, structure.FailureProbabilityRepairClosure, structure.FailureProbabilityRepairClosure.GetAccuracy());
+            Assert.AreEqual(0.5, structure.FailureProbabilityRepairClosure);
             Assert.AreEqual(10, structure.FailureCollisionEnergy.Mean, structure.FailureCollisionEnergy.Mean.GetAccuracy());
             Assert.AreEqual(0.3, structure.FailureCollisionEnergy.CoefficientOfVariation,
                             structure.FailureCollisionEnergy.CoefficientOfVariation.GetAccuracy());
@@ -524,7 +524,7 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(2, structure.ShipVelocity.Mean, structure.ShipVelocity.Mean.GetAccuracy());
             Assert.AreEqual(0.2, structure.ShipVelocity.CoefficientOfVariation, structure.ShipVelocity.CoefficientOfVariation.GetAccuracy());
             Assert.AreEqual(0, structure.LevellingCount);
-            Assert.AreEqual(0, structure.ProbabilityCollisionSecondaryStructure, structure.ProbabilityCollisionSecondaryStructure.GetAccuracy());
+            Assert.AreEqual(0, structure.ProbabilityCollisionSecondaryStructure);
             Assert.AreEqual(1, structure.FlowVelocityStructureClosable.Mean, structure.FlowVelocityStructureClosable.Mean.GetAccuracy());
             Assert.AreEqual(1, structure.FlowVelocityStructureClosable.StandardDeviation,
                             structure.FlowVelocityStructureClosable.StandardDeviation.GetAccuracy());

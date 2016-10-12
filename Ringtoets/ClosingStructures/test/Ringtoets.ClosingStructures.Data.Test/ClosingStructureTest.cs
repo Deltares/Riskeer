@@ -161,16 +161,10 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, flowWidthAtBottomProtection.StandardDeviation.NumberOfDecimalPlaces);
             Assert.AreEqual(0.11, flowWidthAtBottomProtection.StandardDeviation, flowWidthAtBottomProtection.StandardDeviation.GetAccuracy());
 
-            Assert.AreEqual(2, structure.ProbabilityOpenStructureBeforeFlooding.NumberOfDecimalPlaces);
-            Assert.AreEqual(321.99, structure.ProbabilityOpenStructureBeforeFlooding, structure.ProbabilityOpenStructureBeforeFlooding.GetAccuracy());
-
-            Assert.AreEqual(2, structure.FailureProbabilityOpenStructure.NumberOfDecimalPlaces);
-            Assert.AreEqual(654.32, structure.FailureProbabilityOpenStructure, structure.FailureProbabilityOpenStructure.GetAccuracy());
-
+            Assert.AreEqual(321.987, structure.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(654.321, structure.FailureProbabilityOpenStructure);
             Assert.AreEqual(42, structure.IdenticalApertures);
-
-            Assert.AreEqual(2, structure.FailureProbabilityReparation.NumberOfDecimalPlaces);
-            Assert.AreEqual(987.65, structure.FailureProbabilityReparation, structure.FailureProbabilityReparation.GetAccuracy());
+            Assert.AreEqual(987.654, structure.FailureProbabilityReparation);
 
             Assert.AreEqual(ClosingStructureInflowModelType.LowSill, structure.InflowModelType);
         }

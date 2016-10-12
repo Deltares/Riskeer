@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using BaseConstructionProperties = Ringtoets.Common.Data.StructureBase.ConstructionProperties;
@@ -43,34 +42,34 @@ namespace Ringtoets.HeightStructures.Data
         {
             LevelCrestStructure = new NormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, constructionProperties.LevelCrestStructure.Mean),
-                StandardDeviation = new RoundedDouble(2, constructionProperties.LevelCrestStructure.StandardDeviation)
+                Mean = constructionProperties.LevelCrestStructure.Mean,
+                StandardDeviation = constructionProperties.LevelCrestStructure.StandardDeviation
             };
             FlowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, constructionProperties.FlowWidthAtBottomProtection.Mean),
-                StandardDeviation = new RoundedDouble(2, constructionProperties.FlowWidthAtBottomProtection.StandardDeviation)
+                Mean = constructionProperties.FlowWidthAtBottomProtection.Mean,
+                StandardDeviation = constructionProperties.FlowWidthAtBottomProtection.StandardDeviation
             };
             CriticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, constructionProperties.CriticalOvertoppingDischarge.Mean),
-                CoefficientOfVariation = new RoundedDouble(2, constructionProperties.CriticalOvertoppingDischarge.CoefficientOfVariation)
+                Mean = constructionProperties.CriticalOvertoppingDischarge.Mean,
+                CoefficientOfVariation = constructionProperties.CriticalOvertoppingDischarge.CoefficientOfVariation
             };
             WidthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, constructionProperties.WidthFlowApertures.Mean),
-                CoefficientOfVariation = new RoundedDouble(2, constructionProperties.WidthFlowApertures.CoefficientOfVariation)
+                Mean = constructionProperties.WidthFlowApertures.Mean,
+                CoefficientOfVariation = constructionProperties.WidthFlowApertures.CoefficientOfVariation
             };
             FailureProbabilityStructureWithErosion = constructionProperties.FailureProbabilityStructureWithErosion;
             StorageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, constructionProperties.StorageStructureArea.Mean),
-                CoefficientOfVariation = new RoundedDouble(2, constructionProperties.StorageStructureArea.CoefficientOfVariation)
+                Mean = constructionProperties.StorageStructureArea.Mean,
+                CoefficientOfVariation = constructionProperties.StorageStructureArea.CoefficientOfVariation
             };
             AllowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
-                Mean = new RoundedDouble(2, constructionProperties.AllowedLevelIncreaseStorage.Mean),
-                StandardDeviation = new RoundedDouble(2, constructionProperties.AllowedLevelIncreaseStorage.StandardDeviation)
+                Mean = constructionProperties.AllowedLevelIncreaseStorage.Mean,
+                StandardDeviation = constructionProperties.AllowedLevelIncreaseStorage.StandardDeviation
             };
         }
 

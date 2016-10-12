@@ -103,7 +103,7 @@ namespace Ringtoets.StabilityPointStructures.Data
                 StandardDeviation = constructionProperties.LevelCrestStructure.StandardDeviation
             };
             VerticalDistance = new RoundedDouble(2, constructionProperties.VerticalDistance);
-            FailureProbabilityRepairClosure = new RoundedDouble(2, constructionProperties.FailureProbabilityRepairClosure);
+            FailureProbabilityRepairClosure = constructionProperties.FailureProbabilityRepairClosure;
             FailureCollisionEnergy = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = constructionProperties.FailureCollisionEnergy.Mean,
@@ -120,7 +120,7 @@ namespace Ringtoets.StabilityPointStructures.Data
                 CoefficientOfVariation = constructionProperties.ShipVelocity.CoefficientOfVariation
             };
             LevellingCount = constructionProperties.LevellingCount;
-            ProbabilityCollisionSecondaryStructure = new RoundedDouble(2, constructionProperties.ProbabilityCollisionSecondaryStructure);
+            ProbabilityCollisionSecondaryStructure = constructionProperties.ProbabilityCollisionSecondaryStructure;
             FlowVelocityStructureClosable = new NormalDistribution(2)
             {
                 Mean = constructionProperties.FlowVelocityStructureClosable.Mean,
@@ -232,7 +232,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets the probability of failing to repair a failed closure of the stability point structure.
         /// [1/year]
         /// </summary>
-        public RoundedDouble FailureProbabilityRepairClosure { get; private set; }
+        public double FailureProbabilityRepairClosure { get; private set; }
 
         /// <summary>
         /// Gets the failure collision energy of the stability point structure.
@@ -262,7 +262,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// Gets the probability of a secondary collision on the structure.
         /// [1/year/levelling]
         /// </summary>
-        public RoundedDouble ProbabilityCollisionSecondaryStructure { get; private set; }
+        public double ProbabilityCollisionSecondaryStructure { get; private set; }
 
         /// <summary>
         /// Gets the maximum flow velocity at which the structure is closable.

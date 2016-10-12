@@ -229,9 +229,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(2, structure.VerticalDistance.NumberOfDecimalPlaces);
             Assert.AreEqual(555.55, structure.VerticalDistance, structure.VerticalDistance.GetAccuracy());
 
-            Assert.IsInstanceOf<RoundedDouble>(structure.FailureProbabilityRepairClosure);
-            Assert.AreEqual(2, structure.FailureProbabilityRepairClosure.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.55, structure.FailureProbabilityRepairClosure, structure.FailureProbabilityRepairClosure.GetAccuracy());
+            Assert.AreEqual(0.55, structure.FailureProbabilityRepairClosure);
 
             VariationCoefficientLogNormalDistribution failureCollisionEnergy = structure.FailureCollisionEnergy;
             Assert.AreEqual(2, failureCollisionEnergy.Mean.NumberOfDecimalPlaces);
@@ -253,9 +251,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             Assert.AreEqual(42, structure.LevellingCount);
 
-            Assert.IsInstanceOf<RoundedDouble>(structure.ProbabilityCollisionSecondaryStructure);
-            Assert.AreEqual(2, structure.ProbabilityCollisionSecondaryStructure.NumberOfDecimalPlaces);
-            Assert.AreEqual(0.55, structure.ProbabilityCollisionSecondaryStructure, structure.ProbabilityCollisionSecondaryStructure.GetAccuracy());
+            Assert.AreEqual(0.55, structure.ProbabilityCollisionSecondaryStructure);
 
             NormalDistribution flowVelocityStructureClosable = structure.FlowVelocityStructureClosable;
             Assert.AreEqual(2, flowVelocityStructureClosable.Mean.NumberOfDecimalPlaces);

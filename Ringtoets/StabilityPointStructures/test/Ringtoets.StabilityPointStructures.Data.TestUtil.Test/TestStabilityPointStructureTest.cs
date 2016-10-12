@@ -80,7 +80,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             AssertAreEqual(0.456, structure.LevelCrestStructure.StandardDeviation);
 
             AssertAreEqual(555.55, structure.VerticalDistance);
-            AssertAreEqual(0.55, structure.FailureProbabilityRepairClosure);
+            Assert.AreEqual(0.55, structure.FailureProbabilityRepairClosure);
 
             AssertAreEqual(567.890, structure.FailureCollisionEnergy.Mean);
             AssertAreEqual(0.567, structure.FailureCollisionEnergy.CoefficientOfVariation);
@@ -92,7 +92,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             AssertAreEqual(0.567, structure.ShipVelocity.CoefficientOfVariation);
 
             Assert.AreEqual(42, structure.LevellingCount);
-            AssertAreEqual(0.55, structure.ProbabilityCollisionSecondaryStructure);
+            Assert.AreEqual(0.55, structure.ProbabilityCollisionSecondaryStructure);
 
             AssertAreEqual(678.901, structure.FlowVelocityStructureClosable.Mean);
             AssertAreEqual(0.678, structure.FlowVelocityStructureClosable.StandardDeviation);
@@ -168,7 +168,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             AssertAreEqual(0.456, structure.LevelCrestStructure.StandardDeviation);
 
             AssertAreEqual(555.55, structure.VerticalDistance);
-            AssertAreEqual(0.55, structure.FailureProbabilityRepairClosure);
+            Assert.AreEqual(0.55, structure.FailureProbabilityRepairClosure);
 
             AssertAreEqual(567.890, structure.FailureCollisionEnergy.Mean);
             AssertAreEqual(0.567, structure.FailureCollisionEnergy.CoefficientOfVariation);
@@ -180,7 +180,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             AssertAreEqual(0.567, structure.ShipVelocity.CoefficientOfVariation);
 
             Assert.AreEqual(42, structure.LevellingCount);
-            AssertAreEqual(0.55, structure.ProbabilityCollisionSecondaryStructure);
+            Assert.AreEqual(0.55, structure.ProbabilityCollisionSecondaryStructure);
 
             AssertAreEqual(678.901, structure.FlowVelocityStructureClosable.Mean);
             AssertAreEqual(0.678, structure.FlowVelocityStructureClosable.StandardDeviation);

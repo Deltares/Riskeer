@@ -86,10 +86,10 @@ namespace Ringtoets.ClosingStructures.Data
                 Mean = constructionProperties.FlowWidthAtBottomProtection.Mean,
                 StandardDeviation = constructionProperties.FlowWidthAtBottomProtection.StandardDeviation
             };
-            ProbabilityOpenStructureBeforeFlooding = new RoundedDouble(2, constructionProperties.ProbabilityOpenStructureBeforeFlooding);
-            FailureProbabilityOpenStructure = new RoundedDouble(2, constructionProperties.FailureProbabilityOpenStructure);
+            ProbabilityOpenStructureBeforeFlooding = constructionProperties.ProbabilityOpenStructureBeforeFlooding;
+            FailureProbabilityOpenStructure = constructionProperties.FailureProbabilityOpenStructure;
             IdenticalApertures = constructionProperties.IdenticalApertures;
-            FailureProbabilityReparation = new RoundedDouble(2, constructionProperties.FailureProbabilityReparation);
+            FailureProbabilityReparation = constructionProperties.FailureProbabilityReparation;
             InflowModelType = constructionProperties.InflowModelType;
         }
 
@@ -141,12 +141,12 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets the probability of the closing structure being open before flooding.
         /// </summary>
-        public RoundedDouble ProbabilityOpenStructureBeforeFlooding { get; private set; }
+        public double ProbabilityOpenStructureBeforeFlooding { get; private set; }
 
         /// <summary>
         /// Gets the probability of failing to close the closing structure.
         /// </summary>
-        public RoundedDouble FailureProbabilityOpenStructure { get; private set; }
+        public double FailureProbabilityOpenStructure { get; private set; }
 
         /// <summary>
         /// Gets the number of identical apertures of the closing structure.
@@ -156,7 +156,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets the probability of failing to repair a failed closure of the closing structure.
         /// </summary>
-        public RoundedDouble FailureProbabilityReparation { get; private set; }
+        public double FailureProbabilityReparation { get; private set; }
 
         /// <summary>
         /// Gets the type of closing structure inflow model.
