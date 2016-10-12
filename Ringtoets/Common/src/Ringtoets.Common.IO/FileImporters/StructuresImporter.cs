@@ -29,6 +29,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.Base.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.IO.Readers;
+using Core.Common.Utils.Builders;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.IO.Properties;
@@ -142,6 +143,21 @@ namespace Ringtoets.Common.IO.FileImporters
             return (RoundedDouble) structuresParameterRow.VarianceValue;
         }
 
+        protected void LogValidationErrorForStructure(string structureName, string structureId, IEnumerable<string> validationErrors)
+        {
+            string message = new FileReaderErrorMessageBuilder(GetStructureDataCsvFilePath())
+                .WithSubject(string.Format(Resources.StructuresImporter_StructureName_0_StructureId_1_,
+                                           structureName, structureId))
+                .Build(string.Format(Resources.StructuresImporter_LogValidationErrorForStructure_One_or_more_erors_skip_structure_ErrorMessageList_0_,
+                                     string.Join(Environment.NewLine, validationErrors.Select(msg => "* " + msg))));
+            Log.Error(message);
+        }
+
+        protected string GetStructureDataCsvFilePath()
+        {
+            return Path.ChangeExtension(FilePath, ".csv");
+        }
+
         private void CreateStructures(ReadResult<StructureLocation> importStructureLocationsResult,
                                       ReadResult<StructuresParameterRow> importStructureParameterRowsDataResult)
         {
@@ -157,7 +173,7 @@ namespace Ringtoets.Common.IO.FileImporters
         {
             NotifyProgress(Resources.StructuresImporter_ReadStructureParameterRowsData_reading_structure_data, 1, 1);
 
-            string csvFilePath = Path.ChangeExtension(FilePath, ".csv");
+            string csvFilePath = GetStructureDataCsvFilePath();
 
             var rowsReader = new StructuresCharacteristicsCsvReader(csvFilePath);
 

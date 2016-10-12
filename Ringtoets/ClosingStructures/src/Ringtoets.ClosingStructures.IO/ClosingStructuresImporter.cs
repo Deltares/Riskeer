@@ -70,16 +70,18 @@ namespace Ringtoets.ClosingStructures.IO
                                                                       Dictionary<string, List<StructuresParameterRow>> groupedStructureParameterRows)
         {
             var closingStructures = new List<ClosingStructure>();
-            for (int i = 0; i < structureLocations.Count; i++)
+            foreach (StructureLocation structureLocation in structureLocations)
             {
-                StructureLocation structureLocation = structureLocations[i];
-
                 string id = structureLocation.Id;
 
                 if (!groupedStructureParameterRows.ContainsKey(id))
                 {
-                    Log.WarnFormat(RingtoetsCommonIOResources.StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_, id);
-                    Log.ErrorFormat(RingtoetsCommonIOResources.StructuresImporter_Structure_number_0_is_skipped, i + 1);
+                    var messages = new[]
+                    {
+                        string.Format(RingtoetsCommonIOResources.StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_,
+                                      id)
+                    };
+                    LogValidationErrorForStructure(structureLocation.Name, structureLocation.Id, messages);
                     continue;
                 }
 
@@ -88,7 +90,7 @@ namespace Ringtoets.ClosingStructures.IO
                 ValidationResult parameterRowsValidationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
                 if (!parameterRowsValidationResult.IsValid)
                 {
-                    LogMessages(parameterRowsValidationResult, i + 1);
+                    LogValidationErrorForStructure(structureLocation.Name, structureLocation.Id, parameterRowsValidationResult.ErrorMessages);
                     continue;
                 }
 

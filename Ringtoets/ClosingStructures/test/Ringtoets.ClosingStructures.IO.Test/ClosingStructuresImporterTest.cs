@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -75,17 +76,34 @@ namespace Ringtoets.ClosingStructures.IO.Test
             Action call = () => importResult = structuresImporter.Import();
 
             // Assert
+            string csvFilePath = Path.ChangeExtension(filePath, "csv");
             string[] expectedMessages =
             {
-                "Kunstwerk nummer 2 wordt overgeslagen.",
-                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST3'.",
-                "Kunstwerk nummer 3 wordt overgeslagen.",
-                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST4'.",
-                "Kunstwerk nummer 4 wordt overgeslagen.",
-                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST5'.",
-                "Kunstwerk nummer 5 wordt overgeslagen.",
-                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST6'.",
-                "Kunstwerk nummer 6 wordt overgeslagen."
+                CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2",
+                                           new[]
+                                           {
+                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST2'."
+                                           }),
+                CreateExpectedErrorMessage(csvFilePath, "Gemaal Lely (93k4)", "KUNST3",
+                                           new[]
+                                           {
+                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST3'."
+                                           }),
+                CreateExpectedErrorMessage(csvFilePath, "Gemaal de Stontele (94k1)", "KUNST4",
+                                           new[]
+                                           {
+                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST4'."
+                                           }),
+                CreateExpectedErrorMessage(csvFilePath, "Stontelerkeersluis (93k1)", "KUNST5",
+                                           new[]
+                                           {
+                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST5'."
+                                           }),
+                CreateExpectedErrorMessage(csvFilePath, "Stontelerschutsluis (93k2)", "KUNST6",
+                                           new[]
+                                           {
+                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST6'."
+                                           })
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
@@ -173,25 +191,53 @@ namespace Ringtoets.ClosingStructures.IO.Test
             Action call = () => importResult = structuresImporter.Import();
 
             // Assert
+            string csvFilePath = Path.ChangeExtension(filePath, "csv");
             string[] expectedMessages =
             {
-                "De waarde op regel 13, kolom 'NumeriekeWaarde' valt buiten het bereik [0, 360].",
-                "Parameter 'KW_BETSLUIT5' komt meermaals voor.",
-                "Kunstwerk nummer 1 wordt overgeslagen.",
-                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST2'.",
-                "Kunstwerk nummer 2 wordt overgeslagen.",
-                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST3'.",
-                "Kunstwerk nummer 3 wordt overgeslagen.",
-                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST4'.",
-                "Kunstwerk nummer 4 wordt overgeslagen.",
-                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST5'.",
-                "Kunstwerk nummer 5 wordt overgeslagen.",
-                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST6'.",
-                "Kunstwerk nummer 6 wordt overgeslagen."
+                CreateExpectedErrorMessage(csvFilePath, "Coupure Den Oever (90k1)", "KUNST1",
+                                           new[]
+                                           {
+                                               "De waarde op regel 13, kolom 'NumeriekeWaarde' valt buiten het bereik [0, 360].",
+                                               "Parameter 'KW_BETSLUIT5' komt meermaals voor."
+                                           }),
+                CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2",
+                                           new[]
+                                           {
+                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST2'."
+                                           }),
+                CreateExpectedErrorMessage(csvFilePath, "Gemaal Lely (93k4)", "KUNST3",
+                                           new[]
+                                           {
+                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST3'."
+                                           }),
+                CreateExpectedErrorMessage(csvFilePath, "Gemaal de Stontele (94k1)", "KUNST4",
+                                           new[]
+                                           {
+                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST4'."
+                                           }),
+                CreateExpectedErrorMessage(csvFilePath, "Stontelerkeersluis (93k1)", "KUNST5",
+                                           new[]
+                                           {
+                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST5'."
+                                           }),
+                CreateExpectedErrorMessage(csvFilePath, "Stontelerschutsluis (93k2)", "KUNST6",
+                                           new[]
+                                           {
+                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST6'."
+                                           })
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
             Assert.AreEqual(0, importTarget.Count);
+        }
+
+        private string CreateExpectedErrorMessage(string filePath, string structureName, string structureId,
+                                          IEnumerable<string> messages)
+        {
+            return string.Format("Fout bij het lezen van bestand '{0}' (Kunstwerk '{1}' ({2})): Er zijn 1 of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:" + Environment.NewLine +
+                                 "{3}",
+                                 filePath, structureName, structureId,
+                                 string.Join(Environment.NewLine, messages.Select(msg => "* " + msg)));
         }
     }
 }

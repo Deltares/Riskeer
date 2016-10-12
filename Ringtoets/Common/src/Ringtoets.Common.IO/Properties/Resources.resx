@@ -356,9 +356,6 @@ Er is geen referentielijn geëxporteerd.</value>
   <data name="StructuresImporter_ReadStructureParameterRowsData_reading_structuredata" xml:space="preserve">
     <value>Inlezen van kunstwerkgegevens.</value>
   </data>
-  <data name="StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_" xml:space="preserve">
-    <value>Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT '{0}'.</value>
-  </data>
   <data name="DikeProfilesImporter_GetMatchingDikeProfileData_no_dikeprofiledata_for_location_0_" xml:space="preserve">
     <value>Kan geen geldige gegevens vinden voor dijkprofiellocatie met ID '{0}'.</value>
   </data>
@@ -441,9 +438,6 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="StructuresImporter_User_cancelled" xml:space="preserve">
     <value>Kunstwerken importeren is afgebroken. Geen gegevens ingelezen.</value>
   </data>
-  <data name="StructuresImporter_Structure_number_0_is_skipped" xml:space="preserve">
-    <value>Kunstwerk nummer {0} wordt overgeslagen.</value>
-  </data>
   <data name="StructuresParameterRowsValidator_Parameter_0_missing" xml:space="preserve">
     <value>Parameter '{0}' ontbreekt.</value>
   </data>
@@ -470,5 +464,18 @@ Er is geen vakindeling geïmporteerd.</value>
   </data>
   <data name="StructuresParameterRowsValidator_Line_0_ColumnName_1_value_invalid" xml:space="preserve">
     <value>De waarde op regel {0}, kolom '{1}' is ongeldig.</value>
+  </data>
+  <data name="StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_" xml:space="preserve">
+    <value>Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT '{0}'.</value>
+  </data>
+  <data name="StructuresImporter_Structure_number_0_is_skipped" xml:space="preserve">
+    <value>Kunstwerk nummer {0} wordt overgeslagen.</value>
+  </data>
+  <data name="StructuresImporter_StructureName_0_StructureId_1_" xml:space="preserve">
+    <value>Kunstwerk '{0}' ({1})</value>
+  </data>
+  <data name="StructuresImporter_LogValidationErrorForStructure_One_or_more_erors_skip_structure_ErrorMessageList_0_" xml:space="preserve">
+    <value>Er zijn 1 of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:
+{0}</value>
   </data>
 </root>
