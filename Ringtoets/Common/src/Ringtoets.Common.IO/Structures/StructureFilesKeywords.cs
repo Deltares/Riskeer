@@ -29,42 +29,50 @@ namespace Ringtoets.Common.IO.Structures
         #region Height Structure Keywords
 
         /// <summary>
-        /// The first height structure parameter keyword.
+        /// The orientation of the structure, relative to north.
+        /// [degrees]
         /// </summary>
         public const string HeightStructureParameterKeyword1 = "KW_HOOGTE1";
 
         /// <summary>
-        /// The second height structure parameter keyword.
+        /// The crest level of the height structure.
+        /// [m+NAP]
         /// </summary>
         public const string HeightStructureParameterKeyword2 = "KW_HOOGTE2";
 
         /// <summary>
-        /// The third height structure parameter keyword.
+        /// The flow width of the height structure at the bottom protection.
+        /// [m]
         /// </summary>
         public const string HeightStructureParameterKeyword3 = "KW_HOOGTE3";
 
         /// <summary>
-        /// The fourth height structure parameter keyword.
+        /// The critical overtopping discharge of the height structure.
+        /// [m^2/s]
         /// </summary>
         public const string HeightStructureParameterKeyword4 = "KW_HOOGTE4";
 
         /// <summary>
-        /// The fifth height structure parameter keyword.
+        /// The flow apertures width of the height structure.
+        /// [m]
         /// </summary>
         public const string HeightStructureParameterKeyword5 = "KW_HOOGTE5";
 
         /// <summary>
-        /// The sixth height structure parameter keyword.
+        /// The failure probability of the height structure, given erosion.
+        /// [1/year]
         /// </summary>
         public const string HeightStructureParameterKeyword6 = "KW_HOOGTE6";
 
         /// <summary>
-        /// The seventh height structure parameter keyword.
+        /// The storage area of the height structure.
+        /// [m^2]
         /// </summary>
         public const string HeightStructureParameterKeyword7 = "KW_HOOGTE7";
 
         /// <summary>
-        /// The eighth height structure parameter keyword.
+        /// The allowed increase of level for storage of the height structure.
+        /// [m]
         /// </summary>
         public const string HeightStructureParameterKeyword8 = "KW_HOOGTE8";
 
@@ -73,77 +81,90 @@ namespace Ringtoets.Common.IO.Structures
         #region Closing Structure Keywords
 
         /// <summary>
-        /// The first closing structure parameter keyword.
+        /// The storage area of the closing structure.
+        /// [m^2]
         /// </summary>
         public const string ClosingStructureParameterKeyword1 = "KW_BETSLUIT1";
 
         /// <summary>
-        /// The second closing structure parameter keyword.
+        /// The allowed increase of level for storage of the closing structure.
+        /// [m]
         /// </summary>
         public const string ClosingStructureParameterKeyword2 = "KW_BETSLUIT2";
 
         /// <summary>
-        /// The third closing structure parameter keyword.
+        /// The orientation of the structure, relative to north.
+        /// [degrees]
         /// </summary>
         public const string ClosingStructureParameterKeyword3 = "KW_BETSLUIT3";
 
         /// <summary>
-        /// The fourth closing structure parameter keyword.
+        /// The width of the flow apertures of the closing structure.
+        /// [m]
         /// </summary>
         public const string ClosingStructureParameterKeyword4 = "KW_BETSLUIT4";
 
         /// <summary>
-        /// The fifth closing structure parameter keyword.
+        /// The crest level of the opened closing structure.
+        /// [m+NAP]
         /// </summary>
         public const string ClosingStructureParameterKeyword5 = "KW_BETSLUIT5";
 
         /// <summary>
-        /// The sixth closing structure parameter keyword.
+        /// The interior water level of the closing structure.
+        /// [m+NAP]
         /// </summary>
         public const string ClosingStructureParameterKeyword6 = "KW_BETSLUIT6";
 
         /// <summary>
-        /// The seventh closing structure parameter keyword.
+        /// The threshold height of the opened closing structure.
+        /// [m+NAP]
         /// </summary>
         public const string ClosingStructureParameterKeyword7 = "KW_BETSLUIT7";
 
         /// <summary>
-        /// The eighth closing structure parameter keyword.
+        /// The area of the flow aperture of the closing structure.
+        /// [m^2]
         /// </summary>
         public const string ClosingStructureParameterKeyword8 = "KW_BETSLUIT8";
 
         /// <summary>
-        /// The ninth closing structure parameter keyword.
+        /// The critical overtopping discharge of the closing structure.
+        /// [m^2/s]
         /// </summary>
         public const string ClosingStructureParameterKeyword9 = "KW_BETSLUIT9";
 
         /// <summary>
-        /// The tenth closing structure parameter keyword.
+        /// The flow width of the closing structure at the bottom protection.
+        /// [m]
         /// </summary>
         public const string ClosingStructureParameterKeyword10 = "KW_BETSLUIT10";
 
         /// <summary>
-        /// The eleventh closing structure parameter keyword.
+        /// The probability of the closing structure being open before flooding.
+        /// [1/year]
         /// </summary>
         public const string ClosingStructureParameterKeyword11 = "KW_BETSLUIT11";
 
         /// <summary>
-        /// The twelfth closing structure parameter keyword.
+        /// The probability of failing to close the closing structure.
+        /// [1/year]
         /// </summary>
         public const string ClosingStructureParameterKeyword12 = "KW_BETSLUIT12";
 
         /// <summary>
-        /// The thirteenth closing structure parameter keyword.
+        /// The number of identical apertures of the closing structure.
         /// </summary>
         public const string ClosingStructureParameterKeyword13 = "KW_BETSLUIT13";
 
         /// <summary>
-        /// The fourteenth closing structure parameter keyword.
+        /// The probability of failing to repair a failed closure of the closing structure.
+        /// [1/year]
         /// </summary>
         public const string ClosingStructureParameterKeyword14 = "KW_BETSLUIT14";
 
         /// <summary>
-        /// The fifteenth closing structure parameter keyword.
+        /// The type of closing structure inflow model.
         /// </summary>
         public const string ClosingStructureParameterKeyword15 = "KW_BETSLUIT15";
 
@@ -152,132 +173,157 @@ namespace Ringtoets.Common.IO.Structures
         #region Stability Point Structure Keywords
 
         /// <summary>
-        /// The first stability point structure parameter keyword.
+        /// The orientation of the structure, relative to north.
+        /// [degrees]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword1 = "KW_STERSTAB1";
 
         /// <summary>
-        /// The second stability point structure parameter keyword.
+        /// The storage area of the stability point structure.
+        /// [m^2]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword2 = "KW_STERSTAB2";
 
         /// <summary>
-        /// The third stability point structure parameter keyword.
+        /// The allowed increase of level for storage of the stability point structure.
+        /// [m]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword3 = "KW_STERSTAB3";
 
         /// <summary>
-        /// The fourth stability point structure parameter keyword.
+        /// The width of the flow apertures of the stability point structure.
+        /// [m]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword4 = "KW_STERSTAB4";
 
         /// <summary>
-        /// The fifth stability point structure parameter keyword.
+        /// The interior water level of the stability point structure.
+        /// [m+NAP]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword5 = "KW_STERSTAB5";
 
         /// <summary>
-        /// The sixth stability point structure parameter keyword.
+        /// The threshold height of the opened stability point structure.
+        /// [m+NAP]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword6 = "KW_STERSTAB6";
 
         /// <summary>
-        /// The seventh stability point structure parameter keyword.
+        /// The critical overtopping discharge of the stability point structure.
+        /// [m^2/s]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword7 = "KW_STERSTAB7";
 
         /// <summary>
-        /// The eighth stability point structure parameter keyword.
+        /// The flow width of the stability point structure at the bottom protection.
+        /// [m]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword8 = "KW_STERSTAB8";
 
         /// <summary>
-        /// The ninth stability point structure parameter keyword.
+        /// The constructive strength of the linear load model of the stability point structure.
+        /// [kN/m^2]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword9 = "KW_STERSTAB9";
 
         /// <summary>
-        /// The tenth stability point structure parameter keyword.
+        /// The constructive strength of the quadratic load model of the stability point structure.
+        /// [kN/m]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword10 = "KW_STERSTAB10";
 
         /// <summary>
-        /// The eleventh stability point structure parameter keyword.
+        /// The bank width of the stability point structure.
+        /// [m]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword11 = "KW_STERSTAB11";
 
         /// <summary>
-        /// The twelfth stability point structure parameter keyword.
+        /// The inside water level failure construction of the stability point structure.
+        /// [m+NAP]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword12 = "KW_STERSTAB12";
 
         /// <summary>
-        /// The thirteenth stability point structure parameter keyword.
+        /// The the evaluation level of the stability point structure.
+        /// [m+NAP]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword13 = "KW_STERSTAB13";
 
         /// <summary>
-        /// The fourteenth stability point structure parameter keyword.
+        /// The crest level of the stability point structure.
+        /// [m+NAP]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword14 = "KW_STERSTAB14";
 
         /// <summary>
-        /// The fifteenth stability point structure parameter keyword.
+        /// The vertical distance of the stability point structure.
+        /// [m]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword15 = "KW_STERSTAB15";
 
         /// <summary>
-        /// The sixteenth stability point structure parameter keyword.
+        /// The probability of failing to repair a failed closure of the stability point structure.
+        /// [1/year]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword16 = "KW_STERSTAB16";
 
         /// <summary>
-        /// The seventeenth stability point structure parameter keyword.
+        /// The failure collision energy of the stability point structure.
+        /// [kN m]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword17 = "KW_STERSTAB17";
 
         /// <summary>
-        /// The eighteenth stability point structure parameter keyword.
+        /// The mass of the ship.
+        /// [ton]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword18 = "KW_STERSTAB18";
 
         /// <summary>
-        /// The nineteenth stability point structure parameter keyword.
+        /// The velocity of the ship.
+        /// [m/s]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword19 = "KW_STERSTAB19";
 
         /// <summary>
-        /// The twentieth stability point structure parameter keyword.
+        /// The the levelling count.
+        /// [1/year]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword20 = "KW_STERSTAB20";
 
         /// <summary>
-        /// The twenty-first stability point structure parameter keyword.
+        /// The probability of a secondary collision on the structure.
+        /// [1/(year levelling)]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword21 = "KW_STERSTAB21";
 
         /// <summary>
-        /// The twenty-second stability point structure parameter keyword.
+        /// The maximum flow velocity at which the structure is closable.
+        /// [m/s]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword22 = "KW_STERSTAB22";
 
         /// <summary>
-        /// The twenty-third stability point structure parameter keyword.
+        /// The stability properties of the linear load model of the stability point structure.
+        /// [kN/m^2]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword23 = "KW_STERSTAB23";
 
         /// <summary>
-        /// The twenty-fourth stability point structure parameter keyword.
+        /// The stability properties of the quadratic load model of the stability point structure.
+        /// [kN/m]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword24 = "KW_STERSTAB24";
 
         /// <summary>
-        /// The twenty-fifth stability point structure parameter keyword.
+        /// The area of the flow aperture of the stability point structure.
+        /// [m^2]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword25 = "KW_STERSTAB25";
 
         /// <summary>
-        /// The twenty-sixth stability point structure parameter keyword.
+        /// The type of stability point structure inflow model.
         /// </summary>
         public const string StabilityPointStructureParameterKeyword26 = "KW_STERSTAB26";
 
