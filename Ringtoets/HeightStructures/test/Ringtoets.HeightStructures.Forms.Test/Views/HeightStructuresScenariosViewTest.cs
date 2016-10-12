@@ -224,7 +224,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 var calculationA = (HeightStructuresCalculation) failureMechanism.CalculationsGroup.Children[0];
                 var calculationB = (HeightStructuresCalculation) failureMechanism.CalculationsGroup.Children[1];
 
-                calculationA.InputParameters.Structure = calculationB.InputParameters.Structure;
+                calculationA.InputParameters.HeightStructure = calculationB.InputParameters.HeightStructure;
 
                 // Call
                 calculationA.NotifyObservers();
@@ -254,12 +254,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     Name = "CalculationC",
                     InputParameters =
                     {
-                        Structure = calculationB.InputParameters.Structure
+                        HeightStructure = calculationB.InputParameters.HeightStructure
                     }
                 };
                 failureMechanism.CalculationsGroup.Children.Add(calculationC);
 
-                calculationC.InputParameters.Structure = calculationC.InputParameters.Structure;
+                calculationC.InputParameters.HeightStructure = calculationC.InputParameters.HeightStructure;
 
                 // Call
                 failureMechanism.CalculationsGroup.NotifyObservers();
@@ -311,7 +311,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Name = "CalculationA",
                 InputParameters =
                 {
-                    Structure = new TestHeightStructure(matchingPointA)
+                    HeightStructure = new TestHeightStructure(matchingPointA)
                 }
             };
             var calculationB = new HeightStructuresCalculation
@@ -319,7 +319,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 Name = "CalculationB",
                 InputParameters =
                 {
-                    Structure = new TestHeightStructure(matchingPointB)
+                    HeightStructure = new TestHeightStructure(matchingPointB)
                 }
             };
             Point2D connectionPoint = new Point2D(10, 10);

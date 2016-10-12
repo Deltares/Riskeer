@@ -608,7 +608,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
-                    Structure = new TestHeightStructure()
+                    HeightStructure = new TestHeightStructure()
                 }
             };
 

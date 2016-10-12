@@ -153,7 +153,11 @@ namespace Ringtoets.HeightStructures.Utils
             {
                 throw new ArgumentNullException("calculation");
             }
-            return calculation.InputParameters.Structure == null ? null : new CalculationWithLocation(calculation, calculation.InputParameters.Structure.Location);
+            if (calculation.InputParameters.HeightStructure == null)
+            {
+                return null;
+            }
+            return new CalculationWithLocation(calculation, calculation.InputParameters.HeightStructure.Location);
         }
 
         private static SectionResultWithCalculationAssignment AsCalculationAssignment(HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult)
