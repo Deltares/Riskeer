@@ -426,11 +426,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Structure_LevellingCount_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_LevellingCount_Description")]
-        public string LevellingCount
+        public int LevellingCount
         {
             get
             {
-                return ProbabilityFormattingHelper.Format(data.LevellingCount);
+                return data.LevellingCount;
             }
         }
 

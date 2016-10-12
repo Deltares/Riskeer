@@ -182,7 +182,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.IsTrue(properties.ShipVelocity.DynamicReadOnlyValidationMethod("Mean"));
             Assert.IsTrue(properties.ShipVelocity.DynamicReadOnlyValidationMethod("CoefficientOfVariation"));
 
-            Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.LevellingCount), properties.LevellingCount);
+            Assert.AreEqual(structure.LevellingCount, properties.LevellingCount);
             Assert.AreEqual(ProbabilityFormattingHelper.Format(structure.ProbabilityCollisionSecondaryStructure), properties.ProbabilityCollisionSecondaryStructure);
 
             Assert.AreEqual("Normaal", properties.FlowVelocityStructureClosable.DistributionType);
