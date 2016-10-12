@@ -271,7 +271,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kans op aanvaring tweede keermiddel per nivellering [1/niv].
+        ///   Looks up a localized string similar to Kans op aanvaring tweede keermiddel per nivellering [1/jaar/niv].
         /// </summary>
         internal static string Structure_ProbabilityCollisionSecondaryStructure_DisplayName {
             get {

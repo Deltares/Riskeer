@@ -21,7 +21,6 @@
 
 using System;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Probabilistics;
 using BaseConstructionProperties = Ringtoets.Common.Data.StructureBase.ConstructionProperties;
@@ -144,7 +143,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             };
             InflowModelType = constructionProperties.InflowModelType;
         }
-        
+
         /// <summary>
         /// Gets the storage area of the stability point structure.
         /// [m^2]
@@ -243,7 +242,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets the mass of the ship.
-        /// [tons]
+        /// [ton]
         /// </summary>
         public VariationCoefficientNormalDistribution ShipMass { get; private set; }
 
