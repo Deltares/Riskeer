@@ -46,13 +46,6 @@ namespace Ringtoets.HeightStructures.Data
             };
 
             deviationWaveDirection = new RoundedDouble(2, double.NaN);
-
-            UpdateStructureProperties();
-        }
-
-        private static bool ValidProbabilityValue(double probability)
-        {
-            return !double.IsNaN(probability) && probability <= 1 && probability >= 0;
         }
 
         #region Hydraulic data

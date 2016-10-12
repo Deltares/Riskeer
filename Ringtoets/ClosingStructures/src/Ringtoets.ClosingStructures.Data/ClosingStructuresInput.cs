@@ -20,14 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Structures;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Data
@@ -35,48 +30,30 @@ namespace Ringtoets.ClosingStructures.Data
     /// <summary>
     /// Class that holds all closing structures calculation specific input parameters.
     /// </summary>
-    public class ClosingStructuresInput : Observable, ICalculationInput
+    public class ClosingStructuresInput : StructuresInputBase<ClosingStructure>
     {
-        private readonly NormalDistribution modelFactorSuperCriticalFlow;
         private readonly NormalDistribution thresholdHeightOpenWeir;
         private readonly NormalDistribution drainCoefficient;
         private readonly LogNormalDistribution areaFlowApertures;
         private readonly NormalDistribution levelCrestStructureNotClosing;
         private readonly NormalDistribution insideWaterLevel;
-        private readonly VariationCoefficientLogNormalDistribution storageStructureArea;
-        private readonly LogNormalDistribution allowedLevelIncreaseStorage;
-        private readonly LogNormalDistribution flowWidthAtBottomProtection;
-        private readonly VariationCoefficientNormalDistribution widthFlowApertures;
-        private readonly VariationCoefficientLogNormalDistribution stormDuration;
-        private readonly VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge;
-        private RoundedDouble structureNormalOrientation;
         private RoundedDouble factorStormDurationOpenStructure;
         private double failureProbabilityOpenStructure;
         private double failureProbabilityReparation;
-        private double failureProbabilityStructureWithErosion;
         private double probabilityOpenStructureBeforeFlooding;
         private RoundedDouble deviationWaveDirection;
-        private ForeshoreProfile foreshoreProfile;
 
         /// <summary>
         /// Creates a new instance of the <see cref="ClosingStructuresInput"/> class.
         /// </summary>
         public ClosingStructuresInput()
         {
-            structureNormalOrientation = new RoundedDouble(2, double.NaN);
             factorStormDurationOpenStructure = new RoundedDouble(2, double.NaN);
             deviationWaveDirection = new RoundedDouble(2, double.NaN);
 
             failureProbabilityOpenStructure = double.NaN;
             failureProbabilityReparation = double.NaN;
-            failureProbabilityStructureWithErosion = double.NaN;
             probabilityOpenStructureBeforeFlooding = 1.0;
-
-            modelFactorSuperCriticalFlow = new NormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1.1,
-                StandardDeviation = (RoundedDouble) 0.03
-            };
 
             thresholdHeightOpenWeir = new NormalDistribution(2)
             {
@@ -108,56 +85,10 @@ namespace Ringtoets.ClosingStructures.Data
                 StandardDeviation = (RoundedDouble) 0.1
             };
 
-            allowedLevelIncreaseStorage = new LogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) double.NaN,
-                StandardDeviation = (RoundedDouble) 0.1
-            };
-
-            storageStructureArea = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) double.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.1
-            };
-
-            flowWidthAtBottomProtection = new LogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) double.NaN,
-                StandardDeviation = (RoundedDouble) 0.05
-            };
-
-            criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) double.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.15
-            };
-
-            widthFlowApertures = new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) double.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.05
-            };
-
-            stormDuration = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 6.0,
-                CoefficientOfVariation = (RoundedDouble) 0.25
-            };
-
-            UpdateForeshoreProperties();
+            UpdateStructureProperties();
         }
-
-        private static bool ValidProbabilityValue(double probability)
-        {
-            return !double.IsNaN(probability) && probability <= 1 && probability >= 0;
-        }
-
+        
         #region Structure
-
-        /// <summary>
-        /// Gets or sets the closing structure.
-        /// </summary>
-        public ClosingStructure ClosingStructure { get; set; }
 
         /// <summary>
         /// Gets or sets the type of closing structure inflow model.
@@ -167,22 +98,6 @@ namespace Ringtoets.ClosingStructures.Data
         #endregion
 
         #region Model factors
-
-        /// <summary>
-        /// Gets or sets the model factor for the super critical flow.
-        /// </summary>
-        /// <remarks>Only sets the mean.</remarks>
-        public NormalDistribution ModelFactorSuperCriticalFlow
-        {
-            get
-            {
-                return modelFactorSuperCriticalFlow;
-            }
-            set
-            {
-                modelFactorSuperCriticalFlow.Mean = value.Mean;
-            }
-        }
 
         /// <summary>
         /// Gets or sets the drain coefficient.
@@ -219,79 +134,6 @@ namespace Ringtoets.ClosingStructures.Data
 
         #region Hydraulic data
 
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
-
-        #region Foreshore Profile
-
-        /// <summary>
-        /// Gets or sets the foreshore profile.
-        /// </summary>
-        public ForeshoreProfile ForeshoreProfile
-        {
-            get
-            {
-                return foreshoreProfile;
-            }
-            set
-            {
-                foreshoreProfile = value;
-                UpdateForeshoreProperties();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets whether the <see cref="BreakWater"/> needs to be taken into account.
-        /// </summary>
-        public bool UseBreakWater { get; set; }
-
-        /// <summary>
-        /// Gets or sets whether the <see cref="ForeshoreProfile"/> needs to be taken into account.
-        /// </summary>
-        public bool UseForeshore { get; set; }
-
-        /// <summary>
-        /// Gets the geometry of the foreshore.
-        /// </summary>
-        public RoundedPoint2DCollection ForeshoreGeometry
-        {
-            get
-            {
-                return foreshoreProfile != null
-                           ? foreshoreProfile.Geometry
-                           : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
-            }
-        }
-
-        /// <summary>
-        /// Gets the <see cref="BreakWater"/>.
-        /// </summary>
-        public BreakWater BreakWater { get; private set; }
-
-        private void UpdateForeshoreProperties()
-        {
-            if (foreshoreProfile == null)
-            {
-                UseForeshore = false;
-                UseBreakWater = false;
-                BreakWater = GetDefaultBreakWaterProperties();
-            }
-            else
-            {
-                UseForeshore = foreshoreProfile.Geometry.Count() > 1;
-                UseBreakWater = foreshoreProfile.HasBreakWater;
-                BreakWater = foreshoreProfile.HasBreakWater ?
-                                 new BreakWater(foreshoreProfile.BreakWater.Type, foreshoreProfile.BreakWater.Height) :
-                                 GetDefaultBreakWaterProperties();
-            }
-        }
-
-        private BreakWater GetDefaultBreakWaterProperties()
-        {
-            return new BreakWater(BreakWaterType.Dam, 0.0);
-        }
-
-        #endregion
-
         /// <summary>
         /// Gets or sets the inside water level.
         /// [m+NAP]
@@ -325,54 +167,9 @@ namespace Ringtoets.ClosingStructures.Data
             }
         }
 
-        /// <summary>
-        /// Gets or sets the storm duration.
-        /// [hrs]
-        /// </summary>
-        /// <remarks>Only sets the mean.</remarks>
-        public VariationCoefficientLogNormalDistribution StormDuration
-        {
-            get
-            {
-                return stormDuration;
-            }
-            set
-            {
-                stormDuration.Mean = value.Mean;
-            }
-        }
-
         #endregion
 
         #region Schematization
-
-        /// <summary>
-        /// Gets or sets the orientation of the normal of the structure.
-        /// [degrees]
-        /// </summary>
-        ///<exception cref="ArgumentOutOfRangeException">Thown when the value for the orientation is not between [0,360] degrees.</exception>
-        public RoundedDouble StructureNormalOrientation
-        {
-            get
-            {
-                return structureNormalOrientation;
-            }
-            set
-            {
-                if (double.IsNaN(value))
-                {
-                    structureNormalOrientation = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
-                    return;
-                }
-
-                RoundedDouble newOrientationValue = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
-                if (newOrientationValue < 0 || newOrientationValue > 360)
-                {
-                    throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
-                }
-                structureNormalOrientation = newOrientationValue;
-            }
-        }
 
         /// <summary>
         /// Gets or sets the threshold height of the open weir.
@@ -475,113 +272,6 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the allowed increase of level for storage.
-        /// [m]
-        /// </summary>
-        public LogNormalDistribution AllowedLevelIncreaseStorage
-        {
-            get
-            {
-                return allowedLevelIncreaseStorage;
-            }
-            set
-            {
-                allowedLevelIncreaseStorage.Mean = value.Mean;
-                allowedLevelIncreaseStorage.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the storage structure area.
-        /// [m^2]
-        /// </summary>
-        public VariationCoefficientLogNormalDistribution StorageStructureArea
-        {
-            get
-            {
-                return storageStructureArea;
-            }
-            set
-            {
-                storageStructureArea.Mean = value.Mean;
-                storageStructureArea.CoefficientOfVariation = value.CoefficientOfVariation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the flow width at the bottom protection.
-        /// [m]
-        /// </summary>
-        public LogNormalDistribution FlowWidthAtBottomProtection
-        {
-            get
-            {
-                return flowWidthAtBottomProtection;
-            }
-            set
-            {
-                flowWidthAtBottomProtection.Mean = value.Mean;
-                flowWidthAtBottomProtection.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the critical overtopping discharge.
-        /// [m^3/s/m]
-        /// </summary>
-        public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge
-        {
-            get
-            {
-                return criticalOvertoppingDischarge;
-            }
-            set
-            {
-                criticalOvertoppingDischarge.Mean = value.Mean;
-                criticalOvertoppingDischarge.CoefficientOfVariation = value.CoefficientOfVariation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the failure probability of structure given erosion.
-        /// [1/year]
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
-        /// is not between [0, 1].</exception>
-        public double FailureProbabilityStructureWithErosion
-        {
-            get
-            {
-                return failureProbabilityStructureWithErosion;
-            }
-            set
-            {
-                if (!ValidProbabilityValue(value))
-                {
-                    throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.FailureProbability_Value_needs_to_be_between_0_and_1);
-                }
-                failureProbabilityStructureWithErosion = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the width of flow apertures.
-        /// [m]
-        /// </summary>
-        public VariationCoefficientNormalDistribution WidthFlowApertures
-        {
-            get
-            {
-                return widthFlowApertures;
-            }
-            set
-            {
-                widthFlowApertures.Mean = value.Mean;
-                widthFlowApertures.CoefficientOfVariation = value.CoefficientOfVariation;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the failure probability of an open structure before flooding.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
@@ -603,5 +293,27 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         #endregion
+
+        protected override void UpdateStructureProperties()
+        {
+            if (Structure != null)
+            {
+                StructureNormalOrientation = Structure.StructureNormalOrientation;
+                LevelCrestStructureNotClosing = Structure.LevelCrestStructureNotClosing;
+                FlowWidthAtBottomProtection = Structure.FlowWidthAtBottomProtection;
+                CriticalOvertoppingDischarge = Structure.CriticalOvertoppingDischarge;
+                WidthFlowApertures = Structure.WidthFlowApertures;
+                StorageStructureArea = Structure.StorageStructureArea;
+                AllowedLevelIncreaseStorage = Structure.AllowedLevelIncreaseStorage;
+                InflowModelType = Structure.InflowModelType;
+                AreaFlowApertures = Structure.AreaFlowApertures;
+                FailureProbabilityOpenStructure = Structure.FailureProbabilityOpenStructure;
+                FailureProbabilityReparation = Structure.FailureProbabilityReparation;
+                IdenticalApertures = Structure.IdenticalApertures;
+                InsideWaterLevel = Structure.InsideWaterLevel;
+                ProbabilityOpenStructureBeforeFlooding = Structure.ProbabilityOpenStructureBeforeFlooding;
+                ThresholdHeightOpenWeir = Structure.ThresholdHeightOpenWeir;
+            }
+        }
     }
 }

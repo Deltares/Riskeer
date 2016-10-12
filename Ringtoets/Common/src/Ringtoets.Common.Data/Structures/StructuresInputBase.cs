@@ -129,7 +129,7 @@ namespace Ringtoets.Common.Data.Structures
         /// </summary>
         protected abstract void UpdateStructureProperties();
 
-        private static bool ValidProbabilityValue(double probability)
+        protected static bool ValidProbabilityValue(double probability)
         {
             return !double.IsNaN(probability) && probability <= 1 && probability >= 0;
         }

@@ -20,19 +20,12 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
-using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HeightStructures.Data.TestUtil;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Data.Test
 {
@@ -139,61 +132,27 @@ namespace Ringtoets.HeightStructures.Data.Test
                 var defaultInput = new HeightStructuresInput();
                 AssertAreEqual(defaultInput.StructureNormalOrientation, input.StructureNormalOrientation);
 
-                Assert.AreEqual(defaultInput.LevelCrestStructure.Mean, input.LevelCrestStructure.Mean);
-                Assert.AreEqual(defaultInput.LevelCrestStructure.StandardDeviation,
-                                input.LevelCrestStructure.StandardDeviation);
+                DistributionAssert.AreEqual(defaultInput.LevelCrestStructure, input.LevelCrestStructure);
+                DistributionAssert.AreEqual(defaultInput.CriticalOvertoppingDischarge, input.CriticalOvertoppingDischarge);
+                DistributionAssert.AreEqual(defaultInput.WidthFlowApertures, input.WidthFlowApertures);
 
-                Assert.AreEqual(defaultInput.CriticalOvertoppingDischarge.Mean,
-                                input.CriticalOvertoppingDischarge.Mean);
-                Assert.AreEqual(defaultInput.CriticalOvertoppingDischarge.CoefficientOfVariation,
-                                input.CriticalOvertoppingDischarge.CoefficientOfVariation);
+                Assert.AreEqual(defaultInput.FailureProbabilityStructureWithErosion, input.FailureProbabilityStructureWithErosion);
 
-                Assert.AreEqual(defaultInput.WidthFlowApertures.Mean, input.WidthFlowApertures.Mean);
-                Assert.AreEqual(defaultInput.WidthFlowApertures.CoefficientOfVariation,
-                                input.WidthFlowApertures.CoefficientOfVariation);
-
-                Assert.AreEqual(defaultInput.FailureProbabilityStructureWithErosion,
-                                input.FailureProbabilityStructureWithErosion);
-
-                Assert.AreEqual(defaultInput.StorageStructureArea.Mean, input.StorageStructureArea.Mean);
-                Assert.AreEqual(defaultInput.StorageStructureArea.CoefficientOfVariation,
-                                input.StorageStructureArea.CoefficientOfVariation);
-
-                Assert.AreEqual(defaultInput.AllowedLevelIncreaseStorage.Mean, input.AllowedLevelIncreaseStorage.Mean);
-                Assert.AreEqual(defaultInput.AllowedLevelIncreaseStorage.Shift, input.AllowedLevelIncreaseStorage.Shift);
-                Assert.AreEqual(defaultInput.AllowedLevelIncreaseStorage.StandardDeviation,
-                                input.AllowedLevelIncreaseStorage.StandardDeviation);
+                DistributionAssert.AreEqual(defaultInput.StorageStructureArea, input.StorageStructureArea);
+                DistributionAssert.AreEqual(defaultInput.AllowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
             }
             else
             {
                 AssertAreEqual(expectedHeightStructure.StructureNormalOrientation, input.StructureNormalOrientation);
 
-                Assert.AreEqual(expectedHeightStructure.LevelCrestStructure.Mean, input.LevelCrestStructure.Mean);
-                Assert.AreEqual(expectedHeightStructure.LevelCrestStructure.StandardDeviation,
-                                input.LevelCrestStructure.StandardDeviation);
+                DistributionAssert.AreEqual(expectedHeightStructure.LevelCrestStructure, input.LevelCrestStructure);
+                DistributionAssert.AreEqual(expectedHeightStructure.CriticalOvertoppingDischarge, input.CriticalOvertoppingDischarge);
+                DistributionAssert.AreEqual(expectedHeightStructure.WidthFlowApertures, input.WidthFlowApertures);
 
-                Assert.AreEqual(expectedHeightStructure.CriticalOvertoppingDischarge.Mean,
-                                input.CriticalOvertoppingDischarge.Mean);
-                Assert.AreEqual(expectedHeightStructure.CriticalOvertoppingDischarge.CoefficientOfVariation,
-                                input.CriticalOvertoppingDischarge.CoefficientOfVariation);
+                Assert.AreEqual(expectedHeightStructure.FailureProbabilityStructureWithErosion, input.FailureProbabilityStructureWithErosion);
 
-                Assert.AreEqual(expectedHeightStructure.WidthFlowApertures.Mean, input.WidthFlowApertures.Mean);
-                Assert.AreEqual(expectedHeightStructure.WidthFlowApertures.CoefficientOfVariation,
-                                input.WidthFlowApertures.CoefficientOfVariation);
-
-                Assert.AreEqual(expectedHeightStructure.FailureProbabilityStructureWithErosion,
-                                input.FailureProbabilityStructureWithErosion);
-
-                Assert.AreEqual(expectedHeightStructure.StorageStructureArea.Mean, input.StorageStructureArea.Mean);
-                Assert.AreEqual(expectedHeightStructure.StorageStructureArea.CoefficientOfVariation,
-                                input.StorageStructureArea.CoefficientOfVariation);
-
-                Assert.AreEqual(expectedHeightStructure.AllowedLevelIncreaseStorage.Mean,
-                                input.AllowedLevelIncreaseStorage.Mean);
-                Assert.AreEqual(expectedHeightStructure.AllowedLevelIncreaseStorage.Shift,
-                                input.AllowedLevelIncreaseStorage.Shift);
-                Assert.AreEqual(expectedHeightStructure.AllowedLevelIncreaseStorage.StandardDeviation,
-                                input.AllowedLevelIncreaseStorage.StandardDeviation);
+                DistributionAssert.AreEqual(expectedHeightStructure.StorageStructureArea, input.StorageStructureArea);
+                DistributionAssert.AreEqual(expectedHeightStructure.AllowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
             }
         }
         
