@@ -47,8 +47,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="breakWater">The break water.</param>
         /// <param name="volumicWeightWater">The volumic weight of water.</param>
         /// <param name="gravitationalAcceleration">The gravitational acceleration.</param>
-        /// <param name="levelCrestStructureMean">The mean of the level crest of the structure.</param>
-        /// <param name="levelCrestStructureStandardDeviation">The standard deviation of the level crest of the structure.</param>
+        /// <param name="levelCrestStructureMean">The mean of the crest level of the structure.</param>
+        /// <param name="levelCrestStructureStandardDeviation">The standard deviation of the crest level of the structure.</param>
         /// <param name="structureNormalOrientation">The orientation of the normal of the structure.</param>
         /// <param name="factorStormDurationOpenStructure">The factor of the storm duration for an open structure.</param>
         /// <param name="modelFactorSubCriticalFlowMean">The mean of the model factor sub critical flow.</param>

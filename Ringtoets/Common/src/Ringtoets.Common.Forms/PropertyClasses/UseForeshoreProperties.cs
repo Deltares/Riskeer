@@ -42,8 +42,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="UseForeshoreProperties"/>.
         /// </summary>
-        /// <param name="useForshoreData">The data to use for the properties. If <paramref name="useForshoreData"/> 
-        /// is <c>null</c>, all properties will be set to <see cref="ReadOnlyAttribute"/>.</param>
+        /// <param name="useForshoreData">The data to use for the properties. </param>
+        /// <remarks>If <paramref name="useForshoreData"/> is <c>null</c>, all properties will 
+        /// be set to <see cref="ReadOnlyAttribute"/>.</remarks>
         public UseForeshoreProperties(IUseForeshore useForshoreData)
         {
             data = useForshoreData;

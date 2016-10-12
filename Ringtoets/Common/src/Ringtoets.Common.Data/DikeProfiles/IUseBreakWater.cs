@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
     public interface IUseBreakWater : IObservable
     {
         /// <summary>
-        /// Gets or sets whether the <see cref="BreakWater"/> needs to be taken into account.
+        /// Gets or sets a value indicating whether the <see cref="BreakWater"/> needs to be taken into account.
         /// </summary>
         bool UseBreakWater { get; set; }
 

@@ -67,8 +67,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="gravitationalAcceleration">The gravitational acceleration.</param>
         /// <param name="modelFactorOvertoppingFlowMean">The mean of the model factor overtopping flow.</param>
         /// <param name="modelFactorOvertoppingFlowStandardDeviation">The standard deviation of the model factor overtopping flow.</param>
-        /// <param name="levelCrestStructureMean">The mean of the level crest of the structure.</param>
-        /// <param name="levelCrestStructureStandardDeviation">The standard deviation of the level crest of the structure.</param>
+        /// <param name="levelCrestStructureMean">The mean of the crest level of the structure.</param>
+        /// <param name="levelCrestStructureStandardDeviation">The standard deviation of the crest level of the structure.</param>
         /// <param name="structureNormalOrientation">The orientation of the normal of the structure.</param>
         /// <param name="modelFactorSuperCriticalFlowMean">The mean of the model factor super critical flow.</param>
         /// <param name="modelFactorSuperCriticalFlowStandardDeviation">The standard deviation of the model factor super critical flow.</param>

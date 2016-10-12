@@ -28,6 +28,7 @@ using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Forms.TypeConverters;
 
@@ -39,7 +40,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_IBreakWaterNull_ExpectedValues()
         {
-            // Setup & Call
+            // Call
             var properties = new UseBreakWaterProperties(null);
 
             // Assert
@@ -53,15 +54,19 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_ValidData_ExpectedValues()
         {
             // Setup
-            var useBreakWaterData = new TestUseBreakWater();
+            var useBreakWaterData = new TestUseBreakWater
+            {
+                UseBreakWater = true,
+                BreakWater = new BreakWater(BreakWaterType.Caisson, 10)
+            };
 
             // Call
             var properties = new UseBreakWaterProperties(useBreakWaterData);
 
             // Assert
-            Assert.IsFalse(properties.UseBreakWater);
-            Assert.IsNull(properties.BreakWaterType);
-            Assert.AreEqual((RoundedDouble) double.NaN, properties.BreakWaterHeight);
+            Assert.IsTrue(properties.UseBreakWater);
+            Assert.AreEqual(BreakWaterType.Caisson, properties.BreakWaterType);
+            Assert.AreEqual(10, properties.BreakWaterHeight, properties.BreakWaterHeight.GetAccuracy());
             Assert.AreEqual(string.Empty, properties.ToString());
         }
 
@@ -90,6 +95,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(properties.UseBreakWater);
+            Assert.AreEqual(BreakWaterType.Dam, properties.BreakWaterType);
+            Assert.AreEqual(1.1, properties.BreakWaterHeight, properties.BreakWaterHeight.GetAccuracy());
+            Assert.AreEqual(string.Empty, properties.ToString());
             mockRepository.VerifyAll();
         }
 

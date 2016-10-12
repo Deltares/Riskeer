@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
     public interface IUseForeshore: IObservable
     {
         /// <summary>
-        /// Gets or sets whether the <see cref="ForeshoreProfile"/> needs to be taken into account.
+        /// Gets or sets a value indicating whether the <see cref="ForeshoreProfile"/> needs to be taken into account.
         /// </summary>
         bool UseForeshore { get; set; }
         

@@ -184,7 +184,7 @@ namespace Ringtoets.HeightStructures.Data
         #region Schematisation
 
         /// <summary>
-        /// Gets or sets the level crest of the structure.
+        /// Gets or sets the crest level of the structure.
         /// [m+NAP]
         /// </summary>
         public NormalDistribution LevelCrestStructure

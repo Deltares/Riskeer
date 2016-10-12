@@ -44,8 +44,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of <see cref="UseBreakWaterProperties"/>.
         /// </summary>
-        /// <param name="useBreakWaterData">The data to use for the properties. If <paramref name="useBreakWaterData"/> 
-        /// is <c>null</c>, all properties will be set to <see cref="ReadOnlyAttribute"/>.</param>
+        /// <param name="useBreakWaterData">The data to use for the properties.</param>
+        /// <remarks>If <paramref name="useBreakWaterData"/> is <c>null</c>, all properties 
+        /// will be set to <see cref="ReadOnlyAttribute"/>.</remarks>
         public UseBreakWaterProperties(IUseBreakWater useBreakWaterData)
         {
             data = useBreakWaterData;

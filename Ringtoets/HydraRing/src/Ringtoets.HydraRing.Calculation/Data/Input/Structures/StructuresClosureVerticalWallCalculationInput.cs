@@ -72,8 +72,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="structureNormalOrientation">The orientation of the normal of the structure.</param>
         /// <param name="modelFactorSuperCriticalFlowMean">The mean of the model factor super critical flow.</param>
         /// <param name="modelFactorSuperCriticalFlowStandardDeviation">The standard deviation of the model factor super critical flow.</param>
-        /// <param name="levelCrestStructureNotClosingMean">The mean of the level crest of the structure when not closing.</param>
-        /// <param name="levelCrestStructureNotClosingStandardDeviation">The standard deviation of the level crest of the structure when not closing.</param>
+        /// <param name="levelCrestStructureNotClosingMean">The mean of the crest level of the structure when not closing.</param>
+        /// <param name="levelCrestStructureNotClosingStandardDeviation">The standard deviation of the crest level of the structure when not closing.</param>
         /// <param name="widthFlowAperturesMean">The mean of the width flow apertures.</param>
         /// <param name="widthFlowAperturesVariation">The variation of the width flow apertures.</param>
         /// <param name="deviationWaveDirection">The deviation of the wave direction.</param>

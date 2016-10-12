@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_IUseForeshoreNull_ExpectedValues()
         {
-            // Setup & Call
+            // Call
             var properties = new UseForeshoreProperties(null);
 
             // Assert
@@ -52,13 +52,16 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         public void Constructor_ValidData_ExpectedValues()
         {
             // Setup
-            var useForshoreData = new TestUseForeshore();
+            var useForshoreData = new TestUseForeshore
+            {
+                UseForeshore = true
+            };
 
             // Call
             var properties = new UseForeshoreProperties(useForshoreData);
 
             // Assert
-            Assert.IsFalse(properties.UseForeshore);
+            Assert.IsTrue(properties.UseForeshore);
             Assert.IsNull(properties.Coordinates);
             Assert.AreEqual(string.Empty, properties.ToString());
         }
@@ -104,6 +107,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(properties.UseForeshore);
+            Assert.IsNull(properties.Coordinates);
+            Assert.AreEqual(string.Empty, properties.ToString());
             mockRepository.VerifyAll();
         }
 
