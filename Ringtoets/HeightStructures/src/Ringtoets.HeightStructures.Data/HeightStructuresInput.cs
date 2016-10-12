@@ -181,7 +181,7 @@ namespace Ringtoets.HeightStructures.Data
 
         #endregion
 
-        #region Schematisation
+        #region Schematization
 
         /// <summary>
         /// Gets or sets the crest level of the structure.
