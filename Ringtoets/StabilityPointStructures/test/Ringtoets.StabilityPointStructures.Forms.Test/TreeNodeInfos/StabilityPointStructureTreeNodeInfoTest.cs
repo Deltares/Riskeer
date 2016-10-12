@@ -21,8 +21,11 @@
 
 using System.Linq;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Plugin;
@@ -96,6 +99,33 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 // Assert
                 TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.StructuresIcon, image);
             }
+        }
+
+        [Test]
+        public void ContextMenuStrip_Always_CallsBuilderMethods()
+        {
+            // Setup
+            var mocksRepository = new MockRepository();
+            var guiMock = mocksRepository.StrictMock<IGui>();
+            var menuBuilderMock = mocksRepository.StrictMock<IContextMenuBuilder>();
+
+            menuBuilderMock.Expect(mb => mb.AddPropertiesItem()).Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.Build()).Return(null);
+            mocksRepository.ReplayAll();
+
+            using (var plugin = new StabilityPointStructuresPlugin())
+            using (var treeViewControl = new TreeViewControl())
+            {
+                plugin.Gui = guiMock;
+                var info = GetInfo(plugin);
+
+                guiMock.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+
+                // Call
+                info.ContextMenuStrip(null, null, treeViewControl);
+            }
+            // Assert
+            mocksRepository.VerifyAll();
         }
 
         private static TreeNodeInfo GetInfo(StabilityPointStructuresPlugin gui)
