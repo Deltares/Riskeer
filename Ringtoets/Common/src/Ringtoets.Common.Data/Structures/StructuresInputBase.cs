@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Data.Structures
 {
@@ -41,6 +42,12 @@ namespace Ringtoets.Common.Data.Structures
         {
             UpdateForeshoreProperties();
         }
+
+        #region Hydraulic data
+
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+
+        #endregion
 
         #region Foreshore Profile
 

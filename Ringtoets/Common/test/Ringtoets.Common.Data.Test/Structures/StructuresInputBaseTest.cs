@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.Data.Test.Structures
 {
@@ -44,6 +45,21 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.IsInstanceOf<ICalculationInput>(input);
             Assert.IsInstanceOf<IUseBreakWater>(input);
             Assert.IsInstanceOf<IUseForeshore>(input);
+            Assert.IsNull(input.HydraulicBoundaryLocation);
+        }
+
+        [Test]
+        public void Properties_HydraulicBoundaryLocation_ExpectedValues()
+        {
+            // Setup
+            var input = new SimpleStructuresInput();
+            var location = new HydraulicBoundaryLocation(0, "test", 0, 0);
+
+            // Call
+            input.HydraulicBoundaryLocation = location;
+
+            // Assert
+            Assert.AreSame(location, input.HydraulicBoundaryLocation);
         }
 
         [Test]
@@ -56,7 +72,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             var input = new SimpleStructuresInput();
             BreakWaterType originalBreakWaterType = input.BreakWater.Type;
             RoundedDouble originalBreakWaterHeight = input.BreakWater.Height;
-//            HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
+            HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
 
             var foreshoreGeometry = new List<Point2D>
             {
@@ -100,7 +116,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.AreEqual(withBreakWater ? foreshoreProfile.BreakWater.Height : originalBreakWaterHeight, input.BreakWater.Height);
             Assert.AreEqual(withValidForeshore, input.UseForeshore);
             CollectionAssert.AreEqual(foreshoreProfile.Geometry, input.ForeshoreGeometry);
-//            Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+            Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
         }
 
         [Test]
@@ -110,7 +126,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             var input = new SimpleStructuresInput();
             BreakWaterType originalBreakWaterType = input.BreakWater.Type;
             RoundedDouble originalBreakWaterHeight = input.BreakWater.Height;
-//            HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
+            HydraulicBoundaryLocation originalHydraulicBoundaryLocation = input.HydraulicBoundaryLocation;
 
             var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
                                                         new[]
@@ -133,7 +149,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.AreNotEqual(originalBreakWaterHeight, input.BreakWater.Height);
             Assert.IsTrue(input.UseForeshore);
             CollectionAssert.IsNotEmpty(input.ForeshoreGeometry);
-//            Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+            Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
 
             // Call
             input.ForeshoreProfile = null;
@@ -144,7 +160,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.AreEqual(originalBreakWaterHeight, input.BreakWater.Height);
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
-//            Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+            Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
         }
 
         private class SimpleStructuresInput : StructuresInputBase<StructureBase>
