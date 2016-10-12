@@ -759,6 +759,39 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
         }
 
+        [Test]
+        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var elementToBeRemoved = new HeightStructuresCalculation();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var calculationContext = new HeightStructuresCalculationContext(elementToBeRemoved,
+                                                                            failureMechanism,
+                                                                            assessmentSectionStub);
+            var groupContext = new HeightStructuresCalculationGroupContext(group,
+                                                                           failureMechanism,
+                                                                           assessmentSectionStub);
+
+            mocks.ReplayAll();
+
+            group.Children.Add(elementToBeRemoved);
+
+            failureMechanism.AddSection(new FailureMechanismSection("section", new[]
+            {
+                new Point2D(0, 0)
+            }));
+
+            failureMechanism.SectionResults.First().Calculation = elementToBeRemoved;
+
+            // Call
+            info.OnNodeRemoved(calculationContext, groupContext);
+
+            // Assert
+            Assert.IsNull(failureMechanism.SectionResults.First().Calculation);
+        }
+
         public override void TearDown()
         {
             plugin.Dispose();

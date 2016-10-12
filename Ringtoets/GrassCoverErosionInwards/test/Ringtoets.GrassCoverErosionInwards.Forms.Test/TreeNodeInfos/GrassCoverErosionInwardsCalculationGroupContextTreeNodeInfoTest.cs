@@ -1157,6 +1157,41 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
         }
 
+        [Test]
+        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+            var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
+                                                                       failureMechanism,
+                                                                       assessmentSectionStub);
+            var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSectionStub);
+
+            mocks.ReplayAll();
+
+            parentGroup.Children.Add(group);
+
+            failureMechanism.AddSection(new FailureMechanismSection("section", new[]
+            {
+                new Point2D(0, 0)
+            }));
+
+            var calculation = new GrassCoverErosionInwardsCalculation();
+            group.Children.Add(calculation);
+            failureMechanism.SectionResults.First().Calculation = calculation;
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentNodeData);
+
+            // Assert
+            Assert.IsNull(failureMechanism.SectionResults.First().Calculation);
+        }
+
         public override void TearDown()
         {
             plugin.Dispose();

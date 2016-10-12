@@ -44,7 +44,6 @@ using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
 using Ringtoets.HydraRing.Data;
-
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
@@ -1257,6 +1256,41 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             // Assert
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
+        }
+
+        [Test]
+        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+            var nodeData = new HeightStructuresCalculationGroupContext(group,
+                                                                       failureMechanism,
+                                                                       assessmentSectionStub);
+            var parentNodeData = new HeightStructuresCalculationGroupContext(parentGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSectionStub);
+
+            mocks.ReplayAll();
+
+            parentGroup.Children.Add(group);
+
+            failureMechanism.AddSection(new FailureMechanismSection("section", new[]
+            {
+                new Point2D(0, 0)
+            }));
+
+            var calculation = new HeightStructuresCalculation();
+            group.Children.Add(calculation);
+            failureMechanism.SectionResults.First().Calculation = calculation;
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentNodeData);
+
+            // Assert
+            Assert.IsNull(failureMechanism.SectionResults.First().Calculation);
         }
 
         [Test]
