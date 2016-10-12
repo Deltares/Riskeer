@@ -50,7 +50,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects
         }
 
         /// <summary>
-        /// The parent failure mechanism of the calculation group.
+        /// Gets the parent failure mechanism of the calculation group.
         /// </summary>
         public GrassCoverErosionInwardsFailureMechanism ParentFailureMechanism { get; private set; }
     }
