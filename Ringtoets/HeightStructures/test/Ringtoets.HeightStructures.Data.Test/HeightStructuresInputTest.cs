@@ -325,8 +325,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Setup
             var random = new Random(22);
             var input = new HeightStructuresInput();
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new LogNormalDistribution(2)
             {
                 Mean = mean,
@@ -351,8 +351,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Setup
             var random = new Random(22);
             var input = new HeightStructuresInput();
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var variation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = mean,
@@ -409,8 +409,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Setup
             var random = new Random(22);
             var input = new HeightStructuresInput();
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var variation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = mean,
