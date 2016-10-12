@@ -404,47 +404,82 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void Properties_InsideWaterLevelFailureConstruction_ExpectedValues()
         {
             // Setup
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            NormalDistribution insideWaterLevelFailureConstruction = GenerateNormalDistribution();
+            
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation =  standardDeviation
+            };
+            var distributionToSet = new NormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
 
             // Call
-            input.InsideWaterLevelFailureConstruction = insideWaterLevelFailureConstruction;
+            input.InsideWaterLevelFailureConstruction = distributionToSet;
 
             // Assert
-            Assert.AreEqual(insideWaterLevelFailureConstruction.Mean, input.InsideWaterLevelFailureConstruction.Mean);
-            Assert.AreEqual(insideWaterLevelFailureConstruction.StandardDeviation, input.InsideWaterLevelFailureConstruction.StandardDeviation);
+            AssertDistributionCorrectlySet(input.InsideWaterLevelFailureConstruction, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void Properties_InsideWaterLevel_ExpectedValues()
         {
             // Setup
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            NormalDistribution insideWaterLevel = GenerateNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            var distributionToSet = new NormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
 
             // Call
-            input.InsideWaterLevel = insideWaterLevel;
+            input.InsideWaterLevel = distributionToSet;
 
             // Assert
-            Assert.AreEqual(insideWaterLevel.Mean, input.InsideWaterLevel.Mean);
-            Assert.AreEqual(insideWaterLevel.StandardDeviation, input.InsideWaterLevel.StandardDeviation);
+            AssertDistributionCorrectlySet(input.InsideWaterLevel, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void Properties_StormDuration_ExpectedValues()
         {
             // Setup
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            VariationCoefficientLogNormalDistribution stormDuration = GenerateVariationCoefficientLogNormalDistribution();
-
+            
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var variation = (RoundedDouble)(0.01 + random.NextDouble());
             RoundedDouble initialVariation = input.StormDuration.CoefficientOfVariation;
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = initialVariation
+            };
+            var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
 
             // Call
-            input.StormDuration = stormDuration;
+            input.StormDuration = distributionToSet;
 
             // Assert
-            Assert.AreEqual(stormDuration.Mean, input.StormDuration.Mean);
-            AssertEqualValue(initialVariation, input.StormDuration.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(input.StormDuration, distributionToSet, expectedDistribution);
         }
 
         #endregion
@@ -455,17 +490,28 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void Properties_ModelFactorSuperCriticalFlow_ExpectedValues()
         {
             // Setup
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            NormalDistribution modelFactorSuperCriticalFlow = GenerateNormalDistribution();
 
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
             RoundedDouble initialStd = input.ModelFactorSuperCriticalFlow.StandardDeviation;
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = initialStd
+            };
+            var distributionToSet = new NormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
 
             // Call
-            input.ModelFactorSuperCriticalFlow = modelFactorSuperCriticalFlow;
+            input.ModelFactorSuperCriticalFlow = distributionToSet;
 
             // Assert
-            Assert.AreEqual(modelFactorSuperCriticalFlow.Mean, input.ModelFactorSuperCriticalFlow.Mean);
-            Assert.AreEqual(initialStd, input.ModelFactorSuperCriticalFlow.StandardDeviation);
+            AssertDistributionCorrectlySet(input.ModelFactorSuperCriticalFlow, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -489,32 +535,55 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void Properties_DrainCoefficient_ExpectedValues()
         {
             // Setup
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            NormalDistribution drainCoefficient = GenerateNormalDistribution();
 
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
             RoundedDouble initialStd = input.DrainCoefficient.StandardDeviation;
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = initialStd
+            };
+            var distributionToSet = new NormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
 
-            // Call
-            input.DrainCoefficient = drainCoefficient;
+           // Call
+            input.DrainCoefficient = distributionToSet;
 
             // Assert
-            Assert.AreEqual(drainCoefficient.Mean, input.DrainCoefficient.Mean);
-            AssertEqualValue(initialStd, input.DrainCoefficient.StandardDeviation);
+            AssertDistributionCorrectlySet(input.DrainCoefficient, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void Properties_FlowVelocityStructureClosable_ExpectedValues()
         {
             // Setup
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            NormalDistribution flowVelocityStructureClosable = GenerateNormalDistribution();
 
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            var distributionToSet = new NormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            
             // Call
-            input.FlowVelocityStructureClosable = flowVelocityStructureClosable;
+            input.FlowVelocityStructureClosable = distributionToSet;
 
             // Assert
-            Assert.AreEqual(flowVelocityStructureClosable.Mean, input.FlowVelocityStructureClosable.Mean);
-            Assert.AreEqual(flowVelocityStructureClosable.StandardDeviation, input.FlowVelocityStructureClosable.StandardDeviation);
+            AssertDistributionCorrectlySet(input.FlowVelocityStructureClosable, distributionToSet, expectedDistribution);
         }
 
         #endregion
@@ -525,15 +594,27 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void Properties_LevelCrestStructure_ExpectedValues()
         {
             // Setup 
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            NormalDistribution levelCrestStructure = GenerateNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            var distributionToSet = new NormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
 
             // Call
-            input.LevelCrestStructure = levelCrestStructure;
+            input.LevelCrestStructure = distributionToSet;
 
             // Assert
-            AssertEqualValue(levelCrestStructure.Mean, input.LevelCrestStructure.Mean);
-            AssertEqualValue(levelCrestStructure.StandardDeviation, input.LevelCrestStructure.StandardDeviation);
+            AssertDistributionCorrectlySet(input.LevelCrestStructure, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -578,90 +659,162 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void Properties_ThresholdHeightOpenWeir_ExpectedValues()
         {
             // Setup
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            NormalDistribution thresholdHeightOpenWeir = GenerateNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            var distributionToSet = new NormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
 
             // Call
-            input.ThresholdHeightOpenWeir = thresholdHeightOpenWeir;
+            input.ThresholdHeightOpenWeir = distributionToSet;
 
             // Assert
-            AssertEqualValue(thresholdHeightOpenWeir.Mean, input.ThresholdHeightOpenWeir.Mean);
-            AssertEqualValue(thresholdHeightOpenWeir.StandardDeviation, input.ThresholdHeightOpenWeir.StandardDeviation);
+            AssertDistributionCorrectlySet(input.ThresholdHeightOpenWeir, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void Properties_AreaFlowApertures_ExpectedValues()
         {
             // Setup 
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            LogNormalDistribution areaFlowApertures = GenerateLogNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new LogNormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            var distributionToSet = new LogNormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
 
             // Call
-            input.AreaFlowApertures = areaFlowApertures;
+            input.AreaFlowApertures = distributionToSet;
 
             // Assert
-            AssertEqualValue(areaFlowApertures.Mean, input.AreaFlowApertures.Mean);
-            AssertEqualValue(areaFlowApertures.StandardDeviation, input.AreaFlowApertures.StandardDeviation);
+            AssertDistributionCorrectlySet(input.AreaFlowApertures, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void Properties_ConstructiveStrengthLinearLoadModel_ExpectedValues()
         {
             // Setup 
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            VariationCoefficientLogNormalDistribution constructiveStrengthLinearLoadModel = GenerateVariationCoefficientLogNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+            var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
 
             // Call
-            input.ConstructiveStrengthLinearLoadModel = constructiveStrengthLinearLoadModel;
+            input.ConstructiveStrengthLinearLoadModel = distributionToSet;
 
             // Assert
-            AssertEqualValue(constructiveStrengthLinearLoadModel.Mean, input.ConstructiveStrengthLinearLoadModel.Mean);
-            AssertEqualValue(constructiveStrengthLinearLoadModel.CoefficientOfVariation, input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(input.ConstructiveStrengthLinearLoadModel, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void Properties_ConstructiveStrengthQuadraticLoadModel_ExpectedValues()
         {
             // Setup 
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            VariationCoefficientLogNormalDistribution constructiveStrengthQuadraticLoadModel = GenerateVariationCoefficientLogNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+            var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
 
             // Call
-            input.ConstructiveStrengthQuadraticLoadModel = constructiveStrengthQuadraticLoadModel;
+            input.ConstructiveStrengthQuadraticLoadModel = distributionToSet;
 
             // Assert
-            AssertEqualValue(constructiveStrengthQuadraticLoadModel.Mean, input.ConstructiveStrengthQuadraticLoadModel.Mean);
-            AssertEqualValue(constructiveStrengthQuadraticLoadModel.CoefficientOfVariation, input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(input.ConstructiveStrengthQuadraticLoadModel, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void Properties_StabilityLinearLoadModel_ExpectedValues()
         {
             // Setup 
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            VariationCoefficientLogNormalDistribution stabilityLinearLoadModel = GenerateVariationCoefficientLogNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+            var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
 
             // Call
-            input.StabilityLinearLoadModel = stabilityLinearLoadModel;
+            input.StabilityLinearLoadModel = distributionToSet;
 
             // Assert
-            AssertEqualValue(stabilityLinearLoadModel.Mean, input.StabilityLinearLoadModel.Mean);
-            AssertEqualValue(stabilityLinearLoadModel.CoefficientOfVariation, input.StabilityLinearLoadModel.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(input.StabilityLinearLoadModel, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void Properties_StabilityQuadraticLoadModel()
         {
             // Setup 
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            VariationCoefficientLogNormalDistribution stabilityQuadraticLoadModel = GenerateVariationCoefficientLogNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+            var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
 
             // Call
-            input.StabilityQuadraticLoadModel = stabilityQuadraticLoadModel;
+            input.StabilityQuadraticLoadModel = distributionToSet;
 
             // Assert 
-            AssertEqualValue(stabilityQuadraticLoadModel.Mean, input.StabilityQuadraticLoadModel.Mean);
-            AssertEqualValue(stabilityQuadraticLoadModel.CoefficientOfVariation, input.StabilityQuadraticLoadModel.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(input.StabilityQuadraticLoadModel, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -700,45 +853,81 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void Properties_FailureCollisionEnergy_ExpectedValues()
         {
             // Setup 
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            VariationCoefficientLogNormalDistribution failureCollisionEnergy = GenerateVariationCoefficientLogNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+            var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
 
             // Call
-            input.FailureCollisionEnergy = failureCollisionEnergy;
+            input.FailureCollisionEnergy = distributionToSet;
 
             // Assert
-            AssertEqualValue(failureCollisionEnergy.Mean, input.FailureCollisionEnergy.Mean);
-            AssertEqualValue(failureCollisionEnergy.CoefficientOfVariation, input.FailureCollisionEnergy.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(input.FailureCollisionEnergy, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void Properties_ShipMass_ExpectedValues()
         {
             // Setup 
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            VariationCoefficientNormalDistribution shipMass = GenerateVariationNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+            var distributionToSet = new VariationCoefficientNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
 
             // Call
-            input.ShipMass = shipMass;
+            input.ShipMass = distributionToSet;
 
             // Assert
-            AssertEqualValue(shipMass.Mean, input.ShipMass.Mean);
-            AssertEqualValue(shipMass.CoefficientOfVariation, input.ShipMass.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(input.ShipMass, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void Properties_ShipVelocity_ExpectedValues()
         {
             // Setup 
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            VariationCoefficientNormalDistribution shipVelocity = GenerateVariationNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+            var distributionToSet = new VariationCoefficientNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
 
             // Call
-            input.ShipVelocity = shipVelocity;
+            input.ShipVelocity = distributionToSet;
 
             // Assert
-            AssertEqualValue(shipVelocity.Mean, input.ShipVelocity.Mean);
-            AssertEqualValue(shipVelocity.CoefficientOfVariation, input.ShipVelocity.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(input.ShipVelocity, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -793,60 +982,108 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void Properties_AllowedLevelIncreaseStorage_ExpectedValues()
         {
             // Setup 
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            LogNormalDistribution allowedLevelIncreaseStorage = GenerateLogNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new LogNormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            var distributionToSet = new LogNormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
 
             // Call
-            input.AllowedLevelIncreaseStorage = allowedLevelIncreaseStorage;
+            input.AllowedLevelIncreaseStorage = distributionToSet;
 
             // Assert
-            AssertEqualValue(allowedLevelIncreaseStorage.Mean, input.AllowedLevelIncreaseStorage.Mean);
-            AssertEqualValue(allowedLevelIncreaseStorage.StandardDeviation, input.AllowedLevelIncreaseStorage.StandardDeviation);
+            AssertDistributionCorrectlySet(input.AllowedLevelIncreaseStorage, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void Properties_StorageStructureArea_ExpectedValues()
         {
             // Setup
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            VariationCoefficientLogNormalDistribution storageStructureArea = GenerateVariationCoefficientLogNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+            var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
 
             // Call
-            input.StorageStructureArea = storageStructureArea;
+            input.StorageStructureArea = distributionToSet;
 
             // Assert
-            AssertEqualValue(storageStructureArea.Mean, input.StorageStructureArea.Mean);
-            AssertEqualValue(storageStructureArea.CoefficientOfVariation, input.StorageStructureArea.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(input.StorageStructureArea, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void Properties_FlowWidthAtBottomProtection_ExpectedValues()
         {
             // Setup
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            LogNormalDistribution flowWidthAtBottomProtection = GenerateLogNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new LogNormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            var distributionToSet = new LogNormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
 
             // Call
-            input.FlowWidthAtBottomProtection = flowWidthAtBottomProtection;
+            input.FlowWidthAtBottomProtection = distributionToSet;
 
             // Assert
-            AssertEqualValue(flowWidthAtBottomProtection.Mean, input.FlowWidthAtBottomProtection.Mean);
-            AssertEqualValue(flowWidthAtBottomProtection.StandardDeviation, input.FlowWidthAtBottomProtection.StandardDeviation);
+            AssertDistributionCorrectlySet(input.FlowWidthAtBottomProtection, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void Properties_CriticalOvertoppingDischarge_ExpectedValues()
         {
             // Setup
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge = GenerateVariationCoefficientLogNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+            var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
 
             // Call
-            input.CriticalOvertoppingDischarge = criticalOvertoppingDischarge;
+            input.CriticalOvertoppingDischarge = distributionToSet;
 
             // Assert
-            AssertEqualValue(criticalOvertoppingDischarge.Mean, input.CriticalOvertoppingDischarge.Mean);
-            AssertEqualValue(criticalOvertoppingDischarge.CoefficientOfVariation, input.CriticalOvertoppingDischarge.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(input.CriticalOvertoppingDischarge, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -885,30 +1122,54 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void Properties_WidthFlowApertures_ExpectedValues()
         {
             //Setup 
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            VariationCoefficientNormalDistribution widthFlowApertures = GenerateVariationNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+            var distributionToSet = new VariationCoefficientNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
 
             // Call
-            input.WidthFlowApertures = widthFlowApertures;
+            input.WidthFlowApertures = distributionToSet;
 
             // Assert
-            AssertEqualValue(widthFlowApertures.Mean, input.WidthFlowApertures.Mean);
-            AssertEqualValue(widthFlowApertures.CoefficientOfVariation, input.WidthFlowApertures.CoefficientOfVariation);
+            AssertDistributionCorrectlySet(input.WidthFlowApertures, distributionToSet, expectedDistribution);
         }
 
         [Test]
         public void Properties_BankWidth_ExpectedValues()
         {
             // Setup 
+            var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            NormalDistribution bankWidth = GenerateNormalDistribution();
+
+            var mean = (RoundedDouble)(0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            var distributionToSet = new NormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
 
             // Call
-            input.BankWidth = bankWidth;
+            input.BankWidth = distributionToSet;
 
             // Assert
-            AssertEqualValue(bankWidth.Mean, input.BankWidth.Mean);
-            AssertEqualValue(bankWidth.StandardDeviation, input.BankWidth.StandardDeviation);
+            AssertDistributionCorrectlySet(input.BankWidth, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -954,44 +1215,16 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
         }
 
-        private static LogNormalDistribution GenerateLogNormalDistribution()
+        private static void AssertDistributionCorrectlySet(IDistribution distributionToAssert, IDistribution setDistribution, IDistribution expectedDistribution)
         {
-            var random = new Random(22);
-            return new LogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) (0.01 + random.NextDouble()),
-                StandardDeviation = (RoundedDouble) random.NextDouble()
-            };
+            Assert.AreNotSame(setDistribution, distributionToAssert);
+            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
         }
 
-        private static VariationCoefficientLogNormalDistribution GenerateVariationCoefficientLogNormalDistribution()
+        private static void AssertDistributionCorrectlySet(IVariationCoefficientDistribution distributionToAssert, IVariationCoefficientDistribution setDistribution, IVariationCoefficientDistribution expectedDistribution)
         {
-            var random = new Random(22);
-            return new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) (0.01 + random.NextDouble()),
-                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
-            };
-        }
-
-        private static NormalDistribution GenerateNormalDistribution()
-        {
-            var random = new Random(22);
-            return new NormalDistribution(2)
-            {
-                Mean = (RoundedDouble) (0.01 + random.NextDouble()),
-                StandardDeviation = (RoundedDouble) random.NextDouble()
-            };
-        }
-
-        private static VariationCoefficientNormalDistribution GenerateVariationNormalDistribution()
-        {
-            var random = new Random(22);
-            return new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) (0.01 + random.NextDouble()),
-                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
-            };
+            Assert.AreNotSame(setDistribution, distributionToAssert);
+            DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
         }
 
         #endregion
