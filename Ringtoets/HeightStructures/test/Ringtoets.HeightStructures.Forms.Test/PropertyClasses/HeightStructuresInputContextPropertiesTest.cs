@@ -182,7 +182,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             {
                 InputParameters =
                 {
-                    HeightStructure = new TestHeightStructure(),
+                    Structure = new TestHeightStructure(),
                     HydraulicBoundaryLocation = CreateValidHydraulicBoundaryLocation(),
                     ForeshoreProfile = CreateValidForeshoreProfile()
                 }
@@ -197,12 +197,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             var input = calculation.InputParameters;
-            Assert.AreSame(input.HeightStructure, properties.HeightStructure);
+            Assert.AreSame(input.Structure, properties.HeightStructure);
 
-            var expectedHeightStructureLocation = new Point2D(new RoundedDouble(0, input.HeightStructure.Location.X), new RoundedDouble(0, input.HeightStructure.Location.Y));
+            var expectedHeightStructureLocation = new Point2D(new RoundedDouble(0, input.Structure.Location.X), new RoundedDouble(0, input.Structure.Location.Y));
             Assert.AreEqual(expectedHeightStructureLocation, properties.HeightStructureLocation);
 
-            Assert.AreEqual(input.HeightStructure.StructureNormalOrientation, properties.StructureNormalOrientation);
+            Assert.AreEqual(input.Structure.StructureNormalOrientation, properties.StructureNormalOrientation);
 
             var levelCrestStructureProperties = new NormalDistributionProperties
             {

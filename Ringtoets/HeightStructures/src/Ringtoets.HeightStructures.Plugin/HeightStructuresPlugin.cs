@@ -481,7 +481,7 @@ namespace Ringtoets.HeightStructures.Plugin
                     Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
                     InputParameters =
                     {
-                        HeightStructure = structure
+                        Structure = structure
                     }
                 };
                 calculations.Add(calculation);
