@@ -20,14 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.Calculation;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
-using Ringtoets.HydraRing.Data;
+using Ringtoets.Common.Data.Structures;
 using RingtoetsDataCommonProperties = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Data
@@ -35,12 +30,10 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// <summary>
     /// Class that holds all stability point structures calculation specific input parameters.
     /// </summary>
-    public class StabilityPointStructuresInput : Observable, ICalculationInput
+    public class StabilityPointStructuresInput : StructuresInputBase<StabilityPointStructure>
     {
         private readonly NormalDistribution insideWaterLevelFailureConstruction;
         private readonly NormalDistribution insideWaterLevel;
-        private readonly VariationCoefficientLogNormalDistribution stormDuration;
-        private readonly NormalDistribution modelFactorSuperCriticalFlow;
         private readonly NormalDistribution drainCoefficient;
         private readonly NormalDistribution levelCrestStructure;
         private readonly NormalDistribution thresholdHeightOpenWeir;
@@ -52,22 +45,14 @@ namespace Ringtoets.StabilityPointStructures.Data
         private readonly VariationCoefficientLogNormalDistribution failureCollisionEnergy;
         private readonly VariationCoefficientNormalDistribution shipMass;
         private readonly VariationCoefficientNormalDistribution shipVelocity;
-        private readonly LogNormalDistribution allowedLevelIncreaseStorage;
-        private readonly VariationCoefficientLogNormalDistribution storageStructureArea;
-        private readonly LogNormalDistribution flowWidthAtBottomProtection;
-        private readonly VariationCoefficientLogNormalDistribution criticalOvertoppingDischarge;
-        private readonly VariationCoefficientNormalDistribution widthFlowApertures;
         private readonly NormalDistribution bankWidth;
         private readonly NormalDistribution flowVelocityStructureClosable;
-        private ForeshoreProfile foreshoreProfile;
-        private RoundedDouble structureNormalOrientation;
         private RoundedDouble volumicWeightWater;
         private RoundedDouble factorStormDurationOpenStructure;
         private RoundedDouble evaluationLevel;
         private RoundedDouble verticalDistance;
         private double failureProbabilityRepairClosure;
         private double probabilityCollisionSecondaryStructure;
-        private double failureProbabilityStructureWithErosion;
 
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresInput"/>.
@@ -75,11 +60,9 @@ namespace Ringtoets.StabilityPointStructures.Data
         public StabilityPointStructuresInput()
         {
             volumicWeightWater = new RoundedDouble(2, 9.81);
-            structureNormalOrientation = new RoundedDouble(2, double.NaN);
             factorStormDurationOpenStructure = new RoundedDouble(2, double.NaN);
             failureProbabilityRepairClosure = double.NaN;
             probabilityCollisionSecondaryStructure = double.NaN;
-            failureProbabilityStructureWithErosion = double.NaN;
             evaluationLevel = new RoundedDouble(2, 0);
             verticalDistance = new RoundedDouble(2, double.NaN);
 
@@ -93,18 +76,6 @@ namespace Ringtoets.StabilityPointStructures.Data
             {
                 Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) 0.1
-            };
-
-            stormDuration = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 6.0,
-                CoefficientOfVariation = (RoundedDouble) 0.25
-            };
-
-            modelFactorSuperCriticalFlow = new NormalDistribution(2)
-            {
-                Mean = (RoundedDouble) 1.1,
-                StandardDeviation = (RoundedDouble) 0.03
             };
 
             drainCoefficient = new NormalDistribution(2)
@@ -179,57 +150,15 @@ namespace Ringtoets.StabilityPointStructures.Data
                 CoefficientOfVariation = (RoundedDouble) 0.2
             };
 
-            allowedLevelIncreaseStorage = new LogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) double.NaN,
-                StandardDeviation = (RoundedDouble) 0.1
-            };
-
-            storageStructureArea = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) double.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.1
-            };
-
-            flowWidthAtBottomProtection = new LogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) double.NaN,
-                StandardDeviation = (RoundedDouble) 0.05
-            };
-
-            criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) double.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.15
-            };
-
-            widthFlowApertures = new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = (RoundedDouble) double.NaN,
-                CoefficientOfVariation = (RoundedDouble) 0.05
-            };
-
             bankWidth = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) double.NaN
             };
-
-            UpdateForeshoreProperties();
-        }
-
-        private static bool ValidProbabilityValue(double probability)
-        {
-            return !double.IsNaN(probability) && probability >= 0 && probability <= 1;
         }
 
         #region Structure / calculation
-
-        /// <summary>
-        /// Gets or sets the stability point structure.
-        /// </summary>
-        public StabilityPointStructure StabilityPointStructure { get; set; }
-
+        
         /// <summary>
         /// Gets or sets the type of stability point structure inflow model.
         /// </summary>
@@ -243,82 +172,6 @@ namespace Ringtoets.StabilityPointStructures.Data
         #endregion
 
         #region Hydraulic data
-
-        /// <summary>
-        /// Gets or sets the hydraulic boundary location from which to use the assessment level.
-        /// </summary>
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
-
-        #region Foreshore profile
-
-        /// <summary>
-        /// Gets or sets the foreshore profile.
-        /// </summary>
-        public ForeshoreProfile ForeshoreProfile
-        {
-            get
-            {
-                return foreshoreProfile;
-            }
-            set
-            {
-                foreshoreProfile = value;
-                UpdateForeshoreProperties();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets whether the <see cref="BreakWater"/> needs to be taken into account.
-        /// </summary>
-        public bool UseBreakWater { get; set; }
-
-        /// <summary>
-        /// Gets or sets whether the <see cref="ForeshoreProfile"/> needs to be taken into account.
-        /// </summary>
-        public bool UseForeshore { get; set; }
-
-        /// <summary>
-        /// Gets the geometry of the foreshore.
-        /// </summary>
-        public RoundedPoint2DCollection ForeshoreGeometry
-        {
-            get
-            {
-                return foreshoreProfile != null
-                           ? foreshoreProfile.Geometry
-                           : new RoundedPoint2DCollection(2, Enumerable.Empty<Point2D>());
-            }
-        }
-
-        /// <summary>
-        /// Gets the <see cref="BreakWater"/>.
-        /// </summary>
-        public BreakWater BreakWater { get; private set; }
-
-        private void UpdateForeshoreProperties()
-        {
-            if (foreshoreProfile == null)
-            {
-                UseForeshore = false;
-                UseBreakWater = false;
-                BreakWater = GetDefaultBreakWaterProperties();
-            }
-            else
-            {
-                UseForeshore = foreshoreProfile.Geometry.Count() > 1;
-                UseBreakWater = foreshoreProfile.HasBreakWater;
-                BreakWater = foreshoreProfile.HasBreakWater ?
-                                 new BreakWater(foreshoreProfile.BreakWater.Type, foreshoreProfile.BreakWater.Height) :
-                                 GetDefaultBreakWaterProperties();
-            }
-        }
-
-        private BreakWater GetDefaultBreakWaterProperties()
-        {
-            return new BreakWater(BreakWaterType.Dam, 0.0);
-        }
-
-        #endregion
 
         /// <summary>
         /// Gets or sets the volumic weight of water.
@@ -370,43 +223,10 @@ namespace Ringtoets.StabilityPointStructures.Data
             }
         }
 
-        /// <summary>
-        /// Gets or sets the storm duration.
-        /// [h]
-        /// </summary>
-        /// <remarks>Only sets the mean.</remarks>
-        public VariationCoefficientLogNormalDistribution StormDuration
-        {
-            get
-            {
-                return stormDuration;
-            }
-            set
-            {
-                stormDuration.Mean = value.Mean;
-            }
-        }
-
         #endregion
 
         #region Model Inputs and critical values
-
-        /// <summary>
-        /// Gets or sets the model factor for super critical flow.
-        /// </summary>
-        /// <remarks>Only sets the mean.</remarks>
-        public NormalDistribution ModelFactorSuperCriticalFlow
-        {
-            get
-            {
-                return modelFactorSuperCriticalFlow;
-            }
-            set
-            {
-                modelFactorSuperCriticalFlow.Mean = value.Mean;
-            }
-        }
-
+        
         /// <summary>
         /// Gets or sets the factor for the storm duration open structure.
         /// </summary>
@@ -473,34 +293,6 @@ namespace Ringtoets.StabilityPointStructures.Data
             {
                 levelCrestStructure.Mean = value.Mean;
                 levelCrestStructure.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the orientation of the normal of the structure.
-        /// [degrees]
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the orientation is not between [0, 360] degrees.</exception>
-        public RoundedDouble StructureNormalOrientation
-        {
-            get
-            {
-                return structureNormalOrientation;
-            }
-            set
-            {
-                if (double.IsNaN(value))
-                {
-                    structureNormalOrientation = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
-                    return;
-                }
-
-                RoundedDouble newOrientation = value.ToPrecision(structureNormalOrientation.NumberOfDecimalPlaces);
-                if (newOrientation < 0 || newOrientation > 360)
-                {
-                    throw new ArgumentOutOfRangeException("value", RingtoetsDataCommonProperties.Orientation_Value_needs_to_be_between_0_and_360);
-                }
-                structureNormalOrientation = newOrientation;
             }
         }
 
@@ -706,112 +498,6 @@ namespace Ringtoets.StabilityPointStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the allowed level increase of the storage volume.
-        /// [m]
-        /// </summary>
-        public LogNormalDistribution AllowedLevelIncreaseStorage
-        {
-            get
-            {
-                return allowedLevelIncreaseStorage;
-            }
-            set
-            {
-                allowedLevelIncreaseStorage.Mean = value.Mean;
-                allowedLevelIncreaseStorage.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the storage structure area.
-        /// [m^2]
-        /// </summary>
-        public VariationCoefficientLogNormalDistribution StorageStructureArea
-        {
-            get
-            {
-                return storageStructureArea;
-            }
-            set
-            {
-                storageStructureArea.Mean = value.Mean;
-                storageStructureArea.CoefficientOfVariation = value.CoefficientOfVariation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the flow width at the bottom protection.
-        /// [m]
-        /// </summary>
-        public LogNormalDistribution FlowWidthAtBottomProtection
-        {
-            get
-            {
-                return flowWidthAtBottomProtection;
-            }
-            set
-            {
-                flowWidthAtBottomProtection.Mean = value.Mean;
-                flowWidthAtBottomProtection.StandardDeviation = value.StandardDeviation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the critical overtopping discharge.
-        /// [m^2/s]
-        /// </summary>
-        public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge
-        {
-            get
-            {
-                return criticalOvertoppingDischarge;
-            }
-            set
-            {
-                criticalOvertoppingDischarge.Mean = value.Mean;
-                criticalOvertoppingDischarge.CoefficientOfVariation = value.CoefficientOfVariation;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the failure probability of a structure with erosion.
-        /// [1/year]
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the probability is not in interval [0,1].</exception>
-        public double FailureProbabilityStructureWithErosion
-        {
-            get
-            {
-                return failureProbabilityStructureWithErosion;
-            }
-            set
-            {
-                if (!ValidProbabilityValue(value))
-                {
-                    throw new ArgumentOutOfRangeException("value", RingtoetsDataCommonProperties.FailureProbability_Value_needs_to_be_between_0_and_1);
-                }
-                failureProbabilityStructureWithErosion = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the width of the flow apertures.
-        /// [m]
-        /// </summary>
-        public VariationCoefficientNormalDistribution WidthFlowApertures
-        {
-            get
-            {
-                return widthFlowApertures;
-            }
-            set
-            {
-                widthFlowApertures.Mean = value.Mean;
-                widthFlowApertures.CoefficientOfVariation = value.CoefficientOfVariation;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets the bank width.
         /// [m]
         /// </summary>
@@ -861,5 +547,37 @@ namespace Ringtoets.StabilityPointStructures.Data
         }
 
         #endregion
+
+        protected override void UpdateStructureProperties()
+        {
+            if (Structure != null)
+            {
+                AllowedLevelIncreaseStorage = Structure.AllowedLevelIncreaseStorage;
+                AreaFlowApertures = Structure.AreaFlowApertures;
+                BankWidth = Structure.BankWidth;
+                ConstructiveStrengthLinearLoadModel = Structure.ConstructiveStrengthLinearLoadModel;
+                ConstructiveStrengthQuadraticLoadModel = Structure.ConstructiveStrengthQuadraticLoadModel;
+                CriticalOvertoppingDischarge = Structure.CriticalOvertoppingDischarge;
+                EvaluationLevel = Structure.EvaluationLevel;
+                FailureCollisionEnergy = Structure.FailureCollisionEnergy;
+                FailureProbabilityRepairClosure = Structure.FailureProbabilityRepairClosure;
+                FlowVelocityStructureClosable = Structure.FlowVelocityStructureClosable;
+                FlowWidthAtBottomProtection = Structure.FlowWidthAtBottomProtection;
+                InflowModelType = Structure.InflowModelType;
+                InsideWaterLevel = Structure.InsideWaterLevel;
+                InsideWaterLevelFailureConstruction = Structure.InsideWaterLevelFailureConstruction;
+                LevelCrestStructure = Structure.LevelCrestStructure;
+                LevellingCount = Structure.LevellingCount;
+                ProbabilityCollisionSecondaryStructure = Structure.ProbabilityCollisionSecondaryStructure;
+                ShipMass = Structure.ShipMass;
+                ShipVelocity = Structure.ShipVelocity;
+                StabilityLinearLoadModel = Structure.StabilityLinearLoadModel;
+                StabilityQuadraticLoadModel = Structure.StabilityQuadraticLoadModel;
+                StorageStructureArea = Structure.StorageStructureArea;
+                ThresholdHeightOpenWeir = Structure.ThresholdHeightOpenWeir;
+                VerticalDistance = Structure.VerticalDistance;
+                WidthFlowApertures = Structure.WidthFlowApertures;
+            }
+        }
     }
 }

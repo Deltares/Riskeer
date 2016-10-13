@@ -84,8 +84,6 @@ namespace Ringtoets.ClosingStructures.Data
                 Mean = (RoundedDouble) double.NaN,
                 StandardDeviation = (RoundedDouble) 0.1
             };
-
-            UpdateStructureProperties();
         }
         
         #region Structure

@@ -91,6 +91,10 @@
       <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
       <Name>Ringtoets.StabilityPointStructures.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.StabilityPointStructures.Data.TestUtil\Ringtoets.StabilityPointStructures.Data.TestUtil.csproj">
+      <Project>{E9AC095B-8F10-41D2-9456-4A85E3BA91AD}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data.TestUtil</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
