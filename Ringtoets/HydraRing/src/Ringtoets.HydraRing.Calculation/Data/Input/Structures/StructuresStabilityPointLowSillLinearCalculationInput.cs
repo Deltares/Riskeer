@@ -86,8 +86,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
         /// <param name="failureProbabilityStructureWithErosion">The failure probability structure with erosion.</param>
         /// <param name="stormDurationMean">The mean of the storm duration.</param>
         /// <param name="stormDurationVariation">The variation of the storm duration.</param>
-        /// <param name="bankWidthMean">The mean of the berm width.</param>
-        /// <param name="bankWidthStandardDeviation">The standard deviation of the berm width.</param>
+        /// <param name="bankWidthMean">The mean of the bank width.</param>
+        /// <param name="bankWidthStandardDeviation">The standard deviation of the bank width.</param>
         /// <param name="evaluationLevel">The evaluation level.</param>
         /// <param name="modelFactorLoadEffectMean">The mean of the model factor load effect.</param>
         /// <param name="modelFactorLoadEffectStandardDeviation">The standard deviation of the model factor load effect.</param>

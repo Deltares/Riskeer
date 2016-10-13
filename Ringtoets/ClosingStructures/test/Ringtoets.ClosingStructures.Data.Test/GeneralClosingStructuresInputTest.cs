@@ -33,7 +33,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void Constructor_ExpectedValues()
         {
             // Setup
-            var modelFactorOverToppingFlow = new LogNormalDistribution(3)
+            var modelFactorOvertoppingFlow = new LogNormalDistribution(3)
             {
                 Mean = (RoundedDouble) 0.09,
                 StandardDeviation = (RoundedDouble) 0.06
@@ -66,7 +66,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
             AssertEqualValue(9.81, inputParameters.GravitationalAcceleration);
 
-            DistributionAssert.AreEqual(modelFactorOverToppingFlow, inputParameters.ModelFactorOvertoppingFlow);
+            DistributionAssert.AreEqual(modelFactorOvertoppingFlow, inputParameters.ModelFactorOvertoppingFlow);
             DistributionAssert.AreEqual(modelFactorSubCriticalFlow, inputParameters.ModelFactorSubCriticalFlow);
             DistributionAssert.AreEqual(modelFactorStorageVolume, inputParameters.ModelFactorStorageVolume);
 

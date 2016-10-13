@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class DistributionAssertTest
     {
         [Test]
-        [TestCaseSource("IdenticalStandardDeviationDistributionProperties")]
+        [TestCaseSource("IdenticalDistributionProperties")]
         public void AreDistributionPropertiesEqual_IdenticalStandardDeviationDistributionProperties_DoesNotThrowException(IDistribution distributionOne,
                                                                                                                           IDistribution distributionTwo)
         {
@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        [TestCaseSource("IdenticalVariationDistributionProperties")]
+        [TestCaseSource("IdenticalVariationCoefficientDistributionProperties")]
         public void AreDistributionPropertiesEqual_IdenticalVariationDistributionProperties_DoesNotThrowException(IVariationCoefficientDistribution distributionOne,
                                                                                                                   IVariationCoefficientDistribution distributionTwo)
         {
@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        [TestCaseSource("DifferentStandardDeviationDistributionProperties")]
+        [TestCaseSource("DifferentDistributionProperties")]
         public void AreDistributionPropertiesEqual_DifferentStandardDeviationDistributionProperties_ThrowsAssertionException(IDistribution distributionOne,
                                                                                                                              IDistribution distributionTwo)
         {
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
         }
 
         [Test]
-        [TestCaseSource("DifferentVariationDistributionProperties")]
+        [TestCaseSource("DifferentVariationCoefficientDistributionProperties")]
         public void AreDistributionPropertiesEqual_DifferentVariationDistributionProperties_ThrowsAssertionException(IVariationCoefficientDistribution distributionOne,
                                                                                                                      IVariationCoefficientDistribution distributionTwo)
         {
@@ -79,7 +79,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
         #region Test data
 
-        private static IEnumerable<TestCaseData> IdenticalStandardDeviationDistributionProperties
+        private static IEnumerable<TestCaseData> IdenticalDistributionProperties
         {
             get
             {
@@ -108,7 +108,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             }
         }
 
-        private static IEnumerable<TestCaseData> IdenticalVariationDistributionProperties
+        private static IEnumerable<TestCaseData> IdenticalVariationCoefficientDistributionProperties
         {
             get
             {
@@ -137,7 +137,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             }
         }
 
-        private static IEnumerable<TestCaseData> DifferentStandardDeviationDistributionProperties
+        private static IEnumerable<TestCaseData> DifferentDistributionProperties
         {
             get
             {
@@ -221,7 +221,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             }
         }
 
-        private static IEnumerable<TestCaseData> DifferentVariationDistributionProperties
+        private static IEnumerable<TestCaseData> DifferentVariationCoefficientDistributionProperties
         {
             get
             {

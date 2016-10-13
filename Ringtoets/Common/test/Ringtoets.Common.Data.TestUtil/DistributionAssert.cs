@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Probabilistics;
 namespace Ringtoets.Common.Data.TestUtil
 {
     /// <summary>
-    /// Class to assert the properties of the probability distributions.
+    /// Class to assert the properties of the probabilistic distributions.
     /// </summary>
     public static class DistributionAssert
     {
@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <list type="bullet">
         /// <item>The probability distribution types.</item>
         /// <item>The values for the mean and/or the standard deviation.</item>
-        /// <item>The precision for the mean and or the standard deviation.</item>
+        /// <item>The precision for the mean and/or the standard deviation.</item>
         /// </list></exception>
         public static void AreEqual(IDistribution expectedDistribution, IDistribution actualDistribution)
         {
@@ -62,7 +62,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <list type="bullet">
         /// <item>The probability distribution types.</item>
         /// <item>The values for the mean and/or the variation.</item>
-        /// <item>The precision for the mean and or the variation.</item>
+        /// <item>The precision for the mean and/or the variation.</item>
         /// </list></exception>
         public static void AreEqual(IVariationCoefficientDistribution expectedDistribution, IVariationCoefficientDistribution actualDistribution)
         {
