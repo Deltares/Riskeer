@@ -31,8 +31,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     {
         [Test]
         [TestCaseSource("IdenticalDistributionProperties")]
-        public void AreDistributionPropertiesEqual_IdenticalStandardDeviationDistributionProperties_DoesNotThrowException(IDistribution distributionOne,
-                                                                                                                          IDistribution distributionTwo)
+        public void AreDistributionPropertiesEqual_IdenticalDistributionProperties_DoesNotThrowException(IDistribution distributionOne,
+                                                                                                         IDistribution distributionTwo)
         {
             // Call
             TestDelegate call = () => DistributionAssert.AreEqual(distributionOne, distributionTwo);
@@ -43,8 +43,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
         [Test]
         [TestCaseSource("IdenticalVariationCoefficientDistributionProperties")]
-        public void AreDistributionPropertiesEqual_IdenticalVariationDistributionProperties_DoesNotThrowException(IVariationCoefficientDistribution distributionOne,
-                                                                                                                  IVariationCoefficientDistribution distributionTwo)
+        public void AreDistributionPropertiesEqual_IdenticalVariationCoefficientDistributionProperties_DoesNotThrowException(IVariationCoefficientDistribution distributionOne,
+                                                                                                                             IVariationCoefficientDistribution distributionTwo)
         {
             // Call
             TestDelegate call = () => DistributionAssert.AreEqual(distributionOne, distributionTwo);
@@ -55,8 +55,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
         [Test]
         [TestCaseSource("DifferentDistributionProperties")]
-        public void AreDistributionPropertiesEqual_DifferentStandardDeviationDistributionProperties_ThrowsAssertionException(IDistribution distributionOne,
-                                                                                                                             IDistribution distributionTwo)
+        public void AreDistributionPropertiesEqual_DifferentDistributionProperties_ThrowsAssertionException(IDistribution distributionOne,
+                                                                                                            IDistribution distributionTwo)
         {
             // Call
             TestDelegate call = () => DistributionAssert.AreEqual(distributionOne, distributionTwo);
@@ -67,8 +67,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
         [Test]
         [TestCaseSource("DifferentVariationCoefficientDistributionProperties")]
-        public void AreDistributionPropertiesEqual_DifferentVariationDistributionProperties_ThrowsAssertionException(IVariationCoefficientDistribution distributionOne,
-                                                                                                                     IVariationCoefficientDistribution distributionTwo)
+        public void AreDistributionPropertiesEqual_DifferentVariationCoefficientDistributionProperties_ThrowsAssertionException(IVariationCoefficientDistribution distributionOne,
+                                                                                                                                IVariationCoefficientDistribution distributionTwo)
         {
             // Call
             TestDelegate call = () => DistributionAssert.AreEqual(distributionOne, distributionTwo);

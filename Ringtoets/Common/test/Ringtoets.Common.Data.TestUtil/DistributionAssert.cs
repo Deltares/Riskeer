@@ -39,7 +39,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <exception cref="AssertionException">Thrown when the following differences are found between 
         /// the <paramref name="expectedDistribution"/> and <paramref name="actualDistribution"/>:
         /// <list type="bullet">
-        /// <item>The probability distribution types.</item>
+        /// <item>The probabilistic distribution types.</item>
         /// <item>The values for the mean and/or the standard deviation.</item>
         /// <item>The precision for the mean and/or the standard deviation.</item>
         /// </list></exception>
@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Data.TestUtil
         /// <exception cref="AssertionException">Thrown when the following differences are found between 
         /// the <paramref name="expectedDistribution"/> and <paramref name="actualDistribution"/>:
         /// <list type="bullet">
-        /// <item>The probability distribution types.</item>
+        /// <item>The probabilistic distribution types.</item>
         /// <item>The values for the mean and/or the variation.</item>
         /// <item>The precision for the mean and/or the variation.</item>
         /// </list></exception>
