@@ -91,7 +91,7 @@ namespace Ringtoets.Piping.IO.SoilProfile
         /// <list type="bullet">
         /// <item>A column for a layer property did not contain a value of the expected type.</item>
         /// <item>The database contains an invalid XML definition for geometry.</item>
-        /// <item>The read geometry does not contain segments that form form a loop for either the inner or outer loop.</item>
+        /// <item>The read geometry does not contain segments that form a loop for either the inner or outer loop.</item>
         /// </list></exception>
         private static SoilLayer2D ReadPiping2DSoilLayer(IRowBasedDatabaseReader reader, string profileName)
         {

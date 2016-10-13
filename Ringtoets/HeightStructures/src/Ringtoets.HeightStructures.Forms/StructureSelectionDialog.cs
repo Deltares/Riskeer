@@ -31,7 +31,7 @@ using Ringtoets.HeightStructures.Forms.Properties;
 namespace Ringtoets.HeightStructures.Forms
 {
     /// <summary>
-    /// A dialog which allows the user to make a selection form a given set of <see cref="HeightStructure"/>. Upon
+    /// A dialog which allows the user to make a selection from a given set of <see cref="HeightStructure"/>. Upon
     /// closing of the dialog, the selected <see cref="HeightStructure"/> can be obtained.
     /// </summary>
     public class StructureSelectionDialog : SelectionDialogBase<HeightStructure>

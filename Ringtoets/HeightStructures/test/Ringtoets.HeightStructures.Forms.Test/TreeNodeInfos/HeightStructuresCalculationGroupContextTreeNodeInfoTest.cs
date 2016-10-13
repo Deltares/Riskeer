@@ -44,10 +44,7 @@ using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
 using Ringtoets.HydraRing.Data;
-using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
-using HeighStructuresPluginResources = Ringtoets.HeightStructures.Plugin.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 {
@@ -1044,7 +1041,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenDikeProfileSelectedAndDialogClosed_ThenCalculationsAddedWithProfileAssigned()
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenHeightStructureSelectedAndDialogClosed_ThenCalculationsAddedWithHeightStructureAssigned()
         {
             // Given
             using (var treeViewControl = new TreeViewControl())
@@ -1094,8 +1091,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     contextMenu.Items[contextGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
-                    var HeightStructuresCalculations = failureMechanism.Calculations.OfType<HeightStructuresCalculation>().ToArray();
-                    Assert.AreEqual(1, HeightStructuresCalculations.Length);
+                    var heightStructuresCalculations = failureMechanism.Calculations.OfType<HeightStructuresCalculation>().ToArray();
+                    Assert.AreEqual(1, heightStructuresCalculations.Length);
+                    Assert.AreSame(structure1, heightStructuresCalculations[0].InputParameters.Structure);
                 }
             }
         }

@@ -31,7 +31,7 @@ using Ringtoets.Piping.Primitives;
 namespace Ringtoets.Piping.Forms
 {
     /// <summary>
-    /// A dialog which allows the user to make a selection form a given set of <see cref="RingtoetsPipingSurfaceLine"/>. Upon
+    /// A dialog which allows the user to make a selection from a given set of <see cref="RingtoetsPipingSurfaceLine"/>. Upon
     /// closing of the dialog, the selected <see cref="RingtoetsPipingSurfaceLine"/> can be obtained.
     /// </summary>
     public class PipingSurfaceLineSelectionDialog : SelectionDialogBase<RingtoetsPipingSurfaceLine>

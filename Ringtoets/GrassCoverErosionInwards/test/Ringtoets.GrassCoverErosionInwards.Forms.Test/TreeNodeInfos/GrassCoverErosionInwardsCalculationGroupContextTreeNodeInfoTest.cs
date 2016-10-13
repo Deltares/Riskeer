@@ -960,6 +960,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                     // Then
                     var grassCoverErosionInwardsCalculations = failureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>().ToArray();
                     Assert.AreEqual(1, grassCoverErosionInwardsCalculations.Length);
+                    Assert.AreSame(dikeProfile1, grassCoverErosionInwardsCalculations[0].InputParameters.DikeProfile);
                 }
             }
         }

@@ -37,7 +37,7 @@ namespace Core.Common.Base.Test.Geometry
 
         /// <summary>
         /// Test cases for intersecting segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
-        /// which represent the coordinate of a point. Each pair of coordinates form a segment. 
+        /// which represent the coordinate of a point. Each pair of coordinates forms a segment. 
         /// The last 2 double values are the expected intersection points.
         /// </summary>
         private static IEnumerable IntersectingSegments()
@@ -83,7 +83,7 @@ namespace Core.Common.Base.Test.Geometry
 
         /// <summary>
         /// Test cases for parallel segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
-        /// which represent the coordinate of a point. Each pair of coordinates form a segment.
+        /// which represent the coordinate of a point. Each pair of coordinates forms a segment.
         /// </summary>
         private static IEnumerable ParallelSegments()
         {
@@ -121,7 +121,7 @@ namespace Core.Common.Base.Test.Geometry
 
         /// <summary>
         /// Test cases for non intersecting segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
-        /// which represent the coordinate of a point. Each pair of coordinates form a segment.
+        /// which represent the coordinate of a point. Each pair of coordinates forms a segment.
         /// </summary>
         private static readonly Point2D[][] nonIntersectingSegments =
         {

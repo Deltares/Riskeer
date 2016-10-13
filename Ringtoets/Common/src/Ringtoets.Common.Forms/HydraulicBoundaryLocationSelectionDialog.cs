@@ -30,7 +30,7 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.Common.Forms
 {
     /// <summary>
-    /// A dialog which allows the user to make a selection form a given set of <see cref="HydraulicBoundaryLocation"/>. Upon
+    /// A dialog which allows the user to make a selection from a given set of <see cref="HydraulicBoundaryLocation"/>. Upon
     /// closing of the dialog, the selected <see cref="HydraulicBoundaryLocation"/> can be obtained.
     /// </summary>
     public class HydraulicBoundaryLocationSelectionDialog : SelectionDialogBase<HydraulicBoundaryLocation>

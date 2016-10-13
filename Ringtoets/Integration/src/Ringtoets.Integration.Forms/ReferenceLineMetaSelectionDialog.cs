@@ -33,7 +33,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.Integration.Forms
 {
     /// <summary>
-    /// A dialog which allows the user to make a selection form a given set of <see cref="ReferenceLineMeta"/>. Upon
+    /// A dialog which allows the user to make a selection from a given set of <see cref="ReferenceLineMeta"/>. Upon
     /// closing of the dialog, the selected <see cref="ReferenceLineMeta"/> can be obtained.
     /// </summary>
     public partial class ReferenceLineMetaSelectionDialog : DialogBase
