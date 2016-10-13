@@ -226,8 +226,8 @@ namespace Ringtoets.ClosingStructures.Data
             public LogNormalDistribution AreaFlowApertures { get; private set; }
 
             /// <summary>
-            /// Gets the critical overtopping discharge of the closing structure.
-            /// [m^2/s]
+            /// Gets the critical overtopping discharge per meter of the closing structure.
+            /// [m^3/s/m]
             /// </summary>
             public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
 

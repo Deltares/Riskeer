@@ -1694,7 +1694,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kritiek instromend debiet [m²/s].
+        ///   Looks up a localized string similar to Kritiek instromend debiet [m³/s/m].
         /// </summary>
         public static string Structure_CriticalOvertoppingDischarge_DisplayName {
             get {

@@ -47,8 +47,8 @@ namespace Ringtoets.Common.IO.Structures
         public const string HeightStructureParameterKeyword3 = "KW_HOOGTE3";
 
         /// <summary>
-        /// The critical overtopping discharge of the height structure.
-        /// [m^2/s]
+        /// The critical overtopping discharge per meter of the height structure.
+        /// [m^3/s/m]
         /// </summary>
         public const string HeightStructureParameterKeyword4 = "KW_HOOGTE4";
 
@@ -129,8 +129,8 @@ namespace Ringtoets.Common.IO.Structures
         public const string ClosingStructureParameterKeyword8 = "KW_BETSLUIT8";
 
         /// <summary>
-        /// The critical overtopping discharge of the closing structure.
-        /// [m^2/s]
+        /// The critical overtopping discharge per meter of the closing structure.
+        /// [m^3/s/m]
         /// </summary>
         public const string ClosingStructureParameterKeyword9 = "KW_BETSLUIT9";
 
@@ -209,8 +209,8 @@ namespace Ringtoets.Common.IO.Structures
         public const string StabilityPointStructureParameterKeyword6 = "KW_STERSTAB6";
 
         /// <summary>
-        /// The critical overtopping discharge of the stability point structure.
-        /// [m^2/s]
+        /// The critical overtopping discharge per meter of the stability point structure.
+        /// [m^3/s/m]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword7 = "KW_STERSTAB7";
 
@@ -294,7 +294,7 @@ namespace Ringtoets.Common.IO.Structures
 
         /// <summary>
         /// The probability of a secondary collision on the structure.
-        /// [1/(year levelling)]
+        /// [1/year/levelling]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword21 = "KW_STERSTAB21";
 

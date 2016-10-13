@@ -86,8 +86,8 @@ namespace Ringtoets.HeightStructures.Data
         public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
 
         /// <summary>
-        /// Gets the critical overtopping discharge of the height structure.
-        /// [m^2/s]
+        /// Gets the critical overtopping discharge per meter of the height structure.
+        /// [m^3/s/m]
         /// </summary>
         public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
 
@@ -146,8 +146,8 @@ namespace Ringtoets.HeightStructures.Data
             public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
 
             /// <summary>
-            /// Gets the critical overtopping discharge of the height structure.
-            /// [m^2/s]
+            /// Gets the critical overtopping discharge per meter of the height structure.
+            /// [m^3/s/m]
             /// </summary>
             public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
 

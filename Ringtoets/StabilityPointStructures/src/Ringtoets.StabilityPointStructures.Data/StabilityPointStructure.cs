@@ -175,8 +175,8 @@ namespace Ringtoets.StabilityPointStructures.Data
         public NormalDistribution ThresholdHeightOpenWeir { get; private set; }
 
         /// <summary>
-        /// Gets the critical overtopping discharge of the stability point structure.
-        /// [m^2/s]
+        /// Gets the critical overtopping discharge per meter of the stability point structure.
+        /// [m^3/s/m]
         /// </summary>
         public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
 
@@ -260,7 +260,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         /// <summary>
         /// Gets the probability of a secondary collision on the structure.
-        /// [1/(year levelling)]
+        /// [1/year/levelling]
         /// </summary>
         public double ProbabilityCollisionSecondaryStructure { get; private set; }
 
@@ -355,8 +355,8 @@ namespace Ringtoets.StabilityPointStructures.Data
             public NormalDistribution ThresholdHeightOpenWeir { get; private set; }
 
             /// <summary>
-            /// Gets the critical overtopping discharge of the stability point structure.
-            /// [m^2/s]
+            /// Gets the critical overtopping discharge per meter of the stability point structure.
+            /// [m^3/s/m]
             /// </summary>
             public VariationCoefficientLogNormalDistribution CriticalOvertoppingDischarge { get; private set; }
 
@@ -440,7 +440,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
             /// <summary>
             /// Gets or sets the probability of a secondary collision on the structure.
-            /// [1/(year levelling)]
+            /// [1/year/levelling]
             /// </summary>
             public double ProbabilityCollisionSecondaryStructure { get; set; }
 
