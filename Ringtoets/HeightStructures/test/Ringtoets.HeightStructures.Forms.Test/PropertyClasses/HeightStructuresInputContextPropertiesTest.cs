@@ -32,7 +32,6 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -101,71 +100,25 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             properties.Data = inputContext;
 
             // Assert
-            Assert.IsNull(properties.HeightStructure);
-
-            Assert.IsNull(properties.HeightStructureLocation);
             var input = calculation.InputParameters;
-            var modelFactorSuperCriticalFlowProperties = new NormalDistributionProperties
-            {
-                Data = input.ModelFactorSuperCriticalFlow
-            };
-            AssertDistributionProperties(modelFactorSuperCriticalFlowProperties, properties.ModelFactorSuperCriticalFlow);
-
-            Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
-
-            var levelCrestStructureProperties = new NormalDistributionProperties
-            {
-                Data = input.LevelCrestStructure
-            };
-            AssertDistributionProperties(levelCrestStructureProperties, properties.LevelCrestStructure);
-
-            var allowedLevelIncreaseStorageProperties = new LogNormalDistributionProperties
-            {
-                Data = input.AllowedLevelIncreaseStorage
-            };
-            AssertDistributionProperties(allowedLevelIncreaseStorageProperties, properties.AllowedLevelIncreaseStorage);
-
-            var storageStructureAreaProperties = new LogNormalDistributionVariationProperties
-            {
-                Data = input.StorageStructureArea
-            };
-            AssertLogNormalDistributionVariationProperties(storageStructureAreaProperties, properties.StorageStructureArea);
-
-            var flowWidthAtBottomProtectionProperties = new LogNormalDistributionProperties
-            {
-                Data = input.FlowWidthAtBottomProtection
-            };
-            AssertDistributionProperties(flowWidthAtBottomProtectionProperties, properties.FlowWidthAtBottomProtection);
-
-            var widthFlowAperturesProperties = new NormalDistributionVariationProperties
-            {
-                Data = input.WidthFlowApertures
-            };
-            AssertDistributionProperties(widthFlowAperturesProperties, properties.WidthFlowApertures);
-
-            var criticalOvertoppingDischargeProperties = new LogNormalDistributionVariationProperties
-            {
-                Data = input.CriticalOvertoppingDischarge
-            };
-            AssertLogNormalDistributionVariationProperties(criticalOvertoppingDischargeProperties, properties.CriticalOvertoppingDischarge);
-
-            Assert.IsNull(properties.ForeshoreProfile);
-
-            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
-
-            Assert.IsInstanceOf<UseForeshoreProperties>(properties.ForeshoreGeometry);
-
             var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
+
+            Assert.IsNull(properties.HeightStructure);
+            Assert.IsNull(properties.HeightStructureLocation);
+            Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
+            Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
+            Assert.AreSame(input.LevelCrestStructure, properties.LevelCrestStructure.Data);
+            Assert.AreSame(input.AllowedLevelIncreaseStorage, properties.AllowedLevelIncreaseStorage.Data);
+            Assert.AreSame(input.StorageStructureArea, properties.StorageStructureArea.Data);
+            Assert.AreSame(input.FlowWidthAtBottomProtection, properties.FlowWidthAtBottomProtection.Data);
+            Assert.AreSame(input.WidthFlowApertures, properties.WidthFlowApertures.Data);
+            Assert.AreSame(input.CriticalOvertoppingDischarge, properties.CriticalOvertoppingDischarge.Data);
+            Assert.IsNull(properties.ForeshoreProfile);
+            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
+            Assert.IsInstanceOf<UseForeshoreProperties>(properties.ForeshoreGeometry);
             Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
-
-            Assert.AreEqual(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
-
-            var stormDurationProperties = new LogNormalDistributionVariationProperties
-            {
-                Data = input.StormDuration
-            };
-            AssertLogNormalDistributionVariationProperties(stormDurationProperties, properties.StormDuration);
-
+            Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
+            Assert.AreSame(input.StormDuration, properties.StormDuration.Data);
             Assert.AreEqual(input.DeviationWaveDirection, properties.DeviationWaveDirection);
 
             mockRepository.VerifyAll();
@@ -197,72 +150,25 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             var input = calculation.InputParameters;
-            Assert.AreSame(input.Structure, properties.HeightStructure);
-
             var expectedHeightStructureLocation = new Point2D(new RoundedDouble(0, input.Structure.Location.X), new RoundedDouble(0, input.Structure.Location.Y));
-            Assert.AreEqual(expectedHeightStructureLocation, properties.HeightStructureLocation);
-
-            Assert.AreEqual(input.Structure.StructureNormalOrientation, properties.StructureNormalOrientation);
-
-            var levelCrestStructureProperties = new NormalDistributionProperties
-            {
-                Data = input.LevelCrestStructure
-            };
-            AssertDistributionProperties(levelCrestStructureProperties, properties.LevelCrestStructure);
-
-            var allowedLevelIncreaseStorageProperties = new LogNormalDistributionProperties
-            {
-                Data = input.AllowedLevelIncreaseStorage
-            };
-            AssertDistributionProperties(allowedLevelIncreaseStorageProperties, properties.AllowedLevelIncreaseStorage);
-
-            var storageStructureAreaProperties = new LogNormalDistributionVariationProperties
-            {
-                Data = input.StorageStructureArea
-            };
-            AssertLogNormalDistributionVariationProperties(storageStructureAreaProperties, properties.StorageStructureArea);
-
-            var flowWidthAtBottomProtectionProperties = new LogNormalDistributionProperties
-            {
-                Data = input.FlowWidthAtBottomProtection
-            };
-            AssertDistributionProperties(flowWidthAtBottomProtectionProperties, properties.FlowWidthAtBottomProtection);
-
-            var widthFlowAperturesProperties = new NormalDistributionVariationProperties
-            {
-                Data = input.WidthFlowApertures
-            };
-            AssertDistributionProperties(widthFlowAperturesProperties, properties.WidthFlowApertures);
-
-            var criticalOvertoppingDischargeProperties = new LogNormalDistributionVariationProperties
-            {
-                Data = input.CriticalOvertoppingDischarge
-            };
-            AssertLogNormalDistributionVariationProperties(criticalOvertoppingDischargeProperties, properties.CriticalOvertoppingDischarge);
-
             var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
-            Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
 
+            Assert.AreSame(input.Structure, properties.HeightStructure);
+            Assert.AreEqual(expectedHeightStructureLocation, properties.HeightStructureLocation);
+            Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
+            Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
+            Assert.AreSame(input.LevelCrestStructure, properties.LevelCrestStructure.Data);
+            Assert.AreSame(input.AllowedLevelIncreaseStorage, properties.AllowedLevelIncreaseStorage.Data);
+            Assert.AreSame(input.StorageStructureArea, properties.StorageStructureArea.Data);
+            Assert.AreSame(input.FlowWidthAtBottomProtection, properties.FlowWidthAtBottomProtection.Data);
+            Assert.AreSame(input.WidthFlowApertures, properties.WidthFlowApertures.Data);
+            Assert.AreSame(input.CriticalOvertoppingDischarge, properties.CriticalOvertoppingDischarge.Data);
             Assert.AreSame(input.ForeshoreProfile, properties.ForeshoreProfile);
-
             Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
-
             Assert.IsInstanceOf<UseForeshoreProperties>(properties.ForeshoreGeometry);
-
-            var modelFactorSuperCriticalFlowProperties = new NormalDistributionProperties
-            {
-                Data = input.ModelFactorSuperCriticalFlow
-            };
-            AssertDistributionProperties(modelFactorSuperCriticalFlowProperties, properties.ModelFactorSuperCriticalFlow);
-
+            Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
             Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
-
-            var stormDurationProperties = new LogNormalDistributionVariationProperties
-            {
-                Data = input.StormDuration
-            };
-            AssertLogNormalDistributionVariationProperties(stormDurationProperties, properties.StormDuration);
-
+            Assert.AreSame(input.StormDuration, properties.StormDuration.Data);
             Assert.AreEqual(input.DeviationWaveDirection, properties.DeviationWaveDirection);
 
             mockRepository.VerifyAll();
@@ -318,6 +224,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
+        [TestCase(double.MinValue)]
         [TestCase(double.MaxValue)]
         public void SetFailureProbabilityStructureWithErosion_InvalidValues_ThrowsArgumentException(double newValue)
         {
@@ -541,24 +448,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         private static HydraulicBoundaryLocation CreateValidHydraulicBoundaryLocation()
         {
             return new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
-        }
-
-        private static void AssertDistributionProperties<T>(DistributionPropertiesBase<T> expected, DistributionPropertiesBase<T> actual) where T : IDistribution
-        {
-            Assert.AreEqual(expected.DistributionType, actual.DistributionType);
-            Assert.AreEqual(expected.Data, actual.Data);
-        }
-
-        private static void AssertDistributionProperties<T>(VariationCoefficientDistributionPropertiesBase<T> expected, VariationCoefficientDistributionPropertiesBase<T> actual) where T : IVariationCoefficientDistribution
-        {
-            Assert.AreEqual(expected.DistributionType, actual.DistributionType);
-            Assert.AreEqual(expected.Data, actual.Data);
-        }
-
-        private static void AssertLogNormalDistributionVariationProperties(LogNormalDistributionVariationProperties expected,
-                                                                           LogNormalDistributionVariationProperties actual)
-        {
-            Assert.AreEqual(expected.Data, actual.Data);
         }
     }
 }
