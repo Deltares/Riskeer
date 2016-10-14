@@ -34,7 +34,7 @@ namespace Ringtoets.Common.IO.Structures
         /// <summary>
         /// Denotes a small enough value, taking possible rounding into account, that the
         /// value is too close to the value <c>0.0</c> that makes a coefficient of variation
-        /// to unreliable.
+        /// too unreliable.
         /// </summary>
         private const double valueTooCloseToZero = 1e-4;
 
