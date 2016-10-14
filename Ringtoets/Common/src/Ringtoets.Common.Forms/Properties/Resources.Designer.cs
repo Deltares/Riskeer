@@ -1685,7 +1685,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kritiek instromend debiet directe invoer..
+        ///   Looks up a localized string similar to Kritiek instromend debiet directe invoer per strekkende meter..
         /// </summary>
         public static string Structure_CriticalOvertoppingDischarge_Description {
             get {

@@ -259,7 +259,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         public int LevellingCount { get; private set; }
 
         /// <summary>
-        /// Gets the probability of a secondary collision on the structure.
+        /// Gets the probability of a secondary collision on the structure per levelling.
         /// [1/year/levelling]
         /// </summary>
         public double ProbabilityCollisionSecondaryStructure { get; private set; }
@@ -439,7 +439,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             public int LevellingCount { get; set; }
 
             /// <summary>
-            /// Gets or sets the probability of a secondary collision on the structure.
+            /// Gets or sets the probability of a secondary collision on the structure per levelling.
             /// [1/year/levelling]
             /// </summary>
             public double ProbabilityCollisionSecondaryStructure { get; set; }

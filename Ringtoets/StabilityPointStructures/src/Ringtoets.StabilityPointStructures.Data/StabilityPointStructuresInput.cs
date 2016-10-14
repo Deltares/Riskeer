@@ -477,7 +477,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         public int LevellingCount { get; set; }
 
         /// <summary>
-        /// Gets or sets the probability of a secondary collision on the structure.
+        /// Gets or sets the probability of a secondary collision on the structure per levelling.
         /// [1/year/levelling]
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the probability is not in interval [0,1].</exception>

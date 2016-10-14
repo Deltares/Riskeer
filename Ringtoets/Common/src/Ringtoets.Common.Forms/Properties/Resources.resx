@@ -710,7 +710,7 @@
     <value>Toegestane peilverhoging komberging [m]</value>
   </data>
   <data name="Structure_CriticalOvertoppingDischarge_Description" xml:space="preserve">
-    <value>Kritiek instromend debiet directe invoer.</value>
+    <value>Kritiek instromend debiet directe invoer per strekkende meter.</value>
   </data>
   <data name="Structure_CriticalOvertoppingDischarge_DisplayName" xml:space="preserve">
     <value>Kritiek instromend debiet [m³/s/m]</value>
