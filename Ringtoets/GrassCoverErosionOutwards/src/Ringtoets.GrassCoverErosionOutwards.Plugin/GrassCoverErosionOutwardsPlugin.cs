@@ -364,7 +364,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #region GrassCoverErosionOutwardsFailureMechanismContext TreeNodeInfo
 
-        private object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
+        private static object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
         {
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = failureMechanismContext.WrappedData;
             return new object[]
@@ -375,7 +375,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             };
         }
 
-        private object[] FailureMechanismDisabledChildNodeObjects(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
+        private static object[] FailureMechanismDisabledChildNodeObjects(GrassCoverErosionOutwardsFailureMechanismContext failureMechanismContext)
         {
             return new object[]
             {
@@ -430,7 +430,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                           .Build();
         }
 
-        private object[] GetHydraulicBoundariesGroupContextChildNodeObjects(HydraulicBoundariesGroupContext hydraulicBoundariesGroupContext)
+        private static object[] GetHydraulicBoundariesGroupContextChildNodeObjects(HydraulicBoundariesGroupContext hydraulicBoundariesGroupContext)
         {
             IAssessmentSection assessmentSection = hydraulicBoundariesGroupContext.AssessmentSection;
             if (assessmentSection.HydraulicBoundaryDatabase == null)
@@ -566,7 +566,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #region GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext TreeNodeInfo
 
-        private object[] WaveConditionsCalculationGroupChildrenNodeObjects(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
+        private static object[] WaveConditionsCalculationGroupChildrenNodeObjects(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
         {
             var childNodeObjects = new List<object>();
 
@@ -686,7 +686,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 calculationCollection);
         }
 
-        private void AddWaveConditionsCalculation(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
+        private static void AddWaveConditionsCalculation(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData)
         {
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
@@ -698,7 +698,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             nodeData.WrappedData.NotifyObservers();
         }
 
-        private void ValidateAll(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations, HydraulicBoundaryDatabase database)
+        private static void ValidateAll(IEnumerable<GrassCoverErosionOutwardsWaveConditionsCalculation> calculations, HydraulicBoundaryDatabase database)
         {
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
             {
@@ -706,12 +706,12 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             }
         }
 
-        private string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
-        private string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
             if (assessmentSection.HydraulicBoundaryDatabase == null)
             {
@@ -754,8 +754,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             }
         }
 
-        private void WaveConditionsCalculationGroupContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData,
-                                                                        object parentNodeData)
+        private static void WaveConditionsCalculationGroupContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext nodeData,
+                                                                               object parentNodeData)
         {
             var parentGroupContext = (GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext) parentNodeData;
 
@@ -768,7 +768,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
 
         #region GrassCoverErosionOutwardsWaveConditionsCalculationContext TreeNodeInfo
 
-        private object[] WaveConditionsCalculationContextChildNodeObjects(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
+        private static object[] WaveConditionsCalculationContextChildNodeObjects(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
             var childNodes = new List<object>
             {
@@ -821,7 +821,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 .Build();
         }
 
-        private string ValidateAllDataAvailableAndGetErrorMessageForCalculation(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
@@ -837,8 +837,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             calculation.NotifyObservers();
         }
 
-        private void WaveConditionsCalculationContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationContext nodeData,
-                                                                   object parentNodeData)
+        private static void WaveConditionsCalculationContextOnNodeRemoved(GrassCoverErosionOutwardsWaveConditionsCalculationContext nodeData,
+                                                                          object parentNodeData)
         {
             var calculationGroupContext = parentNodeData as GrassCoverErosionOutwardsWaveConditionsCalculationGroupContext;
             if (calculationGroupContext != null)

@@ -27,7 +27,7 @@ using Core.Common.Gui.Properties;
 namespace Core.Plugins.CommonTools
 {
     /// <summary>
-    /// This class configures general plugin components.
+    /// This class configures general plug-in components.
     /// </summary>
     public class CommonToolsPlugin : PluginBase
     {

@@ -32,7 +32,7 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 namespace Demo.Ringtoets.GUIs
 {
     /// <summary>
-    /// UI plugin the provides access to the demo projects for Ringtoets.
+    /// UI plug-in that provides access to the demo projects for Ringtoets.
     /// </summary>
     public class DemoProjectPlugin : PluginBase
     {

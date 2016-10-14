@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -28,7 +27,6 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.TreeView;
-using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
@@ -194,7 +192,7 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                                                  assessmentSection)).ToArray());
         }
 
-        private void ValidateAll(IEnumerable<HeightStructuresCalculation> heightStructuresCalculations, IAssessmentSection assessmentSection)
+        private static void ValidateAll(IEnumerable<HeightStructuresCalculation> heightStructuresCalculations, IAssessmentSection assessmentSection)
         {
             foreach (var calculation in heightStructuresCalculations)
             {
@@ -280,7 +278,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         #region HeightStructuresFailureMechanismContext TreeNodeInfo
 
-        private object[] FailureMechanismEnabledChildNodeObjects(HeightStructuresFailureMechanismContext context)
+        private static object[] FailureMechanismEnabledChildNodeObjects(HeightStructuresFailureMechanismContext context)
         {
             HeightStructuresFailureMechanism wrappedData = context.WrappedData;
             return new object[]
@@ -311,7 +309,7 @@ namespace Ringtoets.HeightStructures.Plugin
             };
         }
 
-        private object[] FailureMechanismDisabledChildNodeObjects(HeightStructuresFailureMechanismContext context)
+        private static object[] FailureMechanismDisabledChildNodeObjects(HeightStructuresFailureMechanismContext context)
         {
             return new object[]
             {
@@ -589,7 +587,7 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                                      context.AssessmentSection));
         }
 
-        private void CalculationContextOnNodeRemoved(HeightStructuresCalculationContext context, object parentData)
+        private static void CalculationContextOnNodeRemoved(HeightStructuresCalculationContext context, object parentData)
         {
             var calculationGroupContext = parentData as HeightStructuresCalculationGroupContext;
             if (calculationGroupContext != null)

@@ -53,7 +53,7 @@ using RingtoetsRevetmentServiceResources = Ringtoets.Revetment.Service.Propertie
 namespace Ringtoets.StabilityStoneCover.Plugin
 {
     /// <summary>
-    /// The plugin for the <see cref="StabilityStoneCoverFailureMechanism"/>.
+    /// The plug-in for the <see cref="StabilityStoneCoverFailureMechanism"/>.
     /// </summary>
     public class StabilityStoneCoverPlugin : PluginBase
     {
@@ -190,7 +190,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         #region StabilityStoneCoverFailureMechanismContext
 
-        private object[] FailureMechanismEnabledChildNodeObjects(StabilityStoneCoverFailureMechanismContext failureMechanismContext)
+        private static object[] FailureMechanismEnabledChildNodeObjects(StabilityStoneCoverFailureMechanismContext failureMechanismContext)
         {
             StabilityStoneCoverFailureMechanism wrappedData = failureMechanismContext.WrappedData;
             return new object[]
@@ -201,7 +201,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             };
         }
 
-        private object[] FailureMechanismDisabledChildNodeObjects(StabilityStoneCoverFailureMechanismContext failureMechanismContext)
+        private static object[] FailureMechanismDisabledChildNodeObjects(StabilityStoneCoverFailureMechanismContext failureMechanismContext)
         {
             return new object[]
             {
@@ -219,7 +219,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             };
         }
 
-        private IList GetOutputs(StabilityStoneCoverFailureMechanism failureMechanism)
+        private static IList GetOutputs(StabilityStoneCoverFailureMechanism failureMechanism)
         {
             return new ArrayList
             {
@@ -260,7 +260,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         #region StabilityStoneCoverWaveConditionsCalculationGroupContext
 
-        private object[] WaveConditionsCalculationGroupContextChildNodeObjects(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
+        private static object[] WaveConditionsCalculationGroupContextChildNodeObjects(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
         {
             var childNodeObjects = new List<object>();
 
@@ -338,17 +338,17 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                           .Build();
         }
 
-        private string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(StabilityStoneCoverWaveConditionsCalculationGroupContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(StabilityStoneCoverWaveConditionsCalculationGroupContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
-        private string ValidateAllDataAvailableAndGetErrorMessageForCalculation(StabilityStoneCoverWaveConditionsCalculationContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(StabilityStoneCoverWaveConditionsCalculationContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
-        private string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
             if (assessmentSection.HydraulicBoundaryDatabase == null)
             {
@@ -405,7 +405,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 calculationCollection);
         }
 
-        private void AddWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
+        private static void AddWaveConditionsCalculation(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData)
         {
             var calculation = new StabilityStoneCoverWaveConditionsCalculation
             {
@@ -417,7 +417,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             nodeData.WrappedData.NotifyObservers();
         }
 
-        private void ValidateAll(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, HydraulicBoundaryDatabase database)
+        private static void ValidateAll(IEnumerable<StabilityStoneCoverWaveConditionsCalculation> calculations, HydraulicBoundaryDatabase database)
         {
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
             {
@@ -451,7 +451,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             }
         }
 
-        private void WaveConditionsCalculationGroupContextOnNodeRemoved(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData, object parentNodeData)
+        private static void WaveConditionsCalculationGroupContextOnNodeRemoved(StabilityStoneCoverWaveConditionsCalculationGroupContext nodeData, object parentNodeData)
         {
             var parentGroupContext = (StabilityStoneCoverWaveConditionsCalculationGroupContext) parentNodeData;
 
@@ -464,7 +464,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
 
         #region StabilityStoneCoverWaveConditionsCalculationContext
 
-        private object[] WaveConditionsCalculationContextChildNodeObjects(StabilityStoneCoverWaveConditionsCalculationContext context)
+        private static object[] WaveConditionsCalculationContextChildNodeObjects(StabilityStoneCoverWaveConditionsCalculationContext context)
         {
             var childNodes = new List<object>
             {
@@ -527,7 +527,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
             calculation.NotifyObservers();
         }
 
-        private void WaveConditionsCalculationContextOnNodeRemoved(StabilityStoneCoverWaveConditionsCalculationContext nodeData, object parentNodeData)
+        private static void WaveConditionsCalculationContextOnNodeRemoved(StabilityStoneCoverWaveConditionsCalculationContext nodeData, object parentNodeData)
         {
             var calculationGroupContext = parentNodeData as StabilityStoneCoverWaveConditionsCalculationGroupContext;
             if (calculationGroupContext != null)

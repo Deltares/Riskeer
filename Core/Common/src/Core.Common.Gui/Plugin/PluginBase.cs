@@ -28,7 +28,7 @@ using Core.Common.Gui.Forms;
 namespace Core.Common.Gui.Plugin
 {
     /// <summary>
-    /// Template class for a plugin definitions.
+    /// Template class for a plug-in definitions.
     /// </summary>
     public abstract class PluginBase : IDisposable
     {
@@ -38,7 +38,7 @@ namespace Core.Common.Gui.Plugin
         public virtual IGui Gui { get; set; }
 
         /// <summary>
-        /// Ribbon command handler (adding tabs, groups, buttons, etc.) which can be provided by the plugin.
+        /// Ribbon command handler (adding tabs, groups, buttons, etc.) which can be provided by the plug-in.
         /// </summary>
         public virtual IRibbonCommandHandler RibbonCommandHandler
         {
@@ -49,17 +49,17 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Activates the plugin.
+        /// Activates the plug-in.
         /// </summary>
         public virtual void Activate() {}
 
         /// <summary>
-        /// Deactivates the plugin.
+        /// Deactivates the plug-in.
         /// </summary>
         public virtual void Deactivate() {}
 
         /// <summary>
-        /// Returns all <see cref="ImportInfo"/> instances provided by this plugin.
+        /// Returns all <see cref="ImportInfo"/> instances provided by this plug-in.
         /// </summary>
         public virtual IEnumerable<ImportInfo> GetImportInfos()
         {
@@ -67,7 +67,7 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Returns all <see cref="ExportInfo"/> instances provided by this plugin.
+        /// Returns all <see cref="ExportInfo"/> instances provided by this plug-in.
         /// </summary>
         public virtual IEnumerable<ExportInfo> GetExportInfos()
         {
@@ -75,7 +75,7 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Returns all <see cref="PropertyInfo"/> instances by of this plugin.
+        /// Returns all <see cref="PropertyInfo"/> instances by of this plug-in.
         /// </summary>
         public virtual IEnumerable<PropertyInfo> GetPropertyInfos()
         {
@@ -83,7 +83,7 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Returns all <see cref="ViewInfo"/> instances provided by this plugin.
+        /// Returns all <see cref="ViewInfo"/> instances provided by this plug-in.
         /// </summary>
         public virtual IEnumerable<ViewInfo> GetViewInfos()
         {
@@ -91,7 +91,7 @@ namespace Core.Common.Gui.Plugin
         }
 
         /// <summary>
-        /// Returns all <see cref="TreeNodeInfo"/> instances provided by this plugin.
+        /// Returns all <see cref="TreeNodeInfo"/> instances provided by this plug-in.
         /// </summary>
         public virtual IEnumerable<TreeNodeInfo> GetTreeNodeInfos()
         {

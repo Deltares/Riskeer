@@ -700,7 +700,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private void RemoveOnOpenProjectListener(IProjectOwner projectOwner)
+        private static void RemoveOnOpenProjectListener(IProjectOwner projectOwner)
         {
             if (projectOwner != null)
             {
@@ -708,7 +708,7 @@ namespace Ringtoets.Integration.Plugin
             }
         }
 
-        private void AddOnOpenProjectListener(IProjectOwner projectOwner)
+        private static void AddOnOpenProjectListener(IProjectOwner projectOwner)
         {
             if (projectOwner != null)
             {
@@ -779,7 +779,7 @@ namespace Ringtoets.Integration.Plugin
 
         #region DesignWaterLevelLocationsView ViewInfo
 
-        private bool CloseDesignWaterLevelLocationsViewForData(DesignWaterLevelLocationsView view, object dataToCloseFor)
+        private static bool CloseDesignWaterLevelLocationsViewForData(DesignWaterLevelLocationsView view, object dataToCloseFor)
         {
             var viewData = view.AssessmentSection;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
@@ -791,7 +791,7 @@ namespace Ringtoets.Integration.Plugin
 
         #region WaveHeightLocationsView ViewInfo
 
-        private bool CloseWaveHeightLocationsViewForData(WaveHeightLocationsView view, object dataToCloseFor)
+        private static bool CloseWaveHeightLocationsViewForData(WaveHeightLocationsView view, object dataToCloseFor)
         {
             var viewData = view.AssessmentSection;
             var assessmentSection = dataToCloseFor as IAssessmentSection;
@@ -800,6 +800,39 @@ namespace Ringtoets.Integration.Plugin
         }
 
         #endregion
+
+        #region FailureMechanismSectionsContext TreeNodeInfo
+
+        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(FailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
+        {
+            return Gui.Get(nodeData, treeViewControl)
+                      .AddImportItem()
+                      .Build();
+        }
+
+        #endregion
+
+        private class FailureMechanismContextAssociation
+        {
+            private readonly Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext;
+            private readonly Type failureMechanismType;
+
+            public FailureMechanismContextAssociation(Type failureMechanismType, Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext)
+            {
+                this.createFailureMechanismContext = createFailureMechanismContext;
+                this.failureMechanismType = failureMechanismType;
+            }
+
+            public bool Match(IFailureMechanism failureMechanism)
+            {
+                return failureMechanism.GetType() == failureMechanismType;
+            }
+
+            public object Create(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            {
+                return createFailureMechanismContext(failureMechanism, assessmentSection);
+            }
+        }
 
         #region Comment ViewInfo
 
@@ -867,31 +900,9 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        private class FailureMechanismContextAssociation
-        {
-            private readonly Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext;
-            private readonly Type failureMechanismType;
-
-            public FailureMechanismContextAssociation(Type failureMechanismType, Func<IFailureMechanism, IAssessmentSection, object> createFailureMechanismContext)
-            {
-                this.createFailureMechanismContext = createFailureMechanismContext;
-                this.failureMechanismType = failureMechanismType;
-            }
-
-            public bool Match(IFailureMechanism failureMechanism)
-            {
-                return failureMechanism.GetType() == failureMechanismType;
-            }
-
-            public object Create(IFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-            {
-                return createFailureMechanismContext(failureMechanism, assessmentSection);
-            }
-        }
-
         #region AssessmentSection TreeNodeInfo
 
-        private object[] AssessmentSectionChildNodeObjects(AssessmentSection nodeData)
+        private static object[] AssessmentSectionChildNodeObjects(AssessmentSection nodeData)
         {
             var childNodes = new List<object>
             {
@@ -917,13 +928,13 @@ namespace Ringtoets.Integration.Plugin
                 );
         }
 
-        private void AssessmentSectionOnNodeRenamed(IAssessmentSection nodeData, string newName)
+        private static void AssessmentSectionOnNodeRenamed(IAssessmentSection nodeData, string newName)
         {
             nodeData.Name = newName;
             nodeData.NotifyObservers();
         }
 
-        private void AssessmentSectionOnNodeRemoved(IAssessmentSection nodeData, object parentNodeData)
+        private static void AssessmentSectionOnNodeRemoved(IAssessmentSection nodeData, object parentNodeData)
         {
             var parentProject = (RingtoetsProject) parentNodeData;
             var assessmentSection = (AssessmentSection) nodeData;
@@ -948,20 +959,9 @@ namespace Ringtoets.Integration.Plugin
 
         #endregion
 
-        #region FailureMechanismSectionsContext TreeNodeInfo
-
-        private ContextMenuStrip FailureMechanismSectionsContextMenuStrip(FailureMechanismSectionsContext nodeData, object parentData, TreeViewControl treeViewControl)
-        {
-            return Gui.Get(nodeData, treeViewControl)
-                      .AddImportItem()
-                      .Build();
-        }
-
-        #endregion
-
         #region StandAloneFailureMechanismContext TreeNodeInfo
 
-        private object[] StandAloneFailureMechanismEnabledChildNodeObjects(FailureMechanismContext<IFailureMechanism> nodeData)
+        private static object[] StandAloneFailureMechanismEnabledChildNodeObjects(FailureMechanismContext<IFailureMechanism> nodeData)
         {
             return new object[]
             {
@@ -974,7 +974,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private object[] StandAloneFailureMechanismDisabledChildNodeObjects(FailureMechanismContext<IFailureMechanism> nodeData)
+        private static object[] StandAloneFailureMechanismDisabledChildNodeObjects(FailureMechanismContext<IFailureMechanism> nodeData)
         {
             return new object[]
             {
@@ -982,7 +982,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private IList GetInputs(IFailureMechanism nodeData, IAssessmentSection assessmentSection)
+        private static IList GetInputs(IFailureMechanism nodeData, IAssessmentSection assessmentSection)
         {
             return new ArrayList
             {
@@ -991,7 +991,7 @@ namespace Ringtoets.Integration.Plugin
             };
         }
 
-        private IList GetOutputs(IFailureMechanism nodeData)
+        private static IList GetOutputs(IFailureMechanism nodeData)
         {
             var duneErosion = nodeData as IHasSectionResults<DuneErosionFailureMechanismSectionResult>;
             var grassCoverSlipOffInwards = nodeData as IHasSectionResults<GrassCoverSlipOffInwardsFailureMechanismSectionResult>;
@@ -1115,7 +1115,7 @@ namespace Ringtoets.Integration.Plugin
 
         #region CategoryTreeFolder TreeNodeInfo
 
-        private Image GetFolderIcon(TreeFolderCategory category)
+        private static Image GetFolderIcon(TreeFolderCategory category)
         {
             switch (category)
             {

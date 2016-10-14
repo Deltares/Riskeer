@@ -53,7 +53,7 @@ using BaseResources = Core.Common.Base.Properties.Resources;
 namespace Ringtoets.Piping.Plugin
 {
     /// <summary>
-    /// The plugin for the <see cref="PipingFailureMechanism"/>.
+    /// The plug-in for the <see cref="PipingFailureMechanism"/>.
     /// </summary>
     public class PipingPlugin : PluginBase
     {
@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Plugin
                 Image = PipingFormsResources.PipingSurfaceLineIcon,
                 FileFilter = string.Format("{0} {1}",
                                            PipingFormsResources.PipingSurfaceLinesCollection_DisplayName,
-                                          RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter),
+                                           RingtoetsCommonFormsResources.DataTypeDisplayName_csv_file_filter),
                 IsEnabled = context => context.AssessmentSection.ReferenceLine != null,
                 CreateFileImporter = (context, filePath) => new PipingSurfaceLinesCsvImporter(context.WrappedData,
                                                                                               context.AssessmentSection.ReferenceLine,
@@ -288,7 +288,7 @@ namespace Ringtoets.Piping.Plugin
 
         # region PipingFailureMechanismView ViewInfo
 
-        private bool ClosePipingFailureMechanismViewForData(PipingFailureMechanismView view, object o)
+        private static bool ClosePipingFailureMechanismViewForData(PipingFailureMechanismView view, object o)
         {
             var assessmentSection = o as IAssessmentSection;
             var pipingFailureMechanism = o as PipingFailureMechanism;
@@ -376,7 +376,7 @@ namespace Ringtoets.Piping.Plugin
 
         #region PipingInputView ViewInfo
 
-        private bool ClosePipingInputViewForData(PipingInputView view, object o)
+        private static bool ClosePipingInputViewForData(PipingInputView view, object o)
         {
             var pipingCalculationScenarioContext = o as PipingCalculationScenarioContext;
             if (pipingCalculationScenarioContext != null)
@@ -504,7 +504,7 @@ namespace Ringtoets.Piping.Plugin
             return failureMechanism.Calculations.OfType<PipingCalculation>();
         }
 
-        private object[] FailureMechanismEnabledChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)
+        private static object[] FailureMechanismEnabledChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)
         {
             PipingFailureMechanism wrappedData = pipingFailureMechanismContext.WrappedData;
             return new object[]
@@ -515,7 +515,7 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private object[] FailureMechanismDisabledChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)
+        private static object[] FailureMechanismDisabledChildNodeObjects(PipingFailureMechanismContext pipingFailureMechanismContext)
         {
             return new object[]
             {
@@ -534,7 +534,7 @@ namespace Ringtoets.Piping.Plugin
             };
         }
 
-        private IList GetOutputs(PipingFailureMechanism failureMechanism)
+        private static IList GetOutputs(PipingFailureMechanism failureMechanism)
         {
             return new ArrayList
             {
@@ -592,7 +592,7 @@ namespace Ringtoets.Piping.Plugin
             return childNodes.ToArray();
         }
 
-        private void PipingCalculationContextOnNodeRemoved(PipingCalculationScenarioContext pipingCalculationScenarioContext, object parentNodeData)
+        private static void PipingCalculationContextOnNodeRemoved(PipingCalculationScenarioContext pipingCalculationScenarioContext, object parentNodeData)
         {
             var calculationGroupContext = parentNodeData as PipingCalculationGroupContext;
             if (calculationGroupContext != null)
@@ -618,7 +618,7 @@ namespace Ringtoets.Piping.Plugin
 
         # region PipingCalculationGroupContext TreeNodeInfo
 
-        private object[] PipingCalculationGroupContextChildNodeObjects(PipingCalculationGroupContext nodeData)
+        private static object[] PipingCalculationGroupContextChildNodeObjects(PipingCalculationGroupContext nodeData)
         {
             var childNodeObjects = new List<object>();
 
@@ -736,7 +736,7 @@ namespace Ringtoets.Piping.Plugin
             nodeData.NotifyObservers();
         }
 
-        private void GeneratePipingCalculations(CalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)
+        private static void GeneratePipingCalculations(CalculationGroup target, IEnumerable<RingtoetsPipingSurfaceLine> surfaceLines, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)
         {
             foreach (var group in PipingCalculationConfigurationHelper.GenerateCalculationItemsStructure(surfaceLines, soilModels, generalInput))
             {
@@ -744,7 +744,7 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private void PipingCalculationGroupContextOnNodeRemoved(PipingCalculationGroupContext nodeData, object parentNodeData)
+        private static void PipingCalculationGroupContextOnNodeRemoved(PipingCalculationGroupContext nodeData, object parentNodeData)
         {
             var parentGroupContext = (PipingCalculationGroupContext) parentNodeData;
 

@@ -193,7 +193,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         #region WaveImpactAsphaltCoverFailureMechanismContext
 
-        private object[] FailureMechanismEnabledChildNodeObjects(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext)
+        private static object[] FailureMechanismEnabledChildNodeObjects(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext)
         {
             WaveImpactAsphaltCoverFailureMechanism wrappedData = failureMechanismContext.WrappedData;
             return new object[]
@@ -204,7 +204,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private object[] FailureMechanismDisabledChildNodeObjects(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext)
+        private static object[] FailureMechanismDisabledChildNodeObjects(WaveImpactAsphaltCoverFailureMechanismContext failureMechanismContext)
         {
             return new object[]
             {
@@ -222,7 +222,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             };
         }
 
-        private IList GetOutputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
+        private static IList GetOutputs(WaveImpactAsphaltCoverFailureMechanism failureMechanism)
         {
             return new ArrayList
             {
@@ -265,7 +265,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         #region WaveImpactAsphaltCover TreeNodeOnfo
 
-        private object[] WaveConditionsCalculationGroupContextChildNodeObjects(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
+        private static object[] WaveConditionsCalculationGroupContextChildNodeObjects(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
         {
             var childNodeObjects = new List<object>();
 
@@ -344,17 +344,17 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                           .Build();
         }
 
-        private string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
-        private string ValidateAllDataAvailableAndGetErrorMessageForCalculation(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
-        private string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection)
         {
             if (assessmentSection.HydraulicBoundaryDatabase == null)
             {
@@ -411,7 +411,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                 calculationCollection);
         }
 
-        private void AddWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
+        private static void AddWaveConditionsCalculation(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData)
         {
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
@@ -423,7 +423,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             nodeData.WrappedData.NotifyObservers();
         }
 
-        private void ValidateAll(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, HydraulicBoundaryDatabase database)
+        private static void ValidateAll(IEnumerable<WaveImpactAsphaltCoverWaveConditionsCalculation> calculations, HydraulicBoundaryDatabase database)
         {
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
             {
@@ -457,7 +457,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             }
         }
 
-        private void WaveConditionsCalculationGroupContextOnNodeRemoved(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData, object parentNodeData)
+        private static void WaveConditionsCalculationGroupContextOnNodeRemoved(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext nodeData, object parentNodeData)
         {
             var parentGroupContext = (WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext) parentNodeData;
 
@@ -470,7 +470,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
         #region WaveImpactAsphaltCoverWaveConditionsCalculationContext
 
-        private object[] WaveConditionsCalculationContextChildNodeObjects(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
+        private static object[] WaveConditionsCalculationContextChildNodeObjects(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
         {
             var childNodes = new List<object>
             {
@@ -533,7 +533,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             calculation.NotifyObservers();
         }
 
-        private void WaveConditionsCalculationContextOnNodeRemoved(WaveImpactAsphaltCoverWaveConditionsCalculationContext nodeData, object parentNodeData)
+        private static void WaveConditionsCalculationContextOnNodeRemoved(WaveImpactAsphaltCoverWaveConditionsCalculationContext nodeData, object parentNodeData)
         {
             var calculationGroupContext = parentNodeData as WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext;
             if (calculationGroupContext != null)

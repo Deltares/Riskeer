@@ -204,7 +204,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         }
 
         private static void ValidateAll(IEnumerable<StabilityPointStructuresCalculation> calculations, IAssessmentSection assessmentSection) {}
+
         private static void CalculateAll(StabilityPointStructuresFailureMechanismContext context) {}
+
         private static void CalculateAll(CalculationGroup group, StabilityPointStructuresCalculationGroupContext context) {}
 
         #endregion
@@ -213,7 +215,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         #region StabilityPointStructuresFailureMechanismContext TreeNodeInfo
 
-        private object[] FailureMechanismEnabledChildNodeObjects(StabilityPointStructuresFailureMechanismContext stabilityPointStructuresFailureMechanismContext)
+        private static object[] FailureMechanismEnabledChildNodeObjects(StabilityPointStructuresFailureMechanismContext stabilityPointStructuresFailureMechanismContext)
         {
             StabilityPointStructuresFailureMechanism wrappedData = stabilityPointStructuresFailureMechanismContext.WrappedData;
             return new object[]
@@ -230,7 +232,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             };
         }
 
-        private object[] FailureMechanismDisabledChildNodeObjects(StabilityPointStructuresFailureMechanismContext stabilityPointStructuresFailureMechanismContext)
+        private static object[] FailureMechanismDisabledChildNodeObjects(StabilityPointStructuresFailureMechanismContext stabilityPointStructuresFailureMechanismContext)
         {
             return new object[]
             {
@@ -382,7 +384,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateGenerateCalculationsItem(StabilityPointStructuresCalculationGroupContext nodeData)
+        private static StrictContextMenuItem CreateGenerateCalculationsItem(StabilityPointStructuresCalculationGroupContext nodeData)
         {
             var generateCalculationsItem = new StrictContextMenuItem(
                 RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
@@ -469,9 +471,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
-        private void Calculate(StabilityPointStructuresCalculation calculation, StabilityPointStructuresCalculationContext context) {}
+        private static void Calculate(StabilityPointStructuresCalculation calculation, StabilityPointStructuresCalculationContext context) {}
 
-        private void CalculationContextOnNodeRemoved(StabilityPointStructuresCalculationContext context, object parentData)
+        private static void CalculationContextOnNodeRemoved(StabilityPointStructuresCalculationContext context, object parentData)
         {
             var calculationGroupContext = parentData as StabilityPointStructuresCalculationGroupContext;
             if (calculationGroupContext != null)

@@ -207,14 +207,14 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private static void CalculateAll(ClosingStructuresFailureMechanism failureMechanism, IEnumerable<ClosingStructuresCalculation> calculations)
         {
-            //Add calculate logic, part of WTI-554
+            // Add calculate logic, part of WTI-554
         }
 
         #region TreeNodeInfo
 
         #region ClosingStructuresFailureMechanismContext TreeNodeInfo
 
-        private object[] FailureMechanismEnabledChildNodeObjects(ClosingStructuresFailureMechanismContext closingStructuresFailureMechanismContext)
+        private static object[] FailureMechanismEnabledChildNodeObjects(ClosingStructuresFailureMechanismContext closingStructuresFailureMechanismContext)
         {
             ClosingStructuresFailureMechanism wrappedData = closingStructuresFailureMechanismContext.WrappedData;
             return new object[]
@@ -225,7 +225,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
         }
 
-        private object[] FailureMechanismDisabledChildNodeObjects(ClosingStructuresFailureMechanismContext closingStructuresFailureMechanismContext)
+        private static object[] FailureMechanismDisabledChildNodeObjects(ClosingStructuresFailureMechanismContext closingStructuresFailureMechanismContext)
         {
             return new object[]
             {
@@ -289,9 +289,9 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .Build();
         }
 
-        private void ValidateAll()
+        private static void ValidateAll()
         {
-            //Add validation service - currently a place holder
+            // Add validation service - currently a place holder
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(ClosingStructuresFailureMechanismContext context)
@@ -299,7 +299,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
         }
 
-        private void CalculateAll(ClosingStructuresFailureMechanismContext context)
+        private static void CalculateAll(ClosingStructuresFailureMechanismContext context)
         {
             CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<ClosingStructuresCalculation>());
         }
@@ -448,11 +448,11 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .Build();
         }
 
-        private void CalculateAction(ClosingStructuresCalculation closingStructuresCalculation, ClosingStructuresCalculationContext closingStructuresCalculationContext) {}
+        private static void CalculateAction(ClosingStructuresCalculation closingStructuresCalculation, ClosingStructuresCalculationContext closingStructuresCalculationContext) {}
 
-        private void ValidateAction(ClosingStructuresCalculationContext closingStructuresCalculationContext) {}
+        private static void ValidateAction(ClosingStructuresCalculationContext closingStructuresCalculationContext) {}
 
-        private string ValidateAllDataAvailableAndGetErrorMessageForCalculation(ClosingStructuresCalculationContext context)
+        private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(ClosingStructuresCalculationContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }

@@ -34,6 +34,9 @@ using ProjectExplorerResources = Core.Plugins.ProjectExplorer.Properties.Resourc
 
 namespace Core.Plugins.ProjectExplorer
 {
+    /// <summary>
+    /// The plug-in for the <see cref="ProjectExplorer"/> component.
+    /// </summary>
     public class ProjectExplorerPlugin : PluginBase
     {
         private IViewController viewController;

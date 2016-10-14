@@ -258,7 +258,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         #region GrassCoverErosionInwardsInputView  ViewInfo
 
-        private bool CloseInputViewForData(GrassCoverErosionInwardsInputView view, object o)
+        private static bool CloseInputViewForData(GrassCoverErosionInwardsInputView view, object o)
         {
             var calculationContext = o as GrassCoverErosionInwardsCalculationContext;
             if (calculationContext != null)
@@ -302,7 +302,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         #endregion
 
-        private void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations, IAssessmentSection assessmentSection)
+        private static void ValidateAll(IEnumerable<GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations, IAssessmentSection assessmentSection)
         {
             foreach (var calculation in grassCoverErosionInwardsCalculations)
             {
@@ -312,7 +312,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
         #region GrassCoverErosionInwardsFailureMechanismContext TreeNodeInfo
 
-        private object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext)
+        private static object[] FailureMechanismEnabledChildNodeObjects(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext)
         {
             GrassCoverErosionInwardsFailureMechanism wrappedData = grassCoverErosionInwardsFailureMechanismContext.WrappedData;
             return new object[]
@@ -323,7 +323,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             };
         }
 
-        private object[] FailureMechanismDisabledChildNodeObjects(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext)
+        private static object[] FailureMechanismDisabledChildNodeObjects(GrassCoverErosionInwardsFailureMechanismContext grassCoverErosionInwardsFailureMechanismContext)
         {
             return new object[]
             {
@@ -504,7 +504,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             nodeData.NotifyObservers();
         }
 
-        private void GenerateCalculations(CalculationGroup target, GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<DikeProfile> dikeProfiles)
+        private static void GenerateCalculations(CalculationGroup target, GrassCoverErosionInwardsFailureMechanism failureMechanism, IEnumerable<DikeProfile> dikeProfiles)
         {
             foreach (var profile in dikeProfiles)
             {
@@ -618,7 +618,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                                                              context.AssessmentSection));
         }
 
-        private void CalculationContextOnNodeRemoved(GrassCoverErosionInwardsCalculationContext context, object parentData)
+        private static void CalculationContextOnNodeRemoved(GrassCoverErosionInwardsCalculationContext context, object parentData)
         {
             var calculationGroupContext = parentData as GrassCoverErosionInwardsCalculationGroupContext;
             if (calculationGroupContext != null)
