@@ -283,7 +283,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen..
+        ///   Looks up a localized string similar to De waarde voor de faalkans moet in het bereik [0, 1] liggen..
         /// </summary>
         public static string FailureProbability_Value_needs_to_be_between_0_and_1 {
             get {
@@ -346,7 +346,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor de oriëntatie moet in het bereik tussen [0, 360] graden liggen..
+        ///   Looks up a localized string similar to De waarde voor de oriëntatie moet in het bereik [0, 360] liggen..
         /// </summary>
         public static string Orientation_Value_needs_to_be_between_0_and_360 {
             get {

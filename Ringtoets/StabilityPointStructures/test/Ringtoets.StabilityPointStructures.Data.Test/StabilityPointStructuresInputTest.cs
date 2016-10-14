@@ -552,7 +552,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             TestDelegate call = () => input.FailureProbabilityRepairClosure = probability;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0, 1] liggen.");
         }
 
         [Test]

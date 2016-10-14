@@ -217,7 +217,7 @@
     <value>De waarde voor 'N' moet in interval [1, 20] liggen.</value>
   </data>
   <data name="FailureProbability_Value_needs_to_be_between_0_and_1" xml:space="preserve">
-    <value>De waarde voor de faalkans moet in het bereik tussen [0, 1] liggen.</value>
+    <value>De waarde voor de faalkans moet in het bereik [0, 1] liggen.</value>
   </data>
   <data name="Calculation_DefaultName" xml:space="preserve">
     <value>Nieuwe berekening</value>
@@ -226,7 +226,7 @@
     <value>Variatiecoëfficiënt (CV) moet groter of gelijk zijn aan 0.</value>
   </data>
   <data name="Orientation_Value_needs_to_be_between_0_and_360" xml:space="preserve">
-    <value>De waarde voor de oriëntatie moet in het bereik tussen [0, 360] graden liggen.</value>
+    <value>De waarde voor de oriëntatie moet in het bereik [0, 360] liggen.</value>
   </data>
   <data name="ICalculation_DisplayName" xml:space="preserve">
     <value>Berekening</value>
