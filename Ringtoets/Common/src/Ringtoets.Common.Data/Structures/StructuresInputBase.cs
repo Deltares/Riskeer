@@ -140,7 +140,7 @@ namespace Ringtoets.Common.Data.Structures
 
         /// <summary>
         /// Gets or sets the storm duration.
-        /// [hrs]
+        /// [h]
         /// </summary>
         /// <remarks>Only sets the mean.</remarks>
         public VariationCoefficientLogNormalDistribution StormDuration

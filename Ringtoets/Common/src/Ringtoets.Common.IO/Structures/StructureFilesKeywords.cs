@@ -293,7 +293,7 @@ namespace Ringtoets.Common.IO.Structures
         public const string StabilityPointStructureParameterKeyword20 = "KW_STERSTAB20";
 
         /// <summary>
-        /// The probability of a secondary collision on the structure.
+        /// The probability of a secondary collision on the structure per levelling.
         /// [1/year/levelling]
         /// </summary>
         public const string StabilityPointStructureParameterKeyword21 = "KW_STERSTAB21";

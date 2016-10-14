@@ -56,7 +56,7 @@ namespace Ringtoets.Piping.Plugin.Test
         }
 
         [Test]
-        public void GetPropertyInfos_ReturnsSupportedPropertyClasses()
+        public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
         {
             // setup
             using (var plugin = new PipingPlugin())

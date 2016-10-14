@@ -114,7 +114,7 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the storm duration for an open structure.
+        /// Gets or sets the factor for the storm duration open structure.
         /// </summary>
         public RoundedDouble FactorStormDurationOpenStructure
         {
