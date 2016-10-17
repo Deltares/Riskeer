@@ -63,7 +63,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             Assert.IsFalse(validationResult.IsValid);
             List<string> expectedErrorMessages = new List<string>
             {
-                "Parameter 'KW_HOOGTE1' komt meermaals voor.",
+                "Parameter 'KW_HOOGTE1' komt meerdere keren voor.",
                 "Parameter 'KW_HOOGTE2' ontbreekt.",
                 "Parameter 'KW_HOOGTE3' ontbreekt.",
                 "Parameter 'KW_HOOGTE4' ontbreekt.",
@@ -278,7 +278,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             {
                 "Parameter 'KW_BETSLUIT1' ontbreekt.",
                 "Parameter 'KW_BETSLUIT2' ontbreekt.",
-                "Parameter 'KW_BETSLUIT3' komt meermaals voor.",
+                "Parameter 'KW_BETSLUIT3' komt meerdere keren voor.",
                 "Parameter 'KW_BETSLUIT4' ontbreekt.",
                 "Parameter 'KW_BETSLUIT5' ontbreekt.",
                 "Parameter 'KW_BETSLUIT6' ontbreekt.",
@@ -602,7 +602,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             Assert.IsFalse(validationResult.IsValid);
             List<string> expectedErrorMessages = new List<string>
             {
-                "Parameter 'KW_STERSTAB1' komt meermaals voor.",
+                "Parameter 'KW_STERSTAB1' komt meerdere keren voor.",
                 "Parameter 'KW_STERSTAB2' ontbreekt.",
                 "Parameter 'KW_STERSTAB3' ontbreekt.",
                 "Parameter 'KW_STERSTAB4' ontbreekt.",

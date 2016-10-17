@@ -216,7 +216,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
                 CreateExpectedErrorMessage(csvFilePath, "Coupure Den Oever (90k1)", "KUNST1",
                                            new[]
                                            {
-                                               "Parameter 'KW_STERSTAB9' komt meermaals voor.",
+                                               "Parameter 'KW_STERSTAB9' komt meerdere keren voor.",
                                                "De waarde voor parameter 'KW_STERSTAB10' op regel 37, kolom 'numeriekewaarde', moet een getal zijn dat niet negatief is."
                                            }),
                 CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2",

@@ -198,7 +198,7 @@ namespace Ringtoets.ClosingStructures.IO.Test
                                            new[]
                                            {
                                                "De waarde voor parameter 'KW_BETSLUIT3' op regel 13, kolom 'numeriekewaarde', valt buiten het bereik [0, 360].",
-                                               "Parameter 'KW_BETSLUIT5' komt meermaals voor."
+                                               "Parameter 'KW_BETSLUIT5' komt meerdere keren voor."
                                            }),
                 CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2",
                                            new[]

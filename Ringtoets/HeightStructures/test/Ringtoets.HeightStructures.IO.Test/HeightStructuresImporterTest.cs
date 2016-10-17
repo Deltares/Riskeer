@@ -191,7 +191,7 @@ namespace Ringtoets.HeightStructures.IO.Test
                                            new[]
                                            {
                                                "De waarde voor parameter 'KW_HOOGTE1' op regel 2, kolom 'numeriekewaarde', valt buiten het bereik [0, 360].",
-                                               "Parameter 'KW_HOOGTE2' komt meermaals voor."
+                                               "Parameter 'KW_HOOGTE2' komt meerdere keren voor."
                                            }),
                 CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2",
                                            new[]

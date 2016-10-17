@@ -1257,7 +1257,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; komt meermaals voor..
+        ///   Looks up a localized string similar to Parameter &apos;{0}&apos; komt meerdere keren voor..
         /// </summary>
         public static string StructuresParameterRowsValidator_Parameter_0_repeated {
             get {

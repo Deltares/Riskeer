@@ -442,7 +442,7 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Parameter '{0}' ontbreekt.</value>
   </data>
   <data name="StructuresParameterRowsValidator_Parameter_0_repeated" xml:space="preserve">
-    <value>Parameter '{0}' komt meermaals voor.</value>
+    <value>Parameter '{0}' komt meerdere keren voor.</value>
   </data>
   <data name="StructuresImporter_GetStandardDeviation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_" xml:space="preserve">
     <value>De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een standaardafwijking (regel {3}).</value>
