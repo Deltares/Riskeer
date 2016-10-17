@@ -163,7 +163,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                                                    "* Kunstwerken.identificatie" + Environment.NewLine +
                                                    "* Alfanumeriekewaarde" + Environment.NewLine +
                                                    "* Numeriekewaarde" + Environment.NewLine +
-                                                   "* Standarddeviatie.variance" + Environment.NewLine +
+                                                   "* Standaardafwijking.variatie" + Environment.NewLine +
                                                    "* Boolean" + Environment.NewLine;
                 string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet de volgende kolommen bevatten:"
                                                        + Environment.NewLine
@@ -239,7 +239,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         [TestCase("InvalidFile_DuplicateParameterId.csv", "Kunstwerken.identificatie")]
         [TestCase("InvalidFile_DuplicateAlfanumericValue.csv", "Alfanumeriekewaarde")]
         [TestCase("InvalidFile_DuplicateNumericalValue.csv", "Numeriekewaarde")]
-        [TestCase("InvalidFile_DuplicateVarianceValue.csv", "Standarddeviatie.variance")]
+        [TestCase("InvalidFile_DuplicateVarianceValue.csv", "Standaardafwijking.variatie")]
         [TestCase("InvalidFile_DuplicateBoolean.csv", "Boolean")]
         public void GetLineCount_DuplicateColumn_ThrowCriticalFileReadException(string fileName, string columnName)
         {
@@ -344,7 +344,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                                                    "* Kunstwerken.identificatie" + Environment.NewLine +
                                                    "* Alfanumeriekewaarde" + Environment.NewLine +
                                                    "* Numeriekewaarde" + Environment.NewLine +
-                                                   "* Standarddeviatie.variance" + Environment.NewLine +
+                                                   "* Standaardafwijking.variatie" + Environment.NewLine +
                                                    "* Boolean" + Environment.NewLine;
                 string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet de volgende kolommen bevatten:"
                                                        + Environment.NewLine
@@ -363,7 +363,7 @@ namespace Ringtoets.Common.IO.Test.Structures
         [TestCase("InvalidFile_DuplicateParameterId.csv", "Kunstwerken.identificatie")]
         [TestCase("InvalidFile_DuplicateAlfanumericValue.csv", "Alfanumeriekewaarde")]
         [TestCase("InvalidFile_DuplicateNumericalValue.csv", "Numeriekewaarde")]
-        [TestCase("InvalidFile_DuplicateVarianceValue.csv", "Standarddeviatie.variance")]
+        [TestCase("InvalidFile_DuplicateVarianceValue.csv", "Standaardafwijking.variatie")]
         [TestCase("InvalidFile_DuplicateBoolean.csv", "Boolean")]
         public void ReadLine_DuplicateColumn_ThrowCriticalFileReadException(string fileName, string columnName)
         {
@@ -585,7 +585,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Standarddeviatie.variance' kan niet worden omgezet naar een getal.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Standaardafwijking.variatie' kan niet worden omgezet naar een getal.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -605,7 +605,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Standarddeviatie.variance' is te groot of te klein om ingelezen te worden.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Standaardafwijking.variatie' is te groot of te klein om ingelezen te worden.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -625,7 +625,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Standarddeviatie.variance' is te groot of te klein om ingelezen te worden.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: De waarde voor 'Standaardafwijking.variatie' is te groot of te klein om ingelezen te worden.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }

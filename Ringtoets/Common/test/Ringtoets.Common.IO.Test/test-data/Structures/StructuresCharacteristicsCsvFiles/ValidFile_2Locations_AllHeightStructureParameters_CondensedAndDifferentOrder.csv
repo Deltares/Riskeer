@@ -1,4 +1,4 @@
-Boolean;Standarddeviatie.variance;NumeriekeWaarde;Identificatie;Kunstwerken.identificatie;AlfanumeriekeWaarde;
+Boolean;Standaardafwijking.variatie;NumeriekeWaarde;Identificatie;Kunstwerken.identificatie;AlfanumeriekeWaarde;
 0;0;45;KUNST1;KW_HOOGTE1;
 1;0.01;5.9;KUNST1;KW_HOOGTE2;
 1;0.05;18.5;KUNST1;KW_HOOGTE3;

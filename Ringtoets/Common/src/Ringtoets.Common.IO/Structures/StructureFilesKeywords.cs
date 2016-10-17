@@ -355,7 +355,7 @@ namespace Ringtoets.Common.IO.Structures
         /// The column name for the variation value (standard deviation or coefficient of variation)
         /// associated with the structure parameter.
         /// </summary>
-        public const string VariationValueColumnName = "standarddeviatie.variance";
+        public const string VariationValueColumnName = "standaardafwijking.variatie";
 
         /// <summary>
         /// The column name for the descriptor on how to interpret the value in the column
