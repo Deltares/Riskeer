@@ -441,6 +441,160 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        public void CalculateOvertoppingOnly_OvertoppingCalculationFails_OutputNull()
+        {
+            // Setup
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            AddSectionToFailureMechanism(grassCoverErosionInwardsFailureMechanism);
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            var dikeProfile = GetDikeProfile();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = dikeProfile,
+                }
+            };
+
+            var failureMechanismSection = grassCoverErosionInwardsFailureMechanism.Sections.First();
+            bool expectedExceptionThrown = false;
+
+            // Call
+            Action call = () =>
+            {
+                try
+                {
+                    using (new HydraRingCalculatorFactoryConfig())
+                    {
+                        var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                        calculator.EndInFailure = true;
+
+                        new GrassCoverErosionInwardsCalculationService().CalculateDikeHeight(calculation,
+                                                                                             assessmentSectionStub,
+                                                                                             failureMechanismSection,
+                                                                                             grassCoverErosionInwardsFailureMechanism.GeneralInput,
+                                                                                             grassCoverErosionInwardsFailureMechanism.Contribution,
+                                                                                             testDataPath);
+                    }
+                }
+                catch (HydraRingFileParserException)
+                {
+                    expectedExceptionThrown = true;
+                }
+            };
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(4, msgs.Length);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[1]);
+                StringAssert.StartsWith("Overloop berekeningsverslag. Klik op details voor meer informatie.\r\n", msgs[2]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+            });
+            Assert.IsTrue(expectedExceptionThrown);
+            Assert.IsNull(calculation.Output);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CancelWithValidOvertoppingCalculationInput_CancelsCalculator()
+        {
+            // Setup
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            AddSectionToFailureMechanism(grassCoverErosionInwardsFailureMechanism);
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            const string name = "<very nice name>";
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties()),
+                }
+            };
+
+            var failureMechanismSection = grassCoverErosionInwardsFailureMechanism.Sections.First();
+            var service = new GrassCoverErosionInwardsCalculationService();
+
+            // Call
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                service.CalculateDikeHeight(calculation,
+                                            assessmentSectionStub,
+                                            failureMechanismSection,
+                                            grassCoverErosionInwardsFailureMechanism.GeneralInput,
+                                            grassCoverErosionInwardsFailureMechanism.Contribution,
+                                            testDataPath);
+                service.Cancel();
+
+                // Assert
+                Assert.IsTrue(calculator.IsCanceled);
+            }
+        }
+
+        [Test]
+        public void Calculate_CancelWithValidDikeCalculationInput_CancelsCalculator()
+        {
+            // Setup
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            AddSectionToFailureMechanism(grassCoverErosionInwardsFailureMechanism);
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            const string name = "<very nice name>";
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties()),
+                    CalculateDikeHeight = true
+                }
+            };
+
+            var failureMechanismSection = grassCoverErosionInwardsFailureMechanism.Sections.First();
+            var service = new GrassCoverErosionInwardsCalculationService();
+
+            // Call
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                service.CalculateDikeHeight(calculation,
+                                            assessmentSectionStub,
+                                            failureMechanismSection,
+                                            grassCoverErosionInwardsFailureMechanism.GeneralInput,
+                                            grassCoverErosionInwardsFailureMechanism.Contribution,
+                                            testDataPath);
+                service.Cancel();
+
+                // Assert
+                Assert.IsTrue(calculator.IsCanceled);
+            }
+        }
+
         private static void AddSectionToFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]

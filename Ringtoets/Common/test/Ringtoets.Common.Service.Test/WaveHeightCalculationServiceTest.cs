@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Service.Test
             const string calculationName = "calculationName";
             string notValidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
             bool valid = false;
-            
+
             var mockRepository = new MockRepository();
             ICalculationMessageProvider messageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
             messageProviderStub.Stub(mp => mp.GetCalculationName(calculationName)).Return(calculationName);
@@ -125,14 +125,14 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testFactory = (TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance;
+                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
                 var testCalculator = testFactory.WaveHeightCalculator;
 
                 new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocation,
-                                                                validFilePath,
-                                                                ringId,
-                                                                norm,
-                                                                calculationMessageProviderMock);
+                                                             validFilePath,
+                                                             ringId,
+                                                             norm,
+                                                             calculationMessageProviderMock);
 
                 // Assert
                 Assert.AreEqual(testDataPath, testCalculator.HydraulicBoundaryDatabaseDirectory);
@@ -140,6 +140,54 @@ namespace Ringtoets.Common.Service.Test
 
                 var expectedInput = CreateInput(hydraulicBoundaryLocation, norm);
                 AssertInput(expectedInput, testCalculator.ReceivedInputs.First());
+                Assert.IsFalse(testCalculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CancelCalculationWithValidInput_CancelsCalculation()
+        {
+            // Setup
+            string validFilePath = Path.Combine(testDataPath, validFile);
+
+            const string locationName = "punt_flw_ 1";
+            const string calculationName = "locationName";
+            const string calculationNotConvergedMessage = "calculationNotConvergedMessage";
+            const string ringId = "ringId";
+            const double norm = 30;
+
+            var mockRepository = new MockRepository();
+            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
+            calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
+            calculationMessageProviderMock.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(calculationNotConvergedMessage);
+            mockRepository.ReplayAll();
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, locationName, 0, 0)
+            {
+                DesignWaterLevel = new RoundedDouble(2, double.NaN),
+            };
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
+                var testCalculator = testFactory.WaveHeightCalculator;
+
+                var service = new WaveHeightCalculationService();
+                service.Calculate(hydraulicBoundaryLocation,
+                                  validFilePath,
+                                  ringId,
+                                  norm,
+                                  calculationMessageProviderMock);
+                service.Cancel();
+
+                // Assert
+                Assert.AreEqual(testDataPath, testCalculator.HydraulicBoundaryDatabaseDirectory);
+                Assert.AreEqual(ringId, testCalculator.RingId);
+
+                var expectedInput = CreateInput(hydraulicBoundaryLocation, norm);
+                AssertInput(expectedInput, testCalculator.ReceivedInputs.First());
+                Assert.IsTrue(testCalculator.IsCanceled);
             }
             mockRepository.VerifyAll();
         }
@@ -169,19 +217,20 @@ namespace Ringtoets.Common.Service.Test
             ReliabilityIndexCalculationOutput output = null;
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testFactory = (TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance;
+                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
                 var testCalculator = testFactory.WaveHeightCalculator;
                 testCalculator.EndInFailure = true;
                 bool exceptionThrown = false;
                 // Call
-                Action call = () => 
+                Action call = () =>
                 {
                     try
-                    {new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocation,
-                                                                                             validFilePath,
-                                                                                             ringId,
-                                                                                             norm,
-                                                                                             calculationMessageProviderMock);
+                    {
+                        new WaveHeightCalculationService().Calculate(hydraulicBoundaryLocation,
+                                                                     validFilePath,
+                                                                     ringId,
+                                                                     norm,
+                                                                     calculationMessageProviderMock);
                     }
                     catch (HydraRingFileParserException)
                     {

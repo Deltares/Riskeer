@@ -351,11 +351,58 @@ namespace Ringtoets.HeightStructures.Service.Test
 
                 StructuresOvertoppingCalculationInput actualInput = overtoppingCalculationInputs[0];
                 HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.IsFalse(testStructuresOvertoppingCalculator.IsCanceled);
             }
             mockRepository.VerifyAll();
         }
 
-        private static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism, MockRepository mockRepository)
+        [Test]
+        public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
+        {
+            // Setup
+            var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            HeightStructuresCalculation calculation = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            FailureMechanismSection failureMechanismSection = heightStructuresFailureMechanism.Sections.First();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var testStructuresOvertoppingCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                var service = new HeightStructuresCalculationService();
+
+                // Call
+                service.Calculate(calculation,
+                                  assessmentSectionStub,
+                                  failureMechanismSection,
+                                  heightStructuresFailureMechanism.GeneralInput,
+                                  heightStructuresFailureMechanism.Contribution,
+                                  testDataPath);
+                service.Cancel();
+
+                // Assert
+                Assert.IsTrue(testStructuresOvertoppingCalculator.IsCanceled);
+            }
+        }
+
+        private static
+            IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism, MockRepository mockRepository)
         {
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             assessmentSectionStub.Stub(a => a.Id).Return("21");
