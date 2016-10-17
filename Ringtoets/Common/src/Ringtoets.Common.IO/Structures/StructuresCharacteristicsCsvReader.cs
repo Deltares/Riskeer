@@ -262,7 +262,7 @@ namespace Ringtoets.Common.IO.Structures
                     else
                     {
                         string message = string.Format(Resources.StructuresCharacteristicsCsvReader_Column_0_must_be_defined_only_once,
-                                                       columnName);
+                                                       FirstLetterToUpperCase(columnName));
                         throw CreateCriticalFileReadException(lineNumber, message);
                     }
                 }
@@ -281,7 +281,7 @@ namespace Ringtoets.Common.IO.Structures
             if (requiredHeaderColumnIndices.Any(i => i == uninitializedValue))
             {
                 string message = string.Format(Resources.StructuresCharacteristicsCsvReader_ValidateRequiredColumnIndices_Invalid_header_Must_have_columns_0_,
-                                               string.Join(Environment.NewLine, requiredHeaderColumns.Select(rh => "* " + rh)));
+                                               string.Join(Environment.NewLine, requiredHeaderColumns.Select(rh => "* " + FirstLetterToUpperCase(rh))));
                 throw CreateCriticalFileReadException(lineNumber, message);
             }
         }
@@ -391,7 +391,7 @@ namespace Ringtoets.Common.IO.Structures
         private string ParseLocationId(string[] tokenizedText)
         {
             string locationId = tokenizedText[locationIdIndex];
-            return ParseIdString(locationId, "Identificatie");
+            return ParseIdString(locationId, FirstLetterToUpperCase(StructureFilesKeywords.IdentificationColumnName));
         }
 
         /// <summary>
@@ -404,7 +404,7 @@ namespace Ringtoets.Common.IO.Structures
         private string ParseParameterId(string[] tokenizedText)
         {
             string parameterId = tokenizedText[parameterIdIndex];
-            return ParseIdString(parameterId, "Kunstwerken.identificatie");
+            return ParseIdString(parameterId, FirstLetterToUpperCase(StructureFilesKeywords.StructureIdentificationColumnName));
         }
 
         private string ParseIdString(string parameterTextValue, string parameterName)
@@ -433,7 +433,7 @@ namespace Ringtoets.Common.IO.Structures
         private double ParseNumericValue(string[] tokenizedText)
         {
             string numericValueText = tokenizedText[numericValueIndex];
-            return ParseDoubleValue(numericValueText, "Nummerieke waarde");
+            return ParseDoubleValue(numericValueText, FirstLetterToUpperCase(StructureFilesKeywords.NumericalValueColumnName));
         }
 
         /// <summary>
@@ -447,7 +447,7 @@ namespace Ringtoets.Common.IO.Structures
         private double ParseVarianceValue(string[] tokenizedText)
         {
             string varianceValueText = tokenizedText[varianceValueIndex];
-            return ParseDoubleValue(varianceValueText, "Variantie waarde");
+            return ParseDoubleValue(varianceValueText, FirstLetterToUpperCase(StructureFilesKeywords.VariationValueColumnName));
         }
 
         /// <summary>
@@ -505,15 +505,23 @@ namespace Ringtoets.Common.IO.Structures
                 {
                     return VarianceType.StandardDeviation;
                 }
-                throw CreateLineParseException(lineNumber, Resources.StructuresCharacteristicsCsvReader_ParseVarianceType_Column_only_allows_certain_values);
+                throw CreateLineParseException(lineNumber,
+                                               string.Format(Resources.StructuresCharacteristicsCsvReader_ParseVarianceType_ParameterName_0_only_allows_certain_values,
+                                                             FirstLetterToUpperCase(StructureFilesKeywords.VariationTypeColumnName)));
             }
             catch (FormatException e)
             {
-                throw CreateLineParseException(lineNumber, Resources.StructuresCharacteristicsCsvReader_ParseVarianceType_Column_only_allows_certain_values, e);
+                throw CreateLineParseException(lineNumber,
+                                               string.Format(Resources.StructuresCharacteristicsCsvReader_ParseVarianceType_ParameterName_0_only_allows_certain_values,
+                                                             FirstLetterToUpperCase(StructureFilesKeywords.VariationTypeColumnName)),
+                                               e);
             }
             catch (OverflowException e)
             {
-                throw CreateLineParseException(lineNumber, Resources.StructuresCharacteristicsCsvReader_ParseVarianceType_Column_only_allows_certain_values, e);
+                throw CreateLineParseException(lineNumber,
+                                               string.Format(Resources.StructuresCharacteristicsCsvReader_ParseVarianceType_ParameterName_0_only_allows_certain_values,
+                                                             FirstLetterToUpperCase(StructureFilesKeywords.VariationTypeColumnName)),
+                                               e);
             }
         }
 
@@ -547,6 +555,11 @@ namespace Ringtoets.Common.IO.Structures
             var message = new FileReaderErrorMessageBuilder(filePath).WithLocation(locationDescription)
                                                                      .Build(criticalErrorMessage);
             return new CriticalFileReadException(message, innerException);
+        }
+
+        private static string FirstLetterToUpperCase(string s)
+        {
+            return char.ToUpper(s[0]) + s.Substring(1);
         }
     }
 }

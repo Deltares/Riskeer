@@ -1057,7 +1057,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} kan niet worden omgezet naar een getal..
+        ///   Looks up a localized string similar to De waarde voor &apos;{0}&apos; kan niet worden omgezet naar een getal..
         /// </summary>
         public static string StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_not_number {
             get {
@@ -1066,7 +1066,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is te groot of te klein om ingelezen te worden..
+        ///   Looks up a localized string similar to De waarde voor &apos;{0}&apos; is te groot of te klein om ingelezen te worden..
         /// </summary>
         public static string StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_overflow_error {
             get {
@@ -1085,12 +1085,12 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De &apos;Boolean&apos; kolom mag uitsluitend de waardes &apos;0&apos; of &apos;1&apos; bevatten, of mag leeg zijn..
+        ///   Looks up a localized string similar to De waarde voor &apos;{0}&apos; moet &apos;0&apos;, &apos;1&apos; of leeg zijn..
         /// </summary>
-        public static string StructuresCharacteristicsCsvReader_ParseVarianceType_Column_only_allows_certain_values {
+        public static string StructuresCharacteristicsCsvReader_ParseVarianceType_ParameterName_0_only_allows_certain_values {
             get {
-                return ResourceManager.GetString("StructuresCharacteristicsCsvReader_ParseVarianceType_Column_only_allows_certain_v" +
-                        "alues", resourceCulture);
+                return ResourceManager.GetString("StructuresCharacteristicsCsvReader_ParseVarianceType_ParameterName_0_only_allows_" +
+                        "certain_values", resourceCulture);
             }
         }
         

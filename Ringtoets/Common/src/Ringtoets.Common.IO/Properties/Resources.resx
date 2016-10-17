@@ -330,13 +330,13 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
     <value>'{0}' kolom mag geen lege waardes bevatten.</value>
   </data>
   <data name="StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_not_number" xml:space="preserve">
-    <value>{0} kan niet worden omgezet naar een getal.</value>
+    <value>De waarde voor '{0}' kan niet worden omgezet naar een getal.</value>
   </data>
   <data name="StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_overflow_error" xml:space="preserve">
-    <value>{0} is te groot of te klein om ingelezen te worden.</value>
+    <value>De waarde voor '{0}' is te groot of te klein om ingelezen te worden.</value>
   </data>
-  <data name="StructuresCharacteristicsCsvReader_ParseVarianceType_Column_only_allows_certain_values" xml:space="preserve">
-    <value>De 'Boolean' kolom mag uitsluitend de waardes '0' of '1' bevatten, of mag leeg zijn.</value>
+  <data name="StructuresCharacteristicsCsvReader_ParseVarianceType_ParameterName_0_only_allows_certain_values" xml:space="preserve">
+    <value>De waarde voor '{0}' moet '0', '1' of leeg zijn.</value>
   </data>
   <data name="StructuresImporter_AddNextStructureLocation_0_skipping_location_outside_referenceline" xml:space="preserve">
     <value>Een kunstwerklocatie met KWKIDENT '{0}' ligt niet op de referentielijn. Locatie wordt overgeslagen.</value>
