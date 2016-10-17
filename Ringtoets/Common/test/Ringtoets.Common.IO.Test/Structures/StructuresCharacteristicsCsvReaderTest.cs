@@ -417,7 +417,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: Regel ontbreekt het verwachte scheidingsteken (het karakter: ;).",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: Ontbrekend scheidingsteken ';'.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }

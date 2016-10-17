@@ -1095,7 +1095,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Regel ontbreekt het verwachte scheidingsteken (het karakter: {0})..
+        ///   Looks up a localized string similar to Ontbrekend scheidingsteken &apos;{0}&apos;..
         /// </summary>
         public static string StructuresCharacteristicsCsvReader_TokenizeString_Line_lacks_SeparatorCharacter_0_ {
             get {

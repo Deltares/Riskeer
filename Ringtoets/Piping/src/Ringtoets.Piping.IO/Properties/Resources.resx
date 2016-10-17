@@ -142,7 +142,7 @@
     <value>Profielschematisatie heeft een teruglopende geometrie (punten behoren een oplopende set L-coördinaten te hebben in het lokale coördinatenstelsel).</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_Line_lacks_separator_0_" xml:space="preserve">
-    <value>Regel ontbreekt het verwachte scheidingsteken (het karakter: {0}).</value>
+    <value>Ontbrekend scheidingsteken '{0}'.</value>
   </data>
   <data name="PipingSurfaceLinesCsvReader_ReadLine_SurfaceLine_lacks_values_for_coordinate_triplet" xml:space="preserve">
     <value>Voor de profielschematisatie ontbreken er waardes om een 3D (X,Y,Z) punt aan te maken.</value>
@@ -190,7 +190,7 @@
     <value>Regel heeft geen ID.</value>
   </data>
   <data name="CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Line_lacks_separator_0_" xml:space="preserve">
-    <value>Regel ontbreekt het verwachte scheidingsteken (het karakter: {0}).</value>
+    <value>Ontbrekend scheidingsteken '{0}'.</value>
   </data>
   <data name="CharacteristicPointsCsvReader_ReadCharacteristicPointsLocation_Location_lacks_values_for_characteristic_points" xml:space="preserve">
     <value>Het aantal kolommen voor deze locatie komt niet overeen met het aantal kolommen in de koptekst.</value>
