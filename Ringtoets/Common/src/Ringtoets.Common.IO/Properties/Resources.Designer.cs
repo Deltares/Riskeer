@@ -1154,7 +1154,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De variatie voor parameter &apos;{2}&apos; van kunstwerk &apos;{0}&apos; ({1}) wordt omgerekend in een standaard deviatie (regel {3})..
+        ///   Looks up a localized string similar to De variatie voor parameter &apos;{2}&apos; van kunstwerk &apos;{0}&apos; ({1}) wordt omgerekend in een standaardafwijking (regel {3})..
         /// </summary>
         public static string StructuresImporter_GetStandardDeviation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_ {
             get {
@@ -1266,7 +1266,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, moet de waarde 0 (variatiecoëfficiënt) of 1 (standaard deviatie) hebben..
+        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, moet de waarde 0 (variatiecoëfficiënt) of 1 (standaardafwijking) hebben..
         /// </summary>
         public static string StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_invalid_variancetype_value {
             get {
@@ -1276,7 +1276,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, is te dicht op 0 waardoor een betrouwbare conversie tussen standaard deviatie en variatiecoëfficiënt niet mogelijk is..
+        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is..
         /// </summary>
         public static string StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_mean_too_small_for_reliable_variation_value_conversion {
             get {

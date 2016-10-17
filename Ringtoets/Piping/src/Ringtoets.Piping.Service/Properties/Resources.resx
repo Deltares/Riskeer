@@ -157,7 +157,7 @@
     <value>Meerdere aaneengesloten watervoerende lagen gevonden. Er wordt geprobeerd de korrelgrootte en doorlatendheid van de bovenste watervoerende laag af te leiden.</value>
   </data>
   <data name="PipingCalculationService_GetInputWarnings_Multiple_coverage_layers_Attempt_to_determine_value_from_combination" xml:space="preserve">
-    <value>Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaard deviaties en verschuivingen voor alle lagen gelijk zijn.</value>
+    <value>Meerdere aaneengesloten deklagen gevonden. De grondeigenschappen worden bepaald door het nemen van een gewogen gemiddelde, mits de standaardafwijkingen en verschuivingen voor alle lagen gelijk zijn.</value>
   </data>
   <data name="PipingCalculationService_ValidateInput_No_aquifer_layer_at_ExitPointL_under_SurfaceLine" xml:space="preserve">
     <value>Geen watervoerende laag gevonden voor de ondergrondschematisatie onder de profielschematisatie bij het uittredepunt.</value>

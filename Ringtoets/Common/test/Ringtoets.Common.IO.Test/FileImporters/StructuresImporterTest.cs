@@ -463,7 +463,7 @@ namespace Ringtoets.Common.IO.Test.FileImporters
             Action call = () => standardDeviation = importer.GetStandardDeviation(parameter, structureName);
 
             // Assert
-            string message = string.Format("De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een standaard deviatie (regel {3}).",
+            string message = string.Format("De variatie voor parameter '{2}' van kunstwerk '{0}' ({1}) wordt omgerekend in een standaardafwijking (regel {3}).",
                                            structureName, parameter.LocationId, parameter.ParameterId, parameter.LineNumber);
             TestHelper.AssertLogMessageIsGenerated(call, message, 1);
             double expectedStandardDeviation = parameter.VarianceValue*Math.Abs(parameter.NumericalValue);
