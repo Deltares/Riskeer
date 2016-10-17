@@ -218,7 +218,7 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
                                            new[]
                                            {
                                                "Parameter 'KW_STERSTAB9' komt meerdere keren voor.",
-                                               "De waarde voor parameter 'KW_STERSTAB10' op regel 37, kolom 'numeriekewaarde', moet een getal zijn dat niet negatief is."
+                                               "De waarde voor parameter 'KW_STERSTAB10' op regel 37, kolom 'numeriekewaarde', moet een positief getal zijn."
                                            }),
                 CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2",
                                            new[]
