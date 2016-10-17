@@ -159,9 +159,20 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedHeaderColumnsText = "identificatie, kunstwerken.identificatie, alfanumeriekewaarde, numeriekewaarde, standarddeviatie.variance, boolean";
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen (Verwachte koptekst moet de volgende kolommen bevatten: {1}.",
-                                                       filePath, expectedHeaderColumnsText);
+                string expectedHeaderColumnsText = "* identificatie" + Environment.NewLine +
+                                                   "* kunstwerken.identificatie" + Environment.NewLine +
+                                                   "* alfanumeriekewaarde" + Environment.NewLine +
+                                                   "* numeriekewaarde" + Environment.NewLine +
+                                                   "* standarddeviatie.variance" + Environment.NewLine +
+                                                   "* boolean" + Environment.NewLine;
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet de volgende kolommen bevatten:"
+                                                       + Environment.NewLine
+                                                       + "{1}"
+                                                       + Environment.NewLine
+                                                       + "Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.",
+                                                       filePath,
+                                                       expectedHeaderColumnsText);
+
                 Assert.AreEqual(expectedMessage, message);
             }
         }
@@ -329,9 +340,20 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedHeaderColumnsText = "identificatie, kunstwerken.identificatie, alfanumeriekewaarde, numeriekewaarde, standarddeviatie.variance, boolean";
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen (Verwachte koptekst moet de volgende kolommen bevatten: {1}.",
-                                                       filePath, expectedHeaderColumnsText);
+                string expectedHeaderColumnsText = "* identificatie" + Environment.NewLine +
+                                                   "* kunstwerken.identificatie" + Environment.NewLine +
+                                                   "* alfanumeriekewaarde" + Environment.NewLine +
+                                                   "* numeriekewaarde" + Environment.NewLine +
+                                                   "* standarddeviatie.variance" + Environment.NewLine +
+                                                   "* boolean" + Environment.NewLine;
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet de volgende kolommen bevatten:"
+                                                       + Environment.NewLine
+                                                       + "{1}"
+                                                       + Environment.NewLine
+                                                       + "Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.",
+                                                       filePath,
+                                                       expectedHeaderColumnsText);
+
                 Assert.AreEqual(expectedMessage, message);
             }
         }
@@ -415,7 +437,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: Regel verwacht van 21 elementen, maar het zijn er 20.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: Regel verwacht 21 elementen, maar het zijn er 20.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -435,7 +457,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: Regel verwacht van 21 elementen, maar het zijn er 23.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: Regel verwacht 21 elementen, maar het zijn er 23.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }

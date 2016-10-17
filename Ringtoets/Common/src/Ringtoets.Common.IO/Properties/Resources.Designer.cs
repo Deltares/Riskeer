@@ -1047,7 +1047,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Regel verwacht van {0} elementen, maar het zijn er {1}..
+        ///   Looks up a localized string similar to Regel verwacht {0} elementen, maar het zijn er {1}..
         /// </summary>
         public static string StructuresCharacteristicsCsvReader_CreateStructuresParameterRow_Line_should_have_NumberOfExpectedElements_0_but_has_ActualNumberOfElements_1_ {
             get {
@@ -1105,7 +1105,10 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand is niet geschikt om kunstwerken parameters uit te lezen (Verwachte koptekst moet de volgende kolommen bevatten: {0}..
+        ///   Looks up a localized string similar to Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet de volgende kolommen bevatten:
+        ///{0}
+        ///
+        ///Bovenstaande kolomtitels moeten gescheiden zijn door het karakter &apos;;&apos;..
         /// </summary>
         public static string StructuresCharacteristicsCsvReader_ValidateRequiredColumnIndices_Invalid_header_Must_have_columns_0_ {
             get {

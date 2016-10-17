@@ -315,13 +315,16 @@ Er is geen referentielijn geëxporteerd.</value>
     <value>De kolom '{0}' mag maar één keer gedefinieerd zijn.</value>
   </data>
   <data name="StructuresCharacteristicsCsvReader_ValidateRequiredColumnIndices_Invalid_header_Must_have_columns_0_" xml:space="preserve">
-    <value>Het bestand is niet geschikt om kunstwerken parameters uit te lezen (Verwachte koptekst moet de volgende kolommen bevatten: {0}.</value>
+    <value>Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet de volgende kolommen bevatten:
+{0}
+
+Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
   </data>
   <data name="StructuresCharacteristicsCsvReader_TokenizeString_Line_lacks_SeparatorCharacter_0_" xml:space="preserve">
     <value>Regel ontbreekt het verwachte scheidingsteken (het karakter: {0}).</value>
   </data>
   <data name="StructuresCharacteristicsCsvReader_CreateStructuresParameterRow_Line_should_have_NumberOfExpectedElements_0_but_has_ActualNumberOfElements_1_" xml:space="preserve">
-    <value>Regel verwacht van {0} elementen, maar het zijn er {1}.</value>
+    <value>Regel verwacht {0} elementen, maar het zijn er {1}.</value>
   </data>
   <data name="StructuresCharacteristicsCsvReader_ParseIdString_ParameterName_0_cannot_be_empty" xml:space="preserve">
     <value>'{0}' kolom mag geen lege waardes bevatten.</value>

@@ -281,7 +281,7 @@ namespace Ringtoets.Common.IO.Structures
             if (requiredHeaderColumnIndices.Any(i => i == uninitializedValue))
             {
                 string message = string.Format(Resources.StructuresCharacteristicsCsvReader_ValidateRequiredColumnIndices_Invalid_header_Must_have_columns_0_,
-                                               string.Join(", ", requiredHeaderColumns));
+                                               string.Join(Environment.NewLine, requiredHeaderColumns.Select(rh => "* " + rh)));
                 throw CreateCriticalFileReadException(lineNumber, message);
             }
         }
