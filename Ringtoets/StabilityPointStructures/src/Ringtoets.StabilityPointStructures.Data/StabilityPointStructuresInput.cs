@@ -226,9 +226,9 @@ namespace Ringtoets.StabilityPointStructures.Data
         #endregion
 
         #region Model Inputs and critical values
-        
+
         /// <summary>
-        /// Gets or sets the factor for the storm duration open structure.
+        /// Gets or sets the factor for the storm duration for an open structure.
         /// </summary>
         public RoundedDouble FactorStormDurationOpenStructure
         {
