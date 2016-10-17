@@ -41,8 +41,8 @@ namespace Ringtoets.Common.Utils
         /// information about assigning calculations to sections.</param>
         /// <param name="calculation">The <see cref="CalculationWithLocation"/> which's location is used to match with the
         /// location of the section.</param>
-        /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">When <paramref name="sectionResults"/> contains a <c>null</c> element.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="sectionResults"/> contains a <c>null</c> element.</exception>
         public static void Update(IEnumerable<SectionResultWithCalculationAssignment> sectionResults, CalculationWithLocation calculation)
         {
             ValidateSectionResults(sectionResults);
@@ -65,8 +65,8 @@ namespace Ringtoets.Common.Utils
         /// information about assigning calculations to sections.</param>
         /// <param name="calculation">The <see cref="ICalculation"/> that was removed.</param>
         /// <param name="calculations">All the remaining calculations after deletion of the <paramref name="calculation"/>.</param>
-        /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">When <paramref name="sectionResults"/> or <paramref name="calculations"/>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="sectionResults"/> or <paramref name="calculations"/>
         /// contains a <c>null</c> element.</exception>
         public static void Delete(
             IEnumerable<SectionResultWithCalculationAssignment> sectionResults,
@@ -94,8 +94,8 @@ namespace Ringtoets.Common.Utils
         /// <returns>A <see cref="Dictionary{K, V}"/> containing a <see cref="IList{T}"/> 
         /// of <see cref="FailureMechanismSectionResult"/> objects 
         /// for each section name which has calculations.</returns>
-        /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c>.</exception>
-        /// <exception cref="ArgumentException">When <paramref name="sections"/> or <paramref name="calculations"/>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="sections"/> or <paramref name="calculations"/>
         /// contains a <c>null</c> element.</exception>
         public static Dictionary<string, IList<ICalculation>> CollectCalculationsPerSection(
             IEnumerable<FailureMechanismSection> sections,
@@ -128,8 +128,9 @@ namespace Ringtoets.Common.Utils
         /// whose <see cref="FailureMechanismSection"/> are considered.</param>
         /// <param name="calculation">The <see cref="ICalculation"/>.</param>
         /// <returns>The containing <see cref="FailureMechanismSection"/>, or <c>null</c>.</returns>
-        /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c> or when 
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c> or when 
         /// an element in <paramref name="sections"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="sections"/> contains a <c>null</c> element.</exception>
         public static FailureMechanismSection FailureMechanismSectionForCalculation(
             IEnumerable<FailureMechanismSection> sections,
             CalculationWithLocation calculation)

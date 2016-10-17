@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Forms
     /// <summary>
     /// Interface for a row which present a calculation and an independent name.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of the <see cref="Calculation"/>.</typeparam>
     public interface IScenarioRow<out T> where T : ICalculation
     {
         /// <summary>

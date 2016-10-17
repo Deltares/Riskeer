@@ -55,6 +55,7 @@ namespace Ringtoets.Common.Forms
         /// <param name="calculations">The collection of calculations known in the failure mechanism.</param>
         /// <param name="scenarioRows">The collection of rows to be added to the grid view.</param>
         /// <param name="calculationsPerSection">The allowed calculations grouped by the name of the failure mechanism sections.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         public void UpdateDataGridViewDataSource<T>(
             IEnumerable<ICalculation> calculations, IEnumerable<T> scenarioRows, Dictionary<string, IList<ICalculation>> calculationsPerSection)
             where T : IScenarioRow<ICalculation>
