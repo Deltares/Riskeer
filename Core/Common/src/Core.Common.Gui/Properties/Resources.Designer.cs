@@ -330,7 +330,7 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &amp;Onderliggende elementen verwijderen....
+        ///   Looks up a localized string similar to Ma&amp;p leegmaken....
         /// </summary>
         public static string DeleteChildren {
             get {
@@ -341,9 +341,18 @@ namespace Core.Common.Gui.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Verwijder alle onderliggende elementen van dit element..
         /// </summary>
-        public static string DeleteChildren_ToolTip {
+        public static string DeleteChildren_WithChildren_ToolTip {
             get {
-                return ResourceManager.GetString("DeleteChildren_ToolTip", resourceCulture);
+                return ResourceManager.GetString("DeleteChildren_WithChildren_ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen onderliggende elementen om te verwijderen..
+        /// </summary>
+        public static string DeleteChildren_WithoutChildren_ToolTip {
+            get {
+                return ResourceManager.GetString("DeleteChildren_WithoutChildren_ToolTip", resourceCulture);
             }
         }
         

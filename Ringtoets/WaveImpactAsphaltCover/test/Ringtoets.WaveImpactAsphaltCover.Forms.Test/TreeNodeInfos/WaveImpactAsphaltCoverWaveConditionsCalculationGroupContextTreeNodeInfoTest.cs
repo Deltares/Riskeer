@@ -364,8 +364,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                                                                   "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
-                                                                  CoreCommonGuiResources.DeleteChildren,
-                                                                  CoreCommonGuiResources.DeleteChildren_ToolTip,
+                                                                  "Ma&p leegmaken...",
+                                                                  "Er zijn geen onderliggende elementen om te verwijderen.",
                                                                   CoreCommonGuiResources.DeleteChildrenIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
@@ -383,7 +383,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                                   "Alles ui&tklappen",
                                                                   "Klap dit element en alle onderliggende elementen uit.",
@@ -394,7 +393,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                                                                   "Klap dit element en alle onderliggende elementen in.",
                                                                   CoreCommonGuiResources.CollapseAllIcon,
                                                                   false);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
                                                                   "Ei&genschappen",
                                                                   "Toon de eigenschappen in het Eigenschappenpaneel.",
@@ -470,11 +468,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
-                                                                  CoreCommonGuiResources.DeleteChildren,
-                                                                  CoreCommonGuiResources.DeleteChildren_ToolTip,
+                                                                  "Ma&p leegmaken...",
+                                                                  "Er zijn geen onderliggende elementen om te verwijderen.",
                                                                   CoreCommonGuiResources.DeleteChildrenIcon,
                                                                   false);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   "Alles &valideren",
                                                                   "Er zijn geen berekeningen om te valideren.",
@@ -490,7 +487,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                                   "Alles ui&tklappen",
                                                                   "Klap dit element en alle onderliggende elementen uit.",
@@ -501,7 +497,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                                                                   "Klap dit element en alle onderliggende elementen in.",
                                                                   CoreCommonGuiResources.CollapseAllIcon,
                                                                   false);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
                                                                   "Ei&genschappen",
                                                                   "Toon de eigenschappen in het Eigenschappenpaneel.",

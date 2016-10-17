@@ -626,7 +626,6 @@ namespace Core.Common.Controls.TreeView.Test
 
                     // Assert
                     Assert.IsFalse(result);
-
                 }
                 finally
                 {

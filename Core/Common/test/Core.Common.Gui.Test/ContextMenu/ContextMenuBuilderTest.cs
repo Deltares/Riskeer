@@ -345,13 +345,12 @@ namespace Core.Common.Gui.Test.ContextMenu
         {
             // Setup
             var dataObject = new object();
-            var applicationFeatureCommandsMock = mocks.StrictMock<IApplicationFeatureCommands>();
-            var importCommandHandlerMock = mocks.StrictMock<IImportCommandHandler>();
-            var exportCommandHandlerMock = mocks.StrictMock<IExportCommandHandler>();
-            var viewCommandsMock = mocks.StrictMock<IViewCommands>();
+            var applicationFeatureCommandsMock = mocks.Stub<IApplicationFeatureCommands>();
+            var importCommandHandlerMock = mocks.Stub<IImportCommandHandler>();
+            var exportCommandHandlerMock = mocks.Stub<IExportCommandHandler>();
+            var viewCommandsMock = mocks.Stub<IViewCommands>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-            
-            treeViewControlMock.Expect(tvc => tvc.CanRemoveChildNodesOfData(dataObject)).Return(hasChildren);
+            treeViewControlMock.Expect(tvc => tvc.CanRemoveChildNodesOfData(dataObject)).Return(hasChildren).Repeat.AtLeastOnce();
 
             mocks.ReplayAll();
 
@@ -368,11 +367,13 @@ namespace Core.Common.Gui.Test.ContextMenu
             // Assert
             Assert.IsInstanceOf<ContextMenuStrip>(result);
             Assert.AreEqual(1, result.Items.Count);
+            string expectedTooltip = hasChildren ? "Verwijder alle onderliggende elementen van dit element."
+                                         : "Er zijn geen onderliggende elementen om te verwijderen.";
             TestHelper.AssertContextMenuStripContainsItem(result, 0,
-                                                            Resources.DeleteChildren,
-                                                            Resources.DeleteChildren_ToolTip,
-                                                            Resources.DeleteChildrenIcon,
-                                                            hasChildren);
+                                                          "Ma&p leegmaken...",
+                                                          expectedTooltip,
+                                                          Resources.DeleteChildrenIcon,
+                                                          hasChildren);
         }
 
         [Test]

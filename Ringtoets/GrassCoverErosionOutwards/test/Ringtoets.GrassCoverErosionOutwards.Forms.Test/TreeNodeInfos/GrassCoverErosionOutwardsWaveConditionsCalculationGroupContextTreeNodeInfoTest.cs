@@ -359,13 +359,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                                                                   "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
-                                                                  CoreCommonGuiResources.DeleteChildren,
-                                                                  CoreCommonGuiResources.DeleteChildren_ToolTip,
+                                                                  "Ma&p leegmaken...",
+                                                                  "Er zijn geen onderliggende elementen om te verwijderen.",
                                                                   CoreCommonGuiResources.DeleteChildrenIcon,
                                                                   false);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   RingtoetsCommonFormsResources.Validate_all,
                                                                   "Er zijn geen berekeningen om te valideren.",
@@ -381,7 +379,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                                   CoreCommonGuiResources.Expand_all,
                                                                   CoreCommonGuiResources.Expand_all_ToolTip,
@@ -392,7 +389,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                   CoreCommonGuiResources.Collapse_all_ToolTip,
                                                                   CoreCommonGuiResources.CollapseAllIcon,
                                                                   false);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
                                                                   CoreCommonGuiResources.Properties,
                                                                   CoreCommonGuiResources.Properties_ToolTip,
@@ -466,13 +462,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Add_Calculation,
                                                                   "Voeg een nieuwe berekening toe aan deze berekeningsmap.",
                                                                   RingtoetsCommonFormsResources.FailureMechanismIcon);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuRemoveAllChildrenIndexRootGroup,
-                                                                  CoreCommonGuiResources.DeleteChildren,
-                                                                  CoreCommonGuiResources.DeleteChildren_ToolTip,
+                                                                  "Ma&p leegmaken...",
+                                                                  "Er zijn geen onderliggende elementen om te verwijderen.",
                                                                   CoreCommonGuiResources.DeleteChildrenIcon,
                                                                   false);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateAllIndexRootGroup,
                                                                   RingtoetsCommonFormsResources.Validate_all,
                                                                   "Er zijn geen berekeningen om te valideren.",
@@ -488,7 +482,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuExpandAllIndexRootGroup,
                                                                   CoreCommonGuiResources.Expand_all,
                                                                   CoreCommonGuiResources.Expand_all_ToolTip,
@@ -499,7 +492,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                                                                   CoreCommonGuiResources.Collapse_all_ToolTip,
                                                                   CoreCommonGuiResources.CollapseAllIcon,
                                                                   false);
-
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuPropertiesIndexRootGroup,
                                                                   CoreCommonGuiResources.Properties,
                                                                   CoreCommonGuiResources.Properties_ToolTip,

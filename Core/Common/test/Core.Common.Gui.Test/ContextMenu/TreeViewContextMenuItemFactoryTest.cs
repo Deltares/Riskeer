@@ -89,7 +89,6 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateDeleteItem_DependingOnCanRemoveNodeForData_ItemWithDeleteFunctionWillBeEnabled(bool canDelete)
         {
             // Setup
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
             var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
 
             var nodeData = new object();
@@ -124,12 +123,9 @@ namespace Core.Common.Gui.Test.ContextMenu
         public void CreateDeleteChildrenItem_DependingOnCanRemoveChildNodesOfData_ItemWithDeleteChildrenFunctionWillBeEnabled(bool canDelete)
         {
             // Setup
-            var treeNodeInfoMock = mocks.StrictMock<TreeNodeInfo>();
-            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
-
             var nodeData = new object();
-
-            treeViewControlMock.Expect(tvc => tvc.CanRemoveChildNodesOfData(nodeData)).Return(canDelete);
+            var treeViewControlMock = mocks.StrictMock<TreeViewControl>();
+            treeViewControlMock.Expect(tvc => tvc.CanRemoveChildNodesOfData(nodeData)).Return(canDelete).Repeat.AtLeastOnce();
 
             if (canDelete)
             {
@@ -146,7 +142,9 @@ namespace Core.Common.Gui.Test.ContextMenu
 
             // Assert
             Assert.AreEqual(Resources.DeleteChildren, item.Text);
-            Assert.AreEqual(Resources.DeleteChildren_ToolTip, item.ToolTipText);
+            string expectedTooltip = canDelete ? "Verwijder alle onderliggende elementen van dit element."
+                                         : "Er zijn geen onderliggende elementen om te verwijderen.";
+            Assert.AreEqual(expectedTooltip, item.ToolTipText);
             TestHelper.AssertImagesAreEqual(Resources.DeleteChildrenIcon, item.Image);
             Assert.AreEqual(canDelete, item.Enabled);
 

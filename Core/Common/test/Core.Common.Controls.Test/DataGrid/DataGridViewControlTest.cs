@@ -1623,6 +1623,45 @@ namespace Core.Common.Controls.Test.DataGrid
             }
         }
 
+        [Test]
+        public void DataGridView_OnCellClickWithCombobox_ComboBoxDroppedDownIsTrue()
+        {
+            // Setup
+            using (var form = new Form())
+            using (var control = new DataGridViewControl())
+            {
+                form.Controls.Add(control);
+                form.Show();
+
+                var gridTester = new ControlTester("dataGridView");
+                var dataGridView = (DataGridView) gridTester.TheObject;
+
+                var dataSource = new[]
+                {
+                    "a"
+                };
+                control.AddComboBoxColumn("Test property", "Test header", dataSource, "", "");
+
+                // Make sure the cell is not in edit mode when setting the current cell.
+                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
+                dataGridView.DataSource = dataSource;
+
+                DataGridViewCell dataGridViewCell = dataGridView.Rows[0].Cells[0];
+                dataGridView.CurrentCell = dataGridViewCell;
+
+                // Precondition
+                Assert.IsFalse(dataGridView.IsCurrentCellInEditMode);
+
+                // Call
+                gridTester.FireEvent("CellClick", new DataGridViewCellEventArgs(0, 0));
+
+                // Assert
+                Assert.IsTrue(dataGridView.IsCurrentCellInEditMode);
+                var combobox = (ComboBox) dataGridView.EditingControl;
+                Assert.IsTrue(combobox.DroppedDown);
+            }
+        }
+
         #endregion
     }
 }

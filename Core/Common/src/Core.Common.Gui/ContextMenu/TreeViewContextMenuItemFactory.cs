@@ -99,7 +99,9 @@ namespace Core.Common.Gui.ContextMenu
         {
             var toolStripMenuItem = new ToolStripMenuItem(Resources.DeleteChildren)
             {
-                ToolTipText = Resources.DeleteChildren_ToolTip,
+                ToolTipText = treeViewControl.CanRemoveChildNodesOfData(dataObject)
+                                  ? Resources.DeleteChildren_WithChildren_ToolTip
+                                  : Resources.DeleteChildren_WithoutChildren_ToolTip,
                 Image = Resources.DeleteChildrenIcon,
                 Enabled = treeViewControl.CanRemoveChildNodesOfData(dataObject)
             };
