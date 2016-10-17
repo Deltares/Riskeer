@@ -159,7 +159,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_HOOGTE4' op regel 4, kolom 'standaardafwijking.variatie', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_HOOGTE5' op regel 5, kolom 'numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_HOOGTE5' op regel 5, kolom 'boolean', moet de waarde 0 (variatiecoëfficiënt) of 1 (standaardafwijking) hebben.",
-                "De waarde voor parameter 'KW_HOOGTE6' op regel 6, kolom 'numeriekewaarde', valt buiten het bereik (0, 1].",
+                "De waarde voor parameter 'KW_HOOGTE6' op regel 6, kolom 'numeriekewaarde', moet in het bereik (0, 1] liggen.",
                 "De waarde voor parameter 'KW_HOOGTE7' op regel 7, kolom 'numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
                 "De waarde voor parameter 'KW_HOOGTE8' op regel 8, kolom 'numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
             };
@@ -433,10 +433,10 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_BETSLUIT10' op regel 10, kolom 'numeriekewaarde', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_BETSLUIT10' op regel 10, kolom 'boolean', moet de waarde 0 (variatiecoëfficiënt) of 1 (standaardafwijking) hebben.",
                 "De waarde voor parameter 'KW_BETSLUIT10' op regel 10, kolom 'standaardafwijking.variatie', moet een positief getal zijn.",
-                "De waarde voor parameter 'KW_BETSLUIT11' op regel 11, kolom 'numeriekewaarde', valt buiten het bereik (0, 1].",
-                "De waarde voor parameter 'KW_BETSLUIT12' op regel 12, kolom 'numeriekewaarde', valt buiten het bereik (0, 1].",
+                "De waarde voor parameter 'KW_BETSLUIT11' op regel 11, kolom 'numeriekewaarde', moet in het bereik (0, 1] liggen.",
+                "De waarde voor parameter 'KW_BETSLUIT12' op regel 12, kolom 'numeriekewaarde', moet in het bereik (0, 1] liggen.",
                 "De waarde voor parameter 'KW_BETSLUIT13' op regel 13, kolom 'numeriekewaarde', moet een positief geheel getal zijn.",
-                "De waarde voor parameter 'KW_BETSLUIT14' op regel 14, kolom 'numeriekewaarde', valt buiten het bereik (0, 1].",
+                "De waarde voor parameter 'KW_BETSLUIT14' op regel 14, kolom 'numeriekewaarde', moet in het bereik (0, 1] liggen.",
                 "De waarde voor parameter 'KW_BETSLUIT15' op regel 15, kolom 'alfanumeriekewaarde', moet een geldig kunstwerk type zijn."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
@@ -859,7 +859,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_STERSTAB14' op regel 14, kolom 'numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_STERSTAB14' op regel 14, kolom 'boolean', moet de waarde 0 (variatiecoëfficiënt) of 1 (standaardafwijking) hebben.",
                 "De waarde voor parameter 'KW_STERSTAB15' op regel 15, kolom 'numeriekewaarde', moet een positief getal zijn.",
-                "De waarde voor parameter 'KW_STERSTAB16' op regel 16, kolom 'numeriekewaarde', valt buiten het bereik (0, 1].",
+                "De waarde voor parameter 'KW_STERSTAB16' op regel 16, kolom 'numeriekewaarde', moet in het bereik (0, 1] liggen.",
                 "De waarde voor parameter 'KW_STERSTAB17' op regel 17, kolom 'numeriekewaarde', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_STERSTAB20' op regel 20, kolom 'numeriekewaarde', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_STERSTAB21' op regel 21, kolom 'numeriekewaarde', moet een positief getal zijn.",

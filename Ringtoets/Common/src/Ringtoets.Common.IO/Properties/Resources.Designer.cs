@@ -1319,7 +1319,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, valt buiten het bereik (0, 1]..
+        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, moet in het bereik (0, 1] liggen..
         /// </summary>
         public static string StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_2_probability_out_of_range {
             get {
