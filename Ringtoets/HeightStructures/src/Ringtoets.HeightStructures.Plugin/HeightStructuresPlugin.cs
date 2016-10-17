@@ -448,7 +448,7 @@ namespace Ringtoets.HeightStructures.Plugin
             bool structuresAvailable = heightStructures.Any();
 
             string stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip = structuresAvailable
-                                                                                         ? Resources.HeightStructuresPlugin_Generate_calculations_for_selected_strutures
+                                                                                         ? Resources.HeightStructuresPlugin_Generate_calculations_for_selected_structures
                                                                                          : Resources.HeightStructuresPlugin_No_structures_to_generate_for;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,

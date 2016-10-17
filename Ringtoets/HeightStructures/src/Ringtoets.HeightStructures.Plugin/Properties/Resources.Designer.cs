@@ -84,14 +84,14 @@ namespace Ringtoets.HeightStructures.Plugin.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Genereer berekeningen op basis van geselecteerde kunstwerken..
         /// </summary>
-        internal static string HeightStructuresPlugin_Generate_calculations_for_selected_strutures {
+        internal static string HeightStructuresPlugin_Generate_calculations_for_selected_structures {
             get {
-                return ResourceManager.GetString("HeightStructuresPlugin_Generate_calculations_for_selected_strutures", resourceCulture);
+                return ResourceManager.GetString("HeightStructuresPlugin_Generate_calculations_for_selected_structures", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen kunstwerken beschikbaar om de berekeningen te genereren..
+        ///   Looks up a localized string similar to Er zijn geen kunstwerken beschikbaar om berekeningen voor te genereren..
         /// </summary>
         internal static string HeightStructuresPlugin_No_structures_to_generate_for {
             get {

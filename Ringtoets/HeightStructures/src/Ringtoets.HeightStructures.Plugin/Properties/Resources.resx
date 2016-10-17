@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HeightStructuresPlugin_Generate_calculations_for_selected_strutures" xml:space="preserve">
+  <data name="HeightStructuresPlugin_Generate_calculations_for_selected_structures" xml:space="preserve">
     <value>Genereer berekeningen op basis van geselecteerde kunstwerken.</value>
   </data>
   <data name="HeightStructuresPlugin_No_structures_to_generate_for" xml:space="preserve">
-    <value>Er zijn geen kunstwerken beschikbaar om de berekeningen te genereren.</value>
+    <value>Er zijn geen kunstwerken beschikbaar om berekeningen voor te genereren.</value>
   </data>
 </root>

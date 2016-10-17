@@ -236,7 +236,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextGenerateCalculationsIndexRootGroup,
                                                                   "Genereer &berekeningen...",
-                                                                  "Er zijn geen kunstwerken beschikbaar om de berekeningen te genereren.",
+                                                                  "Er zijn geen kunstwerken beschikbaar om berekeningen voor te genereren.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                                                   false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
