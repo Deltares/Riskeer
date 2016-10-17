@@ -146,7 +146,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Calculate_CancelCalculationWithValidInput_CancelsCalculation()
+        public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);

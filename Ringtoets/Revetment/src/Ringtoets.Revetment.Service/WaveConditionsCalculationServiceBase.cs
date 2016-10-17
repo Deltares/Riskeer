@@ -101,7 +101,7 @@ namespace Ringtoets.Revetment.Service
         }
 
         /// <summary>
-        /// Performs a wave conditoins calculation based on the supplied <see cref="WaveConditionsInput"/> and returns the output.
+        /// Performs a wave conditions calculation based on the supplied <see cref="WaveConditionsInput"/> and returns the output.
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
         /// <param name="calculationName">The name of the calculation.</param>
@@ -111,7 +111,7 @@ namespace Ringtoets.Revetment.Service
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
         /// <param name="norm">The norm to use as the target.</param>
         /// <param name="ringId">The id of the assessment section for which calculations are performed.</param>
-        /// <param name="hlcdFilePath">The directory of the hydraulic boundary database.</param>
+        /// <param name="hlcdFilePath">The file path of the hydraulic boundary database.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="WaveConditionsOutput"/>.</returns>
         protected IEnumerable<WaveConditionsOutput> CalculateWaveConditions(string calculationName,
                                                                             WaveConditionsInput waveConditionsInput,
@@ -199,7 +199,7 @@ namespace Ringtoets.Revetment.Service
         /// <param name="hlcdDirectory">The directory of the hydraulic boundary database.</param>
         /// <param name="ringId">The id of the assessment section for which calculations are performed.</param>
         /// <param name="name">The name used for logging.</param>
-        /// <returns>A <see cref="WaveConditionsOutput"/> if the calcultion was succesful; or <c>null</c> if it was canceled.</returns>
+        /// <returns>A <see cref="WaveConditionsOutput"/> if the calculation was succesful; or <c>null</c> if it was canceled.</returns>
         private WaveConditionsOutput CalculateWaterLevel(RoundedDouble waterLevel,
                                                          RoundedDouble a,
                                                          RoundedDouble b,

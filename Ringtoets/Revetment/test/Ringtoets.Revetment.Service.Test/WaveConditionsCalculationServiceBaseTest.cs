@@ -447,6 +447,44 @@ namespace Ringtoets.Revetment.Service.Test
             }
         }
 
+        [Test]
+        public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
+        {
+            // Setup
+            RoundedDouble waterLevel = new RoundedDouble(2, 4.00);
+            RoundedDouble a = (RoundedDouble)1.0;
+            RoundedDouble b = (RoundedDouble)0.8;
+            RoundedDouble c = (RoundedDouble)0.4;
+            int norm = 5;
+            var input = new WaveConditionsInput
+            {
+                HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
+                {
+                    DesignWaterLevel = (RoundedDouble)4.2
+                },
+                ForeshoreProfile = CreateForeshoreProfile(),
+                UpperBoundaryRevetment = waterLevel,
+                LowerBoundaryRevetment = (RoundedDouble)3
+            };
+
+            string hlcdDirectory = "C:/temp";
+            string ringId = "11-1";
+            string name = "test";
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var testCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                var service = new WaveConditionsCalculationService();
+
+                // Call
+                service.PublicCalculate(a, b, c, norm, input, hlcdDirectory, ringId, name);
+                service.Cancel();
+
+                // Assert
+                Assert.IsTrue(testCalculator.IsCanceled);
+            }
+        }
+
         public enum CalculationType
         {
             NoForeshore,

@@ -440,6 +440,36 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
+        public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
+        {
+            // Setup
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(waveImpactAsphaltCoverFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                var waveImpactAsphaltCoverWaveConditionsCalculationService = new WaveImpactAsphaltCoverWaveConditionsCalculationService();
+
+
+                // Call
+                waveImpactAsphaltCoverWaveConditionsCalculationService.Calculate(calculation,
+                                                                                 assessmentSectionStub,
+                                                                                 waveImpactAsphaltCoverFailureMechanism.GeneralInput,
+                                                                                 validFilePath);
+                waveImpactAsphaltCoverWaveConditionsCalculationService.Cancel();
+
+                // Assert
+                Assert.IsTrue(testWaveConditionsCosineCalculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Calculate_WithValidInput_SetsOutput()
         {
             // Setup

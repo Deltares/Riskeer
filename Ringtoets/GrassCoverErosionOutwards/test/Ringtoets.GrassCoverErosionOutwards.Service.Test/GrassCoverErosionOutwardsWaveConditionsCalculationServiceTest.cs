@@ -440,6 +440,35 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
+        public void Calculate_CanceledCalculationWithValidInput_CancelsCalculator()
+        {
+            // Setup
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(grassCoverErosionOutwardsFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                var grassCoverErosionOutwardsWaveConditionsCalculationService = new GrassCoverErosionOutwardsWaveConditionsCalculationService();
+
+                // Call
+                grassCoverErosionOutwardsWaveConditionsCalculationService.Calculate(calculation,
+                                                                                        grassCoverErosionOutwardsFailureMechanism,
+                                                                                        assessmentSectionStub,
+                                                                                        validFilePath);
+                grassCoverErosionOutwardsWaveConditionsCalculationService.Cancel();
+
+                // Assert
+                Assert.IsTrue(testWaveConditionsCosineCalculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Calculate_WithValidInput_SetsOutput()
         {
             // Setup
