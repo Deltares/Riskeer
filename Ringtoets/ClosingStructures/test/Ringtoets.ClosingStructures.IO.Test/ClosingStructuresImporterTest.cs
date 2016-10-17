@@ -231,6 +231,33 @@ namespace Ringtoets.ClosingStructures.IO.Test
             Assert.AreEqual(0, importTarget.Count);
         }
 
+        [Test]
+        public void Import_ParameterIdsWithVaryingCase_TrueAndImportTargetUpdated()
+        {
+            // Setup
+            string filePath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO,
+                                                         Path.Combine("Structures", "CorrectShpRandomCaseHeaderCsv", "Kunstwerken.shp"));
+
+            var referencePoints = new List<Point2D>
+            {
+                new Point2D(154493.618,568995.991),
+                new Point2D(156844.169,574771.498),
+                new Point2D(157910.502,579115.458),
+                new Point2D(163625.153,585151.261)
+            };
+            ReferenceLine referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(referencePoints);
+            var importTarget = new ObservableList<ClosingStructure>();
+            var structuresImporter = new ClosingStructuresImporter(importTarget, referenceLine, filePath);
+
+            // Call
+            bool importResult = structuresImporter.Import();
+
+            // Assert
+            Assert.IsTrue(importResult);
+            Assert.AreEqual(4, importTarget.Count);
+        }
+
         private string CreateExpectedErrorMessage(string filePath, string structureName, string structureId,
                                           IEnumerable<string> messages)
         {

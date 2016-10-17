@@ -102,7 +102,7 @@ namespace Ringtoets.StabilityPointStructures.IO
 
         private StabilityPointStructure CreateStabilityPointStructure(StructureLocation structureLocation, List<StructuresParameterRow> structureParameterRows)
         {
-            Dictionary<string, StructuresParameterRow> rowData = structureParameterRows.ToDictionary(row => row.ParameterId, row => row);
+            Dictionary<string, StructuresParameterRow> rowData = structureParameterRows.ToDictionary(row => row.ParameterId, row => row, StringComparer.OrdinalIgnoreCase);
 
             string structureName = structureLocation.Name;
             return new StabilityPointStructure(
