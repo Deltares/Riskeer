@@ -245,7 +245,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: De kolom '{1}' mag maar 1x gedefinieerd zijn.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: De kolom '{1}' mag maar één keer gedefinieerd zijn.",
                                                        filePath, columnName);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -358,7 +358,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<CriticalFileReadException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: De kolom '{1}' mag maar 1x gedefinieerd zijn.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: De kolom '{1}' mag maar één keer gedefinieerd zijn.",
                                                        filePath, columnName);
                 Assert.AreEqual(expectedMessage, message);
             }

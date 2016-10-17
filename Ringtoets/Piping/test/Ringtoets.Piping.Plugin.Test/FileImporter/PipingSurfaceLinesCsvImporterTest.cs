@@ -1347,7 +1347,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            var mesagge = "Profielschematisatie ArtifcialLocal doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
+            var mesagge = "Profielschematisatie ArtifcialLocal doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.";
             TestHelper.AssertLogMessageIsGenerated(call, mesagge);
             RingtoetsPipingSurfaceLine[] importTargetArray = failureMechanism.SurfaceLines.ToArray();
             Assert.IsTrue(importResult);
@@ -1394,7 +1394,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             Action call = () => importResult = importer.Import();
 
             // Assert
-            var mesagge = "Profielschematisatie Rotterdam1 doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd.";
+            var mesagge = "Profielschematisatie Rotterdam1 doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.";
             TestHelper.AssertLogMessageIsGenerated(call, mesagge);
             RingtoetsPipingSurfaceLine[] importTargetArray = failureMechanism.SurfaceLines.ToArray();
             Assert.IsTrue(importResult);

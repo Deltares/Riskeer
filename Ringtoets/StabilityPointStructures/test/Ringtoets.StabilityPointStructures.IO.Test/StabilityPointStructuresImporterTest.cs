@@ -103,7 +103,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
                                            new[]
                                            {
                                                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST6'."
-                                           })};
+                                           })
+            };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
             Assert.AreEqual(1, importTarget.Count);
@@ -243,16 +244,17 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
                                            new[]
                                            {
                                                "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST6'."
-                                           })};
+                                           })
+            };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
             Assert.AreEqual(0, importTarget.Count);
         }
 
-        private string CreateExpectedErrorMessage(string filePath, string structureName, string structureId,
-                                          IEnumerable<string> messages)
+        private static string CreateExpectedErrorMessage(string filePath, string structureName, string structureId,
+                                                         IEnumerable<string> messages)
         {
-            return string.Format("Fout bij het lezen van bestand '{0}' (Kunstwerk '{1}' ({2})): Er zijn 1 of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:" + Environment.NewLine +
+            return string.Format("Fout bij het lezen van bestand '{0}' (Kunstwerk '{1}' ({2})): Er zijn één of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:" + Environment.NewLine +
                                  "{3}",
                                  filePath, structureName, structureId,
                                  string.Join(Environment.NewLine, messages.Select(msg => "* " + msg)));

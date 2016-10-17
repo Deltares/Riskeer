@@ -136,9 +136,9 @@
     <value>Polygoon</value>
   </data>
   <data name="ShapeFileWriterBase_CopyToFeature_Mapdata_can_only_contain_one_feature" xml:space="preserve">
-    <value>Mapdata mag maar 1 feature bevatten.</value>
+    <value>Mapdata mag maar één feature bevatten.</value>
   </data>
   <data name="PointShapeFileWriter_CreatePointFromMapFeature_A_feature_can_only_contain_one_geometry" xml:space="preserve">
-    <value>Een feature mag maar 1 geometrie bevatten.</value>
+    <value>Een feature mag maar één geometrie bevatten.</value>
   </data>
 </root>

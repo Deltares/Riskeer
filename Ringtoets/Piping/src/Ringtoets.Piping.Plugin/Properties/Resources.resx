@@ -189,10 +189,10 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
     <value>Meerdere definities gevonden voor profielschematisatie '{0}'. Alleen de eerste definitie wordt geïmporteerd.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline" xml:space="preserve">
-    <value>Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd.</value>
+    <value>Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd.</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline_1_" xml:space="preserve">
-    <value>Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd. {1}</value>
+    <value>Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. {1}</value>
   </data>
   <data name="PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system" xml:space="preserve">
     <value>Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.</value>

@@ -274,7 +274,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vak moet minstens uit 1 punt bestaan..
+        ///   Looks up a localized string similar to Vak moet minstens uit één punt bestaan..
         /// </summary>
         public static string FailureMechanismSection_Section_must_have_at_least_1_geometry_point {
             get {

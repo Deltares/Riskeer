@@ -1002,7 +1002,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand moet exact 1 gehele polylijn bevatten..
+        ///   Looks up a localized string similar to Het bestand moet exact één gehele polylijn bevatten..
         /// </summary>
         public static string ReferenceLineReader_File_must_contain_1_polyline {
             get {
@@ -1038,7 +1038,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De kolom &apos;{0}&apos; mag maar 1x gedefinieerd zijn..
+        ///   Looks up a localized string similar to De kolom &apos;{0}&apos; mag maar één keer gedefinieerd zijn..
         /// </summary>
         public static string StructuresCharacteristicsCsvReader_Column_0_must_be_defined_only_once {
             get {
@@ -1183,7 +1183,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn 1 of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:
+        ///   Looks up a localized string similar to Er zijn één of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:
         ///{0}.
         /// </summary>
         public static string StructuresImporter_LogValidationErrorForStructure_One_or_more_erors_skip_structure_ErrorMessageList_0_ {

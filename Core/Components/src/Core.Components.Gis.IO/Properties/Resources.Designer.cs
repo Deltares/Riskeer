@@ -109,7 +109,7 @@ namespace Core.Components.Gis.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Een feature mag maar 1 geometrie bevatten..
+        ///   Looks up a localized string similar to Een feature mag maar één geometrie bevatten..
         /// </summary>
         internal static string PointShapeFileWriter_CreatePointFromMapFeature_A_feature_can_only_contain_one_geometry {
             get {
@@ -146,7 +146,7 @@ namespace Core.Components.Gis.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mapdata mag maar 1 feature bevatten..
+        ///   Looks up a localized string similar to Mapdata mag maar één feature bevatten..
         /// </summary>
         internal static string ShapeFileWriterBase_CopyToFeature_Mapdata_can_only_contain_one_feature {
             get {

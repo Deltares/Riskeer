@@ -316,7 +316,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd..
+        ///   Looks up a localized string similar to Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd..
         /// </summary>
         public static string PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline {
             get {
@@ -326,7 +326,7 @@ namespace Ringtoets.Piping.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan 1 punt en kan niet worden geïmporteerd. {1}.
+        ///   Looks up a localized string similar to Profielschematisatie {0} doorkruist de huidige referentielijn niet of op meer dan één punt en kan niet worden geïmporteerd. {1}.
         /// </summary>
         public static string PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_Surfaceline_0_does_not_correspond_to_current_referenceline_1_ {
             get {

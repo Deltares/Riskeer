@@ -169,7 +169,7 @@ namespace Ringtoets.Common.IO.Test.ReferenceLines
             TestDelegate call = () => reader.ReadReferenceLine(invalidFilePath);
 
             // Assert
-            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand moet exact 1 gehele polylijn bevatten.",
+            var expectedMessage = string.Format("Fout bij het lezen van bestand '{0}': Het bestand moet exact één gehele polylijn bevatten.",
                                                 invalidFilePath);
             var message = Assert.Throws<CriticalFileReadException>(call).Message;
             Assert.AreEqual(expectedMessage, message);

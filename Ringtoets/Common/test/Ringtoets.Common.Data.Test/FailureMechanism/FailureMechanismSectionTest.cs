@@ -97,7 +97,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             TestDelegate call = () => new FailureMechanismSection("", Enumerable.Empty<Point2D>());
 
             // Assert
-            const string expectedMessage = "Vak moet minstens uit 1 punt bestaan.";
+            const string expectedMessage = "Vak moet minstens uit één punt bestaan.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
         }
 
