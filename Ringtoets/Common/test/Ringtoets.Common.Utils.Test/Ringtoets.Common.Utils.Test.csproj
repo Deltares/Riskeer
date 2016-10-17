@@ -57,6 +57,7 @@
     <Compile Include="AssignUnassignCalculationsTest.cs" />
     <Compile Include="CalculationWithLocationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SectionResultWithCalculationAssignmentTest.cs" />
     <Compile Include="SectionSegmentsHelperTest.cs" />
     <Compile Include="SectionSegmentsTest.cs" />
   </ItemGroup>

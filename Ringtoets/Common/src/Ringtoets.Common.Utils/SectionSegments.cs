@@ -60,6 +60,7 @@ namespace Ringtoets.Common.Utils
         /// </summary>
         /// <param name="point">The <see cref="Point2D"/>.</param>
         /// <returns>The Euclidean distance as a <see cref="double"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public double Distance(Point2D point)
         {
             return segments.Min(segment => segment.GetEuclideanDistanceToPoint(point));

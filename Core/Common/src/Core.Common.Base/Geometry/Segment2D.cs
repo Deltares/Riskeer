@@ -102,6 +102,7 @@ namespace Core.Common.Base.Geometry
         /// </summary>
         /// <param name="point">The point to measure distance to.</param>
         /// <returns>A value of 0 or greater.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="point"/> is <c>null</c>.</exception>
         public double GetEuclideanDistanceToPoint(Point2D point)
         {
             if (point == null)

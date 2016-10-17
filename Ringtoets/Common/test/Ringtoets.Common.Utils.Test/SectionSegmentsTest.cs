@@ -30,6 +30,17 @@ namespace Ringtoets.Common.Utils.Test
     [TestFixture]
     public class SectionSegmentsTest
     {
+        private static IEnumerable<TestCaseData> Distances
+        {
+            get
+            {
+                yield return new TestCaseData(new Point2D(3, 2), 1);
+                yield return new TestCaseData(new Point2D(-4, 0), 4);
+                yield return new TestCaseData(new Point2D(0, -4), 4);
+                yield return new TestCaseData(new Point2D(2, 3), 1);
+            }
+        }
+
         [Test]
         public void Constructor_WithoutFailureMechanismSection_ThrowsArgumentNullException()
         {
@@ -48,8 +59,8 @@ namespace Ringtoets.Common.Utils.Test
             var failureMechanismSection = new FailureMechanismSection(string.Empty, new[]
             {
                 new Point2D(0, 0),
-                new Point2D(1, 1), 
-                new Point2D(2, 2), 
+                new Point2D(1, 1),
+                new Point2D(2, 2),
             });
 
             // Call
@@ -61,34 +72,44 @@ namespace Ringtoets.Common.Utils.Test
 
         [Test]
         [TestCaseSource("Distances")]
-        public void Distance_Always_ReturnsDistanceToGivenPoint(Point2D point, double expectedDistance)
+        public void Distance_ValidDistances_ReturnsDistanceToGivenPoint(Point2D point, double expectedDistance)
         {
             // Setup
             var failureMechanismSection = new FailureMechanismSection(string.Empty, new[]
             {
                 new Point2D(0, 0),
-                new Point2D(1, 1), 
-                new Point2D(2, 2), 
+                new Point2D(1, 1),
+                new Point2D(2, 2),
             });
 
             var sectionSegments = new SectionSegments(failureMechanismSection);
 
             // Call
             double distance = sectionSegments.Distance(point);
-            
+
             // Assert
             Assert.AreEqual(expectedDistance, distance);
         }
 
-        private static IEnumerable<TestCaseData> Distances
+        [Test]
+        public void Distance_PointIsNull_ReturnsDistanceToGivenPoint()
         {
-            get
+            // Setup
+            var failureMechanismSection = new FailureMechanismSection(string.Empty, new[]
             {
-                yield return new TestCaseData(new Point2D(3, 2), 1);
-                yield return new TestCaseData(new Point2D(-4, 0), 4);
-                yield return new TestCaseData(new Point2D(0, -4), 4);
-                yield return new TestCaseData(new Point2D(2, 3), 1);
-            }
+                new Point2D(0, 0),
+                new Point2D(1, 1),
+                new Point2D(2, 2),
+            });
+
+            var sectionSegments = new SectionSegments(failureMechanismSection);
+
+            // Call
+            TestDelegate test = () => sectionSegments.Distance(null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("point", paramName);
         }
     }
 }
