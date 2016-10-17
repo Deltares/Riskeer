@@ -1339,12 +1339,12 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, moet een getal zijn dat niet negatief is..
+        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, moet een positief getal zijn..
         /// </summary>
-        public static string StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_not_positive_number {
+        public static string StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_must_be_a_positive_number {
             get {
                 return ResourceManager.GetString("StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Li" +
-                        "ne_1_ColumnName_2_not_positive_number", resourceCulture);
+                        "ne_1_ColumnName_2_must_be_a_positive_number", resourceCulture);
             }
         }
         

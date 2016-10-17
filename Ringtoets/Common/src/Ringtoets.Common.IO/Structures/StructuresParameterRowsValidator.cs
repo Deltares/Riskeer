@@ -308,7 +308,7 @@ namespace Ringtoets.Common.IO.Structures
             double value = GetValueFromRowForColumn(row, columnName);
             if (double.IsNaN(value) || double.IsInfinity(value) || value < 0)
             {
-                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_not_positive_number,
+                messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_must_be_a_positive_number,
                                            row.ParameterId, row.LineNumber, columnName));
             }
 

@@ -484,8 +484,8 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="StructuresParameterRowsValidator_ValidateDoubleParameter_ParameterId_0_Line_1_ColumnName_2_not_number" xml:space="preserve">
     <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', is geen getal.</value>
   </data>
-  <data name="StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_not_positive_number" xml:space="preserve">
-    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een getal zijn dat niet negatief is.</value>
+  <data name="StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_must_be_a_positive_number" xml:space="preserve">
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een positief getal zijn.</value>
   </data>
   <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_invalid_variancetype_value" xml:space="preserve">
     <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet de waarde 0 (variatiecoëfficiënt) of 1 (standaardafwijking) hebben.</value>
