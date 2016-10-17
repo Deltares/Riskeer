@@ -37,7 +37,7 @@ using Ringtoets.Common.IO.Properties;
 namespace Ringtoets.Common.IO.FileImporters
 {
     /// <summary>
-    /// Abstact class for profile importers, providing an implementation of importing point shapefiles 
+    /// Abstract class for profile importers, providing an implementation of importing point shapefiles 
     /// containing dike profile locations and text files containing dike schematizations.
     /// </summary>
     /// <seealso cref="FileImporterBase{T}"/>

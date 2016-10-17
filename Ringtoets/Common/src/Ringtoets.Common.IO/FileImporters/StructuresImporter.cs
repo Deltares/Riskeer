@@ -38,7 +38,7 @@ using Ringtoets.Common.IO.Structures;
 namespace Ringtoets.Common.IO.FileImporters
 {
     /// <summary>
-    /// Abstact class for structure importers, providing an implementation of importing point shapefiles 
+    /// Abstract class for structure importers, providing an implementation of importing point shapefiles 
     /// containing structure locations and csv files containing structure schematizations.
     /// </summary>
     public abstract class StructuresImporter<T> : FileImporterBase<T>
@@ -166,50 +166,51 @@ namespace Ringtoets.Common.IO.FileImporters
 
             string csvFilePath = GetStructureDataCsvFilePath();
 
-            var rowsReader = new StructuresCharacteristicsCsvReader(csvFilePath);
-
-            int totalNumberOfRows;
-            try
+            using (var rowsReader = new StructuresCharacteristicsCsvReader(csvFilePath))
             {
-                totalNumberOfRows = rowsReader.GetLineCount();
-            }
-            catch (CriticalFileReadException exception)
-            {
-                Log.Error(exception.Message);
-                return new ReadResult<StructuresParameterRow>(true);
-            }
-
-            var rows = new List<StructuresParameterRow>();
-
-            for (int i = 0; i < totalNumberOfRows; i++)
-            {
-                if (Canceled)
-                {
-                    return new ReadResult<StructuresParameterRow>(false);
-                }
-
-                NotifyProgress(Resources.StructuresImporter_ReadStructureParameterRowsData_reading_structuredata, i + 1, totalNumberOfRows);
-
+                int totalNumberOfRows;
                 try
                 {
-                    StructuresParameterRow row = rowsReader.ReadLine();
-                    rows.Add(row);
+                    totalNumberOfRows = rowsReader.GetLineCount();
                 }
                 catch (CriticalFileReadException exception)
                 {
                     Log.Error(exception.Message);
                     return new ReadResult<StructuresParameterRow>(true);
                 }
-                catch (LineParseException exception)
-                {
-                    Log.Error(exception.Message);
-                }
-            }
 
-            return new ReadResult<StructuresParameterRow>(false)
-            {
-                ImportedItems = rows
-            };
+                var rows = new List<StructuresParameterRow>();
+
+                for (int i = 0; i < totalNumberOfRows; i++)
+                {
+                    if (Canceled)
+                    {
+                        return new ReadResult<StructuresParameterRow>(false);
+                    }
+
+                    NotifyProgress(Resources.StructuresImporter_ReadStructureParameterRowsData_reading_structuredata, i + 1, totalNumberOfRows);
+
+                    try
+                    {
+                        StructuresParameterRow row = rowsReader.ReadLine();
+                        rows.Add(row);
+                    }
+                    catch (CriticalFileReadException exception)
+                    {
+                        Log.Error(exception.Message);
+                        return new ReadResult<StructuresParameterRow>(true);
+                    }
+                    catch (LineParseException exception)
+                    {
+                        Log.Error(exception.Message);
+                    }
+                }
+
+                return new ReadResult<StructuresParameterRow>(false)
+                {
+                    ImportedItems = rows
+                };
+            }
         }
 
         private ReadResult<StructureLocation> ReadStructureLocations()
