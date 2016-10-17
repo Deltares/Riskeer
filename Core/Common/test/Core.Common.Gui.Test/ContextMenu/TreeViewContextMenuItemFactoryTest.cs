@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Properties;
@@ -137,7 +138,7 @@ namespace Core.Common.Gui.Test.ContextMenu
             var factory = new TreeViewContextMenuItemFactory(nodeData, treeViewControlMock);
 
             // Call
-            var item = factory.CreateDeleteChildrenItem();
+            ToolStripItem item = factory.CreateDeleteChildrenItem();
             item.PerformClick();
 
             // Assert

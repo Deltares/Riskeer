@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Forms
         string Name { get; }
 
         /// <summary>
-        /// Gets or sets the normative calculation for the section.
+        /// Gets the normative calculation for the section.
         /// </summary>
         T Calculation { get; }
     }
