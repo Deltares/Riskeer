@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -100,7 +101,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             properties.Data = inputContext;
 
             // Assert
-            var input = calculation.InputParameters;
+            HeightStructuresInput input = calculation.InputParameters;
             var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
 
             Assert.IsNull(properties.HeightStructure);
@@ -128,9 +129,28 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void Data_SetNewInputContextInstanceWithData_ReturnCorrectPropertyValues()
         {
             // Setup
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            {
+                Locations =
+                {
+                    new HydraulicBoundaryLocation(0, "", 0, 0)
+                }
+            };
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mockRepository.ReplayAll();
 
+            var failureMechanism = new HeightStructuresFailureMechanism()
+            {
+                ForeshoreProfiles =
+                {
+                    new TestForeshoreProfile()
+                },
+                HeightStructures =
+                {
+                    new TestHeightStructure()
+                }
+            };
             var calculation = new HeightStructuresCalculation
             {
                 InputParameters =
@@ -140,8 +160,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                     ForeshoreProfile = CreateValidForeshoreProfile()
                 }
             };
+
             var inputContext = new HeightStructuresInputContext(calculation,
-                                                                new HeightStructuresFailureMechanism(),
+                                                                failureMechanism,
                                                                 assessmentSectionMock);
             var properties = new HeightStructuresInputContextProperties();
 
@@ -149,7 +170,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             properties.Data = inputContext;
 
             // Assert
-            var input = calculation.InputParameters;
+            HeightStructuresInput input = calculation.InputParameters;
             var expectedHeightStructureLocation = new Point2D(new RoundedDouble(0, input.Structure.Location.X), new RoundedDouble(0, input.Structure.Location.Y));
             var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
 
@@ -171,6 +192,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreSame(input.StormDuration, properties.StormDuration.Data);
             Assert.AreEqual(input.DeviationWaveDirection, properties.DeviationWaveDirection);
 
+            Assert.AreEqual(1, properties.GetAvailableHydraulicBoundaryLocations().Count());
+            CollectionAssert.AreEqual(inputContext.AvailableHydraulicBoundaryLocations, properties.GetAvailableHydraulicBoundaryLocations());
+
+            Assert.AreEqual(1, properties.GetAvailableHeightStructures().Count());
+            CollectionAssert.AreEqual(failureMechanism.HeightStructures, properties.GetAvailableHeightStructures());
+
+            Assert.AreEqual(1, properties.GetAvailableForeshoreProfiles().Count());
+            CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, properties.GetAvailableForeshoreProfiles());
             mockRepository.VerifyAll();
         }
 

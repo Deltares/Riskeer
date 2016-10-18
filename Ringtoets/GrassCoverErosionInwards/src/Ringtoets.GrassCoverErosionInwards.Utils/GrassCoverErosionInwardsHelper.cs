@@ -43,7 +43,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <param name="calculations">The <see cref="CalculationWithLocation"/> objects.</param>
         /// <returns>A <see cref="Dictionary{K, V}"/> containing a <see cref="IList{T}"/> 
         /// of <see cref="GrassCoverErosionInwardsCalculation"/> objects 
-        /// for each section name which has calculations.</returns>
+        /// for each section which has calculations.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>
         /// or when an element in <paramref name="calculations"/> is <c>null</c></exception>
         /// <exception cref="ArgumentException">Thrown when an element in <paramref name="sections"/> is 

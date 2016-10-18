@@ -52,7 +52,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
         }
 
         [Test]
-        public void Constructor_ExpectedValues()
+        public void Constructor_ValidInputParameters_ExpectedValues()
         {
             // Setup
             var mocks = new MockRepository();
