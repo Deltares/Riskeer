@@ -12,7 +12,7 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
-// You should have received a copy of the GNU General Public License
+// You should have received meanOne copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
@@ -20,8 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -46,8 +48,91 @@ namespace Ringtoets.HeightStructures.Service.Test
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
+        #region Testcases
+
+        private static IEnumerable<TestCaseData> NormalDistributionsWithInvalidMeans
+        {
+            get
+            {
+                yield return new TestCaseData(double.NaN, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.NegativeInfinity, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
+
+                yield return new TestCaseData(1, double.NaN, 2, "kerende hoogte");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, "kerende hoogte");
+                yield return new TestCaseData(1, double.NegativeInfinity, 2, "kerende hoogte");
+
+                yield return new TestCaseData(1, 2, double.NaN, "breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, "breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, double.NegativeInfinity, "breedte van doorstroomopening");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> LogNormalDistributionsWithInvalidMeans
+        {
+            get
+            {
+                yield return new TestCaseData(double.NaN, 1, 2, 3, 4, "stormduur");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, 4, "stormduur");
+
+                yield return new TestCaseData(1, double.NaN, 2, 3, 4, "toegestane peilverhoging komberging");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, 4, "toegestane peilverhoging komberging");
+
+                yield return new TestCaseData(1, 2, double.NaN, 3, 4, "kombergend oppervlak");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, 4, "kombergend oppervlak");
+
+                yield return new TestCaseData(1, 2, 3, double.NaN, 4, "stroomvoerende breedte bodembescherming");
+                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, 4, "stroomvoerende breedte bodembescherming");
+
+                yield return new TestCaseData(1, 2, 3, 4, double.NaN, "kritiek instromend debiet");
+                yield return new TestCaseData(1, 2, 3, 4, double.PositiveInfinity, "kritiek instromend debiet");
+            }
+        }
+
+        #endregion
+
         [Test]
-        public void Validate_InvalidCalculationInputValidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
+        public void Validate_ValidCalculationInvalidHydraulicBoundaryDatabase_ReturnsFalse()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+
+            const string name = "<very nice name>";
+
+            HeightStructuresCalculation calculation = new HeightStructuresCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    Structure =  new TestHeightStructure()
+                }
+            };
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_CalculationInputWithoutStructureValidHydraulicBoundaryDatabase_ReturnsFalse()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -60,7 +145,50 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             HeightStructuresCalculation calculation = new HeightStructuresCalculation
             {
-                Name = name
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                }
+            };
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_CalculationInputWithoutHydraulicBoundaryLocationValidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            const string name = "<very nice name>";
+
+            HeightStructuresCalculation calculation = new HeightStructuresCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    Structure = new TestHeightStructure()
+                }
             };
 
             // Call
@@ -82,25 +210,81 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        public void Validate_ValidCalculationInputAndInvalidHydraulicBoundaryDatabase_ReturnsFalse()
+        [TestCaseSource("NormalDistributionsWithInvalidMeans")]
+        public void Validate_NormalDistributionMeanInvalid_ReturnsFalse(double meanOne, double meanTwo, double meanThree, string parameterName)
         {
             // Setup
             var mockRepository = new MockRepository();
             var assessmentSectionStub = CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             const string name = "<very nice name>";
+            string expectedValidationMessage = string.Format("Validatie mislukt: De verwachtingswaarde van '{0}' moet een geldig getal zijn.", parameterName);
 
-            HeightStructuresCalculation calculation = new HeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculation()
             {
                 Name = name,
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    Structure = new TestHeightStructure()
+                },
+            };
+
+            calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean = (RoundedDouble) meanOne;
+            calculation.InputParameters.LevelCrestStructure.Mean = (RoundedDouble) meanTwo;
+            calculation.InputParameters.WidthFlowApertures.Mean = (RoundedDouble) meanThree;
+
+            // Call
+            bool isValid = false; 
+            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith(expectedValidationMessage, msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource("LogNormalDistributionsWithInvalidMeans")]
+        public void Validate_LogNormalDistributionMeanInvalid_ReturnsFalse(double meanOne, double meanTwo, double meanThree,
+                                                                           double meanFour, double meanFive, string parameterName)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            const string name = "<very nice name>";
+            string expectedValidationMessage = string.Format("Validatie mislukt: De verwachtingswaarde van '{0}' moet een positief getal zijn.", parameterName);
+
+            var calculation = new TestHeightStructuresCalculation()
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    Structure = new TestHeightStructure()
                 }
             };
+
+            calculation.InputParameters.StormDuration.Mean = (RoundedDouble) meanOne;
+            calculation.InputParameters.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) meanTwo;
+            calculation.InputParameters.StorageStructureArea.Mean = (RoundedDouble) meanThree;
+            calculation.InputParameters.FlowWidthAtBottomProtection.Mean = (RoundedDouble) meanFour;
+            calculation.InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) meanFive;
 
             // Call
             bool isValid = false;
@@ -112,7 +296,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith(expectedValidationMessage, msgs[1]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
             });
             Assert.IsFalse(isValid);
@@ -137,7 +321,8 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Name = name,
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    Structure = new TestHeightStructure()
                 }
             };
 
