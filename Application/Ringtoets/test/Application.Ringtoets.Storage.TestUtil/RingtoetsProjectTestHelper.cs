@@ -94,6 +94,21 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddSections(waveImpactAsphaltCoverFailureMechanism);
             SetSectionResults(waveImpactAsphaltCoverFailureMechanism.SectionResults);
 
+            HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
+            AddForeshoreProfiles(heightStructuresFailureMechanism.ForeshoreProfiles);
+            AddSections(heightStructuresFailureMechanism);
+            SetSectionResults(heightStructuresFailureMechanism.SectionResults);
+
+            ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
+            AddForeshoreProfiles(closingStructuresFailureMechanism.ForeshoreProfiles);
+            AddSections(closingStructuresFailureMechanism);
+            SetSectionResults(closingStructuresFailureMechanism.SectionResults);
+
+            StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
+            AddForeshoreProfiles(stabilityPointStructuresFailureMechanism.ForeshoreProfiles);
+            AddSections(stabilityPointStructuresFailureMechanism);
+            SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults);
+
             AddSections(assessmentSection.MacrostabilityInwards);
             SetSectionResults(assessmentSection.MacrostabilityInwards.SectionResults);
             AddSections(assessmentSection.MacrostabilityOutwards);
@@ -106,12 +121,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             SetSectionResults(assessmentSection.GrassCoverSlipOffInwards.SectionResults);
             AddSections(assessmentSection.GrassCoverSlipOffOutwards);
             SetSectionResults(assessmentSection.GrassCoverSlipOffOutwards.SectionResults);
-            AddSections(assessmentSection.HeightStructures);
-            SetSectionResults(assessmentSection.HeightStructures.SectionResults);
-            AddSections(assessmentSection.ClosingStructures);
-            SetSectionResults(assessmentSection.ClosingStructures.SectionResults);
-            AddSections(assessmentSection.StabilityPointStructures);
-            SetSectionResults(assessmentSection.StabilityPointStructures.SectionResults);
             AddSections(assessmentSection.StrengthStabilityLengthwiseConstruction);
             SetSectionResults(assessmentSection.StrengthStabilityLengthwiseConstruction.SectionResults);
             AddSections(assessmentSection.PipingStructure);

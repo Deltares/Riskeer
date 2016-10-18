@@ -220,6 +220,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadHeightStructuresMechanismSectionResults(failureMechanism, collector);
+            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
         }
 
         private static void ReadHeightStructuresMechanismSectionResults(this FailureMechanismEntity entity, HeightStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
@@ -328,6 +329,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadClosingStructuresMechanismSectionResults(failureMechanism, collector);
+            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
         }
 
         private static void ReadClosingStructuresMechanismSectionResults(this FailureMechanismEntity entity, ClosingStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
@@ -689,6 +691,7 @@ namespace Application.Ringtoets.Storage.Read
         {
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadStabilityPointStructuresMechanismSectionResults(failureMechanism, collector);
+            entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
         }
 
         private static void ReadStabilityPointStructuresMechanismSectionResults(this FailureMechanismEntity entity, StabilityPointStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)

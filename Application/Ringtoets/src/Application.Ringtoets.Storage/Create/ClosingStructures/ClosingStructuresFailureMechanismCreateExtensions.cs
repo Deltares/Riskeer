@@ -23,6 +23,7 @@ using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.DikeProfiles;
 
 namespace Application.Ringtoets.Storage.Create.ClosingStructures
 {
@@ -42,6 +43,7 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
         {
             var entity = mechanism.Create(FailureMechanismType.ReliabilityClosingOfStructure, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
 
             return entity;
         }
@@ -55,6 +57,18 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
                 var sectionResultEntity = failureMechanismSectionResult.Create(registry);
                 var section = registry.Get(failureMechanismSectionResult.Section);
                 section.ClosingStructuresSectionResultEntities.Add(sectionResultEntity);
+            }
+        }
+
+        private static void AddEntitiesForForeshoreProfiles(
+            IList<ForeshoreProfile> foreshoreProfiles,
+            FailureMechanismEntity entity,
+            PersistenceRegistry registry)
+        {
+            for (int i = 0; i < foreshoreProfiles.Count; i++)
+            {
+                ForeshoreProfileEntity foreshoreProfileEntity = foreshoreProfiles[i].Create(registry, i);
+                entity.ForeshoreProfileEntities.Add(foreshoreProfileEntity);
             }
         }
     }

@@ -26,12 +26,15 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -814,6 +817,135 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Call
             entity.ReadAsWaveImpactAsphaltCoverFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
+
+            ForeshoreProfile child1 = failureMechanism.ForeshoreProfiles[0];
+            Assert.AreEqual("Child2", child1.Name);
+
+            ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
+            Assert.AreEqual("Child1", child2.Name);
+        }
+
+        #endregion
+
+        #region Height Structures
+
+        [Test]
+        public void ReadAsHeightStructuresFailureMechanism_WithForshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                ForeshoreProfileEntities =
+                {
+                    new ForeshoreProfileEntity
+                    {
+                        Name = "Child1",
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        Order = 1
+                    },
+                    new ForeshoreProfileEntity
+                    {
+                        Name = "Child2",
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        Order = 0
+                    },
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsHeightStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
+
+            ForeshoreProfile child1 = failureMechanism.ForeshoreProfiles[0];
+            Assert.AreEqual("Child2", child1.Name);
+
+            ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
+            Assert.AreEqual("Child1", child2.Name);
+        }
+
+        #endregion
+
+        #region Closing Structures
+
+        [Test]
+        public void ReadAsClosingStructuresFailureMechanism_WithForshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                ForeshoreProfileEntities =
+                {
+                    new ForeshoreProfileEntity
+                    {
+                        Name = "Child1",
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        Order = 1
+                    },
+                    new ForeshoreProfileEntity
+                    {
+                        Name = "Child2",
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        Order = 0
+                    },
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsClosingStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
+
+            ForeshoreProfile child1 = failureMechanism.ForeshoreProfiles[0];
+            Assert.AreEqual("Child2", child1.Name);
+
+            ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
+            Assert.AreEqual("Child1", child2.Name);
+        }
+
+        #endregion
+
+        #region Stability Point Structures
+
+        [Test]
+        public void ReadAsStabilityPointStructuresFailureMechanism_WithForshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                ForeshoreProfileEntities =
+                {
+                    new ForeshoreProfileEntity
+                    {
+                        Name = "Child1",
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        Order = 1
+                    },
+                    new ForeshoreProfileEntity
+                    {
+                        Name = "Child2",
+                        GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
+                        Order = 0
+                    },
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsStabilityPointStructuresFailureMechanism(failureMechanism, collector);
 
             // Assert
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);

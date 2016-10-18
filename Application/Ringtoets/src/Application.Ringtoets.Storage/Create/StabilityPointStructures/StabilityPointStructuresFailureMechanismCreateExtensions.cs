@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using Application.Ringtoets.Storage.DbContext;
+using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
@@ -42,6 +43,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
         {
             var entity = mechanism.Create(FailureMechanismType.StabilityPointStructures, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
+            AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
 
             return entity;
         }
@@ -55,6 +57,18 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
                 var sectionResultEntity = failureMechanismSectionResult.Create(registry);
                 var section = registry.Get(failureMechanismSectionResult.Section);
                 section.StabilityPointStructuresSectionResultEntities.Add(sectionResultEntity);
+            }
+        }
+
+        private static void AddEntitiesForForeshoreProfiles(
+            IList<ForeshoreProfile> foreshoreProfiles,
+            FailureMechanismEntity entity,
+            PersistenceRegistry registry)
+        {
+            for (int i = 0; i < foreshoreProfiles.Count; i++)
+            {
+                ForeshoreProfileEntity foreshoreProfileEntity = foreshoreProfiles[i].Create(registry, i);
+                entity.ForeshoreProfileEntities.Add(foreshoreProfileEntity);
             }
         }
     }

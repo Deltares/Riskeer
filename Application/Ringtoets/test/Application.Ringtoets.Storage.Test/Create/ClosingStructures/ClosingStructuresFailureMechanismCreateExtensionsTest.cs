@@ -117,5 +117,24 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.Count);
             Assert.AreEqual(1, entity.FailureMechanismSectionEntities.SelectMany(fms => fms.ClosingStructuresSectionResultEntities).Count());
         }
+
+        [Test]
+        public void Create_WithForeShoreProfiles_ForeShoreProfileEntitiesCreated()
+        {
+            // Setup
+            var profile = new TestForeshoreProfile();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.ForeshoreProfiles.Add(profile);
+
+            var persistenceRegistry = new PersistenceRegistry();
+
+            // Call
+            var entity = failureMechanism.Create(persistenceRegistry);
+
+            // Assert
+            Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
+            Assert.IsTrue(persistenceRegistry.Contains(profile));
+        }
     }
 }

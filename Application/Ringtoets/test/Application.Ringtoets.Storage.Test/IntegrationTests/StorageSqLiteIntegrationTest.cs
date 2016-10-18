@@ -277,6 +277,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 AssertGrassCoverErosionOutwardsFailureMechanism(expectedAssessmentSection.GrassCoverErosionOutwards, actualAssessmentSection.GrassCoverErosionOutwards);
                 AssertStabilityStoneCoverFailureMechanism(expectedAssessmentSection.StabilityStoneCover, actualAssessmentSection.StabilityStoneCover);
                 AssertWaveImpactAsphaltCoverFailureMechanism(expectedAssessmentSection.WaveImpactAsphaltCover, actualAssessmentSection.WaveImpactAsphaltCover);
+                AssertHeightStructuresFailureMechanism(expectedAssessmentSection.HeightStructures, actualAssessmentSection.HeightStructures);
+                AssertClosingStructuresFailureMechanism(expectedAssessmentSection.ClosingStructures, actualAssessmentSection.ClosingStructures);
+                AssertStabilityPointStructuresFailureMechanism(expectedAssessmentSection.StabilityPointStructures, actualAssessmentSection.StabilityPointStructures);
 
                 IFailureMechanism[] expectedProjectFailureMechanisms = expectedAssessmentSection.GetFailureMechanisms().ToArray();
                 IFailureMechanism[] actualProjectFailureMechanisms = actualAssessmentSection.GetFailureMechanisms().ToArray();
@@ -879,6 +882,36 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 File.Delete(filePath);
             }
         }
+
+        #region HeightStructures FailureMechanism
+
+        private static void AssertHeightStructuresFailureMechanism(HeightStructuresFailureMechanism expectedFailureMechanism,
+                                                                   HeightStructuresFailureMechanism actualFailureMechanism)
+        {
+            AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
+        }
+
+        #endregion
+
+        #region ClosingStructures FailureMechanism
+
+        private static void AssertClosingStructuresFailureMechanism(ClosingStructuresFailureMechanism expectedFailureMechanism,
+                                                                    ClosingStructuresFailureMechanism actualFailureMechanism)
+        {
+            AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
+        }
+
+        #endregion
+
+        #region StabilityPointStructures FailureMechanism
+
+        private static void AssertStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism expectedFailureMechanism,
+                                                                           StabilityPointStructuresFailureMechanism actualFailureMechanism)
+        {
+            AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
+        }
+
+        #endregion
 
         #region Piping FailureMechanism
 

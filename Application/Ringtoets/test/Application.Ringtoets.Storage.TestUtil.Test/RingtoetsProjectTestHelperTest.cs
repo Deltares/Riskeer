@@ -23,14 +23,17 @@ using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -192,6 +195,15 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsTrue(waveImpactAsphaltCoverCalculationWithOutput.HasOutput);
             Assert.AreEqual(2, waveImpactAsphaltCoverCalculationWithOutput.Output.Items.Count());
             Assert.AreEqual(2, waveImpactAsphaltCoverCalculationWithOutput.Output.Items.Count());
+
+            HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
+            Assert.AreEqual(2, heightStructuresFailureMechanism.ForeshoreProfiles.Count);
+
+            ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
+            Assert.AreEqual(2, closingStructuresFailureMechanism.ForeshoreProfiles.Count);
+
+            StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
+            Assert.AreEqual(2, stabilityPointStructuresFailureMechanism.ForeshoreProfiles.Count);
         }
     }
 }
