@@ -42,7 +42,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                                                                       Path.Combine("HeightStructures", "kunstwerken_6_3.shp"));
 
         [Test]
-        public void ScenariosView_ImportDikeSection_ChangesCorrectlyObservedAndSynced()
+        public void ScenariosView_ImportFailureMechanismSections_ChangesCorrectlyObservedAndSynced()
         {
             // Setup
             using (var form = new Form())
@@ -50,7 +50,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
                 IntegrationTestHelper.ImportReferenceLine(assessmentSection);
 
-                var view = new HeightStructuresScenariosView()
+                var view = new HeightStructuresScenariosView
                 {
                     Data = assessmentSection.HeightStructures.CalculationsGroup,
                     FailureMechanism = assessmentSection.HeightStructures
@@ -91,7 +91,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                                              .Import();
 
                 CalculationGroup calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
-                var view = new HeightStructuresScenariosView()
+                var view = new HeightStructuresScenariosView
                 {
                     Data = calculationsGroup,
                     FailureMechanism = assessmentSection.HeightStructures
@@ -179,7 +179,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        public void ScenariosView_ChangeDikeProfileOfCalculation_ChangesCorrectlyObservedAndSynced()
+        public void ScenariosView_ChangeStructureOfCalculation_ChangesCorrectlyObservedAndSynced()
         {
             // Setup
             using (var form = new Form())

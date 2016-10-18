@@ -57,7 +57,6 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
     {
         private const int contextMenuAddCalculationGroupIndexRootGroup = 4;
         private const int contextMenuAddCalculationIndexRootGroup = 5;
-        private const int contextMenuRemoveAllChildrenIndexRootGroup = 7;
         private const int contextMenuValidateAllIndexRootGroup = 9;
         private const int contextMenuCalculateAllIndexRootGroup = 10;
         private const int contextMenuClearOutputIndexRootGroup = 11;
@@ -72,7 +71,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         private const int contextMenuClearOutputNestedGroupIndex = 5;
 
         private const int customOnlyContextMenuAddGenerateCalculationsIndex = 1;
-        private const int customOnlyContextMenuRemoveAllChildrenIndex = 6;
+
         private MockRepository mocks;
         private PipingPlugin plugin;
         private TreeNodeInfo info;

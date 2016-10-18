@@ -235,8 +235,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
                 Data = new CalculationGroup()
             };
 
-            // Call & Assert
-            Assert.IsFalse(info.CloseForData(view, assessmentSectionMock));
+            // Call
+            bool closeForData = info.CloseForData(view, assessmentSectionMock);
+
+            // Assert
+            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
@@ -257,8 +260,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
                 Data = new CalculationGroup()
             };
 
-            // Call & Assert
-            Assert.IsFalse(info.CloseForData(view, assessmentSectionMock));
+            // Call
+            bool closeForData = info.CloseForData(view, assessmentSectionMock);
+
+            // Assert
+            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
@@ -280,8 +286,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
                 Data = failureMechanism.CalculationsGroup
             };
 
-            // Call & Assert
-            Assert.IsTrue(info.CloseForData(view, assessmentSectionMock));
+            // Call
+            bool closeForData = info.CloseForData(view, assessmentSectionMock);
+
+            // Assert
+            Assert.IsTrue(closeForData);
             mocks.VerifyAll();
         }
 
@@ -294,8 +303,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
 
             view.Data = new CalculationGroup();
 
-            // Call & Assert
-            Assert.IsFalse(info.CloseForData(view, failureMechanism));
+            // Call
+            bool closeForData = info.CloseForData(view, failureMechanism);
+
+            // Assert
+            Assert.IsFalse(closeForData);
         }
 
         [Test]
@@ -307,8 +319,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
 
             view.Data = failureMechanism.CalculationsGroup;
 
-            // Call & Assert
-            Assert.IsTrue(info.CloseForData(view, failureMechanism));
+            // Call
+            bool closeForData = info.CloseForData(view, failureMechanism);
+
+            // Assert
+            Assert.IsTrue(closeForData);
         }
 
         [Test]
@@ -316,7 +331,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
             mocks.ReplayAll();
 
             var view = new HeightStructuresScenariosView();
@@ -325,8 +339,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
 
             view.Data = failureMechanism.CalculationsGroup;
 
-            // Call & Assert
-            Assert.IsFalse(info.CloseForData(view, failureMechanismContext));
+            // Call
+            bool closeForData = info.CloseForData(view, failureMechanismContext);
+
+            // Assert
+            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
@@ -334,8 +351,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanismContext_ReturnsTrue()
         {
             // Setup
-            var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
             var view = new HeightStructuresScenariosView();
@@ -344,8 +360,11 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ViewInfos
 
             view.Data = failureMechanism.CalculationsGroup;
 
-            // Call & Assert
-            Assert.IsTrue(info.CloseForData(view, failureMechanismContext));
+            // Call
+            bool closeForData = info.CloseForData(view, failureMechanismContext);
+
+            // Assert
+            Assert.IsTrue(closeForData);
             mocks.VerifyAll();
         }
 

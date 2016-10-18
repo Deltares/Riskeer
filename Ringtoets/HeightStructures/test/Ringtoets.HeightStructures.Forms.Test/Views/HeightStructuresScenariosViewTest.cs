@@ -153,7 +153,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanism_WithData_UpdateScenarioControl()
+        public void FailureMechanism_FailureMechanismSetToNull_UpdateScenarioControl()
         {
             // Setup
             using (var view = ShowScenariosView())
@@ -240,7 +240,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
         }
 
         [Test]
-        public void NotifyCalculation_CalculationChangedDikeProfile_CalculationMovedToOtherSectionResultOptions()
+        public void NotifyCalculation_CalculationChangedStructure_CalculationMovedToOtherSectionResultOptions()
         {
             // Setup
             using (var view = ShowScenariosView())
@@ -314,13 +314,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             }
         }
 
-        private void AssertDataGridView(
+        private static void AssertDataGridView(
             HeightStructuresFailureMechanism failureMechanism,
             bool shouldBeCleared,
             string[][] expectedComboBoxItemTexts = null)
         {
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-            var rowCount = dataGridView.RowCount;
+            int rowCount = dataGridView.RowCount;
 
             if (shouldBeCleared)
             {
@@ -344,7 +344,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
         private HeightStructuresFailureMechanism CreateCompleteFailureMechanism()
         {
-            HeightStructuresFailureMechanism failureMechanism = new HeightStructuresFailureMechanism();
+            var failureMechanism = new HeightStructuresFailureMechanism();
             var matchingPointA = new Point2D(0, 0);
             var matchingPointB = new Point2D(20, 20);
             var calculationA = new HeightStructuresCalculation
@@ -363,7 +363,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     Structure = new TestHeightStructure(matchingPointB)
                 }
             };
-            Point2D connectionPoint = new Point2D(10, 10);
+            var connectionPoint = new Point2D(10, 10);
             var failureMechanismSectionA = new FailureMechanismSection("sectionA", new[]
             {
                 matchingPointA,

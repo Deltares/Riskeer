@@ -25,6 +25,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 
@@ -50,10 +51,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
             // Assert
             Assert.AreSame(sectionResult.Section.Name, row.Name);
             Assert.AreSame(sectionResult.Calculation, row.Calculation);
+            Assert.IsInstanceOf<IScenarioRow<GrassCoverErosionInwardsCalculation>>(row);
         }
 
         [Test]
-        public void ParameterdConstructor_SectionResultIsNull_ThrowArgumentNullException()
+        public void ParameteredConstructor_SectionResultIsNull_ThrowArgumentNullException()
         {
             // Call
             TestDelegate call = () => new GrassCoverErosionInwardsScenarioRow(null);
