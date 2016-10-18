@@ -20,14 +20,9 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Attributes;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Probabilistics;
@@ -100,52 +95,28 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new NormalDistributionProperties(DistributionPropertiesReadOnly.None, observerableMock);
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
 
-            var distributionTypePropertyName = TypeUtils.GetMemberName<NormalDistributionProperties>(ndp => ndp.DistributionType);
-            PropertyDescriptor distributionTypeProperty = dynamicProperties.Find(distributionTypePropertyName, false);
-            Assert.IsTrue(distributionTypeProperty.IsReadOnly);
-            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(distributionTypeProperty.Attributes, "Type verdeling",
-                                                                           attribute => attribute.DisplayName);
-            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(distributionTypeProperty.Attributes,
-                                                                           "Het soort kansverdeling waarin deze parameter gedefinieerd wordt.",
-                                                                           attribute => attribute.Description);
+            PropertyDescriptor distributionTypeProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(distributionTypeProperty,
+                                                                            "Misc",
+                                                                            "Type verdeling",
+                                                                            "Het soort kansverdeling waarin deze parameter gedefinieerd wordt.",
+                                                                            true);
 
-            var meanPropertyName = TypeUtils.GetMemberName<NormalDistributionProperties>(ndp => ndp.Mean);
-            PropertyDescriptor meanProperty = dynamicProperties.Find(meanPropertyName, false);
-            Assert.IsFalse(meanProperty.IsReadOnly);
-            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(meanProperty.Attributes, "Verwachtingswaarde",
-                                                                           attribute => attribute.DisplayName);
-            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(meanProperty.Attributes,
-                                                                           "De gemiddelde waarde van de normale verdeling.",
-                                                                           attribute => attribute.Description);
+            PropertyDescriptor meanProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanProperty,
+                                                                            "Misc",
+                                                                            "Verwachtingswaarde",
+                                                                            "De gemiddelde waarde van de normale verdeling.");
 
-            var standardDeviationPropertyName = TypeUtils.GetMemberName<NormalDistributionProperties>(ndp => ndp.StandardDeviation);
-            PropertyDescriptor standardProperty = dynamicProperties.Find(standardDeviationPropertyName, false);
-            Assert.IsFalse(standardProperty.IsReadOnly);
-            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(standardProperty.Attributes, "Standaardafwijking",
-                                                                           attribute => attribute.DisplayName);
-            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(standardProperty.Attributes,
-                                                                           "De standaardafwijking van de normale verdeling.",
-                                                                           attribute => attribute.Description);
+            PropertyDescriptor standardProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(standardProperty,
+                                                                            "Misc",
+                                                                            "Standaardafwijking",
+                                                                            "De standaardafwijking van de normale verdeling.");
             mockRepository.VerifyAll();
-        }
-
-        private static void AssertAttributeProperty<TAttributeType, TAttributePropertyValueType>(
-            IEnumerable attributes,
-            TAttributePropertyValueType expectedValue,
-            Func<TAttributeType, TAttributePropertyValueType> getAttributePropertyValue)
-        {
-            var attributesOfTypeTAttributeType = attributes.OfType<TAttributeType>();
-            Assert.IsNotNull(attributesOfTypeTAttributeType);
-            var attribute = attributesOfTypeTAttributeType.FirstOrDefault();
-            Assert.IsNotNull(attribute, string.Format("Attribute type '{0} not found in {1}'", typeof(TAttributeType), attributes));
-            Assert.AreEqual(expectedValue, getAttributePropertyValue(attribute));
         }
     }
 }

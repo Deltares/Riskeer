@@ -32,15 +32,15 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <summary>
     /// An <see cref="ObjectProperties{T}"/> implementation for <see cref="VariationCoefficientLogNormalDistribution"/>.
     /// </summary>
-    public class LogNormalDistributionVariationProperties : VariationCoefficientDistributionPropertiesBase<VariationCoefficientLogNormalDistribution>
+    public class VariationCoefficientLogNormalDistributionProperties : VariationCoefficientDistributionPropertiesBase<VariationCoefficientLogNormalDistribution>
     {
         /// <summary>
-        /// Creates a new read-only instance of <see cref="LogNormalDistributionVariationProperties"/>.
+        /// Creates a new read-only instance of <see cref="VariationCoefficientLogNormalDistributionProperties"/>.
         /// </summary>
-        public LogNormalDistributionVariationProperties() : this(VariationCoefficientDistributionPropertiesReadOnly.All, null) {}
+        public VariationCoefficientLogNormalDistributionProperties() : this(VariationCoefficientDistributionPropertiesReadOnly.All, null) {}
 
         /// <summary>
-        /// Creates a new instance of <see cref="LogNormalDistributionVariationProperties"/>.
+        /// Creates a new instance of <see cref="VariationCoefficientLogNormalDistributionProperties"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
         /// marked as read-only.</param>
@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
         /// <exception cref="InvalidOperationException">Thrown when <paramref name="observable"/>
         /// is null and any number of properties in this class is editable.</exception>
-        public LogNormalDistributionVariationProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly, IObservable observable)
+        public VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly, IObservable observable)
             : base(propertiesReadOnly, observable) {}
 
         public override string DistributionType

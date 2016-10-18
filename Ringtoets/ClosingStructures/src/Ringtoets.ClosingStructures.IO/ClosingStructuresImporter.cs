@@ -167,13 +167,17 @@ namespace Ringtoets.ClosingStructures.IO
         private static ClosingStructureInflowModelType GetClosingStructureInflowModelType(StructuresParameterRow structureParameterRow)
         {
             string keywordValue = structureParameterRow.AlphanumericValue.ToLower();
-            if (keywordValue == "verticalewand")
+            switch (keywordValue)
             {
-                return ClosingStructureInflowModelType.VerticalWall;
+                case StructureFilesKeywords.InflowModelTypeVerticalWall:
+                    return ClosingStructureInflowModelType.VerticalWall;
+                case StructureFilesKeywords.InflowModelTypeLowSill:
+                    return ClosingStructureInflowModelType.LowSill;
+                case StructureFilesKeywords.InflowModelTypeFloodedCulvert:
+                    return ClosingStructureInflowModelType.FloodedCulvert;
+                default:
+                    throw new NotSupportedException();
             }
-            return keywordValue == "lagedrempel"
-                       ? ClosingStructureInflowModelType.LowSill
-                       : ClosingStructureInflowModelType.FloodedCulvert;
         }
     }
 }

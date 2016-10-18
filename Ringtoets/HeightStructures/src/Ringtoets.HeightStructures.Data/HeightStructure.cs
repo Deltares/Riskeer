@@ -36,7 +36,7 @@ namespace Ringtoets.HeightStructures.Data
         /// </summary>
         /// <param name="constructionProperties">The construction properties.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="ConstructionProperties.Name"/>
-        /// or <see cref="ConstructionProperties.Id"/> is <c>null</c> , empty or consists of whitespace.</exception>
+        /// or <see cref="ConstructionProperties.Id"/> is <c>null</c>, empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="ConstructionProperties.Location"/> is <c>null</c>.</exception>
         public HeightStructure(ConstructionProperties constructionProperties) : base(constructionProperties)
         {
@@ -158,7 +158,7 @@ namespace Ringtoets.HeightStructures.Data
             public VariationCoefficientNormalDistribution WidthFlowApertures { get; private set; }
 
             /// <summary>
-            /// Gets the failure probability of the height structure, given erosion.
+            /// Gets or sets the failure probability of the height structure, given erosion.
             /// [1/year]
             /// </summary>
             public double FailureProbabilityStructureWithErosion { get; set; }

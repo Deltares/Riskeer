@@ -22,6 +22,7 @@
 using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -140,62 +141,60 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             var lengthEffectParameterCategory = "Lengte-effect parameters";
             var modelSettingsCategory = "Modelinstellingen";
 
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(8, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(7, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            Assert.IsNotNull(nameProperty);
-            Assert.IsTrue(nameProperty.IsReadOnly);
-            Assert.AreEqual(generalCategory, nameProperty.Category);
-            Assert.AreEqual("Naam", nameProperty.DisplayName);
-            Assert.AreEqual("De naam van het toetsspoor.", nameProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het toetsspoor.",
+                                                                            true);
 
             PropertyDescriptor codeProperty = dynamicProperties[codePropertyIndex];
-            Assert.IsNotNull(codeProperty);
-            Assert.IsTrue(codeProperty.IsReadOnly);
-            Assert.AreEqual(generalCategory, codeProperty.Category);
-            Assert.AreEqual("Label", codeProperty.DisplayName);
-            Assert.AreEqual("Het label van het toetsspoor.", codeProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(codeProperty,
+                                                                            generalCategory,
+                                                                            "Label",
+                                                                            "Het label van het toetsspoor.",
+                                                                            true);
 
             PropertyDescriptor lengthEffectProperty = dynamicProperties[lengthEffectPropertyIndex];
-            Assert.IsNotNull(lengthEffectProperty);
-            Assert.IsFalse(lengthEffectProperty.IsReadOnly);
-            Assert.AreEqual(lengthEffectParameterCategory, lengthEffectProperty.Category);
-            Assert.AreEqual("N [-]", lengthEffectProperty.DisplayName);
-            Assert.AreEqual("De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling.", lengthEffectProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(lengthEffectProperty,
+                                                                            lengthEffectParameterCategory,
+                                                                            "N [-]",
+                                                                            "De parameter 'N' die gebruikt wordt om het lengte-effect mee te nemen in een semi-probabilistische beoordeling.");
 
             PropertyDescriptor frunupModelFactorProperty = dynamicProperties[frunupModelFactorPropertyIndex];
-            Assert.IsNotNull(frunupModelFactorProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(frunupModelFactorProperty.Converter);
-            Assert.IsTrue(frunupModelFactorProperty.IsReadOnly);
-            Assert.AreEqual(modelSettingsCategory, frunupModelFactorProperty.Category);
-            Assert.AreEqual("Modelfactor Frunup [-]", frunupModelFactorProperty.DisplayName);
-            Assert.AreEqual("De parameter 'Frunup' die gebruikt wordt in de berekening.", frunupModelFactorProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(frunupModelFactorProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Modelfactor Frunup [-]",
+                                                                            "De parameter 'Frunup' die gebruikt wordt in de berekening.",
+                                                                            true);
 
             PropertyDescriptor fbModelProperty = dynamicProperties[fbFactorPropertyIndex];
-            Assert.IsNotNull(fbModelProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(fbModelProperty.Converter);
-            Assert.IsTrue(fbModelProperty.IsReadOnly);
-            Assert.AreEqual(modelSettingsCategory, fbModelProperty.Category);
-            Assert.AreEqual("Modelfactor Fb [-]", fbModelProperty.DisplayName);
-            Assert.AreEqual("De parameter 'Fb' die gebruikt wordt in de berekening.", fbModelProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(fbModelProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Modelfactor Fb [-]",
+                                                                            "De parameter 'Fb' die gebruikt wordt in de berekening.",
+                                                                            true);
 
             PropertyDescriptor fnFactorProperty = dynamicProperties[fnFactorPropertyIndex];
-            Assert.IsNotNull(fnFactorProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(fnFactorProperty.Converter);
-            Assert.IsTrue(fnFactorProperty.IsReadOnly);
-            Assert.AreEqual(modelSettingsCategory, fnFactorProperty.Category);
-            Assert.AreEqual("Modelfactor Fn [-]", fnFactorProperty.DisplayName);
-            Assert.AreEqual("De parameter 'Fn' die gebruikt wordt in de berekening.", fnFactorProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(fnFactorProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Modelfactor Fn [-]",
+                                                                            "De parameter 'Fn' die gebruikt wordt in de berekening.",
+                                                                            true);
 
             PropertyDescriptor fshallowProperty = dynamicProperties[fshallowModelFactorPropertyIndex];
-            Assert.IsNotNull(fshallowProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(fshallowProperty.Converter);
-            Assert.IsTrue(fshallowProperty.IsReadOnly);
-            Assert.AreEqual(modelSettingsCategory, fshallowProperty.Category);
-            Assert.AreEqual("Modelfactor Fondiep [-]", fshallowProperty.DisplayName);
-            Assert.AreEqual("De parameter 'Fondiep' die gebruikt wordt in de berekening.", fshallowProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(fshallowProperty,
+                                                                            modelSettingsCategory,
+                                                                            "Modelfactor Fondiep [-]",
+                                                                            "De parameter 'Fondiep' die gebruikt wordt in de berekening.",
+                                                                            true);
 
             mockRepository.VerifyAll();
         }

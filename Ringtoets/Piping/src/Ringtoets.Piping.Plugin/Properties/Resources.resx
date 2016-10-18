@@ -197,12 +197,6 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   <data name="PipingSurfaceLinesCsvImporter_CheckReferenceLineInterSections_This_could_be_caused_coordinates_being_local_coordinate_system" xml:space="preserve">
     <value>Dit kan komen doordat de profielschematisatie een lokaal coördinaatsysteem heeft.</value>
   </data>
-  <data name="PipingSurfaceLinesCsvImporter_CriticalErrorMessage_0_No_sections_imported" xml:space="preserve">
-    <value>{0} Er zijn geen profielschematisaties geïmporteerd.</value>
-  </data>
-  <data name="PipingSurfaceLinesCsvImporter_Import_Required_referenceline_missing" xml:space="preserve">
-    <value>Er is geen referentielijn beschikbaar om profielschematisaties voor te definiëren.</value>
-  </data>
   <data name="PipingSurfaceLinesCsvImporter_Reading_characteristic_points_file" xml:space="preserve">
     <value>Inlezen van het karakteristieke punten-bestand.</value>
   </data>
@@ -214,9 +208,6 @@ Deze locatie met karakteristieke punten wordt overgeslagen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_CheckIfAllProfilesAreUsed_SoilProfile_0_is_not_used_in_any_stochastic_soil_model" xml:space="preserve">
     <value>De uitgelezen ondergrondschematisatie '{0}' wordt niet gebruikt in een van de stochastische ondergrondmodellen.</value>
-  </data>
-  <data name="PipingSoilProfilesImporter_Import_Required_referenceline_missing" xml:space="preserve">
-    <value>Er is geen referentielijn beschikbaar. Geen data ingelezen.</value>
   </data>
   <data name="PipingSoilProfilesImporter_ValidateStochasticSoilModel_No_profiles_found_in_stochastic_soil_model_0" xml:space="preserve">
     <value>Er zijn geen ondergrondschematisaties gevonden in het stochastische ondergrondmodel '{0}'. Dit model wordt overgeslagen.</value>

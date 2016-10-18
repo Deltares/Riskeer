@@ -217,9 +217,15 @@ namespace Ringtoets.StabilityPointStructures.IO
         private static StabilityPointStructureInflowModelType GetStabilityPointStructureInflowModelType(StructuresParameterRow structureParameterRow)
         {
             string keywordValue = structureParameterRow.AlphanumericValue.ToLower();
-            return keywordValue == "lagedrempel"
-                       ? StabilityPointStructureInflowModelType.LowSill
-                       : StabilityPointStructureInflowModelType.FloodedCulvert;
+            switch (keywordValue)
+            {
+                case StructureFilesKeywords.InflowModelTypeLowSill:
+                    return StabilityPointStructureInflowModelType.LowSill;
+                case StructureFilesKeywords.InflowModelTypeFloodedCulvert:
+                    return StabilityPointStructureInflowModelType.FloodedCulvert;
+                default:
+                    throw new NotSupportedException();
+            }
         }
     }
 }

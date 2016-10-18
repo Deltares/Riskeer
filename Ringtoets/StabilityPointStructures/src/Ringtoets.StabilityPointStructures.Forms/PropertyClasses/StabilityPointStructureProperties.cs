@@ -188,11 +188,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_Description")]
-        public NormalDistributionVariationProperties WidthFlowApertures
+        public VariationCoefficientNormalDistributionProperties WidthFlowApertures
         {
             get
             {
-                return new NormalDistributionVariationProperties
+                return new VariationCoefficientNormalDistributionProperties
                 {
                     Data = data.WidthFlowApertures
                 };
@@ -236,11 +236,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_Description")]
-        public LogNormalDistributionVariationProperties StorageStructureArea
+        public VariationCoefficientLogNormalDistributionProperties StorageStructureArea
         {
             get
             {
-                return new LogNormalDistributionVariationProperties
+                return new VariationCoefficientLogNormalDistributionProperties
                 {
                     Data = data.StorageStructureArea
                 };
@@ -300,11 +300,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_CriticalOvertoppingDischarge_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_CriticalOvertoppingDischarge_Description")]
-        public LogNormalDistributionVariationProperties CriticalOvertoppingDischarge
+        public VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
         {
             get
             {
-                return new LogNormalDistributionVariationProperties
+                return new VariationCoefficientLogNormalDistributionProperties
                 {
                     Data = data.CriticalOvertoppingDischarge
                 };
@@ -316,11 +316,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Structure_ConstructiveStrengthLinearLoadModel_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_ConstructiveStrengthLinearLoadModel_Description")]
-        public LogNormalDistributionVariationProperties ConstructiveStrengthLinearLoadModel
+        public VariationCoefficientLogNormalDistributionProperties ConstructiveStrengthLinearLoadModel
         {
             get
             {
-                return new LogNormalDistributionVariationProperties
+                return new VariationCoefficientLogNormalDistributionProperties
                 {
                     Data = data.ConstructiveStrengthLinearLoadModel
                 };
@@ -332,11 +332,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Structure_ConstructiveStrengthQuadraticLoadModel_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_ConstructiveStrengthQuadraticLoadModel_Description")]
-        public LogNormalDistributionVariationProperties ConstructiveStrengthQuadraticLoadModel
+        public VariationCoefficientLogNormalDistributionProperties ConstructiveStrengthQuadraticLoadModel
         {
             get
             {
-                return new LogNormalDistributionVariationProperties
+                return new VariationCoefficientLogNormalDistributionProperties
                 {
                     Data = data.ConstructiveStrengthQuadraticLoadModel
                 };
@@ -400,11 +400,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Structure_FailureCollisionEnergy_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_FailureCollisionEnergy_Description")]
-        public LogNormalDistributionVariationProperties FailureCollisionEnergy
+        public VariationCoefficientLogNormalDistributionProperties FailureCollisionEnergy
         {
             get
             {
-                return new LogNormalDistributionVariationProperties
+                return new VariationCoefficientLogNormalDistributionProperties
                 {
                     Data = data.FailureCollisionEnergy
                 };
@@ -416,11 +416,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Structure_ShipMass_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_ShipMass_Description")]
-        public NormalDistributionVariationProperties ShipMass
+        public VariationCoefficientNormalDistributionProperties ShipMass
         {
             get
             {
-                return new NormalDistributionVariationProperties
+                return new VariationCoefficientNormalDistributionProperties
                 {
                     Data = data.ShipMass
                 };
@@ -432,11 +432,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Structure_ShipVelocity_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_ShipVelocity_Description")]
-        public NormalDistributionVariationProperties ShipVelocity
+        public VariationCoefficientNormalDistributionProperties ShipVelocity
         {
             get
             {
-                return new NormalDistributionVariationProperties
+                return new VariationCoefficientNormalDistributionProperties
                 {
                     Data = data.ShipVelocity
                 };
@@ -472,11 +472,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Structure_StabilityLinearLoadModel_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_StabilityLinearLoadModel_Description")]
-        public LogNormalDistributionVariationProperties StabilityLinearLoadModel
+        public VariationCoefficientLogNormalDistributionProperties StabilityLinearLoadModel
         {
             get
             {
-                return new LogNormalDistributionVariationProperties
+                return new VariationCoefficientLogNormalDistributionProperties
                 {
                     Data = data.StabilityLinearLoadModel
                 };
@@ -488,11 +488,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Structure_StabilityQuadraticLoadModel_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_StabilityQuadraticLoadModel_Description")]
-        public LogNormalDistributionVariationProperties StabilityQuadraticLoadModel
+        public VariationCoefficientLogNormalDistributionProperties StabilityQuadraticLoadModel
         {
             get
             {
-                return new LogNormalDistributionVariationProperties
+                return new VariationCoefficientLogNormalDistributionProperties
                 {
                     Data = data.StabilityQuadraticLoadModel
                 };

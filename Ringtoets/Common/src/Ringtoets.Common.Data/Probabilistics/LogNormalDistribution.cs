@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
-    /// Class representing a log-normal distribution.
+    /// Class representing a log-normal distribution expressed in terms of standard deviation.
     /// </summary>
     /// <seealso cref="VariationCoefficientLogNormalDistribution"/>
     public class LogNormalDistribution : IDistribution
@@ -83,8 +83,8 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// Gets or sets the mean of the normal distribution which is the log of the
         /// log-normal distribution.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Expected value is less than or
-        /// equal to 0 or less then <see cref="Shift"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when value is less than or
+        /// equal to 0 or less than <see cref="Shift"/>.</exception>
         public RoundedDouble Mean
         {
             get
@@ -126,7 +126,7 @@ namespace Ringtoets.Common.Data.Probabilistics
 
                 if (roundedValue < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_than_zero);
+                    throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_or_equal_zero);
                 }
 
                 standardDeviation = roundedValue;

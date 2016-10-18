@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
     /// Class representing a log-normal distribution expressed in terms of a coefficient
-    /// of variation instead of standard deviation.
+    /// of variation.
     /// </summary>
     /// <seealso cref="LogNormalDistribution"/>
     public class VariationCoefficientLogNormalDistribution : IVariationCoefficientDistribution
@@ -49,9 +49,11 @@ namespace Ringtoets.Common.Data.Probabilistics
         }
 
         /// <summary>
-        /// Gets or sets the mean of the normal distribution which is the log of the log-normal distribution.
+        /// Gets or sets the mean (expected value, E(X)) of the distribution.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Expected value is less than or equal to 0.</exception>
+        /// <remarks>As <see cref="CoefficientOfVariation"/> cannot be negative, the absolute
+        /// value of the mean is used when the standard deviation needs to be calculated.</remarks>
         public RoundedDouble Mean
         {
             get
@@ -71,11 +73,6 @@ namespace Ringtoets.Common.Data.Probabilistics
             }
         }
 
-        /// <summary>
-        /// Gets or sets the coefficient of variation of the normal distribution which is
-        /// the log of the log-normal distribution.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when set to a value less then 0.</exception>
         public RoundedDouble CoefficientOfVariation
         {
             get

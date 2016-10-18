@@ -172,7 +172,6 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             var parameters = new[]
             {
-                // Parameters of interest for test:
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword2,
@@ -188,7 +187,8 @@ namespace Ringtoets.Common.IO.Test.Structures
                     VarianceType = VarianceType.StandardDeviation // Expected Coefficient of Variation for normal distribution
                 },
 
-                // Remainder:
+                #region Remaining valid parameters irrelevant for test:
+
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.HeightStructureParameterKeyword1,
@@ -231,6 +231,8 @@ namespace Ringtoets.Common.IO.Test.Structures
                     VarianceValue = 1,
                     VarianceType = VarianceType.CoefficientOfVariation
                 }
+
+                #endregion
             };
 
             // Call
@@ -448,7 +450,6 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Setup
             var parameters = new[]
             {
-                // Parameters of interest for test:
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword4,
@@ -478,7 +479,8 @@ namespace Ringtoets.Common.IO.Test.Structures
                     VarianceType = VarianceType.CoefficientOfVariation // Expected Standard Deviation for normal distribution
                 },
 
-                // Remainder:
+                #region Remaining valid parameters irrelevant to test:
+
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.ClosingStructureParameterKeyword1,
@@ -557,6 +559,8 @@ namespace Ringtoets.Common.IO.Test.Structures
                     VarianceType = VarianceType.CoefficientOfVariation,
                     AlphanumericValue = "verticalewand"
                 }
+
+                #endregion
             };
 
             // Call
@@ -946,7 +950,8 @@ namespace Ringtoets.Common.IO.Test.Structures
                     VarianceType = VarianceType.CoefficientOfVariation // Expected Standard Deviation for normal distribution
                 },
 
-                // Remainder:
+                #region Remaining valid parameters irrelevant to test:
+
                 new StructuresParameterRow
                 {
                     ParameterId = StructureFilesKeywords.StabilityPointStructureParameterKeyword1,
@@ -1067,6 +1072,8 @@ namespace Ringtoets.Common.IO.Test.Structures
                     VarianceType = VarianceType.CoefficientOfVariation,
                     AlphanumericValue = "lagedrempel"
                 }
+
+                #endregion
             };
 
             // Call

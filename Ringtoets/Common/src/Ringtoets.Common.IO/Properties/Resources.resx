@@ -471,9 +471,6 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_" xml:space="preserve">
     <value>Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT '{0}'.</value>
   </data>
-  <data name="StructuresImporter_Structure_number_0_is_skipped" xml:space="preserve">
-    <value>Kunstwerk nummer {0} wordt overgeslagen.</value>
-  </data>
   <data name="StructuresImporter_StructureName_0_StructureId_1_" xml:space="preserve">
     <value>Kunstwerk '{0}' ({1})</value>
   </data>

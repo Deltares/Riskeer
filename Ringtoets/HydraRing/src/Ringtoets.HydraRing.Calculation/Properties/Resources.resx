@@ -120,10 +120,6 @@
   <data name="Parse_Cannot_read_FileName_0_nor_FileName_1_from_FolderPath_2_" xml:space="preserve">
     <value>Kan het Hydra-Ring uitvoerbestand {0} noch het logbestand {1} lezen uit de map {2}.</value>
   </data>
-  <data name="HydraRingCalculationService_HydraRing_calculation_report_message_text_0" xml:space="preserve">
-    <value>Hydra-Ring berekeningsverslag. Klik op details voor meer informatie.
-{0}</value>
-  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="DesignTablesSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DesignTables.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>

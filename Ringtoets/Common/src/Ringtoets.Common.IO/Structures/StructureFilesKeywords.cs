@@ -364,5 +364,27 @@ namespace Ringtoets.Common.IO.Structures
         public const string VariationTypeColumnName = "boolean";
 
         #endregion
+
+        #region
+
+        /// <summary>
+        /// Defines the value for the 'Inflow Model Type' parameter of a structure corresponding
+        /// to a vertical wall.
+        /// </summary>
+        public const string InflowModelTypeVerticalWall = "verticalewand";
+
+        /// <summary>
+        /// Defines the value for the 'Inflow Model Type' parameter of a structure corresponding
+        /// to a low sill structure.
+        /// </summary>
+        public const string InflowModelTypeLowSill = "lagedrempel";
+
+        /// <summary>
+        /// Defines the value for the 'Inflow Model Type' parameter of a structure corresponding
+        /// to a flooded culvert structure.
+        /// </summary>
+        public const string InflowModelTypeFloodedCulvert = "verdronkenkoker";
+
+        #endregion
     }
 }

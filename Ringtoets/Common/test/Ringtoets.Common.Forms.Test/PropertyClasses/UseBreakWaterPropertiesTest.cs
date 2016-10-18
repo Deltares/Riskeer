@@ -24,6 +24,7 @@ using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using Core.Common.Utils;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -126,24 +127,27 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreEqual(3, dynamicProperties.Count);
 
             PropertyDescriptor useBreakWaterProperty = dynamicProperties[0];
-            Assert.IsNotNull(useBreakWaterProperty);
-            Assert.AreEqual(!useBreakWaterEnabled, useBreakWaterProperty.IsReadOnly);
-            Assert.AreEqual("Gebruik", useBreakWaterProperty.DisplayName);
-            Assert.AreEqual("Moet de dam worden gebruikt tijdens de berekening?", useBreakWaterProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(useBreakWaterProperty,
+                                                                            "Misc",
+                                                                            "Gebruik",
+                                                                            "Moet de dam worden gebruikt tijdens de berekening?",
+                                                                            !useBreakWaterEnabled);
 
             PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
-            Assert.IsNotNull(breakWaterTypeProperty);
-            Assert.AreEqual(!useBreakWaterEnabled || !useBreakWater, breakWaterTypeProperty.IsReadOnly);
             Assert.IsInstanceOf<NullableEnumTypeConverter>(breakWaterTypeProperty.Converter);
-            Assert.AreEqual("Type", breakWaterTypeProperty.DisplayName);
-            Assert.AreEqual("Het type van de dam.", breakWaterTypeProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(breakWaterTypeProperty,
+                                                                            "Misc",
+                                                                            "Type",
+                                                                            "Het type van de dam.",
+                                                                            !useBreakWaterEnabled || !useBreakWater);
 
             PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
-            Assert.IsNotNull(breakWaterHeightProperty);
-            Assert.AreEqual(!useBreakWaterEnabled || !useBreakWater, breakWaterHeightProperty.IsReadOnly);
             Assert.IsInstanceOf<NoValueRoundedDoubleConverter>(breakWaterHeightProperty.Converter);
-            Assert.AreEqual("Hoogte [m+NAP]", breakWaterHeightProperty.DisplayName);
-            Assert.AreEqual("De hoogte van de dam.", breakWaterHeightProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(breakWaterHeightProperty,
+                                                                            "Misc",
+                                                                            "Hoogte [m+NAP]",
+                                                                            "De hoogte van de dam.",
+                                                                            !useBreakWaterEnabled || !useBreakWater);
         }
 
         private class TestUseBreakWater : Observable, IUseBreakWater

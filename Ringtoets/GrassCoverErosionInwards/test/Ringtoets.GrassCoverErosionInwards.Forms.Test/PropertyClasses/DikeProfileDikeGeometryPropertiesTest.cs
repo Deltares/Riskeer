@@ -23,6 +23,7 @@ using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses;
@@ -108,21 +109,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(3, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(2, dynamicProperties.Count);
 
             PropertyDescriptor coordinatesProperty = dynamicProperties[coordinatesPropertyIndex];
-            Assert.IsNotNull(coordinatesProperty);
-            Assert.IsTrue(coordinatesProperty.IsReadOnly);
-            Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
-            Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
+                                                                            "Misc",
+                                                                            "Coördinaten [m]",
+                                                                            "Lijst met punten in lokale coördinaten.",
+                                                                            true);
 
             PropertyDescriptor roughnessesProperty = dynamicProperties[roughnessesPropertyIndex];
-            Assert.IsNotNull(roughnessesProperty);
-            Assert.IsTrue(roughnessesProperty.IsReadOnly);
-            Assert.AreEqual("Ruwheden [-]", roughnessesProperty.DisplayName);
-            Assert.AreEqual("Lijst met de ruwheid van elk onderdeel.", roughnessesProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(roughnessesProperty,
+                                                                            "Misc",
+                                                                            "Ruwheden [-]",
+                                                                            "Lijst met de ruwheid van elk onderdeel.",
+                                                                            true);
         }
     }
 }

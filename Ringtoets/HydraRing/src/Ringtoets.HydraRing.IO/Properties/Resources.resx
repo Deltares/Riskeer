@@ -135,9 +135,6 @@
   <data name="HydraulicBoundaryLocation_Id" xml:space="preserve">
     <value>ID</value>
   </data>
-  <data name="HydraulicBoundaryLocation_WaveHeight" xml:space="preserve">
-    <value>Golfhoogte</value>
-  </data>
   <data name="HydraulicDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_" xml:space="preserve">
     <value>Het opgegeven bestandspad ({0}) is niet geldig.</value>
   </data>

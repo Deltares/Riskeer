@@ -41,7 +41,8 @@ namespace Ringtoets.Common.Data.Probabilistics
         /// Gets or sets the coefficient of variation (CV, also known as relative standard
         /// deviation (SRD). Defined as standard deviation / |E(X)|) of the distribution.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Coefficient of variation is less than 0.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when coefficient of variation
+        /// is less than 0.</exception>
         RoundedDouble CoefficientOfVariation { get; set; }
     }
 }

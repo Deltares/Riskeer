@@ -26,7 +26,8 @@ using Ringtoets.Common.Data.Properties;
 namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
-    /// Class representing a normal (or Gaussian) distribution.
+    /// Class representing a normal (or Gaussian) distribution expressed in terms of standard
+    /// deviation.
     /// </summary>
     /// <seealso cref="VariationCoefficientNormalDistribution"/>
     public class NormalDistribution : IDistribution
@@ -72,7 +73,7 @@ namespace Ringtoets.Common.Data.Probabilistics
 
                 if (roundedValue < 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_than_zero);
+                    throw new ArgumentOutOfRangeException("value", Resources.StandardDeviation_Should_be_greater_or_equal_zero);
                 }
 
                 standardDeviation = roundedValue;

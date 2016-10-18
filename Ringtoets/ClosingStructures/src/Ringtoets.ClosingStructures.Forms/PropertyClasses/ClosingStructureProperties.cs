@@ -112,11 +112,11 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_Description")]
-        public NormalDistributionVariationProperties WidthFlowApertures
+        public VariationCoefficientNormalDistributionProperties WidthFlowApertures
         {
             get
             {
-                return new NormalDistributionVariationProperties
+                return new VariationCoefficientNormalDistributionProperties
                 {
                     Data = data.WidthFlowApertures
                 };
@@ -172,11 +172,11 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_Description")]
-        public LogNormalDistributionVariationProperties StorageStructureArea
+        public VariationCoefficientLogNormalDistributionProperties StorageStructureArea
         {
             get
             {
-                return new LogNormalDistributionVariationProperties
+                return new VariationCoefficientLogNormalDistributionProperties
                 {
                     Data = data.StorageStructureArea
                 };
@@ -252,11 +252,11 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_CriticalOvertoppingDischarge_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_CriticalOvertoppingDischarge_Description")]
-        public LogNormalDistributionVariationProperties CriticalOvertoppingDischarge
+        public VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
         {
             get
             {
-                return new LogNormalDistributionVariationProperties
+                return new VariationCoefficientLogNormalDistributionProperties
                 {
                     Data = data.CriticalOvertoppingDischarge
                 };

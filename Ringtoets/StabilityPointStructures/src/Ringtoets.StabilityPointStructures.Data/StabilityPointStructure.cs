@@ -37,7 +37,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// </summary>
         /// <param name="constructionProperties">The construction properties.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="ConstructionProperties.Name"/>
-        /// or <see cref="ConstructionProperties.Id"/> is <c>null</c> , empty or consists of whitespace.</exception>
+        /// or <see cref="ConstructionProperties.Id"/> is <c>null</c>, empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="ConstructionProperties.Location"/> is <c>null</c>.</exception>
         public StabilityPointStructure(ConstructionProperties constructionProperties) : base(constructionProperties)
         {

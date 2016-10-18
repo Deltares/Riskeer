@@ -36,7 +36,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// </summary>
         /// <param name="constructionProperties">The construction properties.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="ConstructionProperties.Name"/>
-        /// or <see cref="ConstructionProperties.Id"/> is <c>null</c> , empty or consists of whitespace.</exception>
+        /// or <see cref="ConstructionProperties.Id"/> is <c>null</c>, empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="ConstructionProperties.Location"/> is <c>null</c>.</exception>
         public ClosingStructure(ConstructionProperties constructionProperties) : base(constructionProperties)
         {
@@ -250,30 +250,30 @@ namespace Ringtoets.ClosingStructures.Data
             public LogNormalDistribution FlowWidthAtBottomProtection { get; private set; }
 
             /// <summary>
-            /// Gets the probability of the closing structure being open before flooding.
+            /// Gets or sets the probability of the closing structure being open before flooding.
             /// [1/year]
             /// </summary>
             public double ProbabilityOpenStructureBeforeFlooding { get; set; }
 
             /// <summary>
-            /// Gets the probability of failing to close the closing structure.
+            /// Gets or sets the probability of failing to close the closing structure.
             /// [1/year]
             /// </summary>
             public double FailureProbabilityOpenStructure { get; set; }
 
             /// <summary>
-            /// Gets the number of identical apertures of the closing structure.
+            /// Gets or sets the number of identical apertures of the closing structure.
             /// </summary>
             public int IdenticalApertures { get; set; }
 
             /// <summary>
-            /// Gets the probability of failing to repair a failed closure of the closing structure.
+            /// Gets or sets the probability of failing to repair a failed closure of the closing structure.
             /// [1/year]
             /// </summary>
             public double FailureProbabilityReparation { get; set; }
 
             /// <summary>
-            /// Gets the type of closing structure inflow model.
+            /// Gets or sets the type of closing structure inflow model.
             /// </summary>
             public ClosingStructureInflowModelType InflowModelType { get; set; }
         }

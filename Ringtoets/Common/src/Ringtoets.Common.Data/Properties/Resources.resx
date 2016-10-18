@@ -156,8 +156,8 @@
   <data name="LogNormalDistribution_Mean_must_be_greater_than_zero" xml:space="preserve">
     <value>Gemiddelde moet groter zijn dan 0.</value>
   </data>
-  <data name="StandardDeviation_Should_be_greater_than_zero" xml:space="preserve">
-    <value>Standaard afwijking (σ) moet groter zijn dan 0.</value>
+  <data name="StandardDeviation_Should_be_greater_or_equal_zero" xml:space="preserve">
+    <value>Standaard afwijking (σ) moet groter zijn dan of gelijk aan 0.</value>
   </data>
   <data name="CalculationGroup_DefaultName" xml:space="preserve">
     <value>Nieuwe map</value>
@@ -182,9 +182,6 @@
   </data>
   <data name="ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1" xml:space="preserve">
     <value>De waarde voor de faalkans moet in het bereik [0, 1] liggen.</value>
-  </data>
-  <data name="VariationCoefficient_Should_be_greater_than_zero" xml:space="preserve">
-    <value>Variatiecoëfficiënt moet groter zijn dan 0.</value>
   </data>
   <data name="Probability_Must_be_in_range_zero_to_one" xml:space="preserve">
     <value>Kans moet in het bereik [0, 1] opgegeven worden.</value>

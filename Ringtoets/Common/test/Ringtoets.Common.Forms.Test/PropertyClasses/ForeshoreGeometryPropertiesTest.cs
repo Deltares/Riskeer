@@ -22,6 +22,7 @@
 using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -96,15 +97,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(2, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(1, dynamicProperties.Count);
 
             PropertyDescriptor coordinatesProperty = dynamicProperties[0];
-            Assert.IsNotNull(coordinatesProperty);
-            Assert.IsTrue(coordinatesProperty.IsReadOnly);
-            Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
-            Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
+                                                                            "Misc",
+                                                                            "Coördinaten [m]",
+                                                                            "Lijst met punten in lokale coördinaten.",
+                                                                            true);
         }
     }
 }

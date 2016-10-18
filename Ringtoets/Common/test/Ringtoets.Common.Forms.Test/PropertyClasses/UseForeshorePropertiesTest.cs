@@ -19,13 +19,12 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -128,24 +127,22 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new UseForeshoreProperties(useForshoreData);
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(2, dynamicProperties.Count);
 
             PropertyDescriptor useForeshoreProperty = dynamicProperties[0];
-            Assert.IsNotNull(useForeshoreProperty);
-            Assert.AreEqual(!isEnabled, useForeshoreProperty.IsReadOnly);
-            Assert.AreEqual("Gebruik", useForeshoreProperty.DisplayName);
-            Assert.AreEqual("Moet de voorlandgeometrie worden gebruikt tijdens de berekening?", useForeshoreProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(useForeshoreProperty,
+                                                                            "Misc",
+                                                                            "Gebruik",
+                                                                            "Moet de voorlandgeometrie worden gebruikt tijdens de berekening?",
+                                                                            !isEnabled);
 
             PropertyDescriptor coordinatesProperty = dynamicProperties[1];
-            Assert.IsNotNull(coordinatesProperty);
-            Assert.IsTrue(coordinatesProperty.IsReadOnly);
-            Assert.AreEqual("Coördinaten [m]", coordinatesProperty.DisplayName);
-            Assert.AreEqual("Lijst met punten in lokale coördinaten.", coordinatesProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(coordinatesProperty,
+                                                                            "Misc",
+                                                                            "Coördinaten [m]",
+                                                                            "Lijst met punten in lokale coördinaten.",
+                                                                            true);
         }
 
         private class TestUseForeshore : Observable, IUseForeshore

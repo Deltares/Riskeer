@@ -188,11 +188,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_Description")]
-        public NormalDistributionVariationProperties WidthFlowApertures
+        public VariationCoefficientNormalDistributionProperties WidthFlowApertures
         {
             get
             {
-                return new NormalDistributionVariationProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                return new VariationCoefficientNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
                 {
                     Data = data.WrappedData.WidthFlowApertures
                 };
@@ -204,11 +204,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_Description")]
-        public LogNormalDistributionVariationProperties StorageStructureArea
+        public VariationCoefficientLogNormalDistributionProperties StorageStructureArea
         {
             get
             {
-                return new LogNormalDistributionVariationProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
                 {
                     Data = data.WrappedData.StorageStructureArea
                 };
@@ -252,11 +252,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_CriticalOvertoppingDischarge_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_CriticalOvertoppingDischarge_Description")]
-        public LogNormalDistributionVariationProperties CriticalOvertoppingDischarge
+        public VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
         {
             get
             {
-                return new LogNormalDistributionVariationProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
                 {
                     Data = data.WrappedData.CriticalOvertoppingDischarge
                 };
@@ -368,11 +368,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "StormDuration_DisplayName")]
         [ResourcesDescription(typeof(Resources), "StormDuration_Description")]
-        public LogNormalDistributionVariationProperties StormDuration
+        public VariationCoefficientLogNormalDistributionProperties StormDuration
         {
             get
             {
-                return new LogNormalDistributionVariationProperties(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation, data.WrappedData)
+                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation, data.WrappedData)
                 {
                     Data = data.WrappedData.StormDuration
                 };

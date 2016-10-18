@@ -118,6 +118,12 @@ namespace Core.Common.TestUtil.Test
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HeightStructures.Integration);
             Assert.IsTrue(Directory.Exists(path));
 
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.ClosingStructures.IO);
+            Assert.IsTrue(Directory.Exists(path));
+
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.StabilityPointStructures.IO);
+            Assert.IsTrue(Directory.Exists(path));
+
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.IO);
             Assert.IsTrue(Directory.Exists(path));
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Piping.Plugin);

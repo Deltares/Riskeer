@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data
         /// <param name="constructionProperties">The parameters required to construct a new
         /// instance of <see cref="StructureBase"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <see cref="ConstructionProperties.Name"/>
-        /// or <see cref="ConstructionProperties.Id"/> is <c>null</c> , empty or consists of whitespace.</exception>
+        /// or <see cref="ConstructionProperties.Id"/> is <c>null</c>, empty or consists of whitespace.</exception>
         /// <exception cref="ArgumentNullException">Thrown when <see cref="ConstructionProperties.Location"/> is <c>null</c>.</exception>
         protected StructureBase(ConstructionProperties constructionProperties)
         {
@@ -110,22 +110,22 @@ namespace Ringtoets.Common.Data
         public class ConstructionProperties
         {
             /// <summary>
-            /// Gets the name of the structure.
+            /// Gets or sets the name of the structure.
             /// </summary>
             public string Name { get; set; }
 
             /// <summary>
-            /// Gets the identifier of the structure.
+            /// Gets or sets the identifier of the structure.
             /// </summary>
             public string Id { get; set; }
 
             /// <summary>
-            /// Gets the location of the structure.
+            /// Gets or sets the location of the structure.
             /// </summary>
             public Point2D Location { get; set; }
 
             /// <summary>
-            /// Gets the orientation of the closing structure, relative to north.
+            /// Gets or sets the orientation of the closing structure, relative to north.
             /// [degrees]
             /// </summary>
             public double StructureNormalOrientation { get; set; }

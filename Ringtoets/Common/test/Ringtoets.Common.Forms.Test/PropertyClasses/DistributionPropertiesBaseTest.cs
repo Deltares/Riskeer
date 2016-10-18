@@ -20,15 +20,10 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.ComponentModel;
-using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
-using Core.Common.Utils.Attributes;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Probabilistics;
@@ -80,9 +75,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var properties = new SimpleDistributionProperties(propertiesReadOnly, observable);
 
             // Call
-            var meanIsReadOnly = properties.DynamicReadOnlyValidationMethod("Mean");
-            var standardDeviationIsReadOnly = properties.DynamicReadOnlyValidationMethod("StandardDeviation");
-            var doesNotExist = properties.DynamicReadOnlyValidationMethod("DoesNotExist");
+            bool meanIsReadOnly = properties.DynamicReadOnlyValidationMethod("Mean");
+            bool standardDeviationIsReadOnly = properties.DynamicReadOnlyValidationMethod("StandardDeviation");
+            bool doesNotExist = properties.DynamicReadOnlyValidationMethod("DoesNotExist");
 
             // Assert
             Assert.AreEqual(expectStandardDeviationReadOnly, standardDeviationIsReadOnly);
@@ -110,7 +105,8 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual(distribution.Mean, properties.Mean);
             Assert.AreEqual(distribution.StandardDeviation, properties.StandardDeviation);
-            var expectedToString = string.Format("{0} ({1} = {2})", distribution.Mean, Resources.NormalDistribution_StandardDeviation_DisplayName, distribution.StandardDeviation);
+            string expectedToString = string.Format("{0} ({1} = {2})",
+                                                    distribution.Mean, Resources.NormalDistribution_StandardDeviation_DisplayName, distribution.StandardDeviation);
             Assert.AreEqual(expectedToString, properties.ToString());
             mocks.VerifyAll();
         }
@@ -207,33 +203,29 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(3, dynamicProperties.Count);
 
-            var distributionTypePropertyName = TypeUtils.GetMemberName<SimpleDistributionProperties>(ndp => ndp.DistributionType);
-            PropertyDescriptor distributionTypeProperty = dynamicProperties.Find(distributionTypePropertyName, false);
-            Assert.IsTrue(distributionTypeProperty.IsReadOnly);
-            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(distributionTypeProperty.Attributes, "Type verdeling",
-                                                                           attribute => attribute.DisplayName);
-            AssertAttributeProperty<ResourcesDescriptionAttribute, string>(distributionTypeProperty.Attributes,
-                                                                           "Het soort kansverdeling waarin deze parameter gedefinieerd wordt.",
-                                                                           attribute => attribute.Description);
+            PropertyDescriptor distributionTypeProperty = dynamicProperties[0];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(distributionTypeProperty,
+                                                                            "Misc",
+                                                                            "Type verdeling",
+                                                                            "Het soort kansverdeling waarin deze parameter gedefinieerd wordt.",
+                                                                            true);
 
-            var meanPropertyName = TypeUtils.GetMemberName<SimpleDistributionProperties>(ndp => ndp.Mean);
-            PropertyDescriptor meanProperty = dynamicProperties.Find(meanPropertyName, false);
-            Assert.AreEqual(expectMeanReadOnly, meanProperty.IsReadOnly);
-            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(meanProperty.Attributes, "Verwachtingswaarde",
-                                                                           attribute => attribute.DisplayName);
+            PropertyDescriptor meanProperty = dynamicProperties[1];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(meanProperty,
+                                                                            "Misc",
+                                                                            "Verwachtingswaarde",
+                                                                            "",
+                                                                            expectMeanReadOnly);
 
-            var standardDeviationPropertyName = TypeUtils.GetMemberName<SimpleDistributionProperties>(ndp => ndp.StandardDeviation);
-            PropertyDescriptor standardDeviationProperty = dynamicProperties.Find(standardDeviationPropertyName, false);
-            Assert.AreEqual(expectStandardDeviationReadOnly, standardDeviationProperty.IsReadOnly);
-            AssertAttributeProperty<ResourcesDisplayNameAttribute, string>(standardDeviationProperty.Attributes, "Standaardafwijking",
-                                                                           attribute => attribute.DisplayName);
+            PropertyDescriptor standardDeviationProperty = dynamicProperties[2];
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(standardDeviationProperty,
+                                                                            "Misc",
+                                                                            "Standaardafwijking",
+                                                                            "",
+                                                                            expectStandardDeviationReadOnly);
             mocks.VerifyAll();
         }
 
@@ -249,18 +241,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                     return "SimpleDestributionType";
                 }
             }
-        }
-
-        private static void AssertAttributeProperty<TAttributeType, TAttributePropertyValueType>(
-            IEnumerable attributes,
-            TAttributePropertyValueType expectedValue,
-            Func<TAttributeType, TAttributePropertyValueType> getAttributePropertyValue)
-        {
-            var attributesOfTypeTAttributeType = attributes.OfType<TAttributeType>();
-            Assert.IsNotNull(attributesOfTypeTAttributeType);
-            var attribute = attributesOfTypeTAttributeType.FirstOrDefault();
-            Assert.IsNotNull(attribute, string.Format("Attribute type '{0} not found in {1}'", typeof(TAttributeType), attributes));
-            Assert.AreEqual(expectedValue, getAttributePropertyValue(attribute));
         }
     }
 }

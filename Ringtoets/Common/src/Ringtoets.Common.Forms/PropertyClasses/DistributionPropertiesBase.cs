@@ -36,8 +36,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// </summary>
     public abstract class DistributionPropertiesBase<T> : ObjectProperties<T> where T : IDistribution
     {
-        private static string meanDisplayName;
-        private static string standardDeviationDisplayName;
+        private static string meanPropertyName;
+        private static string standardDeviationPropertyName;
         private readonly bool isMeanReadOnly;
         private readonly bool isStandardDeviationReadOnly;
         private readonly IObservable observable;
@@ -61,8 +61,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             isMeanReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.Mean);
             isStandardDeviationReadOnly = propertiesReadOnly.HasFlag(DistributionPropertiesReadOnly.StandardDeviation);
 
-            meanDisplayName = TypeUtils.GetMemberName<DistributionPropertiesBase<T>>(rd => rd.Mean);
-            standardDeviationDisplayName = TypeUtils.GetMemberName<DistributionPropertiesBase<T>>(rd => rd.StandardDeviation);
+            meanPropertyName = TypeUtils.GetMemberName<DistributionPropertiesBase<T>>(rd => rd.Mean);
+            standardDeviationPropertyName = TypeUtils.GetMemberName<DistributionPropertiesBase<T>>(rd => rd.StandardDeviation);
 
             this.observable = observable;
         }
@@ -95,7 +95,6 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [PropertyOrder(3)]
         [DynamicReadOnly]
         [ResourcesDisplayName(typeof(Resources), "NormalDistribution_StandardDeviation_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "NormalDistribution_StandardDeviation_Description")]
         public virtual RoundedDouble StandardDeviation
         {
             get
@@ -116,11 +115,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [DynamicReadOnlyValidationMethod]
         public bool DynamicReadOnlyValidationMethod(string propertyName)
         {
-            if (propertyName == meanDisplayName)
+            if (propertyName == meanPropertyName)
             {
                 return isMeanReadOnly;
             }
-            if (propertyName == standardDeviationDisplayName)
+            if (propertyName == standardDeviationPropertyName)
             {
                 return isStandardDeviationReadOnly;
             }

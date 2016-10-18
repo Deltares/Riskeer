@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
@@ -144,11 +145,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                BrowsableAttribute.Yes
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(17, dynamicProperties.Count);
 
             const string schematizationCategory = "Schematisatie";
@@ -156,106 +153,133 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             const string generalCategory = "Algemeen";
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
-            Assert.IsTrue(nameProperty.IsReadOnly);
-            Assert.AreEqual(generalCategory, nameProperty.Category);
-            Assert.AreEqual("Naam", nameProperty.DisplayName);
-            Assert.AreEqual("De naam van het kunstwerk.", nameProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
+                                                                            generalCategory,
+                                                                            "Naam",
+                                                                            "De naam van het kunstwerk.",
+                                                                            true);
 
             PropertyDescriptor locationProperty = dynamicProperties[locationPropertyIndex];
-            Assert.IsTrue(locationProperty.IsReadOnly);
-            Assert.AreEqual(generalCategory, locationProperty.Category);
-            Assert.AreEqual("Locatie (RD) [m]", locationProperty.DisplayName);
-            Assert.AreEqual("De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.", locationProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(locationProperty,
+                                                                            generalCategory,
+                                                                            "Locatie (RD) [m]",
+                                                                            "De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.",
+                                                                            true);
 
             PropertyDescriptor structureNormalOrientationProperty = dynamicProperties[structureNormalOrientationPropertyIndex];
-            Assert.IsTrue(structureNormalOrientationProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, structureNormalOrientationProperty.Category);
-            Assert.AreEqual("Oriëntatie [°]", structureNormalOrientationProperty.DisplayName);
-            Assert.AreEqual("Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.", structureNormalOrientationProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(structureNormalOrientationProperty,
+                                                                            schematizationCategory,
+                                                                            "Oriëntatie [°]",
+                                                                            "Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.",
+                                                                            true);
 
             PropertyDescriptor inflowModelTypeProperty = dynamicProperties[inflowModelTypePropertyIndex];
             Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
-            Assert.AreEqual(schematizationCategory, inflowModelTypeProperty.Category);
-            Assert.AreEqual("Instroommodel", inflowModelTypeProperty.DisplayName);
-            Assert.AreEqual("Instroommodel van het kunstwerk.", inflowModelTypeProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(inflowModelTypeProperty,
+                                                                            schematizationCategory,
+                                                                            "Instroommodel",
+                                                                            "Instroommodel van het kunstwerk.",
+                                                                            true);
 
             PropertyDescriptor widthFlowAperturesProperty = dynamicProperties[widthFlowAperturesPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(widthFlowAperturesProperty.Converter);
-            Assert.AreEqual(schematizationCategory, widthFlowAperturesProperty.Category);
-            Assert.AreEqual("Breedte van doorstroomopening [m]", widthFlowAperturesProperty.DisplayName);
-            Assert.AreEqual("Breedte van de doorstroomopening.", widthFlowAperturesProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(widthFlowAperturesProperty,
+                                                                            schematizationCategory,
+                                                                            "Breedte van doorstroomopening [m]",
+                                                                            "Breedte van de doorstroomopening.",
+                                                                            true);
 
             PropertyDescriptor areaFlowAperturesProperty = dynamicProperties[areaFlowAperturesPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(areaFlowAperturesProperty.Converter);
-            Assert.AreEqual(schematizationCategory, areaFlowAperturesProperty.Category);
-            Assert.AreEqual("Doorstroomoppervlak [m²]", areaFlowAperturesProperty.DisplayName);
-            Assert.AreEqual("Doorstroomoppervlak van doorstroomopeningen.", areaFlowAperturesProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(areaFlowAperturesProperty,
+                                                                            schematizationCategory,
+                                                                            "Doorstroomoppervlak [m²]",
+                                                                            "Doorstroomoppervlak van doorstroomopeningen.",
+                                                                            true);
 
             PropertyDescriptor identicalAperturesProperty = dynamicProperties[identicalAperturesPropertyIndex];
-            Assert.IsTrue(identicalAperturesProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, identicalAperturesProperty.Category);
-            Assert.AreEqual("Aantal identieke doorstroomopeningen [-]", identicalAperturesProperty.DisplayName);
-            Assert.AreEqual("Aantal identieke doorstroomopeningen.", identicalAperturesProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(identicalAperturesProperty,
+                                                                            schematizationCategory,
+                                                                            "Aantal identieke doorstroomopeningen [-]",
+                                                                            "Aantal identieke doorstroomopeningen.",
+                                                                            true);
 
             PropertyDescriptor flowWidthAtBottomProtectionProperty = dynamicProperties[flowWidthAtBottomProtectionPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(flowWidthAtBottomProtectionProperty.Converter);
-            Assert.AreEqual(schematizationCategory, flowWidthAtBottomProtectionProperty.Category);
-            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", flowWidthAtBottomProtectionProperty.DisplayName);
-            Assert.AreEqual("Stroomvoerende breedte bodembescherming.", flowWidthAtBottomProtectionProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(flowWidthAtBottomProtectionProperty,
+                                                                            schematizationCategory,
+                                                                            "Stroomvoerende breedte bodembescherming [m]",
+                                                                            "Stroomvoerende breedte bodembescherming.",
+                                                                            true);
 
             PropertyDescriptor storageStructureAreaProperty = dynamicProperties[storageStructureAreaPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(storageStructureAreaProperty.Converter);
-            Assert.AreEqual(schematizationCategory, storageStructureAreaProperty.Category);
-            Assert.AreEqual("Kombergend oppervlak [m²]", storageStructureAreaProperty.DisplayName);
-            Assert.AreEqual("Kombergend oppervlak.", storageStructureAreaProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(storageStructureAreaProperty,
+                                                                            schematizationCategory,
+                                                                            "Kombergend oppervlak [m²]",
+                                                                            "Kombergend oppervlak.",
+                                                                            true);
 
             PropertyDescriptor allowedLevelIncreaseStorageProperty = dynamicProperties[allowedLevelIncreaseStoragePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(allowedLevelIncreaseStorageProperty.Converter);
-            Assert.AreEqual(schematizationCategory, allowedLevelIncreaseStorageProperty.Category);
-            Assert.AreEqual("Toegestane peilverhoging komberging [m]", allowedLevelIncreaseStorageProperty.DisplayName);
-            Assert.AreEqual("Toegestane peilverhoging komberging.", allowedLevelIncreaseStorageProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(allowedLevelIncreaseStorageProperty,
+                                                                            schematizationCategory,
+                                                                            "Toegestane peilverhoging komberging [m]",
+                                                                            "Toegestane peilverhoging komberging.",
+                                                                            true);
 
             PropertyDescriptor levelCrestStructureNotClosingProperty = dynamicProperties[levelCrestStructureNotClosingPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureNotClosingProperty.Converter);
-            Assert.AreEqual(schematizationCategory, levelCrestStructureNotClosingProperty.Category);
-            Assert.AreEqual("Kruinhoogte niet gesloten kering [m+NAP]", levelCrestStructureNotClosingProperty.DisplayName);
-            Assert.AreEqual("Niveau kruin bij niet gesloten maximaal kerende keermiddelen.", levelCrestStructureNotClosingProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(levelCrestStructureNotClosingProperty,
+                                                                            schematizationCategory,
+                                                                            "Kruinhoogte niet gesloten kering [m+NAP]",
+                                                                            "Niveau kruin bij niet gesloten maximaal kerende keermiddelen.",
+                                                                            true);
 
             PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[thresholdHeightOpenWeirPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
-            Assert.AreEqual(schematizationCategory, thresholdHeightOpenWeirProperty.Category);
-            Assert.AreEqual("Drempelhoogte [m+NAP]", thresholdHeightOpenWeirProperty.DisplayName);
-            Assert.AreEqual("Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.", thresholdHeightOpenWeirProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(thresholdHeightOpenWeirProperty,
+                                                                            schematizationCategory,
+                                                                            "Drempelhoogte [m+NAP]",
+                                                                            "Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.",
+                                                                            true);
 
             PropertyDescriptor insideWaterLevelProperty = dynamicProperties[insideWaterLevelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
-            Assert.AreEqual(hydraulicDataCategory, insideWaterLevelProperty.Category);
-            Assert.AreEqual("Binnenwaterstand [m+NAP]", insideWaterLevelProperty.DisplayName);
-            Assert.AreEqual("Binnenwaterstand.", insideWaterLevelProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(insideWaterLevelProperty,
+                                                                            hydraulicDataCategory,
+                                                                            "Binnenwaterstand [m+NAP]",
+                                                                            "Binnenwaterstand.",
+                                                                            true);
 
             PropertyDescriptor criticalOvertoppingDischargeProperty = dynamicProperties[criticalOvertoppingDischargePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(criticalOvertoppingDischargeProperty.Converter);
-            Assert.AreEqual(schematizationCategory, criticalOvertoppingDischargeProperty.Category);
-            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", criticalOvertoppingDischargeProperty.DisplayName);
-            Assert.AreEqual("Kritiek instromend debiet directe invoer per strekkende meter.", criticalOvertoppingDischargeProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(criticalOvertoppingDischargeProperty,
+                                                                            schematizationCategory,
+                                                                            "Kritiek instromend debiet [m³/s/m]",
+                                                                            "Kritiek instromend debiet directe invoer per strekkende meter.",
+                                                                            true);
 
             PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[probabilityOpenStructureBeforeFloodingPropertyIndex];
-            Assert.IsTrue(probabilityOpenStructureBeforeFloodingProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, probabilityOpenStructureBeforeFloodingProperty.Category);
-            Assert.AreEqual("Kans op open staan bij naderend hoogwater [1/jaar]", probabilityOpenStructureBeforeFloodingProperty.DisplayName);
-            Assert.AreEqual("Kans op open staan bij naderend hoogwater.", probabilityOpenStructureBeforeFloodingProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityOpenStructureBeforeFloodingProperty,
+                                                                            schematizationCategory,
+                                                                            "Kans op open staan bij naderend hoogwater [1/jaar]",
+                                                                            "Kans op open staan bij naderend hoogwater.",
+                                                                            true);
 
             PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[failureProbabilityOpenStructurePropertyIndex];
-            Assert.IsTrue(failureProbabilityOpenStructureProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, failureProbabilityOpenStructureProperty.Category);
-            Assert.AreEqual("Kans mislukken sluiting [1/jaar]", failureProbabilityOpenStructureProperty.DisplayName);
-            Assert.AreEqual("Kans op mislukken sluiting van geopend kunstwerk.", failureProbabilityOpenStructureProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityOpenStructureProperty,
+                                                                            schematizationCategory,
+                                                                            "Kans mislukken sluiting [1/jaar]",
+                                                                            "Kans op mislukken sluiting van geopend kunstwerk.",
+                                                                            true);
 
             PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[failureProbabilityReparationPropertyIndex];
-            Assert.IsTrue(failureProbabilityReparationProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, failureProbabilityReparationProperty.Category);
-            Assert.AreEqual("Faalkans herstel van gefaalde situatie [1/jaar]", failureProbabilityReparationProperty.DisplayName);
-            Assert.AreEqual("Faalkans herstel van gefaalde situatie.", failureProbabilityReparationProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(failureProbabilityReparationProperty,
+                                                                            schematizationCategory,
+                                                                            "Faalkans herstel van gefaalde situatie [1/jaar]",
+                                                                            "Faalkans herstel van gefaalde situatie.",
+                                                                            true);
         }
     }
 }

@@ -24,6 +24,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -212,81 +213,78 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(11, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(10, dynamicProperties.Count);
 
             PropertyDescriptor dikeProfileProperty = dynamicProperties[dikeProfilePropertyIndex];
-            Assert.IsNotNull(dikeProfileProperty);
-            Assert.IsFalse(dikeProfileProperty.IsReadOnly);
-            Assert.AreEqual("Schematisatie", dikeProfileProperty.Category);
-            Assert.AreEqual("Dijkprofiel", dikeProfileProperty.DisplayName);
-            Assert.AreEqual("De schematisatie van het dijkprofiel.", dikeProfileProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeProfileProperty,
+                                                                            "Schematisatie",
+                                                                            "Dijkprofiel",
+                                                                            "De schematisatie van het dijkprofiel.");
 
             PropertyDescriptor worldReferencePointProperty = dynamicProperties[worldReferencePointPropertyIndex];
-            Assert.IsNotNull(worldReferencePointProperty);
-            Assert.IsTrue(worldReferencePointProperty.IsReadOnly);
-            Assert.AreEqual("Schematisatie", worldReferencePointProperty.Category);
-            Assert.AreEqual("Locatie (RD) [m]", worldReferencePointProperty.DisplayName);
-            Assert.AreEqual("De coördinaten van de locatie van de dijk in het Rijksdriehoeksstelsel.", worldReferencePointProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(worldReferencePointProperty,
+                                                                            "Schematisatie",
+                                                                            "Locatie (RD) [m]",
+                                                                            "De coördinaten van de locatie van de dijk in het Rijksdriehoeksstelsel.",
+                                                                            true);
 
             PropertyDescriptor orientationProperty = dynamicProperties[orientationPropertyIndex];
-            Assert.IsNotNull(orientationProperty);
-            Assert.AreEqual(!withDikeProfile, orientationProperty.IsReadOnly);
-            Assert.AreEqual("Schematisatie", orientationProperty.Category);
-            Assert.AreEqual("Oriëntatie [°]", orientationProperty.DisplayName);
-            Assert.AreEqual("Oriëntatie van de dijknormaal ten opzichte van het noorden.", orientationProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(orientationProperty,
+                                                                            "Schematisatie",
+                                                                            "Oriëntatie [°]",
+                                                                            "Oriëntatie van de dijknormaal ten opzichte van het noorden.",
+                                                                            !withDikeProfile);
 
             PropertyDescriptor breakWaterProperty = dynamicProperties[breakWaterPropertyIndex];
-            Assert.IsNotNull(breakWaterProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(breakWaterProperty.Converter);
-            Assert.IsTrue(breakWaterProperty.IsReadOnly);
-            Assert.AreEqual("Schematisatie", breakWaterProperty.Category);
-            Assert.AreEqual("Dam", breakWaterProperty.DisplayName);
-            Assert.AreEqual("Eigenschappen van de dam.", breakWaterProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(breakWaterProperty,
+                                                                            "Schematisatie",
+                                                                            "Dam",
+                                                                            "Eigenschappen van de dam.",
+                                                                            true);
 
             PropertyDescriptor foreshoreProperty = dynamicProperties[foreshorePropertyIndex];
-            Assert.IsNotNull(foreshoreProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(foreshoreProperty.Converter);
-            Assert.IsTrue(foreshoreProperty.IsReadOnly);
-            Assert.AreEqual("Schematisatie", foreshoreProperty.Category);
-            Assert.AreEqual("Voorlandgeometrie", foreshoreProperty.DisplayName);
-            Assert.AreEqual("Eigenschappen van de voorlandgeometrie.", foreshoreProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(foreshoreProperty,
+                                                                            "Schematisatie",
+                                                                            "Voorlandgeometrie",
+                                                                            "Eigenschappen van de voorlandgeometrie.",
+                                                                            true);
 
             PropertyDescriptor dikeGeometryProperty = dynamicProperties[dikeGeometryPropertyIndex];
-            Assert.IsNotNull(dikeGeometryProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(dikeGeometryProperty.Converter);
-            Assert.IsTrue(dikeGeometryProperty.IsReadOnly);
-            Assert.AreEqual("Schematisatie", dikeGeometryProperty.Category);
-            Assert.AreEqual("Dijkgeometrie", dikeGeometryProperty.DisplayName);
-            Assert.AreEqual("Eigenschappen van de dijkgeometrie.", dikeGeometryProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeGeometryProperty,
+                                                                            "Schematisatie",
+                                                                            "Dijkgeometrie",
+                                                                            "Eigenschappen van de dijkgeometrie.",
+                                                                            true);
 
             PropertyDescriptor dikeHeightProperty = dynamicProperties[dikeHeightPropertyIndex];
-            Assert.IsNotNull(dikeHeightProperty);
-            Assert.AreEqual(!withDikeProfile, dikeHeightProperty.IsReadOnly);
-            Assert.AreEqual("Schematisatie", dikeHeightProperty.Category);
-            Assert.AreEqual("Dijkhoogte [m+NAP]", dikeHeightProperty.DisplayName);
-            Assert.AreEqual("De hoogte van de dijk.", dikeHeightProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightProperty,
+                                                                            "Schematisatie",
+                                                                            "Dijkhoogte [m+NAP]",
+                                                                            "De hoogte van de dijk.",
+                                                                            !withDikeProfile);
 
             PropertyDescriptor criticalFlowRateProperty = dynamicProperties[criticalFlowRatePropertyIndex];
-            Assert.IsNotNull(criticalFlowRateProperty);
             Assert.IsInstanceOf<ExpandableObjectConverter>(criticalFlowRateProperty.Converter);
-            Assert.IsTrue(criticalFlowRateProperty.IsReadOnly);
-            Assert.AreEqual("Toetseisen", criticalFlowRateProperty.Category);
-            Assert.AreEqual("Kritisch overslagdebiet [m³/s/m]", criticalFlowRateProperty.DisplayName);
-            Assert.AreEqual("Kritisch overslagdebiet per strekkende meter.", criticalFlowRateProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(criticalFlowRateProperty,
+                                                                            "Toetseisen",
+                                                                            "Kritisch overslagdebiet [m³/s/m]",
+                                                                            "Kritisch overslagdebiet per strekkende meter.",
+                                                                            true);
 
             PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
-            Assert.IsNotNull(hydraulicBoundaryLocationProperty);
-            Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
-            Assert.AreEqual("Hydraulische gegevens", hydraulicBoundaryLocationProperty.Category);
-            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
-            Assert.AreEqual("De locatie met hydraulische randvoorwaarden.", hydraulicBoundaryLocationProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(hydraulicBoundaryLocationProperty,
+                                                                            "Hydraulische gegevens",
+                                                                            "Locatie met hydraulische randvoorwaarden",
+                                                                            "De locatie met hydraulische randvoorwaarden.");
 
-            Assert.IsNotNull(dynamicProperties[calculateDikeHeightPropertyIndex]);
-            Assert.AreEqual("Schematisatie", dynamicProperties[calculateDikeHeightPropertyIndex].Category);
-            Assert.AreEqual("HBN berekenen", dynamicProperties[calculateDikeHeightPropertyIndex].DisplayName);
-            Assert.AreEqual("Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend.", dynamicProperties[calculateDikeHeightPropertyIndex].Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dynamicProperties[calculateDikeHeightPropertyIndex],
+                                                                            "Schematisatie",
+                                                                            "HBN berekenen",
+                                                                            "Geeft aan of ook het Hydraulisch Belasting Niveau (HBN) moet worden berekend.");
 
             mockRepository.VerifyAll();
         }

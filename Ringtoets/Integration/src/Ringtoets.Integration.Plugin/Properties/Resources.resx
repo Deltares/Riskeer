@@ -136,9 +136,6 @@
   <data name="DikeProfilesImporter_DisplayName" xml:space="preserve">
     <value>Dijkprofiellocaties</value>
   </data>
-  <data name="DikeProfilesImporter_Import_no_referenceline_import_aborted" xml:space="preserve">
-    <value>Er is geen referentielijn beschikbaar. Geen gegevens ingelezen.</value>
-  </data>
   <data name="DesignWaterLevel_Description" xml:space="preserve">
     <value>h(norm)</value>
   </data>

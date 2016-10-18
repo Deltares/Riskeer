@@ -77,8 +77,8 @@
     <Compile Include="PropertyClasses\ForeshoreProfileProperties.cs" />
     <Compile Include="PropertyClasses\UseBreakWaterProperties.cs" />
     <Compile Include="PropertyClasses\UseForeshoreProperties.cs" />
-    <Compile Include="PropertyClasses\LogNormalDistributionVariationProperties.cs" />
-    <Compile Include="PropertyClasses\NormalDistributionVariationProperties.cs" />
+    <Compile Include="PropertyClasses\VariationCoefficientLogNormalDistributionProperties.cs" />
+    <Compile Include="PropertyClasses\VariationCoefficientNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\ProbabilityAssessmentOutputProperties.cs" />
     <Compile Include="PropertyClasses\LogNormalDistributionProperties.cs" />
     <Compile Include="PropertyClasses\NormalDistributionProperties.cs" />

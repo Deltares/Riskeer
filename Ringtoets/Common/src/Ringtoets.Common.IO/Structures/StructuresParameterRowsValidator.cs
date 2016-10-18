@@ -41,15 +41,15 @@ namespace Ringtoets.Common.IO.Structures
 
         private static readonly List<string> closingStructureInflowModelTypeRuleKeywords = new List<string>
         {
-            "verticalewand",
-            "lagedrempel",
-            "verdronkenkoker"
+            StructureFilesKeywords.InflowModelTypeVerticalWall,
+            StructureFilesKeywords.InflowModelTypeLowSill,
+            StructureFilesKeywords.InflowModelTypeFloodedCulvert
         };
 
         private static readonly List<string> stabilityPointStructureInflowModelTypeRuleKeywords = new List<string>
         {
-            "lagedrempel",
-            "verdronkenkoker"
+            StructureFilesKeywords.InflowModelTypeLowSill,
+            StructureFilesKeywords.InflowModelTypeFloodedCulvert
         };
 
         private static readonly Dictionary<string, Func<StructuresParameterRow, List<string>>> heightStructuresRules =

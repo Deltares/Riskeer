@@ -22,6 +22,7 @@
 using System.ComponentModel;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -93,29 +94,29 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(4, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(3, dynamicProperties.Count);
 
             PropertyDescriptor useBreakWaterProperty = dynamicProperties[0];
-            Assert.IsNotNull(useBreakWaterProperty);
-            Assert.IsTrue(useBreakWaterProperty.IsReadOnly);
-            Assert.AreEqual("Aanwezig", useBreakWaterProperty.DisplayName);
-            Assert.AreEqual("Is er een dam aanwezig?", useBreakWaterProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(useBreakWaterProperty,
+                                                                            "Misc",
+                                                                            "Aanwezig",
+                                                                            "Is er een dam aanwezig?",
+                                                                            true);
 
             PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
-            Assert.IsNotNull(breakWaterTypeProperty);
-            Assert.IsTrue(breakWaterTypeProperty.IsBrowsable);
-            Assert.IsTrue(breakWaterTypeProperty.IsReadOnly);
-            Assert.AreEqual("Type", breakWaterTypeProperty.DisplayName);
-            Assert.AreEqual("Het type van de dam.", breakWaterTypeProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(breakWaterTypeProperty,
+                                                                            "Misc",
+                                                                            "Type",
+                                                                            "Het type van de dam.",
+                                                                            true);
 
             PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
-            Assert.IsNotNull(breakWaterHeightProperty);
-            Assert.IsTrue(breakWaterHeightProperty.IsBrowsable);
-            Assert.IsTrue(breakWaterHeightProperty.IsReadOnly);
-            Assert.AreEqual("Hoogte [m+NAP]", breakWaterHeightProperty.DisplayName);
-            Assert.AreEqual("De hoogte van de dam.", breakWaterHeightProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(breakWaterHeightProperty,
+                                                                            "Misc",
+                                                                            "Hoogte [m+NAP]",
+                                                                            "De hoogte van de dam.",
+                                                                            true);
         }
 
         [Test]
@@ -132,23 +133,15 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(4, dynamicProperties.Count);
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
+            Assert.AreEqual(1, dynamicProperties.Count);
 
             PropertyDescriptor useBreakWaterProperty = dynamicProperties[0];
-            Assert.IsNotNull(useBreakWaterProperty);
-            Assert.IsTrue(useBreakWaterProperty.IsReadOnly);
-            Assert.AreEqual("Aanwezig", useBreakWaterProperty.DisplayName);
-            Assert.AreEqual("Is er een dam aanwezig?", useBreakWaterProperty.Description);
-
-            PropertyDescriptor breakWaterTypeProperty = dynamicProperties[1];
-            Assert.IsNotNull(breakWaterTypeProperty);
-            Assert.IsFalse(breakWaterTypeProperty.IsBrowsable);
-
-            PropertyDescriptor breakWaterHeightProperty = dynamicProperties[2];
-            Assert.IsNotNull(breakWaterHeightProperty);
-            Assert.IsFalse(breakWaterHeightProperty.IsBrowsable);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(useBreakWaterProperty,
+                                                                            "Misc",
+                                                                            "Aanwezig",
+                                                                            "Is er een dam aanwezig?",
+                                                                            true);
         }
     }
 }

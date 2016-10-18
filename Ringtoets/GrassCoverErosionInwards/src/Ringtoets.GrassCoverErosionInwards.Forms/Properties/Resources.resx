@@ -186,9 +186,6 @@
   <data name="GrassCoverErosionInwardsChartDataFactory_Create_DataIdentifier_0_DataTypeDisplayName_1_" xml:space="preserve">
     <value>{0} - {1}</value>
   </data>
-  <data name="GrassCoverErosionInwardsScenariosView_AddDataGridColumns_Calculation" xml:space="preserve">
-    <value>Berekening</value>
-  </data>
   <data name="GrassCoverErosionInwardsOutput_IsOvertoppingDominant_Description" xml:space="preserve">
     <value>Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.</value>
   </data>

@@ -44,9 +44,9 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// Creates a new instance of <see cref="LogNormalDistributionProperties"/>.
         /// </summary>
         /// <param name="propertiesReadOnly">Indicates which properties, if any, should be
-        ///     marked as read-only.</param>
+        /// marked as read-only.</param>
         /// <param name="observable">The object to be notified of changes to properties.
-        ///     Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
+        /// Can be null if all properties are marked as read-only by <paramref name="propertiesReadOnly"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="observable"/>
         /// is null and any number of properties in this class is editable.</exception>
         public LogNormalDistributionProperties(DistributionPropertiesReadOnly propertiesReadOnly, IObservable observable)

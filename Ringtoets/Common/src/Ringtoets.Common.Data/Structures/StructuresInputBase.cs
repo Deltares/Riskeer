@@ -177,7 +177,7 @@ namespace Ringtoets.Common.Data.Structures
         /// Gets or sets the orientation of the normal of the structure.
         /// [degrees]
         /// </summary>
-        ///<exception cref="ArgumentOutOfRangeException">Thown when the value for the orientation is not between [0,360] degrees.</exception>
+        ///<exception cref="ArgumentOutOfRangeException">Thrown when the value for the orientation is not between [0,360] degrees.</exception>
         public RoundedDouble StructureNormalOrientation
         {
             get

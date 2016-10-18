@@ -22,6 +22,7 @@
 using System;
 using System.ComponentModel;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
@@ -110,60 +111,64 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(8, dynamicProperties.Count);
 
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
-            Assert.IsTrue(requiredProbabilityProperty.IsReadOnly);
-            Assert.AreEqual("Resultaat", requiredProbabilityProperty.Category);
-            Assert.AreEqual("Faalkanseis [1/jaar]", requiredProbabilityProperty.DisplayName);
-            Assert.AreEqual("De maximaal toegestane faalkanseis voor het toetsspoor.", requiredProbabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Faalkanseis [1/jaar]",
+                                                                            "De maximaal toegestane faalkanseis voor het toetsspoor.",
+                                                                            true);
 
             PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
-            Assert.IsTrue(requiredReliabilityProperty.IsReadOnly);
-            Assert.AreEqual("Resultaat", requiredReliabilityProperty.Category);
-            Assert.AreEqual("Betrouwbaarheidsindex faalkanseis [-]", requiredReliabilityProperty.DisplayName);
-            Assert.AreEqual("De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.", requiredReliabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Betrouwbaarheidsindex faalkanseis [-]",
+                                                                            "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.",
+                                                                            true);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
-            Assert.IsTrue(probabilityProperty.IsReadOnly);
-            Assert.AreEqual("Resultaat", probabilityProperty.Category);
-            Assert.AreEqual("Faalkans [1/jaar]", probabilityProperty.DisplayName);
-            Assert.AreEqual("De kans dat het toetsspoor optreedt voor deze berekening.", probabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Faalkans [1/jaar]",
+                                                                            "De kans dat het toetsspoor optreedt voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
-            Assert.IsTrue(reliabilityProperty.IsReadOnly);
-            Assert.AreEqual("Resultaat", reliabilityProperty.Category);
-            Assert.AreEqual("Betrouwbaarheidsindex faalkans [-]", reliabilityProperty.DisplayName);
-            Assert.AreEqual("De betrouwbaarheidsindex van de faalkans voor deze berekening.", reliabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(reliabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Betrouwbaarheidsindex faalkans [-]",
+                                                                            "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor factorOfSafetyProperty = dynamicProperties[factorOfSafetyPropertyIndex];
-            Assert.IsTrue(factorOfSafetyProperty.IsReadOnly);
-            Assert.AreEqual("Resultaat", factorOfSafetyProperty.Category);
-            Assert.AreEqual("Veiligheidsfactor [-]", factorOfSafetyProperty.DisplayName);
-            Assert.AreEqual("De veiligheidsfactor voor deze berekening.", factorOfSafetyProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorOfSafetyProperty,
+                                                                            "Resultaat",
+                                                                            "Veiligheidsfactor [-]",
+                                                                            "De veiligheidsfactor voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
-            Assert.IsTrue(waveHeightProperty.IsReadOnly);
-            Assert.AreEqual("Indicatieve golfhoogte", waveHeightProperty.Category);
-            Assert.AreEqual("Golfhoogte (Hs) [m]", waveHeightProperty.DisplayName);
-            Assert.AreEqual("De golfhoogte van de overslag deelberekening.", waveHeightProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
+                                                                            "Indicatieve golfhoogte",
+                                                                            "Golfhoogte (Hs) [m]",
+                                                                            "De golfhoogte van de overslag deelberekening.",
+                                                                            true);
 
             PropertyDescriptor isDominantProperty = dynamicProperties[isDominantIndex];
-            Assert.IsTrue(isDominantProperty.IsReadOnly);
-            Assert.AreEqual("Indicatieve golfhoogte", isDominantProperty.Category);
-            Assert.AreEqual("Overslag dominant [-]", isDominantProperty.DisplayName);
-            Assert.AreEqual("Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.", isDominantProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isDominantProperty,
+                                                                            "Indicatieve golfhoogte",
+                                                                            "Overslag dominant [-]",
+                                                                            "Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.",
+                                                                            true);
 
             PropertyDescriptor dikeHeightProperty = dynamicProperties[dikeHeightIndex];
-            Assert.IsTrue(dikeHeightProperty.IsReadOnly);
-            Assert.AreEqual("Resultaat", dikeHeightProperty.Category);
-            Assert.AreEqual("HBN [m+NAP]", dikeHeightProperty.DisplayName);
-            Assert.AreEqual("Het berekende Hydraulisch Belasting Niveau (HBN).", dikeHeightProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(dikeHeightProperty,
+                                                                            "Resultaat",
+                                                                            "HBN [m+NAP]",
+                                                                            "Het berekende Hydraulisch Belasting Niveau (HBN).",
+                                                                            true);
         }
 
         [Test]
@@ -180,54 +185,57 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
             };
 
             // Assert
-            var dynamicPropertyBag = new DynamicPropertyBag(properties);
-            PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
-            {
-                new BrowsableAttribute(true)
-            });
+            PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(7, dynamicProperties.Count);
 
             PropertyDescriptor requiredProbabilityProperty = dynamicProperties[requiredProbabilityPropertyIndex];
-            Assert.IsTrue(requiredProbabilityProperty.IsReadOnly);
-            Assert.AreEqual("Resultaat", requiredProbabilityProperty.Category);
-            Assert.AreEqual("Faalkanseis [1/jaar]", requiredProbabilityProperty.DisplayName);
-            Assert.AreEqual("De maximaal toegestane faalkanseis voor het toetsspoor.", requiredProbabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredProbabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Faalkanseis [1/jaar]",
+                                                                            "De maximaal toegestane faalkanseis voor het toetsspoor.",
+                                                                            true);
 
             PropertyDescriptor requiredReliabilityProperty = dynamicProperties[requiredReliabilityPropertyIndex];
-            Assert.IsTrue(requiredReliabilityProperty.IsReadOnly);
-            Assert.AreEqual("Resultaat", requiredReliabilityProperty.Category);
-            Assert.AreEqual("Betrouwbaarheidsindex faalkanseis [-]", requiredReliabilityProperty.DisplayName);
-            Assert.AreEqual("De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.", requiredReliabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(requiredReliabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Betrouwbaarheidsindex faalkanseis [-]",
+                                                                            "De betrouwbaarheidsindex van de faalkanseis voor het toetsspoor.",
+                                                                            true);
 
             PropertyDescriptor probabilityProperty = dynamicProperties[probabilityPropertyIndex];
-            Assert.IsTrue(probabilityProperty.IsReadOnly);
-            Assert.AreEqual("Resultaat", probabilityProperty.Category);
-            Assert.AreEqual("Faalkans [1/jaar]", probabilityProperty.DisplayName);
-            Assert.AreEqual("De kans dat het toetsspoor optreedt voor deze berekening.", probabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(probabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Faalkans [1/jaar]",
+                                                                            "De kans dat het toetsspoor optreedt voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor reliabilityProperty = dynamicProperties[reliabilityPropertyIndex];
-            Assert.IsTrue(reliabilityProperty.IsReadOnly);
-            Assert.AreEqual("Resultaat", reliabilityProperty.Category);
-            Assert.AreEqual("Betrouwbaarheidsindex faalkans [-]", reliabilityProperty.DisplayName);
-            Assert.AreEqual("De betrouwbaarheidsindex van de faalkans voor deze berekening.", reliabilityProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(reliabilityProperty,
+                                                                            "Resultaat",
+                                                                            "Betrouwbaarheidsindex faalkans [-]",
+                                                                            "De betrouwbaarheidsindex van de faalkans voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor factorOfSafetyProperty = dynamicProperties[factorOfSafetyPropertyIndex];
-            Assert.IsTrue(factorOfSafetyProperty.IsReadOnly);
-            Assert.AreEqual("Resultaat", factorOfSafetyProperty.Category);
-            Assert.AreEqual("Veiligheidsfactor [-]", factorOfSafetyProperty.DisplayName);
-            Assert.AreEqual("De veiligheidsfactor voor deze berekening.", factorOfSafetyProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(factorOfSafetyProperty,
+                                                                            "Resultaat",
+                                                                            "Veiligheidsfactor [-]",
+                                                                            "De veiligheidsfactor voor deze berekening.",
+                                                                            true);
 
             PropertyDescriptor waveHeightProperty = dynamicProperties[waveHeightIndex];
-            Assert.IsTrue(waveHeightProperty.IsReadOnly);
-            Assert.AreEqual("Indicatieve golfhoogte", waveHeightProperty.Category);
-            Assert.AreEqual("Golfhoogte (Hs) [m]", waveHeightProperty.DisplayName);
-            Assert.AreEqual("De golfhoogte van de overslag deelberekening.", waveHeightProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveHeightProperty,
+                                                                            "Indicatieve golfhoogte",
+                                                                            "Golfhoogte (Hs) [m]",
+                                                                            "De golfhoogte van de overslag deelberekening.",
+                                                                            true);
 
             PropertyDescriptor isDominantProperty = dynamicProperties[isDominantIndex];
-            Assert.IsTrue(isDominantProperty.IsReadOnly);
-            Assert.AreEqual("Indicatieve golfhoogte", isDominantProperty.Category);
-            Assert.AreEqual("Overslag dominant [-]", isDominantProperty.DisplayName);
-            Assert.AreEqual("Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.", isDominantProperty.Description);
+            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(isDominantProperty,
+                                                                            "Indicatieve golfhoogte",
+                                                                            "Overslag dominant [-]",
+                                                                            "Is het resultaat van de overslag deelberekening dominant over de overloop deelberekening.",
+                                                                            true);
         }
     }
 }

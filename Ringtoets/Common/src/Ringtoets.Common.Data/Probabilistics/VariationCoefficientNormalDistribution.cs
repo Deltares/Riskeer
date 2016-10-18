@@ -27,7 +27,7 @@ namespace Ringtoets.Common.Data.Probabilistics
 {
     /// <summary>
     /// Class representing a normal (or Gaussian) distribution expressed in terms of a
-    /// coefficient of variation instead of standard deviation.
+    /// coefficient of variation.
     /// </summary>
     /// <seealso cref="NormalDistribution"/>
     public class VariationCoefficientNormalDistribution : IVariationCoefficientDistribution
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Data.Probabilistics
                     throw new ArgumentOutOfRangeException("value", Resources.CoefficientOfVariation_Should_be_greater_or_equal_to_zero);
                 }
 
-                coefficientOfVariation = value.ToPrecision(coefficientOfVariation.NumberOfDecimalPlaces);
+                coefficientOfVariation = roundedValue;
             }
         }
     }

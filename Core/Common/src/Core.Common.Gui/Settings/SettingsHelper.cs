@@ -59,7 +59,7 @@ namespace Core.Common.Gui.Settings
         /// </summary>
         /// <param name="postfix">The postfix path to use after the local application data folder (if any).</param>
         /// <returns>Directory path where the user settings can be found.</returns>
-        /// <exception cref="IOException">Thown when the application local user settings directory could not be created.</exception>
+        /// <exception cref="IOException">Thrown when the application local user settings directory could not be created.</exception>
         public static string GetApplicationLocalUserSettingsDirectory(string postfix)
         {
             var appSettingsDirectoryPath = string.IsNullOrWhiteSpace(postfix) ? localSettingsDirectoryPath : Path.Combine(localSettingsDirectoryPath, postfix);
