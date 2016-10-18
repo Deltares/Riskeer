@@ -534,12 +534,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var failureMechanismSection = grassCoverErosionInwardsFailureMechanism.Sections.First();
             var service = new GrassCoverErosionInwardsCalculationService();
 
-            // Call
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
                 calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
+                // Call
                 service.CalculateDikeHeight(calculation,
                                             assessmentSectionStub,
                                             failureMechanismSection,
@@ -554,7 +554,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_CancelWithValidDikeCalculationInput_CancelsCalculatorAndHasNullOutput()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Calculate_CancelWithValidDikeCalculationInput_CancelsCalculatorAndHasNullOutput(bool cancelBeforeDikeHeightCalculationStarts)
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -584,8 +586,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Call
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
-                calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
+                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
+                var overToppingCalculator = testFactory.OvertoppingCalculator;
+                var dikeHeightCalculator = testFactory.DikeHeightCalculator;
+
+                if (cancelBeforeDikeHeightCalculationStarts)
+                {
+                    overToppingCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
+                }
+                else
+                {
+                    dikeHeightCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
+                }
+
+                // Call
                 service.CalculateDikeHeight(calculation,
                                             assessmentSectionStub,
                                             failureMechanismSection,
@@ -595,7 +609,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
                 // Assert
                 Assert.IsNull(calculation.Output);
-                Assert.IsTrue(calculator.IsCanceled);
+
+                if (cancelBeforeDikeHeightCalculationStarts)
+                {
+                    Assert.IsTrue(overToppingCalculator.IsCanceled);
+
+                    // dikeheightCalculator is initialised after the overtopping calculation succesfully finishes.
+                    Assert.IsFalse(dikeHeightCalculator.IsCanceled); 
+                }
+                else
+                {
+                    Assert.IsTrue(overToppingCalculator.IsCanceled);
+                    Assert.IsTrue(dikeHeightCalculator.IsCanceled);
+                }
             }
         }
 
