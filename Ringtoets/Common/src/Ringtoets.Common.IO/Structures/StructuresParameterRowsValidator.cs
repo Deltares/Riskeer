@@ -22,6 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.IO.Properties;
 
 namespace Ringtoets.Common.IO.Structures
@@ -295,7 +296,7 @@ namespace Ringtoets.Common.IO.Structures
             if (double.IsNaN(value) || double.IsInfinity(value))
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ValidateDoubleParameter_ParameterId_0_Line_1_ColumnName_2_not_number,
-                                           row.ParameterId, row.LineNumber, columnName));
+                                           row.ParameterId, row.LineNumber, columnName.FirstLetterToUpper()));
             }
 
             return messages;
@@ -309,7 +310,7 @@ namespace Ringtoets.Common.IO.Structures
             if (double.IsNaN(value) || double.IsInfinity(value) || value < 0)
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ValidatePositiveDoubleParameter_ParameterId_0_Line_1_ColumnName_2_must_be_a_positive_number,
-                                           row.ParameterId, row.LineNumber, columnName));
+                                           row.ParameterId, row.LineNumber, columnName.FirstLetterToUpper()));
             }
 
             return messages;
@@ -336,7 +337,7 @@ namespace Ringtoets.Common.IO.Structures
             if (double.IsNaN(mean) || double.IsInfinity(mean) || mean <= 0 || mean > 1)
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_2_probability_out_of_range,
-                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName));
+                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName.FirstLetterToUpper()));
             }
 
             return messages;
@@ -376,7 +377,7 @@ namespace Ringtoets.Common.IO.Structures
             if (type != VarianceType.StandardDeviation && type != VarianceType.CoefficientOfVariation)
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_invalid_variancetype_value,
-                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.VariationTypeColumnName));
+                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.VariationTypeColumnName.FirstLetterToUpper()));
             }
 
             messages.AddRange(ValidatePositiveDoubleParameter(row, StructureFilesKeywords.VariationValueColumnName));
@@ -387,7 +388,7 @@ namespace Ringtoets.Common.IO.Structures
                 if (row.VarianceType == VarianceType.CoefficientOfVariation && absoluteMean < valueTooCloseToZero)
                 {
                     messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_mean_too_small_for_reliable_variation_value_conversion,
-                                               row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName));
+                                               row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName.FirstLetterToUpper()));
                 }
             }
             else
@@ -395,7 +396,7 @@ namespace Ringtoets.Common.IO.Structures
                 if (row.VarianceType == VarianceType.StandardDeviation && absoluteMean < valueTooCloseToZero)
                 {
                     messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_mean_too_small_for_reliable_variation_value_conversion,
-                                               row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName));
+                                               row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName.FirstLetterToUpper()));
                 }
             }
 
@@ -410,7 +411,7 @@ namespace Ringtoets.Common.IO.Structures
             if (!(orientation >= 0 && orientation <= 360))
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_orientation_out_of_range,
-                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName));
+                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName.FirstLetterToUpper()));
             }
 
             return messages;
@@ -423,7 +424,7 @@ namespace Ringtoets.Common.IO.Structures
             if (!IsValueWholeNumber(value) || value < 0)
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_positive_whole_number,
-                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName));
+                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName.FirstLetterToUpper()));
             }
             return messages;
         }
@@ -440,7 +441,7 @@ namespace Ringtoets.Common.IO.Structures
             if (!closingStructureInflowModelTypeRuleKeywords.Contains(value))
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_structure_type_invalid,
-                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.AlphanumericalValueColumnName));
+                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.AlphanumericalValueColumnName.FirstLetterToUpper()));
             }
             return messages;
         }
@@ -452,7 +453,7 @@ namespace Ringtoets.Common.IO.Structures
             if (!stabilityPointStructureInflowModelTypeRuleKeywords.Contains(value))
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_structure_type_invalid,
-                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.AlphanumericalValueColumnName));
+                                           row.ParameterId, row.LineNumber, StructureFilesKeywords.AlphanumericalValueColumnName.FirstLetterToUpper()));
             }
             return messages;
         }
