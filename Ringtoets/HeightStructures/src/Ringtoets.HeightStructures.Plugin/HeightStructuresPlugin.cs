@@ -52,7 +52,6 @@ using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using HeightStructuresFormsResources = Ringtoets.HeightStructures.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonIOResources = Ringtoets.Common.IO.Properties.Resources;
-using CoreCommonBaseResources = Core.Common.Base.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Plugin
 {
@@ -416,7 +415,6 @@ namespace Ringtoets.HeightStructures.Plugin
             {
                 builder.AddSeparator()
                        .AddRemoveAllChildrenItem();
-//                       .AddRemoveAllChildrenItem(group, Gui.ViewCommands);
             }
 
             builder.AddSeparator()

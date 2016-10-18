@@ -54,7 +54,8 @@ namespace Ringtoets.HeightStructures.Forms.Views
             failureMechanismObserver = new Observer(UpdateDataGridViewDataSource);
 
             // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculation>().Select(c => c.GetObservableInput())));
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
+                UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculation>().Select(c => c.GetObservableInput())));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
         }
 
@@ -127,13 +128,13 @@ namespace Ringtoets.HeightStructures.Forms.Views
             {
                 var calculations = data.GetCalculations();
 
-                Dictionary<string, IList<ICalculation>> caculationsPerSegment =
+                Dictionary<string, IList<ICalculation>> calculationsPerSegment =
                     HeightStructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.OfType<HeightStructuresCalculation>());
 
-                List<HeightStructuresScenarioRow> scenarioRows = 
+                List<HeightStructuresScenarioRow> scenarioRows =
                     FailureMechanism.SectionResults.Select(sectionResult => new HeightStructuresScenarioRow(sectionResult)).ToList();
 
-                scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, caculationsPerSegment);
+                scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
             }
         }
     }

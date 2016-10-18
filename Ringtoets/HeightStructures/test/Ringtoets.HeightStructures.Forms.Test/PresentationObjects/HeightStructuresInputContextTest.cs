@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
-using Ringtoets.HeightStructures.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
@@ -34,6 +32,25 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
     [TestFixture]
     public class HeightStructuresInputContextTest
     {
+        [Test]
+        public void Constructor_CalcationIsNull_ThrowsArgumentNullException()
+        {
+            // Setup
+            var mocks = new MockRepository();
+            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            // Call
+            TestDelegate test = () => new HeightStructuresInputContext(null, failureMechanism, assessmentSectionMock);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("calculation", paramName);
+            mocks.VerifyAll();
+        }
+
         [Test]
         public void Constructor_ExpectedValues()
         {
@@ -50,10 +67,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
 
             // Assert
             Assert.IsInstanceOf<HeightStructuresContextBase<HeightStructuresInput>>(context);
-            Assert.AreEqual(calculation.InputParameters, context.WrappedData);
-            Assert.AreEqual(calculation, context.Calculation);
-            Assert.AreEqual(failureMechanism, context.FailureMechanism);
-            Assert.AreEqual(assessmentSectionMock, context.AssessmentSection);
+            Assert.AreSame(calculation.InputParameters, context.WrappedData);
+            Assert.AreSame(calculation, context.Calculation);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
+            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             mocks.VerifyAll();
         }
     }

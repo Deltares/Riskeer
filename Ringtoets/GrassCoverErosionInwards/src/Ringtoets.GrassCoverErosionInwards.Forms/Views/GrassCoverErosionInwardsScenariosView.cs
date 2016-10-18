@@ -54,7 +54,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             failureMechanismObserver = new Observer(UpdateDataGridViewDataSource);
 
             // The concat is needed to observe the input of calculations in child groups.
-            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculation>().Select(c => c.GetObservableInput())));
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
+                UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculation>().Select(c => c.GetObservableInput())));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
         }
 
@@ -127,10 +128,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             {
                 var calculations = data.GetCalculations();
 
-                Dictionary<string, IList<ICalculation>> calculationsPerSegment = 
+                Dictionary<string, IList<ICalculation>> calculationsPerSegment =
                     GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.OfType<GrassCoverErosionInwardsCalculation>());
 
-                List<GrassCoverErosionInwardsScenarioRow> scenarioRows = 
+                List<GrassCoverErosionInwardsScenarioRow> scenarioRows =
                     FailureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsScenarioRow(sectionResult)).ToList();
 
                 scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);

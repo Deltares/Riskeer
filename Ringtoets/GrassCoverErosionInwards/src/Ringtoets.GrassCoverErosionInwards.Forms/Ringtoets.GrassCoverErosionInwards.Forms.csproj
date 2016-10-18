@@ -164,9 +164,6 @@
     <EmbeddedResource Include="Views\GrassCoverErosionInwardsInputView.resx">
       <DependentUpon>GrassCoverErosionInwardsInputView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\GrassCoverErosionInwardsScenariosView.resx">
-      <DependentUpon>GrassCoverErosionInwardsScenariosView.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

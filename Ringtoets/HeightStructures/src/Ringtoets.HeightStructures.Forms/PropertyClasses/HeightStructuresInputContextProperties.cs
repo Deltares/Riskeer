@@ -37,7 +37,6 @@ using Ringtoets.HeightStructures.Forms.Properties;
 using Ringtoets.HeightStructures.Forms.UITypeEditors;
 using Ringtoets.HeightStructures.Utils;
 using Ringtoets.HydraRing.Data;
-using CoreCommonBasePropertiesResources = Core.Common.Base.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.PropertyClasses

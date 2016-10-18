@@ -22,7 +22,6 @@
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.HeightStructures.Data;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.PresentationObjects
 {
@@ -38,7 +37,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// <param name="calculation">The height structures calculation containing the <see cref="HeightStructuresInput"/>.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public HeightStructuresInputContext(HeightStructuresCalculation calculation,
                                             HeightStructuresFailureMechanism failureMechanism,
                                             IAssessmentSection assessmentSection)
