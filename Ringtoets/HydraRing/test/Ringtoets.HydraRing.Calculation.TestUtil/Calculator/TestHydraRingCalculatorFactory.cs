@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -126,6 +128,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 
     public class TestHydraRingCalculator<T>
     {
+        public event EventHandler CalculationFinishedHandler;
         public readonly List<T> ReceivedInputs = new List<T>();
         public bool IsCanceled = false;
         public string RingId { get; set; }
@@ -139,11 +142,21 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
                 throw new HydraRingFileParserException();
             }
             ReceivedInputs.Add(input);
+
+            CalculationFinished(EventArgs.Empty);
         }
 
         public void Cancel()
         {
             IsCanceled = true;
+        }
+
+        private void CalculationFinished(EventArgs e)
+        {
+            if (CalculationFinishedHandler != null)
+            {
+                CalculationFinishedHandler(this, e);
+            }
         }
     }
 }

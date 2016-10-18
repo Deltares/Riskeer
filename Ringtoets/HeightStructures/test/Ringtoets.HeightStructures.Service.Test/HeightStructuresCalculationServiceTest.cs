@@ -357,7 +357,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
+        public void Calculate_CancelCalculationWithValidInput_CancelsCalculatorAndHasNullOutput()
         {
             // Setup
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
@@ -386,6 +386,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 var testStructuresOvertoppingCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
                 var service = new HeightStructuresCalculationService();
+                testStructuresOvertoppingCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
                 service.Calculate(calculation,
@@ -394,9 +395,9 @@ namespace Ringtoets.HeightStructures.Service.Test
                                   heightStructuresFailureMechanism.GeneralInput,
                                   heightStructuresFailureMechanism.Contribution,
                                   testDataPath);
-                service.Cancel();
 
                 // Assert
+                Assert.IsNull(calculation.Output);
                 Assert.IsTrue(testStructuresOvertoppingCalculator.IsCanceled);
             }
         }

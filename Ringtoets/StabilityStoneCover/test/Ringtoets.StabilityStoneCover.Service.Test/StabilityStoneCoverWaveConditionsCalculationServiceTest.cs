@@ -481,7 +481,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         }
 
         [Test]
-        public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
+        public void Calculate_CancelCalculationWithValidInput_CancelsCalculatorAndHasNullOutput()
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
@@ -495,13 +495,15 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             {
                 var testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 var stabilityStoneCoverWaveConditionsCalculationService = new StabilityStoneCoverWaveConditionsCalculationService();
+                testWaveConditionsCosineCalculator.CalculationFinishedHandler += (s, e) => stabilityStoneCoverWaveConditionsCalculationService.Cancel();
+
 
                 // Call
                 stabilityStoneCoverWaveConditionsCalculationService.Calculate(calculation,
                                                                               assessmentSectionStub, stabilityStoneCoverFailureMechanism.GeneralInput, validFilePath);
-                stabilityStoneCoverWaveConditionsCalculationService.Cancel();
 
                 // Assert
+                Assert.IsNull(calculation.Output);
                 Assert.IsTrue(testWaveConditionsCosineCalculator.IsCanceled);
             }
             mockRepository.VerifyAll();

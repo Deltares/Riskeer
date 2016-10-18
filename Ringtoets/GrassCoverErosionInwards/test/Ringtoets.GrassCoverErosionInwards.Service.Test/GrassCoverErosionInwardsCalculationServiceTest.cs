@@ -31,6 +31,7 @@ using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
@@ -507,7 +508,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void Calculate_CancelWithValidOvertoppingCalculationInput_CancelsCalculator()
+        public void Calculate_CancelWithValidOvertoppingCalculationInput_CancelsCalculatorAndHasNullOutput()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -537,21 +538,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
+
                 service.CalculateDikeHeight(calculation,
                                             assessmentSectionStub,
                                             failureMechanismSection,
                                             grassCoverErosionInwardsFailureMechanism.GeneralInput,
                                             grassCoverErosionInwardsFailureMechanism.Contribution,
                                             testDataPath);
-                service.Cancel();
 
                 // Assert
                 Assert.IsTrue(calculator.IsCanceled);
+                Assert.IsNull(calculation.Output);
             }
         }
 
         [Test]
-        public void Calculate_CancelWithValidDikeCalculationInput_CancelsCalculator()
+        public void Calculate_CancelWithValidDikeCalculationInput_CancelsCalculatorAndHasNullOutput()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
@@ -582,15 +585,16 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
                 service.CalculateDikeHeight(calculation,
                                             assessmentSectionStub,
                                             failureMechanismSection,
                                             grassCoverErosionInwardsFailureMechanism.GeneralInput,
                                             grassCoverErosionInwardsFailureMechanism.Contribution,
                                             testDataPath);
-                service.Cancel();
 
                 // Assert
+                Assert.IsNull(calculation.Output);
                 Assert.IsTrue(calculator.IsCanceled);
             }
         }

@@ -152,15 +152,11 @@ namespace Ringtoets.Common.Service.Test
             string validFilePath = Path.Combine(testDataPath, validFile);
 
             const string locationName = "punt_flw_ 1";
-            const string calculationName = "locationName";
-            const string calculationNotConvergedMessage = "calculationNotConvergedMessage";
             const string ringId = "ringId";
             const double norm = 30;
 
             var mockRepository = new MockRepository();
-            var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
-            calculationMessageProviderMock.Stub(calc => calc.GetCalculationName(locationName)).Return(calculationName);
-            calculationMessageProviderMock.Stub(calc => calc.GetCalculatedNotConvergedMessage(locationName)).Return(calculationNotConvergedMessage);
+            var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, locationName, 0, 0)
@@ -174,19 +170,16 @@ namespace Ringtoets.Common.Service.Test
                 var testCalculator = testFactory.WaveHeightCalculator;
 
                 var service = new WaveHeightCalculationService();
+                testCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
+
+                // Call
                 service.Calculate(hydraulicBoundaryLocation,
                                   validFilePath,
                                   ringId,
                                   norm,
                                   calculationMessageProviderMock);
-                service.Cancel();
 
                 // Assert
-                Assert.AreEqual(testDataPath, testCalculator.HydraulicBoundaryDatabaseDirectory);
-                Assert.AreEqual(ringId, testCalculator.RingId);
-
-                var expectedInput = CreateInput(hydraulicBoundaryLocation, norm);
-                AssertInput(expectedInput, testCalculator.ReceivedInputs.First());
                 Assert.IsTrue(testCalculator.IsCanceled);
             }
             mockRepository.VerifyAll();

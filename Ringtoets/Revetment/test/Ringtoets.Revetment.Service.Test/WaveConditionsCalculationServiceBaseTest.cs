@@ -475,10 +475,10 @@ namespace Ringtoets.Revetment.Service.Test
             {
                 var testCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 var service = new WaveConditionsCalculationService();
+                testCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
                 service.PublicCalculate(a, b, c, norm, input, hlcdDirectory, ringId, name);
-                service.Cancel();
 
                 // Assert
                 Assert.IsTrue(testCalculator.IsCanceled);
