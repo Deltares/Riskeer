@@ -238,6 +238,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return new ArrayList
             {
                 new FailureMechanismSectionsContext(failureMechanism, assessmentSection),
+                new ForeshoreProfilesContext(failureMechanism.ForeshoreProfiles, assessmentSection),
                 new ClosingStructuresContext(failureMechanism.ClosingStructures, assessmentSection),
                 new CommentContext<ICommentable>(failureMechanism)
             };
