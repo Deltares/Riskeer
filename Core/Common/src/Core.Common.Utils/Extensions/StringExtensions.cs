@@ -3,39 +3,59 @@
 // This file is part of Ringtoets.
 //
 // Ringtoets is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
+// it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 // 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
+// GNU Lesser General Public License for more details.
 //
-// You should have received a copy of the GNU General Public License
+// You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Application.Ringtoets.Storage
+namespace Core.Common.Utils.Extensions
 {
     /// <summary>
     /// This class defines extension methods for <see cref="string"/> objects.
     /// </summary>
-    internal static class StringExtensions
+    public static class StringExtensions
     {
         /// <summary>
         /// Creates a deep clone of a string.
         /// </summary>
-        internal static string DeepClone(this string original)
+        public static string DeepClone(this string original)
         {
             if (original == null)
             {
                 return null;
             }
             return string.Format("{0}", original);
+        }
+
+        /// <summary>
+        /// Sets the first letter of a string to upper case.
+        /// </summary>
+        /// <param name="str">The string to set the first letter to upper case for.</param>
+        /// <returns>A string with the first letter set to upper case.</returns>
+        public static string FirstLetterToUpper(this string str)
+        {
+            if (str == null)
+            {
+                return null;
+            }
+
+            if (str.Length > 1)
+            {
+                return char.ToUpper(str[0]) + str.Substring(1);
+            }
+
+            return str.ToUpper();
         }
     }
 }

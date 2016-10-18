@@ -94,6 +94,7 @@
     <Compile Include="Extensions\CollectionExtensionsTest.cs" />
     <Compile Include="Extensions\ComparableExtensionsTest.cs" />
     <Compile Include="Extensions\EnumerableExtensionsTest.cs" />
+    <Compile Include="Extensions\StringExtensionsTest.cs" />
     <Compile Include="FileUtilsTest.cs" />
     <Compile Include="IO\EmbeddedResourceFileWriterTest.cs" />
     <Compile Include="NullableEnumTypeConverterTest.cs" />

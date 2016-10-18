@@ -203,7 +203,6 @@
     <Compile Include="SqLiteConnectionStringBuilderTest.cs" />
     <Compile Include="StorageSqliteCreatorTest.cs" />
     <Compile Include="StorageSqLiteTest.cs" />
-    <Compile Include="StringExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">

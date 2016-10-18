@@ -210,7 +210,7 @@ namespace Ringtoets.Common.IO.Structures
                 },
                 {
                     StructureFilesKeywords.StabilityPointStructureParameterKeyword26, StabilityPointStructureInflowModelTypeRule
-                },
+                }
             };
 
         /// <summary>

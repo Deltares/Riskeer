@@ -3,25 +3,26 @@
 // This file is part of Ringtoets.
 //
 // Ringtoets is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
+// it under the terms of the GNU Lesser General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
 // 
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
+// GNU Lesser General Public License for more details.
 //
-// You should have received a copy of the GNU General Public License
+// You should have received a copy of the GNU Lesser General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Utils.Extensions;
 using NUnit.Framework;
 
-namespace Application.Ringtoets.Storage.Test
+namespace Core.Common.Utils.Test.Extensions
 {
     [TestFixture]
     public class StringExtensionsTest
@@ -51,6 +52,34 @@ namespace Application.Ringtoets.Storage.Test
             // Assert
             Assert.AreNotSame(original, result);
             Assert.AreEqual(original, result);
+        }
+
+        [Test]
+        public void FirstLetterToUpper_StringIsNull_ReturnNull()
+        {
+            // Setup
+            const string str = null;
+
+            // Call
+            string result = str.FirstLetterToUpper();
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+        [TestCase("t", "T")]
+        [TestCase("T", "T")]
+        [TestCase("test", "Test")]
+        [TestCase("Test", "Test")]
+        [TestCase("tesT Test", "TesT Test")]
+        [TestCase("TesT Test", "TesT Test")]
+        public void FirstLetterToUpper_StringIsNotNull_ReturnStringWithFirstLetterUpperCase(string str, string expectedResult)
+        {
+            // Call
+            string result = str.FirstLetterToUpper();
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
         }
     }
 }

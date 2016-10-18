@@ -161,7 +161,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_HOOGTE5' op regel 5, kolom 'boolean', moet de waarde 0 (variatiecoëfficiënt) of 1 (standaardafwijking) hebben.",
                 "De waarde voor parameter 'KW_HOOGTE6' op regel 6, kolom 'numeriekewaarde', moet in het bereik (0, 1] liggen.",
                 "De waarde voor parameter 'KW_HOOGTE7' op regel 7, kolom 'numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
-                "De waarde voor parameter 'KW_HOOGTE8' op regel 8, kolom 'numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
+                "De waarde voor parameter 'KW_HOOGTE8' op regel 8, kolom 'numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is."
             };
             CollectionAssert.AreEqual(expectedErrorMessages, validationResult.ErrorMessages);
         }
