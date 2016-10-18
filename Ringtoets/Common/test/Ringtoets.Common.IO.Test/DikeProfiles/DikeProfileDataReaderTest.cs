@@ -300,7 +300,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithProfileTypeOutOfRange_ThrowCriticalFileReadException(
             string faultyFileName, int expectedDamInFile)
         {
-            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet 0, 1 of 2 zijn.",
+            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet '0', '1' of '2' zijn.",
                                                    expectedDamInFile);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 11, expectedMessage);
         }
@@ -427,7 +427,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithUnparsableProfileType_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet 0, 1 of 2 zijn.",
+            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet '0', '1' of '2' zijn.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 11, expectedMessage);
         }
@@ -438,7 +438,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOverflowProfileType_ThrowsCriticalFileReadException(
             string faultyFileName, string expectedReadText)
         {
-            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet 0, 1 of 2 zijn.",
+            string expectedMessage = string.Format("Het ingelezen damwandtype ('{0}') moet '0', '1' of '2' zijn.",
                                                    expectedReadText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 11, expectedMessage);
         }

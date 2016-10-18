@@ -252,7 +252,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             var exception = Assert.Throws<ArgumentException>(call);
-            Assert.AreEqual("De waarde moet tussen 0 en 1 zijn.", exception.Message);
+            Assert.AreEqual("De waarde moet in het bereik [0, 1] liggen.", exception.Message);
             Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, properties.A);
             mocks.VerifyAll();
         }

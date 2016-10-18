@@ -681,7 +681,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             TestDelegate call = () => input.ProbabilityCollisionSecondaryStructure = probability;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "Kans moet in het bereik [0, 1] opgegeven worden.");
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "Kans moet in het bereik [0, 1] liggen.");
         }
 
         [Test]

@@ -481,7 +481,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: 'Identificatie' kolom mag geen lege waardes bevatten.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: 'Identificatie' mag niet leeg zijn.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }
@@ -505,7 +505,7 @@ namespace Ringtoets.Common.IO.Test.Structures
 
                 // Assert
                 string message = Assert.Throws<LineParseException>(call).Message;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: 'Kunstwerken.identificatie' kolom mag geen lege waardes bevatten.",
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 2: 'Kunstwerken.identificatie' mag niet leeg zijn.",
                                                        filePath);
                 Assert.AreEqual(expectedMessage, message);
             }

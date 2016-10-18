@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Data
             {
                 if (!(value >= 0) || !(value <= 1))
                 {
-                    throw new ArgumentException(Resources.PipingProbabilityAssessmentInput_A_Value_must_be_between_zero_and_one);
+                    throw new ArgumentException(Resources.PipingProbabilityAssessmentInput_A_Value_must_be_in_range_zero_to_one);
                 }
 
                 a = value;

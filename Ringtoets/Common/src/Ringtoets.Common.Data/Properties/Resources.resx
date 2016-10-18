@@ -184,7 +184,7 @@
     <value>De waarde voor de faalkans moet in het bereik [0, 1] liggen.</value>
   </data>
   <data name="Probability_Must_be_in_range_zero_to_one" xml:space="preserve">
-    <value>Kans moet in het bereik [0, 1] opgegeven worden.</value>
+    <value>Kans moet in het bereik [0, 1] liggen.</value>
   </data>
   <data name="LogNormalDistribution_Shift_may_not_exceed_Mean" xml:space="preserve">
     <value>De verschuiving mag niet groter zijn dan de verwachtingswaarde.</value>

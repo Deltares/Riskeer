@@ -263,7 +263,7 @@ namespace Ringtoets.Common.IO.Structures
 
                 if (count < 1)
                 {
-                    errorMessages.Add(string.Format(Resources.StructuresParameterRowsValidator_Parameter_0_missing, name));
+                    errorMessages.Add(string.Format(Resources.StructuresParameterRowsValidator_Parameter_0_missing_or_invalid, name));
                     continue;
                 }
 

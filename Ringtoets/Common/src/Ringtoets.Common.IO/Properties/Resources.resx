@@ -124,7 +124,7 @@
     <value>Het bestand moet exact één gehele polylijn bevatten.</value>
   </data>
   <data name="FailureMechanismSectionReader_File_has_unsupported_multiPolyline" xml:space="preserve">
-    <value>Het bestand bevat een of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.</value>
+    <value>Het bestand bevat één of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.</value>
   </data>
   <data name="ReferenceLineImporter_ConfirmImport_Confirm_referenceline_import_which_clears_data_when_performed" xml:space="preserve">
     <value>Als u de referentielijn vervangt, zullen alle vakindelingen, berekende hydraulische randvoorwaarden en berekeningsresultaten worden verwijderd.
@@ -231,7 +231,7 @@ Er is geen referentielijn geëxporteerd.</value>
     <value>De in te lezen {0} ('{1}') is te groot of te klein om ingelezen te worden.</value>
   </data>
   <data name="DikeProfileDataReader_ParseSheetPileType_SheetPileType_0_must_be_in_range" xml:space="preserve">
-    <value>Het ingelezen damwandtype ('{0}') moet 0, 1 of 2 zijn.</value>
+    <value>Het ingelezen damwandtype ('{0}') moet '0', '1' of '2' zijn.</value>
   </data>
   <data name="DikeProfileDataReader_ReadDikeProfileData_DikeCount_cannot_be_negative" xml:space="preserve">
     <value>Het aantal punten van de dijkgeometrie ('{0}') mag niet negatief zijn.</value>
@@ -327,7 +327,7 @@ Bovenstaande kolomtitels moeten gescheiden zijn door het karakter ';'.</value>
     <value>Regel verwacht {0} elementen, maar het zijn er {1}.</value>
   </data>
   <data name="StructuresCharacteristicsCsvReader_ParseIdString_ParameterName_0_cannot_be_empty" xml:space="preserve">
-    <value>'{0}' kolom mag geen lege waardes bevatten.</value>
+    <value>'{0}' mag niet leeg zijn.</value>
   </data>
   <data name="StructuresCharacteristicsCsvReader_ParseDoubleValue_ParameterName_0_not_number" xml:space="preserve">
     <value>De waarde voor '{0}' kan niet worden omgezet naar een getal.</value>
@@ -441,8 +441,8 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="StructuresImporter_User_cancelled" xml:space="preserve">
     <value>Kunstwerken importeren is afgebroken. Geen gegevens ingelezen.</value>
   </data>
-  <data name="StructuresParameterRowsValidator_Parameter_0_missing" xml:space="preserve">
-    <value>Parameter '{0}' ontbreekt.</value>
+  <data name="StructuresParameterRowsValidator_Parameter_0_missing_or_invalid" xml:space="preserve">
+    <value>Geen geldige definitie gevonden voor parameter '{0}'.</value>
   </data>
   <data name="StructuresParameterRowsValidator_Parameter_0_repeated" xml:space="preserve">
     <value>Parameter '{0}' komt meerdere keren voor.</value>
@@ -485,6 +485,6 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een positief getal zijn.</value>
   </data>
   <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_invalid_variancetype_value" xml:space="preserve">
-    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet de waarde 0 (variatiecoëfficiënt) of 1 (standaardafwijking) hebben.</value>
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.</value>
   </data>
 </root>

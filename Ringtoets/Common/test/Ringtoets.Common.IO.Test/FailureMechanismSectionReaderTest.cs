@@ -304,7 +304,7 @@ namespace Ringtoets.Common.IO.Test
 
                 // Assert
                 var message = Assert.Throws<CriticalFileReadException>(call).Message;
-                Assert.AreEqual("Het bestand bevat een of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.", message);
+                Assert.AreEqual("Het bestand bevat één of meerdere multi-polylijnen. Multi-polylijnen worden niet ondersteund.", message);
             }
         }
 
