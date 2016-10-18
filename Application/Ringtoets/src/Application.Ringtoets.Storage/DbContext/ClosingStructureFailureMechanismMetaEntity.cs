@@ -33,15 +33,13 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class ClosingStructuresSectionResultEntity
+    public partial class ClosingStructureFailureMechanismMetaEntity
     {
-        public long ClosingStructuresSectionResultEntityId { get; set; }
-        public long FailureMechanismSectionEntityId { get; set; }
-        public Nullable<long> ClosingStructuresCalculationEntityId { get; set; }
-        public byte LayerOne { get; set; }
-        public Nullable<double> LayerTwoA { get; set; }
-        public Nullable<double> LayerThree { get; set; }
+        public long ClosingStructureFailureMechanismMetaEntityId { get; set; }
+        public long FailureMechanismEntityId { get; set; }
+        public Nullable<double> C { get; set; }
+        public int N2A { get; set; }
     
-        public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
+        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }
 }

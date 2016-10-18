@@ -75,6 +75,9 @@
     <Compile Include="DbContext\CharacteristicPointEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\ClosingStructureFailureMechanismMetaEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\ClosingStructuresSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -126,6 +129,9 @@
     <Compile Include="DbContext\GrassCoverSlipOffOutwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\HeightStructuresFailureMechanismMetaEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="DbContext\HeightStructuresSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -166,6 +172,9 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\SoilProfileEntity.cs">
+      <DependentUpon>RingtoetsEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DbContext\StabilityPointStructuresFailureMechanismMetaEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\StabilityPointStructuresSectionResultEntity.cs">
@@ -328,7 +337,6 @@
     <Compile Include="StorageSqliteCreator.cs" />
     <Compile Include="DbContext\PartialRingtoetsEntities.cs" />
     <Compile Include="Exceptions\EntityNotFoundException.cs" />
-    <Compile Include="DbContext\IRingtoetsEntities.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DbContext\RingtoetsEntities.Context.cs">
       <AutoGen>True</AutoGen>

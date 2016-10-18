@@ -38,13 +38,16 @@ namespace Application.Ringtoets.Storage.DbContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FailureMechanismEntity()
         {
+            this.ClosingStructureFailureMechanismMetaEntities = new HashSet<ClosingStructureFailureMechanismMetaEntity>();
             this.DikeProfileEntities = new HashSet<DikeProfileEntity>();
             this.FailureMechanismSectionEntities = new HashSet<FailureMechanismSectionEntity>();
             this.ForeshoreProfileEntities = new HashSet<ForeshoreProfileEntity>();
             this.GrassCoverErosionInwardsFailureMechanismMetaEntities = new HashSet<GrassCoverErosionInwardsFailureMechanismMetaEntity>();
             this.GrassCoverErosionOutwardsFailureMechanismMetaEntities = new HashSet<GrassCoverErosionOutwardsFailureMechanismMetaEntity>();
             this.GrassCoverErosionOutwardsHydraulicLocationEntities = new HashSet<GrassCoverErosionOutwardsHydraulicLocationEntity>();
+            this.HeightStructuresFailureMechanismMetaEntities = new HashSet<HeightStructuresFailureMechanismMetaEntity>();
             this.PipingFailureMechanismMetaEntities = new HashSet<PipingFailureMechanismMetaEntity>();
+            this.StabilityPointStructuresFailureMechanismMetaEntities = new HashSet<StabilityPointStructuresFailureMechanismMetaEntity>();
             this.StochasticSoilModelEntities = new HashSet<StochasticSoilModelEntity>();
             this.SurfaceLineEntities = new HashSet<SurfaceLineEntity>();
         }
@@ -59,6 +62,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClosingStructureFailureMechanismMetaEntity> ClosingStructureFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DikeProfileEntity> DikeProfileEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismSectionEntity> FailureMechanismSectionEntities { get; set; }
@@ -71,7 +76,11 @@ namespace Application.Ringtoets.Storage.DbContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GrassCoverErosionOutwardsHydraulicLocationEntity> GrassCoverErosionOutwardsHydraulicLocationEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HeightStructuresFailureMechanismMetaEntity> HeightStructuresFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StabilityPointStructuresFailureMechanismMetaEntity> StabilityPointStructuresFailureMechanismMetaEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StochasticSoilModelEntity> StochasticSoilModelEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

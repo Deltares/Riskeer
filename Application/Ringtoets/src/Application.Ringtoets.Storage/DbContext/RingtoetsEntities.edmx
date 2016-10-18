@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -42,12 +42,22 @@
           <Property Name="Y" Type="real" />
           <Property Name="Z" Type="real" />
         </EntityType>
+        <EntityType Name="ClosingStructureFailureMechanismMetaEntity">
+          <Key>
+            <PropertyRef Name="ClosingStructureFailureMechanismMetaEntityId" />
+          </Key>
+          <Property Name="ClosingStructureFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="C" Type="real" />
+          <Property Name="N2A" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="ClosingStructuresSectionResultEntity">
           <Key>
             <PropertyRef Name="ClosingStructuresSectionResultEntityId" />
           </Key>
           <Property Name="ClosingStructuresSectionResultEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
+          <Property Name="ClosingStructuresCalculationEntityId" Type="integer" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
           <Property Name="LayerTwoA" Type="real" />
           <Property Name="LayerThree" Type="real" />
@@ -259,6 +269,14 @@
           <Property Name="LayerTwoA" Type="tinyint" Nullable="false" />
           <Property Name="LayerThree" Type="real" />
         </EntityType>
+        <EntityType Name="HeightStructuresFailureMechanismMetaEntity">
+          <Key>
+            <PropertyRef Name="HeightStructuresFailureMechanismMetaEntity" />
+          </Key>
+          <Property Name="HeightStructuresFailureMechanismMetaEntity" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="N" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="HeightStructuresSectionResultEntity">
           <Key>
             <PropertyRef Name="HeightStructuresSectionResultEntityId" />
@@ -431,6 +449,14 @@
           <Property Name="SoilProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Bottom" Type="real" />
           <Property Name="Name" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="StabilityPointStructuresFailureMechanismMetaEntity">
+          <Key>
+            <PropertyRef Name="StrengthStabilityPointConstructionFailureMechanismMetaEntityId" />
+          </Key>
+          <Property Name="StrengthStabilityPointConstructionFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="N" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresSectionResultEntity">
           <Key>
@@ -631,6 +657,18 @@
             </Principal>
             <Dependent Role="CharacteristicPointEntity">
               <PropertyRef Name="SurfaceLineEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClosingStructureFailureMechanismMetaEntity_0_0">
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
+          <End Role="ClosingStructureFailureMechanismMetaEntity" Type="Self.ClosingStructureFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="ClosingStructureFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -910,6 +948,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HeightStructuresFailureMechanismMetaEntity_0_0">
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
+          <End Role="HeightStructuresFailureMechanismMetaEntity" Type="Self.HeightStructuresFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="HeightStructuresFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HeightStructuresSectionResultEntity_0_0">
           <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="1" />
           <End Role="HeightStructuresSectionResultEntity" Type="Self.HeightStructuresSectionResultEntity" Multiplicity="*" />
@@ -1087,6 +1137,18 @@
             </Principal>
             <Dependent Role="SoilLayerEntity">
               <PropertyRef Name="SoilProfileEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0">
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
+          <End Role="StabilityPointStructuresFailureMechanismMetaEntity" Type="Self.StabilityPointStructuresFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="StabilityPointStructuresFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1310,6 +1372,7 @@
           <EntitySet Name="AssessmentSectionEntity" EntityType="Self.AssessmentSectionEntity" store:Type="Tables" />
           <EntitySet Name="CalculationGroupEntity" EntityType="Self.CalculationGroupEntity" store:Type="Tables" />
           <EntitySet Name="CharacteristicPointEntity" EntityType="Self.CharacteristicPointEntity" store:Type="Tables" />
+          <EntitySet Name="ClosingStructureFailureMechanismMetaEntity" EntityType="Self.ClosingStructureFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="ClosingStructuresSectionResultEntity" EntityType="Self.ClosingStructuresSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="DikeProfileEntity" EntityType="Self.DikeProfileEntity" store:Type="Tables" />
           <EntitySet Name="DuneErosionSectionResultEntity" EntityType="Self.DuneErosionSectionResultEntity" store:Type="Tables" />
@@ -1327,6 +1390,7 @@
           <EntitySet Name="GrassCoverErosionOutwardsWaveConditionsOutputEntity" EntityType="Self.GrassCoverErosionOutwardsWaveConditionsOutputEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverSlipOffInwardsSectionResultEntity" EntityType="Self.GrassCoverSlipOffInwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverSlipOffOutwardsSectionResultEntity" EntityType="Self.GrassCoverSlipOffOutwardsSectionResultEntity" store:Type="Tables" />
+          <EntitySet Name="HeightStructuresFailureMechanismMetaEntity" EntityType="Self.HeightStructuresFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="HeightStructuresSectionResultEntity" EntityType="Self.HeightStructuresSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
           <EntitySet Name="MacrostabilityInwardsSectionResultEntity" EntityType="Self.MacrostabilityInwardsSectionResultEntity" store:Type="Tables" />
@@ -1341,6 +1405,7 @@
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="SoilLayerEntity" EntityType="Self.SoilLayerEntity" store:Type="Tables" />
           <EntitySet Name="SoilProfileEntity" EntityType="Self.SoilProfileEntity" store:Type="Tables" />
+          <EntitySet Name="StabilityPointStructuresFailureMechanismMetaEntity" EntityType="Self.StabilityPointStructuresFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="StabilityPointStructuresSectionResultEntity" EntityType="Self.StabilityPointStructuresSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="StabilityStoneCoverSectionResultEntity" EntityType="Self.StabilityStoneCoverSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="StabilityStoneCoverWaveConditionsCalculationEntity" EntityType="Self.StabilityStoneCoverWaveConditionsCalculationEntity" store:Type="Tables" />
@@ -1366,6 +1431,10 @@
           <AssociationSet Name="FK_CharacteristicPointEntity_0_0" Association="Self.FK_CharacteristicPointEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
             <End Role="CharacteristicPointEntity" EntitySet="CharacteristicPointEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClosingStructureFailureMechanismMetaEntity_0_0" Association="Self.FK_ClosingStructureFailureMechanismMetaEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="ClosingStructureFailureMechanismMetaEntity" EntitySet="ClosingStructureFailureMechanismMetaEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_ClosingStructuresSectionResultEntity_0_0" Association="Self.FK_ClosingStructuresSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
@@ -1459,6 +1528,10 @@
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="GrassCoverSlipOffOutwardsSectionResultEntity" EntitySet="GrassCoverSlipOffOutwardsSectionResultEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_HeightStructuresFailureMechanismMetaEntity_0_0" Association="Self.FK_HeightStructuresFailureMechanismMetaEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="HeightStructuresFailureMechanismMetaEntity" EntitySet="HeightStructuresFailureMechanismMetaEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_HeightStructuresSectionResultEntity_0_0" Association="Self.FK_HeightStructuresSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="HeightStructuresSectionResultEntity" EntitySet="HeightStructuresSectionResultEntity" />
@@ -1518,6 +1591,10 @@
           <AssociationSet Name="FK_SoilLayerEntity_0_0" Association="Self.FK_SoilLayerEntity_0_0">
             <End Role="SoilProfileEntity" EntitySet="SoilProfileEntity" />
             <End Role="SoilLayerEntity" EntitySet="SoilLayerEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0" Association="Self.FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="StabilityPointStructuresFailureMechanismMetaEntity" EntitySet="StabilityPointStructuresFailureMechanismMetaEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_StabilityPointStructuresSectionResultEntity_0_0" Association="Self.FK_StabilityPointStructuresSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
@@ -1600,6 +1677,7 @@
           <EntitySet Name="AssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.AssessmentSectionEntity" />
           <EntitySet Name="CalculationGroupEntities" EntityType="RingtoetsEntitiesModel.CalculationGroupEntity" />
           <EntitySet Name="CharacteristicPointEntities" EntityType="RingtoetsEntitiesModel.CharacteristicPointEntity" />
+          <EntitySet Name="ClosingStructureFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.ClosingStructureFailureMechanismMetaEntity" />
           <EntitySet Name="ClosingStructuresSectionResultEntities" EntityType="RingtoetsEntitiesModel.ClosingStructuresSectionResultEntity" />
           <EntitySet Name="DikeProfileEntities" EntityType="RingtoetsEntitiesModel.DikeProfileEntity" />
           <EntitySet Name="DuneErosionSectionResultEntities" EntityType="RingtoetsEntitiesModel.DuneErosionSectionResultEntity" />
@@ -1617,6 +1695,7 @@
           <EntitySet Name="GrassCoverErosionOutwardsWaveConditionsOutputEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsOutputEntity" />
           <EntitySet Name="GrassCoverSlipOffInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffInwardsSectionResultEntity" />
           <EntitySet Name="GrassCoverSlipOffOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffOutwardsSectionResultEntity" />
+          <EntitySet Name="HeightStructuresFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresFailureMechanismMetaEntity" />
           <EntitySet Name="HeightStructuresSectionResultEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresSectionResultEntity" />
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
           <EntitySet Name="MacrostabilityInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.MacrostabilityInwardsSectionResultEntity" />
@@ -1631,6 +1710,7 @@
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntitiesModel.ProjectEntity" />
           <EntitySet Name="SoilLayerEntities" EntityType="RingtoetsEntitiesModel.SoilLayerEntity" />
           <EntitySet Name="SoilProfileEntities" EntityType="RingtoetsEntitiesModel.SoilProfileEntity" />
+          <EntitySet Name="StabilityPointStructuresFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.StabilityPointStructuresFailureMechanismMetaEntity" />
           <EntitySet Name="StabilityPointStructuresSectionResultEntities" EntityType="RingtoetsEntitiesModel.StabilityPointStructuresSectionResultEntity" />
           <EntitySet Name="StabilityStoneCoverSectionResultEntities" EntityType="RingtoetsEntitiesModel.StabilityStoneCoverSectionResultEntity" />
           <EntitySet Name="StabilityStoneCoverWaveConditionsCalculationEntities" EntityType="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsCalculationEntity" />
@@ -1689,6 +1769,10 @@
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
             <End Role="CharacteristicPointEntity" EntitySet="CharacteristicPointEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_ClosingStructureFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_ClosingStructureFailureMechanismMetaEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="ClosingStructureFailureMechanismMetaEntity" EntitySet="ClosingStructureFailureMechanismMetaEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_ClosingStructuresSectionResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_ClosingStructuresSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
             <End Role="ClosingStructuresSectionResultEntity" EntitySet="ClosingStructuresSectionResultEntities" />
@@ -1725,9 +1809,17 @@
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_HeightStructuresFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_HeightStructuresFailureMechanismMetaEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="HeightStructuresFailureMechanismMetaEntity" EntitySet="HeightStructuresFailureMechanismMetaEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_PipingFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="PipingFailureMechanismMetaEntity" EntitySet="PipingFailureMechanismMetaEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="StabilityPointStructuresFailureMechanismMetaEntity" EntitySet="StabilityPointStructuresFailureMechanismMetaEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_StochasticSoilModelEntity_0_0" Association="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
@@ -1931,12 +2023,23 @@
           <Property Name="Z" Type="Double" />
           <NavigationProperty Name="SurfaceLineEntity" Relationship="RingtoetsEntitiesModel.FK_CharacteristicPointEntity_0_0" FromRole="CharacteristicPointEntity" ToRole="SurfaceLineEntity" />
         </EntityType>
+        <EntityType Name="ClosingStructureFailureMechanismMetaEntity">
+          <Key>
+            <PropertyRef Name="ClosingStructureFailureMechanismMetaEntityId" />
+          </Key>
+          <Property Name="ClosingStructureFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="C" Type="Double" />
+          <Property Name="N2A" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructureFailureMechanismMetaEntity_0_0" FromRole="ClosingStructureFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
+        </EntityType>
         <EntityType Name="ClosingStructuresSectionResultEntity">
           <Key>
             <PropertyRef Name="ClosingStructuresSectionResultEntityId" />
           </Key>
           <Property Name="ClosingStructuresSectionResultEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
+          <Property Name="ClosingStructuresCalculationEntityId" Type="Int64" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerTwoA" Type="Double" />
           <Property Name="LayerThree" Type="Double" />
@@ -1984,13 +2087,16 @@
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_1_0" FromRole="FailureMechanismEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="CalculationGroupEntity" />
+          <NavigationProperty Name="ClosingStructureFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructureFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="ClosingStructureFailureMechanismMetaEntity" />
           <NavigationProperty Name="DikeProfileEntities" Relationship="RingtoetsEntitiesModel.FK_DikeProfileEntity_0_0" FromRole="FailureMechanismEntity" ToRole="DikeProfileEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismEntity" ToRole="FailureMechanismSectionEntity" />
           <NavigationProperty Name="ForeshoreProfileEntities" Relationship="RingtoetsEntitiesModel.FK_ForeshoreProfileEntity_0_0" FromRole="FailureMechanismEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionInwardsFailureMechanismMetaEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationEntity" />
+          <NavigationProperty Name="HeightStructuresFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="HeightStructuresFailureMechanismMetaEntity" />
           <NavigationProperty Name="PipingFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="PipingFailureMechanismMetaEntity" />
+          <NavigationProperty Name="StabilityPointStructuresFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StabilityPointStructuresFailureMechanismMetaEntity" />
           <NavigationProperty Name="StochasticSoilModelEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StochasticSoilModelEntity" />
           <NavigationProperty Name="SurfaceLineEntities" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="FailureMechanismEntity" ToRole="SurfaceLineEntity" />
         </EntityType>
@@ -2206,6 +2312,15 @@
           <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverSlipOffOutwardsSectionResultEntity_0_0" FromRole="GrassCoverSlipOffOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
+        <EntityType Name="HeightStructuresFailureMechanismMetaEntity">
+          <Key>
+            <PropertyRef Name="HeightStructuresFailureMechanismMetaEntity1" />
+          </Key>
+          <Property Name="HeightStructuresFailureMechanismMetaEntity1" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="N" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresFailureMechanismMetaEntity_0_0" FromRole="HeightStructuresFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
+        </EntityType>
         <EntityType Name="HeightStructuresSectionResultEntity">
           <Key>
             <PropertyRef Name="HeightStructuresSectionResultEntityId" />
@@ -2402,6 +2517,15 @@
           <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SoilLayerEntities" Relationship="RingtoetsEntitiesModel.FK_SoilLayerEntity_0_0" FromRole="SoilProfileEntity" ToRole="SoilLayerEntity" />
           <NavigationProperty Name="StochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0" FromRole="SoilProfileEntity" ToRole="StochasticSoilProfileEntity" />
+        </EntityType>
+        <EntityType Name="StabilityPointStructuresFailureMechanismMetaEntity">
+          <Key>
+            <PropertyRef Name="StrengthStabilityPointConstructionFailureMechanismMetaEntityId" />
+          </Key>
+          <Property Name="StrengthStabilityPointConstructionFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="N" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0" FromRole="StabilityPointStructuresFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresSectionResultEntity">
           <Key>
@@ -2725,6 +2849,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ClosingStructureFailureMechanismMetaEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.ClosingStructureFailureMechanismMetaEntity" Role="ClosingStructureFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="ClosingStructureFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ClosingStructuresSectionResultEntity_0_0">
           <End Type="RingtoetsEntitiesModel.FailureMechanismSectionEntity" Role="FailureMechanismSectionEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.ClosingStructuresSectionResultEntity" Role="ClosingStructuresSectionResultEntity" Multiplicity="*" />
@@ -2833,6 +2969,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HeightStructuresFailureMechanismMetaEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HeightStructuresFailureMechanismMetaEntity" Role="HeightStructuresFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="HeightStructuresFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PipingFailureMechanismMetaEntity_0_0">
           <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.PipingFailureMechanismMetaEntity" Role="PipingFailureMechanismMetaEntity" Multiplicity="*" />
@@ -2841,6 +2989,18 @@
               <PropertyRef Name="FailureMechanismEntityId" />
             </Principal>
             <Dependent Role="PipingFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.StabilityPointStructuresFailureMechanismMetaEntity" Role="StabilityPointStructuresFailureMechanismMetaEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="StabilityPointStructuresFailureMechanismMetaEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -3347,12 +3507,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ClosingStructureFailureMechanismMetaEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.ClosingStructureFailureMechanismMetaEntity">
+              <MappingFragment StoreEntitySet="ClosingStructureFailureMechanismMetaEntity">
+                <ScalarProperty Name="N2A" ColumnName="N2A" />
+                <ScalarProperty Name="C" ColumnName="C" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="ClosingStructureFailureMechanismMetaEntityId" ColumnName="ClosingStructureFailureMechanismMetaEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="ClosingStructuresSectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.ClosingStructuresSectionResultEntity">
               <MappingFragment StoreEntitySet="ClosingStructuresSectionResultEntity">
                 <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
                 <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
+                <ScalarProperty Name="ClosingStructuresCalculationEntityId" ColumnName="ClosingStructuresCalculationEntityId" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="ClosingStructuresSectionResultEntityId" ColumnName="ClosingStructuresSectionResultEntityId" />
               </MappingFragment>
@@ -3581,6 +3752,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="HeightStructuresFailureMechanismMetaEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HeightStructuresFailureMechanismMetaEntity">
+              <MappingFragment StoreEntitySet="HeightStructuresFailureMechanismMetaEntity">
+                <ScalarProperty Name="N" ColumnName="N" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="HeightStructuresFailureMechanismMetaEntity1" ColumnName="HeightStructuresFailureMechanismMetaEntity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="HeightStructuresSectionResultEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HeightStructuresSectionResultEntity">
               <MappingFragment StoreEntitySet="HeightStructuresSectionResultEntity">
@@ -3765,6 +3945,15 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Bottom" ColumnName="Bottom" />
                 <ScalarProperty Name="SoilProfileEntityId" ColumnName="SoilProfileEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StabilityPointStructuresFailureMechanismMetaEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StabilityPointStructuresFailureMechanismMetaEntity">
+              <MappingFragment StoreEntitySet="StabilityPointStructuresFailureMechanismMetaEntity">
+                <ScalarProperty Name="N" ColumnName="N" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="StrengthStabilityPointConstructionFailureMechanismMetaEntityId" ColumnName="StrengthStabilityPointConstructionFailureMechanismMetaEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
