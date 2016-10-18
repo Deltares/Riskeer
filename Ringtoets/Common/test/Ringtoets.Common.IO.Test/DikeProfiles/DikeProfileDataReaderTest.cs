@@ -278,7 +278,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         public void ReadDikeProfileData_FileWithOrientationOutOfRange_ThrowCriticalFileReadException(
             string faultyFileName, double expectedOrientationInFile)
         {
-            string expectedMessage = string.Format("De oriëntatie ('{0}') moet in het bereik [0, 360] vallen.",
+            string expectedMessage = string.Format("De oriëntatie ('{0}') moet in het bereik [0, 360] liggen.",
                                                    expectedOrientationInFile);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, 4, expectedMessage);
         }
@@ -713,7 +713,7 @@ namespace Ringtoets.Common.IO.Test.DikeProfiles
         private void ReadDikeProfileData_FileWithRoughnessOutOfRange_ThrowsCriticalFileReadException(
             string faultyFileName, double expectedFaultyRoughness, int expectedLineNumber, string expectedLowerLimitText)
         {
-            string expectedMessage = string.Format("De ingelezen ruwheid ('{0}') moet in het bereik [{1}, 1] vallen.",
+            string expectedMessage = string.Format("De ingelezen ruwheid ('{0}') moet in het bereik [{1}, 1] liggen.",
                                                    expectedFaultyRoughness, expectedLowerLimitText);
             ReadFileAndExpectCriticalFileReadException(faultyFileName, expectedLineNumber, expectedMessage);
         }

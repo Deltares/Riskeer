@@ -209,7 +209,7 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Percentiel moet in het bereik [0, 1] vallen..
+        ///   Looks up a localized string similar to Percentiel moet in het bereik [0, 1] liggen..
         /// </summary>
         public static string DesignVariable_Percentile_must_be_in_range {
             get {

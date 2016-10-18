@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             {
                 Environment.NewLine
             }, StringSplitOptions.RemoveEmptyEntries)[0];
-            Assert.AreEqual("Percentiel moet in het bereik [0, 1] vallen.", customMessagePart);
+            Assert.AreEqual("Percentiel moet in het bereik [0, 1] liggen.", customMessagePart);
             mocks.VerifyAll(); // Expect no calls on mocks
         }
 

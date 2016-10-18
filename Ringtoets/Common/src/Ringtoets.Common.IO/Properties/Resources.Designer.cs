@@ -256,7 +256,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De ingelezen ruwheid (&apos;{0}&apos;) moet in het bereik [{1}, 1] vallen..
+        ///   Looks up a localized string similar to De ingelezen ruwheid (&apos;{0}&apos;) moet in het bereik [{1}, 1] liggen..
         /// </summary>
         public static string DikeProfileDataReader_ReadRoughnessPoint_Roughness_0_must_be_in_range_LowerLimit_1_ {
             get {
@@ -369,7 +369,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De oriëntatie (&apos;{0}&apos;) moet in het bereik [0, 360] vallen..
+        ///   Looks up a localized string similar to De oriëntatie (&apos;{0}&apos;) moet in het bereik [0, 360] liggen..
         /// </summary>
         public static string DikeProfileDataReader_ValidateOrientation_Orientation_0_must_be_in_range {
             get {
@@ -1289,7 +1289,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, valt buiten het bereik [0, 360]..
+        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, moet in het bereik [0, 360] liggen..
         /// </summary>
         public static string StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_orientation_out_of_range {
             get {

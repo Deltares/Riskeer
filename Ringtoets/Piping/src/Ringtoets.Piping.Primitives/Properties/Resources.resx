@@ -121,7 +121,7 @@
     <value>Geen lagen gevonden voor de ondergrondschematisatie.</value>
   </data>
   <data name="DesignVariable_Percentile_must_be_in_range" xml:space="preserve">
-    <value>Percentiel moet in het bereik [0, 1] vallen.</value>
+    <value>Percentiel moet in het bereik [0, 1] liggen.</value>
   </data>
   <data name="DesignVariable_GetDesignValue_Distribution_must_be_set" xml:space="preserve">
     <value>Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.</value>

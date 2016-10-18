@@ -147,7 +147,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             Assert.IsFalse(validationResult.IsValid);
             List<string> expectedErrorMessages = new List<string>
             {
-                "De waarde voor parameter 'KW_HOOGTE1' op regel 1, kolom 'numeriekewaarde', valt buiten het bereik [0, 360].",
+                "De waarde voor parameter 'KW_HOOGTE1' op regel 1, kolom 'numeriekewaarde', moet in het bereik [0, 360] liggen.",
                 "De waarde voor parameter 'KW_HOOGTE2' op regel 2, kolom 'numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_HOOGTE2' op regel 2, kolom 'boolean', moet de waarde 0 (variatiecoëfficiënt) of 1 (standaardafwijking) hebben.",
                 "De waarde voor parameter 'KW_HOOGTE2' op regel 2, kolom 'standaardafwijking.variatie', moet een positief getal zijn.",
@@ -417,7 +417,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             {
                 "De waarde voor parameter 'KW_BETSLUIT1' op regel 1, kolom 'numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
                 "De waarde voor parameter 'KW_BETSLUIT2' op regel 2, kolom 'numeriekewaarde', moet een positief getal zijn.",
-                "De waarde voor parameter 'KW_BETSLUIT3' op regel 3, kolom 'numeriekewaarde', valt buiten het bereik [0, 360].",
+                "De waarde voor parameter 'KW_BETSLUIT3' op regel 3, kolom 'numeriekewaarde', moet in het bereik [0, 360] liggen.",
                 "De waarde voor parameter 'KW_BETSLUIT5' op regel 5, kolom 'numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_BETSLUIT5' op regel 5, kolom 'boolean', moet de waarde 0 (variatiecoëfficiënt) of 1 (standaardafwijking) hebben.",
                 "De waarde voor parameter 'KW_BETSLUIT6' op regel 6, kolom 'numeriekewaarde', is geen getal.",
@@ -836,7 +836,7 @@ namespace Ringtoets.Common.IO.Test.Structures
             Assert.IsFalse(validationResult.IsValid);
             List<string> expectedErrorMessages = new List<string>
             {
-                "De waarde voor parameter 'KW_STERSTAB1' op regel 1, kolom 'numeriekewaarde', valt buiten het bereik [0, 360].",
+                "De waarde voor parameter 'KW_STERSTAB1' op regel 1, kolom 'numeriekewaarde', moet in het bereik [0, 360] liggen.",
                 "De waarde voor parameter 'KW_STERSTAB2' op regel 2, kolom 'numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",
                 "De waarde voor parameter 'KW_STERSTAB3' op regel 3, kolom 'numeriekewaarde', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_STERSTAB3' op regel 3, kolom 'boolean', moet de waarde 0 (variatiecoëfficiënt) of 1 (standaardafwijking) hebben.",

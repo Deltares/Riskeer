@@ -151,7 +151,7 @@
     <value>Een kansverdeling moet opgegeven zijn om op basis van die data een rekenwaarde te bepalen.</value>
   </data>
   <data name="DesignVariable_Percentile_must_be_in_range" xml:space="preserve">
-    <value>Percentiel moet in het bereik [0, 1] vallen.</value>
+    <value>Percentiel moet in het bereik [0, 1] liggen.</value>
   </data>
   <data name="LogNormalDistribution_Mean_must_be_greater_than_zero" xml:space="preserve">
     <value>Gemiddelde moet groter zijn dan 0.</value>
