@@ -65,15 +65,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <returns>Returns the closest <see cref="FailureMechanismSection"/> to <paramref name="calculation"/> or <c>null</c> if the 
         /// <paramref name="calculation"/> has no location.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sections"/> is <c>null</c></exception>
-        /// <exception cref="ArgumentException">Thrown when  an element in <paramref name="sections"/> is <c>null</c>.
+        /// <exception cref="ArgumentException">Thrown when an element in <paramref name="sections"/> is <c>null</c>.
         /// </exception>
         public static FailureMechanismSection FailureMechanismSectionForCalculation(IEnumerable<FailureMechanismSection> sections,
                                                                                     GrassCoverErosionInwardsCalculation calculation)
         {
-            var asCalculationWithLocation = AsCalculationWithLocation(calculation);
-            if (asCalculationWithLocation != null)
+            CalculationWithLocation calculationWithLocation = AsCalculationWithLocation(calculation);
+            if (calculationWithLocation != null)
             {
-                return AssignUnassignCalculations.FailureMechanismSectionForCalculation(sections, asCalculationWithLocation);
+                return AssignUnassignCalculations.FailureMechanismSectionForCalculation(sections, calculationWithLocation);
             }
             return null;
         }
@@ -85,7 +85,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/> to iterate while 
         /// possibly updating the <see cref="GrassCoverErosionInwardsCalculation"/> assigned to it.</param>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> which has a location that has been updated.</param>
-        /// <exception cref="ArgumentNullException">When <paramref name="sectionResults"/> is <c>null</c></exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResults"/> is <c>null</c></exception>
         /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
         /// <c>null</c>.</exception>
         public static void Update(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
@@ -93,10 +93,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         {
             ValidateSectionResults(sectionResults);
 
-            var asCalculationWithLocation = AsCalculationWithLocation(calculation);
-            if (asCalculationWithLocation != null)
+            CalculationWithLocation calculationWithLocation = AsCalculationWithLocation(calculation);
+            if (calculationWithLocation != null)
             {
-                AssignUnassignCalculations.Update(sectionResults.Select(AsCalculationAssignment), asCalculationWithLocation);
+                AssignUnassignCalculations.Update(sectionResults.Select(AsCalculationAssignment), calculationWithLocation);
             }
         }
 
@@ -109,7 +109,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> which has a location that has been updated.</param>
         /// <param name="calculations">The <see cref="IEnumerable{T}"/> of <see cref="GrassCoverErosionInwardsCalculation"/> that were left after removing
         /// <paramref name="calculation"/>.</param>
-        /// <exception cref="ArgumentNullException">When any input parameter is <c>null</c> or when an element 
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c> or when an element 
         /// in <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
         /// <c>null</c>.</exception>
@@ -158,8 +158,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Utils
         /// Transforms the <paramref name="calculation"/> into a <see cref="CalculationWithLocation"/>.
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionInwardsCalculation"/> to transform.</param>
-        /// <returns>A new <see cref="CalculationWithLocation"/> or <c>null</c> if the calculation had no value
-        /// or had no dike profile assigned.</returns>
+        /// <returns>A new <see cref="CalculationWithLocation"/> or <c>null</c> if the calculation had no dike profile assigned.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/> is <c>null</c>.</exception>
         private static CalculationWithLocation AsCalculationWithLocation(GrassCoverErosionInwardsCalculation calculation)
         {

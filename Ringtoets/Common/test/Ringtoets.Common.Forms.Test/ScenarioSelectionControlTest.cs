@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Forms.Test
             using (var control = ShowScenariosControl())
             {
                 // Assert
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 var dataGridViewControl = (DataGridViewControl) new ControlTester("dataGridViewControl").TheObject;
 
                 Assert.IsInstanceOf<UserControl>(control);
@@ -67,8 +67,8 @@ namespace Ringtoets.Common.Forms.Test
                 Assert.AreEqual(0, dataGridView.RowCount);
                 Assert.AreEqual(2, dataGridView.ColumnCount);
 
-                var sectionColumn = dataGridView.Columns[0];
-                var calculationColumn = dataGridView.Columns[1];
+                DataGridViewColumn sectionColumn = dataGridView.Columns[0];
+                DataGridViewColumn calculationColumn = dataGridView.Columns[1];
 
                 Assert.AreEqual("Vak", sectionColumn.HeaderText);
                 Assert.AreEqual("Berekening", calculationColumn.HeaderText);
@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Forms.Test
 
                 Assert.IsTrue(sectionColumn.ReadOnly);
 
-                DataGridViewComboBoxColumn comboBoxColumn = (DataGridViewComboBoxColumn) calculationColumn;
+                var comboBoxColumn = (DataGridViewComboBoxColumn) calculationColumn;
                 Assert.AreEqual("WrappedObject", comboBoxColumn.ValueMember);
                 Assert.AreEqual("DisplayName", comboBoxColumn.DisplayMember);
             }
@@ -174,27 +174,35 @@ namespace Ringtoets.Common.Forms.Test
                 });
 
                 // Assert
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 Assert.AreEqual(2, dataGridView.RowCount);
 
-                DataGridViewComboBoxColumn comboBoxColumn = (DataGridViewComboBoxColumn) dataGridView.Columns[1];
+                var comboBoxColumn = (DataGridViewComboBoxColumn) dataGridView.Columns[1];
                 Assert.AreEqual(2, comboBoxColumn.Items.Count);
 
                 var cellA = (DataGridViewComboBoxCell) dataGridView[1, 0];
                 CollectionAssert.AreEqual(
-                    new [] { "<geen>", calculationA.ToString() }, 
+                    new[]
+                    {
+                        "<geen>",
+                        calculationA.ToString()
+                    },
                     cellA.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>().Select(r => r.DisplayName));
 
                 var cellB = (DataGridViewComboBoxCell) dataGridView[1, 1];
                 CollectionAssert.AreEqual(
-                    new[] { "<geen>", calculationB.ToString() }, 
+                    new[]
+                    {
+                        "<geen>",
+                        calculationB.ToString()
+                    },
                     cellB.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>().Select(r => r.DisplayName));
             }
             mockRepository.VerifyAll();
         }
 
         [Test]
-        public void ClearData_WithPreviousData_DataGridViewEmpty()
+        public void ClearDataSource_WithPreviousData_DataGridViewEmpty()
         {
             // Setup
             string sectionName = "sectionName";
@@ -237,7 +245,7 @@ namespace Ringtoets.Common.Forms.Test
         public void EndEdit_DataGridViewInEditMode_DataGridViewNotInEditMode()
         {
             // Setup
-            string sectionName = "sectionName";
+            const string sectionName = "sectionName";
 
             var mockRepository = new MockRepository();
             var calculation = mockRepository.Stub<ICalculation>();
@@ -262,14 +270,14 @@ namespace Ringtoets.Common.Forms.Test
                     }
                 });
 
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Make sure we can set edit mode programmatically in order for the test to work
                 dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
 
                 dataGridView.CurrentCell = dataGridView[1, 0];
                 dataGridView.BeginEdit(false);
-                
+
                 // Precondition
                 Assert.IsTrue(dataGridView.IsCurrentCellInEditMode, "Current cell should be in edit mode before EndEdit is called.");
 
@@ -290,17 +298,17 @@ namespace Ringtoets.Common.Forms.Test
 
             return control;
         }
-    }
 
-    public class EditableScenarioRow : IScenarioRow<ICalculation>
-    {
-        public EditableScenarioRow(ICalculation calculation, string sectionName)
+        private class EditableScenarioRow : IScenarioRow<ICalculation>
         {
-            Name = sectionName;
-            Calculation = calculation;
-        }
+            public EditableScenarioRow(ICalculation calculation, string sectionName)
+            {
+                Name = sectionName;
+                Calculation = calculation;
+            }
 
-        public string Name { get; private set; }
-        public ICalculation Calculation { get; set; }
+            public string Name { get; private set; }
+            public ICalculation Calculation { get; set; }
+        }
     }
 }

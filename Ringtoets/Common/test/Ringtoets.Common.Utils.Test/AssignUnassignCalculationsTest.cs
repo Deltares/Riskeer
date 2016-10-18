@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void Update_CalculationDikeProfileChangedToMatchOtherSection_FirstSectionResultCalculationNullSecondSectionResultCalculationSet()
+        public void Update_CalculationLocationChangedToMatchOtherSection_FirstSectionResultCalculationNullSecondSectionResultCalculationSet()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void Update_CalculationDikeProfileChangedToMatchOtherSection_FirstSectionResultCalculationNullSecondSectionResultCalculationUnchanged()
+        public void Update_CalculationCalculationChangedToMatchOtherSection_FirstSectionResultCalculationNullSecondSectionResultCalculationUnchanged()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -329,7 +329,6 @@ namespace Ringtoets.Common.Utils.Test
             };
             sectionResult.Calculation = calculation;
 
-            // Setup
             // Call
             AssignUnassignCalculations.Delete(sectionResults, calculation, Enumerable.Empty<CalculationWithLocation>());
 
@@ -502,7 +501,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void FailureMechanismSectionForCalculation_NullSectionsElement_ThrowsArgumentNullException()
+        public void FailureMechanismSectionForCalculation_NullSectionsElement_ThrowsArgumentException()
         {
             // Call
             TestDelegate call = () => AssignUnassignCalculations.FailureMechanismSectionForCalculation(
@@ -598,11 +597,11 @@ namespace Ringtoets.Common.Utils.Test
                 new CalculationWithLocation(mockRepository.Stub<ICalculation>(), new Point2D(50.0, 66.0))
             };
         }
-    }
 
-    public class FailureMechanismSectionResultWithCalculation : FailureMechanismSectionResult
-    {
-        public FailureMechanismSectionResultWithCalculation(FailureMechanismSection section) : base(section) {}
-        public ICalculation Calculation { get; set; }
+        private class FailureMechanismSectionResultWithCalculation : FailureMechanismSectionResult
+        {
+            public FailureMechanismSectionResultWithCalculation(FailureMechanismSection section) : base(section) {}
+            public ICalculation Calculation { get; set; }
+        }
     }
 }
