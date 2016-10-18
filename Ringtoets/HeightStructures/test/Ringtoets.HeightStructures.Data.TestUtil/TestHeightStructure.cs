@@ -35,7 +35,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
         public TestHeightStructure(string name)
             : this(name, new Point2D(0.0, 0.0)) {}
 
-        public TestHeightStructure(string name, Point2D location)
+        private TestHeightStructure(string name, Point2D location)
             : base(new ConstructionProperties
             {
                 Name = name,

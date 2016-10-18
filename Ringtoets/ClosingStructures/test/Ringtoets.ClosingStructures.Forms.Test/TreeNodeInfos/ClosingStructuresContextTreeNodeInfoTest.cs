@@ -29,6 +29,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -130,7 +131,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             var closingStructures = new ObservableList<ClosingStructure>
             {
-                CreateClosingStructure()
+                new TestClosingStructure()
             };
 
             // Precondition
@@ -154,8 +155,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            ClosingStructure closingStructure1 = CreateClosingStructure();
-            ClosingStructure closingStructure2 = CreateClosingStructure();
+            ClosingStructure closingStructure1 = new TestClosingStructure();
+            ClosingStructure closingStructure2 = new TestClosingStructure();
             var closingStructures = new ObservableList<ClosingStructure>
             {
                 closingStructure1,
@@ -223,12 +224,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             }
             // Assert
             mocks.VerifyAll();
-        }
-
-        private static ClosingStructure CreateClosingStructure()
-        {
-            // Creation of closing structure object will be defined by issue WTI-590
-            return null;
         }
     }
 }
