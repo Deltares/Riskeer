@@ -55,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class GrassCoverErosionOutwardsDesignWaterLevelLocationsContextTreeNodeInfoTest
     {
-        private const int contextMenuRunDesignWaterLevelCalculationsIndex = 1;
+        private const int contextMenuRunDesignWaterLevelCalculationsIndex = 2;
         private MockRepository mockRepository;
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");

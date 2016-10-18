@@ -70,7 +70,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         private const int contextMenuCalculateAllIndexNestedGroup = 4;
         private const int contextMenuClearOutputNestedGroupIndex = 5;
 
-        private const int customOnlyContextMenuAddGenerateCalculationsIndex = 1;
+        private const int customOnlyContextMenuAddGenerateCalculationsIndex = 2;
 
         private MockRepository mocks;
         private PipingPlugin plugin;
@@ -412,7 +412,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 1,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 2,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
                                                                   PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip,
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon,
@@ -455,7 +455,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 1,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 2,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
                                                                   PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_NoSurfaceLinesOrSoilModels_ToolTip,
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon,
@@ -501,7 +501,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(menu, 1,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, 2,
                                                                   RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
                                                                   PipingFormsResources.PipingCalculationGroup_Generate_PipingCalculations_ToolTip,
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon);

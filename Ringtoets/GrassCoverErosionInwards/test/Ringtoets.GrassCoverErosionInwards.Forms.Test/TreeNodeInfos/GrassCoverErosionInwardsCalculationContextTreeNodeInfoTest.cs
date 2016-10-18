@@ -242,7 +242,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(nodeData, assessmentSectionMock, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(10, menu.Items.Count);
+                    Assert.AreEqual(11, menu.Items.Count);
 
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuValidateIndex,
                                                                   RingtoetsCommonFormsResources.Validate,

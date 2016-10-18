@@ -50,7 +50,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class WaveHeightLocationsContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuRunWaveHeightCalculationsIndex = 1;
+        private const int contextMenuRunWaveHeightCalculationsIndex = 2;
         private MockRepository mockRepository;
 
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");

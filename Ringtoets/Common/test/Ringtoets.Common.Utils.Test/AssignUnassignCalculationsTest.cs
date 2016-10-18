@@ -117,7 +117,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void Update_CalculationLocationChangedToMatchOtherSection_FirstSectionResultCalculationNullSecondSectionResultCalculationSet()
+        public void Update_CalculationLocationChangedToMatchOtherSectionAndOtherSectionWithoutCalculation_FirstSectionResultCalculationNullSecondSectionResultCalculationSet()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -159,7 +159,7 @@ namespace Ringtoets.Common.Utils.Test
         }
 
         [Test]
-        public void Update_CalculationCalculationChangedToMatchOtherSection_FirstSectionResultCalculationNullSecondSectionResultCalculationUnchanged()
+        public void Update_CalculationLocationChangedToMatchOtherSectionAndOtherSectionHasCalculation_FirstSectionResultCalculationNullSecondSectionResultCalculationUnchanged()
         {
             // Setup
             var mockRepository = new MockRepository();

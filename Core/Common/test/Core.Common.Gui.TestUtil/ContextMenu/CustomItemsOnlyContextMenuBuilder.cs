@@ -35,7 +35,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         private readonly ContextMenuStrip contextMenu = new ContextMenuStrip();
 
         /// <summary>
-        /// Adds a <see cref="StrictContextMenuItem"/> to the <see cref="ContextMenuStrip"/>.
+        /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
         /// </summary>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddRenameItem()
@@ -45,7 +45,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         }
 
         /// <summary>
-        /// Adds a <see cref="StrictContextMenuItem"/> to the <see cref="ContextMenuStrip"/>.
+        /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
         /// </summary>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddDeleteItem()
@@ -55,7 +55,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         }
 
         /// <summary>
-        /// Adds a <see cref="StrictContextMenuItem"/> to the <see cref="ContextMenuStrip"/>.
+        /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
         /// </summary>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddDeleteChildrenItem()
@@ -65,16 +65,17 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         }
 
         /// <summary>
-        /// Does nothing.
+        /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
         /// </summary>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddExpandAllItem()
         {
+            contextMenu.Items.Add(StubItem());
             return this;
         }
 
         /// <summary>
-        /// Adds a <see cref="StrictContextMenuItem"/> to the <see cref="ContextMenuStrip"/>.
+        /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
         /// </summary>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddCollapseAllItem()
@@ -84,16 +85,17 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         }
 
         /// <summary>
-        /// Does nothing.
+        /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
         /// </summary>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddOpenItem()
         {
+            contextMenu.Items.Add(StubItem());
             return this;
         }
 
         /// <summary>
-        /// Adds a <see cref="StrictContextMenuItem"/> to the <see cref="ContextMenuStrip"/>.
+        /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
         /// </summary>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddExportItem()
@@ -103,7 +105,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         }
 
         /// <summary>
-        /// Adds a <see cref="StrictContextMenuItem"/> to the <see cref="ContextMenuStrip"/>.
+        /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
         /// </summary>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddImportItem()
@@ -113,7 +115,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         }
 
         /// <summary>
-        /// Adds a <see cref="StrictContextMenuItem"/> to the <see cref="ContextMenuStrip"/>.
+        /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
         /// </summary>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
         public IContextMenuBuilder AddPropertiesItem()
@@ -133,7 +135,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
         }
 
         /// <summary>
-        /// Adds a custom item to the <see cref="ContextMenuStrip"/>.
+        /// Adds a dummy <see cref="ToolStripItem"/> to the <see cref="ContextMenuStrip"/>.
         /// </summary>
         /// <param name="item">The custom <see cref="StrictContextMenuItem"/> to add to the <see cref="ContextMenuStrip"/>.</param>
         /// <returns>The <see cref="CustomItemsOnlyContextMenuBuilder"/>.</returns>
@@ -152,7 +154,7 @@ namespace Core.Common.Gui.TestUtil.ContextMenu
             return contextMenu;
         }
 
-        private static StrictContextMenuItem StubItem()
+        private static ToolStripItem StubItem()
         {
             return new StrictContextMenuItem(string.Empty, string.Empty, null, (sender, args) => { });
         }

@@ -55,11 +55,11 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class PipingFailureMechanismContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuRelevancyIndexWhenRelevant = 1;
+        private const int contextMenuRelevancyIndexWhenRelevant = 2;
         private const int contextMenuRelevancyIndexWhenNotRelevant = 0;
-        private const int contextMenuValidateAllIndex = 3;
-        private const int contextMenuCalculateAllIndex = 4;
-        private const int contextMenuClearIndex = 5;
+        private const int contextMenuValidateAllIndex = 4;
+        private const int contextMenuCalculateAllIndex = 5;
+        private const int contextMenuClearIndex = 6;
         private MockRepository mocks;
         private PipingPlugin plugin;
         private TreeNodeInfo info;
