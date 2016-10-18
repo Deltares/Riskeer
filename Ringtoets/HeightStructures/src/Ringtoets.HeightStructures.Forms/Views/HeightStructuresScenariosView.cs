@@ -32,7 +32,7 @@ using Ringtoets.HeightStructures.Utils;
 namespace Ringtoets.HeightStructures.Forms.Views
 {
     /// <summary>
-    /// View for configuring scenarios for the grass cover erosion inwards failure mechanism.
+    /// View for configuring scenarios for the height structures failure mechanism.
     /// Shows a grid view where for each failure mechanism section, a calculation within the section
     /// can be selected.
     /// </summary>

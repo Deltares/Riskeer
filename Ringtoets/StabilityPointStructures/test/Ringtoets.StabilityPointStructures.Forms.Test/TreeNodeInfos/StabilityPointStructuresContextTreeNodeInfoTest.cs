@@ -159,13 +159,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
             StabilityPointStructure structure1 = new TestStabilityPointStructure();
             StabilityPointStructure structure2 = new TestStabilityPointStructure();
-            var closingStructures = new ObservableList<StabilityPointStructure>
+            var stabilityPointStructures = new ObservableList<StabilityPointStructure>
             {
                 structure1,
                 structure2
             };
 
-            var context = new StabilityPointStructuresContext(closingStructures, assessmentSection);
+            var context = new StabilityPointStructuresContext(stabilityPointStructures, assessmentSection);
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var info = GetInfo(plugin);
@@ -189,12 +189,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var closingStructures = new ObservableList<StabilityPointStructure>();
+            var stabilityPointStructures = new ObservableList<StabilityPointStructure>();
 
             // Precondition
-            CollectionAssert.IsEmpty(closingStructures);
+            CollectionAssert.IsEmpty(stabilityPointStructures);
 
-            var context = new StabilityPointStructuresContext(closingStructures, assessmentSection);
+            var context = new StabilityPointStructuresContext(stabilityPointStructures, assessmentSection);
             using (var plugin = new StabilityPointStructuresPlugin())
             {
                 var info = GetInfo(plugin);

@@ -445,12 +445,12 @@ namespace Ringtoets.HeightStructures.Plugin
             ObservableList<HeightStructure> heightStructures = nodeData.FailureMechanism.HeightStructures;
             bool structuresAvailable = heightStructures.Any();
 
-            string stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip = structuresAvailable
-                                                                                         ? Resources.HeightStructuresPlugin_Generate_calculations_for_selected_structures
-                                                                                         : Resources.HeightStructuresPlugin_No_structures_to_generate_for;
+            string heightStructuresCalculationGroupContextToolTip = structuresAvailable
+                                                                        ? Resources.HeightStructuresPlugin_Generate_calculations_for_selected_structures
+                                                                        : Resources.HeightStructuresPlugin_No_structures_to_generate_for;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
-                                             stabilityStoneCoverWaveConditionsCalculationGroupContextToolTip,
+                                             heightStructuresCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                              (sender, args) => { ShowHeightStructuresSelectionDialog(nodeData); })
             {

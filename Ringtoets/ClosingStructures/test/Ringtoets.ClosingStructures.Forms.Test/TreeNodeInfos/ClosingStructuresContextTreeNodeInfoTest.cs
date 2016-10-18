@@ -148,7 +148,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnDikeProfiles()
+        public void ChildNodeObjects_Always_ReturnClosingStructures()
         {
             // Setup
             var mocks = new MockRepository();

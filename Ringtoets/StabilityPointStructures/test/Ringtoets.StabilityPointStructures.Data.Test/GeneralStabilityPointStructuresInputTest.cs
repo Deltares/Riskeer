@@ -96,13 +96,13 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void N_ValueInsideValidRegion_DoesNotThrow(int value)
         {
             // Setup
-            var generalHeightStructuresInput = new GeneralStabilityPointStructuresInput();
+            var generalStabilityPointStructuresInput = new GeneralStabilityPointStructuresInput();
 
             // Call
-            generalHeightStructuresInput.N = value;
+            generalStabilityPointStructuresInput.N = value;
 
             // Assert
-            Assert.AreEqual(value, generalHeightStructuresInput.N);
+            Assert.AreEqual(value, generalStabilityPointStructuresInput.N);
         }
 
         [Test]
@@ -113,10 +113,10 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void N_ValueOutsideValidRegion_ThrowsArgumentOutOfRangeException(int value)
         {
             // Setup
-            var generalHeightStructuresInput = new GeneralStabilityPointStructuresInput();
+            var generalStabilityPointStructuresInput = new GeneralStabilityPointStructuresInput();
 
             // Call
-            TestDelegate test = () => generalHeightStructuresInput.N = value;
+            TestDelegate test = () => generalStabilityPointStructuresInput.N = value;
 
             // Assert
             const string expectedMessage = "De waarde voor 'N' moet in interval [1, 20] liggen.";

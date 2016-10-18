@@ -148,7 +148,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ChildNodeObjects_Always_ReturnDikeProfiles()
+        public void ChildNodeObjects_Always_ReturnHeightStructures()
         {
             // Setup
             var mocks = new MockRepository();
