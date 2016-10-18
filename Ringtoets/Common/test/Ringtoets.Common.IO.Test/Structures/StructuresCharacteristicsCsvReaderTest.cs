@@ -165,7 +165,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                                                    "* Numeriekewaarde" + Environment.NewLine +
                                                    "* Standaardafwijking.variatie" + Environment.NewLine +
                                                    "* Boolean" + Environment.NewLine;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet de volgende kolommen bevatten:"
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet in ieder geval de volgende kolommen bevatten:"
                                                        + Environment.NewLine
                                                        + "{1}"
                                                        + Environment.NewLine
@@ -346,7 +346,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                                                    "* Numeriekewaarde" + Environment.NewLine +
                                                    "* Standaardafwijking.variatie" + Environment.NewLine +
                                                    "* Boolean" + Environment.NewLine;
-                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet de volgende kolommen bevatten:"
+                string expectedMessage = string.Format("Fout bij het lezen van bestand '{0}' op regel 1: Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet in ieder geval de volgende kolommen bevatten:"
                                                        + Environment.NewLine
                                                        + "{1}"
                                                        + Environment.NewLine

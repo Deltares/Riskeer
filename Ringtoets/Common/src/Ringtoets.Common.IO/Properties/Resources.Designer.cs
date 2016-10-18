@@ -1105,7 +1105,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet de volgende kolommen bevatten:
+        ///   Looks up a localized string similar to Het bestand is niet geschikt om kunstwerken parameters uit te lezen. De koptekst moet in ieder geval de volgende kolommen bevatten:
         ///{0}
         ///
         ///Bovenstaande kolomtitels moeten gescheiden zijn door het karakter &apos;;&apos;..
