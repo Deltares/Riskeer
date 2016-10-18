@@ -55,13 +55,13 @@ namespace Core.Common.Utils.Test.Extensions
         }
 
         [Test]
-        public void FirstLetterToUpper_StringIsNull_ReturnNull()
+        public void FirstToUpper_StringIsNull_ReturnNull()
         {
             // Setup
             const string str = null;
 
             // Call
-            string result = str.FirstLetterToUpper();
+            string result = str.FirstToUpper();
 
             // Assert
             Assert.IsNull(result);
@@ -73,10 +73,10 @@ namespace Core.Common.Utils.Test.Extensions
         [TestCase("Test", "Test")]
         [TestCase("tesT Test", "TesT Test")]
         [TestCase("TesT Test", "TesT Test")]
-        public void FirstLetterToUpper_StringIsNotNull_ReturnStringWithFirstLetterUpperCase(string str, string expectedResult)
+        public void FirstToUpper_StringIsNotNull_ReturnStringWithFirstLetterUpperCase(string str, string expectedResult)
         {
             // Call
-            string result = str.FirstLetterToUpper();
+            string result = str.FirstToUpper();
 
             // Assert
             Assert.AreEqual(expectedResult, result);

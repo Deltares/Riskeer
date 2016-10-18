@@ -43,7 +43,7 @@ namespace Core.Common.Utils.Extensions
         /// </summary>
         /// <param name="str">The string to set the first letter to upper case for.</param>
         /// <returns>A string with the first letter set to upper case.</returns>
-        public static string FirstLetterToUpper(this string str)
+        public static string FirstToUpper(this string str)
         {
             if (str == null)
             {
