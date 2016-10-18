@@ -866,7 +866,7 @@ namespace Ringtoets.Common.IO.Test.Structures
                 "De waarde voor parameter 'KW_STERSTAB16' op regel 16, kolom 'Numeriekewaarde', moet in het bereik (0, 1] liggen.",
                 "De waarde voor parameter 'KW_STERSTAB17' op regel 17, kolom 'Numeriekewaarde', moet een positief getal zijn.",
                 "De waarde voor parameter 'KW_STERSTAB20' op regel 20, kolom 'Numeriekewaarde', moet een positief getal zijn.",
-                "De waarde voor parameter 'KW_STERSTAB21' op regel 21, kolom 'Numeriekewaarde', moet een positief getal zijn.",
+                "De waarde voor parameter 'KW_STERSTAB21' op regel 21, kolom 'Numeriekewaarde', moet in het bereik (0, 1] liggen.",
                 "De waarde voor parameter 'KW_STERSTAB22' op regel 22, kolom 'Numeriekewaarde', is geen getal.",
                 "De waarde voor parameter 'KW_STERSTAB22' op regel 22, kolom 'Boolean', moet de waarde 0 (variatiecoëfficiënt) of 1 (standaardafwijking) hebben.",
                 "De waarde voor parameter 'KW_STERSTAB23' op regel 23, kolom 'Numeriekewaarde', is te dicht op 0 waardoor een betrouwbare conversie tussen standaardafwijking en variatiecoëfficiënt niet mogelijk is.",

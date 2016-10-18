@@ -195,7 +195,7 @@ namespace Ringtoets.Common.IO.Structures
                     StructureFilesKeywords.StabilityPointStructureParameterKeyword20, PositiveDoubleRule
                 },
                 {
-                    StructureFilesKeywords.StabilityPointStructureParameterKeyword21, PositiveDoubleRule
+                    StructureFilesKeywords.StabilityPointStructureParameterKeyword21, ProbabilityRule
                 },
                 {
                     StructureFilesKeywords.StabilityPointStructureParameterKeyword22, NormalDistributionRule
