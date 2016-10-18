@@ -739,4 +739,7 @@
   <data name="Structure_ThresholdHeightOpenWeir_DisplayName" xml:space="preserve">
     <value>Drempelhoogte [m+NAP]</value>
   </data>
+  <data name="Categories_CriticalValues" xml:space="preserve">
+    <value>Kritieke waarden</value>
+  </data>
 </root>
