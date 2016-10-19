@@ -409,6 +409,8 @@ namespace Core.Common.Controls.DataGrid
 
         private void DataGridViewOnCellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == -1 || e.ColumnIndex == -1) return;
+
             dataGridView.BeginEdit(true);
             ComboBox combobox = dataGridView.EditingControl as ComboBox;
             if (combobox != null)
