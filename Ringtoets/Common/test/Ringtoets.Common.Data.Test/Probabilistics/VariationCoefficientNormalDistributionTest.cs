@@ -103,7 +103,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             TestDelegate call = () => distribution.CoefficientOfVariation = (RoundedDouble)invalidCoefficient;
 
             // Assert
-            string expectedMessage = "Variatiecoëfficiënt (CV) moet groter of gelijk zijn aan 0.";
+            string expectedMessage = "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
         }
     }
