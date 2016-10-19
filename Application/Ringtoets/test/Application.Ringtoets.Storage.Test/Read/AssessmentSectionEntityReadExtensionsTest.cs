@@ -795,6 +795,112 @@ namespace Application.Ringtoets.Storage.Test.Read
         [Test]
         [TestCase(true)]
         [TestCase(false)]
+        public void Read_WithHeightStructuresWithProperties_ReturnsHeightStructuresWithProperties(bool isRelevant)
+        {
+            // Setup
+            var entity = CreateAssessmentSectionEntity();
+            const string comments = "Some text";
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int)FailureMechanismType.StructureHeight,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                IsRelevant = Convert.ToByte(isRelevant),
+                Comments = comments,
+                HeightStructuresFailureMechanismMetaEntities =
+                {
+                    new HeightStructuresFailureMechanismMetaEntity
+                    {
+                        N = 5
+                    }
+                }
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(isRelevant, section.HeightStructures.IsRelevant);
+            Assert.AreEqual(comments, section.HeightStructures.Comments);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Read_WithClosingStructuresWithProperties_ReturnsClosingStructuresWithProperties(bool isRelevant)
+        {
+            // Setup
+            var entity = CreateAssessmentSectionEntity();
+            const string comments = "Some text";
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int)FailureMechanismType.ReliabilityClosingOfStructure,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                IsRelevant = Convert.ToByte(isRelevant),
+                Comments = comments,
+                ClosingStructureFailureMechanismMetaEntities = 
+                {
+                    new ClosingStructureFailureMechanismMetaEntity
+                    {
+                        C = 1.1,
+                        N2A = 3
+                    }
+                }
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(isRelevant, section.ClosingStructures.IsRelevant);
+            Assert.AreEqual(comments, section.ClosingStructures.Comments);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Read_WithStabilityPointStructuresWithProperties_ReturnsStabilityPointStructuresWithProperties(bool isRelevant)
+        {
+            // Setup
+            var entity = CreateAssessmentSectionEntity();
+            const string comments = "Some text";
+
+            var failureMechanismEntity = new FailureMechanismEntity
+            {
+                FailureMechanismType = (int)FailureMechanismType.StabilityPointStructures,
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                IsRelevant = Convert.ToByte(isRelevant),
+                Comments = comments,
+                StabilityPointStructuresFailureMechanismMetaEntities = 
+                {
+                    new StabilityPointStructuresFailureMechanismMetaEntity
+                    {
+                        N = 5
+                    }
+                }
+            };
+            entity.FailureMechanismEntities.Add(failureMechanismEntity);
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            var section = entity.Read(collector);
+
+            // Assert
+            Assert.AreEqual(isRelevant, section.StabilityPointStructures.IsRelevant);
+            Assert.AreEqual(comments, section.StabilityPointStructures.Comments);
+        }
+
+        [Test]
+        [TestCase(true)]
+        [TestCase(false)]
         public void Read_WithStandAloneFailureMechanisms_ReturnsNewAssessmentSectionWithFailureMechanismsSet(bool isRelevant)
         {
             // Setup
@@ -802,9 +908,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             var macrostabilityInwardsEntityComment = "2";
             var macrostabilityOutwardsEntityComment = "3";
             var microstabilityEntityComment = "4";
-            var structureHeightEntityComment = "5";
-            var closingEntityComment = "16";
-            var failingOfConstructionPointEntityComment = "22";
             var failingOfConstructionLengthwiseEntityComment = "23";
             var waterPressureEntityComment = "78";
             var grassCoverSlipoffOutwardsEntityComment = "134";
@@ -815,9 +918,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, macrostabilityInwardsEntityComment, FailureMechanismType.MacrostabilityInwards));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, macrostabilityOutwardsEntityComment, FailureMechanismType.MacrostabilityOutwards));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, microstabilityEntityComment, FailureMechanismType.Microstability));
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, structureHeightEntityComment, FailureMechanismType.StructureHeight));
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, closingEntityComment, FailureMechanismType.ReliabilityClosingOfStructure));
-            entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, failingOfConstructionPointEntityComment, FailureMechanismType.StabilityPointStructures));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, failingOfConstructionLengthwiseEntityComment, FailureMechanismType.StrengthAndStabilityParallelConstruction));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, waterPressureEntityComment, FailureMechanismType.WaterOverpressureAsphaltRevetment));
             entity.FailureMechanismEntities.Add(CreateFailureMechanismEntity(isRelevant, grassCoverSlipoffOutwardsEntityComment, FailureMechanismType.GrassRevetmentSlidingOutwards));
@@ -834,9 +934,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             AssertFailureMechanismEqual(isRelevant, macrostabilityInwardsEntityComment, 2, section.MacrostabilityInwards);
             AssertFailureMechanismEqual(isRelevant, macrostabilityOutwardsEntityComment, 2, section.MacrostabilityOutwards);
             AssertFailureMechanismEqual(isRelevant, microstabilityEntityComment, 2, section.Microstability);
-            AssertFailureMechanismEqual(isRelevant, structureHeightEntityComment, 2, section.HeightStructures);
-            AssertFailureMechanismEqual(isRelevant, closingEntityComment, 2, section.ClosingStructures);
-            AssertFailureMechanismEqual(isRelevant, failingOfConstructionPointEntityComment, 2, section.StabilityPointStructures);
             AssertFailureMechanismEqual(isRelevant, failingOfConstructionLengthwiseEntityComment, 2, section.StrengthStabilityLengthwiseConstruction);
             AssertFailureMechanismEqual(isRelevant, waterPressureEntityComment, 2, section.WaterPressureAsphaltCover);
             AssertFailureMechanismEqual(isRelevant, grassCoverSlipoffOutwardsEntityComment, 2, section.GrassCoverSlipOffOutwards);

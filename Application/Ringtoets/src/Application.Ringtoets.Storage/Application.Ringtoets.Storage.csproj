@@ -60,9 +60,12 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Create\ClosingStructures\GeneralClosingStructuresInputCreateExtensions.cs" />
     <Compile Include="Create\ForeshoreProfileCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionOutwardsInputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensions.cs" />
+    <Compile Include="Create\HeightStructures\GeneralHeightStructuresInputCreateExtensions.cs" />
+    <Compile Include="Create\StabilityPointStructures\GeneralStabilityPointStructuresInputCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\WaveConditionsOutputCreateExtensions.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensions.cs" />
@@ -220,11 +223,15 @@
     <Compile Include="DbContext\WaveImpactAsphaltCoverWaveConditionsOutputEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Read\ClosingStructures\ClosingStructuresFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\ForeshoreProfileEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsHydraulicLocationEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsOutputEntityReadExtensions.cs" />
+    <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensions.cs" />
+    <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\StabilityPointStructures\StabilityPointStructureFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputEntityReadExtensions.cs" />
     <Compile Include="Read\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationEntityReadExtensions.cs" />
@@ -326,7 +333,6 @@
     <Compile Include="Read\TechnicalInnovationSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\WaterPressureAsphaltCoverSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\StrengthStabilityLengthwiseConstructionSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\HeightStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\FailureMechanismEntityReadExtensions.cs" />
     <Compile Include="Read\FailureMechanismSectionEntityReadExtensions.cs" />
     <Compile Include="Read\HydraulicLocationEntityReadExtensions.cs" />

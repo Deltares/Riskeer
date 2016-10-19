@@ -44,6 +44,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
             var entity = mechanism.Create(FailureMechanismType.StabilityPointStructures, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
+            AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
 
             return entity;
         }
@@ -70,6 +71,11 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
                 ForeshoreProfileEntity foreshoreProfileEntity = foreshoreProfiles[i].Create(registry, i);
                 entity.ForeshoreProfileEntities.Add(foreshoreProfileEntity);
             }
+        }
+
+        private static void AddEntitiesForFailureMechanismMeta(GeneralStabilityPointStructuresInput generalInput, FailureMechanismEntity entity)
+        {
+            entity.StabilityPointStructuresFailureMechanismMetaEntities.Add(generalInput.Create());
         }
     }
 }

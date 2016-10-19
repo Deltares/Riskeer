@@ -888,6 +888,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertHeightStructuresFailureMechanism(HeightStructuresFailureMechanism expectedFailureMechanism,
                                                                    HeightStructuresFailureMechanism actualFailureMechanism)
         {
+            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
+
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
         }
 
@@ -898,6 +900,9 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertClosingStructuresFailureMechanism(ClosingStructuresFailureMechanism expectedFailureMechanism,
                                                                     ClosingStructuresFailureMechanism actualFailureMechanism)
         {
+            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N2A, actualFailureMechanism.GeneralInput.N2A);
+            Assert.AreEqual(expectedFailureMechanism.GeneralInput.C, actualFailureMechanism.GeneralInput.C);
+
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
         }
 
@@ -908,6 +913,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism expectedFailureMechanism,
                                                                            StabilityPointStructuresFailureMechanism actualFailureMechanism)
         {
+            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
+
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
         }
 

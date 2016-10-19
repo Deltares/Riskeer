@@ -96,16 +96,19 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
             AddForeshoreProfiles(heightStructuresFailureMechanism.ForeshoreProfiles);
+            ConfigureHeightStructuresFailureMechanism(heightStructuresFailureMechanism);
             AddSections(heightStructuresFailureMechanism);
             SetSectionResults(heightStructuresFailureMechanism.SectionResults);
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
             AddForeshoreProfiles(closingStructuresFailureMechanism.ForeshoreProfiles);
+            ConfigureClosingStructuresFailureMechanism(closingStructuresFailureMechanism);
             AddSections(closingStructuresFailureMechanism);
             SetSectionResults(closingStructuresFailureMechanism.SectionResults);
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             AddForeshoreProfiles(stabilityPointStructuresFailureMechanism.ForeshoreProfiles);
+            ConfigureStabilityPointStructuresFailureMechanism(stabilityPointStructuresFailureMechanism);
             AddSections(stabilityPointStructuresFailureMechanism);
             SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults);
 
@@ -357,6 +360,34 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             return hydraulicBoundaryDatabase;
         }
+
+        #region HeightStructures FailureMechanism
+
+        private static void ConfigureHeightStructuresFailureMechanism(HeightStructuresFailureMechanism failureMechanism)
+        {
+            failureMechanism.GeneralInput.N = 5;
+        }
+
+        #endregion
+
+        #region ClosingStructures FailureMechanism
+
+        private static void ConfigureClosingStructuresFailureMechanism(ClosingStructuresFailureMechanism failureMechanism)
+        {
+            failureMechanism.GeneralInput.N2A = 6;
+            failureMechanism.GeneralInput.C = (RoundedDouble) 0.77;
+        }
+
+        #endregion
+
+        #region StabilityPointStructures FailureMechanism
+
+        private static void ConfigureStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism)
+        {
+            failureMechanism.GeneralInput.N = 8;
+        }
+
+        #endregion
 
         #region Piping FailureMechanism
 

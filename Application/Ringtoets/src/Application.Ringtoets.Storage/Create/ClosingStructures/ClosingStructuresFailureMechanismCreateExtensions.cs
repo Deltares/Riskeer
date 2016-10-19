@@ -44,6 +44,7 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
             var entity = mechanism.Create(FailureMechanismType.ReliabilityClosingOfStructure, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
+            AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
 
             return entity;
         }
@@ -70,6 +71,11 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
                 ForeshoreProfileEntity foreshoreProfileEntity = foreshoreProfiles[i].Create(registry, i);
                 entity.ForeshoreProfileEntities.Add(foreshoreProfileEntity);
             }
+        }
+
+        private static void AddEntitiesForFailureMechanismMeta(GeneralClosingStructuresInput generalInput, FailureMechanismEntity entity)
+        {
+            entity.ClosingStructureFailureMechanismMetaEntities.Add(generalInput.Create());
         }
     }
 }

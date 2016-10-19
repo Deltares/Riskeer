@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.ClosingStructures;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 
@@ -56,7 +57,12 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
                 IsRelevant = isRelevant,
-                Comments = "Some text"
+                Comments = "Some text",
+                GeneralInput =
+                {
+                    C = (RoundedDouble) 0.76,
+                    N2A = 5
+                }
             };
             var registry = new PersistenceRegistry();
 
@@ -68,6 +74,10 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             Assert.AreEqual((short) FailureMechanismType.ReliabilityClosingOfStructure, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.Comments, entity.Comments);
+
+            ClosingStructureFailureMechanismMetaEntity metaEntity = entity.ClosingStructureFailureMechanismMetaEntities.First();
+            Assert.AreEqual(failureMechanism.GeneralInput.C.Value, metaEntity.C);
+            Assert.AreEqual(failureMechanism.GeneralInput.N2A, metaEntity.N2A);
         }
 
         [Test]

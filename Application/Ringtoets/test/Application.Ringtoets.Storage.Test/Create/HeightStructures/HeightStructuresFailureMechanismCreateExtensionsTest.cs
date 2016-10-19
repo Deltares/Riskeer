@@ -56,18 +56,25 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             var failureMechanism = new HeightStructuresFailureMechanism
             {
                 IsRelevant = isRelevant,
-                Comments = "Some text"
+                Comments = "Some text",
+                GeneralInput =
+                {
+                    N = 7
+                }
             };
             var registry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(registry);
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
 
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual((short) FailureMechanismType.StructureHeight, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.Comments, entity.Comments);
+
+            HeightStructuresFailureMechanismMetaEntity metaEntity = entity.HeightStructuresFailureMechanismMetaEntities.First();
+            Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
         }
 
         [Test]

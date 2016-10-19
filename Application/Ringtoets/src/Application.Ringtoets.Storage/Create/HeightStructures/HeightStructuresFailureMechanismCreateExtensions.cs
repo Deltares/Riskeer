@@ -41,9 +41,10 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static FailureMechanismEntity Create(this HeightStructuresFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            var entity = mechanism.Create(FailureMechanismType.StructureHeight, registry);
+            FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.StructureHeight, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
+            AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
 
             return entity;
         }
@@ -70,6 +71,11 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
                 ForeshoreProfileEntity foreshoreProfileEntity = foreshoreProfiles[i].Create(registry, i);
                 entity.ForeshoreProfileEntities.Add(foreshoreProfileEntity);
             }
+        }
+
+        private static void AddEntitiesForFailureMechanismMeta(GeneralHeightStructuresInput generalInput, FailureMechanismEntity entity)
+        {
+            entity.HeightStructuresFailureMechanismMetaEntities.Add(generalInput.Create());
         }
     }
 }

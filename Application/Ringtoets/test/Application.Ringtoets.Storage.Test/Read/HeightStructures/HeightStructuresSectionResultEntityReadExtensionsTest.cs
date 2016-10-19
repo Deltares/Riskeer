@@ -22,11 +22,12 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read;
+using Application.Ringtoets.Storage.Read.HeightStructures;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HeightStructures.Data;
 
-namespace Application.Ringtoets.Storage.Test.Read
+namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
 {
     [TestFixture]
     public class HeightStructuresSectionResultEntityReadExtensionsTest

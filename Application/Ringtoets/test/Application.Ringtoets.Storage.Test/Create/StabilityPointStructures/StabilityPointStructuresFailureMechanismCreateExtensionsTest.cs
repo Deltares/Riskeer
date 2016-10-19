@@ -56,7 +56,11 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             var failureMechanism = new StabilityPointStructuresFailureMechanism
             {
                 IsRelevant = isRelevant,
-                Comments = "Some text"
+                Comments = "Some text",
+                GeneralInput =
+                {
+                    N = 4
+                }
             };
             var registry = new PersistenceRegistry();
 
@@ -68,6 +72,9 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             Assert.AreEqual((short) FailureMechanismType.StabilityPointStructures, entity.FailureMechanismType);
             Assert.AreEqual(Convert.ToByte(isRelevant), entity.IsRelevant);
             Assert.AreEqual(failureMechanism.Comments, entity.Comments);
+
+            var metaEntity = entity.StabilityPointStructuresFailureMechanismMetaEntities.First();
+            Assert.AreEqual(failureMechanism.GeneralInput.N, metaEntity.N);
         }
 
         [Test]

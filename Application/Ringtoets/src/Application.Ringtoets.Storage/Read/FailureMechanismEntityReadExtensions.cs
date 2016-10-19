@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.ClosingStructures;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
+using Application.Ringtoets.Storage.Read.HeightStructures;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Read.StabilityPointStructures;
 using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
@@ -221,6 +222,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadHeightStructuresMechanismSectionResults(failureMechanism, collector);
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
+            entity.ReadGeneralInput(failureMechanism.GeneralInput);
         }
 
         private static void ReadHeightStructuresMechanismSectionResults(this FailureMechanismEntity entity, HeightStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
@@ -232,6 +234,12 @@ namespace Application.Ringtoets.Storage.Read
 
                 sectionResultEntity.Read(result);
             }
+        }
+
+        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralHeightStructuresInput generalInput)
+        {
+            GeneralHeightStructuresInput generalHeightStructuresInput = entity.HeightStructuresFailureMechanismMetaEntities.First().Read();
+            generalInput.N = generalHeightStructuresInput.N;
         }
 
         #endregion
@@ -330,6 +338,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadClosingStructuresMechanismSectionResults(failureMechanism, collector);
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
+            entity.ReadGeneralInput(failureMechanism.GeneralInput);
         }
 
         private static void ReadClosingStructuresMechanismSectionResults(this FailureMechanismEntity entity, ClosingStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
@@ -341,6 +350,13 @@ namespace Application.Ringtoets.Storage.Read
 
                 sectionResultEntity.Read(result);
             }
+        }
+
+        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralClosingStructuresInput generalInput)
+        {
+            GeneralClosingStructuresInput generalClosingStructuresInput = entity.ClosingStructureFailureMechanismMetaEntities.First().Read();
+            generalInput.C = generalClosingStructuresInput.C;
+            generalInput.N2A = generalClosingStructuresInput.N2A;
         }
 
         #endregion
@@ -692,6 +708,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadStabilityPointStructuresMechanismSectionResults(failureMechanism, collector);
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
+            entity.ReadGeneralInput(failureMechanism.GeneralInput);
         }
 
         private static void ReadStabilityPointStructuresMechanismSectionResults(this FailureMechanismEntity entity, StabilityPointStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
@@ -703,6 +720,12 @@ namespace Application.Ringtoets.Storage.Read
 
                 sectionResultEntity.Read(result);
             }
+        }
+
+        private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralStabilityPointStructuresInput generalInput)
+        {
+            GeneralStabilityPointStructuresInput generalStabilityPointStructuresInput = entity.StabilityPointStructuresFailureMechanismMetaEntities.First().Read();
+            generalInput.N = generalStabilityPointStructuresInput.N;
         }
 
         #endregion

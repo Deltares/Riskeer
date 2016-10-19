@@ -836,6 +836,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsHeightStructuresFailureMechanism_WithForshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
+            const int generalInputN = 7;
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -853,6 +854,13 @@ namespace Application.Ringtoets.Storage.Test.Read
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
                     },
+                },
+                HeightStructuresFailureMechanismMetaEntities =
+                {
+                    new HeightStructuresFailureMechanismMetaEntity
+                    {
+                        N = generalInputN
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -869,6 +877,8 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Name);
+
+            Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N);
         }
 
         #endregion
@@ -879,6 +889,9 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsClosingStructuresFailureMechanism_WithForshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
+            const double generalInputC = 1.1;
+            const int generalInputN2A = 3;
+
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -895,7 +908,15 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Name = "Child2",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
-                    },
+                    }
+                },
+                ClosingStructureFailureMechanismMetaEntities =
+                {
+                    new ClosingStructureFailureMechanismMetaEntity
+                    {
+                        C = generalInputC,
+                        N2A = generalInputN2A
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -912,6 +933,9 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Name);
+
+            Assert.AreEqual(generalInputC, failureMechanism.GeneralInput.C.Value);
+            Assert.AreEqual(generalInputN2A, failureMechanism.GeneralInput.N2A);
         }
 
         #endregion
@@ -922,6 +946,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsStabilityPointStructuresFailureMechanism_WithForshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
+            const int generalInputN = 5;
+
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
@@ -938,7 +964,14 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Name = "Child2",
                         GeometryXml = new Point2DXmlSerializer().ToXml(Enumerable.Empty<Point2D>()),
                         Order = 0
-                    },
+                    }
+                },
+                StabilityPointStructuresFailureMechanismMetaEntities =
+                {
+                    new StabilityPointStructuresFailureMechanismMetaEntity
+                    {
+                        N = generalInputN
+                    }
                 }
             };
             var collector = new ReadConversionCollector();
@@ -955,6 +988,8 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Name);
+
+            Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N);
         }
 
         #endregion
