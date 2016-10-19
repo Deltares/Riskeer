@@ -295,7 +295,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput(assessmentSection);
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection);
             calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam,
                                                                                                  breakWaterHeight));
             calculation.InputParameters.UseBreakWater = false;
@@ -345,7 +345,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput(assessmentSection);
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection);
             calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam,
                                                                                                  breakWaterHeight));
             calculation.InputParameters.UseBreakWater = true;
@@ -384,7 +384,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput(assessmentSection);
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection);
 
             switch (calculationType)
             {
@@ -683,7 +683,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
             return calculation;
         }
 
-        private static GrassCoverErosionOutwardsWaveConditionsCalculation GetDefaultValidationInput(AssessmentSection assessmentSection)
+        private static GrassCoverErosionOutwardsWaveConditionsCalculation GetDefaultCalculation(AssessmentSection assessmentSection)
         {
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
             calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble) 5;

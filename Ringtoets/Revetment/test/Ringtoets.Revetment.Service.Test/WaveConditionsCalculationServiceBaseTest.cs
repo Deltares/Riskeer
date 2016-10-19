@@ -309,7 +309,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             var dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
-            var input = GetDefaultValidationInput();
+            WaveConditionsInput input = GetDefaultValidationInput();
 
             switch (calculationType)
             {
@@ -386,7 +386,7 @@ namespace Ringtoets.Revetment.Service.Test
                 Assert.AreEqual(ringId, testCalculator.RingId);
                 for (int i = 0; i < input.WaterLevels.Count(); i++)
                 {
-                    var expectedInput = CreateInput(input.WaterLevels.ElementAt(i), a, b, c, norm, input, useForeshore, useBreakWater);
+                    WaveConditionsCosineCalculationInput expectedInput = CreateInput(input.WaterLevels.ElementAt(i), a, b, c, norm, input, useForeshore, useBreakWater);
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, testCalculator.ReceivedInputs[i]);
                 }
             }
@@ -396,10 +396,10 @@ namespace Ringtoets.Revetment.Service.Test
         public void Calculate_CalculationOutputNull_LogError()
         {
             // Setup
-            RoundedDouble waterLevel = new RoundedDouble(2, 4.00);
-            RoundedDouble a = (RoundedDouble)1.0;
-            RoundedDouble b = (RoundedDouble)0.8;
-            RoundedDouble c = (RoundedDouble)0.4;
+            var waterLevel = new RoundedDouble(2, 4.00);
+            var a = (RoundedDouble)1.0;
+            var b = (RoundedDouble)0.8;
+            var c = (RoundedDouble)0.4;
             int norm = 5;
             var input = new WaveConditionsInput
             {
@@ -451,10 +451,10 @@ namespace Ringtoets.Revetment.Service.Test
         public void Calculate_CancelCalculationWithValidInput_CancelsCalculator()
         {
             // Setup
-            RoundedDouble waterLevel = new RoundedDouble(2, 4.00);
-            RoundedDouble a = (RoundedDouble)1.0;
-            RoundedDouble b = (RoundedDouble)0.8;
-            RoundedDouble c = (RoundedDouble)0.4;
+            var waterLevel = new RoundedDouble(2, 4.00);
+            var a = (RoundedDouble)1.0;
+            var b = (RoundedDouble)0.8;
+            var c = (RoundedDouble)0.4;
             int norm = 5;
             var input = new WaveConditionsInput
             {

@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Run_NoHydraulicBoundaryDatabase_DoesNotPerformCalculationAndLogsError()
         {
             // Setup
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             string testFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
             var isValid = true;
@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Validate_InvalidHydraulicBoundaryDatabase_LogsValidationMessageAndReturnFalse()
         {
             // Setup
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             string testFilePath = Path.Combine(testDataPath, "corruptschema.sqlite");
 
             var isValid = true;
@@ -130,7 +130,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Validate_NoHydraulicBoundaryLocation_LogsValidationMessageAndReturnFalse()
         {
             // Setup
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.HydraulicBoundaryLocation = null;
 
             var isValid = true;
@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Validate_NoDesignWaterLevel_LogsValidationMessageAndReturnFalse()
         {
             // Setup
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)double.NaN;
 
             var isValid = true;
@@ -192,7 +192,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Validate_NoWaterLevels_LogsValidationMessageAndReturnFalse(double lowerBoundaryRevetment, double upperBoundaryRevetment)
         {
             // Setup
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetment;
             calculation.InputParameters.UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetment;
 
@@ -226,7 +226,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Validate_CalculationWithForeshoreAndUsesBreakWaterAndHasInvalidBreakWaterHeight_LogsValidationMessageAndReturnFalse(double breakWaterHeight)
         {
             // Setup
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam,
                                                                                                  breakWaterHeight));
             calculation.InputParameters.UseBreakWater = true;
@@ -261,7 +261,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Calculate_CalculationWithForeshoreAndDoesNotUseBreakWaterAndHasInvalidBreakWaterHeight_PerformCalculationAndLogStartAndEnd(double breakWaterHeight)
         {
             // Setup
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam,
                                                                                                  breakWaterHeight));
             calculation.InputParameters.UseBreakWater = false;
@@ -308,7 +308,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Calculate_CalculationWithValidInputConditionsAndValidForeshore_LogCalculationStartAndEnd(CalculationType calculationType)
         {
             // Setup
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
@@ -415,7 +415,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Calculate_Canceled_HasNoOutput()
         {
             // Setup
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
@@ -443,7 +443,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         public void Calculate_CanceledCalculationWithValidInput_CancelsCalculatorAndHasNullOutput()
         {
             // Setup
-            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
             var grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
 
             var mockRepository = new MockRepository();
@@ -565,7 +565,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             return calculation;
         }
 
-        private static GrassCoverErosionOutwardsWaveConditionsCalculation GetDefaultValidationInput()
+        private static GrassCoverErosionOutwardsWaveConditionsCalculation GetDefaultCalculation()
         {
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation();
             calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble)5;

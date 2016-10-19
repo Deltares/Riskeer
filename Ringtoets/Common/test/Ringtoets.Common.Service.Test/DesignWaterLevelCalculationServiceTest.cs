@@ -150,16 +150,12 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
-
-            const string locationName = "punt_flw_ 1";
-            const string ringId = "ringId";
-            const double norm = 30;
-
+            
             var mockRepository = new MockRepository();
             var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();
 
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, locationName, 0, 0)
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "punt_flw_ 1", 0, 0)
             {
                 DesignWaterLevel = new RoundedDouble(2, double.NaN)
             };
@@ -175,8 +171,8 @@ namespace Ringtoets.Common.Service.Test
                 // Call
                 service.Calculate(hydraulicBoundaryLocation,
                                   validFilePath,
-                                  ringId,
-                                  norm,
+                                  "ringId",
+                                  30,
                                   calculationMessageProviderMock);
 
                 // Assert
@@ -194,8 +190,6 @@ namespace Ringtoets.Common.Service.Test
             const string locationName = "punt_flw_ 1";
             const string calculationName = "locationName";
             const string calculationFailedMessage = "calculationFailedMessage";
-            const string ringId = "ringId";
-            const double norm = 30;
 
             var mockRepository = new MockRepository();
             var calculationMessageProviderMock = mockRepository.StrictMock<ICalculationMessageProvider>();
@@ -222,8 +216,8 @@ namespace Ringtoets.Common.Service.Test
                     {
                         new DesignWaterLevelCalculationService().Calculate(hydraulicBoundaryLocation,
                                                                            validFilePath,
-                                                                           ringId,
-                                                                           norm,
+                                                                           "ringId",
+                                                                           30,
                                                                            calculationMessageProviderMock);
                     }
                     catch (HydraRingFileParserException)

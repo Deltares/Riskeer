@@ -111,7 +111,7 @@ namespace Ringtoets.Revetment.Service
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
         /// <param name="norm">The norm to use as the target.</param>
         /// <param name="ringId">The id of the assessment section for which calculations are performed.</param>
-        /// <param name="hlcdFilePath">The file path of the hydraulic boundary database.</param>
+        /// <param name="hlcdFilePath">The filepath of the hydraulic boundary database.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="WaveConditionsOutput"/>.</returns>
         protected IEnumerable<WaveConditionsOutput> CalculateWaveConditions(string calculationName,
                                                                             WaveConditionsInput waveConditionsInput,

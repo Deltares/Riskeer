@@ -303,7 +303,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam,
                                                                                                  breakWaterHeight));
             calculation.InputParameters.UseBreakWater = false;
@@ -365,7 +365,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam,
                                                                                                  breakWaterHeight));
             calculation.InputParameters.UseBreakWater = true;
@@ -405,7 +405,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
             var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation,
                                                                                     validFilePath,
@@ -808,7 +808,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
             return calculation;
         }
 
-        private static StabilityStoneCoverWaveConditionsCalculation GetDefaultValidationInput()
+        private static StabilityStoneCoverWaveConditionsCalculation GetDefaultCalculation()
         {
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
             calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble)5;

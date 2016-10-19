@@ -409,7 +409,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
             ImportHydraulicBoundaryDatabase(assessmentSection);
 
-            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetDefaultValidationInput(assessmentSection);
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetDefaultCalculation(assessmentSection);
 
             switch (calculationType)
             {
@@ -640,7 +640,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
             return calculation;
         }
 
-        private static WaveImpactAsphaltCoverWaveConditionsCalculation GetDefaultValidationInput(AssessmentSection assessmentSection)
+        private static WaveImpactAsphaltCoverWaveConditionsCalculation GetDefaultCalculation(AssessmentSection assessmentSection)
         {
             WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation(assessmentSection);
             calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble) 5;

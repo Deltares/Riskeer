@@ -59,7 +59,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         public void Validate_NoHydraulicBoundaryDatabase_LogsValidationMessageAndReturnFalse()
         {
             // Setup
-            var calculation = GetDefaultValidationInput();
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
 
             var testFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
@@ -87,7 +87,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         public void Validate_InvalidHydraulicBoundaryDatabase_LogsValidationMessageAndReturnFalse()
         {
             // Setup
-            var calculation = GetDefaultValidationInput();
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
             var testFilePath = Path.Combine(testDataPath, "corruptschema.sqlite");
 
             var isValid = true;
@@ -114,7 +114,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         public void Validate_NoHydraulicBoundaryLocation_LogsValidationMessageAndReturnFalse()
         {
             // Setup
-            var calculation = GetDefaultValidationInput();
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.HydraulicBoundaryLocation = null;
 
             var isValid = true;
@@ -141,7 +141,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         public void Validate_NoDesignWaterLevel_LogsValidationMessageAndReturnFalse()
         {
             // Setup
-            var calculation = GetDefaultValidationInput();
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) double.NaN;
 
             var isValid = true;
@@ -170,7 +170,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         public void Validate_NoWaterLevels_LogsValidationMessageAndReturnFalse(double lowerBoundaryRevetment, double upperBoundaryRevetment)
         {
             // Setup
-            var calculation = GetDefaultValidationInput();
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment;
             calculation.InputParameters.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment;
 
@@ -201,7 +201,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         public void Validate_CalculationWithForeshoreAndUsesBreakWaterAndHasInvalidBreakWaterHeight_LogsValidationMessageAndReturnFalse(double breakWaterHeight)
         {
             // Setup
-            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam,
                                                                                                  breakWaterHeight));
             calculation.InputParameters.UseBreakWater = true;
@@ -234,7 +234,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         public void Calculate_CalculationWithForeshoreAndDoesNotUseBreakWaterAndHasInvalidBreakWaterHeight_PerformCalculationAndLogStartAndEnd(double breakWaterHeight)
         {
             // Setup
-            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
             calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam,
                                                                                                  breakWaterHeight));
             calculation.InputParameters.UseBreakWater = false;
@@ -291,7 +291,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         public void Calculate_CalculationWithValidInputConditionsAndValidForeshore_LogCalculationStartAndEnd(CalculationType calculationType)
         {
             // Setup
-            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultValidationInput();
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
@@ -601,7 +601,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             return calculation;
         }
 
-        private static StabilityStoneCoverWaveConditionsCalculation GetDefaultValidationInput()
+        private static StabilityStoneCoverWaveConditionsCalculation GetDefaultCalculation()
         {
             StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
             calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble) 5;
