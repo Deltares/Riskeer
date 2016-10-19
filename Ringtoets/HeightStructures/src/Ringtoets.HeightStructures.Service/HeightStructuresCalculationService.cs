@@ -20,13 +20,11 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Core.Common.Base.Data;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service.Properties;
@@ -191,74 +189,18 @@ namespace Ringtoets.HeightStructures.Service
             }
             else
             {
-                validationResult.AddRange(ValidateProbabilisticDistribution(inputParameters.StormDuration, "stormduur"));
-                //DeviationWaveDirection
-                validationResult.AddRange(ValidateProbabilisticDistribution(inputParameters.ModelFactorSuperCriticalFlow, "modelfactor overloopdebiet volkomen overlaat"));
-                //Orientatie
-                validationResult.AddRange(ValidateProbabilisticDistribution(inputParameters.FlowWidthAtBottomProtection, "stroomvoerende breedte bodembescherming"));
-                validationResult.AddRange(ValidateProbabilisticDistribution(inputParameters.WidthFlowApertures, "breedte van doorstroomopening"));
-                validationResult.AddRange(ValidateProbabilisticDistribution(inputParameters.StorageStructureArea, "kombergend oppervlak"));
-                validationResult.AddRange(ValidateProbabilisticDistribution(inputParameters.AllowedLevelIncreaseStorage, "toegestane peilverhoging komberging"));
-                validationResult.AddRange(ValidateProbabilisticDistribution(inputParameters.LevelCrestStructure, "kerende hoogte"));
-                validationResult.AddRange(ValidateProbabilisticDistribution(inputParameters.CriticalOvertoppingDischarge, "kritiek instromend debiet"));
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.StormDuration, "stormduur"));
+                //DeviationWaveDirection  
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.ModelFactorSuperCriticalFlow, "modelfactor overloopdebiet volkomen overlaat"));
+                //Orientatie              
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.FlowWidthAtBottomProtection, "stroomvoerende breedte bodembescherming"));
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.WidthFlowApertures, "breedte van doorstroomopening"));
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.StorageStructureArea, "kombergend oppervlak"));
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.AllowedLevelIncreaseStorage, "toegestane peilverhoging komberging"));
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.LevelCrestStructure, "kerende hoogte"));
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.CriticalOvertoppingDischarge, "kritiek instromend debiet"));
                 // Probability structure given erosion
             }
-
-            return validationResult.ToArray();
-        }
-
-        private static string[] ValidateProbabilisticDistribution(NormalDistribution distribution, string parameterName)
-        {
-            var validationResult = new List<string>();
-
-            if (IsValidNumber(distribution.Mean))
-            {
-                validationResult.Add(string.Format("De verwachtingswaarde van '{0}' moet een geldig getal zijn.", parameterName));
-            }
-
-            if (IsValidNumber(distribution.StandardDeviation)) {}
-
-            return validationResult.ToArray();
-        }
-
-        private static string[] ValidateProbabilisticDistribution(LogNormalDistribution distribution, string parameterName)
-        {
-            var validationResult = new List<string>();
-
-            if (IsValidNumber(distribution.Mean))
-            {
-                validationResult.Add(string.Format("De verwachtingswaarde van '{0}' moet een positief getal zijn.", parameterName));
-            }
-
-            if (IsValidNumber(distribution.StandardDeviation)) {}
-
-            return validationResult.ToArray();
-        }
-
-        private static string[] ValidateProbabilisticDistribution(VariationCoefficientNormalDistribution distribution, string parameterName)
-        {
-            var validationResult = new List<string>();
-
-            if (IsValidNumber(distribution.Mean))
-            {
-                validationResult.Add(string.Format("De verwachtingswaarde van '{0}' moet een geldig getal zijn.", parameterName));
-            }
-
-            if (IsValidNumber(distribution.CoefficientOfVariation)) {}
-
-            return validationResult.ToArray();
-        }
-
-        private static string[] ValidateProbabilisticDistribution(VariationCoefficientLogNormalDistribution distribution, string parameterName)
-        {
-            var validationResult = new List<string>();
-
-            if (IsValidNumber(distribution.Mean))
-            {
-                validationResult.Add(string.Format("De verwachtingswaarde van '{0}' moet een positief getal zijn.", parameterName));
-            }
-
-            if (IsValidNumber(distribution.CoefficientOfVariation)) { }
 
             return validationResult.ToArray();
         }
