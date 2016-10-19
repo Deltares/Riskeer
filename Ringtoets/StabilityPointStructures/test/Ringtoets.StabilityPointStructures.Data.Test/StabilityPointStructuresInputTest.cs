@@ -133,7 +133,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<StructuresInputBase<StabilityPointStructure>>(input);
 
-            AssertEqualValue(9.81, input.VolumicWeightWater);
+            AssertAreEqual(9.81, input.VolumicWeightWater);
             Assert.AreEqual(2, input.VolumicWeightWater.NumberOfDecimalPlaces);
             DistributionAssert.AreEqual(insideWaterLevelFailureConstruction, input.InsideWaterLevelFailureConstruction);
             DistributionAssert.AreEqual(insideWaterLevel, input.InsideWaterLevel);
@@ -158,9 +158,9 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             Assert.AreEqual(double.NaN, input.ProbabilityCollisionSecondaryStructure);
             DistributionAssert.AreEqual(bankWidth, input.BankWidth);
             Assert.AreEqual(2, input.EvaluationLevel.NumberOfDecimalPlaces);
-            AssertEqualValue(0, input.EvaluationLevel);
+            AssertAreEqual(0, input.EvaluationLevel);
             Assert.AreEqual(2, input.VerticalDistance.NumberOfDecimalPlaces);
-            AssertEqualValue(double.NaN, input.VerticalDistance);
+            AssertAreEqual(double.NaN, input.VerticalDistance);
         }
 
         # region Calculation inputs
@@ -213,7 +213,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, input.VolumicWeightWater.NumberOfDecimalPlaces);
-            AssertEqualValue(volumicWeightWater, input.VolumicWeightWater);
+            AssertAreEqual(volumicWeightWater, input.VolumicWeightWater);
         }
 
         [Test]
@@ -288,7 +288,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, input.FactorStormDurationOpenStructure.NumberOfDecimalPlaces);
-            AssertEqualValue(factorStormDuration, input.FactorStormDurationOpenStructure);
+            AssertAreEqual(factorStormDuration, input.FactorStormDurationOpenStructure);
         }
 
         [Test]
@@ -741,7 +741,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, input.EvaluationLevel.NumberOfDecimalPlaces);
-            AssertEqualValue(evaluationLevel, input.EvaluationLevel);
+            AssertAreEqual(evaluationLevel, input.EvaluationLevel);
         }
 
         [Test]
@@ -758,7 +758,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, input.VerticalDistance.NumberOfDecimalPlaces);
-            AssertEqualValue(verticalDistance, input.VerticalDistance);
+            AssertAreEqual(verticalDistance, input.VerticalDistance);
         }
 
         [Test]
@@ -797,7 +797,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             {
                 Assert.IsNull(input.Structure);
                 var defaultInput = new StabilityPointStructuresInput();
-                AssertEqualValue(defaultInput.StructureNormalOrientation, input.StructureNormalOrientation);
+                AssertAreEqual(defaultInput.StructureNormalOrientation, input.StructureNormalOrientation);
 
                 DistributionAssert.AreEqual(defaultInput.AllowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
                 DistributionAssert.AreEqual(defaultInput.AreaFlowApertures, input.AreaFlowApertures);
@@ -805,7 +805,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 DistributionAssert.AreEqual(defaultInput.ConstructiveStrengthLinearLoadModel, input.ConstructiveStrengthLinearLoadModel);
                 DistributionAssert.AreEqual(defaultInput.ConstructiveStrengthQuadraticLoadModel, input.ConstructiveStrengthQuadraticLoadModel);
                 DistributionAssert.AreEqual(defaultInput.CriticalOvertoppingDischarge, input.CriticalOvertoppingDischarge);
-                AssertEqualValue(defaultInput.EvaluationLevel, input.EvaluationLevel);
+                AssertAreEqual(defaultInput.EvaluationLevel, input.EvaluationLevel);
                 DistributionAssert.AreEqual(defaultInput.FailureCollisionEnergy, input.FailureCollisionEnergy);
                 Assert.AreEqual(defaultInput.FailureProbabilityRepairClosure, input.FailureProbabilityRepairClosure);
                 DistributionAssert.AreEqual(defaultInput.FlowVelocityStructureClosable, input.FlowVelocityStructureClosable);
@@ -822,7 +822,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 DistributionAssert.AreEqual(defaultInput.StabilityQuadraticLoadModel, input.StabilityQuadraticLoadModel);
                 DistributionAssert.AreEqual(defaultInput.StorageStructureArea, input.StorageStructureArea);
                 DistributionAssert.AreEqual(defaultInput.ThresholdHeightOpenWeir, input.ThresholdHeightOpenWeir);
-                AssertEqualValue(defaultInput.VerticalDistance, input.VerticalDistance);
+                AssertAreEqual(defaultInput.VerticalDistance, input.VerticalDistance);
                 DistributionAssert.AreEqual(defaultInput.WidthFlowApertures, input.WidthFlowApertures);
             }
             else
@@ -833,7 +833,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 DistributionAssert.AreEqual(expectedStructure.ConstructiveStrengthLinearLoadModel, input.ConstructiveStrengthLinearLoadModel);
                 DistributionAssert.AreEqual(expectedStructure.ConstructiveStrengthQuadraticLoadModel, input.ConstructiveStrengthQuadraticLoadModel);
                 DistributionAssert.AreEqual(expectedStructure.CriticalOvertoppingDischarge, input.CriticalOvertoppingDischarge);
-                AssertEqualValue(expectedStructure.EvaluationLevel, input.EvaluationLevel);
+                AssertAreEqual(expectedStructure.EvaluationLevel, input.EvaluationLevel);
                 DistributionAssert.AreEqual(expectedStructure.FailureCollisionEnergy, input.FailureCollisionEnergy);
                 Assert.AreEqual(expectedStructure.FailureProbabilityRepairClosure, input.FailureProbabilityRepairClosure);
                 DistributionAssert.AreEqual(expectedStructure.FlowVelocityStructureClosable, input.FlowVelocityStructureClosable);
@@ -850,12 +850,12 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 DistributionAssert.AreEqual(expectedStructure.StabilityQuadraticLoadModel, input.StabilityQuadraticLoadModel);
                 DistributionAssert.AreEqual(expectedStructure.StorageStructureArea, input.StorageStructureArea);
                 DistributionAssert.AreEqual(expectedStructure.ThresholdHeightOpenWeir, input.ThresholdHeightOpenWeir);
-                AssertEqualValue(expectedStructure.VerticalDistance, input.VerticalDistance);
+                AssertAreEqual(expectedStructure.VerticalDistance, input.VerticalDistance);
                 DistributionAssert.AreEqual(expectedStructure.WidthFlowApertures, input.WidthFlowApertures);
             }
         }
 
-        private static void AssertEqualValue(double expectedValue, RoundedDouble actualValue)
+        private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
         }

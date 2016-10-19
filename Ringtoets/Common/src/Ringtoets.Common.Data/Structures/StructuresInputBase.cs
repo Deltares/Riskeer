@@ -129,6 +129,11 @@ namespace Ringtoets.Common.Data.Structures
         /// </summary>
         protected abstract void UpdateStructureProperties();
 
+        /// <summary>
+        /// Validates the provided probability value.
+        /// </summary>
+        /// <param name="probability">The probability value to validate.</param>
+        /// <returns><c>True</c> when the provided value is valid, <c>false</c> otherwise.</returns>
         protected static bool ValidProbabilityValue(double probability)
         {
             return !double.IsNaN(probability) && probability <= 1 && probability >= 0;
@@ -177,7 +182,8 @@ namespace Ringtoets.Common.Data.Structures
         /// Gets or sets the orientation of the normal of the structure.
         /// [degrees]
         /// </summary>
-        ///<exception cref="ArgumentOutOfRangeException">Thrown when the value for the orientation is not between [0,360] degrees.</exception>
+        ///<exception cref="ArgumentOutOfRangeException">Thrown when the value of the orientation
+        /// is not in the interval [0, 360].</exception>
         public RoundedDouble StructureNormalOrientation
         {
             get
@@ -268,7 +274,7 @@ namespace Ringtoets.Common.Data.Structures
         /// [1/year]
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
-        /// is not between [0, 1].</exception>
+        /// is not in the interval [0, 1].</exception>
         public double FailureProbabilityStructureWithErosion
         {
             get

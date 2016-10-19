@@ -119,7 +119,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             TestDelegate test = () => generalStabilityPointStructuresInput.N = value;
 
             // Assert
-            const string expectedMessage = "De waarde voor 'N' moet in interval [1, 20] liggen.";
+            const string expectedMessage = "De waarde voor 'N' moet in het bereik [1, 20] liggen.";
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(test, expectedMessage);
         }
     }

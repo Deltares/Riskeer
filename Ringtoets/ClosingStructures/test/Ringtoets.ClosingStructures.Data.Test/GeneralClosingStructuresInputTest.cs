@@ -56,22 +56,22 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, inputParameters.C.NumberOfDecimalPlaces);
-            AssertEqualValue(0.5, inputParameters.C);
+            AssertAreEqual(0.5, inputParameters.C);
 
             Assert.AreEqual(1, inputParameters.N2A);
 
             Assert.AreEqual(2, inputParameters.N.NumberOfDecimalPlaces);
-            AssertEqualValue(1, inputParameters.N);
+            AssertAreEqual(1, inputParameters.N);
 
             Assert.AreEqual(2, inputParameters.GravitationalAcceleration.NumberOfDecimalPlaces);
-            AssertEqualValue(9.81, inputParameters.GravitationalAcceleration);
+            AssertAreEqual(9.81, inputParameters.GravitationalAcceleration);
 
             DistributionAssert.AreEqual(modelFactorOvertoppingFlow, inputParameters.ModelFactorOvertoppingFlow);
             DistributionAssert.AreEqual(modelFactorSubCriticalFlow, inputParameters.ModelFactorSubCriticalFlow);
             DistributionAssert.AreEqual(modelFactorStorageVolume, inputParameters.ModelFactorStorageVolume);
 
             Assert.AreEqual(2, inputParameters.ModelFactorInflowVolume.NumberOfDecimalPlaces);
-            AssertEqualValue(1.0, inputParameters.ModelFactorInflowVolume);
+            AssertAreEqual(1.0, inputParameters.ModelFactorInflowVolume);
         }
 
         [Test]
@@ -94,7 +94,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(expected, n, n.GetAccuracy());
         }
 
-        private void AssertEqualValue(double expected, RoundedDouble actual)
+        private static void AssertAreEqual(double expected, RoundedDouble actual)
         {
             Assert.AreEqual(expected, actual, actual.GetAccuracy());
         }

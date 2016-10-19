@@ -47,8 +47,8 @@ namespace Ringtoets.Common.Data.Contribution
         /// <param name="norm">The norm defined on a assessment section.</param>
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
-        /// <item>any of the <paramref name="failureMechanisms"/> has a value for <see cref="IFailureMechanism.Contribution"/> not in interval [0, 100].</item>
-        /// <item>the value of <paramref name="otherContribution"/> is not in interval [0, 100]</item>
+        /// <item>any of the <paramref name="failureMechanisms"/> has a value for <see cref="IFailureMechanism.Contribution"/> not in the interval [0, 100].</item>
+        /// <item>the value of <paramref name="otherContribution"/> is not in the interval [0, 100]</item>
         /// </list>
         /// </exception>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanisms"/> is <c>null</c>.</exception>
@@ -100,8 +100,8 @@ namespace Ringtoets.Common.Data.Contribution
         /// <exception cref="ArgumentException">Thrown when:
         /// <list type="bullet">
         /// <item>any of the <paramref name="newFailureMechanisms"/> has a value for 
-        /// <see cref="IFailureMechanism.Contribution"/> not in interval [0, 100].</item>
-        /// <item>the value of <paramref name="otherContribution"/> is not in interval [0, 100]</item>
+        /// <see cref="IFailureMechanism.Contribution"/> not in the interval [0, 100].</item>
+        /// <item>the value of <paramref name="otherContribution"/> is not in the interval [0, 100]</item>
         /// </list>
         /// </exception>
         public void UpdateContributions(IEnumerable<IFailureMechanism> newFailureMechanisms, double otherContribution)
@@ -132,7 +132,7 @@ namespace Ringtoets.Common.Data.Contribution
         /// list supported within Ringtoets.
         /// </summary>
         /// <param name="otherContribution">The contribution to set for other failure mechanisms.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="otherContribution"/> is not in interval [0, 100]</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="otherContribution"/> is not in the interval [0, 100]</exception>
         private void AddOtherContributionItem(double otherContribution)
         {
             var otherFailureMechanism = new OtherFailureMechanism

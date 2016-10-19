@@ -96,7 +96,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.IsNull(input.Structure);
             Assert.IsNull(input.HydraulicBoundaryLocation);
 
-            AssertEqualValue(double.NaN, input.StructureNormalOrientation);
+            AssertAreEqual(double.NaN, input.StructureNormalOrientation);
             Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
 
             Assert.IsNull(input.ForeshoreProfile);
@@ -249,7 +249,7 @@ namespace Ringtoets.Common.Data.Test.Structures
 
             // Assert
             Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
-            AssertEqualValue(orientation, input.StructureNormalOrientation);
+            AssertAreEqual(orientation, input.StructureNormalOrientation);
         }
 
         [Test]
@@ -508,7 +508,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.IsTrue(input.Updated);
         }
 
-        private static void AssertEqualValue(double expectedValue, RoundedDouble actualValue)
+        private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
         }
@@ -538,7 +538,6 @@ namespace Ringtoets.Common.Data.Test.Structures
         private class SimpleStructure : StructureBase
         {
             public SimpleStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
-            public SimpleStructure(string name, string id, Point2D location, double structureNormalOrientation) : base(name, id, location, structureNormalOrientation) {}
         }
     }
 }

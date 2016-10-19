@@ -100,7 +100,8 @@ namespace Ringtoets.Revetment.Data
         /// Gets or sets the orientation of the foreshore profile geometry with respect to North
         /// in degrees. A positive value equals a clockwise rotation.
         /// </summary>
-        ///<exception cref="ArgumentOutOfRangeException">Thrown when the value for the orientation is not between [0, 360] degrees.</exception>
+        ///<exception cref="ArgumentOutOfRangeException">Thrown when the value of the orientation
+        /// is not in the interval [0, 360].</exception>
         public RoundedDouble Orientation
         {
             get

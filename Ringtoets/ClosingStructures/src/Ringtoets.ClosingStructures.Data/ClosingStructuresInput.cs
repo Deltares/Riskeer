@@ -208,7 +208,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// [1/year]
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
-        /// is not between [0, 1].</exception>
+        /// is not in the interval [0, 1].</exception>
         public double FailureProbabilityOpenStructure
         {
             get
@@ -230,7 +230,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// [1/year]
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
-        /// is not between [0, 1].</exception>
+        /// is not in the interval [0, 1].</exception>
         public double FailureProbabilityReparation
         {
             get
@@ -248,7 +248,7 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the amount of identical apertures to use during the calculation.
+        /// Gets or sets the amount of identical apertures.
         /// </summary>
         public int IdenticalApertures { get; set; }
 
@@ -273,7 +273,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// Gets or sets the failure probability of an open structure before flooding.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the value of the probability 
-        /// is not between [0, 1].</exception>
+        /// is not in the interval [0, 1].</exception>
         public double ProbabilityOpenStructureBeforeFlooding
         {
             get
