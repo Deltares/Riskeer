@@ -802,7 +802,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 new Point2D(2, 2)
             }));
 
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
             {
                 Name = "A",
                 InputParameters =
@@ -812,7 +812,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 }
             });
 
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
             {
                 Name = "B",
                 InputParameters =
@@ -890,7 +890,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 new Point2D(0, 0)
             }));
 
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
             {
                 Name = "A",
                 InputParameters =
@@ -900,7 +900,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 }
             });
 
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation
+            failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
             {
                 Name = "B",
                 InputParameters =

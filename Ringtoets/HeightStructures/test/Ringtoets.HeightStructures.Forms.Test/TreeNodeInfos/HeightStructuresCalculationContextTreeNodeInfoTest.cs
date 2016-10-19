@@ -602,7 +602,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
-            var calculation = new HeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
                 InputParameters =
@@ -684,7 +684,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
-            var calculation = new HeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculation
             {
                 InputParameters =
                 {
