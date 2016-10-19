@@ -742,4 +742,28 @@
   <data name="Categories_CriticalValues" xml:space="preserve">
     <value>Kritieke waarden</value>
   </data>
+  <data name="StructuresInputFailureMechanismContext_ModelFactorInflowVolume_Description" xml:space="preserve">
+    <value>Modelfactor instromend volume</value>
+  </data>
+  <data name="StructuresInputFailureMechanismContext_ModelFactorInflowVolume_DisplayName" xml:space="preserve">
+    <value>Modelfactor instromend volume [-]</value>
+  </data>
+  <data name="StructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description" xml:space="preserve">
+    <value>Modelfactor voor het overslagdebiet.</value>
+  </data>
+  <data name="StructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName" xml:space="preserve">
+    <value>Modelfactor overslagdebiet [-]</value>
+  </data>
+  <data name="StructuresInputFailureMechanismContext_ModelFactorStorageVolume_Description" xml:space="preserve">
+    <value>Modelfactor kombergend vermogen.</value>
+  </data>
+  <data name="StructuresInputFailureMechanismContext_ModelFactorStorageVolume_DisplayName" xml:space="preserve">
+    <value>Modelfactor kombergend vermogen [-]</value>
+  </data>
+  <data name="StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_Description" xml:space="preserve">
+    <value>Modelfactor voor onvolkomen stroming</value>
+  </data>
+  <data name="StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_DisplayName" xml:space="preserve">
+    <value>Modelfactor voor onvolkomen stroming [-]</value>
+  </data>
 </root>

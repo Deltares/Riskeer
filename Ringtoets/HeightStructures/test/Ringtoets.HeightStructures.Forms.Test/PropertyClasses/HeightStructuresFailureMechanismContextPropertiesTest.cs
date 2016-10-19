@@ -65,22 +65,22 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void Data_SetNewFailureMechanismContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
+            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
             var properties = new HeightStructuresFailureMechanismContextProperties();
 
             // Call
-            properties.Data = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            properties.Data = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
 
             // Assert
             Assert.AreEqual(Resources.HeightStructuresFailureMechanism_DisplayName, properties.Name);
             Assert.AreEqual(Resources.HeightStructuresFailureMechanism_Code, properties.Code);
-            Assert.AreEqual(failureMechanism.GeneralInput.GravitationalAcceleration, properties.GravitationalAcceleration);
             Assert.AreEqual(2, properties.LengthEffect);
 
-            var generalInput = failureMechanism.GeneralInput;
+            GeneralHeightStructuresInput generalInput = failureMechanism.GeneralInput;
+            Assert.AreEqual(generalInput.GravitationalAcceleration, properties.GravitationalAcceleration);
             Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.Mean, properties.ModelFactorOvertoppingFlow.Mean);
             Assert.AreEqual(generalInput.ModelFactorOvertoppingFlow.StandardDeviation, properties.ModelFactorOvertoppingFlow.StandardDeviation);
 

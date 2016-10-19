@@ -117,18 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_Description" xml:space="preserve">
-    <value>Modelfactor kombergend vermogen.</value>
-  </data>
-  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorStorageVolume_DisplayName" xml:space="preserve">
-    <value>Modelfactor kombergend vermogen [-]</value>
-  </data>
-  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_Description" xml:space="preserve">
-    <value>Modelfactor voor het overslagdebiet.</value>
-  </data>
-  <data name="HeightStructuresInputFailureMechanismContext_ModelFactorOvertoppingFlow_DisplayName" xml:space="preserve">
-    <value>Modelfactor overslagdebiet [-]</value>
-  </data>
   <data name="FailureProbabilityStructureWithErosion_Description" xml:space="preserve">
     <value>Faalkans kunstwerk gegeven erosie bodem.</value>
   </data>
