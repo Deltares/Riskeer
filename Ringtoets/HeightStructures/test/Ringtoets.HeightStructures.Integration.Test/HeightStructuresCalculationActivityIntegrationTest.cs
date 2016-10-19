@@ -142,7 +142,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new HeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculation()
             {
                 InputParameters =
                 {
@@ -192,7 +192,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new HeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculation()
             {
                 InputParameters =
                 {

@@ -35,6 +35,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Service
 {
@@ -189,9 +190,19 @@ namespace Ringtoets.HeightStructures.Service
             else
             {
                 validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.StormDuration, "stormduur"));
-                //DeviationWaveDirection  
+
+                if (IsInvalidNumber(inputParameters.DeviationWaveDirection))
+                {
+                    validationResult.Add(string.Format("De waarde voor '{0}' moet een geldig getal zijn.", "afwijking golfrichting"));
+                }
+
                 validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.ModelFactorSuperCriticalFlow, "modelfactor overloopdebiet volkomen overlaat"));
-                //Orientatie              
+
+                if (IsInvalidNumber(inputParameters.StructureNormalOrientation))
+                {
+                    validationResult.Add(RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
+                }
+            
                 validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.FlowWidthAtBottomProtection, "stroomvoerende breedte bodembescherming"));
                 validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.WidthFlowApertures, "breedte van doorstroomopening"));
                 validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.StorageStructureArea, "kombergend oppervlak"));
@@ -204,7 +215,7 @@ namespace Ringtoets.HeightStructures.Service
             return validationResult.ToArray();
         }
 
-        private static bool IsValidNumber(RoundedDouble value)
+        private static bool IsInvalidNumber(RoundedDouble value)
         {
             return double.IsNaN(value) || double.IsInfinity(value);
         }
