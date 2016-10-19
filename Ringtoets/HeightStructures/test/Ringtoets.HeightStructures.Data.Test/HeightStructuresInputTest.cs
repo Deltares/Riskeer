@@ -58,8 +58,8 @@ namespace Ringtoets.HeightStructures.Data.Test
         public void Properties_DeviationWaveDirection_ExpectedValues()
         {
             // Setup
-            var input = new HeightStructuresInput();
             var random = new Random(22);
+            var input = new HeightStructuresInput();
 
             RoundedDouble deviationWaveDirection = new RoundedDouble(5, random.NextDouble());
 
@@ -96,7 +96,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Assert
             AssertDistributionCorrectlySet(input.LevelCrestStructure, distributionToSet, expectedDistribution);
         }
-       
+
         [Test]
         public void Properties_StructureNull_DoesNotChangeValues()
         {
@@ -155,7 +155,7 @@ namespace Ringtoets.HeightStructures.Data.Test
                 DistributionAssert.AreEqual(expectedHeightStructure.AllowedLevelIncreaseStorage, input.AllowedLevelIncreaseStorage);
             }
         }
-        
+
         private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());

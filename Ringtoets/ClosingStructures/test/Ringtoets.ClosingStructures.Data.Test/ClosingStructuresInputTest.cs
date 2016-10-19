@@ -36,7 +36,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup 
+            // Setup
             var insideWaterLevel = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) double.NaN,
@@ -109,9 +109,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void Properties_FactorStormDurationOpenStructure_ExpectedValues()
         {
             // Setup
-            var input = new ClosingStructuresInput();
             var random = new Random(22);
-
+            var input = new ClosingStructuresInput();
             var factorStormDuration = new RoundedDouble(5, random.NextDouble());
 
             // Call
@@ -203,7 +202,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
-        public void Properties_FailureProbabilityOpenStructure_ThrowArgumentException(double probability)
+        public void Properties_FailureProbabilityOpenStructure_ThrowArgumentOutOfRangeException(double probability)
         {
             // Setup
             var input = new ClosingStructuresInput();
@@ -267,9 +266,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void Properties_IdenticalApertures_ExpectedValues()
         {
             // Setup
-            var input = new ClosingStructuresInput();
             var random = new Random(22);
-
+            var input = new ClosingStructuresInput();
             int identicalAperture = random.Next();
 
             // Call
@@ -335,9 +333,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void Properties_DeviationWaveDirection_ExpectedValues()
         {
             // Setup
-            var input = new ClosingStructuresInput();
             var random = new Random(22);
-
+            var input = new ClosingStructuresInput();
             var deviationWaveDirection = new RoundedDouble(5, random.NextDouble());
 
             // Call
@@ -352,7 +349,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
-        public void Properties_ProbabilityOpenStructureBeforeFlooding_ThrowArgumentException(double probability)
+        public void Properties_ProbabilityOpenStructureBeforeFlooding_ThrowArgumentOutOfRangeException(double probability)
         {
             // Setup
             var input = new ClosingStructuresInput();
@@ -449,7 +446,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
                 DistributionAssert.AreEqual(expectedClosingStructure.ThresholdHeightOpenWeir, input.ThresholdHeightOpenWeir);
             }
         }
-        
+
         private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)
         {
             Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());

@@ -87,6 +87,8 @@ namespace Ringtoets.HeightStructures.Data
             }
         }
 
+        #endregion
+
         protected override void UpdateStructureProperties()
         {
             if (Structure != null)
@@ -101,7 +103,5 @@ namespace Ringtoets.HeightStructures.Data
                 AllowedLevelIncreaseStorage = Structure.AllowedLevelIncreaseStorage;
             }
         }
-
-        #endregion
     }
 }

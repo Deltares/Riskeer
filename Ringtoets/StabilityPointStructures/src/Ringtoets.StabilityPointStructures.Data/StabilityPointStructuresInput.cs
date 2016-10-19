@@ -63,7 +63,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             factorStormDurationOpenStructure = new RoundedDouble(2, double.NaN);
             failureProbabilityRepairClosure = double.NaN;
             probabilityCollisionSecondaryStructure = double.NaN;
-            evaluationLevel = new RoundedDouble(2, 0);
+            evaluationLevel = new RoundedDouble(2);
             verticalDistance = new RoundedDouble(2, double.NaN);
 
             insideWaterLevelFailureConstruction = new NormalDistribution(2)
@@ -158,7 +158,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         }
 
         #region Structure / calculation
-        
+
         /// <summary>
         /// Gets or sets the type of stability point structure inflow model.
         /// </summary>
@@ -225,7 +225,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         #endregion
 
-        #region Model Inputs and critical values
+        #region Model inputs and critical values
 
         /// <summary>
         /// Gets or sets the factor for the storm duration for an open structure.

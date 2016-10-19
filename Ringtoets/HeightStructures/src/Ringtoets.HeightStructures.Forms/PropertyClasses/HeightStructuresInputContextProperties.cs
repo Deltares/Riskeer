@@ -114,7 +114,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             return data.FailureMechanism.ForeshoreProfiles;
         }
 
-        #region Schematisation
+        #region Schematization
 
         [PropertyOrder(heightStructurePropertyIndex)]
         [Editor(typeof(HeightStructuresInputContextStructureEditor), typeof(UITypeEditor))]

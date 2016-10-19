@@ -103,14 +103,14 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
 
                 // Call
-                foreach (var profile in assessmentSection.HeightStructures.HeightStructures)
+                foreach (var structure in assessmentSection.HeightStructures.HeightStructures)
                 {
                     calculationsGroup.Children.Add(new HeightStructuresCalculation
                     {
-                        Name = NamingHelper.GetUniqueName(((CalculationGroup) view.Data).Children, profile.Name, c => c.Name),
+                        Name = NamingHelper.GetUniqueName(((CalculationGroup) view.Data).Children, structure.Name, c => c.Name),
                         InputParameters =
                         {
-                            Structure = profile
+                            Structure = structure
                         }
                     });
                 }
@@ -139,7 +139,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                                              .Import();
 
                 CalculationGroup calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
-                var view = new HeightStructuresScenariosView()
+                var view = new HeightStructuresScenariosView
                 {
                     Data = calculationsGroup,
                     FailureMechanism = assessmentSection.HeightStructures
@@ -150,14 +150,14 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
 
-                foreach (var profile in assessmentSection.HeightStructures.HeightStructures)
+                foreach (var structure in assessmentSection.HeightStructures.HeightStructures)
                 {
                     calculationsGroup.Children.Add(new HeightStructuresCalculation
                     {
-                        Name = NamingHelper.GetUniqueName(calculationsGroup.Children, profile.Name, c => c.Name),
+                        Name = NamingHelper.GetUniqueName(calculationsGroup.Children, structure.Name, c => c.Name),
                         InputParameters =
                         {
-                            Structure = profile
+                            Structure = structure
                         }
                     });
                 }
@@ -192,7 +192,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                                              filePath)
                                              .Import();
 
-                var view = new HeightStructuresScenariosView()
+                var view = new HeightStructuresScenariosView
                 {
                     Data = assessmentSection.HeightStructures.CalculationsGroup,
                     FailureMechanism = assessmentSection.HeightStructures
@@ -202,14 +202,14 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                foreach (var profile in assessmentSection.HeightStructures.HeightStructures)
+                foreach (var structure in assessmentSection.HeightStructures.HeightStructures)
                 {
                     assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new HeightStructuresCalculation
                     {
-                        Name = NamingHelper.GetUniqueName(assessmentSection.HeightStructures.CalculationsGroup.Children, profile.Name + "Calculation", c => c.Name),
+                        Name = NamingHelper.GetUniqueName(assessmentSection.HeightStructures.CalculationsGroup.Children, structure.Name + "Calculation", c => c.Name),
                         InputParameters =
                         {
-                            Structure = profile
+                            Structure = structure
                         }
                     });
                 }

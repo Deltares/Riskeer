@@ -85,7 +85,7 @@ namespace Ringtoets.ClosingStructures.Data
                 StandardDeviation = (RoundedDouble) 0.1
             };
         }
-        
+
         #region Structure
 
         /// <summary>
