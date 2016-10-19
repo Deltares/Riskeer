@@ -158,7 +158,7 @@ namespace Ringtoets.Common.Service.Test
         public void ValidateDistribution_InvalidStandardDeviationNormalDistribution_ErrorMessage(double value)
         {
             // Setup 
-            var expectedMessage = string.Format("De standaard afwijking voor '{0}' moet groter zijn dan of gelijk aan 0.", paramName);
+            var expectedMessage = string.Format("De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", paramName);
             var distribution = new NormalDistribution(2)
             {
                 StandardDeviation = (RoundedDouble)value
@@ -178,7 +178,7 @@ namespace Ringtoets.Common.Service.Test
         public void ValidateDistribution_InvalidStandardDeviationLogNormalDistribution_ErrorMessage(double value)
         {
             // Setup 
-            var expectedMessage = string.Format("De standaard afwijking voor '{0}' moet groter zijn dan of gelijk aan 0.", paramName);
+            var expectedMessage = string.Format("De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", paramName);
             var distribution = new LogNormalDistribution(2)
             {
                 StandardDeviation = (RoundedDouble)value
@@ -198,7 +198,7 @@ namespace Ringtoets.Common.Service.Test
         public void ValidateDistribution_InvalidVariationCoefficientNormalDistribution_ErrorMessage(double value)
         {
             // Setup 
-            var expectedMessage = string.Format("De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk aan 0.", paramName);
+            var expectedMessage = string.Format("De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", paramName);
             var distribution = new VariationCoefficientNormalDistribution(2)
             {
                 CoefficientOfVariation = (RoundedDouble)value
@@ -218,7 +218,7 @@ namespace Ringtoets.Common.Service.Test
         public void ValidateDistribution_InvalidVariationCoefficientLogNormalDistribution_ErrorMessage(double value)
         {
             // Setup 
-            var expectedMessage = string.Format("De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk aan 0.", paramName);
+            var expectedMessage = string.Format("De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", paramName);
             var distribution = new VariationCoefficientLogNormalDistribution(2)
             {
                 CoefficientOfVariation = (RoundedDouble)value

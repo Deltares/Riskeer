@@ -21,8 +21,8 @@
 
 using System.Collections.Generic;
 using Core.Common.Base.Data;
-using Core.Common.Base.Properties;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Service.Properties;
 
 namespace Ringtoets.Common.Service
 {
@@ -32,11 +32,18 @@ namespace Ringtoets.Common.Service
     public static class DistributionValidationService
     {
         /// <summary>
-        /// Performs the validation of a <see cref="NormalDistribution"/>
+        /// Performs the validation of a <see cref="NormalDistribution"/>.
         /// </summary>
-        /// <param name="distribution"></param>
-        /// <param name="parameterName"></param>
-        /// <returns></returns>
+        /// <param name="distribution">The distribution to validate.</param>
+        /// <param name="parameterName">The name of the parameter.</param>
+        /// <returns>Returns an empty string array if the distribution is valid, else:
+        /// <list type="bullet">
+        /// <item>A message indicating that the <see cref="NormalDistribution.Mean"/> for <paramref name="parameterName"/> 
+        /// must be a valid number, when it is NaN or Infinity.</item>
+        /// <item>A message indicating that the <see cref="NormalDistribution.StandardDeviation"/> for <paramref name="parameterName"/>
+        /// must be larger or equal to 0, when it is NaN or Infinity.</item>
+        /// </list>
+        /// </returns>
         public static string[] ValidateDistribution(NormalDistribution distribution, string parameterName)
         {
             var validationResult = new List<string>();
@@ -54,6 +61,19 @@ namespace Ringtoets.Common.Service
             return validationResult.ToArray();
         }
 
+        /// <summary>
+        /// Performs the validation of a <see cref="LogNormalDistribution"/>.
+        /// </summary>
+        /// <param name="distribution">The distribution to validate.</param>
+        /// <param name="parameterName">The name of the parameter.</param>
+        /// <returns>Returns an empty string array if the distribution is valid, else:
+        /// <list type="bullet">
+        /// <item>A message indicating that the <see cref="LogNormalDistribution.Mean"/> for <paramref name="parameterName"/> 
+        /// must be a positive number, when it is NaN or Infinity.</item>
+        /// <item>A message indicating that the <see cref="LogNormalDistribution.StandardDeviation"/> for <paramref name="parameterName"/>
+        /// must be larger or equal to 0, when it is NaN or Infinity.</item>
+        /// </list>
+        /// </returns>
         public static string[] ValidateDistribution(LogNormalDistribution distribution, string parameterName)
         {
             var validationResult = new List<string>();
@@ -71,6 +91,19 @@ namespace Ringtoets.Common.Service
             return validationResult.ToArray();
         }
 
+        /// <summary>
+        /// Performs the validation of a <see cref="VariationCoefficientNormalDistribution"/>.
+        /// </summary>
+        /// <param name="distribution">The distribution to validate.</param>
+        /// <param name="parameterName">The name of the parameter.</param>
+        /// <returns>Returns an empty string array if the distribution is valid, else:
+        /// <list type="bullet">
+        /// <item>A message indicating that the <see cref="VariationCoefficientNormalDistribution.Mean"/> for <paramref name="parameterName"/> 
+        /// must be a valid number, when it is NaN or Infinity.</item>
+        /// <item>A message indicating that the <see cref="VariationCoefficientNormalDistribution.CoefficientOfVariation"/> 
+        /// for <paramref name="parameterName"/> must be larger or equal to 0, when it is NaN or Infinity.</item>
+        /// </list>
+        /// </returns>
         public static string[] ValidateDistribution(VariationCoefficientNormalDistribution distribution, string parameterName)
         {
             var validationResult = new List<string>();
@@ -88,6 +121,19 @@ namespace Ringtoets.Common.Service
             return validationResult.ToArray();
         }
 
+        /// <summary>
+        /// Performs the validation of a <see cref="VariationCoefficientLogNormalDistribution"/>.
+        /// </summary>
+        /// <param name="distribution">The distribution to validate.</param>
+        /// <param name="parameterName">The name of the parameter.</param>
+        /// <returns>Returns an empty string array if the distribution is valid, else:
+        /// <list type="bullet">
+        /// <item>A message indicating that the <see cref="VariationCoefficientLogNormalDistribution.Mean"/> for <paramref name="parameterName"/> 
+        /// must be a positive number, when it is NaN or Infinity.</item>
+        /// <item>A message indicating that the <see cref="VariationCoefficientLogNormalDistribution.CoefficientOfVariation"/> 
+        /// for <paramref name="parameterName"/> must be larger or equal to 0, when it is NaN or Infinity.</item>
+        /// </list>
+        /// </returns>
         public static string[] ValidateDistribution(VariationCoefficientLogNormalDistribution distribution, string parameterName)
         {
             var validationResult = new List<string>();

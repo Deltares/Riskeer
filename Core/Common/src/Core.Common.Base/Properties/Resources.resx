@@ -174,16 +174,4 @@
   <data name="Error" xml:space="preserve">
     <value>Fout</value>
   </data>
-  <data name="DistributionValidationService_ValidateDistribution_CoefficientOfVariation_Of_0_must_be_larger_or_equal_to_0" xml:space="preserve">
-    <value>De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk aan 0.</value>
-  </data>
-  <data name="DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_a_valid_number" xml:space="preserve">
-    <value>De verwachtingswaarde voor '{0}' moet een geldig getal zijn.</value>
-  </data>
-  <data name="DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_positive_value" xml:space="preserve">
-    <value>De verwachtingswaarde voor '{0}' moet een positief getal zijn.</value>
-  </data>
-  <data name="DistributionValidationService_ValidateDistribution_StandardDeviation_of_0_must_be_larger_or_equal_to_0" xml:space="preserve">
-    <value>De standaard afwijking voor '{0}' moet groter zijn dan of gelijk aan 0.</value>
-  </data>
 </root>

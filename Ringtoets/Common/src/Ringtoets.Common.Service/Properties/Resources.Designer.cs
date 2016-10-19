@@ -157,6 +157,46 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De variatiecoëfficient voor &apos;{0}&apos; moet groter zijn dan of gelijk zijn aan 0..
+        /// </summary>
+        public static string DistributionValidationService_ValidateDistribution_CoefficientOfVariation_Of_0_must_be_larger_or_equal_to_0 {
+            get {
+                return ResourceManager.GetString("DistributionValidationService_ValidateDistribution_CoefficientOfVariation_Of_0_mu" +
+                        "st_be_larger_or_equal_to_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De verwachtingswaarde voor &apos;{0}&apos; moet een geldig getal zijn..
+        /// </summary>
+        public static string DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_a_valid_number {
+            get {
+                return ResourceManager.GetString("DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_a_valid_numb" +
+                        "er", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De verwachtingswaarde voor &apos;{0}&apos; moet een positief getal zijn..
+        /// </summary>
+        public static string DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_positive_value {
+            get {
+                return ResourceManager.GetString("DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_positive_val" +
+                        "ue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De standaard afwijking voor &apos;{0}&apos; moet groter zijn dan of gelijk zijn aan 0..
+        /// </summary>
+        public static string DistributionValidationService_ValidateDistribution_StandardDeviation_of_0_must_be_larger_or_equal_to_0 {
+            get {
+                return ResourceManager.GetString("DistributionValidationService_ValidateDistribution_StandardDeviation_of_0_must_be" +
+                        "_larger_or_equal_to_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Validatie mislukt: {0}.
         /// </summary>
         public static string Error_in_validation_0 {
