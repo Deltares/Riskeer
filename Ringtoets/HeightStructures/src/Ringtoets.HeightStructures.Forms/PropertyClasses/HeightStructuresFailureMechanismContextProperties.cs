@@ -27,7 +27,6 @@ using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.Properties;
-using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.PropertyClasses
