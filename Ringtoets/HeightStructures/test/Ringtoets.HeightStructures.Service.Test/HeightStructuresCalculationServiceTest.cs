@@ -12,7 +12,7 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
-// You should have received meanOne copy of the GNU General Public License
+// You should have received one copy of the GNU General Public License
 // along with this program. If not, see <http://www.gnu.org/licenses/>.
 //
 // All names, logos, and references to "Deltares" are registered trademarks of
@@ -48,49 +48,6 @@ namespace Ringtoets.HeightStructures.Service.Test
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
-        #region Testcases
-
-        private static IEnumerable<TestCaseData> NormalDistributionsWithInvalidMeans
-        {
-            get
-            {
-                yield return new TestCaseData(double.NaN, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
-                yield return new TestCaseData(double.PositiveInfinity, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
-                yield return new TestCaseData(double.NegativeInfinity, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
-
-                yield return new TestCaseData(1, double.NaN, 2, "kerende hoogte");
-                yield return new TestCaseData(1, double.PositiveInfinity, 2, "kerende hoogte");
-                yield return new TestCaseData(1, double.NegativeInfinity, 2, "kerende hoogte");
-
-                yield return new TestCaseData(1, 2, double.NaN, "breedte van doorstroomopening");
-                yield return new TestCaseData(1, 2, double.PositiveInfinity, "breedte van doorstroomopening");
-                yield return new TestCaseData(1, 2, double.NegativeInfinity, "breedte van doorstroomopening");
-            }
-        }
-
-        private static IEnumerable<TestCaseData> LogNormalDistributionsWithInvalidMeans
-        {
-            get
-            {
-                yield return new TestCaseData(double.NaN, 1, 2, 3, 4, "stormduur");
-                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, 4, "stormduur");
-
-                yield return new TestCaseData(1, double.NaN, 2, 3, 4, "toegestane peilverhoging komberging");
-                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, 4, "toegestane peilverhoging komberging");
-
-                yield return new TestCaseData(1, 2, double.NaN, 3, 4, "kombergend oppervlak");
-                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, 4, "kombergend oppervlak");
-
-                yield return new TestCaseData(1, 2, 3, double.NaN, 4, "stroomvoerende breedte bodembescherming");
-                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, 4, "stroomvoerende breedte bodembescherming");
-
-                yield return new TestCaseData(1, 2, 3, 4, double.NaN, "kritiek instromend debiet");
-                yield return new TestCaseData(1, 2, 3, 4, double.PositiveInfinity, "kritiek instromend debiet");
-            }
-        }
-
-        #endregion
-
         [Test]
         public void Validate_ValidCalculationInvalidHydraulicBoundaryDatabase_ReturnsFalse()
         {
@@ -109,7 +66,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    Structure =  new TestHeightStructure()
+                    Structure = new TestHeightStructure()
                 }
             };
 
@@ -210,7 +167,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        [TestCaseSource("NormalDistributionsWithInvalidMeans")]
+        [TestCaseSource("NormalDistributionsWithInvalidMean")]
         public void Validate_NormalDistributionMeanInvalid_ReturnsFalse(double meanOne, double meanTwo, double meanThree, string parameterName)
         {
             // Setup
@@ -238,7 +195,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             calculation.InputParameters.WidthFlowApertures.Mean = (RoundedDouble) meanThree;
 
             // Call
-            bool isValid = false; 
+            bool isValid = false;
             Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
 
             // Assert
@@ -256,7 +213,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        [TestCaseSource("LogNormalDistributionsWithInvalidMeans")]
+        [TestCaseSource("LogNormalDistributionsWithInvalidMean")]
         public void Validate_LogNormalDistributionMeanInvalid_ReturnsFalse(double meanOne, double meanTwo, double meanThree,
                                                                            double meanFour, double meanFive, string parameterName)
         {
@@ -285,6 +242,102 @@ namespace Ringtoets.HeightStructures.Service.Test
             calculation.InputParameters.StorageStructureArea.Mean = (RoundedDouble) meanThree;
             calculation.InputParameters.FlowWidthAtBottomProtection.Mean = (RoundedDouble) meanFour;
             calculation.InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) meanFive;
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith(expectedValidationMessage, msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource("DistributionsWithInvalidDeviation")]
+        public void Validate_DistributionStandardDeviationInvalid_ReturnsFalse(double deviationOne, double deviationTwo,
+                                                                               double deviationThree, double deviationFour, string parameterName)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            const string name = "<very nice name>";
+            string expectedValidationMessage = string.Format("Validatie mislukt: De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterName);
+
+            var calculation = new TestHeightStructuresCalculation()
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    Structure = new TestHeightStructure()
+                },
+            };
+
+            calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation = (RoundedDouble) deviationOne;
+            calculation.InputParameters.LevelCrestStructure.StandardDeviation = (RoundedDouble) deviationTwo;
+            calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation = (RoundedDouble) deviationThree;
+            calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation = (RoundedDouble) deviationFour;
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith(expectedValidationMessage, msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCaseSource("DistributionsWithInvalidCoefficient")]
+        public void Validate_DistributionVariationCoefficientInvalid_ReturnsFalse(double coefficientOne, double coefficientTwo,
+                                                                                  double coefficientThree, double coefficientFour, string parameterName)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            const string name = "<very nice name>";
+            string expectedValidationMessage = string.Format("Validatie mislukt: De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterName);
+
+            var calculation = new TestHeightStructuresCalculation()
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    Structure = new TestHeightStructure()
+                }
+            };
+
+            calculation.InputParameters.StormDuration.CoefficientOfVariation = (RoundedDouble) coefficientOne;
+            calculation.InputParameters.StorageStructureArea.CoefficientOfVariation = (RoundedDouble) coefficientTwo;
+            calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation = (RoundedDouble) coefficientThree;
+            calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation = (RoundedDouble) coefficientFour;
 
             // Call
             bool isValid = false;
@@ -605,5 +658,84 @@ namespace Ringtoets.HeightStructures.Service.Test
             };
             return assessmentSectionStub;
         }
+
+        #region Testcases
+
+        private static IEnumerable<TestCaseData> NormalDistributionsWithInvalidMean
+        {
+            get
+            {
+                yield return new TestCaseData(double.NaN, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.NegativeInfinity, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
+
+                yield return new TestCaseData(1, double.NaN, 2, "kerende hoogte");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, "kerende hoogte");
+                yield return new TestCaseData(1, double.NegativeInfinity, 2, "kerende hoogte");
+
+                yield return new TestCaseData(1, 2, double.NaN, "breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, "breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, double.NegativeInfinity, "breedte van doorstroomopening");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> LogNormalDistributionsWithInvalidMean
+        {
+            get
+            {
+                yield return new TestCaseData(double.NaN, 1, 2, 3, 4, "stormduur");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, 4, "stormduur");
+
+                yield return new TestCaseData(1, double.NaN, 2, 3, 4, "toegestane peilverhoging komberging");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, 4, "toegestane peilverhoging komberging");
+
+                yield return new TestCaseData(1, 2, double.NaN, 3, 4, "kombergend oppervlak");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, 4, "kombergend oppervlak");
+
+                yield return new TestCaseData(1, 2, 3, double.NaN, 4, "stroomvoerende breedte bodembescherming");
+                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, 4, "stroomvoerende breedte bodembescherming");
+
+                yield return new TestCaseData(1, 2, 3, 4, double.NaN, "kritiek instromend debiet");
+                yield return new TestCaseData(1, 2, 3, 4, double.PositiveInfinity, "kritiek instromend debiet");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> DistributionsWithInvalidDeviation
+        {
+            get
+            {
+                yield return new TestCaseData(double.NaN, 1, 2, 3, "modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, "modelfactor overloopdebiet volkomen overlaat");
+
+                yield return new TestCaseData(1, double.NaN, 2, 3, "kerende hoogte");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, "kerende hoogte");
+
+                yield return new TestCaseData(1, 2, double.NaN, 3, "toegestane peilverhoging komberging");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, "toegestane peilverhoging komberging");
+
+                yield return new TestCaseData(1, 2, 3, double.NaN, "stroomvoerende breedte bodembescherming");
+                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, "stroomvoerende breedte bodembescherming");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> DistributionsWithInvalidCoefficient
+        {
+            get
+            {
+                yield return new TestCaseData(double.NaN, 1, 2, 3, 4, "stormduur");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, 4, "stormduur");
+
+                yield return new TestCaseData(1, double.NaN, 2, 3, "kombergend oppervlak");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, "kombergend oppervlak");
+
+                yield return new TestCaseData(1, 2, double.NaN, 3, "kritiek instromend debiet");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, "kritiek instromend debiet");
+
+                yield return new TestCaseData(1, 2, 3, double.NaN, "breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, "breedte van doorstroomopening");
+            }
+        }
+
+        #endregion
     }
 }
