@@ -77,33 +77,42 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
 
             // Assert
             string csvFilePath = Path.ChangeExtension(filePath, "csv");
+            string[] expectedSubMessages =
+            {
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB1'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB2'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB3'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB4'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB5'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB6'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB7'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB8'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB9'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB10'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB11'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB12'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB13'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB14'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB15'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB16'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB17'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB18'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB19'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB20'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB21'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB22'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB23'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB24'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB25'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB26'."
+            };
             string[] expectedMessages =
             {
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2",
-                                           new[]
-                                           {
-                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST2'."
-                                           }),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Lely (93k4)", "KUNST3",
-                                           new[]
-                                           {
-                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST3'."
-                                           }),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal de Stontele (94k1)", "KUNST4",
-                                           new[]
-                                           {
-                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST4'."
-                                           }),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerkeersluis (93k1)", "KUNST5",
-                                           new[]
-                                           {
-                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST5'."
-                                           }),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerschutsluis (93k2)", "KUNST6",
-                                           new[]
-                                           {
-                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST6'."
-                                           })
+                CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2", expectedSubMessages),
+                CreateExpectedErrorMessage(csvFilePath, "Gemaal Lely (93k4)", "KUNST3", expectedSubMessages),
+                CreateExpectedErrorMessage(csvFilePath, "Gemaal de Stontele (94k1)", "KUNST4", expectedSubMessages),
+                CreateExpectedErrorMessage(csvFilePath, "Stontelerkeersluis (93k1)", "KUNST5", expectedSubMessages),
+                CreateExpectedErrorMessage(csvFilePath, "Stontelerschutsluis (93k2)", "KUNST6", expectedSubMessages)
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);
@@ -212,6 +221,35 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
 
             // Assert
             string csvFilePath = Path.ChangeExtension(filePath, "csv");
+            string[] expectedSubMessages =
+            {
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB1'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB2'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB3'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB4'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB5'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB6'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB7'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB8'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB9'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB10'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB11'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB12'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB13'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB14'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB15'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB16'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB17'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB18'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB19'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB20'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB21'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB22'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB23'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB24'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB25'.",
+                "Geen geldige definitie gevonden voor parameter 'KW_STERSTAB26'."
+            };
             string[] expectedMessages =
             {
                 CreateExpectedErrorMessage(csvFilePath, "Coupure Den Oever (90k1)", "KUNST1",
@@ -220,31 +258,11 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
                                                "Parameter 'KW_STERSTAB9' komt meerdere keren voor.",
                                                "De waarde voor parameter 'KW_STERSTAB10' op regel 37, kolom 'Numeriekewaarde', moet een positief getal zijn."
                                            }),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2",
-                                           new[]
-                                           {
-                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST2'."
-                                           }),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal Lely (93k4)", "KUNST3",
-                                           new[]
-                                           {
-                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST3'."
-                                           }),
-                CreateExpectedErrorMessage(csvFilePath, "Gemaal de Stontele (94k1)", "KUNST4",
-                                           new[]
-                                           {
-                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST4'."
-                                           }),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerkeersluis (93k1)", "KUNST5",
-                                           new[]
-                                           {
-                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST5'."
-                                           }),
-                CreateExpectedErrorMessage(csvFilePath, "Stontelerschutsluis (93k2)", "KUNST6",
-                                           new[]
-                                           {
-                                               "Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT 'KUNST6'."
-                                           })
+                CreateExpectedErrorMessage(csvFilePath, "Gemaal Leemans (93k3)", "KUNST2", expectedSubMessages),
+                CreateExpectedErrorMessage(csvFilePath, "Gemaal Lely (93k4)", "KUNST3", expectedSubMessages),
+                CreateExpectedErrorMessage(csvFilePath, "Gemaal de Stontele (94k1)", "KUNST4", expectedSubMessages),
+                CreateExpectedErrorMessage(csvFilePath, "Stontelerkeersluis (93k1)", "KUNST5", expectedSubMessages),
+                CreateExpectedErrorMessage(csvFilePath, "Stontelerschutsluis (93k2)", "KUNST6", expectedSubMessages)
             };
             TestHelper.AssertLogMessagesAreGenerated(call, expectedMessages);
             Assert.IsTrue(importResult);

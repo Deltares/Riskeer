@@ -358,7 +358,7 @@ namespace Ringtoets.Common.Data.Structures
             {
                 UseForeshore = false;
                 UseBreakWater = false;
-                BreakWater = GetDefaultBreakWaterProperties();
+                BreakWater = GetDefaultBreakWater();
             }
             else
             {
@@ -366,11 +366,11 @@ namespace Ringtoets.Common.Data.Structures
                 UseBreakWater = foreshoreProfile.HasBreakWater;
                 BreakWater = foreshoreProfile.HasBreakWater ?
                                  new BreakWater(foreshoreProfile.BreakWater.Type, foreshoreProfile.BreakWater.Height) :
-                                 GetDefaultBreakWaterProperties();
+                                 GetDefaultBreakWater();
             }
         }
 
-        private static BreakWater GetDefaultBreakWaterProperties()
+        private static BreakWater GetDefaultBreakWater()
         {
             return new BreakWater(BreakWaterType.Dam, 0.0);
         }

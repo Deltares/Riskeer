@@ -74,18 +74,9 @@ namespace Ringtoets.ClosingStructures.IO
             {
                 string id = structureLocation.Id;
 
-                if (!groupedStructureParameterRows.ContainsKey(id))
-                {
-                    var messages = new[]
-                    {
-                        string.Format(RingtoetsCommonIOResources.StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_,
-                                      id)
-                    };
-                    LogValidationErrorForStructure(structureLocation.Name, structureLocation.Id, messages);
-                    continue;
-                }
-
-                List<StructuresParameterRow> structureParameterRows = groupedStructureParameterRows[id];
+                List<StructuresParameterRow> structureParameterRows = groupedStructureParameterRows.ContainsKey(id)
+                                                                          ? groupedStructureParameterRows[id]
+                                                                          : new List<StructuresParameterRow>();
 
                 ValidationResult parameterRowsValidationResult = StructuresParameterRowsValidator.ValidateClosingStructuresParameters(structureParameterRows);
                 if (!parameterRowsValidationResult.IsValid)

@@ -1138,15 +1138,6 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kan geen geldige gegevens vinden voor kunstwerklocatie met KWKIDENT &apos;{0}&apos;..
-        /// </summary>
-        public static string StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_ {
-            get {
-                return ResourceManager.GetString("StructuresImporter_CreateSpecificStructures_no_structuresdata_for_Location_0_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De variatie voor parameter &apos;{2}&apos; van kunstwerk &apos;{0}&apos; ({1}) wordt omgerekend in een variatiecoëfficiënt (regel {3})..
         /// </summary>
         public static string StructuresImporter_GetCoefficientOfVariation_Converting_variation_StructureName_0_StructureId_1_ParameterId_2_on_Line_3_ {
