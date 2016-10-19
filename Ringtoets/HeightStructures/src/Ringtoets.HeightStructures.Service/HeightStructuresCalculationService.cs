@@ -185,7 +185,6 @@ namespace Ringtoets.HeightStructures.Service
             {
                 // TODO: put in resource
                 validationResult.Add("Er is geen kunstwerk geselecteerd.");
-                return validationResult.ToArray();
             }
             else
             {

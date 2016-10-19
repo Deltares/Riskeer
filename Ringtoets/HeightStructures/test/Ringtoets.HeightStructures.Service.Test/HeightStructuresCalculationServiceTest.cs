@@ -221,7 +221,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             const string name = "<very nice name>";
-            string expectedValidationMessage = string.Format("Validatie mislukt: De verwachtingswaarde van '{0}' moet een geldig getal zijn.", parameterName);
+            string expectedValidationMessage = string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een geldig getal zijn.", parameterName);
 
             var calculation = new TestHeightStructuresCalculation()
             {
@@ -268,7 +268,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             const string name = "<very nice name>";
-            string expectedValidationMessage = string.Format("Validatie mislukt: De verwachtingswaarde van '{0}' moet een positief getal zijn.", parameterName);
+            string expectedValidationMessage = string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterName);
 
             var calculation = new TestHeightStructuresCalculation()
             {
