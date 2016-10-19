@@ -334,7 +334,7 @@ namespace Ringtoets.Common.IO.Structures
             var messages = new List<string>();
 
             double mean = row.NumericalValue;
-            if (double.IsNaN(mean) || double.IsInfinity(mean) || mean <= 0 || mean > 1)
+            if (double.IsNaN(mean) || double.IsInfinity(mean) || mean < 0 || mean > 1)
             {
                 messages.Add(string.Format(Resources.StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_2_probability_out_of_range,
                                            row.ParameterId, row.LineNumber, StructureFilesKeywords.NumericalValueColumnName.FirstToUpper()));

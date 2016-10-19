@@ -460,7 +460,7 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet in het bereik [0, 360] liggen.</value>
   </data>
   <data name="StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_2_probability_out_of_range" xml:space="preserve">
-    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet in het bereik (0, 1] liggen.</value>
+    <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet in het bereik [0, 1] liggen.</value>
   </data>
   <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_value_must_be_positive_whole_number" xml:space="preserve">
     <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet een positief geheel getal zijn.</value>
@@ -486,5 +486,9 @@ Er is geen vakindeling geïmporteerd.</value>
   </data>
   <data name="StructuresParameterRowsValidator_ParameterId_0_Line_1_ColumnName_2_invalid_variancetype_value" xml:space="preserve">
     <value>De waarde voor parameter '{0}' op regel {1}, kolom '{2}', moet '0' (variatiecoëfficiënt) of '1' (standaardafwijking) zijn.</value>
+  </data>
+  <data name="StructuresImporter_LogValidationErrorForStructure_Click_details_for_full_message_0_" xml:space="preserve">
+    <value>Klik op details voor meer informatie.
+{0}</value>
   </data>
 </root>

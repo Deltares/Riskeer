@@ -260,10 +260,10 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
 
             var referencePoints = new List<Point2D>
             {
-                new Point2D(154493.618,568995.991),
-                new Point2D(156844.169,574771.498),
-                new Point2D(157910.502,579115.458),
-                new Point2D(163625.153,585151.261)
+                new Point2D(154493.618, 568995.991),
+                new Point2D(156844.169, 574771.498),
+                new Point2D(157910.502, 579115.458),
+                new Point2D(163625.153, 585151.261)
             };
             ReferenceLine referenceLine = new ReferenceLine();
             referenceLine.SetGeometry(referencePoints);
@@ -281,8 +281,8 @@ namespace Ringtoets.StabilityPointStructures.IO.Test
         private static string CreateExpectedErrorMessage(string filePath, string structureName, string structureId,
                                                          IEnumerable<string> messages)
         {
-            return string.Format("Fout bij het lezen van bestand '{0}' (Kunstwerk '{1}' ({2})): Er zijn één of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:" + Environment.NewLine +
-                                 "{3}",
+            return string.Format("Fout bij het lezen van bestand '{0}' (Kunstwerk '{1}' ({2})): Klik op details voor meer informatie." + Environment.NewLine
+                                 + "Er zijn één of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:" + Environment.NewLine + "{3}",
                                  filePath, structureName, structureId,
                                  string.Join(Environment.NewLine, messages.Select(msg => "* " + msg)));
         }

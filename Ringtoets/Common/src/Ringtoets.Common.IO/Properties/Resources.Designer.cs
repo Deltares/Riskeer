@@ -1186,6 +1186,17 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Klik op details voor meer informatie.
+        ///{0}.
+        /// </summary>
+        public static string StructuresImporter_LogValidationErrorForStructure_Click_details_for_full_message_0_ {
+            get {
+                return ResourceManager.GetString("StructuresImporter_LogValidationErrorForStructure_Click_details_for_full_message_" +
+                        "0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Er zijn één of meerdere fouten gevonden waardoor dit kunstwerk niet ingelezen kan worden:
         ///{0}.
         /// </summary>
@@ -1310,7 +1321,7 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, moet in het bereik (0, 1] liggen..
+        ///   Looks up a localized string similar to De waarde voor parameter &apos;{0}&apos; op regel {1}, kolom &apos;{2}&apos;, moet in het bereik [0, 1] liggen..
         /// </summary>
         public static string StructuresParameterRowsValidator_ProbabilityRule_ParameterId_0_Line_1_ColumnName_2_probability_out_of_range {
             get {

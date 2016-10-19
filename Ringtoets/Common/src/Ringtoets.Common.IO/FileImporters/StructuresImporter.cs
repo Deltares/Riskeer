@@ -136,12 +136,12 @@ namespace Ringtoets.Common.IO.FileImporters
 
         protected void LogValidationErrorForStructure(string structureName, string structureId, IEnumerable<string> validationErrors)
         {
-            string message = new FileReaderErrorMessageBuilder(GetStructureDataCsvFilePath())
-                .WithSubject(string.Format(Resources.StructuresImporter_StructureName_0_StructureId_1_,
-                                           structureName, structureId))
-                .Build(string.Format(Resources.StructuresImporter_LogValidationErrorForStructure_One_or_more_erors_skip_structure_ErrorMessageList_0_,
-                                     string.Join(Environment.NewLine, validationErrors.Select(msg => "* " + msg))));
-            Log.Error(message);
+            string shortMessage = new FileReaderErrorMessageBuilder(GetStructureDataCsvFilePath())
+                .WithSubject(string.Format(Resources.StructuresImporter_StructureName_0_StructureId_1_, structureName, structureId))
+                .Build(Resources.StructuresImporter_LogValidationErrorForStructure_Click_details_for_full_message_0_);
+            string messageRemainder = string.Format(Resources.StructuresImporter_LogValidationErrorForStructure_One_or_more_erors_skip_structure_ErrorMessageList_0_,
+                                                    string.Join(Environment.NewLine, validationErrors.Select(msg => "* " + msg)));
+            Log.ErrorFormat(shortMessage, messageRemainder);
         }
 
         private string GetStructureDataCsvFilePath()
