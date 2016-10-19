@@ -56,7 +56,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void GetAllVisiblePropertyDescriptors_VisibleProperties_ReturnEmpty()
+        public void GetAllVisiblePropertyDescriptors_VisibleProperties_ReturnCollectionWithTwoProperties()
         {
             // Setup
             var propertiesObject = new VisibleProperties();

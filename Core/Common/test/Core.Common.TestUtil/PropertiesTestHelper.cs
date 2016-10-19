@@ -28,7 +28,7 @@ using NUnit.Framework;
 namespace Core.Common.TestUtil
 {
     /// <summary>
-    /// Helper class when dealing with <see cref="IObjectProperties"/> implementations or
+    /// Helper class for dealing with <see cref="IObjectProperties"/> implementations and
     /// other objects that are meant to be shown in the <see cref="PropertyGrid"/>.
     /// </summary>
     public static class PropertiesTestHelper
