@@ -128,9 +128,25 @@ namespace Ringtoets.Common.Data.Structures
         #endregion
 
         /// <summary>
-        /// Synchronizes the input properties with the properties of the structure.
+        /// Gets or sets the structure.
         /// </summary>
-        protected abstract void UpdateStructureProperties();
+        public T Structure
+        {
+            get
+            {
+                return structure;
+            }
+            set
+            {
+                structure = value;
+                UpdateStructureParameters();
+            }
+        }
+
+        /// <summary>
+        /// Synchronizes the input parameters with the parameters of the structure.
+        /// </summary>
+        protected abstract void UpdateStructureParameters();
 
         /// <summary>
         /// Validates the provided probability value.
@@ -144,6 +160,9 @@ namespace Ringtoets.Common.Data.Structures
 
         #region Hydraulic data
 
+        /// <summary>
+        /// Gets or sets the hydraulic boundary location.
+        /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 
         /// <summary>
@@ -166,22 +185,6 @@ namespace Ringtoets.Common.Data.Structures
         #endregion
 
         #region Schematization
-
-        /// <summary>
-        /// Gets or sets the structure.
-        /// </summary>
-        public T Structure
-        {
-            get
-            {
-                return structure;
-            }
-            set
-            {
-                structure = value;
-                UpdateStructureProperties();
-            }
-        }
 
         /// <summary>
         /// Gets or sets the orientation of the normal of the structure.

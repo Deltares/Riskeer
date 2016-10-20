@@ -55,7 +55,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void Properties_StructureNull_DoesNotChangeValues()
+        public void Input_StructureNull_DoesNotChangeValues()
         {
             // Setup
             var input = new HeightStructuresInput();
@@ -68,7 +68,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void Properties_Structure_UpdateValuesAccordingly()
+        public void Input_Structure_UpdateValuesAccordingly()
         {
             // Setup
             var input = new HeightStructuresInput();

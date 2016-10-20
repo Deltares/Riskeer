@@ -90,7 +90,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void Properties_StructureNull_DoesNotChangeValues()
+        public void Input_StructureNull_DoesNotChangeValues()
         {
             var input = new ClosingStructuresInput();
 
@@ -102,7 +102,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        public void Properties_Structure_UpdateValuesAccordingly()
+        public void Input_Structure_UpdateValuesAccordingly()
         {
             // Setup
             var input = new ClosingStructuresInput();

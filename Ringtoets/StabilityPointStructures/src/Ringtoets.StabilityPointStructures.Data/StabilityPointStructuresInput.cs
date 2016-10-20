@@ -157,7 +157,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             };
         }
 
-        protected override void UpdateStructureProperties()
+        protected override void UpdateStructureParameters()
         {
             if (Structure != null)
             {

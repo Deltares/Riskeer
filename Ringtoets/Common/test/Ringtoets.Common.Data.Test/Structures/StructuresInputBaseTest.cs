@@ -44,44 +44,44 @@ namespace Ringtoets.Common.Data.Test.Structures
             // Setup
             var modelFactorSuperCriticalFlow = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble)1.1,
-                StandardDeviation = (RoundedDouble)0.03
+                Mean = (RoundedDouble) 1.1,
+                StandardDeviation = (RoundedDouble) 0.03
             };
 
             var allowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)double.NaN,
-                StandardDeviation = (RoundedDouble)0.1
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.1
             };
 
             var storageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)double.NaN,
-                CoefficientOfVariation = (RoundedDouble)0.1
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.1
             };
 
             var flowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)double.NaN,
-                StandardDeviation = (RoundedDouble)0.05
+                Mean = (RoundedDouble) double.NaN,
+                StandardDeviation = (RoundedDouble) 0.05
             };
 
             var criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)double.NaN,
-                CoefficientOfVariation = (RoundedDouble)0.15
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.15
             };
 
             var widthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
-                Mean = (RoundedDouble)double.NaN,
-                CoefficientOfVariation = (RoundedDouble)0.05
+                Mean = (RoundedDouble) double.NaN,
+                CoefficientOfVariation = (RoundedDouble) 0.05
             };
 
             var stormDuration = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble)6.0,
-                CoefficientOfVariation = (RoundedDouble)0.25
+                Mean = (RoundedDouble) 6.0,
+                CoefficientOfVariation = (RoundedDouble) 0.25
             };
 
             // Call
@@ -119,6 +119,77 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
+        public void Properties_Structure_UpdateValuesAccordingly()
+        {
+            // Setup
+            var structure = new SimpleStructure(new StructureBase.ConstructionProperties
+            {
+                Name = "<awesome name>",
+                Location = new Point2D(0, 0),
+                Id = "id"
+            });
+
+            var input = new SimpleStructuresInput();
+
+            // Precondition
+            Assert.IsNull(input.Structure);
+            Assert.IsFalse(input.Updated);
+
+            // Call
+            input.Structure = structure;
+
+            // Assert
+            Assert.AreSame(structure, input.Structure);
+            Assert.IsTrue(input.Updated);
+        }
+
+        #region Model factors
+
+        [Test]
+        public void Properties_ModelFactorSuperCriticalFlow_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(22);
+            var input = new SimpleStructuresInput();
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = input.ModelFactorSuperCriticalFlow.StandardDeviation
+            };
+            var distributionToSet = new NormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = (RoundedDouble) random.NextDouble()
+            };
+
+            // Call
+            input.ModelFactorSuperCriticalFlow = distributionToSet;
+
+            // Assert
+            AssertDistributionCorrectlySet(input.ModelFactorSuperCriticalFlow, distributionToSet, expectedDistribution);
+        }
+
+        #endregion
+
+        private class SimpleStructuresInput : StructuresInputBase<StructureBase>
+        {
+            public bool Updated { get; private set; }
+
+            protected override void UpdateStructureParameters()
+            {
+                Updated = true;
+            }
+        }
+
+        private class SimpleStructure : StructureBase
+        {
+            public SimpleStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
+        }
+
+        #region Hydraulic data
+
+        [Test]
         public void Properties_HydraulicBoundaryLocation_ExpectedValues()
         {
             // Setup
@@ -131,6 +202,239 @@ namespace Ringtoets.Common.Data.Test.Structures
             // Assert
             Assert.AreSame(location, input.HydraulicBoundaryLocation);
         }
+
+        [Test]
+        public void Properties_StormDuration_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(22);
+            var input = new SimpleStructuresInput();
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = input.StormDuration.CoefficientOfVariation
+            };
+            var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+            };
+
+            // Call
+            input.StormDuration = distributionToSet;
+
+            // Assert
+            AssertDistributionCorrectlySet(input.StormDuration, distributionToSet, expectedDistribution);
+        }
+
+        #endregion
+
+        #region Schematization
+
+        [Test]
+        [TestCase(400)]
+        [TestCase(360.05)]
+        [TestCase(-0.005)]
+        [TestCase(-23)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        public void Properties_StructureNormalOrientationInValidValues_ThrowsArgumentOutOfRangeException(double invalidValue)
+        {
+            // Setup
+            var input = new SimpleStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.StructureNormalOrientation = (RoundedDouble) invalidValue;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik [0, 360] liggen.");
+        }
+
+        [Test]
+        [TestCase(360.004)]
+        [TestCase(300)]
+        [TestCase(0)]
+        [TestCase(-0.004)]
+        [TestCase(double.NaN)]
+        public void Properties_StructureNormalOrientationValidValues_NewValueSet(double orientation)
+        {
+            // Setup
+            var input = new SimpleStructuresInput();
+
+            // Call
+            input.StructureNormalOrientation = (RoundedDouble) orientation;
+
+            // Assert
+            Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
+            AssertAreEqual(orientation, input.StructureNormalOrientation);
+        }
+
+        [Test]
+        public void Properties_AllowedLevelIncreaseStorage_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(22);
+            var input = new SimpleStructuresInput();
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new LogNormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            var distributionToSet = new LogNormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+
+            // Call
+            input.AllowedLevelIncreaseStorage = distributionToSet;
+
+            // Assert
+            AssertDistributionCorrectlySet(input.AllowedLevelIncreaseStorage, distributionToSet, expectedDistribution);
+        }
+
+        [Test]
+        public void Properties_StorageStructureArea_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(22);
+            var input = new SimpleStructuresInput();
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var variation = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+            var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+
+            // Call
+            input.StorageStructureArea = distributionToSet;
+
+            // Assert
+            AssertDistributionCorrectlySet(input.StorageStructureArea, distributionToSet, expectedDistribution);
+        }
+
+        [Test]
+        public void Properties_FlowWidthAtBottomProtection_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(22);
+            var input = new SimpleStructuresInput();
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new LogNormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            var distributionToSet = new LogNormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+
+            // Call
+            input.FlowWidthAtBottomProtection = distributionToSet;
+
+            // Assert
+            AssertDistributionCorrectlySet(input.FlowWidthAtBottomProtection, distributionToSet, expectedDistribution);
+        }
+
+        [Test]
+        public void Properties_CriticalOvertoppingDischarge_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(22);
+            var input = new SimpleStructuresInput();
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var variation = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+            var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+
+            // Call
+            input.CriticalOvertoppingDischarge = distributionToSet;
+
+            // Assert
+            AssertDistributionCorrectlySet(input.CriticalOvertoppingDischarge, distributionToSet, expectedDistribution);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(0.5)]
+        [TestCase(1)]
+        public void Properties_ValidFailureProbabilityStructureWithErosion_ExpectedValues(double failureProbabilityStructureWithErosion)
+        {
+            // Setup
+            var input = new SimpleStructuresInput();
+
+            // Call
+            input.FailureProbabilityStructureWithErosion = failureProbabilityStructureWithErosion;
+
+            // Assert
+            Assert.AreEqual(failureProbabilityStructureWithErosion, input.FailureProbabilityStructureWithErosion);
+        }
+
+        [Test]
+        [TestCase(-0.1)]
+        [TestCase(1.1)]
+        [TestCase(double.NaN)]
+        public void Properties_InvalidFailureProbabilityStructureWithErosion_ThrowArgumentOutOfRangeException(double failureProbabilityStructureWithErosion)
+        {
+            // Setup
+            var input = new SimpleStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.FailureProbabilityStructureWithErosion = (RoundedDouble) failureProbabilityStructureWithErosion;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0, 1] liggen.");
+        }
+
+        [Test]
+        public void Properties_WidthFlowApertures_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(22);
+            var input = new SimpleStructuresInput();
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var variation = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new VariationCoefficientNormalDistribution(2)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+            var distributionToSet = new VariationCoefficientNormalDistribution(5)
+            {
+                Mean = mean,
+                CoefficientOfVariation = variation
+            };
+
+            // Call
+            input.WidthFlowApertures = distributionToSet;
+
+            // Assert
+            AssertDistributionCorrectlySet(input.WidthFlowApertures, distributionToSet, expectedDistribution);
+        }
+
+        #endregion
+
+        #region Foreshore profile
 
         [Test]
         [Combinatorial]
@@ -186,11 +490,11 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.AreEqual(withBreakWater ? foreshoreProfile.BreakWater.Height : originalBreakWaterHeight, input.BreakWater.Height);
             Assert.AreEqual(withValidForeshore, input.UseForeshore);
             CollectionAssert.AreEqual(foreshoreProfile.Geometry, input.ForeshoreGeometry);
-            Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+            Assert.AreSame(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
         }
 
         [Test]
-        public void Foreshore_SetNullValue_InputSyncedToDefaults()
+        public void ForeshoreProfile_SetNullValue_InputSyncedToDefaults()
         {
             // Setup
             var input = new SimpleStructuresInput();
@@ -219,7 +523,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.AreNotEqual(originalBreakWaterHeight, input.BreakWater.Height);
             Assert.IsTrue(input.UseForeshore);
             CollectionAssert.IsNotEmpty(input.ForeshoreGeometry);
-            Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+            Assert.AreSame(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
 
             // Call
             input.ForeshoreProfile = null;
@@ -230,283 +534,12 @@ namespace Ringtoets.Common.Data.Test.Structures
             Assert.AreEqual(originalBreakWaterHeight, input.BreakWater.Height);
             Assert.IsFalse(input.UseForeshore);
             CollectionAssert.IsEmpty(input.ForeshoreGeometry);
-            Assert.AreEqual(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
+            Assert.AreSame(originalHydraulicBoundaryLocation, input.HydraulicBoundaryLocation);
         }
 
-        [Test]
-        [TestCase(360.004)]
-        [TestCase(300)]
-        [TestCase(0)]
-        [TestCase(-0.004)]
-        [TestCase(double.NaN)]
-        public void Properties_StructureNormalOrientationValidValues_NewValueSet(double orientation)
-        {
-            // Setup
-            var input = new SimpleStructuresInput();
+        #endregion
 
-            // Call
-            input.StructureNormalOrientation = (RoundedDouble) orientation;
-
-            // Assert
-            Assert.AreEqual(2, input.StructureNormalOrientation.NumberOfDecimalPlaces);
-            AssertAreEqual(orientation, input.StructureNormalOrientation);
-        }
-
-        [Test]
-        [TestCase(400)]
-        [TestCase(360.05)]
-        [TestCase(-0.005)]
-        [TestCase(-23)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NegativeInfinity)]
-        public void Properties_StructureNormalOrientationInValidValues_ThrowsArgumentOutOfRangeException(double invalidValue)
-        {
-            // Setup
-            var input = new SimpleStructuresInput();
-
-            // Call
-            TestDelegate call = () => input.StructureNormalOrientation = (RoundedDouble) invalidValue;
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik [0, 360] liggen.");
-        }
-
-        [Test]
-        public void Properties_ModelFactorSuperCriticalFlow_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(22);
-            var input = new SimpleStructuresInput();
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var expectedDistribution = new NormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = input.ModelFactorSuperCriticalFlow.StandardDeviation
-            };
-            var distributionToSet = new NormalDistribution(5)
-            {
-                Mean = mean,
-                StandardDeviation = (RoundedDouble)random.NextDouble()
-            };
-
-            // Call
-            input.ModelFactorSuperCriticalFlow = distributionToSet;
-
-            // Assert
-            AssertDistributionCorrectlySet(input.ModelFactorSuperCriticalFlow, distributionToSet, expectedDistribution);
-        }
-
-        [Test]
-        public void Properties_AllowedLevelIncreaseStorage_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(22);
-            var input = new SimpleStructuresInput();
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
-            var expectedDistribution = new LogNormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
-            var distributionToSet = new LogNormalDistribution(5)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
-
-            // Call
-            input.AllowedLevelIncreaseStorage = distributionToSet;
-
-            // Assert
-            AssertDistributionCorrectlySet(input.AllowedLevelIncreaseStorage, distributionToSet, expectedDistribution);
-        }
-
-        [Test]
-        public void Properties_StorageStructureArea_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(22);
-            var input = new SimpleStructuresInput();
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var variation = (RoundedDouble)(0.01 + random.NextDouble());
-            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = mean,
-                CoefficientOfVariation = variation
-            };
-            var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
-            {
-                Mean = mean,
-                CoefficientOfVariation = variation
-            };
-
-            // Call
-            input.StorageStructureArea = distributionToSet;
-
-            // Assert
-            AssertDistributionCorrectlySet(input.StorageStructureArea, distributionToSet, expectedDistribution);
-        }
-
-        [Test]
-        public void Properties_FlowWidthAtBottomProtection_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(22);
-            var input = new SimpleStructuresInput();
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
-            var expectedDistribution = new LogNormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
-            var distributionToSet = new LogNormalDistribution(5)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
-
-            // Call
-            input.FlowWidthAtBottomProtection = distributionToSet;
-
-            // Assert
-            AssertDistributionCorrectlySet(input.FlowWidthAtBottomProtection, distributionToSet, expectedDistribution);
-        }
-
-        [Test]
-        public void Properties_CriticalOvertoppingDischarge_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(22);
-            var input = new SimpleStructuresInput();
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var variation = (RoundedDouble)(0.01 + random.NextDouble());
-            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = mean,
-                CoefficientOfVariation = variation
-            };
-            var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
-            {
-                Mean = mean,
-                CoefficientOfVariation = variation
-            };
-
-            // Call
-            input.CriticalOvertoppingDischarge = distributionToSet;
-
-            // Assert
-            AssertDistributionCorrectlySet(input.CriticalOvertoppingDischarge, distributionToSet, expectedDistribution);
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(0.5)]
-        [TestCase(1)]
-        public void Properties_ValidFailureProbabilityStructureWithErosion_ExpectedValues(double failureProbabilityStructureWithErosion)
-        {
-            // Setup
-            var input = new SimpleStructuresInput();
-
-            // Call
-            input.FailureProbabilityStructureWithErosion = failureProbabilityStructureWithErosion;
-
-            // Assert
-            Assert.AreEqual(failureProbabilityStructureWithErosion, input.FailureProbabilityStructureWithErosion);
-        }
-
-        [Test]
-        [TestCase(-0.1)]
-        [TestCase(1.1)]
-        [TestCase(double.NaN)]
-        public void Properties_InvalidFailureProbabilityStructureWithErosion_ThrowArgumentOutOfRangeException(double failureProbabilityStructureWithErosion)
-        {
-            // Setup
-            var input = new SimpleStructuresInput();
-
-            // Call
-            TestDelegate call = () => input.FailureProbabilityStructureWithErosion = (RoundedDouble)failureProbabilityStructureWithErosion;
-
-            // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de faalkans moet in het bereik [0, 1] liggen.");
-        }
-
-        [Test]
-        public void Properties_WidthFlowApertures_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(22);
-            var input = new SimpleStructuresInput();
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var variation = (RoundedDouble)(0.01 + random.NextDouble());
-            var expectedDistribution = new VariationCoefficientNormalDistribution(2)
-            {
-                Mean = mean,
-                CoefficientOfVariation = variation
-            };
-            var distributionToSet = new VariationCoefficientNormalDistribution(5)
-            {
-                Mean = mean,
-                CoefficientOfVariation = variation
-            };
-
-            // Call
-            input.WidthFlowApertures = distributionToSet;
-
-            // Assert
-            AssertDistributionCorrectlySet(input.WidthFlowApertures, distributionToSet, expectedDistribution);
-        }
-
-        [Test]
-        public void Properties_StormDuration_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(22);
-            var input = new SimpleStructuresInput();
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
-            {
-                Mean = mean,
-                CoefficientOfVariation = input.StormDuration.CoefficientOfVariation
-            };
-            var distributionToSet = new VariationCoefficientLogNormalDistribution(5)
-            {
-                Mean = mean,
-                CoefficientOfVariation = (RoundedDouble)random.NextDouble()
-            };
-
-            // Call
-            input.StormDuration = distributionToSet;
-
-            // Assert
-            AssertDistributionCorrectlySet(input.StormDuration, distributionToSet, expectedDistribution);
-        }
-
-        [Test]
-        public void Properties_Structure_UpdateValuesAccordingly()
-        {
-            // Setup
-            var structure = new SimpleStructure(new StructureBase.ConstructionProperties
-            {
-                Name = "<awesome name>",
-                Location = new Point2D(0, 0),
-                Id = "id"
-            });
-
-            var input = new SimpleStructuresInput();
-
-            // Precondition
-            Assert.IsNull(input.Structure);
-            Assert.IsFalse(input.Updated);
-
-            // Call
-            input.Structure = structure;
-
-            // Assert
-            Assert.AreSame(structure, input.Structure);
-            Assert.IsTrue(input.Updated);
-        }
+        #region Helpers
 
         private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)
         {
@@ -525,19 +558,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
         }
 
-        private class SimpleStructuresInput : StructuresInputBase<StructureBase> 
-        {
-            protected override void UpdateStructureProperties()
-            {
-                Updated = true;
-            }
-
-            public bool Updated { get; private set; }
-        }
-
-        private class SimpleStructure : StructureBase
-        {
-            public SimpleStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
-        }
+        #endregion
     }
 }

@@ -64,7 +64,7 @@ namespace Ringtoets.Revetment.Data
         }
 
         /// <summary>
-        /// Gets or sets the hydraulic boundary location from which to use the assessment level.
+        /// Gets or sets the hydraulic boundary location.
         /// </summary>
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
 

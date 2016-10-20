@@ -95,7 +95,7 @@ namespace Ringtoets.ClosingStructures.Data
 
         #endregion
 
-        protected override void UpdateStructureProperties()
+        protected override void UpdateStructureParameters()
         {
             if (Structure != null)
             {
