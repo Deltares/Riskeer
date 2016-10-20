@@ -28,10 +28,10 @@ namespace Core.Common.Gui.Attributes
     /// <summary>
     /// Marks property as a conditionally ordered property. When this attribute is declared
     /// on a property, the declaring class should have a public method marked with 
-    /// <see cref="DynamicPropertyOrderMethodAttribute"/> to be used to evaluate the
+    /// <see cref="DynamicPropertyOrderEvaluationMethodAttribute"/> to be used to evaluate the
     /// order of the property.
     /// </summary>
-    /// <seealso cref="DynamicPropertyOrderMethodAttribute"/>
+    /// <seealso cref="DynamicPropertyOrderEvaluationMethodAttribute"/>
     /// <seealso cref="PropertyOrderAttribute"/>
     /// <remarks>This attribute provides a run-time alternative to <see cref="PropertyOrderAttribute"/>.</remarks>
     [AttributeUsage(AttributeTargets.Property)]
@@ -46,8 +46,8 @@ namespace Core.Common.Gui.Attributes
         /// <exception cref="MissingMemberException">When <paramref name="propertyName"/>
         /// does not correspond to a public property of <paramref name="obj"/>.</exception>
         /// <exception cref="System.MissingMethodException">When there isn't a single method
-        /// declared on <paramref name="obj"/> marked with <see cref="DynamicPropertyOrderMethodAttribute"/>
-        /// that is matching the signature defined by <see cref="DynamicPropertyOrderMethodAttribute.PropertyOrder"/>.</exception>
+        /// declared on <paramref name="obj"/> marked with <see cref="DynamicPropertyOrderEvaluationMethodAttribute"/>
+        /// that is matching the signature defined by <see cref="DynamicPropertyOrderEvaluationMethodAttribute.PropertyOrder"/>.</exception>
         public static int Order(object obj, string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName))
@@ -60,7 +60,7 @@ namespace Core.Common.Gui.Attributes
                 return 0;
             }
 
-            var propertyOrder = DynamicPropertyOrderMethodAttribute.CreatePropertyOrderMethod(obj);
+            var propertyOrder = DynamicPropertyOrderEvaluationMethodAttribute.CreatePropertyOrderMethod(obj);
 
             return propertyOrder(propertyName);
         }
