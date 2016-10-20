@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
@@ -85,7 +86,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        public void Run_HeightStructuresWithoutHydraulicBoundaryLocationCalculation_LogValidationStartAndEndWithError()
+        public void Run_HeightStructuresCalculationWithoutHydraulicBoundaryLocation_LogValidationStartAndEndWithError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -130,7 +131,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        public void Run_HeightStructuresWithoutStructureCalculation_LogValidationStartAndEndWithError()
+        public void Run_HeightStructuresCalculationWithoutStructure_LogValidationStartAndEndWithError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -171,6 +172,311 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(double.PositiveInfinity)]
+        public void Run_HeightStructuresCalculationInValidDeviationWaveDirection_LogValidationStartAndEndWithError(double value)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            const string parameterName = "afwijking golfrichting";
+            string expectedValidationMessage = string.Format("Validatie mislukt: De waarde voor '{0}' moet een geldig getal zijn.", parameterName);
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    Structure = new TestHeightStructure()
+                }
+            };
+            calculation.InputParameters.DeviationWaveDirection = (RoundedDouble) value;
+
+            var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith(expectedValidationMessage, msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+            });
+        }
+
+        [Test]
+        public void Run_HeightStructuresCalculationInvalidStructureNormalOrientation_LogValidationStartAndEndWithError()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            string expectedValidationMessage = "Validatie mislukt: De waarde voor de oriëntatie moet in het bereik [0, 360] liggen.";
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    Structure = new TestHeightStructure()
+                }
+            };
+            calculation.InputParameters.StructureNormalOrientation = (RoundedDouble) double.NaN;
+
+            var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith(expectedValidationMessage, msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+            });
+        }
+
+        [Test]
+        [TestCaseSource("NormalDistributionsWithInvalidMean")]
+        public void Run_HeightStructuresCalculationInvalidNormalDistributionMeans_LogValidationStartAndEndWithError(double meanOne, double meanTwo, double meanThree, string parameterName)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            string expectedValidationMessage = string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een geldig getal zijn.", parameterName);
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    Structure = new TestHeightStructure()
+                }
+            };
+
+            calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean = (RoundedDouble) meanOne;
+            calculation.InputParameters.LevelCrestStructure.Mean = (RoundedDouble) meanTwo;
+            calculation.InputParameters.WidthFlowApertures.Mean = (RoundedDouble) meanThree;
+
+            var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith(expectedValidationMessage, msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+            });
+        }
+
+        [Test]
+        [TestCaseSource("LogNormalDistributionsWithInvalidMean")]
+        public void Run_HeightStructuresCalculationInvalidLogNormalDistributionMeans_LogValidationStartAndEndWithError(double meanOne, double meanTwo, double meanThree,
+                                                                                                                       double meanFour, double meanFive, string parameterName)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            string expectedValidationMessage = string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterName);
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    Structure = new TestHeightStructure()
+                }
+            };
+            calculation.InputParameters.StormDuration.Mean = (RoundedDouble) meanOne;
+            calculation.InputParameters.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) meanTwo;
+            calculation.InputParameters.StorageStructureArea.Mean = (RoundedDouble) meanThree;
+            calculation.InputParameters.FlowWidthAtBottomProtection.Mean = (RoundedDouble) meanFour;
+            calculation.InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) meanFive;
+
+            var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith(expectedValidationMessage, msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+            });
+        }
+
+        [Test]
+        [TestCaseSource("DistributionsWithInvalidDeviation")]
+        public void Run_HeightStructuresCalculationDistributionInvalidStandardDeviation_LogValidationStartAndEndWithError(double deviationOne, double deviationTwo,
+                                                                                                                          double deviationThree, double deviationFour, string parameterName)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            string expectedValidationMessage = string.Format("Validatie mislukt: De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterName);
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    Structure = new TestHeightStructure()
+                }
+            };
+            calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation = (RoundedDouble) deviationOne;
+            calculation.InputParameters.LevelCrestStructure.StandardDeviation = (RoundedDouble) deviationTwo;
+            calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation = (RoundedDouble) deviationThree;
+            calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation = (RoundedDouble) deviationFour;
+
+            var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith(expectedValidationMessage, msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+            });
+        }
+
+        [Test]
+        [TestCaseSource("DistributionsWithInvalidCoefficient")]
+        public void Run_HeightStructuresCalculationDistributionInvalidVariationCoefficient_LogValidationStartAndEndWithError(double coefficientOne, double coefficientTwo,
+                                                                                                                             double coefficientThree, double coefficientFour, string parameterName)
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            string expectedValidationMessage = string.Format("Validatie mislukt: De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterName);
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    Structure = new TestHeightStructure()
+                }
+            };
+            calculation.InputParameters.StormDuration.CoefficientOfVariation = (RoundedDouble) coefficientOne;
+            calculation.InputParameters.StorageStructureArea.CoefficientOfVariation = (RoundedDouble) coefficientTwo;
+            calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation = (RoundedDouble) coefficientThree;
+            calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation = (RoundedDouble) coefficientFour;
+
+            var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith(expectedValidationMessage, msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+            });
         }
 
         [Test]
@@ -367,5 +673,84 @@ namespace Ringtoets.HeightStructures.Integration.Test
             Assert.IsNull(calculation.Output);
             mocks.VerifyAll();
         }
+
+        #region Testcases
+
+        private static IEnumerable<TestCaseData> NormalDistributionsWithInvalidMean
+        {
+            get
+            {
+                yield return new TestCaseData(double.NaN, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.NegativeInfinity, 1, 2, "modelfactor overloopdebiet volkomen overlaat");
+
+                yield return new TestCaseData(1, double.NaN, 2, "kerende hoogte");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, "kerende hoogte");
+                yield return new TestCaseData(1, double.NegativeInfinity, 2, "kerende hoogte");
+
+                yield return new TestCaseData(1, 2, double.NaN, "breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, "breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, double.NegativeInfinity, "breedte van doorstroomopening");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> LogNormalDistributionsWithInvalidMean
+        {
+            get
+            {
+                yield return new TestCaseData(double.NaN, 1, 2, 3, 4, "stormduur");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, 4, "stormduur");
+
+                yield return new TestCaseData(1, double.NaN, 2, 3, 4, "toegestane peilverhoging komberging");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, 4, "toegestane peilverhoging komberging");
+
+                yield return new TestCaseData(1, 2, double.NaN, 3, 4, "kombergend oppervlak");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, 4, "kombergend oppervlak");
+
+                yield return new TestCaseData(1, 2, 3, double.NaN, 4, "stroomvoerende breedte bodembescherming");
+                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, 4, "stroomvoerende breedte bodembescherming");
+
+                yield return new TestCaseData(1, 2, 3, 4, double.NaN, "kritiek instromend debiet");
+                yield return new TestCaseData(1, 2, 3, 4, double.PositiveInfinity, "kritiek instromend debiet");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> DistributionsWithInvalidDeviation
+        {
+            get
+            {
+                yield return new TestCaseData(double.NaN, 1, 2, 3, "modelfactor overloopdebiet volkomen overlaat");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, "modelfactor overloopdebiet volkomen overlaat");
+
+                yield return new TestCaseData(1, double.NaN, 2, 3, "kerende hoogte");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, "kerende hoogte");
+
+                yield return new TestCaseData(1, 2, double.NaN, 3, "toegestane peilverhoging komberging");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, "toegestane peilverhoging komberging");
+
+                yield return new TestCaseData(1, 2, 3, double.NaN, "stroomvoerende breedte bodembescherming");
+                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, "stroomvoerende breedte bodembescherming");
+            }
+        }
+
+        private static IEnumerable<TestCaseData> DistributionsWithInvalidCoefficient
+        {
+            get
+            {
+                yield return new TestCaseData(double.NaN, 1, 2, 3, "stormduur");
+                yield return new TestCaseData(double.PositiveInfinity, 1, 2, 3, "stormduur");
+
+                yield return new TestCaseData(1, double.NaN, 2, 3, "kombergend oppervlak");
+                yield return new TestCaseData(1, double.PositiveInfinity, 2, 3, "kombergend oppervlak");
+
+                yield return new TestCaseData(1, 2, double.NaN, 3, "kritiek instromend debiet");
+                yield return new TestCaseData(1, 2, double.PositiveInfinity, 3, "kritiek instromend debiet");
+
+                yield return new TestCaseData(1, 2, 3, double.NaN, "breedte van doorstroomopening");
+                yield return new TestCaseData(1, 2, 3, double.PositiveInfinity, "breedte van doorstroomopening");
+            }
+        }
+
+        #endregion
     }
 }
