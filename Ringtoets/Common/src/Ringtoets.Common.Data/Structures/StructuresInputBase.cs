@@ -33,7 +33,7 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.Common.Data.Structures
 {
     /// <summary>
-    /// Base class that holds all structures calculation specific input parameters.
+    /// Base class that holds generic structures calculation input parameters.
     /// </summary>
     public abstract class StructuresInputBase<T> : Observable, ICalculationInput, IUseBreakWater, IUseForeshore
         where T : StructureBase
@@ -53,6 +53,9 @@ namespace Ringtoets.Common.Data.Structures
 
         private ForeshoreProfile foreshoreProfile;
 
+        /// <summary>
+        /// Creates a new instance of the <see cref="StructuresInputBase{T}"/> class.
+        /// </summary>
         protected StructuresInputBase()
         {
             structureNormalOrientation = new RoundedDouble(2, double.NaN);
