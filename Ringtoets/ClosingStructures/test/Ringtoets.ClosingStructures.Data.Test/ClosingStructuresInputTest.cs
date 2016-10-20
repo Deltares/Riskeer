@@ -90,6 +90,34 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
+        public void Properties_StructureNull_DoesNotChangeValues()
+        {
+            var input = new ClosingStructuresInput();
+
+            // Call
+            input.Structure = null;
+
+            // Assert
+            AssertClosingStructure(null, input);
+        }
+
+        [Test]
+        public void Properties_Structure_UpdateValuesAccordingly()
+        {
+            // Setup
+            var input = new ClosingStructuresInput();
+            TestClosingStructure structure = new TestClosingStructure();
+
+            // Call
+            input.Structure = structure;
+
+            // Assert
+            AssertClosingStructure(structure, input);
+        }
+
+        #region Structure
+
+        [Test]
         [TestCase(ClosingStructureInflowModelType.VerticalWall)]
         [TestCase(ClosingStructureInflowModelType.LowSill)]
         [TestCase(ClosingStructureInflowModelType.FloodedCulvert)]
@@ -105,21 +133,100 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(inflowModelType, input.InflowModelType);
         }
 
+        #endregion
+
+        #region Hydraulic data
+
+        [Test]
+        public void Properties_InsideWaterLevel_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(22);
+            var input = new ClosingStructuresInput();
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+            var distributionToSet = new NormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = standardDeviation
+            };
+
+            // Call
+            input.InsideWaterLevel = distributionToSet;
+
+            // Assert
+            AssertDistributionCorrectlySet(input.InsideWaterLevel, distributionToSet, expectedDistribution);
+        }
+
+        [Test]
+        public void Properties_DeviationWaveDirection_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(22);
+            var input = new ClosingStructuresInput();
+            var deviationWaveDirection = new RoundedDouble(5, random.NextDouble());
+
+            // Call
+            input.DeviationWaveDirection = deviationWaveDirection;
+
+            // Assert
+            Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
+            AssertAreEqual(deviationWaveDirection, input.DeviationWaveDirection);
+        }
+
+        #endregion
+
+        #region Model factors
+
+        [Test]
+        public void Properties_DrainCoefficient_ExpectedValues()
+        {
+            // Setup
+            var random = new Random(22);
+            var input = new ClosingStructuresInput();
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var expectedDistribution = new NormalDistribution(2)
+            {
+                Mean = mean,
+                StandardDeviation = input.DrainCoefficient.StandardDeviation
+            };
+            var distributionToSet = new NormalDistribution(5)
+            {
+                Mean = mean,
+                StandardDeviation = (RoundedDouble) random.NextDouble()
+            };
+
+            // Call
+            input.DrainCoefficient = distributionToSet;
+
+            // Assert
+            AssertDistributionCorrectlySet(input.DrainCoefficient, distributionToSet, expectedDistribution);
+        }
+
         [Test]
         public void Properties_FactorStormDurationOpenStructure_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
             var input = new ClosingStructuresInput();
-            var factorStormDuration = new RoundedDouble(5, random.NextDouble());
+            var factorStormDurationOpenStructure = new RoundedDouble(5, random.NextDouble());
 
             // Call
-            input.FactorStormDurationOpenStructure = factorStormDuration;
+            input.FactorStormDurationOpenStructure = factorStormDurationOpenStructure;
 
             // Assert
             Assert.AreEqual(2, input.FactorStormDurationOpenStructure.NumberOfDecimalPlaces);
-            AssertAreEqual(factorStormDuration, input.FactorStormDurationOpenStructure);
+            AssertAreEqual(factorStormDurationOpenStructure, input.FactorStormDurationOpenStructure);
         }
+
+        #endregion
+
+        #region Schematization
 
         [Test]
         public void Properties_ThresholdHeightOpenWeir_ExpectedValues()
@@ -145,31 +252,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             AssertDistributionCorrectlySet(input.ThresholdHeightOpenWeir, distributionToSet, expectedDistribution);
-        }
-
-        [Test]
-        public void Properties_DrainCoefficient_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(22);
-            var input = new ClosingStructuresInput();
-            var mean = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new NormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = input.DrainCoefficient.StandardDeviation
-            };
-            var distributionToSet = new NormalDistribution(5)
-            {
-                Mean = mean,
-                StandardDeviation = (RoundedDouble) random.NextDouble()
-            };
-
-            // Call
-            input.DrainCoefficient = distributionToSet;
-
-            // Assert
-            AssertDistributionCorrectlySet(input.DrainCoefficient, distributionToSet, expectedDistribution);
         }
 
         [Test]
@@ -268,13 +350,13 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Setup
             var random = new Random(22);
             var input = new ClosingStructuresInput();
-            int identicalAperture = random.Next();
+            int identicalApertures = random.Next();
 
             // Call
-            input.IdenticalApertures = identicalAperture;
+            input.IdenticalApertures = identicalApertures;
 
             // Assert
-            Assert.AreEqual(identicalAperture, input.IdenticalApertures);
+            Assert.AreEqual(identicalApertures, input.IdenticalApertures);
         }
 
         [Test]
@@ -301,48 +383,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             AssertDistributionCorrectlySet(input.LevelCrestStructureNotClosing, distributionToSet, expectedDistribution);
-        }
-
-        [Test]
-        public void Properties_InsideWaterLevel_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(22);
-            var input = new ClosingStructuresInput();
-            var mean = (RoundedDouble) (0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
-            var expectedDistribution = new NormalDistribution(2)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
-            var distributionToSet = new NormalDistribution(5)
-            {
-                Mean = mean,
-                StandardDeviation = standardDeviation
-            };
-
-            // Call
-            input.InsideWaterLevel = distributionToSet;
-
-            // Assert
-            AssertDistributionCorrectlySet(input.InsideWaterLevel, distributionToSet, expectedDistribution);
-        }
-
-        [Test]
-        public void Properties_DeviationWaveDirection_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(22);
-            var input = new ClosingStructuresInput();
-            var deviationWaveDirection = new RoundedDouble(5, random.NextDouble());
-
-            // Call
-            input.DeviationWaveDirection = deviationWaveDirection;
-
-            // Assert
-            Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
-            AssertAreEqual(deviationWaveDirection, input.DeviationWaveDirection);
         }
 
         [Test]
@@ -377,31 +417,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(probability, input.ProbabilityOpenStructureBeforeFlooding);
         }
 
-        [Test]
-        public void Properties_StructureNull_DoesNotChangeValues()
-        {
-            var input = new ClosingStructuresInput();
+        #endregion
 
-            // Call
-            input.Structure = null;
-
-            // Assert
-            AssertClosingStructure(null, input);
-        }
-
-        [Test]
-        public void Properties_Structure_UpdateValuesAccordingly()
-        {
-            // Setup
-            var input = new ClosingStructuresInput();
-            TestClosingStructure structure = new TestClosingStructure();
-
-            // Call
-            input.Structure = structure;
-
-            // Assert
-            AssertClosingStructure(structure, input);
-        }
+        #region Helpers
 
         private static void AssertClosingStructure(ClosingStructure expectedClosingStructure, ClosingStructuresInput input)
         {
@@ -457,5 +475,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreNotSame(setDistribution, distributionToAssert);
             DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
         }
+
+        #endregion
     }
 }

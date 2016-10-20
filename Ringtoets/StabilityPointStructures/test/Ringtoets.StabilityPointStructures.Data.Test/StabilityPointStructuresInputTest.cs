@@ -163,7 +163,33 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             AssertAreEqual(double.NaN, input.VerticalDistance);
         }
 
-        # region Calculation inputs
+        [Test]
+        public void Properties_StructureNull_DoesNotChangeValues()
+        {
+            var input = new StabilityPointStructuresInput();
+
+            // Call
+            input.Structure = null;
+
+            // Assert
+            AssertStabilityPointStructure(null, input);
+        }
+
+        [Test]
+        public void Properties_Structure_UpdateValuesAccordingly()
+        {
+            // Setup
+            var input = new StabilityPointStructuresInput();
+            TestStabilityPointStructure structure = new TestStabilityPointStructure();
+
+            // Call
+            input.Structure = structure;
+
+            // Assert
+            AssertStabilityPointStructure(structure, input);
+        }
+
+        # region Structure / calculation
 
         [Test]
         [TestCase(StabilityPointStructureInflowModelType.LowSill)]
@@ -205,8 +231,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup
             var input = new StabilityPointStructuresInput();
             var random = new Random(22);
-
-            RoundedDouble volumicWeightWater = new RoundedDouble(5, random.NextDouble());
+            var volumicWeightWater = new RoundedDouble(5, random.NextDouble());
 
             // Call
             input.VolumicWeightWater = volumicWeightWater;
@@ -222,13 +247,12 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-            
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
             var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new NormalDistribution(2)
             {
                 Mean = mean,
-                StandardDeviation =  standardDeviation
+                StandardDeviation = standardDeviation
             };
             var distributionToSet = new NormalDistribution(5)
             {
@@ -249,9 +273,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new NormalDistribution(2)
             {
                 Mean = mean,
@@ -272,7 +295,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
         #endregion
 
-        #region Model inputs
+        #region Model factors and critical values
 
         [Test]
         public void Properties_FactorStormDurationOpenStructure_ExpectedValues()
@@ -280,15 +303,14 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup
             var input = new StabilityPointStructuresInput();
             var random = new Random(22);
-
-            var factorStormDuration = new RoundedDouble(5, random.NextDouble());
+            var factorStormDurationOpenStructure = new RoundedDouble(5, random.NextDouble());
 
             // Call
-            input.FactorStormDurationOpenStructure = factorStormDuration;
+            input.FactorStormDurationOpenStructure = factorStormDurationOpenStructure;
 
             // Assert
             Assert.AreEqual(2, input.FactorStormDurationOpenStructure.NumberOfDecimalPlaces);
-            AssertAreEqual(factorStormDuration, input.FactorStormDurationOpenStructure);
+            AssertAreEqual(factorStormDurationOpenStructure, input.FactorStormDurationOpenStructure);
         }
 
         [Test]
@@ -297,14 +319,12 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
-            RoundedDouble initialStd = input.DrainCoefficient.StandardDeviation;
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new NormalDistribution(2)
             {
                 Mean = mean,
-                StandardDeviation = initialStd
+                StandardDeviation = input.DrainCoefficient.StandardDeviation
             };
             var distributionToSet = new NormalDistribution(5)
             {
@@ -312,7 +332,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 StandardDeviation = standardDeviation
             };
 
-           // Call
+            // Call
             input.DrainCoefficient = distributionToSet;
 
             // Assert
@@ -325,9 +345,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new NormalDistribution(2)
             {
                 Mean = mean,
@@ -338,7 +357,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 Mean = mean,
                 StandardDeviation = standardDeviation
             };
-            
+
             // Call
             input.FlowVelocityStructureClosable = distributionToSet;
 
@@ -356,9 +375,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup 
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new NormalDistribution(2)
             {
                 Mean = mean,
@@ -383,9 +401,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new NormalDistribution(2)
             {
                 Mean = mean,
@@ -410,9 +427,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup 
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new LogNormalDistribution(2)
             {
                 Mean = mean,
@@ -437,9 +453,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup 
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var variation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = mean,
@@ -464,9 +479,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup 
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var variation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = mean,
@@ -491,9 +505,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup 
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var variation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = mean,
@@ -518,9 +531,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup 
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var variation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = mean,
@@ -577,9 +589,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup 
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var variation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new VariationCoefficientLogNormalDistribution(2)
             {
                 Mean = mean,
@@ -604,9 +615,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup 
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var variation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = mean,
@@ -631,9 +641,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup 
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var variation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var variation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = mean,
@@ -658,7 +667,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup
             var input = new StabilityPointStructuresInput();
             var random = new Random(22);
-
             int levellingCount = random.Next();
 
             // Call
@@ -706,9 +714,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Setup 
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
-
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new NormalDistribution(2)
             {
                 Mean = mean,
@@ -731,9 +738,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void Properties_EvaluationLevel_ExpectedValues()
         {
             // Setup
-            var input = new StabilityPointStructuresInput();
-
             var random = new Random(22);
+            var input = new StabilityPointStructuresInput();
             var evaluationLevel = new RoundedDouble(5, random.NextDouble());
 
             // Call
@@ -748,9 +754,8 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         public void Properties_VerticalDistance_ExpectedValues()
         {
             // Setup 
-            var input = new StabilityPointStructuresInput();
-
             var random = new Random(22);
+            var input = new StabilityPointStructuresInput();
             var verticalDistance = new RoundedDouble(5, random.NextDouble());
 
             // Call
@@ -759,32 +764,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             // Assert
             Assert.AreEqual(2, input.VerticalDistance.NumberOfDecimalPlaces);
             AssertAreEqual(verticalDistance, input.VerticalDistance);
-        }
-
-        [Test]
-        public void Properties_StructureNull_DoesNotChangeValues()
-        {
-            var input = new StabilityPointStructuresInput();
-
-            // Call
-            input.Structure = null;
-
-            // Assert
-            AssertStabilityPointStructure(null, input);
-        }
-
-        [Test]
-        public void Properties_Structure_UpdateValuesAccordingly()
-        {
-            // Setup
-            var input = new StabilityPointStructuresInput();
-            TestStabilityPointStructure structure = new TestStabilityPointStructure();
-
-            // Call
-            input.Structure = structure;
-
-            // Assert
-            AssertStabilityPointStructure(structure, input);
         }
 
         #endregion

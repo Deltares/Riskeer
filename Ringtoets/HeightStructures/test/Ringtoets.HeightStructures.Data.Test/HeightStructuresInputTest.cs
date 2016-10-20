@@ -55,13 +55,41 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
+        public void Properties_StructureNull_DoesNotChangeValues()
+        {
+            // Setup
+            var input = new HeightStructuresInput();
+
+            // Call
+            input.Structure = null;
+
+            // Assert
+            AssertHeightStructure(null, input);
+        }
+
+        [Test]
+        public void Properties_Structure_UpdateValuesAccordingly()
+        {
+            // Setup
+            var input = new HeightStructuresInput();
+            TestHeightStructure structure = new TestHeightStructure();
+
+            // Call
+            input.Structure = structure;
+
+            // Assert
+            AssertHeightStructure(structure, input);
+        }
+
+        #region Hydraulic data
+
+        [Test]
         public void Properties_DeviationWaveDirection_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
             var input = new HeightStructuresInput();
-
-            RoundedDouble deviationWaveDirection = new RoundedDouble(5, random.NextDouble());
+            var deviationWaveDirection = new RoundedDouble(5, random.NextDouble());
 
             // Call
             input.DeviationWaveDirection = deviationWaveDirection;
@@ -70,6 +98,10 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
             AssertAreEqual(deviationWaveDirection, input.DeviationWaveDirection);
         }
+
+        #endregion
+
+        #region Schematization
 
         [Test]
         public void Properties_LevelCrestStructure_ExpectedValues()
@@ -97,32 +129,9 @@ namespace Ringtoets.HeightStructures.Data.Test
             AssertDistributionCorrectlySet(input.LevelCrestStructure, distributionToSet, expectedDistribution);
         }
 
-        [Test]
-        public void Properties_StructureNull_DoesNotChangeValues()
-        {
-            // Setup
-            var input = new HeightStructuresInput();
+        #endregion
 
-            // Call
-            input.Structure = null;
-
-            // Assert
-            AssertHeightStructure(null, input);
-        }
-
-        [Test]
-        public void Properties_Structure_UpdateValuesAccordingly()
-        {
-            // Setup
-            var input = new HeightStructuresInput();
-            TestHeightStructure structure = new TestHeightStructure();
-
-            // Call
-            input.Structure = structure;
-
-            // Assert
-            AssertHeightStructure(structure, input);
-        }
+        #region Helpers
 
         private static void AssertHeightStructure(HeightStructure expectedHeightStructure, HeightStructuresInput input)
         {
@@ -166,5 +175,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreNotSame(setDistribution, distributionToAssert);
             DistributionAssert.AreEqual(expectedDistribution, distributionToAssert);
         }
+
+        #endregion
     }
 }

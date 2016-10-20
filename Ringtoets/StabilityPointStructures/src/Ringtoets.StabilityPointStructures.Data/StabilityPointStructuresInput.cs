@@ -157,6 +157,38 @@ namespace Ringtoets.StabilityPointStructures.Data
             };
         }
 
+        protected override void UpdateStructureProperties()
+        {
+            if (Structure != null)
+            {
+                AllowedLevelIncreaseStorage = Structure.AllowedLevelIncreaseStorage;
+                AreaFlowApertures = Structure.AreaFlowApertures;
+                BankWidth = Structure.BankWidth;
+                ConstructiveStrengthLinearLoadModel = Structure.ConstructiveStrengthLinearLoadModel;
+                ConstructiveStrengthQuadraticLoadModel = Structure.ConstructiveStrengthQuadraticLoadModel;
+                CriticalOvertoppingDischarge = Structure.CriticalOvertoppingDischarge;
+                EvaluationLevel = Structure.EvaluationLevel;
+                FailureCollisionEnergy = Structure.FailureCollisionEnergy;
+                FailureProbabilityRepairClosure = Structure.FailureProbabilityRepairClosure;
+                FlowVelocityStructureClosable = Structure.FlowVelocityStructureClosable;
+                FlowWidthAtBottomProtection = Structure.FlowWidthAtBottomProtection;
+                InflowModelType = Structure.InflowModelType;
+                InsideWaterLevel = Structure.InsideWaterLevel;
+                InsideWaterLevelFailureConstruction = Structure.InsideWaterLevelFailureConstruction;
+                LevelCrestStructure = Structure.LevelCrestStructure;
+                LevellingCount = Structure.LevellingCount;
+                ProbabilityCollisionSecondaryStructure = Structure.ProbabilityCollisionSecondaryStructure;
+                ShipMass = Structure.ShipMass;
+                ShipVelocity = Structure.ShipVelocity;
+                StabilityLinearLoadModel = Structure.StabilityLinearLoadModel;
+                StabilityQuadraticLoadModel = Structure.StabilityQuadraticLoadModel;
+                StorageStructureArea = Structure.StorageStructureArea;
+                ThresholdHeightOpenWeir = Structure.ThresholdHeightOpenWeir;
+                VerticalDistance = Structure.VerticalDistance;
+                WidthFlowApertures = Structure.WidthFlowApertures;
+            }
+        }
+
         #region Structure / calculation
 
         /// <summary>
@@ -225,7 +257,7 @@ namespace Ringtoets.StabilityPointStructures.Data
 
         #endregion
 
-        #region Model inputs and critical values
+        #region Model factors and critical values
 
         /// <summary>
         /// Gets or sets the factor for the storm duration for an open structure.
@@ -549,37 +581,5 @@ namespace Ringtoets.StabilityPointStructures.Data
         }
 
         #endregion
-
-        protected override void UpdateStructureProperties()
-        {
-            if (Structure != null)
-            {
-                AllowedLevelIncreaseStorage = Structure.AllowedLevelIncreaseStorage;
-                AreaFlowApertures = Structure.AreaFlowApertures;
-                BankWidth = Structure.BankWidth;
-                ConstructiveStrengthLinearLoadModel = Structure.ConstructiveStrengthLinearLoadModel;
-                ConstructiveStrengthQuadraticLoadModel = Structure.ConstructiveStrengthQuadraticLoadModel;
-                CriticalOvertoppingDischarge = Structure.CriticalOvertoppingDischarge;
-                EvaluationLevel = Structure.EvaluationLevel;
-                FailureCollisionEnergy = Structure.FailureCollisionEnergy;
-                FailureProbabilityRepairClosure = Structure.FailureProbabilityRepairClosure;
-                FlowVelocityStructureClosable = Structure.FlowVelocityStructureClosable;
-                FlowWidthAtBottomProtection = Structure.FlowWidthAtBottomProtection;
-                InflowModelType = Structure.InflowModelType;
-                InsideWaterLevel = Structure.InsideWaterLevel;
-                InsideWaterLevelFailureConstruction = Structure.InsideWaterLevelFailureConstruction;
-                LevelCrestStructure = Structure.LevelCrestStructure;
-                LevellingCount = Structure.LevellingCount;
-                ProbabilityCollisionSecondaryStructure = Structure.ProbabilityCollisionSecondaryStructure;
-                ShipMass = Structure.ShipMass;
-                ShipVelocity = Structure.ShipVelocity;
-                StabilityLinearLoadModel = Structure.StabilityLinearLoadModel;
-                StabilityQuadraticLoadModel = Structure.StabilityQuadraticLoadModel;
-                StorageStructureArea = Structure.StorageStructureArea;
-                ThresholdHeightOpenWeir = Structure.ThresholdHeightOpenWeir;
-                VerticalDistance = Structure.VerticalDistance;
-                WidthFlowApertures = Structure.WidthFlowApertures;
-            }
-        }
     }
 }

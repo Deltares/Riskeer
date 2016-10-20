@@ -95,40 +95,27 @@ namespace Ringtoets.ClosingStructures.Data
 
         #endregion
 
-        #region Model factors
-
-        /// <summary>
-        /// Gets or sets the drain coefficient.
-        /// </summary>
-        /// <remarks>Only sets the mean.</remarks>
-        public NormalDistribution DrainCoefficient
+        protected override void UpdateStructureProperties()
         {
-            get
+            if (Structure != null)
             {
-                return drainCoefficient;
-            }
-            set
-            {
-                drainCoefficient.Mean = value.Mean;
+                StructureNormalOrientation = Structure.StructureNormalOrientation;
+                LevelCrestStructureNotClosing = Structure.LevelCrestStructureNotClosing;
+                FlowWidthAtBottomProtection = Structure.FlowWidthAtBottomProtection;
+                CriticalOvertoppingDischarge = Structure.CriticalOvertoppingDischarge;
+                WidthFlowApertures = Structure.WidthFlowApertures;
+                StorageStructureArea = Structure.StorageStructureArea;
+                AllowedLevelIncreaseStorage = Structure.AllowedLevelIncreaseStorage;
+                InflowModelType = Structure.InflowModelType;
+                AreaFlowApertures = Structure.AreaFlowApertures;
+                FailureProbabilityOpenStructure = Structure.FailureProbabilityOpenStructure;
+                FailureProbabilityReparation = Structure.FailureProbabilityReparation;
+                IdenticalApertures = Structure.IdenticalApertures;
+                InsideWaterLevel = Structure.InsideWaterLevel;
+                ProbabilityOpenStructureBeforeFlooding = Structure.ProbabilityOpenStructureBeforeFlooding;
+                ThresholdHeightOpenWeir = Structure.ThresholdHeightOpenWeir;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the factor for the storm duration for an open structure.
-        /// </summary>
-        public RoundedDouble FactorStormDurationOpenStructure
-        {
-            get
-            {
-                return factorStormDurationOpenStructure;
-            }
-            set
-            {
-                factorStormDurationOpenStructure = value.ToPrecision(factorStormDurationOpenStructure.NumberOfDecimalPlaces);
-            }
-        }
-
-        #endregion
 
         #region Hydraulic data
 
@@ -162,6 +149,41 @@ namespace Ringtoets.ClosingStructures.Data
             set
             {
                 deviationWaveDirection = value.ToPrecision(deviationWaveDirection.NumberOfDecimalPlaces);
+            }
+        }
+
+        #endregion
+
+        #region Model factors
+
+        /// <summary>
+        /// Gets or sets the drain coefficient.
+        /// </summary>
+        /// <remarks>Only sets the mean.</remarks>
+        public NormalDistribution DrainCoefficient
+        {
+            get
+            {
+                return drainCoefficient;
+            }
+            set
+            {
+                drainCoefficient.Mean = value.Mean;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the factor for the storm duration for an open structure.
+        /// </summary>
+        public RoundedDouble FactorStormDurationOpenStructure
+        {
+            get
+            {
+                return factorStormDurationOpenStructure;
+            }
+            set
+            {
+                factorStormDurationOpenStructure = value.ToPrecision(factorStormDurationOpenStructure.NumberOfDecimalPlaces);
             }
         }
 
@@ -291,27 +313,5 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         #endregion
-
-        protected override void UpdateStructureProperties()
-        {
-            if (Structure != null)
-            {
-                StructureNormalOrientation = Structure.StructureNormalOrientation;
-                LevelCrestStructureNotClosing = Structure.LevelCrestStructureNotClosing;
-                FlowWidthAtBottomProtection = Structure.FlowWidthAtBottomProtection;
-                CriticalOvertoppingDischarge = Structure.CriticalOvertoppingDischarge;
-                WidthFlowApertures = Structure.WidthFlowApertures;
-                StorageStructureArea = Structure.StorageStructureArea;
-                AllowedLevelIncreaseStorage = Structure.AllowedLevelIncreaseStorage;
-                InflowModelType = Structure.InflowModelType;
-                AreaFlowApertures = Structure.AreaFlowApertures;
-                FailureProbabilityOpenStructure = Structure.FailureProbabilityOpenStructure;
-                FailureProbabilityReparation = Structure.FailureProbabilityReparation;
-                IdenticalApertures = Structure.IdenticalApertures;
-                InsideWaterLevel = Structure.InsideWaterLevel;
-                ProbabilityOpenStructureBeforeFlooding = Structure.ProbabilityOpenStructureBeforeFlooding;
-                ThresholdHeightOpenWeir = Structure.ThresholdHeightOpenWeir;
-            }
-        }
     }
 }
