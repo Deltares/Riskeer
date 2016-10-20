@@ -60,7 +60,7 @@ namespace Ringtoets.Revetment.Data
             upperBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
             lowerBoundaryWaterLevels = new RoundedDouble(2, double.NaN);
 
-            UpdateForeshoreProfileParameters();
+            UpdateProfileParameters();
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Ringtoets.Revetment.Data
             set
             {
                 foreshoreProfile = value;
-                UpdateForeshoreProfileParameters();
+                UpdateProfileParameters();
             }
         }
 
@@ -251,24 +251,12 @@ namespace Ringtoets.Revetment.Data
             }
         }
 
-        /// <summary>
-        /// Gets or sets whether <see cref="BreakWater"/> needs to be taken into account.
-        /// </summary>
         public bool UseBreakWater { get; set; }
 
-        /// <summary>
-        /// Gets the <see cref="BreakWater"/>.
-        /// </summary>
         public BreakWater BreakWater { get; private set; }
 
-        /// <summary>
-        /// Gets or sets whether the <see cref="ForeshoreGeometry"/> needs to be taken into account.
-        /// </summary>
         public bool UseForeshore { get; set; }
 
-        /// <summary>
-        /// Gets the geometry of the foreshore.
-        /// </summary>
         public RoundedPoint2DCollection ForeshoreGeometry
         {
             get
@@ -355,7 +343,7 @@ namespace Ringtoets.Revetment.Data
             return waterLevels;
         }
 
-        private void UpdateForeshoreProfileParameters()
+        private void UpdateProfileParameters()
         {
             if (foreshoreProfile == null)
             {

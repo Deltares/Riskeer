@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Data.Structures
                 CoefficientOfVariation = (RoundedDouble) 0.25
             };
 
-            UpdateForeshoreProperties();
+            UpdateProfileParameters();
         }
 
         #region Model factors
@@ -162,6 +162,8 @@ namespace Ringtoets.Common.Data.Structures
                 stormDuration.Mean = value.Mean;
             }
         }
+
+        #endregion
 
         #region Schematization
 
@@ -313,9 +315,7 @@ namespace Ringtoets.Common.Data.Structures
 
         #endregion
 
-        #endregion
-
-        #region Foreshore Profile
+        #region Foreshore profile
 
         /// <summary>
         /// Gets or sets the foreshore profile.
@@ -329,23 +329,16 @@ namespace Ringtoets.Common.Data.Structures
             set
             {
                 foreshoreProfile = value;
-                UpdateForeshoreProperties();
+                UpdateProfileParameters();
             }
         }
 
-        /// <summary>
-        /// Gets or sets whether the <see cref="BreakWater"/> needs to be taken into account.
-        /// </summary>
         public bool UseBreakWater { get; set; }
 
-        /// <summary>
-        /// Gets or sets whether the <see cref="ForeshoreProfile"/> needs to be taken into account.
-        /// </summary>
+        public BreakWater BreakWater { get; private set; }
+
         public bool UseForeshore { get; set; }
 
-        /// <summary>
-        /// Gets the geometry of the foreshore.
-        /// </summary>
         public RoundedPoint2DCollection ForeshoreGeometry
         {
             get
@@ -356,12 +349,7 @@ namespace Ringtoets.Common.Data.Structures
             }
         }
 
-        /// <summary>
-        /// Gets the <see cref="BreakWater"/>.
-        /// </summary>
-        public BreakWater BreakWater { get; private set; }
-
-        private void UpdateForeshoreProperties()
+        private void UpdateProfileParameters()
         {
             if (foreshoreProfile == null)
             {
