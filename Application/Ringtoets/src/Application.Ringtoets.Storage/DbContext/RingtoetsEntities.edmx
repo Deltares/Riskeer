@@ -269,6 +269,32 @@
           <Property Name="LayerTwoA" Type="tinyint" Nullable="false" />
           <Property Name="LayerThree" Type="real" />
         </EntityType>
+        <EntityType Name="HeightStructureEntity">
+          <Key>
+            <PropertyRef Name="HeightStructureEntityId" />
+          </Key>
+          <Property Name="HeightStructureEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="260" />
+          <Property Name="Id" Type="varchar" MaxLength="260" />
+          <Property Name="X" Type="real" />
+          <Property Name="Y" Type="real" />
+          <Property Name="StructureNormalOrientation" Type="real" />
+          <Property Name="LevelCrestStructureMean" Type="real" />
+          <Property Name="LevelCrestStructureStandardDeviation" Type="real" />
+          <Property Name="FlowWidthAtBottomProtectionMean" Type="real" />
+          <Property Name="FlowWidthAtBottomProtectionStandardDeviation" Type="real" />
+          <Property Name="CriticalOvertoppingDischargeMean" Type="real" />
+          <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="real" />
+          <Property Name="WidthFlowAperturesMean" Type="real" />
+          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="real" />
+          <Property Name="FailureProbabilityStructureWithErosion" Type="real" />
+          <Property Name="StorageStructureAreaMean" Type="real" />
+          <Property Name="StorageStructureAreaCoefficientOfVariation" Type="real" />
+          <Property Name="AllowedLevelIncreaseStorageMean" Type="real" />
+          <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="real" />
+        </EntityType>
         <EntityType Name="HeightStructuresFailureMechanismMetaEntity">
           <Key>
             <PropertyRef Name="HeightStructuresFailureMechanismMetaEntityId" />
@@ -948,6 +974,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HeightStructureEntity_0_0">
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
+          <End Role="HeightStructureEntity" Type="Self.HeightStructureEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="HeightStructureEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HeightStructuresFailureMechanismMetaEntity_0_0">
           <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
           <End Role="HeightStructuresFailureMechanismMetaEntity" Type="Self.HeightStructuresFailureMechanismMetaEntity" Multiplicity="*" />
@@ -1390,6 +1428,7 @@
           <EntitySet Name="GrassCoverErosionOutwardsWaveConditionsOutputEntity" EntityType="Self.GrassCoverErosionOutwardsWaveConditionsOutputEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverSlipOffInwardsSectionResultEntity" EntityType="Self.GrassCoverSlipOffInwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverSlipOffOutwardsSectionResultEntity" EntityType="Self.GrassCoverSlipOffOutwardsSectionResultEntity" store:Type="Tables" />
+          <EntitySet Name="HeightStructureEntity" EntityType="Self.HeightStructureEntity" store:Type="Tables" />
           <EntitySet Name="HeightStructuresFailureMechanismMetaEntity" EntityType="Self.HeightStructuresFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="HeightStructuresSectionResultEntity" EntityType="Self.HeightStructuresSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
@@ -1527,6 +1566,10 @@
           <AssociationSet Name="FK_GrassCoverSlipOffOutwardsSectionResultEntity_0_0" Association="Self.FK_GrassCoverSlipOffOutwardsSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="GrassCoverSlipOffOutwardsSectionResultEntity" EntitySet="GrassCoverSlipOffOutwardsSectionResultEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HeightStructureEntity_0_0" Association="Self.FK_HeightStructureEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="HeightStructureEntity" EntitySet="HeightStructureEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_HeightStructuresFailureMechanismMetaEntity_0_0" Association="Self.FK_HeightStructuresFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
@@ -1695,6 +1738,7 @@
           <EntitySet Name="GrassCoverErosionOutwardsWaveConditionsOutputEntities" EntityType="RingtoetsEntitiesModel.GrassCoverErosionOutwardsWaveConditionsOutputEntity" />
           <EntitySet Name="GrassCoverSlipOffInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffInwardsSectionResultEntity" />
           <EntitySet Name="GrassCoverSlipOffOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffOutwardsSectionResultEntity" />
+          <EntitySet Name="HeightStructureEntities" EntityType="RingtoetsEntitiesModel.HeightStructureEntity" />
           <EntitySet Name="HeightStructuresFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresFailureMechanismMetaEntity" />
           <EntitySet Name="HeightStructuresSectionResultEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresSectionResultEntity" />
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
@@ -1808,6 +1852,10 @@
           <AssociationSet Name="FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="GrassCoverErosionOutwardsHydraulicLocationEntity" EntitySet="GrassCoverErosionOutwardsHydraulicLocationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HeightStructureEntity_0_0" Association="RingtoetsEntitiesModel.FK_HeightStructureEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="HeightStructureEntity" EntitySet="HeightStructureEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_HeightStructuresFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_HeightStructuresFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
@@ -2094,6 +2142,7 @@
           <NavigationProperty Name="GrassCoverErosionInwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionInwardsFailureMechanismMetaEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionOutwardsFailureMechanismMetaEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsHydraulicLocationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsHydraulicLocationEntity_0_0" FromRole="FailureMechanismEntity" ToRole="GrassCoverErosionOutwardsHydraulicLocationEntity" />
+          <NavigationProperty Name="HeightStructureEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructureEntity_0_0" FromRole="FailureMechanismEntity" ToRole="HeightStructureEntity" />
           <NavigationProperty Name="HeightStructuresFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="HeightStructuresFailureMechanismMetaEntity" />
           <NavigationProperty Name="PipingFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="PipingFailureMechanismMetaEntity" />
           <NavigationProperty Name="StabilityPointStructuresFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StabilityPointStructuresFailureMechanismMetaEntity" />
@@ -2311,6 +2360,33 @@
           <Property Name="LayerTwoA" Type="Byte" Nullable="false" />
           <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_GrassCoverSlipOffOutwardsSectionResultEntity_0_0" FromRole="GrassCoverSlipOffOutwardsSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
+        </EntityType>
+        <EntityType Name="HeightStructureEntity">
+          <Key>
+            <PropertyRef Name="HeightStructureEntityId" />
+          </Key>
+          <Property Name="HeightStructureEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="X" Type="Double" />
+          <Property Name="Y" Type="Double" />
+          <Property Name="StructureNormalOrientation" Type="Double" />
+          <Property Name="LevelCrestStructureMean" Type="Double" />
+          <Property Name="LevelCrestStructureStandardDeviation" Type="Double" />
+          <Property Name="FlowWidthAtBottomProtectionMean" Type="Double" />
+          <Property Name="FlowWidthAtBottomProtectionStandardDeviation" Type="Double" />
+          <Property Name="CriticalOvertoppingDischargeMean" Type="Double" />
+          <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="Double" />
+          <Property Name="WidthFlowAperturesMean" Type="Double" />
+          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="Double" />
+          <Property Name="FailureProbabilityStructureWithErosion" Type="Double" />
+          <Property Name="StorageStructureAreaMean" Type="Double" />
+          <Property Name="StorageStructureAreaCoefficientOfVariation" Type="Double" />
+          <Property Name="AllowedLevelIncreaseStorageMean" Type="Double" />
+          <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="Double" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructureEntity_0_0" FromRole="HeightStructureEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="HeightStructuresFailureMechanismMetaEntity">
           <Key>
@@ -2965,6 +3041,18 @@
               <PropertyRef Name="FailureMechanismEntityId" />
             </Principal>
             <Dependent Role="GrassCoverErosionOutwardsHydraulicLocationEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HeightStructureEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HeightStructureEntity" Role="HeightStructureEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="HeightStructureEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -3749,6 +3837,33 @@
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
                 <ScalarProperty Name="GrassCoverSlipOffOutwardsSectionResultEntityId" ColumnName="GrassCoverSlipOffOutwardsSectionResultEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HeightStructureEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HeightStructureEntity">
+              <MappingFragment StoreEntitySet="HeightStructureEntity">
+                <ScalarProperty Name="AllowedLevelIncreaseStorageStandardDeviation" ColumnName="AllowedLevelIncreaseStorageStandardDeviation" />
+                <ScalarProperty Name="AllowedLevelIncreaseStorageMean" ColumnName="AllowedLevelIncreaseStorageMean" />
+                <ScalarProperty Name="StorageStructureAreaCoefficientOfVariation" ColumnName="StorageStructureAreaCoefficientOfVariation" />
+                <ScalarProperty Name="StorageStructureAreaMean" ColumnName="StorageStructureAreaMean" />
+                <ScalarProperty Name="FailureProbabilityStructureWithErosion" ColumnName="FailureProbabilityStructureWithErosion" />
+                <ScalarProperty Name="WidthFlowAperturesCoefficientOfVariation" ColumnName="WidthFlowAperturesCoefficientOfVariation" />
+                <ScalarProperty Name="WidthFlowAperturesMean" ColumnName="WidthFlowAperturesMean" />
+                <ScalarProperty Name="CriticalOvertoppingDischargeCoefficientOfVariation" ColumnName="CriticalOvertoppingDischargeCoefficientOfVariation" />
+                <ScalarProperty Name="CriticalOvertoppingDischargeMean" ColumnName="CriticalOvertoppingDischargeMean" />
+                <ScalarProperty Name="FlowWidthAtBottomProtectionStandardDeviation" ColumnName="FlowWidthAtBottomProtectionStandardDeviation" />
+                <ScalarProperty Name="FlowWidthAtBottomProtectionMean" ColumnName="FlowWidthAtBottomProtectionMean" />
+                <ScalarProperty Name="LevelCrestStructureStandardDeviation" ColumnName="LevelCrestStructureStandardDeviation" />
+                <ScalarProperty Name="LevelCrestStructureMean" ColumnName="LevelCrestStructureMean" />
+                <ScalarProperty Name="StructureNormalOrientation" ColumnName="StructureNormalOrientation" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="HeightStructureEntityId" ColumnName="HeightStructureEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
