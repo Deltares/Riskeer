@@ -36,6 +36,8 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using HeightStructuresForms = Ringtoets.HeightStructures.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Service
 {
@@ -184,35 +186,49 @@ namespace Ringtoets.HeightStructures.Service
 
             if (inputParameters.Structure == null)
             {
-                // TODO: put in resource
-                validationResult.Add("Er is geen kunstwerk geselecteerd.");
+                validationResult.Add(RingtoetsCommonServiceResources.HeightStructuresCalculationService_ValidateInput_No_Structure_selected);
             }
             else
             {
-                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.StormDuration, "stormduur"));
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.StormDuration,
+                                                                                             GenerateParameterNameWithoutUnits(HeightStructuresForms.StormDuration_DisplayName)));
 
                 if (IsInvalidNumber(inputParameters.DeviationWaveDirection))
                 {
-                    validationResult.Add(string.Format("De waarde voor '{0}' moet een geldig getal zijn.", "afwijking golfrichting"));
+                    validationResult.Add(string.Format(Core.Common.Base.Properties.Resources.CalculationService_ValidateInput_Value_for_0_must_be_a_valid_number,
+                                                       GenerateParameterNameWithoutUnits(HeightStructuresForms.DeviationWaveDirection_DisplayName)));
                 }
 
-                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.ModelFactorSuperCriticalFlow, "modelfactor overloopdebiet volkomen overlaat"));
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.ModelFactorSuperCriticalFlow,
+                                                                                             GenerateParameterNameWithoutUnits(HeightStructuresForms.ModelFactorSuperCriticalFlow_DisplayName)));
 
                 if (IsInvalidNumber(inputParameters.StructureNormalOrientation))
                 {
                     validationResult.Add(RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
                 }
-            
-                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.FlowWidthAtBottomProtection, "stroomvoerende breedte bodembescherming"));
-                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.WidthFlowApertures, "breedte van doorstroomopening"));
-                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.StorageStructureArea, "kombergend oppervlak"));
-                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.AllowedLevelIncreaseStorage, "toegestane peilverhoging komberging"));
-                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.LevelCrestStructure, "kerende hoogte"));
-                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.CriticalOvertoppingDischarge, "kritiek instromend debiet"));
+
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.FlowWidthAtBottomProtection,
+                                                                                             GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)));
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.WidthFlowApertures,
+                                                                                             GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)));
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.StorageStructureArea,
+                                                                                             GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName)));
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.AllowedLevelIncreaseStorage,
+                                                                                             GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)));
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.LevelCrestStructure,
+                                                                                             GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_DisplayName)));
+                validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.CriticalOvertoppingDischarge,
+                                                                                             GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName)));
                 // Probability structure given erosion
             }
 
             return validationResult.ToArray();
+        }
+
+        private static string GenerateParameterNameWithoutUnits(string parameterDescription)
+        {
+            string[] splitString = parameterDescription.Split('[');
+            return splitString.Length != 0 ? splitString[0].ToLower().Trim() : string.Empty;
         }
 
         private static bool IsInvalidNumber(RoundedDouble value)

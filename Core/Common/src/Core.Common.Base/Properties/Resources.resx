@@ -174,4 +174,7 @@
   <data name="Error" xml:space="preserve">
     <value>Fout</value>
   </data>
+  <data name="CalculationService_ValidateInput_Value_for_0_must_be_a_valid_number" xml:space="preserve">
+    <value>De waarde voor '{0}' moet een geldig getal zijn.</value>
+  </data>
 </root>

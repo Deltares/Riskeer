@@ -177,4 +177,7 @@
   <data name="DistributionValidationService_ValidateDistribution_StandardDeviation_of_0_must_be_larger_or_equal_to_0" xml:space="preserve">
     <value>De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.</value>
   </data>
+  <data name="HeightStructuresCalculationService_ValidateInput_No_Structure_selected" xml:space="preserve">
+    <value>Er is geen kunstwerk geselecteerd.</value>
+  </data>
 </root>

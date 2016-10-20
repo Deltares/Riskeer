@@ -206,6 +206,15 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Er is geen kunstwerk geselecteerd..
+        /// </summary>
+        public static string HeightStructuresCalculationService_ValidateInput_No_Structure_selected {
+            get {
+                return ResourceManager.GetString("HeightStructuresCalculationService_ValidateInput_No_Structure_selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. {0}.
         /// </summary>
         public static string Hydraulic_boundary_database_connection_failed_0_ {
