@@ -42,13 +42,13 @@ namespace Core.Common.Gui.Attributes
         /// Determines whether the property is read-only or not.
         /// </summary>
         /// <param name="obj">The object.</param>
-        /// <param name="propertyName">Name of the property of <paramref name="obj"/>.</param>
-        /// <returns>True if the property is read-only, false otherwise.</returns>
-        /// <exception cref="MissingMemberException"><paramref name="propertyName"/>
+        /// <param name="propertyName">The name of the property of <paramref name="obj"/>.</param>
+        /// <returns><c>True</c> if the property is read-only, <c>false</c> otherwise.</returns>
+        /// <exception cref="MissingMemberException">When <paramref name="propertyName"/>
         /// does not correspond to a public property of <paramref name="obj"/>.</exception>
         /// <exception cref="System.MissingMethodException">When there isn't a single method
         /// declared on <paramref name="obj"/> marked with <see cref="DynamicReadOnlyValidationMethodAttribute"/>
-        /// and/or isn't matching the signature defined by <see cref="DynamicReadOnlyValidationMethodAttribute.IsPropertyReadOnly"/>.</exception>
+        /// that is matching the signature defined by <see cref="DynamicReadOnlyValidationMethodAttribute.IsPropertyReadOnly"/>.</exception>
         public static bool IsReadOnly(object obj, string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName))

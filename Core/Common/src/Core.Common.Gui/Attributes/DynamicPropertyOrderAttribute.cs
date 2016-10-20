@@ -25,9 +25,29 @@ using Core.Common.Gui.Properties;
 
 namespace Core.Common.Gui.Attributes
 {
+    /// <summary>
+    /// Marks property as a conditionally ordered property. When this attribute is declared
+    /// on a property, the declaring class should have a public method marked with 
+    /// <see cref="DynamicPropertyOrderMethodAttribute"/> to be used to evaluate the
+    /// order of the property.
+    /// </summary>
+    /// <seealso cref="DynamicPropertyOrderMethodAttribute"/>
+    /// <seealso cref="PropertyOrderAttribute"/>
+    /// <remarks>This attribute provides a run-time alternative to <see cref="PropertyOrderAttribute"/>.</remarks>
     [AttributeUsage(AttributeTargets.Property)]
     public sealed class DynamicPropertyOrderAttribute : Attribute
     {
+        /// <summary>
+        /// Determines the order of the property.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="propertyName">The name of the property of <paramref name="obj"/>.</param>
+        /// <returns>The order of the property.</returns>
+        /// <exception cref="MissingMemberException">When <paramref name="propertyName"/>
+        /// does not correspond to a public property of <paramref name="obj"/>.</exception>
+        /// <exception cref="System.MissingMethodException">When there isn't a single method
+        /// declared on <paramref name="obj"/> marked with <see cref="DynamicPropertyOrderMethodAttribute"/>
+        /// that is matching the signature defined by <see cref="DynamicPropertyOrderMethodAttribute.PropertyOrder"/>.</exception>
         public static int Order(object obj, string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName))

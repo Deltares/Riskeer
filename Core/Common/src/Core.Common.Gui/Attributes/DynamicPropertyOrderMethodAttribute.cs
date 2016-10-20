@@ -26,11 +26,29 @@ using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 
 namespace Core.Common.Gui.Attributes
 {
+    /// <summary>
+    /// Marks a method to be used to determine the order of a property. The method
+    /// should be public and have the signature of <see cref="PropertyOrder"/>.
+    /// </summary>
+    /// <seealso cref="DynamicPropertyOrderAttribute"/>
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class DynamicPropertyOrderMethodAttribute : Attribute
     {
+        /// <summary>
+        /// Required method signature when marking a method with <see cref="DynamicPropertyOrderMethodAttribute"/>.
+        /// </summary>
+        /// <param name="propertyName">The name of the property to be checked.</param>
+        /// <returns>The order of the property.</returns>
         public delegate int PropertyOrder(string propertyName);
 
+        /// <summary>
+        /// Creates a delegate that can be used to determine the order of a property.
+        /// </summary>
+        /// <param name="target">The object instance declaring the evaluation method.</param>
+        /// <returns>The delegate.</returns>
+        /// <exception cref="System.MissingMethodException">When there isn't a single method
+        /// declared on <paramref name="target"/> marked with <see cref="DynamicPropertyOrderMethodAttribute"/>
+        /// that is matching the signature defined by <see cref="PropertyOrder"/>.</exception>
         public static PropertyOrder CreatePropertyOrderMethod(object target)
         {
             var methodInfo = GetPropertyOrderMethod(target);

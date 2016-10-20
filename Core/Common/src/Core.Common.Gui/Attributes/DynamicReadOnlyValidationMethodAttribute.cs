@@ -37,8 +37,8 @@ namespace Core.Common.Gui.Attributes
         /// <summary>
         /// Required method signature when marking a method with <see cref="DynamicReadOnlyValidationMethodAttribute"/>.
         /// </summary>
-        /// <param name="propertyName">Name of the property to be checked.</param>
-        /// <returns>True if the referred property should be read-only, false if it should be editable.</returns>
+        /// <param name="propertyName">The name of the property to be checked.</param>
+        /// <returns><c>True</c> if the referred property should be read-only, <c>false</c> if it should be editable.</returns>
         public delegate bool IsPropertyReadOnly(string propertyName);
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Core.Common.Gui.Attributes
         /// <returns>The delegate.</returns>
         /// <exception cref="System.MissingMethodException">When there isn't a single method
         /// declared on <paramref name="target"/> marked with <see cref="DynamicReadOnlyValidationMethodAttribute"/>
-        /// and/or isn't matching the signature defined by <see cref="IsPropertyReadOnly"/>.</exception>
+        /// that is matching the signature defined by <see cref="IsPropertyReadOnly"/>.</exception>
         public static IsPropertyReadOnly CreateIsReadOnlyMethod(object target)
         {
             var methodInfo = GetIsReadOnlyMethod(target);
