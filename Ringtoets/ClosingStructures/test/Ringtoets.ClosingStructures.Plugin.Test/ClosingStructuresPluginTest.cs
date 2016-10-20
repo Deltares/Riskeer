@@ -26,10 +26,12 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.ClosingStructures.Forms.Views;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -53,13 +55,17 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
         public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
         {
             // setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             using (var plugin = new ClosingStructuresPlugin())
             {
                 // call
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(1, propertyInfos.Length);
+                Assert.AreEqual(2, propertyInfos.Length);
                 PropertyInfo closingStructureProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ClosingStructure),
@@ -67,7 +73,18 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                 Assert.IsNull(closingStructureProperties.AdditionalDataCheck);
                 Assert.IsNull(closingStructureProperties.GetObjectPropertiesData);
                 Assert.IsNull(closingStructureProperties.AfterCreate);
+
+                var failureMechanism = new ClosingStructuresFailureMechanism();
+                var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+                PropertyInfo closingStructureFailureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ClosingStructuresFailureMechanismContext),
+                    typeof(ClosingStructureFailureMechanismProperties));
+                Assert.AreSame(failureMechanism, closingStructureFailureMechanismProperties.GetObjectPropertiesData(failureMechanismContext));
+                Assert.IsNull(closingStructureFailureMechanismProperties.AdditionalDataCheck);
+                Assert.IsNull(closingStructureFailureMechanismProperties.AfterCreate);
             }
+            mocks.VerifyAll();
         }
 
         [Test]

@@ -69,6 +69,7 @@
     <Compile Include="PresentationObjects\ClosingStructuresInputContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresScenariosContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyClasses\ClosingStructureFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ClosingStructurePropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructuresCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\ClosingStructuresContextTreeNodeInfoTest.cs" />

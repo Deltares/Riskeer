@@ -25,6 +25,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -33,7 +34,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HeightStructuresFailureMechanismContext"/> for properties panel.
     /// </summary>
-    public class HeightStructuresFailureMechanismContextProperties : ObjectProperties<HeightStructuresFailureMechanismContext>
+    public class HeightStructuresFailureMechanismProperties : ObjectProperties<HeightStructuresFailureMechanism>
     {
         private const int namePropertyIndex = 1;
         private const int codePropertyIndex = 2;
@@ -52,12 +53,12 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.GeneralInput.N;
+                return data.GeneralInput.N;
             }
             set
             {
-                data.WrappedData.GeneralInput.N = value;
-                data.WrappedData.NotifyObservers();
+                data.GeneralInput.N = value;
+                data.NotifyObservers();
             }
         }
 
@@ -73,7 +74,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.Name;
+                return data.Name;
             }
         }
 
@@ -85,7 +86,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.Code;
+                return data.Code;
             }
         }
 
@@ -97,7 +98,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         {
             get
             {
-                return data.WrappedData.GeneralInput.GravitationalAcceleration;
+                return data.GeneralInput.GravitationalAcceleration;
             }
         }
 
@@ -116,7 +117,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             {
                 return new LogNormalDistributionProperties
                 {
-                    Data = data.WrappedData.GeneralInput.ModelFactorOvertoppingFlow
+                    Data = data.GeneralInput.ModelFactorOvertoppingFlow
                 };
             }
         }
@@ -132,7 +133,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             {
                 return new LogNormalDistributionProperties
                 {
-                    Data = data.WrappedData.GeneralInput.ModelFactorStorageVolume
+                    Data = data.GeneralInput.ModelFactorStorageVolume
                 };
             }
         }

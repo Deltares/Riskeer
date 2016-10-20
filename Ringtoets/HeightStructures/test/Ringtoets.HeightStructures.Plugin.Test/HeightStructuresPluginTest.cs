@@ -27,6 +27,7 @@ using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -53,6 +54,10 @@ namespace Ringtoets.HeightStructures.Plugin.Test
         public void GetPropertyInfos_ReturnsSupportedPropertyClassesWithExpectedValues()
         {
             // setup
+            var mocks = new MockRepository();
+            var assessmentSection = mocks.Stub<IAssessmentSection>();
+            mocks.ReplayAll();
+
             using (var plugin = new HeightStructuresPlugin())
             {
                 // call
@@ -60,13 +65,16 @@ namespace Ringtoets.HeightStructures.Plugin.Test
 
                 // assert
                 Assert.AreEqual(3, propertyInfos.Length);
-                PropertyInfo failureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
+
+                var failureMechanism = new HeightStructuresFailureMechanism();
+                var failureMechanismContext = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+                PropertyInfo failureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(HeightStructuresFailureMechanismContext),
-                    typeof(HeightStructuresFailureMechanismContextProperties));
-                Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
-                Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
-                Assert.IsNull(failureMechanismContextProperties.AfterCreate);
+                    typeof(HeightStructuresFailureMechanismProperties));
+                Assert.AreSame(failureMechanism, failureMechanismProperties.GetObjectPropertiesData(failureMechanismContext));
+                Assert.IsNull(failureMechanismProperties.AdditionalDataCheck);
+                Assert.IsNull(failureMechanismProperties.AfterCreate);
 
                 PropertyInfo heightStructuresInputContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
@@ -84,6 +92,7 @@ namespace Ringtoets.HeightStructures.Plugin.Test
                 Assert.IsNull(heightStructureProperties.GetObjectPropertiesData);
                 Assert.IsNull(heightStructureProperties.AfterCreate);
             }
+            mocks.VerifyAll();
         }
 
         [Test]
