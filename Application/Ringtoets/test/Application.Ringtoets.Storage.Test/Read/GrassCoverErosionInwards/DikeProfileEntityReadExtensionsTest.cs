@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             var profile = new DikeProfileEntity
             {
                 DikeGeometryXml = xml,
-                ForeShoreXml = validRoughnessPointXml
+                ForeshoreXml = validRoughnessPointXml
             };
 
             // Call
@@ -82,7 +82,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             var profile = new DikeProfileEntity
             {
                 DikeGeometryXml = validRoughnessPointXml,
-                ForeShoreXml = xml
+                ForeshoreXml = xml
             };
 
             // Call
@@ -113,7 +113,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 Orientation = 45.67,
                 BreakWaterHeight = null,
                 BreakWaterType = null,
-                ForeShoreXml = new Point2DXmlSerializer().ToXml(foreshorePoints),
+                ForeshoreXml = new Point2DXmlSerializer().ToXml(foreshorePoints),
                 DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(roughnessPoints),
                 DikeHeight = 1.2,
                 X = 3.4,
@@ -159,7 +159,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
                 Orientation = 360.0,
                 BreakWaterHeight = height,
                 BreakWaterType = Convert.ToByte(type),
-                ForeShoreXml = new Point2DXmlSerializer().ToXml(foreshorePoints),
+                ForeshoreXml = new Point2DXmlSerializer().ToXml(foreshorePoints),
                 DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(roughnessPoints),
                 DikeHeight = 4.5,
                 X = 93.0,

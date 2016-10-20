@@ -25,7 +25,6 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Properties;
 using Ringtoets.Common.Forms.PropertyClasses;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -33,7 +32,7 @@ using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resource
 namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="ClosingStructuresFailureMechanismContext"/> for properties panel.
+    /// ViewModel of <see cref="ClosingStructuresFailureMechanism"/> for properties panel.
     /// </summary>
     public class ClosingStructureFailureMechanismProperties : ObjectProperties<ClosingStructuresFailureMechanism>
     {

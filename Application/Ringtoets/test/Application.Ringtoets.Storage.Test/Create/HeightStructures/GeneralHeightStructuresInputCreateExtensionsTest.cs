@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             Assert.AreEqual(generalinput.N, entity.N);
 
             Assert.IsNull(entity.FailureMechanismEntity);
-            Assert.AreEqual(0, entity.HeightStructuresFailureMechanismMetaEntity1);
+            Assert.AreEqual(0, entity.HeightStructuresFailureMechanismMetaEntityId);
             Assert.AreEqual(0, entity.FailureMechanismEntityId);
         }
     }

@@ -26,13 +26,12 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HeightStructuresFailureMechanismContext"/> for properties panel.
+    /// ViewModel of <see cref="HeightStructuresFailureMechanism"/> for properties panel.
     /// </summary>
     public class HeightStructuresFailureMechanismProperties : ObjectProperties<HeightStructuresFailureMechanism>
     {

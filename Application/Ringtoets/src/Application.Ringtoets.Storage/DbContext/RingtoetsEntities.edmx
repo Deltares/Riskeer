@@ -72,7 +72,7 @@
           <Property Name="Orientation" Type="real" />
           <Property Name="BreakWaterType" Type="tinyint" />
           <Property Name="BreakWaterHeight" Type="real" />
-          <Property Name="ForeShoreXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="ForeshoreXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="DikeGeometryXml" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
           <Property Name="DikeHeight" Type="real" />
           <Property Name="X" Type="real" />
@@ -271,9 +271,9 @@
         </EntityType>
         <EntityType Name="HeightStructuresFailureMechanismMetaEntity">
           <Key>
-            <PropertyRef Name="HeightStructuresFailureMechanismMetaEntity" />
+            <PropertyRef Name="HeightStructuresFailureMechanismMetaEntityId" />
           </Key>
-          <Property Name="HeightStructuresFailureMechanismMetaEntity" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HeightStructuresFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="N" Type="int" Nullable="false" />
         </EntityType>
@@ -2055,7 +2055,7 @@
           <Property Name="Orientation" Type="Double" />
           <Property Name="BreakWaterType" Type="Byte" />
           <Property Name="BreakWaterHeight" Type="Double" />
-          <Property Name="ForeShoreXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ForeshoreXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="DikeGeometryXml" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="DikeHeight" Type="Double" />
           <Property Name="X" Type="Double" />
@@ -2314,9 +2314,9 @@
         </EntityType>
         <EntityType Name="HeightStructuresFailureMechanismMetaEntity">
           <Key>
-            <PropertyRef Name="HeightStructuresFailureMechanismMetaEntity1" />
+            <PropertyRef Name="HeightStructuresFailureMechanismMetaEntityId" />
           </Key>
-          <Property Name="HeightStructuresFailureMechanismMetaEntity1" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HeightStructuresFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="N" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresFailureMechanismMetaEntity_0_0" FromRole="HeightStructuresFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
@@ -3538,7 +3538,7 @@
                 <ScalarProperty Name="X" ColumnName="X" />
                 <ScalarProperty Name="DikeHeight" ColumnName="DikeHeight" />
                 <ScalarProperty Name="DikeGeometryXml" ColumnName="DikeGeometryXml" />
-                <ScalarProperty Name="ForeShoreXml" ColumnName="ForeShoreXml" />
+                <ScalarProperty Name="ForeshoreXml" ColumnName="ForeshoreXml" />
                 <ScalarProperty Name="BreakWaterHeight" ColumnName="BreakWaterHeight" />
                 <ScalarProperty Name="BreakWaterType" ColumnName="BreakWaterType" />
                 <ScalarProperty Name="Orientation" ColumnName="Orientation" />
@@ -3757,7 +3757,7 @@
               <MappingFragment StoreEntitySet="HeightStructuresFailureMechanismMetaEntity">
                 <ScalarProperty Name="N" ColumnName="N" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
-                <ScalarProperty Name="HeightStructuresFailureMechanismMetaEntity1" ColumnName="HeightStructuresFailureMechanismMetaEntity" />
+                <ScalarProperty Name="HeightStructuresFailureMechanismMetaEntityId" ColumnName="HeightStructuresFailureMechanismMetaEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -380,12 +380,12 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new DikeProfileEntity
                     {
                         DikeGeometryXml = emptyDikeGeometryXml,
-                        ForeShoreXml = emptyForeshoreBinaryXml
+                        ForeshoreXml = emptyForeshoreBinaryXml
                     },
                     new DikeProfileEntity
                     {
                         DikeGeometryXml = emptyDikeGeometryXml,
-                        ForeShoreXml = emptyForeshoreBinaryXml
+                        ForeshoreXml = emptyForeshoreBinaryXml
                     }
                 },
                 CalculationGroupEntity = new CalculationGroupEntity()

@@ -181,7 +181,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
             var dikeProfileEntity = new DikeProfileEntity
             {
                 DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(new RoughnessPoint[0]),
-                ForeShoreXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
+                ForeshoreXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
             };
             var entity = new GrassCoverErosionInwardsCalculationEntity
             {

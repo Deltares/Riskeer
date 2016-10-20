@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> Orientation { get; set; }
         public Nullable<byte> BreakWaterType { get; set; }
         public Nullable<double> BreakWaterHeight { get; set; }
-        public string ForeShoreXml { get; set; }
+        public string ForeshoreXml { get; set; }
         public string DikeGeometryXml { get; set; }
         public Nullable<double> DikeHeight { get; set; }
         public Nullable<double> X { get; set; }

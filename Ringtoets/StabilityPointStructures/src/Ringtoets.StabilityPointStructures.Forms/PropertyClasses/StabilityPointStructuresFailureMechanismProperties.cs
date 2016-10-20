@@ -26,14 +26,13 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="StabilityPointStructuresFailureMechanismContext"/> for properties panel.
+    /// ViewModel of <see cref="StabilityPointStructuresFailureMechanism"/> for properties panel.
     /// </summary>
     public class StabilityPointStructuresFailureMechanismProperties : ObjectProperties<StabilityPointStructuresFailureMechanism>
     {

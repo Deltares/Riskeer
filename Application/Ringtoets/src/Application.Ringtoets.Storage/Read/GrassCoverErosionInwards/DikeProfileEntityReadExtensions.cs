@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
 
             var dikeProfile = new DikeProfile(new Point2D(entity.X.ToNullAsNaN(), entity.Y.ToNullAsNaN()),
                                               new RoughnessPointXmlSerializer().FromXml(entity.DikeGeometryXml),
-                                              new Point2DXmlSerializer().FromXml(entity.ForeShoreXml),
+                                              new Point2DXmlSerializer().FromXml(entity.ForeshoreXml),
                                               CreateBreakWater(entity),
                                               CreateProperties(entity));
 
