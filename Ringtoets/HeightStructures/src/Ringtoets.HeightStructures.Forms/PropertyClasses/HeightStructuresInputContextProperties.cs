@@ -96,7 +96,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         /// <summary>
         /// Returns the available height structures in order for the user to select one to 
-        /// set <see cref="HeightStructuresInput.HeightStructure"/>.
+        /// set <see cref="HeightStructuresInput.Structure"/>.
         /// </summary>
         /// <returns>The available height structures.</returns>
         public IEnumerable<HeightStructure> GetAvailableHeightStructures()

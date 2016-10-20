@@ -98,6 +98,8 @@
     </Compile>
     <Compile Include="Appenders\RingtoetsUserDataFolderConverter.cs" />
     <Compile Include="Appenders\RenderedMessageLogAppender.cs" />
+    <Compile Include="Attributes\DynamicPropertyOrderMethodAttribute.cs" />
+    <Compile Include="Attributes\DynamicPropertyOrderAttribute.cs" />
     <Compile Include="Attributes\DynamicReadOnlyAttribute.cs" />
     <Compile Include="Attributes\DynamicReadOnlyValidationMethodAttribute.cs" />
     <Compile Include="Attributes\DynamicVisibleAttribute.cs" />

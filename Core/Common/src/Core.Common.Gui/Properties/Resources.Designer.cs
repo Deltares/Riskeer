@@ -405,6 +405,52 @@ namespace Core.Common.Gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DynamicPropertyOrderMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}..
+        /// </summary>
+        public static string DynamicPropertyOrderMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_ {
+            get {
+                return ResourceManager.GetString("DynamicPropertyOrderMethod_incorrect_argument_count_must_be_one_string_argument_o" +
+                        "n_Class_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Argument van DynamicPropertyOrderMethod moet van het type &apos;string&apos; zijn. Klasse: {0}..
+        /// </summary>
+        public static string DynamicPropertyOrderMethod_must_have_string_argument_on_Class_0_ {
+            get {
+                return ResourceManager.GetString("DynamicPropertyOrderMethod_must_have_string_argument_on_Class_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DynamicPropertyOrderMethod moet &apos;int&apos; als &apos;return type&apos; hebben. Klasse: {0}..
+        /// </summary>
+        public static string DynamicPropertyOrderMethod_must_return_int_on_Class_0_ {
+            get {
+                return ResourceManager.GetString("DynamicPropertyOrderMethod_must_return_int_on_Class_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DynamicPropertyOrderMethod niet gevonden (of geen &apos;public&apos; toegankelijkheid). Klasse: {0}..
+        /// </summary>
+        public static string DynamicPropertyOrderMethod_not_found_or_not_public_on_Class_0_ {
+            get {
+                return ResourceManager.GetString("DynamicPropertyOrderMethod_not_found_or_not_public_on_Class_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Slechts één DynamicPropertyOrderMethod toegestaan per klasse: {0}..
+        /// </summary>
+        public static string DynamicPropertyOrderMethod_only_one_allowed_per_Class_0_ {
+            get {
+                return ResourceManager.GetString("DynamicPropertyOrderMethod_only_one_allowed_per_Class_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DynamicReadOnlyValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}..
         /// </summary>
         public static string DynamicReadOnlyValidationMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_ {

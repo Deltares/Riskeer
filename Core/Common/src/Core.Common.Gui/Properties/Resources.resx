@@ -478,6 +478,21 @@
   <data name="DynamicVisibleValidationMethod_only_one_allowed_per_Class_0_" xml:space="preserve">
     <value>Slechts één DynamicVisibleValidationMethod toegestaan per klasse: {0}.</value>
   </data>
+  <data name="DynamicPropertyOrderMethod_not_found_or_not_public_on_Class_0_" xml:space="preserve">
+    <value>DynamicPropertyOrderMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.</value>
+  </data>
+  <data name="DynamicPropertyOrderMethod_only_one_allowed_per_Class_0_" xml:space="preserve">
+    <value>Slechts één DynamicPropertyOrderMethod toegestaan per klasse: {0}.</value>
+  </data>
+  <data name="DynamicPropertyOrderMethod_must_return_int_on_Class_0_" xml:space="preserve">
+    <value>DynamicPropertyOrderMethod moet 'int' als 'return type' hebben. Klasse: {0}.</value>
+  </data>
+  <data name="DynamicPropertyOrderMethod_incorrect_argument_count_must_be_one_string_argument_on_Class_0_" xml:space="preserve">
+    <value>DynamicPropertyOrderMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.</value>
+  </data>
+  <data name="DynamicPropertyOrderMethod_must_have_string_argument_on_Class_0_" xml:space="preserve">
+    <value>Argument van DynamicPropertyOrderMethod moet van het type 'string' zijn. Klasse: {0}.</value>
+  </data>
   <data name="StorageCommandHandler_OpeningExistingProject_Opening_existing_project_failed" xml:space="preserve">
     <value>Het is niet gelukt om het Ringtoetsproject te laden.</value>
   </data>
