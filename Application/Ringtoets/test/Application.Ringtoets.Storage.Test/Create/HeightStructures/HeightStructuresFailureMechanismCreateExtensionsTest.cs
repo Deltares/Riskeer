@@ -126,7 +126,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         }
 
         [Test]
-        public void Create_WithForeShoreProfiles_ForeShoreProfileEntitiesCreated()
+        public void Create_WithForeshoreProfiles_ForeshoreProfileEntitiesCreated()
         {
             // Setup
             var profile = new TestForeshoreProfile();
@@ -137,7 +137,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             var persistenceRegistry = new PersistenceRegistry();
 
             // Call
-            var entity = failureMechanism.Create(persistenceRegistry);
+            FailureMechanismEntity entity = failureMechanism.Create(persistenceRegistry);
 
             // Assert
             Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
