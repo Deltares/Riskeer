@@ -69,6 +69,7 @@
     <Compile Include="PresentationObjects\StabilityPointStructuresInputContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\StabilityPointStructurePropertiesTest.cs" />
+    <Compile Include="PropertyClasses\StabilityPointStructuresFailureMechanismContextPropertiesTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityPointStructuresContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityPointStructuresCalculationContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\StabilityPointStructuresCalculationGroupContextTreeNodeInfoTest.cs" />

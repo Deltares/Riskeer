@@ -129,6 +129,12 @@
   <data name="StabilityPointStructuresInputFailureMechanismContext_ModelFactorCollisionLoad_DisplayName" xml:space="preserve">
     <value>Modelfactor voor aanvaarbelasting [-]</value>
   </data>
+  <data name="StabilityPointStructuresInputFailureMechanismContext_ModelFactorLoadEffect_Description" xml:space="preserve">
+    <value>Modelfactor belastingeffect.</value>
+  </data>
+  <data name="StabilityPointStructuresInputFailureMechanismContext_ModelFactorLoadEffect_DisplayName" xml:space="preserve">
+    <value>Modelfactor belastingeffect [-]</value>
+  </data>
   <data name="StabilityPointStructuresInputFailureMechanismContext_ModificationFactorDynamicOrImpulsivePressureComponent_Description" xml:space="preserve">
     <value>Modificatiefactor voor de aard van de wand.</value>
   </data>
@@ -142,13 +148,13 @@
     <value>Modificatiefactor geometrie van de wand [-]</value>
   </data>
   <data name="StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHN_Description" xml:space="preserve">
-    <value>N parameter van Rayleigh-N verdeling voor quotiënt van Hmax en Hs voor N golven.</value>
+    <value>N parameter van de Rayleigh-N verdeling voor het quotiënt van Hmax en Hs voor N golven.</value>
   </data>
   <data name="StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHN_DisplayName" xml:space="preserve">
     <value>Rayleigh-N N parameter [-]</value>
   </data>
   <data name="StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHStandardDeviation_Description" xml:space="preserve">
-    <value>Schaal parameter van Rayleigh-N verdeling voor quotiënt van Hmax en Hs voor N golven.</value>
+    <value>Schaal parameter van de Rayleigh-N verdeling voor het quotiënt van Hmax en Hs voor N golven.</value>
   </data>
   <data name="StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHStandardDeviation_DisplayName" xml:space="preserve">
     <value>Rayleigh-N schaal parameter [-]</value>

@@ -743,7 +743,7 @@
     <value>Kritieke waarden</value>
   </data>
   <data name="StructuresInputFailureMechanismContext_ModelFactorInflowVolume_Description" xml:space="preserve">
-    <value>Modelfactor instromend volume</value>
+    <value>Modelfactor instromend volume.</value>
   </data>
   <data name="StructuresInputFailureMechanismContext_ModelFactorInflowVolume_DisplayName" xml:space="preserve">
     <value>Modelfactor instromend volume [-]</value>
@@ -761,7 +761,7 @@
     <value>Modelfactor kombergend vermogen [-]</value>
   </data>
   <data name="StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_Description" xml:space="preserve">
-    <value>Modelfactor voor onvolkomen stroming</value>
+    <value>Modelfactor voor onvolkomen stroming.</value>
   </data>
   <data name="StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_DisplayName" xml:space="preserve">
     <value>Modelfactor voor onvolkomen stroming [-]</value>

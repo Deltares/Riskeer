@@ -120,6 +120,26 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modelfactor belastingeffect..
+        /// </summary>
+        internal static string StabilityPointStructuresInputFailureMechanismContext_ModelFactorLoadEffect_Description {
+            get {
+                return ResourceManager.GetString("StabilityPointStructuresInputFailureMechanismContext_ModelFactorLoadEffect_Descri" +
+                        "ption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modelfactor belastingeffect [-].
+        /// </summary>
+        internal static string StabilityPointStructuresInputFailureMechanismContext_ModelFactorLoadEffect_DisplayName {
+            get {
+                return ResourceManager.GetString("StabilityPointStructuresInputFailureMechanismContext_ModelFactorLoadEffect_Displa" +
+                        "yName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Modificatiefactor voor de aard van de wand..
         /// </summary>
         internal static string StabilityPointStructuresInputFailureMechanismContext_ModificationFactorDynamicOrImpulsivePressureComponent_Description {
@@ -160,7 +180,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to N parameter van Rayleigh-N verdeling voor quotiënt van Hmax en Hs voor N golven..
+        ///   Looks up a localized string similar to N parameter van de Rayleigh-N verdeling voor het quotiënt van Hmax en Hs voor N golven..
         /// </summary>
         internal static string StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHN_Description {
             get {
@@ -178,7 +198,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Schaal parameter van Rayleigh-N verdeling voor quotiënt van Hmax en Hs voor N golven..
+        ///   Looks up a localized string similar to Schaal parameter van de Rayleigh-N verdeling voor het quotiënt van Hmax en Hs voor N golven..
         /// </summary>
         internal static string StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHStandardDeviation_Description {
             get {
