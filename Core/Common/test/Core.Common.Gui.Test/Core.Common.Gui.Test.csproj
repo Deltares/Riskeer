@@ -77,6 +77,7 @@
     <Compile Include="Attributes\DynamicVisibleAttributeTest.cs" />
     <Compile Include="Attributes\DynamicVisibleValidationMethodAttributeTest.cs" />
     <Compile Include="Attributes\PropertyOrderAttributeTest.cs" />
+    <Compile Include="Attributes\TestCaseClasses\DynamicPropertyOrderTestCases.cs" />
     <Compile Include="Attributes\TestCaseClasses\DynamicReadOnlyTestCases.cs" />
     <Compile Include="Attributes\TestCaseClasses\DynamicVisibilityTestCases.cs" />
     <Compile Include="Commands\ApplicationFeatureCommandHandlerTest.cs" />
