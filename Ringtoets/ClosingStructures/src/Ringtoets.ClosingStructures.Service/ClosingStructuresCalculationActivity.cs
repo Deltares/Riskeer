@@ -32,6 +32,8 @@ namespace Ringtoets.ClosingStructures.Service
     /// </summary>
     public class ClosingStructuresCalculationActivity : HydraRingActivityBase
     {
+        private readonly ClosingStructuresCalculation calculation;
+
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationActivity"/>.
         /// </summary>
@@ -63,6 +65,8 @@ namespace Ringtoets.ClosingStructures.Service
                 throw new ArgumentNullException("assessmentSection");
             }
 
+            this.calculation = calculation;
+
             Name = calculation.Name;
         }
 
@@ -78,7 +82,7 @@ namespace Ringtoets.ClosingStructures.Service
 
         protected override void OnFinish()
         {
-            throw new NotImplementedException();
+            calculation.NotifyObservers();
         }
     }
 }
