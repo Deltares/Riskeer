@@ -27,13 +27,13 @@ using NUnit.Framework;
 namespace Core.Common.Gui.Test.Attributes
 {
     [TestFixture]
-    public class DynamicVisibleAttributeTest
+    public class DynamicPropertyOrderAttributeTest
     {
         [Test]
         public void DefaultConstructor_ExpectedValues()
         {
             // Call
-            var attribute = new DynamicVisibleAttribute();
+            var attribute = new DynamicPropertyOrderAttribute();
 
             // Assert
             Assert.IsInstanceOf<Attribute>(attribute);
@@ -42,23 +42,23 @@ namespace Core.Common.Gui.Test.Attributes
         [Test]
         [TestCase("")]
         [TestCase(null)]
-        public void IsVisible_NoPropertyName_ReturnTrue(string propertyName)
+        public void PropertyOrder_NoPropertyName_ReturnZero(string propertyName)
         {
             // Call
-            var isVisible = DynamicVisibleAttribute.IsVisible(new object(), propertyName);
+            var propertyOrder = DynamicPropertyOrderAttribute.PropertyOrder(new object(), propertyName);
 
             // Assert
-            Assert.IsTrue(isVisible);
+            Assert.AreEqual(0.0, propertyOrder);
         }
 
         [Test]
-        public void IsVisible_GivenPropertyNameDoesNotExistOnObject_ThrowMissingMemberException()
+        public void PropertyOrder_GivenPropertyNameDoesNotExistOnObject_ThrowMissingMemberException()
         {
             // Setup
             var o = new object();
 
             // Call
-            TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "NotExistingProperty");
+            TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "NotExistingProperty");
 
             // Assert
             var exceptionMessage = Assert.Throws<MissingMemberException>(call).Message;
@@ -66,111 +66,112 @@ namespace Core.Common.Gui.Test.Attributes
         }
 
         [Test]
-        public void IsVisible_GivenPropertyDoesNotHaveDynamicVisibleAttribute_ReturnTrue()
+        public void PropertyOrder_GivenPropertyDoesNotHaveDynamicPropertyOrderAttribute_ReturnZero()
         {
             // Setup
-            var o = new ClassWithPropertyWithoutDynamicVisibleAttribute();
+            var o = new ClassWithPropertyWithoutDynamicPropertyOrderAttribute();
 
             // Call
-            var isVisible = DynamicVisibleAttribute.IsVisible(o, "Property");
+            var propertyOrder = DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
-            Assert.IsTrue(isVisible);
+            Assert.AreEqual(0, propertyOrder);
         }
 
         [Test]
-        public void IsVisible_ClassLacksDynamicVisibleValidationMethod_ThrowsMissingMethodException()
+        public void PropertyOrder_ClassLacksDynamicPropertyOrderValidationMethod_ThrowsMissingMethodException()
         {
             // Setup
-            var o = new InvalidClassWithDynamicVisiblePropertyButNoValidationMethod();
+            var o = new InvalidClassWithDynamicPropertyOrderPropertyButNoEvaluationMethod();
 
             // Call
-            TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
+            TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
             var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicVisibleValidationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.",
+            var expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod niet gevonden (of geen 'public' toegankelijkheid). Klasse: {0}.",
                                                 o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
         [Test]
-        public void IsVisible_ClassHasMultipleDynamicVisibleValidationMethods_ThrowsMissingMethodException()
+        public void PropertyOrder_ClassHasMultipleDynamicPropertyOrderEvaluationMethods_ThrowsMissingMethodException()
         {
             // Setup
-            var o = new InvalidClassWithDynamicVisiblePropertyAndMultipleValidationMethods();
+            var o = new InvalidClassWithDynamicPropertyOrderPropertyAndMultipleEvaluationMethods();
 
             // Call
-            TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
+            TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
             var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("Slechts één DynamicVisibleValidationMethod toegestaan per klasse: {0}.",
+            var expectedMessage = string.Format("Slechts één DynamicPropertyOrderEvaluationMethod toegestaan per klasse: {0}.",
                                                 o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
         [Test]
-        public void IsVisible_ClassHasDynamicVisibleValidationMethodWithNonBoolReturnType_ThrowsMissingMethodException()
+        public void PropertyOrder_ClassHasDynamicPropertyOrderEvaluationMethodWithNonIntReturnType_ThrowsMissingMethodException()
         {
             // Setup
-            var o = new InvalidClassWithDynamicVisiblePropertyButValidationMethodReturnsIncorrectValueType();
+            var o = new InvalidClassWithDynamicPropertyOrderPropertyButEvaluationMethodReturnsIncorrectValueType();
 
             // Call
-            TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
+            TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
             var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicVisibleValidationMethod moet 'bool' als 'return type' hebben. Klasse: {0}.",
+            var expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod moet 'int' als 'return type' hebben. Klasse: {0}.",
                                                 o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
         [Test]
-        public void IsVisible_ClassHasDynamicVisibleValidationMethodWithIncorrectArgumentCount_ThrowsMissingMethodException()
+        public void PropertyOrder_ClassHasDynamicPropertyOrderEvaluationMethodWithIncorrectArgumentCount_ThrowsMissingMethodException()
         {
             // Setup
-            var o = new InvalidClassWithDynamicVisiblePropertyButValidationMethodNotOneArgument();
+            var o = new InvalidClassWithDynamicPropertyOrderPropertyButEvaluationMethodNotOneArgument();
 
             // Call
-            TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
+            TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
             var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("DynamicVisibleValidationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.",
+            var expectedMessage = string.Format("DynamicPropertyOrderEvaluationMethod heeft een incorrect aantal argumenten. Zou er één moeten zijn. Klasse: {0}.",
                                                 o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
         [Test]
-        public void IsVisible_ClassHasDynamicVisibleValidationMethodWithIncorrectArgumentType_ThrowsMissingMethodException()
+        public void IsPropertyOrder_ClassHasDynamicPropertyOrderEvaluationMethodWithIncorrectArgumentType_ThrowsMissingMethodException()
         {
             // Setup
-            var o = new InvalidClassWithDynamicVisiblePropertyButValidationMethodArgumentNotString();
+            var o = new InvalidClassWithDynamicPropertyOrderPropertyButEvaluationMethodArgumentNotString();
 
             // Call
-            TestDelegate call = () => DynamicVisibleAttribute.IsVisible(o, "Property");
+            TestDelegate call = () => DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
             var exceptionMessage = Assert.Throws<MissingMethodException>(call).Message;
-            var expectedMessage = string.Format("Argument van DynamicVisibleValidationMethod moet van het type 'string' zijn. Klasse: {0}.",
+            var expectedMessage = string.Format("Argument van DynamicPropertyOrderEvaluationMethod moet van het type 'string' zijn. Klasse: {0}.",
                                                 o.GetType());
             Assert.AreEqual(expectedMessage, exceptionMessage);
         }
 
         [Test]
-        [TestCase(false)]
-        [TestCase(true)]
-        public void IsVisible_ClassWithDynamicVisibleProperty_ReturnResultFromValidationMethod(bool isVisible)
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(10)]
+        public void PropertyOrder_ClassWithDynamicPropertyOrderProperty_ReturnResultFromEvaluationMethod(int propertyOrder)
         {
             // Setup
-            var o = new ClassWithDynamicVisibleProperty(isVisible);
+            var o = new ClassWithDynamicPropertyOrderProperty(propertyOrder);
 
             // Call
-            var result = DynamicVisibleAttribute.IsVisible(o, "Property");
+            var result = DynamicPropertyOrderAttribute.PropertyOrder(o, "Property");
 
             // Assert
-            Assert.AreEqual(isVisible, result);
+            Assert.AreEqual(propertyOrder, result);
         }
     }
 }

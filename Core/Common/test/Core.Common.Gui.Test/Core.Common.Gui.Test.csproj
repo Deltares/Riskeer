@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="Appenders\RingtoetsUserDataFolderConverterTest.cs" />
     <Compile Include="Appenders\RenderedMessageLogAppenderTest.cs" />
+    <Compile Include="Attributes\DynamicPropertyOrderAttributeTest.cs" />
     <Compile Include="Attributes\DynamicReadOnlyAttributeTest.cs" />
     <Compile Include="Attributes\DynamicReadOnlyValidationMethodAttributeTest.cs" />
     <Compile Include="Attributes\DynamicVisibleAttributeTest.cs" />

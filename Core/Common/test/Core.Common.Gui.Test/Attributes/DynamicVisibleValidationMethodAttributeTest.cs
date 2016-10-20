@@ -49,7 +49,7 @@ namespace Core.Common.Gui.Test.Attributes
         public void CreateIsVisibleMethod_ClassHasMultipleDynamicVisibleValidationMethods_ThrowsMissingMethodException()
         {
             // Setup
-            var o = new InvalidClassWithDynamicVisiblePropertyAndMultipleValidationMethod();
+            var o = new InvalidClassWithDynamicVisiblePropertyAndMultipleValidationMethods();
 
             // Call
             TestDelegate call = () => DynamicVisibleValidationMethodAttribute.CreateIsVisibleMethod(o);

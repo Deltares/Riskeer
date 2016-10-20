@@ -49,7 +49,7 @@ namespace Core.Common.Gui.Test.Attributes
         public void CreateIsReadOnlyMethod_ClassHasMultipleDynamicReadOnlyValidationMethods_ThrowsMissingMethodException()
         {
             // Setup
-            var o = new InvalidClassWithDynamicReadOnlyPropertyAndMultipleValidationMethod();
+            var o = new InvalidClassWithDynamicReadOnlyPropertyAndMultipleValidationMethods();
 
             // Call
             TestDelegate call = () => DynamicReadOnlyValidationMethodAttribute.CreateIsReadOnlyMethod(o);

@@ -48,7 +48,7 @@ namespace Core.Common.Gui.Attributes
         /// <exception cref="System.MissingMethodException">When there isn't a single method
         /// declared on <paramref name="obj"/> marked with <see cref="DynamicPropertyOrderEvaluationMethodAttribute"/>
         /// that is matching the signature defined by <see cref="DynamicPropertyOrderEvaluationMethodAttribute.PropertyOrder"/>.</exception>
-        public static int Order(object obj, string propertyName)
+        public static int PropertyOrder(object obj, string propertyName)
         {
             if (string.IsNullOrEmpty(propertyName))
             {

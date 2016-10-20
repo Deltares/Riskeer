@@ -34,7 +34,7 @@ namespace Core.Common.Gui.Test.Attributes.TestCaseClasses
         public double Property { get; set; }
     }
 
-    internal class InvalidClassWithDynamicPropertyOrderPropertyAndMultipleEvaluationMethod
+    internal class InvalidClassWithDynamicPropertyOrderPropertyAndMultipleEvaluationMethods
     {
         [DynamicPropertyOrder]
         public double Property { get; set; }

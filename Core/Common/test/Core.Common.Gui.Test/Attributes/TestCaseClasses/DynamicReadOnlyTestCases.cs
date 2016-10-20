@@ -34,7 +34,7 @@ namespace Core.Common.Gui.Test.Attributes.TestCaseClasses
         public double Property { get; set; }
     }
 
-    internal class InvalidClassWithDynamicReadOnlyPropertyAndMultipleValidationMethod
+    internal class InvalidClassWithDynamicReadOnlyPropertyAndMultipleValidationMethods
     {
         [DynamicReadOnly]
         public double Property { get; set; }
