@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static FailureMechanismEntity Create(this StabilityPointStructuresFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            var entity = mechanism.Create(FailureMechanismType.StabilityPointStructures, registry);
+            FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.StabilityPointStructures, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
@@ -55,8 +55,8 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
         {
             foreach (var failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create(registry);
-                var section = registry.Get(failureMechanismSectionResult.Section);
+                StabilityPointStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create(registry);
+                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.StabilityPointStructuresSectionResultEntities.Add(sectionResultEntity);
             }
         }

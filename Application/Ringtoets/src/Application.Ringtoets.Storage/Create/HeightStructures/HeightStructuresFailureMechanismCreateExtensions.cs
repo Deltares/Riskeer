@@ -55,8 +55,8 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
         {
             foreach (var failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create(registry);
-                var section = registry.Get(failureMechanismSectionResult.Section);
+                HeightStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create(registry);
+                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.HeightStructuresSectionResultEntities.Add(sectionResultEntity);
             }
         }

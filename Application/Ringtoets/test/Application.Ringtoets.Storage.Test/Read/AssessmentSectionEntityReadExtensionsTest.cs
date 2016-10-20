@@ -798,7 +798,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithHeightStructuresWithProperties_ReturnsHeightStructuresWithProperties(bool isRelevant)
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             const string comments = "Some text";
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -833,7 +833,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithClosingStructuresWithProperties_ReturnsClosingStructuresWithProperties(bool isRelevant)
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             const string comments = "Some text";
 
             var failureMechanismEntity = new FailureMechanismEntity
@@ -869,7 +869,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_WithStabilityPointStructuresWithProperties_ReturnsStabilityPointStructuresWithProperties(bool isRelevant)
         {
             // Setup
-            var entity = CreateAssessmentSectionEntity();
+            AssessmentSectionEntity entity = CreateAssessmentSectionEntity();
             const string comments = "Some text";
 
             var failureMechanismEntity = new FailureMechanismEntity

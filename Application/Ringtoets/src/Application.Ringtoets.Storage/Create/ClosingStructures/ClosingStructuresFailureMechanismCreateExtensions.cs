@@ -41,7 +41,7 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static FailureMechanismEntity Create(this ClosingStructuresFailureMechanism mechanism, PersistenceRegistry registry)
         {
-            var entity = mechanism.Create(FailureMechanismType.ReliabilityClosingOfStructure, registry);
+            FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.ReliabilityClosingOfStructure, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
@@ -55,8 +55,8 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
         {
             foreach (var failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create(registry);
-                var section = registry.Get(failureMechanismSectionResult.Section);
+                ClosingStructuresSectionResultEntity sectionResultEntity = failureMechanismSectionResult.Create(registry);
+                FailureMechanismSectionEntity section = registry.Get(failureMechanismSectionResult.Section);
                 section.ClosingStructuresSectionResultEntities.Add(sectionResultEntity);
             }
         }
