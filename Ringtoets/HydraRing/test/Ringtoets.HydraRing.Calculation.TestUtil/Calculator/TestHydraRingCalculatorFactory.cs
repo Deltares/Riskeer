@@ -21,7 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
@@ -86,17 +85,17 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 
     public class TestWaveHeightCalculator : TestHydraRingCalculator<WaveHeightCalculationInput>, IWaveHeightCalculator
     {
+        public string OutputFileContent { get; set; }
         public double WaveHeight { get; set; }
         public double ReliabilityIndex { get; set; }
-        public string OutputFileContent { get; set; }
     }
 
     public class TestWaveConditionsCosineCalculator : TestHydraRingCalculator<WaveConditionsCosineCalculationInput>, IWaveConditionsCosineCalculator
     {
+        public string OutputFileContent { get; set; }
         public double WaveHeight { get; set; }
         public double WaveAngle { get; set; }
         public double WavePeakPeriod { get; set; }
-        public string OutputFileContent { get; set; }
     }
 
     public class TestOvertoppingCalculator : TestHydraRingCalculator<OvertoppingCalculationInput>, IOvertoppingCalculator
@@ -115,9 +114,9 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 
     public class TestDesignWaterLevelCalculator : TestHydraRingCalculator<AssessmentLevelCalculationInput>, IDesignWaterLevelCalculator
     {
+        public string OutputFileContent { get; set; }
         public double DesignWaterLevel { get; set; }
         public double ReliabilityIndex { get; set; }
-        public string OutputFileContent { get; set; }
     }
 
     public class TestStructuresOvertoppingCalculator : TestHydraRingCalculator<StructuresOvertoppingCalculationInput>, IStructuresOvertoppingCalculator
@@ -128,9 +127,9 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
 
     public class TestHydraRingCalculator<T>
     {
-        public event EventHandler CalculationFinishedHandler;
         public readonly List<T> ReceivedInputs = new List<T>();
         public bool IsCanceled = false;
+        public event EventHandler CalculationFinishedHandler;
         public string RingId { get; set; }
         public string HydraulicBoundaryDatabaseDirectory { get; set; }
         public bool EndInFailure { get; set; }

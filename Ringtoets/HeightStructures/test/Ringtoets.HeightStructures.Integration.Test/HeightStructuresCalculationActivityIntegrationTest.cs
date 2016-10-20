@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
@@ -46,46 +47,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
         [Test]
-        public void Run_InvalidHeightStructuresCalculation_LogValidationStartAndEndWithError()
-        {
-            // Setup
-            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            using (var importer = new HydraulicBoundaryDatabaseImporter())
-            {
-                importer.Import(assessmentSection, validFilePath);
-            }
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var calculation = new HeightStructuresCalculation();
-
-            var activity = new HeightStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
-
-            // Call
-            Action call = () => activity.Run();
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(4, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
-                StringAssert.StartsWith("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[2]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
-            });
-            Assert.AreEqual(ActivityState.Failed, activity.State);
-        }
-
-        [Test]
-        public void Run_InvalidHeightStructuresCalculationInvalidHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
+        public void Run_HeightStructuresCalculationInvalidHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -117,6 +79,95 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                 StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+            });
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+        }
+
+        [Test]
+        public void Run_HeightStructuresWithoutHydraulicBoundaryLocationCalculation_LogValidationStartAndEndWithError()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new HeightStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    Structure = new TestHeightStructure()
+                }
+            };
+            calculation.InputParameters.DeviationWaveDirection = (RoundedDouble) 0;
+
+            var activity = new HeightStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+            });
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+        }
+
+        [Test]
+        public void Run_HeightStructuresWithoutStructureCalculation_LogValidationStartAndEndWithError()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new HeightStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1234, "location", 0, 0)
+                }
+            };
+
+            var activity = new HeightStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[1]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
