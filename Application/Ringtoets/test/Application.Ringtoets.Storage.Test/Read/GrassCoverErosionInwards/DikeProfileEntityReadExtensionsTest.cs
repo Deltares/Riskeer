@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         [Test]
         [TestCase("")]
         [TestCase(null)]
-        public void Read_ForeShoreXmlNullOrEmpty_ThrowsArgumentException(string xml)
+        public void Read_ForeshoreXmlNullOrEmpty_ThrowsArgumentException(string xml)
         {
             // Setup
             var profile = new DikeProfileEntity

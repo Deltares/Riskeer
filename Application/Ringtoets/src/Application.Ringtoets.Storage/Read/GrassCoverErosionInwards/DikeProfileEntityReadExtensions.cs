@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
         /// <returns>A new <see cref="DikeProfile"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <see cref="DikeProfileEntity.DikeGeometryXml"/> 
-        /// or <see cref="DikeProfileEntity.ForeShoreXml"/> of <paramref name="entity"/> is <c>null</c> or empty.</exception>
+        /// or <see cref="DikeProfileEntity.ForeshoreXml"/> of <paramref name="entity"/> is <c>null</c> or empty.</exception>
         internal static DikeProfile Read(this DikeProfileEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
