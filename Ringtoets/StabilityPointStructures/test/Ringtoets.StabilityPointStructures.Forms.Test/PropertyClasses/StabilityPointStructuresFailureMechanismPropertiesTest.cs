@@ -25,15 +25,13 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
 
 namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 {
     [TestFixture]
-    public class StabilityPointStructuresFailureMechanismContextPropertiesTest
+    public class StabilityPointStructuresFailureMechanismPropertiesTest
     {
 
         private const int namePropertyIndex = 0;
@@ -44,11 +42,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int modelFactorSubCriticalFlowPropertyIndex = 5;
         private const int modelFactorCollisionLoadPropertyIndex = 6;
         private const int modelFactorLoadEffectPropertyIndex = 7;
-        private const int modelFactorInflowVolumePropertyIndex = 8;
-        private const int modificationFactorWavesSlowlyVaryingPressureComponentPropertyIndex = 9;
-        private const int modificationFactorDynamicOrImpulsivePressureComponentPropertyIndex = 10;
-        private const int waveRatioMaxHNPropertyIndex = 11;
-        private const int waveRatioMaxHStandardDeviationPropertyIndex = 12;
+        private const int waveRatioMaxHNPropertyIndex = 8;
+        private const int waveRatioMaxHStandardDeviationPropertyIndex = 9;
         private MockRepository mockRepository;
 
         [SetUp]
@@ -61,10 +56,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void Constructor_ExpectedValues()
         {
             // Call
-            var properties = new StabilityPointStructuresFailureMechanismContextProperties();
+            var properties = new StabilityPointStructuresFailureMechanismProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<StabilityPointStructuresFailureMechanismContext>>(properties);
+            Assert.IsInstanceOf<ObjectProperties<StabilityPointStructuresFailureMechanism>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -72,14 +67,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void Data_SetNewFailureMechanismContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            var assessmentSection = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var properties = new StabilityPointStructuresFailureMechanismContextProperties();
+            var properties = new StabilityPointStructuresFailureMechanismProperties();
 
             // Call
-            properties.Data = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSection);
+            properties.Data = failureMechanism;
 
             // Assert
             Assert.AreEqual("Kunstwerken - Sterkte en stabiliteit puntconstructies", properties.Name);
@@ -96,9 +90,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.ModelFactorCollisionLoad.CoefficientOfVariation, properties.ModelFactorCollisionLoad.CoefficientOfVariation);
             Assert.AreEqual(generalInput.ModelFactorLoadEffect.Mean, properties.ModelFactorLoadEffect.Mean);
             Assert.AreEqual(generalInput.ModelFactorLoadEffect.StandardDeviation, properties.ModelFactorLoadEffect.StandardDeviation);
-            Assert.AreEqual(generalInput.ModelFactorInflowVolume, properties.ModelFactorInflowVolume);
-            Assert.AreEqual(generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent, properties.ModificationFactorWavesSlowlyVaryingPressureComponent);
-            Assert.AreEqual(generalInput.ModificationFactorDynamicOrImpulsivePressureComponent, properties.ModificationFactorDynamicOrImpulsivePressureComponent);
             Assert.AreEqual(generalInput.WaveRatioMaxHN, properties.WaveRatioMaxHN);
             Assert.AreEqual(generalInput.WaveRatioMaxHStandardDeviation, properties.WaveRatioMaxHStandardDeviation);
 
@@ -111,14 +102,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(1);
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             failureMechanism.Attach(observerMock);
-            var properties = new StabilityPointStructuresFailureMechanismContextProperties
+            var properties = new StabilityPointStructuresFailureMechanismProperties
             {
-                Data = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock)
+                Data = failureMechanism
             };
             const int newLengthEffect = 10;
 
@@ -134,15 +124,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void PropertyAttributes_ReturnExpectedValues()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            var properties = new StabilityPointStructuresFailureMechanismContextProperties
+            var properties = new StabilityPointStructuresFailureMechanismProperties
             {
-                Data = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock)
+                Data = failureMechanism
             };
 
             // Assert
@@ -151,7 +138,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var modelSettingsCategory = "Modelinstellingen";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(13, dynamicProperties.Count);
+            Assert.AreEqual(10, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -210,27 +197,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             modelSettingsCategory,
                                                                             "Modelfactor belastingeffect [-]",
                                                                             "Modelfactor belastingeffect.",
-                                                                            true);
-
-            PropertyDescriptor modelFactorInflowVolumeProperty = dynamicProperties[modelFactorInflowVolumePropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modelFactorInflowVolumeProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Modelfactor instromend volume [-]",
-                                                                            "Modelfactor instromend volume.",
-                                                                            true);
-
-            PropertyDescriptor modificationFactorWavesSlowlyVaryingPressureComponentProperty = dynamicProperties[modificationFactorWavesSlowlyVaryingPressureComponentPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modificationFactorWavesSlowlyVaryingPressureComponentProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Modificatiefactor geometrie van de wand [-]",
-                                                                            "Modificatiefactor voor de geometrie van de wand.",
-                                                                            true);
-
-            PropertyDescriptor modificationFactorDynamicOrImpulsivePressureComponentProperty = dynamicProperties[modificationFactorDynamicOrImpulsivePressureComponentPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(modificationFactorDynamicOrImpulsivePressureComponentProperty,
-                                                                            modelSettingsCategory,
-                                                                            "Modificatiefactor aard van de wand [-]",
-                                                                            "Modificatiefactor voor de aard van de wand.",
                                                                             true);
 
             PropertyDescriptor waveRatioMaxHNProperty = dynamicProperties[waveRatioMaxHNPropertyIndex];

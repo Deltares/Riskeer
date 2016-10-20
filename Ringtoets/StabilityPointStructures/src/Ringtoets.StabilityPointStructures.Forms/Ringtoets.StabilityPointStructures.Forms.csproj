@@ -52,7 +52,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="PropertyClasses\StabilityPointStructuresFailureMechanismContextProperties.cs" />
+    <Compile Include="PropertyClasses\StabilityPointStructuresFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\StabilityPointStructureProperties.cs" />
     <Compile Include="Views\StabilityPointStructuresFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>

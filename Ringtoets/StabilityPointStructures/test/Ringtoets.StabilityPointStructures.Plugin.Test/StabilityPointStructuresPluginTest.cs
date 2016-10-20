@@ -62,15 +62,23 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, propertyInfos.Length);
+                Assert.AreEqual(2, propertyInfos.Length);
 
                 PropertyInfo failureMechanismContextProperties = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
+                    typeof(StabilityPointStructuresFailureMechanismContext),
+                    typeof(StabilityPointStructuresFailureMechanismProperties));
+                Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
+                Assert.IsNotNull(failureMechanismContextProperties.GetObjectPropertiesData);
+                Assert.IsNull(failureMechanismContextProperties.AfterCreate);
+
+                PropertyInfo stabilityPointStructureProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
                     typeof(StabilityPointStructure),
                     typeof(StabilityPointStructureProperties));
-                Assert.IsNull(failureMechanismContextProperties.AdditionalDataCheck);
-                Assert.IsNull(failureMechanismContextProperties.GetObjectPropertiesData);
-                Assert.IsNull(failureMechanismContextProperties.AfterCreate);
+                Assert.IsNull(stabilityPointStructureProperties.AdditionalDataCheck);
+                Assert.IsNull(stabilityPointStructureProperties.GetObjectPropertiesData);
+                Assert.IsNull(stabilityPointStructureProperties.AfterCreate);
             }
         }
 

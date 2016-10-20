@@ -140,46 +140,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modificatiefactor voor de aard van de wand..
-        /// </summary>
-        internal static string StabilityPointStructuresInputFailureMechanismContext_ModificationFactorDynamicOrImpulsivePressureComponent_Description {
-            get {
-                return ResourceManager.GetString("StabilityPointStructuresInputFailureMechanismContext_ModificationFactorDynamicOrI" +
-                        "mpulsivePressureComponent_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modificatiefactor aard van de wand [-].
-        /// </summary>
-        internal static string StabilityPointStructuresInputFailureMechanismContext_ModificationFactorDynamicOrImpulsivePressureComponent_DisplayName {
-            get {
-                return ResourceManager.GetString("StabilityPointStructuresInputFailureMechanismContext_ModificationFactorDynamicOrI" +
-                        "mpulsivePressureComponent_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modificatiefactor voor de geometrie van de wand..
-        /// </summary>
-        internal static string StabilityPointStructuresInputFailureMechanismContext_ModificationFactorWavesSlowlyVaryingPressureComponent_Description {
-            get {
-                return ResourceManager.GetString("StabilityPointStructuresInputFailureMechanismContext_ModificationFactorWavesSlowl" +
-                        "yVaryingPressureComponent_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modificatiefactor geometrie van de wand [-].
-        /// </summary>
-        internal static string StabilityPointStructuresInputFailureMechanismContext_ModificationFactorWavesSlowlyVaryingPressureComponent_DisplayName {
-            get {
-                return ResourceManager.GetString("StabilityPointStructuresInputFailureMechanismContext_ModificationFactorWavesSlowl" +
-                        "yVaryingPressureComponent_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to N parameter van de Rayleigh-N verdeling voor het quotiënt van Hmax en Hs voor N golven..
         /// </summary>
         internal static string StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHN_Description {

@@ -55,6 +55,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
             yield return new PropertyInfo<StabilityPointStructure, StabilityPointStructureProperties>();
+            yield return new PropertyInfo<StabilityPointStructuresFailureMechanismContext, StabilityPointStructuresFailureMechanismProperties>
+            {
+                GetObjectPropertiesData = context => context.WrappedData
+            };
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()
