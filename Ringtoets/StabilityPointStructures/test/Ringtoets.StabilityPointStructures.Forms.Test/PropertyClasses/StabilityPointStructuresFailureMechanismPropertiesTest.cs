@@ -44,13 +44,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int modelFactorLoadEffectPropertyIndex = 7;
         private const int waveRatioMaxHNPropertyIndex = 8;
         private const int waveRatioMaxHStandardDeviationPropertyIndex = 9;
-        private MockRepository mockRepository;
-
-        [SetUp]
-        public void SetUp()
-        {
-            mockRepository = new MockRepository();
-        }
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -67,8 +60,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         public void Data_SetNewFailureMechanismContextInstance_ReturnCorrectPropertyValues()
         {
             // Setup
-            mockRepository.ReplayAll();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var properties = new StabilityPointStructuresFailureMechanismProperties();
 
@@ -78,9 +69,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.AreEqual("Kunstwerken - Sterkte en stabiliteit puntconstructies", properties.Name);
             Assert.AreEqual("STKWp", properties.Code);
-            Assert.AreEqual(3, properties.LengthEffect);
 
             GeneralStabilityPointStructuresInput generalInput = failureMechanism.GeneralInput;
+            Assert.AreEqual(generalInput.N, properties.LengthEffect);
             Assert.AreEqual(generalInput.GravitationalAcceleration, properties.GravitationalAcceleration);
             Assert.AreEqual(generalInput.ModelFactorStorageVolume.Mean, properties.ModelFactorStorageVolume.Mean);
             Assert.AreEqual(generalInput.ModelFactorStorageVolume.StandardDeviation, properties.ModelFactorStorageVolume.StandardDeviation);
@@ -92,14 +83,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.ModelFactorLoadEffect.StandardDeviation, properties.ModelFactorLoadEffect.StandardDeviation);
             Assert.AreEqual(generalInput.WaveRatioMaxHN, properties.WaveRatioMaxHN);
             Assert.AreEqual(generalInput.WaveRatioMaxHStandardDeviation, properties.WaveRatioMaxHStandardDeviation);
-
-            mockRepository.VerifyAll();
         }
 
         [Test]
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
+            var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
             observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(1);
             mockRepository.ReplayAll();
@@ -212,8 +202,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             "Rayleigh-N schaal parameter [-]",
                                                                             "Schaal parameter van de Rayleigh-N verdeling voor het quotiënt van Hmax en Hs voor N golven.",
                                                                             true);
-
-            mockRepository.VerifyAll();
         }
     }
 }
