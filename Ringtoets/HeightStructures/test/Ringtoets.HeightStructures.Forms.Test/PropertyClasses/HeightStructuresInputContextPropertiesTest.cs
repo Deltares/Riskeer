@@ -115,8 +115,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreSame(input.WidthFlowApertures, properties.WidthFlowApertures.Data);
             Assert.AreSame(input.CriticalOvertoppingDischarge, properties.CriticalOvertoppingDischarge.Data);
             Assert.IsNull(properties.ForeshoreProfile);
-            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
-            Assert.IsInstanceOf<UseForeshoreProperties>(properties.ForeshoreGeometry);
+            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.UseBreakWater);
+            Assert.IsInstanceOf<UseForeshoreProperties>(properties.UseForeshore);
             Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
             Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
             Assert.AreSame(input.StormDuration, properties.StormDuration.Data);
@@ -129,7 +129,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void Data_SetNewInputContextInstanceWithData_ReturnCorrectPropertyValues()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
             {
                 Locations =
                 {
@@ -140,7 +140,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mockRepository.ReplayAll();
 
-            var failureMechanism = new HeightStructuresFailureMechanism()
+            var failureMechanism = new HeightStructuresFailureMechanism
             {
                 ForeshoreProfiles =
                 {
@@ -185,8 +185,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreSame(input.WidthFlowApertures, properties.WidthFlowApertures.Data);
             Assert.AreSame(input.CriticalOvertoppingDischarge, properties.CriticalOvertoppingDischarge.Data);
             Assert.AreSame(input.ForeshoreProfile, properties.ForeshoreProfile);
-            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.BreakWater);
-            Assert.IsInstanceOf<UseForeshoreProperties>(properties.ForeshoreGeometry);
+            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.UseBreakWater);
+            Assert.IsInstanceOf<UseForeshoreProperties>(properties.UseForeshore);
             Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
             Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
             Assert.AreSame(input.StormDuration, properties.StormDuration.Data);

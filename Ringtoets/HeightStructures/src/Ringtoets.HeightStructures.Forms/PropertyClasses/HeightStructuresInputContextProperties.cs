@@ -57,14 +57,14 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int criticalOvertoppingDischargePropertyIndex = 9;
         private const int failureProbabilityStructureWithErosionPropertyIndex = 10;
         private const int foreshoreProfilePropertyIndex = 11;
-        private const int breakWaterPropertyIndex = 12;
-        private const int foreshoreGeometryPropertyIndex = 13;
+        private const int useBreakWaterPropertyIndex = 12;
+        private const int useForeshorePropertyIndex = 13;
         private const int modelFactorSuperCriticalFlowPropertyIndex = 14;
         private const int hydraulicBoundaryLocationPropertyIndex = 15;
         private const int stormDurationPropertyIndex = 16;
         private const int deviationWaveDirectionPropertyIndex = 17;
 
-        #region Model settings
+        #region Model factors
 
         [PropertyOrder(modelFactorSuperCriticalFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
@@ -313,12 +313,12 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(breakWaterPropertyIndex)]
+        [PropertyOrder(useBreakWaterPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "BreakWaterProperties_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "BreakWaterProperties_Description")]
-        public UseBreakWaterProperties BreakWater
+        public UseBreakWaterProperties UseBreakWater
         {
             get
             {
@@ -328,12 +328,12 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(foreshoreGeometryPropertyIndex)]
+        [PropertyOrder(useForeshorePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "ForeshoreProperties_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "ForeshoreProperties_Description")]
-        public UseForeshoreProperties ForeshoreGeometry
+        public UseForeshoreProperties UseForeshore
         {
             get
             {
