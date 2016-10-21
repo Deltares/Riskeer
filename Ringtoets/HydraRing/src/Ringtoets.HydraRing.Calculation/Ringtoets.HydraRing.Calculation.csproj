@@ -51,6 +51,8 @@
     <Compile Include="Activities\HydraRingActivityBase.cs" />
     <Compile Include="Calculator\Factory\HydraRingCalculatorFactory.cs" />
     <Compile Include="Calculator\Factory\IHydraRingCalculatorFactory.cs" />
+    <Compile Include="Calculator\IStructuresClosureCalculator.cs" />
+    <Compile Include="Calculator\StructuresClosureCalculator.cs" />
     <Compile Include="Calculator\StructuresOvertoppingCalculator.cs" />
     <Compile Include="Calculator\IDesignWaterLevelCalculator.cs" />
     <Compile Include="Calculator\IDikeHeightCalculator.cs" />
