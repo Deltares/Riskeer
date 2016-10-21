@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using Core.Common.Base.Data;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.ClosingStructures.Data.TestUtil
@@ -29,6 +30,14 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
         {
             InputParameters.Structure = new TestClosingStructure();
             InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "location", 1, 1);
+            InputParameters.FactorStormDurationOpenStructure = (RoundedDouble) 1;
+//            InputParameters.FailureProbabilityStructureWithErosion = 1;
+            InputParameters.DeviationWaveDirection = (RoundedDouble) 0;
+//            InputParameters.StorageStructureArea.Mean = (RoundedDouble) 1.0;
+//            InputParameters.StructureNormalOrientation = (RoundedDouble) 115;
+//            InputParameters.WidthFlowApertures.Mean = (RoundedDouble) 18;
+//            InputParameters.FlowWidthAtBottomProtection.Mean = (RoundedDouble) 18;
+//            InputParameters.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) 1.0;
         }
     }
 }

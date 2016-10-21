@@ -61,6 +61,11 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             Assert.AreEqual(referenceStructure.IdenticalApertures, calculation.InputParameters.IdenticalApertures);
             Assert.AreEqual(referenceStructure.FailureProbabilityOpenStructure, calculation.InputParameters.FailureProbabilityOpenStructure);
             Assert.AreEqual(referenceStructure.InflowModelType, calculation.InputParameters.InflowModelType);
+
+            Assert.AreEqual(1.00, calculation.InputParameters.FactorStormDurationOpenStructure,
+                            calculation.InputParameters.FactorStormDurationOpenStructure.GetAccuracy());
+            Assert.AreEqual(0, calculation.InputParameters.DeviationWaveDirection,
+                            calculation.InputParameters.DeviationWaveDirection.GetAccuracy());
         }
     }
 }

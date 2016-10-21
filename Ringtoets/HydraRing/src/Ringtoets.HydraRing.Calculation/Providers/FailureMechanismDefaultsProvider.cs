@@ -107,11 +107,8 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                 {
                     HydraRingFailureMechanismType.StructuresClosure, new FailureMechanismDefaults(111, new[]
                     {
-                        422,
                         424,
-                        425,
-                        426,
-                        427
+                        425
                     }, 4505)
                 },
                 {
