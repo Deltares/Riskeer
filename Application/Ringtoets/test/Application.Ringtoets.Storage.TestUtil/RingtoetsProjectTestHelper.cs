@@ -378,7 +378,6 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureClosingStructuresFailureMechanism(ClosingStructuresFailureMechanism failureMechanism)
         {
             failureMechanism.GeneralInput.N2A = 6;
-            failureMechanism.GeneralInput.C = (RoundedDouble) 0.77;
         }
 
         #endregion

@@ -846,7 +846,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new ClosingStructureFailureMechanismMetaEntity
                     {
-                        C = 1.1,
                         N2A = 3
                     }
                 }

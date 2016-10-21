@@ -208,8 +208,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
-            const int numberProperties = 6;
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            const int numberOfChangedProperties = 6;
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             var hydraulicBoundaryLocation = CreateValidHydraulicBoundaryLocation();
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();

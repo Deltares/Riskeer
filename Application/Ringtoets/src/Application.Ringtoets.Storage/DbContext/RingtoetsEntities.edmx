@@ -48,7 +48,6 @@
           </Key>
           <Property Name="ClosingStructureFailureMechanismMetaEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
-          <Property Name="C" Type="real" />
           <Property Name="N2A" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ClosingStructuresSectionResultEntity">
@@ -2077,7 +2076,6 @@
           </Key>
           <Property Name="ClosingStructureFailureMechanismMetaEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
-          <Property Name="C" Type="Double" />
           <Property Name="N2A" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructureFailureMechanismMetaEntity_0_0" FromRole="ClosingStructureFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
@@ -3599,7 +3597,6 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.ClosingStructureFailureMechanismMetaEntity">
               <MappingFragment StoreEntitySet="ClosingStructureFailureMechanismMetaEntity">
                 <ScalarProperty Name="N2A" ColumnName="N2A" />
-                <ScalarProperty Name="C" ColumnName="C" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="ClosingStructureFailureMechanismMetaEntityId" ColumnName="ClosingStructureFailureMechanismMetaEntityId" />
               </MappingFragment>

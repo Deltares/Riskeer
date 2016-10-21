@@ -75,15 +75,14 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        [TestCase(0, 0, 1)]
-        [TestCase(1, 1, 1)]
-        [TestCase(2, 2, 4)]
-        public void N_VariousValues_ReturnsExpectedValue(double c, int n2A, double expected)
+        [TestCase(0, 1)]
+        [TestCase(3, 1.5)]
+        [TestCase(6, 3)]
+        public void N_VariousValues_ReturnsExpectedValue(int n2A, double expected)
         {
             // Setup
             var inputParameters = new GeneralClosingStructuresInput
             {
-                C = (RoundedDouble) c,
                 N2A = n2A
             };
 

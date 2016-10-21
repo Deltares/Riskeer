@@ -101,8 +101,8 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var projectObserver = mocks.StrictMock<IObserver>();
-            int numberProperties = 1;
-            projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            int numberOfChangedProperties = 1;
+            projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             var failureMechanismMock = mocks.StrictMock<IFailureMechanism>();
             mocks.ReplayAll();
 

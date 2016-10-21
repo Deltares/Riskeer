@@ -184,8 +184,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Setup
             var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
-            const int numberProperties = 8;
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            const int numberOfChangedProperties = 8;
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
             var random = new Random(21);

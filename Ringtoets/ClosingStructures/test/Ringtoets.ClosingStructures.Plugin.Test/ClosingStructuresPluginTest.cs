@@ -66,23 +66,23 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
 
                 // assert
                 Assert.AreEqual(2, propertyInfos.Length);
-                PropertyInfo closingStructureProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PropertyInfo closingStructurePropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ClosingStructure),
                     typeof(ClosingStructureProperties));
-                Assert.IsNull(closingStructureProperties.AdditionalDataCheck);
-                Assert.IsNull(closingStructureProperties.GetObjectPropertiesData);
-                Assert.IsNull(closingStructureProperties.AfterCreate);
+                Assert.IsNull(closingStructurePropertyInfo.AdditionalDataCheck);
+                Assert.IsNull(closingStructurePropertyInfo.GetObjectPropertiesData);
+                Assert.IsNull(closingStructurePropertyInfo.AfterCreate);
 
                 var failureMechanism = new ClosingStructuresFailureMechanism();
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
-                PropertyInfo closingStructureFailureMechanismProperties = PluginTestHelper.AssertPropertyInfoDefined(
+                PropertyInfo closingStructuresFailureMechanismContextPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
                     propertyInfos,
                     typeof(ClosingStructuresFailureMechanismContext),
                     typeof(ClosingStructureFailureMechanismProperties));
-                Assert.AreSame(failureMechanism, closingStructureFailureMechanismProperties.GetObjectPropertiesData(failureMechanismContext));
-                Assert.IsNull(closingStructureFailureMechanismProperties.AdditionalDataCheck);
-                Assert.IsNull(closingStructureFailureMechanismProperties.AfterCreate);
+                Assert.AreSame(failureMechanism, closingStructuresFailureMechanismContextPropertyInfo.GetObjectPropertiesData(failureMechanismContext));
+                Assert.IsNull(closingStructuresFailureMechanismContextPropertyInfo.AdditionalDataCheck);
+                Assert.IsNull(closingStructuresFailureMechanismContextPropertyInfo.AfterCreate);
             }
             mocks.VerifyAll();
         }

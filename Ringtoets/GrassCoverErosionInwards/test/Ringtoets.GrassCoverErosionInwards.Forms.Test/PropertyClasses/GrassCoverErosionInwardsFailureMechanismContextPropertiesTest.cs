@@ -100,8 +100,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
         {
             // Setup
             var observerMock = mockRepository.StrictMock<IObserver>();
-            int numberProperties = 1;
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            int numberOfChangedProperties = 1;
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();
             mockRepository.ReplayAll();
 

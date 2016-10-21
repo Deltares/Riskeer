@@ -30,14 +30,12 @@ namespace Ringtoets.ClosingStructures.Data
     /// </summary>
     public class GeneralClosingStructuresInput
     {
-        private RoundedDouble c;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralClosingStructuresInput"/> class.
         /// </summary>
         public GeneralClosingStructuresInput()
         {
-            c = new RoundedDouble(2, 0.5);
+            C = new RoundedDouble(2, 0.5);
             N2A = 1;
 
             GravitationalAcceleration = new RoundedDouble(2, 9.81);
@@ -78,17 +76,7 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets or sets the 'C' parameter used to factor in the 'length effect'.
         /// </summary>
-        public RoundedDouble C
-        {
-            get
-            {
-                return c;
-            }
-            set
-            {
-                c = value.ToPrecision(c.NumberOfDecimalPlaces);
-            }
-        }
+        public RoundedDouble C { get; private set; }
 
         /// <summary>
         /// Gets or sets the 'N2A' parameter used to factor in the 'length effect'.
@@ -102,7 +90,7 @@ namespace Ringtoets.ClosingStructures.Data
         {
             get
             {
-                return new RoundedDouble(2, Math.Max(1, c*N2A));
+                return new RoundedDouble(2, Math.Max(1, C*N2A));
             }
         }
 

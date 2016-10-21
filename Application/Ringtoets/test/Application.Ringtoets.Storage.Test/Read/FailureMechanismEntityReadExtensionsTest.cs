@@ -935,7 +935,6 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void ReadAsClosingStructuresFailureMechanism_WithForshoreProfiles_ReturnFailureMechanismWithForeshoreProfilesSet()
         {
             // Setup
-            const double generalInputC = 1.1;
             const int generalInputN2A = 3;
 
             var entity = new FailureMechanismEntity
@@ -960,7 +959,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                 {
                     new ClosingStructureFailureMechanismMetaEntity
                     {
-                        C = generalInputC,
                         N2A = generalInputN2A
                     }
                 }
@@ -980,7 +978,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             ForeshoreProfile child2 = failureMechanism.ForeshoreProfiles[1];
             Assert.AreEqual("Child1", child2.Name);
 
-            Assert.AreEqual(generalInputC, failureMechanism.GeneralInput.C.Value);
             Assert.AreEqual(generalInputN2A, failureMechanism.GeneralInput.N2A);
         }
 

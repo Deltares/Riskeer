@@ -63,9 +63,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             properties.Data = failureMechanism;
 
             // Assert
-            Assert.AreEqual(Resources.HeightStructuresFailureMechanism_DisplayName, properties.Name);
-            Assert.AreEqual(Resources.HeightStructuresFailureMechanism_Code, properties.Code);
-            Assert.AreEqual(2, properties.LengthEffect);
+            Assert.AreEqual("Kunstwerken - Hoogte kunstwerk", properties.Name);
+            Assert.AreEqual("HTKW", properties.Code);
+            Assert.AreEqual(failureMechanism.GeneralInput.N, properties.LengthEffect);
 
             GeneralHeightStructuresInput generalInput = failureMechanism.GeneralInput;
             Assert.AreEqual(generalInput.GravitationalAcceleration, properties.GravitationalAcceleration);
@@ -80,10 +80,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            const int numberProperties = 1;
+            const int numberOfChangedProperties = 1;
             var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();

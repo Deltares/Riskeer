@@ -100,8 +100,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             // Setup
             var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
-            const int numberProperties = 1;
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            const int numberOfChangedProperties = 1;
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
             var input = new WaveConditionsInput();

@@ -41,7 +41,6 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
             return new ClosingStructureFailureMechanismMetaEntity
             {
                 N2A = input.N2A,
-                C = input.C.Value.ToNaNAsNull()
             };
         }
     }

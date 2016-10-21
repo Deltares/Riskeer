@@ -361,7 +361,6 @@ namespace Application.Ringtoets.Storage.Read
         private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralClosingStructuresInput generalInput)
         {
             GeneralClosingStructuresInput generalClosingStructuresInput = entity.ClosingStructureFailureMechanismMetaEntities.First().Read();
-            generalInput.C = generalClosingStructuresInput.C;
             generalInput.N2A = generalClosingStructuresInput.N2A;
         }
 

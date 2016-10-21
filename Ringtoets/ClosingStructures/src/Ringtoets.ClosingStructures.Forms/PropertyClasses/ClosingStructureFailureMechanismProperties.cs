@@ -61,11 +61,6 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             {
                 return data.GeneralInput.C;
             }
-            set
-            {
-                data.GeneralInput.C = value;
-                data.NotifyObservers();
-            }
         }
 
         [PropertyOrder(n2aPropertyIndex)]

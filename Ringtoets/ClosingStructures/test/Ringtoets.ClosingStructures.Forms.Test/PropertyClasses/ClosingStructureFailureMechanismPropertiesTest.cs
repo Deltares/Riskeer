@@ -21,14 +21,12 @@
 
 using System.ComponentModel;
 using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
-using ClosingStructuresDataResources = Ringtoets.ClosingStructures.Data.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 {
@@ -38,8 +36,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_ExpectedValues()
         {
-            // Setup
-
             // Call
             var properties = new ClosingStructureFailureMechanismProperties();
 
@@ -60,9 +56,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             properties.Data = failureMechanism;
 
             // Assert
-            Assert.AreEqual(ClosingStructuresDataResources.ClosingStructuresFailureMechanism_DisplayName,
+            Assert.AreEqual("Kunstwerken - Betrouwbaarheid sluiting kunstwerk",
                             properties.Name);
-            Assert.AreEqual(ClosingStructuresDataResources.ClosingStructuresFailureMechanism_Code,
+            Assert.AreEqual("BSKW",
                             properties.Code);
 
             GeneralClosingStructuresInput generalInput = failureMechanism.GeneralInput;
@@ -86,10 +82,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            const int numberProperties = 2;
+            const int numberOfChangedProperties = 1;
             var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
@@ -99,15 +95,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                 Data = failureMechanism
             };
 
-            RoundedDouble newC = (RoundedDouble) 2.1;
             const int newN2A = 10;
 
             // Call
-            properties.C = newC;
             properties.N2A = newN2A;
 
             // Assert
-            Assert.AreEqual(newC, failureMechanism.GeneralInput.C);
             Assert.AreEqual(newN2A, failureMechanism.GeneralInput.N2A);
             mockRepository.VerifyAll();
         }
@@ -157,7 +150,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(cProperty,
                                                                             lengthEffectCategory,
                                                                             "C [-]",
-                                                                            "De parameter 'C' die gebruikt wordt om het lengte-effect te berekenen.");
+                                                                            "De parameter 'C' die gebruikt wordt om het lengte-effect te berekenen.",
+                                                                            true);
 
             PropertyDescriptor n2aProperty = dynamicProperties[4];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(n2aProperty,

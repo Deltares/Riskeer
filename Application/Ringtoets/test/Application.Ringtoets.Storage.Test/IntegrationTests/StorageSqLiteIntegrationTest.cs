@@ -889,7 +889,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                                                                     ClosingStructuresFailureMechanism actualFailureMechanism)
         {
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N2A, actualFailureMechanism.GeneralInput.N2A);
-            Assert.AreEqual(expectedFailureMechanism.GeneralInput.C, actualFailureMechanism.GeneralInput.C);
 
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
         }

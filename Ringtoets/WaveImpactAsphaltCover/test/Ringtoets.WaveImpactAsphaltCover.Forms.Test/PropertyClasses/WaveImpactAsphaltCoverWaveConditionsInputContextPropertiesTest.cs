@@ -206,8 +206,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             // Setup
             var mocks = new MockRepository();
             var observerMock = mocks.StrictMock<IObserver>();
-            const int numberProperties = 8;
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            const int numberOfChangedProperties = 8;
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             var assessmentSection = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 

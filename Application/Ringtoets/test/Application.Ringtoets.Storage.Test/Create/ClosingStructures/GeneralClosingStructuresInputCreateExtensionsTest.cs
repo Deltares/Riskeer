@@ -22,7 +22,6 @@
 using System;
 using Application.Ringtoets.Storage.Create.ClosingStructures;
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 
@@ -39,7 +38,6 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             var generalinput = new GeneralClosingStructuresInput
             {
                 N2A = random.Next(1, 20),
-                C = (RoundedDouble) 1.23
             };
 
             // Call
@@ -47,30 +45,6 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
 
             // Assert
             Assert.AreEqual(generalinput.N2A, entity.N2A);
-            Assert.AreEqual(generalinput.C.Value, entity.C);
-
-            Assert.IsNull(entity.FailureMechanismEntity);
-            Assert.AreEqual(0, entity.ClosingStructureFailureMechanismMetaEntityId);
-            Assert.AreEqual(0, entity.FailureMechanismEntityId);
-        }
-
-        [Test]
-        public void Create_ValidInputWithNaN_ReturnMetaEntity()
-        {
-            // Setup
-            var random = new Random(45);
-            var generalinput = new GeneralClosingStructuresInput
-            {
-                N2A = random.Next(1, 20),
-                C = (RoundedDouble) double.NaN
-            };
-
-            // Call
-            ClosingStructureFailureMechanismMetaEntity entity = generalinput.Create();
-
-            // Assert
-            Assert.AreEqual(generalinput.N2A, entity.N2A);
-            Assert.IsNull(entity.C);
 
             Assert.IsNull(entity.FailureMechanismEntity);
             Assert.AreEqual(0, entity.ClosingStructureFailureMechanismMetaEntityId);

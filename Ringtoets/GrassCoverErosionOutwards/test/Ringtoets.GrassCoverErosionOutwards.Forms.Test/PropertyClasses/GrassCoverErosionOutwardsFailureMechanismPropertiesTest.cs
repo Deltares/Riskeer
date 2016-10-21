@@ -76,8 +76,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             // Setup
             var mockRepository = new MockRepository();
             var observerMock = mockRepository.StrictMock<IObserver>();
-            int numberProperties = 1;
-            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            int numberOfChangedProperties = 1;
+            observerMock.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mockRepository.ReplayAll();
 
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();

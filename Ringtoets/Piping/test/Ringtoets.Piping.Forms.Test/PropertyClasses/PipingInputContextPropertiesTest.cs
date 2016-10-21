@@ -341,8 +341,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var projectObserver = mocks.StrictMock<IObserver>();
-            int numberProperties = 6;
-            projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            int numberOfChangedProperties = 6;
+            projectObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
             PipingCalculationScenario calculationItem = new PipingCalculationScenario(new GeneralPipingInput())
@@ -424,8 +424,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var inputObserver = mocks.StrictMock<IObserver>();
-            int numberProperties = 2;
-            inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            int numberOfChangedProperties = 2;
+            inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
             RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);
@@ -465,8 +465,8 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             var mocks = new MockRepository();
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             var inputObserver = mocks.StrictMock<IObserver>();
-            int numberProperties = 2;
-            inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberProperties);
+            int numberOfChangedProperties = 2;
+            inputObserver.Expect(o => o.UpdateObserver()).Repeat.Times(numberOfChangedProperties);
             mocks.ReplayAll();
 
             RingtoetsPipingSurfaceLine surfaceLine = ValidSurfaceLine(0.0, 4.0);

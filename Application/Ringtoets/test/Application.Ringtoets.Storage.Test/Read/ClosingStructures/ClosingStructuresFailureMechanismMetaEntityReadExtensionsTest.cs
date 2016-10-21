@@ -36,7 +36,6 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             var entity = new ClosingStructureFailureMechanismMetaEntity
             {
                 N2A = 3,
-                C = 2.2
             };
 
             // Call
@@ -44,7 +43,6 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
 
             // Assert
             Assert.AreEqual(entity.N2A, generalInput.N2A);
-            Assert.AreEqual(entity.C, generalInput.C.Value);
         }
     }
 }

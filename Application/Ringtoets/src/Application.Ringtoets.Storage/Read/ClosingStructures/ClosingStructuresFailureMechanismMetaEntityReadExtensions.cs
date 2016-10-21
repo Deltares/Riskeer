@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using Application.Ringtoets.Storage.DbContext;
-using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
 
 namespace Application.Ringtoets.Storage.Read.ClosingStructures
@@ -42,8 +41,7 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
         {
             return new GeneralClosingStructuresInput
             {
-                N2A = entity.N2A,
-                C = (RoundedDouble) entity.C.ToNullAsNaN()
+                N2A = entity.N2A
             };
         }
     }
