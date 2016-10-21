@@ -68,7 +68,11 @@ namespace Ringtoets.ClosingStructures.Service
                 case ClosingStructureInflowModelType.VerticalWall:
                     input = CreateClosureVerticalWallCalculationInput(calculation, failureMechanismSection, generalInput);
                     break;
-
+                case ClosingStructureInflowModelType.LowSill:
+                    input =  CreateLowSillCalculationInput(calculation, failureMechanismSection, generalInput);
+                    break;
+//                case ClosingStructureInflowModelType.FloodedCulvert:
+//                    break;
                 default:
                     throw new NotSupportedException("ClosingStructureInflowModelType");
             }
@@ -107,6 +111,36 @@ namespace Ringtoets.ClosingStructures.Service
                 calculation.InputParameters.LevelCrestStructureNotClosing.Mean, calculation.InputParameters.LevelCrestStructureNotClosing.StandardDeviation,
                 calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation,
                 calculation.InputParameters.DeviationWaveDirection);
+        }
+
+        private static StructuresClosureLowSillCalculationInput CreateLowSillCalculationInput(ClosingStructuresCalculation calculation,
+                                                                                              FailureMechanismSection failureMechanismSection,
+                                                                                              GeneralClosingStructuresInput generalInput)
+        {
+            return new StructuresClosureLowSillCalculationInput(
+                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
+                new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
+                ParseForeshore(calculation.InputParameters),
+                ParseBreakWater(calculation.InputParameters),
+                generalInput.GravitationalAcceleration,
+                calculation.InputParameters.FactorStormDurationOpenStructure,
+                calculation.InputParameters.FailureProbabilityOpenStructure,
+                calculation.InputParameters.FailureProbabilityReparation,
+                calculation.InputParameters.IdenticalApertures,
+                calculation.InputParameters.AllowedLevelIncreaseStorage.Mean, calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation,
+                generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
+                calculation.InputParameters.StorageStructureArea.Mean, calculation.InputParameters.StorageStructureArea.CoefficientOfVariation,
+                generalInput.ModelFactorInflowVolume,
+                calculation.InputParameters.FlowWidthAtBottomProtection.Mean, calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
+                calculation.InputParameters.CriticalOvertoppingDischarge.Mean, calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                calculation.InputParameters.FailureProbabilityStructureWithErosion,
+                calculation.InputParameters.StormDuration.Mean, calculation.InputParameters.StormDuration.CoefficientOfVariation,
+                calculation.InputParameters.ProbabilityOpenStructureBeforeFlooding,
+                calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean, calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation,
+                generalInput.ModelFactorSubCriticalFlow.Mean, generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
+                calculation.InputParameters.ThresholdHeightOpenWeir.Mean, calculation.InputParameters.ThresholdHeightOpenWeir.StandardDeviation,
+                calculation.InputParameters.InsideWaterLevel.Mean, calculation.InputParameters.InsideWaterLevel.StandardDeviation,
+                calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation);
         }
 
         private static IEnumerable<HydraRingForelandPoint> ParseForeshore(ClosingStructuresInput input)
