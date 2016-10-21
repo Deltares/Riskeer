@@ -276,6 +276,98 @@ namespace Ringtoets.ClosingStructures.Service.Test
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        [TestCase(true, false)]
+        [TestCase(true, true)]
+        [TestCase(false, false)]
+        public void Calculate_VariousFloodedCulvertCalculations_InputPropertiesCorrectlySentToCalculator(bool useForeshore, bool useBreakWater)
+        {
+            // Setup
+            var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(closingStructuresFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            ClosingStructuresCalculation calculation = new TestClosingStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    InflowModelType = ClosingStructureInflowModelType.LowSill
+                }
+            };
+
+            if (useForeshore)
+            {
+                calculation.InputParameters.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                                                    new[]
+                                                                                    {
+                                                                                        new Point2D(1, 1),
+                                                                                        new Point2D(2, 2)
+                                                                                    },
+                                                                                    useBreakWater ? new BreakWater(BreakWaterType.Wall, 3.0) : null,
+                                                                                    new ForeshoreProfile.ConstructionProperties());
+            }
+
+            FailureMechanismSection failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+
+                // Call
+                new ClosingStructuresCalculationService().Calculate(calculation,
+                                                                    assessmentSectionStub,
+                                                                    failureMechanismSection,
+                                                                    closingStructuresFailureMechanism.GeneralInput,
+                                                                    closingStructuresFailureMechanism.Contribution,
+                                                                    testDataPath);
+
+                // Assert
+                StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, calculationInputs.Length);
+                Assert.AreEqual(testDataPath, calculator.HydraulicBoundaryDatabaseDirectory);
+                Assert.AreEqual(assessmentSectionStub.Id, calculator.RingId);
+
+                GeneralClosingStructuresInput generalInput = closingStructuresFailureMechanism.GeneralInput;
+                ClosingStructuresInput input = calculation.InputParameters;
+                var expectedInput = new StructuresClosureFloodedCulvertCalculationInput(
+                    1300001,
+                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), input.StructureNormalOrientation),
+                    useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
+                    useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
+                    generalInput.GravitationalAcceleration,
+                    input.FactorStormDurationOpenStructure,
+                    input.FailureProbabilityOpenStructure,
+                    input.FailureProbabilityReparation,
+                    input.IdenticalApertures,
+                    input.AllowedLevelIncreaseStorage.Mean, input.AllowedLevelIncreaseStorage.StandardDeviation,
+                    generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
+                    input.StorageStructureArea.Mean, input.StorageStructureArea.CoefficientOfVariation,
+                    generalInput.ModelFactorInflowVolume,
+                    input.FlowWidthAtBottomProtection.Mean, input.FlowWidthAtBottomProtection.StandardDeviation,
+                    input.CriticalOvertoppingDischarge.Mean, input.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                    input.FailureProbabilityStructureWithErosion,
+                    input.StormDuration.Mean, input.StormDuration.CoefficientOfVariation,
+                    input.ProbabilityOpenStructureBeforeFlooding,
+                    input.DrainCoefficient.Mean, input.DrainCoefficient.StandardDeviation,
+                    input.AreaFlowApertures.Mean, input.AreaFlowApertures.StandardDeviation,
+                    input.InsideWaterLevel.Mean, input.InsideWaterLevel.StandardDeviation);
+
+                StructuresClosureFloodedCulvertCalculationInput actualInput = (StructuresClosureFloodedCulvertCalculationInput) calculationInputs[0];
+                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.IsFalse(calculator.IsCanceled);
+            }
+            mockRepository.VerifyAll();
+        }
+
         private static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism, MockRepository mockRepository)
         {
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();

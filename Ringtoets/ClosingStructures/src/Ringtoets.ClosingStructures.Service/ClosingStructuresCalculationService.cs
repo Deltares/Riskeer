@@ -69,10 +69,11 @@ namespace Ringtoets.ClosingStructures.Service
                     input = CreateClosureVerticalWallCalculationInput(calculation, failureMechanismSection, generalInput);
                     break;
                 case ClosingStructureInflowModelType.LowSill:
-                    input =  CreateLowSillCalculationInput(calculation, failureMechanismSection, generalInput);
+                    input = CreateLowSillCalculationInput(calculation, failureMechanismSection, generalInput);
                     break;
-//                case ClosingStructureInflowModelType.FloodedCulvert:
-//                    break;
+                case ClosingStructureInflowModelType.FloodedCulvert:
+                    input = CreateFloodedCulvertCalculationInput(calculation, failureMechanismSection, generalInput);
+                    break;
                 default:
                     throw new NotSupportedException("ClosingStructureInflowModelType");
             }
@@ -118,7 +119,7 @@ namespace Ringtoets.ClosingStructures.Service
                                                                                               GeneralClosingStructuresInput generalInput)
         {
             return new StructuresClosureLowSillCalculationInput(
-                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
+                calculation.InputParameters.HydraulicBoundaryLocation.Id,
                 new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
                 ParseForeshore(calculation.InputParameters),
                 ParseBreakWater(calculation.InputParameters),
@@ -143,6 +144,34 @@ namespace Ringtoets.ClosingStructures.Service
                 calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation);
         }
 
+        private static StructuresClosureFloodedCulvertCalculationInput CreateFloodedCulvertCalculationInput(ClosingStructuresCalculation calculation,
+                                                                                                            FailureMechanismSection failureMechanismSection,
+                                                                                                            GeneralClosingStructuresInput generalInput)
+        {
+            return new StructuresClosureFloodedCulvertCalculationInput(
+                calculation.InputParameters.HydraulicBoundaryLocation.Id,
+                new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
+                ParseForeshore(calculation.InputParameters),
+                ParseBreakWater(calculation.InputParameters),
+                generalInput.GravitationalAcceleration,
+                calculation.InputParameters.FactorStormDurationOpenStructure,
+                calculation.InputParameters.FailureProbabilityOpenStructure,
+                calculation.InputParameters.FailureProbabilityReparation,
+                calculation.InputParameters.IdenticalApertures,
+                calculation.InputParameters.AllowedLevelIncreaseStorage.Mean, calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation,
+                generalInput.ModelFactorStorageVolume.Mean, generalInput.ModelFactorStorageVolume.StandardDeviation,
+                calculation.InputParameters.StorageStructureArea.Mean, calculation.InputParameters.StorageStructureArea.CoefficientOfVariation,
+                generalInput.ModelFactorInflowVolume,
+                calculation.InputParameters.FlowWidthAtBottomProtection.Mean, calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
+                calculation.InputParameters.CriticalOvertoppingDischarge.Mean, calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                calculation.InputParameters.FailureProbabilityStructureWithErosion,
+                calculation.InputParameters.StormDuration.Mean, calculation.InputParameters.StormDuration.CoefficientOfVariation,
+                calculation.InputParameters.ProbabilityOpenStructureBeforeFlooding,
+                calculation.InputParameters.DrainCoefficient.Mean, calculation.InputParameters.DrainCoefficient.StandardDeviation,
+                calculation.InputParameters.AreaFlowApertures.Mean, calculation.InputParameters.AreaFlowApertures.StandardDeviation,
+                calculation.InputParameters.InsideWaterLevel.Mean, calculation.InputParameters.InsideWaterLevel.StandardDeviation);
+        }
+
         private static IEnumerable<HydraRingForelandPoint> ParseForeshore(ClosingStructuresInput input)
         {
             return input.UseForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0];
@@ -150,7 +179,7 @@ namespace Ringtoets.ClosingStructures.Service
 
         private static HydraRingBreakWater ParseBreakWater(ClosingStructuresInput input)
         {
-            return input.UseBreakWater ? new HydraRingBreakWater((int)input.BreakWater.Type, input.BreakWater.Height) : null;
+            return input.UseBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null;
         }
     }
 }
