@@ -300,7 +300,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    InflowModelType = ClosingStructureInflowModelType.LowSill
+                    InflowModelType = ClosingStructureInflowModelType.FloodedCulvert
                 }
             };
 
