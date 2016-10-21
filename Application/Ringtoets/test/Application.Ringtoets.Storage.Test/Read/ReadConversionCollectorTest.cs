@@ -27,6 +27,8 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
@@ -1389,6 +1391,155 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             // Call
             TestDelegate test = () => collector.Read(new GrassCoverErosionOutwardsHydraulicLocationEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        #endregion
+
+        #region HeightStructureEntity: Read, Contains, Get
+
+        [Test]
+        public void Contains_WithoutHeightStructureEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Contains((HeightStructureEntity) null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Contains_HeightStructureEntityAdded_ReturnsTrue()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new HeightStructureEntity();
+            collector.Read(entity, new TestHeightStructure());
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoHeightStructureEntityAdded_ReturnsFalse()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new HeightStructureEntity();
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherHeightStructureEntityAdded_ReturnsFalse()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new HeightStructureEntity();
+            collector.Read(new HeightStructureEntity(), new TestHeightStructure());
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Get_WithoutHeightStructureEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Get((HeightStructureEntity) null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Get_HeightStructureEntityAdded_ReturnsHeightStructure()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            HeightStructure structure = new TestHeightStructure();
+            var entity = new HeightStructureEntity();
+            collector.Read(entity, structure);
+
+            // Call
+            var result = collector.Get(entity);
+
+            // Assert
+            Assert.AreSame(structure, result);
+        }
+
+        [Test]
+        public void Get_NoHeightStructureEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new HeightStructureEntity();
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherHeightStructureEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new HeightStructureEntity();
+            collector.Read(new HeightStructureEntity(), new TestHeightStructure());
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Read_WithNullHeightStructureEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(null, new TestHeightStructure());
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Read_WithNullHeightStructureForHeightStructureEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(new HeightStructureEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

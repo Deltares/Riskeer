@@ -28,6 +28,8 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
+using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
@@ -570,6 +572,67 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             bool result = registry.Contains(calculation);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_WithoutHeightStructure_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Contains((HeightStructure) null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Contains_HeightStructureAdded_ReturnsTrue()
+        {
+            // Setup
+            HeightStructure heightStructure = new TestHeightStructure();
+            var registry = new PersistenceRegistry();
+            registry.Register(new HeightStructureEntity(), heightStructure);
+
+            // Call
+            bool result = registry.Contains(heightStructure);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_OtherHeightStructureAdded_ReturnsFalse()
+        {
+            // Setup
+            HeightStructure heightStructure = new TestHeightStructure();
+
+            HeightStructure otherStructure = new TestHeightStructure();
+            var registry = new PersistenceRegistry();
+            registry.Register(new HeightStructureEntity(), otherStructure);
+
+            // Call
+            bool result = registry.Contains(heightStructure);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_NoHeightStructureAdded_ReturnsFalse()
+        {
+            // Setup
+            HeightStructure heightStructure = new TestHeightStructure();
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            bool result = registry.Contains(heightStructure);
 
             // Assert
             Assert.IsFalse(result);
@@ -1122,6 +1185,69 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreSame(registeredEntity, retrievedEntity);
         }
 
+        [Test]
+        public void Get_WithoutHeightStructure_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Get((HeightStructure) null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Get_NoHeightStructureAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            HeightStructure heightStructure = new TestHeightStructure();
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Get(heightStructure);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_OtherHeightStructureAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            HeightStructure heightStructure = new TestHeightStructure();
+            HeightStructure registeredStructure = new TestHeightStructure();
+            var registeredEntity = new HeightStructureEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(registeredEntity, registeredStructure);
+
+            // Call
+            TestDelegate call = () => registry.Get(heightStructure);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_HeightStructureAdded_ReturnsEntity()
+        {
+            // Setup
+            HeightStructure heightStructure = new TestHeightStructure();
+            var registeredEntity = new HeightStructureEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(registeredEntity, heightStructure);
+
+            // Call
+            HeightStructureEntity retrievedEntity = registry.Get(heightStructure);
+
+            // Assert
+            Assert.AreSame(registeredEntity, retrievedEntity);
+        }
+
         #endregion
 
         #region Register methods
@@ -1347,6 +1473,20 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             TestDelegate test = () => registry.Register(new SoilProfileEntity(), null);
+
+            // Assert
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullHeightStructure_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(new HeightStructureEntity(), null);
 
             // Assert
             var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

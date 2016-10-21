@@ -67,7 +67,7 @@ namespace Application.Ringtoets.Storage.Create
 
             var entity = new AssessmentSectionEntity
             {
-                Id = section.Id,
+                Id = section.Id.DeepClone(),
                 Name = section.Name.DeepClone(),
                 Composition = (short) section.Composition,
                 Comments = section.Comments.DeepClone(),
@@ -112,8 +112,8 @@ namespace Application.Ringtoets.Storage.Create
         {
             if (section.HydraulicBoundaryDatabase != null)
             {
-                entity.HydraulicDatabaseLocation = section.HydraulicBoundaryDatabase.FilePath;
-                entity.HydraulicDatabaseVersion = section.HydraulicBoundaryDatabase.Version;
+                entity.HydraulicDatabaseLocation = section.HydraulicBoundaryDatabase.FilePath.DeepClone();
+                entity.HydraulicDatabaseVersion = section.HydraulicBoundaryDatabase.Version.DeepClone();
 
                 for (var i = 0; i < section.HydraulicBoundaryDatabase.Locations.Count; i++)
                 {

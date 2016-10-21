@@ -65,6 +65,7 @@
     <Compile Include="Create\GrassCoverErosionOutwards\GeneralGrassCoverErosionOutwardsInputCreateExtensions.cs" />
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\HeightStructures\GeneralHeightStructuresInputCreateExtensions.cs" />
+    <Compile Include="Create\HeightStructures\HeightStructureCreateExtensions.cs" />
     <Compile Include="Create\StabilityPointStructures\GeneralStabilityPointStructuresInputCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\WaveConditionsOutputCreateExtensions.cs" />
@@ -232,6 +233,7 @@
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsHydraulicLocationEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsOutputEntityReadExtensions.cs" />
+    <Compile Include="Read\HeightStructures\HeightStructuresEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructureFailureMechanismMetaEntityReadExtensions.cs" />

@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
+using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.DikeProfiles;
 
 namespace Application.Ringtoets.Storage.Read
@@ -61,7 +62,7 @@ namespace Application.Ringtoets.Storage.Read
                                                         CreateBreakWater(entity.BreakWaterType, entity.BreakWaterHeight),
                                                         new ForeshoreProfile.ConstructionProperties
                                                         {
-                                                            Name = entity.Name,
+                                                            Name = entity.Name.DeepClone(),
                                                             Orientation = entity.Orientation.ToNullAsNaN(),
                                                             X0 = entity.X0.ToNullAsNaN()
                                                         });
