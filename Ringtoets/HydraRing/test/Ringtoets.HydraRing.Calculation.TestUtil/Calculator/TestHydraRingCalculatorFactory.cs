@@ -39,6 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public readonly TestWaveConditionsCosineCalculator WaveConditionsCosineCalculator = new TestWaveConditionsCosineCalculator();
         public readonly TestWaveHeightCalculator WaveHeightCalculator = new TestWaveHeightCalculator();
         public readonly TestStructuresOvertoppingCalculator StructuresOvertoppingCalculator = new TestStructuresOvertoppingCalculator();
+        public readonly TestStructuresClosureCalculator StructuresClosureCalculator = new TestStructuresClosureCalculator();
 
         public IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory, string ringId)
         {
@@ -80,6 +81,13 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
             StructuresOvertoppingCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
             StructuresOvertoppingCalculator.RingId = ringId;
             return StructuresOvertoppingCalculator;
+        }
+
+        public IStructuresClosureCalculator CreateStructuresClosureCalculator(string hlcdDirectory, string ringId)
+        {
+            StructuresClosureCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
+            StructuresClosureCalculator.RingId = ringId;
+            return StructuresClosureCalculator;
         }
     }
 

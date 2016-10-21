@@ -78,6 +78,28 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
             AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
         }
 
+        /// <summary>
+        /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to eachother.
+        /// </summary>
+        /// <param name="expectedInput">The expected calculation input.</param>
+        /// <param name="actualInput">The actual calculation input.</param>
+        public static void AreEqual(StructuresClosureCalculationInput expectedInput, StructuresClosureCalculationInput actualInput)
+        {
+            Assert.AreEqual(expectedInput.FailureMechanismType, actualInput.FailureMechanismType);
+            Assert.AreEqual(expectedInput.CalculationTypeId, actualInput.CalculationTypeId);
+            Assert.AreEqual(expectedInput.VariableId, actualInput.VariableId);
+            Assert.AreEqual(expectedInput.HydraulicBoundaryLocationId, actualInput.HydraulicBoundaryLocationId);
+            Assert.AreEqual(expectedInput.Section.SectionId, actualInput.Section.SectionId);
+
+            Assert.AreEqual(expectedInput.Beta, actualInput.Beta, accuracy);
+            Assert.AreEqual(expectedInput.Section.CrossSectionNormal, actualInput.Section.CrossSectionNormal, accuracy);
+
+            AreEqual(expectedInput.BreakWater, actualInput.BreakWater);
+            AreEqual(expectedInput.Section, actualInput.Section);
+            AreEqual(expectedInput.ForelandsPoints.ToArray(), actualInput.ForelandsPoints.ToArray());
+            AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
+        }
+
         private static void AreEqual(HydraRingBreakWater expectedBreakWater, HydraRingBreakWater actualBreakWater)
         {
             if (expectedBreakWater == null)

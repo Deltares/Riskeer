@@ -34,7 +34,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             var referenceStructure = new TestClosingStructure();
 
             // Call 
-            var calculation = new TestClosingStructureCalculation();
+            var calculation = new TestClosingStructuresCalculation();
 
             // Assert
             Assert.IsInstanceOf<ClosingStructuresCalculation>(calculation);

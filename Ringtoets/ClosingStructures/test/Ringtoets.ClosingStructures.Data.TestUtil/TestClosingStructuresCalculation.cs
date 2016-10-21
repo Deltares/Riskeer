@@ -23,9 +23,9 @@ using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.ClosingStructures.Data.TestUtil
 {
-    public class TestClosingStructureCalculation : ClosingStructuresCalculation
+    public class TestClosingStructuresCalculation : ClosingStructuresCalculation
     {
-        public TestClosingStructureCalculation()
+        public TestClosingStructuresCalculation()
         {
             InputParameters.Structure = new TestClosingStructure();
             InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "location", 1, 1);
