@@ -881,6 +881,52 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N);
         }
 
+        [Test]
+        public void ReadAsHeightStructuresFailureMechanism_WithHeightStructures_ReturnFailureMechanismWithHeightStructuresSet()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                HeightStructureEntities =
+                {
+                    new HeightStructureEntity
+                    {
+                        Order = 2,
+                        Name = "Child1",
+                        Id = "a"
+                    },
+                    new HeightStructureEntity
+                    {
+                        Order = 1,
+                        Name = "Child2",
+                        Id = "b"
+                    }
+                },
+                HeightStructuresFailureMechanismMetaEntities =
+                {
+                    new HeightStructuresFailureMechanismMetaEntity
+                    {
+                        N = 7
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsHeightStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.HeightStructures.Count);
+
+            HeightStructure child1 = failureMechanism.HeightStructures[0];
+            Assert.AreEqual("Child2", child1.Name);
+
+            HeightStructure child2 = failureMechanism.HeightStructures[1];
+            Assert.AreEqual("Child1", child2.Name);
+        }
+
         #endregion
 
         #region Closing Structures

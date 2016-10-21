@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
 {
@@ -142,6 +143,25 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             // Assert
             Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
             Assert.IsTrue(persistenceRegistry.Contains(profile));
+        }
+
+        [Test]
+        public void Create_WithHeightStructures_HeightStructureEntitiesCreated()
+        {
+            // Setup
+            HeightStructure structure = new TestHeightStructure();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.HeightStructures.Add(structure);
+
+            var persistenceRegistry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(persistenceRegistry);
+
+            // Assert
+            Assert.AreEqual(1, entity.HeightStructureEntities.Count);
+            Assert.IsTrue(persistenceRegistry.Contains(structure));
         }
     }
 }

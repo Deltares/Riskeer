@@ -883,18 +883,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        #region HeightStructures FailureMechanism
-
-        private static void AssertHeightStructuresFailureMechanism(HeightStructuresFailureMechanism expectedFailureMechanism,
-                                                                   HeightStructuresFailureMechanism actualFailureMechanism)
-        {
-            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
-
-            AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
-        }
-
-        #endregion
-
         #region ClosingStructures FailureMechanism
 
         private static void AssertClosingStructuresFailureMechanism(ClosingStructuresFailureMechanism expectedFailureMechanism,
@@ -916,6 +904,44 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
 
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
+        }
+
+        #endregion
+
+        #region HeightStructures FailureMechanism
+
+        private static void AssertHeightStructuresFailureMechanism(HeightStructuresFailureMechanism expectedFailureMechanism,
+                                                                   HeightStructuresFailureMechanism actualFailureMechanism)
+        {
+            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
+
+            AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
+            AssertHeightStructures(expectedFailureMechanism.HeightStructures, actualFailureMechanism.HeightStructures);
+        }
+
+        private static void AssertHeightStructures(ObservableList<HeightStructure> expectedHeightStructures, ObservableList<HeightStructure> actualHeightStructures)
+        {
+            Assert.AreEqual(expectedHeightStructures.Count, actualHeightStructures.Count);
+            for (int i = 0; i < expectedHeightStructures.Count; i++)
+            {
+                AssertHeightStructure(expectedHeightStructures[i], actualHeightStructures[i]);
+            }
+        }
+
+        private static void AssertHeightStructure(HeightStructure expectedHeightStructure, HeightStructure actualHeightStructure)
+        {
+            Assert.AreEqual(expectedHeightStructure.Name, actualHeightStructure.Name);
+            Assert.AreEqual(expectedHeightStructure.Id, actualHeightStructure.Id);
+            Assert.AreEqual(expectedHeightStructure.Location, actualHeightStructure.Location);
+            Assert.AreEqual(expectedHeightStructure.StructureNormalOrientation, actualHeightStructure.StructureNormalOrientation);
+
+            DistributionAssert.AreEqual(expectedHeightStructure.LevelCrestStructure, actualHeightStructure.LevelCrestStructure);
+            DistributionAssert.AreEqual(expectedHeightStructure.FlowWidthAtBottomProtection, actualHeightStructure.FlowWidthAtBottomProtection);
+            DistributionAssert.AreEqual(expectedHeightStructure.CriticalOvertoppingDischarge, actualHeightStructure.CriticalOvertoppingDischarge);
+            DistributionAssert.AreEqual(expectedHeightStructure.WidthFlowApertures, actualHeightStructure.WidthFlowApertures);
+            Assert.AreEqual(expectedHeightStructure.FailureProbabilityStructureWithErosion, actualHeightStructure.FailureProbabilityStructureWithErosion);
+            DistributionAssert.AreEqual(expectedHeightStructure.StorageStructureArea, actualHeightStructure.StorageStructureArea);
+            DistributionAssert.AreEqual(expectedHeightStructure.AllowedLevelIncreaseStorage, actualHeightStructure.AllowedLevelIncreaseStorage);
         }
 
         #endregion

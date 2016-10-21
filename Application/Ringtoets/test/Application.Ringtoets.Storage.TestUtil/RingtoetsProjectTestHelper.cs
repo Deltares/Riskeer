@@ -35,6 +35,7 @@ using Ringtoets.Common.Data.Probability;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
@@ -366,6 +367,8 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureHeightStructuresFailureMechanism(HeightStructuresFailureMechanism failureMechanism)
         {
             failureMechanism.GeneralInput.N = 5;
+            failureMechanism.HeightStructures.Add(new TestHeightStructure());
+            failureMechanism.HeightStructures.Add(new TestHeightStructure());
         }
 
         #endregion

@@ -44,6 +44,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.StructureHeight, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
+            AddEntitiesForHeightStructures(mechanism.HeightStructures, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
 
             return entity;
@@ -70,6 +71,18 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
             {
                 ForeshoreProfileEntity foreshoreProfileEntity = foreshoreProfiles[i].Create(registry, i);
                 entity.ForeshoreProfileEntities.Add(foreshoreProfileEntity);
+            }
+        }
+
+        private static void AddEntitiesForHeightStructures(
+            IList<HeightStructure> structures,
+            FailureMechanismEntity entity,
+            PersistenceRegistry registry)
+        {
+            for (int i = 0; i < structures.Count; i++)
+            {
+                HeightStructureEntity structureEntity = structures[i].Create(registry, i);
+                entity.HeightStructureEntities.Add(structureEntity);
             }
         }
 

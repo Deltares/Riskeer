@@ -222,6 +222,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadHeightStructuresMechanismSectionResults(failureMechanism, collector);
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
+            entity.ReadHeightStructures(failureMechanism.HeightStructures, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
         }
 
@@ -234,6 +235,11 @@ namespace Application.Ringtoets.Storage.Read
 
                 sectionResultEntity.Read(result);
             }
+        }
+
+        private static void ReadHeightStructures(this FailureMechanismEntity entity, ObservableList<HeightStructure> heightStructures, ReadConversionCollector collector)
+        {
+            heightStructures.AddRange(entity.HeightStructureEntities.OrderBy(fpe => fpe.Order).Select(structureEntity => structureEntity.Read(collector)));
         }
 
         private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralHeightStructuresInput generalInput)
@@ -666,10 +672,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadForeshoreProfiles(this FailureMechanismEntity entity, ObservableList<ForeshoreProfile> foreshoreProfiles, ReadConversionCollector collector)
         {
-            foreach (var foreshoreProfileEntity in entity.ForeshoreProfileEntities.OrderBy(fpe => fpe.Order))
-            {
-                foreshoreProfiles.Add(foreshoreProfileEntity.Read(collector));
-            }
+            foreshoreProfiles.AddRange(entity.ForeshoreProfileEntities.OrderBy(fpe => fpe.Order).Select(foreshoreProfileEntity => foreshoreProfileEntity.Read(collector)));
         }
 
         private static void ReadStabilityStoneCoverMechanismSectionResults(this FailureMechanismEntity entity, StabilityStoneCoverFailureMechanism failureMechanism, ReadConversionCollector collector)
