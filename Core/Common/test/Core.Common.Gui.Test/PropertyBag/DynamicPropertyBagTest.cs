@@ -293,17 +293,20 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             // Assert
             var index = 0;
+            Assert.AreEqual("PropSix", propertyDescriptorCollection[index++].DisplayName);
+            Assert.AreEqual("PropFour", propertyDescriptorCollection[index++].DisplayName);
             Assert.AreEqual("PropTwo", propertyDescriptorCollection[index++].DisplayName);
             Assert.AreEqual("PropOne", propertyDescriptorCollection[index++].DisplayName);
             Assert.AreEqual("Description", propertyDescriptorCollection[index++].DisplayName);
+            Assert.AreEqual("PropFive", propertyDescriptorCollection[index++].DisplayName);
             Assert.AreEqual("Name", propertyDescriptorCollection[index++].DisplayName);
 
             var propThreeDescriptor = propertyDescriptorCollection.Find("PropThree", false);
             Assert.GreaterOrEqual(propertyDescriptorCollection.IndexOf(propThreeDescriptor), index,
                                   "PropThree is not decorated with PropertyOrderAttribute, therefore should come after those that are.");
-            var propFourDescriptor = propertyDescriptorCollection.Find("PropFour", false);
-            Assert.GreaterOrEqual(propertyDescriptorCollection.IndexOf(propFourDescriptor), index,
-                                  "PropFour is not decorated with PropertyOrderAttribute, therefore should come after those that are.");
+            var propSevenDescriptor = propertyDescriptorCollection.Find("PropSeven", false);
+            Assert.GreaterOrEqual(propertyDescriptorCollection.IndexOf(propSevenDescriptor), index,
+                                  "PropSeven is not decorated with PropertyOrderAttribute, therefore should come after those that are.");
         }
 
         [Test]
@@ -470,21 +473,47 @@ namespace Core.Common.Gui.Test.PropertyBag
 
         private class TestOrderedProperties
         {
-            [PropertyOrder(3)]
+            [PropertyOrder(6)]
             public string Name { get; set; }
 
-            [PropertyOrder(2)]
+            [PropertyOrder(4)]
             public string Description { get; set; }
 
-            [PropertyOrder(1)]
+            [PropertyOrder(3)]
             public string PropOne { get; set; }
 
-            [PropertyOrder(0)]
+            [PropertyOrder(2)]
             public string PropTwo { get; set; }
 
             public int PropThree { get; set; }
 
+            [DynamicPropertyOrder]
             public int PropFour { get; set; }
+
+            [DynamicPropertyOrder]
+            public int PropFive { get; set; }
+
+            [PropertyOrder(0)]
+            [DynamicPropertyOrder]
+            public int PropSix { get; set; }
+
+            public int PropSeven { get; set; }
+
+            [DynamicPropertyOrderEvaluationMethod]
+            public int PropertyOrder(string propertyName)
+            {
+                if (propertyName == "PropFour")
+                {
+                    return 1;
+                }
+
+                if (propertyName == "PropFive")
+                {
+                    return 5;
+                }
+
+                return 7;
+            }
         }
 
         private class TestWithNestedPropertiesClassProperties

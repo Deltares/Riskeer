@@ -38,6 +38,7 @@ namespace Core.Common.Gui.PropertyBag
     /// <item><see cref="DynamicReadOnlyAttribute"/></item>
     /// <item><see cref="DynamicVisibleAttribute"/></item>
     /// <item><see cref="PropertyOrderAttribute"/></item>
+    /// <item><see cref="DynamicPropertyOrderAttribute"/></item>
     /// </list>
     /// </remarks>
     public class DynamicPropertyBag : ICustomTypeDescriptor
@@ -139,7 +140,7 @@ namespace Core.Common.Gui.PropertyBag
             return new PropertyDescriptorCollection(propertySpecDescriptors);
         }
 
-        private static PropertyDescriptor[] OrderPropertyDescriptors(IEnumerable<PropertyDescriptor> propertyDescriptorsToReturn)
+        private PropertyDescriptor[] OrderPropertyDescriptors(IEnumerable<PropertyDescriptor> propertyDescriptorsToReturn)
         {
             var unorderedProperties = new List<PropertyDescriptor>();
             var propertiesWithOrdering = new List<Tuple<int, PropertyDescriptor>>();
@@ -150,11 +151,17 @@ namespace Core.Common.Gui.PropertyBag
                 if (propertyOrderAttribute != null)
                 {
                     propertiesWithOrdering.Add(Tuple.Create(propertyOrderAttribute.Order, pd));
+                    continue;
                 }
-                else
+
+                var dynamicPropertyOrderAttribute = pd.Attributes.OfType<DynamicPropertyOrderAttribute>().FirstOrDefault();
+                if (dynamicPropertyOrderAttribute != null)
                 {
-                    unorderedProperties.Add(pd);
+                    propertiesWithOrdering.Add(Tuple.Create(DynamicPropertyOrderAttribute.PropertyOrder(WrappedObject, pd.Name), pd));
+                    continue;
                 }
+
+                unorderedProperties.Add(pd);
             }
             var orderedProperties = propertiesWithOrdering.OrderBy(p => p.Item1).Select(p => p.Item2);
 
