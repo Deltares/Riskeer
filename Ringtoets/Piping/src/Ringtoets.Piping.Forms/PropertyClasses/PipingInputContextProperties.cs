@@ -26,6 +26,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Forms.PresentationObjects;
@@ -41,7 +42,8 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="PipingInputContext"/> for properties panel.
     /// </summary>
-    public class PipingInputContextProperties : ObjectProperties<PipingInputContext>
+    public class PipingInputContextProperties : ObjectProperties<PipingInputContext>,
+                                                IHasHydraulicBoundaryLocationProperty
     {
         /// <summary>
         /// Gets the available surface lines on <see cref="PipingCalculationScenarioContext"/>.
@@ -67,9 +69,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             return data.WrappedData.StochasticSoilModel != null ? data.WrappedData.StochasticSoilModel.StochasticSoilProfiles : new List<StochasticSoilProfile>();
         }
 
-        /// <summary>
-        /// Gets the available hydraulic boundary locations on <see cref="PipingCalculationScenarioContext"/>.
-        /// </summary>
         public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
         {
             return data.AvailableHydraulicBoundaryLocations;
@@ -77,7 +76,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #region Hydraulic data
 
-        [Editor(typeof(PipingInputContextHydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
+        [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(Resources), "PipingInput_HydraulicBoundaryLocation_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingInput_HydraulicBoundaryLocation_Description")]

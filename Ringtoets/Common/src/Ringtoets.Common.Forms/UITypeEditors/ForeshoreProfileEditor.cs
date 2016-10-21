@@ -21,33 +21,23 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.HeightStructures.Forms.PropertyClasses;
-using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Forms.UITypeEditors
+namespace Ringtoets.Common.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="ForeshoreProfile"/> from a collection.
+    /// foreshore profile from a collection.
     /// </summary>
-    public class HeightStructuresInputContextForeshoreProfileEditor
-        : SelectionEditor<HeightStructuresInputContextProperties, ForeshoreProfile>
+    public class ForeshoreProfileEditor : SelectionEditor<IHasForeshoreProfileProperty, ForeshoreProfile>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HeightStructuresInputContextForeshoreProfileEditor"/>.
+        /// Creates a new instance of <see cref="ForeshoreProfileEditor"/>.
         /// </summary>
-        public HeightStructuresInputContextForeshoreProfileEditor()
+        public ForeshoreProfileEditor()
         {
             DisplayMember = TypeUtils.GetMemberName<ForeshoreProfile>(fp => fp.Name);
-            NullItem = new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties
-            {
-                Name = CoreCommonControlsResources.DisplayName_None
-            });
         }
 
         protected override IEnumerable<ForeshoreProfile> GetAvailableOptions(ITypeDescriptorContext context)

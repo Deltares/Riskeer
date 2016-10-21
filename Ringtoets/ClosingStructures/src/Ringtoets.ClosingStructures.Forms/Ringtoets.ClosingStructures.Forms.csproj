@@ -46,7 +46,6 @@
     <Compile Include="PresentationObjects\ClosingStructuresCalculationContext.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresContext.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresCalculationGroupContext.cs" />
-    <Compile Include="PresentationObjects\ClosingStructuresContextBase.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresInputContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -22,37 +22,23 @@
 using System.Collections.Generic;
 using Core.Common.Gui.PropertyBag;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.HydraRing.Data;
-using Ringtoets.Revetment.Forms.PresentationObjects;
 
-namespace Ringtoets.Revetment.Forms.PropertyClasses
+namespace Ringtoets.Common.Forms.UITypeEditors
 {
     /// <summary>
-    /// Interface for wave conditions input properties classes.
+    /// Interface for <see cref="IObjectProperties"/> with a foreshore profile property.
     /// </summary>
-    /// <typeparam name="T">The type of the wave conditions input presentation object.</typeparam>
-    public interface IWaveConditionsInputContextProperties<out T> : IObjectProperties where T : WaveConditionsInputContext
+    public interface IHasForeshoreProfileProperty : IObjectProperties
     {
         /// <summary>
-        /// Gets and sets the selected <see cref="HydraulicBoundaryLocation"/>.
+        /// Gets the selected foreshore profile.
         /// </summary>
-        HydraulicBoundaryLocation HydraulicBoundaryLocation { get; set; }
+        ForeshoreProfile ForeshoreProfile { get; }
 
         /// <summary>
-        /// Gets and sets the selected <see cref="ForeshoreProfile"/>.
+        /// Returns the collection of available foreshore profiles.
         /// </summary>
-        ForeshoreProfile ForeshoreProfile { get; set; }
-
-        /// <summary>
-        /// Gets the available <see cref="HydraulicBoundaryLocation"/>.
-        /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of available <see cref="HydraulicBoundaryLocation"/>.</returns>
-        IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations();
-
-        /// <summary>
-        /// Gets the available <see cref="ForeshoreProfile"/>.
-        /// </summary>
-        /// <returns>An <see cref="IEnumerable{T}"/> of available <see cref="ForeshoreProfile"/>.</returns>
+        /// <returns>A collection of foreshore profiles.</returns>
         IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles();
     }
 }

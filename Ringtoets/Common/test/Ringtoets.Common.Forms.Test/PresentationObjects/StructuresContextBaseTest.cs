@@ -26,35 +26,33 @@ using Core.Common.Controls.PresentationObjects;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 
-namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
+namespace Ringtoets.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class StabilityPointStructuresContextBaseTest
+    public class StructuresContextBaseTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var observableStub = mockRepository.Stub<IObservable>();
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
-            var target = new ObservableObject();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
             // Call
-            var context = new SimpleStabilityPointStructuresContext<ObservableObject>(target, failureMechanism, assessmentSectionMock);
+            var context = new SimpleStructuresContext<IObservable, IFailureMechanism>(observableStub, failureMechanismStub, assessmentSectionStub);
 
             // Assert
-            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<ObservableObject>>(context);
-            Assert.AreSame(target, context.WrappedData);
-            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
-            Assert.AreSame(failureMechanism, context.FailureMechanism);
-            CollectionAssert.IsEmpty(context.AvailableHydraulicBoundaryLocations);
+            Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservable>>(context);
+            Assert.AreSame(observableStub, context.WrappedData);
+            Assert.AreSame(failureMechanismStub, context.FailureMechanism);
+            Assert.AreSame(assessmentSectionStub, context.AssessmentSection);
             mockRepository.VerifyAll();
         }
 
@@ -63,17 +61,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var observableStub = mockRepository.Stub<IObservable>();
             mockRepository.ReplayAll();
 
-            var observableObject = new ObservableObject();
-
             // Call
-            TestDelegate call = () => new SimpleStabilityPointStructuresContext<ObservableObject>(observableObject, null, assessmentSectionMock);
+            TestDelegate call = () => new SimpleStructuresContext<IObservable, IFailureMechanism>(observableStub, null, assessmentSectionStub);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("failureMechanism", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("failureMechanism", exception.ParamName);
             mockRepository.VerifyAll();
         }
 
@@ -81,15 +78,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
         public void ParameteredConstructor_AssessmentSectionIsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var observableObject = new ObservableObject();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var mockRepository = new MockRepository();
+            var observableStub = mockRepository.Stub<IObservable>();
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+            mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimpleStabilityPointStructuresContext<ObservableObject>(observableObject, failureMechanism, null);
+            TestDelegate call = () => new SimpleStructuresContext<IObservable, IFailureMechanism>(observableStub, failureMechanismStub, null);
 
             // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("assessmentSection", paramName);
+            var exception = Assert.Throws<ArgumentNullException>(call);
+            Assert.AreEqual("assessmentSection", exception.ParamName);
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -100,13 +100,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             hydraulicBoundaryDatabase.Locations.Add(new HydraulicBoundaryLocation(1, "name", 1.1, 2.2));
 
             var mockRepository = new MockRepository();
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var observableStub = mockRepository.Stub<IObservable>();
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var target = new ObservableObject();
-            var context = new SimpleStabilityPointStructuresContext<ObservableObject>(target, failureMechanism, assessmentSectionMock);
+            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            var context = new SimpleStructuresContext<IObservable, IFailureMechanism>(observableStub, failureMechanismStub, assessmentSectionStub);
 
             // Call
             var availableHydraulicBoundaryLocations = context.AvailableHydraulicBoundaryLocations;
@@ -117,11 +118,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             mockRepository.VerifyAll();
         }
 
-        private class ObservableObject : Observable {}
-
-        private class SimpleStabilityPointStructuresContext<T> : StabilityPointStructuresContextBase<T> where T : IObservable
+        private class SimpleStructuresContext<TData, TFailureMechanism> : StructuresContextBase<TData, TFailureMechanism>
+            where TData : IObservable
+            where TFailureMechanism : IFailureMechanism
         {
-            public SimpleStabilityPointStructuresContext(T target, StabilityPointStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            public SimpleStructuresContext(TData target, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(target, failureMechanism, assessmentSection) {}
         }
     }

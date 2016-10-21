@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -81,6 +82,9 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<HeightStructuresInputContext>>(properties);
+            Assert.IsInstanceOf<IHasStructureProperty<HeightStructure>>(properties);
+            Assert.IsInstanceOf<IHasForeshoreProfileProperty>(properties);
+            Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -104,7 +108,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             HeightStructuresInput input = calculation.InputParameters;
             var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
 
-            Assert.IsNull(properties.HeightStructure);
+            Assert.IsNull(properties.Structure);
             Assert.IsNull(properties.HeightStructureLocation);
             Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
@@ -174,7 +178,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var expectedHeightStructureLocation = new Point2D(new RoundedDouble(0, input.Structure.Location.X), new RoundedDouble(0, input.Structure.Location.Y));
             var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
 
-            Assert.AreSame(input.Structure, properties.HeightStructure);
+            Assert.AreSame(input.Structure, properties.Structure);
             Assert.AreEqual(expectedHeightStructureLocation, properties.HeightStructureLocation);
             Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
@@ -195,8 +199,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(1, properties.GetAvailableHydraulicBoundaryLocations().Count());
             CollectionAssert.AreEqual(inputContext.AvailableHydraulicBoundaryLocations, properties.GetAvailableHydraulicBoundaryLocations());
 
-            Assert.AreEqual(1, properties.GetAvailableHeightStructures().Count());
-            CollectionAssert.AreEqual(failureMechanism.HeightStructures, properties.GetAvailableHeightStructures());
+            Assert.AreEqual(1, properties.GetAvailableStructures().Count());
+            CollectionAssert.AreEqual(failureMechanism.HeightStructures, properties.GetAvailableStructures());
 
             Assert.AreEqual(1, properties.GetAvailableForeshoreProfiles().Count());
             CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, properties.GetAvailableForeshoreProfiles());
@@ -232,7 +236,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             double newDeviationWaveDirection = random.NextDouble();
 
             // Call
-            properties.HeightStructure = newHeightStructure;
+            properties.Structure = newHeightStructure;
             properties.StructureNormalOrientation = (RoundedDouble) newStructureNormalOrientation;
             properties.FailureProbabilityStructureWithErosion = "1e-2";
             properties.HydraulicBoundaryLocation = hydraulicBoundaryLocation;
@@ -240,7 +244,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             properties.DeviationWaveDirection = (RoundedDouble) newDeviationWaveDirection;
 
             // Assert
-            Assert.AreSame(newHeightStructure, properties.HeightStructure);
+            Assert.AreSame(newHeightStructure, properties.Structure);
             Assert.AreEqual(newStructureNormalOrientation, properties.StructureNormalOrientation,
                             properties.StructureNormalOrientation.GetAccuracy());
             Assert.AreEqual(0.01, input.FailureProbabilityStructureWithErosion);

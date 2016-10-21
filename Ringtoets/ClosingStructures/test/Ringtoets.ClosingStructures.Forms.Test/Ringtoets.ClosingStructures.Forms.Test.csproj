@@ -64,7 +64,6 @@
     <Compile Include="PresentationObjects\ClosingStructuresCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresCalculationGroupContextTest.cs" />
-    <Compile Include="PresentationObjects\ClosingStructuresContextBaseTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresInputContextTest.cs" />
     <Compile Include="PresentationObjects\ClosingStructuresScenariosContextTest.cs" />

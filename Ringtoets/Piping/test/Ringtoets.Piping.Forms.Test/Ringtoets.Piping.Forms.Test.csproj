@@ -98,7 +98,6 @@
     <Compile Include="TypeConverters\PropertyDescriptors\TextPropertyDescriptorDecoratorTest.cs" />
     <Compile Include="TypeConverters\NormalDistributionDesignVariableTypeConverterTest.cs" />
     <Compile Include="TypeConverters\ShiftedLogNormalDistributionDesignVariableTypeConverterTest.cs" />
-    <Compile Include="UITypeEditors\PipingInputContextHydraulicBoundaryLocationEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilModelSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextStochasticSoilProfileSelectionEditorTest.cs" />
     <Compile Include="UITypeEditors\PipingInputContextSurfaceLineSelectionEditorTest.cs" />

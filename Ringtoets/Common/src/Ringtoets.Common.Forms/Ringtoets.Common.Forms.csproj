@@ -63,6 +63,7 @@
     <Compile Include="PresentationObjects\FailureMechanismSectionsContext.cs" />
     <Compile Include="PresentationObjects\IFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContext.cs" />
+    <Compile Include="PresentationObjects\StructuresContextBase.cs" />
     <Compile Include="PresentationObjects\TreeFolderCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -99,6 +100,12 @@
     <Compile Include="HydraulicBoundaryLocationSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="UITypeEditors\HydraulicBoundaryLocationEditor.cs" />
+    <Compile Include="UITypeEditors\ForeshoreProfileEditor.cs" />
+    <Compile Include="UITypeEditors\IHasForeshoreProfileProperty.cs" />
+    <Compile Include="UITypeEditors\IHasHydraulicBoundaryLocationProperty.cs" />
+    <Compile Include="UITypeEditors\IHasStructureProperty.cs" />
+    <Compile Include="UITypeEditors\StructureEditor.cs" />
     <Compile Include="Views\DesignWaterLevelLocationRow.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationRow.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationsView.cs">

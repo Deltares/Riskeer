@@ -32,11 +32,11 @@ using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
 using Ringtoets.Revetment.Forms.Properties;
-using Ringtoets.Revetment.Forms.UITypeEditors;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.Revetment.Forms.PropertyClasses
@@ -44,7 +44,9 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="WaveConditionsInputContext"/> for properties panel.
     /// </summary>
-    public abstract class WaveConditionsInputContextProperties<T> : ObjectProperties<T>, IWaveConditionsInputContextProperties<T>
+    public abstract class WaveConditionsInputContextProperties<T> : ObjectProperties<T>,
+                                                                    IHasHydraulicBoundaryLocationProperty,
+                                                                    IHasForeshoreProfileProperty
         where T : WaveConditionsInputContext
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
@@ -254,7 +256,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         public abstract string RevetmentType { get; }
 
         [PropertyOrder(hydraulicBoundaryLocationPropertyIndex)]
-        [Editor(typeof(WaveConditionsInputContextHydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
+        [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_Description")]
@@ -272,7 +274,7 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         }
 
         [PropertyOrder(foreshoreProfilePropertyIndex)]
-        [Editor(typeof(WaveConditionsInputContextForeshoreProfileEditor), typeof(UITypeEditor))]
+        [Editor(typeof(ForeshoreProfileEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "ForeshoreProfile_DisplayName")]
         [ResourcesDescription(typeof(Resources), "ForeshoreProfile_Description")]

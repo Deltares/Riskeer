@@ -45,7 +45,6 @@
     <Compile Include="PresentationObjects\HeightStructuresContext.cs" />
     <Compile Include="PresentationObjects\HeightStructuresCalculationContext.cs" />
     <Compile Include="PresentationObjects\HeightStructuresCalculationGroupContext.cs" />
-    <Compile Include="PresentationObjects\HeightStructuresContextBase.cs" />
     <Compile Include="PresentationObjects\HeightStructuresFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\HeightStructuresInputContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,9 +59,6 @@
     <Compile Include="StructureSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UITypeEditors\HeightStructuresInputContextForeshoreProfileEditor.cs" />
-    <Compile Include="UITypeEditors\HeightStructuresInputContextHydraulicBoundaryLocationEditor.cs" />
-    <Compile Include="UITypeEditors\HeightStructuresInputContextStructureEditor.cs" />
     <Compile Include="Views\HeightStructuresScenarioRow.cs" />
     <Compile Include="Views\HeightStructuresScenariosView.cs">
       <SubType>UserControl</SubType>

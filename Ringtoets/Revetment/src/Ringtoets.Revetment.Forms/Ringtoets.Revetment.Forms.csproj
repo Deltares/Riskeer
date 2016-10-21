@@ -43,7 +43,6 @@
     <Compile Include="PresentationObjects\WaveConditionsInputContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\GeneralWaveConditionsInputProperties.cs" />
-    <Compile Include="PropertyClasses\IWaveConditionsInputContextProperties.cs" />
     <Compile Include="PropertyClasses\WaveConditionsInputContextProperties.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -52,8 +51,6 @@
     </Compile>
     <Compile Include="PropertyClasses\WaveConditionsInputForeshoreProfileProperties.cs" />
     <Compile Include="PropertyClasses\WaveConditionsOutputProperties.cs" />
-    <Compile Include="UITypeEditors\WaveConditionsInputContextForeshoreProfileEditor.cs" />
-    <Compile Include="UITypeEditors\WaveConditionsInputContextHydraulicBoundaryLocationEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.licenseheader">

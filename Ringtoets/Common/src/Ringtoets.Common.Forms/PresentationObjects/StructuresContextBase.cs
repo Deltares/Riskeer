@@ -25,27 +25,31 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Controls.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.HeightStructures.Data;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.HeightStructures.Forms.PresentationObjects
+namespace Ringtoets.Common.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object representing all required height structures input knowledge to configure and create
+    /// Presentation object representing all required structures input knowledge to configure and create
     /// related objects. It'll delegate observable behavior to the wrapped data object.
     /// </summary>
-    public abstract class HeightStructuresContextBase<T> : ObservableWrappedObjectContextBase<T> where T : IObservable
+    /// <typeparam name="TData">The type of the data wrapped by the context object.</typeparam>
+    /// <typeparam name="TFailureMechanism">The type of the failure mechanism which the context belongs to.</typeparam>
+    public abstract class StructuresContextBase<TData, TFailureMechanism> : ObservableWrappedObjectContextBase<TData>
+        where TData : IObservable
+        where TFailureMechanism : IFailureMechanism
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HeightStructuresContextBase{T}"/> class.
+        /// Initializes a new instance of the <see cref="StructuresContextBase{TData, TFailureMechanism}"/> class.
         /// </summary>
         /// <param name="wrappedData">The concrete data instance wrapped by this context object.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
-        protected HeightStructuresContextBase(T wrappedData,
-                                              HeightStructuresFailureMechanism failureMechanism,
-                                              IAssessmentSection assessmentSection)
+        protected StructuresContextBase(TData wrappedData,
+                                        TFailureMechanism failureMechanism,
+                                        IAssessmentSection assessmentSection)
             : base(wrappedData)
         {
             if (failureMechanism == null)
@@ -65,7 +69,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// <summary>
         /// Gets the failure mechanism which the context belongs to.
         /// </summary>
-        public HeightStructuresFailureMechanism FailureMechanism { get; private set; }
+        public TFailureMechanism FailureMechanism { get; private set; }
 
         /// <summary>
         /// Gets the assessment section which the context belongs to.
@@ -73,16 +77,15 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         public IAssessmentSection AssessmentSection { get; private set; }
 
         /// <summary>
-        /// Gets the available hydraulic boundary locations in order for the user to select one to 
-        /// set <see cref="HeightStructuresInput.HydraulicBoundaryLocation"/>.
+        /// Gets the available hydraulic boundary locations.
         /// </summary>
         public IEnumerable<HydraulicBoundaryLocation> AvailableHydraulicBoundaryLocations
         {
             get
             {
-                return AssessmentSection.HydraulicBoundaryDatabase == null ?
-                           Enumerable.Empty<HydraulicBoundaryLocation>() :
-                           AssessmentSection.HydraulicBoundaryDatabase.Locations;
+                return AssessmentSection.HydraulicBoundaryDatabase != null
+                           ? AssessmentSection.HydraulicBoundaryDatabase.Locations
+                           : Enumerable.Empty<HydraulicBoundaryLocation>();
             }
         }
     }

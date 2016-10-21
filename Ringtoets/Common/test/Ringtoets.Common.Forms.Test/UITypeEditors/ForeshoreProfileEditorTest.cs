@@ -20,23 +20,21 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms.Design;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Data.TestUtil;
-using Ringtoets.HeightStructures.Forms.PresentationObjects;
-using Ringtoets.HeightStructures.Forms.PropertyClasses;
-using Ringtoets.HeightStructures.Forms.UITypeEditors;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Forms.UITypeEditors;
 
-namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
+namespace Ringtoets.Common.Forms.Test.UITypeEditors
 {
     [TestFixture]
-    public class HeightStructuresInputContextStructureEditorTest
+    public class ForeshoreProfileEditorTest
     {
         private MockRepository mockRepository;
 
@@ -50,35 +48,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
         public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            var heightStructure = new TestHeightStructure();
-            var inputContext = new HeightStructuresInputContext(
-                new HeightStructuresCalculation(), 
-                new HeightStructuresFailureMechanism
-                {
-                    HeightStructures =
-                    {
-                        heightStructure
-                    }
-                },
-                assessmentSectionMock);
-
-            var properties = new HeightStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
+            var foreshoreProfile = CreateForeshoreProfile();
+            var properties = new ObjectPropertiesWithForeshoreProfile(foreshoreProfile, new ForeshoreProfile[0]);
             var propertyBag = new DynamicPropertyBag(properties);
-
+            var editor = new ForeshoreProfileEditor();
+            var someValue = new object();
             var serviceProviderMock = mockRepository.Stub<IServiceProvider>();
             var serviceMock = mockRepository.Stub<IWindowsFormsEditorService>();
             var descriptorContextMock = mockRepository.Stub<ITypeDescriptorContext>();
             serviceProviderMock.Stub(p => p.GetService(null)).IgnoreArguments().Return(serviceMock);
             descriptorContextMock.Stub(c => c.Instance).Return(propertyBag);
             mockRepository.ReplayAll();
-
-            var editor = new HeightStructuresInputContextStructureEditor();
-            var someValue = new object();
 
             // Call
             var result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
@@ -92,32 +72,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            var heightStructure = new TestHeightStructure();
-            var inputContext = new HeightStructuresInputContext(
-                new HeightStructuresCalculation
-                {
-                    InputParameters =
-                    {
-                        Structure = heightStructure
-                    }
-                }, 
-                new HeightStructuresFailureMechanism
-                {
-                    HeightStructures =
-                    {
-                        heightStructure
-                    }
-                },
-                assessmentSectionMock);
-
-            var properties = new HeightStructuresInputContextProperties
+            var foreshoreProfile = CreateForeshoreProfile();
+            var properties = new ObjectPropertiesWithForeshoreProfile(foreshoreProfile, new[]
             {
-                Data = inputContext
-            };
-
+                foreshoreProfile
+            });
             var propertyBag = new DynamicPropertyBag(properties);
-
+            var editor = new ForeshoreProfileEditor();
+            var someValue = new object();
             var serviceProviderMock = mockRepository.Stub<IServiceProvider>();
             var serviceMock = mockRepository.Stub<IWindowsFormsEditorService>();
             var descriptorContextMock = mockRepository.Stub<ITypeDescriptorContext>();
@@ -125,15 +87,44 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
             descriptorContextMock.Stub(c => c.Instance).Return(propertyBag);
             mockRepository.ReplayAll();
 
-            var editor = new HeightStructuresInputContextStructureEditor();
-            var someValue = new object();
-
             // Call
             var result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
 
             // Assert
-            Assert.AreSame(heightStructure, result);
+            Assert.AreSame(foreshoreProfile, result);
             mockRepository.VerifyAll();
+        }
+
+        private static ForeshoreProfile CreateForeshoreProfile()
+        {
+            return new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), new BreakWater(BreakWaterType.Caisson, 0.0), new ForeshoreProfile.ConstructionProperties());
+        }
+
+        private class ObjectPropertiesWithForeshoreProfile : IHasForeshoreProfileProperty
+        {
+            private readonly ForeshoreProfile foreshoreProfile;
+            private readonly IEnumerable<ForeshoreProfile> availableForeshoreProfiles;
+
+            public ObjectPropertiesWithForeshoreProfile(ForeshoreProfile foreshoreProfile, IEnumerable<ForeshoreProfile> availableForeshoreProfiles)
+            {
+                this.foreshoreProfile = foreshoreProfile;
+                this.availableForeshoreProfiles = availableForeshoreProfiles;
+            }
+
+            public object Data { get; set; }
+
+            public ForeshoreProfile ForeshoreProfile
+            {
+                get
+                {
+                    return foreshoreProfile;
+                }
+            }
+
+            public IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
+            {
+                return availableForeshoreProfiles;
+            }
         }
     }
 }

@@ -20,24 +20,19 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Forms.Design;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms.PresentationObjects;
-using Ringtoets.HeightStructures.Forms.PropertyClasses;
-using Ringtoets.HeightStructures.Forms.UITypeEditors;
+using Ringtoets.Common.Forms.UITypeEditors;
+using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
+namespace Ringtoets.Common.Forms.Test.UITypeEditors
 {
     [TestFixture]
-    public class HeightStructuresInputContextForeshoreProfileEditorTest
+    public class HydraulicBoundaryLocationEditorTest
     {
         private MockRepository mockRepository;
 
@@ -48,29 +43,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
         }
 
         [Test]
-        public void EditValue_NoCurrentItemInAvailableItems_ReturnsNullValue()
+        public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            var foreshoreProfile = new TestForeshoreProfile();
-            var inputContext = new HeightStructuresInputContext(
-                new HeightStructuresCalculation(),
-                new HeightStructuresFailureMechanism
-                {
-                    ForeshoreProfiles =
-                    {
-                        foreshoreProfile
-                    }
-                },
-                assessmentSectionMock);
-
-            var properties = new HeightStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
+            var hydraulicBoundaryLocation = CreateHydraulicBoundaryLocation();
+            var properties = new ObjectPropertiesWithHydraulicBoundaryLocation(hydraulicBoundaryLocation, new HydraulicBoundaryLocation[0]);
             var propertyBag = new DynamicPropertyBag(properties);
-
+            var editor = new HydraulicBoundaryLocationEditor();
+            var someValue = new object();
             var serviceProviderMock = mockRepository.Stub<IServiceProvider>();
             var serviceMock = mockRepository.Stub<IWindowsFormsEditorService>();
             var descriptorContextMock = mockRepository.Stub<ITypeDescriptorContext>();
@@ -78,14 +58,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
             descriptorContextMock.Stub(c => c.Instance).Return(propertyBag);
             mockRepository.ReplayAll();
 
-            var editor = new HeightStructuresInputContextForeshoreProfileEditor();
-            var someValue = new object();
-
             // Call
             var result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
 
             // Assert
-            Assert.IsNull(result);
+            Assert.AreSame(someValue, result);
             mockRepository.VerifyAll();
         }
 
@@ -93,32 +70,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
-            var foreshoreProfile = new TestForeshoreProfile();
-            var inputContext = new HeightStructuresInputContext(
-                new HeightStructuresCalculation
-                {
-                    InputParameters =
-                    {
-                        ForeshoreProfile = foreshoreProfile
-                    }
-                }, 
-                new HeightStructuresFailureMechanism
-                {
-                    ForeshoreProfiles =
-                    {
-                        foreshoreProfile
-                    }
-                },
-                assessmentSectionMock);
-
-            var properties = new HeightStructuresInputContextProperties
+            var hydraulicBoundaryLocation = CreateHydraulicBoundaryLocation();
+            var properties = new ObjectPropertiesWithHydraulicBoundaryLocation(hydraulicBoundaryLocation, new[]
             {
-                Data = inputContext
-            };
-
+                hydraulicBoundaryLocation
+            });
             var propertyBag = new DynamicPropertyBag(properties);
-
+            var editor = new HydraulicBoundaryLocationEditor();
+            var someValue = new object();
             var serviceProviderMock = mockRepository.Stub<IServiceProvider>();
             var serviceMock = mockRepository.Stub<IWindowsFormsEditorService>();
             var descriptorContextMock = mockRepository.Stub<ITypeDescriptorContext>();
@@ -126,21 +85,44 @@ namespace Ringtoets.HeightStructures.Forms.Test.UITypeEditors
             descriptorContextMock.Stub(c => c.Instance).Return(propertyBag);
             mockRepository.ReplayAll();
 
-            var editor = new HeightStructuresInputContextForeshoreProfileEditor();
-            var someValue = new object();
-
             // Call
             var result = editor.EditValue(descriptorContextMock, serviceProviderMock, someValue);
 
             // Assert
-            Assert.AreSame(foreshoreProfile, result);
+            Assert.AreSame(hydraulicBoundaryLocation, result);
             mockRepository.VerifyAll();
         }
 
-        private class TestForeshoreProfile : ForeshoreProfile
+        private static HydraulicBoundaryLocation CreateHydraulicBoundaryLocation()
         {
-            public TestForeshoreProfile() : base(new Point2D(0, 0), Enumerable.Empty<Point2D>(),
-                                                 null, new ConstructionProperties()) {}
+            return new HydraulicBoundaryLocation(1, "", 0, 0);
+        }
+
+        private class ObjectPropertiesWithHydraulicBoundaryLocation : IHasHydraulicBoundaryLocationProperty
+        {
+            private readonly HydraulicBoundaryLocation hydraulicBoundaryLocation;
+            private readonly IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations;
+
+            public ObjectPropertiesWithHydraulicBoundaryLocation(HydraulicBoundaryLocation hydraulicBoundaryLocation, IEnumerable<HydraulicBoundaryLocation> availableHydraulicBoundaryLocations)
+            {
+                this.hydraulicBoundaryLocation = hydraulicBoundaryLocation;
+                this.availableHydraulicBoundaryLocations = availableHydraulicBoundaryLocations;
+            }
+
+            public object Data { get; set; }
+
+            public HydraulicBoundaryLocation HydraulicBoundaryLocation
+            {
+                get
+                {
+                    return hydraulicBoundaryLocation;
+                }
+            }
+
+            public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
+            {
+                return availableHydraulicBoundaryLocations;
+            }
         }
     }
 }

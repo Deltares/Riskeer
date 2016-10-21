@@ -31,10 +31,10 @@ using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.Properties;
-using Ringtoets.HeightStructures.Forms.UITypeEditors;
 using Ringtoets.HeightStructures.Utils;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -44,7 +44,10 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HeightStructuresInputContext"/> for properties panel.
     /// </summary>
-    public class HeightStructuresInputContextProperties : ObjectProperties<HeightStructuresInputContext>
+    public class HeightStructuresInputContextProperties : ObjectProperties<HeightStructuresInputContext>,
+                                                          IHasStructureProperty<HeightStructure>,
+                                                          IHasForeshoreProfileProperty,
+                                                          IHasHydraulicBoundaryLocationProperty
     {
         private const int heightStructurePropertyIndex = 1;
         private const int heightStructureLocationPropertyIndex = 2;
@@ -84,44 +87,29 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         #endregion
 
-        /// <summary>
-        /// Returns the available hydraulic boundary locations in order for the user to select one to 
-        /// set <see cref="HeightStructuresInput.HydraulicBoundaryLocation"/>.
-        /// </summary>
-        /// <returns>The available hydraulic boundary locations.</returns>
-        public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
-        {
-            return data.AvailableHydraulicBoundaryLocations;
-        }
-
-        /// <summary>
-        /// Returns the available height structures in order for the user to select one to 
-        /// set <see cref="HeightStructuresInput.Structure"/>.
-        /// </summary>
-        /// <returns>The available height structures.</returns>
-        public IEnumerable<HeightStructure> GetAvailableHeightStructures()
-        {
-            return data.FailureMechanism.HeightStructures;
-        }
-
-        /// <summary>
-        /// Returns the available foreshore profiles in order for the user to select one to 
-        /// set <see cref="HeightStructuresInput.ForeshoreProfile"/>.
-        /// </summary>
-        /// <returns>The available foreshore profiles.</returns>
         public IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
         {
             return data.FailureMechanism.ForeshoreProfiles;
         }
 
+        public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
+        {
+            return data.AvailableHydraulicBoundaryLocations;
+        }
+
+        public IEnumerable<HeightStructure> GetAvailableStructures()
+        {
+            return data.FailureMechanism.HeightStructures;
+        }
+
         #region Schematization
 
         [PropertyOrder(heightStructurePropertyIndex)]
-        [Editor(typeof(HeightStructuresInputContextStructureEditor), typeof(UITypeEditor))]
+        [Editor(typeof(StructureEditor<HeightStructure>), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Structure_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_Description")]
-        public HeightStructure HeightStructure
+        public HeightStructure Structure
         {
             get
             {
@@ -296,7 +284,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         [PropertyOrder(foreshoreProfilePropertyIndex)]
-        [Editor(typeof(HeightStructuresInputContextForeshoreProfileEditor), typeof(UITypeEditor))]
+        [Editor(typeof(ForeshoreProfileEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "ForeshoreProfile_DisplayName")]
         [ResourcesDescription(typeof(Resources), "ForeshoreProfile_Description")]
@@ -346,7 +334,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         #region Hydraulic data
 
         [PropertyOrder(hydraulicBoundaryLocationPropertyIndex)]
-        [Editor(typeof(HeightStructuresInputContextHydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
+        [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_Description")]

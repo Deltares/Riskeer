@@ -22,23 +22,20 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Utils.Reflection;
-using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.HeightStructures.Forms.PropertyClasses;
 using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.HeightStructures.Forms.UITypeEditors
+namespace Ringtoets.Common.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="HydraulicBoundaryLocation"/> from a collection.
+    /// hydraulic boundary location from a collection.
     /// </summary>
-    public class HeightStructuresInputContextHydraulicBoundaryLocationEditor :
-        SelectionEditor<HeightStructuresInputContextProperties, HydraulicBoundaryLocation>
+    public class HydraulicBoundaryLocationEditor : SelectionEditor<IHasHydraulicBoundaryLocationProperty, HydraulicBoundaryLocation>
     {
         /// <summary>
-        /// Creates a new instance of <see cref="HeightStructuresInputContextHydraulicBoundaryLocationEditor"/>.
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationEditor"/>.
         /// </summary>
-        public HeightStructuresInputContextHydraulicBoundaryLocationEditor()
+        public HydraulicBoundaryLocationEditor()
         {
             DisplayMember = TypeUtils.GetMemberName<HydraulicBoundaryLocation>(hbl => hbl.Name);
         }

@@ -67,7 +67,6 @@
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsFailureMechanismContextProperties.cs" />
     <Compile Include="PropertyClasses\GrassCoverErosionInwardsInputContextProperties.cs" />
     <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextDikeProfileEditor.cs" />
-    <Compile Include="UITypeEditors\GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditor.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsChartDataFactory.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsChartDataPointsFactory.cs" />
     <Compile Include="Views\GrassCoverErosionInwardsFailureMechanismResultView.cs">

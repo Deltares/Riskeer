@@ -43,7 +43,6 @@
     <Compile Include="PresentationObjects\StabilityPointStructuresContext.cs" />
     <Compile Include="PresentationObjects\StabilityPointStructuresCalculationContext.cs" />
     <Compile Include="PresentationObjects\StabilityPointStructuresCalculationGroupContext.cs" />
-    <Compile Include="PresentationObjects\StabilityPointStructuresContextBase.cs" />
     <Compile Include="PresentationObjects\StabilityPointStructuresFailureMechanismContext.cs" />
     <Compile Include="PresentationObjects\StabilityPointStructuresInputContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -64,7 +64,6 @@
     <Compile Include="PresentationObjects\HeightStructuresContextTest.cs" />
     <Compile Include="PresentationObjects\HeightStructuresCalculationContextTest.cs" />
     <Compile Include="PresentationObjects\HeightStructuresCalculationGroupContextTest.cs" />
-    <Compile Include="PresentationObjects\HeightStructuresContextBaseTest.cs" />
     <Compile Include="PresentationObjects\HeightStructuresFailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\HeightStructuresScenariosContextTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,9 +80,6 @@
     <Compile Include="PresentationObjects\HeightStructuresInputContextTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresInputContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructureTreeNodeInfoTest.cs" />
-    <Compile Include="UITypeEditors\HeightStructuresInputContextForeshoreProfileEditorTest.cs" />
-    <Compile Include="UITypeEditors\HeightStructuresInputContextHydraulicBoundaryLocationEditorTest.cs" />
-    <Compile Include="UITypeEditors\HeightStructuresInputContextStructureEditorTest.cs" />
     <Compile Include="Views\HeightStructuresScenarioRowTest.cs" />
     <Compile Include="Views\HeightStructuresScenariosViewTest.cs" />
     <Compile Include="Views\HeightStructuresFailureMechanismResultViewTest.cs" />

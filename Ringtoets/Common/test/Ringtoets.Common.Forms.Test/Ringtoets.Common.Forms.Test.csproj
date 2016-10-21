@@ -74,6 +74,7 @@
     <Compile Include="PresentationObjects\FailureMechanismSectionsContextTest.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContextTest.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />
+    <Compile Include="PresentationObjects\StructuresContextBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\BreakWaterPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ForeshoreGeometryPropertiesTest.cs" />
@@ -95,7 +96,10 @@
     <Compile Include="TreeNodeInfos\RingtoetsContextMenuItemFactoryTest.cs" />
     <Compile Include="TypeConverters\FailureMechanismSectionResultNoProbabilityValueDoubleConverterTest.cs" />
     <Compile Include="TypeConverters\NoValueRoundedDoubleConverterTest.cs" />
+    <Compile Include="UITypeEditors\HydraulicBoundaryLocationEditorTest.cs" />
+    <Compile Include="UITypeEditors\ForeshoreProfileEditorTest.cs" />
     <Compile Include="UITypeEditors\SelectionEditorTest.cs" />
+    <Compile Include="UITypeEditors\StructureEditorTest.cs" />
     <Compile Include="Views\CommentViewTest.cs" />
     <Compile Include="Views\DesignWaterLevelLocationRowTest.cs" />
     <Compile Include="Views\FailureMechanismResultViewTest.cs">

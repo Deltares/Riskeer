@@ -31,7 +31,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
     /// in order be able to create configurable height structures calculations.
     /// </summary>
-    public class HeightStructuresCalculationGroupContext : HeightStructuresContextBase<CalculationGroup>,
+    public class HeightStructuresCalculationGroupContext : StructuresContextBase<CalculationGroup, HeightStructuresFailureMechanism>,
                                                            ICalculationContext<CalculationGroup, HeightStructuresFailureMechanism>
     {
         /// <summary>

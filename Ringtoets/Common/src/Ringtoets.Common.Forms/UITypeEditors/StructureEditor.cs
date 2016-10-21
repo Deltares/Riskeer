@@ -22,36 +22,33 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Utils.Reflection;
-using Ringtoets.Common.Forms.UITypeEditors;
-using Ringtoets.HydraRing.Data;
-using Ringtoets.Revetment.Forms.PresentationObjects;
-using Ringtoets.Revetment.Forms.PropertyClasses;
+using Ringtoets.Common.Data;
 
-namespace Ringtoets.Revetment.Forms.UITypeEditors
+namespace Ringtoets.Common.Forms.UITypeEditors
 {
     /// <summary>
     /// This class defines a drop down list edit-control from which the user can select a
-    /// <see cref="HydraulicBoundaryLocation"/> from a collection.
+    /// structure from a collection.
     /// </summary>
-    public class WaveConditionsInputContextHydraulicBoundaryLocationEditor :
-        SelectionEditor<IWaveConditionsInputContextProperties<WaveConditionsInputContext>, HydraulicBoundaryLocation>
+    /// <typeparam name="T">The type of structures at stake.</typeparam>
+    public class StructureEditor<T> : SelectionEditor<IHasStructureProperty<T>, T> where T : StructureBase
     {
         /// <summary>
-        /// Creates a new instance of <see cref="WaveConditionsInputContextHydraulicBoundaryLocationEditor"/>.
+        /// Creates a new instance of <see cref="StructureEditor{T}"/>.
         /// </summary>
-        public WaveConditionsInputContextHydraulicBoundaryLocationEditor()
+        public StructureEditor()
         {
-            DisplayMember = TypeUtils.GetMemberName<HydraulicBoundaryLocation>(hbl => hbl.Name);
+            DisplayMember = TypeUtils.GetMemberName<T>(s => s.Name);
         }
 
-        protected override IEnumerable<HydraulicBoundaryLocation> GetAvailableOptions(ITypeDescriptorContext context)
+        protected override IEnumerable<T> GetAvailableOptions(ITypeDescriptorContext context)
         {
-            return GetPropertiesObject(context).GetAvailableHydraulicBoundaryLocations();
+            return GetPropertiesObject(context).GetAvailableStructures();
         }
 
-        protected override HydraulicBoundaryLocation GetCurrentOption(ITypeDescriptorContext context)
+        protected override T GetCurrentOption(ITypeDescriptorContext context)
         {
-            return GetPropertiesObject(context).HydraulicBoundaryLocation;
+            return GetPropertiesObject(context).Structure;
         }
     }
 }

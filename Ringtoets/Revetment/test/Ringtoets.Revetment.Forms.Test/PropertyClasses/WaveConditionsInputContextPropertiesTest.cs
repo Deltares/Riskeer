@@ -34,6 +34,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Forms.PresentationObjects;
@@ -69,7 +70,8 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsInstanceOf<ObjectProperties<WaveConditionsInputContext>>(properties);
-            Assert.IsInstanceOf<IWaveConditionsInputContextProperties<WaveConditionsInputContext>>(properties);
+            Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
+            Assert.IsInstanceOf<IHasForeshoreProfileProperty>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -141,7 +143,7 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             {
                 DesignWaterLevel = assessmentLevel
             };
-            var input = new WaveConditionsInput()
+            var input = new WaveConditionsInput
             {
                 ForeshoreProfile = foreshoreProfile,
                 HydraulicBoundaryLocation = hydraulicBoundaryLocation,

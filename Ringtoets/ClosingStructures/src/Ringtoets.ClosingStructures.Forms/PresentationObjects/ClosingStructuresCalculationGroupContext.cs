@@ -31,7 +31,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="CalculationGroup"/>
     /// in order to be able to create configurable closing structures calculations.
     /// </summary>
-    public class ClosingStructuresCalculationGroupContext : ClosingStructuresContextBase<CalculationGroup>,
+    public class ClosingStructuresCalculationGroupContext : StructuresContextBase<CalculationGroup, ClosingStructuresFailureMechanism>,
                                                             ICalculationContext<CalculationGroup, ClosingStructuresFailureMechanism>
     {
         /// <summary>
@@ -39,7 +39,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         /// </summary>
         /// <param name="calculationGroup">The <see cref="CalculationGroup"/> instance that is wrapped by this context object.</param>
         /// <param name="failureMechanism">The failure mechanism which contains the calculation group.</param>
-        /// <param name="assessmentSection">The assessment section which containts the calculation group.</param>
+        /// <param name="assessmentSection">The assessment section which contains the calculation group.</param>
         /// <exception cref="ArgumentNullException">Thrown when any of the input parameters are <c>null</c>.</exception>
         public ClosingStructuresCalculationGroupContext(CalculationGroup calculationGroup,
                                                         ClosingStructuresFailureMechanism failureMechanism,

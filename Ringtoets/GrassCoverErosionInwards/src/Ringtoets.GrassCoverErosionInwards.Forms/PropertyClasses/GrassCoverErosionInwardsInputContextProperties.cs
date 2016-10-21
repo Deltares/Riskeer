@@ -29,6 +29,7 @@ using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
 using Ringtoets.GrassCoverErosionInwards.Forms.Properties;
 using Ringtoets.GrassCoverErosionInwards.Forms.UITypeEditors;
@@ -41,7 +42,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="GrassCoverErosionInwardsInputContext"/> for properties panel.
     /// </summary>
-    public class GrassCoverErosionInwardsInputContextProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>
+    public class GrassCoverErosionInwardsInputContextProperties : ObjectProperties<GrassCoverErosionInwardsInputContext>,
+                                                                  IHasHydraulicBoundaryLocationProperty
     {
         private const int dikeProfilePropertyIndex = 1;
         private const int worldReferencePointPropertyIndex = 2;
@@ -202,7 +204,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
         }
 
         [PropertyOrder(hydraulicBoundaryLocationPropertyIndex)]
-        [Editor(typeof(GrassCoverErosionInwardsInputContextHydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
+        [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_DisplayName")]
         [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_Description")]
@@ -225,6 +227,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.PropertyClasses
             return data.WrappedData.DikeProfile == null;
         }
 
+        /// <summary>
+        /// Returns the collection of available dike profiles.
+        /// </summary>
+        /// <returns>A collection of dike profiles.</returns>
         public IEnumerable<DikeProfile> GetAvailableDikeProfiles()
         {
             return data.AvailableDikeProfiles;
