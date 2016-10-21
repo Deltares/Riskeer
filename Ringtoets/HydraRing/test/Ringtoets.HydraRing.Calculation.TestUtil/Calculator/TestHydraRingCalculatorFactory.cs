@@ -125,6 +125,12 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public string OutputFileContent { get; set; }
     }
 
+    public class TestStructuresClosureCalculator : TestHydraRingCalculator<StructuresClosureCalculationInput>, IStructuresClosureCalculator
+    {
+        public double ExceedanceProbabilityBeta { get; set; }
+        public string OutputFileContent { get; set; }
+    }
+
     public class TestHydraRingCalculator<T>
     {
         public readonly List<T> ReceivedInputs = new List<T>();

@@ -73,5 +73,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         {
             return new StructuresOvertoppingCalculator(hlcdDirectory, ringId);
         }
+
+        public IStructuresClosureCalculator CreateStructuresClosureCalculator(string hlcdDirectory, string ringId)
+        {
+            return new StructuresClosureCalculator(hlcdDirectory, ringId);
+        }
     }
 }
