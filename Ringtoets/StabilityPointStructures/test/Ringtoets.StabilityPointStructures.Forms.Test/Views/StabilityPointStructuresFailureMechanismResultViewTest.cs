@@ -38,8 +38,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
     public class StabilityPointStructuresFailureMechanismResultViewTest
     {
         private const int nameColumnIndex = 0;
-        private const int assessmentLayerTwoAIndex = 1;
-        private const int assessmentLayerThreeIndex = 2;
+        private const int assessmentLayerOneIndex = 1;
+        private const int assessmentLayerTwoAIndex = 2;
+        private const int assessmentLayerThreeIndex = 3;
 
         [Test]
         public void GivenFormWithStabilityPointStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
@@ -54,11 +55,13 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(3, dataGridView.ColumnCount);
+                Assert.AreEqual(4, dataGridView.ColumnCount);
 
+                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
+                Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one, dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
                 Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a, dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
                 Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three, dataGridView.Columns[assessmentLayerThreeIndex].HeaderText);
 
@@ -82,12 +85,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             Random random = new Random(21);
             var result1 = new StabilityPointStructuresFailureMechanismSectionResult(section1)
             {
+                AssessmentLayerOne = true,
                 AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             var result2 = new StabilityPointStructuresFailureMechanismSectionResult(section2)
             {
-                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
+                AssessmentLayerOne = true,
+                AssessmentLayerTwoA = (RoundedDouble)random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
 
@@ -110,15 +115,17 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 Assert.AreEqual(2, rows.Count);
 
                 var cells = rows[0].Cells;
-                Assert.AreEqual(3, cells.Count);
+                Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                Assert.IsTrue((Boolean) cells[assessmentLayerOneIndex].Value);
                 var expectedAssessmentLayer2AString1 = ProbabilityFormattingHelper.Format(result1.AssessmentLayerTwoA);
                 Assert.AreEqual(expectedAssessmentLayer2AString1, cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
-                Assert.AreEqual(3, cells.Count);
+                Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
+                Assert.IsTrue((Boolean)cells[assessmentLayerOneIndex].Value);
                 var expectedAssessmentLayer2AString2 = ProbabilityFormattingHelper.Format(result2.AssessmentLayerTwoA);
                 Assert.AreEqual(expectedAssessmentLayer2AString2, cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);

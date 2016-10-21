@@ -23,9 +23,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
 
@@ -35,7 +35,7 @@ namespace Ringtoets.Piping.Forms.Views
     /// Container of a <see cref="PipingFailureMechanismSectionResult"/>, which takes care of the
     /// representation of properties in a grid.
     /// </summary>
-    internal class PipingFailureMechanismSectionResultRow
+    internal class PipingFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>
     {
         private const double tolerance = 1e-6;
         private readonly IEnumerable<PipingCalculationScenario> calculations;
@@ -46,47 +46,18 @@ namespace Ringtoets.Piping.Forms.Views
         /// <param name="sectionResult">The <see cref="PipingFailureMechanismSectionResult"/> that is 
         ///     the source of this row.</param>
         /// <param name="calculations"></param>
-        /// <exception cref="ArgumentNullException">Throw when <paramref name="sectionResult"/> is
-        /// <c>null</c>.</exception>
-        public PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult, IEnumerable<PipingCalculationScenario> calculations)
+        /// <exception cref="ArgumentNullException">Throw when any parameter is <c>null</c>.</exception>
+        public PipingFailureMechanismSectionResultRow(PipingFailureMechanismSectionResult sectionResult, IEnumerable<PipingCalculationScenario> calculations) : base(sectionResult)
         {
-            if (sectionResult == null)
+            if (calculations == null)
             {
-                throw new ArgumentNullException("sectionResult");
+                throw new ArgumentNullException("calculations");
             }
-            SectionResult = sectionResult;
             this.calculations = calculations;
         }
 
         /// <summary>
-        /// Gets the name of the failure mechanism section.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return SectionResult.Section.Name;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value representing whether the section passed the layer 0 assessment.
-        /// </summary>
-        public bool AssessmentLayerOne
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerOne;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerOne = value;
-                SectionResult.NotifyObservers();
-            }
-        }
-
-        /// <summary>
-        /// Gets the value representing the result of the layer 2a assessment.
+        /// Gets the assessment layer two a of the <see cref="PipingFailureMechanismSectionResult"/>.
         /// </summary>
         [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
         public double AssessmentLayerTwoA
@@ -111,21 +82,14 @@ namespace Ringtoets.Piping.Forms.Views
         }
 
         /// <summary>
-        /// Gets or sets the value representing the result of the layer 3 assessment.
+        /// Gets the <see cref="PipingFailureMechanismSectionResult"/> that is the source of this row.
         /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
+        public PipingFailureMechanismSectionResult GetSectionResult
         {
             get
             {
-                return SectionResult.AssessmentLayerThree;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerThree = value;
+                return SectionResult;
             }
         }
-
-        public PipingFailureMechanismSectionResult SectionResult { get; private set; }
     }
 }

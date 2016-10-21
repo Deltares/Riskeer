@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Windows.Forms;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
@@ -36,6 +37,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         /// </summary>
         public StabilityPointStructuresFailureMechanismResultView()
         {
+            DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
             AddDataGridColumns();
         }
 
@@ -44,18 +46,43 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             return new StabilityPointStructuresFailureMechanismSectionResultRow(sectionResult);
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+
+            base.Dispose(disposing);
+        }
+
         private void AddDataGridColumns()
         {
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<StabilityPointStructuresFailureMechanismSectionResultRow>(sr => sr.Name),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
+            DataGridViewControl.AddCheckBoxColumn(
+                TypeUtils.GetMemberName<StabilityPointStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerOne),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<StabilityPointStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a);
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<StabilityPointStructuresFailureMechanismSectionResultRow>(sr => sr.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+        }
+
+        private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
+        {
+            if (eventArgs.ColumnIndex > 1)
+            {
+                if (HasPassedLevelOne(eventArgs.RowIndex))
+                {
+                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+                else
+                {
+                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+            }
         }
     }
 }

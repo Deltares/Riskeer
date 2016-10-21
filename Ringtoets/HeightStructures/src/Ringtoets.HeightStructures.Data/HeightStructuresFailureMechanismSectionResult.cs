@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.HeightStructures.Data
@@ -41,7 +40,6 @@ namespace Ringtoets.HeightStructures.Data
         public HeightStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             assessmentLayerTwoA = double.NaN;
-            AssessmentLayerThree = (RoundedDouble) double.NaN;
         }
 
         /// <summary>
@@ -54,16 +52,6 @@ namespace Ringtoets.HeightStructures.Data
                 return assessmentLayerTwoA;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the value of assessment layer three.
-        /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
-
-        /// <summary>
-        /// Gets or sets the state of the assessment layer one.
-        /// </summary>
-        public bool AssessmentLayerOne { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="HeightStructuresCalculation"/>, which is chosen 

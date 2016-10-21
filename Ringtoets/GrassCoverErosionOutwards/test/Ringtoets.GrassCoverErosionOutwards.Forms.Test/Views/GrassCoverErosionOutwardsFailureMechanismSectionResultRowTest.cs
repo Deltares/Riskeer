@@ -19,16 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Core.Common.Utils.Reflection;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Forms.Views;
 
@@ -38,60 +32,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(null);
-
-            // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sectionResult", paramName);
-        }
-
-        [Test]
-        public void Constructor_WithSectionResult_PropertiesFromSectionAndResult()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
 
             // Call
             var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
 
             // Assert
-            Assert.AreEqual(section.Name, row.Name);
-            Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
+            Assert.IsInstanceOf<FailureMechanismSectionResultRow<GrassCoverErosionOutwardsFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
-            Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
-
-            Assert.IsTrue(TypeUtils.HasTypeConverter<GrassCoverErosionOutwardsFailureMechanismSectionResultRow,
-                              NoValueRoundedDoubleConverter>(r => r.AssessmentLayerThree));
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(bool newValue)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var section = CreateSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
-            result.Attach(observer);
-
-            var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerOne = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerOne);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -99,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
         {
             // Setup
             var newValue = AssessmentLayerTwoAResult.Successful;
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
             var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
 
@@ -108,23 +60,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
 
             // Assert
             Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
-        }
-
-        [Test]
-        public void AssessmentLayerThree_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            var random = new Random(21);
-            var newValue = random.NextDouble();
-            var section = CreateSection();
-            var result = new GrassCoverErosionOutwardsFailureMechanismSectionResult(section);
-            var row = new GrassCoverErosionOutwardsFailureMechanismSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerThree = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
         }
 
         private static FailureMechanismSection CreateSection()

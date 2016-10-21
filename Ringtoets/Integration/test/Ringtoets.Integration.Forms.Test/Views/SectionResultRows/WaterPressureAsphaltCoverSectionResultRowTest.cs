@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
@@ -28,6 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
@@ -37,14 +37,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
     public class WaterPressureAsphaltCoverSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
+        public void Constructor_WithSectionResult_ExpectedValues()
         {
+            // Setup
+            var section = CreateSection();
+            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section);
+
             // Call
-            TestDelegate test = () => new WaterPressureAsphaltCoverSectionResultRow(null);
+            var row = new WaterPressureAsphaltCoverSectionResultRow(result);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sectionResult", paramName);
+            Assert.IsInstanceOf<FailureMechanismSectionResultRow<WaterPressureAsphaltCoverFailureMechanismSectionResult>>(row);
         }
 
         [Test]
@@ -58,38 +61,11 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var row = new WaterPressureAsphaltCoverSectionResultRow(result);
 
             // Assert
-            Assert.AreEqual(section.Name, row.Name);
-            Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             Assert.IsTrue(TypeUtils.HasTypeConverter<WaterPressureAsphaltCoverSectionResultRow,
                               NoValueRoundedDoubleConverter>(
                                   r => r.AssessmentLayerThree));
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(bool newValue)
-        {
-            // Setup
-            var section = CreateSection();
-            var result = new WaterPressureAsphaltCoverFailureMechanismSectionResult(section);
-            var row = new WaterPressureAsphaltCoverSectionResultRow(result);
-
-            int counter = 0;
-            using (new Observer(() => counter++)
-            {
-                Observable = result
-            })
-            {
-                // Call
-                row.AssessmentLayerOne = newValue;
-
-                // Assert
-                Assert.AreEqual(1, counter);
-                Assert.AreEqual(newValue, result.AssessmentLayerOne);
-            }
         }
 
         [Test]

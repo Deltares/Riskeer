@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -29,17 +28,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultTest
     {
-        [Test]
-        public void Constructor_WithoutSection_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new GrassCoverErosionOutwardsFailureMechanismSectionResult(null);
-
-            // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
-        }
-
         [Test]
         public void Constructor_WithSection_ResultCreatedForSection()
         {
@@ -54,10 +42,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Data.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
-            Assert.AreSame(section, result.Section);
-            Assert.IsFalse(result.AssessmentLayerOne);
             Assert.AreEqual(AssessmentLayerTwoAResult.NotCalculated, result.AssessmentLayerTwoA);
-            Assert.IsNaN(result.AssessmentLayerThree);
         }
     }
 }

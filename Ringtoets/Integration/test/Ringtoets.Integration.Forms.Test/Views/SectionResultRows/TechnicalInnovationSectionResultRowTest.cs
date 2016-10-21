@@ -20,15 +20,14 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
@@ -38,14 +37,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
     public class TechnicalInnovationSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
+        public void Constructor_WithSectionResult_ExpectedValues()
         {
+            // Setup
+            var section = CreateSection();
+            var result = new TechnicalInnovationFailureMechanismSectionResult(section);
+
             // Call
-            TestDelegate test = () => new TechnicalInnovationSectionResultRow(null);
+            var row = new TechnicalInnovationSectionResultRow(result);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sectionResult", paramName);
+            Assert.IsInstanceOf<FailureMechanismSectionResultRow<TechnicalInnovationFailureMechanismSectionResult>>(row);
         }
 
         [Test]
@@ -59,39 +61,11 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var row = new TechnicalInnovationSectionResultRow(result);
 
             // Assert
-            Assert.AreEqual(section.Name, row.Name);
-            Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 
             Assert.IsTrue(TypeUtils.HasTypeConverter<TechnicalInnovationSectionResultRow,
                               NoValueRoundedDoubleConverter>(
                                   r => r.AssessmentLayerThree));
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(bool newValue)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var section = CreateSection();
-            var result = new TechnicalInnovationFailureMechanismSectionResult(section);
-            result.Attach(observer);
-
-            var row = new TechnicalInnovationSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerOne = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerOne);
-
-            mocks.VerifyAll();
         }
 
         [Test]

@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Data.FailureMechanism
 {
@@ -41,7 +42,18 @@ namespace Ringtoets.Common.Data.FailureMechanism
                 throw new ArgumentNullException("section");
             }
             Section = section;
+            AssessmentLayerThree = (RoundedDouble)double.NaN;
         }
+
+        /// <summary>
+        /// Gets or sets the state of the assessment layer one.
+        /// </summary>
+        public bool AssessmentLayerOne { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value of the tailored assessment of safety.
+        /// </summary>
+        public RoundedDouble AssessmentLayerThree { get; set; }
 
         /// <summary>
         /// Gets the encapsulated <see cref="FailureMechanismSection"/>.

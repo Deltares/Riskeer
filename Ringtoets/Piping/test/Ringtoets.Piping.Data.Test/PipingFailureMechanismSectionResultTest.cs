@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -31,71 +29,21 @@ namespace Ringtoets.Piping.Data.Test
     public class PipingFailureMechanismSectionResultTest
     {
         [Test]
-        public void Constructor_DefaultValues()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            var section = new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             // Call
-            PipingFailureMechanismSectionResult sectionResult = new PipingFailureMechanismSectionResult(section);
+            var sectionResult = new PipingFailureMechanismSectionResult(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
-            Assert.IsFalse(sectionResult.AssessmentLayerOne);
             Assert.IsNaN(sectionResult.GetAssessmentLayerTwoA(new PipingCalculationScenario[0]));
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
-        }
-
-        [Test]
-        public void Constructor_SectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new PipingFailureMechanismSectionResult(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("section", exception.ParamName);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentLayerOne_Always_ReturnsSetValue(bool newValue)
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
-
-            // Call
-            failureMechanismSectionResult.AssessmentLayerOne = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerOne);
-        }
-
-        [Test]
-        public void AssessmentLayerThree_Always_ReturnsSetValue()
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var failureMechanismSectionResult = new PipingFailureMechanismSectionResult(section);
-            var assessmentLayerThreeValue = (RoundedDouble) 3.0;
-
-            // Call
-            failureMechanismSectionResult.AssessmentLayerThree = assessmentLayerThreeValue;
-
-            // Assert
-            Assert.AreEqual(assessmentLayerThreeValue, failureMechanismSectionResult.AssessmentLayerThree);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("test", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
         }
     }
 }

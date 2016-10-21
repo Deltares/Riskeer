@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Properties;
 
@@ -40,11 +39,9 @@ namespace Ringtoets.StabilityPointStructures.Data
         /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
         /// <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> will hold the result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSection section)
-            : base(section)
+        public StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             AssessmentLayerTwoA = double.NaN;
-            AssessmentLayerThree = (RoundedDouble) double.NaN;
         }
 
         /// <summary>
@@ -66,10 +63,5 @@ namespace Ringtoets.StabilityPointStructures.Data
                 assessmentLayerTwoA = value;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
     }
 }

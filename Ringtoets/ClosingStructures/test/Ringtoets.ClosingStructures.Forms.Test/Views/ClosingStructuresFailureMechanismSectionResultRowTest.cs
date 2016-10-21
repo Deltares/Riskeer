@@ -20,17 +20,14 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.Views;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.Views
@@ -39,64 +36,21 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
     public class ClosingStructuresFailureMechanismSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new ClosingStructuresFailureMechanismSectionResultRow(null);
-
-            // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sectionResult", paramName);
-        }
-
-        [Test]
-        public void Constructor_WithSectionResult_PropertiesFromSectionAndResult()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Call
             var row = new ClosingStructuresFailureMechanismSectionResultRow(result);
 
             // Assert
-            Assert.AreEqual(section.Name, row.Name);
-            Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
+            Assert.IsInstanceOf<FailureMechanismSectionResultRow<ClosingStructuresFailureMechanismSectionResult>>(row);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
-            Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
-
             Assert.IsTrue(TypeUtils.HasTypeConverter<ClosingStructuresFailureMechanismSectionResultRow,
                               FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
-            Assert.IsTrue(TypeUtils.HasTypeConverter<ClosingStructuresFailureMechanismSectionResultRow,
-                              NoValueRoundedDoubleConverter>(
-                                  r => r.AssessmentLayerThree));
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(bool newValue)
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var section = CreateSection();
-            var result = new ClosingStructuresFailureMechanismSectionResult(section);
-            result.Attach(observer);
-
-            var row = new ClosingStructuresFailureMechanismSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerOne = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerOne);
-
-            mocks.VerifyAll();
         }
 
         [Test]
@@ -107,7 +61,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void AssessmentLayerTwoA_ForValidValues_ResultPropertyChanged(double value)
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
             var row = new ClosingStructuresFailureMechanismSectionResultRow(result);
 
@@ -126,7 +80,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void AssessmentLayerTwoA_ForInvalidValues_ThrowsArgumentException(double value)
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
             var row = new ClosingStructuresFailureMechanismSectionResultRow(result);
 
@@ -135,25 +89,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;
-            Assert.AreEqual(RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1,
-                            message);
-        }
-
-        [Test]
-        public void AssessmentLayerThree_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            var random = new Random(21);
-            var newValue = random.NextDouble();
-            var section = CreateSection();
-            var result = new ClosingStructuresFailureMechanismSectionResult(section);
-            var row = new ClosingStructuresFailureMechanismSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerThree = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
+            Assert.AreEqual(
+                RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1,
+                message);
         }
 
         private static FailureMechanismSection CreateSection()

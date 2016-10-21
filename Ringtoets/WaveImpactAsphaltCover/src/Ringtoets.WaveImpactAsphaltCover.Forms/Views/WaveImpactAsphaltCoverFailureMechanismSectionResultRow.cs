@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
 namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
@@ -30,81 +31,29 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Views
     /// <summary>
     /// Class for displaying <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>  as a row in a grid view.
     /// </summary>
-    internal class WaveImpactAsphaltCoverFailureMechanismSectionResultRow
+    internal class WaveImpactAsphaltCoverFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<WaveImpactAsphaltCoverFailureMechanismSectionResult>
     {
-        private readonly WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult;
-
         /// <summary>
         /// Creates a new instance of <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public WaveImpactAsphaltCoverFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult)
-        {
-            if (sectionResult == null)
-            {
-                throw new ArgumentNullException("sectionResult");
-            }
-            this.sectionResult = sectionResult;
-        }
+        public WaveImpactAsphaltCoverFailureMechanismSectionResultRow(WaveImpactAsphaltCoverFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
-        /// Gets the name of the failure mechanism section.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return sectionResult.Section.Name;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value representing the result of the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult.AssessmentLayerOne"/>.
-        /// </summary>
-        public bool AssessmentLayerOne
-        {
-            get
-            {
-                return sectionResult.AssessmentLayerOne;
-            }
-            set
-            {
-                sectionResult.AssessmentLayerOne = value;
-                sectionResult.NotifyObservers();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value representing the result of the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
+        /// Gets the assessment layer two a of the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
         /// </summary>
         [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
         public RoundedDouble AssessmentLayerTwoA
         {
             get
             {
-                return sectionResult.AssessmentLayerTwoA;
+                return SectionResult.AssessmentLayerTwoA;
             }
             set
             {
-                sectionResult.AssessmentLayerTwoA = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value representing the result of the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult.AssessmentLayerThree"/>.
-        /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
-        {
-            get
-            {
-                return sectionResult.AssessmentLayerThree;
-            }
-            set
-            {
-                sectionResult.AssessmentLayerThree = value;
+                SectionResult.AssessmentLayerTwoA = value;
             }
         }
     }

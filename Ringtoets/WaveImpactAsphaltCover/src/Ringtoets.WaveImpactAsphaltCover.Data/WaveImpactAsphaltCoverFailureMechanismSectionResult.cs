@@ -40,22 +40,11 @@ namespace Ringtoets.WaveImpactAsphaltCover.Data
         public WaveImpactAsphaltCoverFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             AssessmentLayerTwoA = (RoundedDouble) double.NaN;
-            AssessmentLayerThree = (RoundedDouble) double.NaN;
         }
-
-        /// <summary>
-        /// Gets or sets the value representing whether the simple assessment of safety passed.
-        /// </summary>
-        public bool AssessmentLayerOne { get; set; }
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section.
         /// </summary>
         public RoundedDouble AssessmentLayerTwoA { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
     }
 }

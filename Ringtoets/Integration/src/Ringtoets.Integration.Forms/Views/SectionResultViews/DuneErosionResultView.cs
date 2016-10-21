@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -41,6 +42,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
         /// </summary>
         public DuneErosionResultView()
         {
+            DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
             AddDataGridColumns();
         }
 
@@ -61,6 +63,9 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
                 TypeUtils.GetMemberName<DuneErosionSectionResultRow>(sr => sr.Name),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
+            DataGridViewControl.AddCheckBoxColumn(
+                TypeUtils.GetMemberName<DuneErosionSectionResultRow>(sr => sr.AssessmentLayerOne),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
             DataGridViewControl.AddComboBoxColumn(
                 TypeUtils.GetMemberName<DuneErosionSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
@@ -70,6 +75,28 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<DuneErosionSectionResultRow>(sr => sr.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+
+            base.Dispose(disposing);
+        }
+
+        private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
+        {
+            if (eventArgs.ColumnIndex > 1)
+            {
+                if (HasPassedLevelOne(eventArgs.RowIndex))
+                {
+                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+                else
+                {
+                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+            }
         }
     }
 }

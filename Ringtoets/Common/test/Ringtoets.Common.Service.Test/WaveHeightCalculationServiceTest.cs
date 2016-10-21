@@ -201,7 +201,6 @@ namespace Ringtoets.Common.Service.Test
                 DesignWaterLevel = new RoundedDouble(2, double.NaN),
             };
 
-            ReliabilityIndexCalculationOutput output = null;
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;

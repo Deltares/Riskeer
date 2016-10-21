@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -31,18 +30,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
     public class TechnicalInnovationFailureMechanismSectionResultTest
     {
         [Test]
-        public void Constructor_WithoutSection_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new TechnicalInnovationFailureMechanismSectionResult(null);
-
-            // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
-        }
-
-        [Test]
-        public void Constructor_WithSection_ResultCreatedForSection()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
             var section = new FailureMechanismSection("Section", new[]
@@ -56,8 +44,6 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
-            Assert.IsFalse(result.AssessmentLayerOne);
-            Assert.IsNaN(result.AssessmentLayerThree);
         }
     }
 }

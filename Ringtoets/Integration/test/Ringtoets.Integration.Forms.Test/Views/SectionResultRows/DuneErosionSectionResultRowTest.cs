@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
@@ -36,14 +37,17 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
     public class DuneErosionSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
+        public void Constructor_WithSectionResult_ExpectedValues()
         {
+            // Setup
+            var section = CreateSection();
+            var result = new DuneErosionFailureMechanismSectionResult(section);
+
             // Call
-            TestDelegate test = () => new DuneErosionSectionResultRow(null);
+            var row = new DuneErosionSectionResultRow(result);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sectionResult", paramName);
+            Assert.IsInstanceOf<FailureMechanismSectionResultRow<DuneErosionFailureMechanismSectionResult>>(row);
         }
 
         [Test]
@@ -57,7 +61,6 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             var row = new DuneErosionSectionResultRow(result);
 
             // Assert
-            Assert.AreEqual(section.Name, row.Name);
             Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
 

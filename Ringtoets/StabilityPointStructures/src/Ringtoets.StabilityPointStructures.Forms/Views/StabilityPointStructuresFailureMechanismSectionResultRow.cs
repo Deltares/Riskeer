@@ -21,9 +21,8 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Data;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Ringtoets.StabilityPointStructures.Forms.Views
@@ -31,38 +30,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     /// <summary>
     /// Class for displaying <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> as a row in a grid view.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanismSectionResultRow
+    public class StabilityPointStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<StabilityPointStructuresFailureMechanismSectionResult>
     {
-        private readonly StabilityPointStructuresFailureMechanismSectionResult sectionResult;
-
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public StabilityPointStructuresFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
-        {
-            if (sectionResult == null)
-            {
-                throw new ArgumentNullException("sectionResult");
-            }
-            this.sectionResult = sectionResult;
-        }
+        public StabilityPointStructuresFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
-        /// Gets the name of the <see cref="FailureMechanismSection"/>.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return sectionResult.Section.Name;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value representing the result of the <see cref="StabilityPointStructuresFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
+        /// Gets the assessment layer two a of the <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is
         /// not in the range [0,1].</exception>
@@ -71,27 +50,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         {
             get
             {
-                return sectionResult.AssessmentLayerTwoA;
+                return SectionResult.AssessmentLayerTwoA;
             }
             set
             {
-                sectionResult.AssessmentLayerTwoA = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value representing the result of the <see cref="StabilityPointStructuresFailureMechanismSectionResult.AssessmentLayerThree"/>.
-        /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
-        {
-            get
-            {
-                return sectionResult.AssessmentLayerThree;
-            }
-            set
-            {
-                sectionResult.AssessmentLayerThree = value;
+                SectionResult.AssessmentLayerTwoA = value;
             }
         }
     }

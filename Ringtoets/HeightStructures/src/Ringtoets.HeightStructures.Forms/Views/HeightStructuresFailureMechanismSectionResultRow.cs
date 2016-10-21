@@ -21,9 +21,8 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Data;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.HeightStructures.Data;
 
 namespace Ringtoets.HeightStructures.Forms.Views
@@ -31,76 +30,24 @@ namespace Ringtoets.HeightStructures.Forms.Views
     /// <summary>
     /// This class represents a row of <see cref="HeightStructuresFailureMechanismSectionResult"/>.
     /// </summary>
-    internal class HeightStructuresFailureMechanismSectionResultRow
+    internal class HeightStructuresFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<HeightStructuresFailureMechanismSectionResult>
     {
-        private readonly HeightStructuresFailureMechanismSectionResult sectionResult;
-
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="HeightStructuresFailureMechanismSectionResult"/> this row contains.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public HeightStructuresFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult)
-        {
-            if (sectionResult == null)
-            {
-                throw new ArgumentNullException("sectionResult");
-            }
-            this.sectionResult = sectionResult;
-        }
+        public HeightStructuresFailureMechanismSectionResultRow(HeightStructuresFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
-        /// Gets the name of the <see cref="FailureMechanismSection"/>.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return sectionResult.Section.Name;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the assessment layer one of the <see cref="sectionResult"/>.
-        /// </summary>
-        public bool AssessmentLayerOne
-        {
-            get
-            {
-                return sectionResult.AssessmentLayerOne;
-            }
-            set
-            {
-                sectionResult.AssessmentLayerOne = value;
-                sectionResult.NotifyObservers();
-            }
-        }
-
-        /// <summary>
-        /// Gets the assessment layer two a of the <see cref="sectionResult"/>.
+        /// Gets the assessment layer two a of the <see cref="HeightStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
         public double AssessmentLayerTwoA
         {
             get
             {
-                return sectionResult.AssessmentLayerTwoA;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the assessment layer three of the <see cref="sectionResult"/>.
-        /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
-        {
-            get
-            {
-                return sectionResult.AssessmentLayerThree;
-            }
-            set
-            {
-                sectionResult.AssessmentLayerThree = value;
+                return SectionResult.AssessmentLayerTwoA;
             }
         }
     }

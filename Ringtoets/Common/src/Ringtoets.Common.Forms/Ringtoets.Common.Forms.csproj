@@ -107,6 +107,7 @@
     <Compile Include="UITypeEditors\IHasStructureProperty.cs" />
     <Compile Include="UITypeEditors\StructureEditor.cs" />
     <Compile Include="Views\DesignWaterLevelLocationRow.cs" />
+    <Compile Include="Views\FailureMechanismSectionResultRow.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationRow.cs" />
     <Compile Include="Views\HydraulicBoundaryLocationsView.cs">
       <SubType>UserControl</SubType>

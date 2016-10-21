@@ -21,8 +21,8 @@
 
 using System;
 using System.ComponentModel;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Ringtoets.Integration.Forms.Views.SectionResultRows
@@ -41,23 +41,7 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
         public MacrostabilityOutwardsSectionResultRow(MacrostabilityOutwardsFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
-        /// Gets or sets the value representing the result of the <see cref="MacrostabilityOutwardsFailureMechanismSectionResult.AssessmentLayerOne"/>.
-        /// </summary>
-        public bool AssessmentLayerOne
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerOne;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerOne = value;
-                SectionResult.NotifyObservers();
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value representing the result of the <see cref="MacrostabilityOutwardsFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
+        /// Gets the assessment layer two a of the <see cref="MacrostabilityOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is 
         /// not in the range [0,1].</exception>
@@ -71,22 +55,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             set
             {
                 SectionResult.AssessmentLayerTwoA = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value representing the result of the <see cref="MacrostabilityOutwardsFailureMechanismSectionResult.AssessmentLayerThree"/>.
-        /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerThree;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerThree = value;
             }
         }
     }

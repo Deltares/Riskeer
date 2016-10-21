@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -31,24 +30,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
     public class GrassCoverErosionInwardsFailureMechanismSectionResultTest
     {
         [Test]
-        public void Constructor_WithoutSection_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new GrassCoverErosionInwardsFailureMechanismSectionResult(null);
-
-            // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
-        }
-
-        [Test]
-        public void Constructor_WithSection_ResultCreatedForSection()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
+            FailureMechanismSection section = CreateSection();
 
             // Call
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
@@ -56,20 +41,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
-            Assert.IsNull(result.Calculation);
-            Assert.IsFalse(result.AssessmentLayerOne);
             Assert.IsNaN(result.AssessmentLayerTwoA);
-            Assert.IsNaN(result.AssessmentLayerThree);
         }
 
         [Test]
         public void Calculation_SetNewValue_GetNewlySetValue()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
+            FailureMechanismSection section = CreateSection();
 
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section);
 
@@ -86,10 +65,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void AssessmentLayerTwoA_CalculationNull_ReturnNaN()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
+            FailureMechanismSection section = CreateSection();
 
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
             {
@@ -107,10 +83,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
+            FailureMechanismSection section = CreateSection();
 
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0);
             var result = new GrassCoverErosionInwardsFailureMechanismSectionResult(section)
@@ -132,10 +105,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
+            FailureMechanismSection section = CreateSection();
 
             double probability = 0.65;
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0);
@@ -152,6 +122,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
 
             // Assert
             Assert.AreEqual(probability, twoAValue);
+        }
+
+        private static FailureMechanismSection CreateSection()
+        {
+            return new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
         }
     }
 }

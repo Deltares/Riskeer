@@ -21,16 +21,14 @@
 
 using System;
 using System.Linq;
-using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
-using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.Forms.Views;
@@ -42,70 +40,43 @@ namespace Ringtoets.Piping.Forms.Test.Views
     public class PipingFailureMechanismSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new PipingFailureMechanismSectionResultRow(null, null);
-
-            // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("sectionResult", paramName);
-        }
-
-        [Test]
-        public void Constructor_WithSectionResult_PropertiesFromSectionAndResult()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new PipingFailureMechanismSectionResult(section);
 
             // Call
-            var row = new PipingFailureMechanismSectionResultRow(result, null);
+            var row = new PipingFailureMechanismSectionResultRow(result, Enumerable.Empty<PipingCalculationScenario>());
 
             // Assert
-            Assert.AreEqual(section.Name, row.Name);
-            Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
-            Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
-
+            Assert.IsInstanceOf<FailureMechanismSectionResultRow<PipingFailureMechanismSectionResult>>(row);
+            Assert.AreEqual(result.GetAssessmentLayerTwoA(Enumerable.Empty<PipingCalculationScenario>()), row.AssessmentLayerTwoA);
             Assert.IsTrue(TypeUtils.HasTypeConverter<PipingFailureMechanismSectionResultRow,
                               FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
-            Assert.IsTrue(TypeUtils.HasTypeConverter<PipingFailureMechanismSectionResultRow,
-                              NoValueRoundedDoubleConverter>(
-                                  r => r.AssessmentLayerThree));
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(bool newValue)
+        public void Constructor_CalculationsNull_ThrowsArgumentNullException()
         {
             // Setup
-            var mocks = new MockRepository();
-            var observer = mocks.StrictMock<IObserver>();
-            observer.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new PipingFailureMechanismSectionResult(section);
-            result.Attach(observer);
-
-            var row = new PipingFailureMechanismSectionResultRow(result, null);
 
             // Call
-            row.AssessmentLayerOne = newValue;
+            TestDelegate test = () => new PipingFailureMechanismSectionResultRow(result, null);
 
             // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerOne);
-
-            mocks.VerifyAll();
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("calculations", paramName);
         }
 
         [Test]
         public void AssessmentLayerTwoA_NoScenarios_ReturnNaN()
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new PipingFailureMechanismSectionResult(section);
 
             // Call
@@ -124,7 +95,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void AssessmentLayerTwoA_RelevantScenarioContributionDontAddUpTo1_ReturnNaN(double contributionA, double contributionB)
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
 
             var scenarioA = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
             var scenarioB = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
@@ -151,7 +122,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void AssessmentLayerTwoA_NoRelevantScenariosDone_ReturnNaN(CalculationScenarioStatus status)
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
 
             var scenario = status.Equals(CalculationScenarioStatus.NotCalculated)
                                ? PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section)
@@ -174,7 +145,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
         public void AssessmentLayerTwoA_RelevantScenariosDone_ResultOfSection()
         {
             // Setup            
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(0.2, section);
             scenario.Contribution = (RoundedDouble) 1.0;
 
@@ -193,23 +164,6 @@ namespace Ringtoets.Piping.Forms.Test.Views
                 scenario
             });
             Assert.AreEqual(expected, assessmentLayerTwoA, 1e-6);
-        }
-
-        [Test]
-        public void AssessmentLayerThree_AlwaysOnChange_ResultPropertyChanged()
-        {
-            // Setup
-            var random = new Random(21);
-            var newValue = random.NextDouble();
-            var section = CreateSection();
-            var result = new PipingFailureMechanismSectionResult(section);
-            var row = new PipingFailureMechanismSectionResultRow(result, null);
-
-            // Call
-            row.AssessmentLayerThree = (RoundedDouble) newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerThree, row.AssessmentLayerThree.GetAccuracy());
         }
 
         private static FailureMechanismSection CreateSection()

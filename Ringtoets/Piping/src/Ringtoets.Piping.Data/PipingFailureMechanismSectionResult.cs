@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Piping.Data
@@ -36,19 +35,6 @@ namespace Ringtoets.Piping.Data
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public PipingFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
-        {
-            AssessmentLayerThree = (RoundedDouble) double.NaN;
-        }
-
-        /// <summary>
-        /// Gets or sets the value of assessment layer three.
-        /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
-
-        /// <summary>
-        /// Gets or sets the state of the assessment layer one.
-        /// </summary>
-        public bool AssessmentLayerOne { get; set; }
+        public PipingFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
     }
 }

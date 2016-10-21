@@ -20,80 +20,87 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.TypeConverters;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
-using Ringtoets.Integration.Forms.Views.SectionResultRows;
 
-namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
+namespace Ringtoets.Common.Forms.Test.Views
 {
     [TestFixture]
-    public class MicrostabilitySectionResultRowTest
+    public class FailureMechanismSectionResultRowTest
     {
         [Test]
-        public void Constructor_WithSectionResult_ExpectedValues()
+        public void Constructor_WithoutSectionResult_ThrowsArgumentNullException()
         {
-            // Setup
-            var section = CreateSection();
-            var result = new MicrostabilityFailureMechanismSectionResult(section);
-
             // Call
-            var row = new MicrostabilitySectionResultRow(result);
+            TestDelegate test = () => new TestFailureMechanismSectionResultRow(null);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResultRow<MicrostabilityFailureMechanismSectionResult>>(row);
+            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("sectionResult", paramName);
         }
 
         [Test]
-        public void Constructor_WithSectionResult_PropertiesFromSectionAndResult()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var section = CreateSection();
-            var result = new MicrostabilityFailureMechanismSectionResult(section);
+            FailureMechanismSection section = CreateSection();
+            var result = new TestFailureMechanismSectionResult(section);
 
             // Call
-            var row = new MicrostabilitySectionResultRow(result);
+            var row = new TestFailureMechanismSectionResultRow(result);
 
             // Assert
-            Assert.AreEqual(result.AssessmentLayerTwoA, row.AssessmentLayerTwoA);
+            Assert.AreEqual(section.Name, row.Name);
+            Assert.AreEqual(result.AssessmentLayerOne, row.AssessmentLayerOne);
             Assert.AreEqual(result.AssessmentLayerThree, row.AssessmentLayerThree);
-
-            Assert.IsTrue(TypeUtils.HasTypeConverter<MicrostabilitySectionResultRow,
+            Assert.IsTrue(TypeUtils.HasTypeConverter<TestFailureMechanismSectionResultRow,
                               NoValueRoundedDoubleConverter>(
                                   r => r.AssessmentLayerThree));
         }
 
         [Test]
-        public void AssessmentLayerTwoA_AlwaysOnChange_ResultPropertyChanged()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AssessmentLayerOne_AlwaysOnChange_NotifyObserversOfResultAndResultPropertyChanged(bool newValue)
         {
             // Setup
-            var newValue = AssessmentLayerTwoAResult.Successful;
-            var section = CreateSection();
-            var result = new MicrostabilityFailureMechanismSectionResult(section);
-            var row = new MicrostabilitySectionResultRow(result);
+            var mocks = new MockRepository();
+            var observer = mocks.StrictMock<IObserver>();
+            observer.Expect(o => o.UpdateObserver());
+            mocks.ReplayAll();
+
+            FailureMechanismSection section = CreateSection();
+            var result = new TestFailureMechanismSectionResult(section);
+            result.Attach(observer);
+
+            var row = new TestFailureMechanismSectionResultRow(result);
 
             // Call
-            row.AssessmentLayerTwoA = newValue;
+            row.AssessmentLayerOne = newValue;
 
             // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
+            Assert.AreEqual(newValue, result.AssessmentLayerOne);
+
+            mocks.VerifyAll();
         }
 
         [Test]
         public void AssessmentLayerThree_AlwaysOnChange_ResultPropertyChanged()
         {
             // Setup
-            var random = new Random(21);
-            var newValue = random.NextDouble();
-            var section = CreateSection();
-            var result = new MicrostabilityFailureMechanismSectionResult(section);
-            var row = new MicrostabilitySectionResultRow(result);
+            Random random = new Random(21);
+            double newValue = random.NextDouble();
+            FailureMechanismSection section = CreateSection();
+            var result = new TestFailureMechanismSectionResult(section);
+            var row = new TestFailureMechanismSectionResultRow(result);
 
             // Call
             row.AssessmentLayerThree = (RoundedDouble) newValue;
@@ -109,5 +116,10 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
                 new Point2D(0, 0)
             });
         }
+    }
+
+    public class TestFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<TestFailureMechanismSectionResult>
+    {
+        public TestFailureMechanismSectionResultRow(TestFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
     }
 }

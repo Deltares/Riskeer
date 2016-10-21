@@ -37,8 +37,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
     public class StabilityStoneCoverResultViewTest
     {
         private const int nameColumnIndex = 0;
-        private const int assessmentLayerTwoAIndex = 1;
-        private const int assessmentLayerThreeIndex = 2;
+        private const int assessmentLayerOneIndex = 1;
+        private const int assessmentLayerTwoAIndex = 2;
+        private const int assessmentLayerThreeIndex = 3;
 
         [Test]
         public void GivenFormWithStabilityStoneCoverFailureMechanismResultView_WhenShown_ThenExpectedColumnsAreVisible()
@@ -55,11 +56,14 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
-                Assert.AreEqual(3, dataGridView.ColumnCount);
+                Assert.AreEqual(4, dataGridView.ColumnCount);
 
+                Assert.IsInstanceOf<DataGridViewCheckBoxColumn>(dataGridView.Columns[assessmentLayerOneIndex]);
                 Assert.IsInstanceOf<DataGridViewComboBoxColumn>(dataGridView.Columns[assessmentLayerTwoAIndex]);
                 Assert.IsInstanceOf<DataGridViewTextBoxColumn>(dataGridView.Columns[assessmentLayerThreeIndex]);
 
+                Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one,
+                                dataGridView.Columns[assessmentLayerOneIndex].HeaderText);
                 Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
                                 dataGridView.Columns[assessmentLayerTwoAIndex].HeaderText);
                 Assert.AreEqual(RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three,
@@ -85,11 +89,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             Random random = new Random(21);
             var result1 = new StabilityStoneCoverFailureMechanismSectionResult(section1)
             {
+                AssessmentLayerOne = true,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Failed,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             var result2 = new StabilityStoneCoverFailureMechanismSectionResult(section2)
             {
+                AssessmentLayerOne = true,
                 AssessmentLayerTwoA = AssessmentLayerTwoAResult.Successful,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
@@ -114,14 +120,16 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 Assert.AreEqual(2, rows.Count);
 
                 var cells = rows[0].Cells;
-                Assert.AreEqual(3, cells.Count);
+                Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                Assert.IsTrue((bool) cells[assessmentLayerOneIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
-                Assert.AreEqual(3, cells.Count);
+                Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
+                Assert.IsTrue((bool)cells[assessmentLayerOneIndex].Value);
                 Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
             }

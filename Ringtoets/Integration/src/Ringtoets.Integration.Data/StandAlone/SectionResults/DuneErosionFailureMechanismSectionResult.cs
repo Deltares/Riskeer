@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResults
@@ -37,20 +36,12 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
         /// <see cref="DuneErosionFailureMechanismSectionResult"/> will hold the result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public DuneErosionFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
-        {
-            AssessmentLayerThree = (RoundedDouble) double.NaN;
-        }
+        public DuneErosionFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
 
         /// <summary>
         /// Gets or sets the value of the detailed assessment of safety per failure mechanism section, for which
         /// the result is a value of <see cref="AssessmentLayerTwoAResult"/>.
         /// </summary>
         public AssessmentLayerTwoAResult AssessmentLayerTwoA { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
     }
 }

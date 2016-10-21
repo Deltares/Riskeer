@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityStoneCover.Data;
 
 namespace Ringtoets.StabilityStoneCover.Forms.Views
@@ -32,7 +30,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
     /// Class for displaying <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>
     /// as a row in a grid view.
     /// </summary>
-    public class StabilityStoneCoverSectionResultRow
+    public class StabilityStoneCoverSectionResultRow : FailureMechanismSectionResultRow<StabilityStoneCoverFailureMechanismSectionResult>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityStoneCoverSectionResultRow"/>.
@@ -40,28 +38,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// <param name="sectionResult">The <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>
         /// to wrap so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public StabilityStoneCoverSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult)
-        {
-            if (sectionResult == null)
-            {
-                throw new ArgumentNullException("sectionResult");
-            }
-            SectionResult = sectionResult;
-        }
+        public StabilityStoneCoverSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
-        /// Gets the name of the failure mechanism section.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return SectionResult.Section.Name;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value representing the result of the <see cref="StabilityStoneCoverFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
+        /// Gets the assessment layer two a of the <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
         /// </summary>
         public AssessmentLayerTwoAResult AssessmentLayerTwoA
         {
@@ -74,26 +54,5 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
                 SectionResult.AssessmentLayerTwoA = value;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the value representing the result of the <see cref="StabilityStoneCoverFailureMechanismSectionResult.AssessmentLayerThree"/>.
-        /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
-        {
-            get
-            {
-                return SectionResult.AssessmentLayerThree;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerThree = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the <see cref="StabilityStoneCoverFailureMechanismSectionResult"/> that is the source of this row.
-        /// </summary>
-        private StabilityStoneCoverFailureMechanismSectionResult SectionResult { get; set; }
     }
 }

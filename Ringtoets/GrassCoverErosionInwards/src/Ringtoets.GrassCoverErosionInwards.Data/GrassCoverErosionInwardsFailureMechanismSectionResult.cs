@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
@@ -36,10 +35,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
-        {
-            AssessmentLayerThree = (RoundedDouble) double.NaN;
-        }
+        public GrassCoverErosionInwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
 
         /// <summary>
         /// Gets the value of assessment layer two a.
@@ -55,16 +51,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
                 return Calculation.Output.ProbabilityAssessmentOutput.Probability;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the value of assessment layer three.
-        /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
-
-        /// <summary>
-        /// Gets or sets the state of the assessment layer one.
-        /// </summary>
-        public bool AssessmentLayerOne { get; set; }
 
         /// <summary>
         /// Gets or sets the <see cref="GrassCoverErosionInwardsCalculation"/>, which is chosen 

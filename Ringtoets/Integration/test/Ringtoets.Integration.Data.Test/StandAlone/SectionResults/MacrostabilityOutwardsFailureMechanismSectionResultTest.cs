@@ -32,24 +32,10 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
     public class MacrostabilityOutwardsFailureMechanismSectionResultTest
     {
         [Test]
-        public void Constructor_WithoutSection_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => new MacrostabilityOutwardsFailureMechanismSectionResult(null);
-
-            // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("section", paramName);
-        }
-
-        [Test]
-        public void Constructor_WithSection_ResultCreatedForSection()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
+            FailureMechanismSection section = CreateSection();
 
             // Call
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
@@ -57,9 +43,7 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
-            Assert.IsFalse(result.AssessmentLayerOne);
             Assert.IsNaN(result.AssessmentLayerTwoA);
-            Assert.IsNaN(result.AssessmentLayerThree);
         }
 
         [Test]
@@ -67,17 +51,14 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         [TestCase(-1e-6)]
         [TestCase(1 + 1e-6)]
         [TestCase(12)]
-        public void AssessmentLayerTwoA_ForInvalidValues_ThrowsException(double a)
+        public void AssessmentLayerTwoA_ForInvalidValues_ThrowsException(double newValue)
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
+            FailureMechanismSection section = CreateSection();
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
 
             // Call
-            TestDelegate test = () => result.AssessmentLayerTwoA = a;
+            TestDelegate test = () => result.AssessmentLayerTwoA = newValue;
 
             // Assert
             var message = Assert.Throws<ArgumentException>(test).Message;
@@ -92,20 +73,25 @@ namespace Ringtoets.Integration.Data.Test.StandAlone.SectionResults
         [TestCase(0.5)]
         [TestCase(1 - 1e-6)]
         [TestCase(1)]
-        public void AssessmentLayerTwoA_ForValidValues_NewValueSet(double a)
+        public void AssessmentLayerTwoA_ForValidValues_NewValueSet(double newValue)
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[]
-            {
-                new Point2D(0, 0)
-            });
+            FailureMechanismSection section = CreateSection();
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
 
             // Call
-            result.AssessmentLayerTwoA = a;
+            result.AssessmentLayerTwoA = newValue;
 
             // Assert
-            Assert.AreEqual(a, result.AssessmentLayerTwoA);
+            Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
+        }
+
+        private static FailureMechanismSection CreateSection()
+        {
+            return new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
         }
     }
 }

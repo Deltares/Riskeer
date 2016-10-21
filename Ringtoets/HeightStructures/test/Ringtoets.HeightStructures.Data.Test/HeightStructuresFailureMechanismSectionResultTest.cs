@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -31,74 +29,21 @@ namespace Ringtoets.HeightStructures.Data.Test
     public class HeightStructuresFailureMechanismSectionResultTest
     {
         [Test]
-        public void Constructor_DefaultValues()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
-            FailureMechanismSection section = CreateSection();
+            FailureMechanismSection section = new FailureMechanismSection("test", new[]
+            {
+                new Point2D(0, 0)
+            });
 
             // Call
-            HeightStructuresFailureMechanismSectionResult sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
-            Assert.IsFalse(sectionResult.AssessmentLayerOne);
             Assert.IsNaN(sectionResult.AssessmentLayerTwoA);
-            Assert.IsNaN(sectionResult.AssessmentLayerThree);
-        }
-
-        [Test]
-        public void Constructor_SectionNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate call = () => new HeightStructuresFailureMechanismSectionResult(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("section", exception.ParamName);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentLayerOne_Always_ReturnsSetValue(bool newValue)
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
-
-            // Call
-            failureMechanismSectionResult.AssessmentLayerOne = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerOne);
-        }
-
-        [Test]
-        [TestCase(2.3)]
-        [TestCase(24.6)]
-        public void AssessmentLayerThree_Always_ReturnsSetValue(double newValue)
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var failureMechanismSectionResult = new HeightStructuresFailureMechanismSectionResult(section);
-
-            RoundedDouble assessmentLayerThree = (RoundedDouble) newValue;
-
-            // Call
-            failureMechanismSectionResult.AssessmentLayerThree = assessmentLayerThree;
-
-            // Assert
-            Assert.AreEqual(assessmentLayerThree, failureMechanismSectionResult.AssessmentLayerThree);
-        }
-
-        private static FailureMechanismSection CreateSection()
-        {
-            return new FailureMechanismSection("test", new[]
-            {
-                new Point2D(1, 2),
-                new Point2D(3, 4)
-            });
         }
     }
 }

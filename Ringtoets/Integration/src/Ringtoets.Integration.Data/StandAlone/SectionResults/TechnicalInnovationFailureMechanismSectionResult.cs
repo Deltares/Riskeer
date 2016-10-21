@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 
 namespace Ringtoets.Integration.Data.StandAlone.SectionResults
@@ -37,19 +36,6 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
         /// <see cref="TechnicalInnovationFailureMechanismSectionResult"/> will hold the result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public TechnicalInnovationFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
-        {
-            AssessmentLayerThree = (RoundedDouble) double.NaN;
-        }
-
-        /// <summary>
-        /// Gets or sets the value representing whether the simple assessment of safety passed.
-        /// </summary>
-        public bool AssessmentLayerOne { get; set; }
-
-        /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
+        public TechnicalInnovationFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
     }
 }

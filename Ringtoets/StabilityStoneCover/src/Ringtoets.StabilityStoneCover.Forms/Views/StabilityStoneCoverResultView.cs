@@ -21,6 +21,7 @@
 
 using System;
 using System.Linq;
+using System.Windows.Forms;
 using Core.Common.Utils;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -40,12 +41,20 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
         /// </summary>
         public StabilityStoneCoverResultView()
         {
+            DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
             AddDataGridColumns();
         }
 
         protected override object CreateFailureMechanismSectionResultRow(StabilityStoneCoverFailureMechanismSectionResult sectionResult)
         {
             return new StabilityStoneCoverSectionResultRow(sectionResult);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+
+            base.Dispose(disposing);
         }
 
         private void AddDataGridColumns()
@@ -60,6 +69,9 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
                 TypeUtils.GetMemberName<StabilityStoneCoverSectionResultRow>(sr => sr.Name),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Section_name,
                 true);
+            DataGridViewControl.AddCheckBoxColumn(
+                TypeUtils.GetMemberName<StabilityStoneCoverSectionResultRow>(sr => sr.AssessmentLayerOne),
+                RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_one);
             DataGridViewControl.AddComboBoxColumn(
                 TypeUtils.GetMemberName<StabilityStoneCoverSectionResultRow>(sr => sr.AssessmentLayerTwoA),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_two_a,
@@ -69,6 +81,21 @@ namespace Ringtoets.StabilityStoneCover.Forms.Views
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<StabilityStoneCoverSectionResultRow>(sr => sr.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
+        }
+
+        private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)
+        {
+            if (eventArgs.ColumnIndex > 1)
+            {
+                if (HasPassedLevelOne(eventArgs.RowIndex))
+                {
+                    DataGridViewControl.DisableCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+                else
+                {
+                    DataGridViewControl.RestoreCell(eventArgs.RowIndex, eventArgs.ColumnIndex);
+                }
+            }
         }
     }
 }

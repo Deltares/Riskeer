@@ -134,18 +134,17 @@ namespace Ringtoets.Piping.Forms.Views
 
         private void ShowAssementLayerTwoAErrors(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex <= 0)
+            if (e.ColumnIndex != assessmentLayerTwoAIndex)
             {
                 return;
             }
 
-            var currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
+            DataGridViewCell currentDataGridViewCell = DataGridViewControl.GetCell(e.RowIndex, e.ColumnIndex);
 
             var resultRow = (PipingFailureMechanismSectionResultRow) GetDataAtRow(e.RowIndex);
-
-            if (resultRow != null && e.ColumnIndex == assessmentLayerTwoAIndex)
+            if (resultRow != null)
             {
-                PipingFailureMechanismSectionResult rowObject = resultRow.SectionResult;
+                PipingFailureMechanismSectionResult rowObject = resultRow.GetSectionResult;
 
                 var relevantScenarios = rowObject.GetCalculationScenarios(FailureMechanism.Calculations.OfType<PipingCalculationScenario>()).Where(cs => cs.IsRelevant).ToArray();
                 bool relevantScenarioAvailable = relevantScenarios.Length != 0;

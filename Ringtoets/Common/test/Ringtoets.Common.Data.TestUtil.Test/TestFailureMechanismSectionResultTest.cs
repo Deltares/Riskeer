@@ -30,18 +30,18 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class TestFailureMechanismSectionResultTest
     {
         [Test]
-        public void Constructor_WithoutSection_ThrowsArgumentNullException()
+        public void Constructor_SectionNull_ThrowsArgumentNullException()
         {
             // Call
             TestDelegate test = () => new TestFailureMechanismSectionResult(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("section", paramName);
         }
 
         [Test]
-        public void Constructor_WithSection_ResultCreatedForSection()
+        public void Constructor_WithParameters_ExpectedValues()
         {
             // Setup
             var section = new FailureMechanismSection("Section", new[]

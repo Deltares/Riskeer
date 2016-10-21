@@ -20,9 +20,12 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
+using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Forms.TypeConverters;
 
-namespace Ringtoets.Integration.Forms.Views.SectionResultRows
+namespace Ringtoets.Common.Forms.Views
 {
     /// <summary>
     /// Base class for a wrapper of a <see cref="FailureMechanismSectionResult"/>, which takes care of the
@@ -54,6 +57,38 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultRows
             get
             {
                 return SectionResult.Section.Name;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing whether the section passed the layer 0 assessment.
+        /// </summary>
+        public bool AssessmentLayerOne
+        {
+            get
+            {
+                return SectionResult.AssessmentLayerOne;
+            }
+            set
+            {
+                SectionResult.AssessmentLayerOne = value;
+                SectionResult.NotifyObservers();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value representing the result of the layer 3 assessment.
+        /// </summary>
+        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
+        public RoundedDouble AssessmentLayerThree
+        {
+            get
+            {
+                return SectionResult.AssessmentLayerThree;
+            }
+            set
+            {
+                SectionResult.AssessmentLayerThree = value;
             }
         }
 

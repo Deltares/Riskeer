@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using System.ComponentModel;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Forms.TypeConverters;
+using Ringtoets.Common.Forms.Views;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
 namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
@@ -31,51 +29,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
     /// <summary>
     /// Class for displaying <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> as a row in a grid view.
     /// </summary>
-    internal class GrassCoverErosionOutwardsFailureMechanismSectionResultRow
+    internal class GrassCoverErosionOutwardsFailureMechanismSectionResultRow : FailureMechanismSectionResultRow<GrassCoverErosionOutwardsFailureMechanismSectionResult>
     {
-        private readonly GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult;
-
         /// <summary>
         /// Creates a new instance of <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResultRow"/>.
         /// </summary>
         /// <param name="sectionResult">The <see cref="GrassCoverErosionOutwardsFailureMechanismSectionResult"/> to wrap
         /// so that it can be displayed as a row.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public GrassCoverErosionOutwardsFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult)
-        {
-            if (sectionResult == null)
-            {
-                throw new ArgumentNullException("sectionResult");
-            }
-            this.sectionResult = sectionResult;
-        }
-
-        /// <summary>
-        /// Gets the name of the failure mechanism section.
-        /// </summary>
-        public string Name
-        {
-            get
-            {
-                return sectionResult.Section.Name;
-            }
-        }
-
-        /// <summary>
-        //// Gets or sets the value representing whether the section passed the layer 0 assessment.
-        /// </summary>
-        public bool AssessmentLayerOne
-        {
-            get
-            {
-                return sectionResult.AssessmentLayerOne;
-            }
-            set
-            {
-                sectionResult.AssessmentLayerOne = value;
-                sectionResult.NotifyObservers();
-            }
-        }
+        public GrassCoverErosionOutwardsFailureMechanismSectionResultRow(GrassCoverErosionOutwardsFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
         /// Gets or sets the value representing the result of the layer 2a assessment.
@@ -84,27 +46,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Views
         {
             get
             {
-                return sectionResult.AssessmentLayerTwoA;
+                return SectionResult.AssessmentLayerTwoA;
             }
             set
             {
-                sectionResult.AssessmentLayerTwoA = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the value representing the result of the layer 3 assessment.
-        /// </summary>
-        [TypeConverter(typeof(NoValueRoundedDoubleConverter))]
-        public RoundedDouble AssessmentLayerThree
-        {
-            get
-            {
-                return sectionResult.AssessmentLayerThree;
-            }
-            set
-            {
-                sectionResult.AssessmentLayerThree = value;
+                SectionResult.AssessmentLayerTwoA = value;
             }
         }
     }

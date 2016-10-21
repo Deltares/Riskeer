@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.Common.Data.Test.FailureMechanism
 {
@@ -30,36 +32,75 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
     public class FailureMechanismSectionResultTest
     {
         [Test]
+        public void Constructor_WithParameters_ExpectedValues()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+
+            // Call
+            var result = new TestFailureMechanismSectionResult(section);
+
+            // Assert
+            Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
+            Assert.IsFalse(result.AssessmentLayerOne);
+            Assert.IsNaN(result.AssessmentLayerThree);
+            Assert.AreSame(section, result.Section);
+        }
+
+        [Test]
         public void Constructor_WithoutSection_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new SimpleFailureMechanismSectionResult(null);
+            TestDelegate test = () => new TestFailureMechanismSectionResult(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("section", paramName);
         }
 
         [Test]
-        public void Constructor_WithSection_ResultCreatedForSection()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void AssessmentLayerOne_SetNewValue_ReturnsNewValue(bool newValue)
         {
             // Setup
-            var section = new FailureMechanismSection("Section", new[]
+            FailureMechanismSection section = CreateSection();
+            var failureMechanismSectionResult = new TestFailureMechanismSectionResult(section);
+
+            // Call
+            failureMechanismSectionResult.AssessmentLayerOne = newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerOne);
+        }
+
+        [Test]
+        public void AssessmentLayerThree_SetNewValue_ReturnsNewValue()
+        {
+            // Setup
+            Random random = new Random(21);
+            double newValue = random.NextDouble();
+            FailureMechanismSection section = CreateSection();
+            var failureMechanismSectionResult = new TestFailureMechanismSectionResult(section);
+
+            // Call
+            failureMechanismSectionResult.AssessmentLayerThree = (RoundedDouble) newValue;
+
+            // Assert
+            Assert.AreEqual(newValue, failureMechanismSectionResult.AssessmentLayerThree, failureMechanismSectionResult.AssessmentLayerThree.GetAccuracy());
+        }
+
+        private static FailureMechanismSection CreateSection()
+        {
+            return new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
             });
-
-            // Call
-            var result = new SimpleFailureMechanismSectionResult(section);
-
-            // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
-            Assert.AreSame(section, result.Section);
         }
 
-        private class SimpleFailureMechanismSectionResult : FailureMechanismSectionResult
+        private class TestFailureMechanismSectionResult : FailureMechanismSectionResult
         {
-            public SimpleFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+            public TestFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
         }
     }
 }

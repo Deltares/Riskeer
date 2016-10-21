@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Properties;
 
@@ -40,17 +39,10 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
         /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
         /// <see cref="MacrostabilityOutwardsFailureMechanismSectionResult"/> will hold the result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public MacrostabilityOutwardsFailureMechanismSectionResult(FailureMechanismSection section)
-            : base(section)
+        public MacrostabilityOutwardsFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
         {
             AssessmentLayerTwoA = double.NaN;
-            AssessmentLayerThree = (RoundedDouble) double.NaN;
         }
-
-        /// <summary>
-        /// Gets or sets the value representing whether the simple assessment of safety passed.
-        /// </summary>
-        public bool AssessmentLayerOne { get; set; }
 
         /// <summary>
         /// Gets or sets the value for the detailed assessment of safety per failure mechanism section as a probability.
@@ -71,10 +63,5 @@ namespace Ringtoets.Integration.Data.StandAlone.SectionResults
                 assessmentLayerTwoA = value;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the value of the tailored assessment of safety.
-        /// </summary>
-        public RoundedDouble AssessmentLayerThree { get; set; }
     }
 }
