@@ -368,6 +368,167 @@ namespace Ringtoets.ClosingStructures.Service.Test
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        [TestCase(ClosingStructureInflowModelType.VerticalWall)]
+        [TestCase(ClosingStructureInflowModelType.LowSill)]
+        [TestCase(ClosingStructureInflowModelType.FloodedCulvert)]
+        public void Calculate_ValidCalculation_LogStartAndEndAndReturnOutput(ClosingStructureInflowModelType inflowModelType)
+        {
+            // Setup
+            var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(closingStructuresFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestClosingStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    InflowModelType = inflowModelType
+                }
+            };
+
+            var failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
+
+            // Call
+            Action call = () => new ClosingStructuresCalculationService().Calculate(calculation,
+                                                                                    assessmentSectionStub,
+                                                                                    failureMechanismSection,
+                                                                                    closingStructuresFailureMechanism.GeneralInput,
+                                                                                    closingStructuresFailureMechanism.Contribution,
+                                                                                    testDataPath);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith("Kunstwerken sluiten berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+            });
+            Assert.IsNotNull(calculation.Output);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(ClosingStructureInflowModelType.VerticalWall)]
+        [TestCase(ClosingStructureInflowModelType.LowSill)]
+        [TestCase(ClosingStructureInflowModelType.FloodedCulvert)]
+        public void Calculate_InvalidCalculation_LogStartAndEndAndErrorMessageAndThrowsException(ClosingStructureInflowModelType inflowModelType)
+        {
+            // Setup
+            var heightStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestClosingStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    InflowModelType = inflowModelType
+                }
+            };
+
+            var failureMechanismSection = heightStructuresFailureMechanism.Sections.First();
+            var exception = false;
+
+            // Call
+            Action call = () =>
+            {
+                try
+                {
+                    new ClosingStructuresCalculationService().Calculate(calculation,
+                                                                        assessmentSectionStub,
+                                                                        failureMechanismSection,
+                                                                        heightStructuresFailureMechanism.GeneralInput,
+                                                                        heightStructuresFailureMechanism.Contribution,
+                                                                        testDataPath);
+                }
+                catch
+                {
+                    exception = true;
+                }
+            };
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(4, msgs.Length);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith(string.Format("De berekening voor kunstwerk sluiten '{0}' is niet gelukt.", calculation.Name), msgs[1]);
+                StringAssert.StartsWith("Kunstwerken sluiten berekeningsverslag. Klik op details voor meer informatie.", msgs[2]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+            });
+            Assert.IsNull(calculation.Output);
+            Assert.IsTrue(exception);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CancelCalculationWithValidInput_CancelsCalculatorAndHasNullOutput()
+        {
+            // Setup
+            var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(closingStructuresFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+            FailureMechanismSection failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
+
+            ClosingStructuresCalculation calculation = new TestClosingStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                var service = new ClosingStructuresCalculationService();
+                calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
+
+                // Call
+                service.Calculate(calculation,
+                                  assessmentSectionStub,
+                                  failureMechanismSection,
+                                  closingStructuresFailureMechanism.GeneralInput,
+                                  closingStructuresFailureMechanism.Contribution,
+                                  testDataPath);
+
+                // Assert
+                Assert.IsNull(calculation.Output);
+                Assert.IsTrue(calculator.IsCanceled);
+            }
+        }
+
         private static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism, MockRepository mockRepository)
         {
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();

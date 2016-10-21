@@ -26,10 +26,12 @@ using log4net;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
+using Ringtoets.HydraRing.Calculation.Parsers;
 
 namespace Ringtoets.ClosingStructures.Service
 {
@@ -38,7 +40,7 @@ namespace Ringtoets.ClosingStructures.Service
     /// </summary>
     public class ClosingStructuresCalculationService
     {
-        private static ILog log = LogManager.GetLogger(typeof(ClosingStructuresCalculationService));
+        private static readonly ILog log = LogManager.GetLogger(typeof(ClosingStructuresCalculationService));
 
         private IStructuresClosureCalculator calculator;
         private bool canceled;
@@ -61,8 +63,9 @@ namespace Ringtoets.ClosingStructures.Service
                               GeneralClosingStructuresInput generalInput,
                               double failureMechanismContribution, string hlcdDirectory)
         {
-            StructuresClosureCalculationInput input;
+            var calculationName = calculation.Name;
 
+            StructuresClosureCalculationInput input;
             switch (calculation.InputParameters.InflowModelType)
             {
                 case ClosingStructureInflowModelType.VerticalWall:
@@ -80,7 +83,44 @@ namespace Ringtoets.ClosingStructures.Service
 
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresClosureCalculator(hlcdDirectory, assessmentSection.Id);
 
-            calculator.Calculate(input);
+            CalculationServiceHelper.LogCalculationBeginTime(calculationName);
+
+            try
+            {
+                calculator.Calculate(input);
+
+                if (!canceled)
+                {
+                    calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
+                                                                                failureMechanismContribution,
+                                                                                generalInput.N,
+                                                                                calculator.ExceedanceProbabilityBeta);
+                }
+            }
+            catch (HydraRingFileParserException)
+            {
+                if (!canceled)
+                {
+                    log.ErrorFormat("De berekening voor kunstwerk sluiten '{0}' is niet gelukt.", calculationName);
+                    throw;
+                }
+            }
+            finally
+            {
+                log.InfoFormat("Kunstwerken sluiten berekeningsverslag. Klik op details voor meer informatie. {0}", calculator.OutputFileContent);
+                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+            }
+        }
+
+        /// <summary>
+        /// Cancels any ongoing structures closure calculation.
+        /// </summary>
+        public void Cancel()
+        {
+            if (calculator != null)
+                calculator.Cancel();
+
+            canceled = true;
         }
 
         private static StructuresClosureVerticalWallCalculationInput CreateClosureVerticalWallCalculationInput(ClosingStructuresCalculation calculation,
