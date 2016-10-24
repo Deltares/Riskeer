@@ -50,6 +50,23 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         where TCalculation : ICalculation
         where TFailureMechanism : IFailureMechanism
     {
+        private readonly ConstructionProperties constructionProperties;
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="StructuresInputBaseProperties{TStructure, TStructureInput, TCalculation, TFailureMechanism}"/> class.
+        /// </summary>
+        /// <param name="constructionProperties">The property values required to create an instance of <see cref="StructuresInputBaseProperties{TStructure, TStructureInput, TCalculation, TFailureMechanism}"/>.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="constructionProperties"/> is <c>null</c>.</exception>
+        protected StructuresInputBaseProperties(ConstructionProperties constructionProperties)
+        {
+            if (constructionProperties == null)
+            {
+                throw new ArgumentNullException("constructionProperties");
+            }
+
+            this.constructionProperties = constructionProperties;
+        }
+
         public ForeshoreProfile ForeshoreProfile { get; private set; }
 
         public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
@@ -69,6 +86,17 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         public IEnumerable<TStructure> GetAvailableStructures()
         {
             throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="StructuresInputBaseProperties{TStructure, TStructureInput, TCalculation, TFailureMechanism}"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.ForeshoreProfile"/>.
+            /// </summary>
+            public int ForeshoreProfilePropertyIndex { get; set; }
         }
     }
 }
