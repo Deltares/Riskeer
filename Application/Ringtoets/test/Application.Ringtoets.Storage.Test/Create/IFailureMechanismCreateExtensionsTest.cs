@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => failureMechanism.AddEntitiesForFailureMechanismSections(null, new FailureMechanismEntity());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("registry", paramName);
         }
 
@@ -56,7 +56,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => failureMechanism.AddEntitiesForFailureMechanismSections(new PersistenceRegistry(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 

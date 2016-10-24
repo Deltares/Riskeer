@@ -36,7 +36,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             TestDelegate test = () => PipingCalculationScenarioFactory.CreatePipingCalculationScenario(double.NaN, null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("section", paramName);
         }
 
@@ -67,7 +67,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             TestDelegate test = () => PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("section", paramName);
         }
 
@@ -94,7 +94,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             TestDelegate test = () => PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("section", paramName);
         }
 
@@ -118,7 +118,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
             TestDelegate test = () => PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("section", paramName);
         }
 

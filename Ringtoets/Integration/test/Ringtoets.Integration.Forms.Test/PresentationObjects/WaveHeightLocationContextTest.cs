@@ -39,7 +39,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             TestDelegate test = () => new WaveHeightLocationContext(hydraulicBoundaryDatabase, null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("hydraulicBoundaryLocation", paramName);
         }
 
@@ -53,7 +53,7 @@ namespace Ringtoets.Integration.Forms.Test.PresentationObjects
             TestDelegate test = () => new WaveHeightLocationContext(null, hydraulicBoundaryLocation);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("wrappedData", paramName);
         }
 

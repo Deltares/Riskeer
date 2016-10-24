@@ -41,7 +41,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             TestDelegate test = () => new TestGrassCoverErosionOutwardsLocationContext(locations, null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("hydraulicBoundaryLocation", paramName);
         }
 

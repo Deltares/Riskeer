@@ -37,7 +37,7 @@ namespace Core.Common.Gui.Test.Forms
             TestDelegate test = () => new SelectViewDialog(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("dialogParent", paramName);
         }
 

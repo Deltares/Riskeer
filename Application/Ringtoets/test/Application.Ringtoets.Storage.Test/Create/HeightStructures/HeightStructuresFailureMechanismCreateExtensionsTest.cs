@@ -44,7 +44,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             TestDelegate test = () => failureMechanism.Create(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("registry", paramName);
         }
 

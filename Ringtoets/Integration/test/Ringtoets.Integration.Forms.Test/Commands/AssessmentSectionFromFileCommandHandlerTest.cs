@@ -57,7 +57,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             TestDelegate call = () => new AssessmentSectionFromFileCommandHandler(null, parentDialogMock, viewControllerMock);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("dialogParent", paramName);
             mockRepository.VerifyAll();
         }
@@ -75,7 +75,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             TestDelegate call = () => new AssessmentSectionFromFileCommandHandler(parentDialogMock, null, viewControllerMock);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("projectOwner", paramName);
             mockRepository.VerifyAll();
         }
@@ -93,7 +93,7 @@ namespace Ringtoets.Integration.Forms.Test.Commands
             TestDelegate call = () => new AssessmentSectionFromFileCommandHandler(parentDialogMock, projectOwnerMock, null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("viewController", paramName);
             mockRepository.VerifyAll();
         }

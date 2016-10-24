@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             TestDelegate test = () => new SelectableRow<object>(null, name);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("item", paramName);
         }
 
@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             TestDelegate test = () => new SelectableRow<object>(new object(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("name", paramName);
         }
 

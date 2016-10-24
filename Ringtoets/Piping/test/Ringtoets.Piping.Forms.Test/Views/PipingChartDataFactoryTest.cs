@@ -164,7 +164,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             TestDelegate test = () => PipingChartDataFactory.CreateSoilLayerChartData(0, null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("soilProfile", paramName);
         }
 
@@ -297,7 +297,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             TestDelegate test = () => PipingChartDataFactory.CreateSoilLayerChartData(soilLayerIndex, profile);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentOutOfRangeException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentOutOfRangeException>(test).ParamName;
             Assert.AreEqual("soilLayerIndex", paramName);
         }
 

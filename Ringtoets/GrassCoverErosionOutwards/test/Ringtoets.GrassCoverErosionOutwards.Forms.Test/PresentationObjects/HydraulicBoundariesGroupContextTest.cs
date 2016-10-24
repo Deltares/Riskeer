@@ -64,7 +64,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PresentationObjects
             TestDelegate call = () => new HydraulicBoundariesGroupContext(failureMechanism.HydraulicBoundaryLocations, failureMechanism, null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("assessmentSection", paramName);
         }
     }

@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             TestDelegate test = () => new PipingScenarioRow(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("pipingCalculation", paramName);
         }
 

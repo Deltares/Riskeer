@@ -161,7 +161,7 @@ namespace Core.Common.Base.Test.Geometry
             TestDelegate test = () => Math2D.LineIntersectionWithLine(points[0], points[1], points[2], points[3]);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual(expectedParameter, paramName);
         }
 
@@ -235,7 +235,7 @@ namespace Core.Common.Base.Test.Geometry
             TestDelegate test = () => Math2D.SegmentsIntersectionWithVerticalLine(null, 0.0);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("segments", paramName);
         }
 
@@ -469,7 +469,7 @@ namespace Core.Common.Base.Test.Geometry
             TestDelegate test = () => Math2D.GetIntersectionBetweenSegments(segments[0], segments[1]);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual(expectedParameter, paramName);
         }
 
@@ -1110,7 +1110,7 @@ namespace Core.Common.Base.Test.Geometry
             TestDelegate test = () => Math2D.AreEqualPoints(points[0], points[1]);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual(expectedParameter, paramName);
         }
 
@@ -1141,7 +1141,7 @@ namespace Core.Common.Base.Test.Geometry
             TestDelegate test = () => Math2D.Length(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("points", paramName);
         }
 
@@ -1234,7 +1234,7 @@ namespace Core.Common.Base.Test.Geometry
             TestDelegate test = () => Math2D.GetInterpolatedPointAtFraction(null, 0.0);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("lineSegment", paramName);
         }
 

@@ -41,7 +41,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             TestDelegate test = () => new WaveHeightLocationRow(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("hydraulicBoundaryLocation", paramName);
         }
 

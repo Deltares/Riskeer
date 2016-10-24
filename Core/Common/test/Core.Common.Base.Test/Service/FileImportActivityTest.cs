@@ -37,7 +37,7 @@ namespace Core.Common.Base.Test.Service
             TestDelegate test = () => new FileImportActivity(null, "");
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             StringAssert.EndsWith("fileImporter", paramName);
         }
 
@@ -53,7 +53,7 @@ namespace Core.Common.Base.Test.Service
             TestDelegate call = () => new FileImportActivity(importer, null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             StringAssert.EndsWith("name", paramName);
             mocks.VerifyAll();
         }

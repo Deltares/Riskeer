@@ -69,7 +69,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Contains((PipingSoilProfile) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -127,7 +127,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Contains((RingtoetsPipingSurfaceLine) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -185,7 +185,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Contains((HydraulicBoundaryLocation) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -243,7 +243,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Contains((StochasticSoilModel) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -301,7 +301,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Contains((StochasticSoilProfile) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -652,7 +652,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Get((PipingSoilProfile) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -711,7 +711,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Get((RingtoetsPipingSurfaceLine) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -770,7 +770,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Get<HydraulicBoundaryLocation>(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -829,7 +829,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Get((StochasticSoilModel) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -888,7 +888,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Get((StochasticSoilProfile) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -947,7 +947,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Get((FailureMechanismSection) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -1262,7 +1262,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(new FailureMechanismSectionEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -1276,7 +1276,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(null, new TestFailureMechanismSection());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1290,7 +1290,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(new DikeProfileEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -1304,7 +1304,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(null, CreateDikeProfile());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1318,7 +1318,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(new ForeshoreProfileEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -1332,7 +1332,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(null, new TestForeshoreProfile());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1346,7 +1346,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(new GrassCoverErosionInwardsCalculationEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -1360,7 +1360,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(null, new GrassCoverErosionInwardsCalculation());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1374,7 +1374,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register((HydraulicLocationEntity) null, new HydraulicBoundaryLocation(-1, "name", 0, 0));
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1388,7 +1388,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(new HydraulicLocationEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -1402,7 +1402,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(null, new TestStochasticSoilModel());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1416,7 +1416,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(new StochasticSoilModelEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -1430,7 +1430,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(null, new StochasticSoilProfile(1, SoilProfileType.SoilProfile1D, -1));
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1444,7 +1444,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(new StochasticSoilProfileEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -1461,7 +1461,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             }, SoilProfileType.SoilProfile1D, -1));
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1475,7 +1475,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(new SoilProfileEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -1489,7 +1489,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             TestDelegate test = () => registry.Register(new HeightStructureEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 

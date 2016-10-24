@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => new FailureMechanismSectionEntity().Read(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("collector", paramName);
         }
 

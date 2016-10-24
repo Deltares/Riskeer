@@ -37,7 +37,7 @@ namespace Core.Common.Utils.Test
             TestDelegate test = () => new EnumDisplayWrapper<object>(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("value", paramName);
         }
 
@@ -48,7 +48,7 @@ namespace Core.Common.Utils.Test
             TestDelegate test = () => new EnumDisplayWrapper<object>(TestEnum.DisplayName);
 
             // Assert
-            var paramName = Assert.Throws<InvalidTypeParameterException>(test).TypeParamName;
+            string paramName = Assert.Throws<InvalidTypeParameterException>(test).TypeParamName;
             Assert.AreEqual("T", paramName);
         }
 

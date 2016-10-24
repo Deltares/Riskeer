@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             TestDelegate test = () => new TestHydraRingCalculator(null, null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("hlcdDirectory", paramName);
         }
 

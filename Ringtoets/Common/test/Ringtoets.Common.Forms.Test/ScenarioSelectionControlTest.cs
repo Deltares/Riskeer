@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Forms.Test
                 TestDelegate call = () => control.UpdateDataGridViewDataSource<IScenarioRow<ICalculation>>(null, null, null);
 
                 // Assert
-                var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+                string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
 
                 Assert.AreEqual("calculations", paramName);
             }
@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Forms.Test
                 TestDelegate call = () => control.UpdateDataGridViewDataSource<IScenarioRow<ICalculation>>(Enumerable.Empty<ICalculation>(), null, null);
 
                 // Assert
-                var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+                string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
 
                 Assert.AreEqual("scenarioRows", paramName);
             }
@@ -126,7 +126,7 @@ namespace Ringtoets.Common.Forms.Test
                 TestDelegate call = () => control.UpdateDataGridViewDataSource(Enumerable.Empty<ICalculation>(), Enumerable.Empty<IScenarioRow<ICalculation>>(), null);
 
                 // Assert
-                var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+                string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
 
                 Assert.AreEqual("calculationsPerSection", paramName);
             }

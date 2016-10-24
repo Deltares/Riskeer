@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Contains((StochasticSoilProfileEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -109,7 +109,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Get((StochasticSoilProfileEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -168,7 +168,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(null, new StochasticSoilProfile(0.7, SoilProfileType.SoilProfile1D, 6));
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -182,7 +182,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(new StochasticSoilProfileEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -200,7 +200,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Contains((SoilProfileEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -258,7 +258,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Get((SoilProfileEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -317,7 +317,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(null, new TestPipingSoilProfile());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -331,7 +331,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(new SoilProfileEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -479,7 +479,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(null, new RingtoetsPipingSurfaceLine());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -493,7 +493,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(new SurfaceLineEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -511,7 +511,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Contains((HydraulicLocationEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -569,7 +569,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Get((HydraulicLocationEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -628,7 +628,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read((HydraulicLocationEntity) null, new HydraulicBoundaryLocation(1, "A", 1, 1));
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -642,7 +642,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(new HydraulicLocationEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -660,7 +660,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Contains((FailureMechanismSectionEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -718,7 +718,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Get((FailureMechanismSectionEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -777,7 +777,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(null, new TestFailureMechanismSection());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -791,7 +791,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(new FailureMechanismSectionEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -809,7 +809,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Contains((DikeProfileEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -867,7 +867,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Get((DikeProfileEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -932,7 +932,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(null, CreateDikeProfile());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -946,7 +946,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(new DikeProfileEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -964,7 +964,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Contains((ForeshoreProfileEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1022,7 +1022,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Get((ForeshoreProfileEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1081,7 +1081,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(null, new TestForeshoreProfile());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1095,7 +1095,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(new ForeshoreProfileEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -1113,7 +1113,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Contains((GrassCoverErosionInwardsCalculationEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1171,7 +1171,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Get((GrassCoverErosionInwardsCalculationEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1230,7 +1230,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(null, new GrassCoverErosionInwardsCalculation());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1244,7 +1244,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(new GrassCoverErosionInwardsCalculationEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -1262,7 +1262,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Contains((GrassCoverErosionOutwardsHydraulicLocationEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1320,7 +1320,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Get((GrassCoverErosionOutwardsHydraulicLocationEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1379,7 +1379,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read((GrassCoverErosionOutwardsHydraulicLocationEntity) null, new HydraulicBoundaryLocation(1, "A", 1, 1));
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1393,7 +1393,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(new GrassCoverErosionOutwardsHydraulicLocationEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 
@@ -1411,7 +1411,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Contains((HeightStructureEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1469,7 +1469,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Get((HeightStructureEntity) null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1528,7 +1528,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(null, new TestHeightStructure());
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("entity", paramName);
         }
 
@@ -1542,7 +1542,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             TestDelegate test = () => collector.Read(new HeightStructureEntity(), null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
         }
 

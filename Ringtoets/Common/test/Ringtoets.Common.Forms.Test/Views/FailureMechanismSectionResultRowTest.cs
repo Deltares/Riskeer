@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Forms.Test.Views
             TestDelegate test = () => new TestFailureMechanismSectionResultRow(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("sectionResult", paramName);
         }
 

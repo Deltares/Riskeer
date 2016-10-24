@@ -88,7 +88,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             TestDelegate test = () => failureMechanism.AddSection(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("section", paramName);
         }
 

@@ -68,7 +68,7 @@ namespace Ringtoets.Common.Forms.Test
             TestDelegate call = () => new TestSelectionDialogBase(null);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("dialogParent", paramName);
         }
 

@@ -43,7 +43,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             TestDelegate test = () => new SimpleFailureMechanismBase(name, "testCode");
 
             // Assert
-            var paramName = Assert.Throws<ArgumentException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentException>(test).ParamName;
             Assert.AreEqual("failureMechanismName", paramName);
         }
 
@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Data.Test.FailureMechanism
             TestDelegate test = () => new SimpleFailureMechanismBase("testName", code);
 
             // Assert
-            var paramName = Assert.Throws<ArgumentException>(test).ParamName;
+            string paramName = Assert.Throws<ArgumentException>(test).ParamName;
             Assert.AreEqual("failureMechanismCode", paramName);
         }
 
