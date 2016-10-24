@@ -123,6 +123,15 @@ namespace Ringtoets.ClosingStructures.Service
             canceled = true;
         }
 
+        public bool Validate(ClosingStructuresCalculation calculation, IAssessmentSection assessmentSection)
+        {
+            CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
+            //TODO: Validate all the input parameters here, see WTI-926
+            CalculationServiceHelper.LogValidationEndTime(calculation.Name);
+
+            return true;
+        }
+
         private static StructuresClosureVerticalWallCalculationInput CreateClosureVerticalWallCalculationInput(ClosingStructuresCalculation calculation,
                                                                                                                FailureMechanismSection failureMechanismSection,
                                                                                                                GeneralClosingStructuresInput generalInput)

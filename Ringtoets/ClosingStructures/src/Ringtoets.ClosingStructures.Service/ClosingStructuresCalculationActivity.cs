@@ -80,6 +80,11 @@ namespace Ringtoets.ClosingStructures.Service
             calculationService = new ClosingStructuresCalculationService();
         }
 
+        protected override bool Validate()
+        {
+            return calculationService.Validate(calculation, assessmentSection);
+        }
+
         protected override void PerformCalculation()
         {
             ClosingStructuresDataSynchronizationService.ClearCalculationOutput(calculation);
