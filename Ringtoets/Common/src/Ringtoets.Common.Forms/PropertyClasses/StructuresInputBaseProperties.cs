@@ -23,11 +23,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
+using System.Linq.Expressions;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -58,7 +60,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         where TCalculation : ICalculation
         where TFailureMechanism : IFailureMechanism
     {
-        private readonly ConstructionProperties constructionProperties;
+        private Dictionary<string, int> propertyIndexLookup;
 
         /// <summary>
         /// Creates a new instance of the <see cref="StructuresInputBaseProperties{TStructure, TStructureInput, TCalculation, TFailureMechanism}"/> class.
@@ -72,7 +74,54 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 throw new ArgumentNullException("constructionProperties");
             }
 
-            this.constructionProperties = constructionProperties;
+            propertyIndexLookup = new Dictionary<string, int>
+            {
+                {
+                    GetMemberName(p => p.ModelFactorSuperCriticalFlow), constructionProperties.ModelFactorSuperCriticalFlowPropertyIndex
+                },
+                {
+                    GetMemberName(p => p.Structure), constructionProperties.StructurePropertyIndex
+                },
+                {
+                    GetMemberName(p => p.StructureLocation), constructionProperties.StructureLocationPropertyIndex
+                },
+                {
+                    GetMemberName(p => p.StructureNormalOrientation), constructionProperties.StructureNormalOrientationPropertyIndex
+                },
+                {
+                    GetMemberName(p => p.FlowWidthAtBottomProtection), constructionProperties.FlowWidthAtBottomProtectionPropertyIndex
+                },
+                {
+                    GetMemberName(p => p.WidthFlowApertures), constructionProperties.WidthFlowAperturesPropertyIndex
+                },
+                {
+                    GetMemberName(p => p.StorageStructureArea), constructionProperties.StorageStructureAreaPropertyIndex
+                },
+                {
+                    GetMemberName(p => p.AllowedLevelIncreaseStorage), constructionProperties.AllowedLevelIncreaseStoragePropertyIndex
+                },
+                {
+                    GetMemberName(p => p.CriticalOvertoppingDischarge), constructionProperties.CriticalOvertoppingDischargePropertyIndex
+                },
+                {
+                    GetMemberName(p => p.FailureProbabilityStructureWithErosion), constructionProperties.FailureProbabilityStructureWithErosionPropertyIndex
+                },
+                {
+                    GetMemberName(p => p.ForeshoreProfile), constructionProperties.ForeshoreProfilePropertyIndex
+                },
+                {
+                    GetMemberName(p => p.UseBreakWater), constructionProperties.UseBreakWaterPropertyIndex
+                },
+                {
+                    GetMemberName(p => p.UseForeshore), constructionProperties.UseForeshorePropertyIndex
+                },
+                {
+                    GetMemberName(p => p.HydraulicBoundaryLocation), constructionProperties.HydraulicBoundaryLocationPropertyIndex
+                },
+                {
+                    GetMemberName(p => p.StormDuration), constructionProperties.StormDurationPropertyIndex
+                }
+            };
         }
 
         #region Model factors
@@ -95,6 +144,16 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         #endregion
 
+        [DynamicPropertyOrderEvaluationMethod]
+        public int DynamicPropertyOrderEvaluationMethod(string propertyName)
+        {
+            int propertyIndex;
+
+            propertyIndexLookup.TryGetValue(propertyName, out propertyIndex);
+
+            return propertyIndex;
+        }
+
         public abstract IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles();
 
         public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
@@ -108,6 +167,11 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// The action to perform after setting the <see cref="Structure"/> property.
         /// </summary>
         protected abstract void AfterSettingStructure();
+
+        private static string GetMemberName(Expression<Func<StructuresInputBaseProperties<TStructure, TStructureInput, TCalculation, TFailureMechanism>, object>> expression)
+        {
+            return TypeUtils.GetMemberName(expression);
+        }
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="StructuresInputBaseProperties{TStructure, TStructureInput, TCalculation, TFailureMechanism}"/>.
@@ -133,7 +197,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             /// <summary>
             /// Gets or sets the property index for the location of <see cref="StructuresInputBase{TStructure}.Structure"/>.
             /// </summary>
-            public int HeightStructureLocationPropertyIndex { get; set; }
+            public int StructureLocationPropertyIndex { get; set; }
 
             /// <summary>
             /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.StructureNormalOrientation"/>.
@@ -227,7 +291,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Structure_Location_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_Location_Description")]
-        public Point2D HeightStructureLocation
+        public Point2D StructureLocation
         {
             get
             {
