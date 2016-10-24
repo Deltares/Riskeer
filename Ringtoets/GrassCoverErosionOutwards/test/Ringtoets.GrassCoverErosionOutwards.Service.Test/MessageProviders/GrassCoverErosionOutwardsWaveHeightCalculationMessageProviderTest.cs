@@ -51,7 +51,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
             var calculationName = provider.GetCalculationName(name);
 
             // Assert
-            var expectedName = string.Format("Golfhoogte bij doorsnede-eis voor locatie {0}", name);
+            var expectedName = string.Format("Golfhoogte bij doorsnede-eis voor locatie '{0}'", name);
             Assert.AreEqual(expectedName, calculationName);
         }
 
@@ -103,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
             var message = provider.GetCalculatedNotConvergedMessage(name);
 
             // Assert
-            var expectedMessage = string.Format("Golfhoogte bij doorsnede-eis berekening voor locatie {0} is niet geconvergeerd.", name);
+            var expectedMessage = string.Format("Golfhoogte bij doorsnede-eis berekening voor locatie '{0}' is niet geconvergeerd.", name);
             Assert.AreEqual(expectedMessage, message);
         }
     }

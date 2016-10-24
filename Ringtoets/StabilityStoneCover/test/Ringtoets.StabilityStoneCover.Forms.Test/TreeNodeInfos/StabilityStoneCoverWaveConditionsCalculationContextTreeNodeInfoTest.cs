@@ -932,7 +932,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                         Assert.AreEqual(21, messages.Length);
                         StringAssert.StartsWith("Berekening van 'A' gestart om: ", messages[2]);
                         StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[19]);
-                        StringAssert.StartsWith("Uitvoeren van 'Golfcondities voor blokken en zuilen voor A berekenen' is gelukt.", messages[20]);
+                        StringAssert.StartsWith("Uitvoeren van 'Golfcondities voor blokken en zuilen voor 'A' berekenen' is gelukt.", messages[20]);
                     });
                     Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());
                     Assert.AreEqual(3, calculation.Output.ColumnsOutput.Count());

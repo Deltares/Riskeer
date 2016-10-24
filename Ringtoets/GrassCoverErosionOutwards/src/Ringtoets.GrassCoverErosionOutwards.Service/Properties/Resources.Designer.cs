@@ -101,7 +101,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij doorsnede-eis berekening voor locatie {0} is niet geconvergeerd..
+        ///   Looks up a localized string similar to Waterstand bij doorsnede-eis berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
         public static string GrassCoverErosionOutwardsPlugin_DesignWaterLevel_calculation_for_location_0_not_converged {
             get {
@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waterstand bij doorsnede-eis voor locatie {0}.
+        ///   Looks up a localized string similar to Waterstand bij doorsnede-eis voor locatie &apos;{0}&apos;.
         /// </summary>
         public static string GrassCoverErosionOutwardsPlugin_Name_DesignWaterLevel_for_location_0_ {
             get {
@@ -138,7 +138,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis voor locatie {0}.
+        ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis voor locatie &apos;{0}&apos;.
         /// </summary>
         public static string GrassCoverErosionOutwardsPlugin_Name_WaveHeight_for_location_0_ {
             get {
@@ -147,7 +147,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis berekening voor locatie {0} is niet geconvergeerd..
+        ///   Looks up a localized string similar to Golfhoogte bij doorsnede-eis berekening voor locatie &apos;{0}&apos; is niet geconvergeerd..
         /// </summary>
         public static string GrassCoverErosionOutwardsPlugin_WaveHeight_calculation_for_location_0_not_converged {
             get {

@@ -75,7 +75,7 @@ namespace Ringtoets.StabilityStoneCover.Service
 
             calculationService = new StabilityStoneCoverWaveConditionsCalculationService();
 
-            Name = string.Format("Golfcondities voor blokken en zuilen voor {0} berekenen", calculation.Name);
+            Name = string.Format("Golfcondities voor blokken en zuilen voor '{0}' berekenen", calculation.Name);
         }
 
         protected override bool Validate()
