@@ -26,14 +26,20 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
 {
     public class TestClosingStructure : ClosingStructure
     {
-        public TestClosingStructure() : this("test") {}
+        public TestClosingStructure() 
+            : this("test") {}
 
-        public TestClosingStructure(string name)
+        public TestClosingStructure(string name) 
+            : this(name, new Point2D(12345.56789, 9876.54321)) { }
+
+        public TestClosingStructure(Point2D location) : this("test", location) {}
+
+        public TestClosingStructure(string name, Point2D location)
             : base(new ConstructionProperties
             {
                 Name = name,
                 Id = "id",
-                Location = new Point2D(12345.56789, 9876.54321),
+                Location = location,
                 StorageStructureArea =
                 {
                     Mean = (RoundedDouble) 20000,

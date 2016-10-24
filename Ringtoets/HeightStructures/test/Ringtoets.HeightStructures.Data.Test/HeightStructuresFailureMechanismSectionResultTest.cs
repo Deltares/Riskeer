@@ -44,6 +44,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsNaN(sectionResult.AssessmentLayerTwoA);
+            Assert.IsNull(sectionResult.Calculation);
         }
     }
 }

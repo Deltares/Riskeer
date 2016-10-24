@@ -22,7 +22,9 @@
 using System;
 using Core.Common.Base.Service;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Utils;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.HydraRing.Calculation.Activities;
 
 namespace Ringtoets.ClosingStructures.Service
@@ -33,6 +35,10 @@ namespace Ringtoets.ClosingStructures.Service
     public class ClosingStructuresCalculationActivity : HydraRingActivityBase
     {
         private readonly ClosingStructuresCalculation calculation;
+        private readonly ClosingStructuresCalculationService calculationService;
+        private readonly ClosingStructuresFailureMechanism failureMechanism;
+        private readonly IAssessmentSection assessmentSection;
+        private readonly string hlcdDirectory;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationActivity"/>.
@@ -52,7 +58,7 @@ namespace Ringtoets.ClosingStructures.Service
 
             if (hlcdDirectory == null)
             {
-             throw new ArgumentNullException("hlcdDirectory");   
+                throw new ArgumentNullException("hlcdDirectory");
             }
 
             if (failureMechanism == null)
@@ -66,18 +72,32 @@ namespace Ringtoets.ClosingStructures.Service
             }
 
             this.calculation = calculation;
+            this.failureMechanism = failureMechanism;
+            this.assessmentSection = assessmentSection;
+            this.hlcdDirectory = hlcdDirectory;
 
             Name = calculation.Name;
+            calculationService = new ClosingStructuresCalculationService();
         }
 
         protected override void PerformCalculation()
         {
-            throw new NotImplementedException();
+            ClosingStructuresDataSynchronizationService.ClearCalculationOutput(calculation);
+
+            FailureMechanismSection failureMechanismSection =
+                ClosingStructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections, calculation); 
+
+            calculationService.Calculate(calculation,
+                                         assessmentSection,
+                                         failureMechanismSection,
+                                         failureMechanism.GeneralInput,
+                                         failureMechanism.Contribution,
+                                         hlcdDirectory);
         }
 
         protected override void OnCancel()
         {
-            throw new NotImplementedException();
+            calculationService.Cancel();
         }
 
         protected override void OnFinish()

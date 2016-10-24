@@ -43,6 +43,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
             Assert.AreSame(section, result.Section);
             Assert.IsNaN(result.AssessmentLayerTwoA);
+            Assert.IsNull(result.Calculation);
         }
 
         [Test]

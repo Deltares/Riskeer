@@ -55,6 +55,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="ClosingStructureDataSynchronizationServiceTest.cs" />
     <Compile Include="ClosingStructuresCalculationActivityTest.cs" />
     <Compile Include="ClosingStructuresCalculationServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

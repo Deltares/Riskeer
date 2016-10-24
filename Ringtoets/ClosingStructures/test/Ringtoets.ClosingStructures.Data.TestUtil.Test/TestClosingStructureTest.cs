@@ -35,6 +35,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
 
             // Assert
             Assert.AreEqual("test", structure.Name);
+            Assert.AreEqual(new Point2D(12345.56789, 9876.54321), structure.Location);
             AssertTestClosingStructureDefaults(structure);
         }
 
@@ -49,13 +50,28 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
 
             // Assert
             Assert.AreEqual(name, structure.Name);
+            Assert.AreEqual(new Point2D(12345.56789, 9876.54321), structure.Location);
+            AssertTestClosingStructureDefaults(structure);
+        }
+
+        [Test]
+        public void Constructor_WithLocationName_ExpectedValues()
+        {
+            // Setup
+            Point2D location = new Point2D(1234.5, 5678.9);
+
+            // Call
+            ClosingStructure structure = new TestClosingStructure(location);
+
+            // Assert
+            Assert.AreEqual(new Point2D(1234.5, 5678.9), structure.Location);
             AssertTestClosingStructureDefaults(structure);
         }
 
         private static void AssertTestClosingStructureDefaults(ClosingStructure structure)
         {
             Assert.AreEqual("id", structure.Id);
-            Assert.AreEqual(new Point2D(12345.56789, 9876.54321), structure.Location);
+            
             Assert.AreEqual(10.0, structure.StructureNormalOrientation.Value);
 
             Assert.AreEqual(20000, structure.StorageStructureArea.Mean.Value);

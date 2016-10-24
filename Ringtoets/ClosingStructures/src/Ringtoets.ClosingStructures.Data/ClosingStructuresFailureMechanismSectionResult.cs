@@ -63,5 +63,11 @@ namespace Ringtoets.ClosingStructures.Data
                 assessmentLayerTwoA = value;
             }
         }
+        
+        /// <summary>
+        /// Gets or sets the <see cref="ClosingStructuresCalculation"/>, which is chosen 
+        /// to be representative for the whole section.
+        /// </summary>
+        public ClosingStructuresCalculation Calculation { get; set; }
     }
 }
