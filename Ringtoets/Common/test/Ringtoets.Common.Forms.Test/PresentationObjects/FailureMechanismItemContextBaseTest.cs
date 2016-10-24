@@ -33,7 +33,7 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class StructuresContextBaseTest
+    public class FailureMechanismItemContextBaseTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            var context = new SimpleStructuresContext<IObservable, IFailureMechanism>(observableStub, failureMechanismStub, assessmentSectionStub);
+            var context = new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observableStub, failureMechanismStub, assessmentSectionStub);
 
             // Assert
             Assert.IsInstanceOf<ObservableWrappedObjectContextBase<IObservable>>(context);
@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimpleStructuresContext<IObservable, IFailureMechanism>(observableStub, null, assessmentSectionStub);
+            TestDelegate call = () => new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observableStub, null, assessmentSectionStub);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimpleStructuresContext<IObservable, IFailureMechanism>(observableStub, failureMechanismStub, null);
+            TestDelegate call = () => new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observableStub, failureMechanismStub, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -107,7 +107,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
 
             assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
-            var context = new SimpleStructuresContext<IObservable, IFailureMechanism>(observableStub, failureMechanismStub, assessmentSectionStub);
+            var context = new SimpleFailureMechanismItemContext<IObservable, IFailureMechanism>(observableStub, failureMechanismStub, assessmentSectionStub);
 
             // Call
             var availableHydraulicBoundaryLocations = context.AvailableHydraulicBoundaryLocations;
@@ -118,11 +118,11 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mockRepository.VerifyAll();
         }
 
-        private class SimpleStructuresContext<TData, TFailureMechanism> : StructuresContextBase<TData, TFailureMechanism>
+        private class SimpleFailureMechanismItemContext<TData, TFailureMechanism> : FailureMechanismItemContextBase<TData, TFailureMechanism>
             where TData : IObservable
             where TFailureMechanism : IFailureMechanism
         {
-            public SimpleStructuresContext(TData target, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+            public SimpleFailureMechanismItemContext(TData target, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
                 : base(target, failureMechanism, assessmentSection) {}
         }
     }

@@ -47,7 +47,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             var groupContext = new StabilityPointStructuresCalculationGroupContext(calculationGroup, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<StructuresContextBase<CalculationGroup, StabilityPointStructuresFailureMechanism>>(groupContext);
+            Assert.IsInstanceOf<FailureMechanismItemContextBase<CalculationGroup, StabilityPointStructuresFailureMechanism>>(groupContext);
             Assert.IsInstanceOf<ICalculationContext<CalculationGroup, StabilityPointStructuresFailureMechanism>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
             Assert.AreSame(failureMechanism, groupContext.FailureMechanism);

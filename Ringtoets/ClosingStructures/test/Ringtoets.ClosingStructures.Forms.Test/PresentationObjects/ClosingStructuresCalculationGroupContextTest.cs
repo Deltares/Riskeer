@@ -47,7 +47,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             var groupContext = new ClosingStructuresCalculationGroupContext(calculationGroup, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<StructuresContextBase<CalculationGroup, ClosingStructuresFailureMechanism>>(groupContext);
+            Assert.IsInstanceOf<FailureMechanismItemContextBase<CalculationGroup, ClosingStructuresFailureMechanism>>(groupContext);
             Assert.IsInstanceOf<ICalculationContext<CalculationGroup, ClosingStructuresFailureMechanism>>(groupContext);
             Assert.AreSame(calculationGroup, groupContext.WrappedData);
             Assert.AreSame(failureMechanism, groupContext.FailureMechanism);

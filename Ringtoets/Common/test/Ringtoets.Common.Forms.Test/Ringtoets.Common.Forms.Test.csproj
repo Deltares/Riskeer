@@ -74,7 +74,7 @@
     <Compile Include="PresentationObjects\FailureMechanismSectionsContextTest.cs" />
     <Compile Include="PresentationObjects\ForeshoreProfilesContextTest.cs" />
     <Compile Include="PresentationObjects\ReferenceLineContextTest.cs" />
-    <Compile Include="PresentationObjects\StructuresContextBaseTest.cs" />
+    <Compile Include="PresentationObjects\FailureMechanismItemContextBaseTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyClasses\BreakWaterPropertiesTest.cs" />
     <Compile Include="PropertyClasses\ForeshoreGeometryPropertiesTest.cs" />

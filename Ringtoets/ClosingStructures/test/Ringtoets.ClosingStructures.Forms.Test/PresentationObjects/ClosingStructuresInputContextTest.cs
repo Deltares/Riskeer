@@ -46,7 +46,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             var context = new ClosingStructuresInputContext(input, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<StructuresContextBase<ClosingStructuresInput, ClosingStructuresFailureMechanism>>(context);
+            Assert.IsInstanceOf<FailureMechanismItemContextBase<ClosingStructuresInput, ClosingStructuresFailureMechanism>>(context);
             Assert.AreEqual(input, context.WrappedData);
             Assert.AreEqual(failureMechanism, context.FailureMechanism);
             Assert.AreEqual(assessmentSectionMock, context.AssessmentSection);

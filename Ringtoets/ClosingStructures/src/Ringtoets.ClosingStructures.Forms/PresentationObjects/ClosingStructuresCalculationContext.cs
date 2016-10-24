@@ -30,7 +30,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="ClosingStructuresCalculation"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class ClosingStructuresCalculationContext : StructuresContextBase<ClosingStructuresCalculation, ClosingStructuresFailureMechanism>,
+    public class ClosingStructuresCalculationContext : FailureMechanismItemContextBase<ClosingStructuresCalculation, ClosingStructuresFailureMechanism>,
                                                        ICalculationContext<ClosingStructuresCalculation, ClosingStructuresFailureMechanism>
     {
         /// <summary>
