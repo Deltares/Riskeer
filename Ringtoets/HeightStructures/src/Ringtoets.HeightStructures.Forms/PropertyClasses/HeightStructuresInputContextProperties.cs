@@ -265,7 +265,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("value", Resources.FailureProbabilityStructureWithErosion_Value_cannot_be_null);
+                    throw new ArgumentNullException("value", RingtoetsCommonFormsResources.FailureProbabilityStructureWithErosion_Value_cannot_be_null);
                 }
                 try
                 {
@@ -273,11 +273,11 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
                 }
                 catch (OverflowException)
                 {
-                    throw new ArgumentException(Resources.FailureProbabilityStructureWithErosion_Value_too_large);
+                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbabilityStructureWithErosion_Value_too_large);
                 }
                 catch (FormatException)
                 {
-                    throw new ArgumentException(Resources.FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value);
+                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value);
                 }
                 data.WrappedData.NotifyObservers();
             }

@@ -21,13 +21,21 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Drawing.Design;
+using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Core.Common.Gui.Attributes;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.HydraRing.Data;
 
@@ -67,26 +75,290 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             this.constructionProperties = constructionProperties;
         }
 
-        public ForeshoreProfile ForeshoreProfile { get; private set; }
+        #region Model factors
 
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation { get; private set; }
-
-        public TStructure Structure { get; private set; }
-
-        public IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
+        [ResourcesDisplayName(typeof(Resources), "ModelFactorSuperCriticalFlow_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "ModelFactorSuperCriticalFlow_Description")]
+        public NormalDistributionProperties ModelFactorSuperCriticalFlow
         {
-            throw new NotImplementedException();
+            get
+            {
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.StandardDeviation, data.WrappedData)
+                {
+                    Data = data.WrappedData.ModelFactorSuperCriticalFlow
+                };
+            }
         }
+
+        #endregion
+
+        public abstract IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles();
 
         public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
         {
-            throw new NotImplementedException();
+            return data.AvailableHydraulicBoundaryLocations;
         }
 
-        public IEnumerable<TStructure> GetAvailableStructures()
+        public abstract IEnumerable<TStructure> GetAvailableStructures();
+
+        /// <summary>
+        /// The action to perform after setting the <see cref="Structure"/> property.
+        /// </summary>
+        protected abstract void AfterSettingStructure();
+
+        #region Schematization
+
+        [DynamicPropertyOrder]
+        [Editor(typeof(StructureEditor<StructureBase>), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_Description")]
+        public TStructure Structure
         {
-            throw new NotImplementedException();
+            get
+            {
+                return data.WrappedData.Structure;
+            }
+            set
+            {
+                data.WrappedData.Structure = value;
+                AfterSettingStructure();
+                data.WrappedData.NotifyObservers();
+            }
         }
+
+        [DynamicPropertyOrder]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_Location_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_Location_Description")]
+        public Point2D HeightStructureLocation
+        {
+            get
+            {
+                return data.WrappedData.Structure == null ? null :
+                           new Point2D(
+                               new RoundedDouble(0, data.WrappedData.Structure.Location.X),
+                               new RoundedDouble(0, data.WrappedData.Structure.Location.Y));
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_StructureNormalOrientation_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_StructureNormalOrientation_Description")]
+        public RoundedDouble StructureNormalOrientation
+        {
+            get
+            {
+                return data.WrappedData.StructureNormalOrientation;
+            }
+            set
+            {
+                data.WrappedData.StructureNormalOrientation = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_FlowWidthAtBottomProtection_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_FlowWidthAtBottomProtection_Description")]
+        public LogNormalDistributionProperties FlowWidthAtBottomProtection
+        {
+            get
+            {
+                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.FlowWidthAtBottomProtection
+                };
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_WidthFlowApertures_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_WidthFlowApertures_Description")]
+        public VariationCoefficientNormalDistributionProperties WidthFlowApertures
+        {
+            get
+            {
+                return new VariationCoefficientNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.WidthFlowApertures
+                };
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_StorageStructureArea_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_StorageStructureArea_Description")]
+        public VariationCoefficientLogNormalDistributionProperties StorageStructureArea
+        {
+            get
+            {
+                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.StorageStructureArea
+                };
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_AllowedLevelIncreaseStorage_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_AllowedLevelIncreaseStorage_Description")]
+        public LogNormalDistributionProperties AllowedLevelIncreaseStorage
+        {
+            get
+            {
+                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.AllowedLevelIncreaseStorage
+                };
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_CriticalOvertoppingDischarge_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_CriticalOvertoppingDischarge_Description")]
+        public VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
+        {
+            get
+            {
+                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.CriticalOvertoppingDischarge
+                };
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "FailureProbabilityStructureWithErosion_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "FailureProbabilityStructureWithErosion_Description")]
+        public string FailureProbabilityStructureWithErosion
+        {
+            get
+            {
+                return ProbabilityFormattingHelper.Format(data.WrappedData.FailureProbabilityStructureWithErosion);
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value", Resources.FailureProbabilityStructureWithErosion_Value_cannot_be_null);
+                }
+                try
+                {
+                    data.WrappedData.FailureProbabilityStructureWithErosion = (RoundedDouble)double.Parse(value);
+                }
+                catch (OverflowException)
+                {
+                    throw new ArgumentException(Resources.FailureProbabilityStructureWithErosion_Value_too_large);
+                }
+                catch (FormatException)
+                {
+                    throw new ArgumentException(Resources.FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value);
+                }
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [Editor(typeof(ForeshoreProfileEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "ForeshoreProfile_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "ForeshoreProfile_Description")]
+        public ForeshoreProfile ForeshoreProfile
+        {
+            get
+            {
+                return data.WrappedData.ForeshoreProfile;
+            }
+            set
+            {
+                data.WrappedData.ForeshoreProfile = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "BreakWaterProperties_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "BreakWaterProperties_Description")]
+        public UseBreakWaterProperties UseBreakWater
+        {
+            get
+            {
+                return data.WrappedData.ForeshoreProfile == null ?
+                           new UseBreakWaterProperties(null) :
+                           new UseBreakWaterProperties(data.WrappedData);
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "ForeshoreProperties_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "ForeshoreProperties_Description")]
+        public UseForeshoreProperties UseForeshore
+        {
+            get
+            {
+                return new UseForeshoreProperties(data.WrappedData);
+            }
+        }
+
+        #endregion
+
+        #region Hydraulic data
+
+        [DynamicPropertyOrder]
+        [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
+        [ResourcesDisplayName(typeof(Resources), "HydraulicBoundaryLocation_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "HydraulicBoundaryLocation_Description")]
+        public HydraulicBoundaryLocation HydraulicBoundaryLocation
+        {
+            get
+            {
+                return data.WrappedData.HydraulicBoundaryLocation;
+            }
+            set
+            {
+                data.WrappedData.HydraulicBoundaryLocation = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [DynamicPropertyOrder]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
+        [ResourcesDisplayName(typeof(Resources), "StormDuration_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "StormDuration_Description")]
+        public VariationCoefficientLogNormalDistributionProperties StormDuration
+        {
+            get
+            {
+                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation, data.WrappedData)
+                {
+                    Data = data.WrappedData.StormDuration
+                };
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Class holding the various construction parameters for <see cref="StructuresInputBaseProperties{TStructure, TStructureInput, TCalculation, TFailureMechanism}"/>.
