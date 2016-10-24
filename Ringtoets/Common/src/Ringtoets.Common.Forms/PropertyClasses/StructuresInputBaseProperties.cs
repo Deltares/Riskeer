@@ -109,6 +109,99 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// </summary>
         protected abstract void AfterSettingStructure();
 
+        /// <summary>
+        /// Class holding the various construction parameters for <see cref="StructuresInputBaseProperties{TStructure, TStructureInput, TCalculation, TFailureMechanism}"/>.
+        /// </summary>
+        public class ConstructionProperties
+        {
+            #region Model factors
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.ModelFactorSuperCriticalFlow"/>.
+            /// </summary>
+            public int ModelFactorSuperCriticalFlowPropertyIndex { get; set; }
+
+            #endregion
+
+            #region Schematization
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.Structure"/>.
+            /// </summary>
+            public int StructurePropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for the location of <see cref="StructuresInputBase{TStructure}.Structure"/>.
+            /// </summary>
+            public int HeightStructureLocationPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.StructureNormalOrientation"/>.
+            /// </summary>
+            public int StructureNormalOrientationPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.FlowWidthAtBottomProtection"/>.
+            /// </summary>
+            public int FlowWidthAtBottomProtectionPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.WidthFlowApertures"/>.
+            /// </summary>
+            public int WidthFlowAperturesPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.StorageStructureArea"/>.
+            /// </summary>
+            public int StorageStructureAreaPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.AllowedLevelIncreaseStorage"/>.
+            /// </summary>
+            public int AllowedLevelIncreaseStoragePropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.CriticalOvertoppingDischarge"/>.
+            /// </summary>
+            public int CriticalOvertoppingDischargePropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.FailureProbabilityStructureWithErosion"/>.
+            /// </summary>
+            public int FailureProbabilityStructureWithErosionPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.ForeshoreProfile"/>.
+            /// </summary>
+            public int ForeshoreProfilePropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.UseBreakWater"/>.
+            /// </summary>
+            public int UseBreakWaterPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.UseForeshore"/>.
+            /// </summary>
+            public int UseForeshorePropertyIndex { get; set; }
+
+            #endregion
+
+            #region Hydraulic data
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.HydraulicBoundaryLocation"/>.
+            /// </summary>
+            public int HydraulicBoundaryLocationPropertyIndex { get; set; }
+
+            /// <summary>
+            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.StormDuration"/>.
+            /// </summary>
+            public int StormDurationPropertyIndex { get; set; }
+
+            #endregion
+        }
+
         #region Schematization
 
         [DynamicPropertyOrder]
@@ -260,7 +353,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 }
                 try
                 {
-                    data.WrappedData.FailureProbabilityStructureWithErosion = (RoundedDouble)double.Parse(value);
+                    data.WrappedData.FailureProbabilityStructureWithErosion = (RoundedDouble) double.Parse(value);
                 }
                 catch (OverflowException)
                 {
@@ -359,16 +452,5 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         }
 
         #endregion
-
-        /// <summary>
-        /// Class holding the various construction parameters for <see cref="StructuresInputBaseProperties{TStructure, TStructureInput, TCalculation, TFailureMechanism}"/>.
-        /// </summary>
-        public class ConstructionProperties
-        {
-            /// <summary>
-            /// Gets or sets the property index for <see cref="StructuresInputBase{TStructure}.ForeshoreProfile"/>.
-            /// </summary>
-            public int ForeshoreProfilePropertyIndex { get; set; }
-        }
     }
 }
