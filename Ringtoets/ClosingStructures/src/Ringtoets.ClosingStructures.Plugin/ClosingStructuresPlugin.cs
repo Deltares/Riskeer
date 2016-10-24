@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -75,6 +76,15 @@ namespace Ringtoets.ClosingStructures.Plugin
                 CloseForData = CloseFailureMechanismResultViewForData,
                 GetViewData = context => context.WrappedData,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
+            };
+
+            yield return new ViewInfo<ClosingStructuresScenariosContext, CalculationGroup, ClosingStructuresScenariosView>
+            {
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                Image = RingtoetsCommonFormsResources.ScenariosIcon,
+                AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
+                CloseForData = CloseScenariosViewForData
             };
         }
 
@@ -183,6 +193,31 @@ namespace Ringtoets.ClosingStructures.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
+        }
+
+        #endregion
+
+        #region ClosingStructuresScenariosView ViewInfo
+
+        private static bool CloseScenariosViewForData(ClosingStructuresScenariosView view, object removedData)
+        {
+            var failureMechanism = removedData as ClosingStructuresFailureMechanism;
+
+            var failureMechanismContext = removedData as ClosingStructuresFailureMechanismContext;
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
+            var assessmentSection = removedData as IAssessmentSection;
+            if (assessmentSection != null)
+            {
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<ClosingStructuresFailureMechanism>()
+                                                    .FirstOrDefault();
+            }
+
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
         #endregion

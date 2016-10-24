@@ -20,6 +20,8 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Common.Controls.Views;
+using Ringtoets.ClosingStructures.Data;
 
 namespace Ringtoets.ClosingStructures.Forms.Views
 {
@@ -28,7 +30,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
     /// Shows a grid view where for each failure mechanism section, a calculation within the section
     /// can be selected.
     /// </summary>
-    public partial class ClosingStructuresScenariosView : UserControl
+    public partial class ClosingStructuresScenariosView : UserControl, IView
     {
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresScenariosView"/>.
@@ -37,5 +39,12 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         {
             InitializeComponent();
         }
+
+        public object Data { get; set; }
+        
+        /// <summary>
+        /// Gets or sets the failure mechanism.
+        /// </summary>
+        public ClosingStructuresFailureMechanism FailureMechanism { get; set; }
     }
 }

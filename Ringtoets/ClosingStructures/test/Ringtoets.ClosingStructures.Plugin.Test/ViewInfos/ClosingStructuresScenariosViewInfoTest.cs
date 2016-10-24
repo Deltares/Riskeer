@@ -25,28 +25,28 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Forms.PresentationObjects;
+using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.GrassCoverErosionInwards.Data;
-using Ringtoets.GrassCoverErosionInwards.Forms.PresentationObjects;
-using Ringtoets.GrassCoverErosionInwards.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
+namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
 {
     [TestFixture]
-    public class GrassCoverErosionInwardsScenariosViewInfoTest
+    public class ClosingStructuresScenariosViewInfoTest
     {
-        private GrassCoverErosionInwardsPlugin plugin;
+        private ClosingStructuresPlugin plugin;
         private ViewInfo info;
         private MockRepository mocks;
 
         [SetUp]
         public void SetUp()
         {
-            plugin = new GrassCoverErosionInwardsPlugin();
-            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(GrassCoverErosionInwardsScenariosView));
+            plugin = new ClosingStructuresPlugin();
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(ClosingStructuresScenariosView));
             mocks = new MockRepository();
         }
 
@@ -60,7 +60,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void Initialized_Always_ExpectedPropertiesSet()
         {
             // Assert
-            Assert.AreEqual(typeof(GrassCoverErosionInwardsScenariosContext), info.DataType);
+            Assert.AreEqual(typeof(ClosingStructuresScenariosContext), info.DataType);
             Assert.AreEqual(typeof(CalculationGroup), info.ViewDataType);
         }
 
@@ -68,7 +68,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void GetViewName_Always_ReturnViewName()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsScenariosView())
+            using (var view = new ClosingStructuresScenariosView())
             {
                 var viewData = new CalculationGroup();
 
@@ -85,8 +85,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         {
             // Setup
             var calculationGroup = new CalculationGroup();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var context = new GrassCoverErosionInwardsScenariosContext(calculationGroup, failureMechanism);
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var context = new ClosingStructuresScenariosContext(calculationGroup, failureMechanism);
 
             // Call
             object viewData = info.GetViewData(context);
@@ -106,10 +106,28 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
+        public void AfterCreate_Always_SetsSpecificPropertiesToView()
+        {
+            // Setup
+            using (var view = new ClosingStructuresScenariosView())
+            {
+                var group = new CalculationGroup();
+                var failureMechanism = new ClosingStructuresFailureMechanism();
+                var context = new ClosingStructuresScenariosContext(group, failureMechanism);
+
+                // Call
+                info.AfterCreate(view, context);
+
+                // Assert
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
+            }
+        }
+
+        [Test]
         public void CloseForData_AssessmentSectionRemovedWithoutFailureMechanism_ReturnFalse()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsScenariosView
+            using (var view = new ClosingStructuresScenariosView
             {
                 Data = new CalculationGroup()
             })
@@ -131,12 +149,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedAssessmentSection_ReturnFalse()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsScenariosView
+            using (var view = new ClosingStructuresScenariosView
             {
                 Data = new CalculationGroup()
             })
             {
-                var unrelatedFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+                var unrelatedFailureMechanism = new ClosingStructuresFailureMechanism();
 
                 var assessmentSection = mocks.Stub<IAssessmentSection>();
                 assessmentSection.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
@@ -161,9 +179,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedAssessmentSection_ReturnTrue()
         {
             // Setup
-            var relatedFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var relatedFailureMechanism = new ClosingStructuresFailureMechanism();
 
-            using (var view = new GrassCoverErosionInwardsScenariosView
+            using (var view = new ClosingStructuresScenariosView
             {
                 Data = relatedFailureMechanism.CalculationsGroup
             })
@@ -191,13 +209,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnFalse()
         {
             // Setup
-            using (var view = new GrassCoverErosionInwardsScenariosView
+            using (var view = new ClosingStructuresScenariosView
             {
                 Data = new CalculationGroup()
             })
             {
                 // Call
-                bool closeForData = info.CloseForData(view, new GrassCoverErosionInwardsFailureMechanism());
+                bool closeForData = info.CloseForData(view, new ClosingStructuresFailureMechanism());
 
                 // Assert
                 Assert.IsFalse(closeForData);
@@ -208,8 +226,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnTrue()
         {
             // Setup
-            var correspondingFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            using (var view = new GrassCoverErosionInwardsScenariosView
+            var correspondingFailureMechanism = new ClosingStructuresFailureMechanism();
+            using (var view = new ClosingStructuresScenariosView
             {
                 Data = correspondingFailureMechanism.CalculationsGroup
             })
@@ -223,14 +241,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         }
 
         [Test]
-        public void CloseForData_AssessmentSectionRemovedWithoutGrassCoverErosionInwardsFailureMechanism_ReturnsFalse()
+        public void CloseForData_AssessmentSectionRemovedWithoutClosingStructuresFailureMechanism_ReturnsFalse()
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new IFailureMechanism[0]);
             mocks.ReplayAll();
 
-            var view = new GrassCoverErosionInwardsScenariosView
+            var view = new ClosingStructuresScenariosView
             {
                 Data = new CalculationGroup()
             };
@@ -247,12 +265,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
             {
-                new GrassCoverErosionInwardsFailureMechanism()
+                new ClosingStructuresFailureMechanism()
             });
 
             mocks.ReplayAll();
 
-            var view = new GrassCoverErosionInwardsScenariosView
+            var view = new ClosingStructuresScenariosView
             {
                 Data = new CalculationGroup()
             };
@@ -267,7 +285,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         {
             // Setup
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
             assessmentSectionMock.Expect(asm => asm.GetFailureMechanisms()).Return(new[]
             {
                 failureMechanism
@@ -275,7 +293,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            var view = new GrassCoverErosionInwardsScenariosView
+            var view = new ClosingStructuresScenariosView
             {
                 Data = failureMechanism.CalculationsGroup
             };
@@ -289,8 +307,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewNotCorrespondingToRemovedFailureMechanism_ReturnsFalse()
         {
             // Setup
-            var view = new GrassCoverErosionInwardsScenariosView();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var view = new ClosingStructuresScenariosView();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             view.Data = new CalculationGroup();
 
@@ -302,8 +320,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
         public void CloseForData_ViewCorrespondingToRemovedFailureMechanism_ReturnsTrue()
         {
             // Setup
-            var view = new GrassCoverErosionInwardsScenariosView();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            var view = new ClosingStructuresScenariosView();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             view.Data = failureMechanism.CalculationsGroup;
 
@@ -319,9 +337,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            var view = new GrassCoverErosionInwardsScenariosView();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(new GrassCoverErosionInwardsFailureMechanism(), assessmentSectionMock);
+            var view = new ClosingStructuresScenariosView();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(new ClosingStructuresFailureMechanism(), assessmentSectionMock);
 
             view.Data = failureMechanism.CalculationsGroup;
 
@@ -338,33 +356,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             mocks.ReplayAll();
 
-            var view = new GrassCoverErosionInwardsScenariosView();
-            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-            var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
+            var view = new ClosingStructuresScenariosView();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
             view.Data = failureMechanism.CalculationsGroup;
 
             // Call & Assert
             Assert.IsTrue(info.CloseForData(view, failureMechanismContext));
             mocks.VerifyAll();
-        }
-
-        [Test]
-        public void AfterCreate_Always_SetsSpecificPropertiesToView()
-        {
-            // Setup
-            using (var view = new GrassCoverErosionInwardsScenariosView())
-            {
-                var group = new CalculationGroup();
-                var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-                var context = new GrassCoverErosionInwardsScenariosContext(group, failureMechanism);
-
-                // Call
-                info.AfterCreate(view, context);
-
-                // Assert
-                Assert.AreSame(failureMechanism, view.FailureMechanism);
-            }
         }
     }
 }

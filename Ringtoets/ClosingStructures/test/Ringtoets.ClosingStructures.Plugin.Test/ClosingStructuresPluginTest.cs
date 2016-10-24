@@ -19,12 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.Plugin;
 using Core.Common.Gui.TestUtil;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
@@ -119,11 +117,9 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                 ViewInfo[] viewInfos = plugin.GetViewInfos().ToArray();
 
                 // Assert
-                Assert.AreEqual(1, viewInfos.Length);
-                var closingStructuresResultViewInfo = viewInfos.Single(vi => vi.DataType == typeof(FailureMechanismSectionResultContext<ClosingStructuresFailureMechanismSectionResult>));
-                Assert.AreEqual(typeof(IEnumerable<ClosingStructuresFailureMechanismSectionResult>), closingStructuresResultViewInfo.ViewDataType);
-                Assert.AreEqual(typeof(ClosingStructuresFailureMechanismResultView), closingStructuresResultViewInfo.ViewType);
-                TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.FailureMechanismSectionResultIcon, closingStructuresResultViewInfo.Image);
+                Assert.AreEqual(2, viewInfos.Length);
+                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(ClosingStructuresFailureMechanismResultView)));
+                Assert.IsTrue(viewInfos.Any(vi => vi.ViewType == typeof(ClosingStructuresScenariosView)));
             }
         }
 

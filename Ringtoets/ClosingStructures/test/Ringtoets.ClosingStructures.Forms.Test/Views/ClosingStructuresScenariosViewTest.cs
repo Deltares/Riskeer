@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Windows.Forms;
+using Core.Common.Controls.Views;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Forms.Views;
 
@@ -36,6 +37,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             // Assert
             Assert.IsInstanceOf<UserControl>(view);
+            Assert.IsInstanceOf<IView>(view);
             CollectionAssert.IsEmpty(view.Controls);
         }
     }
