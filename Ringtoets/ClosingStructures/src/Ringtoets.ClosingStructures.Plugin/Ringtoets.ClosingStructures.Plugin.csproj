@@ -123,6 +123,7 @@
     <ProjectReference Include="..\Ringtoets.ClosingStructures.Service\Ringtoets.ClosingStructures.Service.csproj">
       <Project>{2BDF07D4-0E81-4B9E-9618-E7EBD9399912}</Project>
       <Name>Ringtoets.ClosingStructures.Service</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
