@@ -59,6 +59,6 @@ namespace Ringtoets.Common.Forms.PresentationObjects
         /// <summary>
         /// Gets the calculation item which the context belongs to.
         /// </summary>
-        public ICalculation Calculation { get; private set; }
+        public TCalculation Calculation { get; private set; }
     }
 }

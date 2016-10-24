@@ -19,24 +19,17 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing.Design;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
-using Core.Common.Gui.PropertyBag;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.Common.Forms.UITypeEditors;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.Properties;
 using Ringtoets.HeightStructures.Utils;
-using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.PropertyClasses
@@ -44,13 +37,10 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HeightStructuresInputContext"/> for properties panel.
     /// </summary>
-    public class HeightStructuresInputContextProperties : ObjectProperties<HeightStructuresInputContext>,
-                                                          IHasStructureProperty<HeightStructure>,
-                                                          IHasForeshoreProfileProperty,
-                                                          IHasHydraulicBoundaryLocationProperty
+    public class HeightStructuresInputContextProperties : StructuresInputBaseProperties<HeightStructure, HeightStructuresInput, HeightStructuresCalculation, HeightStructuresFailureMechanism>
     {
-        private const int heightStructurePropertyIndex = 1;
-        private const int heightStructureLocationPropertyIndex = 2;
+        private const int structurePropertyIndex = 1;
+        private const int structureLocationPropertyIndex = 2;
         private const int structureNormalOrientationPropertyIndex = 3;
         private const int flowWidthAtBottomProtectionPropertyIndex = 4;
         private const int widthFlowAperturesPropertyIndex = 5;
@@ -67,157 +57,26 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int stormDurationPropertyIndex = 16;
         private const int deviationWaveDirectionPropertyIndex = 17;
 
-        #region Model factors
-
-        [PropertyOrder(modelFactorSuperCriticalFlowPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_ModelFactorSuperCriticalFlow_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_ModelFactorSuperCriticalFlow_Description")]
-        public NormalDistributionProperties ModelFactorSuperCriticalFlow
+        public HeightStructuresInputContextProperties() : base(new ConstructionProperties
         {
-            get
-            {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.StandardDeviation, data.WrappedData)
-                {
-                    Data = data.WrappedData.ModelFactorSuperCriticalFlow
-                };
-            }
-        }
-
-        #endregion
-
-        public IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
-        {
-            return data.FailureMechanism.ForeshoreProfiles;
-        }
-
-        public IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
-        {
-            return data.AvailableHydraulicBoundaryLocations;
-        }
-
-        public IEnumerable<HeightStructure> GetAvailableStructures()
-        {
-            return data.FailureMechanism.HeightStructures;
-        }
+            StructurePropertyIndex = structurePropertyIndex,
+            StructureLocationPropertyIndex = structureLocationPropertyIndex,
+            StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
+            FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
+            WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
+            StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
+            AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
+            CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
+            FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
+            ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
+            UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
+            UseForeshorePropertyIndex = useForeshorePropertyIndex,
+            ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
+            HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
+            StormDurationPropertyIndex = stormDurationPropertyIndex
+        }) {}
 
         #region Schematization
-
-        [PropertyOrder(heightStructurePropertyIndex)]
-        [Editor(typeof(StructureEditor<HeightStructure>), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_Description")]
-        public HeightStructure Structure
-        {
-            get
-            {
-                return data.WrappedData.Structure;
-            }
-            set
-            {
-                data.WrappedData.Structure = value;
-                HeightStructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(heightStructureLocationPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_Location_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_Location_Description")]
-        public Point2D HeightStructureLocation
-        {
-            get
-            {
-                return data.WrappedData.Structure == null ? null :
-                           new Point2D(
-                               new RoundedDouble(0, data.WrappedData.Structure.Location.X),
-                               new RoundedDouble(0, data.WrappedData.Structure.Location.Y));
-            }
-        }
-
-        [PropertyOrder(structureNormalOrientationPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StructureNormalOrientation_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StructureNormalOrientation_Description")]
-        public RoundedDouble StructureNormalOrientation
-        {
-            get
-            {
-                return data.WrappedData.StructureNormalOrientation;
-            }
-            set
-            {
-                data.WrappedData.StructureNormalOrientation = value;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(flowWidthAtBottomProtectionPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_FlowWidthAtBottomProtection_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_FlowWidthAtBottomProtection_Description")]
-        public LogNormalDistributionProperties FlowWidthAtBottomProtection
-        {
-            get
-            {
-                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
-                {
-                    Data = data.WrappedData.FlowWidthAtBottomProtection
-                };
-            }
-        }
-
-        [PropertyOrder(widthFlowAperturesPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_WidthFlowApertures_Description")]
-        public VariationCoefficientNormalDistributionProperties WidthFlowApertures
-        {
-            get
-            {
-                return new VariationCoefficientNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
-                {
-                    Data = data.WrappedData.WidthFlowApertures
-                };
-            }
-        }
-
-        [PropertyOrder(storageStructureAreaPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StorageStructureArea_Description")]
-        public VariationCoefficientLogNormalDistributionProperties StorageStructureArea
-        {
-            get
-            {
-                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
-                {
-                    Data = data.WrappedData.StorageStructureArea
-                };
-            }
-        }
-
-        [PropertyOrder(allowedLevelIncreaseStoragePropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_AllowedLevelIncreaseStorage_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_AllowedLevelIncreaseStorage_Description")]
-        public LogNormalDistributionProperties AllowedLevelIncreaseStorage
-        {
-            get
-            {
-                return new LogNormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
-                {
-                    Data = data.WrappedData.AllowedLevelIncreaseStorage
-                };
-            }
-        }
 
         [PropertyOrder(levelCrestStructurePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
@@ -235,137 +94,9 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             }
         }
 
-        [PropertyOrder(criticalOvertoppingDischargePropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_CriticalOvertoppingDischarge_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_CriticalOvertoppingDischarge_Description")]
-        public VariationCoefficientLogNormalDistributionProperties CriticalOvertoppingDischarge
-        {
-            get
-            {
-                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
-                {
-                    Data = data.WrappedData.CriticalOvertoppingDischarge
-                };
-            }
-        }
-
-        [PropertyOrder(failureProbabilityStructureWithErosionPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_FailureProbabilityStructureWithErosion_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_FailureProbabilityStructureWithErosion_Description")]
-        public string FailureProbabilityStructureWithErosion
-        {
-            get
-            {
-                return ProbabilityFormattingHelper.Format(data.WrappedData.FailureProbabilityStructureWithErosion);
-            }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value", RingtoetsCommonFormsResources.FailureProbabilityStructureWithErosion_Value_cannot_be_null);
-                }
-                try
-                {
-                    data.WrappedData.FailureProbabilityStructureWithErosion = (RoundedDouble) double.Parse(value);
-                }
-                catch (OverflowException)
-                {
-                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbabilityStructureWithErosion_Value_too_large);
-                }
-                catch (FormatException)
-                {
-                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbabilityStructureWithErosion_Could_not_parse_string_to_double_value);
-                }
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(foreshoreProfilePropertyIndex)]
-        [Editor(typeof(ForeshoreProfileEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_ForeshoreProfile_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_ForeshoreProfile_Description")]
-        public ForeshoreProfile ForeshoreProfile
-        {
-            get
-            {
-                return data.WrappedData.ForeshoreProfile;
-            }
-            set
-            {
-                data.WrappedData.ForeshoreProfile = value;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(useBreakWaterPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "BreakWaterProperties_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "BreakWaterProperties_Description")]
-        public UseBreakWaterProperties UseBreakWater
-        {
-            get
-            {
-                return data.WrappedData.ForeshoreProfile == null ?
-                           new UseBreakWaterProperties(null) :
-                           new UseBreakWaterProperties(data.WrappedData);
-            }
-        }
-
-        [PropertyOrder(useForeshorePropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "ForeshoreProperties_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "ForeshoreProperties_Description")]
-        public UseForeshoreProperties UseForeshore
-        {
-            get
-            {
-                return new UseForeshoreProperties(data.WrappedData);
-            }
-        }
-
         #endregion
 
         #region Hydraulic data
-
-        [PropertyOrder(hydraulicBoundaryLocationPropertyIndex)]
-        [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_Description")]
-        public HydraulicBoundaryLocation HydraulicBoundaryLocation
-        {
-            get
-            {
-                return data.WrappedData.HydraulicBoundaryLocation;
-            }
-            set
-            {
-                data.WrappedData.HydraulicBoundaryLocation = value;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        [PropertyOrder(stormDurationPropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StormDuration_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StormDuration_Description")]
-        public VariationCoefficientLogNormalDistributionProperties StormDuration
-        {
-            get
-            {
-                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation, data.WrappedData)
-                {
-                    Data = data.WrappedData.StormDuration
-                };
-            }
-        }
 
         [PropertyOrder(deviationWaveDirectionPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
@@ -385,5 +116,20 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         }
 
         #endregion
+
+        public override IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
+        {
+            return data.FailureMechanism.ForeshoreProfiles;
+        }
+
+        public override IEnumerable<HeightStructure> GetAvailableStructures()
+        {
+            return data.FailureMechanism.HeightStructures;
+        }
+
+        protected override void AfterSettingStructure()
+        {
+            HeightStructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
+        }
     }
 }

@@ -30,7 +30,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="HeightStructuresInput"/>
     /// in order to be able to configure height structures calculations.
     /// </summary>
-    public class HeightStructuresInputContext : FailureMechanismItemContextBase<HeightStructuresInput, HeightStructuresFailureMechanism>
+    public class HeightStructuresInputContext : InputContextBase<HeightStructuresInput, HeightStructuresCalculation, HeightStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresInputContext"/>.
@@ -42,10 +42,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         public HeightStructuresInputContext(HeightStructuresCalculation calculation,
                                             HeightStructuresFailureMechanism failureMechanism,
                                             IAssessmentSection assessmentSection)
-            : base(ValidateCalculation(calculation).InputParameters, failureMechanism, assessmentSection) {
-
-            Calculation = calculation;
-        }
+            : base(ValidateCalculation(calculation).InputParameters, calculation, failureMechanism, assessmentSection) {}
 
         private static HeightStructuresCalculation ValidateCalculation(HeightStructuresCalculation calculation)
         {
@@ -55,10 +52,5 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
             }
             return calculation;
         }
-
-        /// <summary>
-        /// Gets the calculation item which the context belongs to.
-        /// </summary>
-        public HeightStructuresCalculation Calculation { get; private set; }
     }
 }

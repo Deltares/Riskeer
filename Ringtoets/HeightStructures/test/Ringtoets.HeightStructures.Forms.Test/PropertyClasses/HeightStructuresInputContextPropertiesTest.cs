@@ -81,10 +81,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var properties = new HeightStructuresInputContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<ObjectProperties<HeightStructuresInputContext>>(properties);
-            Assert.IsInstanceOf<IHasStructureProperty<HeightStructure>>(properties);
-            Assert.IsInstanceOf<IHasForeshoreProfileProperty>(properties);
-            Assert.IsInstanceOf<IHasHydraulicBoundaryLocationProperty>(properties);
+            Assert.IsInstanceOf<StructuresInputBaseProperties<HeightStructure, HeightStructuresInput, HeightStructuresCalculation, HeightStructuresFailureMechanism>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -109,7 +106,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
 
             Assert.IsNull(properties.Structure);
-            Assert.IsNull(properties.HeightStructureLocation);
+            Assert.IsNull(properties.StructureLocation);
             Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
             Assert.AreSame(input.LevelCrestStructure, properties.LevelCrestStructure.Data);
@@ -179,7 +176,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
 
             Assert.AreSame(input.Structure, properties.Structure);
-            Assert.AreEqual(expectedHeightStructureLocation, properties.HeightStructureLocation);
+            Assert.AreEqual(expectedHeightStructureLocation, properties.StructureLocation);
             Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
             Assert.AreSame(input.LevelCrestStructure, properties.LevelCrestStructure.Data);
