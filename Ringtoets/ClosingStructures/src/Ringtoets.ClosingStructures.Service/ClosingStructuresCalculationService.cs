@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Service.Properties;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Service;
@@ -101,13 +102,13 @@ namespace Ringtoets.ClosingStructures.Service
             {
                 if (!canceled)
                 {
-                    log.ErrorFormat("De berekening voor kunstwerk sluiten '{0}' is niet gelukt.", calculationName);
+                    log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation, calculationName);
                     throw;
                 }
             }
             finally
             {
-                log.InfoFormat("Kunstwerken sluiten berekeningsverslag. Klik op details voor meer informatie. {0}", calculator.OutputFileContent);
+                log.InfoFormat(Resources.ClosingStructuresCalculationService_Calculate_Calculation_report_Click_details_for_full_report_0, calculator.OutputFileContent);
                 CalculationServiceHelper.LogCalculationEndTime(calculationName);
             }
         }

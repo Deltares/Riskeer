@@ -90,6 +90,11 @@
       <Name>Ringtoets.Common.Service</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
+      <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
+      <Name>Ringtoets.HydraRing.Calculation</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
@@ -114,6 +119,10 @@
       <Project>{24043F46-406D-4719-B94B-033D63D61153}</Project>
       <Name>Ringtoets.ClosingStructures.IO</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.ClosingStructures.Service\Ringtoets.ClosingStructures.Service.csproj">
+      <Project>{2BDF07D4-0E81-4B9E-9618-E7EBD9399912}</Project>
+      <Name>Ringtoets.ClosingStructures.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -22,15 +22,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.ClosingStructures.IO;
+using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -208,9 +211,15 @@ namespace Ringtoets.ClosingStructures.Plugin
             return null;
         }
 
-        private static void CalculateAll(ClosingStructuresFailureMechanism failureMechanism, IEnumerable<ClosingStructuresCalculation> calculations)
+        private void CalculateAll(ClosingStructuresFailureMechanism failureMechanism,
+                                  IEnumerable<ClosingStructuresCalculation> calculations,
+                                  IAssessmentSection assessmentSection)
         {
-            // Add calculate logic, part of WTI-554
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             calculations.Select(calc => new ClosingStructuresCalculationActivity(calc,
+                                                                                                                  Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                                  failureMechanism,
+                                                                                                                  assessmentSection)).ToArray());
         }
 
         #region TreeNodeInfo
@@ -263,7 +272,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return builder.AddToggleRelevancyOfFailureMechanismItem(closingStructuresFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(closingStructuresFailureMechanismContext,
-                                                                            c => ValidateAll(),
+                                                                            c => ValidateAll(c.WrappedData.Calculations.OfType<ClosingStructuresCalculation>(), c.Parent),
                                                                             ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(closingStructuresFailureMechanismContext,
                                                                            CalculateAll,
@@ -293,9 +302,12 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .Build();
         }
 
-        private static void ValidateAll()
+        private static void ValidateAll(IEnumerable<ClosingStructuresCalculation> closingStructuresCalculations, IAssessmentSection assessmentSection)
         {
-            // Add validation service - currently a place holder
+            foreach (var calculation in closingStructuresCalculations)
+            {
+                new ClosingStructuresCalculationService().Validate(calculation, assessmentSection);
+            }
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(ClosingStructuresFailureMechanismContext context)
@@ -303,9 +315,9 @@ namespace Ringtoets.ClosingStructures.Plugin
             return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
         }
 
-        private static void CalculateAll(ClosingStructuresFailureMechanismContext context)
+        private void CalculateAll(ClosingStructuresFailureMechanismContext context)
         {
-            CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<ClosingStructuresCalculation>());
+            CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<ClosingStructuresCalculation>(), context.Parent);
         }
 
         #endregion
@@ -359,7 +371,10 @@ namespace Ringtoets.ClosingStructures.Plugin
             }
 
             builder.AddSeparator()
-                   .AddValidateAllCalculationsInGroupItem(context, c => ValidateAll(), ValidateAllDataAvailableAndGetErrorMessage)
+                   .AddValidateAllCalculationsInGroupItem(
+                       context,
+                       c => ValidateAll(c.WrappedData.GetCalculations().OfType<ClosingStructuresCalculation>(), c.AssessmentSection),
+                       ValidateAllDataAvailableAndGetErrorMessage)
                    .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessage)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
@@ -383,9 +398,9 @@ namespace Ringtoets.ClosingStructures.Plugin
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
-        private static void CalculateAll(CalculationGroup group, ClosingStructuresCalculationGroupContext context)
+        private void CalculateAll(CalculationGroup group, ClosingStructuresCalculationGroupContext context)
         {
-            CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<ClosingStructuresCalculation>());
+            CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<ClosingStructuresCalculation>(), context.AssessmentSection);
         }
 
         private static void AddCalculation(ClosingStructuresCalculationGroupContext context)
