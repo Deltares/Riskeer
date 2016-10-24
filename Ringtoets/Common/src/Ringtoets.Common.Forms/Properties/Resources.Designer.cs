@@ -1739,6 +1739,42 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het kunstwerk dat gebruikt wordt in de berekening..
+        /// </summary>
+        public static string Structure_Description {
+            get {
+                return ResourceManager.GetString("Structure_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kunstwerk.
+        /// </summary>
+        public static string Structure_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkans kunstwerk gegeven erosie bodem..
+        /// </summary>
+        public static string Structure_FailureProbabilityStructureWithErosion_Description {
+            get {
+                return ResourceManager.GetString("Structure_FailureProbabilityStructureWithErosion_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faalkans gegeven erosie bodem [1/jaar].
+        /// </summary>
+        public static string Structure_FailureProbabilityStructureWithErosion_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_FailureProbabilityStructureWithErosion_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stroomvoerende breedte bodembescherming..
         /// </summary>
         public static string Structure_FlowWidthAtBottomProtection_Description {
@@ -1753,6 +1789,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Structure_FlowWidthAtBottomProtection_DisplayName {
             get {
                 return ResourceManager.GetString("Structure_FlowWidthAtBottomProtection_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De schematisatie van het voorlandprofiel..
+        /// </summary>
+        public static string Structure_ForeshoreProfile_Description {
+            get {
+                return ResourceManager.GetString("Structure_ForeshoreProfile_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Voorlandprofiel.
+        /// </summary>
+        public static string Structure_ForeshoreProfile_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_ForeshoreProfile_DisplayName", resourceCulture);
             }
         }
         
@@ -1811,6 +1865,24 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modelfactor voor het overloopdebiet over een volkomen overlaat..
+        /// </summary>
+        public static string Structure_ModelFactorSuperCriticalFlow_Description {
+            get {
+                return ResourceManager.GetString("Structure_ModelFactorSuperCriticalFlow_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modelfactor overloopdebiet volkomen overlaat [-].
+        /// </summary>
+        public static string Structure_ModelFactorSuperCriticalFlow_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_ModelFactorSuperCriticalFlow_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to De naam van het kunstwerk..
         /// </summary>
         public static string Structure_Name_Description {
@@ -1843,6 +1915,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Structure_StorageStructureArea_DisplayName {
             get {
                 return ResourceManager.GetString("Structure_StorageStructureArea_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stormduur..
+        /// </summary>
+        public static string Structure_StormDuration_Description {
+            get {
+                return ResourceManager.GetString("Structure_StormDuration_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stormduur [uur].
+        /// </summary>
+        public static string Structure_StormDuration_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_StormDuration_DisplayName", resourceCulture);
             }
         }
         

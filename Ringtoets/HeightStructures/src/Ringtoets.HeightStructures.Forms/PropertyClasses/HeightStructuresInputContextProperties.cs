@@ -72,8 +72,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [PropertyOrder(modelFactorSuperCriticalFlowPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "ModelFactorSuperCriticalFlow_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ModelFactorSuperCriticalFlow_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_ModelFactorSuperCriticalFlow_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_ModelFactorSuperCriticalFlow_Description")]
         public NormalDistributionProperties ModelFactorSuperCriticalFlow
         {
             get
@@ -107,8 +107,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [PropertyOrder(heightStructurePropertyIndex)]
         [Editor(typeof(StructureEditor<HeightStructure>), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "Structure_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "Structure_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_Description")]
         public HeightStructure Structure
         {
             get
@@ -253,8 +253,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(failureProbabilityStructureWithErosionPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "FailureProbabilityStructureWithErosion_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FailureProbabilityStructureWithErosion_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_FailureProbabilityStructureWithErosion_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_FailureProbabilityStructureWithErosion_Description")]
         public string FailureProbabilityStructureWithErosion
         {
             get
@@ -286,8 +286,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [PropertyOrder(foreshoreProfilePropertyIndex)]
         [Editor(typeof(ForeshoreProfileEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "ForeshoreProfile_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ForeshoreProfile_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_ForeshoreProfile_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_ForeshoreProfile_Description")]
         public ForeshoreProfile ForeshoreProfile
         {
             get
@@ -354,8 +354,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         [PropertyOrder(stormDurationPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "StormDuration_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StormDuration_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_StormDuration_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_StormDuration_Description")]
         public VariationCoefficientLogNormalDistributionProperties StormDuration
         {
             get

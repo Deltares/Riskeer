@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         where TCalculation : ICalculation
         where TFailureMechanism : IFailureMechanism
     {
-        private Dictionary<string, int> propertyIndexLookup;
+        private readonly Dictionary<string, int> propertyIndexLookup;
 
         /// <summary>
         /// Creates a new instance of the <see cref="StructuresInputBaseProperties{TStructure, TStructureInput, TCalculation, TFailureMechanism}"/> class.
@@ -129,8 +129,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "ModelFactorSuperCriticalFlow_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ModelFactorSuperCriticalFlow_Description")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_ModelFactorSuperCriticalFlow_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_ModelFactorSuperCriticalFlow_Description")]
         public NormalDistributionProperties ModelFactorSuperCriticalFlow
         {
             get
@@ -401,8 +401,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
 
         [DynamicPropertyOrder]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "FailureProbabilityStructureWithErosion_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FailureProbabilityStructureWithErosion_Description")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_FailureProbabilityStructureWithErosion_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_FailureProbabilityStructureWithErosion_Description")]
         public string FailureProbabilityStructureWithErosion
         {
             get
@@ -434,8 +434,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [DynamicPropertyOrder]
         [Editor(typeof(ForeshoreProfileEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "ForeshoreProfile_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ForeshoreProfile_Description")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_ForeshoreProfile_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_ForeshoreProfile_Description")]
         public ForeshoreProfile ForeshoreProfile
         {
             get
@@ -502,8 +502,8 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [DynamicPropertyOrder]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(Resources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "StormDuration_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StormDuration_Description")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_StormDuration_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_StormDuration_Description")]
         public VariationCoefficientLogNormalDistributionProperties StormDuration
         {
             get

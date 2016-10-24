@@ -184,8 +184,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(failureProbabilityStructureWithErosionPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "FailureProbabilityStructureWithErosion_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FailureProbabilityStructureWithErosion_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_FailureProbabilityStructureWithErosion_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_FailureProbabilityStructureWithErosion_Description")]
         public string FailureProbabilityStructureWithErosion
         {
             get

@@ -27,6 +27,7 @@ using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms
 {
@@ -51,7 +52,7 @@ namespace Ringtoets.HeightStructures.Forms
             }
 
             Text = Resources.StructureSelectionDialog_Select_Structures;
-            InitializeDataGridView(Resources.Structure_DisplayName);
+            InitializeDataGridView(RingtoetsCommonFormsResources.Structure_DisplayName);
 
             SetDataSource(structures.Select(structure => new SelectableRow<HeightStructure>(structure, structure.Name)).ToArray());
         }

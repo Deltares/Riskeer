@@ -191,7 +191,7 @@ namespace Ringtoets.HeightStructures.Service
             else
             {
                 validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.StormDuration,
-                                                                                             GenerateParameterNameWithoutUnits(HeightStructuresForms.StormDuration_DisplayName)));
+                                                                                             GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)));
 
                 if (IsInvalidNumber(inputParameters.DeviationWaveDirection))
                 {
@@ -200,7 +200,7 @@ namespace Ringtoets.HeightStructures.Service
                 }
 
                 validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.ModelFactorSuperCriticalFlow,
-                                                                                             GenerateParameterNameWithoutUnits(HeightStructuresForms.ModelFactorSuperCriticalFlow_DisplayName)));
+                                                                                             GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)));
 
                 if (IsInvalidNumber(inputParameters.StructureNormalOrientation))
                 {
