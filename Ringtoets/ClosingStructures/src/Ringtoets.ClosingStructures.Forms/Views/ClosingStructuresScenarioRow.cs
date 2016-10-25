@@ -20,25 +20,25 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Forms;
-using Ringtoets.GrassCoverErosionInwards.Data;
 
-namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
+namespace Ringtoets.ClosingStructures.Forms.Views
 {
     /// <summary>
-    /// Container of a <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>,
+    /// Container of a <see cref="ClosingStructuresFailureMechanismSectionResult"/>,
     /// which takes care of the representation of properties in a grid.
     /// </summary>
-    internal class GrassCoverErosionInwardsScenarioRow : IScenarioRow<GrassCoverErosionInwardsCalculation>
+    public class ClosingStructuresScenarioRow : IScenarioRow<ClosingStructuresCalculation>
     {
-        private readonly GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult;
+        private readonly ClosingStructuresFailureMechanismSectionResult sectionResult;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GrassCoverErosionInwardsScenarioRow"/> class.
+        /// Initializes a new instance of the <see cref="ClosingStructuresScenarioRow"/> class.
         /// </summary>
         /// <param name="sectionResult">The section result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsScenarioRow(GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult)
+        public ClosingStructuresScenarioRow(ClosingStructuresFailureMechanismSectionResult sectionResult)
         {
             if (sectionResult == null)
             {
@@ -55,7 +55,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
             }
         }
 
-        public GrassCoverErosionInwardsCalculation Calculation
+        public ClosingStructuresCalculation Calculation
         {
             get
             {

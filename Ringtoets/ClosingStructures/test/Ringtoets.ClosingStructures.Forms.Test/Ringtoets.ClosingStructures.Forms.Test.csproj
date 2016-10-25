@@ -80,6 +80,7 @@
     <Compile Include="TreeNodeInfos\ClosingStructureTreeNodeInfoTest.cs" />
     <Compile Include="Views\ClosingStructuresFailureMechanismResultViewTest.cs" />
     <Compile Include="Views\ClosingStructuresFailureMechanismSectionResultRowTest.cs" />
+    <Compile Include="Views\ClosingStructuresScenarioRowTest.cs" />
     <Compile Include="Views\ClosingStructuresScenariosViewTest.cs" />
   </ItemGroup>
   <ItemGroup>
