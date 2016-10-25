@@ -21,26 +21,27 @@
 
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="StabilityPointStructuresCalculation"/>
+    /// Presentation object for all data required to configure an instance of <see cref="StructuresCalculation{T}"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class StabilityPointStructuresCalculationContext : FailureMechanismItemContextBase<StabilityPointStructuresCalculation, StabilityPointStructuresFailureMechanism>,
-                                                              ICalculationContext<StabilityPointStructuresCalculation, StabilityPointStructuresFailureMechanism>
+    public class StabilityPointStructuresCalculationContext : FailureMechanismItemContextBase<StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>,
+                                                              ICalculationContext<StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresCalculationContext"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="StabilityPointStructuresCalculation"/> instance wrapped by this context object.</param>
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> instance wrapped by this context object.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
-        public StabilityPointStructuresCalculationContext(StabilityPointStructuresCalculation calculation,
+        public StabilityPointStructuresCalculationContext(StructuresCalculation<StabilityPointStructuresInput> calculation,
                                                           StabilityPointStructuresFailureMechanism failureMechanism,
                                                           IAssessmentSection assessmentSection)
             : base(calculation, failureMechanism, assessmentSection) {}

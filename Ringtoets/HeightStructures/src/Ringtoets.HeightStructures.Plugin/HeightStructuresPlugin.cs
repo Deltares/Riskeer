@@ -34,6 +34,7 @@ using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -183,7 +184,7 @@ namespace Ringtoets.HeightStructures.Plugin
         }
 
         private void CalculateAll(HeightStructuresFailureMechanism failureMechanism,
-                                  IEnumerable<HeightStructuresCalculation> calculations,
+                                  IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations,
                                   IAssessmentSection assessmentSection)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
@@ -193,7 +194,7 @@ namespace Ringtoets.HeightStructures.Plugin
                                                                                                                  assessmentSection)).ToArray());
         }
 
-        private static void ValidateAll(IEnumerable<HeightStructuresCalculation> heightStructuresCalculations, IAssessmentSection assessmentSection)
+        private static void ValidateAll(IEnumerable<StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations, IAssessmentSection assessmentSection)
         {
             foreach (var calculation in heightStructuresCalculations)
             {
@@ -326,7 +327,7 @@ namespace Ringtoets.HeightStructures.Plugin
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               context,
-                              c => ValidateAll(c.WrappedData.Calculations.OfType<HeightStructuresCalculation>(), c.Parent),
+                              c => ValidateAll(c.WrappedData.Calculations.OfType<StructuresCalculation<HeightStructuresInput>>(), c.Parent),
                               ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(context.WrappedData)
@@ -361,7 +362,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private void CalculateAll(HeightStructuresFailureMechanismContext context)
         {
-            CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<HeightStructuresCalculation>(), context.Parent);
+            CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<StructuresCalculation<HeightStructuresInput>>(), context.Parent);
         }
 
         #endregion
@@ -374,7 +375,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
             foreach (ICalculationBase calculationItem in context.WrappedData.Children)
             {
-                var calculation = calculationItem as HeightStructuresCalculation;
+                var calculation = calculationItem as StructuresCalculation<HeightStructuresInput>;
                 var group = calculationItem as CalculationGroup;
 
                 if (calculation != null)
@@ -422,7 +423,7 @@ namespace Ringtoets.HeightStructures.Plugin
             builder.AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
-                       c => ValidateAll(c.WrappedData.GetCalculations().OfType<HeightStructuresCalculation>(), c.AssessmentSection),
+                       c => ValidateAll(c.WrappedData.GetCalculations().OfType<StructuresCalculation<HeightStructuresInput>>(), c.AssessmentSection),
                        ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
@@ -478,7 +479,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             foreach (var structure in structures)
             {
-                var calculation = new HeightStructuresCalculation
+                var calculation = new StructuresCalculation<HeightStructuresInput>
                 {
                     Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
                     InputParameters =
@@ -496,18 +497,18 @@ namespace Ringtoets.HeightStructures.Plugin
             var parentGroupContext = (HeightStructuresCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
-            foreach (var calculation in context.WrappedData.GetCalculations().Cast<HeightStructuresCalculation>())
+            foreach (var calculation in context.WrappedData.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>())
             {
                 HeightStructuresHelper.Delete(context.FailureMechanism.SectionResults,
                                               calculation,
-                                              context.FailureMechanism.Calculations.Cast<HeightStructuresCalculation>());
+                                              context.FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
             }
             parentGroupContext.NotifyObservers();
         }
 
         private static void AddCalculation(HeightStructuresCalculationGroupContext context)
         {
-            var calculation = new HeightStructuresCalculation
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Name = NamingHelper.GetUniqueName(context.WrappedData.Children, RingtoetsCommonDataResources.Calculation_DefaultName, c => c.Name)
             };
@@ -522,7 +523,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
         private void CalculateAll(CalculationGroup group, HeightStructuresCalculationGroupContext context)
         {
-            CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<HeightStructuresCalculation>(), context.AssessmentSection);
+            CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<StructuresCalculation<HeightStructuresInput>>(), context.AssessmentSection);
         }
 
         #endregion
@@ -556,7 +557,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
 
-            HeightStructuresCalculation calculation = context.WrappedData;
+            StructuresCalculation<HeightStructuresInput> calculation = context.WrappedData;
 
             return builder.AddValidateCalculationItem(
                 context,
@@ -580,7 +581,7 @@ namespace Ringtoets.HeightStructures.Plugin
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
-        private void Calculate(HeightStructuresCalculation calculation, HeightStructuresCalculationContext context)
+        private void Calculate(StructuresCalculation<HeightStructuresInput> calculation, HeightStructuresCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow, new HeightStructuresCalculationActivity(calculation,
                                                                                                      Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
@@ -594,7 +595,7 @@ namespace Ringtoets.HeightStructures.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                HeightStructuresHelper.Delete(context.FailureMechanism.SectionResults, context.WrappedData, context.FailureMechanism.Calculations.Cast<HeightStructuresCalculation>());
+                HeightStructuresHelper.Delete(context.FailureMechanism.SectionResults, context.WrappedData, context.FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
                 calculationGroupContext.NotifyObservers();
             }
         }

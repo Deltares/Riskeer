@@ -20,11 +20,12 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.ClosingStructures.Data.TestUtil
 {
-    public class TestClosingStructuresCalculation : ClosingStructuresCalculation
+    public class TestClosingStructuresCalculation : StructuresCalculation<ClosingStructuresInput>
     {
         public TestClosingStructuresCalculation()
         {

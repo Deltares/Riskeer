@@ -34,6 +34,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityPointStructures.Data;
@@ -422,7 +423,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
 
             var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
@@ -456,7 +457,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
@@ -495,7 +496,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
@@ -536,7 +537,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
@@ -583,7 +584,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
 
             var nodeData = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
@@ -617,7 +618,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
@@ -656,7 +657,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)
@@ -697,7 +698,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
             failureMechanism.AddSection(new FailureMechanismSection("test", new[]
             {
                 new Point2D(0, 0)

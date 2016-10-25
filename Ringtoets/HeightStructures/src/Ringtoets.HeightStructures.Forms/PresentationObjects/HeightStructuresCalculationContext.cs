@@ -21,26 +21,27 @@
 
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 
 namespace Ringtoets.HeightStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for all data required to configure an instance of <see cref="HeightStructuresCalculation"/>
+    /// Presentation object for all data required to configure an instance of <see cref="StructuresCalculation{T}"/>
     /// in order to prepare it for performing a calculation.
     /// </summary>
-    public class HeightStructuresCalculationContext : FailureMechanismItemContextBase<HeightStructuresCalculation, HeightStructuresFailureMechanism>,
-                                                      ICalculationContext<HeightStructuresCalculation, HeightStructuresFailureMechanism>
+    public class HeightStructuresCalculationContext : FailureMechanismItemContextBase<StructuresCalculation<HeightStructuresInput>, HeightStructuresFailureMechanism>,
+                                                      ICalculationContext<StructuresCalculation<HeightStructuresInput>, HeightStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresCalculationContext"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="HeightStructuresCalculation"/> instance wrapped by this context object.</param>
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> instance wrapped by this context object.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
-        public HeightStructuresCalculationContext(HeightStructuresCalculation calculation,
+        public HeightStructuresCalculationContext(StructuresCalculation<HeightStructuresInput> calculation,
                                                   HeightStructuresFailureMechanism failureMechanism,
                                                   IAssessmentSection assessmentSection)
             : base(calculation, failureMechanism, assessmentSection) {}

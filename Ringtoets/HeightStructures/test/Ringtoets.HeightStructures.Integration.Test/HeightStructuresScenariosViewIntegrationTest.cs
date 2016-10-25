@@ -27,6 +27,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Views;
@@ -105,7 +106,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 // Call
                 foreach (var structure in assessmentSection.HeightStructures.HeightStructures)
                 {
-                    calculationsGroup.Children.Add(new HeightStructuresCalculation
+                    calculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
                     {
                         Name = NamingHelper.GetUniqueName(((CalculationGroup) view.Data).Children, structure.Name, c => c.Name),
                         InputParameters =
@@ -152,7 +153,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
                 foreach (var structure in assessmentSection.HeightStructures.HeightStructures)
                 {
-                    calculationsGroup.Children.Add(new HeightStructuresCalculation
+                    calculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
                     {
                         Name = NamingHelper.GetUniqueName(calculationsGroup.Children, structure.Name, c => c.Name),
                         InputParameters =
@@ -166,7 +167,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 // Call
                 foreach (var calculationBase in calculationsGroup.Children)
                 {
-                    var calculation = (HeightStructuresCalculation) calculationBase;
+                    var calculation = (StructuresCalculation<HeightStructuresInput>)calculationBase;
                     calculation.Name += "_changed";
                 }
 
@@ -204,7 +205,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
                 foreach (var structure in assessmentSection.HeightStructures.HeightStructures)
                 {
-                    assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new HeightStructuresCalculation
+                    assessmentSection.HeightStructures.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
                     {
                         Name = NamingHelper.GetUniqueName(assessmentSection.HeightStructures.CalculationsGroup.Children, structure.Name + "Calculation", c => c.Name),
                         InputParameters =
@@ -216,8 +217,8 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
                 // Call
                 var calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
-                ((HeightStructuresCalculation) calculationsGroup.Children[1]).InputParameters.Structure =
-                    ((HeightStructuresCalculation) calculationsGroup.Children[0]).InputParameters.Structure;
+                ((StructuresCalculation<HeightStructuresInput>)calculationsGroup.Children[1]).InputParameters.Structure =
+                    ((StructuresCalculation<HeightStructuresInput>)calculationsGroup.Children[0]).InputParameters.Structure;
                 calculationsGroup.NotifyObservers();
 
                 // Assert

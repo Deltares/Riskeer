@@ -23,34 +23,35 @@ using Core.Common.Base;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 
-namespace Ringtoets.ClosingStructures.Data.Test
+namespace Ringtoets.Common.Data.Test.Structures
 {
     [TestFixture]
-    public class ClosingStructuresCalculationTest
+    public class StructuresCalculationTest
     {
         [Test]
-        public void Constructor_DefaultPropertyValuesAreSet()
+        public void Constructor_Default_ExpectedValues()
         {
             // Call
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new TestStructuresCalculation();
 
             // Assert
-            Assert.IsInstanceOf<ICalculation>(calculation);
             Assert.IsInstanceOf<Observable>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsNull(calculation.Comments);
             Assert.IsFalse(calculation.HasOutput);
+            Assert.IsNull(calculation.Output);
         }
 
         [Test]
         public void ClearOutput_Always_SetsOutputToNull()
         {
             // Setup
-            var calculation = new ClosingStructuresCalculation()
+            var calculation = new TestStructuresCalculation
             {
-                Output = new TestClosingStructuresOutput()
+                Output = new TestStructuresOutput()
             };
 
             // Call
@@ -64,7 +65,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void HasOutput_OutputNull_ReturnsFalse()
         {
             // Setup
-            var calculation = new ClosingStructuresCalculation()
+            var calculation = new TestStructuresCalculation
             {
                 Output = null
             };
@@ -80,9 +81,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void HasOutput_OutputSet_ReturnsTrue()
         {
             // Setup
-            var calculation = new ClosingStructuresCalculation()
+            var calculation = new TestStructuresCalculation
             {
-                Output = new TestClosingStructuresOutput()
+                Output = new TestStructuresOutput()
             };
 
             // Call 
@@ -96,7 +97,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void GetObservableInput_Always_ReturnsInputParameters()
         {
             // Setup
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new TestStructuresCalculation();
 
             // Call
             ICalculationInput input = calculation.GetObservableInput();
@@ -109,9 +110,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
         public void GetObservableOutput_Always_ReturnsOutput()
         {
             // Setup
-            var calculation = new ClosingStructuresCalculation()
+            var calculation = new TestStructuresCalculation
             {
-                Output = new TestClosingStructuresOutput()
+                Output = new TestStructuresOutput()
             };
 
             // Call
@@ -126,7 +127,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         {
             // Setup
             var expectedName = "someTestName";
-            var calculation = new ClosingStructuresCalculation
+            var calculation = new TestStructuresCalculation
             {
                 Name = expectedName
             };
@@ -138,9 +139,20 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreEqual(expectedName, result);
         }
 
-        private class TestClosingStructuresOutput : ProbabilityAssessmentOutput
+        private class TestStructuresCalculation : StructuresCalculation<TestStructuresInput> {}
+
+        private class TestStructuresInput : ICalculationInput
         {
-            public TestClosingStructuresOutput() : base(0, 0, 0, 0, 0) {}
+            public void Attach(IObserver observer) {}
+
+            public void Detach(IObserver observer) {}
+
+            public void NotifyObservers() {}
+        }
+
+        private class TestStructuresOutput : ProbabilityAssessmentOutput
+        {
+            public TestStructuresOutput() : base(0, 0, 0, 0, 0) {}
         }
     }
 }

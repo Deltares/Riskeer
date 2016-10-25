@@ -31,6 +31,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
@@ -91,8 +92,8 @@ namespace Ringtoets.Integration.Forms.Test
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
-            var emptyHeightStructuresCalculation = new HeightStructuresCalculation();
-            var heightStructuresCalculation = new HeightStructuresCalculation
+            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
+            var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
@@ -203,7 +204,7 @@ namespace Ringtoets.Integration.Forms.Test
 
             PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            HeightStructuresCalculation emptyHeightStructuresCalculation = new HeightStructuresCalculation();
+            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
@@ -282,8 +283,8 @@ namespace Ringtoets.Integration.Forms.Test
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
-            HeightStructuresCalculation emptyHeightStructuresCalculation = new HeightStructuresCalculation();
-            HeightStructuresCalculation heightStructuresCalculation = new HeightStructuresCalculation
+            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
+            var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
@@ -369,8 +370,8 @@ namespace Ringtoets.Integration.Forms.Test
             {
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
-            HeightStructuresCalculation emptyHeightStructuresCalculation = new HeightStructuresCalculation();
-            HeightStructuresCalculation heightStructuresCalculation = new HeightStructuresCalculation
+            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
+            var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
@@ -451,7 +452,7 @@ namespace Ringtoets.Integration.Forms.Test
 
             PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            HeightStructuresCalculation emptyHeightStructuresCalculation = new HeightStructuresCalculation();
+            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
@@ -507,7 +508,7 @@ namespace Ringtoets.Integration.Forms.Test
 
             PipingCalculation emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             GrassCoverErosionInwardsCalculation emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            HeightStructuresCalculation emptyHeightStructuresCalculation = new HeightStructuresCalculation();
+            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
 
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);

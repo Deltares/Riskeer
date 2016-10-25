@@ -22,6 +22,7 @@
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
@@ -39,15 +40,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var calculation = new StabilityPointStructuresCalculation();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
             var context = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismItemContextBase<StabilityPointStructuresCalculation, StabilityPointStructuresFailureMechanism>>(context);
-            Assert.IsInstanceOf<ICalculationContext<StabilityPointStructuresCalculation, StabilityPointStructuresFailureMechanism>>(context);
+            Assert.IsInstanceOf<FailureMechanismItemContextBase<StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>>(context);
+            Assert.IsInstanceOf<ICalculationContext<StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>>(context);
             Assert.AreSame(calculation, context.WrappedData);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);

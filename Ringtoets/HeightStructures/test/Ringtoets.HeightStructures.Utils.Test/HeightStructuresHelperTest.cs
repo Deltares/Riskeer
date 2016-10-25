@@ -26,6 +26,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 
@@ -43,7 +44,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
             // Call
             TestDelegate test = () => HeightStructuresHelper.CollectCalculationsPerSection(
                 null,
-                new HeightStructuresCalculation[]
+                new StructuresCalculation<HeightStructuresInput>[]
                 {
                     null
                 });
@@ -92,7 +93,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
             // Call
             TestDelegate test = () => HeightStructuresHelper.CollectCalculationsPerSection(
                 twoSections,
-                new HeightStructuresCalculation[]
+                new StructuresCalculation<HeightStructuresInput>[]
                 {
                     null
                 });
@@ -145,7 +146,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
         public void FailureMechanismSectionForCalculation_ValidSectionWithoutCalculationStructureSet_ReturnsNull()
         {
             // Setup
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
             FailureMechanismSection failureMechanismSection =
@@ -160,7 +161,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
         {
             // Setup
             var emptySections = new FailureMechanismSection[0];
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
             FailureMechanismSection failureMechanismSection =
@@ -326,7 +327,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
                     sectionResult
                 },
                 calculationInSectionA,
-                new HeightStructuresCalculation[]
+                new StructuresCalculation<HeightStructuresInput>[]
                 {
                     null
                 });
@@ -353,7 +354,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
                     failureMechanismSectionResult
                 },
                 calculationInSectionA,
-                Enumerable.Empty<HeightStructuresCalculation>());
+                Enumerable.Empty<StructuresCalculation<HeightStructuresInput>>());
 
             // Assert
             Assert.IsNull(failureMechanismSectionResult.Calculation);
@@ -413,7 +414,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
             failureMechanismSectionB
         };
 
-        private readonly HeightStructuresCalculation calculationInSectionA = new HeightStructuresCalculation
+        private readonly StructuresCalculation<HeightStructuresInput> calculationInSectionA = new StructuresCalculation<HeightStructuresInput>
         {
             InputParameters =
             {
@@ -421,7 +422,7 @@ namespace Ringtoets.HeightStructures.Utils.Test
             }
         };
 
-        private readonly HeightStructuresCalculation calculationInSectionB = new HeightStructuresCalculation
+        private readonly StructuresCalculation<HeightStructuresInput> calculationInSectionB = new StructuresCalculation<HeightStructuresInput>
         {
             InputParameters =
             {

@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Plugin;
@@ -90,7 +91,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             var stabilityPointStructuresInputContext = new StabilityPointStructuresInputContext(
                 mocksRepository.Stub<StabilityPointStructuresInput>(),
-                mocksRepository.Stub<StabilityPointStructuresCalculation>(),
+                mocksRepository.Stub<StructuresCalculation<StabilityPointStructuresInput>>(),
                 new StabilityPointStructuresFailureMechanism(),
                 assessmentSectionMock);
 
@@ -110,7 +111,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             var stabilityPointStructuresInputContext = new StabilityPointStructuresInputContext(
                 mocksRepository.Stub<StabilityPointStructuresInput>(),
-                mocksRepository.Stub<StabilityPointStructuresCalculation>(),
+                mocksRepository.Stub<StructuresCalculation<StabilityPointStructuresInput>>(),
                 new StabilityPointStructuresFailureMechanism(),
                 assessmentSectionMock);
 

@@ -39,6 +39,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -118,7 +119,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
             var calculationContext = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
 
             // Call
@@ -146,7 +147,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new HeightStructuresCalculation
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Output = new TestHeightStructuresOutput()
             };
@@ -178,7 +179,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var guiMock = mocks.StrictMock<IGui>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
 
@@ -217,7 +218,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var guiMock = mocks.StrictMock<IGui>();
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
             var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
 
@@ -262,7 +263,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
             var guiMock = mocks.StrictMock<IGui>();
@@ -302,7 +303,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
@@ -340,7 +341,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
@@ -389,7 +390,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
@@ -420,7 +421,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
             var guiMock = mocks.StrictMock<IGui>();
@@ -460,7 +461,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
@@ -498,7 +499,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
@@ -547,7 +548,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
             var nodeData = new HeightStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
 
             using (var treeViewControl = new TreeViewControl())
@@ -730,7 +731,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var elementToBeRemoved = new HeightStructuresCalculation();
+            var elementToBeRemoved = new StructuresCalculation<HeightStructuresInput>();
             var observerMock = mocks.StrictMock<IObserver>();
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var calculationContext = new HeightStructuresCalculationContext(elementToBeRemoved,
@@ -745,7 +746,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             mocks.ReplayAll();
 
             group.Children.Add(elementToBeRemoved);
-            group.Children.Add(new HeightStructuresCalculation());
+            group.Children.Add(new StructuresCalculation<HeightStructuresInput>());
             group.Attach(observerMock);
 
             // Precondition
@@ -766,7 +767,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var group = new CalculationGroup();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var elementToBeRemoved = new HeightStructuresCalculation();
+            var elementToBeRemoved = new StructuresCalculation<HeightStructuresInput>();
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var calculationContext = new HeightStructuresCalculationContext(elementToBeRemoved,
                                                                             failureMechanism,

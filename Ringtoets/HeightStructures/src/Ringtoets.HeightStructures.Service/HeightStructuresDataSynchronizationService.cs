@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Utils.Extensions;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 
@@ -43,7 +44,7 @@ namespace Ringtoets.HeightStructures.Service
         /// clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<HeightStructuresCalculation> ClearAllCalculationOutput(HeightStructuresFailureMechanism failureMechanism)
+        public static IEnumerable<StructuresCalculation<HeightStructuresInput>> ClearAllCalculationOutput(HeightStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
@@ -51,7 +52,7 @@ namespace Ringtoets.HeightStructures.Service
             }
 
             var affectedItems = failureMechanism.Calculations
-                                                .Cast<HeightStructuresCalculation>()
+                                                .Cast<StructuresCalculation<HeightStructuresInput>>()
                                                 .Where(c => c.HasOutput)
                                                 .ToArray();
 
@@ -61,13 +62,13 @@ namespace Ringtoets.HeightStructures.Service
         }
 
         /// <summary>
-        /// Clears the output of the given <see cref="HeightStructuresCalculation"/>.
+        /// Clears the output of the given <see cref="StructuresCalculation{T}"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="HeightStructuresCalculation"/> to clear
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> to clear
         /// the output for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
         /// is <c>null</c>.</exception>
-        public static void ClearCalculationOutput(HeightStructuresCalculation calculation)
+        public static void ClearCalculationOutput(StructuresCalculation<HeightStructuresInput> calculation)
         {
             if (calculation == null)
             {
@@ -87,7 +88,7 @@ namespace Ringtoets.HeightStructures.Service
         /// removing <see cref="HydraulicBoundaryLocation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<HeightStructuresCalculation> ClearHydraulicBoundaryLocations(HeightStructuresFailureMechanism failureMechanism)
+        public static IEnumerable<StructuresCalculation<HeightStructuresInput>> ClearHydraulicBoundaryLocations(HeightStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
@@ -95,7 +96,7 @@ namespace Ringtoets.HeightStructures.Service
             }
 
             var affectedItems = failureMechanism.Calculations
-                                                .Cast<HeightStructuresCalculation>()
+                                                .Cast<StructuresCalculation<HeightStructuresInput>>()
                                                 .Where(c => c.InputParameters.HydraulicBoundaryLocation != null)
                                                 .ToArray();
 
@@ -114,16 +115,16 @@ namespace Ringtoets.HeightStructures.Service
         /// removing data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<HeightStructuresCalculation> ClearAllCalculationOutputAndHydraulicBoundaryLocations(HeightStructuresFailureMechanism failureMechanism)
+        public static IEnumerable<StructuresCalculation<HeightStructuresInput>> ClearAllCalculationOutputAndHydraulicBoundaryLocations(HeightStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            Collection<HeightStructuresCalculation> affectedItems = new Collection<HeightStructuresCalculation>();
+            var affectedItems = new Collection<StructuresCalculation<HeightStructuresInput>>();
 
-            foreach (var calculation in failureMechanism.Calculations.Cast<HeightStructuresCalculation>())
+            foreach (var calculation in failureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>())
             {
                 var calculationChanged = false;
 
@@ -148,7 +149,7 @@ namespace Ringtoets.HeightStructures.Service
             return affectedItems;
         }
 
-        private static void ClearHydraulicBoundaryLocation(HeightStructuresCalculation calculation)
+        private static void ClearHydraulicBoundaryLocation(StructuresCalculation<HeightStructuresInput> calculation)
         {
             calculation.InputParameters.HydraulicBoundaryLocation = null;
         }

@@ -26,17 +26,18 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Utils;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.ClosingStructures.Utils
 {
     /// <summary>
     /// Class holds helper methods to match <see cref="FailureMechanismSection"/> objects 
-    /// with <see cref="ClosingStructuresCalculation"/> objects. 
+    /// with <see cref="StructuresCalculation{T}"/> objects. 
     /// </summary>
     public static class ClosingStructuresHelper
     {
         /// <summary>
-        /// Determine which <see cref="ClosingStructuresCalculation"/> objects are available for a
+        /// Determine which <see cref="StructuresCalculation{T}"/> objects are available for a
         /// <see cref="FailureMechanismSection"/>.
         /// </summary>
         /// <param name="sections">The <see cref="FailureMechanismSection"/> objects.</param>
@@ -49,23 +50,23 @@ namespace Ringtoets.ClosingStructures.Utils
         /// <exception cref="ArgumentException">Thrown when an element in <paramref name="sections"/> is 
         /// <c>null</c>.</exception>
         public static Dictionary<string, IList<ICalculation>> CollectCalculationsPerSection(IEnumerable<FailureMechanismSection> sections,
-                                                                                            IEnumerable<ClosingStructuresCalculation> calculations)
+                                                                                            IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
             return AssignUnassignCalculations.CollectCalculationsPerSection(sections, AsCalculationsWithLocations(calculations));
         }
 
         /// <summary>
-        /// Determine which <see cref="FailureMechanismSection"/> geometrically contains the <see cref="ClosingStructuresCalculation"/>.
+        /// Determine which <see cref="FailureMechanismSection"/> geometrically contains the <see cref="StructuresCalculation{T}"/>.
         /// </summary>
         /// <param name="sections">The <see cref="FailureMechanismSection"/> objects 
         /// whose <see cref="FailureMechanismSection"/> are considered.</param>
-        /// <param name="calculation">The <see cref="ClosingStructuresCalculation"/>.</param>
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/>.</param>
         /// <returns>The containing <see cref="FailureMechanismSection"/>, or <c>null</c> if none found.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sections"/> is <c>null</c></exception>
         /// <exception cref="ArgumentException">Thrown when an element in <paramref name="sections"/> is <c>null</c>.
         /// </exception>
         public static FailureMechanismSection FailureMechanismSectionForCalculation(IEnumerable<FailureMechanismSection> sections,
-                                                                                    ClosingStructuresCalculation calculation)
+                                                                                    StructuresCalculation<ClosingStructuresInput> calculation)
         {
             CalculationWithLocation calculationWithLocation = AsCalculationWithLocation(calculation);
             if (calculationWithLocation != null)
@@ -80,13 +81,13 @@ namespace Ringtoets.ClosingStructures.Utils
         /// <paramref name="calculation"/> assigned, or should have the <paramref name="calculation"/> assigned.
         /// </summary>
         /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="ClosingStructuresFailureMechanismSectionResult"/> to iterate while 
-        /// possibly updating the <see cref="ClosingStructuresCalculation"/> assigned to it.</param>
-        /// <param name="calculation">The <see cref="ClosingStructuresCalculation"/> which has a location that has been updated.</param>
+        /// possibly updating the <see cref="StructuresCalculation{T}"/> assigned to it.</param>
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> which has a location that has been updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResults"/> is <c>null</c></exception>
         /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
         /// <c>null</c>.</exception>
         public static void Update(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults,
-                                  ClosingStructuresCalculation calculation)
+                                  StructuresCalculation<ClosingStructuresInput> calculation)
         {
             ValidateSectionResults(sectionResults);
 
@@ -103,16 +104,16 @@ namespace Ringtoets.ClosingStructures.Utils
         /// </summary>
         /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="ClosingStructuresFailureMechanismSectionResult"/> to iterate while 
         /// removing the reference to the <paramref name="calculation"/> if present.</param>
-        /// <param name="calculation">The <see cref="ClosingStructuresCalculation"/> which has a location that has been updated.</param>
-        /// <param name="calculations">The <see cref="IEnumerable{T}"/> of <see cref="ClosingStructuresCalculation"/> that were left after removing
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> which has a location that has been updated.</param>
+        /// <param name="calculations">The <see cref="IEnumerable{T}"/> of <see cref="StructuresCalculation{T}"/> that were left after removing
         /// <paramref name="calculation"/>.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c> or when an element 
         /// in <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
         /// <c>null</c>.</exception>
         public static void Delete(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults,
-                                  ClosingStructuresCalculation calculation,
-                                  IEnumerable<ClosingStructuresCalculation> calculations)
+                                  StructuresCalculation<ClosingStructuresInput> calculation,
+                                  IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
             ValidateSectionResults(sectionResults);
 
@@ -126,11 +127,11 @@ namespace Ringtoets.ClosingStructures.Utils
         /// Transforms the <paramref name="calculations"/> into <see cref="CalculationWithLocation"/> and filter out the calculations
         /// for which a <see cref="CalculationWithLocation"/> could not be made.
         /// </summary>
-        /// <param name="calculations">The <see cref="ClosingStructuresCalculation"/> collection to transform.</param>
+        /// <param name="calculations">The <see cref="StructuresCalculation{T}"/> collection to transform.</param>
         /// <returns>A collection of <see cref="CalculationWithLocation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c> or when
         /// an element in <paramref name="calculations"/> is <c>null</c>.</exception>
-        private static IEnumerable<CalculationWithLocation> AsCalculationsWithLocations(IEnumerable<ClosingStructuresCalculation> calculations)
+        private static IEnumerable<CalculationWithLocation> AsCalculationsWithLocations(IEnumerable<StructuresCalculation<ClosingStructuresInput>> calculations)
         {
             if (calculations == null)
             {
@@ -151,7 +152,7 @@ namespace Ringtoets.ClosingStructures.Utils
             }
         }
 
-        private static CalculationWithLocation AsCalculationWithLocation(ClosingStructuresCalculation calculation)
+        private static CalculationWithLocation AsCalculationWithLocation(StructuresCalculation<ClosingStructuresInput> calculation)
         {
             if (calculation == null)
             {
@@ -169,7 +170,7 @@ namespace Ringtoets.ClosingStructures.Utils
             return new SectionResultWithCalculationAssignment(
                 failureMechanismSectionResult,
                 result => ((ClosingStructuresFailureMechanismSectionResult)result).Calculation,
-                (result, calculation) => ((ClosingStructuresFailureMechanismSectionResult)result).Calculation = (ClosingStructuresCalculation)calculation);
+                (result, calculation) => ((ClosingStructuresFailureMechanismSectionResult)result).Calculation = (StructuresCalculation<ClosingStructuresInput>)calculation);
         }
     }
 }

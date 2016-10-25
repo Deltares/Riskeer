@@ -32,6 +32,7 @@ using Ringtoets.ClosingStructures.Forms.Properties;
 using Ringtoets.ClosingStructures.Utils;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PropertyClasses;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -40,7 +41,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="ClosingStructuresInputContext"/> for properties panel.
     /// </summary>
-    public class ClosingStructuresInputContextProperties : StructuresInputBaseProperties<ClosingStructure, ClosingStructuresInput, ClosingStructuresCalculation, ClosingStructuresFailureMechanism>
+    public class ClosingStructuresInputContextProperties : StructuresInputBaseProperties<ClosingStructure, ClosingStructuresInput, StructuresCalculation<ClosingStructuresInput>, ClosingStructuresFailureMechanism>
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int stormDurationPropertyIndex = 2;
@@ -159,7 +160,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 {
                     Data = data.WrappedData.DrainCoefficient
                 };
-            }
+        }
         }
 
         [PropertyOrder(factorStormDurationOpenStructurePropertyIndex)]
@@ -171,9 +172,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return data.WrappedData.FactorStormDurationOpenStructure;
-            }
+        }
             set
-            {
+        {
                 data.WrappedData.FactorStormDurationOpenStructure = value;
                 data.WrappedData.NotifyObservers();
             }

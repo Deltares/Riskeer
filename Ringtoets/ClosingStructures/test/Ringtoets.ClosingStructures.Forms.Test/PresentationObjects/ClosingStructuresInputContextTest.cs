@@ -24,6 +24,7 @@ using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
@@ -39,14 +40,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
             var context = new ClosingStructuresInputContext(calculation.InputParameters, calculation, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<InputContextBase<ClosingStructuresInput, ClosingStructuresCalculation, ClosingStructuresFailureMechanism>>(context);
+            Assert.IsInstanceOf<InputContextBase<ClosingStructuresInput, StructuresCalculation<ClosingStructuresInput>, ClosingStructuresFailureMechanism>>(context);
             Assert.AreSame(calculation.InputParameters, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(failureMechanism, context.FailureMechanism);

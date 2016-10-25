@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.ClosingStructures.Data.Test
 {
@@ -112,9 +113,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
                     Children =
                     {
                         new CalculationGroup(),
-                        new ClosingStructuresCalculation(),
+                        new StructuresCalculation<ClosingStructuresInput>(),
                         mocks.StrictMock<ICalculation>(),
-                        new ClosingStructuresCalculation()
+                        new StructuresCalculation<ClosingStructuresInput>()
                     }
                 }
             };
@@ -126,7 +127,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, calculations.Count);
-            Assert.IsTrue(calculations.All(c => c is ClosingStructuresCalculation));
+            Assert.IsTrue(calculations.All(c => c is StructuresCalculation<ClosingStructuresInput>));
             mocks.VerifyAll();
         }
     }

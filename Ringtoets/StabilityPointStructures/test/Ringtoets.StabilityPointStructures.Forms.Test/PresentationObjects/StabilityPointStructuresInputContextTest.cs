@@ -23,6 +23,7 @@ using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
@@ -47,7 +48,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             mocksRepository.ReplayAll();
 
             var input = new StabilityPointStructuresInput();
-            var calculation = new StabilityPointStructuresCalculation();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call

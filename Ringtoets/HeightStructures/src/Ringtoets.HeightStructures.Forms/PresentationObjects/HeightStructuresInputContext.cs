@@ -21,6 +21,7 @@
 
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 
@@ -30,7 +31,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="HeightStructuresInput"/>
     /// in order to be able to configure height structures calculations.
     /// </summary>
-    public class HeightStructuresInputContext : InputContextBase<HeightStructuresInput, HeightStructuresCalculation, HeightStructuresFailureMechanism>
+    public class HeightStructuresInputContext : InputContextBase<HeightStructuresInput, StructuresCalculation<HeightStructuresInput>, HeightStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresInputContext"/>.
@@ -41,7 +42,7 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public HeightStructuresInputContext(HeightStructuresInput wrappedData,
-                                            HeightStructuresCalculation calculation,
+                                            StructuresCalculation<HeightStructuresInput> calculation,
                                             HeightStructuresFailureMechanism failureMechanism,
                                             IAssessmentSection assessmentSection)
             : base(wrappedData, calculation, failureMechanism, assessmentSection) {}

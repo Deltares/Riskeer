@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Utils;
 
@@ -129,7 +130,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
                 var calculations = data.GetCalculations();
 
                 Dictionary<string, IList<ICalculation>> calculationsPerSegment =
-                    HeightStructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.OfType<HeightStructuresCalculation>());
+                    HeightStructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.OfType<StructuresCalculation<HeightStructuresInput>>());
 
                 List<HeightStructuresScenarioRow> scenarioRows =
                     FailureMechanism.SectionResults.Select(sectionResult => new HeightStructuresScenarioRow(sectionResult)).ToList();

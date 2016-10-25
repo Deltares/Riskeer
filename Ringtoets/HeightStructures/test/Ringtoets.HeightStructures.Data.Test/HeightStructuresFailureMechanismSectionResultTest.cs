@@ -23,6 +23,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.HeightStructures.Data.Test
 {
@@ -56,7 +57,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             var result = new HeightStructuresFailureMechanismSectionResult(section);
 
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
             result.Calculation = calculation;
@@ -91,7 +92,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new HeightStructuresCalculation
+                Calculation = new StructuresCalculation<HeightStructuresInput>
                 {
                     Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
                 }
@@ -113,7 +114,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             double probability = 0.65;
             var result = new HeightStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new HeightStructuresCalculation
+                Calculation = new StructuresCalculation<HeightStructuresInput>
                 {
                     Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
                 }

@@ -28,6 +28,7 @@ using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.ClosingStructures.Utils.Test
 {
@@ -43,7 +44,7 @@ namespace Ringtoets.ClosingStructures.Utils.Test
             // Call
             TestDelegate test = () => ClosingStructuresHelper.CollectCalculationsPerSection(
                 null,
-                new ClosingStructuresCalculation[]
+                new StructuresCalculation<ClosingStructuresInput>[]
                 {
                     null
                 });
@@ -92,7 +93,7 @@ namespace Ringtoets.ClosingStructures.Utils.Test
             // Call
             TestDelegate test = () => ClosingStructuresHelper.CollectCalculationsPerSection(
                 twoSections,
-                new ClosingStructuresCalculation[]
+                new StructuresCalculation<ClosingStructuresInput>[]
                 {
                     null
                 });
@@ -145,7 +146,7 @@ namespace Ringtoets.ClosingStructures.Utils.Test
         public void FailureMechanismSectionForCalculation_ValidSectionWithoutCalculationStructureSet_ReturnsNull()
         {
             // Setup
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
             FailureMechanismSection failureMechanismSection =
@@ -160,7 +161,7 @@ namespace Ringtoets.ClosingStructures.Utils.Test
         {
             // Setup
             var emptySections = new FailureMechanismSection[0];
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
             FailureMechanismSection failureMechanismSection =
@@ -326,7 +327,7 @@ namespace Ringtoets.ClosingStructures.Utils.Test
                     sectionResult
                 },
                 calculationInSectionA,
-                new ClosingStructuresCalculation[]
+                new StructuresCalculation<ClosingStructuresInput>[]
                 {
                     null
                 });
@@ -353,7 +354,7 @@ namespace Ringtoets.ClosingStructures.Utils.Test
                     failureMechanismSectionResult
                 },
                 calculationInSectionA,
-                Enumerable.Empty<ClosingStructuresCalculation>());
+                Enumerable.Empty<StructuresCalculation<ClosingStructuresInput>>());
 
             // Assert
             Assert.IsNull(failureMechanismSectionResult.Calculation);
@@ -413,7 +414,7 @@ namespace Ringtoets.ClosingStructures.Utils.Test
             failureMechanismSectionB
         };
 
-        private readonly ClosingStructuresCalculation calculationInSectionA = new ClosingStructuresCalculation
+        private readonly StructuresCalculation<ClosingStructuresInput> calculationInSectionA = new StructuresCalculation<ClosingStructuresInput>
         {
             InputParameters =
             {
@@ -421,7 +422,7 @@ namespace Ringtoets.ClosingStructures.Utils.Test
             }
         };
 
-        private readonly ClosingStructuresCalculation calculationInSectionB = new ClosingStructuresCalculation
+        private readonly StructuresCalculation<ClosingStructuresInput> calculationInSectionB = new StructuresCalculation<ClosingStructuresInput>
         {
             InputParameters =
             {

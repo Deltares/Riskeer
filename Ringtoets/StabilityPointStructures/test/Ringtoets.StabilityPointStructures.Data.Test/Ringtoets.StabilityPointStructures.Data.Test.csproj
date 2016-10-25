@@ -54,7 +54,6 @@
     </Compile>
     <Compile Include="GeneralStabilityPointStructuresInputTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StabilityPointStructuresCalculationTest.cs" />
     <Compile Include="StabilityPointStructuresFailureMechanismSectionResultTest.cs" />
     <Compile Include="StabilityPointStructuresFailureMechanismTest.cs" />
     <Compile Include="StabilityPointStructuresInputTest.cs" />

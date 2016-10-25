@@ -25,6 +25,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Core.Common.Utils.Extensions;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.ClosingStructures.Service
@@ -43,7 +44,7 @@ namespace Ringtoets.ClosingStructures.Service
         /// clearing the output.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<ClosingStructuresCalculation> ClearAllCalculationOutput(ClosingStructuresFailureMechanism failureMechanism)
+        public static IEnumerable<StructuresCalculation<ClosingStructuresInput>> ClearAllCalculationOutput(ClosingStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
@@ -51,7 +52,7 @@ namespace Ringtoets.ClosingStructures.Service
             }
 
             var affectedItems = failureMechanism.Calculations
-                                                .Cast<ClosingStructuresCalculation>()
+                                                .Cast<StructuresCalculation<ClosingStructuresInput>>()
                                                 .Where(c => c.HasOutput)
                                                 .ToArray();
 
@@ -61,13 +62,13 @@ namespace Ringtoets.ClosingStructures.Service
         }
 
         /// <summary>
-        /// Clears the output of the given <see cref="ClosingStructuresCalculation"/>.
+        /// Clears the output of the given <see cref="StructuresCalculation{T}"/>.
         /// </summary>
-        /// <param name="calculation">The <see cref="ClosingStructuresCalculation"/> to clear
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> to clear
         /// the output for.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
         /// is <c>null</c>.</exception>
-        public static void ClearCalculationOutput(ClosingStructuresCalculation calculation)
+        public static void ClearCalculationOutput(StructuresCalculation<ClosingStructuresInput> calculation)
         {
             if (calculation == null)
             {
@@ -79,7 +80,7 @@ namespace Ringtoets.ClosingStructures.Service
 
         /// <summary>
         /// Clears the <see cref="HydraulicBoundaryLocation"/> for all the calculations in
-        /// the <see cref="ClosingStructuresCalculation"/>.
+        /// the <see cref="StructuresCalculation{T}"/>.
         /// </summary>
         /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/>
         /// which contains the calculations.</param>
@@ -87,7 +88,7 @@ namespace Ringtoets.ClosingStructures.Service
         /// removing <see cref="HydraulicBoundaryLocation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<ClosingStructuresCalculation> ClearHydraulicBoundaryLocations(ClosingStructuresFailureMechanism failureMechanism)
+        public static IEnumerable<StructuresCalculation<ClosingStructuresInput>> ClearHydraulicBoundaryLocations(ClosingStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
@@ -95,7 +96,7 @@ namespace Ringtoets.ClosingStructures.Service
             }
 
             var affectedItems = failureMechanism.Calculations
-                                                .Cast<ClosingStructuresCalculation>()
+                                                .Cast<StructuresCalculation<ClosingStructuresInput>>()
                                                 .Where(c => c.InputParameters.HydraulicBoundaryLocation != null)
                                                 .ToArray();
 
@@ -106,24 +107,24 @@ namespace Ringtoets.ClosingStructures.Service
 
         /// <summary>
         /// Clears the <see cref="HydraulicBoundaryLocation"/> and output for all the calculations
-        /// in the <see cref="ClosingStructuresCalculation"/>.
+        /// in the <see cref="StructuresCalculation{T}"/>.
         /// </summary>
-        /// <param name="failureMechanism">The <see cref="ClosingStructuresCalculation"/>
+        /// <param name="failureMechanism">The <see cref="StructuresCalculation{T}"/>
         /// which contains the calculations.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of calculations which are affected by
         /// removing data.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="failureMechanism"/>
         /// is <c>null</c>.</exception>
-        public static IEnumerable<ClosingStructuresCalculation> ClearAllCalculationOutputAndHydraulicBoundaryLocations(ClosingStructuresFailureMechanism failureMechanism)
+        public static IEnumerable<StructuresCalculation<ClosingStructuresInput>> ClearAllCalculationOutputAndHydraulicBoundaryLocations(ClosingStructuresFailureMechanism failureMechanism)
         {
             if (failureMechanism == null)
             {
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            Collection<ClosingStructuresCalculation> affectedItems = new Collection<ClosingStructuresCalculation>();
+            Collection<StructuresCalculation<ClosingStructuresInput>> affectedItems = new Collection<StructuresCalculation<ClosingStructuresInput>>();
 
-            foreach (var calculation in failureMechanism.Calculations.Cast<ClosingStructuresCalculation>())
+            foreach (var calculation in failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 var calculationChanged = false;
 
@@ -148,7 +149,7 @@ namespace Ringtoets.ClosingStructures.Service
             return affectedItems;
         }
 
-        private static void ClearHydraulicBoundaryLocation(ClosingStructuresCalculation calculation)
+        private static void ClearHydraulicBoundaryLocation(StructuresCalculation<ClosingStructuresInput> calculation)
         {
             calculation.InputParameters.HydraulicBoundaryLocation = null;
         }

@@ -24,30 +24,30 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Properties;
 
-namespace Ringtoets.ClosingStructures.Data
+namespace Ringtoets.Common.Data.Structures
 {
     /// <summary>
-    /// This class holds information about a calculation for the <see cref="ClosingStructuresFailureMechanism"/>.
+    /// This class holds information about a calculation for a structures failure mechanism.
     /// </summary>
-    public class ClosingStructuresCalculation : Observable, ICalculation
+    public class StructuresCalculation<T> : Observable, ICalculation where T : class, new()
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructuresCalculation"/>.
+        /// Initializes a new instance of the <see cref="StructuresCalculation{T}"/> class.
         /// </summary>
-        public ClosingStructuresCalculation()
+        public StructuresCalculation()
         {
-            InputParameters = new ClosingStructuresInput();
+            InputParameters = new T();
             Name = Resources.Calculation_DefaultName;
         }
 
         /// <summary>
-        /// Gets the input parameters to perform a closing structures calculation with.
+        /// Gets the input parameters to perform a structures calculation with.
         /// </summary>
-        public ClosingStructuresInput InputParameters { get; private set; }
+        public T InputParameters { get; private set; }
 
         /// <summary>
         /// Gets or sets the <see cref="ProbabilityAssessmentOutput"/>, 
-        /// which contains the output of a closing structures calculation.
+        /// which contains the output of a structures calculation.
         /// </summary>
         public ProbabilityAssessmentOutput Output { get; set; }
 
@@ -70,7 +70,7 @@ namespace Ringtoets.ClosingStructures.Data
 
         public ICalculationInput GetObservableInput()
         {
-            return InputParameters;
+            return (ICalculationInput) InputParameters;
         }
 
         public ICalculationOutput GetObservableOutput()

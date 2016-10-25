@@ -25,6 +25,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Utils;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Calculation.Activities;
 
 namespace Ringtoets.ClosingStructures.Service
@@ -34,7 +35,7 @@ namespace Ringtoets.ClosingStructures.Service
     /// </summary>
     public class ClosingStructuresCalculationActivity : HydraRingActivityBase
     {
-        private readonly ClosingStructuresCalculation calculation;
+        private readonly StructuresCalculation<ClosingStructuresInput> calculation;
         private readonly ClosingStructuresCalculationService calculationService;
         private readonly ClosingStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
@@ -48,7 +49,7 @@ namespace Ringtoets.ClosingStructures.Service
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public ClosingStructuresCalculationActivity(ClosingStructuresCalculation calculation, string hlcdDirectory,
+        public ClosingStructuresCalculationActivity(StructuresCalculation<ClosingStructuresInput> calculation, string hlcdDirectory,
                                                     ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (calculation == null)

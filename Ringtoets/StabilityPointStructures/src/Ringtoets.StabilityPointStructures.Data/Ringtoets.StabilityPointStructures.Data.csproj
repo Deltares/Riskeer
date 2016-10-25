@@ -48,7 +48,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="StabilityPointStructure.cs" />
-    <Compile Include="StabilityPointStructuresCalculation.cs" />
     <Compile Include="StabilityPointStructuresFailureMechanism.cs" />
     <Compile Include="StabilityPointStructuresFailureMechanismSectionResult.cs" />
     <Compile Include="StabilityPointStructuresInput.cs" />

@@ -31,6 +31,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.Views
@@ -220,8 +221,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                var calculationA = (ClosingStructuresCalculation)failureMechanism.CalculationsGroup.Children[0];
-                var calculationB = (ClosingStructuresCalculation)failureMechanism.CalculationsGroup.Children[1];
+                var calculationA = (StructuresCalculation<ClosingStructuresInput>)failureMechanism.CalculationsGroup.Children[0];
+                var calculationB = (StructuresCalculation<ClosingStructuresInput>)failureMechanism.CalculationsGroup.Children[1];
 
                 calculationA.InputParameters.Structure = calculationB.InputParameters.Structure;
 
@@ -247,8 +248,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                var calculationB = ((ClosingStructuresCalculation)failureMechanism.CalculationsGroup.Children[1]);
-                var calculationC = new ClosingStructuresCalculation
+                var calculationB = ((StructuresCalculation<ClosingStructuresInput>)failureMechanism.CalculationsGroup.Children[1]);
+                var calculationC = new StructuresCalculation<ClosingStructuresInput>
                 {
                     Name = "CalculationC",
                     InputParameters =
@@ -305,7 +306,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             ClosingStructuresFailureMechanism failureMechanism = new ClosingStructuresFailureMechanism();
             var matchingPointA = new Point2D(0, 0);
             var matchingPointB = new Point2D(20, 20);
-            var calculationA = new ClosingStructuresCalculation
+            var calculationA = new StructuresCalculation<ClosingStructuresInput>
             {
                 Name = "CalculationA",
                 InputParameters =
@@ -313,7 +314,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                     Structure = CreateStructure(matchingPointA)
                 }
             };
-            var calculationB = new ClosingStructuresCalculation
+            var calculationB = new StructuresCalculation<ClosingStructuresInput>
             {
                 Name = "CalculationB",
                 InputParameters =

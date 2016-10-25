@@ -25,10 +25,10 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
-using Ringtoets.HeightStructures.Forms.Properties;
 using Ringtoets.HeightStructures.Utils;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -37,7 +37,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="HeightStructuresInputContext"/> for properties panel.
     /// </summary>
-    public class HeightStructuresInputContextProperties : StructuresInputBaseProperties<HeightStructure, HeightStructuresInput, HeightStructuresCalculation, HeightStructuresFailureMechanism>
+    public class HeightStructuresInputContextProperties : StructuresInputBaseProperties<HeightStructure, HeightStructuresInput, StructuresCalculation<HeightStructuresInput>, HeightStructuresFailureMechanism>
     {
         private const int structurePropertyIndex = 1;
         private const int structureLocationPropertyIndex = 2;

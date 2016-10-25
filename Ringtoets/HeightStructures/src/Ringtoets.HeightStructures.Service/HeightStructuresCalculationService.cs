@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using log4net;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service.Properties;
@@ -55,10 +56,10 @@ namespace Ringtoets.HeightStructures.Service
         /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
         /// the execution of the operation.
         /// </summary>
-        /// <param name="calculation">The <see cref="HeightStructuresCalculation"/> for which to validate the values.</param>
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> for which to validate the values.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
         /// <returns><c>True</c>c> if <paramref name="calculation"/> has no validation errors; <c>False</c>c> otherwise.</returns>
-        public bool Validate(HeightStructuresCalculation calculation, IAssessmentSection assessmentSection)
+        public bool Validate(StructuresCalculation<HeightStructuresInput> calculation, IAssessmentSection assessmentSection)
         {
             CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
 
@@ -83,16 +84,16 @@ namespace Ringtoets.HeightStructures.Service
         }
 
         /// <summary>
-        /// Performs a height structures calculation based on the supplied <see cref="HeightStructuresCalculation"/> and sets <see cref="HeightStructuresCalculation.Output"/>
+        /// Performs a height structures calculation based on the supplied <see cref="StructuresCalculation{T}"/> and sets <see cref="StructuresCalculation{T}.Output"/>
         /// if the calculation was successful. Error and status information is logged during the execution of the operation.
         /// </summary>
-        /// <param name="calculation">The <see cref="HeightStructuresCalculation"/> that holds all the information required to perform the calculation.</param>
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> that holds all the information required to perform the calculation.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
         /// <param name="generalInput">The <see cref="GeneralHeightStructuresInput"/> to create the input with for the calculation.</param>
         /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
         /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
-        internal void Calculate(HeightStructuresCalculation calculation,
+        internal void Calculate(StructuresCalculation<HeightStructuresInput> calculation,
                                 IAssessmentSection assessmentSection,
                                 FailureMechanismSection failureMechanismSection,
                                 GeneralHeightStructuresInput generalInput,
@@ -134,7 +135,7 @@ namespace Ringtoets.HeightStructures.Service
             }
         }
 
-        private static StructuresOvertoppingCalculationInput CreateInput(HeightStructuresCalculation calculation, FailureMechanismSection failureMechanismSection, GeneralHeightStructuresInput generalInput)
+        private static StructuresOvertoppingCalculationInput CreateInput(StructuresCalculation<HeightStructuresInput> calculation, FailureMechanismSection failureMechanismSection, GeneralHeightStructuresInput generalInput)
         {
             return new StructuresOvertoppingCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,

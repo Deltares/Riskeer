@@ -34,6 +34,7 @@ using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
@@ -66,7 +67,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             var activity = new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
 
@@ -104,7 +105,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new ClosingStructuresCalculation()
+            var calculation = new StructuresCalculation<ClosingStructuresInput>()
             {
                 InputParameters =
                 {
@@ -299,7 +300,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new ClosingStructuresCalculation()
+            var calculation = new StructuresCalculation<ClosingStructuresInput>()
             {
                 InputParameters =
                 {

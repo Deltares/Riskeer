@@ -21,6 +21,7 @@
 
 using System;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.HeightStructures.Data
 {
@@ -53,9 +54,9 @@ namespace Ringtoets.HeightStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="HeightStructuresCalculation"/>, which is chosen 
+        /// Gets or sets the <see cref="StructuresCalculation{T}"/>, which is chosen 
         /// to be representative for the whole section.
         /// </summary>
-        public HeightStructuresCalculation Calculation { get; set; }
+        public StructuresCalculation<HeightStructuresInput> Calculation { get; set; }
     }
 }

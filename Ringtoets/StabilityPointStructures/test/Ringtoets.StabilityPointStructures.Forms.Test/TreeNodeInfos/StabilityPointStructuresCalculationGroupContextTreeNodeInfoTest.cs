@@ -36,6 +36,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
@@ -135,7 +136,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
-            var childCalculation = new StabilityPointStructuresCalculation();
+            var childCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             group.Children.Add(childGroup);
             group.Children.Add(childCalculation);
@@ -263,7 +264,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StabilityPointStructuresCalculation()
+                    new StructuresCalculation<StabilityPointStructuresInput>()
                 }
             };
 
@@ -300,7 +301,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StabilityPointStructuresCalculation()
+                    new StructuresCalculation<StabilityPointStructuresInput>()
                 }
             };
 
@@ -309,7 +310,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = null;
@@ -347,7 +348,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StabilityPointStructuresCalculation()
+                    new StructuresCalculation<StabilityPointStructuresInput>()
                 }
             };
 
@@ -356,7 +357,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -395,7 +396,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StabilityPointStructuresCalculation()
+                    new StructuresCalculation<StabilityPointStructuresInput>()
                 }
             };
 
@@ -412,7 +413,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
@@ -453,7 +454,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StabilityPointStructuresCalculation()
+                    new StructuresCalculation<StabilityPointStructuresInput>()
                 }
             };
 
@@ -490,7 +491,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StabilityPointStructuresCalculation()
+                    new StructuresCalculation<StabilityPointStructuresInput>()
                 }
             };
 
@@ -499,7 +500,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
 
@@ -536,7 +537,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StabilityPointStructuresCalculation()
+                    new StructuresCalculation<StabilityPointStructuresInput>()
                 }
             };
 
@@ -545,7 +546,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -584,7 +585,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new StabilityPointStructuresCalculation()
+                    new StructuresCalculation<StabilityPointStructuresInput>()
                 }
             };
 
@@ -601,7 +602,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new StabilityPointStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
 
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
@@ -786,7 +787,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
                                                                                failureMechanism,
                                                                                assessmentSectionMock);
-            var calculationItem = new StabilityPointStructuresCalculation
+            var calculationItem = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 Name = "Nieuwe berekening"
             };
@@ -814,7 +815,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
                     var newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<StabilityPointStructuresCalculation>(newlyAddedItem);
+                    Assert.IsInstanceOf<StructuresCalculation<StabilityPointStructuresInput>>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }

@@ -25,6 +25,7 @@ using System.Linq;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.ClosingStructures.Service.Test
@@ -48,27 +49,27 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation1 = new ClosingStructuresCalculation
+            var calculation1 = new StructuresCalculation<ClosingStructuresInput>
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            var calculation2 = new ClosingStructuresCalculation
+            var calculation2 = new StructuresCalculation<ClosingStructuresInput>
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            var calculation3 = new ClosingStructuresCalculation();
+            var calculation3 = new StructuresCalculation<ClosingStructuresInput>();
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<ClosingStructuresCalculation> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutput(failureMechanism);
 
             // Assert
-            foreach (ClosingStructuresCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<ClosingStructuresCalculation>())
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 Assert.IsNull(calculation.Output);
             }
@@ -94,7 +95,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
         public void ClearCalculationOutput_WithCalculation_ClearsOutput()
         {
             // Setup
-            var calculation = new ClosingStructuresCalculation
+            var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
@@ -124,7 +125,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
-            var calculation1 = new ClosingStructuresCalculation
+            var calculation1 = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -132,7 +133,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 }
             };
 
-            var calculation2 = new ClosingStructuresCalculation
+            var calculation2 = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -140,17 +141,17 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 }
             };
 
-            var calculation3 = new ClosingStructuresCalculation();
+            var calculation3 = new StructuresCalculation<ClosingStructuresInput>();
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<ClosingStructuresCalculation> affectedItems = ClosingStructuresDataSynchronizationService.ClearHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedItems = ClosingStructuresDataSynchronizationService.ClearHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
-            foreach (ClosingStructuresCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<ClosingStructuresCalculation>())
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
             }
@@ -179,7 +180,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
-            var calculation1 = new ClosingStructuresCalculation
+            var calculation1 = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -188,7 +189,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            var calculation2 = new ClosingStructuresCalculation
+            var calculation2 = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -197,17 +198,17 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            var calculation3 = new ClosingStructuresCalculation();
+            var calculation3 = new StructuresCalculation<ClosingStructuresInput>();
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<ClosingStructuresCalculation> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
-            foreach (ClosingStructuresCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<ClosingStructuresCalculation>())
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
                 Assert.IsNull(calculation.Output);
@@ -226,7 +227,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0);
 
-            var calculation1 = new ClosingStructuresCalculation
+            var calculation1 = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -234,7 +235,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 }
             };
 
-            var calculation2 = new ClosingStructuresCalculation
+            var calculation2 = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
                 {
@@ -242,17 +243,17 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 }
             };
 
-            var calculation3 = new ClosingStructuresCalculation();
+            var calculation3 = new StructuresCalculation<ClosingStructuresInput>();
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<ClosingStructuresCalculation> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
-            foreach (ClosingStructuresCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<ClosingStructuresCalculation>())
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 Assert.IsNull(calculation.InputParameters.HydraulicBoundaryLocation);
             }
@@ -269,27 +270,27 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var calculation1 = new ClosingStructuresCalculation
+            var calculation1 = new StructuresCalculation<ClosingStructuresInput>
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            var calculation2 = new ClosingStructuresCalculation
+            var calculation2 = new StructuresCalculation<ClosingStructuresInput>
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
-            var calculation3 = new ClosingStructuresCalculation();
+            var calculation3 = new StructuresCalculation<ClosingStructuresInput>();
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<ClosingStructuresCalculation> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
-            foreach (ClosingStructuresCalculation calculation in failureMechanism.CalculationsGroup.Children.Cast<ClosingStructuresCalculation>())
+            foreach (StructuresCalculation<ClosingStructuresInput> calculation in failureMechanism.CalculationsGroup.Children.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 Assert.IsNull(calculation.Output);
             }
@@ -306,16 +307,16 @@ namespace Ringtoets.ClosingStructures.Service.Test
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
-            var calculation1 = new ClosingStructuresCalculation();
-            var calculation2 = new ClosingStructuresCalculation();
-            var calculation3 = new ClosingStructuresCalculation();
+            var calculation1 = new StructuresCalculation<ClosingStructuresInput>();
+            var calculation2 = new StructuresCalculation<ClosingStructuresInput>();
+            var calculation3 = new StructuresCalculation<ClosingStructuresInput>();
 
             failureMechanism.CalculationsGroup.Children.Add(calculation1);
             failureMechanism.CalculationsGroup.Children.Add(calculation2);
             failureMechanism.CalculationsGroup.Children.Add(calculation3);
 
             // Call
-            IEnumerable<ClosingStructuresCalculation> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
+            IEnumerable<StructuresCalculation<ClosingStructuresInput>> affectedItems = ClosingStructuresDataSynchronizationService.ClearAllCalculationOutputAndHydraulicBoundaryLocations(failureMechanism);
 
             // Assert
             CollectionAssert.IsEmpty(affectedItems);

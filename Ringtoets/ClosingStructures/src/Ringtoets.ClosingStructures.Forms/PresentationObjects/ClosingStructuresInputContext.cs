@@ -22,6 +22,7 @@
 using System;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 
 namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
@@ -30,7 +31,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="ClosingStructuresInput"/>
     /// in order to be able to configure closing structures calculations.
     /// </summary>
-    public class ClosingStructuresInputContext : InputContextBase<ClosingStructuresInput, ClosingStructuresCalculation, ClosingStructuresFailureMechanism>
+    public class ClosingStructuresInputContext : InputContextBase<ClosingStructuresInput, StructuresCalculation<ClosingStructuresInput>, ClosingStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresInputContext"/>.
@@ -41,7 +42,7 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
         public ClosingStructuresInputContext(ClosingStructuresInput wrappedData,
-                                             ClosingStructuresCalculation calculation,
+                                             StructuresCalculation<ClosingStructuresInput> calculation,
                                              ClosingStructuresFailureMechanism failureMechanism,
                                              IAssessmentSection assessmentSection)
             : base(wrappedData, calculation, failureMechanism, assessmentSection) { }

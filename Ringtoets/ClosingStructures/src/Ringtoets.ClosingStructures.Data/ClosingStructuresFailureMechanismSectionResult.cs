@@ -21,6 +21,7 @@
 
 using System;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.ClosingStructures.Data
 {
@@ -54,9 +55,9 @@ namespace Ringtoets.ClosingStructures.Data
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="ClosingStructuresCalculation"/>, which is chosen 
+        /// Gets or sets the <see cref="StructuresCalculation{T}"/>, which is chosen 
         /// to be representative for the whole section.
         /// </summary>
-        public ClosingStructuresCalculation Calculation { get; set; }
+        public StructuresCalculation<ClosingStructuresInput> Calculation { get; set; }
     }
 }

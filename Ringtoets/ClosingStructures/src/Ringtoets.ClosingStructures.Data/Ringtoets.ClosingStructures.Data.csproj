@@ -40,7 +40,6 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="ClosingStructure.cs" />
-    <Compile Include="ClosingStructuresCalculation.cs" />
     <Compile Include="ClosingStructuresFailureMechanism.cs" />
     <Compile Include="ClosingStructuresFailureMechanismSectionResult.cs" />
     <Compile Include="ClosingStructuresInput.cs" />

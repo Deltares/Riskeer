@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.HeightStructures.Data.Test
 {
@@ -110,9 +111,9 @@ namespace Ringtoets.HeightStructures.Data.Test
                     Children =
                     {
                         new CalculationGroup(),
-                        new HeightStructuresCalculation(),
+                        new StructuresCalculation<HeightStructuresInput>(),
                         mocks.StrictMock<ICalculation>(),
-                        new HeightStructuresCalculation()
+                        new StructuresCalculation<HeightStructuresInput>()
                     }
                 }
             };
@@ -124,7 +125,7 @@ namespace Ringtoets.HeightStructures.Data.Test
 
             // Assert
             Assert.AreEqual(2, calculations.Count);
-            Assert.IsTrue(calculations.All(c => c is HeightStructuresCalculation));
+            Assert.IsTrue(calculations.All(c => c is StructuresCalculation<HeightStructuresInput>));
             mocks.VerifyAll();
         }
     }

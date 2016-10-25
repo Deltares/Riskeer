@@ -27,6 +27,7 @@ using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.Views
@@ -51,7 +52,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             // Assert
             Assert.AreSame(sectionResult.Section.Name, row.Name);
             Assert.AreSame(sectionResult.Calculation, row.Calculation);
-            Assert.IsInstanceOf<IScenarioRow<ClosingStructuresCalculation>>(row);
+            Assert.IsInstanceOf<IScenarioRow<StructuresCalculation<ClosingStructuresInput>>>(row);
         }
 
         [Test]
@@ -78,7 +79,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             var row = new ClosingStructuresScenarioRow(sectionResult);
 
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
             row.Calculation = calculation;
@@ -107,7 +108,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
             var row = new ClosingStructuresScenarioRow(sectionResult);
 
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
             row.Calculation = calculation;

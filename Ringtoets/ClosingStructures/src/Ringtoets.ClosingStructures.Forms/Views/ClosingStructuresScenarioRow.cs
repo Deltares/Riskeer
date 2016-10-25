@@ -21,6 +21,7 @@
 
 using System;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 
 namespace Ringtoets.ClosingStructures.Forms.Views
@@ -29,7 +30,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
     /// Container of a <see cref="ClosingStructuresFailureMechanismSectionResult"/>,
     /// which takes care of the representation of properties in a grid.
     /// </summary>
-    public class ClosingStructuresScenarioRow : IScenarioRow<ClosingStructuresCalculation>
+    public class ClosingStructuresScenarioRow : IScenarioRow<StructuresCalculation<ClosingStructuresInput>>
     {
         private readonly ClosingStructuresFailureMechanismSectionResult sectionResult;
 
@@ -55,7 +56,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             }
         }
 
-        public ClosingStructuresCalculation Calculation
+        public StructuresCalculation<ClosingStructuresInput> Calculation
         {
             get
             {

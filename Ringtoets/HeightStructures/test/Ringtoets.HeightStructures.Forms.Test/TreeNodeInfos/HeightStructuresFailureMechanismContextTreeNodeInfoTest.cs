@@ -36,6 +36,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -401,7 +402,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
 
             var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
@@ -439,7 +440,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
 
@@ -477,7 +478,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -517,7 +518,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 
@@ -559,7 +560,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new HeightStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
 
             var nodeData = new HeightStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
@@ -597,7 +598,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
 
@@ -635,7 +636,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -675,7 +676,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 

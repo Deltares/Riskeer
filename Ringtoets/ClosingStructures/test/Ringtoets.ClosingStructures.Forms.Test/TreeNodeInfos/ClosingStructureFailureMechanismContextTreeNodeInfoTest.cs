@@ -37,6 +37,7 @@ using Ringtoets.ClosingStructures.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.HydraRing.Data;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
@@ -407,7 +408,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             // Setup
             var guiMock = mocksRepository.StrictMock<IGui>();
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            failureMechanism.CalculationsGroup.Children.Add(new ClosingStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
             var assessmentSectionMock = mocksRepository.StrictMock<IAssessmentSection>();
 
             var nodeData = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
@@ -451,7 +452,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new ClosingStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
 
@@ -495,7 +496,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new ClosingStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -542,7 +543,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new ClosingStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
 

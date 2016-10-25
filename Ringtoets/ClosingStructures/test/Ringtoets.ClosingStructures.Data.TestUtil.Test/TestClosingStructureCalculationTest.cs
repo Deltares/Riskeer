@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 
 namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
@@ -37,7 +38,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             var calculation = new TestClosingStructuresCalculation();
 
             // Assert
-            Assert.IsInstanceOf<ClosingStructuresCalculation>(calculation);
+            Assert.IsInstanceOf<StructuresCalculation<ClosingStructuresInput>>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsNull(calculation.Comments);

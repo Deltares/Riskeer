@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
@@ -425,11 +426,11 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 Children =
                 {
-                    new HeightStructuresCalculation
+                    new StructuresCalculation<HeightStructuresInput>
                     {
                         Name = "A"
                     },
-                    new HeightStructuresCalculation
+                    new StructuresCalculation<HeightStructuresInput>
                     {
                         Name = "B"
                     }
@@ -462,12 +463,12 @@ namespace Application.Ringtoets.Storage.Test.Create
                 Children =
                 {
                     new CalculationGroup("A", true),
-                    new HeightStructuresCalculation
+                    new StructuresCalculation<HeightStructuresInput>
                     {
                         Name = "B"
                     },
                     new CalculationGroup("C", false),
-                    new HeightStructuresCalculation
+                    new StructuresCalculation<HeightStructuresInput>
                     {
                         Name = "D"
                     }

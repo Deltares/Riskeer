@@ -27,6 +27,7 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
@@ -91,7 +92,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var heightStructuresCalculation = new HeightStructuresCalculation();
+            var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var heightStructuresInputContext = new HeightStructuresInputContext(
                 heightStructuresCalculation.InputParameters,
                 heightStructuresCalculation,
@@ -112,7 +113,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var heightStructuresCalculation = new HeightStructuresCalculation();
+            var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var heightStructuresInputContext = new HeightStructuresInputContext(
                 heightStructuresCalculation.InputParameters,
                 heightStructuresCalculation,

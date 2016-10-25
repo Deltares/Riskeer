@@ -29,6 +29,7 @@ using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
@@ -95,7 +96,7 @@ namespace Application.Ringtoets.Storage.Create
                 {
                     entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntities.Add(childGrassCoverErosionOutwardsCalculation.Create(registry, i));
                 }
-                var childHeightStructuresCalculation = calculationBase as HeightStructuresCalculation;
+                var childHeightStructuresCalculation = calculationBase as StructuresCalculation<HeightStructuresInput>;
                 if (childHeightStructuresCalculation != null)
                 {
                     entity.HeightStructuresCalculationEntities.Add(childHeightStructuresCalculation.Create(registry, i));

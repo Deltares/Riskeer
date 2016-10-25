@@ -24,6 +24,7 @@ using Core.Common.Base.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 
 namespace Ringtoets.HeightStructures.Service.Test
@@ -40,7 +41,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
             var activity = new HeightStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSectionMock);
@@ -82,7 +83,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             mocks.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
             TestDelegate call = () => new HeightStructuresCalculationActivity(calculation, null, failureMechanism, assessmentSectionMock);
@@ -101,7 +102,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
             TestDelegate call = () => new HeightStructuresCalculationActivity(calculation, "", null, assessmentSectionMock);
@@ -117,7 +118,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
             TestDelegate call = () => new HeightStructuresCalculationActivity(calculation, "", failureMechanism, null);

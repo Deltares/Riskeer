@@ -32,6 +32,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -66,7 +67,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             var activity = new HeightStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
 
@@ -104,7 +105,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new HeightStructuresCalculation()
+            var calculation = new StructuresCalculation<HeightStructuresInput>()
             {
                 InputParameters =
                 {
@@ -149,7 +150,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new HeightStructuresCalculation()
+            var calculation = new StructuresCalculation<HeightStructuresInput>()
             {
                 InputParameters =
                 {
@@ -648,7 +649,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new HeightStructuresCalculation
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 InputParameters =
                 {

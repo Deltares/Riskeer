@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -60,7 +61,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            HeightStructuresCalculation calculation = new HeightStructuresCalculation
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Name = name,
                 InputParameters =
@@ -100,7 +101,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            HeightStructuresCalculation calculation = new HeightStructuresCalculation
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Name = name,
                 InputParameters =
@@ -139,7 +140,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            HeightStructuresCalculation calculation = new TestHeightStructuresCalculation()
+            var calculation = new TestHeightStructuresCalculation()
             {
                 Name = name,
                 InputParameters =
@@ -456,7 +457,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            HeightStructuresCalculation calculation = new TestHeightStructuresCalculation()
+            var calculation = new TestHeightStructuresCalculation()
             {
                 Name = name,
                 InputParameters =
@@ -547,7 +548,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new HeightStructuresCalculation
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 InputParameters =
                 {
@@ -611,7 +612,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            HeightStructuresCalculation calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculation
             {
                 InputParameters =
                 {
@@ -697,7 +698,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            HeightStructuresCalculation calculation = new TestHeightStructuresCalculation
+            var calculation = new TestHeightStructuresCalculation
             {
                 InputParameters =
                 {

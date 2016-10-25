@@ -28,6 +28,7 @@ using Core.Common.Controls.Views;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Utils;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.ClosingStructures.Forms.Views
 {
@@ -130,7 +131,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
                 Dictionary<string, IList<ICalculation>> calculationsPerSegment =
                     ClosingStructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections,
-                                                                          calculations.OfType<ClosingStructuresCalculation>());
+                                                                          calculations.OfType<StructuresCalculation<ClosingStructuresInput>>());
 
                 var scenarioRows = failureMechanism.SectionResults.Select(sr => new ClosingStructuresScenarioRow(sr)).ToList();
 

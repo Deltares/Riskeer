@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using NUnit.Framework;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.HeightStructures.Data.TestUtil.Test
 {
@@ -33,7 +34,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
             var calculation = new TestHeightStructuresCalculation();
 
             // Assert
-            Assert.IsInstanceOf<HeightStructuresCalculation>(calculation);
+            Assert.IsInstanceOf<StructuresCalculation<HeightStructuresInput>>(calculation);
             Assert.AreEqual("Nieuwe berekening", calculation.Name);
             Assert.IsNotNull(calculation.InputParameters);
             Assert.IsNull(calculation.Comments);

@@ -32,6 +32,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
@@ -59,7 +60,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            ClosingStructuresCalculation calculation = new ClosingStructuresCalculation
+            var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 Name = name,
                 InputParameters =
@@ -98,7 +99,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            ClosingStructuresCalculation calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation()
             {
                 Name = name,
                 InputParameters =
@@ -142,7 +143,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             }));
             FailureMechanismSection failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
 
-            ClosingStructuresCalculation calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation()
             {
                 InputParameters =
                 {
@@ -187,7 +188,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            ClosingStructuresCalculation calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation()
             {
                 InputParameters =
                 {
@@ -281,7 +282,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            ClosingStructuresCalculation calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation()
             {
                 InputParameters =
                 {
@@ -375,7 +376,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            ClosingStructuresCalculation calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation()
             {
                 InputParameters =
                 {
@@ -581,7 +582,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             }));
             FailureMechanismSection failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
 
-            ClosingStructuresCalculation calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation()
             {
                 InputParameters =
                 {

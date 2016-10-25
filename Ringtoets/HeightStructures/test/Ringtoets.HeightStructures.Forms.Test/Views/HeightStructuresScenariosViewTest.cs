@@ -29,6 +29,7 @@ using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -249,8 +250,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                var calculationA = (HeightStructuresCalculation) failureMechanism.CalculationsGroup.Children[0];
-                var calculationB = (HeightStructuresCalculation) failureMechanism.CalculationsGroup.Children[1];
+                var calculationA = (StructuresCalculation<HeightStructuresInput>)failureMechanism.CalculationsGroup.Children[0];
+                var calculationB = (StructuresCalculation<HeightStructuresInput>)failureMechanism.CalculationsGroup.Children[1];
 
                 calculationA.InputParameters.Structure = calculationB.InputParameters.Structure;
 
@@ -284,8 +285,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                var calculationB = ((HeightStructuresCalculation) failureMechanism.CalculationsGroup.Children[1]);
-                var calculationC = new HeightStructuresCalculation
+                var calculationB = ((StructuresCalculation<HeightStructuresInput>)failureMechanism.CalculationsGroup.Children[1]);
+                var calculationC = new StructuresCalculation<HeightStructuresInput>
                 {
                     Name = "CalculationC"
                 };
@@ -347,7 +348,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             var failureMechanism = new HeightStructuresFailureMechanism();
             var matchingPointA = new Point2D(0, 0);
             var matchingPointB = new Point2D(20, 20);
-            var calculationA = new HeightStructuresCalculation
+            var calculationA = new StructuresCalculation<HeightStructuresInput>
             {
                 Name = "CalculationA",
                 InputParameters =
@@ -355,7 +356,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                     Structure = new TestHeightStructure(matchingPointA)
                 }
             };
-            var calculationB = new HeightStructuresCalculation
+            var calculationB = new StructuresCalculation<HeightStructuresInput>
             {
                 Name = "CalculationB",
                 InputParameters =

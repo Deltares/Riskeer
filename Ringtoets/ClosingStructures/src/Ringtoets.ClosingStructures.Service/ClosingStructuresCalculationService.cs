@@ -27,6 +27,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Service.Properties;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -49,18 +50,18 @@ namespace Ringtoets.ClosingStructures.Service
         private bool canceled;
 
         /// <summary>
-        /// Performs a height structures calculation based on the supplied <see cref="ClosingStructuresCalculation"/> and sets 
-        /// <see cref="ClosingStructuresCalculation.Output"/> if the calculation was successful. Error and status information is 
+        /// Performs a height structures calculation based on the supplied <see cref="StructuresCalculation{T}"/> and sets 
+        /// <see cref="StructuresCalculation{T}.Output"/> if the calculation was successful. Error and status information is 
         /// logged during the execution of the operation.
         /// </summary>
-        /// <param name="calculation">The <see cref="ClosingStructuresCalculation"/> that holds all the information required to perform the calculation.</param>
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> that holds all the information required to perform the calculation.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
         /// <param name="generalInput">The <see cref="GeneralClosingStructuresInput"/> to create the input with for the calculation.</param>
         /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
         /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
         /// <exception cref="NotSupportedException"></exception>
-        public void Calculate(ClosingStructuresCalculation calculation,
+        public void Calculate(StructuresCalculation<ClosingStructuresInput> calculation,
                               IAssessmentSection assessmentSection,
                               FailureMechanismSection failureMechanismSection,
                               GeneralClosingStructuresInput generalInput,
@@ -127,7 +128,7 @@ namespace Ringtoets.ClosingStructures.Service
             canceled = true;
         }
 
-        public bool Validate(ClosingStructuresCalculation calculation, IAssessmentSection assessmentSection)
+        public bool Validate(StructuresCalculation<ClosingStructuresInput> calculation, IAssessmentSection assessmentSection)
         {
             CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
             var messages = ValidateInput(calculation.InputParameters, assessmentSection);
@@ -137,7 +138,7 @@ namespace Ringtoets.ClosingStructures.Service
             return !messages.Any();
         }
 
-        private static StructuresClosureVerticalWallCalculationInput CreateClosureVerticalWallCalculationInput(ClosingStructuresCalculation calculation,
+        private static StructuresClosureVerticalWallCalculationInput CreateClosureVerticalWallCalculationInput(StructuresCalculation<ClosingStructuresInput> calculation,
                                                                                                                FailureMechanismSection failureMechanismSection,
                                                                                                                GeneralClosingStructuresInput generalInput)
         {
@@ -168,7 +169,7 @@ namespace Ringtoets.ClosingStructures.Service
                 calculation.InputParameters.DeviationWaveDirection);
         }
 
-        private static StructuresClosureLowSillCalculationInput CreateLowSillCalculationInput(ClosingStructuresCalculation calculation,
+        private static StructuresClosureLowSillCalculationInput CreateLowSillCalculationInput(StructuresCalculation<ClosingStructuresInput> calculation,
                                                                                               FailureMechanismSection failureMechanismSection,
                                                                                               GeneralClosingStructuresInput generalInput)
         {
@@ -198,7 +199,7 @@ namespace Ringtoets.ClosingStructures.Service
                 calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation);
         }
 
-        private static StructuresClosureFloodedCulvertCalculationInput CreateFloodedCulvertCalculationInput(ClosingStructuresCalculation calculation,
+        private static StructuresClosureFloodedCulvertCalculationInput CreateFloodedCulvertCalculationInput(StructuresCalculation<ClosingStructuresInput> calculation,
                                                                                                             FailureMechanismSection failureMechanismSection,
                                                                                                             GeneralClosingStructuresInput generalInput)
         {

@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Utils;
 using Ringtoets.HydraRing.Calculation.Activities;
@@ -34,7 +35,7 @@ namespace Ringtoets.HeightStructures.Service
     /// </summary>
     public class HeightStructuresCalculationActivity : HydraRingActivityBase
     {
-        private readonly HeightStructuresCalculation calculation;
+        private readonly StructuresCalculation<HeightStructuresInput> calculation;
         private readonly string hlcdDirectory;
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
@@ -48,7 +49,7 @@ namespace Ringtoets.HeightStructures.Service
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public HeightStructuresCalculationActivity(HeightStructuresCalculation calculation, string hlcdDirectory,
+        public HeightStructuresCalculationActivity(StructuresCalculation<HeightStructuresInput> calculation, string hlcdDirectory,
                                                    HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (calculation == null)

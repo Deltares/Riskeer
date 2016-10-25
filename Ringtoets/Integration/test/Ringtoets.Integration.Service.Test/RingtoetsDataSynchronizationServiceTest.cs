@@ -28,6 +28,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
@@ -73,8 +74,8 @@ namespace Ringtoets.Integration.Service.Test
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
 
-            var emptyHeightStructuresCalculation = new HeightStructuresCalculation();
-            var heightStructuresCalculation = new HeightStructuresCalculation
+            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
+            var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
@@ -186,12 +187,12 @@ namespace Ringtoets.Integration.Service.Test
         {
             // Setup
             var failureMechanism1 = new HeightStructuresFailureMechanism();
-            failureMechanism1.CalculationsGroup.Children.Add(new HeightStructuresCalculation
+            failureMechanism1.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             });
             var failureMechanism2 = new HeightStructuresFailureMechanism();
-            failureMechanism2.CalculationsGroup.Children.Add(new HeightStructuresCalculation
+            failureMechanism2.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             });
@@ -209,8 +210,8 @@ namespace Ringtoets.Integration.Service.Test
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             // Assert
-            HeightStructuresCalculation calculation1 = (HeightStructuresCalculation) failureMechanism1.CalculationsGroup.Children[0];
-            HeightStructuresCalculation calculation2 = (HeightStructuresCalculation) failureMechanism2.CalculationsGroup.Children[0];
+            StructuresCalculation<HeightStructuresInput> calculation1 = (StructuresCalculation<HeightStructuresInput>)failureMechanism1.CalculationsGroup.Children[0];
+            StructuresCalculation<HeightStructuresInput> calculation2 = (StructuresCalculation<HeightStructuresInput>)failureMechanism2.CalculationsGroup.Children[0];
             Assert.IsNull(calculation1.Output);
             Assert.IsNull(calculation2.Output);
             CollectionAssert.AreEqual(new[]
@@ -259,8 +260,8 @@ namespace Ringtoets.Integration.Service.Test
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
 
-            var emptyHeightStructuresCalculation = new HeightStructuresCalculation();
-            var heightStructuresCalculation = new HeightStructuresCalculation
+            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
+            var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
             {
                 InputParameters =
                 {
@@ -365,8 +366,8 @@ namespace Ringtoets.Integration.Service.Test
                 }
             };
 
-            var emptyHeightStructuresCalculation = new HeightStructuresCalculation();
-            var heightStructuresCalculation = new HeightStructuresCalculation
+            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
+            var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
             {
                 InputParameters =
                 {
@@ -453,8 +454,8 @@ namespace Ringtoets.Integration.Service.Test
                 Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
             };
 
-            var emptyHeightStructuresCalculation = new HeightStructuresCalculation();
-            var heightStructuresCalculation = new HeightStructuresCalculation
+            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
+            var heightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
@@ -519,7 +520,7 @@ namespace Ringtoets.Integration.Service.Test
 
             var emptyPipingCalculation = new PipingCalculation(new GeneralPipingInput());
             var emptyGrassCoverErosionInwardsCalculation = new GrassCoverErosionInwardsCalculation();
-            var emptyHeightStructuresCalculation = new HeightStructuresCalculation();
+            var emptyHeightStructuresCalculation = new StructuresCalculation<HeightStructuresInput>();
             var emptyStabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
             var emptyGrassCoverErosionOutwardsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
             var emptyWaveImpactAshpaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();

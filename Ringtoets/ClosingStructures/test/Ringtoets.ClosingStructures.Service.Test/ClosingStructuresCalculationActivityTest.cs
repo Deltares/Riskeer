@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.ClosingStructures.Service.Test
 {
@@ -40,7 +41,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
             var activity = new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSectionMock);
@@ -82,7 +83,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             mocks.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
             TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, null, failureMechanism, assessmentSectionMock);
@@ -101,7 +102,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
             TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, "", null, assessmentSectionMock);
@@ -117,7 +118,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
             TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, null);

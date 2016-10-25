@@ -41,6 +41,7 @@ using Ringtoets.ClosingStructures.Plugin;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -146,7 +147,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
-            var childCalculation = new ClosingStructuresCalculation();
+            var childCalculation = new StructuresCalculation<ClosingStructuresInput>();
 
             group.Children.Add(childGroup);
             group.Children.Add(calculationItemMock);
@@ -377,7 +378,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new ClosingStructuresCalculation()
+                    new StructuresCalculation<ClosingStructuresInput>()
                 }
             };
 
@@ -421,7 +422,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new ClosingStructuresCalculation()
+                    new StructuresCalculation<ClosingStructuresInput>()
                 }
             };
 
@@ -430,7 +431,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new ClosingStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = null;
@@ -475,7 +476,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new ClosingStructuresCalculation()
+                    new StructuresCalculation<ClosingStructuresInput>()
                 }
             };
 
@@ -484,7 +485,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new ClosingStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
@@ -531,7 +532,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new ClosingStructuresCalculation()
+                    new StructuresCalculation<ClosingStructuresInput>()
                 }
             };
 
@@ -548,7 +549,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new ClosingStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
@@ -594,7 +595,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new ClosingStructuresCalculation()
+                    new StructuresCalculation<ClosingStructuresInput>()
                 }
             };
 
@@ -632,7 +633,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new ClosingStructuresCalculation()
+                    new StructuresCalculation<ClosingStructuresInput>()
                 }
             };
 
@@ -641,7 +642,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new ClosingStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
@@ -679,7 +680,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new ClosingStructuresCalculation()
+                    new StructuresCalculation<ClosingStructuresInput>()
                 }
             };
 
@@ -688,7 +689,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new ClosingStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var nodeData = new ClosingStructuresCalculationGroupContext(group,
@@ -728,7 +729,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new ClosingStructuresCalculation()
+                    new StructuresCalculation<ClosingStructuresInput>()
                 }
             };
 
@@ -745,7 +746,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new ClosingStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var nodeData = new ClosingStructuresCalculationGroupContext(group,
@@ -991,7 +992,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var nodeData = new ClosingStructuresCalculationGroupContext(group,
                                                                         failureMechanism,
                                                                         assessmentSectionMock);
-            var calculation = new ClosingStructuresCalculation
+            var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 Name = "Nieuwe berekening"
             };
@@ -1019,7 +1020,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
                     var newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<ClosingStructuresCalculation>(newlyAddedItem);
+                    Assert.IsInstanceOf<StructuresCalculation<ClosingStructuresInput>>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }
@@ -1083,7 +1084,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 new Point2D(0, 0)
             }));
 
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
             group.Children.Add(calculation);
             failureMechanism.SectionResults.First().Calculation = calculation;
 
@@ -1109,7 +1110,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var parentNodeData = new ClosingStructuresCalculationGroupContext(parentGroup,
                                                                               failureMechanism,
                                                                               assessmentSectionMock);
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             observerMock.Expect(o => o.UpdateObserver());
 

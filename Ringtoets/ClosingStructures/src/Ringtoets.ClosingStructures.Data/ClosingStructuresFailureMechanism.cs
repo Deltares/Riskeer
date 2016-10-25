@@ -26,6 +26,7 @@ using Ringtoets.ClosingStructures.Data.Properties;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Data
@@ -55,7 +56,7 @@ namespace Ringtoets.ClosingStructures.Data
         {
             get
             {
-                return CalculationsGroup.GetCalculations().OfType<ClosingStructuresCalculation>();
+                return CalculationsGroup.GetCalculations().OfType<StructuresCalculation<ClosingStructuresInput>>();
             }
         }
 

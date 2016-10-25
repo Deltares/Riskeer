@@ -25,6 +25,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.Views;
@@ -51,7 +52,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
             // Assert
             Assert.AreSame(sectionResult.Section.Name, row.Name);
             Assert.AreSame(sectionResult.Calculation, row.Calculation);
-            Assert.IsInstanceOf<IScenarioRow<HeightStructuresCalculation>>(row);
+            Assert.IsInstanceOf<IScenarioRow<StructuresCalculation<HeightStructuresInput>>>(row);
         }
 
         [Test]
@@ -78,7 +79,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
             var row = new HeightStructuresScenarioRow(sectionResult);
 
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
             row.Calculation = calculation;
@@ -107,7 +108,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
 
             var row = new HeightStructuresScenarioRow(sectionResult);
 
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
             row.Calculation = calculation;

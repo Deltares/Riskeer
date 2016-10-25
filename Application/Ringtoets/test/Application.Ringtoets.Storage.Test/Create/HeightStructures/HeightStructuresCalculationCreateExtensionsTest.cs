@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
@@ -40,7 +41,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         public void Create_PersistenceRegistryNull_ThrowArgumentNullException()
         {
             // Setup
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             // Call
             TestDelegate call = () => calculation.Create(null, 0);
@@ -58,7 +59,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             // Setup
             var random = new Random(randomSeed);
 
-            var calculation = new HeightStructuresCalculation
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Name = name,
                 Comments = comments,
@@ -162,7 +163,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         public void Create_NaNParameters_EntityWithNullFields()
         {
             // Setup
-            var calculation = new HeightStructuresCalculation
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 InputParameters =
                 {
@@ -245,7 +246,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             // Setup
             const string name = "A";
             const string comment = "B";
-            var calculation = new HeightStructuresCalculation
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Name = name,
                 Comments = comment
@@ -271,7 +272,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         {
             // Setup
             var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "A", 1, 1);
-            var calculation = new HeightStructuresCalculation
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 InputParameters =
                 {
@@ -295,7 +296,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         {
             // Setup
             var heightStructure = new TestHeightStructure();
-            var calculation = new HeightStructuresCalculation
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 InputParameters =
                 {
@@ -319,7 +320,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         {
             // Setup
             var foreshoreProfile = new TestForeshoreProfile();
-            var calculation = new HeightStructuresCalculation
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 InputParameters =
                 {

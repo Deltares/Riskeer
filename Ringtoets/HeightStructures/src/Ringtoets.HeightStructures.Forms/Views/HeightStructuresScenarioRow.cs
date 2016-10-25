@@ -21,6 +21,7 @@
 
 using System;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 using Ringtoets.HeightStructures.Data;
 
@@ -30,7 +31,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
     /// Container of a <see cref="HeightStructuresFailureMechanismSectionResult"/>,
     /// which takes care of the representation of properties in a grid.
     /// </summary>
-    internal class HeightStructuresScenarioRow : IScenarioRow<HeightStructuresCalculation>
+    internal class HeightStructuresScenarioRow : IScenarioRow<StructuresCalculation<HeightStructuresInput>>
     {
         private readonly HeightStructuresFailureMechanismSectionResult sectionResult;
 
@@ -62,7 +63,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
         /// <summary>
         /// Gets or sets the normative calculation for the section.
         /// </summary>
-        public HeightStructuresCalculation Calculation
+        public StructuresCalculation<HeightStructuresInput> Calculation
         {
             get
             {

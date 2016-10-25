@@ -38,6 +38,7 @@ using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -141,7 +142,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var failureMechanism = new HeightStructuresFailureMechanism();
             var group = new CalculationGroup();
             var childGroup = new CalculationGroup();
-            var childCalculation = new HeightStructuresCalculation();
+            var childCalculation = new StructuresCalculation<HeightStructuresInput>();
 
             group.Children.Add(childGroup);
             group.Children.Add(calculationItemMock);
@@ -414,7 +415,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new HeightStructuresCalculation()
+                    new StructuresCalculation<HeightStructuresInput>()
                 }
             };
 
@@ -452,7 +453,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new HeightStructuresCalculation()
+                    new StructuresCalculation<HeightStructuresInput>()
                 }
             };
 
@@ -461,7 +462,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
@@ -499,7 +500,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new HeightStructuresCalculation()
+                    new StructuresCalculation<HeightStructuresInput>()
                 }
             };
 
@@ -508,7 +509,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
@@ -548,7 +549,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new HeightStructuresCalculation()
+                    new StructuresCalculation<HeightStructuresInput>()
                 }
             };
 
@@ -565,7 +566,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
@@ -606,7 +607,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new HeightStructuresCalculation()
+                    new StructuresCalculation<HeightStructuresInput>()
                 }
             };
 
@@ -644,7 +645,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new HeightStructuresCalculation()
+                    new StructuresCalculation<HeightStructuresInput>()
                 }
             };
 
@@ -653,7 +654,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
@@ -691,7 +692,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new HeightStructuresCalculation()
+                    new StructuresCalculation<HeightStructuresInput>()
                 }
             };
 
@@ -700,7 +701,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
@@ -740,7 +741,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 Children =
                 {
-                    new HeightStructuresCalculation()
+                    new StructuresCalculation<HeightStructuresInput>()
                 }
             };
 
@@ -757,7 +758,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             {
                 new Point2D(0, 0)
             }));
-            failureMechanism.CalculationsGroup.Children.Add(new HeightStructuresCalculation());
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var nodeData = new HeightStructuresCalculationGroupContext(group,
@@ -1007,7 +1008,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var nodeData = new HeightStructuresCalculationGroupContext(group,
                                                                        failureMechanism,
                                                                        assessmentSectionStub);
-            var calculation = new HeightStructuresCalculation
+            var calculation = new StructuresCalculation<HeightStructuresInput>
             {
                 Name = "Nieuwe berekening"
             };
@@ -1035,7 +1036,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(2, group.Children.Count);
                     var newlyAddedItem = group.Children.Last();
-                    Assert.IsInstanceOf<HeightStructuresCalculation>(newlyAddedItem);
+                    Assert.IsInstanceOf<StructuresCalculation<HeightStructuresInput>>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
                 }
@@ -1093,7 +1094,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     contextMenu.Items[contextGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
-                    var heightStructuresCalculations = failureMechanism.Calculations.OfType<HeightStructuresCalculation>().ToArray();
+                    var heightStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<HeightStructuresInput>>().ToArray();
                     Assert.AreEqual(1, heightStructuresCalculations.Length);
                     Assert.AreSame(structure1, heightStructuresCalculations[0].InputParameters.Structure);
                 }
@@ -1151,7 +1152,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     contextMenu.Items[contextGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
-                    Assert.AreEqual(0, failureMechanism.Calculations.OfType<HeightStructuresCalculation>().Count());
+                    Assert.AreEqual(0, failureMechanism.Calculations.OfType<StructuresCalculation<HeightStructuresInput>>().Count());
                 }
             }
         }
@@ -1177,7 +1178,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     {
                         Children =
                         {
-                            new HeightStructuresCalculation
+                            new StructuresCalculation<HeightStructuresInput>
                             {
                                 Name = existingCalculationName
                             }
@@ -1218,7 +1219,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     contextMenu.Items[contextGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
-                    var heightStructuresCalculations = failureMechanism.Calculations.OfType<HeightStructuresCalculation>().ToArray();
+                    var heightStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<HeightStructuresInput>>().ToArray();
                     Assert.AreEqual(2, heightStructuresCalculations.Length);
                     Assert.AreEqual(expectedNewName, heightStructuresCalculations[1].Name);
                 }
@@ -1282,7 +1283,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 new Point2D(0, 0)
             }));
 
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
             group.Children.Add(calculation);
             failureMechanism.SectionResults.First().Calculation = calculation;
 
@@ -1308,7 +1309,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var parentNodeData = new HeightStructuresCalculationGroupContext(parentGroup,
                                                                              failureMechanism,
                                                                              assessmentSectionStub);
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
 
             observerMock.Expect(o => o.UpdateObserver());
 

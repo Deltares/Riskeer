@@ -32,6 +32,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.Common.IO.ReferenceLines;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -238,7 +239,7 @@ namespace Demo.Ringtoets.Commands
             HeightStructuresFailureMechanism failureMechanism = demoAssessmentSection.HeightStructures;
             failureMechanism.HeightStructures.Add(CreateDemoHeightStructure());
 
-            var calculation = new HeightStructuresCalculation();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();
@@ -294,7 +295,7 @@ namespace Demo.Ringtoets.Commands
             ClosingStructuresFailureMechanism failureMechanism = demoAssessmentSection.ClosingStructures;
             failureMechanism.ClosingStructures.Add(CreateDemoClosingStructure());
 
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();
@@ -410,7 +411,7 @@ namespace Demo.Ringtoets.Commands
             StabilityPointStructuresFailureMechanism failureMechanism = demoAssessmentSection.StabilityPointStructures;
             failureMechanism.StabilityPointStructures.Add(CreateDemoStabilityPointStructure());
 
-            var calculation = new StabilityPointStructuresCalculation();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.NotifyObservers();

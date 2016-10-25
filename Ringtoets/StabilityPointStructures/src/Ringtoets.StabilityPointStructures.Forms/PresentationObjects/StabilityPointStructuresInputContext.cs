@@ -21,6 +21,7 @@
 
 using System;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Data;
 
@@ -41,7 +42,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
         public StabilityPointStructuresInputContext(StabilityPointStructuresInput input,
-                                                    StabilityPointStructuresCalculation calculation,
+                                                    StructuresCalculation<StabilityPointStructuresInput> calculation,
                                                     StabilityPointStructuresFailureMechanism failureMechanism,
                                                     IAssessmentSection assessmentSection)
             : base(input, failureMechanism, assessmentSection)
@@ -57,6 +58,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
         /// <summary>
         /// Gets the calculation item which the context belongs to.
         /// </summary>
-        public StabilityPointStructuresCalculation Calculation { get; private set; }
+        public StructuresCalculation<StabilityPointStructuresInput> Calculation { get; private set; }
     }
 }

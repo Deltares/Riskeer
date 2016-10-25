@@ -20,10 +20,11 @@
 // All rights reserved.
 
 using Core.Common.Base.Data;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.HeightStructures.Data.TestUtil
 {
-    public class TestHeightStructuresCalculation : HeightStructuresCalculation
+    public class TestHeightStructuresCalculation : StructuresCalculation<HeightStructuresInput>
     {
         public TestHeightStructuresCalculation()
         {

@@ -22,19 +22,20 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 
 namespace Application.Ringtoets.Storage.Create.HeightStructures
 {
     /// <summary>
-    /// Extension methods for <see cref="HeightStructuresCalculation"/> related
+    /// Extension methods for <see cref="StructuresCalculation{T}"/> related
     /// to creating a <see cref="HeightStructuresCalculationEntity"/>.
     /// </summary>
     internal static class HeightStructuresCalculationCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="HeightStructuresCalculationEntity"/> based
-        /// on the information of the <see cref="HeightStructuresCalculation"/>.
+        /// on the information of the <see cref="StructuresCalculation{T}"/>.
         /// </summary>
         /// <param name="calculation">The calculation to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
@@ -42,7 +43,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
         /// in its parent container.</param>
         /// <returns>A new <see cref="HeightStructuresCalculationEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static HeightStructuresCalculationEntity Create(this HeightStructuresCalculation calculation, PersistenceRegistry registry, int order)
+        internal static HeightStructuresCalculationEntity Create(this StructuresCalculation<HeightStructuresInput> calculation, PersistenceRegistry registry, int order)
         {
             if (registry == null)
             {

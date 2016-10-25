@@ -23,6 +23,7 @@ using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.ClosingStructures.Data.Test
 {
@@ -53,7 +54,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
-            var calculation = new ClosingStructuresCalculation();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
 
             // Call
             result.Calculation = calculation;
@@ -88,7 +89,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new ClosingStructuresCalculation
+                Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
                     Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
                 }
@@ -110,7 +111,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             double probability = 0.65;
             var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
-                Calculation = new ClosingStructuresCalculation
+                Calculation = new StructuresCalculation<ClosingStructuresInput>
                 {
                     Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
                 }

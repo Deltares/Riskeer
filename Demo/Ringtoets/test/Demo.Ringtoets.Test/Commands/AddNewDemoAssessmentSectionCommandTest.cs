@@ -34,6 +34,7 @@ using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probabilistics;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -280,9 +281,9 @@ namespace Demo.Ringtoets.Test.Commands
             AssertExpectedHeightStructureValues(demoAssessmentSection.HeightStructures.HeightStructures[0]);
 
             Assert.AreEqual(1, demoAssessmentSection.HeightStructures.CalculationsGroup.Children.Count);
-            HeightStructuresCalculation calculation = demoAssessmentSection.HeightStructures
+            StructuresCalculation<HeightStructuresInput> calculation = demoAssessmentSection.HeightStructures
                                                                            .CalculationsGroup.GetCalculations()
-                                                                           .OfType<HeightStructuresCalculation>()
+                                                                           .OfType<StructuresCalculation<HeightStructuresInput>>()
                                                                            .First();
             AssertExpectedHeightStructuresInput(calculation.InputParameters);
         }
@@ -323,9 +324,9 @@ namespace Demo.Ringtoets.Test.Commands
             AssertExpectedClosingStructureValues(demoAssessmentSection.ClosingStructures.ClosingStructures[0]);
 
             Assert.AreEqual(1, demoAssessmentSection.ClosingStructures.CalculationsGroup.Children.Count);
-            ClosingStructuresCalculation calculation = demoAssessmentSection.ClosingStructures
+            StructuresCalculation<ClosingStructuresInput> calculation = demoAssessmentSection.ClosingStructures
                                                                             .CalculationsGroup.GetCalculations()
-                                                                            .OfType<ClosingStructuresCalculation>()
+                                                                            .OfType<StructuresCalculation<ClosingStructuresInput>>()
                                                                             .First();
             AssertExpectedClosingStructuresInput(calculation.InputParameters);
         }
@@ -468,9 +469,9 @@ namespace Demo.Ringtoets.Test.Commands
         {
             Assert.AreEqual(1, demoAssessmentSection.StabilityPointStructures.CalculationsGroup.Children.Count);
             AssertExpectedStabilityPointStructureValues(demoAssessmentSection.StabilityPointStructures.StabilityPointStructures[0]);
-            StabilityPointStructuresCalculation calculation = demoAssessmentSection.StabilityPointStructures
+            StructuresCalculation<StabilityPointStructuresInput> calculation = demoAssessmentSection.StabilityPointStructures
                                                                                    .CalculationsGroup.GetCalculations()
-                                                                                   .OfType<StabilityPointStructuresCalculation>()
+                                                                                   .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
                                                                                    .First();
             AssertExpectedStabilityPointStructuresInput(calculation.InputParameters);
         }
