@@ -19,26 +19,94 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Controls.Views;
+using NUnit.Extensions.Forms;
 using NUnit.Framework;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.Views;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Forms;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.Views
 {
     [TestFixture]
     public class ClosingStructuresScenariosViewTest
     {
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
         [Test]
-        public void Constructur_ExpectedValues()
+        public void DefaultConstructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            var view = new ClosingStructuresScenariosView();
+            using (var view = ShowScenariosView())
+            {
+                // Assert
+                Assert.IsInstanceOf<UserControl>(view);
+                Assert.IsInstanceOf<IView>(view);
+                Assert.IsTrue(view.AutoScroll);
+                Assert.IsNull(view.Data);
+                Assert.IsNull(view.FailureMechanism);
 
-            // Assert
-            Assert.IsInstanceOf<UserControl>(view);
-            Assert.IsInstanceOf<IView>(view);
-            CollectionAssert.IsEmpty(view.Controls);
+                var scenarioSelectionControl = new ControlTester("scenarioSelectionControl").TheObject as ScenarioSelectionControl;
+
+                Assert.NotNull(scenarioSelectionControl);
+                Assert.AreEqual(new Size(0, 0), scenarioSelectionControl.MinimumSize);
+            }
+        }
+
+        [Test]
+        public void Data_ValidDataSet_ValidData()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var calculationGroup = new CalculationGroup();
+
+                // Call
+                view.Data = calculationGroup;
+
+                // Assert
+                Assert.AreSame(calculationGroup, view.Data);
+            }
+        }
+
+        [Test]
+        public void FailureMechanism_ValidFailureMechanismSet_ValidFailureMechanism()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanism = new ClosingStructuresFailureMechanism();
+
+                // Call
+                view.FailureMechanism = failureMechanism;
+
+                // Assert
+                Assert.AreSame(failureMechanism, view.FailureMechanism);
+            }
+        }
+
+        private ClosingStructuresScenariosView ShowScenariosView()
+        {
+            var scenariosView = new ClosingStructuresScenariosView();
+            testForm.Controls.Add(scenariosView);
+            testForm.Show();
+
+            return scenariosView;
         }
     }
 }
