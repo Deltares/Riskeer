@@ -83,6 +83,9 @@
     <Compile Include="Create\GrassCoverErosionOutwards\GrassCoverErosionOutwardsWaveConditionsOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\HeightStructures\GeneralHeightStructuresInputCreateExtensionsTest.cs" />
     <Compile Include="Create\HeightStructures\HeightStructureCreateExtensionsTest.cs" />
+    <Compile Include="Create\HeightStructures\HeightStructuresCalculationCreateExtensionsTest.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Create\StabilityPointStructures\GeneralStabilityPointStructuresInputCreateExtensionsTest.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensionsTest.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsOutputCreateExtensionsTest.cs" />
