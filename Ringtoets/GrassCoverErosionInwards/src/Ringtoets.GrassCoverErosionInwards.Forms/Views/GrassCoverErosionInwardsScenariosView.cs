@@ -120,19 +120,19 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
         {
             scenarioSelectionControl.EndEdit();
 
-            if (FailureMechanism == null || FailureMechanism.SectionResults == null || data == null || data.Children == null)
+            if (failureMechanism == null || failureMechanism.SectionResults == null || data == null || data.Children == null)
             {
                 scenarioSelectionControl.ClearDataSource();
             }
             else
             {
-                var calculations = data.GetCalculations();
+                var calculations = data.GetCalculations().ToArray();
 
                 Dictionary<string, IList<ICalculation>> calculationsPerSegment =
                     GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.OfType<GrassCoverErosionInwardsCalculation>());
 
                 List<GrassCoverErosionInwardsScenarioRow> scenarioRows =
-                    FailureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsScenarioRow(sectionResult)).ToList();
+                    failureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsScenarioRow(sectionResult)).ToList();
 
                 scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
             }

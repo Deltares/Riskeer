@@ -121,6 +121,23 @@ namespace Ringtoets.ClosingStructures.Data.Test
             Assert.AreSame(calculation.Output, output);
         }
 
+        [Test]
+        public void ToString_Always_ReturnName()
+        {
+            // Setup
+            var expectedName = "someTestName";
+            var calculation = new ClosingStructuresCalculation
+            {
+                Name = expectedName
+            };
+
+            // Call
+            var result = calculation.ToString();
+
+            // Assert
+            Assert.AreEqual(expectedName, result);
+        }
+
         private class TestClosingStructuresOutput : ProbabilityAssessmentOutput
         {
             public TestClosingStructuresOutput() : base(0, 0, 0, 0, 0) {}

@@ -20,13 +20,17 @@
 // All rights reserved.
 
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.Views;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Forms;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.Views
@@ -98,6 +102,253 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 // Assert
                 Assert.AreSame(failureMechanism, view.FailureMechanism);
             }
+        }
+
+        [Test]
+        public void Data_WithFailureMechanism_UpdateScenarioControl()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanism = CreateCompleteFailureMechanism();
+                view.FailureMechanism = failureMechanism;
+
+                // Call
+                view.Data = failureMechanism.CalculationsGroup;
+
+                // Assert
+                AssertDataGridView(failureMechanism, false, new[]
+                {
+                    new [] { "<geen>", "CalculationA"},
+                    new [] { "<geen>", "CalculationB"}
+                });
+            }
+        }
+
+        [Test]
+        public void Data_SetToNullAfterGridViewShowsData_ClearsScenarioControl()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanism = CreateCompleteFailureMechanism();
+                view.FailureMechanism = failureMechanism;
+                view.Data = failureMechanism.CalculationsGroup;
+
+                // Call
+                view.Data = null;
+
+                // Assert
+                AssertDataGridView(failureMechanism, true);
+            }
+        }
+
+        [Test]
+        public void FailureMechanism_WithData_UpdateScenarioControl()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanism = CreateCompleteFailureMechanism();
+                view.Data = failureMechanism.CalculationsGroup;
+
+                // Call
+                view.FailureMechanism = failureMechanism;
+
+                // Assert
+                AssertDataGridView(failureMechanism, false, new[]
+                {
+                    new [] { "<geen>", "CalculationA"},
+                    new [] { "<geen>", "CalculationB"}
+                });
+            }
+        }
+
+        [Test]
+        public void FailureMechanism_WithoutData_ClearsScenarioControl()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanism = CreateCompleteFailureMechanism();
+                view.Data = failureMechanism.CalculationsGroup;
+                view.FailureMechanism = failureMechanism;
+
+                // Call
+                view.FailureMechanism = null;
+
+                // Assert
+                AssertDataGridView(failureMechanism, true);
+            }
+        }
+
+        [Test]
+        public void NotifyFailureMechanism_SectionsAddedAfterFullInitialization_NewRowAddedToView()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanism = CreateCompleteFailureMechanism();
+                view.Data = failureMechanism.CalculationsGroup;
+                view.FailureMechanism = failureMechanism;
+
+                view.FailureMechanism.AddSection(new FailureMechanismSection("SectionC", new[]
+                {
+                    view.FailureMechanism.Sections.Last().GetLast(), new Point2D(30,30) 
+                }));
+
+                // Call
+                failureMechanism.NotifyObservers();
+
+                // Assert
+                AssertDataGridView(failureMechanism, false, new[]
+                {
+                    new [] { "<geen>", "CalculationA"},
+                    new [] { "<geen>", "CalculationB"},
+                    new [] { "<geen>"}
+                });
+            }
+        }
+
+        [Test]
+        public void NotifyCalculation_CalculationChangedDikeProfile_CalculationMovedToOtherSectionResultOptions()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanism = CreateCompleteFailureMechanism();
+                view.Data = failureMechanism.CalculationsGroup;
+                view.FailureMechanism = failureMechanism;
+
+                var calculationA = (ClosingStructuresCalculation)failureMechanism.CalculationsGroup.Children[0];
+                var calculationB = (ClosingStructuresCalculation)failureMechanism.CalculationsGroup.Children[1];
+
+                calculationA.InputParameters.Structure = calculationB.InputParameters.Structure;
+
+                // Call
+                calculationA.NotifyObservers();
+
+                // Assert
+                AssertDataGridView(failureMechanism, false, new[]
+                {
+                    new [] { "<geen>"},
+                    new [] { "<geen>", "CalculationA", "CalculationB"},
+                });
+            }
+        }
+
+        [Test]
+        public void NotifyCalculationGroup_CalculationAdded_CalculationAddedToSectionResultOptions()
+        {
+            // Setup
+            using (var view = ShowScenariosView())
+            {
+                var failureMechanism = CreateCompleteFailureMechanism();
+                view.Data = failureMechanism.CalculationsGroup;
+                view.FailureMechanism = failureMechanism;
+
+                var calculationB = ((ClosingStructuresCalculation)failureMechanism.CalculationsGroup.Children[1]);
+                var calculationC = new ClosingStructuresCalculation
+                {
+                    Name = "CalculationC",
+                    InputParameters =
+                    {
+                        Structure = calculationB.InputParameters.Structure
+                    }
+                };
+                failureMechanism.CalculationsGroup.Children.Add(calculationC);
+
+                calculationC.InputParameters.Structure = calculationC.InputParameters.Structure;
+
+                // Call
+                failureMechanism.CalculationsGroup.NotifyObservers();
+
+                // Assert
+                AssertDataGridView(failureMechanism, false, new[]
+                {
+                    new [] { "<geen>", "CalculationA"},
+                    new [] { "<geen>", "CalculationB", "CalculationC"},
+                });
+            }
+        }
+
+        private void AssertDataGridView(
+            ClosingStructuresFailureMechanism failureMechanism,
+            bool shouldBeCleared,
+            string[][] expectedComboBoxItemTexts = null)
+        {
+            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var rowCount = dataGridView.RowCount;
+
+            if (shouldBeCleared)
+            {
+                Assert.AreEqual(0, rowCount);
+            }
+            else
+            {
+                var dataGridViewColumn = (DataGridViewComboBoxColumn)dataGridView.Columns[1];
+
+                Assert.AreEqual(failureMechanism.SectionResults.Count(), rowCount);
+                Assert.AreEqual(failureMechanism.Calculations.Count(), dataGridViewColumn.Items.Count);
+
+                for (int i = 0; i < rowCount; i++       )
+                {
+                    var cell = (DataGridViewComboBoxCell)dataGridView[1, i];
+                    var items = cell.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>();
+                    Assert.AreEqual(expectedComboBoxItemTexts[i], items.Select(r => r.DisplayName));
+                }
+            }
+        }
+
+        private ClosingStructuresFailureMechanism CreateCompleteFailureMechanism()
+        {
+            ClosingStructuresFailureMechanism failureMechanism = new ClosingStructuresFailureMechanism();
+            var matchingPointA = new Point2D(0, 0);
+            var matchingPointB = new Point2D(20, 20);
+            var calculationA = new ClosingStructuresCalculation
+            {
+                Name = "CalculationA",
+                InputParameters =
+                {
+                    Structure = CreateStructure(matchingPointA)
+                }
+            };
+            var calculationB = new ClosingStructuresCalculation
+            {
+                Name = "CalculationB",
+                InputParameters =
+                {
+                    Structure = CreateStructure(matchingPointB)
+                }
+            };
+            Point2D connectionPoint = new Point2D(10, 10);
+            var failureMechanismSectionA = new FailureMechanismSection("sectionA", new[]
+            {
+                matchingPointA,
+                connectionPoint
+            });
+            var failureMechanismSectionB = new FailureMechanismSection("sectionB", new[]
+            {
+                connectionPoint,
+                matchingPointB
+            });
+
+            failureMechanism.CalculationsGroup.Children.Add(calculationA);
+            failureMechanism.CalculationsGroup.Children.Add(calculationB);
+            failureMechanism.AddSection(failureMechanismSectionA);
+            failureMechanism.AddSection(failureMechanismSectionB);
+
+            return failureMechanism;
+        }
+
+        private ClosingStructure CreateStructure(Point2D location)
+        {
+            return new ClosingStructure(new ClosingStructure.ConstructionProperties
+            {
+                Id = "1",
+                Name = "<Awesome structure>",
+                Location = location
+            });
         }
 
         private ClosingStructuresScenariosView ShowScenariosView()

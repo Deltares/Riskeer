@@ -77,5 +77,10 @@ namespace Ringtoets.ClosingStructures.Data
         {
             return Output;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

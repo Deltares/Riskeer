@@ -19,9 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.Views;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Utils;
+using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.ClosingStructures.Forms.Views
 {
@@ -32,19 +38,104 @@ namespace Ringtoets.ClosingStructures.Forms.Views
     /// </summary>
     public partial class ClosingStructuresScenariosView : UserControl, IView
     {
+        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
+        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
+        private readonly Observer failureMechanismObserver;
+        private ClosingStructuresFailureMechanism failureMechanism;
+        private CalculationGroup data;
+
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresScenariosView"/>.
         /// </summary>
         public ClosingStructuresScenariosView()
         {
             InitializeComponent();
+
+            failureMechanismObserver = new Observer(UpdateDataGridViewDataSource);
+
+            // The concat is needed to observe the input of calculations in child groups.
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
+                UpdateDataGridViewDataSource, cg => cg.Children.Concat<object>(cg.Children.OfType<ICalculation>().Select(c => c.GetObservableInput())));
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(UpdateDataGridViewDataSource, c => c.Children);
         }
 
-        public object Data { get; set; }
-        
         /// <summary>
         /// Gets or sets the failure mechanism.
         /// </summary>
-        public ClosingStructuresFailureMechanism FailureMechanism { get; set; }
+        public ClosingStructuresFailureMechanism FailureMechanism
+        {
+            get
+            {
+                return failureMechanism;
+            }
+            set
+            {
+                failureMechanism = value;
+                failureMechanismObserver.Observable = failureMechanism;
+                UpdateDataGridViewDataSource();
+            }
+        }
+
+        public object Data
+        {
+            get
+            {
+                return data;
+            }
+            set
+            {
+                data = value as CalculationGroup;
+
+                calculationInputObserver.Observable = data;
+                calculationGroupObserver.Observable = data;
+
+                UpdateDataGridViewDataSource();
+            }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            UpdateDataGridViewDataSource();
+            base.OnLoad(e);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (failureMechanismObserver != null)
+            {
+                failureMechanismObserver.Dispose();
+            }
+            calculationInputObserver.Dispose();
+            calculationGroupObserver.Dispose();
+
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
+
+        private void UpdateDataGridViewDataSource()
+        {
+            scenarioSelectionControl.EndEdit();
+
+            if (failureMechanism == null || failureMechanism.SectionResults == null || data == null || data.Children == null)
+            {
+                scenarioSelectionControl.ClearDataSource();
+            }
+            else
+            {
+                var calculations = data.GetCalculations().ToArray();
+
+                Dictionary<string, IList<ICalculation>> calculationsPerSegment =
+                    ClosingStructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections,
+                                                                          calculations.OfType<ClosingStructuresCalculation>());
+
+                var scenarioRows = failureMechanism.SectionResults.Select(sr => new ClosingStructuresScenarioRow(sr)).ToList();
+
+                scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
+            }
+        }
     }
 }
