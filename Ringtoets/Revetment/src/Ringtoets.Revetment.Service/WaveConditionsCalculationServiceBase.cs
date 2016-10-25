@@ -36,6 +36,7 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.IO;
 using Ringtoets.Revetment.Data;
 using Ringtoets.Revetment.Service.Properties;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.Revetment.Service
@@ -290,7 +291,20 @@ namespace Ringtoets.Revetment.Service
                 }
             }
 
+            if (double.IsNaN(input.Orientation))
+            {
+                return string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_0_,
+                                     GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Orientation_DisplayName));
+            }
+
             return null;
         }
+
+        private static string GenerateParameterNameWithoutUnits(string parameterDescription)
+        {
+            string[] splitString = parameterDescription.Split('[');
+            return splitString.Length != 0 ? splitString[0].ToLower().Trim() : string.Empty;
+        }
+
     }
 }

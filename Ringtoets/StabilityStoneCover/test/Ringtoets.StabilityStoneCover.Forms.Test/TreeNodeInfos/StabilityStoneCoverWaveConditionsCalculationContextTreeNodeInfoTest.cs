@@ -692,6 +692,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 calculation.InputParameters.StepSize = WaveConditionsInputStepSize.One;
                 calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble) 1.0;
                 calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble) 10.0;
+                calculation.InputParameters.Orientation = (RoundedDouble) 0;
             }
 
             var context = new StabilityStoneCoverWaveConditionsCalculationContext(calculation,

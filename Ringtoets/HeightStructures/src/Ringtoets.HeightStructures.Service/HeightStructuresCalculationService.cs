@@ -205,7 +205,8 @@ namespace Ringtoets.HeightStructures.Service
 
                 if (IsInvalidNumber(inputParameters.StructureNormalOrientation))
                 {
-                    validationResult.Add(RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
+                    validationResult.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_0_,
+                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Orientation_DisplayName)));
                 }
 
                 validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.FlowWidthAtBottomProtection,

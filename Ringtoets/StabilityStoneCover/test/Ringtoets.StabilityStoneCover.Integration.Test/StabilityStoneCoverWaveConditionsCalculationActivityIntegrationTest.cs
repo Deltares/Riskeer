@@ -419,6 +419,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                     calculation.InputParameters.ForeshoreProfile = null;
                     calculation.InputParameters.UseForeshore = false;
                     calculation.InputParameters.UseBreakWater = false;
+                    calculation.InputParameters.Orientation = (RoundedDouble) 0;
                     break;
                 case CalculationType.ForeshoreWithoutBreakWater:
                     calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(null);

@@ -668,7 +668,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0
+                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
+                    Orientation = (RoundedDouble) 0
                 }
             };
 
@@ -685,7 +686,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                     UpperBoundaryRevetment = (RoundedDouble) 10.0,
                     StepSize = WaveConditionsInputStepSize.One,
                     LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
-                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0
+                    UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
+                    Orientation = (RoundedDouble) 0
                 }
             };
 

@@ -230,7 +230,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-            string expectedValidationMessage = "Validatie mislukt: De waarde voor de oriëntatie moet in het bereik [0, 360] liggen.";
+            string expectedValidationMessage = "Validatie mislukt: Er is geen concreet getal ingevoerd voor 'oriëntatie'";
 
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {

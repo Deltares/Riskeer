@@ -317,6 +317,7 @@ namespace Ringtoets.Revetment.Service.Test
                     input.ForeshoreProfile = null;
                     input.UseBreakWater = false;
                     input.UseForeshore = false;
+                    input.Orientation = (RoundedDouble) 0;
                     break;
                 case CalculationType.ForeshoreWithoutBreakWater:
                     input.ForeshoreProfile = CreateForeshoreProfile(null);
@@ -367,7 +368,8 @@ namespace Ringtoets.Revetment.Service.Test
                 LowerBoundaryRevetment = (RoundedDouble) 3,
                 StepSize = WaveConditionsInputStepSize.Two,
                 UseBreakWater = useBreakWater,
-                UseForeshore = useForeshore
+                UseForeshore = useForeshore,
+                Orientation = (RoundedDouble) 0
             };
 
             string hcldFilePath = "C:\\temp\\someFile";
@@ -390,6 +392,37 @@ namespace Ringtoets.Revetment.Service.Test
                     HydraRingDataEqualityHelper.AreEqual(expectedInput, testCalculator.ReceivedInputs[i]);
                 }
             }
+        }
+
+        [Test]
+        public void Validate_StructureNormalOrientationInvalid_ReturnsFalse()
+        {
+            // Setup
+            string name = "test";
+            bool isValid = false;
+
+            var dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
+
+            WaveConditionsInput input = GetDefaultValidationInput();
+            input.Orientation = (RoundedDouble) double.NaN;
+
+            // Call
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
+                                                                                               name,
+                                                                                               dbFilePath,
+                                                                                               "DesignWaterLevelName");
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen concreet getal ingevoerd voor 'oriëntatie'.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+
+            Assert.IsFalse(isValid);
         }
 
         [Test]
@@ -507,7 +540,8 @@ namespace Ringtoets.Revetment.Service.Test
                 UpperBoundaryRevetment = (RoundedDouble) 10.0,
                 StepSize = WaveConditionsInputStepSize.One,
                 LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
-                UpperBoundaryWaterLevels = (RoundedDouble) 10.0
+                UpperBoundaryWaterLevels = (RoundedDouble) 10.0, 
+                Orientation = (RoundedDouble) 0
             };
             return input;
         }
