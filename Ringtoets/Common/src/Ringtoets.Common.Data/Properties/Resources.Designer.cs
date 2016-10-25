@@ -218,6 +218,15 @@ namespace Ringtoets.Common.Data.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to De waarde voor afwijking golfrichting moet in het bereik [-360, 360] liggen..
+        /// </summary>
+        public static string DeviationWaveDirection_Value_needs_to_be_between_negative_360_and_positive_360 {
+            get {
+                return ResourceManager.GetString("DeviationWaveDirection_Value_needs_to_be_between_negative_360_and_positive_360", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Een punt in de geometrie voor het dijkprofiel heeft geen waarde..
         /// </summary>
         public static string DikeProfile_SetGeometry_A_point_in_the_collection_is_null {

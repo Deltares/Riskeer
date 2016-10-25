@@ -234,4 +234,7 @@
   <data name="StructureInflowModelType_LowSill_DisplayName" xml:space="preserve">
     <value>Lage drempel</value>
   </data>
+  <data name="DeviationWaveDirection_Value_needs_to_be_between_negative_360_and_positive_360" xml:space="preserve">
+    <value>De waarde voor afwijking golfrichting moet in het bereik [-360, 360] liggen.</value>
+  </data>
 </root>

@@ -167,10 +167,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        [TestCase(double.NaN)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.PositiveInfinity)]
-        public void Validate_DeviationWaveDirectionInvalid_ReturnsFalse(double value)
+        public void Validate_DeviationWaveDirectionInvalid_ReturnsFalse()
         {
             // Setup
             var mockRepository = new MockRepository();
@@ -181,7 +178,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             const string name = "<very nice name>";
             const string parameterName = "afwijking golfrichting";
-            string expectedValidationMessage = string.Format("Validatie mislukt: De waarde voor '{0}' moet een geldig getal zijn.", parameterName);
+            string expectedValidationMessage = string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", parameterName);
 
             var calculation = new TestHeightStructuresCalculation()
             {
@@ -193,7 +190,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 }
             };
 
-            calculation.InputParameters.DeviationWaveDirection = (RoundedDouble) value;
+            calculation.InputParameters.DeviationWaveDirection = (RoundedDouble) double.NaN;
 
             // Call
             bool isValid = false;

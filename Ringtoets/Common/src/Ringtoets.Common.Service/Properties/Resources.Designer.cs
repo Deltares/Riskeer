@@ -127,15 +127,6 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De waarde voor &apos;{0}&apos; moet een geldig getal zijn..
-        /// </summary>
-        public static string CalculationService_ValidateInput_Value_for_0_must_be_a_valid_number {
-            get {
-                return ResourceManager.GetString("CalculationService_ValidateInput_Value_for_0_must_be_a_valid_number", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Toetspeil berekening voor locatie {0} is niet geconvergeerd..
         /// </summary>
         public static string DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_not_converged {

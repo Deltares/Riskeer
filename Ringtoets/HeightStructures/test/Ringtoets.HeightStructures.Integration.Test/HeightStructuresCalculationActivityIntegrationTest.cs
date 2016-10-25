@@ -175,17 +175,14 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        [TestCase(double.NaN)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.PositiveInfinity)]
-        public void Run_HeightStructuresCalculationInValidDeviationWaveDirection_LogValidationStartAndEndWithError(double value)
+        public void Run_HeightStructuresCalculationInValidDeviationWaveDirection_LogValidationStartAndEndWithError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             const string parameterName = "afwijking golfrichting";
-            string expectedValidationMessage = string.Format("Validatie mislukt: De waarde voor '{0}' moet een geldig getal zijn.", parameterName);
+            string expectedValidationMessage = string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", parameterName);
 
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
@@ -207,7 +204,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                     Structure = new TestHeightStructure()
                 }
             };
-            calculation.InputParameters.DeviationWaveDirection = (RoundedDouble) value;
+            calculation.InputParameters.DeviationWaveDirection = (RoundedDouble) double.NaN;
 
             var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
 

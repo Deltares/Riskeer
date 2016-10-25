@@ -148,7 +148,12 @@ namespace Ringtoets.ClosingStructures.Data
             }
             set
             {
-                deviationWaveDirection = value.ToPrecision(deviationWaveDirection.NumberOfDecimalPlaces);
+                RoundedDouble newDeviationWaveDirection = value.ToPrecision(deviationWaveDirection.NumberOfDecimalPlaces);
+                if (!double.IsNaN(newDeviationWaveDirection) && (Math.Abs(newDeviationWaveDirection) > 360))
+                {
+                    throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.DeviationWaveDirection_Value_needs_to_be_between_negative_360_and_positive_360);
+                }
+                deviationWaveDirection = newDeviationWaveDirection;
             }
         }
 

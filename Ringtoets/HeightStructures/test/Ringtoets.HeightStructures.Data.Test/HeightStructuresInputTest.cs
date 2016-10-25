@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
@@ -84,12 +85,16 @@ namespace Ringtoets.HeightStructures.Data.Test
         #region Hydraulic data
 
         [Test]
-        public void Properties_DeviationWaveDirection_ExpectedValues()
+        [TestCase(360.004)]
+        [TestCase(300)]
+        [TestCase(0)]
+        [TestCase(-360.004)]
+        [TestCase(double.NaN)]
+        public void Properties_DeviationWaveDirection_ExpectedValues(double validValue)
         {
             // Setup
-            var random = new Random(22);
             var input = new HeightStructuresInput();
-            var deviationWaveDirection = new RoundedDouble(5, random.NextDouble());
+            var deviationWaveDirection = new RoundedDouble(5, validValue);
 
             // Call
             input.DeviationWaveDirection = deviationWaveDirection;
@@ -97,6 +102,25 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Assert
             Assert.AreEqual(2, input.DeviationWaveDirection.NumberOfDecimalPlaces);
             AssertAreEqual(deviationWaveDirection, input.DeviationWaveDirection);
+        }
+
+        [Test]
+        [TestCase(400)]
+        [TestCase(360.05)]
+        [TestCase(-360.005)]
+        [TestCase(-400)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        public void Properties_StructureNormalOrientationInValidValues_ThrowsArgumentOutOfRangeException(double invalidValue)
+        {
+            // Setup
+            var input = new HeightStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.DeviationWaveDirection = (RoundedDouble)invalidValue;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor afwijking golfrichting moet in het bereik [-360, 360] liggen.");
         }
 
         #endregion

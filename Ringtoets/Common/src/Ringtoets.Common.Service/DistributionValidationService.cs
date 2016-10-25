@@ -27,7 +27,7 @@ using Ringtoets.Common.Service.Properties;
 namespace Ringtoets.Common.Service
 {
     /// <summary>
-    /// Service that provides validation methods for probabilistic distributions
+    /// Service that provides validation methods for probabilistic distributions.
     /// </summary>
     public static class DistributionValidationService
     {
@@ -36,14 +36,7 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="distribution">The distribution to validate.</param>
         /// <param name="parameterName">The name of the parameter.</param>
-        /// <returns>Returns an empty string array if the distribution is valid, else:
-        /// <list type="bullet">
-        /// <item>A message indicating that the <see cref="NormalDistribution.Mean"/> for <paramref name="parameterName"/> 
-        /// must be a valid number, when it is NaN or Infinity.</item>
-        /// <item>A message indicating that the <see cref="NormalDistribution.StandardDeviation"/> for <paramref name="parameterName"/>
-        /// must be larger or equal to 0, when it is NaN or Infinity.</item>
-        /// </list>
-        /// </returns>
+        /// <returns>The validation errors found. Collection is empty if <paramref name="distribution"/> is valid. </returns>
         public static string[] ValidateDistribution(NormalDistribution distribution, string parameterName)
         {
             var validationResult = new List<string>();
@@ -66,26 +59,21 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="distribution">The distribution to validate.</param>
         /// <param name="parameterName">The name of the parameter.</param>
-        /// <returns>Returns an empty string array if the distribution is valid, else:
-        /// <list type="bullet">
-        /// <item>A message indicating that the <see cref="LogNormalDistribution.Mean"/> for <paramref name="parameterName"/> 
-        /// must be a positive number, when it is NaN or Infinity.</item>
-        /// <item>A message indicating that the <see cref="LogNormalDistribution.StandardDeviation"/> for <paramref name="parameterName"/>
-        /// must be larger or equal to 0, when it is NaN or Infinity.</item>
-        /// </list>
-        /// </returns>
+        /// <returns>The validation errors found. Collection is empty if <paramref name="distribution"/> is valid.</returns>
         public static string[] ValidateDistribution(LogNormalDistribution distribution, string parameterName)
         {
             var validationResult = new List<string>();
 
             if (IsValidNumber(distribution.Mean))
             {
-                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_positive_value, parameterName));
+                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_positive_value,
+                                                   parameterName));
             }
 
             if (IsValidNumber(distribution.StandardDeviation))
             {
-                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_StandardDeviation_of_0_must_be_larger_or_equal_to_0, parameterName));
+                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_StandardDeviation_of_0_must_be_larger_or_equal_to_0,
+                                                   parameterName));
             }
 
             return validationResult.ToArray();
@@ -96,26 +84,21 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="distribution">The distribution to validate.</param>
         /// <param name="parameterName">The name of the parameter.</param>
-        /// <returns>Returns an empty string array if the distribution is valid, else:
-        /// <list type="bullet">
-        /// <item>A message indicating that the <see cref="VariationCoefficientNormalDistribution.Mean"/> for <paramref name="parameterName"/> 
-        /// must be a valid number, when it is NaN or Infinity.</item>
-        /// <item>A message indicating that the <see cref="VariationCoefficientNormalDistribution.CoefficientOfVariation"/> 
-        /// for <paramref name="parameterName"/> must be larger or equal to 0, when it is NaN or Infinity.</item>
-        /// </list>
-        /// </returns>
+        /// <returns>The validation errors found. Collection is empty if <paramref name="distribution"/> is valid. </returns>
         public static string[] ValidateDistribution(VariationCoefficientNormalDistribution distribution, string parameterName)
         {
             var validationResult = new List<string>();
 
             if (IsValidNumber(distribution.Mean))
             {
-                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_a_valid_number, parameterName));
+                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_a_valid_number,
+                                                   parameterName));
             }
 
             if (IsValidNumber(distribution.CoefficientOfVariation))
             {
-                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_CoefficientOfVariation_Of_0_must_be_larger_or_equal_to_0, parameterName));
+                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_CoefficientOfVariation_Of_0_must_be_larger_or_equal_to_0,
+                                                   parameterName));
             }
 
             return validationResult.ToArray();
@@ -126,26 +109,21 @@ namespace Ringtoets.Common.Service
         /// </summary>
         /// <param name="distribution">The distribution to validate.</param>
         /// <param name="parameterName">The name of the parameter.</param>
-        /// <returns>Returns an empty string array if the distribution is valid, else:
-        /// <list type="bullet">
-        /// <item>A message indicating that the <see cref="VariationCoefficientLogNormalDistribution.Mean"/> for <paramref name="parameterName"/> 
-        /// must be a positive number, when it is NaN or Infinity.</item>
-        /// <item>A message indicating that the <see cref="VariationCoefficientLogNormalDistribution.CoefficientOfVariation"/> 
-        /// for <paramref name="parameterName"/> must be larger or equal to 0, when it is NaN or Infinity.</item>
-        /// </list>
-        /// </returns>
+        /// <returns>The validation errors found. Collection is empty if <paramref name="distribution"/> is valid. </returns>
         public static string[] ValidateDistribution(VariationCoefficientLogNormalDistribution distribution, string parameterName)
         {
             var validationResult = new List<string>();
 
             if (IsValidNumber(distribution.Mean))
             {
-                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_positive_value, parameterName));
+                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_positive_value,
+                                                   parameterName));
             }
 
             if (IsValidNumber(distribution.CoefficientOfVariation))
             {
-                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_CoefficientOfVariation_Of_0_must_be_larger_or_equal_to_0, parameterName));
+                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_CoefficientOfVariation_Of_0_must_be_larger_or_equal_to_0,
+                                                   parameterName));
             }
 
             return validationResult.ToArray();
@@ -154,6 +132,6 @@ namespace Ringtoets.Common.Service
         private static bool IsValidNumber(RoundedDouble value)
         {
             return double.IsNaN(value) || double.IsInfinity(value);
-        }        
+        }
     }
 }

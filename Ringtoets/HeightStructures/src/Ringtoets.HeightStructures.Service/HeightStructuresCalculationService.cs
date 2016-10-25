@@ -195,7 +195,7 @@ namespace Ringtoets.HeightStructures.Service
 
                 if (IsInvalidNumber(inputParameters.DeviationWaveDirection))
                 {
-                    validationResult.Add(string.Format(RingtoetsCommonServiceResources.CalculationService_ValidateInput_Value_for_0_must_be_a_valid_number,
+                    validationResult.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_0_,
                                                        GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_DeviationWaveDirection_DisplayName)));
                 }
 
