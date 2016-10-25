@@ -57,6 +57,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="PropertyClasses\ClosingStructuresInputContextProperties.cs" />
     <Compile Include="Views\ClosingStructuresFailureMechanismResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>

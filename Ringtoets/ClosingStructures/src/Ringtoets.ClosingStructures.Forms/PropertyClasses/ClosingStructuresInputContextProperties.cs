@@ -20,24 +20,21 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms.PresentationObjects;
-using Ringtoets.HeightStructures.Forms.Properties;
-using Ringtoets.HeightStructures.Utils;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Forms.PropertyClasses
+namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 {
     /// <summary>
-    /// ViewModel of <see cref="HeightStructuresInputContext"/> for properties panel.
+    /// ViewModel of <see cref="ClosingStructuresInputContext"/> for properties panel.
     /// </summary>
-    public class HeightStructuresInputContextProperties : StructuresInputBaseProperties<HeightStructure, HeightStructuresInput, HeightStructuresCalculation, HeightStructuresFailureMechanism>
+    public class ClosingStructuresInputContextProperties : StructuresInputBaseProperties<ClosingStructure, ClosingStructuresInput, ClosingStructuresCalculation, ClosingStructuresFailureMechanism>
     {
         private const int structurePropertyIndex = 1;
         private const int structureLocationPropertyIndex = 2;
@@ -46,7 +43,6 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int widthFlowAperturesPropertyIndex = 5;
         private const int storageStructureAreaPropertyIndex = 6;
         private const int allowedLevelIncreaseStoragePropertyIndex = 7;
-        private const int levelCrestStructurePropertyIndex = 8;
         private const int criticalOvertoppingDischargePropertyIndex = 9;
         private const int failureProbabilityStructureWithErosionPropertyIndex = 10;
         private const int foreshoreProfilePropertyIndex = 11;
@@ -58,44 +54,30 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
         private const int deviationWaveDirectionPropertyIndex = 17;
 
         /// <summary>
-        /// Creates a new instance of the <see cref="HeightStructuresInputContextProperties"/> class.
+        /// Creates a new instance of the <see cref="ClosingStructuresInputContextProperties"/> class.
         /// </summary>
-        public HeightStructuresInputContextProperties() : base(new ConstructionProperties
-        {
-            StructurePropertyIndex = structurePropertyIndex,
-            StructureLocationPropertyIndex = structureLocationPropertyIndex,
-            StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
-            FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
-            WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
-            StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
-            AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
-            CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
-            FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
-            ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
-            UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
-            UseForeshorePropertyIndex = useForeshorePropertyIndex,
-            ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
-            HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
-            StormDurationPropertyIndex = stormDurationPropertyIndex
-        }) {}
+        public ClosingStructuresInputContextProperties()
+            : base(new ConstructionProperties
+            {
+                StructurePropertyIndex = structurePropertyIndex,
+                StructureLocationPropertyIndex = structureLocationPropertyIndex,
+                StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
+                FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
+                WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
+                StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
+                AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
+                CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
+                FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
+                ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
+                UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
+                UseForeshorePropertyIndex = useForeshorePropertyIndex,
+                ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
+                HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
+                StormDurationPropertyIndex = stormDurationPropertyIndex
+            }) { }
 
         #region Schematization
 
-        [PropertyOrder(levelCrestStructurePropertyIndex)]
-        [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_LevelCrestStructure_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_LevelCrestStructure_Description")]
-        public NormalDistributionProperties LevelCrestStructure
-        {
-            get
-            {
-                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
-                {
-                    Data = data.WrappedData.LevelCrestStructure
-                };
-            }
-        }
 
         #endregion
 
@@ -103,8 +85,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(deviationWaveDirectionPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "DeviationWaveDirection_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DeviationWaveDirection_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "DeviationWaveDirection_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "DeviationWaveDirection_Description")]
         public RoundedDouble DeviationWaveDirection
         {
             get
@@ -125,14 +107,14 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
             return data.FailureMechanism.ForeshoreProfiles;
         }
 
-        public override IEnumerable<HeightStructure> GetAvailableStructures()
+        public override IEnumerable<ClosingStructure> GetAvailableStructures()
         {
-            return data.FailureMechanism.HeightStructures;
+            return data.FailureMechanism.ClosingStructures;
         }
 
         protected override void AfterSettingStructure()
         {
-            HeightStructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
+
         }
     }
 }
