@@ -57,11 +57,12 @@ namespace Ringtoets.ClosingStructures.Plugin
     {
         public override IEnumerable<PropertyInfo> GetPropertyInfos()
         {
-            yield return new PropertyInfo<ClosingStructure, ClosingStructureProperties>();
             yield return new PropertyInfo<ClosingStructuresFailureMechanismContext, ClosingStructureFailureMechanismProperties>
             {
                 GetObjectPropertiesData = context => context.WrappedData
             };
+            yield return new PropertyInfo<ClosingStructure, ClosingStructureProperties>();
+            yield return new PropertyInfo<ClosingStructuresInputContext, ClosingStructuresInputContextProperties>();
         }
 
         public override IEnumerable<ViewInfo> GetViewInfos()

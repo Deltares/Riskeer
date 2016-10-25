@@ -56,30 +56,24 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         /// <summary>
         /// Creates a new instance of the <see cref="ClosingStructuresInputContextProperties"/> class.
         /// </summary>
-        public ClosingStructuresInputContextProperties()
-            : base(new ConstructionProperties
-            {
-                StructurePropertyIndex = structurePropertyIndex,
-                StructureLocationPropertyIndex = structureLocationPropertyIndex,
-                StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
-                FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
-                WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
-                StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
-                AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
-                CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
-                FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
-                ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
-                UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
-                UseForeshorePropertyIndex = useForeshorePropertyIndex,
-                ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
-                HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
-                StormDurationPropertyIndex = stormDurationPropertyIndex
-            }) { }
-
-        #region Schematization
-
-
-        #endregion
+        public ClosingStructuresInputContextProperties() : base(new ConstructionProperties
+        {
+            StructurePropertyIndex = structurePropertyIndex,
+            StructureLocationPropertyIndex = structureLocationPropertyIndex,
+            StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
+            FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
+            WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
+            StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
+            AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
+            CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
+            FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
+            ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
+            UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
+            UseForeshorePropertyIndex = useForeshorePropertyIndex,
+            ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
+            HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
+            StormDurationPropertyIndex = stormDurationPropertyIndex
+        }) {}
 
         #region Hydraulic data
 
@@ -112,9 +106,10 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             return data.FailureMechanism.ClosingStructures;
         }
 
-        protected override void AfterSettingStructure()
-        {
+        protected override void AfterSettingStructure() {}
 
-        }
+        #region Schematization
+
+        #endregion
     }
 }

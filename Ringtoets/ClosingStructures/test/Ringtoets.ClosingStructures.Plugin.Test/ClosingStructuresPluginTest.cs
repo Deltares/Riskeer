@@ -63,14 +63,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                 PropertyInfo[] propertyInfos = plugin.GetPropertyInfos().ToArray();
 
                 // assert
-                Assert.AreEqual(2, propertyInfos.Length);
-                PropertyInfo closingStructurePropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
-                    propertyInfos,
-                    typeof(ClosingStructure),
-                    typeof(ClosingStructureProperties));
-                Assert.IsNull(closingStructurePropertyInfo.AdditionalDataCheck);
-                Assert.IsNull(closingStructurePropertyInfo.GetObjectPropertiesData);
-                Assert.IsNull(closingStructurePropertyInfo.AfterCreate);
+                Assert.AreEqual(3, propertyInfos.Length);
 
                 var failureMechanism = new ClosingStructuresFailureMechanism();
                 var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSection);
@@ -81,6 +74,22 @@ namespace Ringtoets.ClosingStructures.Plugin.Test
                 Assert.AreSame(failureMechanism, closingStructuresFailureMechanismContextPropertyInfo.GetObjectPropertiesData(failureMechanismContext));
                 Assert.IsNull(closingStructuresFailureMechanismContextPropertyInfo.AdditionalDataCheck);
                 Assert.IsNull(closingStructuresFailureMechanismContextPropertyInfo.AfterCreate);
+
+                PropertyInfo closingStructurePropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ClosingStructure),
+                    typeof(ClosingStructureProperties));
+                Assert.IsNull(closingStructurePropertyInfo.AdditionalDataCheck);
+                Assert.IsNull(closingStructurePropertyInfo.GetObjectPropertiesData);
+                Assert.IsNull(closingStructurePropertyInfo.AfterCreate);
+
+                PropertyInfo closingStructuresInputContextPropertyInfo = PluginTestHelper.AssertPropertyInfoDefined(
+                    propertyInfos,
+                    typeof(ClosingStructuresInputContext),
+                    typeof(ClosingStructuresInputContextProperties));
+                Assert.IsNull(closingStructuresInputContextPropertyInfo.AdditionalDataCheck);
+                Assert.IsNull(closingStructuresInputContextPropertyInfo.GetObjectPropertiesData);
+                Assert.IsNull(closingStructuresInputContextPropertyInfo.AfterCreate);
             }
             mocks.VerifyAll();
         }
