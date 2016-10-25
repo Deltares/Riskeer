@@ -21,6 +21,7 @@
 
 using System;
 using Core.Common.Base.Data;
+using Ringtoets.ClosingStructures.Data.Properties;
 using Ringtoets.Common.Data.Probabilistics;
 
 namespace Ringtoets.ClosingStructures.Data
@@ -30,6 +31,8 @@ namespace Ringtoets.ClosingStructures.Data
     /// </summary>
     public class GeneralClosingStructuresInput
     {
+        private int n2A;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="GeneralClosingStructuresInput"/> class.
         /// </summary>
@@ -81,7 +84,21 @@ namespace Ringtoets.ClosingStructures.Data
         /// <summary>
         /// Gets or sets the 'N2A' parameter used to factor in the 'length effect'.
         /// </summary>
-        public int N2A { get; set; }
+        public int N2A
+        {
+            get
+            {
+                return n2A;
+            }
+            set
+            {
+                if (value < 0 || value > 40)
+                {
+                    throw new ArgumentOutOfRangeException("value", Resources.N2A_Value_should_be_in_interval_0_40);
+                }
+                n2A = value;
+            }
+        }
 
         /// <summary>
         /// Gets the 'N' parameter used to factor in the 'length effect'.

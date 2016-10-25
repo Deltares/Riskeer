@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.TestUtil;
@@ -76,8 +78,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
         [Test]
         [TestCase(0, 1)]
-        [TestCase(3, 1.5)]
-        [TestCase(6, 3)]
+        [TestCase(8, 4)]
+        [TestCase(40, 20)]
         public void N_VariousValues_ReturnsExpectedValue(int n2A, double expected)
         {
             // Setup
@@ -91,6 +93,24 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(expected, n, n.GetAccuracy());
+        }
+
+        [Test]
+        [TestCase(-456)]
+        [TestCase(-1)]
+        [TestCase(41)]
+        [TestCase(687)]
+        public void N2A_ValuesOutOfRange_ThrowArgumentOutOfRangeException(int invalidValue)
+        {
+            // Setup
+            var inputParameters = new GeneralClosingStructuresInput();
+
+            // Call
+            TestDelegate call = () => inputParameters.N2A = invalidValue;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
+                                                                                                "De waarde voor 'N2A' moet in het bereik [0, 40] liggen.");
         }
 
         private static void AssertAreEqual(double expected, RoundedDouble actual)

@@ -126,4 +126,7 @@
   <data name="ClosingStructureInflowModelType_VerticalWall_DisplayName" xml:space="preserve">
     <value>Verticale wand</value>
   </data>
+  <data name="N2A_Value_should_be_in_interval_0_40" xml:space="preserve">
+    <value>De waarde voor 'N2A' moet in het bereik [0, 40] liggen.</value>
+  </data>
 </root>
