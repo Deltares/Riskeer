@@ -49,6 +49,7 @@ namespace Application.Ringtoets.Storage.DbContext
             this.HeightStructureEntities = new HashSet<HeightStructureEntity>();
             this.HeightStructuresFailureMechanismMetaEntities = new HashSet<HeightStructuresFailureMechanismMetaEntity>();
             this.PipingFailureMechanismMetaEntities = new HashSet<PipingFailureMechanismMetaEntity>();
+            this.StabilityPointStructureEntities = new HashSet<StabilityPointStructureEntity>();
             this.StabilityPointStructuresFailureMechanismMetaEntities = new HashSet<StabilityPointStructuresFailureMechanismMetaEntity>();
             this.StochasticSoilModelEntities = new HashSet<StochasticSoilModelEntity>();
             this.SurfaceLineEntities = new HashSet<SurfaceLineEntity>();
@@ -85,6 +86,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ICollection<HeightStructuresFailureMechanismMetaEntity> HeightStructuresFailureMechanismMetaEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingFailureMechanismMetaEntity> PipingFailureMechanismMetaEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StabilityPointStructureEntity> StabilityPointStructureEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StabilityPointStructuresFailureMechanismMetaEntity> StabilityPointStructuresFailureMechanismMetaEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

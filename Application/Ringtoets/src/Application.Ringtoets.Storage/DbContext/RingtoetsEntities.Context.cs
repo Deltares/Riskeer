@@ -91,6 +91,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual DbSet<ProjectEntity> ProjectEntities { get; set; }
         public virtual DbSet<SoilLayerEntity> SoilLayerEntities { get; set; }
         public virtual DbSet<SoilProfileEntity> SoilProfileEntities { get; set; }
+        public virtual DbSet<StabilityPointStructureEntity> StabilityPointStructureEntities { get; set; }
         public virtual DbSet<StabilityPointStructuresFailureMechanismMetaEntity> StabilityPointStructuresFailureMechanismMetaEntities { get; set; }
         public virtual DbSet<StabilityPointStructuresSectionResultEntity> StabilityPointStructuresSectionResultEntities { get; set; }
         public virtual DbSet<StabilityStoneCoverSectionResultEntity> StabilityStoneCoverSectionResultEntities { get; set; }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Repos\Ringtoets\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -544,6 +544,63 @@
           <Property Name="SoilProfileEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Bottom" Type="real" />
           <Property Name="Name" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="StabilityPointStructureEntity">
+          <Key>
+            <PropertyRef Name="StabilityPointStructureEntityId" />
+          </Key>
+          <Property Name="StabilityPointStructureEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="260" />
+          <Property Name="Id" Type="varchar" MaxLength="260" />
+          <Property Name="X" Type="real" />
+          <Property Name="Y" Type="real" />
+          <Property Name="StructureNormalOrientation" Type="real" />
+          <Property Name="StorageStructureAreaMean" Type="real" />
+          <Property Name="StorageStructureAreaCoefficientOfVariation" Type="real" />
+          <Property Name="AllowedLevelIncreaseStorageMean" Type="real" />
+          <Property Name="AllowedLevelIncreaseStorage.StandardDeviation" Type="real" />
+          <Property Name="WidthFlowAperturesMean" Type="real" />
+          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="real" />
+          <Property Name="InsideWaterLevelMean" Type="real" />
+          <Property Name="InsideWaterLevelStandardDeviation" Type="real" />
+          <Property Name="ThresholdHeightOpenWeirMean" Type="real" />
+          <Property Name="ThresholdHeightOpenWeirStandardDeviation" Type="real" />
+          <Property Name="CriticalOvertoppingDischargeMean" Type="real" />
+          <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="real" />
+          <Property Name="FlowWidthAtBottomProtectionMean" Type="real" />
+          <Property Name="FlowWidthAtBottomProtectionStandardDeviation" Type="real" />
+          <Property Name="ConstructiveStrengthLinearLoadModelMean" Type="real" />
+          <Property Name="ConstructiveStrengthLinearLoadModelCoefficientOfVariation" Type="real" />
+          <Property Name="ConstructiveStrengthQuadraticLoadModelMean" Type="real" />
+          <Property Name="ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation" Type="real" />
+          <Property Name="BankWidthMean" Type="real" />
+          <Property Name="BankWidthStandardDeviation" Type="real" />
+          <Property Name="InsideWaterLevelFailureConstructionMean" Type="real" />
+          <Property Name="InsideWaterLevelFailureConstructionStandardDeviation" Type="real" />
+          <Property Name="EvaluationLevel" Type="real" />
+          <Property Name="LevelCrestStructureMean" Type="real" />
+          <Property Name="LevelCrestStructureStandardDeviation" Type="real" />
+          <Property Name="VerticalDistance" Type="real" />
+          <Property Name="FailureProbabilityRepairClosure" Type="real" />
+          <Property Name="FailureCollisionEnergyMean" Type="real" />
+          <Property Name="FailureCollisionEnergyCoefficientOfVariation" Type="real" />
+          <Property Name="ShipMassMean" Type="real" />
+          <Property Name="ShipMassCoefficientOfVariation" Type="real" />
+          <Property Name="ShipVelocityMean" Type="real" />
+          <Property Name="ShipVelocityCoefficientOfVariation" Type="real" />
+          <Property Name="LevellingCount" Type="int" Nullable="false" />
+          <Property Name="ProbabilityCollisionSecondaryStructure" Type="real" />
+          <Property Name="FlowVelocityStructureClosableMean" Type="real" />
+          <Property Name="FlowVelocityStructureClosableStandardDeviation" Type="real" />
+          <Property Name="StabilityLinearLoadModelMean" Type="real" />
+          <Property Name="StabilityLinearLoadModelCoefficientOfVariation" Type="real" />
+          <Property Name="StabilityQuadraticLoadModelMean" Type="real" />
+          <Property Name="StabilityQuadraticLoadModelCoefficientOfVariation" Type="real" />
+          <Property Name="AreaFlowAperturesMean" Type="real" />
+          <Property Name="AreaFlowAperturesStandardDeviation" Type="real" />
+          <Property Name="InflowModelType" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresFailureMechanismMetaEntity">
           <Key>
@@ -1309,6 +1366,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StabilityPointStructureEntity_0_0">
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
+          <End Role="StabilityPointStructureEntity" Type="Self.StabilityPointStructureEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="StabilityPointStructureEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0">
           <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
           <End Role="StabilityPointStructuresFailureMechanismMetaEntity" Type="Self.StabilityPointStructuresFailureMechanismMetaEntity" Multiplicity="*" />
@@ -1577,6 +1646,7 @@
           <EntitySet Name="ProjectEntity" EntityType="Self.ProjectEntity" store:Type="Tables" />
           <EntitySet Name="SoilLayerEntity" EntityType="Self.SoilLayerEntity" store:Type="Tables" />
           <EntitySet Name="SoilProfileEntity" EntityType="Self.SoilProfileEntity" store:Type="Tables" />
+          <EntitySet Name="StabilityPointStructureEntity" EntityType="Self.StabilityPointStructureEntity" store:Type="Tables" />
           <EntitySet Name="StabilityPointStructuresFailureMechanismMetaEntity" EntityType="Self.StabilityPointStructuresFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="StabilityPointStructuresSectionResultEntity" EntityType="Self.StabilityPointStructuresSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="StabilityStoneCoverSectionResultEntity" EntityType="Self.StabilityStoneCoverSectionResultEntity" store:Type="Tables" />
@@ -1788,6 +1858,10 @@
             <End Role="SoilProfileEntity" EntitySet="SoilProfileEntity" />
             <End Role="SoilLayerEntity" EntitySet="SoilLayerEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_StabilityPointStructureEntity_0_0" Association="Self.FK_StabilityPointStructureEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="StabilityPointStructureEntity" EntitySet="StabilityPointStructureEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0" Association="Self.FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="StabilityPointStructuresFailureMechanismMetaEntity" EntitySet="StabilityPointStructuresFailureMechanismMetaEntity" />
@@ -1909,6 +1983,7 @@
           <EntitySet Name="ProjectEntities" EntityType="RingtoetsEntitiesModel.ProjectEntity" />
           <EntitySet Name="SoilLayerEntities" EntityType="RingtoetsEntitiesModel.SoilLayerEntity" />
           <EntitySet Name="SoilProfileEntities" EntityType="RingtoetsEntitiesModel.SoilProfileEntity" />
+          <EntitySet Name="StabilityPointStructureEntities" EntityType="RingtoetsEntitiesModel.StabilityPointStructureEntity" />
           <EntitySet Name="StabilityPointStructuresFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.StabilityPointStructuresFailureMechanismMetaEntity" />
           <EntitySet Name="StabilityPointStructuresSectionResultEntities" EntityType="RingtoetsEntitiesModel.StabilityPointStructuresSectionResultEntity" />
           <EntitySet Name="StabilityStoneCoverSectionResultEntities" EntityType="RingtoetsEntitiesModel.StabilityStoneCoverSectionResultEntity" />
@@ -2027,6 +2102,10 @@
           <AssociationSet Name="FK_PipingFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
             <End Role="PipingFailureMechanismMetaEntity" EntitySet="PipingFailureMechanismMetaEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StabilityPointStructureEntity_0_0" Association="RingtoetsEntitiesModel.FK_StabilityPointStructureEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="StabilityPointStructureEntity" EntitySet="StabilityPointStructureEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
@@ -2358,6 +2437,7 @@
           <NavigationProperty Name="HeightStructureEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructureEntity_0_0" FromRole="FailureMechanismEntity" ToRole="HeightStructureEntity" />
           <NavigationProperty Name="HeightStructuresFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="HeightStructuresFailureMechanismMetaEntity" />
           <NavigationProperty Name="PipingFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_PipingFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="PipingFailureMechanismMetaEntity" />
+          <NavigationProperty Name="StabilityPointStructureEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructureEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StabilityPointStructureEntity" />
           <NavigationProperty Name="StabilityPointStructuresFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StabilityPointStructuresFailureMechanismMetaEntity" />
           <NavigationProperty Name="StochasticSoilModelEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilModelEntity_0_0" FromRole="FailureMechanismEntity" ToRole="StochasticSoilModelEntity" />
           <NavigationProperty Name="SurfaceLineEntities" Relationship="RingtoetsEntitiesModel.FK_SurfaceLineEntity_0_0" FromRole="FailureMechanismEntity" ToRole="SurfaceLineEntity" />
@@ -2847,6 +2927,64 @@
           <Property Name="Name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SoilLayerEntities" Relationship="RingtoetsEntitiesModel.FK_SoilLayerEntity_0_0" FromRole="SoilProfileEntity" ToRole="SoilLayerEntity" />
           <NavigationProperty Name="StochasticSoilProfileEntities" Relationship="RingtoetsEntitiesModel.FK_StochasticSoilProfileEntity_1_0" FromRole="SoilProfileEntity" ToRole="StochasticSoilProfileEntity" />
+        </EntityType>
+        <EntityType Name="StabilityPointStructureEntity">
+          <Key>
+            <PropertyRef Name="StabilityPointStructureEntityId" />
+          </Key>
+          <Property Name="StabilityPointStructureEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="X" Type="Double" />
+          <Property Name="Y" Type="Double" />
+          <Property Name="StructureNormalOrientation" Type="Double" />
+          <Property Name="StorageStructureAreaMean" Type="Double" />
+          <Property Name="StorageStructureAreaCoefficientOfVariation" Type="Double" />
+          <Property Name="AllowedLevelIncreaseStorageMean" Type="Double" />
+          <Property Name="AllowedLevelIncreaseStorage_StandardDeviation" Type="Double" />
+          <Property Name="WidthFlowAperturesMean" Type="Double" />
+          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="Double" />
+          <Property Name="InsideWaterLevelMean" Type="Double" />
+          <Property Name="InsideWaterLevelStandardDeviation" Type="Double" />
+          <Property Name="ThresholdHeightOpenWeirMean" Type="Double" />
+          <Property Name="ThresholdHeightOpenWeirStandardDeviation" Type="Double" />
+          <Property Name="CriticalOvertoppingDischargeMean" Type="Double" />
+          <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="Double" />
+          <Property Name="FlowWidthAtBottomProtectionMean" Type="Double" />
+          <Property Name="FlowWidthAtBottomProtectionStandardDeviation" Type="Double" />
+          <Property Name="ConstructiveStrengthLinearLoadModelMean" Type="Double" />
+          <Property Name="ConstructiveStrengthLinearLoadModelCoefficientOfVariation" Type="Double" />
+          <Property Name="ConstructiveStrengthQuadraticLoadModelMean" Type="Double" />
+          <Property Name="ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation" Type="Double" />
+          <Property Name="BankWidthMean" Type="Double" />
+          <Property Name="BankWidthStandardDeviation" Type="Double" />
+          <Property Name="InsideWaterLevelFailureConstructionMean" Type="Double" />
+          <Property Name="InsideWaterLevelFailureConstructionStandardDeviation" Type="Double" />
+          <Property Name="EvaluationLevel" Type="Double" />
+          <Property Name="LevelCrestStructureMean" Type="Double" />
+          <Property Name="LevelCrestStructureStandardDeviation" Type="Double" />
+          <Property Name="VerticalDistance" Type="Double" />
+          <Property Name="FailureProbabilityRepairClosure" Type="Double" />
+          <Property Name="FailureCollisionEnergyMean" Type="Double" />
+          <Property Name="FailureCollisionEnergyCoefficientOfVariation" Type="Double" />
+          <Property Name="ShipMassMean" Type="Double" />
+          <Property Name="ShipMassCoefficientOfVariation" Type="Double" />
+          <Property Name="ShipVelocityMean" Type="Double" />
+          <Property Name="ShipVelocityCoefficientOfVariation" Type="Double" />
+          <Property Name="LevellingCount" Type="Int32" Nullable="false" />
+          <Property Name="ProbabilityCollisionSecondaryStructure" Type="Double" />
+          <Property Name="FlowVelocityStructureClosableMean" Type="Double" />
+          <Property Name="FlowVelocityStructureClosableStandardDeviation" Type="Double" />
+          <Property Name="StabilityLinearLoadModelMean" Type="Double" />
+          <Property Name="StabilityLinearLoadModelCoefficientOfVariation" Type="Double" />
+          <Property Name="StabilityQuadraticLoadModelMean" Type="Double" />
+          <Property Name="StabilityQuadraticLoadModelCoefficientOfVariation" Type="Double" />
+          <Property Name="AreaFlowAperturesMean" Type="Double" />
+          <Property Name="AreaFlowAperturesStandardDeviation" Type="Double" />
+          <Property Name="InflowModelType" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructureEntity_0_0" FromRole="StabilityPointStructureEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresFailureMechanismMetaEntity">
           <Key>
@@ -3357,6 +3495,18 @@
               <PropertyRef Name="FailureMechanismEntityId" />
             </Principal>
             <Dependent Role="PipingFailureMechanismMetaEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StabilityPointStructureEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.StabilityPointStructureEntity" Role="StabilityPointStructureEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="StabilityPointStructureEntity">
               <PropertyRef Name="FailureMechanismEntityId" />
             </Dependent>
           </ReferentialConstraint>
@@ -4447,6 +4597,64 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Bottom" ColumnName="Bottom" />
                 <ScalarProperty Name="SoilProfileEntityId" ColumnName="SoilProfileEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StabilityPointStructureEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StabilityPointStructureEntity">
+              <MappingFragment StoreEntitySet="StabilityPointStructureEntity">
+                <ScalarProperty Name="InflowModelType" ColumnName="InflowModelType" />
+                <ScalarProperty Name="AreaFlowAperturesStandardDeviation" ColumnName="AreaFlowAperturesStandardDeviation" />
+                <ScalarProperty Name="AreaFlowAperturesMean" ColumnName="AreaFlowAperturesMean" />
+                <ScalarProperty Name="StabilityQuadraticLoadModelCoefficientOfVariation" ColumnName="StabilityQuadraticLoadModelCoefficientOfVariation" />
+                <ScalarProperty Name="StabilityQuadraticLoadModelMean" ColumnName="StabilityQuadraticLoadModelMean" />
+                <ScalarProperty Name="StabilityLinearLoadModelCoefficientOfVariation" ColumnName="StabilityLinearLoadModelCoefficientOfVariation" />
+                <ScalarProperty Name="StabilityLinearLoadModelMean" ColumnName="StabilityLinearLoadModelMean" />
+                <ScalarProperty Name="FlowVelocityStructureClosableStandardDeviation" ColumnName="FlowVelocityStructureClosableStandardDeviation" />
+                <ScalarProperty Name="FlowVelocityStructureClosableMean" ColumnName="FlowVelocityStructureClosableMean" />
+                <ScalarProperty Name="ProbabilityCollisionSecondaryStructure" ColumnName="ProbabilityCollisionSecondaryStructure" />
+                <ScalarProperty Name="LevellingCount" ColumnName="LevellingCount" />
+                <ScalarProperty Name="ShipVelocityCoefficientOfVariation" ColumnName="ShipVelocityCoefficientOfVariation" />
+                <ScalarProperty Name="ShipVelocityMean" ColumnName="ShipVelocityMean" />
+                <ScalarProperty Name="ShipMassCoefficientOfVariation" ColumnName="ShipMassCoefficientOfVariation" />
+                <ScalarProperty Name="ShipMassMean" ColumnName="ShipMassMean" />
+                <ScalarProperty Name="FailureCollisionEnergyCoefficientOfVariation" ColumnName="FailureCollisionEnergyCoefficientOfVariation" />
+                <ScalarProperty Name="FailureCollisionEnergyMean" ColumnName="FailureCollisionEnergyMean" />
+                <ScalarProperty Name="FailureProbabilityRepairClosure" ColumnName="FailureProbabilityRepairClosure" />
+                <ScalarProperty Name="VerticalDistance" ColumnName="VerticalDistance" />
+                <ScalarProperty Name="LevelCrestStructureStandardDeviation" ColumnName="LevelCrestStructureStandardDeviation" />
+                <ScalarProperty Name="LevelCrestStructureMean" ColumnName="LevelCrestStructureMean" />
+                <ScalarProperty Name="EvaluationLevel" ColumnName="EvaluationLevel" />
+                <ScalarProperty Name="InsideWaterLevelFailureConstructionStandardDeviation" ColumnName="InsideWaterLevelFailureConstructionStandardDeviation" />
+                <ScalarProperty Name="InsideWaterLevelFailureConstructionMean" ColumnName="InsideWaterLevelFailureConstructionMean" />
+                <ScalarProperty Name="BankWidthStandardDeviation" ColumnName="BankWidthStandardDeviation" />
+                <ScalarProperty Name="BankWidthMean" ColumnName="BankWidthMean" />
+                <ScalarProperty Name="ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation" ColumnName="ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation" />
+                <ScalarProperty Name="ConstructiveStrengthQuadraticLoadModelMean" ColumnName="ConstructiveStrengthQuadraticLoadModelMean" />
+                <ScalarProperty Name="ConstructiveStrengthLinearLoadModelCoefficientOfVariation" ColumnName="ConstructiveStrengthLinearLoadModelCoefficientOfVariation" />
+                <ScalarProperty Name="ConstructiveStrengthLinearLoadModelMean" ColumnName="ConstructiveStrengthLinearLoadModelMean" />
+                <ScalarProperty Name="FlowWidthAtBottomProtectionStandardDeviation" ColumnName="FlowWidthAtBottomProtectionStandardDeviation" />
+                <ScalarProperty Name="FlowWidthAtBottomProtectionMean" ColumnName="FlowWidthAtBottomProtectionMean" />
+                <ScalarProperty Name="CriticalOvertoppingDischargeCoefficientOfVariation" ColumnName="CriticalOvertoppingDischargeCoefficientOfVariation" />
+                <ScalarProperty Name="CriticalOvertoppingDischargeMean" ColumnName="CriticalOvertoppingDischargeMean" />
+                <ScalarProperty Name="ThresholdHeightOpenWeirStandardDeviation" ColumnName="ThresholdHeightOpenWeirStandardDeviation" />
+                <ScalarProperty Name="ThresholdHeightOpenWeirMean" ColumnName="ThresholdHeightOpenWeirMean" />
+                <ScalarProperty Name="InsideWaterLevelStandardDeviation" ColumnName="InsideWaterLevelStandardDeviation" />
+                <ScalarProperty Name="InsideWaterLevelMean" ColumnName="InsideWaterLevelMean" />
+                <ScalarProperty Name="WidthFlowAperturesCoefficientOfVariation" ColumnName="WidthFlowAperturesCoefficientOfVariation" />
+                <ScalarProperty Name="WidthFlowAperturesMean" ColumnName="WidthFlowAperturesMean" />
+                <ScalarProperty Name="AllowedLevelIncreaseStorage_StandardDeviation" ColumnName="AllowedLevelIncreaseStorage.StandardDeviation" />
+                <ScalarProperty Name="AllowedLevelIncreaseStorageMean" ColumnName="AllowedLevelIncreaseStorageMean" />
+                <ScalarProperty Name="StorageStructureAreaCoefficientOfVariation" ColumnName="StorageStructureAreaCoefficientOfVariation" />
+                <ScalarProperty Name="StorageStructureAreaMean" ColumnName="StorageStructureAreaMean" />
+                <ScalarProperty Name="StructureNormalOrientation" ColumnName="StructureNormalOrientation" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="StabilityPointStructureEntityId" ColumnName="StabilityPointStructureEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
