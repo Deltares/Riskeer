@@ -303,6 +303,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 {
                     validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_dike_profile_selected);
                 }
+                else
+                {
+                    if (double.IsNaN(inputParameters.Orientation))
+                    {
+                        string message = string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_0_,
+                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonForms.Orientation_DisplayName));
+                        validationResult.Add(message);
+                    }
+                }
 
                 if (inputParameters.UseBreakWater)
                 {
@@ -310,13 +319,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                     {
                         validationResult.Add(RingtoetsCommonServiceResources.Validation_Invalid_BreakWaterHeight_value);
                     }
-                }
-
-                if (double.IsNaN(inputParameters.Orientation))
-                {
-                    string message = string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_0_,
-                                                   GenerateParameterNameWithoutUnits(RingtoetsCommonForms.Orientation_DisplayName));
-                    validationResult.Add(message);
                 }
             }
 
