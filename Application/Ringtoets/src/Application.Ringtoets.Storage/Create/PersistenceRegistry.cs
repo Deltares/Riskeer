@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -52,6 +53,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines = CreateDictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>();
         private readonly Dictionary<object, HydraulicBoundaryLocation> hydraulicLocations = CreateDictionary<object, HydraulicBoundaryLocation>();
         private readonly Dictionary<HeightStructureEntity, HeightStructure> heightStructures = CreateDictionary<HeightStructureEntity, HeightStructure>();
+        private readonly Dictionary<ClosingStructureEntity, ClosingStructure> closingStructures = CreateDictionary<ClosingStructureEntity, ClosingStructure>();
 
         private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
         {
@@ -272,6 +274,22 @@ namespace Application.Ringtoets.Storage.Create
             Register(heightStructures, entity, model);
         }
 
+        /// <summary>
+        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
+        /// that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="ClosingStructureEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="ClosingStructure"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Register(ClosingStructureEntity entity, ClosingStructure model)
+        {
+            Register(closingStructures, entity, model);
+        }
+
         #endregion
 
         #region Contains Methods
@@ -384,6 +402,17 @@ namespace Application.Ringtoets.Storage.Create
         internal bool Contains(GrassCoverErosionInwardsCalculation model)
         {
             return ContainsValue(grassCoverErosionInwardsCalculations, model);
+        }
+
+        /// <summary>
+        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="ClosingStructure"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(ClosingStructure model)
+        {
+            return ContainsValue(closingStructures, model);
         }
 
         #endregion
@@ -557,6 +586,22 @@ namespace Application.Ringtoets.Storage.Create
         internal HeightStructureEntity Get(HeightStructure model)
         {
             return Get(heightStructures, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="ClosingStructureEntity"/> which was registered for the
+        /// given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="ClosingStructure"/> for which a read operation has been registered.</param>
+        /// <returns>The constructed <see cref="ClosingStructureEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(ClosingStructure)"/> to find out whether a
+        /// create operation has been registered for <paramref name="model"/>.</remarks>
+        internal ClosingStructureEntity Get(ClosingStructure model)
+        {
+            return Get(closingStructures, model);
         }
 
         #endregion

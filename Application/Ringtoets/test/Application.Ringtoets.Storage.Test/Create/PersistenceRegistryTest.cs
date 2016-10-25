@@ -25,6 +25,8 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
+using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -633,6 +635,67 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             bool result = registry.Contains(heightStructure);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_WithoutClosingStructure_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Contains((ClosingStructure)null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Contains_ClosingStructureAdded_ReturnsTrue()
+        {
+            // Setup
+            ClosingStructure closingStructure = new TestClosingStructure();
+            var registry = new PersistenceRegistry();
+            registry.Register(new ClosingStructureEntity(), closingStructure);
+
+            // Call
+            bool result = registry.Contains(closingStructure);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_OtherClosingStructureAdded_ReturnsFalse()
+        {
+            // Setup
+            ClosingStructure closingStructure = new TestClosingStructure();
+
+            ClosingStructure otherStructure = new TestClosingStructure();
+            var registry = new PersistenceRegistry();
+            registry.Register(new ClosingStructureEntity(), otherStructure);
+
+            // Call
+            bool result = registry.Contains(closingStructure);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_NoClosingStructureAdded_ReturnsFalse()
+        {
+            // Setup
+            ClosingStructure closingStructure = new TestClosingStructure();
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            bool result = registry.Contains(closingStructure);
 
             // Assert
             Assert.IsFalse(result);
