@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -412,6 +413,95 @@ namespace Application.Ringtoets.Storage.Test.Create
             CollectionAssert.IsEmpty(childEntity3.CalculationGroupEntity1);
 
             GrassCoverErosionOutwardsWaveConditionsCalculationEntity childEntity4 = childCalculationEntities[1];
+            Assert.AreEqual("D", childEntity4.Name);
+            Assert.AreEqual(3, childEntity4.Order);
+        }
+
+        [Test]
+        public void Create_GroupWithChildHeightStructuresCalculations_CreateEntities()
+        {
+            // Setup
+            var group = new CalculationGroup("root", true)
+            {
+                Children =
+                {
+                    new HeightStructuresCalculation
+                    {
+                        Name = "A"
+                    },
+                    new HeightStructuresCalculation
+                    {
+                        Name = "B"
+                    }
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            CalculationGroupEntity entity = group.Create(registry, 0);
+
+            // Assert
+            HeightStructuresCalculationEntity[] childCalculationEntities = entity.HeightStructuresCalculationEntities.ToArray();
+            Assert.AreEqual(2, childCalculationEntities.Length);
+
+            HeightStructuresCalculationEntity childEntity1 = childCalculationEntities[0];
+            Assert.AreEqual("A", childEntity1.Name);
+            Assert.AreEqual(0, childEntity1.Order);
+            HeightStructuresCalculationEntity childEntity2 = childCalculationEntities[1];
+            Assert.AreEqual("B", childEntity2.Name);
+            Assert.AreEqual(1, childEntity2.Order);
+        }
+
+        [Test]
+        public void Create_GroupWithChildHeightStructuresCalculationsAndChildCalculationGroups_CreateEntities()
+        {
+            // Setup
+            var group = new CalculationGroup("root", true)
+            {
+                Children =
+                {
+                    new CalculationGroup("A", true),
+                    new HeightStructuresCalculation
+                    {
+                        Name = "B"
+                    },
+                    new CalculationGroup("C", false),
+                    new HeightStructuresCalculation
+                    {
+                        Name = "D"
+                    }
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            CalculationGroupEntity entity = group.Create(registry, 0);
+
+            // Assert
+            CalculationGroupEntity[] childGroupEntities = entity.CalculationGroupEntity1.ToArray();
+            HeightStructuresCalculationEntity[] childCalculationEntities = entity.HeightStructuresCalculationEntities.ToArray();
+            Assert.AreEqual(2, childGroupEntities.Length);
+            Assert.AreEqual(2, childCalculationEntities.Length);
+
+            CalculationGroupEntity childEntity1 = childGroupEntities[0];
+            Assert.AreEqual("A", childEntity1.Name);
+            Assert.AreEqual(1, childEntity1.IsEditable);
+            Assert.AreEqual(0, childEntity1.Order);
+            CollectionAssert.IsEmpty(childEntity1.CalculationGroupEntity1);
+
+            HeightStructuresCalculationEntity childEntity2 = childCalculationEntities[0];
+            Assert.AreEqual("B", childEntity2.Name);
+            Assert.AreEqual(1, childEntity2.Order);
+
+            CalculationGroupEntity childEntity3 = childGroupEntities[1];
+            Assert.AreEqual("C", childEntity3.Name);
+            Assert.AreEqual(0, childEntity3.IsEditable);
+            Assert.AreEqual(2, childEntity3.Order);
+            CollectionAssert.IsEmpty(childEntity3.CalculationGroupEntity1);
+
+            HeightStructuresCalculationEntity childEntity4 = childCalculationEntities[1];
             Assert.AreEqual("D", childEntity4.Name);
             Assert.AreEqual(3, childEntity4.Order);
         }

@@ -22,6 +22,7 @@
 using System;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
+using Application.Ringtoets.Storage.Create.HeightStructures;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.Create.StabilityStoneCover;
 using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
@@ -30,6 +31,7 @@ using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
+using Ringtoets.HeightStructures.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
@@ -69,7 +71,7 @@ namespace Application.Ringtoets.Storage.Create
 
         private static void CreateChildElements(CalculationGroup parentGroup, CalculationGroupEntity entity, PersistenceRegistry registry)
         {
-            for (int i = 0; i < parentGroup.Children.Count; i++)
+            for (var i = 0; i < parentGroup.Children.Count; i++)
             {
                 ICalculationBase calculationBase = parentGroup.Children[i];
 
@@ -92,6 +94,11 @@ namespace Application.Ringtoets.Storage.Create
                 if (childGrassCoverErosionOutwardsCalculation != null)
                 {
                     entity.GrassCoverErosionOutwardsWaveConditionsCalculationEntities.Add(childGrassCoverErosionOutwardsCalculation.Create(registry, i));
+                }
+                var childHeightStructuresCalculation = calculationBase as HeightStructuresCalculation;
+                if (childHeightStructuresCalculation != null)
+                {
+                    entity.HeightStructuresCalculationEntities.Add(childHeightStructuresCalculation.Create(registry, i));
                 }
                 var stabilityStoneCoverWaveConditionsCalculation = calculationBase as StabilityStoneCoverWaveConditionsCalculation;
                 if (stabilityStoneCoverWaveConditionsCalculation != null)
