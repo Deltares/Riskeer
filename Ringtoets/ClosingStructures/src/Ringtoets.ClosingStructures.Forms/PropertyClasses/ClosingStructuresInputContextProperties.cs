@@ -25,6 +25,7 @@ using Core.Common.Gui.Attributes;
 using Core.Common.Utils.Attributes;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
+using Ringtoets.ClosingStructures.Utils;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Forms.PropertyClasses;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -106,7 +107,10 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             return data.FailureMechanism.ClosingStructures;
         }
 
-        protected override void AfterSettingStructure() {}
+        protected override void AfterSettingStructure()
+        {
+            ClosingStructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
+        }
 
         #region Schematization
 
