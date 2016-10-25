@@ -91,9 +91,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
             var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var heightStructuresInputContext = new HeightStructuresInputContext(new HeightStructuresCalculation(),
-                                                                                new HeightStructuresFailureMechanism(),
-                                                                                assessmentSectionStub);
+            var heightStructuresCalculation = new HeightStructuresCalculation();
+            var heightStructuresInputContext = new HeightStructuresInputContext(
+                heightStructuresCalculation.InputParameters,
+                heightStructuresCalculation,
+                new HeightStructuresFailureMechanism(),
+                assessmentSectionStub);
 
             // Call
             var text = info.Text(heightStructuresInputContext);
@@ -106,12 +109,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();           
+            var assessmentSectionStub = mocksRepository.Stub<IAssessmentSection>();
             mocksRepository.ReplayAll();
 
-            var heightStructuresInputContext = new HeightStructuresInputContext(new HeightStructuresCalculation(),
-                                                                                new HeightStructuresFailureMechanism(),
-                                                                                assessmentSectionStub);
+            var heightStructuresCalculation = new HeightStructuresCalculation();
+            var heightStructuresInputContext = new HeightStructuresInputContext(
+                heightStructuresCalculation.InputParameters,
+                heightStructuresCalculation,
+                new HeightStructuresFailureMechanism(),
+                assessmentSectionStub);
 
             // Call
             var image = info.Image(heightStructuresInputContext);

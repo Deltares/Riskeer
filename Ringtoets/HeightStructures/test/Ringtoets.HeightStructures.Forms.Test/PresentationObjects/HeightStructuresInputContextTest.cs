@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -34,25 +33,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
     public class HeightStructuresInputContextTest
     {
         [Test]
-        public void Constructor_CalcationIsNull_ThrowsArgumentNullException()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            mocks.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-
-            // Call
-            TestDelegate test = () => new HeightStructuresInputContext(null, failureMechanism, assessmentSectionMock);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("calculation", paramName);
-            mocks.VerifyAll();
-        }
-
-        [Test]
         public void Constructor_ValidInputParameters_ExpectedValues()
         {
             // Setup
@@ -64,10 +44,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PresentationObjects
             var failureMechanism = new HeightStructuresFailureMechanism();
 
             // Call
-            var context = new HeightStructuresInputContext(calculation, failureMechanism, assessmentSectionMock);
+            var context = new HeightStructuresInputContext(calculation.InputParameters,
+                                                           calculation,
+                                                           failureMechanism,
+                                                           assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismItemContextBase<HeightStructuresInput, HeightStructuresFailureMechanism>>(context);
+            Assert.IsInstanceOf<InputContextBase<HeightStructuresInput, HeightStructuresCalculation, HeightStructuresFailureMechanism>>(context);
             Assert.AreSame(calculation.InputParameters, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(failureMechanism, context.FailureMechanism);

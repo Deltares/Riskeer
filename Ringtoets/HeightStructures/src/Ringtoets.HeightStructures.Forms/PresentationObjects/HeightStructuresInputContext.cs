@@ -35,22 +35,15 @@ namespace Ringtoets.HeightStructures.Forms.PresentationObjects
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresInputContext"/>.
         /// </summary>
+        /// <param name="wrappedData">The calculation input wrapped by the context object.</param>
         /// <param name="calculation">The height structures calculation containing the <see cref="HeightStructuresInput"/>.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public HeightStructuresInputContext(HeightStructuresCalculation calculation,
+        public HeightStructuresInputContext(HeightStructuresInput wrappedData,
+                                            HeightStructuresCalculation calculation,
                                             HeightStructuresFailureMechanism failureMechanism,
                                             IAssessmentSection assessmentSection)
-            : base(ValidateCalculation(calculation).InputParameters, calculation, failureMechanism, assessmentSection) {}
-
-        private static HeightStructuresCalculation ValidateCalculation(HeightStructuresCalculation calculation)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException("calculation");
-            }
-            return calculation;
-        }
+            : base(wrappedData, calculation, failureMechanism, assessmentSection) {}
     }
 }
