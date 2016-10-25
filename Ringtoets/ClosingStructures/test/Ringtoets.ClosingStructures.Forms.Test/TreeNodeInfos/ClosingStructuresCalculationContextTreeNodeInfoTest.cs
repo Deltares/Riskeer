@@ -592,6 +592,88 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void GivenCalculationWithNonExistingLocationId_WhenCalculatingFromContextMenuFails_ThenOutputClearedLogMessagesAddedAndUpdateObserver()
+        {
+            // Given
+            var mainWindow = mocks.Stub<IMainWindow>();
+            var observerMock = mocks.StrictMock<IObserver>();
+            observerMock.Expect(o => o.UpdateObserver());
+
+            var section = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            });
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.AddSection(section);
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.0, 1.1);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "random"
+            };
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+            var calculation = new TestClosingStructuresCalculation()
+            {
+                Output = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                }
+            };
+
+            var calculationContext = new ClosingStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+                guiMock.Expect(g => g.MainWindow).Return(mainWindow);
+
+                mocks.ReplayAll();
+
+                plugin.Gui = guiMock;
+
+                calculation.Attach(observerMock);
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Expect an activity dialog which is automatically closed
+                };
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
+                {
+                    // When
+                    Action action = () => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessages(action, messages =>
+                    {
+                        var msgs = messages.ToArray();
+                        Assert.AreEqual(7, msgs.Length);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                        StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                        StringAssert.StartsWith(string.Format("De berekening voor kunstwerk sluiten '{0}' is niet gelukt.", calculation.Name), msgs[3]);
+                        StringAssert.StartsWith("Kunstwerken sluiten berekeningsverslag. Klik op details voor meer informatie.", msgs[4]);
+                        StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                        StringAssert.StartsWith(string.Format("Uitvoeren van '{0}' is mislukt.", calculation.Name), msgs[6]);
+                    });
+
+                    Assert.IsNull(calculation.Output);
+                }
+            }
+        }
+
+
+        [Test]
         public void GivenCalculationWithNonExistingFilePath_WhenValidatingFromContextMenu_ThenLogMessagesAdded()
         {
             // Given

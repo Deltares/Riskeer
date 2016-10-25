@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -44,6 +45,85 @@ namespace Ringtoets.ClosingStructures.Service.Test
     public class ClosingStructuresCalculationServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+
+        [Test]
+        public void Validate_ValidCalculationInvalidHydraulicBoundaryDatabase_ReturnsFalse()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "notexisting.sqlite");
+
+            const string name = "<very nice name>";
+
+            ClosingStructuresCalculation calculation = new ClosingStructuresCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                }
+            };
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = new ClosingStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_CalculationInputWithoutHydraulicBoundaryLocationValidHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            const string name = "<very nice name>";
+
+            ClosingStructuresCalculation calculation = new TestClosingStructuresCalculation()
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = null
+                }
+            };
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = new ClosingStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
 
         [Test]
         public void Calculate_InvalidInFlowModelType_ThrowsNotSupportedException()

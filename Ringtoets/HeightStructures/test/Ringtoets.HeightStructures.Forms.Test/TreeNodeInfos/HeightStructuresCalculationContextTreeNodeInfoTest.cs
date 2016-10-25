@@ -573,7 +573,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithNonExistingFilePath_WhenCalculatingFromContextMenu_ThenOutputClearedLogMessagesAddedAndUpdateObserver()
+        public void GivenCalculationWithNonExistingLocationId_WhenCalculatingFromContextMenu_ThenOutputClearedLogMessagesAddedAndUpdateObserver()
         {
             // Given
             var gui = mocks.DynamicMock<IGui>();

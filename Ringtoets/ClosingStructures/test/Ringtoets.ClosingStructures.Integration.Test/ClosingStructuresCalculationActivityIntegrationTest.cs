@@ -23,6 +23,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Core.Common.Base;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Base.Service;
 using Core.Common.TestUtil;
@@ -44,6 +45,90 @@ namespace Ringtoets.ClosingStructures.Integration.Test
     public class ClosingStructuresCalculationActivityIntegrationTest
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+
+
+        [Test]
+        public void Run_ClosingStructuresCalculationInvalidHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
+            {
+                HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+                {
+                    FilePath = Path.Combine(testDataPath, "notexisting.sqlite")
+                }
+            };
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new ClosingStructuresCalculation();
+
+            var activity = new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+            });
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+        }
+
+        [Test]
+        public void Run_ClosingStructuresCalculationWithoutHydraulicBoundaryLocation_LogValidationStartAndEndWithError()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new ClosingStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    Structure = new TestClosingStructure()
+                }
+            };
+            calculation.InputParameters.DeviationWaveDirection = (RoundedDouble)0;
+
+            var activity = new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
+
+            // Call
+            Action call = () => activity.Run();
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardenlocatie geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+            });
+            Assert.AreEqual(ActivityState.Failed, activity.State);
+        }
 
         [Test]
         public void Run_ValidClosingStructuresCalculation_PerformClosingStructuresValidationAndCalculationAndLogStartAndEnd()
