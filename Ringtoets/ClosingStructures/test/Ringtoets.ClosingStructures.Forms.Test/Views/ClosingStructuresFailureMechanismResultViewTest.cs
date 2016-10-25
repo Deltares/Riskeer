@@ -93,13 +93,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var result1 = new ClosingStructuresFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = true,
-                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             var result2 = new ClosingStructuresFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = false,
-                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
 
@@ -125,9 +123,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                var expectedAssessmentLayer2AString1 = ProbabilityFormattingHelper.Format(result1.AssessmentLayerTwoA);
 
-                Assert.AreEqual(expectedAssessmentLayer2AString1, cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result1.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
                 AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
@@ -137,11 +134,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(result2.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
-                var expectedAssessmentLayer2AString2 = ProbabilityFormattingHelper.Format(result2.AssessmentLayerTwoA);
-                Assert.AreEqual(expectedAssessmentLayer2AString2, cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
 
-                AssertCellIsEnabled(cells[assessmentLayerTwoAIndex]);
+                AssertCellIsEnabled(cells[assessmentLayerTwoAIndex], true);
                 AssertCellIsEnabled(cells[assessmentLayerThreeIndex]);
             }
         }
@@ -158,7 +154,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var result = new ClosingStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = false,
-                AssessmentLayerTwoA = (RoundedDouble) random.NextDouble(),
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             using (var form = new Form())
@@ -231,9 +226,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             Assert.AreEqual(Color.FromKnownColor(KnownColor.DarkGray), dataGridViewCell.Style.BackColor);
         }
 
-        private static void AssertCellIsEnabled(DataGridViewCell dataGridViewCell)
+        private static void AssertCellIsEnabled(DataGridViewCell dataGridViewCell, bool readOnly = false)
         {
-            Assert.AreEqual(false, dataGridViewCell.ReadOnly);
+            Assert.AreEqual(readOnly, dataGridViewCell.ReadOnly);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
         }

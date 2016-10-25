@@ -55,7 +55,6 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             // Setup
             var random = new Random(21);
             double layerThree = random.NextDouble();
-            double layerTwoA = random.NextDouble();
             var collector = new ReadConversionCollector();
 
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
@@ -63,7 +62,6 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             var entity = new ClosingStructuresSectionResultEntity
             {
                 LayerThree = layerThree,
-                LayerTwoA = layerTwoA,
                 LayerOne = Convert.ToByte(layerOne),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
@@ -75,7 +73,6 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             // Assert
             Assert.IsNotNull(sectionResult);
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
-            Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA, 1e-6);
             Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
         }
 

@@ -19,11 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Properties;
+using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.ClosingStructures.Data.Test
 {
@@ -47,43 +46,81 @@ namespace Ringtoets.ClosingStructures.Data.Test
         }
 
         [Test]
-        [TestCase(-20)]
-        [TestCase(-1e-6)]
-        [TestCase(1 + 1e-6)]
-        [TestCase(12)]
-        public void AssessmentLayerTwoA_ForInvalidValues_ThrowsException(double newValue)
+        public void Calculation_SetNewValue_GetNewlySetValue()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
+
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
+            var calculation = new ClosingStructuresCalculation();
+
             // Call
-            TestDelegate test = () => result.AssessmentLayerTwoA = newValue;
+            result.Calculation = calculation;
 
             // Assert
-            var message = Assert.Throws<ArgumentException>(test).Message;
-            Assert.AreEqual(
-                Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1,
-                message);
+            Assert.AreSame(calculation, result.Calculation);
         }
 
         [Test]
-        [TestCase(0)]
-        [TestCase(1e-6)]
-        [TestCase(0.5)]
-        [TestCase(1 - 1e-6)]
-        [TestCase(1)]
-        public void AssessmentLayerTwoA_ForValidValues_NewValueSet(double newValue)
+        public void AssessmentLayerTwoA_CalculationNull_ReturnNaN()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
-            var result = new ClosingStructuresFailureMechanismSectionResult(section);
+
+            var result = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = null
+            };
 
             // Call
-            result.AssessmentLayerTwoA = newValue;
+            double twoAValue = result.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
+            Assert.IsNaN(twoAValue);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+
+            var result = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = new ClosingStructuresCalculation
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
+                }
+            };
+
+            // Call
+            double twoAValue = result.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.IsNaN(twoAValue);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+
+            double probability = 0.65;
+            var result = new ClosingStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = new ClosingStructuresCalculation
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
+                }
+            };
+
+            // Call
+            double twoAValue = result.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.AreEqual(probability, twoAValue);
         }
 
         private static FailureMechanismSection CreateSection()

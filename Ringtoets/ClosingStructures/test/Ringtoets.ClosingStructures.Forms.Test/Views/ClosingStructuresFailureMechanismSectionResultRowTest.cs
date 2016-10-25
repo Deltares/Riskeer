@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using NUnit.Framework;
@@ -51,47 +50,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             Assert.IsTrue(TypeUtils.HasTypeConverter<ClosingStructuresFailureMechanismSectionResultRow,
                               FailureMechanismSectionResultNoProbabilityValueDoubleConverter>(
                                   r => r.AssessmentLayerTwoA));
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(1)]
-        [TestCase(0.5)]
-        [TestCase(1e-6)]
-        public void AssessmentLayerTwoA_ForValidValues_ResultPropertyChanged(double value)
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var result = new ClosingStructuresFailureMechanismSectionResult(section);
-            var row = new ClosingStructuresFailureMechanismSectionResultRow(result);
-
-            // Call
-            row.AssessmentLayerTwoA = value;
-
-            // Assert
-            Assert.AreEqual(value, row.AssessmentLayerTwoA);
-        }
-
-        [Test]
-        [TestCase(-20)]
-        [TestCase(-1e-6)]
-        [TestCase(1 + 1e-6)]
-        [TestCase(12)]
-        public void AssessmentLayerTwoA_ForInvalidValues_ThrowsArgumentException(double value)
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var result = new ClosingStructuresFailureMechanismSectionResult(section);
-            var row = new ClosingStructuresFailureMechanismSectionResultRow(result);
-
-            // Call
-            TestDelegate test = () => row.AssessmentLayerTwoA = value;
-
-            // Assert
-            var message = Assert.Throws<ArgumentException>(test).Message;
-            Assert.AreEqual(
-                RingtoetsCommonDataResources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1,
-                message);
         }
 
         private static FailureMechanismSection CreateSection()

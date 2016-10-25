@@ -43,18 +43,12 @@ namespace Ringtoets.ClosingStructures.Forms.Views
         /// <summary>
         /// Gets the assessment layer two a of the <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is
-        /// not in the range [0,1].</exception>
         [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
         public double AssessmentLayerTwoA
         {
             get
             {
                 return SectionResult.AssessmentLayerTwoA;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerTwoA = value;
             }
         }
     }
