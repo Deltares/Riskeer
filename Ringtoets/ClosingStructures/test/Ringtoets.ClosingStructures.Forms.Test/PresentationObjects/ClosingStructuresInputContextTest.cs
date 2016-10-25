@@ -39,17 +39,18 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PresentationObjects
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var input = new ClosingStructuresInput();
+            var calculation = new ClosingStructuresCalculation();
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
             // Call
-            var context = new ClosingStructuresInputContext(input, failureMechanism, assessmentSectionMock);
+            var context = new ClosingStructuresInputContext(calculation.InputParameters, calculation, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismItemContextBase<ClosingStructuresInput, ClosingStructuresFailureMechanism>>(context);
-            Assert.AreEqual(input, context.WrappedData);
-            Assert.AreEqual(failureMechanism, context.FailureMechanism);
-            Assert.AreEqual(assessmentSectionMock, context.AssessmentSection);
+            Assert.IsInstanceOf<InputContextBase<ClosingStructuresInput, ClosingStructuresCalculation, ClosingStructuresFailureMechanism>>(context);
+            Assert.AreSame(calculation.InputParameters, context.WrappedData);
+            Assert.AreSame(calculation, context.Calculation);
+            Assert.AreSame(failureMechanism, context.FailureMechanism);
+            Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
             mocks.VerifyAll();
         }
     }

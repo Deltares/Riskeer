@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -174,6 +173,39 @@ namespace Ringtoets.ClosingStructures.Plugin
             };
         }
 
+        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, ClosingStructuresFailureMechanism failureMechanism)
+        {
+            if (!failureMechanism.Sections.Any())
+            {
+                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported;
+            }
+
+            if (assessmentSection.HydraulicBoundaryDatabase == null)
+            {
+                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
+            }
+
+            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            if (!string.IsNullOrEmpty(validationProblem))
+            {
+                return string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
+                                     validationProblem);
+            }
+
+            return null;
+        }
+
+        private void CalculateAll(ClosingStructuresFailureMechanism failureMechanism,
+                                  IEnumerable<ClosingStructuresCalculation> calculations,
+                                  IAssessmentSection assessmentSection)
+        {
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             calculations.Select(calc => new ClosingStructuresCalculationActivity(calc,
+                                                                                                                  Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                                  failureMechanism,
+                                                                                                                  assessmentSection)).ToArray());
+        }
+
         #region ViewInfo
 
         #region ClosingStructuresFailureMechanismResultView ViewInfo
@@ -225,39 +257,6 @@ namespace Ringtoets.ClosingStructures.Plugin
         #endregion
 
         #endregion
-
-        private static string ValidateAllDataAvailableAndGetErrorMessage(IAssessmentSection assessmentSection, ClosingStructuresFailureMechanism failureMechanism)
-        {
-            if (!failureMechanism.Sections.Any())
-            {
-                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_failure_mechanism_sections_imported;
-            }
-
-            if (assessmentSection.HydraulicBoundaryDatabase == null)
-            {
-                return RingtoetsCommonFormsResources.Plugin_AllDataAvailable_No_hydraulic_boundary_database_imported;
-            }
-
-            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
-            if (!string.IsNullOrEmpty(validationProblem))
-            {
-                return string.Format(RingtoetsCommonServiceResources.Hydraulic_boundary_database_connection_failed_0_,
-                                     validationProblem);
-            }
-
-            return null;
-        }
-
-        private void CalculateAll(ClosingStructuresFailureMechanism failureMechanism,
-                                  IEnumerable<ClosingStructuresCalculation> calculations,
-                                  IAssessmentSection assessmentSection)
-        {
-            ActivityProgressDialogRunner.Run(Gui.MainWindow,
-                                             calculations.Select(calc => new ClosingStructuresCalculationActivity(calc,
-                                                                                                                  Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
-                                                                                                                  failureMechanism,
-                                                                                                                  assessmentSection)).ToArray());
-        }
 
         #region TreeNodeInfo
 
@@ -476,6 +475,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             {
                 new CommentContext<ICommentable>(context.WrappedData),
                 new ClosingStructuresInputContext(context.WrappedData.InputParameters,
+                                                  context.WrappedData,
                                                   context.FailureMechanism,
                                                   context.AssessmentSection)
             };

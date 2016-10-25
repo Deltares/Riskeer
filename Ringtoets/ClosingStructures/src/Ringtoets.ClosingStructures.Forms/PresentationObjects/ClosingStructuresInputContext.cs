@@ -30,18 +30,20 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
     /// Presentation object for all data required to configure an instance of <see cref="ClosingStructuresInput"/>
     /// in order to be able to configure closing structures calculations.
     /// </summary>
-    public class ClosingStructuresInputContext : FailureMechanismItemContextBase<ClosingStructuresInput, ClosingStructuresFailureMechanism>
+    public class ClosingStructuresInputContext : InputContextBase<ClosingStructuresInput, ClosingStructuresCalculation, ClosingStructuresFailureMechanism>
     {
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresInputContext"/>.
         /// </summary>
-        /// <param name="input">The closing structures input instance wrapped by this context object.</param>
-        /// <param name="failureMechanism">The failure mechanism which the calculation belongs to.</param>
-        /// <param name="assessmentSection">The assessment section which the calculation belongs to.</param>
-        /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
-        public ClosingStructuresInputContext(ClosingStructuresInput input,
+        /// <param name="wrappedData">The calculation input wrapped by the context object.</param>
+        /// <param name="calculation">The closing structures calculation containing the <see cref="ClosingStructuresInput"/>.</param>
+        /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
+        /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
+        public ClosingStructuresInputContext(ClosingStructuresInput wrappedData,
+                                             ClosingStructuresCalculation calculation,
                                              ClosingStructuresFailureMechanism failureMechanism,
                                              IAssessmentSection assessmentSection)
-            : base(input, failureMechanism, assessmentSection) {}
+            : base(wrappedData, calculation, failureMechanism, assessmentSection) { }
     }
 }
