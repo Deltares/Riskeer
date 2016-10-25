@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -293,6 +293,38 @@
           <Property Name="StorageStructureAreaCoefficientOfVariation" Type="real" />
           <Property Name="AllowedLevelIncreaseStorageMean" Type="real" />
           <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="real" />
+        </EntityType>
+        <EntityType Name="HeightStructuresCalculationEntity">
+          <Key>
+            <PropertyRef Name="HeightStructuresCalculationEntityId" />
+          </Key>
+          <Property Name="HeightStructuresCalculationEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CalculationGroupEntityId" Type="integer" Nullable="false" />
+          <Property Name="HydraulicLocationEntityId" Type="integer" />
+          <Property Name="HeightStructureEntityId" Type="integer" />
+          <Property Name="ForeshoreProfileEntityId" Type="integer" />
+          <Property Name="HydraulicBoundaryLocationEntityId" Type="integer" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="260" />
+          <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ModelFactorSuperCriticalFlowMean" Type="real" />
+          <Property Name="VariationCoefficientLogNormalDistributionMean" Type="real" />
+          <Property Name="StructureNormalOrientation" Type="real" />
+          <Property Name="AllowedLevelIncreaseStorageMean" Type="real" />
+          <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="real" />
+          <Property Name="StorageStructureAreaMean" Type="real" />
+          <Property Name="StorageStructureAreaCoefficientOfVariation" Type="real" />
+          <Property Name="FlowWidthAtBottomProtectionMean" Type="real" />
+          <Property Name="FlowWidthAtBottomProtectionCoefficientOfVariation" Type="real" />
+          <Property Name="CriticalOvertoppingDischargeMean" Type="real" />
+          <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="real" />
+          <Property Name="FailureProbabilityStructureWithErosion" Type="real" />
+          <Property Name="WidthFlowAperturesMean" Type="real" />
+          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="real" />
+          <Property Name="UseBreakWater" Type="tinyint" Nullable="false" />
+          <Property Name="UseForeshore" Type="tinyint" Nullable="false" />
+          <Property Name="BreakWaterType" Type="smallint" Nullable="false" />
+          <Property Name="BreakWaterHeight" Type="real" />
         </EntityType>
         <EntityType Name="HeightStructuresFailureMechanismMetaEntity">
           <Key>
@@ -985,6 +1017,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HeightStructuresCalculationEntity_0_0">
+          <End Role="HydraulicLocationEntity" Type="Self.HydraulicLocationEntity" Multiplicity="0..1" />
+          <End Role="HeightStructuresCalculationEntity" Type="Self.HeightStructuresCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="HeightStructuresCalculationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HeightStructuresCalculationEntity_1_0">
+          <End Role="HeightStructureEntity" Type="Self.HeightStructureEntity" Multiplicity="0..1" />
+          <End Role="HeightStructuresCalculationEntity" Type="Self.HeightStructuresCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HeightStructureEntity">
+              <PropertyRef Name="HeightStructureEntityId" />
+            </Principal>
+            <Dependent Role="HeightStructuresCalculationEntity">
+              <PropertyRef Name="HeightStructureEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HeightStructuresCalculationEntity_2_0">
+          <End Role="ForeshoreProfileEntity" Type="Self.ForeshoreProfileEntity" Multiplicity="0..1" />
+          <End Role="HeightStructuresCalculationEntity" Type="Self.HeightStructuresCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForeshoreProfileEntity">
+              <PropertyRef Name="ForeshoreProfileEntityId" />
+            </Principal>
+            <Dependent Role="HeightStructuresCalculationEntity">
+              <PropertyRef Name="ForeshoreProfileEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HeightStructuresCalculationEntity_3_0">
+          <End Role="CalculationGroupEntity" Type="Self.CalculationGroupEntity" Multiplicity="1" />
+          <End Role="HeightStructuresCalculationEntity" Type="Self.HeightStructuresCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationGroupEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Principal>
+            <Dependent Role="HeightStructuresCalculationEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_HeightStructuresFailureMechanismMetaEntity_0_0">
           <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
           <End Role="HeightStructuresFailureMechanismMetaEntity" Type="Self.HeightStructuresFailureMechanismMetaEntity" Multiplicity="*" />
@@ -1428,6 +1508,7 @@
           <EntitySet Name="GrassCoverSlipOffInwardsSectionResultEntity" EntityType="Self.GrassCoverSlipOffInwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="GrassCoverSlipOffOutwardsSectionResultEntity" EntityType="Self.GrassCoverSlipOffOutwardsSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="HeightStructureEntity" EntityType="Self.HeightStructureEntity" store:Type="Tables" />
+          <EntitySet Name="HeightStructuresCalculationEntity" EntityType="Self.HeightStructuresCalculationEntity" store:Type="Tables" />
           <EntitySet Name="HeightStructuresFailureMechanismMetaEntity" EntityType="Self.HeightStructuresFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="HeightStructuresSectionResultEntity" EntityType="Self.HeightStructuresSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="HydraulicLocationEntity" EntityType="Self.HydraulicLocationEntity" store:Type="Tables" />
@@ -1569,6 +1650,22 @@
           <AssociationSet Name="FK_HeightStructureEntity_0_0" Association="Self.FK_HeightStructureEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="HeightStructureEntity" EntitySet="HeightStructureEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HeightStructuresCalculationEntity_0_0" Association="Self.FK_HeightStructuresCalculationEntity_0_0">
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntity" />
+            <End Role="HeightStructuresCalculationEntity" EntitySet="HeightStructuresCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HeightStructuresCalculationEntity_1_0" Association="Self.FK_HeightStructuresCalculationEntity_1_0">
+            <End Role="HeightStructureEntity" EntitySet="HeightStructureEntity" />
+            <End Role="HeightStructuresCalculationEntity" EntitySet="HeightStructuresCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HeightStructuresCalculationEntity_2_0" Association="Self.FK_HeightStructuresCalculationEntity_2_0">
+            <End Role="ForeshoreProfileEntity" EntitySet="ForeshoreProfileEntity" />
+            <End Role="HeightStructuresCalculationEntity" EntitySet="HeightStructuresCalculationEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HeightStructuresCalculationEntity_3_0" Association="Self.FK_HeightStructuresCalculationEntity_3_0">
+            <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntity" />
+            <End Role="HeightStructuresCalculationEntity" EntitySet="HeightStructuresCalculationEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_HeightStructuresFailureMechanismMetaEntity_0_0" Association="Self.FK_HeightStructuresFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
@@ -1738,6 +1835,7 @@
           <EntitySet Name="GrassCoverSlipOffInwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffInwardsSectionResultEntity" />
           <EntitySet Name="GrassCoverSlipOffOutwardsSectionResultEntities" EntityType="RingtoetsEntitiesModel.GrassCoverSlipOffOutwardsSectionResultEntity" />
           <EntitySet Name="HeightStructureEntities" EntityType="RingtoetsEntitiesModel.HeightStructureEntity" />
+          <EntitySet Name="HeightStructuresCalculationEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresCalculationEntity" />
           <EntitySet Name="HeightStructuresFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresFailureMechanismMetaEntity" />
           <EntitySet Name="HeightStructuresSectionResultEntities" EntityType="RingtoetsEntitiesModel.HeightStructuresSectionResultEntity" />
           <EntitySet Name="HydraulicLocationEntities" EntityType="RingtoetsEntitiesModel.HydraulicLocationEntity" />
@@ -1795,6 +1893,10 @@
           <AssociationSet Name="FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_2_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_2_0">
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
             <End Role="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" EntitySet="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HeightStructuresCalculationEntity_3_0" Association="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_3_0">
+            <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
+            <End Role="HeightStructuresCalculationEntity" EntitySet="HeightStructuresCalculationEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_PipingCalculationEntity_3_0" Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_3_0">
             <End Role="CalculationGroupEntity" EntitySet="CalculationGroupEntities" />
@@ -1944,6 +2046,10 @@
             <End Role="ForeshoreProfileEntity" EntitySet="ForeshoreProfileEntities" />
             <End Role="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" EntitySet="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_HeightStructuresCalculationEntity_2_0" Association="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_2_0">
+            <End Role="ForeshoreProfileEntity" EntitySet="ForeshoreProfileEntities" />
+            <End Role="HeightStructuresCalculationEntity" EntitySet="HeightStructuresCalculationEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_StabilityStoneCoverWaveConditionsCalculationEntity_1_0" Association="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_1_0">
             <End Role="ForeshoreProfileEntity" EntitySet="ForeshoreProfileEntities" />
             <End Role="StabilityStoneCoverWaveConditionsCalculationEntity" EntitySet="StabilityStoneCoverWaveConditionsCalculationEntities" />
@@ -1971,6 +2077,14 @@
           <AssociationSet Name="FK_GrassCoverErosionOutwardsWaveConditionsOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsOutputEntity_0_0">
             <End Role="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" EntitySet="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" />
             <End Role="GrassCoverErosionOutwardsWaveConditionsOutputEntity" EntitySet="GrassCoverErosionOutwardsWaveConditionsOutputEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HeightStructuresCalculationEntity_1_0" Association="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_1_0">
+            <End Role="HeightStructureEntity" EntitySet="HeightStructureEntities" />
+            <End Role="HeightStructuresCalculationEntity" EntitySet="HeightStructuresCalculationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HeightStructuresCalculationEntity_0_0" Association="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_0_0">
+            <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
+            <End Role="HeightStructuresCalculationEntity" EntitySet="HeightStructuresCalculationEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_PipingCalculationEntity_2_0" Association="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0">
             <End Role="HydraulicLocationEntity" EntitySet="HydraulicLocationEntities" />
@@ -2054,6 +2168,7 @@
           <NavigationProperty Name="FailureMechanismEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="CalculationGroupEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_2_0" FromRole="CalculationGroupEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_2_0" FromRole="CalculationGroupEntity" ToRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" />
+          <NavigationProperty Name="HeightStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_3_0" FromRole="CalculationGroupEntity" ToRole="HeightStructuresCalculationEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_3_0" FromRole="CalculationGroupEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="StabilityStoneCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_2_0" FromRole="CalculationGroupEntity" ToRole="StabilityStoneCoverWaveConditionsCalculationEntity" />
           <NavigationProperty Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_2_0" FromRole="CalculationGroupEntity" ToRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
@@ -2192,6 +2307,7 @@
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_ForeshoreProfileEntity_0_0" FromRole="ForeshoreProfileEntity" ToRole="FailureMechanismEntity" />
           <NavigationProperty Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionOutwardsWaveConditionsCalculationEntity_1_0" FromRole="ForeshoreProfileEntity" ToRole="GrassCoverErosionOutwardsWaveConditionsCalculationEntity" />
+          <NavigationProperty Name="HeightStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_2_0" FromRole="ForeshoreProfileEntity" ToRole="HeightStructuresCalculationEntity" />
           <NavigationProperty Name="StabilityStoneCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_1_0" FromRole="ForeshoreProfileEntity" ToRole="StabilityStoneCoverWaveConditionsCalculationEntity" />
           <NavigationProperty Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_1_0" FromRole="ForeshoreProfileEntity" ToRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
         </EntityType>
@@ -2385,6 +2501,43 @@
           <Property Name="AllowedLevelIncreaseStorageMean" Type="Double" />
           <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="Double" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructureEntity_0_0" FromRole="HeightStructureEntity" ToRole="FailureMechanismEntity" />
+          <NavigationProperty Name="HeightStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_1_0" FromRole="HeightStructureEntity" ToRole="HeightStructuresCalculationEntity" />
+        </EntityType>
+        <EntityType Name="HeightStructuresCalculationEntity">
+          <Key>
+            <PropertyRef Name="HeightStructuresCalculationEntityId" />
+          </Key>
+          <Property Name="HeightStructuresCalculationEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CalculationGroupEntityId" Type="Int64" Nullable="false" />
+          <Property Name="HydraulicLocationEntityId" Type="Int64" />
+          <Property Name="HeightStructureEntityId" Type="Int64" />
+          <Property Name="ForeshoreProfileEntityId" Type="Int64" />
+          <Property Name="HydraulicBoundaryLocationEntityId" Type="Int64" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ModelFactorSuperCriticalFlowMean" Type="Double" />
+          <Property Name="VariationCoefficientLogNormalDistributionMean" Type="Double" />
+          <Property Name="StructureNormalOrientation" Type="Double" />
+          <Property Name="AllowedLevelIncreaseStorageMean" Type="Double" />
+          <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="Double" />
+          <Property Name="StorageStructureAreaMean" Type="Double" />
+          <Property Name="StorageStructureAreaCoefficientOfVariation" Type="Double" />
+          <Property Name="FlowWidthAtBottomProtectionMean" Type="Double" />
+          <Property Name="FlowWidthAtBottomProtectionCoefficientOfVariation" Type="Double" />
+          <Property Name="CriticalOvertoppingDischargeMean" Type="Double" />
+          <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="Double" />
+          <Property Name="FailureProbabilityStructureWithErosion" Type="Double" />
+          <Property Name="WidthFlowAperturesMean" Type="Double" />
+          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="Double" />
+          <Property Name="UseBreakWater" Type="Byte" Nullable="false" />
+          <Property Name="UseForeshore" Type="Byte" Nullable="false" />
+          <Property Name="BreakWaterType" Type="Int16" Nullable="false" />
+          <Property Name="BreakWaterHeight" Type="Double" />
+          <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_3_0" FromRole="HeightStructuresCalculationEntity" ToRole="CalculationGroupEntity" />
+          <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_2_0" FromRole="HeightStructuresCalculationEntity" ToRole="ForeshoreProfileEntity" />
+          <NavigationProperty Name="HeightStructureEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_1_0" FromRole="HeightStructuresCalculationEntity" ToRole="HeightStructureEntity" />
+          <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_0_0" FromRole="HeightStructuresCalculationEntity" ToRole="HydraulicLocationEntity" />
         </EntityType>
         <EntityType Name="HeightStructuresFailureMechanismMetaEntity">
           <Key>
@@ -2422,6 +2575,7 @@
           <Property Name="WaveHeightCalculationConvergence" Type="Byte" Nullable="false" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_HydraulicLocationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="GrassCoverErosionInwardsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_GrassCoverErosionInwardsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="GrassCoverErosionInwardsCalculationEntity" />
+          <NavigationProperty Name="HeightStructuresCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_HeightStructuresCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="HeightStructuresCalculationEntity" />
           <NavigationProperty Name="PipingCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_PipingCalculationEntity_2_0" FromRole="HydraulicLocationEntity" ToRole="PipingCalculationEntity" />
           <NavigationProperty Name="StabilityStoneCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="StabilityStoneCoverWaveConditionsCalculationEntity" />
           <NavigationProperty Name="WaveImpactAsphaltCoverWaveConditionsCalculationEntities" Relationship="RingtoetsEntitiesModel.FK_WaveImpactAsphaltCoverWaveConditionsCalculationEntity_0_0" FromRole="HydraulicLocationEntity" ToRole="WaveImpactAsphaltCoverWaveConditionsCalculationEntity" />
@@ -2875,6 +3029,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HeightStructuresCalculationEntity_3_0">
+          <End Type="RingtoetsEntitiesModel.CalculationGroupEntity" Role="CalculationGroupEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.HeightStructuresCalculationEntity" Role="HeightStructuresCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CalculationGroupEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Principal>
+            <Dependent Role="HeightStructuresCalculationEntity">
+              <PropertyRef Name="CalculationGroupEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PipingCalculationEntity_3_0">
           <End Type="RingtoetsEntitiesModel.CalculationGroupEntity" Role="CalculationGroupEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.PipingCalculationEntity" Role="PipingCalculationEntity" Multiplicity="*" />
@@ -3319,6 +3485,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_HeightStructuresCalculationEntity_2_0">
+          <End Type="RingtoetsEntitiesModel.ForeshoreProfileEntity" Role="ForeshoreProfileEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.HeightStructuresCalculationEntity" Role="HeightStructuresCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ForeshoreProfileEntity">
+              <PropertyRef Name="ForeshoreProfileEntityId" />
+            </Principal>
+            <Dependent Role="HeightStructuresCalculationEntity">
+              <PropertyRef Name="ForeshoreProfileEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StabilityStoneCoverWaveConditionsCalculationEntity_1_0">
           <End Type="RingtoetsEntitiesModel.ForeshoreProfileEntity" Role="ForeshoreProfileEntity" Multiplicity="0..1" />
           <End Type="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsCalculationEntity" Role="StabilityStoneCoverWaveConditionsCalculationEntity" Multiplicity="*" />
@@ -3400,6 +3578,30 @@
             </Principal>
             <Dependent Role="GrassCoverErosionOutwardsWaveConditionsOutputEntity">
               <PropertyRef Name="GrassCoverErosionOutwardsWaveConditionsCalculationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HeightStructuresCalculationEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.HeightStructureEntity" Role="HeightStructureEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.HeightStructuresCalculationEntity" Role="HeightStructuresCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HeightStructureEntity">
+              <PropertyRef Name="HeightStructureEntityId" />
+            </Principal>
+            <Dependent Role="HeightStructuresCalculationEntity">
+              <PropertyRef Name="HeightStructureEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HeightStructuresCalculationEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.HydraulicLocationEntity" Role="HydraulicLocationEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.HeightStructuresCalculationEntity" Role="HeightStructuresCalculationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HydraulicLocationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
+            </Principal>
+            <Dependent Role="HeightStructuresCalculationEntity">
+              <PropertyRef Name="HydraulicLocationEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3861,6 +4063,39 @@
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="HeightStructureEntityId" ColumnName="HeightStructureEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HeightStructuresCalculationEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.HeightStructuresCalculationEntity">
+              <MappingFragment StoreEntitySet="HeightStructuresCalculationEntity">
+                <ScalarProperty Name="BreakWaterHeight" ColumnName="BreakWaterHeight" />
+                <ScalarProperty Name="BreakWaterType" ColumnName="BreakWaterType" />
+                <ScalarProperty Name="UseForeshore" ColumnName="UseForeshore" />
+                <ScalarProperty Name="UseBreakWater" ColumnName="UseBreakWater" />
+                <ScalarProperty Name="WidthFlowAperturesCoefficientOfVariation" ColumnName="WidthFlowAperturesCoefficientOfVariation" />
+                <ScalarProperty Name="WidthFlowAperturesMean" ColumnName="WidthFlowAperturesMean" />
+                <ScalarProperty Name="FailureProbabilityStructureWithErosion" ColumnName="FailureProbabilityStructureWithErosion" />
+                <ScalarProperty Name="CriticalOvertoppingDischargeCoefficientOfVariation" ColumnName="CriticalOvertoppingDischargeCoefficientOfVariation" />
+                <ScalarProperty Name="CriticalOvertoppingDischargeMean" ColumnName="CriticalOvertoppingDischargeMean" />
+                <ScalarProperty Name="FlowWidthAtBottomProtectionCoefficientOfVariation" ColumnName="FlowWidthAtBottomProtectionCoefficientOfVariation" />
+                <ScalarProperty Name="FlowWidthAtBottomProtectionMean" ColumnName="FlowWidthAtBottomProtectionMean" />
+                <ScalarProperty Name="StorageStructureAreaCoefficientOfVariation" ColumnName="StorageStructureAreaCoefficientOfVariation" />
+                <ScalarProperty Name="StorageStructureAreaMean" ColumnName="StorageStructureAreaMean" />
+                <ScalarProperty Name="AllowedLevelIncreaseStorageStandardDeviation" ColumnName="AllowedLevelIncreaseStorageStandardDeviation" />
+                <ScalarProperty Name="AllowedLevelIncreaseStorageMean" ColumnName="AllowedLevelIncreaseStorageMean" />
+                <ScalarProperty Name="StructureNormalOrientation" ColumnName="StructureNormalOrientation" />
+                <ScalarProperty Name="VariationCoefficientLogNormalDistributionMean" ColumnName="VariationCoefficientLogNormalDistributionMean" />
+                <ScalarProperty Name="ModelFactorSuperCriticalFlowMean" ColumnName="ModelFactorSuperCriticalFlowMean" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="HydraulicBoundaryLocationEntityId" ColumnName="HydraulicBoundaryLocationEntityId" />
+                <ScalarProperty Name="ForeshoreProfileEntityId" ColumnName="ForeshoreProfileEntityId" />
+                <ScalarProperty Name="HeightStructureEntityId" ColumnName="HeightStructureEntityId" />
+                <ScalarProperty Name="HydraulicLocationEntityId" ColumnName="HydraulicLocationEntityId" />
+                <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />
+                <ScalarProperty Name="HeightStructuresCalculationEntityId" ColumnName="HeightStructuresCalculationEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
