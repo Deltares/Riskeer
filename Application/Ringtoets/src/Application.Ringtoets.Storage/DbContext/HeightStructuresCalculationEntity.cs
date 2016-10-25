@@ -40,24 +40,26 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<long> HydraulicLocationEntityId { get; set; }
         public Nullable<long> HeightStructureEntityId { get; set; }
         public Nullable<long> ForeshoreProfileEntityId { get; set; }
-        public Nullable<long> HydraulicBoundaryLocationEntityId { get; set; }
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
         public Nullable<double> ModelFactorSuperCriticalFlowMean { get; set; }
-        public Nullable<double> VariationCoefficientLogNormalDistributionMean { get; set; }
         public Nullable<double> StructureNormalOrientation { get; set; }
         public Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
         public Nullable<double> AllowedLevelIncreaseStorageStandardDeviation { get; set; }
         public Nullable<double> StorageStructureAreaMean { get; set; }
         public Nullable<double> StorageStructureAreaCoefficientOfVariation { get; set; }
         public Nullable<double> FlowWidthAtBottomProtectionMean { get; set; }
-        public Nullable<double> FlowWidthAtBottomProtectionCoefficientOfVariation { get; set; }
+        public Nullable<double> FlowWidthAtBottomProtectionStandardDeviation { get; set; }
         public Nullable<double> CriticalOvertoppingDischargeMean { get; set; }
         public Nullable<double> CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
         public Nullable<double> FailureProbabilityStructureWithErosion { get; set; }
         public Nullable<double> WidthFlowAperturesMean { get; set; }
         public Nullable<double> WidthFlowAperturesCoefficientOfVariation { get; set; }
+        public Nullable<double> StormDurationMean { get; set; }
+        public Nullable<double> LevelCrestStructureMean { get; set; }
+        public Nullable<double> LevelCrestStructureStandardDeviation { get; set; }
+        public Nullable<double> DeviationWaveDirection { get; set; }
         public byte UseBreakWater { get; set; }
         public byte UseForeshore { get; set; }
         public short BreakWaterType { get; set; }
