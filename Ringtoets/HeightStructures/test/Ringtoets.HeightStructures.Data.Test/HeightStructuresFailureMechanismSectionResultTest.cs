@@ -22,6 +22,7 @@
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 
 namespace Ringtoets.HeightStructures.Data.Test
 {
@@ -45,6 +46,92 @@ namespace Ringtoets.HeightStructures.Data.Test
             Assert.AreSame(section, sectionResult.Section);
             Assert.IsNaN(sectionResult.AssessmentLayerTwoA);
             Assert.IsNull(sectionResult.Calculation);
+        }
+
+        [Test]
+        public void Calculation_SetNewValue_GetNewlySetValue()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+
+            var result = new HeightStructuresFailureMechanismSectionResult(section);
+
+            var calculation = new HeightStructuresCalculation();
+
+            // Call
+            result.Calculation = calculation;
+
+            // Assert
+            Assert.AreSame(calculation, result.Calculation);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_CalculationNull_ReturnNaN()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+
+            var result = new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = null
+            };
+
+            // Call
+            double twoAValue = result.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.IsNaN(twoAValue);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+
+            var result = new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = new HeightStructuresCalculation
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
+                }
+            };
+
+            // Call
+            double twoAValue = result.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.IsNaN(twoAValue);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+
+            double probability = 0.65;
+            var result = new HeightStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = new HeightStructuresCalculation
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
+                }
+            };
+
+            // Call
+            double twoAValue = result.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.AreEqual(probability, twoAValue);
+        }
+
+        private static FailureMechanismSection CreateSection()
+        {
+            return new FailureMechanismSection("Section", new[]
+            {
+                new Point2D(0, 0)
+            });
         }
     }
 }

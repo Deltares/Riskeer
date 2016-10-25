@@ -30,17 +30,12 @@ namespace Ringtoets.HeightStructures.Data
     /// </summary>
     public class HeightStructuresFailureMechanismSectionResult : FailureMechanismSectionResult
     {
-        private readonly double assessmentLayerTwoA;
-
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public HeightStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
-        {
-            assessmentLayerTwoA = double.NaN;
-        }
+        public HeightStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
 
         /// <summary>
         /// Gets the value of assessment layer two a.
@@ -49,7 +44,11 @@ namespace Ringtoets.HeightStructures.Data
         {
             get
             {
-                return assessmentLayerTwoA;
+                if (Calculation == null || !Calculation.HasOutput)
+                {
+                    return double.NaN;
+                }
+                return Calculation.Output.Probability;
             }
         }
 
