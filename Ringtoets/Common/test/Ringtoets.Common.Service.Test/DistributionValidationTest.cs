@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.Probabilistics;
 namespace Ringtoets.Common.Service.Test
 {
     [TestFixture]
-    public class DistributionValidationServiceTest
+    public class DistributionValidationTest
     {
         private const string paramName = "<a very nice parametername>";
 
@@ -34,7 +34,7 @@ namespace Ringtoets.Common.Service.Test
         public void ValidateDistribution_ValidNormalDistribution_NoErrorMessage()
         {
             // Call
-            string[] message = DistributionValidationService.ValidateDistribution(new NormalDistribution(2), paramName);
+            string[] message = DistributionValidation.ValidateDistribution(new NormalDistribution(2), paramName);
 
             // Assert
             CollectionAssert.IsEmpty(message);
@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Service.Test
         public void ValidateDistribution_ValidLogNormalDistribution_NoErrorMessage()
         {
             // Call
-            string[] message = DistributionValidationService.ValidateDistribution(new LogNormalDistribution(2), paramName);
+            string[] message = DistributionValidation.ValidateDistribution(new LogNormalDistribution(2), paramName);
 
             // Assert
             CollectionAssert.IsEmpty(message);
@@ -54,7 +54,7 @@ namespace Ringtoets.Common.Service.Test
         public void ValidateDistribution_ValidVariationCoefficientNormalDistribution_NoErrorMessage()
         {
             // Call
-            string[] message = DistributionValidationService.ValidateDistribution(new VariationCoefficientNormalDistribution(2), paramName);
+            string[] message = DistributionValidation.ValidateDistribution(new VariationCoefficientNormalDistribution(2), paramName);
 
             // Assert
             CollectionAssert.IsEmpty(message);
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Service.Test
         public void ValidateDistribution_ValidVariationCoefficientLogNormalDistribution_NoErrorMessage()
         {
             // Call
-            string[] message = DistributionValidationService.ValidateDistribution(new VariationCoefficientLogNormalDistribution(2), paramName);
+            string[] message = DistributionValidation.ValidateDistribution(new VariationCoefficientLogNormalDistribution(2), paramName);
 
             // Assert
             CollectionAssert.IsEmpty(message);
@@ -77,14 +77,14 @@ namespace Ringtoets.Common.Service.Test
         public void ValidateDistribution_InvalidMeanNormalDistribution_ErrorMessage(double value)
         {
             // Setup 
-            var expectedMessage = string.Format("De verwachtingswaarde voor '{0}' moet een geldig getal zijn.", paramName);
+            var expectedMessage = string.Format("De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", paramName);
             var distribution = new NormalDistribution(2)
             {
                 Mean = (RoundedDouble) value
             };
 
             // Call
-            string[] message = DistributionValidationService.ValidateDistribution(distribution, paramName);
+            string[] message = DistributionValidation.ValidateDistribution(distribution, paramName);
 
             // Assert
             Assert.AreEqual(1, message.Length);
@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Service.Test
             };
 
             // Call
-            string[] message = DistributionValidationService.ValidateDistribution(distribution, paramName);
+            string[] message = DistributionValidation.ValidateDistribution(distribution, paramName);
 
             // Assert
             Assert.AreEqual(1, message.Length);
@@ -118,14 +118,14 @@ namespace Ringtoets.Common.Service.Test
         public void ValidateDistribution_InvalidMeanVariationCoefficientNormalDistribution_ErrorMessage(double value)
         {
             // Setup 
-            var expectedMessage = string.Format("De verwachtingswaarde voor '{0}' moet een geldig getal zijn.", paramName);
+            var expectedMessage = string.Format("De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", paramName);
             var distribution = new VariationCoefficientNormalDistribution(2)
             {
                 Mean = (RoundedDouble)value
             };
 
             // Call
-            string[] message = DistributionValidationService.ValidateDistribution(distribution, paramName);
+            string[] message = DistributionValidation.ValidateDistribution(distribution, paramName);
 
             // Assert
             Assert.AreEqual(1, message.Length);
@@ -145,7 +145,7 @@ namespace Ringtoets.Common.Service.Test
             };
 
             // Call
-            string[] message = DistributionValidationService.ValidateDistribution(distribution, paramName);
+            string[] message = DistributionValidation.ValidateDistribution(distribution, paramName);
 
             // Assert
             Assert.AreEqual(1, message.Length);
@@ -165,7 +165,7 @@ namespace Ringtoets.Common.Service.Test
             };
 
             // Call
-            string[] message = DistributionValidationService.ValidateDistribution(distribution, paramName);
+            string[] message = DistributionValidation.ValidateDistribution(distribution, paramName);
 
             // Assert
             Assert.AreEqual(1, message.Length);
@@ -185,7 +185,7 @@ namespace Ringtoets.Common.Service.Test
             };
 
             // Call
-            string[] message = DistributionValidationService.ValidateDistribution(distribution, paramName);
+            string[] message = DistributionValidation.ValidateDistribution(distribution, paramName);
 
             // Assert
             Assert.AreEqual(1, message.Length);
@@ -205,7 +205,7 @@ namespace Ringtoets.Common.Service.Test
             };
 
             // Call
-            string[] message = DistributionValidationService.ValidateDistribution(distribution, paramName);
+            string[] message = DistributionValidation.ValidateDistribution(distribution, paramName);
 
             // Assert
             Assert.AreEqual(1, message.Length);
@@ -225,7 +225,7 @@ namespace Ringtoets.Common.Service.Test
             };
 
             // Call
-            string[] message = DistributionValidationService.ValidateDistribution(distribution, paramName);
+            string[] message = DistributionValidation.ValidateDistribution(distribution, paramName);
 
             // Assert
             Assert.AreEqual(1, message.Length);

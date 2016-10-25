@@ -48,7 +48,7 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="CalculationServiceHelper.cs" />
-    <Compile Include="DistributionValidationService.cs" />
+    <Compile Include="DistributionValidation.cs" />
     <Compile Include="WaveHeightCalculationActivity.cs" />
     <Compile Include="WaveHeightCalculationService.cs" />
     <Compile Include="DesignWaterLevelCalculationService.cs" />

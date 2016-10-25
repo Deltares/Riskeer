@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Service
     /// <summary>
     /// Service that provides validation methods for probabilistic distributions.
     /// </summary>
-    public static class DistributionValidationService
+    public static class DistributionValidation
     {
         /// <summary>
         /// Performs the validation of a <see cref="NormalDistribution"/>.
@@ -43,12 +43,14 @@ namespace Ringtoets.Common.Service
 
             if (IsValidNumber(distribution.Mean))
             {
-                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_a_valid_number, parameterName));
+                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_a_valid_number,
+                                                   parameterName));
             }
 
             if (IsValidNumber(distribution.StandardDeviation))
             {
-                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_StandardDeviation_of_0_must_be_larger_or_equal_to_0, parameterName));
+                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_StandardDeviation_of_0_must_be_larger_or_equal_to_0,
+                                                   parameterName));
             }
 
             return validationResult.ToArray();

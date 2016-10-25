@@ -167,7 +167,7 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De verwachtingswaarde voor &apos;{0}&apos; moet een geldig getal zijn..
+        ///   Looks up a localized string similar to De verwachtingswaarde voor &apos;{0}&apos; moet een concreet getal zijn..
         /// </summary>
         public static string DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_a_valid_number {
             get {

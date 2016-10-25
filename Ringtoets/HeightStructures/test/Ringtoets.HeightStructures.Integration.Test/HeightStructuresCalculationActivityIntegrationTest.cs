@@ -277,7 +277,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-            string expectedValidationMessage = string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een geldig getal zijn.", parameterName);
+            string expectedValidationMessage = string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", parameterName);
 
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
