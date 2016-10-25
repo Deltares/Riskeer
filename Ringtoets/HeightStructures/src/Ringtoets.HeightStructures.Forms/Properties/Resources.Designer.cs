@@ -82,24 +82,6 @@ namespace Ringtoets.HeightStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Afwijking van de golfrichting..
-        /// </summary>
-        public static string DeviationWaveDirection_Description {
-            get {
-                return ResourceManager.GetString("DeviationWaveDirection_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Afwijking golfrichting [°].
-        /// </summary>
-        public static string DeviationWaveDirection_DisplayName {
-            get {
-                return ResourceManager.GetString("DeviationWaveDirection_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Selecteer kunstwerken.
         /// </summary>
         public static string StructureSelectionDialog_Select_Structures {

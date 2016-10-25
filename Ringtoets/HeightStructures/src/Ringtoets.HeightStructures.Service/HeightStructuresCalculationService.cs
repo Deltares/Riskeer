@@ -196,7 +196,7 @@ namespace Ringtoets.HeightStructures.Service
                 if (IsInvalidNumber(inputParameters.DeviationWaveDirection))
                 {
                     validationResult.Add(string.Format(Core.Common.Base.Properties.Resources.CalculationService_ValidateInput_Value_for_0_must_be_a_valid_number,
-                                                       GenerateParameterNameWithoutUnits(HeightStructuresForms.DeviationWaveDirection_DisplayName)));
+                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_DeviationWaveDirection_DisplayName)));
                 }
 
                 validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.ModelFactorSuperCriticalFlow,

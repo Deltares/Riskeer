@@ -103,8 +103,8 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         [PropertyOrder(deviationWaveDirectionPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "DeviationWaveDirection_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DeviationWaveDirection_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_DeviationWaveDirection_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_DeviationWaveDirection_Description")]
         public RoundedDouble DeviationWaveDirection
         {
             get

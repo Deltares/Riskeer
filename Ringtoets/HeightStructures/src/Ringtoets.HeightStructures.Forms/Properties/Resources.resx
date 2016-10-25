@@ -120,10 +120,4 @@
   <data name="StructureSelectionDialog_Select_Structures" xml:space="preserve">
     <value>Selecteer kunstwerken</value>
   </data>
-  <data name="DeviationWaveDirection_Description" xml:space="preserve">
-    <value>Afwijking van de golfrichting.</value>
-  </data>
-  <data name="DeviationWaveDirection_DisplayName" xml:space="preserve">
-    <value>Afwijking golfrichting [°]</value>
-  </data>
 </root>
