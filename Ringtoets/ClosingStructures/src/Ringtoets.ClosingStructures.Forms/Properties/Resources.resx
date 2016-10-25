@@ -165,4 +165,16 @@
   <data name="ClosingStructureFailureMechanismContextProperties_N2A_DisplayName" xml:space="preserve">
     <value>2NA [-]</value>
   </data>
+  <data name="DrainCoefficient_Description" xml:space="preserve">
+    <value>Afvoercoëfficient.</value>
+  </data>
+  <data name="DrainCoefficient_DisplayName" xml:space="preserve">
+    <value>Afvoercoëfficient [-]</value>
+  </data>
+  <data name="FactorStormDurationOpenStructure_Description" xml:space="preserve">
+    <value>Factor voor stormduur hoogwater gegeven geopend kunstwerk.</value>
+  </data>
+  <data name="FactorStormDurationOpenStructure_DisplayName" xml:space="preserve">
+    <value>Factor voor stormduur hoogwater [-]</value>
+  </data>
 </root>
