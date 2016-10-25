@@ -105,7 +105,7 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
                 },
                 ProbabilityOpenStructureBeforeFlooding = entity.ProbabilityOpenStructureBeforeFlooding.ToNullAsNaN(),
                 FailureProbabilityOpenStructure = entity.FailureProbabilityOpenStructure.ToNullAsNaN(),
-                IdenticalApertures = (int) entity.IdenticalApertures,
+                IdenticalApertures = entity.IdenticalApertures,
                 FailureProbabilityReparation = entity.FailureProbabilityReparation.ToNullAsNaN(),
                 InflowModelType = (ClosingStructureInflowModelType) entity.InflowModelType,
             });

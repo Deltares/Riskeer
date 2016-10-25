@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -74,9 +74,9 @@
           <Property Name="FlowWidthAtBottomProtectionStandardDeviation" Type="real" />
           <Property Name="ProbabilityOpenStructureBeforeFlooding" Type="real" />
           <Property Name="FailureProbabilityOpenStructure" Type="real" />
-          <Property Name="IdenticalApertures" Type="real" />
+          <Property Name="IdenticalApertures" Type="int" Nullable="false" />
           <Property Name="FailureProbabilityReparation" Type="real" />
-          <Property Name="InflowModelType" Type="tinyint" />
+          <Property Name="InflowModelType" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="ClosingStructureFailureMechanismMetaEntity">
           <Key>
@@ -2280,9 +2280,9 @@
           <Property Name="FlowWidthAtBottomProtectionStandardDeviation" Type="Double" />
           <Property Name="ProbabilityOpenStructureBeforeFlooding" Type="Double" />
           <Property Name="FailureProbabilityOpenStructure" Type="Double" />
-          <Property Name="IdenticalApertures" Type="Double" />
+          <Property Name="IdenticalApertures" Type="Int32" Nullable="false" />
           <Property Name="FailureProbabilityReparation" Type="Double" />
-          <Property Name="InflowModelType" Type="Byte" />
+          <Property Name="InflowModelType" Type="Byte" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructureEntity_0_0" FromRole="ClosingStructureEntity" ToRole="FailureMechanismEntity" />
         </EntityType>
         <EntityType Name="ClosingStructureFailureMechanismMetaEntity">

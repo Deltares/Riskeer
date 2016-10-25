@@ -150,9 +150,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
                 FlowWidthAtBottomProtectionMean = null,
                 FlowWidthAtBottomProtectionStandardDeviation = null,
                 ProbabilityOpenStructureBeforeFlooding = null,
-                FailureProbabilityOpenStructure = null,
-                IdenticalApertures = 1,
-                InflowModelType = 1
+                FailureProbabilityOpenStructure = null
             };
 
             var collector = new ReadConversionCollector();
