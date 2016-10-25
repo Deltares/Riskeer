@@ -38,6 +38,7 @@ namespace Application.Ringtoets.Storage.DbContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FailureMechanismEntity()
         {
+            this.ClosingStructureEntities = new HashSet<ClosingStructureEntity>();
             this.ClosingStructureFailureMechanismMetaEntities = new HashSet<ClosingStructureFailureMechanismMetaEntity>();
             this.DikeProfileEntities = new HashSet<DikeProfileEntity>();
             this.FailureMechanismSectionEntities = new HashSet<FailureMechanismSectionEntity>();
@@ -62,6 +63,8 @@ namespace Application.Ringtoets.Storage.DbContext
     
         public virtual AssessmentSectionEntity AssessmentSectionEntity { get; set; }
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClosingStructureEntity> ClosingStructureEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClosingStructureFailureMechanismMetaEntity> ClosingStructureFailureMechanismMetaEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

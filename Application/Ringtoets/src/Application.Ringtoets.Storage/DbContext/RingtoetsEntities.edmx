@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -41,6 +41,42 @@
           <Property Name="X" Type="real" />
           <Property Name="Y" Type="real" />
           <Property Name="Z" Type="real" />
+        </EntityType>
+        <EntityType Name="ClosingStructureEntity">
+          <Key>
+            <PropertyRef Name="ClosingStructureEntityId" />
+          </Key>
+          <Property Name="ClosingStructureEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="260" />
+          <Property Name="Id" Type="varchar" MaxLength="260" />
+          <Property Name="X" Type="real" />
+          <Property Name="Y" Type="real" />
+          <Property Name="StructureNormalOrientation" Type="real" />
+          <Property Name="StorageStructureAreaMean" Type="real" />
+          <Property Name="StorageStructureAreaCoefficientOfVariation" Type="real" />
+          <Property Name="AllowedLevelIncreaseStorageMean" Type="real" />
+          <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="real" />
+          <Property Name="WidthFlowAperturesMean" Type="real" />
+          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="real" />
+          <Property Name="LevelCrestStructureNotClosingMean" Type="real" />
+          <Property Name="LevelCrestStructureNotClosingStandardDeviation" Type="real" />
+          <Property Name="InsideWaterLevelMean" Type="real" />
+          <Property Name="InsideWaterLevelStandardDeviation" Type="real" />
+          <Property Name="ThresholdHeightOpenWeirMean" Type="real" />
+          <Property Name="ThresholdHeightOpenWeirStandardDeviation" Type="real" />
+          <Property Name="AreaFlowAperturesMean" Type="real" />
+          <Property Name="AreaFlowAperturesStandardDeviation" Type="real" />
+          <Property Name="CriticalOvertoppingDischargeMean" Type="real" />
+          <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="real" />
+          <Property Name="FlowWidthAtBottomProtectionMean" Type="real" />
+          <Property Name="FlowWidthAtBottomProtectionStandardDeviation" Type="real" />
+          <Property Name="ProbabilityOpenStructureBeforeFlooding" Type="real" />
+          <Property Name="FailureProbabilityOpenStructure" Type="real" />
+          <Property Name="IdenticalApertures" Type="real" />
+          <Property Name="FailureProbabilityReparation" Type="real" />
+          <Property Name="InflowModelType" Type="tinyint" />
         </EntityType>
         <EntityType Name="ClosingStructureFailureMechanismMetaEntity">
           <Key>
@@ -714,6 +750,18 @@
             </Principal>
             <Dependent Role="CharacteristicPointEntity">
               <PropertyRef Name="SurfaceLineEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClosingStructureEntity_0_0">
+          <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
+          <End Role="ClosingStructureEntity" Type="Self.ClosingStructureEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="ClosingStructureEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1489,6 +1537,7 @@
           <EntitySet Name="AssessmentSectionEntity" EntityType="Self.AssessmentSectionEntity" store:Type="Tables" />
           <EntitySet Name="CalculationGroupEntity" EntityType="Self.CalculationGroupEntity" store:Type="Tables" />
           <EntitySet Name="CharacteristicPointEntity" EntityType="Self.CharacteristicPointEntity" store:Type="Tables" />
+          <EntitySet Name="ClosingStructureEntity" EntityType="Self.ClosingStructureEntity" store:Type="Tables" />
           <EntitySet Name="ClosingStructureFailureMechanismMetaEntity" EntityType="Self.ClosingStructureFailureMechanismMetaEntity" store:Type="Tables" />
           <EntitySet Name="ClosingStructuresSectionResultEntity" EntityType="Self.ClosingStructuresSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="DikeProfileEntity" EntityType="Self.DikeProfileEntity" store:Type="Tables" />
@@ -1550,6 +1599,10 @@
           <AssociationSet Name="FK_CharacteristicPointEntity_0_0" Association="Self.FK_CharacteristicPointEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntity" />
             <End Role="CharacteristicPointEntity" EntitySet="CharacteristicPointEntity" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClosingStructureEntity_0_0" Association="Self.FK_ClosingStructureEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
+            <End Role="ClosingStructureEntity" EntitySet="ClosingStructureEntity" />
           </AssociationSet>
           <AssociationSet Name="FK_ClosingStructureFailureMechanismMetaEntity_0_0" Association="Self.FK_ClosingStructureFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
@@ -1816,6 +1869,7 @@
           <EntitySet Name="AssessmentSectionEntities" EntityType="RingtoetsEntitiesModel.AssessmentSectionEntity" />
           <EntitySet Name="CalculationGroupEntities" EntityType="RingtoetsEntitiesModel.CalculationGroupEntity" />
           <EntitySet Name="CharacteristicPointEntities" EntityType="RingtoetsEntitiesModel.CharacteristicPointEntity" />
+          <EntitySet Name="ClosingStructureEntities" EntityType="RingtoetsEntitiesModel.ClosingStructureEntity" />
           <EntitySet Name="ClosingStructureFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.ClosingStructureFailureMechanismMetaEntity" />
           <EntitySet Name="ClosingStructuresSectionResultEntities" EntityType="RingtoetsEntitiesModel.ClosingStructuresSectionResultEntity" />
           <EntitySet Name="DikeProfileEntities" EntityType="RingtoetsEntitiesModel.DikeProfileEntity" />
@@ -1913,6 +1967,10 @@
           <AssociationSet Name="FK_CharacteristicPointEntity_0_0" Association="RingtoetsEntitiesModel.FK_CharacteristicPointEntity_0_0">
             <End Role="SurfaceLineEntity" EntitySet="SurfaceLineEntities" />
             <End Role="CharacteristicPointEntity" EntitySet="CharacteristicPointEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClosingStructureEntity_0_0" Association="RingtoetsEntitiesModel.FK_ClosingStructureEntity_0_0">
+            <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
+            <End Role="ClosingStructureEntity" EntitySet="ClosingStructureEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_ClosingStructureFailureMechanismMetaEntity_0_0" Association="RingtoetsEntitiesModel.FK_ClosingStructureFailureMechanismMetaEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntities" />
@@ -2185,6 +2243,43 @@
           <Property Name="Z" Type="Double" />
           <NavigationProperty Name="SurfaceLineEntity" Relationship="RingtoetsEntitiesModel.FK_CharacteristicPointEntity_0_0" FromRole="CharacteristicPointEntity" ToRole="SurfaceLineEntity" />
         </EntityType>
+        <EntityType Name="ClosingStructureEntity">
+          <Key>
+            <PropertyRef Name="ClosingStructureEntityId" />
+          </Key>
+          <Property Name="ClosingStructureEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
+          <Property Name="X" Type="Double" />
+          <Property Name="Y" Type="Double" />
+          <Property Name="StructureNormalOrientation" Type="Double" />
+          <Property Name="StorageStructureAreaMean" Type="Double" />
+          <Property Name="StorageStructureAreaCoefficientOfVariation" Type="Double" />
+          <Property Name="AllowedLevelIncreaseStorageMean" Type="Double" />
+          <Property Name="AllowedLevelIncreaseStorageStandardDeviation" Type="Double" />
+          <Property Name="WidthFlowAperturesMean" Type="Double" />
+          <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="Double" />
+          <Property Name="LevelCrestStructureNotClosingMean" Type="Double" />
+          <Property Name="LevelCrestStructureNotClosingStandardDeviation" Type="Double" />
+          <Property Name="InsideWaterLevelMean" Type="Double" />
+          <Property Name="InsideWaterLevelStandardDeviation" Type="Double" />
+          <Property Name="ThresholdHeightOpenWeirMean" Type="Double" />
+          <Property Name="ThresholdHeightOpenWeirStandardDeviation" Type="Double" />
+          <Property Name="AreaFlowAperturesMean" Type="Double" />
+          <Property Name="AreaFlowAperturesStandardDeviation" Type="Double" />
+          <Property Name="CriticalOvertoppingDischargeMean" Type="Double" />
+          <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="Double" />
+          <Property Name="FlowWidthAtBottomProtectionMean" Type="Double" />
+          <Property Name="FlowWidthAtBottomProtectionStandardDeviation" Type="Double" />
+          <Property Name="ProbabilityOpenStructureBeforeFlooding" Type="Double" />
+          <Property Name="FailureProbabilityOpenStructure" Type="Double" />
+          <Property Name="IdenticalApertures" Type="Double" />
+          <Property Name="FailureProbabilityReparation" Type="Double" />
+          <Property Name="InflowModelType" Type="Byte" />
+          <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructureEntity_0_0" FromRole="ClosingStructureEntity" ToRole="FailureMechanismEntity" />
+        </EntityType>
         <EntityType Name="ClosingStructureFailureMechanismMetaEntity">
           <Key>
             <PropertyRef Name="ClosingStructureFailureMechanismMetaEntityId" />
@@ -2248,6 +2343,7 @@
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AssessmentSectionEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_1_0" FromRole="FailureMechanismEntity" ToRole="AssessmentSectionEntity" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismEntity_0_0" FromRole="FailureMechanismEntity" ToRole="CalculationGroupEntity" />
+          <NavigationProperty Name="ClosingStructureEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructureEntity_0_0" FromRole="FailureMechanismEntity" ToRole="ClosingStructureEntity" />
           <NavigationProperty Name="ClosingStructureFailureMechanismMetaEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructureFailureMechanismMetaEntity_0_0" FromRole="FailureMechanismEntity" ToRole="ClosingStructureFailureMechanismMetaEntity" />
           <NavigationProperty Name="DikeProfileEntities" Relationship="RingtoetsEntitiesModel.FK_DikeProfileEntity_0_0" FromRole="FailureMechanismEntity" ToRole="DikeProfileEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntities" Relationship="RingtoetsEntitiesModel.FK_FailureMechanismSectionEntity_0_0" FromRole="FailureMechanismEntity" ToRole="FailureMechanismSectionEntity" />
@@ -3089,6 +3185,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ClosingStructureEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.ClosingStructureEntity" Role="ClosingStructureEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FailureMechanismEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Principal>
+            <Dependent Role="ClosingStructureEntity">
+              <PropertyRef Name="FailureMechanismEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ClosingStructureFailureMechanismMetaEntity_0_0">
           <End Type="RingtoetsEntitiesModel.FailureMechanismEntity" Role="FailureMechanismEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.ClosingStructureFailureMechanismMetaEntity" Role="ClosingStructureFailureMechanismMetaEntity" Multiplicity="*" />
@@ -3792,6 +3900,43 @@
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="SurfaceLineEntityId" ColumnName="SurfaceLineEntityId" />
                 <ScalarProperty Name="CharacteristicPointEntityId" ColumnName="CharacteristicPointEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClosingStructureEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.ClosingStructureEntity">
+              <MappingFragment StoreEntitySet="ClosingStructureEntity">
+                <ScalarProperty Name="InflowModelType" ColumnName="InflowModelType" />
+                <ScalarProperty Name="FailureProbabilityReparation" ColumnName="FailureProbabilityReparation" />
+                <ScalarProperty Name="IdenticalApertures" ColumnName="IdenticalApertures" />
+                <ScalarProperty Name="FailureProbabilityOpenStructure" ColumnName="FailureProbabilityOpenStructure" />
+                <ScalarProperty Name="ProbabilityOpenStructureBeforeFlooding" ColumnName="ProbabilityOpenStructureBeforeFlooding" />
+                <ScalarProperty Name="FlowWidthAtBottomProtectionStandardDeviation" ColumnName="FlowWidthAtBottomProtectionStandardDeviation" />
+                <ScalarProperty Name="FlowWidthAtBottomProtectionMean" ColumnName="FlowWidthAtBottomProtectionMean" />
+                <ScalarProperty Name="CriticalOvertoppingDischargeCoefficientOfVariation" ColumnName="CriticalOvertoppingDischargeCoefficientOfVariation" />
+                <ScalarProperty Name="CriticalOvertoppingDischargeMean" ColumnName="CriticalOvertoppingDischargeMean" />
+                <ScalarProperty Name="AreaFlowAperturesStandardDeviation" ColumnName="AreaFlowAperturesStandardDeviation" />
+                <ScalarProperty Name="AreaFlowAperturesMean" ColumnName="AreaFlowAperturesMean" />
+                <ScalarProperty Name="ThresholdHeightOpenWeirStandardDeviation" ColumnName="ThresholdHeightOpenWeirStandardDeviation" />
+                <ScalarProperty Name="ThresholdHeightOpenWeirMean" ColumnName="ThresholdHeightOpenWeirMean" />
+                <ScalarProperty Name="InsideWaterLevelStandardDeviation" ColumnName="InsideWaterLevelStandardDeviation" />
+                <ScalarProperty Name="InsideWaterLevelMean" ColumnName="InsideWaterLevelMean" />
+                <ScalarProperty Name="LevelCrestStructureNotClosingStandardDeviation" ColumnName="LevelCrestStructureNotClosingStandardDeviation" />
+                <ScalarProperty Name="LevelCrestStructureNotClosingMean" ColumnName="LevelCrestStructureNotClosingMean" />
+                <ScalarProperty Name="WidthFlowAperturesCoefficientOfVariation" ColumnName="WidthFlowAperturesCoefficientOfVariation" />
+                <ScalarProperty Name="WidthFlowAperturesMean" ColumnName="WidthFlowAperturesMean" />
+                <ScalarProperty Name="AllowedLevelIncreaseStorageStandardDeviation" ColumnName="AllowedLevelIncreaseStorageStandardDeviation" />
+                <ScalarProperty Name="AllowedLevelIncreaseStorageMean" ColumnName="AllowedLevelIncreaseStorageMean" />
+                <ScalarProperty Name="StorageStructureAreaCoefficientOfVariation" ColumnName="StorageStructureAreaCoefficientOfVariation" />
+                <ScalarProperty Name="StorageStructureAreaMean" ColumnName="StorageStructureAreaMean" />
+                <ScalarProperty Name="StructureNormalOrientation" ColumnName="StructureNormalOrientation" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
+                <ScalarProperty Name="ClosingStructureEntityId" ColumnName="ClosingStructureEntityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
