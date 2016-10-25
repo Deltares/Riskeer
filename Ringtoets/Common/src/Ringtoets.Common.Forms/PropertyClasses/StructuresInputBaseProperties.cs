@@ -51,7 +51,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
     /// <typeparam name ="TCalculation">The type of the calculation containing the structures calculation input.</typeparam>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism.</typeparam>
     public abstract class StructuresInputBaseProperties<TStructure, TStructureInput, TCalculation, TFailureMechanism> :
-        ObjectProperties<InputContextBase<TStructureInput, TCalculation, TFailureMechanism>>,
+        ObjectProperties<InputContext<TStructureInput, TCalculation, TFailureMechanism>>,
         IHasHydraulicBoundaryLocationProperty,
         IHasStructureProperty<TStructure>,
         IHasForeshoreProfileProperty

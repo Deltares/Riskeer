@@ -30,7 +30,7 @@ using Ringtoets.Common.Forms.PresentationObjects;
 namespace Ringtoets.Common.Forms.Test.PresentationObjects
 {
     [TestFixture]
-    public class InputContextBaseTest
+    public class InputContextTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            var context = new SimpleInputContext<ICalculationInput, ICalculation, IFailureMechanism>(inputStub, calculationStub, failureMechanismStub, assessmentSectionStub);
+            var context = new InputContext<ICalculationInput, ICalculation, IFailureMechanism>(inputStub, calculationStub, failureMechanismStub, assessmentSectionStub);
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismItemContextBase<ICalculationInput, IFailureMechanism>>(context);
@@ -66,21 +66,12 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             mockRepository.ReplayAll();
 
             // Call
-            TestDelegate call = () => new SimpleInputContext<ICalculationInput, ICalculation, IFailureMechanism>(inputStub, null, failureMechanismStub, assessmentSectionStub);
+            TestDelegate call = () => new InputContext<ICalculationInput, ICalculation, IFailureMechanism>(inputStub, null, failureMechanismStub, assessmentSectionStub);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
             Assert.AreEqual("calculation", exception.ParamName);
             mockRepository.VerifyAll();
-        }
-
-        private class SimpleInputContext<TInput, TCalculation, TFailureMechanism> : InputContextBase<TInput, TCalculation, TFailureMechanism>
-            where TInput : ICalculationInput
-            where TCalculation : ICalculation
-            where TFailureMechanism : IFailureMechanism
-        {
-            public SimpleInputContext(TInput input, TCalculation calculation, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-                : base(input, calculation, failureMechanism, assessmentSection) { }
         }
     }
 }
