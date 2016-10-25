@@ -83,6 +83,7 @@ namespace Ringtoets.ClosingStructures.Data
 
         /// <summary>
         /// Gets or sets the 'N2A' parameter used to factor in the 'length effect'.
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the 'N2A' value is set outside the range [0, 40].</exception>
         /// </summary>
         public int N2A
         {
