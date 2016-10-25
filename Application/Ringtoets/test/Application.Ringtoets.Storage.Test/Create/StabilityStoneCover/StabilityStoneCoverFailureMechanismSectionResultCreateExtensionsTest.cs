@@ -48,12 +48,14 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
 
         [Test]
         public void Create_WithDifferentResults_ReturnsEntityWithExpectedResults(
+            [Values(true, false)] bool assessmentLayerOneResult,
             [Values(AssessmentLayerTwoAResult.NotCalculated, AssessmentLayerTwoAResult.Failed)] AssessmentLayerTwoAResult assessmentLayerTwoAResult,
             [Values(3.2, 4.5)] double assessmentLayerThreeResult)
         {
             // Setup
             var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
+                AssessmentLayerOne = assessmentLayerOneResult,
                 AssessmentLayerTwoA = assessmentLayerTwoAResult,
                 AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
             };
@@ -62,6 +64,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             var result = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
+            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
             Assert.AreEqual(Convert.ToByte(assessmentLayerTwoAResult), result.LayerTwoA);
             Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
         }

@@ -60,8 +60,8 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new HeightStructuresSectionResultEntity
             {
-                LayerThree = layerThree,
                 LayerOne = Convert.ToByte(layerOne),
+                LayerThree = layerThree,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -70,15 +70,13 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             entity.Read(sectionResult);
 
             // Assert
-            Assert.IsNotNull(sectionResult);
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
             Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
+            Assert.IsNotNull(sectionResult);
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void Read_WithNullParameterValues_ReturnHeightStructuresSectionResultWithNullParameters(bool layerOne)
+        public void Read_WithNullParameterValues_ReturnHeightStructuresSectionResultWithNullParameters()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -86,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new HeightStructuresSectionResultEntity
             {
-                LayerOne = Convert.ToByte(layerOne),
+                LayerOne = Convert.ToByte(true),
                 LayerThree = null,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };

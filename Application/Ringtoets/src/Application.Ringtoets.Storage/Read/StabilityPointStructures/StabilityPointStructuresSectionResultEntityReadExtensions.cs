@@ -47,7 +47,8 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
                 throw new ArgumentNullException("sectionResult");
             }
 
-            sectionResult.AssessmentLayerTwoA = (RoundedDouble) entity.LayerTwoA.ToNullAsNaN();
+            sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
+            sectionResult.AssessmentLayerTwoA = (RoundedDouble)entity.LayerTwoA.ToNullAsNaN();
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
         }
     }

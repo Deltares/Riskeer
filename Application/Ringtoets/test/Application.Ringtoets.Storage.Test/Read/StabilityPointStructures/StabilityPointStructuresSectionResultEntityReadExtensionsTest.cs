@@ -47,7 +47,9 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
         }
 
         [Test]
-        public void Read_WithDecimalParameterValues_ReturnStabilityPointStructuresSectionResultWithDoubleParameterValues()
+        [TestCase(true)]
+        [TestCase(false)]
+        public void Read_WithDecimalParameterValues_ReturnStabilityPointStructuresSectionResultWithDoubleParameterValues(bool layerOne)
         {
             // Setup
             var random = new Random(21);
@@ -59,8 +61,9 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new StabilityPointStructuresSectionResultEntity
             {
-                LayerThree = layerThree,
+                LayerOne = Convert.ToByte(layerOne),
                 LayerTwoA = layerTwoA,
+                LayerThree = layerThree,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -69,9 +72,10 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             entity.Read(sectionResult);
 
             // Assert
-            Assert.IsNotNull(sectionResult);
+            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
             Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA, 1e-6);
             Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
+            Assert.IsNotNull(sectionResult);
         }
 
         [Test]
@@ -83,6 +87,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new StabilityPointStructuresSectionResultEntity
             {
+                LayerOne = Convert.ToByte(false),
                 LayerTwoA = null,
                 LayerThree = new Random(21).NextDouble(),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
@@ -105,6 +110,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new StabilityPointStructuresSectionResultEntity
             {
+                LayerOne = Convert.ToByte(true),
                 LayerTwoA = new Random(21).NextDouble(),
                 LayerThree = null,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity

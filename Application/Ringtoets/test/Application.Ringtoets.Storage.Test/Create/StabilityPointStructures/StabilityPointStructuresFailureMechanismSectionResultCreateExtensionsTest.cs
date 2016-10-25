@@ -54,7 +54,8 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             // Setup
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerTwoA = (RoundedDouble) assessmentLayerTwoAResult,
+                AssessmentLayerOne = assessmentLayerOneResult,
+                AssessmentLayerTwoA = (RoundedDouble)assessmentLayerTwoAResult,
                 AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
             };
 
@@ -62,6 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             var result = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
+            Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
             Assert.AreEqual(assessmentLayerTwoAResult, result.LayerTwoA);
             Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
         }

@@ -61,8 +61,9 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new StabilityStoneCoverSectionResultEntity
             {
-                LayerThree = layerThree,
+                LayerOne = Convert.ToByte(layerOne),
                 LayerTwoA = Convert.ToByte(layerTwoA),
+                LayerThree = layerThree,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
             var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection());
@@ -71,16 +72,14 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
             entity.Read(sectionResult);
 
             // Assert
-            Assert.IsNotNull(sectionResult);
+            Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
             Assert.AreEqual(layerTwoA, sectionResult.AssessmentLayerTwoA);
             Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
+            Assert.IsNotNull(sectionResult);
         }
 
         [Test]
-        [TestCase(true, AssessmentLayerTwoAResult.Failed)]
-        [TestCase(false, AssessmentLayerTwoAResult.Successful)]
-        [TestCase(false, AssessmentLayerTwoAResult.Failed)]
-        public void Read_WithNullLayerThree_ReturnStabilityStoneCoverSectionResultWithNullParameters(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
+        public void Read_WithNullLayerThree_ReturnStabilityStoneCoverSectionResultWithNullParameters()
         {
             // Setup
             var collector = new ReadConversionCollector();
@@ -88,7 +87,8 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
             collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             var entity = new StabilityStoneCoverSectionResultEntity
             {
-                LayerTwoA = Convert.ToByte(layerTwoA),
+                LayerOne = Convert.ToByte(false),
+                LayerTwoA = Convert.ToByte(AssessmentLayerTwoAResult.Successful),
                 LayerThree = null,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };

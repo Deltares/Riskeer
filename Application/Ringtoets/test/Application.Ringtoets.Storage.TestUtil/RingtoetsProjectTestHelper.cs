@@ -278,6 +278,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             {
                 var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
 
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
                 sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
@@ -288,7 +289,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             var random = new Random(21);
             foreach (var sectionResult in sectionResults)
             {
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble)random.NextDouble();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
@@ -865,6 +867,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             {
                 var randomLayer2AResult = (AssessmentLayerTwoAResult) random.Next(0, Enum.GetValues(typeof(AssessmentLayerTwoAResult)).Length);
 
+                sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
                 sectionResult.AssessmentLayerTwoA = randomLayer2AResult;
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }

@@ -46,6 +46,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
             }
             var sectionResultEntity = new StabilityPointStructuresSectionResultEntity
             {
+                LayerOne = Convert.ToByte(result.AssessmentLayerOne),
                 LayerTwoA = result.AssessmentLayerTwoA.ToNaNAsNull(),
                 LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
