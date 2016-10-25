@@ -235,8 +235,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 Data = new CalculationGroup()
             };
 
-            // Call & Assert
-            Assert.IsFalse(info.CloseForData(view, assessmentSectionMock));
+            // Call
+            bool closeForData = info.CloseForData(view, assessmentSectionMock);
+
+            // Assert
+            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
@@ -257,8 +260,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 Data = new CalculationGroup()
             };
 
-            // Call & Assert
-            Assert.IsFalse(info.CloseForData(view, assessmentSectionMock));
+            // Call
+            bool closeForData = info.CloseForData(view, assessmentSectionMock);
+
+            // Assert
+            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
@@ -280,8 +286,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
                 Data = failureMechanism.CalculationsGroup
             };
 
-            // Call & Assert
-            Assert.IsTrue(info.CloseForData(view, assessmentSectionMock));
+            // Call
+            bool closeForData = info.CloseForData(view, assessmentSectionMock);
+
+            // Assert
+            Assert.IsTrue(closeForData);
             mocks.VerifyAll();
         }
 
@@ -294,8 +303,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             view.Data = new CalculationGroup();
 
-            // Call & Assert
-            Assert.IsFalse(info.CloseForData(view, failureMechanism));
+            // Call
+            bool closeForData = info.CloseForData(view, failureMechanism);
+
+            // Assert
+            Assert.IsFalse(closeForData);
         }
 
         [Test]
@@ -307,8 +319,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             view.Data = failureMechanism.CalculationsGroup;
 
-            // Call & Assert
-            Assert.IsTrue(info.CloseForData(view, failureMechanism));
+            // Call
+            bool closeForData = info.CloseForData(view, failureMechanism);
+
+            // Assert
+            Assert.IsTrue(closeForData);
         }
 
         [Test]
@@ -325,8 +340,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             view.Data = failureMechanism.CalculationsGroup;
 
-            // Call & Assert
-            Assert.IsFalse(info.CloseForData(view, failureMechanismContext));
+            // Call
+            bool closeForData = info.CloseForData(view, failureMechanismContext);
+
+            // Assert
+            Assert.IsFalse(closeForData);
             mocks.VerifyAll();
         }
 
@@ -344,8 +362,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Test.ViewInfos
 
             view.Data = failureMechanism.CalculationsGroup;
 
-            // Call & Assert
-            Assert.IsTrue(info.CloseForData(view, failureMechanismContext));
+            // Call
+            bool closeForData = info.CloseForData(view, failureMechanismContext);
+
+            // Assert
+            Assert.IsTrue(closeForData);
             mocks.VerifyAll();
         }
 
