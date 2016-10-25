@@ -62,7 +62,7 @@ namespace Ringtoets.HeightStructures.Service
         {
             CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
 
-            var messages = ValidateInput(calculation.InputParameters, assessmentSection);
+            string[] messages = ValidateInput(calculation.InputParameters, assessmentSection);
             CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
 
             CalculationServiceHelper.LogValidationEndTime(calculation.Name);
@@ -195,7 +195,7 @@ namespace Ringtoets.HeightStructures.Service
 
                 if (IsInvalidNumber(inputParameters.DeviationWaveDirection))
                 {
-                    validationResult.Add(string.Format(Core.Common.Base.Properties.Resources.CalculationService_ValidateInput_Value_for_0_must_be_a_valid_number,
+                    validationResult.Add(string.Format(RingtoetsCommonServiceResources.CalculationService_ValidateInput_Value_for_0_must_be_a_valid_number,
                                                        GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_DeviationWaveDirection_DisplayName)));
                 }
 
@@ -219,7 +219,6 @@ namespace Ringtoets.HeightStructures.Service
                                                                                              GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_DisplayName)));
                 validationResult.AddRange(DistributionValidationService.ValidateDistribution(inputParameters.CriticalOvertoppingDischarge,
                                                                                              GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName)));
-                // Probability structure given erosion
             }
 
             return validationResult.ToArray();

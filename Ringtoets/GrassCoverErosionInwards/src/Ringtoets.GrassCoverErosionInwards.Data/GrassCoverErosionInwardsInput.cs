@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
@@ -27,6 +28,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.HydraRing.Data;
+using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Data
 {
@@ -46,7 +48,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         /// </summary>
         public GrassCoverErosionInwardsInput()
         {
-            orientation = new RoundedDouble(2);
+            orientation = new RoundedDouble(2, double.NaN);
             dikeHeight = new RoundedDouble(2);
 
             UpdateProfileParameters();
@@ -86,7 +88,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
             }
             set
             {
-                orientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
+                RoundedDouble newOrientation = value.ToPrecision(orientation.NumberOfDecimalPlaces);
+                if (!double.IsNaN(newOrientation) && (newOrientation < 0 || newOrientation > 360))
+                {
+                    throw new ArgumentOutOfRangeException("value", RingtoetsCommonDataResources.Orientation_Value_needs_to_be_between_0_and_360);
+                }
+                orientation = newOrientation;
             }
         }
 
@@ -170,7 +177,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             if (dikeProfile == null)
             {
-                Orientation = (RoundedDouble) 0.0;
+                Orientation = (RoundedDouble) double.NaN;
                 UseForeshore = false;
                 UseBreakWater = false;
                 BreakWater = GetDefaultBreakWater();

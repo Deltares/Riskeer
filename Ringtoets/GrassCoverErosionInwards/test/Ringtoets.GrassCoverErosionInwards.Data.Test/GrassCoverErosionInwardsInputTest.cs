@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -56,7 +57,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             Assert.IsInstanceOf<IUseForeshore>(input);
 
             Assert.IsNull(input.DikeProfile);
-            Assert.AreEqual(new RoundedDouble(2), input.Orientation);
+            Assert.AreEqual(2, input.Orientation.NumberOfDecimalPlaces);
+            Assert.IsNaN(input.Orientation);
             Assert.IsFalse(input.UseBreakWater);
             Assert.AreEqual(BreakWaterType.Dam, input.BreakWater.Type);
             Assert.AreEqual(new RoundedDouble(2), input.BreakWater.Height);
@@ -178,7 +180,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             input.DikeProfile = null;
 
             // Assert
-            Assert.AreEqual(new RoundedDouble(0), input.Orientation);
+            Assert.AreEqual(2, input.Orientation.NumberOfDecimalPlaces);
+            Assert.IsNaN(input.Orientation);
             Assert.IsFalse(input.UseBreakWater);
             Assert.AreEqual(originalBreakWaterType, input.BreakWater.Type);
             Assert.AreEqual(originalBreakWaterHeight, input.BreakWater.Height);
@@ -191,7 +194,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
         }
 
         [Test]
-        public void Orientation_SetNewValue_ValueIsRounded()
+        [TestCase(360.004)]
+        [TestCase(300)]
+        [TestCase(0)]
+        [TestCase(-0.004)]
+        [TestCase(double.NaN)]
+        public void Orientation_SetNewValue_ValueIsRounded(double validOrientation)
         {
             // Setup
             var input = new GrassCoverErosionInwardsInput();
@@ -199,11 +207,30 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             int originalNumberOfDecimalPlaces = input.Orientation.NumberOfDecimalPlaces;
 
             // Call
-            input.Orientation = new RoundedDouble(5, 1.23456);
+            input.Orientation = new RoundedDouble(5, validOrientation);
 
             // Assert
             Assert.AreEqual(originalNumberOfDecimalPlaces, input.Orientation.NumberOfDecimalPlaces);
-            Assert.AreEqual(1.23, input.Orientation.Value);
+            Assert.AreEqual(validOrientation, input.Orientation.Value, input.Orientation.GetAccuracy());
+        }
+
+        [Test]
+        [TestCase(400)]
+        [TestCase(360.05)]
+        [TestCase(-0.005)]
+        [TestCase(-23)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        public void Orientation_SetInvalidValue_ThrowsArgumentOutOfRangeException(double invalidOrientation)
+        {
+            // Setup
+            var input = new GrassCoverErosionInwardsInput();
+
+            // Call
+            TestDelegate call = () => input.Orientation = (RoundedDouble)invalidOrientation;
+
+            // Assert
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik [0, 360] liggen.");
         }
 
         [Test]

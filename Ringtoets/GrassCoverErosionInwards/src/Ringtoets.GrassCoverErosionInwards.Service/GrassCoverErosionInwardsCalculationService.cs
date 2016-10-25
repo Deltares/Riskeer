@@ -37,6 +37,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RingtoetsCommonForms = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.GrassCoverErosionInwards.Service
 {
@@ -310,9 +311,22 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                         validationResult.Add(RingtoetsCommonServiceResources.Validation_Invalid_BreakWaterHeight_value);
                     }
                 }
+
+                if (double.IsNaN(inputParameters.Orientation))
+                {
+                    string message = string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_0_,
+                                                   GenerateParameterNameWithoutUnits(RingtoetsCommonForms.Orientation_DisplayName));
+                    validationResult.Add(message);
+                }
             }
 
             return validationResult.ToArray();
+        }
+
+        private static string GenerateParameterNameWithoutUnits(string parameterDescription)
+        {
+            string[] splitString = parameterDescription.Split('[');
+            return splitString.Length != 0 ? splitString[0].ToLower().Trim() : string.Empty;
         }
     }
 }
