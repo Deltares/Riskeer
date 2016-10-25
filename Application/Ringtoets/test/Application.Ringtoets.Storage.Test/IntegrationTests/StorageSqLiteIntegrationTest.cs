@@ -883,18 +883,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        #region ClosingStructures FailureMechanism
-
-        private static void AssertClosingStructuresFailureMechanism(ClosingStructuresFailureMechanism expectedFailureMechanism,
-                                                                    ClosingStructuresFailureMechanism actualFailureMechanism)
-        {
-            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N2A, actualFailureMechanism.GeneralInput.N2A);
-
-            AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
-        }
-
-        #endregion
-
         #region StabilityPointStructures FailureMechanism
 
         private static void AssertStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism expectedFailureMechanism,
@@ -903,6 +891,51 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedFailureMechanism.GeneralInput.N, actualFailureMechanism.GeneralInput.N);
 
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
+        }
+
+        #endregion
+
+        #region ClosingStructures FailureMechanism
+
+        private static void AssertClosingStructuresFailureMechanism(ClosingStructuresFailureMechanism expectedFailureMechanism,
+                                                                    ClosingStructuresFailureMechanism actualFailureMechanism)
+        {
+            Assert.AreEqual(expectedFailureMechanism.GeneralInput.N2A, actualFailureMechanism.GeneralInput.N2A);
+
+            AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
+            AssertClosingStructures(expectedFailureMechanism.ClosingStructures, actualFailureMechanism.ClosingStructures);
+        }
+
+        private static void AssertClosingStructures(ObservableList<ClosingStructure> expectedClosingStructures, ObservableList<ClosingStructure> actualClosingStructures)
+        {
+            Assert.AreEqual(expectedClosingStructures.Count, actualClosingStructures.Count);
+            for (int i = 0; i < expectedClosingStructures.Count; i++)
+            {
+                AssertClosingStructure(expectedClosingStructures[i], actualClosingStructures[i]);
+            }
+        }
+
+        private static void AssertClosingStructure(ClosingStructure expectedClosingStructure, ClosingStructure actualClosingStructure)
+        {
+            Assert.AreEqual(expectedClosingStructure.Name, actualClosingStructure.Name);
+            Assert.AreEqual(expectedClosingStructure.Id, actualClosingStructure.Id);
+            Assert.AreEqual(expectedClosingStructure.Location, actualClosingStructure.Location);
+            Assert.AreEqual(expectedClosingStructure.StructureNormalOrientation, actualClosingStructure.StructureNormalOrientation);
+
+            DistributionAssert.AreEqual(expectedClosingStructure.StorageStructureArea, actualClosingStructure.StorageStructureArea);
+            DistributionAssert.AreEqual(expectedClosingStructure.AllowedLevelIncreaseStorage, actualClosingStructure.AllowedLevelIncreaseStorage);
+            DistributionAssert.AreEqual(expectedClosingStructure.WidthFlowApertures, actualClosingStructure.WidthFlowApertures);
+            DistributionAssert.AreEqual(expectedClosingStructure.LevelCrestStructureNotClosing, actualClosingStructure.LevelCrestStructureNotClosing);
+            DistributionAssert.AreEqual(expectedClosingStructure.InsideWaterLevel, actualClosingStructure.InsideWaterLevel);
+            DistributionAssert.AreEqual(expectedClosingStructure.ThresholdHeightOpenWeir, actualClosingStructure.ThresholdHeightOpenWeir);
+            DistributionAssert.AreEqual(expectedClosingStructure.AreaFlowApertures, actualClosingStructure.AreaFlowApertures);
+            DistributionAssert.AreEqual(expectedClosingStructure.CriticalOvertoppingDischarge, actualClosingStructure.CriticalOvertoppingDischarge);
+            DistributionAssert.AreEqual(expectedClosingStructure.FlowWidthAtBottomProtection, actualClosingStructure.FlowWidthAtBottomProtection);
+            Assert.AreEqual(expectedClosingStructure.ProbabilityOpenStructureBeforeFlooding, actualClosingStructure.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(expectedClosingStructure.FailureProbabilityOpenStructure, actualClosingStructure.FailureProbabilityOpenStructure);
+            Assert.AreEqual(expectedClosingStructure.IdenticalApertures, actualClosingStructure.IdenticalApertures);
+            Assert.AreEqual(expectedClosingStructure.FailureProbabilityReparation, actualClosingStructure.FailureProbabilityReparation);
+            Assert.AreEqual(expectedClosingStructure.InflowModelType, actualClosingStructure.InflowModelType);
         }
 
         #endregion

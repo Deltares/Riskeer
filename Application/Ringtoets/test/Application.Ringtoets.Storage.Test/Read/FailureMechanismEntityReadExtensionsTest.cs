@@ -981,6 +981,52 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(generalInputN2A, failureMechanism.GeneralInput.N2A);
         }
 
+        [Test]
+        public void ReadAsClosingStructuresFailureMechanism_WithClosingStructures_ReturnFailureMechanismWithClosingStructuresSet()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                ClosingStructureEntities = 
+                {
+                    new ClosingStructureEntity
+                    {
+                        Order = 2,
+                        Name = "Child1",
+                        Id = "a"
+                    },
+                    new ClosingStructureEntity
+                    {
+                        Order = 1,
+                        Name = "Child2",
+                        Id = "b"
+                    }
+                },
+                ClosingStructureFailureMechanismMetaEntities = 
+                {
+                    new ClosingStructureFailureMechanismMetaEntity
+                    {
+                        N2A = 7
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsClosingStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.ClosingStructures.Count);
+
+            ClosingStructure child1 = failureMechanism.ClosingStructures[0];
+            Assert.AreEqual("Child2", child1.Name);
+
+            ClosingStructure child2 = failureMechanism.ClosingStructures[1];
+            Assert.AreEqual("Child1", child2.Name);
+        }
+
         #endregion
 
         #region Stability Point Structures

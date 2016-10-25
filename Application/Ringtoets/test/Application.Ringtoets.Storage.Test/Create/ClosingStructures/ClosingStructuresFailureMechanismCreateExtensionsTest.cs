@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
 {
@@ -142,6 +143,25 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             // Assert
             Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
             Assert.IsTrue(persistenceRegistry.Contains(profile));
+        }
+
+        [Test]
+        public void Create_WithClosingStructures_ClosingStructureEntitiesCreated()
+        {
+            // Setup
+            ClosingStructure structure = new TestClosingStructure();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.ClosingStructures.Add(structure);
+
+            var persistenceRegistry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(persistenceRegistry);
+
+            // Assert
+            Assert.AreEqual(1, entity.ClosingStructureEntities.Count);
+            Assert.IsTrue(persistenceRegistry.Contains(structure));
         }
     }
 }

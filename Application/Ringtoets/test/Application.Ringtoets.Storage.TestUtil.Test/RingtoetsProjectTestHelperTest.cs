@@ -202,6 +202,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
             Assert.AreEqual(2, closingStructuresFailureMechanism.ForeshoreProfiles.Count);
+            Assert.AreEqual(2, closingStructuresFailureMechanism.ClosingStructures.Count);
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             Assert.AreEqual(2, stabilityPointStructuresFailureMechanism.ForeshoreProfiles.Count);

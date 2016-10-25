@@ -27,6 +27,7 @@ using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -380,6 +381,8 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureClosingStructuresFailureMechanism(ClosingStructuresFailureMechanism failureMechanism)
         {
             failureMechanism.GeneralInput.N2A = 6;
+            failureMechanism.ClosingStructures.Add(new TestClosingStructure());
+            failureMechanism.ClosingStructures.Add(new TestClosingStructure());
         }
 
         #endregion

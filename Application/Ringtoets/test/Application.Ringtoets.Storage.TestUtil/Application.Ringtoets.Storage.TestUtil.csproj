@@ -75,6 +75,10 @@
       <Project>{C6309704-D67B-434C-BC98-9F8910BC1D10}</Project>
       <Name>Ringtoets.ClosingStructures.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\ClosingStructures\test\Ringtoets.ClosingStructures.Data.TestUtil\Ringtoets.ClosingStructures.Data.TestUtil.csproj">
+      <Project>{f5b43c29-6169-4e9a-859e-09090330b94e}</Project>
+      <Name>Ringtoets.ClosingStructures.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\HeightStructures\test\Ringtoets.HeightStructures.Data.TestUtil\Ringtoets.HeightStructures.Data.TestUtil.csproj">
       <Project>{f67e8ae8-1ff0-4680-9817-99e025cd9ff6}</Project>
       <Name>Ringtoets.HeightStructures.Data.TestUtil</Name>
