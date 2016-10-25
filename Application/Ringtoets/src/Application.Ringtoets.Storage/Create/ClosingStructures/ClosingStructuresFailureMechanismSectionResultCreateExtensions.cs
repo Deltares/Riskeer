@@ -47,7 +47,6 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
             var sectionResultEntity = new ClosingStructuresSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
-                LayerTwoA = result.AssessmentLayerTwoA.ToNaNAsNull(),
                 LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
 

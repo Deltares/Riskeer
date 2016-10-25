@@ -79,31 +79,6 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithNullLayerTwoA_ReturnClosingStructuresSectionResultWithNullParameters(bool layerOne)
-        {
-            // Setup
-            var collector = new ReadConversionCollector();
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
-            var entity = new ClosingStructuresSectionResultEntity
-            {
-                LayerOne = Convert.ToByte(layerOne),
-                LayerTwoA = null,
-                LayerThree = new Random(21).NextDouble(),
-                FailureMechanismSectionEntity = failureMechanismSectionEntity
-            };
-            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
-
-            // Call
-            entity.Read(sectionResult);
-
-            // Assert
-            Assert.IsNaN(sectionResult.AssessmentLayerTwoA);
-        }
-
-        [Test]
-        [TestCase(true)]
-        [TestCase(false)]
         public void Read_WithNullLayerThree_ReturnClosingStructuresSectionResultWithNullParameters(bool layerOne)
         {
             // Setup
@@ -113,7 +88,6 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             var entity = new ClosingStructuresSectionResultEntity
             {
                 LayerOne = Convert.ToByte(layerOne),
-                LayerTwoA = new Random(21).NextDouble(),
                 LayerThree = null,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };

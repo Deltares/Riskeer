@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Repos\Ringtoets\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -94,7 +94,6 @@
           <Property Name="FailureMechanismSectionEntityId" Type="integer" Nullable="false" />
           <Property Name="ClosingStructuresCalculationEntityId" Type="integer" />
           <Property Name="LayerOne" Type="tinyint" Nullable="false" />
-          <Property Name="LayerTwoA" Type="real" />
           <Property Name="LayerThree" Type="real" />
         </EntityType>
         <EntityType Name="DikeProfileEntity">
@@ -2302,7 +2301,6 @@
           <Property Name="FailureMechanismSectionEntityId" Type="Int64" Nullable="false" />
           <Property Name="ClosingStructuresCalculationEntityId" Type="Int64" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
-          <Property Name="LayerTwoA" Type="Double" />
           <Property Name="LayerThree" Type="Double" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresSectionResultEntity_0_0" FromRole="ClosingStructuresSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
@@ -3963,7 +3961,6 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.ClosingStructuresSectionResultEntity">
               <MappingFragment StoreEntitySet="ClosingStructuresSectionResultEntity">
                 <ScalarProperty Name="LayerThree" ColumnName="LayerThree" />
-                <ScalarProperty Name="LayerTwoA" ColumnName="LayerTwoA" />
                 <ScalarProperty Name="LayerOne" ColumnName="LayerOne" />
                 <ScalarProperty Name="ClosingStructuresCalculationEntityId" ColumnName="ClosingStructuresCalculationEntityId" />
                 <ScalarProperty Name="FailureMechanismSectionEntityId" ColumnName="FailureMechanismSectionEntityId" />
