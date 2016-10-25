@@ -427,13 +427,13 @@ namespace Ringtoets.ClosingStructures.Service.Test
         public void Calculate_InvalidCalculation_LogStartAndEndAndErrorMessageAndThrowsException(ClosingStructureInflowModelType inflowModelType)
         {
             // Setup
-            var heightStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
+            var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            var assessmentSectionStub = CreateAssessmentSectionStub(closingStructuresFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
-            heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -447,7 +447,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 }
             };
 
-            var failureMechanismSection = heightStructuresFailureMechanism.Sections.First();
+            FailureMechanismSection failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
             var exception = false;
 
             // Call
@@ -458,8 +458,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     new ClosingStructuresCalculationService().Calculate(calculation,
                                                                         assessmentSectionStub,
                                                                         failureMechanismSection,
-                                                                        heightStructuresFailureMechanism.GeneralInput,
-                                                                        heightStructuresFailureMechanism.Contribution,
+                                                                        closingStructuresFailureMechanism.GeneralInput,
+                                                                        closingStructuresFailureMechanism.Contribution,
                                                                         testDataPath);
                 }
                 catch

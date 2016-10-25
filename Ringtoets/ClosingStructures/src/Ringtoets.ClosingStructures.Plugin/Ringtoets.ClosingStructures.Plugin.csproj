@@ -125,6 +125,11 @@
       <Name>Ringtoets.ClosingStructures.Service</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.ClosingStructures.Utils\Ringtoets.ClosingStructures.Utils.csproj">
+      <Project>{09A12A95-370D-42FE-B18E-32821D7A62BA}</Project>
+      <Name>Ringtoets.ClosingStructures.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

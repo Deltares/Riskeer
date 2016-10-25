@@ -35,6 +35,7 @@ using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.ClosingStructures.IO;
 using Ringtoets.ClosingStructures.Service;
+using Ringtoets.ClosingStructures.Utils;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -489,8 +490,11 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             ClosingStructuresCalculation calculation = context.WrappedData;
 
-            return builder.AddValidateCalculationItem(context, ValidateAction, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
-                          .AddPerformCalculationItem(calculation, context, CalculateAction, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+            return builder.AddValidateCalculationItem(
+                context,
+                c => new ClosingStructuresCalculationService().Validate(c.WrappedData, c.AssessmentSection),
+                ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+                          .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
                           .AddRenameItem()
@@ -503,9 +507,14 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .Build();
         }
 
-        private static void CalculateAction(ClosingStructuresCalculation closingStructuresCalculation, ClosingStructuresCalculationContext closingStructuresCalculationContext) {}
-
-        private static void ValidateAction(ClosingStructuresCalculationContext closingStructuresCalculationContext) {}
+        private void Calculate(ClosingStructuresCalculation calculation, ClosingStructuresCalculationContext context)
+        {
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             new ClosingStructuresCalculationActivity(calculation,
+                                                                                      Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                      context.FailureMechanism,
+                                                                                      context.AssessmentSection));
+        }
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(ClosingStructuresCalculationContext context)
         {
@@ -518,6 +527,9 @@ namespace Ringtoets.ClosingStructures.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
+                ClosingStructuresHelper.Delete(context.FailureMechanism.SectionResults,
+                                               context.WrappedData,
+                                               context.FailureMechanism.Calculations.Cast<ClosingStructuresCalculation>());
                 calculationGroupContext.NotifyObservers();
             }
         }

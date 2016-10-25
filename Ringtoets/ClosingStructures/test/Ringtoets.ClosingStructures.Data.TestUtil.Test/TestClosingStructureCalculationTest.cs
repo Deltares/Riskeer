@@ -66,6 +66,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
                             calculation.InputParameters.FactorStormDurationOpenStructure.GetAccuracy());
             Assert.AreEqual(0, calculation.InputParameters.DeviationWaveDirection,
                             calculation.InputParameters.DeviationWaveDirection.GetAccuracy());
+            Assert.AreEqual(1.0, calculation.InputParameters.FailureProbabilityStructureWithErosion);
         }
     }
 }

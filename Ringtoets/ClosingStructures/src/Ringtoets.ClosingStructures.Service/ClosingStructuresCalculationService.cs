@@ -33,6 +33,8 @@ using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Parsers;
+using Ringtoets.HydraRing.IO;
+using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Service
 {
@@ -62,7 +64,8 @@ namespace Ringtoets.ClosingStructures.Service
                               IAssessmentSection assessmentSection,
                               FailureMechanismSection failureMechanismSection,
                               GeneralClosingStructuresInput generalInput,
-                              double failureMechanismContribution, string hlcdDirectory)
+                              double failureMechanismContribution,
+                              string hlcdDirectory)
         {
             var calculationName = calculation.Name;
 
@@ -127,10 +130,11 @@ namespace Ringtoets.ClosingStructures.Service
         public bool Validate(ClosingStructuresCalculation calculation, IAssessmentSection assessmentSection)
         {
             CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
-            //TODO: Validate all the input parameters here, see WTI-926
+            var messages = ValidateInput(calculation.InputParameters, assessmentSection);
+            CalculationServiceHelper.LogMessagesAsError(RingtoetsCommonServiceResources.Error_in_validation_0, messages);
             CalculationServiceHelper.LogValidationEndTime(calculation.Name);
 
-            return true;
+            return !messages.Any();
         }
 
         private static StructuresClosureVerticalWallCalculationInput CreateClosureVerticalWallCalculationInput(ClosingStructuresCalculation calculation,
@@ -230,6 +234,25 @@ namespace Ringtoets.ClosingStructures.Service
         private static HydraRingBreakWater ParseBreakWater(ClosingStructuresInput input)
         {
             return input.UseBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null;
+        }
+
+        private static string[] ValidateInput(ClosingStructuresInput inputParameters, IAssessmentSection assessmentSection)
+        {
+            var validationResult = new List<string>();
+
+            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            if (!string.IsNullOrEmpty(validationProblem))
+            {
+                validationResult.Add(validationProblem);
+                return validationResult.ToArray();
+            }
+
+            if (inputParameters.HydraulicBoundaryLocation == null)
+            {
+                validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+            }
+			//TODO: Validate all the input parameters here, see WTI-926
+            return validationResult.ToArray();
         }
     }
 }
