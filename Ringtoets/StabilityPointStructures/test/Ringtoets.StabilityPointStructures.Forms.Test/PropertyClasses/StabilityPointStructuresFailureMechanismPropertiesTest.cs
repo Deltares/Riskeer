@@ -126,6 +126,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var generalCategory = "Algemeen";
             var lengthEffectCategory = "Lengte-effect parameters";
             var modelSettingsCategory = "Modelinstellingen";
+            var hydraulicDataCategory = "StabilityPointStructuresFailureMechanismProperties";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(10, dynamicProperties.Count);
@@ -191,14 +192,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor waveRatioMaxHNProperty = dynamicProperties[waveRatioMaxHNPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveRatioMaxHNProperty,
-                                                                            modelSettingsCategory,
+                                                                            hydraulicDataCategory,
                                                                             "Rayleigh-N N parameter [-]",
                                                                             "N parameter van de Rayleigh-N verdeling voor het quotiënt van Hmax en Hs voor N golven.",
                                                                             true);
 
             PropertyDescriptor waveRatioMaxHStandardDeviationProperty = dynamicProperties[waveRatioMaxHStandardDeviationPropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveRatioMaxHStandardDeviationProperty,
-                                                                            modelSettingsCategory,
+                                                                            hydraulicDataCategory,
                                                                             "Rayleigh-N schaal parameter [-]",
                                                                             "Schaal parameter van de Rayleigh-N verdeling voor het quotiënt van Hmax en Hs voor N golven.",
                                                                             true);
