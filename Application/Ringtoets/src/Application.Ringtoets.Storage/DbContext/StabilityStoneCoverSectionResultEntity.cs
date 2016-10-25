@@ -37,6 +37,7 @@ namespace Application.Ringtoets.Storage.DbContext
     {
         public long StabilityStoneCoverSectionResultEntityId { get; set; }
         public long FailureMechanismSectionEntityId { get; set; }
+        public byte LayerOne { get; set; }
         public byte LayerTwoA { get; set; }
         public Nullable<double> LayerThree { get; set; }
     
