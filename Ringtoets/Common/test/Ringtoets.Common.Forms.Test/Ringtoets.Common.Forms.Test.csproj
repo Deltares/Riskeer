@@ -67,7 +67,7 @@
     <Compile Include="Helpers\NamingHelperTest.cs" />
     <Compile Include="Helpers\ProbabilityFormattingHelperTest.cs" />
     <Compile Include="PresentationObjects\CommentContextTest.cs" />
-    <Compile Include="PresentationObjects\InputContextTest.cs" />
+    <Compile Include="PresentationObjects\InputContextBaseTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismContextTest.cs" />
     <Compile Include="PresentationObjects\CategoryTreeFolderTest.cs" />
     <Compile Include="PresentationObjects\FailureMechanismContributionContextTest.cs" />

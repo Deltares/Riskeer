@@ -32,20 +32,20 @@ namespace Ringtoets.Common.Forms.PresentationObjects
     /// <typeparam name="TInput">The type of calculation input wrapped by the context object.</typeparam>
     /// <typeparam name ="TCalculation">The type of the calculation containing the calculation input.</typeparam>
     /// <typeparam name="TFailureMechanism">The type of the failure mechanism which the context belongs to.</typeparam>
-    public class InputContext<TInput, TCalculation, TFailureMechanism> : FailureMechanismItemContextBase<TInput, TFailureMechanism>
+    public abstract class InputContextBase<TInput, TCalculation, TFailureMechanism> : FailureMechanismItemContextBase<TInput, TFailureMechanism>
         where TInput : ICalculationInput
         where TCalculation : ICalculation
         where TFailureMechanism : IFailureMechanism
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="InputContext{TInput,TCalculation,TFailureMechanism}"/> class.
+        /// Initializes a new instance of the <see cref="InputContextBase{TData,TCalculation,TFailureMechanism}"/> class.
         /// </summary>
         /// <param name="wrappedData">The calculation input wrapped by the context object.</param>
         /// <param name="calculation">The calculation containing the calculation input.</param>
         /// <param name="failureMechanism">The failure mechanism which the context belongs to.</param>
         /// <param name="assessmentSection">The assessment section which the context belongs to.</param>
         /// <exception cref="ArgumentNullException">When any input argument is <c>null</c>.</exception>
-        public InputContext(TInput wrappedData, TCalculation calculation, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
+        protected InputContextBase(TInput wrappedData, TCalculation calculation, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
             : base(wrappedData, failureMechanism, assessmentSection)
         {
             if (calculation == null)
