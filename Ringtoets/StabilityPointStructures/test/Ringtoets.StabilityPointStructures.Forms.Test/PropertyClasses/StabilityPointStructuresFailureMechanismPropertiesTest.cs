@@ -126,7 +126,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var generalCategory = "Algemeen";
             var lengthEffectCategory = "Lengte-effect parameters";
             var modelSettingsCategory = "Modelinstellingen";
-            var hydraulicDataCategory = "StabilityPointStructuresFailureMechanismProperties";
+            var hydraulicDataCategory = "Hydraulische gegevens";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
             Assert.AreEqual(10, dynamicProperties.Count);
