@@ -39,7 +39,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Creates a new instance of <see cref="StructuresClosureCalculator"/>.
         /// </summary>
         /// <param name="hlcdDirectory">The directory in which the hydraulic boundary database can be found.</param>
-        /// <param name="ringId">The id of the traject which is used in the calculation.</param>
+        /// <param name="ringId">The id of the assessment section which is used in the calculation.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="hlcdDirectory"/> is <c>null</c>.</exception>
         public StructuresClosureCalculator(string hlcdDirectory, string ringId) 
             : base(hlcdDirectory, ringId)
