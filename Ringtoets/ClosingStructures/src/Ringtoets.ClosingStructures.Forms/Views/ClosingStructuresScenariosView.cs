@@ -127,13 +127,13 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             }
             else
             {
-                var calculations = data.GetCalculations().ToArray();
+                ICalculation[] calculations = data.GetCalculations().ToArray();
 
                 Dictionary<string, IList<ICalculation>> calculationsPerSegment =
                     ClosingStructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections,
                                                                           calculations.OfType<StructuresCalculation<ClosingStructuresInput>>());
 
-                var scenarioRows = failureMechanism.SectionResults.Select(sr => new ClosingStructuresScenarioRow(sr)).ToList();
+                List<ClosingStructuresScenarioRow> scenarioRows = failureMechanism.SectionResults.Select(sr => new ClosingStructuresScenarioRow(sr)).ToList();
 
                 scenarioSelectionControl.UpdateDataGridViewDataSource(calculations, scenarioRows, calculationsPerSegment);
             }

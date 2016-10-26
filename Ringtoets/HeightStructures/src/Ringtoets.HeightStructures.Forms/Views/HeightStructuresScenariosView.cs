@@ -127,7 +127,7 @@ namespace Ringtoets.HeightStructures.Forms.Views
             }
             else
             {
-                var calculations = data.GetCalculations();
+                ICalculation[] calculations = data.GetCalculations().ToArray();
 
                 Dictionary<string, IList<ICalculation>> calculationsPerSegment =
                     HeightStructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.OfType<StructuresCalculation<HeightStructuresInput>>());

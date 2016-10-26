@@ -57,7 +57,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void DefaultConstructor_DataGridViewCorrectlyInitialized()
         {
             // Call
-            using (var view = ShowScenariosView())
+            using (ClosingStructuresScenariosView view = ShowScenariosView())
             {
                 // Assert
                 Assert.IsInstanceOf<UserControl>(view);
@@ -77,7 +77,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void Data_ValidDataSet_ValidData()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (ClosingStructuresScenariosView view = ShowScenariosView())
             {
                 var calculationGroup = new CalculationGroup();
 
@@ -93,7 +93,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void FailureMechanism_ValidFailureMechanismSet_ValidFailureMechanism()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (ClosingStructuresScenariosView view = ShowScenariosView())
             {
                 var failureMechanism = new ClosingStructuresFailureMechanism();
 
@@ -109,9 +109,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void Data_WithFailureMechanism_UpdateScenarioControl()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (ClosingStructuresScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                ClosingStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.FailureMechanism = failureMechanism;
 
                 // Call
@@ -120,8 +120,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 // Assert
                 AssertDataGridView(failureMechanism, false, new[]
                 {
-                    new [] { "<geen>", "CalculationA"},
-                    new [] { "<geen>", "CalculationB"}
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationA"
+                    },
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationB"
+                    }
                 });
             }
         }
@@ -130,9 +138,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void Data_SetToNullAfterGridViewShowsData_ClearsScenarioControl()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (ClosingStructuresScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                ClosingStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.FailureMechanism = failureMechanism;
                 view.Data = failureMechanism.CalculationsGroup;
 
@@ -148,9 +156,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void FailureMechanism_WithData_UpdateScenarioControl()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (ClosingStructuresScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                ClosingStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
 
                 // Call
@@ -159,8 +167,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 // Assert
                 AssertDataGridView(failureMechanism, false, new[]
                 {
-                    new [] { "<geen>", "CalculationA"},
-                    new [] { "<geen>", "CalculationB"}
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationA"
+                    },
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationB"
+                    }
                 });
             }
         }
@@ -169,9 +185,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void FailureMechanism_WithoutData_ClearsScenarioControl()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (ClosingStructuresScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                ClosingStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
@@ -187,15 +203,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void NotifyFailureMechanism_SectionsAddedAfterFullInitialization_NewRowAddedToView()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (ClosingStructuresScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                ClosingStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
                 view.FailureMechanism.AddSection(new FailureMechanismSection("SectionC", new[]
                 {
-                    view.FailureMechanism.Sections.Last().GetLast(), new Point2D(30,30) 
+                    view.FailureMechanism.Sections.Last().GetLast(),
+                    new Point2D(30, 30)
                 }));
 
                 // Call
@@ -204,9 +221,20 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 // Assert
                 AssertDataGridView(failureMechanism, false, new[]
                 {
-                    new [] { "<geen>", "CalculationA"},
-                    new [] { "<geen>", "CalculationB"},
-                    new [] { "<geen>"}
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationA"
+                    },
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationB"
+                    },
+                    new[]
+                    {
+                        "<geen>"
+                    }
                 });
             }
         }
@@ -215,14 +243,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void NotifyCalculation_CalculationChangedDikeProfile_CalculationMovedToOtherSectionResultOptions()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (ClosingStructuresScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                ClosingStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                var calculationA = (StructuresCalculation<ClosingStructuresInput>)failureMechanism.CalculationsGroup.Children[0];
-                var calculationB = (StructuresCalculation<ClosingStructuresInput>)failureMechanism.CalculationsGroup.Children[1];
+                var calculationA = (StructuresCalculation<ClosingStructuresInput>) failureMechanism.CalculationsGroup.Children[0];
+                var calculationB = (StructuresCalculation<ClosingStructuresInput>) failureMechanism.CalculationsGroup.Children[1];
 
                 calculationA.InputParameters.Structure = calculationB.InputParameters.Structure;
 
@@ -232,8 +260,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 // Assert
                 AssertDataGridView(failureMechanism, false, new[]
                 {
-                    new [] { "<geen>"},
-                    new [] { "<geen>", "CalculationA", "CalculationB"},
+                    new[]
+                    {
+                        "<geen>"
+                    },
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationA",
+                        "CalculationB"
+                    },
                 });
             }
         }
@@ -242,13 +278,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void NotifyCalculationGroup_CalculationAdded_CalculationAddedToSectionResultOptions()
         {
             // Setup
-            using (var view = ShowScenariosView())
+            using (ClosingStructuresScenariosView view = ShowScenariosView())
             {
-                var failureMechanism = CreateCompleteFailureMechanism();
+                ClosingStructuresFailureMechanism failureMechanism = CreateCompleteFailureMechanism();
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                var calculationB = ((StructuresCalculation<ClosingStructuresInput>)failureMechanism.CalculationsGroup.Children[1]);
+                var calculationB = ((StructuresCalculation<ClosingStructuresInput>) failureMechanism.CalculationsGroup.Children[1]);
                 var calculationC = new StructuresCalculation<ClosingStructuresInput>
                 {
                     Name = "CalculationC",
@@ -267,8 +303,17 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 // Assert
                 AssertDataGridView(failureMechanism, false, new[]
                 {
-                    new [] { "<geen>", "CalculationA"},
-                    new [] { "<geen>", "CalculationB", "CalculationC"},
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationA"
+                    },
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationB",
+                        "CalculationC"
+                    },
                 });
             }
         }
@@ -278,7 +323,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             bool shouldBeCleared,
             string[][] expectedComboBoxItemTexts = null)
         {
-            var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+            var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
             var rowCount = dataGridView.RowCount;
 
             if (shouldBeCleared)
@@ -287,14 +332,14 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             }
             else
             {
-                var dataGridViewColumn = (DataGridViewComboBoxColumn)dataGridView.Columns[1];
+                var dataGridViewColumn = (DataGridViewComboBoxColumn) dataGridView.Columns[1];
 
                 Assert.AreEqual(failureMechanism.SectionResults.Count(), rowCount);
                 Assert.AreEqual(failureMechanism.Calculations.Count(), dataGridViewColumn.Items.Count);
 
-                for (int i = 0; i < rowCount; i++       )
+                for (int i = 0; i < rowCount; i++)
                 {
-                    var cell = (DataGridViewComboBoxCell)dataGridView[1, i];
+                    var cell = (DataGridViewComboBoxCell) dataGridView[1, i];
                     var items = cell.Items.OfType<DataGridViewComboBoxItemWrapper<ICalculation>>();
                     Assert.AreEqual(expectedComboBoxItemTexts[i], items.Select(r => r.DisplayName));
                 }
