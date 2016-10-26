@@ -102,6 +102,7 @@
     <value>De berekening voor kunstwerk sluiten '{0}' is niet gelukt.</value>
   </data>
   <data name="ClosingStructuresCalculationService_Calculate_Calculation_report_Click_details_for_full_report_0" xml:space="preserve">
-    <value>Kunstwerken sluiten berekeningsverslag. Klik op details voor meer informatie. {0}</value>
+    <value>Kunstwerken sluiten berekeningsverslag. Klik op details voor meer informatie.
+{0}</value>
   </data>
 </root>
