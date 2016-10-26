@@ -172,7 +172,6 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             var failureMechanism = new HeightStructuresFailureMechanism();
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup("A", true));
             failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup("B", true));
-            
 
             var registry = new PersistenceRegistry();
 

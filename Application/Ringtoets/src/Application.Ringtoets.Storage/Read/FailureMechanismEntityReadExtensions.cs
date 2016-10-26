@@ -224,6 +224,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
             entity.ReadHeightStructures(failureMechanism.HeightStructures, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
+            ReadHeightStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
 
         private static void ReadHeightStructuresMechanismSectionResults(this FailureMechanismEntity entity, HeightStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
@@ -246,6 +247,17 @@ namespace Application.Ringtoets.Storage.Read
         {
             GeneralHeightStructuresInput generalHeightStructuresInput = entity.HeightStructuresFailureMechanismMetaEntities.First().Read();
             generalInput.N = generalHeightStructuresInput.N;
+        }
+
+        private static void ReadHeightStructuresRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
+                                                                     CalculationGroup targetRootCalculationGroup,
+                                                                     ReadConversionCollector collector)
+        {
+            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsHeightStructuresCalculationGroup(collector);
+            foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
+            {
+                targetRootCalculationGroup.Children.Add(calculationBase);
+            }
         }
 
         #endregion
