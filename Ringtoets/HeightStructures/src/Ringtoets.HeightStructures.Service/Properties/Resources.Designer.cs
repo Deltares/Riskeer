@@ -82,7 +82,7 @@ namespace Ringtoets.HeightStructures.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hoogte kunstwerken berekeningsverslag. Klik op details voor meer informatie.
+        ///   Looks up a localized string similar to Hoogte kunstwerk berekeningsverslag. Klik op details voor meer informatie.
         ///{0}.
         /// </summary>
         internal static string HeightStructuresCalculationService_Calculate_Calculation_report_Click_details_for_full_report {

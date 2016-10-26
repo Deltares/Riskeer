@@ -863,13 +863,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                         StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
                         StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[2]);
                         Assert.AreEqual("De berekening voor hoogte kunstwerk 'A' is niet gelukt.", messageList[3]);
-                        StringAssert.StartsWith("Hoogte kunstwerken berekeningsverslag. Klik op details voor meer informatie.", messageList[4]);
+                        StringAssert.StartsWith("Hoogte kunstwerk berekeningsverslag. Klik op details voor meer informatie.", messageList[4]);
                         StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[5]);
                         StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[6]);
                         StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[7]);
                         StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[8]);
                         Assert.AreEqual("De berekening voor hoogte kunstwerk 'B' is niet gelukt.", messageList[9]);
-                        StringAssert.StartsWith("Hoogte kunstwerken berekeningsverslag. Klik op details voor meer informatie.", messageList[10]);
+                        StringAssert.StartsWith("Hoogte kunstwerk berekeningsverslag. Klik op details voor meer informatie.", messageList[10]);
                         StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[11]);
                         Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[12]);
                         Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[13]);

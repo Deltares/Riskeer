@@ -490,7 +490,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(3, msgs.Length);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith("Kunstwerken sluiten berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
+                StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
             });
             Assert.IsNotNull(calculation.Output);
@@ -550,7 +550,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.AreEqual(4, msgs.Length);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
                 StringAssert.StartsWith(string.Format("De berekening voor kunstwerk sluiten '{0}' is niet gelukt.", calculation.Name), msgs[1]);
-                StringAssert.StartsWith("Kunstwerken sluiten berekeningsverslag. Klik op details voor meer informatie.", msgs[2]);
+                StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekeningsverslag. Klik op details voor meer informatie.", msgs[2]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
             });
             Assert.IsNull(calculation.Output);

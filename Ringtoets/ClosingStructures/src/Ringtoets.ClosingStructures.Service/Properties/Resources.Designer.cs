@@ -82,7 +82,7 @@ namespace Ringtoets.ClosingStructures.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kunstwerken sluiten berekeningsverslag. Klik op details voor meer informatie.
+        ///   Looks up a localized string similar to Betrouwbaarheid sluiting kunstwerk berekeningsverslag. Klik op details voor meer informatie.
         ///{0}.
         /// </summary>
         internal static string ClosingStructuresCalculationService_Calculate_Calculation_report_Click_details_for_full_report_0 {

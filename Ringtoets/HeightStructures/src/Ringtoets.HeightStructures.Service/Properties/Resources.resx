@@ -121,7 +121,7 @@
     <value>De berekening voor hoogte kunstwerk '{0}' is niet gelukt.</value>
   </data>
   <data name="HeightStructuresCalculationService_Calculate_Calculation_report_Click_details_for_full_report" xml:space="preserve">
-    <value>Hoogte kunstwerken berekeningsverslag. Klik op details voor meer informatie.
+    <value>Hoogte kunstwerk berekeningsverslag. Klik op details voor meer informatie.
 {0}</value>
   </data>
 </root>
