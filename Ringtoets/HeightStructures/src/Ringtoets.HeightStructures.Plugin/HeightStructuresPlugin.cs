@@ -22,7 +22,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
@@ -189,7 +188,7 @@ namespace Ringtoets.HeightStructures.Plugin
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              calculations.Select(calc => new HeightStructuresCalculationActivity(calc,
-                                                                                                                 Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                                 assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                                  failureMechanism,
                                                                                                                  assessmentSection)).ToArray());
         }
@@ -584,7 +583,7 @@ namespace Ringtoets.HeightStructures.Plugin
         private void Calculate(StructuresCalculation<HeightStructuresInput> calculation, HeightStructuresCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow, new HeightStructuresCalculationActivity(calculation,
-                                                                                                     Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                     context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                      context.FailureMechanism,
                                                                                                      context.AssessmentSection));
         }

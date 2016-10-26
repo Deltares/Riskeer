@@ -36,7 +36,7 @@ namespace Ringtoets.HeightStructures.Service
     public class HeightStructuresCalculationActivity : HydraRingActivityBase
     {
         private readonly StructuresCalculation<HeightStructuresInput> calculation;
-        private readonly string hlcdDirectory;
+        private readonly string hlcdFilepath;
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         private readonly HeightStructuresCalculationService calculationService;
@@ -45,20 +45,20 @@ namespace Ringtoets.HeightStructures.Service
         /// Creates a new instance of <see cref="HeightStructuresCalculationActivity"/>.
         /// </summary>
         /// <param name="calculation">The height structures data used for the calculation.</param>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="hlcdFilepath">The filepath of the HLCD file that should be used for performing the calculation.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public HeightStructuresCalculationActivity(StructuresCalculation<HeightStructuresInput> calculation, string hlcdDirectory,
+        public HeightStructuresCalculationActivity(StructuresCalculation<HeightStructuresInput> calculation, string hlcdFilepath,
                                                    HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException("calculation");
             }
-            if (hlcdDirectory == null)
+            if (hlcdFilepath == null)
             {
-                throw new ArgumentNullException("hlcdDirectory");
+                throw new ArgumentNullException("hlcdFilepath");
             }
             if (failureMechanism == null)
             {
@@ -70,7 +70,7 @@ namespace Ringtoets.HeightStructures.Service
             }
 
             this.calculation = calculation;
-            this.hlcdDirectory = hlcdDirectory;
+            this.hlcdFilepath = hlcdFilepath;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
@@ -96,7 +96,7 @@ namespace Ringtoets.HeightStructures.Service
                                          failureMechanismSection,
                                          failureMechanism.GeneralInput,
                                          failureMechanism.Contribution,
-                                         hlcdDirectory);
+                                         hlcdFilepath);
         }
 
         protected override void OnCancel()

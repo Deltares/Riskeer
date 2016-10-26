@@ -46,7 +46,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
     public class ClosingStructuresCalculationServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-
+        private static readonly string validDataFilepath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void Validate_ValidCalculationInvalidHydraulicBoundaryDatabase_ReturnsFalse()
@@ -220,7 +220,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                                                     failureMechanismSection,
                                                                     closingStructuresFailureMechanism.GeneralInput,
                                                                     closingStructuresFailureMechanism.Contribution,
-                                                                    testDataPath);
+                                                                    validDataFilepath);
 
                 // Assert
                 StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
@@ -315,7 +315,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                                                     failureMechanismSection,
                                                                     closingStructuresFailureMechanism.GeneralInput,
                                                                     closingStructuresFailureMechanism.Contribution,
-                                                                    testDataPath);
+                                                                    validDataFilepath);
 
                 // Assert
                 StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
@@ -409,7 +409,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                                                     failureMechanismSection,
                                                                     closingStructuresFailureMechanism.GeneralInput,
                                                                     closingStructuresFailureMechanism.Contribution,
-                                                                    testDataPath);
+                                                                    validDataFilepath);
 
                 // Assert
                 StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
@@ -485,7 +485,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                                                                     failureMechanismSection,
                                                                                     closingStructuresFailureMechanism.GeneralInput,
                                                                                     closingStructuresFailureMechanism.Contribution,
-                                                                                    testDataPath);
+                                                                                    validDataFilepath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -541,7 +541,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                                                         failureMechanismSection,
                                                                         closingStructuresFailureMechanism.GeneralInput,
                                                                         closingStructuresFailureMechanism.Contribution,
-                                                                        testDataPath);
+                                                                        validDataFilepath);
                 }
                 catch
                 {
@@ -602,7 +602,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                   failureMechanismSection,
                                   closingStructuresFailureMechanism.GeneralInput,
                                   closingStructuresFailureMechanism.Contribution,
-                                  testDataPath);
+                                  validDataFilepath);
 
                 // Assert
                 Assert.IsNull(calculation.Output);

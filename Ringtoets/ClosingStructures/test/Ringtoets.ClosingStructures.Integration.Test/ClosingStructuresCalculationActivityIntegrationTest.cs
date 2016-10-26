@@ -240,7 +240,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);
@@ -263,7 +262,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             calculation.Attach(observerMock);
 
-            var activity = new ClosingStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
 
             activity.Run();
 
@@ -287,7 +286,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);

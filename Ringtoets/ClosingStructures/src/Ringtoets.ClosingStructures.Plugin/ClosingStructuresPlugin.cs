@@ -22,7 +22,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Controls.TreeView;
@@ -202,7 +201,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              calculations.Select(calc => new ClosingStructuresCalculationActivity(calc,
-                                                                                                                  Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                                  assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                                   failureMechanism,
                                                                                                                   assessmentSection)).ToArray());
         }
@@ -520,7 +519,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow,
                                              new ClosingStructuresCalculationActivity(calculation,
-                                                                                      Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                      context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                       context.FailureMechanism,
                                                                                       context.AssessmentSection));
         }

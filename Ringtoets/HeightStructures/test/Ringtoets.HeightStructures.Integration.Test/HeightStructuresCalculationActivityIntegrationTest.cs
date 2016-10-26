@@ -612,7 +612,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             calculation.Attach(observerMock);
 
-            var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
 
             activity.Run();
 

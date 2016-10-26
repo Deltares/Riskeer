@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
@@ -59,14 +60,15 @@ namespace Ringtoets.ClosingStructures.Service
         /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
         /// <param name="generalInput">The <see cref="GeneralClosingStructuresInput"/> to create the input with for the calculation.</param>
         /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
-        /// <exception cref="NotSupportedException"></exception>
+        /// <param name="hlcdFilePath">The filepath of the HLCD file that should be used for performing the calculation.</param>
+        /// <exception cref="NotSupportedException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/> is an invalid
+        /// <see cref="ClosingStructureInflowModelType"/></exception>
         public void Calculate(StructuresCalculation<ClosingStructuresInput> calculation,
                               IAssessmentSection assessmentSection,
                               FailureMechanismSection failureMechanismSection,
                               GeneralClosingStructuresInput generalInput,
                               double failureMechanismContribution,
-                              string hlcdDirectory)
+                              string hlcdFilePath)
         {
             var calculationName = calculation.Name;
 
@@ -86,6 +88,7 @@ namespace Ringtoets.ClosingStructures.Service
                     throw new NotSupportedException("ClosingStructureInflowModelType");
             }
 
+            string hlcdDirectory = Path.GetDirectoryName(hlcdFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresClosureCalculator(hlcdDirectory, assessmentSection.Id);
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);

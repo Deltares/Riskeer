@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using log4net;
@@ -92,18 +93,19 @@ namespace Ringtoets.HeightStructures.Service
         /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
         /// <param name="generalInput">The <see cref="GeneralHeightStructuresInput"/> to create the input with for the calculation.</param>
         /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="hlcdFilePath">The filepath of the HLCD file that should be used for performing the calculation.</param>
         internal void Calculate(StructuresCalculation<HeightStructuresInput> calculation,
                                 IAssessmentSection assessmentSection,
                                 FailureMechanismSection failureMechanismSection,
                                 GeneralHeightStructuresInput generalInput,
                                 double failureMechanismContribution,
-                                string hlcdDirectory)
+                                string hlcdFilePath)
         {
             var calculationName = calculation.Name;
 
             StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanismSection, generalInput);
 
+            string hlcdDirectory = Path.GetDirectoryName(hlcdFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresOvertoppingCalculator(hlcdDirectory, assessmentSection.Id);
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);

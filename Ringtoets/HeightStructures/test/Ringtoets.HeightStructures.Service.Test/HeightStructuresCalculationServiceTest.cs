@@ -510,13 +510,15 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             var failureMechanismSection = heightStructuresFailureMechanism.Sections.First();
 
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
             // Call
             Action call = () => new HeightStructuresCalculationService().Calculate(calculation,
                                                                                    assessmentSectionStub,
                                                                                    failureMechanismSection,
                                                                                    heightStructuresFailureMechanism.GeneralInput,
                                                                                    heightStructuresFailureMechanism.Contribution,
-                                                                                   testDataPath);
+                                                                                   validFilePath);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -600,6 +602,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         public void Calculate_VariousCalculations_InputPropertiesCorrectlySentToCalculator(bool useForeshore, bool useBreakWater)
         {
             // Setup
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
@@ -644,7 +647,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                                                                    failureMechanismSection,
                                                                    heightStructuresFailureMechanism.GeneralInput,
                                                                    heightStructuresFailureMechanism.Contribution,
-                                                                   testDataPath);
+                                                                   validFilePath);
 
                 // Assert
                 StructuresOvertoppingCalculationInput[] overtoppingCalculationInputs = testStructuresOvertoppingCalculator.ReceivedInputs.ToArray();

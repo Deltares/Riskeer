@@ -75,7 +75,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
         }
 
         [Test]
-        public void ParameteredConstructor_HlcdDirectoryNull_ThrowsArgumentNullException()
+        public void ParameteredConstructor_HlcdFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -90,7 +90,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("hlcdDirectory", exception.ParamName);
+            Assert.AreEqual("hlcdFilepath", exception.ParamName);
             mocks.VerifyAll();
         }
 
