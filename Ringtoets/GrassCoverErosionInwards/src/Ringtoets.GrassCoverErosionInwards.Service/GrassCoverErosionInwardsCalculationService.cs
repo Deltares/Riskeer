@@ -208,8 +208,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             return new OvertoppingCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
                                                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
                                                    ParseProfilePoints(calculation.InputParameters.DikeGeometry),
-                                                   ParseForeshore(calculation.InputParameters),
-                                                   ParseBreakWater(calculation.InputParameters),
+                                                   CalculationInputParser.ParseForeshore(calculation.InputParameters),
+                                                   CalculationInputParser.ParseBreakWater(calculation.InputParameters),
                                                    calculation.InputParameters.DikeHeight,
                                                    generalInput.CriticalOvertoppingModelFactor,
                                                    generalInput.FbFactor.Mean,
@@ -232,8 +232,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                   assessmentSection.FailureMechanismContribution.Norm,
                                                   new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
                                                   ParseProfilePoints(calculation.InputParameters.DikeGeometry),
-                                                  ParseForeshore(calculation.InputParameters),
-                                                  ParseBreakWater(calculation.InputParameters),
+                                                  CalculationInputParser.ParseForeshore(calculation.InputParameters),
+                                                  CalculationInputParser.ParseBreakWater(calculation.InputParameters),
                                                   generalInput.CriticalOvertoppingModelFactor,
                                                   generalInput.FbFactor.Mean,
                                                   generalInput.FbFactor.StandardDeviation,
@@ -246,16 +246,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                                                   generalInput.FrunupModelFactor.StandardDeviation,
                                                   generalInput.FshallowModelFactor.Mean,
                                                   generalInput.FshallowModelFactor.StandardDeviation);
-        }
-
-        private static HydraRingBreakWater ParseBreakWater(GrassCoverErosionInwardsInput input)
-        {
-            return input.UseBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null;
-        }
-
-        private static IEnumerable<HydraRingForelandPoint> ParseForeshore(GrassCoverErosionInwardsInput input)
-        {
-            return input.UseForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0];
         }
 
         private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(RoughnessPoint[] roughnessProfilePoints)

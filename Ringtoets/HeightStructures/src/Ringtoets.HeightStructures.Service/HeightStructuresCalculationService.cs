@@ -143,8 +143,8 @@ namespace Ringtoets.HeightStructures.Service
             return new StructuresOvertoppingCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
                 new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
-                ParseForeshore(calculation.InputParameters),
-                ParseBreakWater(calculation.InputParameters),
+                CalculationInputParser.ParseForeshore(calculation.InputParameters),
+                CalculationInputParser.ParseBreakWater(calculation.InputParameters),
                 generalInput.GravitationalAcceleration,
                 generalInput.ModelFactorOvertoppingFlow.Mean, generalInput.ModelFactorOvertoppingFlow.StandardDeviation,
                 calculation.InputParameters.LevelCrestStructure.Mean, calculation.InputParameters.LevelCrestStructure.StandardDeviation,
@@ -160,16 +160,6 @@ namespace Ringtoets.HeightStructures.Service
                 calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation,
                 calculation.InputParameters.DeviationWaveDirection,
                 calculation.InputParameters.StormDuration.Mean, calculation.InputParameters.StormDuration.CoefficientOfVariation);
-        }
-
-        private static IEnumerable<HydraRingForelandPoint> ParseForeshore(HeightStructuresInput input)
-        {
-            return input.UseForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0];
-        }
-
-        private static HydraRingBreakWater ParseBreakWater(HeightStructuresInput input)
-        {
-            return input.UseBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null;
         }
 
         private static string[] ValidateInput(HeightStructuresInput inputParameters, IAssessmentSection assessmentSection)
