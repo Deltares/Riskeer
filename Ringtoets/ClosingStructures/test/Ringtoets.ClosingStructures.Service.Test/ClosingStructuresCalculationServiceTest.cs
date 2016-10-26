@@ -141,7 +141,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
-            FailureMechanismSection failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
 
             var calculation = new TestClosingStructuresCalculation()
             {
@@ -157,8 +156,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
-                TestDelegate call = () => service.Calculate(calculation, assessmentSectionStub, failureMechanismSection,
-                                                            closingStructuresFailureMechanism.GeneralInput, closingStructuresFailureMechanism.Contribution,
+                TestDelegate call = () => service.Calculate(calculation,
+                                                            assessmentSectionStub,
+                                                            closingStructuresFailureMechanism,
                                                             testDataPath);
 
                 StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
@@ -217,9 +217,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Call
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     assessmentSectionStub,
-                                                                    failureMechanismSection,
-                                                                    closingStructuresFailureMechanism.GeneralInput,
-                                                                    closingStructuresFailureMechanism.Contribution,
+                                                                    closingStructuresFailureMechanism,
                                                                     validDataFilepath);
 
                 // Assert
@@ -312,9 +310,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Call
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     assessmentSectionStub,
-                                                                    failureMechanismSection,
-                                                                    closingStructuresFailureMechanism.GeneralInput,
-                                                                    closingStructuresFailureMechanism.Contribution,
+                                                                    closingStructuresFailureMechanism,
                                                                     validDataFilepath);
 
                 // Assert
@@ -406,9 +402,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Call
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     assessmentSectionStub,
-                                                                    failureMechanismSection,
-                                                                    closingStructuresFailureMechanism.GeneralInput,
-                                                                    closingStructuresFailureMechanism.Contribution,
+                                                                    closingStructuresFailureMechanism,
                                                                     validDataFilepath);
 
                 // Assert
@@ -477,14 +471,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 }
             };
 
-            var failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
-
             // Call
             Action call = () => new ClosingStructuresCalculationService().Calculate(calculation,
                                                                                     assessmentSectionStub,
-                                                                                    failureMechanismSection,
-                                                                                    closingStructuresFailureMechanism.GeneralInput,
-                                                                                    closingStructuresFailureMechanism.Contribution,
+                                                                                    closingStructuresFailureMechanism,
                                                                                     validDataFilepath);
 
             // Assert
@@ -528,7 +518,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 }
             };
 
-            FailureMechanismSection failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
             var exception = false;
 
             // Call
@@ -538,10 +527,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 {
                     new ClosingStructuresCalculationService().Calculate(calculation,
                                                                         assessmentSectionStub,
-                                                                        failureMechanismSection,
-                                                                        closingStructuresFailureMechanism.GeneralInput,
-                                                                        closingStructuresFailureMechanism.Contribution,
-                                                                        validDataFilepath);
+                                                                        closingStructuresFailureMechanism,
+                                                                        testDataPath);
                 }
                 catch
                 {
@@ -580,8 +567,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
-            FailureMechanismSection failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
-
+  
             var calculation = new TestClosingStructuresCalculation()
             {
                 InputParameters =
@@ -599,10 +585,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 // Call
                 service.Calculate(calculation,
                                   assessmentSectionStub,
-                                  failureMechanismSection,
-                                  closingStructuresFailureMechanism.GeneralInput,
-                                  closingStructuresFailureMechanism.Contribution,
-                                  validDataFilepath);
+                                  closingStructuresFailureMechanism,
+                                  testDataPath);
 
                 // Assert
                 Assert.IsNull(calculation.Output);

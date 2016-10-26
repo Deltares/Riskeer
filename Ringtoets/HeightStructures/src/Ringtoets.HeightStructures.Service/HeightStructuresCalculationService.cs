@@ -30,6 +30,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service.Properties;
+using Ringtoets.HeightStructures.Utils;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -90,20 +91,20 @@ namespace Ringtoets.HeightStructures.Service
         /// </summary>
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> that holds all the information required to perform the calculation.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
-        /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
-        /// <param name="generalInput">The <see cref="GeneralHeightStructuresInput"/> to create the input with for the calculation.</param>
-        /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
+        /// <param name="failureMechanism"> The <see cref="HeightStructuresFailureMechanism"/> that holds the information about the contribution 
+        /// and the general inputs used in the calculation.</param>
         /// <param name="hlcdFilePath">The filepath of the HLCD file that should be used for performing the calculation.</param>
         internal void Calculate(StructuresCalculation<HeightStructuresInput> calculation,
                                 IAssessmentSection assessmentSection,
-                                FailureMechanismSection failureMechanismSection,
-                                GeneralHeightStructuresInput generalInput,
-                                double failureMechanismContribution,
+                                HeightStructuresFailureMechanism failureMechanism,
                                 string hlcdFilePath)
         {
             var calculationName = calculation.Name;
 
-            StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanismSection, generalInput);
+            FailureMechanismSection failureMechanismSection = HeightStructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections,
+                                                                                                                           calculation);
+
+            StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanismSection, failureMechanism.GeneralInput);
 
             string hlcdDirectory = Path.GetDirectoryName(hlcdFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresOvertoppingCalculator(hlcdDirectory, assessmentSection.Id);
@@ -117,8 +118,8 @@ namespace Ringtoets.HeightStructures.Service
                 if (!canceled)
                 {
                     calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
-                                                                                failureMechanismContribution,
-                                                                                generalInput.N,
+                                                                                failureMechanism.Contribution,
+                                                                                failureMechanism.GeneralInput.N,
                                                                                 calculator.ExceedanceProbabilityBeta);
                 }
             }
@@ -194,35 +195,35 @@ namespace Ringtoets.HeightStructures.Service
             else
             {
                 validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.StormDuration,
-                                                                                      GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)));
+                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)));
 
                 if (IsInvalidNumber(inputParameters.DeviationWaveDirection))
                 {
                     validationResults.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
-                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_DeviationWaveDirection_DisplayName)));
+                                                        GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_DeviationWaveDirection_DisplayName)));
                 }
 
                 validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.ModelFactorSuperCriticalFlow,
-                                                                                      GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)));
+                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)));
 
                 if (IsInvalidNumber(inputParameters.StructureNormalOrientation))
                 {
                     validationResults.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
-                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Orientation_DisplayName)));
+                                                        GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Orientation_DisplayName)));
                 }
 
                 validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.FlowWidthAtBottomProtection,
-                                                                                      GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)));
+                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)));
                 validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.WidthFlowApertures,
-                                                                                      GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)));
+                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)));
                 validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.StorageStructureArea,
-                                                                                      GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName)));
+                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName)));
                 validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.AllowedLevelIncreaseStorage,
-                                                                                      GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)));
+                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)));
                 validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.LevelCrestStructure,
-                                                                                      GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_DisplayName)));
+                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_DisplayName)));
                 validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.CriticalOvertoppingDischarge,
-                                                                                      GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName)));
+                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName)));
             }
 
             return validationResults.ToArray();

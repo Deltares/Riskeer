@@ -504,20 +504,17 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    Structure = new TestHeightStructure()
                 }
             };
-
-            var failureMechanismSection = heightStructuresFailureMechanism.Sections.First();
 
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             // Call
             Action call = () => new HeightStructuresCalculationService().Calculate(calculation,
                                                                                    assessmentSectionStub,
-                                                                                   failureMechanismSection,
-                                                                                   heightStructuresFailureMechanism.GeneralInput,
-                                                                                   heightStructuresFailureMechanism.Contribution,
+                                                                                   heightStructuresFailureMechanism,
                                                                                    validFilePath);
 
             // Assert
@@ -554,11 +551,11 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1),
+                    Structure = new TestHeightStructure()
                 }
             };
 
-            var failureMechanismSection = heightStructuresFailureMechanism.Sections.First();
             var exception = false;
 
             // Call
@@ -568,9 +565,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 {
                     new HeightStructuresCalculationService().Calculate(calculation,
                                                                        assessmentSectionStub,
-                                                                       failureMechanismSection,
-                                                                       heightStructuresFailureMechanism.GeneralInput,
-                                                                       heightStructuresFailureMechanism.Contribution,
+                                                                       heightStructuresFailureMechanism,
                                                                        testDataPath);
                 }
                 catch
@@ -619,7 +614,8 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    Structure = new TestHeightStructure()
                 }
             };
 
@@ -644,9 +640,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 // Call
                 new HeightStructuresCalculationService().Calculate(calculation,
                                                                    assessmentSectionStub,
-                                                                   failureMechanismSection,
-                                                                   heightStructuresFailureMechanism.GeneralInput,
-                                                                   heightStructuresFailureMechanism.Contribution,
+                                                                   heightStructuresFailureMechanism,
                                                                    validFilePath);
 
                 // Assert
@@ -705,11 +699,10 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001), 
+                    Structure = new TestHeightStructure()
                 }
             };
-
-            FailureMechanismSection failureMechanismSection = heightStructuresFailureMechanism.Sections.First();
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -720,9 +713,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 // Call
                 service.Calculate(calculation,
                                   assessmentSectionStub,
-                                  failureMechanismSection,
-                                  heightStructuresFailureMechanism.GeneralInput,
-                                  heightStructuresFailureMechanism.Contribution,
+                                  heightStructuresFailureMechanism,
                                   testDataPath);
 
                 // Assert

@@ -22,9 +22,7 @@
 using System;
 using Core.Common.Base.Service;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.ClosingStructures.Utils;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Calculation.Activities;
 
@@ -44,7 +42,7 @@ namespace Ringtoets.ClosingStructures.Service
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationActivity"/>.
         /// </summary>
-        /// <param name="calculation">The height structures data used for the calculation.</param>
+        /// <param name="calculation">The closing structures data used for the calculation.</param>
         /// <param name="hlcdFilepath">The filepath of the HLCD file that should be used for performing the calculation.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
@@ -90,14 +88,9 @@ namespace Ringtoets.ClosingStructures.Service
         {
             ClosingStructuresDataSynchronizationService.ClearCalculationOutput(calculation);
 
-            FailureMechanismSection failureMechanismSection =
-                ClosingStructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections, calculation); 
-
             calculationService.Calculate(calculation,
                                          assessmentSection,
-                                         failureMechanismSection,
-                                         failureMechanism.GeneralInput,
-                                         failureMechanism.Contribution,
+                                         failureMechanism,
                                          hlcdFilepath);
         }
 

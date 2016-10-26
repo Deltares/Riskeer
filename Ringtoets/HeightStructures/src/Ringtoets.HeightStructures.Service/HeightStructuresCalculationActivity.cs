@@ -22,10 +22,8 @@
 using System;
 using Core.Common.Base.Service;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Utils;
 using Ringtoets.HydraRing.Calculation.Activities;
 
 namespace Ringtoets.HeightStructures.Service
@@ -88,14 +86,9 @@ namespace Ringtoets.HeightStructures.Service
         {
             HeightStructuresDataSynchronizationService.ClearCalculationOutput(calculation);
 
-            FailureMechanismSection failureMechanismSection =
-                HeightStructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections, calculation);
-
             calculationService.Calculate(calculation,
                                          assessmentSection,
-                                         failureMechanismSection,
-                                         failureMechanism.GeneralInput,
-                                         failureMechanism.Contribution,
+                                         failureMechanism,
                                          hlcdFilepath);
         }
 

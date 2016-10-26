@@ -26,6 +26,7 @@ using System.Linq;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Service.Properties;
+using Ringtoets.ClosingStructures.Utils;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
@@ -57,36 +58,24 @@ namespace Ringtoets.ClosingStructures.Service
         /// </summary>
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> that holds all the information required to perform the calculation.</param>
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
-        /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
-        /// <param name="generalInput">The <see cref="GeneralClosingStructuresInput"/> to create the input with for the calculation.</param>
-        /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
+        /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/> that holds the information about the contribution 
+        /// and the general inputs used in the calculation.</param>
         /// <param name="hlcdFilePath">The filepath of the HLCD file that should be used for performing the calculation.</param>
         /// <exception cref="NotSupportedException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/> is an invalid
-        /// <see cref="ClosingStructureInflowModelType"/></exception>
+        /// <see cref="ClosingStructureInflowModelType"/>.</exception>
         public void Calculate(StructuresCalculation<ClosingStructuresInput> calculation,
                               IAssessmentSection assessmentSection,
-                              FailureMechanismSection failureMechanismSection,
-                              GeneralClosingStructuresInput generalInput,
-                              double failureMechanismContribution,
+                              ClosingStructuresFailureMechanism failureMechanism,
                               string hlcdFilePath)
         {
             var calculationName = calculation.Name;
 
-            StructuresClosureCalculationInput input;
-            switch (calculation.InputParameters.InflowModelType)
-            {
-                case ClosingStructureInflowModelType.VerticalWall:
-                    input = CreateClosureVerticalWallCalculationInput(calculation, failureMechanismSection, generalInput);
-                    break;
-                case ClosingStructureInflowModelType.LowSill:
-                    input = CreateLowSillCalculationInput(calculation, failureMechanismSection, generalInput);
-                    break;
-                case ClosingStructureInflowModelType.FloodedCulvert:
-                    input = CreateFloodedCulvertCalculationInput(calculation, failureMechanismSection, generalInput);
-                    break;
-                default:
-                    throw new NotSupportedException("ClosingStructureInflowModelType");
-            }
+            FailureMechanismSection failureMechanismSection = ClosingStructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections,
+                                                                                                                            calculation);
+
+            StructuresClosureCalculationInput input = CreateStructuresClosureCalculationInput(calculation,
+                                                                                              failureMechanism,
+                                                                                              failureMechanismSection);
 
             string hlcdDirectory = Path.GetDirectoryName(hlcdFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresClosureCalculator(hlcdDirectory, assessmentSection.Id);
@@ -100,8 +89,8 @@ namespace Ringtoets.ClosingStructures.Service
                 if (!canceled)
                 {
                     calculation.Output = ProbabilityAssessmentService.Calculate(assessmentSection.FailureMechanismContribution.Norm,
-                                                                                failureMechanismContribution,
-                                                                                generalInput.N,
+                                                                                failureMechanism.Contribution,
+                                                                                failureMechanism.GeneralInput.N,
                                                                                 calculator.ExceedanceProbabilityBeta);
                 }
             }
@@ -120,13 +109,35 @@ namespace Ringtoets.ClosingStructures.Service
             }
         }
 
+        private static StructuresClosureCalculationInput CreateStructuresClosureCalculationInput(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresFailureMechanism failureMechanism, FailureMechanismSection failureMechanismSection)
+        {
+            StructuresClosureCalculationInput input;
+            switch (calculation.InputParameters.InflowModelType)
+            {
+                case ClosingStructureInflowModelType.VerticalWall:
+                    input = CreateClosureVerticalWallCalculationInput(calculation, failureMechanismSection, failureMechanism.GeneralInput);
+                    break;
+                case ClosingStructureInflowModelType.LowSill:
+                    input = CreateLowSillCalculationInput(calculation, failureMechanismSection, failureMechanism.GeneralInput);
+                    break;
+                case ClosingStructureInflowModelType.FloodedCulvert:
+                    input = CreateFloodedCulvertCalculationInput(calculation, failureMechanismSection, failureMechanism.GeneralInput);
+                    break;
+                default:
+                    throw new NotSupportedException("ClosingStructureInflowModelType");
+            }
+            return input;
+        }
+
         /// <summary>
         /// Cancels any ongoing structures closure calculation.
         /// </summary>
         public void Cancel()
         {
             if (calculator != null)
+            {
                 calculator.Cancel();
+            }
 
             canceled = true;
         }
@@ -255,7 +266,7 @@ namespace Ringtoets.ClosingStructures.Service
             {
                 validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
-			//TODO: Validate all the input parameters here, see WTI-926
+            //TODO: Validate all the input parameters here, see WTI-926
             return validationResult.ToArray();
         }
     }
