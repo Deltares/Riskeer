@@ -40,7 +40,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         public void Constructor_WithSectionResult_ExpectedValues()
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
 
             // Call
@@ -54,7 +54,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         public void Constructor_WithSectionResult_PropertiesFromSectionAndResult()
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
 
             // Call
@@ -74,7 +74,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
         {
             // Setup
             var newValue = AssessmentLayerTwoAResult.Successful;
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
             var row = new StabilityStoneCoverSectionResultRow(result);
 
@@ -91,7 +91,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
             // Setup
             var random = new Random(21);
             var newValue = random.NextDouble();
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new StabilityStoneCoverFailureMechanismSectionResult(section);
             var row = new StabilityStoneCoverSectionResultRow(result);
 

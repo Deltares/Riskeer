@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
@@ -54,6 +55,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
 
             // Assert
             Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
+            Assert.IsFalse(result.AssessmentLayerOne);
+            Assert.AreEqual(RoundedDouble.NaN, result.AssessmentLayerThree);
             Assert.AreSame(section, result.Section);
         }
     }

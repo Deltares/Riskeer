@@ -40,7 +40,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void Constructor_WithSectionResult_ExpectedValues()
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section);
 
             // Call
@@ -54,7 +54,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void Constructor_WithSectionResult_PropertiesFromSectionAndResult()
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section);
 
             // Call
@@ -74,7 +74,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Setup
             var random = new Random(21);
             var newValue = random.NextDouble();
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(section);
             var row = new StrengthStabilityLengthwiseConstructionSectionResultRow(result);
 

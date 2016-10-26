@@ -42,7 +42,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void Constructor_WithSectionResult_ExpectedValues()
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
 
             // Call
@@ -56,7 +56,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void Constructor_WithSectionResult_PropertiesFromSectionAndResult()
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
 
             // Call
@@ -82,7 +82,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void AssessmentLayerTwoA_ForValidValues_ResultPropertyChanged(double value)
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
             var row = new MacrostabilityOutwardsSectionResultRow(result);
 
@@ -101,7 +101,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
         public void AssessmentLayerTwoA_ForInvalidValues_ThrowsArgumentException(double value)
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
             var row = new MacrostabilityOutwardsSectionResultRow(result);
 
@@ -120,7 +120,7 @@ namespace Ringtoets.Integration.Forms.Test.Views.SectionResultRows
             // Setup
             var random = new Random(21);
             var newValue = random.NextDouble();
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
             var result = new MacrostabilityOutwardsFailureMechanismSectionResult(section);
             var row = new MacrostabilityOutwardsSectionResultRow(result);
 

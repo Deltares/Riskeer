@@ -343,8 +343,8 @@
     <Compile Include="Read\Piping\StochasticSoilProfileEntityReadExtensions.cs" />
     <Compile Include="Read\Piping\SurfaceLineEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\StabilityStoneCoverSectionResultEntityReadExtensions.cs" />
-    <Compile Include="Read\DuneErosionSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\DuneErosion\DuneErosionSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverSlipOffInwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverSlipOffOutwardsSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensions.cs" />

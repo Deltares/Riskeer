@@ -195,7 +195,7 @@
     <Compile Include="Read\Piping\SurfaceLineEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructuresSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverSectionResultEntityReadExtensionsTest.cs" />
-    <Compile Include="Read\DuneErosionSectionResultEntityReadExtensionsTest.cs" />
+    <Compile Include="Read\DuneErosion\DuneErosionSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverSlipOffInwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\GrassCoverSlipOffOutwardsSectionResultEntityReadExtensionsTest.cs" />
     <Compile Include="Read\MicrostabilitySectionResultEntityReadExtensionsTest.cs" />

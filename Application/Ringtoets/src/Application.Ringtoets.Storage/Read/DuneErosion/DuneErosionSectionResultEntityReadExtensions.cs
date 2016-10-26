@@ -25,7 +25,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Application.Ringtoets.Storage.Read
+namespace Application.Ringtoets.Storage.Read.DuneErosion
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="DuneErosionFailureMechanismSectionResult"/> based on the

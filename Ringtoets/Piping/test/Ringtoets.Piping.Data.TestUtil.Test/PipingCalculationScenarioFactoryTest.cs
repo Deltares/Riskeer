@@ -48,7 +48,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void CreatePipingCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSet(double probability)
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
 
             // Call
             var scenario = PipingCalculationScenarioFactory.CreatePipingCalculationScenario(probability, section);
@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void CreateFailedPipingCalculationScenario_WithSection_CreatesRelevantCalculationWithOutputSetToNaN()
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
 
             // Call
             var scenario = PipingCalculationScenarioFactory.CreateFailedPipingCalculationScenario(section);
@@ -102,7 +102,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void CreateIrreleveantPipingCalculationScenario_WithSection_CreatesIrrelevantCalculation()
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
 
             // Call
             var scenario = PipingCalculationScenarioFactory.CreateIrreleveantPipingCalculationScenario(section);
@@ -126,7 +126,7 @@ namespace Ringtoets.Piping.Data.TestUtil.Test
         public void CreateNotCalculatedPipingCalculationScenario_WithSection_CreatesRelevantCalculationWithoutOutput()
         {
             // Setup
-            var section = CreateSection();
+            FailureMechanismSection section = CreateSection();
 
             // Call
             var scenario = PipingCalculationScenarioFactory.CreateNotCalculatedPipingCalculationScenario(section);
