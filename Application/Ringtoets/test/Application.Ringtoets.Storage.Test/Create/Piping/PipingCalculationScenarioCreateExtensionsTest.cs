@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
@@ -73,29 +74,29 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                     EntryPointL = (RoundedDouble) entryPoint,
                     PhreaticLevelExit =
                     {
-                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, -9999.9999, 9999.9999),
-                        StandardDeviation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, -9999.9999, 9999.9999),
+                        StandardDeviation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     },
                     DampingFactorExit =
                     {
-                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                        StandardDeviation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     },
                     SaturatedVolumicWeightOfCoverageLayer =
                     {
-                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, 10.0, 9999.9999),
-                        StandardDeviation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        Shift = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 10.0)
+                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 10.0, 9999.9999),
+                        StandardDeviation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                        Shift = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 10.0)
                     },
                     Diameter70 =
                     {
-                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                        StandardDeviation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     },
                     DarcyPermeability =
                     {
-                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                        StandardDeviation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     }
                 }
             };
@@ -262,7 +263,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             PipingCalculationEntity entity = calculation.Create(registry, 0);
 
             // Assert
-            Assert.AreEqual(1, entity.PipingCalculationOutputEntities.Count());
+            Assert.AreEqual(1, entity.PipingCalculationOutputEntities.Count);
         }
 
         [Test]
@@ -286,12 +287,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.AreEqual(1, entity.PipingSemiProbabilisticOutputEntities.Count);
-        }
-
-        private double GetRandomDoubleFromRange(Random random, double lowerLimit, double upperLimit)
-        {
-            double difference = upperLimit - lowerLimit;
-            return lowerLimit + random.NextDouble()*difference;
         }
     }
 }

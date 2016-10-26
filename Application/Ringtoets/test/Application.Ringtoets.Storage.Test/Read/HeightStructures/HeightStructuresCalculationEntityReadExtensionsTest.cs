@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.Read.HeightStructures;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
@@ -64,21 +65,21 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
                 Comments = comments,
                 UseForeshore = Convert.ToByte(false),
                 UseBreakWater = Convert.ToByte(false),
-                StructureNormalOrientation = GetRandomDoubleFromRange(random, 0, 360),
-                ModelFactorSuperCriticalFlowMean = GetRandomDoubleFromRange(random, -9999.9999, 9999.9999),
-                AllowedLevelIncreaseStorageMean = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                AllowedLevelIncreaseStorageStandardDeviation = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                FlowWidthAtBottomProtectionMean = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                FlowWidthAtBottomProtectionStandardDeviation = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                CriticalOvertoppingDischargeMean = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                CriticalOvertoppingDischargeCoefficientOfVariation = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                StructureNormalOrientation = RandomNumberGenerator.GetRandomDoubleFromRange(random, 0, 360),
+                ModelFactorSuperCriticalFlowMean = RandomNumberGenerator.GetRandomDoubleFromRange(random, -9999.9999, 9999.9999),
+                AllowedLevelIncreaseStorageMean = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                AllowedLevelIncreaseStorageStandardDeviation = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                FlowWidthAtBottomProtectionMean = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                FlowWidthAtBottomProtectionStandardDeviation = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                CriticalOvertoppingDischargeMean = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                CriticalOvertoppingDischargeCoefficientOfVariation = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
                 FailureProbabilityStructureWithErosion = random.NextDouble(),
-                WidthFlowAperturesMean = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                WidthFlowAperturesCoefficientOfVariation = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                StormDurationMean = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                LevelCrestStructureMean = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                LevelCrestStructureStandardDeviation = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                DeviationWaveDirection = GetRandomDoubleFromRange(random, -360, 360)
+                WidthFlowAperturesMean = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                WidthFlowAperturesCoefficientOfVariation = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                StormDurationMean = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                LevelCrestStructureMean = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                LevelCrestStructureStandardDeviation = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                DeviationWaveDirection = RandomNumberGenerator.GetRandomDoubleFromRange(random, -360, 360)
             };
 
             var collector = new ReadConversionCollector();
@@ -109,7 +110,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             AssertRoundedDouble(entity.LevelCrestStructureMean, input.LevelCrestStructure.Mean);
             AssertRoundedDouble(entity.LevelCrestStructureStandardDeviation, input.LevelCrestStructure.StandardDeviation);
             AssertRoundedDouble(entity.DeviationWaveDirection, input.DeviationWaveDirection);
-            
+
             Assert.IsEmpty(input.ForeshoreGeometry);
             Assert.IsNull(input.ForeshoreProfile);
             Assert.IsNull(input.HydraulicBoundaryLocation);
@@ -165,12 +166,6 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
         private static void AssertRoundedDouble(double? entityValue, RoundedDouble roundedDouble)
         {
             Assert.AreEqual((RoundedDouble) entityValue.ToNullAsNaN(), roundedDouble, roundedDouble.GetAccuracy());
-        }
-
-        private static double GetRandomDoubleFromRange(Random random, double lowerLimit, double upperLimit)
-        {
-            double difference = upperLimit - lowerLimit;
-            return lowerLimit + random.NextDouble()*difference;
         }
     }
 }

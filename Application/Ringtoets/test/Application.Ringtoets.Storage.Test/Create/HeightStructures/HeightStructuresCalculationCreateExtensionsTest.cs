@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Create.HeightStructures;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
@@ -65,47 +66,47 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
                 Comments = comments,
                 InputParameters =
                 {
-                    StructureNormalOrientation = (RoundedDouble) GetRandomDoubleFromRange(random, 0, 360),
+                    StructureNormalOrientation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 0, 360),
                     ModelFactorSuperCriticalFlow =
                     {
-                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, -9999.9999, 9999.9999)
+                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, -9999.9999, 9999.9999)
                     },
                     AllowedLevelIncreaseStorage =
                     {
-                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                        StandardDeviation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     },
                     StorageStructureArea =
                     {
-                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        CoefficientOfVariation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                        CoefficientOfVariation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     },
                     FlowWidthAtBottomProtection =
                     {
-                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                        StandardDeviation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     },
                     CriticalOvertoppingDischarge =
                     {
-                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        CoefficientOfVariation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                        CoefficientOfVariation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     },
                     FailureProbabilityStructureWithErosion = random.NextDouble(),
                     WidthFlowApertures =
                     {
-                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, -9999.9999, 9999.9999),
-                        CoefficientOfVariation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, -9999.9999, 9999.9999),
+                        CoefficientOfVariation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     },
                     StormDuration =
                     {
-                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        CoefficientOfVariation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                        CoefficientOfVariation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     },
                     DeviationWaveDirection = (RoundedDouble) random.NextDouble(),
                     LevelCrestStructure =
                     {
-                        Mean = (RoundedDouble) GetRandomDoubleFromRange(random, -9999.9999, 9999.9999),
-                        StandardDeviation = (RoundedDouble) GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, -9999.9999, 9999.9999),
+                        StandardDeviation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
                     },
                     UseBreakWater = true,
                     UseForeshore = false,
@@ -337,12 +338,6 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
 
             // Assert
             Assert.AreSame(foreshoreProfileEntity, entity.ForeshoreProfileEntity);
-        }
-
-        private static double GetRandomDoubleFromRange(Random random, double lowerLimit, double upperLimit)
-        {
-            double difference = upperLimit - lowerLimit;
-            return lowerLimit + random.NextDouble()*difference;
         }
     }
 }
