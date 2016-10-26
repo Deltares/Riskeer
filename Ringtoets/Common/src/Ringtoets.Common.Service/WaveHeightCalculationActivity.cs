@@ -92,6 +92,8 @@ namespace Ringtoets.Common.Service
             }
             else
             {
+                RingtoetsCommonDataSynchronizationService.ClearWaveHeight(hydraulicBoundaryLocation);
+
                 calculationService.Calculate(
                     hydraulicBoundaryLocation,
                     hydraulicBoundaryDatabaseFilePath,

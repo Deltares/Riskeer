@@ -88,6 +88,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
         protected override void PerformCalculation()
         {
             calculationService.OnProgress = UpdateProgressText;
+
+            WaveImpactAsphaltCoverDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
             calculationService.Calculate(
                 calculation, assessmentSection, failureMechanism.GeneralInput, hlcdFilePath);
         }

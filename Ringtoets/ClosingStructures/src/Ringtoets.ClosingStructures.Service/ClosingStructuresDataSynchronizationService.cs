@@ -122,7 +122,7 @@ namespace Ringtoets.ClosingStructures.Service
                 throw new ArgumentNullException("failureMechanism");
             }
 
-            Collection<StructuresCalculation<ClosingStructuresInput>> affectedItems = new Collection<StructuresCalculation<ClosingStructuresInput>>();
+            var affectedItems = new Collection<StructuresCalculation<ClosingStructuresInput>>();
 
             foreach (var calculation in failureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>())
             {

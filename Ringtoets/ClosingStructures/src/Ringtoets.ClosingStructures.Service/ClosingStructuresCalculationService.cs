@@ -52,7 +52,7 @@ namespace Ringtoets.ClosingStructures.Service
         private bool canceled;
 
         /// <summary>
-        /// Performs a height structures calculation based on the supplied <see cref="StructuresCalculation{T}"/> and sets 
+        /// Performs a closing structures calculation based on the supplied <see cref="StructuresCalculation{T}"/> and sets 
         /// <see cref="StructuresCalculation{T}.Output"/> if the calculation was successful. Error and status information is 
         /// logged during the execution of the operation.
         /// </summary>

@@ -87,6 +87,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         protected override void PerformCalculation()
         {
             calculationService.OnProgress = UpdateProgressText;
+
+            GrassCoverErosionOutwardsDataSynchronizationService.ClearWaveConditionsCalculationOutput(calculation);
             calculationService.Calculate(
                 calculation, failureMechanism, assessmentSection, hlcdFilePath);
         }
