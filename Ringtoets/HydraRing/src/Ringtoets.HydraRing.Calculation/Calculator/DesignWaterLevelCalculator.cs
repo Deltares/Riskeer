@@ -51,6 +51,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         }
 
         public double DesignWaterLevel { get; private set; }
+
         public double ReliabilityIndex { get; private set; }
 
         public void Calculate(AssessmentLevelCalculationInput input)

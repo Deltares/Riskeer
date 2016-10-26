@@ -27,8 +27,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// Interface for a calculator which calculates the water level associated to the result of iterating towards a
     /// probability of failure given a norm.
     /// </summary>
-    public interface IDesignWaterLevelCalculator {
-
+    public interface IDesignWaterLevelCalculator
+    {
         /// <summary>
         /// Gets the water level at a location.
         /// </summary>
@@ -38,7 +38,12 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Gets the reliability index
         /// </summary>
         double ReliabilityIndex { get; }
-        
+
+        /// <summary>
+        /// Gets the content of the output file generated during the Hydra-Ring calculation.
+        /// </summary>
+        string OutputFileContent { get; }
+
         /// <summary>
         /// Performs the actual calculation by running the Hydra-Ring executable.
         /// </summary>

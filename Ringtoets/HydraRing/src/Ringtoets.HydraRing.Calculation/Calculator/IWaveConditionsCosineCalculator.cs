@@ -43,7 +43,12 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// Gets the peak period of the wave.
         /// </summary>
         double WavePeakPeriod { get; }
-        
+
+        /// <summary>
+        /// Gets the content of the output file generated during the Hydra-Ring calculation.
+        /// </summary>
+        string OutputFileContent { get; }
+
         /// <summary>
         /// Performs the actual calculation by running the Hydra-Ring executable.
         /// </summary>

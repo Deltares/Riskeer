@@ -27,7 +27,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// Interface for a calculator which calculates probability of failure by overtopping or overflow
     /// and the associated wave height.
     /// </summary>
-    public interface IOvertoppingCalculator 
+    public interface IOvertoppingCalculator
     {
         /// <summary>
         /// Gets the probability of failure.
