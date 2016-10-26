@@ -94,7 +94,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             FailureMechanismSection failureMechanismSection =
                 GrassCoverErosionInwardsHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections, calculation);
 
-            calculationService.CalculateDikeHeight(
+            calculationService.Calculate(
                 calculation,
                 assessmentSection,
                 failureMechanismSection,

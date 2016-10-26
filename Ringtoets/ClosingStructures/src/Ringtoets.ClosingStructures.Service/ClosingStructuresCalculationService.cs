@@ -40,7 +40,7 @@ using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Reso
 namespace Ringtoets.ClosingStructures.Service
 {
     /// <summary>
-    /// Service that provides methods for perfoming Hydra-ring calculations for closing structures calculations.
+    /// Service that provides methods for performing Hydra-ring calculations for closing structures calculations.
     /// </summary>
     public class ClosingStructuresCalculationService
     {

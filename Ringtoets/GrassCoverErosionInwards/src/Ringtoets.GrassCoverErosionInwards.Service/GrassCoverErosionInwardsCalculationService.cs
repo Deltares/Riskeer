@@ -89,7 +89,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         }
 
         /// <summary>
-        /// Performs a grass cover erosion inwards dike height calculation based on the supplied <see cref="GrassCoverErosionInwardsCalculation"/> 
+        /// Performs a grass cover erosion inwards calculation based on the supplied <see cref="GrassCoverErosionInwardsCalculation"/> 
         /// and sets <see cref="GrassCoverErosionInwardsCalculation.Output"/> if the calculation was successful. 
         /// Error and status information is logged during the execution of the operation.
         /// </summary>
@@ -99,18 +99,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
         /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
         /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
-        internal void CalculateDikeHeight(GrassCoverErosionInwardsCalculation calculation,
-                                          IAssessmentSection assessmentSection,
-                                          FailureMechanismSection failureMechanismSection,
-                                          GeneralGrassCoverErosionInwardsInput generalInput,
-                                          double failureMechanismContribution,
-                                          string hlcdDirectory)
+        internal void Calculate(GrassCoverErosionInwardsCalculation calculation,
+                                IAssessmentSection assessmentSection,
+                                FailureMechanismSection failureMechanismSection,
+                                GeneralGrassCoverErosionInwardsInput generalInput,
+                                double failureMechanismContribution,
+                                string hlcdDirectory)
         {
             var calculateDikeHeight = calculation.InputParameters.CalculateDikeHeight;
             var totalSteps = calculateDikeHeight ? 2 : 1;
             var calculationName = calculation.Name;
 
-            NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_Executing_overtopping_calculation, 1, totalSteps);
+            NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_overtopping_calculation, 1, totalSteps);
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
@@ -124,7 +124,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
                 if (calculateDikeHeight)
                 {
-                    NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_Executing_dikeheight_calculation, 2, totalSteps);
+                    NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_dikeheight_calculation, 2, totalSteps);
 
                     dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory, assessmentSection.Id);
                     var dikeHeightCalculationInput = CreateDikeHeightInput(calculation, assessmentSection, failureMechanismSection, generalInput);
