@@ -42,8 +42,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int modelFactorSubCriticalFlowPropertyIndex = 5;
         private const int modelFactorCollisionLoadPropertyIndex = 6;
         private const int modelFactorLoadEffectPropertyIndex = 7;
-        private const int waveRatioMaxHNPropertyIndex = 8;
-        private const int waveRatioMaxHStandardDeviationPropertyIndex = 9;
 
         [Test]
         public void Constructor_ExpectedValues()
@@ -81,8 +79,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(generalInput.ModelFactorCollisionLoad.CoefficientOfVariation, properties.ModelFactorCollisionLoad.CoefficientOfVariation);
             Assert.AreEqual(generalInput.ModelFactorLoadEffect.Mean, properties.ModelFactorLoadEffect.Mean);
             Assert.AreEqual(generalInput.ModelFactorLoadEffect.StandardDeviation, properties.ModelFactorLoadEffect.StandardDeviation);
-            Assert.AreEqual(generalInput.WaveRatioMaxHN, properties.WaveRatioMaxHN);
-            Assert.AreEqual(generalInput.WaveRatioMaxHStandardDeviation, properties.WaveRatioMaxHStandardDeviation);
         }
 
         [Test]
@@ -126,10 +122,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var generalCategory = "Algemeen";
             var lengthEffectCategory = "Lengte-effect parameters";
             var modelSettingsCategory = "Modelinstellingen";
-            var hydraulicDataCategory = "Hydraulische gegevens";
 
             PropertyDescriptorCollection dynamicProperties = PropertiesTestHelper.GetAllVisiblePropertyDescriptors(properties);
-            Assert.AreEqual(10, dynamicProperties.Count);
+            Assert.AreEqual(8, dynamicProperties.Count);
 
             PropertyDescriptor nameProperty = dynamicProperties[namePropertyIndex];
             PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(nameProperty,
@@ -188,20 +183,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                                                                             modelSettingsCategory,
                                                                             "Modelfactor belastingeffect [-]",
                                                                             "Modelfactor belastingeffect.",
-                                                                            true);
-
-            PropertyDescriptor waveRatioMaxHNProperty = dynamicProperties[waveRatioMaxHNPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveRatioMaxHNProperty,
-                                                                            hydraulicDataCategory,
-                                                                            "Rayleigh-N N parameter [-]",
-                                                                            "N parameter van de Rayleigh-N verdeling voor het quotiënt van Hmax en Hs voor N golven.",
-                                                                            true);
-
-            PropertyDescriptor waveRatioMaxHStandardDeviationProperty = dynamicProperties[waveRatioMaxHStandardDeviationPropertyIndex];
-            PropertiesTestHelper.AssertRequiredPropertyDescriptorProperties(waveRatioMaxHStandardDeviationProperty,
-                                                                            hydraulicDataCategory,
-                                                                            "Rayleigh-N schaal parameter [-]",
-                                                                            "Schaal parameter van de Rayleigh-N verdeling voor het quotiënt van Hmax en Hs voor N golven.",
                                                                             true);
         }
     }

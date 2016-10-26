@@ -140,44 +140,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to N parameter van de Rayleigh-N verdeling voor het quotiënt van Hmax en Hs voor N golven..
-        /// </summary>
-        internal static string StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHN_Description {
-            get {
-                return ResourceManager.GetString("StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHN_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rayleigh-N N parameter [-].
-        /// </summary>
-        internal static string StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHN_DisplayName {
-            get {
-                return ResourceManager.GetString("StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHN_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Schaal parameter van de Rayleigh-N verdeling voor het quotiënt van Hmax en Hs voor N golven..
-        /// </summary>
-        internal static string StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHStandardDeviation_Description {
-            get {
-                return ResourceManager.GetString("StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHStandardDeviati" +
-                        "on_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rayleigh-N schaal parameter [-].
-        /// </summary>
-        internal static string StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHStandardDeviation_DisplayName {
-            get {
-                return ResourceManager.GetString("StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHStandardDeviati" +
-                        "on_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Bermbreedte..
         /// </summary>
         internal static string Structure_BankWidth_Description {

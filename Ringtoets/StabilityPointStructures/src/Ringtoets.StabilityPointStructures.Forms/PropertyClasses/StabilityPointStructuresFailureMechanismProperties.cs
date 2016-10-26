@@ -175,33 +175,5 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         }
 
         #endregion
-
-        #region Hydraulic data
-
-        [PropertyOrder(waveRatioMaxHNPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHN_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHN_Description")]
-        public RoundedDouble WaveRatioMaxHN
-        {
-            get
-            {
-                return data.GeneralInput.WaveRatioMaxHN;
-            }
-        }
-
-        [PropertyOrder(waveRatioMaxHStandardDeviationPropertyIndex)]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHStandardDeviation_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityPointStructuresInputFailureMechanismContext_WaveRatioMaxHStandardDeviation_Description")]
-        public RoundedDouble WaveRatioMaxHStandardDeviation
-        {
-            get
-            {
-                return data.GeneralInput.WaveRatioMaxHStandardDeviation;
-            }
-        }
-
-        #endregion
     }
 }
