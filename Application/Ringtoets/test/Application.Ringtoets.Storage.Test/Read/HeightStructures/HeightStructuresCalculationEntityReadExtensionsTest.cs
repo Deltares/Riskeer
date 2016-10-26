@@ -74,7 +74,11 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
                 CriticalOvertoppingDischargeCoefficientOfVariation = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
                 FailureProbabilityStructureWithErosion = random.NextDouble(),
                 WidthFlowAperturesMean = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                WidthFlowAperturesCoefficientOfVariation = GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                WidthFlowAperturesCoefficientOfVariation = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                StormDurationMean = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                LevelCrestStructureMean = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                LevelCrestStructureStandardDeviation = GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
+                DeviationWaveDirection = GetRandomDoubleFromRange(random, -360, 360)
             };
 
             var collector = new ReadConversionCollector();
@@ -101,7 +105,11 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             Assert.AreEqual(entity.FailureProbabilityStructureWithErosion, input.FailureProbabilityStructureWithErosion);
             AssertRoundedDouble(entity.WidthFlowAperturesMean, input.WidthFlowApertures.Mean);
             AssertRoundedDouble(entity.WidthFlowAperturesCoefficientOfVariation, input.WidthFlowApertures.CoefficientOfVariation);
-
+            AssertRoundedDouble(entity.StormDurationMean, input.StormDuration.Mean);
+            AssertRoundedDouble(entity.LevelCrestStructureMean, input.LevelCrestStructure.Mean);
+            AssertRoundedDouble(entity.LevelCrestStructureStandardDeviation, input.LevelCrestStructure.StandardDeviation);
+            AssertRoundedDouble(entity.DeviationWaveDirection, input.DeviationWaveDirection);
+            
             Assert.IsEmpty(input.ForeshoreGeometry);
             Assert.IsNull(input.ForeshoreProfile);
             Assert.IsNull(input.HydraulicBoundaryLocation);

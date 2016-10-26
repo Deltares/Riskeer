@@ -82,6 +82,10 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
             inputParameters.FailureProbabilityStructureWithErosion = entity.FailureProbabilityStructureWithErosion;
             inputParameters.WidthFlowApertures.Mean = (RoundedDouble) entity.WidthFlowAperturesMean.ToNullAsNaN();
             inputParameters.WidthFlowApertures.CoefficientOfVariation = (RoundedDouble) entity.WidthFlowAperturesCoefficientOfVariation.ToNullAsNaN();
+            inputParameters.StormDuration.Mean = (RoundedDouble)entity.StormDurationMean.ToNullAsNaN();
+            inputParameters.LevelCrestStructure.Mean = (RoundedDouble) entity.LevelCrestStructureMean.ToNullAsNaN();
+            inputParameters.LevelCrestStructure.StandardDeviation = (RoundedDouble)entity.LevelCrestStructureStandardDeviation.ToNullAsNaN();
+            inputParameters.DeviationWaveDirection = (RoundedDouble) entity.DeviationWaveDirection.ToNullAsNaN();
 
             inputParameters.UseBreakWater = Convert.ToBoolean(entity.UseBreakWater);
             inputParameters.UseForeshore = Convert.ToBoolean(entity.UseForeshore);
