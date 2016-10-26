@@ -82,7 +82,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
 
         protected override bool Validate()
         {
-            return calculationService.Validate(calculation, hlcdFilePath);
+            return WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, hlcdFilePath);
         }
 
         protected override void PerformCalculation()

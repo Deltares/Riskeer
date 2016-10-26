@@ -71,7 +71,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new ClosingStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -110,7 +110,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new ClosingStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>

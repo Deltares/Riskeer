@@ -56,7 +56,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            Action call = () => valid = new DesignWaterLevelCalculationService().Validate(calculationName, validFilePath, messageProvider);
+            Action call = () => valid = DesignWaterLevelCalculationService.Validate(calculationName, validFilePath, messageProvider);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -84,7 +84,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            Action call = () => valid = new DesignWaterLevelCalculationService().Validate(calculationName, notValidFilePath, messageProviderStub);
+            Action call = () => valid = DesignWaterLevelCalculationService.Validate(calculationName, notValidFilePath, messageProviderStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>

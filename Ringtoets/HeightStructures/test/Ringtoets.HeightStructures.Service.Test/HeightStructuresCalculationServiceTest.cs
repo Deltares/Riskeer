@@ -73,7 +73,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -112,7 +112,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -151,7 +151,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -195,7 +195,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -238,7 +238,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -284,7 +284,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -333,7 +333,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -381,7 +381,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -429,7 +429,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -469,7 +469,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new HeightStructuresCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>

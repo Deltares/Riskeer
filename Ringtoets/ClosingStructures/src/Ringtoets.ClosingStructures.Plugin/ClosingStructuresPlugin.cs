@@ -343,7 +343,7 @@ namespace Ringtoets.ClosingStructures.Plugin
         {
             foreach (var calculation in closingStructuresCalculations)
             {
-                new ClosingStructuresCalculationService().Validate(calculation, assessmentSection);
+                ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
             }
         }
 
@@ -501,7 +501,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             return builder.AddValidateCalculationItem(
                 context,
-                c => new ClosingStructuresCalculationService().Validate(c.WrappedData, c.AssessmentSection),
+                c => ClosingStructuresCalculationService.Validate(c.WrappedData, c.AssessmentSection),
                 ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)

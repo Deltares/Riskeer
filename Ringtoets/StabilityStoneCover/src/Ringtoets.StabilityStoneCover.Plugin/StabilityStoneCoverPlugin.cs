@@ -421,7 +421,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
         {
             foreach (StabilityStoneCoverWaveConditionsCalculation calculation in calculations)
             {
-                new StabilityStoneCoverWaveConditionsCalculationService().Validate(calculation, database.FilePath);
+                StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation, database.FilePath);
             }
         }
 

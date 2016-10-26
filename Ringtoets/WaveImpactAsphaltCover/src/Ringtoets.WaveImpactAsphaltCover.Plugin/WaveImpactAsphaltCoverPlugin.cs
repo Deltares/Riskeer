@@ -427,7 +427,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
         {
             foreach (WaveImpactAsphaltCoverWaveConditionsCalculation calculation in calculations)
             {
-                new WaveImpactAsphaltCoverWaveConditionsCalculationService().Validate(calculation, database.FilePath);
+                WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, database.FilePath);
             }
         }
 

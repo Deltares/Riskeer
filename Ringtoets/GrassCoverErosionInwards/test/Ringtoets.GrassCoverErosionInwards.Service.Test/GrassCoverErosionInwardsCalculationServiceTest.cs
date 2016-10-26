@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -110,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -153,7 +153,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -193,7 +193,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -229,7 +229,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -273,7 +273,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -311,7 +311,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -351,7 +351,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Call
             bool isValid = false;
-            Action call = () => isValid = new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSectionStub);
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>

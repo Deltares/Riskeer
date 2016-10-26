@@ -57,7 +57,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            Action call = () => valid = new WaveHeightCalculationService().Validate(calculationName, validFilePath, messageProviderStub);
+            Action call = () => valid = WaveHeightCalculationService.Validate(calculationName, validFilePath, messageProviderStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>
@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            Action call = () => valid = new WaveHeightCalculationService().Validate(calculationName, notValidFilePath, messageProviderStub);
+            Action call = () => valid = WaveHeightCalculationService.Validate(calculationName, notValidFilePath, messageProviderStub);
 
             // Assert
             TestHelper.AssertLogMessages(call, messages =>

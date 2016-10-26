@@ -78,7 +78,7 @@ namespace Ringtoets.Common.Service
 
         protected override bool Validate()
         {
-            return calculationService.Validate(
+            return WaveHeightCalculationService.Validate(
                 hydraulicBoundaryLocation.Name,
                 hydraulicBoundaryDatabaseFilePath,
                 messageProvider);

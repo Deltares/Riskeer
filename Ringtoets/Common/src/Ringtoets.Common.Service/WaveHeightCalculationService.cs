@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Service
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
         /// <param name="messageProvider">The object which is used to build log messages.</param>
         /// <returns><c>True</c>c> if there were no validation errors; <c>False</c>c> otherwise.</returns>
-        public bool Validate(string name, string hydraulicBoundaryDatabaseFilePath, ICalculationMessageProvider messageProvider)
+        public static bool Validate(string name, string hydraulicBoundaryDatabaseFilePath, ICalculationMessageProvider messageProvider)
         {
             string calculationName = messageProvider.GetCalculationName(name);
 

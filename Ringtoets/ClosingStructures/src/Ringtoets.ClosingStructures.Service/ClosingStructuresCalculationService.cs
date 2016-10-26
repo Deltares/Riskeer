@@ -128,7 +128,7 @@ namespace Ringtoets.ClosingStructures.Service
             canceled = true;
         }
 
-        public bool Validate(StructuresCalculation<ClosingStructuresInput> calculation, IAssessmentSection assessmentSection)
+        public static bool Validate(StructuresCalculation<ClosingStructuresInput> calculation, IAssessmentSection assessmentSection)
         {
             CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
             var messages = ValidateInput(calculation.InputParameters, assessmentSection);

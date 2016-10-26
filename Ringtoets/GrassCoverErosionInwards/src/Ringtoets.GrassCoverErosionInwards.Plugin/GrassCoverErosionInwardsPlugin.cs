@@ -303,7 +303,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             foreach (var calculation in grassCoverErosionInwardsCalculations)
             {
-                new GrassCoverErosionInwardsCalculationService().Validate(calculation, assessmentSection);
+                GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
             }
         }
 
@@ -587,7 +587,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             return builder.AddValidateCalculationItem(
                 context,
-                c => new GrassCoverErosionInwardsCalculationService().Validate(c.WrappedData, c.AssessmentSection),
+                c => GrassCoverErosionInwardsCalculationService.Validate(c.WrappedData, c.AssessmentSection),
                 ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)

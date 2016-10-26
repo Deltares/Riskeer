@@ -84,7 +84,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         protected override bool Validate()
         {
-            return calculationService.Validate(calculation, assessmentSection);
+            return GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSection);
         }
 
         protected override void PerformCalculation()

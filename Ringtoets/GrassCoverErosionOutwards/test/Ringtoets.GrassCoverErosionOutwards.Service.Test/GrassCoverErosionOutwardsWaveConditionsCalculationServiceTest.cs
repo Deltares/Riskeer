@@ -80,7 +80,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 // Call
                 Action call = () =>
                 {
-                    isValid = new GrassCoverErosionOutwardsWaveConditionsCalculationService().Validate(calculation, testFilePath);
+                    isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath);
                 };
 
                 // Assert
@@ -110,7 +110,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 // Call
                 Action call = () =>
                 {
-                    isValid = new GrassCoverErosionOutwardsWaveConditionsCalculationService().Validate(calculation, testFilePath);
+                    isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath);
                 };
 
                 // Assert
@@ -140,7 +140,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 // Call
                 Action call = () =>
                 {
-                    isValid = new GrassCoverErosionOutwardsWaveConditionsCalculationService().Validate(calculation, validFilePath);
+                    isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath);
                 };
 
                 // Assert
@@ -170,7 +170,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 // Call
                 Action call = () =>
                 {
-                    isValid = new GrassCoverErosionOutwardsWaveConditionsCalculationService().Validate(calculation, validFilePath);
+                    isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath);
                 };
 
                 // Assert
@@ -203,7 +203,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 // Call
                 Action call = () =>
                 {
-                    isValid = new GrassCoverErosionOutwardsWaveConditionsCalculationService().Validate(calculation, validFilePath);
+                    isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath);
                 };
 
                 // Assert
@@ -238,7 +238,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 // Call
                 Action call = () =>
                 {
-                    isValid = new GrassCoverErosionOutwardsWaveConditionsCalculationService().Validate(calculation, validFilePath);
+                    isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath);
                 };
 
                 // Assert

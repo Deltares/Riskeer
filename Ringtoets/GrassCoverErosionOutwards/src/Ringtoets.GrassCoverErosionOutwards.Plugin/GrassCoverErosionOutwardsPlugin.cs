@@ -702,7 +702,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
         {
             foreach (GrassCoverErosionOutwardsWaveConditionsCalculation calculation in calculations)
             {
-                new GrassCoverErosionOutwardsWaveConditionsCalculationService().Validate(calculation, database.FilePath);
+                GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, database.FilePath);
             }
         }
 

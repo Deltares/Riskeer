@@ -81,7 +81,7 @@ namespace Ringtoets.HeightStructures.Service
 
         protected override bool Validate()
         {
-            return calculationService.Validate(calculation, assessmentSection);
+            return HeightStructuresCalculationService.Validate(calculation, assessmentSection);
         }
 
         protected override void PerformCalculation()

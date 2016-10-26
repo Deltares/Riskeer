@@ -83,7 +83,7 @@ namespace Ringtoets.ClosingStructures.Service
 
         protected override bool Validate()
         {
-            return calculationService.Validate(calculation, assessmentSection);
+            return ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
         }
 
         protected override void PerformCalculation()

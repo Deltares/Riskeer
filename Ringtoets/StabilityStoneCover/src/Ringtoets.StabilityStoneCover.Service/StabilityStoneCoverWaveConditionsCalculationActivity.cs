@@ -80,7 +80,7 @@ namespace Ringtoets.StabilityStoneCover.Service
 
         protected override bool Validate()
         {
-            return calculationService.Validate(calculation, hlcdFilePath);
+            return StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation, hlcdFilePath);
         }
 
         protected override void PerformCalculation()

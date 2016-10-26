@@ -68,7 +68,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => { isValid = new StabilityStoneCoverWaveConditionsCalculationService().Validate(calculation, testFilePath); };
+                Action call = () => { isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation, testFilePath); };
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -95,7 +95,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => { isValid = new StabilityStoneCoverWaveConditionsCalculationService().Validate(calculation, testFilePath); };
+                Action call = () => { isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation, testFilePath); };
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -122,7 +122,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => { isValid = new StabilityStoneCoverWaveConditionsCalculationService().Validate(calculation, validFilePath); };
+                Action call = () => { isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation, validFilePath); };
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -149,7 +149,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => { isValid = new StabilityStoneCoverWaveConditionsCalculationService().Validate(calculation, validFilePath); };
+                Action call = () => { isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation, validFilePath); };
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -179,7 +179,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => { isValid = new StabilityStoneCoverWaveConditionsCalculationService().Validate(calculation, validFilePath); };
+                Action call = () => { isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation, validFilePath); };
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -211,7 +211,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => { isValid = new StabilityStoneCoverWaveConditionsCalculationService().Validate(calculation, validFilePath); };
+                Action call = () => { isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation, validFilePath); };
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
