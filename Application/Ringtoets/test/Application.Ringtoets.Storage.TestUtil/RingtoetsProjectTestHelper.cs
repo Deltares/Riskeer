@@ -33,6 +33,7 @@ using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
@@ -98,7 +99,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             HeightStructuresFailureMechanism heightStructuresFailureMechanism = assessmentSection.HeightStructures;
             AddForeshoreProfiles(heightStructuresFailureMechanism.ForeshoreProfiles);
-            ConfigureHeightStructuresFailureMechanism(heightStructuresFailureMechanism);
+            ConfigureHeightStructuresFailureMechanism(heightStructuresFailureMechanism, assessmentSection);
             AddSections(heightStructuresFailureMechanism);
             SetSectionResults(heightStructuresFailureMechanism.SectionResults);
 
@@ -290,7 +291,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = Convert.ToBoolean(random.Next(0, 2));
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }
@@ -366,11 +367,71 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         #region HeightStructures FailureMechanism
 
-        private static void ConfigureHeightStructuresFailureMechanism(HeightStructuresFailureMechanism failureMechanism)
+        private static void ConfigureHeightStructuresFailureMechanism(HeightStructuresFailureMechanism failureMechanism,
+                                                                      IAssessmentSection assessmentSection)
         {
             failureMechanism.GeneralInput.N = 5;
+
+            var hydraulicBoundaryLocations = assessmentSection.HydraulicBoundaryDatabase.Locations;
             failureMechanism.HeightStructures.Add(new TestHeightStructure());
             failureMechanism.HeightStructures.Add(new TestHeightStructure());
+
+            ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Name = "HS A",
+                Children =
+                {
+                    new StructuresCalculation<HeightStructuresInput>
+                    {
+                        InputParameters =
+                        {
+                            StructureNormalOrientation = (RoundedDouble) 1.0,
+                            ModelFactorSuperCriticalFlow =
+                            {
+                                Mean = (RoundedDouble) 1.1
+                            },
+                            AllowedLevelIncreaseStorage =
+                            {
+                                Mean = (RoundedDouble) 1.2,
+                                StandardDeviation = (RoundedDouble) 1.3
+                            },
+                            StorageStructureArea =
+                            {
+                                Mean = (RoundedDouble) 1.3,
+                                CoefficientOfVariation = (RoundedDouble) 1.4
+                            },
+                            FlowWidthAtBottomProtection =
+                            {
+                                Mean = (RoundedDouble) 1.4,
+                                StandardDeviation = (RoundedDouble) 1.5
+                            },
+                            CriticalOvertoppingDischarge =
+                            {
+                                Mean = (RoundedDouble) 1.5,
+                                CoefficientOfVariation = (RoundedDouble) 1.6
+                            },
+                            FailureProbabilityStructureWithErosion = 0.05,
+                            WidthFlowApertures =
+                            {
+                                Mean = (RoundedDouble) 1.6,
+                                CoefficientOfVariation = (RoundedDouble) 1.7
+                            },
+                            StormDuration =
+                            {
+                                Mean = (RoundedDouble) 1.7
+                            },
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydraulicBoundaryLocations[0]
+                        }
+                    }
+                }
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Name = "HS B"
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
         }
 
         #endregion
