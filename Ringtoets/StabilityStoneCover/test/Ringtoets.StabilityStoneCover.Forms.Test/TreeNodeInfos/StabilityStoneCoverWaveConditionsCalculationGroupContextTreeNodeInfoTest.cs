@@ -799,13 +799,13 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(test, m =>
                     {
                         var messages = m.ToArray();
-                        Assert.AreEqual(42, messages.Length);
+                        Assert.AreEqual(54, messages.Length);
                         StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[2]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[19]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[22]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[39]);
-                        StringAssert.StartsWith("Uitvoeren van 'Golfcondities voor blokken en zuilen voor 'Nieuwe berekening' berekenen' is gelukt.", messages[40]);
-                        StringAssert.StartsWith("Uitvoeren van 'Golfcondities voor blokken en zuilen voor 'Nieuwe berekening' berekenen' is gelukt.", messages[41]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[25]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[28]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[51]);
+                        StringAssert.StartsWith("Uitvoeren van 'Golfcondities voor blokken en zuilen voor 'Nieuwe berekening' berekenen' is gelukt.", messages[52]);
+                        StringAssert.StartsWith("Uitvoeren van 'Golfcondities voor blokken en zuilen voor 'Nieuwe berekening' berekenen' is gelukt.", messages[53]);
                     });
                     Assert.AreEqual(3, calculationA.Output.BlocksOutput.Count());
                     Assert.AreEqual(3, calculationA.Output.ColumnsOutput.Count());

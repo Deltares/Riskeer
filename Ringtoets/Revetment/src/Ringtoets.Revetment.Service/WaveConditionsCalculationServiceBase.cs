@@ -235,6 +235,10 @@ namespace Ringtoets.Revetment.Service
                 }
                 return null;
             }
+            finally
+            {
+                log.InfoFormat(Resources.WaveConditionsCalculationService_CalculateWaterLevel_Calculation_report_Click_details_for_full_report_0, calculator.OutputFileContent);
+            }
         }
 
         private static WaveConditionsCosineCalculationInput CreateInput(RoundedDouble waterLevel,

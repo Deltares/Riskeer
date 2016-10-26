@@ -141,4 +141,8 @@
   <data name="WaveConditionsCalculationService_OnRun_Calculate_waterlevel_0_" xml:space="preserve">
     <value>Waterstand '{0}' berekenen.</value>
   </data>
+  <data name="WaveConditionsCalculationService_CalculateWaterLevel_Calculation_report_Click_details_for_full_report_0" xml:space="preserve">
+    <value>Golfcondities berekeningsverslag. Klik op details voor meer informatie.
+{0}</value>
+  </data>
 </root>

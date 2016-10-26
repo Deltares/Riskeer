@@ -163,7 +163,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Run_ValidHydraulicBoundaryHydraulicBoundaryLocation_PerformValidationValidParameters()
+        public void Run_ValidHydraulicBoundaryDataBaseAndHydraulicBoundaryLocation_PerformValidationValidParameters()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -202,11 +202,12 @@ namespace Ringtoets.Common.Service.Test
                 TestHelper.AssertLogMessages(call, m =>
                 {
                     var messages = m.ToArray();
-                    Assert.AreEqual(4, messages.Length);
+                    Assert.AreEqual(5, messages.Length);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), messages[0]);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), messages[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), messages[2]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), messages[3]);
+                    StringAssert.StartsWith("Toetspeil berekeningsverslag. Klik op details voor meer informatie.", messages[3]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), messages[4]);
                 });
 
                 var designWaterLevelCalculationInput = testDesignWaterLevelCalculator.ReceivedInputs.First();
@@ -331,7 +332,7 @@ namespace Ringtoets.Common.Service.Test
                 Action call = () => activity.Run();
 
                 // Assert
-                TestHelper.AssertLogMessageIsGenerated(call, calculationFailedMessage, 5);
+                TestHelper.AssertLogMessageIsGenerated(call, calculationFailedMessage, 6);
                 Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
                 Assert.AreEqual(CalculationConvergence.CalculatedConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);
             }
@@ -377,7 +378,7 @@ namespace Ringtoets.Common.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();
-                    Assert.AreEqual(5, msgs.Length);
+                    Assert.AreEqual(6, msgs.Length);
                     StringAssert.StartsWith(calculationNotConvergedMessage, msgs[3]);
                 });
                 Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence);

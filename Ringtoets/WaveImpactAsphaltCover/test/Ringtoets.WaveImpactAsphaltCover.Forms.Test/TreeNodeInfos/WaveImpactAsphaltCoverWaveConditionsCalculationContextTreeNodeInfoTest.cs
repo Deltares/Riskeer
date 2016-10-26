@@ -901,10 +901,10 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
                         var messages = logMessages.ToArray();
-                        Assert.AreEqual(11, messages.Length);
+                        Assert.AreEqual(14, messages.Length);
                         StringAssert.StartsWith("Berekening van 'A' gestart om: ", messages[2]);
-                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[9]);
-                        StringAssert.StartsWith("Uitvoeren van 'A' is gelukt.", messages[10]);
+                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[12]);
+                        StringAssert.StartsWith("Uitvoeren van 'A' is gelukt.", messages[13]);
                     });
                     Assert.AreEqual(3, calculation.Output.Items.Count());
                 }

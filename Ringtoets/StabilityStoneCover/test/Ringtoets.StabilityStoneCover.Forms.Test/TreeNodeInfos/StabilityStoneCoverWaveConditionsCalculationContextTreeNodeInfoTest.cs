@@ -930,10 +930,10 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(call, logMessages =>
                     {
                         var messages = logMessages.ToArray();
-                        Assert.AreEqual(21, messages.Length);
+                        Assert.AreEqual(27, messages.Length);
                         StringAssert.StartsWith("Berekening van 'A' gestart om: ", messages[2]);
-                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[19]);
-                        StringAssert.StartsWith("Uitvoeren van 'Golfcondities voor blokken en zuilen voor 'A' berekenen' is gelukt.", messages[20]);
+                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messages[25]);
+                        StringAssert.StartsWith("Uitvoeren van 'Golfcondities voor blokken en zuilen voor 'A' berekenen' is gelukt.", messages[26]);
                     });
                     Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());
                     Assert.AreEqual(3, calculation.Output.ColumnsOutput.Count());

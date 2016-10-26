@@ -82,6 +82,17 @@ namespace Ringtoets.Revetment.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Golfcondities berekeningsverslag. Klik op details voor meer informatie.
+        ///{0}.
+        /// </summary>
+        public static string WaveConditionsCalculationService_CalculateWaterLevel_Calculation_report_Click_details_for_full_report_0 {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationService_CalculateWaterLevel_Calculation_report_Click_det" +
+                        "ails_for_full_report_0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waterstand &apos;{0}&apos; berekenen..
         /// </summary>
         public static string WaveConditionsCalculationService_OnRun_Calculate_waterlevel_0_ {

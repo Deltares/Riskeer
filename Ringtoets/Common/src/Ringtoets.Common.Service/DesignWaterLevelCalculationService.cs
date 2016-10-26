@@ -112,6 +112,7 @@ namespace Ringtoets.Common.Service
             }
             finally
             {
+                log.InfoFormat(Resources.DesignWaterLevelCalculationService_Calculate_Calculation_report_Click_details_for_full_report_0, calculator.OutputFileContent);
                 CalculationServiceHelper.LogCalculationEndTime(calculationName);
             }
         }

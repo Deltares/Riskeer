@@ -183,4 +183,12 @@
   <data name="Validation_ValidateInput_No_value_entered_for_ParameterName_0_" xml:space="preserve">
     <value>Er is geen concreet getal ingevoerd voor '{0}'.</value>
   </data>
+  <data name="DesignWaterLevelCalculationService_Calculate_Calculation_report_Click_details_for_full_report_0" xml:space="preserve">
+    <value>Toetspeil berekeningsverslag. Klik op details voor meer informatie.
+{0}</value>
+  </data>
+  <data name="WaveHeightCalculationService_Calculate_Calculation_report_Click_details_for_full_report_0" xml:space="preserve">
+    <value>Golfhoogte berekeningsverslag. Klik op details voor meer informatie.
+{0}</value>
+  </data>
 </root>

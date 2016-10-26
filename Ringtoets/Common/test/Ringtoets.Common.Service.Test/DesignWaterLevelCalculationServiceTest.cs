@@ -230,10 +230,11 @@ namespace Ringtoets.Common.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();
-                    Assert.AreEqual(3, msgs.Length);
+                    Assert.AreEqual(4, msgs.Length);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), msgs[0]);
                     StringAssert.StartsWith(calculationFailedMessage, msgs[1]);
-                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[2]);
+                    StringAssert.StartsWith("Toetspeil berekeningsverslag. Klik op details voor meer informatie.", msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
                 Assert.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);

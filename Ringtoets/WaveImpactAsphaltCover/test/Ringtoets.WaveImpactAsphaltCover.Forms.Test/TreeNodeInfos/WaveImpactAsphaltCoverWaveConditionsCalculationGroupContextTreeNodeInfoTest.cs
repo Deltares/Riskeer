@@ -800,13 +800,13 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(test, m =>
                     {
                         var messages = m.ToArray();
-                        Assert.AreEqual(22, messages.Length);
+                        Assert.AreEqual(28, messages.Length);
                         StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[2]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[9]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[12]);
-                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[19]);
-                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[20]);
-                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[21]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[12]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' gestart om: ", messages[15]);
+                        StringAssert.StartsWith("Berekening van 'Nieuwe berekening' beëindigd om: ", messages[25]);
+                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[26]);
+                        Assert.AreEqual("Uitvoeren van 'Nieuwe berekening' is gelukt.", messages[27]);
                     });
                     Assert.AreEqual(3, calculationA.Output.Items.Count());
                     Assert.AreEqual(3, calculationB.Output.Items.Count());
