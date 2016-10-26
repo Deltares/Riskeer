@@ -31,7 +31,7 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
     /// This class defines extension methods for read operations for a <see cref="HeightStructure"/>
     /// based on the <see cref="HeightStructureEntity"/>.
     /// </summary>
-    internal static class HeightStructuresEntityReadExtensions
+    internal static class HeightStructureEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="HeightStructureEntity"/> and use the information to update a 

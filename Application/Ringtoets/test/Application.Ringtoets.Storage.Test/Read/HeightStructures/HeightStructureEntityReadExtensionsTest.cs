@@ -30,7 +30,7 @@ using Ringtoets.HeightStructures.Data.TestUtil;
 namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
 {
     [TestFixture]
-    public class HeightStructuresEntityReadExtensionsTest
+    public class HeightStructureEntityReadExtensionsTest
     {
         [Test]
         public void Read_ReadConversionCollectorNull_ThrowArgumentNullException()

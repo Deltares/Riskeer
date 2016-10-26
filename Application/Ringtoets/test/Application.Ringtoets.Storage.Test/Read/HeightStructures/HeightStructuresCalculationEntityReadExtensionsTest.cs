@@ -136,8 +136,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
                 UseBreakWater = Convert.ToByte(!flagUsage),
                 ForeshoreProfileEntity = foreshoreEntity,
                 BreakWaterType = Convert.ToInt16(type),
-                BreakWaterHeight = breakWaterHeight,
-                FailureProbabilityStructureWithErosion = 1
+                BreakWaterHeight = breakWaterHeight
             };
 
             var collector = new ReadConversionCollector();

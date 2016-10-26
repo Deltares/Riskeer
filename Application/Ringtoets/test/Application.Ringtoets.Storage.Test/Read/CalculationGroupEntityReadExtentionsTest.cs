@@ -797,14 +797,12 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new HeightStructuresCalculationEntity
                     {
                         Order = 0,
-                        Name = "1", 
-                        FailureProbabilityStructureWithErosion = 1
+                        Name = "1"
                     },
                     new HeightStructuresCalculationEntity
                     {
                         Order = 1,
-                        Name = "2", 
-                        FailureProbabilityStructureWithErosion = 1
+                        Name = "2"
                     }
                 }
             };
@@ -837,14 +835,12 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new HeightStructuresCalculationEntity
                     {
                         Order = 0,
-                        Name = "calculation1", 
-                        FailureProbabilityStructureWithErosion = 1
+                        Name = "calculation1"
                     },
                     new HeightStructuresCalculationEntity
                     {
                         Order = 2,
-                        Name = "calculation2", 
-                        FailureProbabilityStructureWithErosion = 1
+                        Name = "calculation2"
                     }
                 },
                 CalculationGroupEntity1 =

@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         }
 
         [Test]
-        public void Create_ValidStrucuture_ReturnEntity()
+        public void Create_ValidStructure_ReturnEntity()
         {
             // Setup
             HeightStructure structure = new TestHeightStructure();
