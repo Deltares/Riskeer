@@ -155,7 +155,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             DistributionAssert.AreEqual(shipMass, input.ShipMass);
             DistributionAssert.AreEqual(shipVelocity, input.ShipVelocity);
             Assert.AreEqual(0, input.LevellingCount);
-            Assert.AreEqual(double.NaN, input.ProbabilityCollisionSecondaryStructure);
+            Assert.AreEqual(0, input.ProbabilityCollisionSecondaryStructure);
             DistributionAssert.AreEqual(bankWidth, input.BankWidth);
             Assert.AreEqual(2, input.EvaluationLevel.NumberOfDecimalPlaces);
             AssertAreEqual(0, input.EvaluationLevel);

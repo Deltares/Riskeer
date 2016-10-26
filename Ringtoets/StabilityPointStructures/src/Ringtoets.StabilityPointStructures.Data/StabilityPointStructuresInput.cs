@@ -62,7 +62,7 @@ namespace Ringtoets.StabilityPointStructures.Data
             volumicWeightWater = new RoundedDouble(2, 9.81);
             factorStormDurationOpenStructure = new RoundedDouble(2, double.NaN);
             failureProbabilityRepairClosure = 0;
-            probabilityCollisionSecondaryStructure = double.NaN;
+            probabilityCollisionSecondaryStructure = 0;
             evaluationLevel = new RoundedDouble(2);
             verticalDistance = new RoundedDouble(2, double.NaN);
 
