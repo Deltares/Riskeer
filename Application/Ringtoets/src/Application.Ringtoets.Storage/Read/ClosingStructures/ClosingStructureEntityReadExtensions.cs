@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
         /// Reads the <see cref="ClosingStructureEntity"/> and use the information to update a 
         /// <see cref="ClosingStructure"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="HeightStructureEntity"/> to create <see cref="ClosingStructure"/> for.</param>
+        /// <param name="entity">The <see cref="ClosingStructureEntity"/> to create <see cref="ClosingStructure"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="ClosingStructure"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
@@ -107,7 +107,7 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
                 FailureProbabilityOpenStructure = entity.FailureProbabilityOpenStructure.ToNullAsNaN(),
                 IdenticalApertures = entity.IdenticalApertures,
                 FailureProbabilityReparation = entity.FailureProbabilityReparation.ToNullAsNaN(),
-                InflowModelType = (ClosingStructureInflowModelType) entity.InflowModelType,
+                InflowModelType = (ClosingStructureInflowModelType) entity.InflowModelType
             });
 
             collector.Read(entity, structure);

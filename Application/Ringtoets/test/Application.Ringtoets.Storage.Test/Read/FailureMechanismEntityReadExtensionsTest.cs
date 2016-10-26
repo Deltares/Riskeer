@@ -94,11 +94,11 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 new Point2D(0, 0)
             };
-            string dymmyPointXml = new Point2DXmlSerializer().ToXml(dummyPoints);
+            string dummyPointXml = new Point2DXmlSerializer().ToXml(dummyPoints);
             var failureMechanismSectionEntity = new FailureMechanismSectionEntity
             {
                 Name = "section",
-                FailureMechanismSectionPointXml = dymmyPointXml
+                FailureMechanismSectionPointXml = dummyPointXml
             };
             return failureMechanismSectionEntity;
         }
@@ -1005,10 +1005,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                 },
                 ClosingStructureFailureMechanismMetaEntities = 
                 {
-                    new ClosingStructureFailureMechanismMetaEntity
-                    {
-                        N2A = 7
-                    }
+                    new ClosingStructureFailureMechanismMetaEntity()
                 }
             };
             var collector = new ReadConversionCollector();

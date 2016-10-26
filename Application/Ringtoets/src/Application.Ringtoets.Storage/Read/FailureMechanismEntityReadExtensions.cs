@@ -358,7 +358,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadClosingStructuresMechanismSectionResults(failureMechanism, collector);
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
-            entity.ReadHeightStructures(failureMechanism.ClosingStructures, collector);
+            entity.ReadClosingStructures(failureMechanism.ClosingStructures, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
         }
 
@@ -379,7 +379,7 @@ namespace Application.Ringtoets.Storage.Read
             generalInput.N2A = generalClosingStructuresInput.N2A;
         }
 
-        private static void ReadHeightStructures(this FailureMechanismEntity entity, ObservableList<ClosingStructure> closingStructures, ReadConversionCollector collector)
+        private static void ReadClosingStructures(this FailureMechanismEntity entity, ObservableList<ClosingStructure> closingStructures, ReadConversionCollector collector)
         {
             closingStructures.AddRange(entity.ClosingStructureEntities.OrderBy(fpe => fpe.Order).Select(structureEntity => structureEntity.Read(collector)));
         }

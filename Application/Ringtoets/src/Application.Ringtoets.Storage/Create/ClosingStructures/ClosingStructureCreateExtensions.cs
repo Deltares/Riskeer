@@ -38,7 +38,7 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
         /// <param name="structure">The structure to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">The index at which <paramref name="structure"/> resides within its parent.</param>
-        /// <returns>A new <see cref="HeightStructureEntity"/>.</returns>
+        /// <returns>A new <see cref="ClosingStructureEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static ClosingStructureEntity Create(this ClosingStructure structure, PersistenceRegistry registry, int order)
         {

@@ -1627,7 +1627,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Get_ClosingStructureEntityAdded_ReturnsHeightStructure()
+        public void Get_ClosingStructureEntityAdded_ReturnsClosingStructure()
         {
             // Setup
             var collector = new ReadConversionCollector();

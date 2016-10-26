@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
         }
 
         [Test]
-        public void Create_ValidStrucuture_ReturnEntity()
+        public void Create_ValidStructure_ReturnEntity()
         {
             // Setup
             ClosingStructure structure = new TestClosingStructure();
@@ -101,7 +101,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
         public void Create_NaNValue_ReturnEntityWithNullValue()
         {
             // Setup
-            ClosingStructure structure = new ClosingStructure(new ClosingStructure.ConstructionProperties
+            var structure = new ClosingStructure(new ClosingStructure.ConstructionProperties
             {
                 Name = "A",
                 Id = "B",
@@ -117,7 +117,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
                     Mean = RoundedDouble.NaN,
                     StandardDeviation = RoundedDouble.NaN
                 },
-                                WidthFlowApertures =
+                WidthFlowApertures =
                 {
                     Mean = RoundedDouble.NaN,
                     CoefficientOfVariation = RoundedDouble.NaN
