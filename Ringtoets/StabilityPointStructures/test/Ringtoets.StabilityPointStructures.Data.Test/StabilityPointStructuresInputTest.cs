@@ -150,7 +150,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             DistributionAssert.AreEqual(constructiveStrengthQuadraticLoadModel, input.ConstructiveStrengthQuadraticLoadModel);
             DistributionAssert.AreEqual(stabilityLinearLoadModel, input.StabilityLinearLoadModel);
             DistributionAssert.AreEqual(stabilityQuadraticLoadModel, input.StabilityQuadraticLoadModel);
-            Assert.IsNaN(input.FailureProbabilityRepairClosure);
+            Assert.AreEqual(0, input.FailureProbabilityRepairClosure);
             DistributionAssert.AreEqual(failureCollisionEnergy, input.FailureCollisionEnergy);
             DistributionAssert.AreEqual(shipMass, input.ShipMass);
             DistributionAssert.AreEqual(shipVelocity, input.ShipVelocity);
