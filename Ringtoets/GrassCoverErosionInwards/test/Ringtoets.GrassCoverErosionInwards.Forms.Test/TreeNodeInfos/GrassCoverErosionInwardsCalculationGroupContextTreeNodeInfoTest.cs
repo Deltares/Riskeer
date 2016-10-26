@@ -1184,13 +1184,14 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
 
             var calculation = new GrassCoverErosionInwardsCalculation();
             group.Children.Add(calculation);
-            failureMechanism.SectionResults.First().Calculation = calculation;
+            GrassCoverErosionInwardsFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
+            result.Calculation = calculation;
 
             // Call
             info.OnNodeRemoved(nodeData, parentNodeData);
 
             // Assert
-            Assert.IsNull(failureMechanism.SectionResults.First().Calculation);
+            Assert.IsNull(result.Calculation);
         }
 
         public override void TearDown()

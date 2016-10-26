@@ -1285,13 +1285,15 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             group.Children.Add(calculation);
-            failureMechanism.SectionResults.First().Calculation = calculation;
+
+            HeightStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
+            result.Calculation = calculation;
 
             // Call
             info.OnNodeRemoved(nodeData, parentNodeData);
 
             // Assert
-            Assert.IsNull(failureMechanism.SectionResults.First().Calculation);
+            Assert.IsNull(result.Calculation);
         }
 
         [Test]

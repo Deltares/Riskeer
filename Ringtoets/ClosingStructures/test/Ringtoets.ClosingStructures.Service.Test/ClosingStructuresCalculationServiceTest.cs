@@ -36,6 +36,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
+using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
@@ -69,8 +70,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 }
             };
 
-            // Call
             bool isValid = false;
+
+            // Call
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
@@ -108,8 +110,9 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 }
             };
 
-            // Call
             bool isValid = false;
+
+            // Call
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
@@ -156,12 +159,16 @@ namespace Ringtoets.ClosingStructures.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+
+                // Call
                 TestDelegate call = () => service.Calculate(calculation,
                                                             assessmentSectionStub,
                                                             closingStructuresFailureMechanism,
                                                             testDataPath);
 
                 StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+
+                // Assert
                 Assert.AreEqual(0, calculationInputs.Length);
                 var exception = Assert.Throws<NotSupportedException>(call);
                 Assert.AreEqual("ClosingStructureInflowModelType", exception.Message);
@@ -530,7 +537,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                                                         closingStructuresFailureMechanism,
                                                                         testDataPath);
                 }
-                catch
+                catch (HydraRingFileParserException)
                 {
                     exception = true;
                 }
@@ -567,7 +574,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new Point2D(0, 0),
                 new Point2D(1, 1)
             }));
-  
+
             var calculation = new TestClosingStructuresCalculation()
             {
                 InputParameters =

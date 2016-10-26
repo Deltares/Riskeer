@@ -785,13 +785,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 new Point2D(0, 0)
             }));
 
-            failureMechanism.SectionResults.First().Calculation = elementToBeRemoved;
+            HeightStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
+            result.Calculation = elementToBeRemoved;
 
             // Call
             info.OnNodeRemoved(calculationContext, groupContext);
 
             // Assert
-            Assert.IsNull(failureMechanism.SectionResults.First().Calculation);
+            Assert.IsNull(result.Calculation);
         }
 
         public override void TearDown()

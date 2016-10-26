@@ -889,13 +889,15 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             group.Children.Add(calculation);
-            failureMechanism.SectionResults.First().Calculation = calculation;
+
+            ClosingStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
+            result.Calculation = calculation;
 
             // Call
             info.OnNodeRemoved(nodeData, parentNodeData);
 
             // Assert
-            Assert.IsNull(failureMechanism.SectionResults.First().Calculation);
+            Assert.IsNull(result.Calculation);
         }
 
         [Test]

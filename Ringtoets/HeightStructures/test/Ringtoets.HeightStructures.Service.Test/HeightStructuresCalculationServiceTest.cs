@@ -38,6 +38,7 @@ using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
+using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
@@ -568,7 +569,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                                                                        heightStructuresFailureMechanism,
                                                                        testDataPath);
                 }
-                catch
+                catch(HydraRingFileParserException)
                 {
                     exception = true;
                 }
