@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> StorageStructureAreaMean { get; set; }
         public Nullable<double> StorageStructureAreaCoefficientOfVariation { get; set; }
         public Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
-        public Nullable<double> AllowedLevelIncreaseStorage_StandardDeviation { get; set; }
+        public Nullable<double> AllowedLevelIncreaseStorageStandardDeviation { get; set; }
         public Nullable<double> WidthFlowAperturesMean { get; set; }
         public Nullable<double> WidthFlowAperturesCoefficientOfVariation { get; set; }
         public Nullable<double> InsideWaterLevelMean { get; set; }

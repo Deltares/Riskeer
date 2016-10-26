@@ -66,7 +66,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
                 AllowedLevelIncreaseStorage =
                 {
                     Mean = (RoundedDouble)entity.AllowedLevelIncreaseStorageMean.ToNullAsNaN(),
-                    StandardDeviation = (RoundedDouble)entity.AllowedLevelIncreaseStorage_StandardDeviation.ToNullAsNaN()
+                    StandardDeviation = (RoundedDouble)entity.AllowedLevelIncreaseStorageStandardDeviation.ToNullAsNaN()
                 },
                 FlowWidthAtBottomProtection =
                 {

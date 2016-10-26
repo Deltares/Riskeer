@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
                 StorageStructureAreaMean = 4.4,
                 StorageStructureAreaCoefficientOfVariation = 5.5,
                 AllowedLevelIncreaseStorageMean = 6.6,
-                AllowedLevelIncreaseStorage_StandardDeviation = 7.7,
+                AllowedLevelIncreaseStorageStandardDeviation = 7.7,
                 WidthFlowAperturesMean = 8.8,
                 WidthFlowAperturesCoefficientOfVariation = 9.9,
                 InsideWaterLevelMean = 10.10,
@@ -118,7 +118,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.AreEqual(entity.StorageStructureAreaMean, structure.StorageStructureArea.Mean.Value);
             Assert.AreEqual(entity.StorageStructureAreaCoefficientOfVariation, structure.StorageStructureArea.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.AllowedLevelIncreaseStorageMean, structure.AllowedLevelIncreaseStorage.Mean.Value);
-            Assert.AreEqual(entity.AllowedLevelIncreaseStorage_StandardDeviation, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
+            Assert.AreEqual(entity.AllowedLevelIncreaseStorageStandardDeviation, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
             Assert.AreEqual(entity.WidthFlowAperturesMean, structure.WidthFlowApertures.Mean.Value);
             Assert.AreEqual(entity.WidthFlowAperturesCoefficientOfVariation, structure.WidthFlowApertures.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.InsideWaterLevelMean, structure.InsideWaterLevel.Mean.Value);
@@ -177,7 +177,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
                 StorageStructureAreaMean = null,
                 StorageStructureAreaCoefficientOfVariation = null,
                 AllowedLevelIncreaseStorageMean = null,
-                AllowedLevelIncreaseStorage_StandardDeviation = null,
+                AllowedLevelIncreaseStorageStandardDeviation = null,
                 WidthFlowAperturesMean = null,
                 WidthFlowAperturesCoefficientOfVariation = null,
                 InsideWaterLevelMean = null,

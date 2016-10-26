@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             Assert.AreEqual(structure.StorageStructureArea.Mean.Value, entity.StorageStructureAreaMean);
             Assert.AreEqual(structure.StorageStructureArea.CoefficientOfVariation.Value, entity.StorageStructureAreaCoefficientOfVariation);
             Assert.AreEqual(structure.AllowedLevelIncreaseStorage.Mean.Value, entity.AllowedLevelIncreaseStorageMean);
-            Assert.AreEqual(structure.AllowedLevelIncreaseStorage.StandardDeviation.Value, entity.AllowedLevelIncreaseStorage_StandardDeviation);
+            Assert.AreEqual(structure.AllowedLevelIncreaseStorage.StandardDeviation.Value, entity.AllowedLevelIncreaseStorageStandardDeviation);
             Assert.AreEqual(structure.WidthFlowApertures.Mean.Value, entity.WidthFlowAperturesMean);
             Assert.AreEqual(structure.WidthFlowApertures.CoefficientOfVariation.Value, entity.WidthFlowAperturesCoefficientOfVariation);
             Assert.AreEqual(structure.InsideWaterLevel.Mean.Value, entity.InsideWaterLevelMean);
@@ -241,7 +241,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             Assert.IsNull(entity.StorageStructureAreaMean);
             Assert.IsNull(entity.StorageStructureAreaCoefficientOfVariation);
             Assert.IsNull(entity.AllowedLevelIncreaseStorageMean);
-            Assert.IsNull(entity.AllowedLevelIncreaseStorage_StandardDeviation);
+            Assert.IsNull(entity.AllowedLevelIncreaseStorageStandardDeviation);
             Assert.IsNull(entity.WidthFlowAperturesMean);
             Assert.IsNull(entity.WidthFlowAperturesCoefficientOfVariation);
             Assert.IsNull(entity.InsideWaterLevelMean);
