@@ -73,8 +73,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Assert
             Assert.IsInstanceOf<StructuresInputBase<ClosingStructure>>(input);
 
-            Assert.IsNaN(input.FailureProbabilityOpenStructure);
-            Assert.IsNaN(input.FailureProbabilityReparation);
+            Assert.AreEqual(0, input.FailureProbabilityOpenStructure);
+            Assert.AreEqual(0, input.FailureProbabilityReparation);
 
             Assert.IsNaN(input.FactorStormDurationOpenStructure);
             Assert.IsNaN(input.DeviationWaveDirection);

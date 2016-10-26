@@ -51,8 +51,8 @@ namespace Ringtoets.ClosingStructures.Data
             factorStormDurationOpenStructure = new RoundedDouble(2, double.NaN);
             deviationWaveDirection = new RoundedDouble(2, double.NaN);
 
-            failureProbabilityOpenStructure = double.NaN;
-            failureProbabilityReparation = double.NaN;
+            failureProbabilityOpenStructure = 0;
+            failureProbabilityReparation = 0;
             probabilityOpenStructureBeforeFlooding = 1.0;
 
             thresholdHeightOpenWeir = new NormalDistribution(2)
