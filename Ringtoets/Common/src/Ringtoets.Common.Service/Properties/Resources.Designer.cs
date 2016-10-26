@@ -159,10 +159,10 @@ namespace Ringtoets.Common.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De variatiecoëfficient voor &apos;{0}&apos; moet groter zijn dan of gelijk zijn aan 0..
         /// </summary>
-        public static string DistributionValidationService_ValidateDistribution_CoefficientOfVariation_Of_0_must_be_larger_or_equal_to_0 {
+        public static string DistributionValidationService_ValidateDistribution_CoefficientOfVariation_of_ParameterName_0_must_be_larger_or_equal_to_zero {
             get {
-                return ResourceManager.GetString("DistributionValidationService_ValidateDistribution_CoefficientOfVariation_Of_0_mu" +
-                        "st_be_larger_or_equal_to_0", resourceCulture);
+                return ResourceManager.GetString("DistributionValidationService_ValidateDistribution_CoefficientOfVariation_of_Para" +
+                        "meterName_0_must_be_larger_or_equal_to_zero", resourceCulture);
             }
         }
         
@@ -189,10 +189,10 @@ namespace Ringtoets.Common.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to De standaard afwijking voor &apos;{0}&apos; moet groter zijn dan of gelijk zijn aan 0..
         /// </summary>
-        public static string DistributionValidationService_ValidateDistribution_StandardDeviation_of_0_must_be_larger_or_equal_to_0 {
+        public static string DistributionValidationService_ValidateDistribution_StandardDeviation_of_ParameterName_0_must_be_larger_or_equal_to_zero {
             get {
-                return ResourceManager.GetString("DistributionValidationService_ValidateDistribution_StandardDeviation_of_0_must_be" +
-                        "_larger_or_equal_to_0", resourceCulture);
+                return ResourceManager.GetString("DistributionValidationService_ValidateDistribution_StandardDeviation_of_Parameter" +
+                        "Name_0_must_be_larger_or_equal_to_zero", resourceCulture);
             }
         }
         
@@ -253,9 +253,9 @@ namespace Ringtoets.Common.Service.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Er is geen concreet getal ingevoerd voor &apos;{0}&apos;..
         /// </summary>
-        public static string Validation_ValidateInput_No_value_entered_for_0_ {
+        public static string Validation_ValidateInput_No_value_entered_for_ParameterName_0_ {
             get {
-                return ResourceManager.GetString("Validation_ValidateInput_No_value_entered_for_0_", resourceCulture);
+                return ResourceManager.GetString("Validation_ValidateInput_No_value_entered_for_ParameterName_0_", resourceCulture);
             }
         }
         

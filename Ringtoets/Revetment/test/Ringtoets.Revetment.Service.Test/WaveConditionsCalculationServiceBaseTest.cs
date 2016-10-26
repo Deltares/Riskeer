@@ -404,7 +404,7 @@ namespace Ringtoets.Revetment.Service.Test
             var dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             WaveConditionsInput input = GetDefaultValidationInput();
-            input.Orientation = (RoundedDouble) double.NaN;
+            input.Orientation = RoundedDouble.NaN;
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,

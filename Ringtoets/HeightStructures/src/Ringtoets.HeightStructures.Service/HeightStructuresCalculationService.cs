@@ -171,59 +171,59 @@ namespace Ringtoets.HeightStructures.Service
 
         private static string[] ValidateInput(HeightStructuresInput inputParameters, IAssessmentSection assessmentSection)
         {
-            var validationResult = new List<string>();
+            var validationResults = new List<string>();
 
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
             if (!string.IsNullOrEmpty(validationProblem))
             {
-                validationResult.Add(validationProblem);
-                return validationResult.ToArray();
+                validationResults.Add(validationProblem);
+                return validationResults.ToArray();
             }
 
             if (inputParameters.HydraulicBoundaryLocation == null)
             {
-                validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+                validationResults.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
 
             if (inputParameters.Structure == null)
             {
-                validationResult.Add(RingtoetsCommonServiceResources.HeightStructuresCalculationService_ValidateInput_No_Structure_selected);
+                validationResults.Add(RingtoetsCommonServiceResources.HeightStructuresCalculationService_ValidateInput_No_Structure_selected);
             }
             else
             {
-                validationResult.AddRange(DistributionValidation.ValidateDistribution(inputParameters.StormDuration,
+                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.StormDuration,
                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)));
 
                 if (IsInvalidNumber(inputParameters.DeviationWaveDirection))
                 {
-                    validationResult.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_0_,
+                    validationResults.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
                                                        GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_DeviationWaveDirection_DisplayName)));
                 }
 
-                validationResult.AddRange(DistributionValidation.ValidateDistribution(inputParameters.ModelFactorSuperCriticalFlow,
+                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.ModelFactorSuperCriticalFlow,
                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)));
 
                 if (IsInvalidNumber(inputParameters.StructureNormalOrientation))
                 {
-                    validationResult.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_0_,
+                    validationResults.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
                                                        GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Orientation_DisplayName)));
                 }
 
-                validationResult.AddRange(DistributionValidation.ValidateDistribution(inputParameters.FlowWidthAtBottomProtection,
+                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.FlowWidthAtBottomProtection,
                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)));
-                validationResult.AddRange(DistributionValidation.ValidateDistribution(inputParameters.WidthFlowApertures,
+                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.WidthFlowApertures,
                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)));
-                validationResult.AddRange(DistributionValidation.ValidateDistribution(inputParameters.StorageStructureArea,
+                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.StorageStructureArea,
                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName)));
-                validationResult.AddRange(DistributionValidation.ValidateDistribution(inputParameters.AllowedLevelIncreaseStorage,
+                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.AllowedLevelIncreaseStorage,
                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)));
-                validationResult.AddRange(DistributionValidation.ValidateDistribution(inputParameters.LevelCrestStructure,
+                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.LevelCrestStructure,
                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_DisplayName)));
-                validationResult.AddRange(DistributionValidation.ValidateDistribution(inputParameters.CriticalOvertoppingDischarge,
+                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.CriticalOvertoppingDischarge,
                                                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName)));
             }
 
-            return validationResult.ToArray();
+            return validationResults.ToArray();
         }
 
         private static string GenerateParameterNameWithoutUnits(string parameterDescription)

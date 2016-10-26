@@ -307,8 +307,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 {
                     if (double.IsNaN(inputParameters.Orientation))
                     {
-                        string message = string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_0_,
-                                                       GenerateParameterNameWithoutUnits(RingtoetsCommonForms.Orientation_DisplayName));
+                        string message = string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
+                                                       ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.Orientation_DisplayName));
                         validationResult.Add(message);
                     }
                 }
@@ -323,12 +323,6 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             return validationResult.ToArray();
-        }
-
-        private static string GenerateParameterNameWithoutUnits(string parameterDescription)
-        {
-            string[] splitString = parameterDescription.Split('[');
-            return splitString.Length != 0 ? splitString[0].ToLower().Trim() : string.Empty;
         }
     }
 }

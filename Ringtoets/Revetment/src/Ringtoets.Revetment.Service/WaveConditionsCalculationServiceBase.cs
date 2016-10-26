@@ -293,18 +293,11 @@ namespace Ringtoets.Revetment.Service
 
             if (double.IsNaN(input.Orientation))
             {
-                return string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_0_,
-                                     GenerateParameterNameWithoutUnits(RingtoetsCommonFormsResources.Orientation_DisplayName));
+                return string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
+                                     ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Orientation_DisplayName));
             }
 
             return null;
         }
-
-        private static string GenerateParameterNameWithoutUnits(string parameterDescription)
-        {
-            string[] splitString = parameterDescription.Split('[');
-            return splitString.Length != 0 ? splitString[0].ToLower().Trim() : string.Empty;
-        }
-
     }
 }

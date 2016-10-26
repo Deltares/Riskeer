@@ -165,7 +165,7 @@
   <data name="CalculationService_ValidateInput_No_hydraulic_boundary_database_selected" xml:space="preserve">
     <value>Er is geen hydraulische randvoorwaardendatabase geïmporteerd.</value>
   </data>
-  <data name="DistributionValidationService_ValidateDistribution_CoefficientOfVariation_Of_0_must_be_larger_or_equal_to_0" xml:space="preserve">
+  <data name="DistributionValidationService_ValidateDistribution_CoefficientOfVariation_of_ParameterName_0_must_be_larger_or_equal_to_zero" xml:space="preserve">
     <value>De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.</value>
   </data>
   <data name="DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_a_valid_number" xml:space="preserve">
@@ -174,13 +174,13 @@
   <data name="DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_positive_value" xml:space="preserve">
     <value>De verwachtingswaarde voor '{0}' moet een positief getal zijn.</value>
   </data>
-  <data name="DistributionValidationService_ValidateDistribution_StandardDeviation_of_0_must_be_larger_or_equal_to_0" xml:space="preserve">
+  <data name="DistributionValidationService_ValidateDistribution_StandardDeviation_of_ParameterName_0_must_be_larger_or_equal_to_zero" xml:space="preserve">
     <value>De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.</value>
   </data>
   <data name="HeightStructuresCalculationService_ValidateInput_No_Structure_selected" xml:space="preserve">
     <value>Er is geen kunstwerk geselecteerd.</value>
   </data>
-  <data name="Validation_ValidateInput_No_value_entered_for_0_" xml:space="preserve">
+  <data name="Validation_ValidateInput_No_value_entered_for_ParameterName_0_" xml:space="preserve">
     <value>Er is geen concreet getal ingevoerd voor '{0}'.</value>
   </data>
 </root>

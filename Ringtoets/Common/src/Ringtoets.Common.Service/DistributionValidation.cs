@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Service
 
             if (IsValidNumber(distribution.StandardDeviation))
             {
-                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_StandardDeviation_of_0_must_be_larger_or_equal_to_0,
+                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_StandardDeviation_of_ParameterName_0_must_be_larger_or_equal_to_zero,
                                                    parameterName));
             }
 
@@ -74,7 +74,7 @@ namespace Ringtoets.Common.Service
 
             if (IsValidNumber(distribution.StandardDeviation))
             {
-                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_StandardDeviation_of_0_must_be_larger_or_equal_to_0,
+                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_StandardDeviation_of_ParameterName_0_must_be_larger_or_equal_to_zero,
                                                    parameterName));
             }
 
@@ -99,7 +99,7 @@ namespace Ringtoets.Common.Service
 
             if (IsValidNumber(distribution.CoefficientOfVariation))
             {
-                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_CoefficientOfVariation_Of_0_must_be_larger_or_equal_to_0,
+                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_CoefficientOfVariation_of_ParameterName_0_must_be_larger_or_equal_to_zero,
                                                    parameterName));
             }
 
@@ -124,7 +124,7 @@ namespace Ringtoets.Common.Service
 
             if (IsValidNumber(distribution.CoefficientOfVariation))
             {
-                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_CoefficientOfVariation_Of_0_must_be_larger_or_equal_to_0,
+                validationResult.Add(string.Format(Resources.DistributionValidationService_ValidateDistribution_CoefficientOfVariation_of_ParameterName_0_must_be_larger_or_equal_to_zero,
                                                    parameterName));
             }
 

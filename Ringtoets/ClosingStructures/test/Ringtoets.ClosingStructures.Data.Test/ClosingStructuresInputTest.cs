@@ -199,7 +199,9 @@ namespace Ringtoets.ClosingStructures.Data.Test
             TestDelegate call = () => input.DeviationWaveDirection = (RoundedDouble) invalidValue;
 
             // Assert
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor afwijking golfrichting moet in het bereik [-360, 360] liggen.");
+            const string expectedMessage = "De waarde voor de afwijking van de golfrichting moet in het bereik [-360, 360] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call,
+                                                                                                expectedMessage);
         }
 
         #endregion
