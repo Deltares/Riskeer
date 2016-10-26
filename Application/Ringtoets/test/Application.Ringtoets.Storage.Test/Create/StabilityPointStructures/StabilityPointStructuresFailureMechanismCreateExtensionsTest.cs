@@ -27,6 +27,7 @@ using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
 {
@@ -142,6 +143,25 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             // Assert
             Assert.AreEqual(1, entity.ForeshoreProfileEntities.Count);
             Assert.IsTrue(persistenceRegistry.Contains(profile));
+        }
+
+        [Test]
+        public void Create_WithStabilityPointStructures_StabilityPointStructureEntitiesCreated()
+        {
+            // Setup
+            StabilityPointStructure structure = new TestStabilityPointStructure();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.StabilityPointStructures.Add(structure);
+
+            var persistenceRegistry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(persistenceRegistry);
+
+            // Assert
+            Assert.AreEqual(1, entity.StabilityPointStructureEntities.Count);
+            Assert.IsTrue(persistenceRegistry.Contains(structure));
         }
     }
 }

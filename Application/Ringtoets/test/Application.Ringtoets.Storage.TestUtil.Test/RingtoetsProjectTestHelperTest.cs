@@ -255,6 +255,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         {
             StabilityPointStructuresFailureMechanism failureMechanism = assessmentSection.StabilityPointStructures;
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
+            Assert.AreEqual(2, failureMechanism.StabilityPointStructures.Count);
         }
     }
 }

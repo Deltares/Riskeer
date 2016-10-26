@@ -1081,6 +1081,52 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(generalInputN, failureMechanism.GeneralInput.N);
         }
 
+        [Test]
+        public void ReadAsStabilityPointStructuresFailureMechanism_WithStabilityPointStructures_ReturnFailureMechanismWithStabilityPointStructuresSet()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity(),
+                StabilityPointStructureEntities =
+                {
+                    new StabilityPointStructureEntity
+                    {
+                        Order = 2,
+                        Name = "Child1",
+                        Id = "a"
+                    },
+                    new StabilityPointStructureEntity
+                    {
+                        Order = 1,
+                        Name = "Child2",
+                        Id = "b"
+                    }
+                },
+                StabilityPointStructuresFailureMechanismMetaEntities =
+                {
+                    new StabilityPointStructuresFailureMechanismMetaEntity
+                    {
+                        N = 7
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsStabilityPointStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.StabilityPointStructures.Count);
+
+            StabilityPointStructure child1 = failureMechanism.StabilityPointStructures[0];
+            Assert.AreEqual("Child2", child1.Name);
+
+            StabilityPointStructure child2 = failureMechanism.StabilityPointStructures[1];
+            Assert.AreEqual("Child1", child2.Name);
+        }
+
         #endregion
     }
 }

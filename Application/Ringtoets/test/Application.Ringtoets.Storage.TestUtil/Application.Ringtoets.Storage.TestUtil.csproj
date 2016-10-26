@@ -91,6 +91,10 @@
       <Project>{3D4B9740-8348-4434-8D77-B611FC6EE57F}</Project>
       <Name>Ringtoets.StabilityPointStructures.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Ringtoets\StabilityPointStructures\test\Ringtoets.StabilityPointStructures.Data.TestUtil\Ringtoets.StabilityPointStructures.Data.TestUtil.csproj">
+      <Project>{e9ac095b-8f10-41d2-9456-4a85e3ba91ad}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Data.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Ringtoets\WaveImpactAsphaltCover\src\Ringtoets.WaveImpactAsphaltCover.Data\Ringtoets.WaveImpactAsphaltCover.Data.csproj">
       <Project>{567E0B69-5280-41CE-ADD6-443725A61C86}</Project>
       <Name>Ringtoets.WaveImpactAsphaltCover.Data</Name>

@@ -728,6 +728,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadCommonFailureMechanismProperties(failureMechanism, collector);
             entity.ReadStabilityPointStructuresMechanismSectionResults(failureMechanism, collector);
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
+            entity.ReadStabilityPointStructures(failureMechanism.StabilityPointStructures, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
         }
 
@@ -740,6 +741,13 @@ namespace Application.Ringtoets.Storage.Read
 
                 sectionResultEntity.Read(result);
             }
+        }
+
+        private static void ReadStabilityPointStructures(this FailureMechanismEntity entity,
+                                                         ObservableList<StabilityPointStructure> stabilityPointStructures,
+                                                         ReadConversionCollector collector)
+        {
+            stabilityPointStructures.AddRange(entity.StabilityPointStructureEntities.OrderBy(fpe => fpe.Order).Select(structureEntity => structureEntity.Read(collector)));
         }
 
         private static void ReadGeneralInput(this FailureMechanismEntity entity, GeneralStabilityPointStructuresInput generalInput)

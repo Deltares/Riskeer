@@ -46,6 +46,7 @@ using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -452,6 +453,8 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigureStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism)
         {
             failureMechanism.GeneralInput.N = 8;
+            failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
+            failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
         }
 
         #endregion
