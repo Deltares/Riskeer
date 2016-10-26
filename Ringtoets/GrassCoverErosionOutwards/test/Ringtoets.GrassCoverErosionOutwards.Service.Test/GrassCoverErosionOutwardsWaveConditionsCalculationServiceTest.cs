@@ -161,7 +161,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             // Setup
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble)double.NaN;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = RoundedDouble.NaN;
 
             var isValid = true;
 

@@ -37,6 +37,8 @@ using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Data.TestUtil;
 using Ringtoets.Piping.KernelWrapper.TestUtil;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
@@ -701,6 +703,67 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsFalse(result);
         }
 
+        [Test]
+        public void Contains_WithoutStabilityPointStructure_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Contains((StabilityPointStructure)null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Contains_StabilityPointStructureAdded_ReturnsTrue()
+        {
+            // Setup
+            StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure();
+            var registry = new PersistenceRegistry();
+            registry.Register(new StabilityPointStructureEntity(), stabilityPointStructure);
+
+            // Call
+            bool result = registry.Contains(stabilityPointStructure);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_OtherStabilityPointStructureAdded_ReturnsFalse()
+        {
+            // Setup
+            StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure();
+
+            StabilityPointStructure otherStructure = new TestStabilityPointStructure();
+            var registry = new PersistenceRegistry();
+            registry.Register(new StabilityPointStructureEntity(), otherStructure);
+
+            // Call
+            bool result = registry.Contains(stabilityPointStructure);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_NoStabilityPointStructureAdded_ReturnsFalse()
+        {
+            // Setup
+            StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure();
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            bool result = registry.Contains(stabilityPointStructure);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
         #endregion
 
         #region Get methods
@@ -1311,6 +1374,69 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreSame(registeredEntity, retrievedEntity);
         }
 
+        [Test]
+        public void Get_WithoutStabilityPointStructure_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Get((StabilityPointStructure)null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Get_NoStabilityPointStructureAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure();
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Get(stabilityPointStructure);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_OtherStabilityPointStructureAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure();
+            StabilityPointStructure registeredStructure = new TestStabilityPointStructure();
+            var registeredEntity = new StabilityPointStructureEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(registeredEntity, registeredStructure);
+
+            // Call
+            TestDelegate call = () => registry.Get(stabilityPointStructure);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_StabilityPointStructureAdded_ReturnsEntity()
+        {
+            // Setup
+            StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure();
+            var registeredEntity = new StabilityPointStructureEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(registeredEntity, stabilityPointStructure);
+
+            // Call
+            StabilityPointStructureEntity retrievedEntity = registry.Get(stabilityPointStructure);
+
+            // Assert
+            Assert.AreSame(registeredEntity, retrievedEntity);
+        }
+
         #endregion
 
         #region Register methods
@@ -1550,6 +1676,21 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             TestDelegate test = () => registry.Register(new HeightStructureEntity(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+
+        [Test]
+        public void Register_WithNullStabilityPointStructure_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(new StabilityPointStructureEntity(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

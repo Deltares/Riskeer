@@ -701,7 +701,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             string testName = "TestName";
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, testName, 0, 0)
             {
-                DesignWaterLevel = (RoundedDouble) double.NaN
+                DesignWaterLevel = RoundedDouble.NaN
             };
 
             // Call

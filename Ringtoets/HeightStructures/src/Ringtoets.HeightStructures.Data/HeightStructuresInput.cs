@@ -42,7 +42,7 @@ namespace Ringtoets.HeightStructures.Data
         {
             levelCrestStructure = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
+                Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble) 0.05
             };
 

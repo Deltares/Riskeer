@@ -31,6 +31,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.StabilityPointStructures.Data;
 
 namespace Application.Ringtoets.Storage.Read
 {
@@ -52,6 +53,7 @@ namespace Application.Ringtoets.Storage.Read
         private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations = CreateDictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation>();
         private readonly Dictionary<HeightStructureEntity, HeightStructure> heightStructures = CreateDictionary<HeightStructureEntity, HeightStructure>();
         private readonly Dictionary<ClosingStructureEntity, ClosingStructure> closingStructures = CreateDictionary<ClosingStructureEntity, ClosingStructure>();
+        private readonly Dictionary<StabilityPointStructureEntity, StabilityPointStructure> stabilityPointStructures = CreateDictionary<StabilityPointStructureEntity, StabilityPointStructure>();
 
         private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
         {
@@ -913,6 +915,78 @@ namespace Application.Ringtoets.Storage.Read
             try
             {
                 return closingStructures[entity];
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new InvalidOperationException(e.Message, e);
+            }
+        }
+
+        #endregion
+
+        #region StabilityPointStructureEntity: Read, Contains, Get
+
+        /// <summary>
+        /// Registers a read operation for <see cref="StabilityPointStructureEntity"/> and the
+        /// <see cref="StabilityPointStructure"/> that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="StabilityPointStructureEntity"/> that was read.</param>
+        /// <param name="model">The <see cref="StabilityPointStructure"/> that was constructed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Read(StabilityPointStructureEntity entity, StabilityPointStructure model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
+            stabilityPointStructures[entity] = model;
+        }
+
+        /// <summary>
+        /// Checks whether a read operation has been registered for a given <see cref="StabilityPointStructureEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="StabilityPointStructureEntity"/> to check for.</param>
+        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        internal bool Contains(StabilityPointStructureEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            return stabilityPointStructures.ContainsKey(entity);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="StabilityPointStructure"/> which was read for the
+        /// given <see cref="StabilityPointStructureEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="StabilityPointStructureEntity"/> for which a read
+        /// operation has been registered.</param>
+        /// <returns>The constructed <see cref="StabilityPointStructure"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has
+        /// been registered for <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="Contains(StabilityPointStructureEntity)"/> to find out whether a
+        /// read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal StabilityPointStructure Get(StabilityPointStructureEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            try
+            {
+                return stabilityPointStructures[entity];
             }
             catch (KeyNotFoundException e)
             {

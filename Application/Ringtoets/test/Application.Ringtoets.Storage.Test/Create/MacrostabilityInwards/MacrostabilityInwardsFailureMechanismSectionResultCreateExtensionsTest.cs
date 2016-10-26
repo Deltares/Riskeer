@@ -74,7 +74,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
             // Setup
             var sectionResult = new MacrostabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerTwoA = (RoundedDouble) double.NaN
+                AssessmentLayerTwoA = RoundedDouble.NaN
             };
 
             // Call
@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Test.Create.MacrostabilityInwards
             // Setup
             var sectionResult = new MacrostabilityInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = (RoundedDouble) double.NaN
+                AssessmentLayerThree = RoundedDouble.NaN
             };
 
             // Call

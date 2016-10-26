@@ -205,7 +205,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                     Structure = new TestHeightStructure()
                 }
             };
-            calculation.InputParameters.DeviationWaveDirection = (RoundedDouble) double.NaN;
+            calculation.InputParameters.DeviationWaveDirection = RoundedDouble.NaN;
 
             var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
 
@@ -252,7 +252,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                     Structure = new TestHeightStructure()
                 }
             };
-            calculation.InputParameters.StructureNormalOrientation = (RoundedDouble) double.NaN;
+            calculation.InputParameters.StructureNormalOrientation = RoundedDouble.NaN;
 
             var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
             // Call

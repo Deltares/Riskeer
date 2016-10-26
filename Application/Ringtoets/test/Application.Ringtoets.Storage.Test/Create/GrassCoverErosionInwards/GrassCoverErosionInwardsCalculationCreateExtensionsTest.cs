@@ -146,16 +146,16 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             {
                 InputParameters =
                 {
-                    Orientation = (RoundedDouble) double.NaN,
+                    Orientation = RoundedDouble.NaN,
                     CriticalFlowRate =
                     {
-                        Mean = (RoundedDouble) double.NaN,
-                        StandardDeviation = (RoundedDouble) double.NaN
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
                     },
-                    DikeHeight = (RoundedDouble) double.NaN,
+                    DikeHeight = RoundedDouble.NaN,
                     BreakWater =
                     {
-                        Height = (RoundedDouble) double.NaN
+                        Height = RoundedDouble.NaN
                     }
                 }
             };

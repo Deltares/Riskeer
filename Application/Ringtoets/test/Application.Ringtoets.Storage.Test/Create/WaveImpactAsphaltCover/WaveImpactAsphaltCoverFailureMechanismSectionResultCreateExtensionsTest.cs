@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             // Setup
             var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerTwoA = (RoundedDouble) double.NaN
+                AssessmentLayerTwoA = RoundedDouble.NaN
             };
 
             // Call
@@ -91,7 +91,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             // Setup
             var sectionResult = new WaveImpactAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = (RoundedDouble) double.NaN
+                AssessmentLayerThree = RoundedDouble.NaN
             };
 
             // Call

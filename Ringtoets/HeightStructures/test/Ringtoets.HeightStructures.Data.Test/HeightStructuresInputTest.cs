@@ -39,7 +39,7 @@ namespace Ringtoets.HeightStructures.Data.Test
             // Setup
             var levelCrestStructure = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
+                Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble) 0.05
             };
 

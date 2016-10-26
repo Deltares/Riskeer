@@ -72,7 +72,7 @@ namespace Application.Ringtoets.Storage.Test.Create.WaterPressureAsphaltCover
             // Setup
             var sectionResult = new WaterPressureAsphaltCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = (RoundedDouble) double.NaN
+                AssessmentLayerThree = RoundedDouble.NaN
             };
 
             // Call

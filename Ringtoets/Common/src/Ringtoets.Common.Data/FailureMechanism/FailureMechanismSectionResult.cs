@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Data.FailureMechanism
                 throw new ArgumentNullException("section");
             }
             Section = section;
-            AssessmentLayerThree = (RoundedDouble)double.NaN;
+            AssessmentLayerThree = RoundedDouble.NaN;
         }
 
         /// <summary>

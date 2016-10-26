@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             // Setup
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = (RoundedDouble) double.NaN
+                AssessmentLayerThree = RoundedDouble.NaN
             };
 
             // Call

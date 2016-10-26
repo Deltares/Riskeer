@@ -98,34 +98,34 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
                 StructureNormalOrientation = double.NaN,
                 AllowedLevelIncreaseStorage =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    StandardDeviation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = RoundedDouble.NaN
                 },
                 CriticalOvertoppingDischarge =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    CoefficientOfVariation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    CoefficientOfVariation = RoundedDouble.NaN
                 },
                 FailureProbabilityStructureWithErosion = double.NaN,
                 FlowWidthAtBottomProtection =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    StandardDeviation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = RoundedDouble.NaN
                 },
                 LevelCrestStructure =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    StandardDeviation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = RoundedDouble.NaN
                 },
                 StorageStructureArea =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    CoefficientOfVariation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    CoefficientOfVariation = RoundedDouble.NaN
                 },
                 WidthFlowApertures =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    CoefficientOfVariation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    CoefficientOfVariation = RoundedDouble.NaN
                 }
             });
             var registry = new PersistenceRegistry();

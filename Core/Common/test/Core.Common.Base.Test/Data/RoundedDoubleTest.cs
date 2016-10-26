@@ -114,6 +114,14 @@ namespace Core.Common.Base.Test.Data
         }
 
         [Test]
+        public void NaN_ExpectedValue()
+        {
+            // Assert
+            Assert.IsNaN(RoundedDouble.NaN.Value);
+            Assert.AreEqual(RoundedDouble.MaximumNumberOfDecimalPlaces, RoundedDouble.NaN.NumberOfDecimalPlaces);
+        }
+
+        [Test]
         [TestCase(1.0, 2, 1.00)]
         [TestCase(123456789.0, 3, 123456789.000)]
         [TestCase(12345678.90, 2, 12345678.90)]

@@ -165,8 +165,8 @@ namespace Ringtoets.Integration.Service
                                                                                       !double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel) ||
                                                                                       !double.IsNaN(hydraulicBoundaryLocation.WaveHeight)))
             {
-                hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) double.NaN;
-                hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) double.NaN;
+                hydraulicBoundaryLocation.DesignWaterLevel = RoundedDouble.NaN;
+                hydraulicBoundaryLocation.WaveHeight = RoundedDouble.NaN;
                 hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence = CalculationConvergence.NotCalculated;
                 hydraulicBoundaryLocation.WaveHeightCalculationConvergence = CalculationConvergence.NotCalculated;
                 locationsAffected = true;

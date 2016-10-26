@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             // Setup
             var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = (RoundedDouble) double.NaN
+                AssessmentLayerThree = RoundedDouble.NaN
             };
 
             // Call

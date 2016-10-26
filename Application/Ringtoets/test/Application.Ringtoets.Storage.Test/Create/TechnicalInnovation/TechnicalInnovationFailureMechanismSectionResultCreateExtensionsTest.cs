@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Create.TechnicalInnovation
             // Setup
             var sectionResult = new TechnicalInnovationFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = (RoundedDouble) double.NaN
+                AssessmentLayerThree = RoundedDouble.NaN
             };
 
             // Call

@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             // Setup
             var sectionResult = new GrassCoverErosionInwardsFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = (RoundedDouble) double.NaN
+                AssessmentLayerThree = RoundedDouble.NaN
             };
 
             var registry = new PersistenceRegistry();

@@ -191,7 +191,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 }
             };
 
-            calculation.InputParameters.DeviationWaveDirection = (RoundedDouble) double.NaN;
+            calculation.InputParameters.DeviationWaveDirection = RoundedDouble.NaN;
 
             // Call
             bool isValid = false;
@@ -234,7 +234,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 }
             };
 
-            calculation.InputParameters.StructureNormalOrientation = (RoundedDouble) double.NaN;
+            calculation.InputParameters.StructureNormalOrientation = RoundedDouble.NaN;
 
             // Call
             bool isValid = false;

@@ -204,7 +204,7 @@ namespace Ringtoets.Piping.Data
         {
             if (SurfaceLine == null)
             {
-                ExitPointL = (RoundedDouble) double.NaN;
+                ExitPointL = RoundedDouble.NaN;
             }
             else
             {

@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Data
             {
                 LogNormalDistribution thicknessCoverageLayer = new LogNormalDistribution(2)
                 {
-                    Mean = (RoundedDouble) double.NaN,
+                    Mean = RoundedDouble.NaN,
                     StandardDeviation = (RoundedDouble) 0.5
                 };
                 UpdateThicknessCoverageLayerMean(thicknessCoverageLayer);
@@ -129,7 +129,7 @@ namespace Ringtoets.Piping.Data
             {
                 LogNormalDistribution thicknessAquiferLayer = new LogNormalDistribution(2)
                 {
-                    Mean = (RoundedDouble) double.NaN,
+                    Mean = RoundedDouble.NaN,
                     StandardDeviation = (RoundedDouble) 0.5
                 };
                 UpdateThicknessAquiferLayerMean(thicknessAquiferLayer);
@@ -148,8 +148,8 @@ namespace Ringtoets.Piping.Data
             {
                 var distribution = new LogNormalDistribution(6)
                 {
-                    Mean = (RoundedDouble) double.NaN,
-                    StandardDeviation = (RoundedDouble) double.NaN
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = RoundedDouble.NaN
                 };
                 UpdateDiameterD70Parameters(distribution);
 
@@ -167,8 +167,8 @@ namespace Ringtoets.Piping.Data
             {
                 var distribution = new LogNormalDistribution(6)
                 {
-                    Mean = (RoundedDouble) double.NaN,
-                    StandardDeviation = (RoundedDouble) double.NaN
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = RoundedDouble.NaN
                 };
                 UpdateDarcyPermeabilityParameters(distribution);
 
@@ -185,9 +185,9 @@ namespace Ringtoets.Piping.Data
             {
                 var distribution = new LogNormalDistribution(2)
                 {
-                    Mean = (RoundedDouble) double.NaN,
-                    StandardDeviation = (RoundedDouble) double.NaN,
-                    Shift = (RoundedDouble) double.NaN
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = RoundedDouble.NaN,
+                    Shift = RoundedDouble.NaN
                 };
                 UpdateSaturatedVolumicWeightOfCoverageLayerParameters(distribution);
 

@@ -166,7 +166,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                                               new Point2D[0],
                                               null,
                                               new DikeProfile.ConstructionProperties()),
-                DikeHeight = (RoundedDouble) double.NaN
+                DikeHeight = RoundedDouble.NaN
             };
 
             // Call

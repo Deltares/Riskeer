@@ -32,6 +32,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Piping.Data;
 using Ringtoets.Piping.Primitives;
+using Ringtoets.StabilityPointStructures.Data;
 
 namespace Application.Ringtoets.Storage.Create
 {
@@ -54,6 +55,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<object, HydraulicBoundaryLocation> hydraulicLocations = CreateDictionary<object, HydraulicBoundaryLocation>();
         private readonly Dictionary<HeightStructureEntity, HeightStructure> heightStructures = CreateDictionary<HeightStructureEntity, HeightStructure>();
         private readonly Dictionary<ClosingStructureEntity, ClosingStructure> closingStructures = CreateDictionary<ClosingStructureEntity, ClosingStructure>();
+        private readonly Dictionary<StabilityPointStructureEntity, StabilityPointStructure> stabilityPointStructures = CreateDictionary<StabilityPointStructureEntity, StabilityPointStructure>();
 
         private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
         {
@@ -290,6 +292,22 @@ namespace Application.Ringtoets.Storage.Create
             Register(closingStructures, entity, model);
         }
 
+        /// <summary>
+        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
+        /// that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="StabilityPointStructureEntity"/> to be registered.</param>
+        /// <param name="model">The <see cref="StabilityPointStructure"/> to be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when either:
+        /// <list type="bullet">
+        /// <item><paramref name="entity"/> is <c>null</c></item>
+        /// <item><paramref name="model"/> is <c>null</c></item>
+        /// </list></exception>
+        internal void Register(StabilityPointStructureEntity entity, StabilityPointStructure model)
+        {
+            Register(stabilityPointStructures, entity, model);
+        }
+
         #endregion
 
         #region Contains Methods
@@ -413,6 +431,17 @@ namespace Application.Ringtoets.Storage.Create
         internal bool Contains(ClosingStructure model)
         {
             return ContainsValue(closingStructures, model);
+        }
+
+        /// <summary>
+        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="StabilityPointStructure"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(StabilityPointStructure model)
+        {
+            return ContainsValue(stabilityPointStructures, model);
         }
 
         #endregion
@@ -602,6 +631,22 @@ namespace Application.Ringtoets.Storage.Create
         internal ClosingStructureEntity Get(ClosingStructure model)
         {
             return Get(closingStructures, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="StabilityPointStructureEntity"/> which was registered for the
+        /// given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="StabilityPointStructure"/> for which a read operation has been registered.</param>
+        /// <returns>The constructed <see cref="StabilityPointStructureEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(StabilityPointStructure)"/> to find out whether a
+        /// create operation has been registered for <paramref name="model"/>.</remarks>
+        internal StabilityPointStructureEntity Get(StabilityPointStructure model)
+        {
+            return Get(stabilityPointStructures, model);
         }
 
         #endregion

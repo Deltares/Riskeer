@@ -78,7 +78,7 @@ namespace Ringtoets.Piping.Data.TestUtil
         /// <returns>A new <see cref="PipingCalculationScenario"/>.</returns>
         public static PipingCalculationScenario CreateFailedPipingCalculationScenario(FailureMechanismSection section)
         {
-            return CreatePipingCalculationScenario((RoundedDouble) double.NaN, section);
+            return CreatePipingCalculationScenario(RoundedDouble.NaN, section);
         }
 
         /// <summary>

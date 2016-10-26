@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Setup
             var sectionResult = new PipingFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = (RoundedDouble) double.NaN
+                AssessmentLayerThree = RoundedDouble.NaN
             };
 
             // Call

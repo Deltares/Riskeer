@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create.DuneErosion
             // Setup
             var sectionResult = new DuneErosionFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = (RoundedDouble) double.NaN
+                AssessmentLayerThree = RoundedDouble.NaN
             };
 
             // Call

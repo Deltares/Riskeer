@@ -129,7 +129,7 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
             var converter = new NoValueRoundedDoubleConverter();
 
             // Call
-            var text = (string) converter.ConvertTo((RoundedDouble) double.NaN, typeof(string));
+            var text = (string) converter.ConvertTo(RoundedDouble.NaN, typeof(string));
 
             // Assert
             Assert.AreEqual("-", text);

@@ -39,7 +39,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
             // Setup
             var insideWaterLevel = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
+                Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble) 0.1
             };
 
@@ -51,19 +51,19 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             var thresholdHeightOpenWeir = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
+                Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble) 0.1
             };
 
             var areaFlowApertures = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
+                Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble) 0.01
             };
 
             var levelCrestStructureNotClosing = new NormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
+                Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble) 0.05
             };
 

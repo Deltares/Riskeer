@@ -142,7 +142,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) double.NaN;
+            calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = RoundedDouble.NaN;
 
             var isValid = true;
 

@@ -177,7 +177,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data
         {
             if (dikeProfile == null)
             {
-                Orientation = (RoundedDouble) double.NaN;
+                Orientation = RoundedDouble.NaN;
                 UseForeshore = false;
                 UseBreakWater = false;
                 BreakWater = GetDefaultBreakWater();

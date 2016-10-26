@@ -266,7 +266,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                     DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
                                                   null, new DikeProfile.ConstructionProperties()
                                                   {
-                                                      Orientation = (RoundedDouble) double.NaN
+                                                      Orientation = RoundedDouble.NaN
                                                   })
                 }
             };

@@ -347,7 +347,7 @@ namespace Ringtoets.Revetment.Data
         {
             if (foreshoreProfile == null)
             {
-                Orientation = (RoundedDouble) double.NaN;
+                Orientation = RoundedDouble.NaN;
                 UseForeshore = false;
                 UseBreakWater = false;
                 BreakWater = GetDefaultBreakWater();

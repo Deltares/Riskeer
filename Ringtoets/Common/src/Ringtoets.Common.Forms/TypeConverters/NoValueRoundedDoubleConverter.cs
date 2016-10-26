@@ -42,7 +42,7 @@ namespace Ringtoets.Common.Forms.TypeConverters
             {
                 if (string.IsNullOrWhiteSpace(text) || text.Trim() == Resources.RoundedRouble_No_result_dash)
                 {
-                    return (RoundedDouble) double.NaN;
+                    return RoundedDouble.NaN;
                 }
             }
             return base.ConvertFrom(context, culture, value);

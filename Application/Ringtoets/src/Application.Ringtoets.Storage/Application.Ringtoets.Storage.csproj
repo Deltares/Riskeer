@@ -71,6 +71,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Create\StabilityPointStructures\GeneralStabilityPointStructuresInputCreateExtensions.cs" />
+    <Compile Include="Create\StabilityPointStructures\StabilityPointStructureCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationCreateExtensions.cs" />
     <Compile Include="Create\WaveConditionsOutputCreateExtensions.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensions.cs" />
@@ -251,6 +252,7 @@
     <Compile Include="Read\HeightStructures\HeightStructureEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensions.cs" />
+    <Compile Include="Read\StabilityPointStructures\StabilityPointStructureEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructureFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsOutputEntityReadExtensions.cs" />

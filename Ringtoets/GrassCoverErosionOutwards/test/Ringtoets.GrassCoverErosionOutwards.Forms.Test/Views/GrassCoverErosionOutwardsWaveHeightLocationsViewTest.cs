@@ -255,7 +255,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual("-", rows[2].Cells[locationWaveHeightColumnIndex].FormattedValue);
 
             // Call
-            locations.ForEach(loc => loc.WaveHeight = (RoundedDouble) double.NaN);
+            locations.ForEach(loc => loc.WaveHeight = RoundedDouble.NaN);
             locations.NotifyObservers();
 
             // Assert

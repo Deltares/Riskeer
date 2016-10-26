@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Microstability
             // Setup
             var sectionResult = new MicrostabilityFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = (RoundedDouble) double.NaN
+                AssessmentLayerThree = RoundedDouble.NaN
             };
 
             // Call

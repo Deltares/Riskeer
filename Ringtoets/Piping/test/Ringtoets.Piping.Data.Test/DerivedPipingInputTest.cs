@@ -298,7 +298,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble) double.NaN;
+            input.ExitPointL = RoundedDouble.NaN;
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
@@ -511,7 +511,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.EntryPointL = (RoundedDouble) double.NaN;
+            input.EntryPointL = RoundedDouble.NaN;
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
@@ -527,7 +527,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble) double.NaN;
+            input.ExitPointL = RoundedDouble.NaN;
             var derivedInput = new DerivedPipingInput(input);
 
             // Call
@@ -595,7 +595,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
-            input.ExitPointL = (RoundedDouble) double.NaN;
+            input.ExitPointL = RoundedDouble.NaN;
 
             // Call
             var result = derivedInput.SaturatedVolumicWeightOfCoverageLayer;
@@ -955,7 +955,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
-            input.ExitPointL = (RoundedDouble) double.NaN;
+            input.ExitPointL = RoundedDouble.NaN;
 
             // Call
             var result = derivedInput.DarcyPermeability;
@@ -1097,7 +1097,7 @@ namespace Ringtoets.Piping.Data.Test
             // Setup
             var input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
             var derivedInput = new DerivedPipingInput(input);
-            input.ExitPointL = (RoundedDouble) double.NaN;
+            input.ExitPointL = RoundedDouble.NaN;
 
             // Call
             var result = derivedInput.DiameterD70;

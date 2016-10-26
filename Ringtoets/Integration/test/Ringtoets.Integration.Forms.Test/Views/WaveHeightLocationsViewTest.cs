@@ -221,7 +221,7 @@ namespace Ringtoets.Integration.Forms.Test.Views
             Assert.AreEqual("-", rows[2].Cells[locationWaveHeightColumnIndex].FormattedValue);
 
             // Call
-            assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.WaveHeight = (RoundedDouble) double.NaN);
+            assessmentSection.HydraulicBoundaryDatabase.Locations.ForEach(loc => loc.WaveHeight = RoundedDouble.NaN);
             assessmentSection.NotifyObservers();
 
             // Assert

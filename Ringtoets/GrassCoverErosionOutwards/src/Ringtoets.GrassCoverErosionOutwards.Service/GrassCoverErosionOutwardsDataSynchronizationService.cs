@@ -71,8 +71,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
                                                      !double.IsNaN(location.DesignWaterLevel) ||
                                                      !double.IsNaN(location.WaveHeight)))
             {
-                location.DesignWaterLevel = (RoundedDouble) double.NaN;
-                location.WaveHeight = (RoundedDouble) double.NaN;
+                location.DesignWaterLevel = RoundedDouble.NaN;
+                location.WaveHeight = RoundedDouble.NaN;
                 location.DesignWaterLevelCalculationConvergence = CalculationConvergence.NotCalculated;
                 location.WaveHeightCalculationConvergence = CalculationConvergence.NotCalculated;
                 locationsAffected = true;

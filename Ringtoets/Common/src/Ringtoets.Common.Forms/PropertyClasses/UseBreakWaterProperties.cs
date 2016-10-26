@@ -107,7 +107,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
                 {
                     return data.BreakWater.Height;
                 }
-                return (RoundedDouble) double.NaN;
+                return RoundedDouble.NaN;
             }
             set
             {

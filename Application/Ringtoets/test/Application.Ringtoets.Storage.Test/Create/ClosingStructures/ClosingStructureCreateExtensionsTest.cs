@@ -109,48 +109,48 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
                 StructureNormalOrientation = double.NaN,
                 StorageStructureArea =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    CoefficientOfVariation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    CoefficientOfVariation = RoundedDouble.NaN
                 },
                 AllowedLevelIncreaseStorage =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    StandardDeviation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = RoundedDouble.NaN
                 },
                                 WidthFlowApertures =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    CoefficientOfVariation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    CoefficientOfVariation = RoundedDouble.NaN
                 },
                 LevelCrestStructureNotClosing =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    StandardDeviation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = RoundedDouble.NaN
                 },
                 InsideWaterLevel =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    StandardDeviation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = RoundedDouble.NaN
                 },
                 ThresholdHeightOpenWeir =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    StandardDeviation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = RoundedDouble.NaN
                 },
                 AreaFlowApertures =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    StandardDeviation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = RoundedDouble.NaN
                 },
                 CriticalOvertoppingDischarge =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    CoefficientOfVariation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    CoefficientOfVariation = RoundedDouble.NaN
                 },
                 FlowWidthAtBottomProtection =
                 {
-                    Mean = (RoundedDouble)double.NaN,
-                    StandardDeviation = (RoundedDouble)double.NaN
+                    Mean = RoundedDouble.NaN,
+                    StandardDeviation = RoundedDouble.NaN
                 },
                 ProbabilityOpenStructureBeforeFlooding = double.NaN,
                 FailureProbabilityOpenStructure = double.NaN,

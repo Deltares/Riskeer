@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             // Setup
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = (RoundedDouble) double.NaN
+                AssessmentLayerThree = RoundedDouble.NaN
             };
 
             // Call

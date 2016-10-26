@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Service
                 throw new ArgumentNullException("location");
             }
 
-            location.DesignWaterLevel = (RoundedDouble) double.NaN;
+            location.DesignWaterLevel = RoundedDouble.NaN;
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Ringtoets.Common.Service
                 throw new ArgumentNullException("location");
             }
 
-            location.WaveHeight = (RoundedDouble) double.NaN;
+            location.WaveHeight = RoundedDouble.NaN;
         }
     }
 }

@@ -75,7 +75,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
             // Setup
             var sectionResult = new StabilityStoneCoverFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = (RoundedDouble) double.NaN
+                AssessmentLayerThree = RoundedDouble.NaN
             };
 
             // Call

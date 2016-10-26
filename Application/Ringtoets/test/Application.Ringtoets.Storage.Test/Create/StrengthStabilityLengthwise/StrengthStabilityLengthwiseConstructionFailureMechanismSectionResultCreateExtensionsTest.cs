@@ -71,7 +71,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StrengthStabilityLengthwise
             // Setup
             var sectionResult = new StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
-                AssessmentLayerThree = (RoundedDouble) double.NaN
+                AssessmentLayerThree = RoundedDouble.NaN
             };
 
             // Call

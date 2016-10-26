@@ -258,7 +258,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             Assert.AreEqual(1.23.ToString(CultureInfo.CurrentCulture), rows[1].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
             Assert.AreEqual("-", rows[2].Cells[locationDesignWaterlevelColumnIndex].FormattedValue);
 
-            locations.ForEach(loc => loc.DesignWaterLevel = (RoundedDouble) double.NaN);
+            locations.ForEach(loc => loc.DesignWaterLevel = RoundedDouble.NaN);
 
             // Call
             locations.NotifyObservers();

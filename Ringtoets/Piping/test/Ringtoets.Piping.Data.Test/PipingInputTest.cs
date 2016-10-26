@@ -58,38 +58,38 @@ namespace Ringtoets.Piping.Data.Test
 
             var diameter70 = new LogNormalDistribution(6)
             {
-                Mean = (RoundedDouble) double.NaN,
-                StandardDeviation = (RoundedDouble) double.NaN
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = RoundedDouble.NaN
             };
 
             var darcyPermeability = new LogNormalDistribution(6)
             {
-                Mean = (RoundedDouble) double.NaN,
-                StandardDeviation = (RoundedDouble) double.NaN
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = RoundedDouble.NaN
             };
 
             var thicknessCoverageLayer = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
+                Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble) 0.5
             };
 
             var saturatedVolumicWeightOfCoverageLayer = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
-                StandardDeviation = (RoundedDouble) double.NaN
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = RoundedDouble.NaN
             };
 
             var thicknessAquiferLayer = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
+                Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble) 0.5
             };
 
             var seepageLength = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
-                StandardDeviation = (RoundedDouble) double.NaN
+                Mean = RoundedDouble.NaN,
+                StandardDeviation = RoundedDouble.NaN
             };
 
             GeneralPipingInput generalInputParameters = new GeneralPipingInput();
@@ -198,7 +198,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.EntryPointL = (RoundedDouble) double.NaN;
+            input.EntryPointL = RoundedDouble.NaN;
 
             // Call
             TestDelegate call = () => input.ExitPointL = (RoundedDouble) value;
@@ -217,7 +217,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.EntryPointL = (RoundedDouble) double.NaN;
+            input.EntryPointL = RoundedDouble.NaN;
 
             int originalNumberOfDecimalPlaces = input.ExitPointL.NumberOfDecimalPlaces;
 
@@ -257,7 +257,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble) double.NaN;
+            input.ExitPointL = RoundedDouble.NaN;
             // Call
             TestDelegate call = () => input.EntryPointL = (RoundedDouble) value;
 
@@ -276,7 +276,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble) double.NaN;
+            input.ExitPointL = RoundedDouble.NaN;
 
             int originalNumberOfDecimalPlaces = input.EntryPointL.NumberOfDecimalPlaces;
 
@@ -555,7 +555,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble) double.NaN;
+            input.ExitPointL = RoundedDouble.NaN;
 
             // Call
             LogNormalDistribution thicknessAquiferLayer = input.ThicknessAquiferLayer;
@@ -768,7 +768,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.EntryPointL = (RoundedDouble) double.NaN;
+            input.EntryPointL = RoundedDouble.NaN;
 
             // Call
             LogNormalDistribution seepageLength = input.SeepageLength;
@@ -783,7 +783,7 @@ namespace Ringtoets.Piping.Data.Test
         {
             // Setup
             PipingInput input = PipingCalculationFactory.CreateInputWithAquiferAndCoverageLayer();
-            input.ExitPointL = (RoundedDouble) double.NaN;
+            input.ExitPointL = RoundedDouble.NaN;
 
             // Call
             LogNormalDistribution seepageLength = input.SeepageLength;

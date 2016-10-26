@@ -50,31 +50,31 @@ namespace Ringtoets.Common.Data.Test.Structures
 
             var allowedLevelIncreaseStorage = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
+                Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble) 0.1
             };
 
             var storageStructureArea = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
+                Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = (RoundedDouble) 0.1
             };
 
             var flowWidthAtBottomProtection = new LogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
+                Mean = RoundedDouble.NaN,
                 StandardDeviation = (RoundedDouble) 0.05
             };
 
             var criticalOvertoppingDischarge = new VariationCoefficientLogNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
+                Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = (RoundedDouble) 0.15
             };
 
             var widthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
-                Mean = (RoundedDouble) double.NaN,
+                Mean = RoundedDouble.NaN,
                 CoefficientOfVariation = (RoundedDouble) 0.05
             };
 

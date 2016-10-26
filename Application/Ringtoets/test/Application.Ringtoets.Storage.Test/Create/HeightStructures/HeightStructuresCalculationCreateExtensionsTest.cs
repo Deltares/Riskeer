@@ -167,50 +167,50 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             {
                 InputParameters =
                 {
-                    StructureNormalOrientation = (RoundedDouble) double.NaN,
+                    StructureNormalOrientation = RoundedDouble.NaN,
                     ModelFactorSuperCriticalFlow =
                     {
-                        Mean = (RoundedDouble) double.NaN
+                        Mean = RoundedDouble.NaN
                     },
                     AllowedLevelIncreaseStorage =
                     {
-                        Mean = (RoundedDouble) double.NaN,
-                        StandardDeviation = (RoundedDouble) double.NaN
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
                     },
                     StorageStructureArea =
                     {
-                        Mean = (RoundedDouble) double.NaN,
-                        CoefficientOfVariation = (RoundedDouble) double.NaN
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
                     },
                     FlowWidthAtBottomProtection =
                     {
-                        Mean = (RoundedDouble) double.NaN,
-                        StandardDeviation = (RoundedDouble) double.NaN
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
                     },
                     CriticalOvertoppingDischarge =
                     {
-                        Mean = (RoundedDouble) double.NaN,
-                        CoefficientOfVariation = (RoundedDouble) double.NaN
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
                     },
                     WidthFlowApertures =
                     {
-                        Mean = (RoundedDouble) double.NaN,
-                        CoefficientOfVariation = (RoundedDouble) double.NaN
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
                     },
                     StormDuration =
                     {
-                        Mean = (RoundedDouble) double.NaN,
-                        CoefficientOfVariation = (RoundedDouble) double.NaN
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
                     },
                     LevelCrestStructure =
                     {
-                        Mean = (RoundedDouble) double.NaN,
-                        StandardDeviation = (RoundedDouble) double.NaN
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
                     },
-                    DeviationWaveDirection = (RoundedDouble) double.NaN,
+                    DeviationWaveDirection = RoundedDouble.NaN,
                     BreakWater =
                     {
-                        Height = (RoundedDouble) double.NaN
+                        Height = RoundedDouble.NaN
                     }
                 }
             };

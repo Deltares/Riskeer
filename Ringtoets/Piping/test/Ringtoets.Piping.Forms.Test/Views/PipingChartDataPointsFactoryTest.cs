@@ -90,7 +90,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = GetSurfaceLineWithGeometry(),
-                EntryPointL = (RoundedDouble) double.NaN
+                EntryPointL = RoundedDouble.NaN
             };
 
             // Call
@@ -154,7 +154,7 @@ namespace Ringtoets.Piping.Forms.Test.Views
             var pipingInput = new PipingInput(new GeneralPipingInput())
             {
                 SurfaceLine = GetSurfaceLineWithGeometry(),
-                ExitPointL = (RoundedDouble) double.NaN
+                ExitPointL = RoundedDouble.NaN
             };
 
             // Call
