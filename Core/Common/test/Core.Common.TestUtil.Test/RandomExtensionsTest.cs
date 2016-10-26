@@ -25,13 +25,13 @@ using NUnit.Framework;
 namespace Core.Common.TestUtil.Test
 {
     [TestFixture]
-    public class RandomNumberGeneratorTest
+    public class RandomExtensionsTest
     {
         [Test]
-        public void GetRandomDoubleFromRange_RandomIsNull_ThrowsArgumentNullException()
+        public void GetFromRange_RandomIsNull_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => RandomNumberGenerator.GetRandomDoubleFromRange(null, 0, 0);
+            TestDelegate test = () => ((Random) null).GetFromRange(0, 0);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -39,13 +39,13 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void GetRandomDoubleFromRange_LowerLimitLargerThanUpperLimit_ThrowsArgumentException()
+        public void GetFromRange_LowerLimitLargerThanUpperLimit_ThrowsArgumentException()
         {
             // Setup
             var random = new Random();
 
             // Call
-            TestDelegate test = () => RandomNumberGenerator.GetRandomDoubleFromRange(random, 1, 0);
+            TestDelegate test = () => random.GetFromRange(1, 0);
 
             // Assert
             string message = Assert.Throws<ArgumentException>(test).Message;
@@ -58,13 +58,13 @@ namespace Core.Common.TestUtil.Test
         [TestCase(0, double.PositiveInfinity)]
         [TestCase(double.NaN, 0)]
         [TestCase(0, double.NaN)]
-        public void GetRandomDoubleFromRange_LimitsTooLarge_ThrowsNotFiniteNumberException(double lowerLimit, double upperLimit)
+        public void GetFromRange_LimitsTooLarge_ThrowsNotFiniteNumberException(double lowerLimit, double upperLimit)
         {
             // Setup
             var random = new Random();
 
             // Call
-            TestDelegate test = () => RandomNumberGenerator.GetRandomDoubleFromRange(random, lowerLimit, upperLimit);
+            TestDelegate test = () => random.GetFromRange(lowerLimit, upperLimit);
 
             // Assert
             string message = Assert.Throws<NotFiniteNumberException>(test).Message;
@@ -81,13 +81,13 @@ namespace Core.Common.TestUtil.Test
         [TestCase(0, 0)]
         [TestCase(0, 10)]
         [TestCase(0, 10)]
-        public void GetRandomDoubleFromRange_VariousLimits_RandomNumberBetweenLimits(double lowerLimit, double upperLimit)
+        public void GetFromRange_VariousLimits_RandomNumberBetweenLimits(double lowerLimit, double upperLimit)
         {
             // Setup
             var random = new Random();
 
             // Call
-            var randomValue = RandomNumberGenerator.GetRandomDoubleFromRange(random, lowerLimit, upperLimit);
+            var randomValue = random.GetFromRange(lowerLimit, upperLimit);
 
             // Assert
             Assert.LessOrEqual(randomValue, upperLimit);

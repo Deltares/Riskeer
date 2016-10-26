@@ -426,9 +426,9 @@ namespace Ringtoets.Piping.Service.Test
                                                     new PipingSoilLayer(10.5)
                                                     {
                                                         IsAquifer = false,
-                                                        BelowPhreaticLevelDeviation = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 999.999),
-                                                        BelowPhreaticLevelMean = RandomNumberGenerator.GetRandomDoubleFromRange(random, 10.0, 999.999),
-                                                        BelowPhreaticLevelShift = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 10.0)
+                                                        BelowPhreaticLevelDeviation = random.GetFromRange(1e-6, 999.999),
+                                                        BelowPhreaticLevelMean = random.GetFromRange(10.0, 999.999),
+                                                        BelowPhreaticLevelShift = random.GetFromRange(1e-6, 10.0)
                                                     },
                                                     incompletePipingSoilLayer
                                                 },
@@ -486,9 +486,9 @@ namespace Ringtoets.Piping.Service.Test
                                                     new PipingSoilLayer(10.5)
                                                     {
                                                         IsAquifer = false,
-                                                        BelowPhreaticLevelDeviation = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 999.999),
-                                                        BelowPhreaticLevelMean = RandomNumberGenerator.GetRandomDoubleFromRange(random, 10.0, 999.999),
-                                                        BelowPhreaticLevelShift = RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 10.0)
+                                                        BelowPhreaticLevelDeviation = random.GetFromRange(1e-6, 999.999),
+                                                        BelowPhreaticLevelMean = random.GetFromRange(10.0, 999.999),
+                                                        BelowPhreaticLevelShift = random.GetFromRange(1e-6, 10.0)
                                                     },
                                                     incompletePipingSoilLayer
                                                 },

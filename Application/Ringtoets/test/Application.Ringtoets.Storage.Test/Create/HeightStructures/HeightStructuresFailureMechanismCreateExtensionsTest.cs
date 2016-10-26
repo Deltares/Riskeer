@@ -188,12 +188,14 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
                                                                 .OrderBy(cge => cge.Order)
                                                                 .ToArray();
             Assert.AreEqual(2, childGroupEntities.Length);
-            Assert.AreEqual("A", childGroupEntities[0].Name);
-            Assert.AreEqual(1, childGroupEntities[0].IsEditable);
-            Assert.AreEqual(0, childGroupEntities[0].Order);
-            Assert.AreEqual("B", childGroupEntities[1].Name);
-            Assert.AreEqual(1, childGroupEntities[1].IsEditable);
-            Assert.AreEqual(1, childGroupEntities[1].Order);
+            CalculationGroupEntity childGroupEntity1 = childGroupEntities[0];
+            Assert.AreEqual("A", childGroupEntity1.Name);
+            Assert.AreEqual(1, childGroupEntity1.IsEditable);
+            Assert.AreEqual(0, childGroupEntity1.Order);
+            CalculationGroupEntity childGroupEntity2 = childGroupEntities[1];
+            Assert.AreEqual("B", childGroupEntity2.Name);
+            Assert.AreEqual(1, childGroupEntity2.IsEditable);
+            Assert.AreEqual(1, childGroupEntity2.Order);
         }
     }
 }

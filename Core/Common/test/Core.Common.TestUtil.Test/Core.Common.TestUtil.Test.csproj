@@ -67,7 +67,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="RandomNumberGeneratorTest.cs" />
+    <Compile Include="RandomExtensionsTest.cs" />
     <Compile Include="TestHelperTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowsFormsTestHelperTest.cs" />

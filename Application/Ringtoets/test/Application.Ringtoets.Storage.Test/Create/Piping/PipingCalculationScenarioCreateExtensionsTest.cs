@@ -74,29 +74,29 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                     EntryPointL = (RoundedDouble) entryPoint,
                     PhreaticLevelExit =
                     {
-                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, -9999.9999, 9999.9999),
-                        StandardDeviation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) random.GetFromRange(-9999.9999, 9999.9999),
+                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
                     },
                     DampingFactorExit =
                     {
-                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
+                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
                     },
                     SaturatedVolumicWeightOfCoverageLayer =
                     {
-                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 10.0, 9999.9999),
-                        StandardDeviation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        Shift = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 10.0)
+                        Mean = (RoundedDouble) random.GetFromRange(10.0, 9999.9999),
+                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
+                        Shift = (RoundedDouble) random.GetFromRange(1e-6, 10.0)
                     },
                     Diameter70 =
                     {
-                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
+                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
                     },
                     DarcyPermeability =
                     {
-                        Mean = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999),
-                        StandardDeviation = (RoundedDouble) RandomNumberGenerator.GetRandomDoubleFromRange(random, 1e-6, 9999.9999)
+                        Mean = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999),
+                        StandardDeviation = (RoundedDouble) random.GetFromRange(1e-6, 9999.9999)
                     }
                 }
             };

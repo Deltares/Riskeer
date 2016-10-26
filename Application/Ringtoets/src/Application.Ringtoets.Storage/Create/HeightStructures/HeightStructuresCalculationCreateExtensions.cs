@@ -78,6 +78,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
             entity.StructureNormalOrientation = input.StructureNormalOrientation.Value.ToNaNAsNull();
 
             entity.ModelFactorSuperCriticalFlowMean = input.ModelFactorSuperCriticalFlow.Mean.Value.ToNaNAsNull();
+
             entity.AllowedLevelIncreaseStorageMean = input.AllowedLevelIncreaseStorage.Mean.Value.ToNaNAsNull();
             entity.AllowedLevelIncreaseStorageStandardDeviation = input.AllowedLevelIncreaseStorage.StandardDeviation.Value.ToNaNAsNull();
 
@@ -96,8 +97,10 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
             entity.WidthFlowAperturesCoefficientOfVariation = input.WidthFlowApertures.CoefficientOfVariation.Value.ToNaNAsNull();
 
             entity.StormDurationMean = input.StormDuration.Mean.Value.ToNaNAsNull();
+
             entity.LevelCrestStructureMean = input.LevelCrestStructure.Mean.Value.ToNaNAsNull();
             entity.LevelCrestStructureStandardDeviation = input.LevelCrestStructure.StandardDeviation.Value.ToNaNAsNull();
+
             entity.DeviationWaveDirection = input.DeviationWaveDirection.Value.ToNaNAsNull();
 
             entity.BreakWaterHeight = input.BreakWater.Height.Value.ToNaNAsNull();

@@ -24,9 +24,9 @@ using System;
 namespace Core.Common.TestUtil
 {
     /// <summary>
-    /// Helper class for generating random numbers.
+    /// Extension methods for <see cref="Random"/>.
     /// </summary>
-    public static class RandomNumberGenerator
+    public static class RandomExtensions
     {
         /// <summary>
         /// Generates a new pseudo-random number between <paramref name="lowerLimit"/> and <paramref name="upperLimit"/>.
@@ -38,7 +38,7 @@ namespace Core.Common.TestUtil
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="random"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when <paramref name="lowerLimit"/> is larger than <paramref name="upperLimit"/>.</exception>
         /// <exception cref="NotFiniteNumberException">Thrown when the generated value is not finite.</exception>
-        public static double GetRandomDoubleFromRange(Random random, double lowerLimit, double upperLimit)
+        public static double GetFromRange(this Random random, double lowerLimit, double upperLimit)
         {
             if (random == null)
             {
@@ -51,7 +51,7 @@ namespace Core.Common.TestUtil
             }
 
             double difference = upperLimit - lowerLimit;
-            double randomValue = lowerLimit + random.NextDouble()*difference;
+            double randomValue = lowerLimit + random.NextDouble() * difference;
             if (double.IsInfinity(randomValue) || double.IsNaN(randomValue))
             {
                 string message = string.Format("Creating a new random value with lower limit {0} " +
