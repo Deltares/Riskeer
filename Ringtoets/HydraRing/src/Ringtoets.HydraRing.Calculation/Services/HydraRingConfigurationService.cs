@@ -412,9 +412,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                             "VariableId", hydraRingVariable.VariableId
                         },
                         {
-                            "Value", hydraRingVariable.DistributionType == HydraRingDistributionType.Deterministic
-                                         ? GetHydraRingValue(hydraRingVariable.Value)
-                                         : defaultHydraRingValue
+                            "Value", GetHydraRingValue(hydraRingVariable.Value)
                         },
                         {
                             "DistributionType", (int?) hydraRingVariable.DistributionType

@@ -511,7 +511,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 97, 18.18, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 103, 0, 4, 19.19, 20.2, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 104, 0, 4, 21.21, NULL, NULL, NULL, 0, 22.22, 999999);" + Environment.NewLine +
-                "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 105, 0, 2, 23.23, 0, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 105, 23.23, 2, 0, 1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 106, 0, 2, 24.24, NULL, NULL, NULL, 0, 25.25, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 107, 26.26, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 108, 0, 4, 27.27, NULL, NULL, NULL, 0, 28.28, 999999);" + Environment.NewLine +
@@ -806,8 +806,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 63, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 66, 0, 2, 21.1, 22.2, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 67, 0, 4, 23.3, 24.4, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 68, 0, 2, 3.3, 0, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 69, 0, 2, 4.4, 0, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 68, 3.3, 2, 0, 1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 69, 4.4, 2, 0, 1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 71, 5, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 93, 0, 2, 25.5, 26.6, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 94, 0, 4, 6.6, 7.7, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
@@ -816,7 +816,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 97, 12.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 103, 0, 4, 13.3, 14.4, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 104, 0, 4, 15.5, NULL, NULL, NULL, 0, 16.6, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 105, 0, 2, 17.7, 0, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 105, 17.7, 2, 0, 1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 108, 0, 4, 18.8, NULL, NULL, NULL, 0, 19.9, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 129, 20, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
                                             Environment.NewLine +
@@ -918,8 +918,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 63, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 64, 0, 2, 23.3, NULL, NULL, NULL, 0, 24.4, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 65, 0, 2, 25.5, 26.6, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 68, 0, 2, 3.3, 0, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 69, 0, 2, 4.4, 0, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 68, 3.3, 2, 0, 1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 69, 4.4, 2, 0, 1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 71, 5, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 93, 0, 2, 27.7, 28.8, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 94, 0, 4, 6.6, 7.7, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
@@ -928,7 +928,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 97, 12.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 103, 0, 4, 13.3, 14.4, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 104, 0, 4, 15.5, NULL, NULL, NULL, 0, 16.6, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 105, 0, 2, 17.7, 0, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 105, 17.7, 2, 0, 1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 106, 0, 2, 29.9, NULL, NULL, NULL, 0, 30, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 108, 0, 4, 18.8, NULL, NULL, NULL, 0, 19.9, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 129, 20, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
@@ -1031,8 +1031,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 61, 23.3, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 62, 0, 2, 24.4, 25.5, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 63, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 68, 0, 2, 3.3, 0, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 69, 0, 2, 4.4, 0, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 68, 3.3, 2, 0, 1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 69, 4.4, 2, 0, 1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 71, 5, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 72, 0, 2, 26.6, 27.7, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 94, 0, 4, 6.6, 7.7, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
@@ -1041,7 +1041,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 97, 12.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 103, 0, 4, 13.3, 14.4, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 104, 0, 4, 15.5, NULL, NULL, NULL, 0, 16.6, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 105, 0, 2, 17.7, 0, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 105, 17.7, 2, 0, 1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 106, 0, 2, 28.8, NULL, NULL, NULL, 0, 29.9, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 107, 30, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 108, 0, 4, 18.8, NULL, NULL, NULL, 0, 19.9, 999999);" + Environment.NewLine +
@@ -1182,7 +1182,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 97, 34.4, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 103, 0, 4, 35.5, 36.6, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 104, 0, 4, 37.7, NULL, NULL, NULL, 0, 38.8, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 0, 2, 39.9, 0, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 39.9, 2, 0, 1, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 108, 0, 4, 40, NULL, NULL, NULL, 0, 41.1, 99000);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 130, 0, 2, 42.2, 43.3, NULL, NULL, 1, 0, 6000);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 131, 44.4, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
@@ -1329,7 +1329,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 97, 34.4, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 103, 0, 4, 35.5, 36.6, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 104, 0, 4, 37.7, NULL, NULL, NULL, 0, 38.8, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 0, 2, 39.9, 0, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 39.9, 2, 0, 1, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 108, 0, 4, 40, NULL, NULL, NULL, 0, 41.1, 99000);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 130, 0, 2, 42.2, 43.3, NULL, NULL, 1, 0, 6000);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 131, 44.4, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
@@ -1475,7 +1475,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 97, 34.4, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 103, 0, 4, 35.5, 36.6, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 104, 0, 4, 37.7, NULL, NULL, NULL, 0, 38.8, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 0, 2, 39.9, 0, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 39.9, 2, 0, 1, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 106, 0, 2, 58.8, NULL, NULL, NULL, 0, 59.9, 50);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 108, 0, 4, 40, NULL, NULL, NULL, 0, 41.1, 99000);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 130, 0, 2, 42.2, 43.3, NULL, NULL, 1, 0, 6000);" + Environment.NewLine +
@@ -1622,7 +1622,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 97, 34.4, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 103, 0, 4, 35.5, 36.6, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 104, 0, 4, 37.7, NULL, NULL, NULL, 0, 38.8, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 0, 2, 39.9, 0, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 39.9, 2, 0, 1, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 106, 0, 2, 58.8, NULL, NULL, NULL, 0, 59.9, 50);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 108, 0, 4, 40, NULL, NULL, NULL, 0, 41.1, 99000);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 130, 0, 2, 42.2, 43.3, NULL, NULL, 1, 0, 6000);" + Environment.NewLine +

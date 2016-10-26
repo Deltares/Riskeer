@@ -197,9 +197,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 yield return new HydraRingVariable(104, HydraRingDistributionType.LogNormal, double.NaN,
                                                    HydraRingDeviationType.Variation, criticalOvertoppingDischargeMean,
                                                    criticalOvertoppingDischargeVariation, double.NaN);
-                yield return new HydraRingVariable(105, HydraRingDistributionType.Normal, double.NaN,
-                                                   HydraRingDeviationType.Standard, failureProbabilityStructureWithErosion,
-                                                   0.0, double.NaN); // Note: Pass the deterministic value as normal distribution (with standard deviation 0.0) as Hydra-Ring otherwise crashes
+                yield return new HydraRingVariable(105, HydraRingDistributionType.Normal, failureProbabilityStructureWithErosion,
+                                                   HydraRingDeviationType.Standard, 0.0,
+                                                   1.0, double.NaN); // TODO: Pass as deterministic value as soon as Hydra-Ring is updated
                 yield return new HydraRingVariable(106, HydraRingDistributionType.Normal, double.NaN,
                                                    HydraRingDeviationType.Variation, widthFlowAperturesMean,
                                                    widthFlowAperturesVariation, double.NaN);
