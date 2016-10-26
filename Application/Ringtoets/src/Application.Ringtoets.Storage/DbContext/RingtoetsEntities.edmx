@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -352,7 +352,7 @@
           <Property Name="FlowWidthAtBottomProtectionStandardDeviation" Type="real" />
           <Property Name="CriticalOvertoppingDischargeMean" Type="real" />
           <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="real" />
-          <Property Name="FailureProbabilityStructureWithErosion" Type="real" />
+          <Property Name="FailureProbabilityStructureWithErosion" Type="real" Nullable="false" />
           <Property Name="WidthFlowAperturesMean" Type="real" />
           <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="real" />
           <Property Name="StormDurationMean" Type="real" />
@@ -2705,7 +2705,7 @@
           <Property Name="FlowWidthAtBottomProtectionStandardDeviation" Type="Double" />
           <Property Name="CriticalOvertoppingDischargeMean" Type="Double" />
           <Property Name="CriticalOvertoppingDischargeCoefficientOfVariation" Type="Double" />
-          <Property Name="FailureProbabilityStructureWithErosion" Type="Double" />
+          <Property Name="FailureProbabilityStructureWithErosion" Type="Double" Nullable="false" />
           <Property Name="WidthFlowAperturesMean" Type="Double" />
           <Property Name="WidthFlowAperturesCoefficientOfVariation" Type="Double" />
           <Property Name="StormDurationMean" Type="Double" />

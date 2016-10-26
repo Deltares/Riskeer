@@ -22,7 +22,6 @@
 using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
-using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 
@@ -80,13 +79,7 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
             inputParameters.FlowWidthAtBottomProtection.StandardDeviation = (RoundedDouble) entity.FlowWidthAtBottomProtectionStandardDeviation.ToNullAsNaN();
             inputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) entity.CriticalOvertoppingDischargeMean.ToNullAsNaN();
             inputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation = (RoundedDouble) entity.CriticalOvertoppingDischargeCoefficientOfVariation.ToNullAsNaN();
-            
-            double failureProbabilityStructureWithErosion = entity.FailureProbabilityStructureWithErosion.ToNullAsNaN();
-            if (!double.IsNaN(failureProbabilityStructureWithErosion) && double.IsNaN(inputParameters.FailureProbabilityStructureWithErosion))
-            {
-                inputParameters.FailureProbabilityStructureWithErosion = failureProbabilityStructureWithErosion;
-            }
-
+            inputParameters.FailureProbabilityStructureWithErosion = entity.FailureProbabilityStructureWithErosion;
             inputParameters.WidthFlowApertures.Mean = (RoundedDouble) entity.WidthFlowAperturesMean.ToNullAsNaN();
             inputParameters.WidthFlowApertures.CoefficientOfVariation = (RoundedDouble) entity.WidthFlowAperturesCoefficientOfVariation.ToNullAsNaN();
 

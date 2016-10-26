@@ -115,7 +115,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             DistributionAssert.AreEqual(widthFlowApertures, input.WidthFlowApertures);
             DistributionAssert.AreEqual(stormDuration, input.StormDuration);
 
-            Assert.IsNaN(input.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(0, input.FailureProbabilityStructureWithErosion);
         }
 
         [Test]
@@ -171,21 +171,6 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         #endregion
-
-        private class SimpleStructuresInput : StructuresInputBase<StructureBase>
-        {
-            public bool Updated { get; private set; }
-
-            protected override void UpdateStructureParameters()
-            {
-                Updated = true;
-            }
-        }
-
-        private class SimpleStructure : StructureBase
-        {
-            public SimpleStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
-        }
 
         #region Hydraulic data
 
@@ -559,5 +544,20 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         #endregion
+
+        private class SimpleStructuresInput : StructuresInputBase<StructureBase>
+        {
+            public bool Updated { get; private set; }
+
+            protected override void UpdateStructureParameters()
+            {
+                Updated = true;
+            }
+        }
+
+        private class SimpleStructure : StructureBase
+        {
+            public SimpleStructure(ConstructionProperties constructionProperties) : base(constructionProperties) { }
+        }
     }
 }

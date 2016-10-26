@@ -90,7 +90,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
             entity.CriticalOvertoppingDischargeMean = input.CriticalOvertoppingDischarge.Mean.Value.ToNaNAsNull();
             entity.CriticalOvertoppingDischargeCoefficientOfVariation = input.CriticalOvertoppingDischarge.CoefficientOfVariation.Value.ToNaNAsNull();
 
-            entity.FailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion.ToNaNAsNull();
+            entity.FailureProbabilityStructureWithErosion = input.FailureProbabilityStructureWithErosion;
 
             entity.WidthFlowAperturesMean = input.WidthFlowApertures.Mean.Value.ToNaNAsNull();
             entity.WidthFlowAperturesCoefficientOfVariation = input.WidthFlowApertures.CoefficientOfVariation.Value.ToNaNAsNull();

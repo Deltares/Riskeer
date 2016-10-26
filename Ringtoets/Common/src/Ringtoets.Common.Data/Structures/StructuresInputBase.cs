@@ -90,7 +90,7 @@ namespace Ringtoets.Common.Data.Structures
                 CoefficientOfVariation = (RoundedDouble) 0.15
             };
 
-            failureProbabilityStructureWithErosion = double.NaN;
+            failureProbabilityStructureWithErosion = 0;
 
             widthFlowApertures = new VariationCoefficientNormalDistribution(2)
             {
