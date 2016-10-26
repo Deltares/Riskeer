@@ -47,7 +47,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
     {
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
-
         [Test]
         public void Run_ClosingStructuresCalculationInvalidHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
         {
@@ -112,7 +111,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                     Structure = new TestClosingStructure()
                 }
             };
-            calculation.InputParameters.DeviationWaveDirection = (RoundedDouble)0;
+            calculation.InputParameters.DeviationWaveDirection = (RoundedDouble) 0;
 
             var activity = new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
 
