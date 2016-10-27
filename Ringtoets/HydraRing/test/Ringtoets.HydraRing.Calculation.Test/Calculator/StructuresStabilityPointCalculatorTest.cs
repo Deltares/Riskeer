@@ -25,17 +25,17 @@ using Ringtoets.HydraRing.Calculation.Calculator;
 namespace Ringtoets.HydraRing.Calculation.Test.Calculator
 {
     [TestFixture]
-    public class StructuresClosureCalculatorTest
+    public class StructuresStabilityPointCalculatorTest
     {
         [Test]
         public void DefaultConstructor_InitializesOutputWithoutValues()
         {
             // Call
-            var calculator = new StructuresClosureCalculator(string.Empty, string.Empty);
+            var calculator = new StructuresStabilityPointCalculator(string.Empty, string.Empty);
 
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
-            Assert.IsInstanceOf<IStructuresClosureCalculator>(calculator);
+            Assert.IsInstanceOf<IStructuresStabilityPointCalculator>(calculator);
             Assert.IsNaN(calculator.ExceedanceProbabilityBeta);
             Assert.IsNull(calculator.OutputFileContent);
         }
