@@ -44,13 +44,17 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
             {
                 throw new ArgumentNullException("registry");
             }
-            var heightStructuresSectionResultEntity = new HeightStructuresSectionResultEntity
+            var sectionResultEntity = new HeightStructuresSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
                 LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
+            if (result.Calculation != null)
+            {
+                sectionResultEntity.HeightStructuresCalculationEntity = registry.Get(result.Calculation);
+            }
 
-            return heightStructuresSectionResultEntity;
+            return sectionResultEntity;
         }
     }
 }

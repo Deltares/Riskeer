@@ -22,9 +22,11 @@
 using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.HeightStructures;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
@@ -79,6 +81,27 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
 
             // Assert
             Assert.IsNull(result.LayerThree);
+        }
+
+        [Test]
+        public void Create_CalculationSet_ReturnEntityWithCalculationEntity()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                Calculation = calculation
+            };
+
+            var registry = new PersistenceRegistry();
+            var entity = new HeightStructuresCalculationEntity();
+            registry.Register(entity, calculation);
+
+            // Call
+            HeightStructuresSectionResultEntity result = sectionResult.Create(registry);
+
+            // Assert
+            Assert.AreSame(entity, result.HeightStructuresCalculationEntity);
         }
     }
 }

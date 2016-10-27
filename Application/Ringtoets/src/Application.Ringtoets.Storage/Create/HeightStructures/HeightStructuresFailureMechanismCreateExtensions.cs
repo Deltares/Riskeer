@@ -42,11 +42,11 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
         internal static FailureMechanismEntity Create(this HeightStructuresFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.StructureHeight, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             AddEntitiesForHeightStructures(mechanism.HeightStructures, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
         }

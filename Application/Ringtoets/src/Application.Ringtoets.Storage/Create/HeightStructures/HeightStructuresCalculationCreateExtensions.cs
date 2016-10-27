@@ -63,6 +63,8 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
                 entity.HeightStructuresOutputEntities.Add(calculation.Output.Create<HeightStructuresOutputEntity>(registry));
             }
 
+            registry.Register(entity, calculation);
+
             return entity;
         }
 
