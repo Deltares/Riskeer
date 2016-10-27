@@ -90,6 +90,11 @@
       <Name>Ringtoets.Common.Service</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Common\src\Ringtoets.Common.Utils\Ringtoets.Common.Utils.csproj">
+      <Project>{6A074D65-A81C-4C1C-8E24-F36C916E4ED7}</Project>
+      <Name>Ringtoets.Common.Utils</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
       <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
       <Name>Ringtoets.HydraRing.Calculation</Name>
@@ -123,11 +128,6 @@
     <ProjectReference Include="..\Ringtoets.HeightStructures.Service\Ringtoets.HeightStructures.Service.csproj">
       <Project>{20DD96D3-001E-407A-AE2E-432887088F1F}</Project>
       <Name>Ringtoets.HeightStructures.Service</Name>
-      <Private>False</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Ringtoets.HeightStructures.Utils\Ringtoets.HeightStructures.Utils.csproj">
-      <Project>{0FD0C7E1-E712-48D1-91AB-FBC78461FD76}</Project>
-      <Name>Ringtoets.HeightStructures.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

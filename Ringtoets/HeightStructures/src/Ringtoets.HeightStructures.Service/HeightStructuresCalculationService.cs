@@ -28,9 +28,9 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Utils;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service.Properties;
-using Ringtoets.HeightStructures.Utils;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -101,7 +101,7 @@ namespace Ringtoets.HeightStructures.Service
         {
             var calculationName = calculation.Name;
 
-            FailureMechanismSection failureMechanismSection = HeightStructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections,
+            FailureMechanismSection failureMechanismSection = StructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections,
                                                                                                                            calculation);
 
             StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanismSection, failureMechanism.GeneralInput);

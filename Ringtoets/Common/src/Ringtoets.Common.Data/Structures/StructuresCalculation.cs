@@ -29,7 +29,7 @@ namespace Ringtoets.Common.Data.Structures
     /// <summary>
     /// This class holds information about a calculation for a structures failure mechanism.
     /// </summary>
-    public class StructuresCalculation<T> : Observable, ICalculation where T : class, new()
+    public class StructuresCalculation<T> : Observable, ICalculation where T : ICalculationInput, new()
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StructuresCalculation{T}"/> class.
@@ -70,7 +70,7 @@ namespace Ringtoets.Common.Data.Structures
 
         public ICalculationInput GetObservableInput()
         {
-            return (ICalculationInput) InputParameters;
+            return InputParameters;
         }
 
         public ICalculationOutput GetObservableOutput()

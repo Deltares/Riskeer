@@ -26,11 +26,11 @@ using System.Linq;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Service.Properties;
-using Ringtoets.ClosingStructures.Utils;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Utils;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
@@ -70,8 +70,8 @@ namespace Ringtoets.ClosingStructures.Service
         {
             var calculationName = calculation.Name;
 
-            FailureMechanismSection failureMechanismSection = ClosingStructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections,
-                                                                                                                            calculation);
+            FailureMechanismSection failureMechanismSection = StructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections,
+                                                                                                                     calculation);
 
             StructuresClosureCalculationInput input = CreateStructuresClosureCalculationInput(calculation,
                                                                                               failureMechanism,

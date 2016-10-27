@@ -19,17 +19,15 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Properties;
 using Ringtoets.Common.Data.Structures;
 
-namespace Ringtoets.StabilityPointStructures.Data.Test
+namespace Ringtoets.Common.Data.Test.Structures
 {
     [TestFixture]
-    public class StabilityPointStructuresFailureMechanismSectionResultTest
+    public class StructuresFailureMechanismSectionResultTest
     {
         [Test]
         public void Constructor_WithParameters_ExpectedValues()
@@ -38,51 +36,29 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             FailureMechanismSection section = CreateSection();
 
             // Call
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+            var sectionResult = new TestStructuresFailureMechanismSectionResult(section);
 
             // Assert
-            Assert.IsInstanceOf<StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>>(result);
-            Assert.IsNaN(result.AssessmentLayerTwoA);
+            Assert.IsInstanceOf<StructuresFailureMechanismSectionResult<TestStructuresInput>>(sectionResult);
+            Assert.IsNull(sectionResult.Calculation);
+            Assert.AreSame(section, sectionResult.Section);
         }
 
         [Test]
-        [TestCase(-20)]
-        [TestCase(-1e-6)]
-        [TestCase(1 + 1e-6)]
-        [TestCase(12)]
-        public void AssessmentLayerTwoA_ForInvalidValues_ThrowsException(double newValue)
+        public void Calculation_SetNewValue_GetNewlySetValue()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            var result = new TestStructuresFailureMechanismSectionResult(section);
+
+            var calculation = new StructuresCalculation<TestStructuresInput>();
 
             // Call
-            TestDelegate test = () => result.AssessmentLayerTwoA = newValue;
+            result.Calculation = calculation;
 
             // Assert
-            var message = Assert.Throws<ArgumentException>(test).Message;
-            Assert.AreEqual(
-                Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1,
-                message);
-        }
-
-        [Test]
-        [TestCase(0)]
-        [TestCase(1e-6)]
-        [TestCase(0.5)]
-        [TestCase(1 - 1e-6)]
-        [TestCase(1)]
-        public void AssessmentLayerTwoA_ForValidValues_NewValueSet(double newValue)
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
-
-            // Call
-            result.AssessmentLayerTwoA = newValue;
-
-            // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
+            Assert.AreSame(calculation, result.Calculation);
         }
 
         private static FailureMechanismSection CreateSection()
@@ -91,6 +67,21 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             {
                 new Point2D(0, 0)
             });
+        }
+
+        private class TestStructuresFailureMechanismSectionResult : StructuresFailureMechanismSectionResult<TestStructuresInput>
+        {
+            public TestStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+        }
+
+        private class TestStructuresInput : StructuresInputBase<StructureBase>
+        {
+            public bool Updated { get; private set; }
+
+            protected override void UpdateStructureParameters()
+            {
+                Updated = true;
+            }
         }
     }
 }

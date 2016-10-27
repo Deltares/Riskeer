@@ -27,9 +27,9 @@ using Core.Common.Utils.Attributes;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Utils;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
-using Ringtoets.HeightStructures.Utils;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Forms.PropertyClasses
@@ -132,7 +132,7 @@ namespace Ringtoets.HeightStructures.Forms.PropertyClasses
 
         protected override void AfterSettingStructure()
         {
-            HeightStructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
+            StructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
         }
     }
 }

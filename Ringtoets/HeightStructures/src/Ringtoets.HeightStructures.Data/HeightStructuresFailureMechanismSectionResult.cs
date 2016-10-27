@@ -29,7 +29,7 @@ namespace Ringtoets.HeightStructures.Data
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>
     /// for a height structures assessment.
     /// </summary>
-    public class HeightStructuresFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class HeightStructuresFailureMechanismSectionResult : StructuresFailureMechanismSectionResult<HeightStructuresInput>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HeightStructuresFailureMechanismSectionResult"/>.
@@ -52,11 +52,5 @@ namespace Ringtoets.HeightStructures.Data
                 return Calculation.Output.Probability;
             }
         }
-
-        /// <summary>
-        /// Gets or sets the <see cref="StructuresCalculation{T}"/>, which is chosen 
-        /// to be representative for the whole section.
-        /// </summary>
-        public StructuresCalculation<HeightStructuresInput> Calculation { get; set; }
     }
 }

@@ -22,6 +22,7 @@
 using System;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Properties;
+using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.StabilityPointStructures.Data
 {
@@ -29,7 +30,7 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// This class holds information about the result of a calculation on section level for the
     /// Strength and Stability of Point Constructions failure mechanism.
     /// </summary>
-    public class StabilityPointStructuresFailureMechanismSectionResult : FailureMechanismSectionResult
+    public class StabilityPointStructuresFailureMechanismSectionResult : StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>
     {
         private double assessmentLayerTwoA;
 

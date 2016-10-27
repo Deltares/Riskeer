@@ -43,27 +43,8 @@ namespace Ringtoets.HeightStructures.Data.Test
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(sectionResult);
-            Assert.AreSame(section, sectionResult.Section);
+            Assert.IsInstanceOf<StructuresFailureMechanismSectionResult<HeightStructuresInput>>(sectionResult);
             Assert.IsNaN(sectionResult.AssessmentLayerTwoA);
-            Assert.IsNull(sectionResult.Calculation);
-        }
-
-        [Test]
-        public void Calculation_SetNewValue_GetNewlySetValue()
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-
-            var result = new HeightStructuresFailureMechanismSectionResult(section);
-
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
-
-            // Call
-            result.Calculation = calculation;
-
-            // Assert
-            Assert.AreSame(calculation, result.Calculation);
         }
 
         [Test]

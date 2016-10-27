@@ -24,7 +24,6 @@ using System.Linq;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Properties;
@@ -35,7 +34,7 @@ namespace Ringtoets.Common.Data.Structures
     /// <summary>
     /// Base class that holds generic structures calculation input parameters.
     /// </summary>
-    public abstract class StructuresInputBase<T> : Observable, ICalculationInput, IUseBreakWater, IUseForeshore
+    public abstract class StructuresInputBase<T> : Observable, IStructuresCalculationInput<T>, IUseBreakWater, IUseForeshore
         where T : StructureBase
     {
         private readonly NormalDistribution modelFactorSuperCriticalFlow;

@@ -29,11 +29,11 @@ using Core.Common.Utils.Attributes;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Properties;
-using Ringtoets.ClosingStructures.Utils;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
+using Ringtoets.Common.Utils;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
@@ -105,7 +105,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         protected override void AfterSettingStructure()
         {
-            ClosingStructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
+            StructuresHelper.Update(data.FailureMechanism.SectionResults, data.Calculation);
         }
 
         #region Hydraulic data
@@ -160,7 +160,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
                 {
                     Data = data.WrappedData.DrainCoefficient
                 };
-        }
+            }
         }
 
         [PropertyOrder(factorStormDurationOpenStructurePropertyIndex)]
@@ -172,9 +172,9 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             get
             {
                 return data.WrappedData.FactorStormDurationOpenStructure;
-        }
+            }
             set
-        {
+            {
                 data.WrappedData.FactorStormDurationOpenStructure = value;
                 data.WrappedData.NotifyObservers();
             }

@@ -40,27 +40,8 @@ namespace Ringtoets.ClosingStructures.Data.Test
             var result = new ClosingStructuresFailureMechanismSectionResult(section);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismSectionResult>(result);
-            Assert.AreSame(section, result.Section);
+            Assert.IsInstanceOf<StructuresFailureMechanismSectionResult<ClosingStructuresInput>>(result);
             Assert.IsNaN(result.AssessmentLayerTwoA);
-            Assert.IsNull(result.Calculation);
-        }
-
-        [Test]
-        public void Calculation_SetNewValue_GetNewlySetValue()
-        {
-            // Setup
-            FailureMechanismSection section = CreateSection();
-
-            var result = new ClosingStructuresFailureMechanismSectionResult(section);
-
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
-
-            // Call
-            result.Calculation = calculation;
-
-            // Assert
-            Assert.AreSame(calculation, result.Calculation);
         }
 
         [Test]

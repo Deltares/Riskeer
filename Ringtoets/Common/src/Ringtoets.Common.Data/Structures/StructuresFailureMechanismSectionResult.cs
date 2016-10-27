@@ -20,38 +20,28 @@
 // All rights reserved.
 
 using System;
+using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Structures;
 
-namespace Ringtoets.ClosingStructures.Data
+namespace Ringtoets.Common.Data.Structures
 {
     /// <summary>
-    /// This class holds information about the result of a calculation on section level for the
-    /// Closing Structures failure mechanism.
+    /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>
+    /// for a structures assessment.
     /// </summary>
-    public class ClosingStructuresFailureMechanismSectionResult : StructuresFailureMechanismSectionResult<ClosingStructuresInput>
+    public class StructuresFailureMechanismSectionResult<T> : FailureMechanismSectionResult where T : ICalculationInput, new()
     {
         /// <summary>
-        /// Creates a new instance of <see cref="ClosingStructuresFailureMechanismSectionResult"/>.
+        /// Initializes a new instance of <see cref="StructuresFailureMechanismSectionResult{T}"/>.
         /// </summary>
-        /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
-        /// <see cref="ClosingStructuresFailureMechanismSectionResult"/> will hold the result.</param>
+        /// <param name="section">The <see cref="FailureMechanismSection"/> to get the result from.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public ClosingStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
+        protected StructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
 
         /// <summary>
-        /// Gets the value for the detailed assessment of safety per failure mechanism section as a probability.
+        /// Gets or sets the <see cref="StructuresCalculation{T}"/>, which is chosen 
+        /// to be representative for the whole section.
         /// </summary>
-        public double AssessmentLayerTwoA
-        {
-            get
-            {
-                if (Calculation == null || !Calculation.HasOutput)
-                {
-                    return double.NaN;
-                }
-                return Calculation.Output.Probability;
-            }
-        }
+        public StructuresCalculation<T> Calculation { get; set; }
     }
 }

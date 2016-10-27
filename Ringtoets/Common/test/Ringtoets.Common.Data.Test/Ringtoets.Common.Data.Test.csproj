@@ -79,6 +79,7 @@
     <Compile Include="DikeProfiles\RoughnessPointTest.cs" />
     <Compile Include="StructureBaseTest.cs" />
     <Compile Include="Structures\StructuresCalculationTest.cs" />
+    <Compile Include="Structures\StructuresFailureMechanismSectionResultTest.cs" />
     <Compile Include="Structures\StructuresInputBaseTest.cs" />
   </ItemGroup>
   <ItemGroup>

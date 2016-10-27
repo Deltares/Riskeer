@@ -33,7 +33,6 @@ using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.ClosingStructures.IO;
 using Ringtoets.ClosingStructures.Service;
-using Ringtoets.ClosingStructures.Utils;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
@@ -42,6 +41,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Utils;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -467,9 +467,9 @@ namespace Ringtoets.ClosingStructures.Plugin
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
             foreach (var calculation in context.WrappedData.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
-                ClosingStructuresHelper.Delete(context.FailureMechanism.SectionResults,
-                                               calculation,
-                                               context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
+                StructuresHelper.Delete(context.FailureMechanism.SectionResults,
+                                        calculation,
+                                        context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
             }
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
@@ -551,9 +551,9 @@ namespace Ringtoets.ClosingStructures.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                ClosingStructuresHelper.Delete(context.FailureMechanism.SectionResults,
-                                               context.WrappedData,
-                                               context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
+                StructuresHelper.Delete(context.FailureMechanism.SectionResults,
+                                        context.WrappedData,
+                                        context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
                 calculationGroupContext.NotifyObservers();
             }
         }

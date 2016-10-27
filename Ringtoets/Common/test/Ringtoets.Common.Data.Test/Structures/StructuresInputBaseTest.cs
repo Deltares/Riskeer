@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Data.Test.Structures
 
             // Assert
             Assert.IsInstanceOf<Observable>(input);
-            Assert.IsInstanceOf<ICalculationInput>(input);
+            Assert.IsInstanceOf<IStructuresCalculationInput<StructureBase>>(input);
             Assert.IsInstanceOf<IUseBreakWater>(input);
             Assert.IsInstanceOf<IUseForeshore>(input);
 

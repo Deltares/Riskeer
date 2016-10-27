@@ -37,6 +37,7 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Utils;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Forms;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
@@ -45,7 +46,6 @@ using Ringtoets.HeightStructures.Forms.Views;
 using Ringtoets.HeightStructures.IO;
 using Ringtoets.HeightStructures.Plugin.Properties;
 using Ringtoets.HeightStructures.Service;
-using Ringtoets.HeightStructures.Utils;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
@@ -493,7 +493,7 @@ namespace Ringtoets.HeightStructures.Plugin
                     }
                 };
                 calculations.Add(calculation);
-                HeightStructuresHelper.Update(sectionResults, calculation);
+                StructuresHelper.Update(sectionResults, calculation);
             }
         }
 
@@ -504,7 +504,7 @@ namespace Ringtoets.HeightStructures.Plugin
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
             foreach (var calculation in context.WrappedData.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>())
             {
-                HeightStructuresHelper.Delete(context.FailureMechanism.SectionResults,
+                StructuresHelper.Delete(context.FailureMechanism.SectionResults,
                                               calculation,
                                               context.FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
             }
@@ -610,7 +610,7 @@ namespace Ringtoets.HeightStructures.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
-                HeightStructuresHelper.Delete(context.FailureMechanism.SectionResults, context.WrappedData, context.FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
+                StructuresHelper.Delete(context.FailureMechanism.SectionResults, context.WrappedData, context.FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
                 calculationGroupContext.NotifyObservers();
             }
         }

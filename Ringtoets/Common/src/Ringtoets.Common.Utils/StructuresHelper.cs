@@ -22,19 +22,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Utils;
-using Ringtoets.HeightStructures.Data;
 
-namespace Ringtoets.HeightStructures.Utils
+namespace Ringtoets.Common.Utils
 {
     /// <summary>
     /// Class holds helper methods to match <see cref="FailureMechanismSection"/> objects 
     /// with <see cref="StructuresCalculation{T}"/> objects. 
     /// </summary>
-    public static class HeightStructuresHelper
+    public static class StructuresHelper
     {
         /// <summary>
         /// Determine which <see cref="StructuresCalculation{T}"/> objects are available for a
@@ -49,8 +48,8 @@ namespace Ringtoets.HeightStructures.Utils
         /// or when an element in <paramref name="calculations"/> is <c>null</c></exception>
         /// <exception cref="ArgumentException">Thrown when an element in <paramref name="sections"/> is 
         /// <c>null</c>.</exception>
-        public static Dictionary<string, IList<ICalculation>> CollectCalculationsPerSection(IEnumerable<FailureMechanismSection> sections,
-                                                                                            IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
+        public static Dictionary<string, IList<ICalculation>> CollectCalculationsPerSection<T>(IEnumerable<FailureMechanismSection> sections,
+                                                                                               IEnumerable<StructuresCalculation<T>> calculations) where T : IStructuresCalculationInput<StructureBase>, new()
         {
             return AssignUnassignCalculations.CollectCalculationsPerSection(sections, AsCalculationsWithLocations(calculations));
         }
@@ -65,8 +64,8 @@ namespace Ringtoets.HeightStructures.Utils
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sections"/> is <c>null</c></exception>
         /// <exception cref="ArgumentException">Thrown when an element in <paramref name="sections"/> is <c>null</c>.
         /// </exception>
-        public static FailureMechanismSection FailureMechanismSectionForCalculation(IEnumerable<FailureMechanismSection> sections,
-                                                                                    StructuresCalculation<HeightStructuresInput> calculation)
+        public static FailureMechanismSection FailureMechanismSectionForCalculation<T>(IEnumerable<FailureMechanismSection> sections,
+                                                                                       StructuresCalculation<T> calculation) where T : IStructuresCalculationInput<StructureBase>, new()
         {
             CalculationWithLocation calculationWithLocation = AsCalculationWithLocation(calculation);
             if (calculationWithLocation != null)
@@ -77,17 +76,17 @@ namespace Ringtoets.HeightStructures.Utils
         }
 
         /// <summary>
-        /// Updates the <see cref="HeightStructuresFailureMechanismSectionResult.Calculation"/> for each element of <see cref="sectionResults"/> that have the
+        /// Updates the <see cref="StructuresFailureMechanismSectionResult{T}.Calculation"/> for each element of <see cref="sectionResults"/> that have the
         /// <paramref name="calculation"/> assigned, or should have the <paramref name="calculation"/> assigned.
         /// </summary>
-        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="HeightStructuresFailureMechanismSectionResult"/> to iterate while 
+        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="StructuresFailureMechanismSectionResult{T}"/> to iterate while 
         /// possibly updating the <see cref="StructuresCalculation{T}"/> assigned to it.</param>
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> which has a location that has been updated.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResults"/> is <c>null</c></exception>
         /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
         /// <c>null</c>.</exception>
-        public static void Update(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults,
-                                  StructuresCalculation<HeightStructuresInput> calculation)
+        public static void Update<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
+                                     StructuresCalculation<T> calculation) where T : IStructuresCalculationInput<StructureBase>, new()
         {
             ValidateSectionResults(sectionResults);
 
@@ -99,10 +98,10 @@ namespace Ringtoets.HeightStructures.Utils
         }
 
         /// <summary>
-        /// Removed the <see cref="HeightStructuresFailureMechanismSectionResult.Calculation"/> for each 
+        /// Removed the <see cref="StructuresFailureMechanismSectionResult{T}.Calculation"/> for each 
         /// element of <see cref="sectionResults"/> that have the <paramref name="calculation"/> assigned.
         /// </summary>
-        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="HeightStructuresFailureMechanismSectionResult"/> to iterate while 
+        /// <param name="sectionResults">The <see cref="IEnumerable{T}"/> of <see cref="StructuresFailureMechanismSectionResult{T}"/> to iterate while 
         /// removing the reference to the <paramref name="calculation"/> if present.</param>
         /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> which has a location that has been updated.</param>
         /// <param name="calculations">The <see cref="IEnumerable{T}"/> of <see cref="StructuresCalculation{T}"/> that were left after removing
@@ -111,9 +110,9 @@ namespace Ringtoets.HeightStructures.Utils
         /// in <paramref name="calculations"/> is <c>null</c>.</exception>
         /// <exception cref="ArgumentException">Thrown when element in <paramref name="sectionResults"/> is 
         /// <c>null</c>.</exception>
-        public static void Delete(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults,
-                                  StructuresCalculation<HeightStructuresInput> calculation,
-                                  IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
+        public static void Delete<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults,
+                                     StructuresCalculation<T> calculation,
+                                     IEnumerable<StructuresCalculation<T>> calculations) where T : IStructuresCalculationInput<StructureBase>, new()
         {
             ValidateSectionResults(sectionResults);
 
@@ -131,7 +130,7 @@ namespace Ringtoets.HeightStructures.Utils
         /// <returns>A collection of <see cref="CalculationWithLocation"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculations"/> is <c>null</c> or when
         /// an element in <paramref name="calculations"/> is <c>null</c>.</exception>
-        private static IEnumerable<CalculationWithLocation> AsCalculationsWithLocations(IEnumerable<StructuresCalculation<HeightStructuresInput>> calculations)
+        private static IEnumerable<CalculationWithLocation> AsCalculationsWithLocations<T>(IEnumerable<StructuresCalculation<T>> calculations) where T : IStructuresCalculationInput<StructureBase>, new()
         {
             if (calculations == null)
             {
@@ -140,7 +139,7 @@ namespace Ringtoets.HeightStructures.Utils
             return calculations.Select(AsCalculationWithLocation).Where(c => c != null);
         }
 
-        private static void ValidateSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults)
+        private static void ValidateSectionResults<T>(IEnumerable<StructuresFailureMechanismSectionResult<T>> sectionResults) where T : IStructuresCalculationInput<StructureBase>, new()
         {
             if (sectionResults == null)
             {
@@ -152,7 +151,7 @@ namespace Ringtoets.HeightStructures.Utils
             }
         }
 
-        private static CalculationWithLocation AsCalculationWithLocation(StructuresCalculation<HeightStructuresInput> calculation)
+        private static CalculationWithLocation AsCalculationWithLocation<T>(StructuresCalculation<T> calculation) where T : IStructuresCalculationInput<StructureBase>, new()
         {
             if (calculation == null)
             {
@@ -165,12 +164,12 @@ namespace Ringtoets.HeightStructures.Utils
             return new CalculationWithLocation(calculation, calculation.InputParameters.Structure.Location);
         }
 
-        private static SectionResultWithCalculationAssignment AsCalculationAssignment(HeightStructuresFailureMechanismSectionResult failureMechanismSectionResult)
+        private static SectionResultWithCalculationAssignment AsCalculationAssignment<T>(StructuresFailureMechanismSectionResult<T> failureMechanismSectionResult) where T : IStructuresCalculationInput<StructureBase>, new()
         {
             return new SectionResultWithCalculationAssignment(
                 failureMechanismSectionResult,
-                result => ((HeightStructuresFailureMechanismSectionResult) result).Calculation,
-                (result, calculation) => ((HeightStructuresFailureMechanismSectionResult)result).Calculation = (StructuresCalculation<HeightStructuresInput>)calculation);
+                result => ((StructuresFailureMechanismSectionResult<T>) result).Calculation,
+                (result, calculation) => ((StructuresFailureMechanismSectionResult<T>) result).Calculation = (StructuresCalculation<T>) calculation);
         }
     }
 }
