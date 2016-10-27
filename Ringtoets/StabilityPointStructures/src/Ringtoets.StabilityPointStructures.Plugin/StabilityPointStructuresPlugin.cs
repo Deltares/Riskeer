@@ -120,6 +120,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                                                                                   .Build()
             };
 
+            yield return new TreeNodeInfo<StabilityPointStructuresScenariosContext>
+            {
+                Text = context => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                Image = context => RingtoetsCommonFormsResources.ScenariosIcon,
+                ContextMenuStrip = (nodeData, parentData, treeViewControl) => Gui.Get(nodeData, treeViewControl)
+                                                                                 .AddOpenItem()
+                                                                                 .Build()
+            };
+
             yield return RingtoetsTreeNodeInfoFactory.CreateCalculationGroupContextTreeNodeInfo<StabilityPointStructuresCalculationGroupContext>(
                 CalculationGroupContextChildNodeObjects,
                 CalculationGroupContextContextMenuStrip,
@@ -272,6 +281,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             return new object[]
             {
+                new StabilityPointStructuresScenariosContext(failureMechanism.CalculationsGroup, failureMechanism),
                 new FailureMechanismSectionResultContext<StabilityPointStructuresFailureMechanismSectionResult>(failureMechanism.SectionResults, failureMechanism)
             };
         }
