@@ -312,6 +312,8 @@ namespace Demo.Ringtoets.Test.Commands
         private static void AssertExpectedHeightStructuresInput(HeightStructuresInput inputParameters)
         {
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
+            Assert.AreEqual(10, inputParameters.DeviationWaveDirection, inputParameters.DeviationWaveDirection.GetAccuracy());
+            AssertExpectedHeightStructureValues(inputParameters.Structure);
         }
 
         #endregion
@@ -365,6 +367,8 @@ namespace Demo.Ringtoets.Test.Commands
         private static void AssertExpectedClosingStructuresInput(ClosingStructuresInput inputParameters)
         {
             Assert.AreEqual(1300001, inputParameters.HydraulicBoundaryLocation.Id);
+            Assert.AreEqual(10, inputParameters.DeviationWaveDirection, inputParameters.DeviationWaveDirection.GetAccuracy());
+            AssertExpectedClosingStructureValues(inputParameters.Structure);
         }
 
         #endregion
