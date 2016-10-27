@@ -29,16 +29,16 @@ using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.Structures;
-using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
@@ -105,9 +105,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var properties = new ClosingStructuresInputContextProperties();
 
             var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
-                                                                calculation,
-                                                                failureMechanism,
-                                                                assessmentSectionStub);
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
 
             // Call
             properties.Data = inputContext;
@@ -171,9 +171,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             };
 
             var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
-                                                                calculation,
-                                                                failureMechanism,
-                                                                assessmentSectionStub);
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
             var properties = new ClosingStructuresInputContextProperties();
 
             // Call
@@ -181,7 +181,22 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Assert
             ClosingStructuresInput input = calculation.InputParameters;
+            var expectedProbabilityOpenStructureBeforeFlooding = ProbabilityFormattingHelper.Format(input.ProbabilityOpenStructureBeforeFlooding);
+            var expectedFailureProbabilityOpenStructure = ProbabilityFormattingHelper.Format(input.FailureProbabilityOpenStructure);
+            var expectedFailureProbabilityReparation = ProbabilityFormattingHelper.Format(input.FailureProbabilityReparation);
+
             Assert.AreEqual(input.DeviationWaveDirection, properties.DeviationWaveDirection);
+            Assert.AreSame(input.InsideWaterLevel, properties.InsideWaterLevel.Data);
+            Assert.AreEqual(input.InflowModelType, properties.InflowModelType);
+            Assert.AreSame(input.AreaFlowApertures, properties.AreaFlowApertures.Data);
+            Assert.AreEqual(input.IdenticalApertures, properties.IdenticalApertures);
+            Assert.AreSame(input.LevelCrestStructureNotClosing, properties.LevelCrestStructureNotClosing.Data);
+            Assert.AreSame(input.ThresholdHeightOpenWeir, properties.ThresholdHeightOpenWeir.Data);
+            Assert.AreEqual(expectedProbabilityOpenStructureBeforeFlooding, properties.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(expectedFailureProbabilityOpenStructure, properties.FailureProbabilityOpenStructure);
+            Assert.AreEqual(expectedFailureProbabilityReparation, properties.FailureProbabilityReparation);
+            Assert.AreSame(input.DrainCoefficient, properties.DrainCoefficient.Data);
+            Assert.AreEqual(input.FactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure);
 
             var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles().ToArray();
             Assert.AreEqual(1, availableForeshoreProfiles.Length);
@@ -198,7 +213,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         public void SetProperties_IndividualProperties_UpdateDataAndNotifyObservers()
         {
             // Setup
-            const int numberOfChangedProperties = 1;
+            const int numberOfChangedProperties = 7;
             var observerMock = mockRepository.StrictMock<IObserver>();
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
 
@@ -210,9 +225,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var input = calculation.InputParameters;
             var inputContext = new ClosingStructuresInputContext(input,
-                                                                calculation,
-                                                                failureMechanism,
-                                                                assessmentSectionStub);
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
             var properties = new ClosingStructuresInputContextProperties
             {
                 Data = inputContext
@@ -222,12 +237,32 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var random = new Random(100);
             double newDeviationWaveDirection = random.NextDouble();
+            double newFactorStormDurationOpenStructure = random.NextDouble();
+            var newInflowModelType = ClosingStructureInflowModelType.FloodedCulvert;
+            var newIdenticalApertures = 2;
 
             // Call
-            properties.DeviationWaveDirection = (RoundedDouble)newDeviationWaveDirection;
+            properties.DeviationWaveDirection = (RoundedDouble) newDeviationWaveDirection;
+            properties.FactorStormDurationOpenStructure = (RoundedDouble) newFactorStormDurationOpenStructure;
+            properties.InflowModelType = newInflowModelType;
+            properties.FailureProbabilityOpenStructure = "1e-2";
+            properties.FailureProbabilityReparation = "1e-3";
+            properties.IdenticalApertures = newIdenticalApertures;
+            properties.ProbabilityOpenStructureBeforeFlooding = "1e-4";
 
             // Assert
+            var expectedProbabilityOpenStructureBeforeFlooding = ProbabilityFormattingHelper.Format(0.01);
+            var expectedFailureProbabilityOpenStructure = ProbabilityFormattingHelper.Format(0.001);
+            var expectedFailureProbabilityReparation = ProbabilityFormattingHelper.Format(0.0001);
+
             Assert.AreEqual(newDeviationWaveDirection, properties.DeviationWaveDirection, properties.DeviationWaveDirection.GetAccuracy());
+            Assert.AreEqual(newFactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure.GetAccuracy());
+            Assert.AreEqual(newInflowModelType, properties.InflowModelType);
+            Assert.AreEqual(expectedProbabilityOpenStructureBeforeFlooding, properties.FailureProbabilityOpenStructure);
+            Assert.AreEqual(expectedFailureProbabilityOpenStructure, properties.FailureProbabilityReparation);
+            Assert.AreEqual(newIdenticalApertures, properties.IdenticalApertures);
+            Assert.AreEqual(expectedFailureProbabilityReparation, properties.ProbabilityOpenStructureBeforeFlooding);
+
             mockRepository.VerifyAll();
         }
 
@@ -241,9 +276,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var failureMechanism = new ClosingStructuresFailureMechanism();
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
-                                                                calculation,
-                                                                failureMechanism,
-                                                                assessmentSectionStub);
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
 
             // Call
             var properties = new ClosingStructuresInputContextProperties
@@ -254,6 +289,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             // Assert
             const string schematizationCategory = "Schematisatie";
             const string hydraulicDataCategory = "Hydraulische gegevens";
+            const string modelSettingsCategory = "Modelinstellingen";
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
@@ -283,6 +319,52 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(hydraulicDataCategory, deviationWaveDirectionProperty.Category);
             Assert.AreEqual("Afwijking golfrichting [°]", deviationWaveDirectionProperty.DisplayName);
             Assert.AreEqual("Afwijking van de golfrichting.", deviationWaveDirectionProperty.Description);
+
+            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[insideWaterLevelPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
+            Assert.AreEqual(hydraulicDataCategory, insideWaterLevelProperty.Category);
+            Assert.AreEqual("Binnenwaterstand [m+NAP]", insideWaterLevelProperty.DisplayName);
+            Assert.AreEqual("Binnenwaterstand.", insideWaterLevelProperty.Description);
+
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[inflowModelTypePropertyIndex];
+            Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
+            Assert.AreEqual(schematizationCategory, inflowModelTypeProperty.Category);
+            Assert.AreEqual("Instroommodel", inflowModelTypeProperty.DisplayName);
+            Assert.AreEqual("Instroommodel van het kunstwerk.", inflowModelTypeProperty.Description);
+
+            PropertyDescriptor areaFlowAperturesProperty = dynamicProperties[areaFlowAperturesPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(areaFlowAperturesProperty.Converter);
+            Assert.AreEqual(schematizationCategory, areaFlowAperturesProperty.Category);
+            Assert.AreEqual("Doorstroomoppervlak [m²]", areaFlowAperturesProperty.DisplayName);
+            Assert.AreEqual("Doorstroomoppervlak van doorstroomopeningen.", areaFlowAperturesProperty.Description);
+
+            PropertyDescriptor identicalAperturesProperty = dynamicProperties[identicalAperturesPropertyIndex];
+            Assert.AreEqual(schematizationCategory, identicalAperturesProperty.Category);
+            Assert.AreEqual("Aantal identieke doorstroomopeningen [-]", identicalAperturesProperty.DisplayName);
+            Assert.AreEqual("Aantal identieke doorstroomopeningen.", identicalAperturesProperty.Description);
+
+            PropertyDescriptor levelCrestStructureNotClosingProperty = dynamicProperties[levelCrestStructureNotClosingPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureNotClosingProperty.Converter);
+            Assert.AreEqual(schematizationCategory, levelCrestStructureNotClosingProperty.Category);
+            Assert.AreEqual("Kruinhoogte niet gesloten kering [m+NAP]", levelCrestStructureNotClosingProperty.DisplayName);
+            Assert.AreEqual("Niveau kruin bij niet gesloten maximaal kerende keermiddelen.", levelCrestStructureNotClosingProperty.Description);
+
+            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[thresholdHeightOpenWeirPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
+            Assert.AreEqual(schematizationCategory, thresholdHeightOpenWeirProperty.Category);
+            Assert.AreEqual("Drempelhoogte [m+NAP]", thresholdHeightOpenWeirProperty.DisplayName);
+            Assert.AreEqual("Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.", thresholdHeightOpenWeirProperty.Description);
+
+            PropertyDescriptor drainCoefficientProperty = dynamicProperties[drainCoefficientPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(drainCoefficientProperty.Converter);
+            Assert.AreEqual(modelSettingsCategory, drainCoefficientProperty.Category);
+            Assert.AreEqual("Afvoercoëfficient [-]", drainCoefficientProperty.DisplayName);
+            Assert.AreEqual("Afvoercoëfficient.", drainCoefficientProperty.Description);
+
+            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[factorStormDurationOpenStructurePropertyIndex];
+            Assert.AreEqual(modelSettingsCategory, factorStormDurationOpenStructureProperty.Category);
+            Assert.AreEqual("Factor voor stormduur hoogwater [-]", factorStormDurationOpenStructureProperty.DisplayName);
+            Assert.AreEqual("Factor voor stormduur hoogwater gegeven geopend kunstwerk.", factorStormDurationOpenStructureProperty.Description);
 
             mockRepository.VerifyAll();
         }
