@@ -43,6 +43,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
         /// to create <see cref="GrassCoverErosionInwardsCalculation"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsCalculation"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static GrassCoverErosionInwardsCalculation Read(this GrassCoverErosionInwardsCalculationEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)

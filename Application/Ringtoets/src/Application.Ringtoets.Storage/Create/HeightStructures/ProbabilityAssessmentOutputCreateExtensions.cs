@@ -31,6 +31,15 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
     /// </summary>
     internal static class ProbabilityAssessmentOutputCreateExtensions
     {
+        /// <summary>
+        /// Creates a <see cref="HeightStructuresOutputEntity"/> based on
+        /// the information of the <see cref="ProbabilityAssessmentOutput"/>.
+        /// </summary>
+        /// <param name="output">The height structure calculation output to create
+        /// a database entity for.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
+        /// <returns>A new <see cref="HeightStructuresOutputEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
         internal static HeightStructuresOutputEntity CreateHeightStructuresOutputEntity(this ProbabilityAssessmentOutput output, PersistenceRegistry registry)
         {
             if (registry == null)

@@ -258,6 +258,7 @@
     <Compile Include="Read\HeightStructures\HeightStructuresCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructureEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensions.cs" />
+    <Compile Include="Read\HeightStructures\HeightStructuresOutputEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructureEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructureFailureMechanismMetaEntityReadExtensions.cs" />

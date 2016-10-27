@@ -163,6 +163,27 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             Assert.IsNotNull(input.ForeshoreProfile);
         }
 
+        [Test]
+        public void Read_ValidEntityWithOutputEntity_ReturnCalculationWithOutput()
+        {
+            // Setup
+            var entity = new HeightStructuresCalculationEntity
+            {
+                HeightStructuresOutputEntities =
+                {
+                    new HeightStructuresOutputEntity()
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            StructuresCalculation<HeightStructuresInput> calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(calculation.HasOutput);
+        }
+
         private static void AssertRoundedDouble(double? entityValue, RoundedDouble roundedDouble)
         {
             Assert.AreEqual((RoundedDouble) entityValue.ToNullAsNaN(), roundedDouble, roundedDouble.GetAccuracy());

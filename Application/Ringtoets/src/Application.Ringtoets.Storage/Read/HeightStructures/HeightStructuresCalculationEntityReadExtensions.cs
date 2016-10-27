@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Structures;
@@ -27,6 +28,10 @@ using Ringtoets.HeightStructures.Data;
 
 namespace Application.Ringtoets.Storage.Read.HeightStructures
 {
+    /// <summary>
+    /// This class defines extension methods for read operations for a <see cref="StructuresCalculation{T}"/>
+    /// based on the <see cref="HeightStructuresCalculationEntity"/>.
+    /// </summary>
     internal static class HeightStructuresCalculationEntityReadExtensions
     {
         /// <summary>
@@ -37,6 +42,7 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
         /// to create <see cref="StructuresCalculation{T}"/> for.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="StructuresCalculation{T}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static StructuresCalculation<HeightStructuresInput> Read(this HeightStructuresCalculationEntity entity, ReadConversionCollector collector)
         {
             if (collector == null)
@@ -50,6 +56,12 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
                 Comments = entity.Comments
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
+
+            HeightStructuresOutputEntity output = entity.HeightStructuresOutputEntities.FirstOrDefault();
+            if (output != null)
+            {
+                calculation.Output = output.Read();
+            }
 
             return calculation;
         }
