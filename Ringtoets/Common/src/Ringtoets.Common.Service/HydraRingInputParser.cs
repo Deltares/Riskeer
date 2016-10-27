@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Service
 {
     /// <summary>
     /// Helper class to parse the breakwater and foreshore properties of a calculation input object into required objects 
-    /// for performing calculations with HydrarRing.
+    /// for performing calculations with Hydra-Ring.
     /// </summary>
     public static class HydraRingInputParser
     {

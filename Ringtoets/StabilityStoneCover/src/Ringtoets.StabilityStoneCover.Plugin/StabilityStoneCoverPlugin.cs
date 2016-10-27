@@ -500,7 +500,7 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 .AddExportItem()
                 .AddSeparator()
                 .AddValidateCalculationItem(nodeData,
-                                            ValidateAll,
+                                            Validate,
                                             ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                 .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                 .AddClearCalculationOutputItem(calculation)
@@ -515,14 +515,9 @@ namespace Ringtoets.StabilityStoneCover.Plugin
                 .Build();
         }
 
-        private static void ValidateAll(StabilityStoneCoverWaveConditionsCalculationContext context)
+        private static void Validate(StabilityStoneCoverWaveConditionsCalculationContext context)
         {
-            ValidateAll(
-                new[]
-                {
-                    context.WrappedData
-                },
-                context.AssessmentSection.HydraulicBoundaryDatabase);
+            StabilityStoneCoverWaveConditionsCalculationService.Validate(context.WrappedData, context.AssessmentSection.HydraulicBoundaryDatabase.FilePath);
         }
 
         private void PerformCalculation(StabilityStoneCoverWaveConditionsCalculation calculation,

@@ -94,8 +94,6 @@ namespace Ringtoets.Common.Service
         {
             if (State != ActivityState.Skipped)
             {
-                RingtoetsCommonDataSynchronizationService.ClearDesignWaterLevel(hydraulicBoundaryLocation);
-
                 calculationService.Calculate(
                     hydraulicBoundaryLocation,
                     hydraulicBoundaryDatabaseFilePath,

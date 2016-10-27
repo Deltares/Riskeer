@@ -805,7 +805,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                 .AddExportItem()
                 .AddSeparator()
                 .AddValidateCalculationItem(nodeData,
-                                            ValidateAll,
+                                            Validate,
                                             ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                 .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                 .AddClearCalculationOutputItem(calculation)
@@ -825,14 +825,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection);
         }
 
-        private static void ValidateAll(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
+        private static void Validate(GrassCoverErosionOutwardsWaveConditionsCalculationContext context)
         {
-            ValidateAll(
-                new[]
-                {
-                    context.WrappedData
-                },
-                context.AssessmentSection.HydraulicBoundaryDatabase);
+            GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(context.WrappedData, context.AssessmentSection.HydraulicBoundaryDatabase.FilePath);
         }
 
         private void PerformCalculation(GrassCoverErosionOutwardsWaveConditionsCalculation calculation,

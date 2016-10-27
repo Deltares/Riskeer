@@ -558,7 +558,7 @@ namespace Ringtoets.Piping.Plugin
 
             PipingCalculation calculation = nodeData.WrappedData;
 
-            return builder.AddValidateCalculationItem(nodeData, ValidateAll)
+            return builder.AddValidateCalculationItem(nodeData, Validate)
                           .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
@@ -610,7 +610,7 @@ namespace Ringtoets.Piping.Plugin
             }
         }
 
-        private static void ValidateAll(PipingCalculationScenarioContext context)
+        private static void Validate(PipingCalculationScenarioContext context)
         {
             PipingCalculationService.Validate(context.WrappedData);
         }

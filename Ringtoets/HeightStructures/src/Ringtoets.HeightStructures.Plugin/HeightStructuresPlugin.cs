@@ -571,7 +571,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
             return builder.AddValidateCalculationItem(
                 context,
-                ValidateAll,
+                Validate,
                 ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
@@ -591,7 +591,7 @@ namespace Ringtoets.HeightStructures.Plugin
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
-        private static void ValidateAll(HeightStructuresCalculationContext context)
+        private static void Validate(HeightStructuresCalculationContext context)
         {
             HeightStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }

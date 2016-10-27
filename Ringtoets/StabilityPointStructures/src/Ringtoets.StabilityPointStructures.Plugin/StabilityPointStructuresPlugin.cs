@@ -43,7 +43,6 @@ using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.PropertyClasses;
 using Ringtoets.StabilityPointStructures.Forms.Views;
 using Ringtoets.StabilityPointStructures.IO;
-using Ringtoets.StabilityPointStructures.Plugin.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;

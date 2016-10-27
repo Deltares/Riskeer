@@ -408,6 +408,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Assert.AreEqual(0, calculationInputs.Length);
                 var exception = Assert.Throws<InvalidEnumArgumentException>(call);
                 Assert.AreEqual("calculation", exception.ParamName);
+                StringAssert.StartsWith("The value of argument 'calculation' (100) is invalid for Enum type 'ClosingStructureInflowModelType'.", exception.Message);
             }
             mockRepository.VerifyAll();
         }

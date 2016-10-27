@@ -597,7 +597,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             return builder.AddValidateCalculationItem(
                 context,
-                ValidateAll,
+                Validate,
                 ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
@@ -617,7 +617,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
-        private static void ValidateAll(GrassCoverErosionInwardsCalculationContext context)
+        private static void Validate(GrassCoverErosionInwardsCalculationContext context)
         {
             GrassCoverErosionInwardsCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }

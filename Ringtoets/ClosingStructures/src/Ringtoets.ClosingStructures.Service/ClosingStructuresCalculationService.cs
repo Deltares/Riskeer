@@ -135,7 +135,9 @@ namespace Ringtoets.ClosingStructures.Service
             return !messages.Any();
         }
 
-        private static StructuresClosureCalculationInput CreateStructuresClosureCalculationInput(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresFailureMechanism failureMechanism, FailureMechanismSection failureMechanismSection)
+        private static StructuresClosureCalculationInput CreateStructuresClosureCalculationInput(StructuresCalculation<ClosingStructuresInput> calculation,
+                                                                                                 ClosingStructuresFailureMechanism failureMechanism,
+                                                                                                 FailureMechanismSection failureMechanismSection)
         {
             StructuresClosureCalculationInput input;
             switch (calculation.InputParameters.InflowModelType)
