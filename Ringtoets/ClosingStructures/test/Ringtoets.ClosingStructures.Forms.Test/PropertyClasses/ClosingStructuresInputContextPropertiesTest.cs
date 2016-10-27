@@ -38,6 +38,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
@@ -113,8 +114,22 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             // Assert
             ClosingStructuresInput input = calculation.InputParameters;
+            var expectedProbabilityOpenStructureBeforeFlooding = ProbabilityFormattingHelper.Format(input.ProbabilityOpenStructureBeforeFlooding);
+            var expectedFailureProbabilityOpenStructure = ProbabilityFormattingHelper.Format(input.FailureProbabilityOpenStructure);
+            var expectedFailureProbabilityReparation = ProbabilityFormattingHelper.Format(input.FailureProbabilityReparation);
 
             Assert.AreEqual(input.DeviationWaveDirection, properties.DeviationWaveDirection);
+            Assert.AreSame(input.InsideWaterLevel, properties.InsideWaterLevel.Data);
+            Assert.AreEqual(input.InflowModelType, properties.InflowModelType);
+            Assert.AreSame(input.AreaFlowApertures, properties.AreaFlowApertures.Data);
+            Assert.AreEqual(input.IdenticalApertures, properties.IdenticalApertures);
+            Assert.AreSame(input.LevelCrestStructureNotClosing, properties.LevelCrestStructureNotClosing.Data);
+            Assert.AreSame(input.ThresholdHeightOpenWeir, properties.ThresholdHeightOpenWeir.Data);
+            Assert.AreEqual(expectedProbabilityOpenStructureBeforeFlooding, properties.ProbabilityOpenStructureBeforeFlooding);
+            Assert.AreEqual(expectedFailureProbabilityOpenStructure, properties.FailureProbabilityOpenStructure);
+            Assert.AreEqual(expectedFailureProbabilityReparation, properties.FailureProbabilityReparation);
+            Assert.AreSame(input.DrainCoefficient, properties.DrainCoefficient.Data);
+            Assert.AreEqual(input.FactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure);
 
             mockRepository.VerifyAll();
         }
@@ -168,11 +183,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             ClosingStructuresInput input = calculation.InputParameters;
             Assert.AreEqual(input.DeviationWaveDirection, properties.DeviationWaveDirection);
 
-            Assert.AreEqual(1, properties.GetAvailableHydraulicBoundaryLocations().Count());
-            CollectionAssert.AreEqual(inputContext.AvailableHydraulicBoundaryLocations, properties.GetAvailableHydraulicBoundaryLocations());
+            var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles().ToArray();
+            Assert.AreEqual(1, availableForeshoreProfiles.Length);
+            CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
 
-            Assert.AreEqual(1, properties.GetAvailableStructures().Count());
-            CollectionAssert.AreEqual(failureMechanism.ClosingStructures, properties.GetAvailableStructures());
+            var availableStructures = properties.GetAvailableStructures().ToArray();
+            Assert.AreEqual(1, availableStructures.Length);
+            CollectionAssert.AreEqual(failureMechanism.ClosingStructures, availableStructures);
 
             mockRepository.VerifyAll();
         }

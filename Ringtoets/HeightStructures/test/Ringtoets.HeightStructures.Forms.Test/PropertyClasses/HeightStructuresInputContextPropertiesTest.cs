@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Application.Ringtoets.Storage.TestUtil;
@@ -160,11 +161,13 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreSame(input.LevelCrestStructure, properties.LevelCrestStructure.Data);
             Assert.AreEqual(input.DeviationWaveDirection, properties.DeviationWaveDirection);
 
-            Assert.AreEqual(1, properties.GetAvailableHydraulicBoundaryLocations().Count());
-            CollectionAssert.AreEqual(inputContext.AvailableHydraulicBoundaryLocations, properties.GetAvailableHydraulicBoundaryLocations());
+            var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles().ToArray();
+            Assert.AreEqual(1, availableForeshoreProfiles.Length);
+            CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
 
-            Assert.AreEqual(1, properties.GetAvailableStructures().Count());
-            CollectionAssert.AreEqual(failureMechanism.HeightStructures, properties.GetAvailableStructures());
+            var availableStructures = properties.GetAvailableStructures().ToArray();
+            Assert.AreEqual(1, availableStructures.Length);
+            CollectionAssert.AreEqual(failureMechanism.HeightStructures, availableStructures);
 
             mockRepository.VerifyAll();
         }

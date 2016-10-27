@@ -178,8 +178,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
             Assert.AreSame(input.StormDuration, properties.StormDuration.Data);
 
-            Assert.AreEqual(1, properties.GetAvailableHydraulicBoundaryLocations().Count());
-            CollectionAssert.AreEqual(inputContext.AvailableHydraulicBoundaryLocations, properties.GetAvailableHydraulicBoundaryLocations());
+            var availableHydraulicBoundaryLocations = properties.GetAvailableHydraulicBoundaryLocations().ToArray();
+            Assert.AreEqual(1, availableHydraulicBoundaryLocations.Length);
+            CollectionAssert.AreEqual(inputContext.AvailableHydraulicBoundaryLocations, availableHydraulicBoundaryLocations);
 
             mockRepository.VerifyAll();
         }
