@@ -27,8 +27,8 @@ using Ringtoets.StabilityPointStructures.Data;
 namespace Ringtoets.StabilityPointStructures.Forms.PresentationObjects
 {
     /// <summary>
-    /// Presentation object for configuration of scenarios for the height structures
-    /// failure mechanism.
+    /// Presentation object for configuration of scenarios for the 
+    /// stability point structures failure mechanism.
     /// </summary>
     public class StabilityPointStructuresScenariosContext : WrappedObjectContextBase<CalculationGroup>
     {
