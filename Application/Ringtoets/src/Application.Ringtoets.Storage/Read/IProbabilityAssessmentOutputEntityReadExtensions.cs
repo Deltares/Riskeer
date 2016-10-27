@@ -22,22 +22,22 @@
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.Probability;
 
-namespace Application.Ringtoets.Storage.Read.HeightStructures
+namespace Application.Ringtoets.Storage.Read
 {
     /// <summary>
-    /// Extension methods for <see cref="HeightStructuresOutputEntity"/> related to creating a 
+    /// Extension methods for <see cref="IProbabilityAssessmentOutputEntity"/> related to creating a 
     /// <see cref="ProbabilityAssessmentOutput"/>.
     /// </summary>
-    internal static class HeightStructuresOutputEntityReadExtensions
+    internal static class IProbabilityAssessmentOutputEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="HeightStructuresOutputEntity"/>
+        /// Reads the <see cref="IProbabilityAssessmentOutputEntity"/>
         /// and use the information to construct a <see cref="ProbabilityAssessmentOutput"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="HeightStructuresOutputEntity"/>
+        /// <param name="entity">The <see cref="IProbabilityAssessmentOutputEntity"/>
         /// to create <see cref="ProbabilityAssessmentOutput"/> for.</param>
         /// <returns>A new <see cref="ProbabilityAssessmentOutput"/>.</returns>
-        internal static ProbabilityAssessmentOutput Read(this HeightStructuresOutputEntity entity)
+        internal static ProbabilityAssessmentOutput Read(this IProbabilityAssessmentOutputEntity entity)
         {
             return new ProbabilityAssessmentOutput(entity.RequiredProbability.ToNullAsNaN(),
                                                    entity.RequiredReliability.ToNullAsNaN(),

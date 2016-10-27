@@ -27,28 +27,28 @@ namespace Application.Ringtoets.Storage.DbContext
     public interface IProbabilityAssessmentOutputEntity
     {
         /// <summary>
-        /// Sets the required (maximum allowed) probability of failure.
+        /// Gets or sets the required (maximum allowed) probability of failure.
         /// </summary>
-        double? RequiredProbability { set; }
+        double? RequiredProbability { get; set; }
 
         /// <summary>
-        /// Set the required (maximum allowed) reliability of the failure mechanism.
+        /// Gets or set the required (maximum allowed) reliability of the failure mechanism.
         /// </summary>
-        double? RequiredReliability { set; }
+        double? RequiredReliability { get; set; }
 
         /// <summary>
-        /// Sets the probability of failure.
+        /// Gets or sets the probability of failure.
         /// </summary>
-        double? Probability { set; }
+        double? Probability { get; set; }
 
         /// <summary>
-        /// Sets the reliability of the failure mechanism.
+        /// Gets or sets the reliability of the failure mechanism.
         /// </summary>
-        double? Reliability { set; }
+        double? Reliability { get; set; }
 
         /// <summary>
-        /// Sets the factor of safety of the failure mechanism.
+        /// Gets or sets the factor of safety of the failure mechanism.
         /// </summary>
-        double? FactorOfSafety { set; }
+        double? FactorOfSafety { get; set; }
     }
 }

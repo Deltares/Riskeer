@@ -21,23 +21,23 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
-using Application.Ringtoets.Storage.Read.HeightStructures;
-using Core.Common.Base.Data;
 using Ringtoets.Common.Data.TestUtil;
+using Application.Ringtoets.Storage.Read;
 
-namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
+namespace Application.Ringtoets.Storage.Test.Read
 {
     [TestFixture]
-    public class HeightStructuresOutputEntityReadExtensionsTest
+    public class IProbabilityAssessmentOutputEntityReadExtensionsTest
     {
         [Test]
         public void Read_ValidEntity_ReturnProbabilityAssessmentOutput()
         {
             // Setup
             var random = new Random(159);
-            var entity = new HeightStructuresOutputEntity
+            var entity = new TestProbabilityAssessmentOutputEntity
             {
                 RequiredProbability = random.NextDouble(),
                 RequiredReliability = random.NextDouble(),
@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
         public void Read_ValidEntityWithNullValues_ReturnProbabilityAssessmentOutput()
         {
             // Setup
-            var entity = new HeightStructuresOutputEntity
+            var entity = new TestProbabilityAssessmentOutputEntity
             {
                 RequiredProbability = null,
                 RequiredReliability = null,
@@ -79,6 +79,15 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             Assert.IsNaN(output.Probability);
             Assert.IsNaN(output.Reliability.Value);
             Assert.IsNaN(output.FactorOfSafety.Value);
+        }
+
+        private class TestProbabilityAssessmentOutputEntity : IProbabilityAssessmentOutputEntity
+        {
+            public double? RequiredProbability { get; set; }
+            public double? RequiredReliability { get; set; }
+            public double? Probability { get; set; }
+            public double? Reliability { get; set; }
+            public double? FactorOfSafety { get; set; }
         }
 
         private static void AssertRoundedDouble(double? expectedValue, RoundedDouble actualValue)
