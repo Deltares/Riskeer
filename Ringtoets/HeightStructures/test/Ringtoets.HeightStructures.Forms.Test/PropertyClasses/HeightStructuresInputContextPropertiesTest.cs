@@ -239,6 +239,18 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             });
             Assert.AreEqual(17, dynamicProperties.Count);
 
+            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
+            Assert.AreEqual(schematizationCategory, levelCrestStructureProperty.Category);
+            Assert.AreEqual("Kerende hoogte [m+NAP]", levelCrestStructureProperty.DisplayName);
+            Assert.AreEqual("Kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
+
+            PropertyDescriptor deviationWaveDirectionProperty = dynamicProperties[deviationWaveDirectionPropertyIndex];
+            Assert.IsFalse(deviationWaveDirectionProperty.IsReadOnly);
+            Assert.AreEqual(hydraulicDataCategory, deviationWaveDirectionProperty.Category);
+            Assert.AreEqual("Afwijking golfrichting [°]", deviationWaveDirectionProperty.DisplayName);
+            Assert.AreEqual("Afwijking van de golfrichting.", deviationWaveDirectionProperty.Description);
+
             // Only check the order of the base properties
             Assert.AreEqual("Kunstwerk", dynamicProperties[structurePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[structureLocationPropertyIndex].DisplayName);
@@ -255,17 +267,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Voorlandgeometrie", dynamicProperties[useForeshorePropertyIndex].DisplayName);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[hydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[stormDurationPropertyIndex].DisplayName);
-
-            PropertyDescriptor levelCrestStructureProperty = dynamicProperties[levelCrestStructurePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureProperty.Converter);
-            Assert.AreEqual(schematizationCategory, levelCrestStructureProperty.Category);
-            Assert.AreEqual("Kerende hoogte [m+NAP]", levelCrestStructureProperty.DisplayName);
-            Assert.AreEqual("Kerende hoogte van het kunstwerk.", levelCrestStructureProperty.Description);
-
-            PropertyDescriptor deviationWaveDirectionProperty = dynamicProperties[deviationWaveDirectionPropertyIndex];
-            Assert.AreEqual(hydraulicDataCategory, deviationWaveDirectionProperty.Category);
-            Assert.AreEqual("Afwijking golfrichting [°]", deviationWaveDirectionProperty.DisplayName);
-            Assert.AreEqual("Afwijking van de golfrichting.", deviationWaveDirectionProperty.Description);
 
             mockRepository.VerifyAll();
         }
