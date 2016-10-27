@@ -27,6 +27,7 @@ using Core.Common.Utils;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
@@ -56,6 +57,7 @@ namespace Application.Ringtoets.Storage.Create
         private readonly Dictionary<HeightStructureEntity, HeightStructure> heightStructures = CreateDictionary<HeightStructureEntity, HeightStructure>();
         private readonly Dictionary<ClosingStructureEntity, ClosingStructure> closingStructures = CreateDictionary<ClosingStructureEntity, ClosingStructure>();
         private readonly Dictionary<StabilityPointStructureEntity, StabilityPointStructure> stabilityPointStructures = CreateDictionary<StabilityPointStructureEntity, StabilityPointStructure>();
+        private readonly Dictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations = CreateDictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>>();
 
         private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
         {
@@ -308,6 +310,20 @@ namespace Application.Ringtoets.Storage.Create
             Register(stabilityPointStructures, entity, model);
         }
 
+        /// <summary>
+        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
+        /// that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="HeightStructuresCalculationEntity"/>
+        /// to be registered.</param>
+        /// <param name="model">The <see cref="StructuresCalculation{T}"/> to
+        /// be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        internal void Register(HeightStructuresCalculationEntity entity, StructuresCalculation<HeightStructuresInput> model)
+        {
+            Register(heightStructuresCalculations, entity, model);
+        }
+
         #endregion
 
         #region Contains Methods
@@ -442,6 +458,17 @@ namespace Application.Ringtoets.Storage.Create
         internal bool Contains(StabilityPointStructure model)
         {
             return ContainsValue(stabilityPointStructures, model);
+        }
+
+        /// <summary>
+        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="StructuresCalculation{T}"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(StructuresCalculation<HeightStructuresInput> model)
+        {
+            return ContainsValue(heightStructuresCalculations, model);
         }
 
         #endregion
@@ -647,6 +674,23 @@ namespace Application.Ringtoets.Storage.Create
         internal StabilityPointStructureEntity Get(StabilityPointStructure model)
         {
             return Get(stabilityPointStructures, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="HeightStructuresCalculationEntity"/> which was
+        /// registered for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="StructuresCalculation{T}"/> for
+        /// which a read operation has been registered.</param>
+        /// <returns>The constructed <see cref="HeightStructuresCalculationEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(StructuresCalculation{HeightStructuresInput})"/> to find out
+        /// whether a create operation has been registered for <paramref name="model"/>.</remarks>
+        internal HeightStructuresCalculationEntity Get(StructuresCalculation<HeightStructuresInput> model)
+        {
+            return Get(heightStructuresCalculations, model);
         }
 
         #endregion
