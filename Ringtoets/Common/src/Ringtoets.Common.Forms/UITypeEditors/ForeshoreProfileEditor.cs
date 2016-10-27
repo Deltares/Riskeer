@@ -21,8 +21,11 @@
 
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.DikeProfiles;
+using CoreCommonControlsResources = Core.Common.Controls.Properties.Resources;
 
 namespace Ringtoets.Common.Forms.UITypeEditors
 {
@@ -38,6 +41,10 @@ namespace Ringtoets.Common.Forms.UITypeEditors
         public ForeshoreProfileEditor()
         {
             DisplayMember = TypeUtils.GetMemberName<ForeshoreProfile>(fp => fp.Name);
+            NullItem = new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties
+            {
+                Name = CoreCommonControlsResources.DisplayName_None
+            });
         }
 
         protected override IEnumerable<ForeshoreProfile> GetAvailableOptions(ITypeDescriptorContext context)
