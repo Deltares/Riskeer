@@ -159,8 +159,8 @@ namespace Ringtoets.ClosingStructures.Service
             return new StructuresClosureVerticalWallCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
                 new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
-                CalculationInputParser.ParseForeshore(calculation.InputParameters),
-                CalculationInputParser.ParseBreakWater(calculation.InputParameters),
+                HydraRingInputParser.ParseForeshore(calculation.InputParameters),
+                HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
                 generalInput.GravitationalAcceleration,
                 calculation.InputParameters.FactorStormDurationOpenStructure,
                 calculation.InputParameters.FailureProbabilityOpenStructure,
@@ -190,8 +190,8 @@ namespace Ringtoets.ClosingStructures.Service
             return new StructuresClosureLowSillCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
                 new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
-                CalculationInputParser.ParseForeshore(calculation.InputParameters),
-                CalculationInputParser.ParseBreakWater(calculation.InputParameters),
+                HydraRingInputParser.ParseForeshore(calculation.InputParameters),
+                HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
                 generalInput.GravitationalAcceleration,
                 calculation.InputParameters.FactorStormDurationOpenStructure,
                 calculation.InputParameters.FailureProbabilityOpenStructure,
@@ -220,8 +220,8 @@ namespace Ringtoets.ClosingStructures.Service
             return new StructuresClosureFloodedCulvertCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
                 new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
-                CalculationInputParser.ParseForeshore(calculation.InputParameters),
-                CalculationInputParser.ParseBreakWater(calculation.InputParameters),
+                HydraRingInputParser.ParseForeshore(calculation.InputParameters),
+                HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
                 generalInput.GravitationalAcceleration,
                 calculation.InputParameters.FactorStormDurationOpenStructure,
                 calculation.InputParameters.FailureProbabilityOpenStructure,

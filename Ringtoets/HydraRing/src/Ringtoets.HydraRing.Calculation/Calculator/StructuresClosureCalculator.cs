@@ -28,8 +28,8 @@ using Ringtoets.HydraRing.Calculation.Parsers;
 namespace Ringtoets.HydraRing.Calculation.Calculator
 {
     /// <summary>
-    /// Calculator for calculating probability of failure by overtopping or overflow and the
-    /// associated wave height. This is used in a closure structures assessment.
+    /// Calculator for calculating probability of failure by a non-closing structure. 
+    /// This is used in a closure structures assessment.
     /// </summary>
     internal class StructuresClosureCalculator : HydraRingCalculatorBase, IStructuresClosureCalculator
     {

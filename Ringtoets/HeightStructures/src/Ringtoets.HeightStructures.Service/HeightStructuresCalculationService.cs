@@ -143,8 +143,8 @@ namespace Ringtoets.HeightStructures.Service
             return new StructuresOvertoppingCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
                 new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
-                CalculationInputParser.ParseForeshore(calculation.InputParameters),
-                CalculationInputParser.ParseBreakWater(calculation.InputParameters),
+                HydraRingInputParser.ParseForeshore(calculation.InputParameters),
+                HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
                 generalInput.GravitationalAcceleration,
                 generalInput.ModelFactorOvertoppingFlow.Mean, generalInput.ModelFactorOvertoppingFlow.StandardDeviation,
                 calculation.InputParameters.LevelCrestStructure.Mean, calculation.InputParameters.LevelCrestStructure.StandardDeviation,

@@ -27,9 +27,10 @@ using Ringtoets.HydraRing.Calculation.Data;
 namespace Ringtoets.Common.Service
 {
     /// <summary>
-    /// Helper class to parse the breakwater and foreshore properties of a calculation input.
+    /// Helper class to parse the breakwater and foreshore properties of a calculation input object into required objects 
+    /// for performing calculations with HydrarRing.
     /// </summary>
-    public static class CalculationInputParser
+    public static class HydraRingInputParser
     {
         /// <summary>
         /// Parses the foreshore geometry of a calculation input object into a <see cref="IEnumerable{T}"/> of 

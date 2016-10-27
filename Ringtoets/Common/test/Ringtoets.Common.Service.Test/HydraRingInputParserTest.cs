@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -34,7 +33,7 @@ using Ringtoets.HydraRing.Calculation.Data;
 namespace Ringtoets.Common.Service.Test
 {
     [TestFixture]
-    public class CalculationInputParserTest
+    public class HydraRingInputParserTest
     {
         [Test]
         public void ParseForeshore_Use_ReturnCollection()
@@ -54,7 +53,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            IEnumerable<HydraRingForelandPoint> parsedForeshore = CalculationInputParser.ParseForeshore(foreshoreStub);
+            IEnumerable<HydraRingForelandPoint> parsedForeshore = HydraRingInputParser.ParseForeshore(foreshoreStub);
 
             // Assert 
             HydraRingForelandPoint[] actualForelandPoints = parsedForeshore.ToArray();
@@ -76,7 +75,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            IEnumerable<HydraRingForelandPoint> parsedForeshore = CalculationInputParser.ParseForeshore(foreshoreStub);
+            IEnumerable<HydraRingForelandPoint> parsedForeshore = HydraRingInputParser.ParseForeshore(foreshoreStub);
 
             // Assert 
             CollectionAssert.IsEmpty(parsedForeshore);
@@ -101,7 +100,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            HydraRingBreakWater parsedBreakWater = CalculationInputParser.ParseBreakWater(breakWaterStub);
+            HydraRingBreakWater parsedBreakWater = HydraRingInputParser.ParseBreakWater(breakWaterStub);
 
             // Assert 
             Assert.AreEqual((int) expectedBreakWater.Type, parsedBreakWater.Type);
@@ -122,7 +121,7 @@ namespace Ringtoets.Common.Service.Test
             mockRepository.ReplayAll();
 
             // Call
-            HydraRingBreakWater parsedBreakWater = CalculationInputParser.ParseBreakWater(breakWaterStub);
+            HydraRingBreakWater parsedBreakWater = HydraRingInputParser.ParseBreakWater(breakWaterStub);
 
             // Assert
             Assert.IsNull(parsedBreakWater);

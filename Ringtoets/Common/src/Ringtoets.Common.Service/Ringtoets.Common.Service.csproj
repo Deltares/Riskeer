@@ -49,7 +49,7 @@
     </Compile>
     <Compile Include="CalculationServiceHelper.cs" />
     <Compile Include="DistributionValidation.cs" />
-    <Compile Include="CalculationInputParser.cs" />
+    <Compile Include="HydraRingInputParser.cs" />
     <Compile Include="ParameterNameExtractor.cs" />
     <Compile Include="WaveHeightCalculationActivity.cs" />
     <Compile Include="WaveHeightCalculationService.cs" />
