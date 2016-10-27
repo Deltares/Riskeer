@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
 
             if (calculation.HasOutput)
             {
-                entity.HeightStructuresOutputEntities.Add(calculation.Output.CreateHeightStructuresOutputEntity(registry));
+                entity.HeightStructuresOutputEntities.Add(calculation.Output.Create<HeightStructuresOutputEntity>(registry));
             }
 
             return entity;

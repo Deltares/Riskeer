@@ -21,12 +21,11 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.HeightStructures;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 
-namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
+namespace Application.Ringtoets.Storage.Test.Create
 {
     [TestFixture]
     public class ProbabilityAssessmentOutputCreateExtensionsTest
@@ -41,7 +40,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
                                                          random.NextDouble());
 
             // Call
-            TestDelegate call = () => output.CreateHeightStructuresOutputEntity(null);
+            TestDelegate call = () => output.Create<TestProbabilityAssessmentOutputEntity>(null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
@@ -49,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         }
 
         [Test]
-        public void Create_ValidInput_ReturnHeightStructuresOutputEntity()
+        public void Create_ValidInput_ReturnProbabilityAssessmentOutputEntity()
         {
             // Setup
             var random = new Random(456);
@@ -60,7 +59,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             var registry = new PersistenceRegistry();
 
             // Call
-            HeightStructuresOutputEntity entity = output.CreateHeightStructuresOutputEntity(registry);
+            TestProbabilityAssessmentOutputEntity entity = output.Create<TestProbabilityAssessmentOutputEntity>(registry);
 
             // Assert
             Assert.AreEqual(output.RequiredProbability, entity.RequiredProbability);
@@ -71,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
         }
 
         [Test]
-        public void Create_NaNValues_ReturnHeightStructuresOutputEntity()
+        public void Create_NaNValues_ReturnProbabilityAssessmentOutputEntity()
         {
             // Setup
             var output = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN,
@@ -80,7 +79,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             var registry = new PersistenceRegistry();
 
             // Call
-            HeightStructuresOutputEntity entity = output.CreateHeightStructuresOutputEntity(registry);
+            TestProbabilityAssessmentOutputEntity entity = output.Create<TestProbabilityAssessmentOutputEntity>(registry);
 
             // Assert
             Assert.IsNull(entity.RequiredProbability);
@@ -88,6 +87,15 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             Assert.IsNull(entity.Probability);
             Assert.IsNull(entity.Reliability);
             Assert.IsNull(entity.FactorOfSafety);
+        }
+
+        private class TestProbabilityAssessmentOutputEntity : IProbabilityAssessmentOutputEntity
+        {
+            public double? RequiredProbability { get; set; }
+            public double? RequiredReliability { get; set; }
+            public double? Probability { get; set; }
+            public double? Reliability { get; set; }
+            public double? FactorOfSafety { get; set; }
         }
     }
 }

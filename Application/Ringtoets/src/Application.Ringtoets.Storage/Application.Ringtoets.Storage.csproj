@@ -70,7 +70,7 @@
     <Compile Include="Create\HeightStructures\HeightStructuresCalculationCreateExtensions.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Create\HeightStructures\ProbabilityAssessmentOutputCreateExtensions.cs" />
+    <Compile Include="Create\ProbabilityAssessmentOutputCreateExtensions.cs" />
     <Compile Include="Create\StabilityPointStructures\GeneralStabilityPointStructuresInputCreateExtensions.cs" />
     <Compile Include="Create\StabilityPointStructures\StabilityPointStructureCreateExtensions.cs" />
     <Compile Include="Create\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationCreateExtensions.cs" />
@@ -163,6 +163,7 @@
     <Compile Include="DbContext\HydraulicLocationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\IProbabilityAssessmentOutputEntity.cs" />
     <Compile Include="DbContext\MacrostabilityInwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -172,6 +173,7 @@
     <Compile Include="DbContext\MicrostabilitySectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\PartialHeightStructuresOutputEntity.cs" />
     <Compile Include="DbContext\PipingCalculationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>

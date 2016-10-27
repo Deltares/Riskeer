@@ -23,31 +23,31 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.Probability;
 
-namespace Application.Ringtoets.Storage.Create.HeightStructures
+namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
-    /// Extension methods for <see cref="ProbabilityAssessmentOutput"/> related to creating a 
-    /// <see cref="HeightStructuresOutputEntity"/>.
+    /// Extension methods for <see cref="ProbabilityAssessmentOutput"/> related to creating an
+    /// <see cref="IProbabilityAssessmentOutputEntity"/>.
     /// </summary>
     internal static class ProbabilityAssessmentOutputCreateExtensions
     {
         /// <summary>
-        /// Creates a <see cref="HeightStructuresOutputEntity"/> based on
+        /// Creates an <see cref="IProbabilityAssessmentOutputEntity"/> based on
         /// the information of the <see cref="ProbabilityAssessmentOutput"/>.
         /// </summary>
-        /// <param name="output">The height structure calculation output to create
-        /// a database entity for.</param>
+        /// <param name="output">The calculation output to create a database entity for.</param>
         /// <param name="registry">The object keeping track of create operations.</param>
-        /// <returns>A new <see cref="HeightStructuresOutputEntity"/>.</returns>
+        /// <returns>A new <see cref="IProbabilityAssessmentOutputEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static HeightStructuresOutputEntity CreateHeightStructuresOutputEntity(this ProbabilityAssessmentOutput output, PersistenceRegistry registry)
+        internal static T Create<T>(this ProbabilityAssessmentOutput output, PersistenceRegistry registry)
+            where T : IProbabilityAssessmentOutputEntity, new()
         {
             if (registry == null)
             {
                 throw new ArgumentNullException("registry");
             }
 
-            var entity = new HeightStructuresOutputEntity
+            return new T
             {
                 RequiredProbability = output.RequiredProbability.ToNaNAsNull(),
                 RequiredReliability = output.RequiredReliability.Value.ToNaNAsNull(),
@@ -55,8 +55,6 @@ namespace Application.Ringtoets.Storage.Create.HeightStructures
                 Reliability = output.Reliability.Value.ToNaNAsNull(),
                 FactorOfSafety = output.FactorOfSafety.Value.ToNaNAsNull()
             };
-
-            return entity;
         }
     }
 }
