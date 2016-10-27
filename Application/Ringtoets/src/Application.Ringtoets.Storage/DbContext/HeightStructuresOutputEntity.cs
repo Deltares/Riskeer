@@ -33,26 +33,16 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class PipingSemiProbabilisticOutputEntity
+    public partial class HeightStructuresOutputEntity
     {
-        public long PipingSemiProbabilisticOutputEntityId { get; set; }
-        public long PipingCalculationEntityId { get; set; }
-        public int Order { get; set; }
-        public Nullable<double> UpliftFactorOfSafety { get; set; }
-        public Nullable<double> UpliftReliability { get; set; }
-        public Nullable<double> UpliftProbability { get; set; }
-        public Nullable<double> HeaveFactorOfSafety { get; set; }
-        public Nullable<double> HeaveReliability { get; set; }
-        public Nullable<double> HeaveProbability { get; set; }
-        public Nullable<double> SellmeijerFactorOfSafety { get; set; }
-        public Nullable<double> SellmeijerReliability { get; set; }
-        public Nullable<double> SellmeijerProbability { get; set; }
+        public long HeightStructuresOutputEntityId { get; set; }
+        public long HeightStructuresCalculationEntityId { get; set; }
         public Nullable<double> RequiredProbability { get; set; }
         public Nullable<double> RequiredReliability { get; set; }
-        public Nullable<double> PipingProbability { get; set; }
-        public Nullable<double> PipingReliability { get; set; }
-        public Nullable<double> PipingFactorOfSafety { get; set; }
+        public Nullable<double> Probability { get; set; }
+        public Nullable<double> Reliability { get; set; }
+        public Nullable<double> FactorOfSafety { get; set; }
     
-        public virtual PipingCalculationEntity PipingCalculationEntity { get; set; }
+        public virtual HeightStructuresCalculationEntity HeightStructuresCalculationEntity { get; set; }
     }
 }

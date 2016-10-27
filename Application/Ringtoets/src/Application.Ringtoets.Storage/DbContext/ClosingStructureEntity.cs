@@ -35,6 +35,12 @@ namespace Application.Ringtoets.Storage.DbContext
     
     public partial class ClosingStructureEntity
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ClosingStructureEntity()
+        {
+            this.ClosingStructuresCalculationEntities = new HashSet<ClosingStructuresCalculationEntity>();
+        }
+    
         public long ClosingStructureEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public int Order { get; set; }
@@ -68,5 +74,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public byte InflowModelType { get; set; }
     
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClosingStructuresCalculationEntity> ClosingStructuresCalculationEntities { get; set; }
     }
 }

@@ -39,6 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public CalculationGroupEntity()
         {
             this.CalculationGroupEntity1 = new HashSet<CalculationGroupEntity>();
+            this.ClosingStructuresCalculationEntities = new HashSet<ClosingStructuresCalculationEntity>();
             this.FailureMechanismEntities = new HashSet<FailureMechanismEntity>();
             this.GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
             this.GrassCoverErosionOutwardsWaveConditionsCalculationEntities = new HashSet<GrassCoverErosionOutwardsWaveConditionsCalculationEntity>();
@@ -57,6 +58,8 @@ namespace Application.Ringtoets.Storage.DbContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CalculationGroupEntity> CalculationGroupEntity1 { get; set; }
         public virtual CalculationGroupEntity CalculationGroupEntity2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClosingStructuresCalculationEntity> ClosingStructuresCalculationEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FailureMechanismEntity> FailureMechanismEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

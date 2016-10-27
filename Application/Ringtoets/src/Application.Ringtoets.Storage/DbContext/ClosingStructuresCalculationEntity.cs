@@ -33,49 +33,55 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class HeightStructuresCalculationEntity
+    public partial class ClosingStructuresCalculationEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HeightStructuresCalculationEntity()
-        {
-            this.HeightStructuresOutputEntities = new HashSet<HeightStructuresOutputEntity>();
-        }
-    
-        public long HeightStructuresCalculationEntityId { get; set; }
+        public long ClosingStructuresCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
-        public Nullable<long> HydraulicLocationEntityId { get; set; }
-        public Nullable<long> HeightStructureEntityId { get; set; }
         public Nullable<long> ForeshoreProfileEntityId { get; set; }
+        public Nullable<long> HydraulicLocationEntityId { get; set; }
+        public Nullable<long> ClosingStructureEntityId { get; set; }
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
-        public Nullable<double> ModelFactorSuperCriticalFlowMean { get; set; }
-        public Nullable<double> StructureNormalOrientation { get; set; }
-        public Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
-        public Nullable<double> AllowedLevelIncreaseStorageStandardDeviation { get; set; }
-        public Nullable<double> StorageStructureAreaMean { get; set; }
-        public Nullable<double> StorageStructureAreaCoefficientOfVariation { get; set; }
-        public Nullable<double> FlowWidthAtBottomProtectionMean { get; set; }
-        public Nullable<double> FlowWidthAtBottomProtectionStandardDeviation { get; set; }
-        public Nullable<double> CriticalOvertoppingDischargeMean { get; set; }
-        public Nullable<double> CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
-        public double FailureProbabilityStructureWithErosion { get; set; }
-        public Nullable<double> WidthFlowAperturesMean { get; set; }
-        public Nullable<double> WidthFlowAperturesCoefficientOfVariation { get; set; }
-        public Nullable<double> StormDurationMean { get; set; }
-        public Nullable<double> LevelCrestStructureMean { get; set; }
-        public Nullable<double> LevelCrestStructureStandardDeviation { get; set; }
-        public Nullable<double> DeviationWaveDirection { get; set; }
         public byte UseBreakWater { get; set; }
-        public byte UseForeshore { get; set; }
         public short BreakWaterType { get; set; }
         public Nullable<double> BreakWaterHeight { get; set; }
+        public byte UseForeshore { get; set; }
+        public Nullable<double> Orientation { get; set; }
+        public Nullable<double> StructureNormalOrientation { get; set; }
+        public Nullable<double> StorageStructureAreaMean { get; set; }
+        public Nullable<double> StorageStructureAreaCoefficientOfVariation { get; set; }
+        public Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
+        public Nullable<double> AllowedLevelIncreaseStorageStandardDeviation { get; set; }
+        public Nullable<double> WidthFlowAperturesMean { get; set; }
+        public Nullable<double> WidthFlowAperturesCoefficientOfVariation { get; set; }
+        public Nullable<double> LevelCrestStructureNotClosingMean { get; set; }
+        public Nullable<double> LevelCrestStructureNotClosingStandardDeviation { get; set; }
+        public Nullable<double> InsideWaterLevelMean { get; set; }
+        public Nullable<double> InsideWaterLevelStandardDeviation { get; set; }
+        public Nullable<double> ThresholdHeightOpenWeirMean { get; set; }
+        public Nullable<double> ThresholdHeightOpenWeirStandardDeviation { get; set; }
+        public Nullable<double> AreaFlowAperturesMean { get; set; }
+        public Nullable<double> AreaFlowAperturesStandardDeviation { get; set; }
+        public Nullable<double> CriticalOvertoppingDischargeMean { get; set; }
+        public Nullable<double> CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
+        public Nullable<double> FlowWidthAtBottomProtectionMean { get; set; }
+        public Nullable<double> FlowWidthAtBottomProtectionStandardDeviation { get; set; }
+        public Nullable<double> ProbabilityOpenStructureBeforeFlooding { get; set; }
+        public double FailureProbabilityOpenStructure { get; set; }
+        public Nullable<double> IdenticalApertures { get; set; }
+        public double FailureProbablityReparation { get; set; }
+        public Nullable<byte> InflowModelType { get; set; }
+        public double FailureProbabilityStructureWithErosion { get; set; }
+        public Nullable<double> DeviationWaveDirection { get; set; }
+        public Nullable<double> DrainCoefficientMean { get; set; }
+        public Nullable<double> ModelFactorSuperCriticalFlowMean { get; set; }
+        public Nullable<double> StormDurationMean { get; set; }
+        public Nullable<double> FactorStormDurationOpenStructure { get; set; }
     
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
-        public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
-        public virtual HeightStructureEntity HeightStructureEntity { get; set; }
+        public virtual ClosingStructureEntity ClosingStructureEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HeightStructuresOutputEntity> HeightStructuresOutputEntities { get; set; }
+        public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
     }
 }
