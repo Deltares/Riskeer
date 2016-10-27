@@ -78,5 +78,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator.Factory
         {
             return new StructuresClosureCalculator(hlcdDirectory, ringId);
         }
+
+        public IStructuresStabilityPointCalculator CreateStructuresStabilityPointCalculator(string hlcdDirectory, string ringId)
+        {
+            return new StructuresStabilityPointCalculator(hlcdDirectory, ringId);
+        }
     }
 }

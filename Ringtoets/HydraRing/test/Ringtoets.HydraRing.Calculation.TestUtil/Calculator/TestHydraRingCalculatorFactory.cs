@@ -40,6 +40,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public readonly TestWaveHeightCalculator WaveHeightCalculator = new TestWaveHeightCalculator();
         public readonly TestStructuresOvertoppingCalculator StructuresOvertoppingCalculator = new TestStructuresOvertoppingCalculator();
         public readonly TestStructuresClosureCalculator StructuresClosureCalculator = new TestStructuresClosureCalculator();
+        public readonly TestStructuresStabilityPointCalculator StructuresStabilityPointCalculator = new TestStructuresStabilityPointCalculator(); 
 
         public IDesignWaterLevelCalculator CreateDesignWaterLevelCalculator(string hlcdDirectory, string ringId)
         {
@@ -89,6 +90,13 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
             StructuresClosureCalculator.RingId = ringId;
             return StructuresClosureCalculator;
         }
+
+        public IStructuresStabilityPointCalculator CreateStructuresStabilityPointCalculator(string hlcdDirectory, string ringId)
+        {
+            StructuresStabilityPointCalculator.HydraulicBoundaryDatabaseDirectory = hlcdDirectory;
+            StructuresStabilityPointCalculator.RingId = ringId;
+            return StructuresStabilityPointCalculator;
+        }
     }
 
     public class TestWaveHeightCalculator : TestHydraRingCalculator<WaveHeightCalculationInput>, IWaveHeightCalculator
@@ -134,6 +142,12 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     }
 
     public class TestStructuresClosureCalculator : TestHydraRingCalculator<StructuresClosureCalculationInput>, IStructuresClosureCalculator
+    {
+        public double ExceedanceProbabilityBeta { get; set; }
+        public string OutputFileContent { get; set; }
+    }
+
+    public class TestStructuresStabilityPointCalculator : TestHydraRingCalculator<StructuresStabilityPointCalculationInput>, IStructuresStabilityPointCalculator
     {
         public double ExceedanceProbabilityBeta { get; set; }
         public string OutputFileContent { get; set; }
