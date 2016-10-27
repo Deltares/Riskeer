@@ -425,7 +425,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                             },
                             ForeshoreProfile = foreshoreProfile,
                             HydraulicBoundaryLocation = hydraulicBoundaryLocations[0]
-                        }
+                        },
+                        Output = new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12)
                     }
                 }
             });

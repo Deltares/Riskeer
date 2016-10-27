@@ -901,7 +901,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         }
 
         private static void AssertStabilityPointStructures(ObservableList<StabilityPointStructure> expectedStabilityPointStructures,
-            ObservableList<StabilityPointStructure> actualStabilityPointStructures)
+                                                           ObservableList<StabilityPointStructure> actualStabilityPointStructures)
         {
             Assert.AreEqual(expectedStabilityPointStructures.Count, actualStabilityPointStructures.Count);
             for (int i = 0; i < expectedStabilityPointStructures.Count; i++)
@@ -1035,6 +1035,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
 
             AssertHeightStructuresInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
+
+            if (expectedCalculation.HasOutput)
+            {
+                AssertProbabilityAssessmentOutput(expectedCalculation.Output, actualCalculation.Output);
+            }
+            else
+            {
+                Assert.IsFalse(actualCalculation.HasOutput);
+            }
         }
 
         private static void AssertHeightStructuresInput(HeightStructuresInput expectedInput, HeightStructuresInput actualInput)
