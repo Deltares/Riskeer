@@ -39,6 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public HeightStructuresCalculationEntity()
         {
             this.HeightStructuresOutputEntities = new HashSet<HeightStructuresOutputEntity>();
+            this.HeightStructuresSectionResultEntities = new HashSet<HeightStructuresSectionResultEntity>();
         }
     
         public long HeightStructuresCalculationEntityId { get; set; }
@@ -77,5 +78,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HeightStructuresOutputEntity> HeightStructuresOutputEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HeightStructuresSectionResultEntity> HeightStructuresSectionResultEntities { get; set; }
     }
 }
