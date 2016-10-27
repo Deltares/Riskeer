@@ -334,46 +334,14 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
             mockRepository.ReplayAll();
 
-            const int structurePropertyIndex = 0;
-            const int structureLocationPropertyIndex = 1;
-            const int structureNormalOrientationPropertyIndex = 2;
-            const int flowWidthAtBottomProtectionPropertyIndex = 3;
-            const int widthFlowAperturesPropertyIndex = 4;
-            const int storageStructureAreaPropertyIndex = 5;
-            const int allowedLevelIncreaseStoragePropertyIndex = 6;
-            const int criticalOvertoppingDischargePropertyIndex = 7;
-            const int failureProbabilityStructureWithErosionPropertyIndex = 8;
-            const int foreshoreProfilePropertyIndex = 9;
-            const int useBreakWaterPropertyIndex = 10;
-            const int useForeshorePropertyIndex = 11;
-            const int modelFactorSuperCriticalFlowPropertyIndex = 12;
-            const int hydraulicBoundaryLocationPropertyIndex = 13;
-            const int stormDurationPropertyIndex = 14;
-
             var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
             // Call
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties
-            {
-                StructurePropertyIndex = structurePropertyIndex,
-                StructureLocationPropertyIndex = structureLocationPropertyIndex,
-                StructureNormalOrientationPropertyIndex = structureNormalOrientationPropertyIndex,
-                FlowWidthAtBottomProtectionPropertyIndex = flowWidthAtBottomProtectionPropertyIndex,
-                WidthFlowAperturesPropertyIndex = widthFlowAperturesPropertyIndex,
-                StorageStructureAreaPropertyIndex = storageStructureAreaPropertyIndex,
-                AllowedLevelIncreaseStoragePropertyIndex = allowedLevelIncreaseStoragePropertyIndex,
-                CriticalOvertoppingDischargePropertyIndex = criticalOvertoppingDischargePropertyIndex,
-                FailureProbabilityStructureWithErosionPropertyIndex = failureProbabilityStructureWithErosionPropertyIndex,
-                ForeshoreProfilePropertyIndex = foreshoreProfilePropertyIndex,
-                UseBreakWaterPropertyIndex = useBreakWaterPropertyIndex,
-                UseForeshorePropertyIndex = useForeshorePropertyIndex,
-                ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
-                HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
-                StormDurationPropertyIndex = stormDurationPropertyIndex
-            })
+            var constructionProperties = GetRandomConstructionProperties();
+            var properties = new SimpleStructuresInputProperties(constructionProperties)
             {
                 Data = inputContext
             };
@@ -390,99 +358,158 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             });
             Assert.AreEqual(15, dynamicProperties.Count);
 
-            PropertyDescriptor structureProperty = dynamicProperties[structurePropertyIndex];
+            PropertyDescriptor structureProperty = dynamicProperties[constructionProperties.StructurePropertyIndex];
             Assert.IsFalse(structureProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, structureProperty.Category);
             Assert.AreEqual("Kunstwerk", structureProperty.DisplayName);
             Assert.AreEqual("Het kunstwerk dat gebruikt wordt in de berekening.", structureProperty.Description);
 
-            PropertyDescriptor structureLocationProperty = dynamicProperties[structureLocationPropertyIndex];
+            PropertyDescriptor structureLocationProperty = dynamicProperties[constructionProperties.StructureLocationPropertyIndex];
             Assert.IsTrue(structureLocationProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, structureLocationProperty.Category);
             Assert.AreEqual("Locatie (RD) [m]", structureLocationProperty.DisplayName);
             Assert.AreEqual("De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.", structureLocationProperty.Description);
 
-            PropertyDescriptor structureNormalOrientationProperty = dynamicProperties[structureNormalOrientationPropertyIndex];
+            PropertyDescriptor structureNormalOrientationProperty = dynamicProperties[constructionProperties.StructureNormalOrientationPropertyIndex];
             Assert.IsFalse(structureNormalOrientationProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, structureNormalOrientationProperty.Category);
             Assert.AreEqual("Oriëntatie [°]", structureNormalOrientationProperty.DisplayName);
             Assert.AreEqual("Oriëntatie van de normaal van het kunstwerk ten opzichte van het noorden.", structureNormalOrientationProperty.Description);
 
-            PropertyDescriptor flowWidthAtBottomProtectionProperty = dynamicProperties[flowWidthAtBottomProtectionPropertyIndex];
+            PropertyDescriptor flowWidthAtBottomProtectionProperty = dynamicProperties[constructionProperties.FlowWidthAtBottomProtectionPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(flowWidthAtBottomProtectionProperty.Converter);
             Assert.AreEqual(schematizationCategory, flowWidthAtBottomProtectionProperty.Category);
             Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", flowWidthAtBottomProtectionProperty.DisplayName);
             Assert.AreEqual("Stroomvoerende breedte bodembescherming.", flowWidthAtBottomProtectionProperty.Description);
 
-            PropertyDescriptor widthFlowAperturesProperty = dynamicProperties[widthFlowAperturesPropertyIndex];
+            PropertyDescriptor widthFlowAperturesProperty = dynamicProperties[constructionProperties.WidthFlowAperturesPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(widthFlowAperturesProperty.Converter);
             Assert.AreEqual(schematizationCategory, widthFlowAperturesProperty.Category);
             Assert.AreEqual("Breedte van doorstroomopening [m]", widthFlowAperturesProperty.DisplayName);
             Assert.AreEqual("Breedte van de doorstroomopening.", widthFlowAperturesProperty.Description);
 
-            PropertyDescriptor storageStructureAreaProperty = dynamicProperties[storageStructureAreaPropertyIndex];
+            PropertyDescriptor storageStructureAreaProperty = dynamicProperties[constructionProperties.StorageStructureAreaPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(storageStructureAreaProperty.Converter);
             Assert.AreEqual(schematizationCategory, storageStructureAreaProperty.Category);
             Assert.AreEqual("Kombergend oppervlak [m²]", storageStructureAreaProperty.DisplayName);
             Assert.AreEqual("Kombergend oppervlak.", storageStructureAreaProperty.Description);
 
-            PropertyDescriptor allowedLevelIncreaseStorageProperty = dynamicProperties[allowedLevelIncreaseStoragePropertyIndex];
+            PropertyDescriptor allowedLevelIncreaseStorageProperty = dynamicProperties[constructionProperties.AllowedLevelIncreaseStoragePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(allowedLevelIncreaseStorageProperty.Converter);
             Assert.AreEqual(schematizationCategory, allowedLevelIncreaseStorageProperty.Category);
             Assert.AreEqual("Toegestane peilverhoging komberging [m]", allowedLevelIncreaseStorageProperty.DisplayName);
             Assert.AreEqual("Toegestane peilverhoging komberging.", allowedLevelIncreaseStorageProperty.Description);
 
-            PropertyDescriptor criticalOvertoppingDischargeProperty = dynamicProperties[criticalOvertoppingDischargePropertyIndex];
+            PropertyDescriptor criticalOvertoppingDischargeProperty = dynamicProperties[constructionProperties.CriticalOvertoppingDischargePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(criticalOvertoppingDischargeProperty.Converter);
             Assert.AreEqual(schematizationCategory, criticalOvertoppingDischargeProperty.Category);
             Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", criticalOvertoppingDischargeProperty.DisplayName);
             Assert.AreEqual("Kritiek instromend debiet directe invoer per strekkende meter.", criticalOvertoppingDischargeProperty.Description);
 
-            PropertyDescriptor failureProbabilityStructureWithErosionProperty = dynamicProperties[failureProbabilityStructureWithErosionPropertyIndex];
+            PropertyDescriptor failureProbabilityStructureWithErosionProperty = dynamicProperties[constructionProperties.FailureProbabilityStructureWithErosionPropertyIndex];
             Assert.IsFalse(failureProbabilityStructureWithErosionProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, failureProbabilityStructureWithErosionProperty.Category);
             Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", failureProbabilityStructureWithErosionProperty.DisplayName);
             Assert.AreEqual("Faalkans kunstwerk gegeven erosie bodem.", failureProbabilityStructureWithErosionProperty.Description);
 
-            PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[modelFactorSuperCriticalFlowPropertyIndex];
+            PropertyDescriptor modelFactorSuperCriticalFlowProperty = dynamicProperties[constructionProperties.ModelFactorSuperCriticalFlowPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(modelFactorSuperCriticalFlowProperty.Converter);
             Assert.AreEqual(modelSettingsCategory, modelFactorSuperCriticalFlowProperty.Category);
             Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", modelFactorSuperCriticalFlowProperty.DisplayName);
             Assert.AreEqual("Modelfactor voor het overloopdebiet over een volkomen overlaat.", modelFactorSuperCriticalFlowProperty.Description);
 
-            PropertyDescriptor foreshoreProfileProperty = dynamicProperties[foreshoreProfilePropertyIndex];
+            PropertyDescriptor foreshoreProfileProperty = dynamicProperties[constructionProperties.ForeshoreProfilePropertyIndex];
             Assert.IsFalse(foreshoreProfileProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, foreshoreProfileProperty.Category);
             Assert.AreEqual("Voorlandprofiel", foreshoreProfileProperty.DisplayName);
             Assert.AreEqual("De schematisatie van het voorlandprofiel.", foreshoreProfileProperty.Description);
 
-            PropertyDescriptor breakWaterProperty = dynamicProperties[useBreakWaterPropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(breakWaterProperty.Converter);
-            Assert.IsTrue(breakWaterProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, breakWaterProperty.Category);
-            Assert.AreEqual("Dam", breakWaterProperty.DisplayName);
-            Assert.AreEqual("Eigenschappen van de dam.", breakWaterProperty.Description);
+            PropertyDescriptor useBreakWaterProperty = dynamicProperties[constructionProperties.UseBreakWaterPropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(useBreakWaterProperty.Converter);
+            Assert.IsTrue(useBreakWaterProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, useBreakWaterProperty.Category);
+            Assert.AreEqual("Dam", useBreakWaterProperty.DisplayName);
+            Assert.AreEqual("Eigenschappen van de dam.", useBreakWaterProperty.Description);
 
-            PropertyDescriptor foreshoreGeometryProperty = dynamicProperties[useForeshorePropertyIndex];
-            Assert.IsInstanceOf<ExpandableObjectConverter>(foreshoreGeometryProperty.Converter);
-            Assert.IsTrue(foreshoreGeometryProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, foreshoreGeometryProperty.Category);
-            Assert.AreEqual("Voorlandgeometrie", foreshoreGeometryProperty.DisplayName);
-            Assert.AreEqual("Eigenschappen van de voorlandgeometrie.", foreshoreGeometryProperty.Description);
+            PropertyDescriptor useForeshoreProperty = dynamicProperties[constructionProperties.UseForeshorePropertyIndex];
+            Assert.IsInstanceOf<ExpandableObjectConverter>(useForeshoreProperty.Converter);
+            Assert.IsTrue(useForeshoreProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, useForeshoreProperty.Category);
+            Assert.AreEqual("Voorlandgeometrie", useForeshoreProperty.DisplayName);
+            Assert.AreEqual("Eigenschappen van de voorlandgeometrie.", useForeshoreProperty.Description);
 
-            PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[hydraulicBoundaryLocationPropertyIndex];
+            PropertyDescriptor hydraulicBoundaryLocationProperty = dynamicProperties[constructionProperties.HydraulicBoundaryLocationPropertyIndex];
             Assert.IsFalse(hydraulicBoundaryLocationProperty.IsReadOnly);
             Assert.AreEqual(hydraulicDataCategory, hydraulicBoundaryLocationProperty.Category);
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", hydraulicBoundaryLocationProperty.DisplayName);
             Assert.AreEqual("De locatie met hydraulische randvoorwaarden.", hydraulicBoundaryLocationProperty.Description);
 
-            PropertyDescriptor stormDurationProperty = dynamicProperties[stormDurationPropertyIndex];
+            PropertyDescriptor stormDurationProperty = dynamicProperties[constructionProperties.StormDurationPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(stormDurationProperty.Converter);
             Assert.AreEqual(hydraulicDataCategory, stormDurationProperty.Category);
             Assert.AreEqual("Stormduur [uur]", stormDurationProperty.DisplayName);
             Assert.AreEqual("Stormduur.", stormDurationProperty.Description);
 
             mockRepository.VerifyAll();
+        }
+
+        private StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties GetRandomConstructionProperties()
+        {
+            var structureObject = new object();
+            var structureLocationObject = new object();
+            var structureNormalOrientationObject = new object();
+            var flowWidthAtBottomProtectionObject = new object();
+            var widthFlowAperturesObject = new object();
+            var storageStructureAreaObject = new object();
+            var allowedLevelIncreaseStorageObject = new object();
+            var criticalOvertoppingDischargeObject = new object();
+            var failureProbabilityStructureWithErosionObject = new object();
+            var foreshoreProfileObject = new object();
+            var useBreakWaterObject = new object();
+            var useForeshoreObject = new object();
+            var modelFactorSuperCriticalFlowObject = new object();
+            var hydraulicBoundaryLocationObject = new object();
+            var stormDurationObject = new object();
+
+            var random = new Random();
+            var randomObjectLookup = new[]
+            {
+                structureObject,
+                structureLocationObject,
+                structureNormalOrientationObject,
+                flowWidthAtBottomProtectionObject,
+                widthFlowAperturesObject,
+                storageStructureAreaObject,
+                allowedLevelIncreaseStorageObject,
+                criticalOvertoppingDischargeObject,
+                failureProbabilityStructureWithErosionObject,
+                foreshoreProfileObject,
+                useBreakWaterObject,
+                useForeshoreObject,
+                modelFactorSuperCriticalFlowObject,
+                hydraulicBoundaryLocationObject,
+                stormDurationObject
+            }.OrderBy(p => random.Next())
+             .ToList();
+
+            return new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties
+            {
+                StructurePropertyIndex = randomObjectLookup.IndexOf(structureObject),
+                StructureLocationPropertyIndex = randomObjectLookup.IndexOf(structureLocationObject),
+                StructureNormalOrientationPropertyIndex = randomObjectLookup.IndexOf(structureNormalOrientationObject),
+                FlowWidthAtBottomProtectionPropertyIndex = randomObjectLookup.IndexOf(flowWidthAtBottomProtectionObject),
+                WidthFlowAperturesPropertyIndex = randomObjectLookup.IndexOf(widthFlowAperturesObject),
+                StorageStructureAreaPropertyIndex = randomObjectLookup.IndexOf(storageStructureAreaObject),
+                AllowedLevelIncreaseStoragePropertyIndex = randomObjectLookup.IndexOf(allowedLevelIncreaseStorageObject),
+                CriticalOvertoppingDischargePropertyIndex = randomObjectLookup.IndexOf(criticalOvertoppingDischargeObject),
+                FailureProbabilityStructureWithErosionPropertyIndex = randomObjectLookup.IndexOf(failureProbabilityStructureWithErosionObject),
+                ForeshoreProfilePropertyIndex = randomObjectLookup.IndexOf(foreshoreProfileObject),
+                UseBreakWaterPropertyIndex = randomObjectLookup.IndexOf(useBreakWaterObject),
+                UseForeshorePropertyIndex = randomObjectLookup.IndexOf(useForeshoreObject),
+                ModelFactorSuperCriticalFlowPropertyIndex = randomObjectLookup.IndexOf(modelFactorSuperCriticalFlowObject),
+                HydraulicBoundaryLocationPropertyIndex = randomObjectLookup.IndexOf(hydraulicBoundaryLocationObject),
+                StormDurationPropertyIndex = randomObjectLookup.IndexOf(stormDurationObject)
+            };
         }
 
         private static HydraulicBoundaryLocation CreateHydraulicBoundaryLocation()
