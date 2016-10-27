@@ -20,9 +20,11 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -49,6 +51,60 @@ namespace Ringtoets.ClosingStructures.Service.Test
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
         private static readonly string validDataFilepath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+        #region Parameter name mappings
+        private static readonly Dictionary<string, string> parameterNames = new Dictionary<string, string>()
+        {
+            {
+                "insideWaterLevel", "binnenwaterstand"
+            },
+            {
+                "stormDuration", "stormduur"
+            },
+            {
+                "deviationWaveDirection", "afwijking golfrichting"
+            },
+            {
+                "factorStormDurationOpenStructure", "factor voor stormduur hoogwater"
+            },
+            {
+                "modelFactorSuperCriticalFlow", "modelfactor overloopdebiet volkomen overlaat"
+            },
+            {
+                "drainCoefficient", "afvoercoëfficient"
+            },
+            {
+                "structureNormalOrientation", "oriëntatie"
+            },
+            {
+                "identicalApertures", "aantal identieke doorstroomopeningen"
+            },
+            {
+                "thresholdHeightOpenWeir", "drempelhoogte"
+            },
+            {
+                "areaFlowApertures", "doorstroomoppervlak"
+            },
+            {
+                "levelCrestStructureNotClosing", "kruinhoogte niet gesloten kering"
+            },
+            {
+                "allowedLevelIncreaseStorage", "toegestane peilverhoging komberging"
+            },
+            {
+                "storageStructureArea", "kombergend oppervlak"
+            },
+            {
+                "flowWidthAtBottomProtection", "stroomvoerende breedte bodembescherming"
+            },
+            {
+                "criticalOvertoppingDischarge", "kritiek instromend debiet"
+            },
+            {
+                "widthFlowApertures", "breedte van doorstroomopening"
+            }
+        };
+        #endregion
 
         [Test]
         public void Validate_ValidCalculationInvalidHydraulicBoundaryDatabase_ReturnsFalse()
@@ -127,6 +183,185 @@ namespace Ringtoets.ClosingStructures.Service.Test
             });
             Assert.IsFalse(isValid);
 
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_CalculationInputWithoutStructure_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            const string name = "<very nice name>";
+
+            var calculation = new TestClosingStructuresCalculation()
+            {
+                Name = name,
+                InputParameters =
+                {
+                    Structure = null
+                }
+            };
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen kunstwerk sluiten geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        public void Validate_InvalidVerticalWallCalculation_LogsErrorAndReturnsFalse(double value)
+        {
+            // Setup 
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            const string name = "<very nice name>";
+
+            var calculation = new TestClosingStructuresCalculation()
+            {
+                Name = name
+            };
+
+            calculation.InputParameters.DeviationWaveDirection = RoundedDouble.NaN; 
+            calculation.InputParameters.FactorStormDurationOpenStructure = (RoundedDouble) value;
+            calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean = (RoundedDouble) value;
+            calculation.InputParameters.StructureNormalOrientation = RoundedDouble.NaN;
+
+            calculation.InputParameters.LevelCrestStructureNotClosing.Mean = (RoundedDouble) value;
+            calculation.InputParameters.WidthFlowApertures.Mean = (RoundedDouble) value;
+
+            if (double.IsNegativeInfinity(value))
+            {
+                calculation.InputParameters.StormDuration.Mean = RoundedDouble.NaN;
+                calculation.InputParameters.StormDuration.CoefficientOfVariation = RoundedDouble.NaN;
+                calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation = RoundedDouble.NaN;
+                calculation.InputParameters.LevelCrestStructureNotClosing.StandardDeviation = RoundedDouble.NaN;
+
+                calculation.InputParameters.AllowedLevelIncreaseStorage.Mean = RoundedDouble.NaN;
+                calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation = RoundedDouble.NaN;
+
+                calculation.InputParameters.StorageStructureArea.Mean = RoundedDouble.NaN;
+                calculation.InputParameters.StorageStructureArea.CoefficientOfVariation = RoundedDouble.NaN;
+
+                calculation.InputParameters.FlowWidthAtBottomProtection.Mean = RoundedDouble.NaN;
+                calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation = RoundedDouble.NaN;
+
+                calculation.InputParameters.CriticalOvertoppingDischarge.Mean = RoundedDouble.NaN;
+                calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation = RoundedDouble.NaN;
+
+                calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation = RoundedDouble.NaN;
+            }
+            else
+            {
+                calculation.InputParameters.StormDuration.Mean = (RoundedDouble) value;
+                calculation.InputParameters.StormDuration.CoefficientOfVariation = (RoundedDouble) value;
+
+                calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation = (RoundedDouble) value;
+                calculation.InputParameters.LevelCrestStructureNotClosing.StandardDeviation = (RoundedDouble) value;
+
+                calculation.InputParameters.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) value;
+                calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation = (RoundedDouble) value;
+
+                calculation.InputParameters.StorageStructureArea.Mean = (RoundedDouble) value;
+                calculation.InputParameters.StorageStructureArea.CoefficientOfVariation = (RoundedDouble) value;
+
+                calculation.InputParameters.FlowWidthAtBottomProtection.Mean = (RoundedDouble) value;
+                calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation = (RoundedDouble) value;
+
+                calculation.InputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) value;
+                calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation = (RoundedDouble) value;
+
+                calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation = (RoundedDouble) value;
+            }
+
+            // Call 
+            bool isValid = false;
+            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(21, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterNames["stormDuration"]), msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["stormDuration"]), msgs[2]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", parameterNames["deviationWaveDirection"]), msgs[3]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", parameterNames["modelFactorSuperCriticalFlow"]), msgs[4]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["modelFactorSuperCriticalFlow"]), msgs[5]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", parameterNames["factorStormDurationOpenStructure"]), msgs[6]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", parameterNames["widthFlowApertures"]), msgs[7]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["widthFlowApertures"]), msgs[8]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", parameterNames["structureNormalOrientation"]), msgs[9]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterNames["flowWidthAtBottomProtection"]), msgs[10]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["flowWidthAtBottomProtection"]), msgs[11]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterNames["storageStructureArea"]), msgs[12]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["storageStructureArea"]), msgs[13]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterNames["allowedLevelIncreaseStorage"]), msgs[14]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["allowedLevelIncreaseStorage"]), msgs[15]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", parameterNames["levelCrestStructureNotClosing"]), msgs[16]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["levelCrestStructureNotClosing"]), msgs[17]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterNames["criticalOvertoppingDischarge"]), msgs[18]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["criticalOvertoppingDischarge"]), msgs[19]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[20]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_InvalidInFlowModelType_ThrowsNotSupportedException()
+        {
+            // Setup 
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            const string name = "<very nice name>";
+
+            var calculation = new TestClosingStructuresCalculation()
+            {
+                Name = name,
+                InputParameters =
+                {
+                    InflowModelType = (ClosingStructureInflowModelType) 9001
+                }
+            };
+
+            // Call
+            bool isValid = false;
+            TestDelegate call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            var exception = Assert.Throws<InvalidEnumArgumentException>(call);
+            Assert.AreEqual("inputParameters", exception.ParamName);
+            Assert.IsFalse(isValid);
             mockRepository.VerifyAll();
         }
 

@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Data;
 using log4net;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Service.Properties;
@@ -38,6 +39,8 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
+using ClosingStructuresFormsResources = Ringtoets.ClosingStructures.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Service
 {
@@ -245,21 +248,87 @@ namespace Ringtoets.ClosingStructures.Service
 
         private static string[] ValidateInput(ClosingStructuresInput inputParameters, IAssessmentSection assessmentSection)
         {
-            var validationResult = new List<string>();
+            var validationResults = new List<string>();
 
             var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
             if (!string.IsNullOrEmpty(validationProblem))
             {
-                validationResult.Add(validationProblem);
-                return validationResult.ToArray();
+                validationResults.Add(validationProblem);
+                return validationResults.ToArray();
             }
 
             if (inputParameters.HydraulicBoundaryLocation == null)
             {
-                validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+                validationResults.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
             //TODO: Validate all the input parameters here, see WTI-926
-            return validationResult.ToArray();
+
+            if (inputParameters.Structure == null)
+            {
+                validationResults.Add("Er is geen kunstwerk sluiten geselecteerd.");
+            }
+            else
+            {
+                switch (inputParameters.InflowModelType)
+                {
+                    case ClosingStructureInflowModelType.VerticalWall:
+                        validationResults.AddRange(ValidateVerticalWallCalculationInput(inputParameters));
+                        break;
+                    default:
+                        throw new InvalidEnumArgumentException("inputParameters",
+                                                               (int) inputParameters.InflowModelType,
+                                                               typeof(ClosingStructureInflowModelType));
+                }
+            }
+
+            return validationResults.ToArray();
+        }
+
+        private static IEnumerable<string> ValidateVerticalWallCalculationInput(ClosingStructuresInput input)
+        {
+            var validationResults = new List<string>();
+
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.StormDuration,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)));
+            if (IsInvalidNumber(input.DeviationWaveDirection))
+            {
+                validationResults.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
+                                                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_DeviationWaveDirection_DisplayName)));
+            }
+
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.ModelFactorSuperCriticalFlow,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)));
+
+            if (IsInvalidNumber(input.FactorStormDurationOpenStructure))
+            {
+                validationResults.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
+                                                    ParameterNameExtractor.GetFromDisplayName(ClosingStructuresFormsResources.FactorStormDurationOpenStructure_DisplayName)));
+            }
+
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.WidthFlowApertures,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)));
+            if (IsInvalidNumber(input.StructureNormalOrientation))
+            {
+                validationResults.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
+                                                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StructureNormalOrientation_DisplayName)));
+            }
+
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.FlowWidthAtBottomProtection,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)));
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.StorageStructureArea,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName)));
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.AllowedLevelIncreaseStorage,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)));
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.LevelCrestStructureNotClosing,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(ClosingStructuresFormsResources.LevelCrestStructureNotClosing_DisplayName)));
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.CriticalOvertoppingDischarge,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName)));
+            return validationResults;
+        }
+
+        private static bool IsInvalidNumber(RoundedDouble value)
+        {
+            return double.IsNaN(value) || double.IsInfinity(value);
         }
     }
 }

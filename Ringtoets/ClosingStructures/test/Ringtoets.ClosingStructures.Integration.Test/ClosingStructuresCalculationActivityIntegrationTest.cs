@@ -112,6 +112,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 }
             };
             calculation.InputParameters.DeviationWaveDirection = (RoundedDouble) 0;
+            calculation.InputParameters.FactorStormDurationOpenStructure = (RoundedDouble) 1.0;
 
             var activity = new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSection);
 
