@@ -82,7 +82,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void Text_Always_ReturnsTextFromResource()
         {
             // Setup
-            var pipingOutput = mocks.StrictMock<PipingSemiProbabilisticOutput>(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var pipingOutput = mocks.StrictMock<PipingSemiProbabilisticOutput>(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
             mocks.ReplayAll();
 
@@ -97,7 +97,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
         public void Image_Always_ReturnsSetImage()
         {
             // Setup
-            var pipingOutput = mocks.StrictMock<PipingSemiProbabilisticOutput>(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            var pipingOutput = mocks.StrictMock<PipingSemiProbabilisticOutput>(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
             mocks.ReplayAll();
 

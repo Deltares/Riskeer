@@ -47,7 +47,6 @@ namespace Application.Ringtoets.Storage.Create.Piping
             var entity = new PipingFailureMechanismMetaEntity
             {
                 A = assessmentInput.A,
-                UpliftCriticalSafetyFactor = assessmentInput.UpliftCriticalSafetyFactor
             };
 
             return entity;

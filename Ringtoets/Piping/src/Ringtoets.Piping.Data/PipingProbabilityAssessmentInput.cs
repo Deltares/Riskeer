@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.Base.Data;
 using Ringtoets.Piping.Data.Properties;
 
 namespace Ringtoets.Piping.Data
@@ -31,7 +30,6 @@ namespace Ringtoets.Piping.Data
     public class PipingProbabilityAssessmentInput
     {
         private double a;
-        private RoundedDouble upliftCriticalSafetyFactor;
 
         /// <summary>
         /// Creates a new instance of <see cref="PipingProbabilityAssessmentInput"/>.
@@ -41,8 +39,6 @@ namespace Ringtoets.Piping.Data
             A = 0.4;
             B = 300.0;
             SectionLength = double.NaN;
-
-            upliftCriticalSafetyFactor = new RoundedDouble(1, 1.2);
         }
 
         /// <summary>
@@ -63,30 +59,6 @@ namespace Ringtoets.Piping.Data
                 }
 
                 a = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the critical safety factor to which the calculated uplift stability factor is compared.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Thrown when the rounded <paramref name="value"/> is outside
-        /// range (0, 50].</exception>
-        public RoundedDouble UpliftCriticalSafetyFactor
-        {
-            get
-            {
-                return upliftCriticalSafetyFactor;
-            }
-            set
-            {
-                var roundedValue = new RoundedDouble(upliftCriticalSafetyFactor.NumberOfDecimalPlaces, value);
-                if (roundedValue <= 0 || roundedValue > 50)
-                {
-                    throw new ArgumentOutOfRangeException(
-                        "value",
-                        Resources.PipingProbabilityAssessmentInput_UpliftCriticalSafetyFactor_Value_must_be_in_range_zero_and_fifty);
-                }
-                upliftCriticalSafetyFactor = roundedValue;
             }
         }
 

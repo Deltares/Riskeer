@@ -346,9 +346,6 @@
   <data name="Categories_Sellmeijer" xml:space="preserve">
     <value>Terugschrijdende erosie (Sellmeijer)</value>
   </data>
-  <data name="Categories_Uplift" xml:space="preserve">
-    <value>Opbarsten</value>
-  </data>
   <data name="DesignVariableTypeConverter_DesignValue_Description" xml:space="preserve">
     <value>De representatieve waarde die gebruikt wordt door de berekening.</value>
   </data>
@@ -427,14 +424,8 @@
   <data name="PipingSemiProbabilisticOutput_HeaveProbability_DisplayName" xml:space="preserve">
     <value>Kans van voorkomen [1/jaar]</value>
   </data>
-  <data name="PipingSemiProbabilisticOutput_Categories_Heave" xml:space="preserve">
-    <value>Heave</value>
-  </data>
   <data name="PipingSemiProbabilisticOutput_Categories_Piping" xml:space="preserve">
     <value>Piping</value>
-  </data>
-  <data name="PipingSemiProbabilisticOutput_Categories_Sellmeijer" xml:space="preserve">
-    <value>Terugschrijdende erosie (Sellmeijer)</value>
   </data>
   <data name="PipingSemiProbabilisticOutput_Categories_Uplift" xml:space="preserve">
     <value>Opbarsten</value>
@@ -486,6 +477,12 @@
   </data>
   <data name="PipingSemiProbabilisticOutput_UpliftProbability_DisplayName" xml:space="preserve">
     <value>Kans van voorkomen [1/jaar]</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_UpliftReliability_Description" xml:space="preserve">
+    <value>De betrouwbaarheidsindex voor het submechanisme opbarsten voor deze berekening.</value>
+  </data>
+  <data name="PipingSemiProbabilisticOutput_UpliftReliability_DisplayName" xml:space="preserve">
+    <value>Betrouwbaarheidsindex [-]</value>
   </data>
   <data name="PipingInput_SaturatedVolumicWeightOfCoverageLayer_Description" xml:space="preserve">
     <value>Verzadigd gewicht deklaag.</value>
@@ -576,12 +573,6 @@
   </data>
   <data name="PipingScenarioView_PipingScenarioRow_FailureProbabilityUplift" xml:space="preserve">
     <value>Kans op opbarsten [1/jaar]</value>
-  </data>
-  <data name="GeneralPipingInput_UpliftCriticalSafetyFactor_Description" xml:space="preserve">
-    <value>De veiligheidsfactor die wordt vergeleken met de berekende stabiliteitsfactor van het submechanisme opbarsten.</value>
-  </data>
-  <data name="GeneralPipingInput_UpliftCriticalSafetyFactor_DisplayName" xml:space="preserve">
-    <value>Kritische veiligheidsfactor voor opbarsten [-]</value>
   </data>
   <data name="PipingSurfaceLineSelectionDialog_Select_SurfaceLines" xml:space="preserve">
     <value>Selecteer profielschematisaties</value>

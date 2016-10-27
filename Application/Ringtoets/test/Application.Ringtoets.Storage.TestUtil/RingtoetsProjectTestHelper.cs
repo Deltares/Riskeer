@@ -465,7 +465,6 @@ namespace Application.Ringtoets.Storage.TestUtil
         private static void ConfigurePipingFailureMechanism(PipingFailureMechanism pipingFailureMechanism, AssessmentSection assessmentSection)
         {
             pipingFailureMechanism.PipingProbabilityAssessmentInput.A = 0.9;
-            pipingFailureMechanism.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor = (RoundedDouble) 1.9;
 
             var referenceLineGeometryPoints = assessmentSection.ReferenceLine.Points.ToArray();
 
@@ -552,7 +551,7 @@ namespace Application.Ringtoets.Storage.TestUtil
                             }
                         },
                         Output = new PipingOutput(1.1, 2.2, 3.3, 4.4, 5.5, 6.6),
-                        SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(7.7, 0.9,
+                        SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(7.7, 8.8, 0.9,
                                                                                     10.10, 11.11, 0.12,
                                                                                     13.13, 14.14, 0.15,
                                                                                     0.16, 17.17,

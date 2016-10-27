@@ -22,7 +22,6 @@
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Read.Piping;
 using NUnit.Framework;
-using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Piping.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.Piping
@@ -37,7 +36,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             var entity = new PipingFailureMechanismMetaEntity
             {
                 A = 0.95,
-                UpliftCriticalSafetyFactor = 2.6
             };
 
             // Call
@@ -46,7 +44,6 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Assert
             Assert.IsNotNull(pipingProbabilityAssessmentInput);
             Assert.AreEqual(entity.A, pipingProbabilityAssessmentInput.A);
-            Assert.AreEqual(entity.UpliftCriticalSafetyFactor, pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor, pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor.GetAccuracy());
         }
     }
 }

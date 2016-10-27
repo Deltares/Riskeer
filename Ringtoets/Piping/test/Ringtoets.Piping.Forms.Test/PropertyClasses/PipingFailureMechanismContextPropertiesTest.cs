@@ -85,7 +85,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual(failureMechanism.GeneralInput.MeanDiameter70, properties.MeanDiameter70);
             Assert.AreEqual(failureMechanism.GeneralInput.SellmeijerReductionFactor, properties.SellmeijerReductionFactor);
 
-            Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor, properties.UpliftCriticalSafetyFactor);
             Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.A, properties.A);
             Assert.AreEqual(failureMechanism.PipingProbabilityAssessmentInput.B, properties.B);
 
@@ -105,7 +104,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
-            Assert.AreEqual(17, dynamicProperties.Count);
+            Assert.AreEqual(16, dynamicProperties.Count);
 
             var generalCategory = "Algemeen";
             var heaveCategory = "Heave";
@@ -170,56 +169,49 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             Assert.AreEqual("Kritiek verhang m.b.t. heave [-]", criticalHeaveGradientProperty.DisplayName);
             Assert.AreEqual("Kritiek verhang met betrekking tot heave.", criticalHeaveGradientProperty.Description);
 
-            PropertyDescriptor criticalSafetyFactorUpliftProperty = dynamicProperties[8];
-            Assert.IsNotNull(criticalSafetyFactorUpliftProperty);
-            Assert.IsFalse(criticalSafetyFactorUpliftProperty.IsReadOnly);
-            Assert.AreEqual(upliftCategory, criticalSafetyFactorUpliftProperty.Category);
-            Assert.AreEqual("Kritische veiligheidsfactor voor opbarsten [-]", criticalSafetyFactorUpliftProperty.DisplayName);
-            Assert.AreEqual("De veiligheidsfactor die wordt vergeleken met de berekende stabiliteitsfactor van het submechanisme opbarsten.", criticalSafetyFactorUpliftProperty.Description);
-
-            PropertyDescriptor volumetricWeightSandParticlesProperty = dynamicProperties[9];
+            PropertyDescriptor volumetricWeightSandParticlesProperty = dynamicProperties[8];
             Assert.IsNotNull(volumetricWeightSandParticlesProperty);
             Assert.IsTrue(volumetricWeightSandParticlesProperty.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, volumetricWeightSandParticlesProperty.Category);
             Assert.AreEqual("Volumiek gewicht van de zandkorrels onder water [kN/m³]", volumetricWeightSandParticlesProperty.DisplayName);
             Assert.AreEqual("Het (ondergedompelde) volumegewicht van zandkorrelmateriaal van een zandlaag.", volumetricWeightSandParticlesProperty.Description);
 
-            PropertyDescriptor whitesDragCoefficientProperty = dynamicProperties[10];
+            PropertyDescriptor whitesDragCoefficientProperty = dynamicProperties[9];
             Assert.IsNotNull(whitesDragCoefficientProperty);
             Assert.IsTrue(whitesDragCoefficientProperty.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, whitesDragCoefficientProperty.Category);
             Assert.AreEqual("Coëfficiënt van White [-]", whitesDragCoefficientProperty.DisplayName);
             Assert.AreEqual("Sleepkrachtfactor volgens White.", whitesDragCoefficientProperty.Description);
 
-            PropertyDescriptor beddingAngleProperty = dynamicProperties[11];
+            PropertyDescriptor beddingAngleProperty = dynamicProperties[10];
             Assert.IsNotNull(beddingAngleProperty);
             Assert.IsTrue(beddingAngleProperty.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, beddingAngleProperty.Category);
             Assert.AreEqual("Rolweerstandshoek [°]", beddingAngleProperty.DisplayName);
             Assert.AreEqual("Hoek in het krachtenevenwicht die aangeeft hoeveel weerstand de korrels bieden tegen rollen; ook beddingshoek genoemd.", beddingAngleProperty.Description);
 
-            PropertyDescriptor waterKinematicViscosityProperty = dynamicProperties[12];
+            PropertyDescriptor waterKinematicViscosityProperty = dynamicProperties[11];
             Assert.IsNotNull(waterKinematicViscosityProperty);
             Assert.IsTrue(waterKinematicViscosityProperty.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, waterKinematicViscosityProperty.Category);
             Assert.AreEqual("Kinematische viscositeit van water bij 10° C [m²/s]", waterKinematicViscosityProperty.DisplayName);
             Assert.AreEqual("Kinematische viscositeit van water bij 10° C.", waterKinematicViscosityProperty.Description);
 
-            PropertyDescriptor gravityProperty = dynamicProperties[13];
+            PropertyDescriptor gravityProperty = dynamicProperties[12];
             Assert.IsNotNull(gravityProperty);
             Assert.IsTrue(gravityProperty.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, gravityProperty.Category);
             Assert.AreEqual("Valversnelling [m/s²]", gravityProperty.DisplayName);
             Assert.AreEqual("Valversnelling.", gravityProperty.Description);
 
-            PropertyDescriptor meanDiameter70Property = dynamicProperties[14];
+            PropertyDescriptor meanDiameter70Property = dynamicProperties[13];
             Assert.IsNotNull(meanDiameter70Property);
             Assert.IsTrue(meanDiameter70Property.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, meanDiameter70Property.Category);
             Assert.AreEqual("Referentiewaarde voor 70%-fraktiel in Sellmeijer regel [m]", meanDiameter70Property.DisplayName);
             Assert.AreEqual("Gemiddelde d70 van de in kleine schaalproeven toegepaste zandsoorten, waarop de formule van Sellmeijer is gefit.", meanDiameter70Property.Description);
 
-            PropertyDescriptor reductionFactorSellmeijerProperty = dynamicProperties[15];
+            PropertyDescriptor reductionFactorSellmeijerProperty = dynamicProperties[14];
             Assert.IsNotNull(reductionFactorSellmeijerProperty);
             Assert.IsTrue(reductionFactorSellmeijerProperty.IsReadOnly);
             Assert.AreEqual(sellmeijerCategory, reductionFactorSellmeijerProperty.Category);
@@ -284,33 +276,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(value, failureMechanism.PipingProbabilityAssessmentInput.A);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void UpliftCriticalSafetyFactor_Always_UpdateGeneralInputAndUpdateObservers()
-        {
-            // Setup
-            var mocks = new MockRepository();
-            var observerMock = mocks.StrictMock<IObserver>();
-            observerMock.Expect(o => o.UpdateObserver());
-            mocks.ReplayAll();
-
-            var failureMechanism = new PipingFailureMechanism();
-            var properties = new PipingFailureMechanismContextProperties
-            {
-                Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>())
-            };
-
-            failureMechanism.Attach(observerMock);
-            var value = new Random(21).NextDouble() + 0.1;
-
-            // Call
-            properties.UpliftCriticalSafetyFactor = (RoundedDouble) value;
-
-            // Assert
-            var upliftCriticalSafetyFactor = failureMechanism.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor;
-            Assert.AreEqual(value, upliftCriticalSafetyFactor, upliftCriticalSafetyFactor.GetAccuracy());
             mocks.VerifyAll();
         }
     }

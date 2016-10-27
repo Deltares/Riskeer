@@ -45,9 +45,21 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
         }
 
         [ResourcesCategory(typeof(Resources), "PipingSemiProbabilisticOutput_Categories_Uplift", 1, 4)]
+        [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_UpliftReliability_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_UpliftReliability_Description")]
+        [PropertyOrder(2)]
+        public RoundedDouble UpliftReliability
+        {
+            get
+            {
+                return data.UpliftReliability;
+            }
+        }
+
+        [ResourcesCategory(typeof(Resources), "PipingSemiProbabilisticOutput_Categories_Uplift", 1, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_UpliftProbability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_UpliftProbability_Description")]
-        [PropertyOrder(2)]
+        [PropertyOrder(3)]
         public string UpliftProbability
         {
             get
@@ -56,7 +68,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "PipingSemiProbabilisticOutput_Categories_Heave", 2, 4)]
+        [ResourcesCategory(typeof(Resources), "Categories_Heave", 2, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_HeaveFactorOfSafety_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_HeaveFactorOfSafety_Description")]
         [PropertyOrder(11)]
@@ -68,7 +80,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "PipingSemiProbabilisticOutput_Categories_Heave", 2, 4)]
+        [ResourcesCategory(typeof(Resources), "Categories_Heave", 2, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_HeaveReliability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_HeaveReliability_Description")]
         [PropertyOrder(12)]
@@ -80,7 +92,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "PipingSemiProbabilisticOutput_Categories_Heave", 2, 4)]
+        [ResourcesCategory(typeof(Resources), "Categories_Heave", 2, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_HeaveProbability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_HeaveProbability_Description")]
         [PropertyOrder(13)]
@@ -92,7 +104,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "PipingSemiProbabilisticOutput_Categories_Sellmeijer", 3, 4)]
+        [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer", 3, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_SellmeijerFactorOfSafety_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_SellmeijerFactorOfSafety_Description")]
         [PropertyOrder(21)]
@@ -104,7 +116,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "PipingSemiProbabilisticOutput_Categories_Sellmeijer", 3, 4)]
+        [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer", 3, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_SellmeijerReliability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_SellmeijerReliability_Description")]
         [PropertyOrder(22)]
@@ -116,7 +128,7 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
             }
         }
 
-        [ResourcesCategory(typeof(Resources), "PipingSemiProbabilisticOutput_Categories_Sellmeijer", 3, 4)]
+        [ResourcesCategory(typeof(Resources), "Categories_Sellmeijer", 3, 4)]
         [ResourcesDisplayName(typeof(Resources), "PipingSemiProbabilisticOutput_SellmeijerProbability_DisplayName")]
         [ResourcesDescription(typeof(Resources), "PipingSemiProbabilisticOutput_SellmeijerProbability_Description")]
         [PropertyOrder(23)]

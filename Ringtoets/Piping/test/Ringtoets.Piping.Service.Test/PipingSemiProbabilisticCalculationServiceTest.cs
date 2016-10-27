@@ -32,21 +32,17 @@ namespace Ringtoets.Piping.Service.Test
     public class PipingSemiProbabilisticCalculationServiceTest
     {
         [Test]
-        [TestCase(1.24, 1.2, 1.0)]
-        [TestCase(24.64, 24.63, 0.0)]
-        [TestCase(24.64, 50.0, 0.0)]
-        [TestCase(12, 11.94, 1.0)]
-        public void UpliftProbability_DifferentInputs_ReturnsExpectedValue(double criticalFactorOfSafety, double factorOfSafety, double expectedResult)
+        [TestCase(30000, 1.2, 7.36633055700265E-06)]
+        [TestCase(30000, 1.0, 4.13743266617776E-05)]
+        [TestCase(20000, 1.2, 9.53352884976163E-06)]
+        [TestCase(20000, 1.0, 5.24016937211752E-05)]
+        public void UpliftProbability_DifferentInputs_ReturnsExpectedValue(int norm, double factorOfSafety, double expectedResult)
         {
             // Setup
             var calculatorResult = new PipingOutput(double.NaN, factorOfSafety, double.NaN, double.NaN, double.NaN, double.NaN);
             var calculation = AsPipingCalculation(calculatorResult);
-            var norm = new Random(21).Next(100, 300000);
 
-            PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput
-            {
-                UpliftCriticalSafetyFactor = (RoundedDouble) criticalFactorOfSafety
-            }, norm, double.NaN);
+            PipingSemiProbabilisticCalculationService.Calculate(calculation, new PipingProbabilityAssessmentInput(), norm, double.NaN);
 
             // Call
             double result = calculation.SemiProbabilisticOutput.UpliftProbability;
@@ -96,12 +92,12 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        [TestCase(30000, 1.4, 0.6, 0.9, double.PositiveInfinity)]
-        [TestCase(30000, 1.1, 1.4, 0.9, 5.264767065)]
-        [TestCase(30000, 1.1, 0.6, 1.1, 4.786155161)]
-        [TestCase(20000, 1.4, 0.6, 0.9, double.PositiveInfinity)]
-        [TestCase(20000, 1.1, 1.4, 0.9, 5.203962658)]
-        [TestCase(20000, 1.1, 0.6, 1.1, 4.673091832)]
+        [TestCase(30000, 1.2, 0.6, 0.9, 4.332647923)]
+        [TestCase(30000, 1.2, 1.4, 0.9, 5.264767065)]
+        [TestCase(30000, 1.2, 0.6, 1.1, 4.786155161)]
+        [TestCase(20000, 1.2, 0.6, 0.9, 4.275544655)]
+        [TestCase(20000, 1.2, 1.4, 0.9, 5.203962658)]
+        [TestCase(20000, 1.2, 0.6, 1.1, 4.673091832)]
         public void PipingReliability_DifferentInputs_ReturnsExpectedValue(int norm, double fosUplift, double fosHeave, double fosSellmeijer, double expectedResult)
         {
             // Setup
@@ -150,7 +146,7 @@ namespace Ringtoets.Piping.Service.Test
             double fosUplift = 1.2;
             double fosHeave = 0.6;
             double fosSellmeijer = 0.9;
-            double expectedResult = 0.888;
+            double expectedResult = 0.907;
 
             var calculatorResult = new PipingOutput(double.NaN, fosUplift, double.NaN, fosHeave, double.NaN, fosSellmeijer);
             var pipingProbabilityAssessmentInput = new PipingProbabilityAssessmentInput

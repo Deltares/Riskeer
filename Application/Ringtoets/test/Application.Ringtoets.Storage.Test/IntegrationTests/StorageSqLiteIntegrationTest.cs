@@ -1114,7 +1114,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
         private static void AssertProbabilityAssessmentInput(PipingProbabilityAssessmentInput expectedModel, PipingProbabilityAssessmentInput actualModel)
         {
             Assert.AreEqual(expectedModel.A, actualModel.A);
-            Assert.AreEqual(expectedModel.UpliftCriticalSafetyFactor, actualModel.UpliftCriticalSafetyFactor);
         }
 
         private static void AssertPipingCalculationScenario(PipingCalculationScenario expectedPipingCalculation, PipingCalculationScenario actualPipingCalculation)
@@ -1181,6 +1180,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
                 Assert.AreEqual(expectedOutput.UpliftFactorOfSafety, actualOutput.UpliftFactorOfSafety);
                 Assert.AreEqual(expectedOutput.UpliftProbability, actualOutput.UpliftProbability);
+                Assert.AreEqual(expectedOutput.UpliftReliability, actualOutput.UpliftReliability);
 
                 Assert.AreEqual(expectedOutput.RequiredReliability, actualOutput.RequiredReliability);
                 Assert.AreEqual(expectedOutput.RequiredProbability, actualOutput.RequiredProbability);

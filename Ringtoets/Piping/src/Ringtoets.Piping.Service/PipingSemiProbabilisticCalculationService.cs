@@ -40,11 +40,11 @@ namespace Ringtoets.Piping.Service
         private readonly double constantA;
         private readonly double constantB;
         private readonly double assessmentSectionLength;
-        private readonly double upliftCriticalSafetyFactor;
         private readonly double contribution;
 
         // Intermediate results
         private double heaveReliability;
+        private double upliftReliability;
         private double sellmeijerReliability;
 
         private double heaveProbability;
@@ -69,9 +69,8 @@ namespace Ringtoets.Piping.Service
         /// <param name="constantA">The constant a.</param>
         /// <param name="constantB">The constant b.</param>
         /// <param name="assessmentSectionLength">The length of the assessment section.</param>
-        /// <param name="upliftCriticalSafetyFactor">The critical safety factor which is compared to the safety factor of uplift to determine a probability.</param>
         /// <param name="contribution">The contribution of piping to the total failure.</param>
-        private PipingSemiProbabilisticCalculationService(double upliftFactorOfSafety, double heaveFactorOfSafety, double sellmeijerFactorOfSafety, int returnPeriod, double constantA, double constantB, double assessmentSectionLength, double upliftCriticalSafetyFactor, double contribution)
+        private PipingSemiProbabilisticCalculationService(double upliftFactorOfSafety, double heaveFactorOfSafety, double sellmeijerFactorOfSafety, int returnPeriod, double constantA, double constantB, double assessmentSectionLength, double contribution)
         {
             this.heaveFactorOfSafety = heaveFactorOfSafety;
             this.upliftFactorOfSafety = upliftFactorOfSafety;
@@ -80,7 +79,6 @@ namespace Ringtoets.Piping.Service
             this.constantA = constantA;
             this.constantB = constantB;
             this.assessmentSectionLength = assessmentSectionLength;
-            this.upliftCriticalSafetyFactor = upliftCriticalSafetyFactor;
             this.contribution = contribution;
         }
 
@@ -109,13 +107,13 @@ namespace Ringtoets.Piping.Service
                 pipingProbabilityAssessmentInput.A,
                 pipingProbabilityAssessmentInput.B,
                 pipingProbabilityAssessmentInput.SectionLength,
-                pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor,
                 contribution/100);
 
             calculator.Calculate();
 
             calculation.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(
                 calculator.upliftFactorOfSafety,
+                calculator.upliftReliability,
                 calculator.upliftProbability,
                 calculator.heaveFactorOfSafety,
                 calculator.heaveReliability,
@@ -157,7 +155,8 @@ namespace Ringtoets.Piping.Service
         /// </summary>
         private void CalculatePipingReliability()
         {
-            upliftProbability = UpliftProbability();
+            upliftReliability = SubMechanismReliability(upliftFactorOfSafety, upliftFactors);
+            upliftProbability = ReliabilityToProbability(upliftReliability);
 
             heaveReliability = SubMechanismReliability(heaveFactorOfSafety, heaveFactors);
             heaveProbability = ReliabilityToProbability(heaveReliability);
@@ -188,11 +187,6 @@ namespace Ringtoets.Piping.Service
         private double RequiredProbability()
         {
             return (contribution/returnPeriod)/(1 + (constantA*assessmentSectionLength)/constantB);
-        }
-
-        private double UpliftProbability()
-        {
-            return upliftFactorOfSafety <= upliftCriticalSafetyFactor ? 1 : 0;
         }
 
         private double SubMechanismReliability(double factorOfSafety, SubCalculationFactors factors)
@@ -229,6 +223,13 @@ namespace Ringtoets.Piping.Service
             public double B;
             public double C;
         }
+
+        private readonly SubCalculationFactors upliftFactors = new SubCalculationFactors
+        {
+            A = 0.46,
+            B = 0.48,
+            C = 0.27
+        };
 
         private readonly SubCalculationFactors heaveFactors = new SubCalculationFactors
         {

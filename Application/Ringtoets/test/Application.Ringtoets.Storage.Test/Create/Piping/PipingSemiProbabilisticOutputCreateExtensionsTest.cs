@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
         {
             // Setup
-            var output = new PipingSemiProbabilisticOutput(1.1, 0.3, 4.4, 5.5, 0.6, 7.7,
+            var output = new PipingSemiProbabilisticOutput(1.1, 2.2, 0.3, 4.4, 5.5, 0.6, 7.7,
                                                            8.8, 0.9, 0.10, 11.11, 0.12,
                                                            13.13, 14.14);
 
@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithValidValues_ReturnEntity()
         {
             // Setup
-            var output = new PipingSemiProbabilisticOutput(1.1, 0.3, 4.4, 5.5, 0.6, 7.7,
+            var output = new PipingSemiProbabilisticOutput(1.1, 2.2, 0.3, 4.4, 5.5, 0.6, 7.7,
                                                            8.8, 0.9, 0.10, 11.11, 0.12,
                                                            13.13, 14.14);
             var registry = new PersistenceRegistry();
@@ -63,6 +63,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             AssertAreEqual(output.UpliftFactorOfSafety, entity.UpliftFactorOfSafety);
+            AssertAreEqual(output.UpliftReliability, entity.UpliftReliability);
             AssertAreEqual(output.UpliftProbability, entity.UpliftProbability);
             AssertAreEqual(output.HeaveFactorOfSafety, entity.HeaveFactorOfSafety);
             AssertAreEqual(output.HeaveReliability, entity.HeaveReliability);
@@ -84,7 +85,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
         public void Create_WithNaNValues_ReturnEntityWithNullPropertyValues()
         {
             // Setup
-            var output = new PipingSemiProbabilisticOutput(double.NaN, double.NaN,
+            var output = new PipingSemiProbabilisticOutput(double.NaN, double.NaN, double.NaN,
                                                            double.NaN, double.NaN, double.NaN,
                                                            double.NaN, double.NaN, double.NaN,
                                                            double.NaN, double.NaN, double.NaN,
@@ -96,6 +97,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
 
             // Assert
             Assert.IsNull(entity.UpliftFactorOfSafety);
+            Assert.IsNull(entity.UpliftReliability);
             Assert.IsNull(entity.UpliftProbability);
             Assert.IsNull(entity.HeaveFactorOfSafety);
             Assert.IsNull(entity.HeaveReliability);

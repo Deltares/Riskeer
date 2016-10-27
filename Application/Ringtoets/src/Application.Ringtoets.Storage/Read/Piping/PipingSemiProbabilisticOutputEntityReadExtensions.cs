@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Read.Piping
         internal static PipingSemiProbabilisticOutput Read(this PipingSemiProbabilisticOutputEntity entity)
         {
             return new PipingSemiProbabilisticOutput(
-                entity.UpliftFactorOfSafety.ToNullAsNaN(), entity.UpliftProbability.ToNullAsNaN(),
+                entity.UpliftFactorOfSafety.ToNullAsNaN(), entity.UpliftReliability.ToNullAsNaN(), entity.UpliftProbability.ToNullAsNaN(),
                 entity.HeaveFactorOfSafety.ToNullAsNaN(), entity.HeaveReliability.ToNullAsNaN(), entity.HeaveProbability.ToNullAsNaN(),
                 entity.SellmeijerFactorOfSafety.ToNullAsNaN(), entity.SellmeijerReliability.ToNullAsNaN(), entity.SellmeijerProbability.ToNullAsNaN(),
                 entity.RequiredProbability.ToNullAsNaN(), entity.RequiredReliability.ToNullAsNaN(),

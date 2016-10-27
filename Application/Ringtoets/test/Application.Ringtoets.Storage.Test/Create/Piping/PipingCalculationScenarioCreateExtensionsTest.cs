@@ -272,7 +272,7 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Setup
             var registry = new PersistenceRegistry();
 
-            var newOutput = new PipingSemiProbabilisticOutput(1, 0.3,
+            var newOutput = new PipingSemiProbabilisticOutput(1, 2, 0.3,
                                                               4, 5, 0.6,
                                                               7, 8, 0.9,
                                                               1.0, 11,

@@ -110,7 +110,7 @@ namespace Ringtoets.Piping.Integration.Test
                 // Execute the first calculation and ensure the data grid view is updated
                 const double probability = 1.0/31846382.0;
                 pipingCalculation1.Output = new PipingOutput(0, 0, 0, 0, 0, 0);
-                pipingCalculation1.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, probability, 0, 0);
+                pipingCalculation1.SemiProbabilisticOutput = new PipingSemiProbabilisticOutput(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, probability, 0, 0);
                 pipingCalculation1.NotifyObservers();
                 Assert.AreEqual(string.Format("1/{0:N0}", 1.0/pipingCalculation1.Probability), dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual(string.Empty, dataGridView.Rows[22].Cells[assessmentLayerTwoAIndex].ErrorText);

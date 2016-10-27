@@ -38,7 +38,6 @@ namespace Application.Ringtoets.Storage.DbContext
         public long PipingFailureMechanismMetaEntityId { get; set; }
         public long FailureMechanismEntityId { get; set; }
         public double A { get; set; }
-        public double UpliftCriticalSafetyFactor { get; set; }
     
         public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
     }

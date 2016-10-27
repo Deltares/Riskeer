@@ -118,15 +118,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opbarsten.
-        /// </summary>
-        public static string Categories_Uplift {
-            get {
-                return ResourceManager.GetString("Categories_Uplift", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De representatieve waarde die gebruikt wordt door de berekening..
         /// </summary>
         public static string DesignVariableTypeConverter_DesignValue_Description {
@@ -303,24 +294,6 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string GeneralPipingInput_SellmeijerReductionFactor_DisplayName {
             get {
                 return ResourceManager.GetString("GeneralPipingInput_SellmeijerReductionFactor_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to De veiligheidsfactor die wordt vergeleken met de berekende stabiliteitsfactor van het submechanisme opbarsten..
-        /// </summary>
-        public static string GeneralPipingInput_UpliftCriticalSafetyFactor_Description {
-            get {
-                return ResourceManager.GetString("GeneralPipingInput_UpliftCriticalSafetyFactor_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Kritische veiligheidsfactor voor opbarsten [-].
-        /// </summary>
-        public static string GeneralPipingInput_UpliftCriticalSafetyFactor_DisplayName {
-            get {
-                return ResourceManager.GetString("GeneralPipingInput_UpliftCriticalSafetyFactor_DisplayName", resourceCulture);
             }
         }
         
@@ -825,29 +798,11 @@ namespace Ringtoets.Piping.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heave.
-        /// </summary>
-        public static string PipingSemiProbabilisticOutput_Categories_Heave {
-            get {
-                return ResourceManager.GetString("PipingSemiProbabilisticOutput_Categories_Heave", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Piping.
         /// </summary>
         public static string PipingSemiProbabilisticOutput_Categories_Piping {
             get {
                 return ResourceManager.GetString("PipingSemiProbabilisticOutput_Categories_Piping", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Terugschrijdende erosie (Sellmeijer).
-        /// </summary>
-        public static string PipingSemiProbabilisticOutput_Categories_Sellmeijer {
-            get {
-                return ResourceManager.GetString("PipingSemiProbabilisticOutput_Categories_Sellmeijer", resourceCulture);
             }
         }
         
@@ -1091,6 +1046,24 @@ namespace Ringtoets.Piping.Forms.Properties {
         public static string PipingSemiProbabilisticOutput_UpliftProbability_DisplayName {
             get {
                 return ResourceManager.GetString("PipingSemiProbabilisticOutput_UpliftProbability_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De betrouwbaarheidsindex voor het submechanisme opbarsten voor deze berekening..
+        /// </summary>
+        public static string PipingSemiProbabilisticOutput_UpliftReliability_Description {
+            get {
+                return ResourceManager.GetString("PipingSemiProbabilisticOutput_UpliftReliability_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Betrouwbaarheidsindex [-].
+        /// </summary>
+        public static string PipingSemiProbabilisticOutput_UpliftReliability_DisplayName {
+            get {
+                return ResourceManager.GetString("PipingSemiProbabilisticOutput_UpliftReliability_DisplayName", resourceCulture);
             }
         }
         

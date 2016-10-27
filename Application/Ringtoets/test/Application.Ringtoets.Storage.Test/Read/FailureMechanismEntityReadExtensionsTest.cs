@@ -149,7 +149,6 @@ namespace Application.Ringtoets.Storage.Test.Read
                     new PipingFailureMechanismMetaEntity
                     {
                         A = 0.95,
-                        UpliftCriticalSafetyFactor = 1.2
                     }
                 }
             };
@@ -169,7 +168,6 @@ namespace Application.Ringtoets.Storage.Test.Read
             var pipingFailureMechanismMetaEntities = entity.PipingFailureMechanismMetaEntities.ToArray();
             var probabilityAssessmentInput = pipingFailureMechanismMetaEntities[0];
             Assert.AreEqual(probabilityAssessmentInput.A, failureMechanism.PipingProbabilityAssessmentInput.A);
-            Assert.AreEqual(probabilityAssessmentInput.UpliftCriticalSafetyFactor, failureMechanism.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor.Value);
         }
 
         [Test]

@@ -50,27 +50,6 @@ namespace Ringtoets.Piping.Forms.PropertyClasses
 
         #endregion
 
-        #region Uplift
-
-        [PropertyOrder(41)]
-        [ResourcesCategory(typeof(Resources), "Categories_Uplift")]
-        [ResourcesDisplayName(typeof(Resources), "GeneralPipingInput_UpliftCriticalSafetyFactor_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "GeneralPipingInput_UpliftCriticalSafetyFactor_Description")]
-        public RoundedDouble UpliftCriticalSafetyFactor
-        {
-            get
-            {
-                return data.WrappedData.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor;
-            }
-            set
-            {
-                data.WrappedData.PipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor = value;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
-        #endregion
-
         #region General
 
         [PropertyOrder(1)]

@@ -129,7 +129,6 @@ namespace Application.Ringtoets.Storage.Read
             PipingProbabilityAssessmentInput probabilityAssessmentInput = pipingFailureMechanismMetaEntities.ElementAt(0).Read();
 
             pipingProbabilityAssessmentInput.A = probabilityAssessmentInput.A;
-            pipingProbabilityAssessmentInput.UpliftCriticalSafetyFactor = probabilityAssessmentInput.UpliftCriticalSafetyFactor;
         }
 
         private static void ReadPipingMechanismSectionResults(this FailureMechanismEntity entity, PipingFailureMechanism failureMechanism, ReadConversionCollector collector)

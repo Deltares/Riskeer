@@ -41,7 +41,6 @@ namespace Application.Ringtoets.Storage.Read.Piping
             return new PipingProbabilityAssessmentInput
             {
                 A = entity.A,
-                UpliftCriticalSafetyFactor = (RoundedDouble) entity.UpliftCriticalSafetyFactor
             };
         }
     }
