@@ -131,7 +131,7 @@ namespace Ringtoets.ClosingStructures.Forms.Views
 
                 Dictionary<string, IList<ICalculation>> calculationsPerSegment =
                     StructuresHelper.CollectCalculationsPerSection(failureMechanism.Sections,
-                                                                   calculations.OfType<StructuresCalculation<ClosingStructuresInput>>());
+                                                                   calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
 
                 List<ClosingStructuresScenarioRow> scenarioRows = failureMechanism.SectionResults.Select(sr => new ClosingStructuresScenarioRow(sr)).ToList();
 

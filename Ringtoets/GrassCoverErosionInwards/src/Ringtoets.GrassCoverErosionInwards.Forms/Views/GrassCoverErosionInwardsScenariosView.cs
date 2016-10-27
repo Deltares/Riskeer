@@ -129,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Views
                 ICalculation[] calculations = data.GetCalculations().ToArray();
 
                 Dictionary<string, IList<ICalculation>> calculationsPerSegment =
-                    GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.OfType<GrassCoverErosionInwardsCalculation>());
+                    GrassCoverErosionInwardsHelper.CollectCalculationsPerSection(failureMechanism.Sections, calculations.Cast<GrassCoverErosionInwardsCalculation>());
 
                 List<GrassCoverErosionInwardsScenarioRow> scenarioRows =
                     failureMechanism.SectionResults.Select(sectionResult => new GrassCoverErosionInwardsScenarioRow(sectionResult)).ToList();

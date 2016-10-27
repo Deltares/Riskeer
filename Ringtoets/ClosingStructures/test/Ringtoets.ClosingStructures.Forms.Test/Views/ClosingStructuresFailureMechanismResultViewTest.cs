@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Core.Common.Base.Data;
@@ -30,7 +31,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.Views;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
-using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.Common.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.Views
@@ -43,16 +44,120 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         private const int assessmentLayerTwoAIndex = 2;
         private const int assessmentLayerThreeIndex = 3;
 
+        private Form testForm;
+
+        [SetUp]
+        public void Setup()
+        {
+            testForm = new Form();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            testForm.Dispose();
+        }
+
+        [Test]
+        public void DefaultConstructor_DefaultValues()
+        {
+            // Call
+            using (var view = new ClosingStructuresFailureMechanismResultView())
+            {
+                // Assert
+                Assert.IsInstanceOf<FailureMechanismResultView<ClosingStructuresFailureMechanismSectionResult>>(view);
+                Assert.IsNull(view.Data);
+            }
+        }
+
+        [Test]
+        public void Data_DataAlreadySetNewDataSet_DataSetAndDataGridViewUpdated()
+        {
+            // Setup
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                var points = new[]
+                {
+                    new Point2D(1, 2),
+                    new Point2D(3, 4)
+                };
+
+                var section = new FailureMechanismSection("test", points);
+                var sectionResult = new ClosingStructuresFailureMechanismSectionResult(section);
+                var testData = new List<ClosingStructuresFailureMechanismSectionResult>
+                {
+                    sectionResult
+                };
+
+                // Precondition
+                Assert.AreEqual(2, dataGridView.RowCount);
+
+                // Call
+                view.Data = testData;
+
+                // Assert
+                Assert.AreSame(testData, view.Data);
+
+                Assert.AreEqual(testData.Count, dataGridView.RowCount);
+                Assert.AreEqual(sectionResult.Section.Name, dataGridView.Rows[0].Cells[0].Value);
+            }
+        }
+
+        [Test]
+        public void Data_SetOtherThanFailureMechanismSectionResultListData_DataNullAndDataGridViewEmtpy()
+        {
+            // Setup
+            var testData = new object();
+            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Call
+                view.Data = testData;
+
+                // Assert
+                Assert.IsNull(view.Data);
+
+                Assert.AreEqual(0, dataGridView.RowCount);
+            }
+        }
+
+        [Test]
+        public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
+        {
+            // Setup & Call
+            using (ShowFullyConfiguredFailureMechanismResultsView())
+            {
+                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+
+                // Assert
+                var rows = dataGridView.Rows;
+                Assert.AreEqual(2, rows.Count);
+
+                var cells = rows[0].Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
+                Assert.IsFalse((bool)cells[assessmentLayerOneIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
+
+                cells = rows[1].Cells;
+                Assert.AreEqual(4, cells.Count);
+                Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
+                Assert.IsFalse((bool)cells[assessmentLayerOneIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
+                Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
+            }
+        }
+
         [Test]
         public void GivenFormWithClosingStructuresFailureMechanismResultView_ThenExpectedColumnsAreVisible()
         {
             // Given
-            using (var form = new Form())
-            using (var view = new ClosingStructuresFailureMechanismResultView())
+            using (ShowFailureMechanismResultsView())
             {
-                form.Controls.Add(view);
-                form.Show();
-
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
@@ -101,12 +206,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
 
-            using (var form = new Form())
-            using (var view = new ClosingStructuresFailureMechanismResultView())
+            using (var view = ShowFailureMechanismResultsView())
             {
-                form.Controls.Add(view);
-                form.Show();
-
                 // When
                 view.Data = new[]
                 {
@@ -156,12 +257,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
                 AssessmentLayerOne = false,
                 AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
-            using (var form = new Form())
-            using (var view = new ClosingStructuresFailureMechanismResultView())
+            using (var view = ShowFailureMechanismResultsView())
             {
-                form.Controls.Add(view);
-                form.Show();
-
                 view.Data = new[]
                 {
                     result
@@ -199,12 +296,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             var result1 = new TestFailureMechanismSectionResult(section1);
             var result2 = new TestFailureMechanismSectionResult(section2);
 
-            using (var form = new Form())
-            using (var view = new ClosingStructuresFailureMechanismResultView())
+            using (var view = ShowFailureMechanismResultsView())
             {
-                form.Controls.Add(view);
-                form.Show();
-
                 // When
                 view.Data = new[]
                 {
@@ -231,6 +324,38 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             Assert.AreEqual(readOnly, dataGridViewCell.ReadOnly);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.ControlText), dataGridViewCell.Style.ForeColor);
             Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
+        }
+
+        private ClosingStructuresFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
+        {
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            failureMechanism.AddSection(new FailureMechanismSection("Section 1", new List<Point2D>
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(5.0, 0.0)
+            }));
+
+            failureMechanism.AddSection(new FailureMechanismSection("Section 2", new List<Point2D>
+            {
+                new Point2D(5.0, 0.0),
+                new Point2D(10.0, 0.0)
+            }));
+
+            var failureMechanismResultView = ShowFailureMechanismResultsView();
+            failureMechanismResultView.Data = failureMechanism.SectionResults;
+            failureMechanismResultView.FailureMechanism = failureMechanism;
+
+            return failureMechanismResultView;
+        }
+
+        private ClosingStructuresFailureMechanismResultView ShowFailureMechanismResultsView()
+        {
+            var failureMechanismResultView = new ClosingStructuresFailureMechanismResultView();
+            testForm.Controls.Add(failureMechanismResultView);
+            testForm.Show();
+
+            return failureMechanismResultView;
         }
     }
 }

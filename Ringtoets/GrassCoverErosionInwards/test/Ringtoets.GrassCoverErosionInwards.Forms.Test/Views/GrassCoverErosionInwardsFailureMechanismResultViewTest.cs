@@ -509,7 +509,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
 
         private GrassCoverErosionInwardsFailureMechanismResultView ShowFailureMechanismResultsView()
         {
-            GrassCoverErosionInwardsFailureMechanismResultView failureMechanismResultView = new GrassCoverErosionInwardsFailureMechanismResultView();
+            var failureMechanismResultView = new GrassCoverErosionInwardsFailureMechanismResultView();
             testForm.Controls.Add(failureMechanismResultView);
             testForm.Show();
 
