@@ -308,7 +308,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return builder.AddToggleRelevancyOfFailureMechanismItem(closingStructuresFailureMechanismContext, RemoveAllViewsForItem)
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(closingStructuresFailureMechanismContext,
-                                                                            c => ValidateAll(c.WrappedData.Calculations.OfType<StructuresCalculation<ClosingStructuresInput>>(), c.Parent),
+                                                                            ValidateAll,
                                                                             ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(closingStructuresFailureMechanismContext,
                                                                            CalculateAll,
@@ -344,6 +344,12 @@ namespace Ringtoets.ClosingStructures.Plugin
             {
                 ClosingStructuresCalculationService.Validate(calculation, assessmentSection);
             }
+        }
+
+        private static void ValidateAll(ClosingStructuresFailureMechanismContext context)
+        {
+            ValidateAll(context.WrappedData.Calculations.OfType<StructuresCalculation<ClosingStructuresInput>>(),
+                        context.Parent);
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(ClosingStructuresFailureMechanismContext context)
@@ -409,7 +415,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             builder.AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
-                       c => ValidateAll(c.WrappedData.GetCalculations().OfType<StructuresCalculation<ClosingStructuresInput>>(), c.AssessmentSection),
+                       ValidateAll,
                        ValidateAllDataAvailableAndGetErrorMessage)
                    .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessage)
                    .AddClearAllCalculationOutputInGroupItem(group)
@@ -427,6 +433,11 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private static void ValidateAll(ClosingStructuresCalculationGroupContext context)
+        {
+            ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<ClosingStructuresInput>>(), context.AssessmentSection);
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessage(ClosingStructuresCalculationGroupContext context)
@@ -500,7 +511,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
             return builder.AddValidateCalculationItem(
                 context,
-                c => ClosingStructuresCalculationService.Validate(c.WrappedData, c.AssessmentSection),
+                ValidateAll,
                 ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
@@ -522,6 +533,11 @@ namespace Ringtoets.ClosingStructures.Plugin
                                                                                       context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                       context.FailureMechanism,
                                                                                       context.AssessmentSection));
+        }
+
+        private static void ValidateAll(ClosingStructuresCalculationContext context)
+        {
+            ClosingStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(ClosingStructuresCalculationContext context)

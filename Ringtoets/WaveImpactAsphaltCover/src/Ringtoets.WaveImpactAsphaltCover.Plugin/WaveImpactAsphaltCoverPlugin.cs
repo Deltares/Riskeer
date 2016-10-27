@@ -322,9 +322,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
 
             builder.AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(nodeData,
-                                                          c => ValidateAll(
-                                                              c.WrappedData.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>(),
-                                                              c.AssessmentSection.HydraulicBoundaryDatabase),
+                                                          ValidateAll,
                                                           ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
                    .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
@@ -342,6 +340,12 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private static void ValidateAll(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
+        {
+            ValidateAll(context.WrappedData.GetCalculations().OfType<WaveImpactAsphaltCoverWaveConditionsCalculation>(),
+                        context.AssessmentSection.HydraulicBoundaryDatabase);
         }
 
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationGroup(WaveImpactAsphaltCoverWaveConditionsCalculationGroupContext context)
@@ -502,12 +506,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
             return builder.AddExportItem()
                           .AddSeparator()
                           .AddValidateCalculationItem(nodeData,
-                                                      c => ValidateAll(
-                                                          new[]
-                                                          {
-                                                              c.WrappedData
-                                                          },
-                                                          c.AssessmentSection.HydraulicBoundaryDatabase),
+                                                      ValidateAll,
                                                       ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, nodeData, PerformCalculation, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
@@ -520,6 +519,16 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private static void ValidateAll(WaveImpactAsphaltCoverWaveConditionsCalculationContext context)
+        {
+            ValidateAll(
+                new[]
+                {
+                    context.WrappedData
+                },
+                context.AssessmentSection.HydraulicBoundaryDatabase);
         }
 
         private void PerformCalculation(WaveImpactAsphaltCoverWaveConditionsCalculation calculation,

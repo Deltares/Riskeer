@@ -355,7 +355,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               grassCoverErosionInwardsFailureMechanismContext,
-                              fm => ValidateAll(fm.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), grassCoverErosionInwardsFailureMechanismContext.Parent),
+                              ValidateAll,
                               ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(grassCoverErosionInwardsFailureMechanismContext.WrappedData)
@@ -386,6 +386,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism(GrassCoverErosionInwardsFailureMechanismContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
+        }
+
+        private static void ValidateAll(GrassCoverErosionInwardsFailureMechanismContext context)
+        {
+            ValidateAll(context.WrappedData.Calculations.OfType<GrassCoverErosionInwardsCalculation>(), context.Parent);
         }
 
         private void CalculateAll(GrassCoverErosionInwardsFailureMechanismContext context)
@@ -453,7 +458,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             builder.AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(
                        context,
-                       c => ValidateAll(c.WrappedData.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(), c.AssessmentSection),
+                       ValidateAll,
                        ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
@@ -547,6 +552,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
+        private static void ValidateAll(GrassCoverErosionInwardsCalculationGroupContext context)
+        {
+            ValidateAll(context.WrappedData.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(), context.AssessmentSection);
+        }
+
         private void CalculateAll(CalculationGroup group, GrassCoverErosionInwardsCalculationGroupContext context)
         {
             CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<GrassCoverErosionInwardsCalculation>(), context.AssessmentSection);
@@ -587,7 +597,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
 
             return builder.AddValidateCalculationItem(
                 context,
-                c => GrassCoverErosionInwardsCalculationService.Validate(c.WrappedData, c.AssessmentSection),
+                ValidateAll,
                 ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
@@ -605,6 +615,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculation(GrassCoverErosionInwardsCalculationContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+        }
+
+        private static void ValidateAll(GrassCoverErosionInwardsCalculationContext context)
+        {
+            GrassCoverErosionInwardsCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }
 
         private void Calculate(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)

@@ -208,7 +208,19 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return null;
         }
 
-        private static void ValidateAll(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, IAssessmentSection assessmentSection) { }
+        private static void ValidateAll(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, IAssessmentSection assessmentSection) {}
+
+        private static void ValidateAll(StabilityPointStructuresFailureMechanismContext context)
+        {
+            ValidateAll(context.WrappedData.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>(),
+                        context.Parent);
+        }
+
+        private static void ValidateAll(StabilityPointStructuresCalculationGroupContext context)
+        {
+            ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<StabilityPointStructuresInput>>(),
+                        context.AssessmentSection);
+        }
 
         private static void CalculateAll(StabilityPointStructuresFailureMechanismContext context) {}
 
@@ -274,7 +286,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               failureMechanismContext,
-                              c => ValidateAll(c.WrappedData.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>(), c.Parent),
+                              ValidateAll,
                               ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddPerformAllCalculationsInFailureMechanismItem(failureMechanismContext, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInFailureMechanism)
                           .AddClearAllCalculationOutputInFailureMechanismItem(failureMechanismContext.WrappedData)
@@ -370,7 +382,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             builder.AddSeparator()
                    .AddValidateAllCalculationsInGroupItem(context,
-                                                          c => ValidateAll(c.WrappedData.GetCalculations().OfType<StructuresCalculation<StabilityPointStructuresInput>>(), c.AssessmentSection),
+                                                          ValidateAll,
                                                           ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddPerformAllCalculationsInGroupItem(group, context, CalculateAll, ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup)
                    .AddClearAllCalculationOutputInGroupItem(group)
@@ -477,7 +489,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
         }
 
-        private static void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation, StabilityPointStructuresCalculationContext context) { }
+        private static void Calculate(StructuresCalculation<StabilityPointStructuresInput> calculation, StabilityPointStructuresCalculationContext context) {}
 
         private static void CalculationContextOnNodeRemoved(StabilityPointStructuresCalculationContext context, object parentData)
         {

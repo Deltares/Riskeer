@@ -472,7 +472,7 @@ namespace Ringtoets.Piping.Plugin
                           .AddSeparator()
                           .AddValidateAllCalculationsInFailureMechanismItem(
                               pipingFailureMechanismContext,
-                              fm => ValidateAll(fm.WrappedData.Calculations.OfType<PipingCalculation>()))
+                              ValidateAll)
                           .AddPerformAllCalculationsInFailureMechanismItem(pipingFailureMechanismContext, CalculateAll)
                           .AddClearAllCalculationOutputInFailureMechanismItem(pipingFailureMechanismContext.WrappedData)
                           .AddSeparator()
@@ -486,6 +486,11 @@ namespace Ringtoets.Piping.Plugin
         private void RemoveAllViewsForItem(PipingFailureMechanismContext failureMechanismContext)
         {
             Gui.ViewCommands.RemoveAllViewsForItem(failureMechanismContext);
+        }
+
+        private static void ValidateAll(PipingFailureMechanismContext context)
+        {
+            ValidateAll(context.WrappedData.Calculations.OfType<PipingCalculation>());
         }
 
         private ContextMenuStrip FailureMechanismDisabledContextMenuStrip(PipingFailureMechanismContext pipingFailureMechanismContext, object parentData, TreeViewControl treeViewControl)
@@ -553,7 +558,7 @@ namespace Ringtoets.Piping.Plugin
 
             PipingCalculation calculation = nodeData.WrappedData;
 
-            return builder.AddValidateCalculationItem(nodeData, c => PipingCalculationService.Validate(c.WrappedData))
+            return builder.AddValidateCalculationItem(nodeData, ValidateAll)
                           .AddPerformCalculationItem(calculation, nodeData, PerformCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
@@ -603,6 +608,11 @@ namespace Ringtoets.Piping.Plugin
                     calculationGroupContext.NotifyObservers();
                 }
             }
+        }
+
+        private static void ValidateAll(PipingCalculationScenarioContext context)
+        {
+            PipingCalculationService.Validate(context.WrappedData);
         }
 
         private void PerformCalculation(PipingCalculation calculation, PipingCalculationScenarioContext context)
@@ -678,7 +688,7 @@ namespace Ringtoets.Piping.Plugin
             }
 
             builder.AddSeparator()
-                   .AddValidateAllCalculationsInGroupItem(nodeData, c => ValidateAll(c.WrappedData.GetCalculations().OfType<PipingCalculation>()))
+                   .AddValidateAllCalculationsInGroupItem(nodeData, ValidateAll)
                    .AddPerformAllCalculationsInGroupItem(group, nodeData, CalculateAll)
                    .AddClearAllCalculationOutputInGroupItem(group)
                    .AddSeparator();
@@ -695,6 +705,11 @@ namespace Ringtoets.Piping.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private static void ValidateAll(PipingCalculationGroupContext context)
+        {
+            ValidateAll(context.WrappedData.GetCalculations().OfType<PipingCalculation>());
         }
 
         private static void AddCalculationScenario(PipingCalculationGroupContext nodeData)
