@@ -21,14 +21,12 @@
 
 using System;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -205,97 +203,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newDeviationWaveDirection, properties.DeviationWaveDirection, properties.DeviationWaveDirection.GetAccuracy());
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(double.MinValue)]
-        [TestCase(double.MaxValue)]
-        public void SetFailureProbabilityStructureWithErosion_InvalidValues_ThrowsArgumentException(double newValue)
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var inputContext = new HeightStructuresInputContext(calculation.InputParameters,
-                                                                calculation,
-                                                                failureMechanism,
-                                                                assessmentSectionStub);
-
-            var properties = new HeightStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = newValue.ToString(CultureInfo.InvariantCulture);
-
-            // Assert
-            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase("no double value")]
-        [TestCase("")]
-        public void SetFailureProbabilityStructureWithErosion_ValuesUnableToParse_ThrowsArgumentException(string newValue)
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var inputContext = new HeightStructuresInputContext(calculation.InputParameters,
-                                                                calculation,
-                                                                failureMechanism,
-                                                                assessmentSectionStub);
-
-            var properties = new HeightStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = newValue;
-
-            // Assert
-            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void SetFailureProbabilityStructureWithErosion_NullValue_ThrowsArgumentNullException()
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            var failureMechanism = new HeightStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<HeightStructuresInput>();
-            var inputContext = new HeightStructuresInputContext(calculation.InputParameters,
-                                                                calculation,
-                                                                failureMechanism,
-                                                                assessmentSectionStub);
-
-            var properties = new HeightStructuresInputContextProperties
-            {
-                Data = inputContext
-            };
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = null;
-
-            // Assert
-            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
-
             mockRepository.VerifyAll();
         }
 
