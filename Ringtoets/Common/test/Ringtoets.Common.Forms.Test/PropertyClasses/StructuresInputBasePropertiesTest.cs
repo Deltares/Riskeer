@@ -269,6 +269,62 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void SetStructure_NullValue_AfterSettingStructureCalled()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<SimpleStructureInput>();
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanismStub,
+                                                      assessmentSectionStub);
+            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
+            {
+                Data = inputContext
+            };
+
+            // Precondition
+            Assert.IsFalse(properties.AfterSettingStructureCalled);
+
+            // Call
+            properties.Structure = null;
+
+            // Assert
+            Assert.IsTrue(properties.AfterSettingStructureCalled);
+        }
+
+        [Test]
+        public void SetStructure_ValidValue_AfterSettingStructureCalled()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<SimpleStructureInput>();
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanismStub,
+                                                      assessmentSectionStub);
+            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
+            {
+                Data = inputContext
+            };
+
+            // Precondition
+            Assert.IsFalse(properties.AfterSettingStructureCalled);
+
+            // Call
+            properties.Structure = new SimpleStructure();
+
+            // Assert
+            Assert.IsTrue(properties.AfterSettingStructureCalled);
+        }
+
+        [Test]
         [TestCase("no double value")]
         [TestCase("")]
         public void SetFailureProbabilityStructureWithErosion_ValuesUnableToParse_ThrowsArgumentException(string newValue)
@@ -536,6 +592,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         {
             public SimpleStructuresInputProperties(ConstructionProperties constructionProperties) : base(constructionProperties) {}
 
+            [Browsable(false)]
+            public bool AfterSettingStructureCalled { get; private set; }
+
             public override IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
             {
                 yield return CreateForeshoreProfile();
@@ -546,7 +605,10 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                 yield return new SimpleStructure();
             }
 
-            protected override void AfterSettingStructure() {}
+            protected override void AfterSettingStructure()
+            {
+                AfterSettingStructureCalled = true;
+            }
         }
 
         private class SimpleInputContext : InputContextBase<SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>
