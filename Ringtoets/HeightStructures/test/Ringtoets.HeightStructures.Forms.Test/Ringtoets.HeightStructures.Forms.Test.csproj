@@ -70,7 +70,6 @@
     <Compile Include="PropertyClasses\HeightStructurePropertiesTest.cs" />
     <Compile Include="PropertyClasses\HeightStructuresFailureMechanismPropertiesTest.cs" />
     <Compile Include="PropertyClasses\HeightStructuresInputContextPropertiesTest.cs" />
-    <Compile Include="StructureSelectionDialogTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresScenariosContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\FailureMechanismResultContextTreeNodeInfoTest.cs" />
     <Compile Include="TreeNodeInfos\HeightStructuresContextTreeNodeInfoTest.cs" />

@@ -40,7 +40,6 @@ using Ringtoets.HydraRing.IO;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 using RingtoetsCommonDataResources = Ringtoets.Common.Data.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
-using HeightStructuresForms = Ringtoets.HeightStructures.Forms.Properties.Resources;
 
 namespace Ringtoets.HeightStructures.Service
 {

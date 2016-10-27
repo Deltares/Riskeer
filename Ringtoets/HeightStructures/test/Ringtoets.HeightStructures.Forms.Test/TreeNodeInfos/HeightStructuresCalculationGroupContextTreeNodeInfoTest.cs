@@ -39,6 +39,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -52,7 +53,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class HeightStructuresCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextGenerateCalculationsIndexRootGroup = 0;
+        private const int contextMenuGenerateCalculationsIndexRootGroup = 0;
         private const int contextMenuAddCalculationGroupIndexRootGroup = 2;
         private const int contextMenuAddCalculationIndexRootGroup = 3;
         private const int contextMenuValidateAllIndexRootGroup = 7;
@@ -235,7 +236,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(15, menu.Items.Count);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextGenerateCalculationsIndexRootGroup,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuGenerateCalculationsIndexRootGroup,
                                                                   "Genereer &berekeningen...",
                                                                   "Er zijn geen kunstwerken beschikbaar om berekeningen voor te genereren.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon,
@@ -295,7 +296,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(15, menu.Items.Count);
 
-                    TestHelper.AssertContextMenuStripContainsItem(menu, contextGenerateCalculationsIndexRootGroup,
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuGenerateCalculationsIndexRootGroup,
                                                                   "Genereer &berekeningen...",
                                                                   "Genereer berekeningen op basis van geselecteerde kunstwerken.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon);
@@ -1091,7 +1092,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    contextMenu.Items[contextGenerateCalculationsIndexRootGroup].PerformClick();
+                    contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
                     var heightStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<HeightStructuresInput>>().ToArray();
@@ -1149,7 +1150,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // When
-                    contextMenu.Items[contextGenerateCalculationsIndexRootGroup].PerformClick();
+                    contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
                     Assert.AreEqual(0, failureMechanism.Calculations.OfType<StructuresCalculation<HeightStructuresInput>>().Count());
@@ -1216,7 +1217,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                     string expectedNewName = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, existingCalculationName, c => c.Name);
 
                     // When
-                    contextMenu.Items[contextGenerateCalculationsIndexRootGroup].PerformClick();
+                    contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
 
                     // Then
                     var heightStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<HeightStructuresInput>>().ToArray();

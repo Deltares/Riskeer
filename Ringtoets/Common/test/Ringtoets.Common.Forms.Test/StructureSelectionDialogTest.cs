@@ -22,14 +22,13 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base.Geometry;
 using Core.Common.Controls.DataGrid;
 using NUnit.Extensions.Forms;
 using NUnit.Framework;
-using Ringtoets.Common.Forms;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Data.TestUtil;
+using Ringtoets.Common.Data;
 
-namespace Ringtoets.HeightStructures.Forms.Test
+namespace Ringtoets.Common.Forms.Test
 {
     [TestFixture]
     public class StructureSelectionDialogTest
@@ -41,7 +40,7 @@ namespace Ringtoets.HeightStructures.Forms.Test
         public void Constructor_WithoutParent_ThrowsArgumentNullException()
         {
             // Call
-            TestDelegate test = () => new StructureSelectionDialog(null, Enumerable.Empty<HeightStructure>());
+            TestDelegate test = () => new StructureSelectionDialog(null, Enumerable.Empty<StructureBase>());
 
             // Assert
             string parameter = Assert.Throws<ArgumentNullException>(test).ParamName;
@@ -49,7 +48,7 @@ namespace Ringtoets.HeightStructures.Forms.Test
         }
 
         [Test]
-        public void Constructor_WithoutSurfaceLines_ThrowsArgumentNullException()
+        public void Constructor_WithoutStructures_ThrowsArgumentNullException()
         {
             // Setup
             using (var viewParent = new Form())
@@ -64,14 +63,14 @@ namespace Ringtoets.HeightStructures.Forms.Test
         }
 
         [Test]
-        public void Constructor_WithParentAndSurfaceLines_DefaultProperties()
+        public void Constructor_WithParentAndStructures_DefaultProperties()
         {
             // Setup & Call
             using (var viewParent = new Form())
-            using (var dialog = new StructureSelectionDialog(viewParent, Enumerable.Empty<HeightStructure>()))
+            using (var dialog = new StructureSelectionDialog(viewParent, Enumerable.Empty<StructureBase>()))
             {
                 // Assert
-                Assert.IsInstanceOf<SelectionDialogBase<HeightStructure>>(dialog);
+                Assert.IsInstanceOf<SelectionDialogBase<StructureBase>>(dialog);
                 Assert.IsEmpty(dialog.SelectedItems);
                 Assert.AreEqual("Selecteer kunstwerken", dialog.Text);
             }
@@ -82,7 +81,7 @@ namespace Ringtoets.HeightStructures.Forms.Test
         {
             // Setup & Call
             using (var viewParent = new Form())
-            using (var dialog = new StructureSelectionDialog(viewParent, Enumerable.Empty<HeightStructure>()))
+            using (var dialog = new StructureSelectionDialog(viewParent, Enumerable.Empty<StructureBase>()))
             {
                 dialog.Show();
 
@@ -107,17 +106,24 @@ namespace Ringtoets.HeightStructures.Forms.Test
         }
 
         [Test]
-        public void Constructor_SurfaceLinesOneEntry_OneRowInGrid()
+        public void Constructor_StructuresOneEntry_OneRowInGrid()
         {
             // Setup
             var testname = "Test";
-            var heightStructure = new TestHeightStructure(testname);
+            var constructionProperties = new StructureBase.ConstructionProperties
+            {
+                Name = testname,
+                Id = "anId",
+                Location = new Point2D(0, 0),
+                StructureNormalOrientation = 0.0
+            };
+            var structure = new TestStructure(constructionProperties);
 
             // Call
             using (var viewParent = new Form())
             using (var dialog = new StructureSelectionDialog(viewParent, new[]
             {
-                heightStructure
+                structure
             }))
             {
                 // Assert
@@ -129,5 +135,10 @@ namespace Ringtoets.HeightStructures.Forms.Test
                 Assert.AreEqual(testname, (string) dataGridViewControl.Rows[0].Cells[nameColumnIndex].Value);
             }
         }
+    }
+
+    public class TestStructure : StructureBase
+    {
+        public TestStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
     }
 }

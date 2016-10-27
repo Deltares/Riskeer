@@ -24,6 +24,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
@@ -42,6 +43,8 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -50,11 +53,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class ClosingStructuresCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
-        private const int contextMenuAddCalculationGroupIndexRootGroup = 0;
-        private const int contextMenuAddCalculationIndexRootGroup = 1;
-        private const int contextMenuValidateAllIndexRootGroup = 5;
-        private const int contextMenuCalculateAllIndexRootGroup = 6;
-        private const int contextMenuClearAllIndexRootGroup = 7;
+        private const int contextMenuGenerateCalculationsIndexRootGroup = 0;
+        private const int contextMenuAddCalculationGroupIndexRootGroup = 2;
+        private const int contextMenuAddCalculationIndexRootGroup = 3;
+        private const int contextMenuValidateAllIndexRootGroup = 7;
+        private const int contextMenuCalculateAllIndexRootGroup = 8;
+        private const int contextMenuClearAllIndexRootGroup = 9;
 
         private const int contextMenuAddCalculationGroupIndexNestedGroup = 0;
         private const int contextMenuAddCalculationIndexNestedGroup = 1;
@@ -184,6 +188,9 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                                                                             assessmentSectionMock);
 
             var menuBuilderMock = mocks.StrictMock<IContextMenuBuilder>();
+
+            menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
+            menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddCustomItem(null)).IgnoreArguments().Return(menuBuilderMock);
             menuBuilderMock.Expect(mb => mb.AddSeparator()).Return(menuBuilderMock);
@@ -237,8 +244,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
                 {
                     // Assert
-                    Assert.AreEqual(13, menu.Items.Count);
+                    Assert.AreEqual(15, menu.Items.Count);
 
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuGenerateCalculationsIndexRootGroup,
+                                                                  "Genereer &berekeningen...",
+                                                                  "Er zijn geen kunstwerken beschikbaar om berekeningen voor te genereren.",
+                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                                                  false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",
                                                                   "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
@@ -263,6 +275,41 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_WithoutParentNodeWithStructuresImported_GenerateItemEnabledWithTooltip()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            failureMechanism.ClosingStructures.Add(new TestClosingStructure());
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var groupContext = new ClosingStructuresCalculationGroupContext(group,
+                                                                            failureMechanism,
+                                                                            assessmentSectionStub);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
+                {
+                    // Assert
+                    Assert.AreEqual(15, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuGenerateCalculationsIndexRootGroup,
+                                                                  "Genereer &berekeningen...",
+                                                                  "Genereer berekeningen op basis van geselecteerde kunstwerken.",
+                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon);
                 }
             }
         }
@@ -826,6 +873,189 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                     Assert.IsInstanceOf<StructuresCalculation<ClosingStructuresInput>>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenClosingStructureSelectedAndDialogClosed_ThenCalculationsAddedWithClosingStructureAssigned()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+                ClosingStructure structure1 = new TestClosingStructure("Structure 1");
+                ClosingStructure structure2 = new TestClosingStructure("Structure 2");
+
+                var failureMechanism = new ClosingStructuresFailureMechanism
+                {
+                    ClosingStructures =
+                    {
+                        structure1,
+                        structure2
+                    }
+                };
+
+                var nodeData = new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                            failureMechanism,
+                                                                            assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Expect(g => g.MainWindow).Return(mainWindow);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                plugin.Gui = guiMock;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var selectionDialog = (StructureSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+
+                    grid.Rows[0].Cells[0].Value = true;
+
+                    new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
+
+                    // Then
+                    var closingStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<ClosingStructuresInput>>().ToArray();
+                    Assert.AreEqual(1, closingStructuresCalculations.Length);
+                    Assert.AreSame(structure1, closingStructuresCalculations[0].InputParameters.Structure);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenCalculationsNotUpdated()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+                ClosingStructure structure1 = new TestClosingStructure("Structure 1");
+                ClosingStructure structure2 = new TestClosingStructure("Structure 2");
+
+                var failureMechanism = new ClosingStructuresFailureMechanism
+                {
+                    ClosingStructures =
+                    {
+                        structure1,
+                        structure2
+                    }
+                };
+
+                var nodeData = new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                            failureMechanism,
+                                                                            assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Expect(g => g.MainWindow).Return(mainWindow);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                plugin.Gui = guiMock;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var selectionDialog = (StructureSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+
+                    grid.Rows[0].Cells[0].Value = true;
+
+                    new ButtonTester("CustomCancelButton", selectionDialog).Click();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.AreEqual(0, failureMechanism.Calculations.OfType<StructuresCalculation<ClosingStructuresInput>>().Count());
+                }
+            }
+        }
+
+        [Test]
+        public void GivenScenariosWithExistingCalculationWithSameName_WhenOkButtonClickedAndDialogClosed_ThenCalculationWithUniqueNameAdded()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+                var existingCalculationName = "Closing structure";
+                ClosingStructure closingStructure = new TestClosingStructure(existingCalculationName);
+
+                var failureMechanism = new ClosingStructuresFailureMechanism
+                {
+                    ClosingStructures =
+                    {
+                        closingStructure
+                    },
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new StructuresCalculation<ClosingStructuresInput>
+                            {
+                                Name = existingCalculationName
+                            }
+                        }
+                    }
+                };
+
+                var nodeData = new ClosingStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                            failureMechanism,
+                                                                            assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Expect(g => g.MainWindow).Return(mainWindow);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                plugin.Gui = guiMock;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var selectionDialog = (StructureSelectionDialog) new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl) new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+
+                    grid.Rows[0].Cells[0].Value = true;
+
+                    new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    string expectedNewName = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, existingCalculationName, c => c.Name);
+
+                    // When
+                    contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
+
+                    // Then
+                    var closingStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<ClosingStructuresInput>>().ToArray();
+                    Assert.AreEqual(2, closingStructuresCalculations.Length);
+                    Assert.AreEqual(expectedNewName, closingStructuresCalculations[1].Name);
                 }
             }
         }

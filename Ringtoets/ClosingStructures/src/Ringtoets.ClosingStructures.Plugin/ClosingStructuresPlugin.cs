@@ -24,7 +24,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
+using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
 using Core.Common.Gui.Plugin;
 using Ringtoets.ClosingStructures.Data;
@@ -38,6 +40,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -402,6 +405,12 @@ namespace Ringtoets.ClosingStructures.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
             var isNestedGroup = parentData is ClosingStructuresCalculationGroupContext;
 
+            if (!isNestedGroup)
+            {
+                builder.AddCustomItem(CreateGenerateClosingStructuresCalculationsItem(context))
+                       .AddSeparator();
+            }
+
             builder.AddCreateCalculationGroupItem(group)
                    .AddCreateCalculationItem(context, AddCalculation);
 
@@ -433,6 +442,55 @@ namespace Ringtoets.ClosingStructures.Plugin
                           .AddSeparator()
                           .AddPropertiesItem()
                           .Build();
+        }
+
+        private StrictContextMenuItem CreateGenerateClosingStructuresCalculationsItem(ClosingStructuresCalculationGroupContext nodeData)
+        {
+            ObservableList<ClosingStructure> closingStructures = nodeData.FailureMechanism.ClosingStructures;
+            bool structuresAvailable = closingStructures.Any();
+
+            string closingStructuresCalculationGroupContextToolTip = structuresAvailable
+                                                                        ? RingtoetsCommonFormsResources.StructuresPlugin_Generate_calculations_for_selected_structures
+                                                                        : RingtoetsCommonFormsResources.StructuresPlugin_No_structures_to_generate_for;
+
+            return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
+                                             closingStructuresCalculationGroupContextToolTip,
+                                             RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                             (sender, args) => { ShowClosingStructuresSelectionDialog(nodeData); })
+            {
+                Enabled = structuresAvailable
+            };
+        }
+
+        private void ShowClosingStructuresSelectionDialog(ClosingStructuresCalculationGroupContext nodeData)
+        {
+            using (var dialog = new StructureSelectionDialog(Gui.MainWindow, nodeData.FailureMechanism.ClosingStructures))
+            {
+                dialog.ShowDialog();
+
+                if (dialog.SelectedItems.Any())
+                {
+                    GenerateClosingStructuresCalculations(nodeData.FailureMechanism.SectionResults, dialog.SelectedItems, nodeData.WrappedData.Children);
+                    nodeData.NotifyObservers();
+                }
+            }
+        }
+
+        private static void GenerateClosingStructuresCalculations(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<StructureBase> structures, IList<ICalculationBase> calculations)
+        {
+            foreach (var structure in structures)
+            {
+                var calculation = new StructuresCalculation<ClosingStructuresInput>
+                {
+                    Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
+                    InputParameters =
+                    {
+                        Structure = (ClosingStructure)structure
+                    }
+                };
+                calculations.Add(calculation);
+                StructuresHelper.Update(sectionResults, calculation);
+            }
         }
 
         private static void ValidateAll(ClosingStructuresCalculationGroupContext context)

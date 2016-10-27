@@ -34,6 +34,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
@@ -44,7 +45,6 @@ using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Forms.Views;
 using Ringtoets.HeightStructures.IO;
-using Ringtoets.HeightStructures.Plugin.Properties;
 using Ringtoets.HeightStructures.Service;
 using Ringtoets.HydraRing.IO;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -412,7 +412,7 @@ namespace Ringtoets.HeightStructures.Plugin
 
             if (!isNestedGroup)
             {
-                builder.AddCustomItem(CreateGenerateWaveConditionsCalculationsItem(context))
+                builder.AddCustomItem(CreateGenerateHeightStructuresCalculationsItem(context))
                        .AddSeparator();
             }
 
@@ -448,14 +448,14 @@ namespace Ringtoets.HeightStructures.Plugin
                           .Build();
         }
 
-        private StrictContextMenuItem CreateGenerateWaveConditionsCalculationsItem(HeightStructuresCalculationGroupContext nodeData)
+        private StrictContextMenuItem CreateGenerateHeightStructuresCalculationsItem(HeightStructuresCalculationGroupContext nodeData)
         {
             ObservableList<HeightStructure> heightStructures = nodeData.FailureMechanism.HeightStructures;
             bool structuresAvailable = heightStructures.Any();
 
             string heightStructuresCalculationGroupContextToolTip = structuresAvailable
-                                                                        ? Resources.HeightStructuresPlugin_Generate_calculations_for_selected_structures
-                                                                        : Resources.HeightStructuresPlugin_No_structures_to_generate_for;
+                                                                        ? RingtoetsCommonFormsResources.StructuresPlugin_Generate_calculations_for_selected_structures
+                                                                        : RingtoetsCommonFormsResources.StructuresPlugin_No_structures_to_generate_for;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
                                              heightStructuresCalculationGroupContextToolTip,
@@ -480,7 +480,7 @@ namespace Ringtoets.HeightStructures.Plugin
             }
         }
 
-        private static void GenerateHeightStructuresCalculations(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<HeightStructure> structures, IList<ICalculationBase> calculations)
+        private static void GenerateHeightStructuresCalculations(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<StructureBase> structures, IList<ICalculationBase> calculations)
         {
             foreach (var structure in structures)
             {
@@ -489,7 +489,7 @@ namespace Ringtoets.HeightStructures.Plugin
                     Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
                     InputParameters =
                     {
-                        Structure = structure
+                        Structure = (HeightStructure) structure
                     }
                 };
                 calculations.Add(calculation);
@@ -505,8 +505,8 @@ namespace Ringtoets.HeightStructures.Plugin
             foreach (var calculation in context.WrappedData.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>())
             {
                 StructuresHelper.Delete(context.FailureMechanism.SectionResults,
-                                              calculation,
-                                              context.FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
+                                        calculation,
+                                        context.FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
             }
             parentGroupContext.NotifyObservers();
         }

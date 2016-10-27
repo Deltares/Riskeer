@@ -2018,6 +2018,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Selecteer kunstwerken.
+        /// </summary>
+        public static string StructureSelectionDialog_Select_Structures {
+            get {
+                return ResourceManager.GetString("StructureSelectionDialog_Select_Structures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap StructuresIcon {
@@ -2105,6 +2114,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_DisplayName {
             get {
                 return ResourceManager.GetString("StructuresInputFailureMechanismContext_ModelFactorSubCriticalFlow_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Genereer berekeningen op basis van geselecteerde kunstwerken..
+        /// </summary>
+        public static string StructuresPlugin_Generate_calculations_for_selected_structures {
+            get {
+                return ResourceManager.GetString("StructuresPlugin_Generate_calculations_for_selected_structures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er zijn geen kunstwerken beschikbaar om berekeningen voor te genereren..
+        /// </summary>
+        public static string StructuresPlugin_No_structures_to_generate_for {
+            get {
+                return ResourceManager.GetString("StructuresPlugin_No_structures_to_generate_for", resourceCulture);
             }
         }
         

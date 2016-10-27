@@ -23,27 +23,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Ringtoets.Common.Forms;
+using Ringtoets.Common.Data;
+using Ringtoets.Common.Forms.Properties;
 using Ringtoets.Common.Forms.Views;
-using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms.Properties;
-using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
-namespace Ringtoets.HeightStructures.Forms
+namespace Ringtoets.Common.Forms
 {
     /// <summary>
-    /// A dialog which allows the user to make a selection from a given set of <see cref="HeightStructure"/>. Upon
-    /// closing of the dialog, the selected <see cref="HeightStructure"/> can be obtained.
+    /// A dialog which allows the user to make a selection from a given set of <see cref="StructureBase"/>. Upon
+    /// closing of the dialog, the selected <see cref="StructureBase"/> can be obtained.
     /// </summary>
-    public class StructureSelectionDialog : SelectionDialogBase<HeightStructure>
+    public class StructureSelectionDialog : SelectionDialogBase<StructureBase>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicBoundaryLocationSelectionDialog"/>.
         /// </summary>
         /// <param name="dialogParent">The parent of the dialog.</param>
-        /// <param name="structures">The collection of <see cref="HeightStructure"/> to show in the dialog.</param>
+        /// <param name="structures">The collection of <see cref="StructureBase"/> to show in the dialog.</param>
         /// <exception cref="ArgumentNullException">Thrown when any parameter is <c>null</c>.</exception>
-        public StructureSelectionDialog(IWin32Window dialogParent, IEnumerable<HeightStructure> structures)
+        public StructureSelectionDialog(IWin32Window dialogParent, IEnumerable<StructureBase> structures)
             : base(dialogParent)
         {
             if (structures == null)
@@ -52,9 +50,9 @@ namespace Ringtoets.HeightStructures.Forms
             }
 
             Text = Resources.StructureSelectionDialog_Select_Structures;
-            InitializeDataGridView(RingtoetsCommonFormsResources.Structure_DisplayName);
+            InitializeDataGridView(Resources.Structure_DisplayName);
 
-            SetDataSource(structures.Select(structure => new SelectableRow<HeightStructure>(structure, structure.Name)).ToArray());
+            SetDataSource(structures.Select(structure => new SelectableRow<StructureBase>(structure, structure.Name)).ToArray());
         }
     }
 }

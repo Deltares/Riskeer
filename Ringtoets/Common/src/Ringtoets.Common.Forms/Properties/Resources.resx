@@ -811,4 +811,13 @@
   <data name="Structure_DeviationWaveDirection_DisplayName" xml:space="preserve">
     <value>Afwijking golfrichting [°]</value>
   </data>
+  <data name="StructureSelectionDialog_Select_Structures" xml:space="preserve">
+    <value>Selecteer kunstwerken</value>
+  </data>
+  <data name="StructuresPlugin_Generate_calculations_for_selected_structures" xml:space="preserve">
+    <value>Genereer berekeningen op basis van geselecteerde kunstwerken.</value>
+  </data>
+  <data name="StructuresPlugin_No_structures_to_generate_for" xml:space="preserve">
+    <value>Er zijn geen kunstwerken beschikbaar om berekeningen voor te genereren.</value>
+  </data>
 </root>

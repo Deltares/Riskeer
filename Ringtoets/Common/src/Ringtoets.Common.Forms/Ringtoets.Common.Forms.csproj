@@ -102,6 +102,9 @@
     <Compile Include="HydraulicBoundaryLocationSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="StructureSelectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="UITypeEditors\HydraulicBoundaryLocationEditor.cs" />
     <Compile Include="UITypeEditors\ForeshoreProfileEditor.cs" />
     <Compile Include="UITypeEditors\IHasForeshoreProfileProperty.cs" />
