@@ -60,6 +60,7 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
+    <Compile Include="Create\ClosingStructures\ClosingStructureCalculationCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructures\ClosingStructureCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructures\GeneralClosingStructuresInputCreateExtensions.cs" />
     <Compile Include="Create\ForeshoreProfileCreateExtensions.cs" />
@@ -251,6 +252,7 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Read\ClosingStructures\ClosingStructureEntityReadExtensions.cs" />
+    <Compile Include="Read\ClosingStructures\ClosingStructuresCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\ClosingStructures\ClosingStructuresFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\ForeshoreProfileEntityReadExtensions.cs" />
     <Compile Include="Read\GrassCoverErosionOutwards\GrassCoverErosionInwardsFailureMechanismMetaEntityReadExtensions.cs" />
