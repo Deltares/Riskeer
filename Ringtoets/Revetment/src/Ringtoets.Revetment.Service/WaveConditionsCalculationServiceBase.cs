@@ -252,22 +252,12 @@ namespace Ringtoets.Revetment.Service
                                                             input.Orientation,
                                                             input.HydraulicBoundaryLocation.Id,
                                                             norm,
-                                                            GetForeshore(input),
-                                                            GetBreakWater(input),
+                                                            CalculationInputParser.ParseForeshore(input),
+                                                            CalculationInputParser.ParseBreakWater(input),
                                                             waterLevel,
                                                             a,
                                                             b,
                                                             c);
-        }
-
-        private static HydraRingBreakWater GetBreakWater(WaveConditionsInput input)
-        {
-            return input.UseBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null;
-        }
-
-        private static IEnumerable<HydraRingForelandPoint> GetForeshore(WaveConditionsInput input)
-        {
-            return input.UseForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0];
         }
 
         private static string ValidateWaveConditionsInput(WaveConditionsInput input, string designWaterLevelName)
