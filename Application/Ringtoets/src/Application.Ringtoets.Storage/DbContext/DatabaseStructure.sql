@@ -277,7 +277,6 @@ CREATE TABLE 'CalculationGroupEntity'
 	'CalculationGroupEntityId' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 	'ParentCalculationGroupEntityId' INTEGER,
 	'Name' VARCHAR (260),
-	'IsEditable' TINYINT (1) NOT NULL, -- true or false
 	'Order' INT (4) NOT NULL,
 	CONSTRAINT 'FK_CalculationGroupEntity_CalculationGroupEntity' FOREIGN KEY ('ParentCalculationGroupEntityId') REFERENCES 'CalculationGroupEntity' ('CalculationGroupEntityId') ON DELETE Cascade ON UPDATE Cascade
 )

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -28,7 +28,6 @@
           <Property Name="CalculationGroupEntityId" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ParentCalculationGroupEntityId" Type="integer" />
           <Property Name="Name" Type="varchar" MaxLength="260" />
-          <Property Name="IsEditable" Type="tinyint" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CharacteristicPointEntity">
@@ -2466,7 +2465,6 @@
           <Property Name="CalculationGroupEntityId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ParentCalculationGroupEntityId" Type="Int64" />
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
-          <Property Name="IsEditable" Type="Byte" Nullable="false" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity1" Relationship="RingtoetsEntitiesModel.FK_CalculationGroupEntity_0_0" FromRole="CalculationGroupEntity" ToRole="CalculationGroupEntity1" />
           <NavigationProperty Name="CalculationGroupEntity2" Relationship="RingtoetsEntitiesModel.FK_CalculationGroupEntity_0_0" FromRole="CalculationGroupEntity1" ToRole="CalculationGroupEntity" />
@@ -4336,7 +4334,6 @@
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.CalculationGroupEntity">
               <MappingFragment StoreEntitySet="CalculationGroupEntity">
                 <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="IsEditable" ColumnName="IsEditable" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ParentCalculationGroupEntityId" ColumnName="ParentCalculationGroupEntityId" />
                 <ScalarProperty Name="CalculationGroupEntityId" ColumnName="CalculationGroupEntityId" />

@@ -178,7 +178,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             // Assert
             Assert.IsNotNull(entity);
             Assert.AreEqual(failureMechanism.CalculationsGroup.Name, entity.CalculationGroupEntity.Name);
-            Assert.AreEqual(Convert.ToByte(failureMechanism.CalculationsGroup.IsNameEditable), entity.CalculationGroupEntity.IsEditable);
             Assert.AreEqual(0, entity.CalculationGroupEntity.Order);
 
             CalculationGroupEntity[] childGroupEntities = entity.CalculationGroupEntity.CalculationGroupEntity1
@@ -186,10 +185,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                                                                 .ToArray();
             Assert.AreEqual(2, childGroupEntities.Length);
             Assert.AreEqual("A", childGroupEntities[0].Name);
-            Assert.AreEqual(1, childGroupEntities[0].IsEditable);
             Assert.AreEqual(0, childGroupEntities[0].Order);
             Assert.AreEqual("B", childGroupEntities[1].Name);
-            Assert.AreEqual(1, childGroupEntities[1].IsEditable);
             Assert.AreEqual(1, childGroupEntities[1].Order);
         }
 

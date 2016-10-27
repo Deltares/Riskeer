@@ -284,20 +284,17 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 CalculationGroupEntity = new CalculationGroupEntity
                 {
-                    IsEditable = 0,
                     Name = "Berekeningen",
                     Order = 0,
                     CalculationGroupEntity1 =
                     {
                         new CalculationGroupEntity
                         {
-                            IsEditable = 1,
                             Name = "Child1",
                             Order = 0
                         },
                         new CalculationGroupEntity
                         {
-                            IsEditable = 1,
                             Name = "Child2",
                             Order = 1
                         },
@@ -441,20 +438,17 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 CalculationGroupEntity = new CalculationGroupEntity
                 {
-                    IsEditable = 0,
                     Name = "Berekeningen",
                     Order = 0,
                     CalculationGroupEntity1 =
                     {
                         new CalculationGroupEntity
                         {
-                            IsEditable = 1,
                             Name = "Child1",
                             Order = 0
                         },
                         new CalculationGroupEntity
                         {
-                            IsEditable = 1,
                             Name = "Child2",
                             Order = 1
                         },
@@ -565,20 +559,17 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 CalculationGroupEntity = new CalculationGroupEntity
                 {
-                    IsEditable = 0,
                     Name = "Berekeningen",
                     Order = 0,
                     CalculationGroupEntity1 =
                     {
                         new CalculationGroupEntity
                         {
-                            IsEditable = 1,
                             Name = "Child1",
                             Order = 0
                         },
                         new CalculationGroupEntity
                         {
-                            IsEditable = 1,
                             Name = "Child2",
                             Order = 1
                         },
@@ -664,20 +655,17 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 CalculationGroupEntity = new CalculationGroupEntity
                 {
-                    IsEditable = 0,
                     Name = "Berekeningen",
                     Order = 0,
                     CalculationGroupEntity1 =
                     {
                         new CalculationGroupEntity
                         {
-                            IsEditable = 1,
                             Name = "Child1",
                             Order = 1
                         },
                         new CalculationGroupEntity
                         {
-                            IsEditable = 1,
                             Name = "Child2",
                             Order = 0
                         },
@@ -751,20 +739,17 @@ namespace Application.Ringtoets.Storage.Test.Read
             {
                 CalculationGroupEntity = new CalculationGroupEntity
                 {
-                    IsEditable = 0,
                     Name = "Berekeningen",
                     Order = 0,
                     CalculationGroupEntity1 =
                     {
                         new CalculationGroupEntity
                         {
-                            IsEditable = 1,
                             Name = "Child1",
                             Order = 1
                         },
                         new CalculationGroupEntity
                         {
-                            IsEditable = 1,
                             Name = "Child2",
                             Order = 0
                         },

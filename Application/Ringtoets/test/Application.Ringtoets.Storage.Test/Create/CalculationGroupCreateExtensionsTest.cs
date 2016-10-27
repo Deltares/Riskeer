@@ -53,13 +53,13 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
-        [TestCase(true, 0)]
-        [TestCase(false, 123)]
-        public void Create_GroupWithoutChildren_CreateEntity(bool isNameEditable, int order)
+        [TestCase(0)]
+        [TestCase(123)]
+        public void Create_GroupWithoutChildren_CreateEntity(int order)
         {
             // Setup
             const string name = "blaballab";
-            var group = new CalculationGroup(name, isNameEditable);
+            var group = new CalculationGroup(name, true);
 
             var registry = new PersistenceRegistry();
 
@@ -68,7 +68,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(name, entity.Name);
-            Assert.AreEqual(Convert.ToByte(isNameEditable), entity.IsEditable);
             Assert.AreEqual(order, entity.Order);
 
             CollectionAssert.IsEmpty(entity.CalculationGroupEntity1);
@@ -107,11 +106,11 @@ namespace Application.Ringtoets.Storage.Test.Create
             {
                 Children =
                 {
-                    new CalculationGroup("AA", false),
+                    new CalculationGroup("AA", true),
                     new CalculationGroup("AB", true)
                 }
             });
-            group.Children.Add(new CalculationGroup("B", false));
+            group.Children.Add(new CalculationGroup("B", true));
 
             var registry = new PersistenceRegistry();
 
@@ -120,7 +119,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(name, entity.Name);
-            Assert.AreEqual(1, entity.IsEditable);
             Assert.AreEqual(0, entity.Order);
 
             CalculationGroupEntity[] childGroupEntities = entity.CalculationGroupEntity1.ToArray();
@@ -128,23 +126,19 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             CalculationGroupEntity childEntity1 = childGroupEntities[0];
             Assert.AreEqual("A", childEntity1.Name);
-            Assert.AreEqual(1, childEntity1.IsEditable);
             Assert.AreEqual(0, childEntity1.Order);
             Assert.AreEqual(2, childEntity1.CalculationGroupEntity1.Count);
             CalculationGroupEntity childEntity1ChildEntity1 = childEntity1.CalculationGroupEntity1.ElementAt(0);
             Assert.AreEqual("AA", childEntity1ChildEntity1.Name);
-            Assert.AreEqual(0, childEntity1ChildEntity1.IsEditable);
             Assert.AreEqual(0, childEntity1ChildEntity1.Order);
             CollectionAssert.IsEmpty(childEntity1ChildEntity1.CalculationGroupEntity1);
             CalculationGroupEntity childEntity1ChildEntity2 = childEntity1.CalculationGroupEntity1.ElementAt(1);
             Assert.AreEqual("AB", childEntity1ChildEntity2.Name);
-            Assert.AreEqual(1, childEntity1ChildEntity2.IsEditable);
             Assert.AreEqual(1, childEntity1ChildEntity2.Order);
             CollectionAssert.IsEmpty(childEntity1ChildEntity2.CalculationGroupEntity1);
 
             CalculationGroupEntity childEntity2 = childGroupEntities[1];
             Assert.AreEqual("B", childEntity2.Name);
-            Assert.AreEqual(0, childEntity2.IsEditable);
             Assert.AreEqual(1, childEntity2.Order);
             CollectionAssert.IsEmpty(childEntity2.CalculationGroupEntity1);
         }
@@ -200,7 +194,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C", false),
+                    new CalculationGroup("C", true),
                     new PipingCalculationScenario(generalInputParameters)
                     {
                         Name = "D"
@@ -221,7 +215,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             CalculationGroupEntity childEntity1 = childGroupEntities[0];
             Assert.AreEqual("A", childEntity1.Name);
-            Assert.AreEqual(1, childEntity1.IsEditable);
             Assert.AreEqual(0, childEntity1.Order);
             CollectionAssert.IsEmpty(childEntity1.CalculationGroupEntity1);
 
@@ -231,7 +224,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             CalculationGroupEntity childEntity3 = childGroupEntities[1];
             Assert.AreEqual("C", childEntity3.Name);
-            Assert.AreEqual(0, childEntity3.IsEditable);
             Assert.AreEqual(2, childEntity3.Order);
             CollectionAssert.IsEmpty(childEntity3.CalculationGroupEntity1);
 
@@ -289,7 +281,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C", false),
+                    new CalculationGroup("C", true),
                     new GrassCoverErosionInwardsCalculation
                     {
                         Name = "D"
@@ -310,7 +302,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             CalculationGroupEntity childEntity1 = childGroupEntities[0];
             Assert.AreEqual("A", childEntity1.Name);
-            Assert.AreEqual(1, childEntity1.IsEditable);
             Assert.AreEqual(0, childEntity1.Order);
             CollectionAssert.IsEmpty(childEntity1.CalculationGroupEntity1);
 
@@ -320,7 +311,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             CalculationGroupEntity childEntity3 = childGroupEntities[1];
             Assert.AreEqual("C", childEntity3.Name);
-            Assert.AreEqual(0, childEntity3.IsEditable);
             Assert.AreEqual(2, childEntity3.Order);
             CollectionAssert.IsEmpty(childEntity3.CalculationGroupEntity1);
 
@@ -378,7 +368,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C", false),
+                    new CalculationGroup("C", true),
                     new GrassCoverErosionOutwardsWaveConditionsCalculation
                     {
                         Name = "D"
@@ -399,7 +389,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             CalculationGroupEntity childEntity1 = childGroupEntities[0];
             Assert.AreEqual("A", childEntity1.Name);
-            Assert.AreEqual(1, childEntity1.IsEditable);
             Assert.AreEqual(0, childEntity1.Order);
             CollectionAssert.IsEmpty(childEntity1.CalculationGroupEntity1);
 
@@ -409,7 +398,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             CalculationGroupEntity childEntity3 = childGroupEntities[1];
             Assert.AreEqual("C", childEntity3.Name);
-            Assert.AreEqual(0, childEntity3.IsEditable);
             Assert.AreEqual(2, childEntity3.Order);
             CollectionAssert.IsEmpty(childEntity3.CalculationGroupEntity1);
 
@@ -467,7 +455,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C", false),
+                    new CalculationGroup("C", true),
                     new StructuresCalculation<HeightStructuresInput>
                     {
                         Name = "D"
@@ -488,7 +476,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             CalculationGroupEntity childEntity1 = childGroupEntities[0];
             Assert.AreEqual("A", childEntity1.Name);
-            Assert.AreEqual(1, childEntity1.IsEditable);
             Assert.AreEqual(0, childEntity1.Order);
             CollectionAssert.IsEmpty(childEntity1.CalculationGroupEntity1);
 
@@ -498,7 +485,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             CalculationGroupEntity childEntity3 = childGroupEntities[1];
             Assert.AreEqual("C", childEntity3.Name);
-            Assert.AreEqual(0, childEntity3.IsEditable);
             Assert.AreEqual(2, childEntity3.Order);
             CollectionAssert.IsEmpty(childEntity3.CalculationGroupEntity1);
 
@@ -556,7 +542,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C", false),
+                    new CalculationGroup("C", true),
                     new StabilityStoneCoverWaveConditionsCalculation
                     {
                         Name = "D"
@@ -577,7 +563,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             CalculationGroupEntity childEntity1 = childGroupEntities[0];
             Assert.AreEqual("A", childEntity1.Name);
-            Assert.AreEqual(1, childEntity1.IsEditable);
             Assert.AreEqual(0, childEntity1.Order);
             CollectionAssert.IsEmpty(childEntity1.CalculationGroupEntity1);
 
@@ -587,7 +572,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             CalculationGroupEntity childEntity3 = childGroupEntities[1];
             Assert.AreEqual("C", childEntity3.Name);
-            Assert.AreEqual(0, childEntity3.IsEditable);
             Assert.AreEqual(2, childEntity3.Order);
             CollectionAssert.IsEmpty(childEntity3.CalculationGroupEntity1);
 
@@ -645,7 +629,7 @@ namespace Application.Ringtoets.Storage.Test.Create
                     {
                         Name = "B"
                     },
-                    new CalculationGroup("C", false),
+                    new CalculationGroup("C", true),
                     new WaveImpactAsphaltCoverWaveConditionsCalculation
                     {
                         Name = "D"
@@ -666,7 +650,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             CalculationGroupEntity childEntity1 = childGroupEntities[0];
             Assert.AreEqual("A", childEntity1.Name);
-            Assert.AreEqual(1, childEntity1.IsEditable);
             Assert.AreEqual(0, childEntity1.Order);
             CollectionAssert.IsEmpty(childEntity1.CalculationGroupEntity1);
 
@@ -676,7 +659,6 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             CalculationGroupEntity childEntity3 = childGroupEntities[1];
             Assert.AreEqual("C", childEntity3.Name);
-            Assert.AreEqual(0, childEntity3.IsEditable);
             Assert.AreEqual(2, childEntity3.Order);
             CollectionAssert.IsEmpty(childEntity3.CalculationGroupEntity1);
 

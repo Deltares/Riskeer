@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException("generalPipingInput");
             }
 
-            var group = new CalculationGroup(entity.Name, Convert.ToBoolean(entity.IsEditable));
+            var group = new CalculationGroup(entity.Name, true);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
@@ -98,7 +98,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException("collector");
             }
 
-            var group = new CalculationGroup(entity.Name, Convert.ToBoolean(entity.IsEditable));
+            var group = new CalculationGroup(entity.Name, true);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
@@ -134,7 +134,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException("collector");
             }
 
-            var group = new CalculationGroup(entity.Name, Convert.ToBoolean(entity.IsEditable));
+            var group = new CalculationGroup(entity.Name, true);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
@@ -170,7 +170,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException("collector");
             }
 
-            var group = new CalculationGroup(entity.Name, Convert.ToBoolean(entity.IsEditable));
+            var group = new CalculationGroup(entity.Name, true);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
@@ -206,7 +206,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException("collector");
             }
 
-            var group = new CalculationGroup(entity.Name, Convert.ToBoolean(entity.IsEditable));
+            var group = new CalculationGroup(entity.Name, true);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
@@ -242,7 +242,7 @@ namespace Application.Ringtoets.Storage.Read
                 throw new ArgumentNullException("collector");
             }
 
-            var group = new CalculationGroup(entity.Name, Convert.ToBoolean(entity.IsEditable));
+            var group = new CalculationGroup(entity.Name, true);
 
             foreach (object childEntity in GetChildEntitiesInOrder(entity))
             {
