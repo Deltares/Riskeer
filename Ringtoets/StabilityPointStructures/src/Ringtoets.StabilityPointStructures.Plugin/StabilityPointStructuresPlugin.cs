@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Plugin;
@@ -31,9 +32,11 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
+using Ringtoets.Common.Utils;
 using Ringtoets.HydraRing.IO;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
@@ -373,11 +376,9 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             var builder = new RingtoetsContextMenuBuilder(Gui.Get(context, treeViewControl));
             bool isNestedGroup = parentData is StabilityPointStructuresCalculationGroupContext;
 
-            StrictContextMenuItem generateCalculationsItem = CreateGenerateCalculationsItem(context);
-
             if (!isNestedGroup)
             {
-                builder.AddCustomItem(generateCalculationsItem)
+                builder.AddCustomItem(CreateGenerateStabilityPointStructuresCalculationsItem(context))
                        .AddSeparator();
             }
 
@@ -412,16 +413,53 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                           .Build();
         }
 
-        private static StrictContextMenuItem CreateGenerateCalculationsItem(StabilityPointStructuresCalculationGroupContext nodeData)
+        private StrictContextMenuItem CreateGenerateStabilityPointStructuresCalculationsItem(StabilityPointStructuresCalculationGroupContext nodeData)
         {
-            var generateCalculationsItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
-                Resources.StabilityPointStructuresPlugin_CreateGenerateCalculationsItem_ToolTip,
-                RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => { })
+            ObservableList<StabilityPointStructure> closingStructures = nodeData.FailureMechanism.StabilityPointStructures;
+            bool structuresAvailable = closingStructures.Any();
+
+            string closingStructuresCalculationGroupContextToolTip = structuresAvailable
+                                                                        ? RingtoetsCommonFormsResources.StructuresPlugin_Generate_calculations_for_selected_structures
+                                                                        : RingtoetsCommonFormsResources.StructuresPlugin_No_structures_to_generate_for;
+
+            return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
+                                             closingStructuresCalculationGroupContextToolTip,
+                                             RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                             (sender, args) => { ShowStabilityPointStructuresSelectionDialog(nodeData); })
             {
-                Enabled = false
+                Enabled = structuresAvailable
             };
-            return generateCalculationsItem;
+        }
+
+        private void ShowStabilityPointStructuresSelectionDialog(StabilityPointStructuresCalculationGroupContext nodeData)
+        {
+            using (var dialog = new StructureSelectionDialog(Gui.MainWindow, nodeData.FailureMechanism.StabilityPointStructures))
+            {
+                dialog.ShowDialog();
+
+                if (dialog.SelectedItems.Any())
+                {
+                    GenerateStabilityPointStructuresCalculations(nodeData.FailureMechanism.SectionResults, dialog.SelectedItems, nodeData.WrappedData.Children);
+                    nodeData.NotifyObservers();
+                }
+            }
+        }
+
+        private static void GenerateStabilityPointStructuresCalculations(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<StructureBase> structures, IList<ICalculationBase> calculations)
+        {
+            foreach (var structure in structures)
+            {
+                var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+                {
+                    Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
+                    InputParameters =
+                    {
+                        Structure = (StabilityPointStructure)structure
+                    }
+                };
+                calculations.Add(calculation);
+                StructuresHelper.Update(sectionResults, calculation);
+            }
         }
 
         private static void CalculationGroupContextOnNodeRemoved(StabilityPointStructuresCalculationGroupContext context, object parentNodeData)

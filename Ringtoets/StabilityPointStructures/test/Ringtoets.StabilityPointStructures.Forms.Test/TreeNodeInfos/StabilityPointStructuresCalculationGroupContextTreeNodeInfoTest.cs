@@ -24,10 +24,12 @@ using System.Linq;
 using System.Windows.Forms;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
+using Core.Common.Controls.DataGrid;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui;
 using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
+using Core.Common.Gui.Forms.MainWindow;
 using Core.Common.Gui.TestUtil.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -37,8 +39,11 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Plugin;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -48,6 +53,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
     [TestFixture]
     public class StabilityPointStructuresCalculationGroupContextTreeNodeInfoTest : NUnitFormTest
     {
+        private const int contextMenuGenerateCalculationsIndexRootGroup = 0;
         private const int contextMenuAddCalculationGroupIndexRootGroup = 2;
         private const int contextMenuAddCalculationIndexRootGroup = 3;
         private const int contextMenuValidateAllIndexRootGroup = 7;
@@ -226,6 +232,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     Assert.AreEqual(15, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuGenerateCalculationsIndexRootGroup,
+                                                                  "Genereer &berekeningen...",
+                                                                  "Er zijn geen kunstwerken beschikbaar om berekeningen voor te genereren.",
+                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon,
+                                                                  false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
                                                                   "&Map toevoegen",
                                                                   "Voeg een nieuwe berekeningsmap toe aan deze berekeningsmap.",
@@ -249,6 +261,41 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                                                                   "Er zijn geen berekeningen met uitvoer om te wissen.",
                                                                   RingtoetsCommonFormsResources.ClearIcon,
                                                                   false);
+                }
+            }
+        }
+
+        [Test]
+        public void ContextMenuStrip_WithoutParentNodeWithStructuresImported_GenerateItemEnabledWithTooltip()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
+            var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                            failureMechanism,
+                                                                            assessmentSectionStub);
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                // Call
+                using (ContextMenuStrip menu = info.ContextMenuStrip(groupContext, null, treeViewControl))
+                {
+                    // Assert
+                    Assert.AreEqual(15, menu.Items.Count);
+
+                    TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuGenerateCalculationsIndexRootGroup,
+                                                                  "Genereer &berekeningen...",
+                                                                  "Genereer berekeningen op basis van geselecteerde kunstwerken.",
+                                                                  RingtoetsCommonFormsResources.GenerateScenariosIcon);
                 }
             }
         }
@@ -653,6 +700,189 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                     Assert.IsInstanceOf<StructuresCalculation<StabilityPointStructuresInput>>(newlyAddedItem);
                     Assert.AreEqual("Nieuwe berekening (1)", newlyAddedItem.Name,
                                     "An item with the same name default name already exists, therefore '(1)' needs to be appended.");
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenStabilityPointStructureSelectedAndDialogClosed_ThenCalculationsAddedWithStabilityPointStructureAssigned()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+                StabilityPointStructure structure1 = new TestStabilityPointStructure("Structure 1");
+                StabilityPointStructure structure2 = new TestStabilityPointStructure("Structure 2");
+
+                var failureMechanism = new StabilityPointStructuresFailureMechanism
+                {
+                    StabilityPointStructures =
+                    {
+                        structure1,
+                        structure2
+                    }
+                };
+
+                var nodeData = new StabilityPointStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                            failureMechanism,
+                                                                            assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Expect(g => g.MainWindow).Return(mainWindow);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                plugin.Gui = guiMock;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var selectionDialog = (StructureSelectionDialog)new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+
+                    grid.Rows[0].Cells[0].Value = true;
+
+                    new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
+
+                    // Then
+                    var stabilityPointStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>().ToArray();
+                    Assert.AreEqual(1, stabilityPointStructuresCalculations.Length);
+                    Assert.AreSame(structure1, stabilityPointStructuresCalculations[0].InputParameters.Structure);
+                }
+            }
+        }
+
+        [Test]
+        public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenCancelButtonClickedAndDialogClosed_ThenCalculationsNotUpdated()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+                StabilityPointStructure structure1 = new TestStabilityPointStructure("Structure 1");
+                StabilityPointStructure structure2 = new TestStabilityPointStructure("Structure 2");
+
+                var failureMechanism = new StabilityPointStructuresFailureMechanism
+                {
+                    StabilityPointStructures =
+                    {
+                        structure1,
+                        structure2
+                    }
+                };
+
+                var nodeData = new StabilityPointStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                            failureMechanism,
+                                                                            assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Expect(g => g.MainWindow).Return(mainWindow);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                plugin.Gui = guiMock;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var selectionDialog = (StructureSelectionDialog)new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+
+                    grid.Rows[0].Cells[0].Value = true;
+
+                    new ButtonTester("CustomCancelButton", selectionDialog).Click();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    // When
+                    contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
+
+                    // Then
+                    Assert.AreEqual(0, failureMechanism.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>().Count());
+                }
+            }
+        }
+
+        [Test]
+        public void GivenScenariosWithExistingCalculationWithSameName_WhenOkButtonClickedAndDialogClosed_ThenCalculationWithUniqueNameAdded()
+        {
+            // Given
+            using (var treeViewControl = new TreeViewControl())
+            {
+                var assessmentSectionMock = mocks.StrictMock<IAssessmentSection>();
+
+                var existingCalculationName = "StabilityPoint structure";
+                StabilityPointStructure stabilityPointStructure = new TestStabilityPointStructure(existingCalculationName);
+
+                var failureMechanism = new StabilityPointStructuresFailureMechanism
+                {
+                    StabilityPointStructures =
+                    {
+                        stabilityPointStructure
+                    },
+                    CalculationsGroup =
+                    {
+                        Children =
+                        {
+                            new StructuresCalculation<StabilityPointStructuresInput>
+                            {
+                                Name = existingCalculationName
+                            }
+                        }
+                    }
+                };
+
+                var nodeData = new StabilityPointStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                            failureMechanism,
+                                                                            assessmentSectionMock);
+
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var mainWindow = mocks.Stub<IMainWindow>();
+
+                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(menuBuilder);
+                guiMock.Expect(g => g.MainWindow).Return(mainWindow);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                plugin.Gui = guiMock;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    var selectionDialog = (StructureSelectionDialog)new FormTester(name).TheObject;
+                    var grid = (DataGridViewControl)new ControlTester("DataGridViewControl", selectionDialog).TheObject;
+
+                    grid.Rows[0].Cells[0].Value = true;
+
+                    new ButtonTester("DoForSelectedButton", selectionDialog).Click();
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
+                {
+                    string expectedNewName = NamingHelper.GetUniqueName(failureMechanism.CalculationsGroup.Children, existingCalculationName, c => c.Name);
+
+                    // When
+                    contextMenu.Items[contextMenuGenerateCalculationsIndexRootGroup].PerformClick();
+
+                    // Then
+                    var stabilityPointStructuresCalculations = failureMechanism.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>().ToArray();
+                    Assert.AreEqual(2, stabilityPointStructuresCalculations.Length);
+                    Assert.AreEqual(expectedNewName, stabilityPointStructuresCalculations[1].Name);
                 }
             }
         }
