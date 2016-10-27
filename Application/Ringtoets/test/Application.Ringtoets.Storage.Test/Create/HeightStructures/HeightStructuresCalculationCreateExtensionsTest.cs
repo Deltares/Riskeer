@@ -28,6 +28,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
@@ -338,6 +339,27 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
 
             // Assert
             Assert.AreSame(foreshoreProfileEntity, entity.ForeshoreProfileEntity);
+        }
+
+        [Test]
+        public void Create_CalculationWithOutput_ReturnEntity()
+        {
+            // Setup
+            var random = new Random(159);
+            var calculation = new StructuresCalculation<HeightStructuresInput>
+            {
+                Output = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
+                                                         random.NextDouble(), random.NextDouble(),
+                                                         random.NextDouble())
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            HeightStructuresCalculationEntity entity = calculation.Create(registry, 0);
+
+            // Assert
+            Assert.AreEqual(1, entity.HeightStructuresOutputEntities.Count);
         }
     }
 }

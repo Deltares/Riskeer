@@ -86,6 +86,7 @@
     <Compile Include="Create\HeightStructures\HeightStructuresCalculationCreateExtensionsTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Create\HeightStructures\ProbabilityAssessmentOutputCreateExtensionsTest.cs" />
     <Compile Include="Create\StabilityPointStructures\GeneralStabilityPointStructuresInputCreateExtensionsTest.cs" />
     <Compile Include="Create\StabilityPointStructures\StabilityPointStructureCreateExtensionsTest.cs" />
     <Compile Include="Create\WaveImpactAsphaltCover\WaveImpactAsphaltCoverWaveConditionsCalculationCreateExtensionsTest.cs" />
