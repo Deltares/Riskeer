@@ -69,9 +69,9 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> FlowWidthAtBottomProtectionStandardDeviation { get; set; }
         public Nullable<double> ProbabilityOpenStructureBeforeFlooding { get; set; }
         public double FailureProbabilityOpenStructure { get; set; }
-        public Nullable<double> IdenticalApertures { get; set; }
+        public int IdenticalApertures { get; set; }
         public double FailureProbablityReparation { get; set; }
-        public Nullable<byte> InflowModelType { get; set; }
+        public byte InflowModelType { get; set; }
         public double FailureProbabilityStructureWithErosion { get; set; }
         public Nullable<double> DeviationWaveDirection { get; set; }
         public Nullable<double> DrainCoefficientMean { get; set; }
