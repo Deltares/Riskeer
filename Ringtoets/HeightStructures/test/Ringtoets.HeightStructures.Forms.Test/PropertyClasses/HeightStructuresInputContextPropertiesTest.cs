@@ -48,8 +48,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
     [TestFixture]
     public class HeightStructuresInputContextPropertiesTest
     {
-        private const int heightStructurePropertyIndex = 0;
-        private const int heightStructureLocationPropertyIndex = 1;
+        private const int structurePropertyIndex = 0;
+        private const int structureLocationPropertyIndex = 1;
         private const int structureNormalOrientationPropertyIndex = 2;
         private const int flowWidthAtBottomProtectionPropertyIndex = 3;
         private const int widthFlowAperturesPropertyIndex = 4;
@@ -176,11 +176,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             HeightStructuresInput input = calculation.InputParameters;
-            var expectedHeightStructureLocation = new Point2D(new RoundedDouble(0, input.Structure.Location.X), new RoundedDouble(0, input.Structure.Location.Y));
+            var expectedStructureLocation = new Point2D(new RoundedDouble(0, input.Structure.Location.X), new RoundedDouble(0, input.Structure.Location.Y));
             var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
 
             Assert.AreSame(input.Structure, properties.Structure);
-            Assert.AreEqual(expectedHeightStructureLocation, properties.StructureLocation);
+            Assert.AreEqual(expectedStructureLocation, properties.StructureLocation);
             Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
             Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
             Assert.AreSame(input.LevelCrestStructure, properties.LevelCrestStructure.Data);
@@ -383,17 +383,17 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             });
             Assert.AreEqual(17, dynamicProperties.Count);
 
-            PropertyDescriptor heightStructureProperty = dynamicProperties[heightStructurePropertyIndex];
-            Assert.IsFalse(heightStructureProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, heightStructureProperty.Category);
-            Assert.AreEqual("Kunstwerk", heightStructureProperty.DisplayName);
-            Assert.AreEqual("Het kunstwerk dat gebruikt wordt in de berekening.", heightStructureProperty.Description);
+            PropertyDescriptor structureProperty = dynamicProperties[structurePropertyIndex];
+            Assert.IsFalse(structureProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, structureProperty.Category);
+            Assert.AreEqual("Kunstwerk", structureProperty.DisplayName);
+            Assert.AreEqual("Het kunstwerk dat gebruikt wordt in de berekening.", structureProperty.Description);
 
-            PropertyDescriptor heightStructureLocationProperty = dynamicProperties[heightStructureLocationPropertyIndex];
-            Assert.IsTrue(heightStructureLocationProperty.IsReadOnly);
-            Assert.AreEqual(schematizationCategory, heightStructureLocationProperty.Category);
-            Assert.AreEqual("Locatie (RD) [m]", heightStructureLocationProperty.DisplayName);
-            Assert.AreEqual("De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.", heightStructureLocationProperty.Description);
+            PropertyDescriptor structureLocationProperty = dynamicProperties[structureLocationPropertyIndex];
+            Assert.IsTrue(structureLocationProperty.IsReadOnly);
+            Assert.AreEqual(schematizationCategory, structureLocationProperty.Category);
+            Assert.AreEqual("Locatie (RD) [m]", structureLocationProperty.DisplayName);
+            Assert.AreEqual("De coördinaten van de locatie van het kunstwerk in het Rijksdriehoeksstelsel.", structureLocationProperty.Description);
 
             PropertyDescriptor structureNormalOrientationProperty = dynamicProperties[structureNormalOrientationPropertyIndex];
             Assert.IsFalse(structureNormalOrientationProperty.IsReadOnly);
