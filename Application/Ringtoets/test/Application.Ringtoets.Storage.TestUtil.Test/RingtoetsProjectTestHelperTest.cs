@@ -149,10 +149,19 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             Assert.NotNull(failureMechanism.CalculationsGroup);
             Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
-            Assert.AreEqual(1, ((CalculationGroup) failureMechanism.CalculationsGroup.Children[0]).Children.Count);
-            Assert.IsInstanceOf<PipingCalculationScenario>(((CalculationGroup) failureMechanism.CalculationsGroup.Children[0]).Children[0]);
-            Assert.AreEqual(0, ((CalculationGroup) failureMechanism.CalculationsGroup.Children[1]).Children.Count);
-            Assert.IsInstanceOf<PipingCalculationScenario>(failureMechanism.CalculationsGroup.Children[2]);
+
+            var firstCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[0];
+            Assert.AreEqual(1, firstCalculationGroup.Children.Count);
+            var calculationWithOutput = firstCalculationGroup.Children[0] as PipingCalculationScenario;
+            Assert.NotNull(calculationWithOutput);
+            Assert.IsTrue(calculationWithOutput.HasOutput);
+
+            var emptyCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
+            Assert.AreEqual(0, emptyCalculationGroup.Children.Count);
+
+            var calculationWithoutOutput = failureMechanism.CalculationsGroup.Children[2] as PipingCalculationScenario;
+            Assert.NotNull(calculationWithoutOutput);
+            Assert.IsFalse(calculationWithoutOutput.HasOutput);
         }
 
         private static void AssertGrassCoverErosionInwardsFailureMechanism(AssessmentSection assessmentSection)
@@ -161,10 +170,18 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.NotNull(failureMechanism.CalculationsGroup);
             Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
 
-            Assert.AreEqual(1, ((CalculationGroup) failureMechanism.CalculationsGroup.Children[0]).Children.Count);
-            Assert.IsInstanceOf<GrassCoverErosionInwardsCalculation>(((CalculationGroup) failureMechanism.CalculationsGroup.Children[0]).Children[0]);
-            Assert.AreEqual(0, ((CalculationGroup) failureMechanism.CalculationsGroup.Children[1]).Children.Count);
-            Assert.IsInstanceOf<GrassCoverErosionInwardsCalculation>(failureMechanism.CalculationsGroup.Children[2]);
+            var firstCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[0];
+            Assert.AreEqual(1, firstCalculationGroup.Children.Count);
+            var calculationWithOutput = firstCalculationGroup.Children[0] as GrassCoverErosionInwardsCalculation;
+            Assert.NotNull(calculationWithOutput);
+            Assert.IsTrue(calculationWithOutput.HasOutput);
+
+            var emptyCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
+            Assert.AreEqual(0, emptyCalculationGroup.Children.Count);
+
+            var calculationWithoutOutput = failureMechanism.CalculationsGroup.Children[2] as GrassCoverErosionInwardsCalculation;
+            Assert.NotNull(calculationWithoutOutput);
+            Assert.IsFalse(calculationWithoutOutput.HasOutput);
         }
 
         private static void AssertGrassCoverErosionOutwardsFailureMechanism(AssessmentSection assessmentSection)
@@ -172,11 +189,19 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = assessmentSection.GrassCoverErosionOutwards;
             Assert.AreEqual(2, failureMechanism.HydraulicBoundaryLocations.Count);
             Assert.AreEqual(2, failureMechanism.ForeshoreProfiles.Count);
-            Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsCalculation>(
-                ((CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[0]).Children[0]);
-            Assert.AreEqual(0, ((CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[1]).Children.Count);
-            Assert.IsInstanceOf<GrassCoverErosionOutwardsWaveConditionsCalculation>(
-                failureMechanism.WaveConditionsCalculationGroup.Children[2]);
+
+            var firstCalculationGroup = (CalculationGroup)failureMechanism.WaveConditionsCalculationGroup.Children[0];
+            Assert.AreEqual(1, firstCalculationGroup.Children.Count);
+            var calculationWithoutOutput = firstCalculationGroup.Children[0] as GrassCoverErosionOutwardsWaveConditionsCalculation;
+            Assert.NotNull(calculationWithoutOutput);
+            Assert.IsFalse(calculationWithoutOutput.HasOutput);
+
+            var emptyCalculationGroup = (CalculationGroup)failureMechanism.WaveConditionsCalculationGroup.Children[1];
+            Assert.AreEqual(0, emptyCalculationGroup.Children.Count);
+
+            var calculationWithOutput = failureMechanism.WaveConditionsCalculationGroup.Children[2] as GrassCoverErosionOutwardsWaveConditionsCalculation;
+            Assert.NotNull(calculationWithOutput);
+            Assert.IsTrue(calculationWithOutput.HasOutput);
         }
 
         private static void AssertStabilityStoneCoverFailureMechanism(AssessmentSection assessmentSection)
@@ -238,9 +263,14 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.NotNull(failureMechanism.CalculationsGroup);
             Assert.AreEqual(3, failureMechanism.CalculationsGroup.Children.Count);
 
-            Assert.AreEqual(1, ((CalculationGroup) failureMechanism.CalculationsGroup.Children[0]).Children.Count);
-            Assert.IsInstanceOf<StructuresCalculation<HeightStructuresInput>>(((CalculationGroup) failureMechanism.CalculationsGroup.Children[0]).Children[0]);
-            Assert.AreEqual(0, ((CalculationGroup) failureMechanism.CalculationsGroup.Children[1]).Children.Count);
+            var firstCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[0];
+            Assert.AreEqual(1, firstCalculationGroup.Children.Count);
+            var calculationWithOutput = firstCalculationGroup.Children[0] as StructuresCalculation<HeightStructuresInput>;
+            Assert.NotNull(calculationWithOutput);
+            Assert.IsTrue(calculationWithOutput.HasOutput);
+
+            var secondCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
+            Assert.AreEqual(0, secondCalculationGroup.Children.Count);
             Assert.IsInstanceOf<StructuresCalculation<HeightStructuresInput>>(failureMechanism.CalculationsGroup.Children[2]);
         }
 
