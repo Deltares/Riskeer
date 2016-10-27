@@ -78,6 +78,12 @@ namespace Ringtoets.Common.Service
 
         protected override bool Validate()
         {
+            if (AlreadyCalculated)
+            {
+                State = ActivityState.Skipped;
+                return true;
+            }
+
             return DesignWaterLevelCalculationService.Validate(
                 hydraulicBoundaryLocation.Name,
                 hydraulicBoundaryDatabaseFilePath,
@@ -86,11 +92,7 @@ namespace Ringtoets.Common.Service
 
         protected override void PerformCalculation()
         {
-            if (!double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel))
-            {
-                State = ActivityState.Skipped;
-            }
-            else
+            if (State != ActivityState.Skipped)
             {
                 RingtoetsCommonDataSynchronizationService.ClearDesignWaterLevel(hydraulicBoundaryLocation);
 
@@ -110,7 +112,15 @@ namespace Ringtoets.Common.Service
 
         protected override void OnFinish()
         {
-            // hydraulicBoundaryLocation.NotifyObservers();
+            // hydraulicBoundaryLocation.NotinfyObservers();
+        }
+
+        private bool AlreadyCalculated
+        {
+            get
+            {
+                return !double.IsNaN(hydraulicBoundaryLocation.DesignWaterLevel);
+            }
         }
     }
 }

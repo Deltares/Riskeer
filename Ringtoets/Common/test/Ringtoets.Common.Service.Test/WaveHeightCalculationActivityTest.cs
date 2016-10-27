@@ -203,7 +203,7 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Run_HydraulicLocationNonNaNWaveHeight_ValidationAndCalculationNotPerformedAndStateSkipped()
+        public void Run_HydraulicLocationWaveHeightSet_ValidationAndCalculationNotPerformedAndStateSkipped()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
@@ -230,7 +230,7 @@ namespace Ringtoets.Common.Service.Test
             Action call = () => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 2);
+            TestHelper.AssertLogMessagesCount(call, 0);
             Assert.AreEqual(ActivityState.Skipped, activity.State);
             mockRepository.VerifyAll();
         }

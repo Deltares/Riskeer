@@ -222,13 +222,12 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
-        public void Run_HydraulicLocationNonNaNDesignWaterLevel_ValidationAndCalculationNotPerformedAndStateSkipped()
+        public void Run_HydraulicLocationDesignWaterLevelSet_ValidationAndCalculationNotPerformedAndStateSkipped()
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
             const string locationName = "locationName";
             const string activityName = "GetActivityName";
-
 
             var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             calculationMessageProviderMock.Stub(calc => calc.GetActivityName(locationName)).Return(activityName);
@@ -250,7 +249,7 @@ namespace Ringtoets.Common.Service.Test
             Action call = () => activity.Run();
 
             // Assert
-            TestHelper.AssertLogMessagesCount(call, 2);
+            TestHelper.AssertLogMessagesCount(call, 0);
             Assert.AreEqual(ActivityState.Skipped, activity.State);
             mockRepository.VerifyAll();
         }
