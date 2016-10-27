@@ -240,36 +240,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        [TestCase(double.MinValue)]
-        [TestCase(double.MaxValue)]
-        public void SetFailureProbabilityStructureWithErosion_InvalidValues_ThrowsArgumentException(double newValue)
-        {
-            // Setup
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
-            mockRepository.ReplayAll();
-
-            var calculation = new StructuresCalculation<SimpleStructureInput>();
-            var inputContext = new SimpleInputContext(calculation.InputParameters,
-                                                      calculation,
-                                                      failureMechanismStub,
-                                                      assessmentSectionStub);
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
-            {
-                Data = inputContext
-            };
-
-            // Call
-            TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = newValue.ToString(CultureInfo.InvariantCulture);
-
-            // Assert
-            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void SetStructure_NullValue_AfterSettingStructureCalled()
         {
             // Setup
@@ -323,6 +293,36 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             // Assert
             Assert.IsTrue(properties.AfterSettingStructureCalled);
+        }
+
+        [Test]
+        [TestCase(double.MinValue)]
+        [TestCase(double.MaxValue)]
+        public void SetFailureProbabilityStructureWithErosion_InvalidValues_ThrowsArgumentException(double newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            var failureMechanismStub = mockRepository.Stub<IFailureMechanism>();
+            mockRepository.ReplayAll();
+
+            var calculation = new StructuresCalculation<SimpleStructureInput>();
+            var inputContext = new SimpleInputContext(calculation.InputParameters,
+                                                      calculation,
+                                                      failureMechanismStub,
+                                                      assessmentSectionStub);
+            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityStructureWithErosion = newValue.ToString(CultureInfo.InvariantCulture);
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
         }
 
         [Test]

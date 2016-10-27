@@ -21,12 +21,14 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.PropertyBag;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.ClosingStructures.Data;
@@ -262,6 +264,279 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(expectedFailureProbabilityOpenStructure, properties.FailureProbabilityReparation);
             Assert.AreEqual(newIdenticalApertures, properties.IdenticalApertures);
             Assert.AreEqual(expectedFailureProbabilityReparation, properties.ProbabilityOpenStructureBeforeFlooding);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(double.MinValue)]
+        [TestCase(double.MaxValue)]
+        public void SetProbabilityOpenStructureBeforeFlooding_InvalidValues_ThrowsArgumentException(double newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new ClosingStructuresInputContext(input,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.ProbabilityOpenStructureBeforeFlooding = newValue.ToString(CultureInfo.InvariantCulture);
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("no double value")]
+        [TestCase("")]
+        public void SetProbabilityOpenStructureBeforeFlooding_ValuesUnableToParse_ThrowsArgumentException(string newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new ClosingStructuresInputContext(input,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.ProbabilityOpenStructureBeforeFlooding = newValue;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetProbabilityOpenStructureBeforeFlooding_NullValue_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new ClosingStructuresInputContext(input,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.ProbabilityOpenStructureBeforeFlooding = null;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(double.MinValue)]
+        [TestCase(double.MaxValue)]
+        public void SetFailureProbabilityOpenStructure_InvalidValues_ThrowsArgumentException(double newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new ClosingStructuresInputContext(input,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityOpenStructure = newValue.ToString(CultureInfo.InvariantCulture);
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("no double value")]
+        [TestCase("")]
+        public void SetFailureProbabilityOpenStructure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new ClosingStructuresInputContext(input,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityOpenStructure = newValue;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetFailureProbabilityOpenStructure_NullValue_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new ClosingStructuresInputContext(input,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityOpenStructure = null;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(double.MinValue)]
+        [TestCase(double.MaxValue)]
+        public void SetFailureProbabilityReparation_InvalidValues_ThrowsArgumentException(double newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new ClosingStructuresInputContext(input,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityReparation = newValue.ToString(CultureInfo.InvariantCulture);
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("no double value")]
+        [TestCase("")]
+        public void SetFailureProbabilityReparation_ValuesUnableToParse_ThrowsArgumentException(string newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new ClosingStructuresInputContext(input,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityReparation = newValue;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetFailureProbabilityReparation_NullValue_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new ClosingStructuresInputContext(input,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityReparation = null;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
 
             mockRepository.VerifyAll();
         }
