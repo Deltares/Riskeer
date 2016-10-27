@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Read.WaveImpactAsphaltCover
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithDecimalParameterValues_ReturnWaveImpactAsphaltCoverSectionResultWithDoubleParameterValues(bool layerOne)
+        public void Read_WithDecimalParameterValues_ReturnSectionResultWithDoubleParameterValues(bool layerOne)
         {
             // Setup
             var random = new Random(21);

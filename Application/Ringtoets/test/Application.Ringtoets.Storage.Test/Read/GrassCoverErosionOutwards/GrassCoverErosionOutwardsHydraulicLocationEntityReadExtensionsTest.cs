@@ -89,7 +89,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
         [TestCase(double.MinValue, double.MinValue)]
         [TestCase(1.5, 1.5)]
         [TestCase(double.NaN, double.NaN)]
-        public void Read_DifferentDesignWaterLevel_ReturnHydraulicBoundaryLocationWithExpectedWaterLevel(double? waterLevel, double expectedWaterLevel)
+        public void Read_DifferentDesignWaterLevel_ReturnLocationWithWaterLevel(double? waterLevel, double expectedWaterLevel)
         {
             // Setup
             var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity
@@ -114,7 +114,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
         [TestCase(double.MinValue, double.MinValue)]
         [TestCase(1.5, 1.5)]
         [TestCase(double.NaN, double.NaN)]
-        public void Read_DifferentWaveHeight_ReturnHydraulicBoundaryLocationWithExpectedWaveHeight(double? waveHeight, double expectedWaveHeight)
+        public void Read_DifferentWaveHeight_ReturnLocationWithWaveHeight(double? waveHeight, double expectedWaveHeight)
         {
             // Setup
             var entity = new GrassCoverErosionOutwardsHydraulicLocationEntity

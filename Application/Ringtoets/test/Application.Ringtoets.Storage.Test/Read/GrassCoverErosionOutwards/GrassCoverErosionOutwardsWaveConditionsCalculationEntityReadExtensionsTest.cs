@@ -46,53 +46,53 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             get
             {
                 yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Caisson, 2.0, true,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half);
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWTrueFSTrueStepSizeHalf");
                 yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Dam, 2.0, true,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One);
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWTrueFSTrueStepSizeOne");
                 yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Wall, 2.0, true,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two);
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWTrueFSTrueStepSizeTwo");
 
                 yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Wall, 2.0, false,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half);
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWTrueFSFalseStepSizeHalf");
                 yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Dam, 2.0, false,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One);
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWTrueFSFalseStepSizeOne");
                 yield return new TestCaseData("N", "C", 1.0, true, BreakWaterType.Caisson, 2.0, false,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two);
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWTrueFSFalseStepSizeTwo");
 
                 yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, true,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half);
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWFalseFSTrueStepSizeHalf");
                 yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, true,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One);
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWFalseFSTrueStepSizeOne");
                 yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, true,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two);
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWFalseFSTrueStepSizeTwo");
 
                 yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, false,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half);
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWFalseFSFalseStepSizeHalf");
                 yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, false,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One);
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWFalseFSFalseStepSizeOne");
                 yield return new TestCaseData("N", "C", 1.0, false, BreakWaterType.Caisson, 2.0, false,
-                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two);
+                                              3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWFalseFSFalseStepSizeTwo");
 
                 yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, true,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half);
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half).SetName("NaNValuesWTrueFSTrueStepSizeHalf");
                 yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, true,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One);
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One).SetName("NaNValuesWTrueFSTrueStepSizeOne");
                 yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, true,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two);
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two).SetName("NaNValuesWTrueFSTrueStepSizeTwo");
 
                 yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, false,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half);
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half).SetName("NaNValuesWTrueFSFalseStepSizeHalf");
                 yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, false,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One);
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One).SetName("NaNValuesWTrueFSFalseStepSizeOne");
                 yield return new TestCaseData(null, null, double.NaN, true, BreakWaterType.Caisson, double.NaN, false,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two);
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two).SetName("NaNValuesWTrueFSFalseStepSizeTwo");
 
                 yield return new TestCaseData(null, null, double.NaN, false, BreakWaterType.Caisson, double.NaN, false,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half);
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half).SetName("NaNValuesWFalseFSTrueStepSizeHalf");
                 yield return new TestCaseData(null, null, double.NaN, false, BreakWaterType.Caisson, double.NaN, false,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One);
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One).SetName("NaNValuesWFalseFSFalseStepSizeOne");
                 yield return new TestCaseData(null, null, double.NaN, false, BreakWaterType.Caisson, double.NaN, false,
-                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two);
+                                              double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two).SetName("NaNValuesWFalseFSFalseStepSizeTwo");
             }
         }
 
@@ -112,7 +112,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
 
         [Test]
         [TestCaseSource("ValidWaveConditionsInputs")]
-        public void Read_ValidEntity_ReturnGrassCoverErosionOutwardsWaveConditionsCalculation(
+        public void Read_ValidEntity_ReturnCalculation(
             string name, string comments,
             double orientation, bool useBreakWater, BreakWaterType breakWaterType, double breakWaterHeight, bool useForeshore, double lowerBoundaryRevetment,
             double upperBoundaryRevetment, double lowerBoundaryWaterLevels,

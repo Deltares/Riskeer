@@ -49,7 +49,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
         [Test]
-        public void Run_HeightStructuresCalculationInvalidHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
+        public void Run_CalculationInvalidHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike)
@@ -87,7 +87,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        public void Run_HeightStructuresCalculationWithoutHydraulicBoundaryLocation_LogValidationStartAndEndWithError()
+        public void Run_CalculationWithoutHydraulicBoundaryLocation_LogValidationStartAndEndWithError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -132,7 +132,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        public void Run_HeightStructuresCalculationWithoutStructure_LogValidationStartAndEndWithError()
+        public void Run_CalculationWithoutStructure_LogValidationStartAndEndWithError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -176,7 +176,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        public void Run_HeightStructuresCalculationInValidDeviationWaveDirection_LogValidationStartAndEndWithError()
+        public void Run_CalculationInValidDeviationWaveDirection_LogValidationStartAndEndWithError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -224,7 +224,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        public void Run_HeightStructuresCalculationInvalidStructureNormalOrientation_LogValidationStartAndEndWithError()
+        public void Run_CalculationInvalidStructureNormalOrientation_LogValidationStartAndEndWithError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -271,7 +271,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
         [Test]
         [TestCaseSource("NormalDistributionsWithInvalidMean")]
-        public void Run_HeightStructuresCalculationInvalidNormalDistributionMeans_LogValidationStartAndEndWithError(double meanOne, double meanTwo, double meanThree, string parameterName)
+        public void Run_CalculationInvalidNormalDistributionMeans_LogValidationStartAndEndWithError(double meanOne, double meanTwo, double meanThree, string parameterName)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -322,8 +322,8 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
         [Test]
         [TestCaseSource("LogNormalDistributionsWithInvalidMean")]
-        public void Run_HeightStructuresCalculationInvalidLogNormalDistributionMeans_LogValidationStartAndEndWithError(double meanOne, double meanTwo, double meanThree,
-                                                                                                                       double meanFour, double meanFive, string parameterName)
+        public void Run_CalculationInvalidLogNormalDistributionMeans_LogValidationStartAndEndWithError(double meanOne, double meanTwo, double meanThree,
+                                                                                                       double meanFour, double meanFive, string parameterName)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -375,8 +375,8 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
         [Test]
         [TestCaseSource("DistributionsWithInvalidDeviation")]
-        public void Run_HeightStructuresCalculationDistributionInvalidStandardDeviation_LogValidationStartAndEndWithError(double deviationOne, double deviationTwo,
-                                                                                                                          double deviationThree, double deviationFour, string parameterName)
+        public void Run_CalculationDistributionInvalidStandardDeviation_LogStartAndEndAndError(double deviationOne, double deviationTwo,
+                                                                                               double deviationThree, double deviationFour, string parameterName)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -427,8 +427,8 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
         [Test]
         [TestCaseSource("DistributionsWithInvalidCoefficient")]
-        public void Run_HeightStructuresCalculationDistributionInvalidVariationCoefficient_LogValidationStartAndEndWithError(double coefficientOne, double coefficientTwo,
-                                                                                                                             double coefficientThree, double coefficientFour, string parameterName)
+        public void Run_CalculationDistributionInvalidVariationCoefficient_LogValidationStartAndEndWithError(double coefficientOne, double coefficientTwo,
+                                                                                                             double coefficientThree, double coefficientFour, string parameterName)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -478,7 +478,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        public void Run_ValidHeightStructuresCalculation_PerformHeightStructuresValidationAndCalculationAndLogStartAndEnd()
+        public void Run_ValidCalculation_PerformHeightStructuresValidationAndCalculationAndLogStartAndEnd()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -528,7 +528,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        public void Run_InValidHeightStructuresCalculationAndRan_PerformHeightStructuresValidationAndCalculationAndLogStartAndEndAndError()
+        public void Run_InValidCalculationAndRan_PerformHeightStructuresValidationAndCalculationAndLogStartAndEndAndError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -577,7 +577,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        public void Finish_ValidHeightStructuresCalculationAndRan_SetsOutputAndNotifyObserversOfHeightStructuresCalculation()
+        public void Finish_ValidCalculationAndRan_SetsOutputAndNotifyObserversOfCalculation()
         {
             // Setup
             var mocks = new MockRepository();
@@ -625,7 +625,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        public void Finish_InValidHeightStructuresCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfHeightStructuresCalculation()
+        public void Finish_InValidCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfCalculation()
         {
             // Setup
             var mocks = new MockRepository();

@@ -163,8 +163,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "Create_WithCalculationGroup_ReturnFMEntityWithCalculationGroupEntities(true)")]
+        [TestCase(false, TestName = "Create_WithCalculationGroup_ReturnFMEntityWithCalculationGroupEntities(false)")]
         public void Create_WithCalculationGroup_ReturnFailureMechanismEntityWithCalculationGroupEntities(bool isRelevant)
         {
             // Setup
@@ -196,8 +196,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
+        [TestCase(true, TestName = "Create_WithBoundaryLocation_ReturnFMEntityWithCalculationGroupEntities(true)")]
+        [TestCase(false, TestName = "Create_WithBoundaryLocation_ReturnFMEntityWithCalculationGroupEntities(false)")]
         public void Create_WithGrassCoverErosionOutwardHydraulicBoundaryLocation_ReturnFailureMechanismEntityWithCalculationGroupEntities(bool isRelevant)
         {
             // Setup

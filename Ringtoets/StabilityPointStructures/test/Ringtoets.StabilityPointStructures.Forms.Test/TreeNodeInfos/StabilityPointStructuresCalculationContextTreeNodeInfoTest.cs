@@ -259,7 +259,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
+        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemPerformCalculationAndValidationDisabledAndTooltipSet()
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -284,12 +284,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                                                                   "Er is geen vakindeling geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.CalculateIcon,
                                                                   false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
+                                                                  "&Valideren",
+                                                                  "Er is geen vakindeling geïmporteerd.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon,
+                                                                  false);
                 }
             }
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
+        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemPerformCalculationAndValidationDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
@@ -319,12 +325,18 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                                                                   "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
                                                                   RingtoetsCommonFormsResources.CalculateIcon,
                                                                   false);
+
+                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
+                                                                  "&Valideren",
+                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon,
+                                                                  false);
                 }
             }
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemPerformCalculationDisabledAndTooltipSet()
+        public void ContextMenuStrip_FailureMechanismSectionsSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemPerformCalculationAndValidationDisabledAndTooltipSet()
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
@@ -351,18 +363,25 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
                 {
                     // Assert
-                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuCalculateIndex];
+                    ToolStripItem calculateContextMenuItem = contextMenu.Items[contextMenuCalculateIndex];
 
-                    Assert.AreEqual("Be&rekenen", contextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. ", contextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateIcon, contextMenuItem.Image);
-                    Assert.IsFalse(contextMenuItem.Enabled);
+                    Assert.AreEqual("Be&rekenen", calculateContextMenuItem.Text);
+                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. ", calculateContextMenuItem.ToolTipText);
+                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.CalculateIcon, calculateContextMenuItem.Image);
+                    Assert.IsFalse(calculateContextMenuItem.Enabled);
+
+                    ToolStripItem validateContextMenuItem = contextMenu.Items[contextMenuValidateIndex];
+
+                    Assert.AreEqual("&Valideren", validateContextMenuItem.Text);
+                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt.", validateContextMenuItem.ToolTipText);
+                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateIcon, validateContextMenuItem.Image);
+                    Assert.IsFalse(validateContextMenuItem.Enabled);
                 }
             }
         }
 
         [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicBoundaryDatabaseSet_ContextMenuItemPerformCalculationEnabled()
+        public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicBoundaryDatabaseSet_ContextMenuItemPerformCalculationAndValidationEnabled()
         {
             // Setup
             var guiMock = mocks.StrictMock<IGui>();
@@ -401,150 +420,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                                                                   "Be&rekenen",
                                                                   "Voer deze berekening uit.",
                                                                   RingtoetsCommonFormsResources.CalculateIcon);
-                }
-            }
-        }
 
-        [Test]
-        public void ContextMenuStrip_NoFailureMechanismSections_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
-            var guiMock = mocks.StrictMock<IGui>();
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
-                plugin.Gui = guiMock;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
-                                                                  "&Valideren",
-                                                                  "Er is geen vakindeling geïmporteerd.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetNoHydraulicBoundaryDatabase_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
-        {
-            // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
-
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
-                plugin.Gui = guiMock;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
-                                                                  "&Valideren",
-                                                                  "Er is geen hydraulische randvoorwaardendatabase geïmporteerd.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon,
-                                                                  false);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsSetHydraulicBoundaryDatabaseNotValid_ContextMenuItemValidateCalculationDisabledAndTooltipSet()
-        {
-            // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
-
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
-                plugin.Gui = guiMock;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    ToolStripItem contextMenuItem = contextMenu.Items[contextMenuValidateIndex];
-
-                    Assert.AreEqual("&Valideren", contextMenuItem.Text);
-                    StringAssert.Contains("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt.", contextMenuItem.ToolTipText);
-                    TestHelper.AssertImagesAreEqual(RingtoetsCommonFormsResources.ValidateIcon, contextMenuItem.Image);
-                    Assert.IsFalse(contextMenuItem.Enabled);
-                }
-            }
-        }
-
-        [Test]
-        public void ContextMenuStrip_FailureMechanismSectionsAndHydraulicBoundaryDatabaseSet_ContextMenuItemValidateCalculationEnabled()
-        {
-            // Setup
-            var guiMock = mocks.StrictMock<IGui>();
-            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                FilePath = validFilePath,
-                Version = "1.0"
-            };
-
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-            failureMechanism.AddSection(new FailureMechanismSection("test", new[]
-            {
-                new Point2D(0, 0)
-            }));
-
-            var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
-            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
-            var nodeData = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionMock);
-
-            using (var treeViewControl = new TreeViewControl())
-            {
-                guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
-                mocks.ReplayAll();
-
-                plugin.Gui = guiMock;
-
-                // Call
-                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(nodeData, null, treeViewControl))
-                {
-                    // Assert
-                    TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
-                                                                  "&Valideren",
-                                                                  "Valideer de invoer voor deze berekening.",
-                                                                  RingtoetsCommonFormsResources.ValidateIcon);
+                                                                 "&Valideren",
+                                                                 "Valideer de invoer voor deze berekening.",
+                                                                 RingtoetsCommonFormsResources.ValidateIcon);
                 }
             }
         }

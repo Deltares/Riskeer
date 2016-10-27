@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithDecimalParameterValues_ReturnStabilityPointStructuresSectionResultWithDoubleParameterValues(bool layerOne)
+        public void Read_WithDecimalParameterValues_ReturnSectionResultWithDoubleParameterValues(bool layerOne)
         {
             // Setup
             var random = new Random(21);

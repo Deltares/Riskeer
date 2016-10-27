@@ -286,9 +286,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         }
 
         [Test]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity, TestName = "Run_CalculationForeshoreNoBWInvalidBWHeight_PerformAndLog(negativeInfinity)")]
+        [TestCase(double.PositiveInfinity, TestName = "Run_CalculationForeshoreNoBWInvalidBWHeight_PerformAndLog(positiveInfinity)")]
+        [TestCase(double.NaN, TestName = "Run_CalculationForeshoreNoBWInvalidBWHeight_PerformAndLog(NaN)")]
         public void Run_CalculationWithForeshoreAndDoesNotUseBreakWaterAndHasInvalidBreakWaterHeight_PerformCalculationAndLogStartEnd(double breakWaterHeight)
         {
             // Setup
@@ -337,9 +337,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         }
 
         [Test]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity, TestName = "Run_CalculationWithForeshoreBWInvalidBWHeight_LogNotPerform(negativeInfinity)")]
+        [TestCase(double.PositiveInfinity, TestName = "Run_CalculationWithForeshoreBWInvalidBWHeight_LogNotPerform(positiveInfinity)")]
+        [TestCase(double.NaN, TestName = "Run_CalculationWithForeshoreBWInvalidBWHeight_LogNotPerform(NaN)")]
         public void Run_CalculationWithForeshoreAndUsesBreakWaterAndHasInvalidBreakWaterHeight_DoesNotPerformCalculationAndLogStartEnd(double breakWaterHeight)
         {
             // Setup
@@ -379,7 +379,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
         [TestCase(CalculationType.NoForeshore)]
         [TestCase(CalculationType.ForeshoreWithoutBreakWater)]
         [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
-        public void Run_CalculationWithValidInputConditionsAndValidForeshore_LogCalculationStartAndErrorAndEnd(CalculationType calculationType)
+        public void Run_CalculationValidValidateForeshore_LogStartErrorEnd(CalculationType calculationType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);

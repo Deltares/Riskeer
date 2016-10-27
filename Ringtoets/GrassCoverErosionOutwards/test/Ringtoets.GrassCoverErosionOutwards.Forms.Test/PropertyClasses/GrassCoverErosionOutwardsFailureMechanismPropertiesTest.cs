@@ -160,7 +160,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [TestCase(1)]
         [TestCase(10)]
         [TestCase(20)]
-        public void LengthEffect_NewValueSet_HydraulicBoundaryLocationsClearedNotifyObserversAndLogged(int value)
+        public void LengthEffect_NewValueSet_ClearHydraulicBoundaryLocationsNotifyObserversAndLog(int value)
         {
             // Setup
             var mockRepository = new MockRepository();

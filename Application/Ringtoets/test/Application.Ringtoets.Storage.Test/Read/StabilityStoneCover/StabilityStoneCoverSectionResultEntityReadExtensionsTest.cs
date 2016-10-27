@@ -51,7 +51,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityStoneCover
         [TestCase(true, AssessmentLayerTwoAResult.Failed)]
         [TestCase(false, AssessmentLayerTwoAResult.Successful)]
         [TestCase(false, AssessmentLayerTwoAResult.Failed)]
-        public void Read_WithDecimalParameterValues_ReturnStabilityStoneCoverSectionResultWithDoubleParameterValues(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
+        public void Read_WithDecimalParameterValues_ReturnSectionResultWithDoubleParameterValues(bool layerOne, AssessmentLayerTwoAResult layerTwoA)
         {
             // Setup
             var random = new Random(21);

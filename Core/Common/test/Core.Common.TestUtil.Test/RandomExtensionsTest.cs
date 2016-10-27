@@ -80,7 +80,6 @@ namespace Core.Common.TestUtil.Test
         [TestCase(-10, 0)]
         [TestCase(0, 0)]
         [TestCase(0, 10)]
-        [TestCase(0, 10)]
         public void GetFromRange_VariousLimits_RandomNumberBetweenLimits(double lowerLimit, double upperLimit)
         {
             // Setup

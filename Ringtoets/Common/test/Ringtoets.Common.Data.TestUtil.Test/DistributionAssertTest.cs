@@ -93,7 +93,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         StandardDeviation = (RoundedDouble) 2
-                    });
+                    }).SetName("IdenticalNormalDistribution");
                 yield return new TestCaseData(
                     new LogNormalDistribution(2)
                     {
@@ -104,7 +104,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         StandardDeviation = (RoundedDouble) 2
-                    });
+                    }).SetName("IdenticalLogNormalDistribution");
             }
         }
 
@@ -122,7 +122,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         CoefficientOfVariation = (RoundedDouble) 2
-                    });
+                    }).SetName("IdenticalLogVariationCoefficientNormalDistribution");
                 yield return new TestCaseData(
                     new VariationCoefficientLogNormalDistribution(2)
                     {
@@ -133,7 +133,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         CoefficientOfVariation = (RoundedDouble) 2
-                    });
+                    }).SetName("IdenticalLogVariationCoefficientLogNormalDistribution");
             }
         }
 
@@ -151,7 +151,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         StandardDeviation = (RoundedDouble) 2
-                    });
+                    }).SetName("DifferentDistributionTypes");
                 yield return new TestCaseData(
                     new NormalDistribution(2)
                     {
@@ -162,7 +162,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         StandardDeviation = (RoundedDouble) 2
-                    });
+                    }).SetName("DifferentRoundingNormalDistribution");
                 yield return new TestCaseData(
                     new LogNormalDistribution(2)
                     {
@@ -173,7 +173,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         StandardDeviation = (RoundedDouble) 2
-                    });
+                    }).SetName("DifferentRoundingLogNormalDistribution");
                 yield return new TestCaseData(
                     new NormalDistribution(2)
                     {
@@ -184,7 +184,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 2,
                         StandardDeviation = (RoundedDouble) 2
-                    });
+                    }).SetName("DifferentMeanNormalDistribution");
                 yield return new TestCaseData(
                     new LogNormalDistribution(2)
                     {
@@ -195,7 +195,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 2,
                         StandardDeviation = (RoundedDouble) 2
-                    });
+                    }).SetName("DifferentMeanLogNormalDistribution");
                 yield return new TestCaseData(
                     new NormalDistribution(2)
                     {
@@ -206,7 +206,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         StandardDeviation = (RoundedDouble) 2
-                    });
+                    }).SetName("DifferentStandardDeviationNormalDistribution");
                 yield return new TestCaseData(
                     new LogNormalDistribution(2)
                     {
@@ -217,7 +217,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         StandardDeviation = (RoundedDouble) 2
-                    });
+                    }).SetName("DifferentStandardDeviationLogNormalDistribution");
             }
         }
 
@@ -235,7 +235,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         CoefficientOfVariation = (RoundedDouble) 2
-                    });
+                    }).SetName("DifferentVariationCoefficientDistributionTypes");
                 yield return new TestCaseData(
                     new VariationCoefficientNormalDistribution(2)
                     {
@@ -246,7 +246,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         CoefficientOfVariation = (RoundedDouble) 2
-                    });
+                    }).SetName("DifferentRoundingVariationCoefficientNormalDistribution");
                 yield return new TestCaseData(
                     new VariationCoefficientLogNormalDistribution(2)
                     {
@@ -257,7 +257,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         CoefficientOfVariation = (RoundedDouble) 2
-                    });
+                    }).SetName("DifferentRoundingVariationCoefficientLogNormalDistribution");
                 yield return new TestCaseData(
                     new VariationCoefficientNormalDistribution(2)
                     {
@@ -268,7 +268,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 2,
                         CoefficientOfVariation = (RoundedDouble) 2
-                    });
+                    }).SetName("DifferentMeanVariationCoefficientNormalDistribution");
                 yield return new TestCaseData(
                     new VariationCoefficientLogNormalDistribution(2)
                     {
@@ -279,7 +279,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 2,
                         CoefficientOfVariation = (RoundedDouble) 2
-                    });
+                    }).SetName("DifferentMeanVariationCoefficientLogNormalDistribution");
                 yield return new TestCaseData(
                     new VariationCoefficientNormalDistribution(2)
                     {
@@ -290,7 +290,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         CoefficientOfVariation = (RoundedDouble) 2
-                    });
+                    }).SetName("DifferentStandardDeviationVariationCoefficientNormalDistribution");
                 yield return new TestCaseData(
                     new VariationCoefficientLogNormalDistribution(2)
                     {
@@ -301,7 +301,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
                     {
                         Mean = (RoundedDouble) 1,
                         CoefficientOfVariation = (RoundedDouble) 2
-                    });
+                    }).SetName("DifferentStandardDeviationVariationCoefficientLogNormalDistribution");
             }
         }
 

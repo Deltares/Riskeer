@@ -287,9 +287,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         }
 
         [Test]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity, TestName = "Run_CalculationWithForeshoreNoBWInvalidBWHeight_PerformAndLog(negativeInfinity)")]
+        [TestCase(double.PositiveInfinity, TestName = "Run_CalculationWithForeshoreNoBWInvalidBWHeight_PerformAndLog(positiveInfinity)")]
+        [TestCase(double.NaN, TestName = "Run_CalculationWithForeshoreNoBWInvalidBWrHeight_PerformAndLog(NaN)")]
         public void Run_CalculationWithForeshoreAndDoesNotUseBreakWaterAndHasInvalidBreakWaterHeight_PerformCalculationAndLogStartEnd(double breakWaterHeight)
         {
             // Setup
@@ -350,9 +350,9 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         }
 
         [Test]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity, TestName = "Run_CalculationWithForeshoreBreakWaterInvalidBreakWaterHeight_LogNotPerform(negativeInfinity)")]
+        [TestCase(double.PositiveInfinity, TestName = "Run_CalculationWithForeshoreBreakWaterInvalidBreakWaterHeight_LogNotPerform(positiveInfinity)")]
+        [TestCase(double.NaN, TestName = "Run_CalculationWithForeshoreBreakWaterInvalidBreakWaterHeight_LogNotPerform(NaN)")]
         public void Run_CalculationWithForeshoreAndUsesBreakWaterAndHasInvalidBreakWaterHeight_DoesNotPerformCalculationAndLogStartEnd(double breakWaterHeight)
         {
             // Setup
@@ -404,7 +404,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Integration.Test
         [TestCase(CalculationType.NoForeshore)]
         [TestCase(CalculationType.ForeshoreWithoutBreakWater)]
         [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
-        public void Run_CalculationWithValidInputConditionsValidateForeshoreProfile_PerformCalculationLogCalculationStartAndErrorAndEnd(CalculationType calculationType)
+        public void Run_CalculationValidateForeshoreProfile_PerformLogStartErrorEnd(CalculationType calculationType)
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);

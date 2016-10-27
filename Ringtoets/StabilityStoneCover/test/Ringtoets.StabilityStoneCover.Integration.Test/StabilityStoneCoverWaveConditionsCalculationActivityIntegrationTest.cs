@@ -296,9 +296,9 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         }
 
         [Test]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity, TestName = "Run_CalculationWithForeshoreNoBreakWaterInvalidBreakWaterHeight_PerformAndLog(negativeInfinity)")]
+        [TestCase(double.PositiveInfinity, TestName = "Run_CalculationWithForeshoreNoBreakWaterInvalidBreakWaterHeight_PerformAndLog(positiveInfinity)")]
+        [TestCase(double.NaN, TestName = "Run_CalculationWithForeshoreNoBreakWaterInvalidBreakWaterHeight_PerformAndLog(NaN)")]
         public void Run_CalculationWithForeshoreAndDoesNotUseBreakWaterAndHasInvalidBreakWaterHeight_PerformCalculationAndLogStartAndEnd(double breakWaterHeight)
         {
             // Setup
@@ -360,9 +360,9 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         }
 
         [Test]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity, TestName = "Run_CalculationWithForeshoreAndBreakWaterInvalidBreakWaterHeight_LogNotPerform(negativeInfinity)")]
+        [TestCase(double.PositiveInfinity, TestName = "Run_CalculationWithForeshoreAndBreakWaterInvalidBreakWaterHeight_LogNotPerform(positiveInfinity)")]
+        [TestCase(double.NaN, TestName = "Run_CalculationWithForeshoreAndBreakWaterInvalidBreakWaterHeight_LogNotPerform(NaN)")]
         public void Run_CalculationWithForeshoreAndUsesBreakWaterAndHasInvalidBreakWaterHeight_DoesNotPerformCalculationAndLogStartEnd(double breakWaterHeight)
         {
             // Setup
@@ -403,7 +403,7 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
         [TestCase(CalculationType.NoForeshore)]
         [TestCase(CalculationType.ForeshoreWithoutBreakWater)]
         [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
-        public void Run_CalculationWithValidInputConditionsAndValidForeshore_LogCalculationStartAndEnd(CalculationType calculationType)
+        public void Run_CalculationWithValidInputAndValidForeshore_LogStartAndEnd(CalculationType calculationType)
         {
             // Setup
             var mockRepository = new MockRepository();

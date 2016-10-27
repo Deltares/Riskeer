@@ -43,21 +43,21 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
         {
             get
             {
-                yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half);
-                yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One);
-                yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two);
+                yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWTrueStepSizeHalf");
+                yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWTrueStepSizeOne");
+                yield return new TestCaseData(1.0, true, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWTrueStepSizeTwo");
 
-                yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half);
-                yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One);
-                yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two);
+                yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Half).SetName("ValuesSetBWFalseStepSizeHalf");
+                yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.One).SetName("ValuesSetBWFalseStepSizeOne");
+                yield return new TestCaseData(1.0, false, 3.58, 6.10, 3.40, 5.88, WaveConditionsInputStepSize.Two).SetName("ValuesSetBWFalseStepSizeTwo");
 
-                yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half);
-                yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One);
-                yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two);
+                yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half).SetName("NaNValuesBWTrueStepSizeHalf");
+                yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One).SetName("NaNValuesBWTrueStepSizeOne");
+                yield return new TestCaseData(double.NaN, true, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two).SetName("NaNValuesBWTrueStepSizeTwo");
 
-                yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half);
-                yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One);
-                yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two);
+                yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Half).SetName("NaNValuesBWFalseStepSizeHalf");
+                yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.One).SetName("NaNValuesBWFalseStepSizeOne");
+                yield return new TestCaseData(double.NaN, false, double.NaN, double.NaN, double.NaN, double.NaN, WaveConditionsInputStepSize.Two).SetName("NaNValuesBWFalseStepSizeTwo");
             }
         }
 
@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityStoneCover
 
         [Test]
         [TestCaseSource("ValidWaveConditionsInputs")]
-        public void Create_StabilityStoneCoverWaveConditionsCalculationWithPropertiesSet_ReturnStabilityStoneCoverWaveConditionsCalculationEntity(
+        public void Create_CalculationWithPropertiesSet_ReturnCalculationEntity(
             double orientation, bool useBreakWater, double lowerBoundaryRevetment,
             double upperBoundaryRevetment, double lowerBoundaryWaterLevels,
             double upperBoundaryWaterLevels, WaveConditionsInputStepSize stepSize)

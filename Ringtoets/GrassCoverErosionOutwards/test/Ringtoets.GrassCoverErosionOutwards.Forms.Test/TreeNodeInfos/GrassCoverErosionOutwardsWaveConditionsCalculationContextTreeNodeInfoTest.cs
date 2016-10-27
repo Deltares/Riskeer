@@ -760,9 +760,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        [TestCase(true)]
-        [TestCase(false)]
-        public void AssessmentSection_WithOrWithoutValidPath_CalculationItemEnabledOrDisabled(bool validPath)
+        [TestCase(true, TestName = "AssessmentSection_WithOrWithoutPath_CalculateEnabledOrDisabled(true)")]
+        [TestCase(false, TestName = "AssessmentSection_WithOrWithoutPath_CalculateEnabledOrDisabled(false)")]
+        public void AssessmentSection_WithOrWithoutValidPath_CalculateItemEnabledOrDisabled(bool validPath)
         {
             // Setup
             var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();

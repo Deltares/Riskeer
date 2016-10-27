@@ -145,7 +145,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
+        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithLocationAndOutput_ClearsHydraulicBoundaryLocationAndCalculationsAndReturnsAffectedCalculations()
         {
             // Setup
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();
@@ -192,7 +192,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithHydraulicBoundaryLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
+        public void ClearAllWaveConditionsCalculationOutputAndHydraulicBoundaryLocations_CalculationsWithLocationNoOutput_ClearsHydraulicBoundaryLocationAndReturnsAffectedCalculations()
         {
             // Setup
             GrassCoverErosionOutwardsFailureMechanism failureMechanism = new GrassCoverErosionOutwardsFailureMechanism();

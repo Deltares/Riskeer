@@ -220,9 +220,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity, TestName = "Validate_CalculationWithForeshoreBreakWaterAndInvalidBreakWaterHeight_LogAndReturnFalse(negativeInfinity)")]
+        [TestCase(double.PositiveInfinity, TestName = "Validate_CalculationWithForeshoreBreakWaterAndInvalidBreakWaterHeight_LogAndReturnFalse(positiveInfinity)")]
+        [TestCase(double.NaN, TestName = "Validate_CalculationWithForeshoreBreakWaterAndInvalidBreakWaterHeight_LogAndReturnFalse(NaN)")]
         public void Validate_CalculationWithForeshoreAndUsesBreakWaterAndHasInvalidBreakWaterHeight_LogsValidationMessageAndReturnFalse(double breakWaterHeight)
         {
             // Setup
@@ -254,10 +254,11 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Assert.IsFalse(isValid);
             }
         }
+        
         [Test]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NegativeInfinity)]
-        [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity, TestName = "Calculate_CalculationWithForeshoreNoBreakWaterAndInvalidBreakWaterHeight_PerformAndLog(negativeInfinity)")]
+        [TestCase(double.PositiveInfinity, TestName = "Calculate_CalculationWithForeshoreNoBreakWaterAndInvalidBreakWaterHeight_PerformAndLog(positiveInfinity)")]
+        [TestCase(double.NaN, TestName = "Calculate_CalculationWithForeshoreAndBreakWaterNoInvalidBreakWaterHeight_PerformAndLog(NaN)")]
         public void Calculate_CalculationWithForeshoreAndDoesNotUseBreakWaterAndHasInvalidBreakWaterHeight_PerformCalculationAndLogStartAndEnd(double breakWaterHeight)
         {
             // Setup
@@ -306,7 +307,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         [TestCase(CalculationType.NoForeshore)]
         [TestCase(CalculationType.ForeshoreWithoutBreakWater)]
         [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
-        public void Calculate_CalculationWithValidInputConditionsAndValidForeshore_LogCalculationStartAndEnd(CalculationType calculationType)
+        public void Run_CalculationWithValidInputAndValidForeshore_LogStartAndEnd(CalculationType calculationType)
         {
             // Setup
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
