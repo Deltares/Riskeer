@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using log4net;
@@ -61,7 +61,7 @@ namespace Ringtoets.ClosingStructures.Service
         /// <param name="failureMechanism">The <see cref="ClosingStructuresFailureMechanism"/> that holds the information about the contribution 
         /// and the general inputs used in the calculation.</param>
         /// <param name="hlcdFilePath">The filepath of the HLCD file that should be used for performing the calculation.</param>
-        /// <exception cref="NotSupportedException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/> is an invalid
+        /// <exception cref="InvalidEnumArgumentException">Thrown when <see cref="ClosingStructuresInput.InflowModelType"/> is an invalid
         /// <see cref="ClosingStructureInflowModelType"/>.</exception>
         public void Calculate(StructuresCalculation<ClosingStructuresInput> calculation,
                               IAssessmentSection assessmentSection,
@@ -147,7 +147,9 @@ namespace Ringtoets.ClosingStructures.Service
                     input = CreateFloodedCulvertCalculationInput(calculation, failureMechanismSection, failureMechanism.GeneralInput);
                     break;
                 default:
-                    throw new NotSupportedException("ClosingStructureInflowModelType");
+                    throw new InvalidEnumArgumentException("calculation",
+                                                           (int) calculation.InputParameters.InflowModelType,
+                                                           typeof(ClosingStructureInflowModelType));
             }
             return input;
         }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Geometry;
@@ -170,8 +171,8 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
                 // Assert
                 Assert.AreEqual(0, calculationInputs.Length);
-                var exception = Assert.Throws<NotSupportedException>(call);
-                Assert.AreEqual("ClosingStructureInflowModelType", exception.Message);
+                var exception = Assert.Throws<InvalidEnumArgumentException>(call);
+                Assert.AreEqual("calculation", exception.ParamName);
             }
             mockRepository.VerifyAll();
         }
