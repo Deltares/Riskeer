@@ -61,5 +61,15 @@ namespace Core.Common.TestUtil
             }
             return randomValue;
         }
+
+        /// <summary>
+        /// Returns a random boolean value.
+        /// </summary>
+        /// <param name="random">A pseudo-random number generator.</param>
+        /// <returns>A new random boolean value.</returns>
+        public static bool NextBoolean(this Random random)
+        {
+            return Convert.ToBoolean(random.Next(0, 2));
+        }
     }
 }

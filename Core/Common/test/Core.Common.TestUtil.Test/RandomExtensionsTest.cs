@@ -93,5 +93,20 @@ namespace Core.Common.TestUtil.Test
             Assert.LessOrEqual(randomValue, upperLimit);
             Assert.GreaterOrEqual(randomValue, lowerLimit);
         }
+
+        [Test]
+        [TestCase(0, true)]
+        [TestCase(1, false)]
+        public void NextBoolean_ReturnRandomTrueOrFalse(int seed, bool expectedFirstCallResult)
+        {
+            // Setup
+            var random = new Random(seed);
+
+            // Call
+            bool result = random.NextBoolean();
+
+            // Assert
+            Assert.AreEqual(expectedFirstCallResult, result);
+        }
     }
 }
