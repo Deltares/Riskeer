@@ -237,13 +237,14 @@ namespace Demo.Ringtoets.Commands
         private static void InitializeHeightStructuresData(AssessmentSection demoAssessmentSection)
         {
             HeightStructuresFailureMechanism failureMechanism = demoAssessmentSection.HeightStructures;
-            failureMechanism.HeightStructures.Add(CreateDemoHeightStructure());
+            HeightStructure heightStructure = CreateDemoHeightStructure();
+            failureMechanism.HeightStructures.Add(heightStructure);
 
             var calculation = new StructuresCalculation<HeightStructuresInput>();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.DeviationWaveDirection = (RoundedDouble) 10.0;
-            calculation.InputParameters.Structure = CreateDemoHeightStructure();
+            calculation.InputParameters.Structure = heightStructure;
             calculation.InputParameters.NotifyObservers();
         }
 
@@ -295,13 +296,14 @@ namespace Demo.Ringtoets.Commands
         private static void InitializeClosingStructuresData(AssessmentSection demoAssessmentSection)
         {
             ClosingStructuresFailureMechanism failureMechanism = demoAssessmentSection.ClosingStructures;
-            failureMechanism.ClosingStructures.Add(CreateDemoClosingStructure());
+            ClosingStructure closingStructure = CreateDemoClosingStructure();
+            failureMechanism.ClosingStructures.Add(closingStructure);
 
             var calculation = new StructuresCalculation<ClosingStructuresInput>();
             failureMechanism.CalculationsGroup.Children.Add(calculation);
             calculation.InputParameters.HydraulicBoundaryLocation = demoAssessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001);
             calculation.InputParameters.DeviationWaveDirection = (RoundedDouble) 10.0;
-            calculation.InputParameters.Structure = CreateDemoClosingStructure();
+            calculation.InputParameters.Structure = closingStructure;
             calculation.InputParameters.NotifyObservers();
         }
 
