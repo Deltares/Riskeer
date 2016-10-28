@@ -28,9 +28,8 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
@@ -251,7 +250,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = CreateAssessmentSectionStub(waveImpactAsphaltCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -296,7 +296,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = CreateAssessmentSectionStub(waveImpactAsphaltCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             switch (calculationType)
@@ -353,7 +354,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = CreateAssessmentSectionStub(waveImpactAsphaltCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -403,7 +405,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = CreateAssessmentSectionStub(waveImpactAsphaltCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -431,7 +434,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = CreateAssessmentSectionStub(waveImpactAsphaltCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -461,7 +465,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = CreateAssessmentSectionStub(waveImpactAsphaltCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -486,7 +491,8 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = CreateAssessmentSectionStub(waveImpactAsphaltCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -511,17 +517,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             NoForeshore,
             ForeshoreWithValidBreakWater,
             ForeshoreWithoutBreakWater
-        }
-
-        private static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism, MockRepository mockRepository)
-        {
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.Stub(a => a.Id).Return("21");
-            assessmentSectionStub.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
-            {
-                failureMechanism
-            }, 1, 2));
-            return assessmentSectionStub;
         }
 
         private static WaveImpactAsphaltCoverWaveConditionsCalculation GetValidCalculation()

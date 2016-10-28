@@ -30,7 +30,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
     public class AssessmentSectionHelperTest
     {
         [Test]
-        public void CreateAssessmentSectionStub_Always_ReturnsStubbedAssessmentSection()
+        public void CreateAssessmentSectionStub_WithoutFilePathSet_ReturnsStubbedAssessmentSectionWithHRDWithoutPath()
         {
             // Setup
             var failureMechanism = new TestFailureMechanism();
@@ -45,11 +45,55 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             Assert.AreEqual("21", assessmentSectionStub.Id);
             var hydraulicBoundaryDatabase = assessmentSectionStub.HydraulicBoundaryDatabase;
             Assert.IsNotNull(hydraulicBoundaryDatabase);
+            Assert.IsNull(hydraulicBoundaryDatabase.FilePath);
             Assert.AreEqual(1, hydraulicBoundaryDatabase.Locations.Count);
             var hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations.First();
             Assert.AreEqual(1300001, hydraulicBoundaryLocation.Id);
             Assert.AreEqual(string.Empty, hydraulicBoundaryLocation.Name);
             Assert.AreEqual(new Point2D(0, 0), hydraulicBoundaryLocation.Location);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateAssessmentSectionStub_WithFilePathSet_ReturnsStubbedAssessmentSectionWithHRDWithPath()
+        {
+            // Setup
+            var path = "C://temp";
+            var failureMechanism = new TestFailureMechanism();
+            var mocks = new MockRepository();
+
+            // Call
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks, path);
+            mocks.ReplayAll();            
+
+            // Assert
+            Assert.IsNotNull(assessmentSectionStub);
+            Assert.AreEqual("21", assessmentSectionStub.Id);
+            var hydraulicBoundaryDatabase = assessmentSectionStub.HydraulicBoundaryDatabase;
+            Assert.IsNotNull(hydraulicBoundaryDatabase);
+            Assert.AreEqual(path, hydraulicBoundaryDatabase.FilePath);
+            Assert.AreEqual(1, hydraulicBoundaryDatabase.Locations.Count);
+            var hydraulicBoundaryLocation = hydraulicBoundaryDatabase.Locations.First();
+            Assert.AreEqual(1300001, hydraulicBoundaryLocation.Id);
+            Assert.AreEqual(string.Empty, hydraulicBoundaryLocation.Name);
+            Assert.AreEqual(new Point2D(0, 0), hydraulicBoundaryLocation.Location);
+            mocks.VerifyAll();
+        }
+
+        [Test]
+        public void CreateAssessmentSectionStubWithoutBoundaryDatabase_Always_ReturnsStubbedAssessmentSectionWithoutHRD()
+        {
+            var failureMechanism = new TestFailureMechanism();
+            var mocks = new MockRepository();
+
+            // Call
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mocks);
+            mocks.ReplayAll();
+
+            // Assert
+            Assert.IsNotNull(assessmentSectionStub);
+            Assert.AreEqual("21", assessmentSectionStub.Id);
+            Assert.IsNull(assessmentSectionStub.HydraulicBoundaryDatabase);
             mocks.VerifyAll();
         }
     }

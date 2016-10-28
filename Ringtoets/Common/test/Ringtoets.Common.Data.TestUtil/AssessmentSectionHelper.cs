@@ -33,12 +33,35 @@ namespace Ringtoets.Common.Data.TestUtil
     public static class AssessmentSectionHelper
     {
         /// <summary>
-        /// Creates a stub of <see cref="IAssessmentSection"/>.
+        /// Creates a stub of <see cref="IAssessmentSection"/> without the <see cref="HydraulicBoundaryDatabase"/> set.
         /// </summary>
         /// <param name="failureMechanism">The failure mechanism to set the contribution for.</param>
         /// <param name="mockRepository">The mock repository to create the stub with.</param>
         /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
-        public static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism, MockRepository mockRepository)
+        public static IAssessmentSection CreateAssessmentSectionStubWithoutBoundaryDatabase(IFailureMechanism failureMechanism,
+                                                                                            MockRepository mockRepository)
+        {
+            return CreateAssessmentSectionStub(failureMechanism, mockRepository, false, null);
+        }
+
+        /// <summary>
+        /// Creates a stub of <see cref="IAssessmentSection"/> with the <see cref="HydraulicBoundaryDatabase"/> set.
+        /// </summary>
+        /// <param name="failureMechanism">The failure mechanism to set the contribution for.</param>
+        /// <param name="mockRepository">The mock repository to create the stub with.</param>
+        /// <param name="filePath">The file path to the hydraulic boundary database.</param>
+        /// <returns>A stubbed <see cref="IAssessmentSection"/>.</returns>
+        public static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism,
+                                                                     MockRepository mockRepository,
+                                                                     string filePath = null)
+        {
+            return CreateAssessmentSectionStub(failureMechanism, mockRepository, true, filePath);
+        }
+
+        private static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism,
+                                                                      MockRepository mockRepository,
+            bool addBoundaryDatabase,
+                                                                      string filePath)
         {
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             assessmentSectionStub.Stub(a => a.Id).Return("21");
@@ -46,14 +69,25 @@ namespace Ringtoets.Common.Data.TestUtil
             {
                 failureMechanism
             }, 1, 2));
-            assessmentSectionStub.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+
+            if (addBoundaryDatabase)
             {
+                assessmentSectionStub.HydraulicBoundaryDatabase = GetHydraulicBoundaryDatabase(filePath);
+            }
+
+            return assessmentSectionStub;
+        }
+
+        private static HydraulicBoundaryDatabase GetHydraulicBoundaryDatabase(string filePath = null)
+        {
+            return new HydraulicBoundaryDatabase
+            {
+                FilePath = filePath,
                 Locations =
                 {
                     new HydraulicBoundaryLocation(1300001, string.Empty, 0, 0)
                 }
             };
-            return assessmentSectionStub;
         }
     }
 }

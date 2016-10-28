@@ -27,10 +27,8 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.DikeProfiles;
-using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
@@ -241,7 +239,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = CreateAssessmentSectionStub(stabilityStoneCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -297,7 +296,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = CreateAssessmentSectionStub(stabilityStoneCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             switch (calculationType)
@@ -365,7 +365,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = CreateAssessmentSectionStub(stabilityStoneCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -399,7 +400,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = CreateAssessmentSectionStub(stabilityStoneCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -466,7 +468,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = CreateAssessmentSectionStub(stabilityStoneCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -492,15 +495,15 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = CreateAssessmentSectionStub(stabilityStoneCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                var testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 var stabilityStoneCoverWaveConditionsCalculationService = new StabilityStoneCoverWaveConditionsCalculationService();
                 testWaveConditionsCosineCalculator.CalculationFinishedHandler += (s, e) => stabilityStoneCoverWaveConditionsCalculationService.Cancel();
-
 
                 // Call
                 stabilityStoneCoverWaveConditionsCalculationService.Calculate(calculation,
@@ -521,7 +524,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = CreateAssessmentSectionStub(stabilityStoneCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -546,7 +550,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = CreateAssessmentSectionStub(stabilityStoneCoverFailureMechanism, mockRepository);
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+                stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -562,17 +567,6 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 Assert.Throws<HydraRingFileParserException>(test);
             }
             mockRepository.VerifyAll();
-        }
-
-        private static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism, MockRepository mockRepository)
-        {
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.Stub(a => a.Id).Return("21");
-            assessmentSectionStub.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(new[]
-            {
-                failureMechanism
-            }, 1, 2));
-            return assessmentSectionStub;
         }
 
         public enum CalculationType
