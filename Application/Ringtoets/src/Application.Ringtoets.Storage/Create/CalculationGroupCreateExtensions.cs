@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using Application.Ringtoets.Storage.Create.ClosingStructures;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Create.HeightStructures;
@@ -28,6 +29,7 @@ using Application.Ringtoets.Storage.Create.StabilityStoneCover;
 using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Utils.Extensions;
+using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
@@ -99,6 +101,11 @@ namespace Application.Ringtoets.Storage.Create
                 if (childHeightStructuresCalculation != null)
                 {
                     entity.HeightStructuresCalculationEntities.Add(childHeightStructuresCalculation.Create(registry, i));
+                }
+                var childClosingStructuresCalculation = calculationBase as StructuresCalculation<ClosingStructuresInput>;
+                if (childClosingStructuresCalculation != null)
+                {
+                    entity.ClosingStructuresCalculationEntities.Add(childClosingStructuresCalculation.Create(registry, i));
                 }
                 var stabilityStoneCoverWaveConditionsCalculation = calculationBase as StabilityStoneCoverWaveConditionsCalculation;
                 if (stabilityStoneCoverWaveConditionsCalculation != null)

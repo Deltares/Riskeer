@@ -46,6 +46,7 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             AddEntitiesForClosingStructures(mechanism.ClosingStructures, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
+            entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
 
             return entity;
         }

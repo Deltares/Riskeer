@@ -29,6 +29,7 @@ using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -1005,6 +1006,54 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             ClosingStructure child2 = failureMechanism.ClosingStructures[1];
             Assert.AreEqual("Child1", child2.Name);
+        }
+
+        [Test]
+        public void ReadAsClosingStructuresFailureMechanism_WithCalculationsAndGroups_ReturnFailureMechanismWithCalculationsAndGroups()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntity1 =
+                    {
+                        new CalculationGroupEntity
+                        {
+                            Name = "A",
+                            Order = 1
+                        }
+                    },
+                    ClosingStructuresCalculationEntities =
+                    {
+                                                new ClosingStructuresCalculationEntity
+                        {
+                            Name = "B",
+                            Order = 0
+                        }
+                    }
+                },
+                ClosingStructureFailureMechanismMetaEntities = 
+                {
+                    new ClosingStructureFailureMechanismMetaEntity()
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsClosingStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
+
+            ICalculationBase expectedCalculation = failureMechanism.CalculationsGroup.Children[0];
+            Assert.AreEqual("B", expectedCalculation.Name);
+            Assert.IsInstanceOf<StructuresCalculation<ClosingStructuresInput>>(expectedCalculation);
+
+            ICalculationBase expectedCalculationGroup = failureMechanism.CalculationsGroup.Children[1];
+            Assert.AreEqual("A", expectedCalculationGroup.Name);
+            Assert.IsInstanceOf<CalculationGroup>(expectedCalculationGroup);
         }
 
         #endregion

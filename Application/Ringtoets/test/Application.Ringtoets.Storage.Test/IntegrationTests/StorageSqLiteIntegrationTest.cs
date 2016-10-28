@@ -35,6 +35,7 @@ using Core.Common.Gui.Settings;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
@@ -723,6 +724,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     AssertStructuresCalculation(expectedHeightStructuresCalculation, (StructuresCalculation<HeightStructuresInput>) actualChild);
                 }
+                var expectedClosingStructuresCalculation = expectedChild as StructuresCalculation<ClosingStructuresInput>;
+                if (expectedClosingStructuresCalculation != null)
+                {
+                    AssertStructuresCalculation(expectedClosingStructuresCalculation, (StructuresCalculation<ClosingStructuresInput>) actualChild);
+                }
                 var expectedStabilityStoneCoverWaveConditionsCalculation = expectedChild as StabilityStoneCoverWaveConditionsCalculation;
                 if (expectedStabilityStoneCoverWaveConditionsCalculation != null)
                 {
@@ -862,6 +868,40 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedRoughnessPoint.Roughness, actualRoughnessPoint.Roughness);
         }
 
+        private static void AssertStructureInputBase<T>(StructuresInputBase<T> expectedInput, StructuresInputBase<T> actualInput) where T : StructureBase
+        {
+            Assert.AreEqual(expectedInput.UseForeshore, actualInput.UseForeshore);
+            if (expectedInput.ForeshoreProfile == null)
+            {
+                Assert.IsNull(actualInput.ForeshoreProfile);
+            }
+            else
+            {
+                AssertForeshoreProfile(expectedInput.ForeshoreProfile, actualInput.ForeshoreProfile);
+            }
+
+            if (expectedInput.HydraulicBoundaryLocation == null)
+            {
+                Assert.IsNull(actualInput.HydraulicBoundaryLocation);
+            }
+            else
+            {
+                AssertHydraulicBoundaryLocation(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
+            }
+
+            Assert.AreEqual(expectedInput.StructureNormalOrientation, actualInput.StructureNormalOrientation);
+            DistributionAssert.AreEqual(expectedInput.ModelFactorSuperCriticalFlow, actualInput.ModelFactorSuperCriticalFlow);
+            DistributionAssert.AreEqual(expectedInput.AllowedLevelIncreaseStorage, actualInput.AllowedLevelIncreaseStorage);
+            DistributionAssert.AreEqual(expectedInput.StorageStructureArea, actualInput.StorageStructureArea);
+            DistributionAssert.AreEqual(expectedInput.FlowWidthAtBottomProtection, actualInput.FlowWidthAtBottomProtection);
+            DistributionAssert.AreEqual(expectedInput.CriticalOvertoppingDischarge, actualInput.CriticalOvertoppingDischarge);
+            Assert.AreEqual(expectedInput.FailureProbabilityStructureWithErosion, actualInput.FailureProbabilityStructureWithErosion);
+            DistributionAssert.AreEqual(expectedInput.WidthFlowApertures, actualInput.WidthFlowApertures);
+            DistributionAssert.AreEqual(expectedInput.StormDuration, actualInput.StormDuration);
+            Assert.AreEqual(expectedInput.UseBreakWater, actualInput.UseBreakWater);
+            AssertBreakWater(expectedInput.BreakWater, actualInput.BreakWater);
+        }
+
         private static void TearDownTempRingtoetsFile(string filePath)
         {
             GC.Collect();
@@ -972,6 +1012,42 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedClosingStructure.InflowModelType, actualClosingStructure.InflowModelType);
         }
 
+        private static void AssertStructuresCalculation(StructuresCalculation<ClosingStructuresInput> expectedCalculation,
+                                                        StructuresCalculation<ClosingStructuresInput> actualCalculation)
+        {
+            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
+
+            AssertClosingStructuresInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
+        }
+
+        private static void AssertClosingStructuresInput(ClosingStructuresInput expectedInput, ClosingStructuresInput actualInput)
+        {
+            AssertStructureInputBase(expectedInput, actualInput);
+
+            if (expectedInput.Structure == null)
+            {
+                Assert.IsNull(actualInput.Structure);
+            }
+            else
+            {
+                AssertClosingStructure(expectedInput.Structure, actualInput.Structure);
+            }
+
+            Assert.AreEqual(expectedInput.InflowModelType, actualInput.InflowModelType);
+            DistributionAssert.AreEqual(expectedInput.InsideWaterLevel, actualInput.InsideWaterLevel);
+            Assert.AreEqual(expectedInput.DeviationWaveDirection, actualInput.DeviationWaveDirection);
+            DistributionAssert.AreEqual(expectedInput.DrainCoefficient, actualInput.DrainCoefficient);
+            Assert.AreEqual(expectedInput.FactorStormDurationOpenStructure, actualInput.FactorStormDurationOpenStructure);
+            DistributionAssert.AreEqual(expectedInput.ThresholdHeightOpenWeir, actualInput.ThresholdHeightOpenWeir);
+            DistributionAssert.AreEqual(expectedInput.AreaFlowApertures, actualInput.AreaFlowApertures);
+            Assert.AreEqual(expectedInput.FailureProbabilityOpenStructure, actualInput.FailureProbabilityOpenStructure);
+            Assert.AreEqual(expectedInput.FailureProbabilityReparation, actualInput.FailureProbabilityReparation);
+            Assert.AreEqual(expectedInput.IdenticalApertures, actualInput.IdenticalApertures);
+            DistributionAssert.AreEqual(expectedInput.LevelCrestStructureNotClosing, actualInput.LevelCrestStructureNotClosing);
+            Assert.AreEqual(expectedInput.ProbabilityOpenStructureBeforeFlooding, actualInput.ProbabilityOpenStructureBeforeFlooding);
+        }
+
         #endregion
 
         #region HeightStructures FailureMechanism
@@ -1056,14 +1132,8 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
         private static void AssertHeightStructuresInput(HeightStructuresInput expectedInput, HeightStructuresInput actualInput)
         {
-            if (expectedInput.ForeshoreProfile == null)
-            {
-                Assert.IsNull(actualInput.ForeshoreProfile);
-            }
-            else
-            {
-                AssertForeshoreProfile(expectedInput.ForeshoreProfile, actualInput.ForeshoreProfile);
-            }
+            AssertStructureInputBase(expectedInput, actualInput);
+
             if (expectedInput.Structure == null)
             {
                 Assert.IsNull(actualInput.Structure);
@@ -1072,26 +1142,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             {
                 AssertHeightStructure(expectedInput.Structure, actualInput.Structure);
             }
-            if (expectedInput.HydraulicBoundaryLocation == null)
-            {
-                Assert.IsNull(actualInput.HydraulicBoundaryLocation);
-            }
-            else
-            {
-                AssertHydraulicBoundaryLocation(expectedInput.HydraulicBoundaryLocation, actualInput.HydraulicBoundaryLocation);
-            }
-
-            Assert.AreEqual(expectedInput.StructureNormalOrientation, actualInput.StructureNormalOrientation);
-            DistributionAssert.AreEqual(expectedInput.ModelFactorSuperCriticalFlow, actualInput.ModelFactorSuperCriticalFlow);
-            DistributionAssert.AreEqual(expectedInput.AllowedLevelIncreaseStorage, actualInput.AllowedLevelIncreaseStorage);
-            DistributionAssert.AreEqual(expectedInput.StorageStructureArea, actualInput.StorageStructureArea);
-            DistributionAssert.AreEqual(expectedInput.FlowWidthAtBottomProtection, actualInput.FlowWidthAtBottomProtection);
-            DistributionAssert.AreEqual(expectedInput.CriticalOvertoppingDischarge, actualInput.CriticalOvertoppingDischarge);
-            Assert.AreEqual(expectedInput.FailureProbabilityStructureWithErosion, actualInput.FailureProbabilityStructureWithErosion);
-            DistributionAssert.AreEqual(expectedInput.WidthFlowApertures, actualInput.WidthFlowApertures);
-            DistributionAssert.AreEqual(expectedInput.StormDuration, actualInput.StormDuration);
-
-            AssertBreakWater(expectedInput.BreakWater, actualInput.BreakWater);
 
             Assert.AreEqual(expectedInput.DeviationWaveDirection, actualInput.DeviationWaveDirection);
             DistributionAssert.AreEqual(expectedInput.LevelCrestStructure, actualInput.LevelCrestStructure);

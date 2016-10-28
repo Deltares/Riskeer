@@ -359,6 +359,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
             entity.ReadClosingStructures(failureMechanism.ClosingStructures, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
+            ReadClosingStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
 
         private static void ReadClosingStructuresMechanismSectionResults(this FailureMechanismEntity entity, ClosingStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
@@ -381,6 +382,17 @@ namespace Application.Ringtoets.Storage.Read
         private static void ReadClosingStructures(this FailureMechanismEntity entity, ObservableList<ClosingStructure> closingStructures, ReadConversionCollector collector)
         {
             closingStructures.AddRange(entity.ClosingStructureEntities.OrderBy(fpe => fpe.Order).Select(structureEntity => structureEntity.Read(collector)));
+        }
+
+        private static void ReadClosingStructuresRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
+                                                             CalculationGroup targetRootCalculationGroup,
+                                                             ReadConversionCollector collector)
+        {
+            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsClosingStructuresCalculationGroup(collector);
+            foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
+            {
+                targetRootCalculationGroup.Children.Add(calculationBase);
+            }
         }
 
         #endregion

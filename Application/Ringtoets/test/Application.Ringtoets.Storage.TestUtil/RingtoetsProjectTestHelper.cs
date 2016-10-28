@@ -108,7 +108,7 @@ namespace Application.Ringtoets.Storage.TestUtil
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
             AddForeshoreProfiles(closingStructuresFailureMechanism.ForeshoreProfiles);
-            ConfigureClosingStructuresFailureMechanism(closingStructuresFailureMechanism);
+            ConfigureClosingStructuresFailureMechanism(closingStructuresFailureMechanism, assessmentSection);
             AddSections(closingStructuresFailureMechanism);
             SetSectionResults(closingStructuresFailureMechanism.SectionResults);
 
@@ -360,11 +360,108 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         #region ClosingStructures FailureMechanism
 
-        private static void ConfigureClosingStructuresFailureMechanism(ClosingStructuresFailureMechanism failureMechanism)
+        private static void ConfigureClosingStructuresFailureMechanism(ClosingStructuresFailureMechanism failureMechanism,
+                                                                       IAssessmentSection assessmentSection)
         {
             failureMechanism.GeneralInput.N2A = 6;
             failureMechanism.ClosingStructures.Add(new TestClosingStructure());
             failureMechanism.ClosingStructures.Add(new TestClosingStructure());
+
+            ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
+            HydraulicBoundaryLocation hydroLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Name = "Closing Structure A",
+                Children =
+                {
+                    new StructuresCalculation<ClosingStructuresInput>
+                    {
+                        InputParameters =
+                        {
+                            StormDuration =
+                            {
+                                Mean = (RoundedDouble) 1.1
+                            },
+                            StructureNormalOrientation = (RoundedDouble) 2.2,
+                            FailureProbabilityStructureWithErosion = (RoundedDouble) 0.34,
+                            UseForeshore = true,
+                            UseBreakWater = true,
+                            BreakWater =
+                            {
+                                Type = BreakWaterType.Dam,
+                                Height = (RoundedDouble) 4.4
+                            },
+                            AllowedLevelIncreaseStorage =
+                            {
+                                Mean = (RoundedDouble) 5.5,
+                                StandardDeviation = (RoundedDouble) 6.6
+                            },
+                            StorageStructureArea =
+                            {
+                                Mean = (RoundedDouble) 7.7,
+                                CoefficientOfVariation = (RoundedDouble) 8.8
+                            },
+                            FlowWidthAtBottomProtection =
+                            {
+                                Mean = (RoundedDouble) 9.9,
+                                StandardDeviation = (RoundedDouble) 10.10
+                            },
+                            CriticalOvertoppingDischarge =
+                            {
+                                Mean = (RoundedDouble) 11.11,
+                                CoefficientOfVariation = (RoundedDouble) 12.12
+                            },
+                            ModelFactorSuperCriticalFlow =
+                            {
+                                Mean = (RoundedDouble) 13.13
+                            },
+                            WidthFlowApertures =
+                            {
+                                Mean = (RoundedDouble) 14.14,
+                                CoefficientOfVariation = (RoundedDouble) 15.15
+                            },
+                            InflowModelType = ClosingStructureInflowModelType.VerticalWall,
+                            InsideWaterLevel =
+                            {
+                                Mean = (RoundedDouble) 16.16,
+                                StandardDeviation = (RoundedDouble) 17.17
+                            },
+                            DeviationWaveDirection = (RoundedDouble) 18.18,
+                            DrainCoefficient =
+                            {
+                                Mean = (RoundedDouble) 19.19
+                            },
+                            FactorStormDurationOpenStructure = (RoundedDouble) 0.56,
+                            ThresholdHeightOpenWeir =
+                            {
+                                Mean = (RoundedDouble) 21.21,
+                                StandardDeviation = (RoundedDouble) 22.22
+                            },
+                            AreaFlowApertures =
+                            {
+                                Mean = (RoundedDouble) 23.23,
+                                StandardDeviation = (RoundedDouble) 24.24
+                            },
+                            FailureProbabilityOpenStructure = (RoundedDouble) 0.25,
+                            FailureProbabilityReparation = (RoundedDouble) 0.46,
+                            IdenticalApertures = 28,
+                            LevelCrestStructureNotClosing =
+                            {
+                                Mean = (RoundedDouble) 29.29,
+                                StandardDeviation = (RoundedDouble) 30.30
+                            },
+                            ProbabilityOpenStructureBeforeFlooding = (RoundedDouble) 0.98,
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydroLocation
+                        }
+                    }
+                }
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Name = "Closing Structure B"
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
         }
 
         #endregion
