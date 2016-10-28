@@ -21,7 +21,6 @@
 
 using System;
 using Application.Ringtoets.Storage.Create;
-using Application.Ringtoets.Storage.Create.HeightStructures;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
@@ -34,10 +33,10 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
 
-namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
+namespace Application.Ringtoets.Storage.Test.Create
 {
     [TestFixture]
-    public class HeightStructuresCalculationCreateExtensionsTest
+    public class StructuresCalculationCreateExtensionsTest
     {
         [Test]
         public void Create_PersistenceRegistryNull_ThrowArgumentNullException()

@@ -23,8 +23,15 @@ using Ringtoets.Common.Data.Calculation;
 
 namespace Ringtoets.Common.Data.Structures
 {
+    /// <summary>
+    /// Interface describing an object that is the input to a structures calculation.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IStructuresCalculationInput<out T> : ICalculationInput where T: StructureBase
     {
+        /// <summary>
+        /// Gets the structure.
+        /// </summary>
         T Structure { get; }
     }
 }

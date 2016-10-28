@@ -84,7 +84,7 @@ namespace Ringtoets.HeightStructures.Service
 
         protected override void PerformCalculation()
         {
-            HeightStructuresDataSynchronizationService.ClearCalculationOutput(calculation);
+            calculation.ClearOutput();
 
             calculationService.Calculate(calculation,
                                          assessmentSection,

@@ -56,7 +56,7 @@ namespace Ringtoets.ClosingStructures.Data
         {
             get
             {
-                return CalculationsGroup.GetCalculations().OfType<StructuresCalculation<ClosingStructuresInput>>();
+                return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>();
             }
         }
 

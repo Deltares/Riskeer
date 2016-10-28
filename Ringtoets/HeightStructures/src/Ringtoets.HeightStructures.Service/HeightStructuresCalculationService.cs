@@ -92,7 +92,7 @@ namespace Ringtoets.HeightStructures.Service
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="failureMechanism"> The <see cref="HeightStructuresFailureMechanism"/> that holds the information about the contribution 
         /// and the general inputs used in the calculation.</param>
-        /// <param name="hlcdFilePath">The filepath of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="hlcdFilePath">The file path of the HLCD file that should be used for performing the calculation.</param>
         internal void Calculate(StructuresCalculation<HeightStructuresInput> calculation,
                                 IAssessmentSection assessmentSection,
                                 HeightStructuresFailureMechanism failureMechanism,

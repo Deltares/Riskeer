@@ -113,7 +113,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                     {
                         new CalculationGroup(),
                         new StructuresCalculation<StabilityPointStructuresInput>(),
-                        mocks.Stub<ICalculation>(),
                         new StructuresCalculation<StabilityPointStructuresInput>()
                     }
                 }

@@ -24,7 +24,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Core.Common.Base;
 using Core.Common.Controls.TreeView;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.Gui.Forms.ProgressDialog;
@@ -446,8 +445,7 @@ namespace Ringtoets.ClosingStructures.Plugin
 
         private StrictContextMenuItem CreateGenerateClosingStructuresCalculationsItem(ClosingStructuresCalculationGroupContext nodeData)
         {
-            ObservableList<ClosingStructure> closingStructures = nodeData.FailureMechanism.ClosingStructures;
-            bool structuresAvailable = closingStructures.Any();
+            bool structuresAvailable = nodeData.FailureMechanism.ClosingStructures.Any();
 
             string closingStructuresCalculationGroupContextToolTip = structuresAvailable
                                                                          ? RingtoetsCommonFormsResources.StructuresPlugin_Generate_calculations_for_selected_structures
@@ -456,7 +454,7 @@ namespace Ringtoets.ClosingStructures.Plugin
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
                                              closingStructuresCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
-                                             (sender, args) => { ShowClosingStructuresSelectionDialog(nodeData); })
+                                             (sender, args) => ShowClosingStructuresSelectionDialog(nodeData))
             {
                 Enabled = structuresAvailable
             };

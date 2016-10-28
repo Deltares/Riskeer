@@ -81,17 +81,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
         }
 
         [Test]
-        public void ClearCalculationOutput_CalculationNull_ThrowsArgumentNullException()
-        {
-            // Call
-            TestDelegate test = () => ClosingStructuresDataSynchronizationService.ClearCalculationOutput(null);
-
-            // Assert
-            var exception = Assert.Throws<ArgumentNullException>(test);
-            Assert.AreEqual("calculation", exception.ParamName);
-        }
-
-        [Test]
         public void ClearCalculationOutput_WithCalculation_ClearsOutput()
         {
             // Setup
@@ -101,7 +90,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             };
 
             // Call
-            ClosingStructuresDataSynchronizationService.ClearCalculationOutput(calculation);
+            calculation.ClearOutput();
 
             // Assert
             Assert.IsNull(calculation.Output);

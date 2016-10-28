@@ -56,7 +56,7 @@ namespace Ringtoets.StabilityPointStructures.Data
         {
             get
             {
-                return CalculationsGroup.GetCalculations().OfType<StructuresCalculation<StabilityPointStructuresInput>>();
+                return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>();
             }
         }
 

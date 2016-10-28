@@ -79,8 +79,10 @@ namespace Ringtoets.Common.Forms.Test
         [Test]
         public void Constructor_DataGridViewCorrectlyInitialized()
         {
-            // Setup & Call
+            // Setup
             using (var viewParent = new Form())
+
+            // Call
             using (var dialog = new StructureSelectionDialog(viewParent, Enumerable.Empty<StructureBase>()))
             {
                 dialog.Show();
@@ -119,8 +121,9 @@ namespace Ringtoets.Common.Forms.Test
             };
             var structure = new TestStructure(constructionProperties);
 
-            // Call
             using (var viewParent = new Form())
+
+            // Call
             using (var dialog = new StructureSelectionDialog(viewParent, new[]
             {
                 structure

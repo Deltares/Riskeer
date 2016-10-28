@@ -25,13 +25,13 @@ using Core.Common.Utils.Extensions;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 
-namespace Application.Ringtoets.Storage.Create.HeightStructures
+namespace Application.Ringtoets.Storage.Create
 {
     /// <summary>
     /// Extension methods for <see cref="StructuresCalculation{T}"/> related
-    /// to creating a <see cref="HeightStructuresCalculationEntity"/>.
+    /// to creating structures calculation entities.
     /// </summary>
-    internal static class HeightStructuresCalculationCreateExtensions
+    internal static class StructuresCalculationCreateExtensions
     {
         /// <summary>
         /// Creates a <see cref="HeightStructuresCalculationEntity"/> based

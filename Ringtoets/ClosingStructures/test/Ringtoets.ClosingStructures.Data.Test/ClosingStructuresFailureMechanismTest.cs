@@ -114,7 +114,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
                     {
                         new CalculationGroup(),
                         new StructuresCalculation<ClosingStructuresInput>(),
-                        mocks.StrictMock<ICalculation>(),
                         new StructuresCalculation<ClosingStructuresInput>()
                     }
                 }

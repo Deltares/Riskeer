@@ -55,7 +55,7 @@ namespace Ringtoets.HeightStructures.Data
         {
             get
             {
-                return CalculationsGroup.GetCalculations().OfType<StructuresCalculation<HeightStructuresInput>>();
+                return CalculationsGroup.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>();
             }
         }
 

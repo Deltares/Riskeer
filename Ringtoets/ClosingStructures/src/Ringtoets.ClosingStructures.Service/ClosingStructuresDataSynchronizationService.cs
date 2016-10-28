@@ -56,26 +56,9 @@ namespace Ringtoets.ClosingStructures.Service
                                                 .Where(c => c.HasOutput)
                                                 .ToArray();
 
-            affectedItems.ForEachElementDo(ClearCalculationOutput);
+            affectedItems.ForEachElementDo(item => item.ClearOutput());
 
             return affectedItems;
-        }
-
-        /// <summary>
-        /// Clears the output of the given <see cref="StructuresCalculation{T}"/>.
-        /// </summary>
-        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> to clear
-        /// the output for.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="calculation"/>
-        /// is <c>null</c>.</exception>
-        public static void ClearCalculationOutput(StructuresCalculation<ClosingStructuresInput> calculation)
-        {
-            if (calculation == null)
-            {
-                throw new ArgumentNullException("calculation");
-            }
-
-            calculation.Output = null;
         }
 
         /// <summary>
@@ -130,7 +113,7 @@ namespace Ringtoets.ClosingStructures.Service
 
                 if (calculation.HasOutput)
                 {
-                    ClearCalculationOutput(calculation);
+                    calculation.ClearOutput();
                     calculationChanged = true;
                 }
 

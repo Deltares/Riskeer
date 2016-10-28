@@ -112,7 +112,6 @@ namespace Ringtoets.HeightStructures.Data.Test
                     {
                         new CalculationGroup(),
                         new StructuresCalculation<HeightStructuresInput>(),
-                        mocks.StrictMock<ICalculation>(),
                         new StructuresCalculation<HeightStructuresInput>()
                     }
                 }

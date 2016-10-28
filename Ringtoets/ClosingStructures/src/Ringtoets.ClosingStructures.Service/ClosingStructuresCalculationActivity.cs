@@ -86,7 +86,7 @@ namespace Ringtoets.ClosingStructures.Service
 
         protected override void PerformCalculation()
         {
-            ClosingStructuresDataSynchronizationService.ClearCalculationOutput(calculation);
+            calculation.ClearOutput();
 
             calculationService.Calculate(calculation,
                                          assessmentSection,
