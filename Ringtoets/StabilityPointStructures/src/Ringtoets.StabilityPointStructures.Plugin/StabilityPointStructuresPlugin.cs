@@ -77,6 +77,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 GetViewData = context => context.WrappedData,
                 AfterCreate = (view, context) => view.FailureMechanism = context.FailureMechanism
             };
+
+            yield return new ViewInfo<StabilityPointStructuresScenariosContext, CalculationGroup, StabilityPointStructuresScenariosView>
+            {
+                GetViewData = context => context.WrappedData,
+                GetViewName = (view, calculationGroup) => RingtoetsCommonFormsResources.Scenarios_DisplayName,
+                Image = RingtoetsCommonFormsResources.ScenariosIcon,
+                AfterCreate = (view, context) => view.FailureMechanism = context.ParentFailureMechanism,
+                CloseForData = CloseScenariosViewForData
+            };
         }
 
         /// <summary>
@@ -189,6 +198,31 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                 failureMechanism = failureMechanismContext.WrappedData;
             }
             return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.SectionResults);
+        }
+
+        #endregion
+
+        #region StabilityPointStructuresScenariosView ViewInfo
+
+        private static bool CloseScenariosViewForData(StabilityPointStructuresScenariosView view, object removedData)
+        {
+            var failureMechanism = removedData as StabilityPointStructuresFailureMechanism;
+
+            var failureMechanismContext = removedData as StabilityPointStructuresFailureMechanismContext;
+            if (failureMechanismContext != null)
+            {
+                failureMechanism = failureMechanismContext.WrappedData;
+            }
+
+            var assessmentSection = removedData as IAssessmentSection;
+            if (assessmentSection != null)
+            {
+                failureMechanism = assessmentSection.GetFailureMechanisms()
+                                                    .OfType<StabilityPointStructuresFailureMechanism>()
+                                                    .FirstOrDefault();
+            }
+
+            return failureMechanism != null && ReferenceEquals(view.Data, failureMechanism.CalculationsGroup);
         }
 
         #endregion
@@ -414,15 +448,15 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private StrictContextMenuItem CreateGenerateStabilityPointStructuresCalculationsItem(StabilityPointStructuresCalculationGroupContext nodeData)
         {
-            ObservableList<StabilityPointStructure> closingStructures = nodeData.FailureMechanism.StabilityPointStructures;
-            bool structuresAvailable = closingStructures.Any();
+            ObservableList<StabilityPointStructure> stabilityPointStructures = nodeData.FailureMechanism.StabilityPointStructures;
+            bool structuresAvailable = stabilityPointStructures.Any();
 
-            string closingStructuresCalculationGroupContextToolTip = structuresAvailable
+            string stabilityPointStructuresCalculationGroupContextToolTip = structuresAvailable
                                                                          ? RingtoetsCommonFormsResources.StructuresPlugin_Generate_calculations_for_selected_structures
                                                                          : RingtoetsCommonFormsResources.StructuresPlugin_No_structures_to_generate_for;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
-                                             closingStructuresCalculationGroupContextToolTip,
+                                             stabilityPointStructuresCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                              (sender, args) => { ShowStabilityPointStructuresSelectionDialog(nodeData); })
             {

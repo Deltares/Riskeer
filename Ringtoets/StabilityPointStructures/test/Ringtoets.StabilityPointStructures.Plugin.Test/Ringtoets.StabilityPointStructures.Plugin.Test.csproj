@@ -57,6 +57,7 @@
     <Compile Include="ImportInfos\StabilityPointStructuresContextImportInfoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StabilityPointStructuresPluginTest.cs" />
+    <Compile Include="ViewInfos\StabilityPointStructuresScenariosViewInfoTest.cs" />
     <Compile Include="ViewInfos\StabilityPointStructuresResultViewInfoTest.cs" />
   </ItemGroup>
   <ItemGroup>
