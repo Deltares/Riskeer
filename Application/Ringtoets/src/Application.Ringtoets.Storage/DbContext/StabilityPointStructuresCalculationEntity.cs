@@ -33,21 +33,20 @@ namespace Application.Ringtoets.Storage.DbContext
     using System;
     using System.Collections.Generic;
     
-    public partial class StabilityPointStructureEntity
+    public partial class StabilityPointStructuresCalculationEntity
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public StabilityPointStructureEntity()
-        {
-            this.StabilityPointStructuresCalculationEntities = new HashSet<StabilityPointStructuresCalculationEntity>();
-        }
-    
-        public long StabilityPointStructureEntityId { get; set; }
-        public long FailureMechanismEntityId { get; set; }
+        public long StabilityPointStructuresCalculationEntityId { get; set; }
+        public long CalculationGroupEntityId { get; set; }
+        public Nullable<long> ForeshoreProfileEntityId { get; set; }
+        public Nullable<long> HydraulicLocationEntityId { get; set; }
+        public Nullable<long> StabilityPointStructureEntityId { get; set; }
         public int Order { get; set; }
         public string Name { get; set; }
-        public string Id { get; set; }
-        public Nullable<double> X { get; set; }
-        public Nullable<double> Y { get; set; }
+        public string Comments { get; set; }
+        public Nullable<byte> UseBreakWater { get; set; }
+        public short BreakWaterType { get; set; }
+        public Nullable<double> BreakWaterHeight { get; set; }
+        public byte UseForeshore { get; set; }
         public Nullable<double> StructureNormalOrientation { get; set; }
         public Nullable<double> StorageStructureAreaMean { get; set; }
         public Nullable<double> StorageStructureAreaCoefficientOfVariation { get; set; }
@@ -75,7 +74,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> LevelCrestStructureMean { get; set; }
         public Nullable<double> LevelCrestStructureStandardDeviation { get; set; }
         public Nullable<double> VerticalDistance { get; set; }
-        public Nullable<double> FailureProbabilityRepairClosure { get; set; }
+        public double FailureProbabilityRepairClosure { get; set; }
         public Nullable<double> FailureCollisionEnergyMean { get; set; }
         public Nullable<double> FailureCollisionEnergyCoefficientOfVariation { get; set; }
         public Nullable<double> ShipMassMean { get; set; }
@@ -83,7 +82,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> ShipVelocityMean { get; set; }
         public Nullable<double> ShipVelocityCoefficientOfVariation { get; set; }
         public int LevellingCount { get; set; }
-        public Nullable<double> ProbabilityCollisionSecondaryStructure { get; set; }
+        public double ProbabilityCollisionSecondaryStructure { get; set; }
         public Nullable<double> FlowVelocityStructureClosableMean { get; set; }
         public Nullable<double> FlowVelocityStructureClosableStandardDeviation { get; set; }
         public Nullable<double> StabilityLinearLoadModelMean { get; set; }
@@ -93,9 +92,16 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> AreaFlowAperturesMean { get; set; }
         public Nullable<double> AreaFlowAperturesStandardDeviation { get; set; }
         public byte InflowModelType { get; set; }
+        public byte LoadSchematizationType { get; set; }
+        public Nullable<double> VolumicWeightWater { get; set; }
+        public Nullable<double> StormDurationMean { get; set; }
+        public Nullable<double> ModelFactorSuperCriticalFlowMean { get; set; }
+        public Nullable<double> FactorStormDurationOpenStructure { get; set; }
+        public Nullable<double> DrainCoefficientMean { get; set; }
     
-        public virtual FailureMechanismEntity FailureMechanismEntity { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StabilityPointStructuresCalculationEntity> StabilityPointStructuresCalculationEntities { get; set; }
+        public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
+        public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
+        public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
+        public virtual StabilityPointStructureEntity StabilityPointStructureEntity { get; set; }
     }
 }

@@ -42,6 +42,7 @@ namespace Application.Ringtoets.Storage.DbContext
             this.GrassCoverErosionInwardsCalculationEntities = new HashSet<GrassCoverErosionInwardsCalculationEntity>();
             this.HeightStructuresCalculationEntities = new HashSet<HeightStructuresCalculationEntity>();
             this.PipingCalculationEntities = new HashSet<PipingCalculationEntity>();
+            this.StabilityPointStructuresCalculationEntities = new HashSet<StabilityPointStructuresCalculationEntity>();
             this.StabilityStoneCoverWaveConditionsCalculationEntities = new HashSet<StabilityStoneCoverWaveConditionsCalculationEntity>();
             this.WaveImpactAsphaltCoverWaveConditionsCalculationEntities = new HashSet<WaveImpactAsphaltCoverWaveConditionsCalculationEntity>();
         }
@@ -67,6 +68,8 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ICollection<HeightStructuresCalculationEntity> HeightStructuresCalculationEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PipingCalculationEntity> PipingCalculationEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StabilityPointStructuresCalculationEntity> StabilityPointStructuresCalculationEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StabilityStoneCoverWaveConditionsCalculationEntity> StabilityStoneCoverWaveConditionsCalculationEntities { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
