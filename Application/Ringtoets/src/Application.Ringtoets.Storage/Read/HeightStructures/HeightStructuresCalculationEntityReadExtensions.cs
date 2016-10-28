@@ -49,6 +49,10 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
             {
                 throw new ArgumentNullException("collector");
             }
+            if (collector.Contains(entity))
+            {
+                return collector.Get(entity);
+            }
 
             var calculation = new StructuresCalculation<HeightStructuresInput>
             {
@@ -62,6 +66,8 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
             {
                 calculation.Output = output.Read();
             }
+
+            collector.Read(entity, calculation);
 
             return calculation;
         }

@@ -235,7 +235,7 @@ namespace Application.Ringtoets.Storage.Read
                 var failureMechanismSection = collector.Get(sectionResultEntity.FailureMechanismSectionEntity);
                 var result = failureMechanism.SectionResults.Single(sr => ReferenceEquals(sr.Section, failureMechanismSection));
 
-                sectionResultEntity.Read(result);
+                sectionResultEntity.Read(result, collector);
             }
         }
 

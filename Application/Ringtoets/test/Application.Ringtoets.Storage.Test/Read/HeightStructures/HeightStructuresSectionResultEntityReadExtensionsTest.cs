@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.HeightStructures;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
@@ -39,11 +40,26 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             var entity = new HeightStructuresSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            TestDelegate call = () => entity.Read(null, new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("sectionResult", paramName);
+        }
+
+        [Test]
+        public void Read_CollectorIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var entity = new HeightStructuresSectionResultEntity();
+
+            // Call
+            TestDelegate call = () => entity.Read(new HeightStructuresFailureMechanismSectionResult(
+                                                      new TestFailureMechanismSection()), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("collector", paramName);
         }
 
         [Test]
@@ -67,12 +83,14 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
-            entity.Read(sectionResult);
+            entity.Read(sectionResult, collector);
 
             // Assert
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
             Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
             Assert.IsNotNull(sectionResult);
+
+            Assert.IsNull(sectionResult.Calculation);
         }
 
         [Test]
@@ -91,10 +109,37 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
-            entity.Read(sectionResult);
+            entity.Read(sectionResult, collector);
 
             // Assert
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
+        }
+
+        [Test]
+        public void Read_CalculationEntitySet_ReturnHeightStructuresSectionResultWithCalculation()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
+
+            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
+            var calculationEntity = new HeightStructuresCalculationEntity();
+
+            var collector = new ReadConversionCollector();
+            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
+            collector.Read(calculationEntity, calculation);
+
+            var entity = new HeightStructuresSectionResultEntity
+            {
+                FailureMechanismSectionEntity = failureMechanismSectionEntity,
+                HeightStructuresCalculationEntity = calculationEntity
+            };
+            var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+
+            // Call
+            entity.Read(sectionResult, collector);
+
+            // Assert
+            Assert.AreSame(calculation, sectionResult.Calculation);
         }
     }
 }

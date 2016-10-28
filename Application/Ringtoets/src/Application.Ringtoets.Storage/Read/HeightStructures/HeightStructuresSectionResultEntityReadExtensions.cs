@@ -27,27 +27,39 @@ using Ringtoets.HeightStructures.Data;
 namespace Application.Ringtoets.Storage.Read.HeightStructures
 {
     /// <summary>
-    /// This class defines extension methods for read operations for a <see cref="HeightStructuresFailureMechanismSectionResult"/> based on the
-    /// <see cref="HeightStructuresSectionResultEntity"/>.
+    /// This class defines extension methods for read operations for a <see cref="HeightStructuresFailureMechanismSectionResult"/> 
+    /// based on the <see cref="HeightStructuresSectionResultEntity"/>.
     /// </summary>
     internal static class HeightStructuresSectionResultEntityReadExtensions
     {
         /// <summary>
-        /// Reads the <see cref="HeightStructuresSectionResultEntity"/> and use the information to construct a 
-        /// <see cref="HeightStructuresFailureMechanismSectionResult"/>.
+        /// Reads the <see cref="HeightStructuresSectionResultEntity"/> and use the information 
+        /// to construct a <see cref="HeightStructuresFailureMechanismSectionResult"/>.
         /// </summary>
-        /// <param name="entity">The <see cref="HeightStructuresSectionResultEntity"/> to create <see cref="HeightStructuresFailureMechanismSectionResult"/> for.</param>
+        /// <param name="entity">The <see cref="HeightStructuresSectionResultEntity"/> to 
+        /// create <see cref="HeightStructuresFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="HeightStructuresFailureMechanismSectionResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        internal static void Read(this HeightStructuresSectionResultEntity entity, HeightStructuresFailureMechanismSectionResult sectionResult)
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        internal static void Read(this HeightStructuresSectionResultEntity entity, HeightStructuresFailureMechanismSectionResult sectionResult,
+                                  ReadConversionCollector collector)
         {
             if (sectionResult == null)
             {
                 throw new ArgumentNullException("sectionResult");
             }
+            if (collector == null)
+            {
+                throw new ArgumentNullException("collector");
+            }
             sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
+
+            if (entity.HeightStructuresCalculationEntity != null)
+            {
+                sectionResult.Calculation = entity.HeightStructuresCalculationEntity.Read(collector);
+            }
         }
     }
 }

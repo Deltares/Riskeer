@@ -184,6 +184,30 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             Assert.IsTrue(calculation.HasOutput);
         }
 
+        [Test]
+        public void Read_CalculationEntityAlreadyRead_ReturnReadCalculation()
+        {
+            // Setup
+            var entity = new HeightStructuresCalculationEntity
+            {
+                HeightStructuresOutputEntities =
+                {
+                    new HeightStructuresOutputEntity()
+                }
+            };
+
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
+
+            var collector = new ReadConversionCollector();
+            collector.Read(entity, calculation);
+
+            // Call
+            StructuresCalculation<HeightStructuresInput> returnedCalculation = entity.Read(collector);
+
+            // Assert
+            Assert.AreSame(calculation, returnedCalculation);
+        }
+
         private static void AssertRoundedDouble(double? entityValue, RoundedDouble roundedDouble)
         {
             Assert.AreEqual((RoundedDouble) entityValue.ToNullAsNaN(), roundedDouble, roundedDouble.GetAccuracy());

@@ -26,6 +26,7 @@ using Core.Common.Utils;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HydraRing.Data;
@@ -54,6 +55,7 @@ namespace Application.Ringtoets.Storage.Read
         private readonly Dictionary<HeightStructureEntity, HeightStructure> heightStructures = CreateDictionary<HeightStructureEntity, HeightStructure>();
         private readonly Dictionary<ClosingStructureEntity, ClosingStructure> closingStructures = CreateDictionary<ClosingStructureEntity, ClosingStructure>();
         private readonly Dictionary<StabilityPointStructureEntity, StabilityPointStructure> stabilityPointStructures = CreateDictionary<StabilityPointStructureEntity, StabilityPointStructure>();
+        private readonly Dictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations = CreateDictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>>();
 
         private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
         {
@@ -843,6 +845,77 @@ namespace Application.Ringtoets.Storage.Read
             try
             {
                 return heightStructures[entity];
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new InvalidOperationException(e.Message, e);
+            }
+        }
+
+        #endregion
+
+        #region HeightStructuresCalculationEntity: Read, Contains, Get
+
+        /// <summary>
+        /// Registers a read operation for <see cref="HeightStructuresCalculationEntity"/>
+        /// and the <see cref="StructuresCalculation{T}"/> that was constructed
+        /// with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="HeightStructuresCalculationEntity"/>
+        /// that was read.</param>
+        /// <param name="model">The <see cref="StructuresCalculation{T}"/> that
+        /// was constructed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        internal void Read(HeightStructuresCalculationEntity entity, StructuresCalculation<HeightStructuresInput> model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
+            heightStructuresCalculations[entity] = model;
+        }
+
+        /// <summary>
+        /// Checks whether a read operation has been registered for a given <see cref="HeightStructuresCalculationEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="HeightStructuresCalculationEntity"/> to check for.</param>
+        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        internal bool Contains(HeightStructuresCalculationEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            return heightStructuresCalculations.ContainsKey(entity);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="StructuresCalculation{T}"/> which was read
+        /// for the given <see cref="HeightStructuresCalculationEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="HeightStructuresCalculationEntity"/> for which a read
+        /// operation has been registered.</param>
+        /// <returns>The constructed <see cref="StructuresCalculation{T}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has
+        /// been registered for <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="Contains(HeightStructuresCalculationEntity)"/>
+        /// to find out whether a read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal StructuresCalculation<HeightStructuresInput> Get(HeightStructuresCalculationEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            try
+            {
+                return heightStructuresCalculations[entity];
             }
             catch (KeyNotFoundException e)
             {

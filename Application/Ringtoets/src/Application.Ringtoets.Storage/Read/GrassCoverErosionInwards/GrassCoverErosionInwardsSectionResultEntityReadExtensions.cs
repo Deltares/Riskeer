@@ -40,7 +40,7 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
         /// <param name="sectionResult">The target of the read operation.</param>
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsFailureMechanismSectionResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this GrassCoverErosionInwardsSectionResultEntity entity, GrassCoverErosionInwardsFailureMechanismSectionResult sectionResult, ReadConversionCollector collector)
         {
             if (collector == null)
