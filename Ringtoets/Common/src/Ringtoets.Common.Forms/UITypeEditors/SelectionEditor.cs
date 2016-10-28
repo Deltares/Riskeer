@@ -84,9 +84,9 @@ namespace Ringtoets.Common.Forms.UITypeEditors
         protected string DisplayMember { private get; set; }
 
         /// <summary>
-        /// Sets the item to show which represents a null value.
+        /// Gets or sets the item to show which represents a null value.
         /// </summary>
-        protected TProperty NullItem { private get; set; }
+        protected TProperty NullItem { get; set; }
 
         /// <summary>
         /// Gets the available options which populate the dropdown editor.

@@ -45,7 +45,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         }
 
         [Test]
-        public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
+        public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
             var foreshoreProfile = CreateForeshoreProfile();
@@ -95,9 +95,44 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             mockRepository.VerifyAll();
         }
 
+        [Test]
+        public void EditValue_NullItem_ReturnsNullItem()
+        {
+            // Setup
+            var foreshoreProfile = CreateForeshoreProfile();
+            var properties = new ObjectPropertiesWithForeshoreProfile(foreshoreProfile, new ForeshoreProfile[0]);
+            var propertyBag = new DynamicPropertyBag(properties);
+            var editor = new ForeshoreProfileEditorWithPublicNullItem();
+            var serviceProviderMock = mockRepository.Stub<IServiceProvider>();
+            var serviceMock = mockRepository.Stub<IWindowsFormsEditorService>();
+            var descriptorContextMock = mockRepository.Stub<ITypeDescriptorContext>();
+            serviceProviderMock.Stub(p => p.GetService(null)).IgnoreArguments().Return(serviceMock);
+            descriptorContextMock.Stub(c => c.Instance).Return(propertyBag);
+            mockRepository.ReplayAll();
+
+            // Call
+            var result = editor.EditValue(descriptorContextMock, serviceProviderMock, editor.PublicNullItem) as ForeshoreProfile;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("<geen>", result.Name);
+            mockRepository.VerifyAll();
+        }
+
         private static ForeshoreProfile CreateForeshoreProfile()
         {
             return new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), new BreakWater(BreakWaterType.Caisson, 0.0), new ForeshoreProfile.ConstructionProperties());
+        }
+
+        private class ForeshoreProfileEditorWithPublicNullItem : ForeshoreProfileEditor
+        {
+            public ForeshoreProfile PublicNullItem
+            {
+                get
+                {
+                    return NullItem;
+                }
+            }
         }
 
         private class ObjectPropertiesWithForeshoreProfile : IHasForeshoreProfileProperty

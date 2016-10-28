@@ -44,7 +44,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         }
 
         [Test]
-        public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
+        public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
             var simpleStructure = new SimpleStructure();

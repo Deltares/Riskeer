@@ -42,7 +42,7 @@ namespace Ringtoets.Piping.Forms.Test.UITypeEditors
     public class PipingInputContextStochasticSoilModelSelectionEditorTest
     {
         [Test]
-        public void EditValue_NoCurrentItemInAvailableItems_ReturnsOriginalValue()
+        public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
             var mockRepository = new MockRepository();
