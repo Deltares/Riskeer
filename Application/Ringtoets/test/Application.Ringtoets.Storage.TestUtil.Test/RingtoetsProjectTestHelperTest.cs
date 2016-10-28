@@ -182,6 +182,9 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             var calculationWithoutOutput = failureMechanism.CalculationsGroup.Children[2] as GrassCoverErosionInwardsCalculation;
             Assert.NotNull(calculationWithoutOutput);
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
+            
+            GrassCoverErosionInwardsFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults.First();
+            Assert.AreSame(calculationWithOutput,firstSectionResult.Calculation);
         }
 
         private static void AssertGrassCoverErosionOutwardsFailureMechanism(AssessmentSection assessmentSection)
@@ -272,6 +275,9 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             var secondCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);
             Assert.IsInstanceOf<StructuresCalculation<HeightStructuresInput>>(failureMechanism.CalculationsGroup.Children[2]);
+
+            HeightStructuresFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults.First();
+            Assert.AreSame(calculationWithOutput, firstSectionResult.Calculation);
         }
 
         private static void AssertClosingStructuresFailureMechanism(AssessmentSection assessmentSection)

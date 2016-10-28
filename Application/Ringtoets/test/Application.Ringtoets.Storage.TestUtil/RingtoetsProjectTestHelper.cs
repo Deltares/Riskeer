@@ -79,7 +79,7 @@ namespace Application.Ringtoets.Storage.TestUtil
             ConfigureGrassCoverErosionInwardsFailureMechanism(grassCoverErosionInwardsFailureMechanism, assessmentSection);
             AddSections(grassCoverErosionInwardsFailureMechanism);
             SetSectionResults(grassCoverErosionInwardsFailureMechanism.SectionResults,
-                              grassCoverErosionInwardsFailureMechanism.Calculations.OfType<GrassCoverErosionInwardsCalculation>());
+                              (GrassCoverErosionInwardsCalculation) grassCoverErosionInwardsFailureMechanism.Calculations.First());
 
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = assessmentSection.GrassCoverErosionOutwards;
             AddForeshoreProfiles(grassCoverErosionOutwardsFailureMechanism.ForeshoreProfiles);
@@ -103,7 +103,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddForeshoreProfiles(heightStructuresFailureMechanism.ForeshoreProfiles);
             ConfigureHeightStructuresFailureMechanism(heightStructuresFailureMechanism, assessmentSection);
             AddSections(heightStructuresFailureMechanism);
-            SetSectionResults(heightStructuresFailureMechanism.SectionResults);
+            SetSectionResults(heightStructuresFailureMechanism.SectionResults,
+                              (StructuresCalculation<HeightStructuresInput>) heightStructuresFailureMechanism.Calculations.First());
 
             ClosingStructuresFailureMechanism closingStructuresFailureMechanism = assessmentSection.ClosingStructures;
             AddForeshoreProfiles(closingStructuresFailureMechanism.ForeshoreProfiles);
@@ -148,16 +149,6 @@ namespace Application.Ringtoets.Storage.TestUtil
                 }
             };
             return fullTestProject;
-        }
-
-        private static void SetSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = random.NextBoolean();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
         }
 
         private static void SetSectionResults(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> sectionResults)
@@ -367,6 +358,28 @@ namespace Application.Ringtoets.Storage.TestUtil
             return hydraulicBoundaryDatabase;
         }
 
+        #region ClosingStructures FailureMechanism
+
+        private static void ConfigureClosingStructuresFailureMechanism(ClosingStructuresFailureMechanism failureMechanism)
+        {
+            failureMechanism.GeneralInput.N2A = 6;
+            failureMechanism.ClosingStructures.Add(new TestClosingStructure());
+            failureMechanism.ClosingStructures.Add(new TestClosingStructure());
+        }
+
+        #endregion
+
+        #region StabilityPointStructures FailureMechanism
+
+        private static void ConfigureStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism)
+        {
+            failureMechanism.GeneralInput.N = 8;
+            failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
+            failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
+        }
+
+        #endregion
+
         #region HeightStructures FailureMechanism
 
         private static void ConfigureHeightStructuresFailureMechanism(HeightStructuresFailureMechanism failureMechanism,
@@ -437,26 +450,21 @@ namespace Application.Ringtoets.Storage.TestUtil
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>());
         }
 
-        #endregion
-
-        #region ClosingStructures FailureMechanism
-
-        private static void ConfigureClosingStructuresFailureMechanism(ClosingStructuresFailureMechanism failureMechanism)
+        private static void SetSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults,
+                                              StructuresCalculation<HeightStructuresInput> calculation)
         {
-            failureMechanism.GeneralInput.N2A = 6;
-            failureMechanism.ClosingStructures.Add(new TestClosingStructure());
-            failureMechanism.ClosingStructures.Add(new TestClosingStructure());
-        }
-
-        #endregion
-
-        #region StabilityPointStructures FailureMechanism
-
-        private static void ConfigureStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism)
-        {
-            failureMechanism.GeneralInput.N = 8;
-            failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
-            failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
+            var random = new Random(21);
+            var firstSectionResultHasCalculation = false;
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = random.NextBoolean();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+                if (!firstSectionResultHasCalculation)
+                {
+                    sectionResult.Calculation = calculation;
+                    firstSectionResultHasCalculation = true;
+                }
+            }
         }
 
         #endregion
@@ -742,19 +750,18 @@ namespace Application.Ringtoets.Storage.TestUtil
                 });
         }
 
-        private static void SetSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults, IEnumerable<GrassCoverErosionInwardsCalculation> calculations)
+        private static void SetSectionResults(IEnumerable<GrassCoverErosionInwardsFailureMechanismSectionResult> sectionResults,
+                                              GrassCoverErosionInwardsCalculation calculation)
         {
             var random = new Random(21);
-            bool firstSectionResultHasCalculation = false;
-            var grassCoverErosionInwardsCalculation = calculations.First();
-
+            var firstSectionResultHasCalculation = false;
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = random.NextBoolean();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
                 if (!firstSectionResultHasCalculation)
                 {
-                    sectionResult.Calculation = grassCoverErosionInwardsCalculation;
+                    sectionResult.Calculation = calculation;
                     firstSectionResultHasCalculation = true;
                 }
             }
