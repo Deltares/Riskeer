@@ -44,51 +44,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
 
         [Test]
-        public void Validate_NoHydraulicBoundaryDatabase_LogsErrorAndReturnsFalse()
-        {
-            // Setup
-            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
-            var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository, filePath);
-            mockRepository.ReplayAll();
-
-            assessmentSectionStub.HydraulicBoundaryDatabase = null;
-
-            const string name = "<very nice name>";
-
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
-            {
-                Name = name,
-                InputParameters =
-                {
-                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                                  null, new DikeProfile.ConstructionProperties())
-                }
-            };
-
-            // Call
-            bool isValid = false;
-            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
-                StringAssert.StartsWith("Validatie mislukt: Er is geen hydraulische randvoorwaardendatabase geïmporteerd.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
-            });
-            Assert.IsFalse(isValid);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Validate_NoHydraulicBoundarLocation_LogsErrorAndReturnsFalse()
+        public void Validate_NoHydraulicBoundaryLocation_LogsErrorAndReturnsFalse()
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
