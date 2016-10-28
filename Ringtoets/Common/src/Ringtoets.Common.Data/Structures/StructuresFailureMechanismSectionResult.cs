@@ -29,8 +29,8 @@ namespace Ringtoets.Common.Data.Structures
     /// This class holds the information of the result of the <see cref="FailureMechanismSection"/>
     /// for a structures assessment.
     /// </summary>
-    /// <remarks>This class is generic with {T} specifying the type op structure 
-    /// whose calculation is chosen to be representative for the whole section.</remarks>
+    /// <typeparam name="T">The type of the input of the calculation which is chosen to be representative 
+    /// for the whole section.</typeparam>
     public class StructuresFailureMechanismSectionResult<T> : FailureMechanismSectionResult where T : ICalculationInput, new()
     {
         /// <summary>
