@@ -60,7 +60,6 @@
     <Compile Include="..\..\..\..\Core\Common\src\Core.Common.Version\GlobalAssembly.cs">
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
-    <Compile Include="Create\ClosingStructures\ClosingStructureCalculationCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructures\ClosingStructureCreateExtensions.cs" />
     <Compile Include="Create\ClosingStructures\GeneralClosingStructuresInputCreateExtensions.cs" />
     <Compile Include="Create\ForeshoreProfileCreateExtensions.cs" />
@@ -165,6 +164,7 @@
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="DbContext\IProbabilityAssessmentOutputEntity.cs" />
+    <Compile Include="DbContext\IStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\MacrostabilityInwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -174,6 +174,8 @@
     <Compile Include="DbContext\MicrostabilitySectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\PartialClosingStructuresCalculationEntity.cs" />
+    <Compile Include="DbContext\PartialHeightStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialHeightStructuresOutputEntity.cs" />
     <Compile Include="DbContext\PipingCalculationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
@@ -264,6 +266,7 @@
     <Compile Include="Read\HeightStructures\HeightStructuresFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\HeightStructures\HeightStructuresSectionResultEntityReadExtensions.cs" />
     <Compile Include="Read\IProbabilityAssessmentOutputEntityReadExtensions.cs" />
+    <Compile Include="Read\IStructureCalculationEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructureEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityPointStructures\StabilityPointStructureFailureMechanismMetaEntityReadExtensions.cs" />
     <Compile Include="Read\StabilityStoneCover\StabilityStoneCoverWaveConditionsCalculationEntityReadExtensions.cs" />

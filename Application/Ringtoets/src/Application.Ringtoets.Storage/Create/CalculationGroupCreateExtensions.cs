@@ -100,12 +100,12 @@ namespace Application.Ringtoets.Storage.Create
                 var childHeightStructuresCalculation = calculationBase as StructuresCalculation<HeightStructuresInput>;
                 if (childHeightStructuresCalculation != null)
                 {
-                    entity.HeightStructuresCalculationEntities.Add(childHeightStructuresCalculation.Create(registry, i));
+                    entity.HeightStructuresCalculationEntities.Add(childHeightStructuresCalculation.CreateForHeightStructures(registry, i));
                 }
                 var childClosingStructuresCalculation = calculationBase as StructuresCalculation<ClosingStructuresInput>;
                 if (childClosingStructuresCalculation != null)
                 {
-                    entity.ClosingStructuresCalculationEntities.Add(childClosingStructuresCalculation.Create(registry, i));
+                    entity.ClosingStructuresCalculationEntities.Add(childClosingStructuresCalculation.CreateForClosingStructures(registry, i));
                 }
                 var stabilityStoneCoverWaveConditionsCalculation = calculationBase as StabilityStoneCoverWaveConditionsCalculation;
                 if (stabilityStoneCoverWaveConditionsCalculation != null)

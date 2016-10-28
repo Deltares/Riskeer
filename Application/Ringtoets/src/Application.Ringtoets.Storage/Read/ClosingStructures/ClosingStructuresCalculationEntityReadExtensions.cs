@@ -23,6 +23,7 @@ using System;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 
@@ -62,50 +63,13 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
 
         private static void ReadInputParameters(ClosingStructuresInput inputParameters, ClosingStructuresCalculationEntity entity, ReadConversionCollector collector)
         {
-            ReadBaseStructuresInputParameters(inputParameters, entity, collector);
-            ReadClosingStructuresSpecificInputParameters(inputParameters, entity);
-        }
-
-        private static void ReadBaseStructuresInputParameters(StructuresInputBase<ClosingStructure> structuresInputBase,
-                                                              ClosingStructuresCalculationEntity entity,
-                                                              ReadConversionCollector collector)
-        {
-            if (entity.ForeshoreProfileEntity != null)
-            {
-                structuresInputBase.ForeshoreProfile = entity.ForeshoreProfileEntity.Read(collector);
-            }
             if (entity.ClosingStructureEntity != null)
             {
-                structuresInputBase.Structure = entity.ClosingStructureEntity.Read(collector);
-            }
-            if (entity.HydraulicLocationEntity != null)
-            {
-                structuresInputBase.HydraulicBoundaryLocation = entity.HydraulicLocationEntity.Read(collector);
+                inputParameters.Structure = entity.ClosingStructureEntity.Read(collector);
             }
 
-            structuresInputBase.StructureNormalOrientation = (RoundedDouble) entity.StructureNormalOrientation.ToNullAsNaN();
-            structuresInputBase.ModelFactorSuperCriticalFlow.Mean = (RoundedDouble) entity.ModelFactorSuperCriticalFlowMean.ToNullAsNaN();
-            structuresInputBase.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) entity.AllowedLevelIncreaseStorageMean.ToNullAsNaN();
-            structuresInputBase.AllowedLevelIncreaseStorage.StandardDeviation = (RoundedDouble) entity.AllowedLevelIncreaseStorageStandardDeviation.ToNullAsNaN();
-            structuresInputBase.StorageStructureArea.Mean = (RoundedDouble) entity.StorageStructureAreaMean.ToNullAsNaN();
-            structuresInputBase.StorageStructureArea.CoefficientOfVariation = (RoundedDouble) entity.StorageStructureAreaCoefficientOfVariation.ToNullAsNaN();
-            structuresInputBase.FlowWidthAtBottomProtection.Mean = (RoundedDouble) entity.FlowWidthAtBottomProtectionMean.ToNullAsNaN();
-            structuresInputBase.FlowWidthAtBottomProtection.StandardDeviation = (RoundedDouble) entity.FlowWidthAtBottomProtectionStandardDeviation.ToNullAsNaN();
-            structuresInputBase.CriticalOvertoppingDischarge.Mean = (RoundedDouble) entity.CriticalOvertoppingDischargeMean.ToNullAsNaN();
-            structuresInputBase.CriticalOvertoppingDischarge.CoefficientOfVariation = (RoundedDouble) entity.CriticalOvertoppingDischargeCoefficientOfVariation.ToNullAsNaN();
-            structuresInputBase.FailureProbabilityStructureWithErosion = entity.FailureProbabilityStructureWithErosion;
-            structuresInputBase.WidthFlowApertures.Mean = (RoundedDouble) entity.WidthFlowAperturesMean.ToNullAsNaN();
-            structuresInputBase.WidthFlowApertures.CoefficientOfVariation = (RoundedDouble) entity.WidthFlowAperturesCoefficientOfVariation.ToNullAsNaN();
-            structuresInputBase.StormDuration.Mean = (RoundedDouble) entity.StormDurationMean.ToNullAsNaN();
+            entity.Read(inputParameters, collector);
 
-            structuresInputBase.UseBreakWater = Convert.ToBoolean(entity.UseBreakWater);
-            structuresInputBase.BreakWater.Type = (BreakWaterType)entity.BreakWaterType;
-            structuresInputBase.BreakWater.Height = (RoundedDouble)entity.BreakWaterHeight.ToNullAsNaN();
-            structuresInputBase.UseForeshore = Convert.ToBoolean(entity.UseForeshore);
-        }
-
-        private static void ReadClosingStructuresSpecificInputParameters(ClosingStructuresInput inputParameters, ClosingStructuresCalculationEntity entity)
-        {
             inputParameters.InflowModelType = (ClosingStructureInflowModelType) entity.InflowModelType;
             inputParameters.InsideWaterLevel.Mean = (RoundedDouble) entity.InsideWaterLevelMean.ToNullAsNaN();
             inputParameters.InsideWaterLevel.StandardDeviation = (RoundedDouble) entity.InsideWaterLevelStandardDeviation.ToNullAsNaN();

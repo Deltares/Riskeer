@@ -74,39 +74,16 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
 
         private static void ReadInputParameters(HeightStructuresInput inputParameters, HeightStructuresCalculationEntity entity, ReadConversionCollector collector)
         {
-            if (entity.ForeshoreProfileEntity != null)
-            {
-                inputParameters.ForeshoreProfile = entity.ForeshoreProfileEntity.Read(collector);
-            }
             if (entity.HeightStructureEntity != null)
             {
                 inputParameters.Structure = entity.HeightStructureEntity.Read(collector);
             }
-            if (entity.HydraulicLocationEntity != null)
-            {
-                inputParameters.HydraulicBoundaryLocation = entity.HydraulicLocationEntity.Read(collector);
-            }
 
-            inputParameters.StructureNormalOrientation = (RoundedDouble) entity.StructureNormalOrientation.ToNullAsNaN();
-            inputParameters.ModelFactorSuperCriticalFlow.Mean = (RoundedDouble) entity.ModelFactorSuperCriticalFlowMean.ToNullAsNaN();
-            inputParameters.AllowedLevelIncreaseStorage.Mean = (RoundedDouble) entity.AllowedLevelIncreaseStorageMean.ToNullAsNaN();
-            inputParameters.AllowedLevelIncreaseStorage.StandardDeviation = (RoundedDouble) entity.AllowedLevelIncreaseStorageStandardDeviation.ToNullAsNaN();
-            inputParameters.StorageStructureArea.Mean = (RoundedDouble) entity.StorageStructureAreaMean.ToNullAsNaN();
-            inputParameters.StorageStructureArea.CoefficientOfVariation = (RoundedDouble) entity.StorageStructureAreaCoefficientOfVariation.ToNullAsNaN();
-            inputParameters.FlowWidthAtBottomProtection.Mean = (RoundedDouble) entity.FlowWidthAtBottomProtectionMean.ToNullAsNaN();
-            inputParameters.FlowWidthAtBottomProtection.StandardDeviation = (RoundedDouble) entity.FlowWidthAtBottomProtectionStandardDeviation.ToNullAsNaN();
-            inputParameters.CriticalOvertoppingDischarge.Mean = (RoundedDouble) entity.CriticalOvertoppingDischargeMean.ToNullAsNaN();
-            inputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation = (RoundedDouble) entity.CriticalOvertoppingDischargeCoefficientOfVariation.ToNullAsNaN();
-            inputParameters.FailureProbabilityStructureWithErosion = entity.FailureProbabilityStructureWithErosion;
-            inputParameters.WidthFlowApertures.Mean = (RoundedDouble) entity.WidthFlowAperturesMean.ToNullAsNaN();
-            inputParameters.WidthFlowApertures.CoefficientOfVariation = (RoundedDouble) entity.WidthFlowAperturesCoefficientOfVariation.ToNullAsNaN();
-            inputParameters.StormDuration.Mean = (RoundedDouble)entity.StormDurationMean.ToNullAsNaN();
+            entity.Read(inputParameters, collector);
+
             inputParameters.LevelCrestStructure.Mean = (RoundedDouble) entity.LevelCrestStructureMean.ToNullAsNaN();
             inputParameters.LevelCrestStructure.StandardDeviation = (RoundedDouble)entity.LevelCrestStructureStandardDeviation.ToNullAsNaN();
             inputParameters.DeviationWaveDirection = (RoundedDouble) entity.DeviationWaveDirection.ToNullAsNaN();
-
-            inputParameters.UseBreakWater = Convert.ToBoolean(entity.UseBreakWater);
-            inputParameters.UseForeshore = Convert.ToBoolean(entity.UseForeshore);
         }
     }
 }
