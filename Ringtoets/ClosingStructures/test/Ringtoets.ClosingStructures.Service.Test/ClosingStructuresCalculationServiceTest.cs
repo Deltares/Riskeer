@@ -78,9 +78,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 "structureNormalOrientation", "oriëntatie"
             },
             {
-                "identicalApertures", "aantal identieke doorstroomopeningen"
-            },
-            {
                 "thresholdHeightOpenWeir", "drempelhoogte"
             },
             {
@@ -342,6 +339,66 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterNames["criticalOvertoppingDischarge"]), msgs[18]);
                 StringAssert.StartsWith(string.Format("Validatie mislukt: De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["criticalOvertoppingDischarge"]), msgs[19]);
                 StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[20]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        public void Validate_InvalidFloodedCulvertCalculation_LogsErrorAndReturnsFalse(double value)
+        {
+            // Setup 
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            const string name = "<very nice name>";
+
+            var calculation = new TestClosingStructuresCalculation()
+            {
+                Name = name,
+                InputParameters =
+                {
+                    InflowModelType = ClosingStructureInflowModelType.FloodedCulvert
+                }
+            };
+            SetInvalidInputParameters(calculation, (RoundedDouble) value);
+
+            bool isValid = false;
+
+            // Call 
+            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(19, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterNames["stormDuration"]), msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["stormDuration"]), msgs[2]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", parameterNames["insideWaterLevel"]), msgs[3]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["insideWaterLevel"]), msgs[4]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", parameterNames["drainCoefficient"]), msgs[5]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["drainCoefficient"]), msgs[6]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", parameterNames["factorStormDurationOpenStructure"]), msgs[7]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterNames["areaFlowApertures"]), msgs[8]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["areaFlowApertures"]), msgs[9]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterNames["flowWidthAtBottomProtection"]), msgs[10]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["flowWidthAtBottomProtection"]), msgs[11]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterNames["storageStructureArea"]), msgs[12]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["storageStructureArea"]), msgs[13]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterNames["allowedLevelIncreaseStorage"]), msgs[14]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["allowedLevelIncreaseStorage"]), msgs[15]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterNames["criticalOvertoppingDischarge"]), msgs[16]);
+                StringAssert.StartsWith(string.Format("Validatie mislukt: De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterNames["criticalOvertoppingDischarge"]), msgs[17]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[18]);
             });
             Assert.IsFalse(isValid);
 
