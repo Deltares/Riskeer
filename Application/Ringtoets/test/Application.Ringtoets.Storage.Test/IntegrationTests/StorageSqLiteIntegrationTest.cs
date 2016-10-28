@@ -346,23 +346,6 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             }
         }
 
-        private static void AssertFailureMechanismSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> expectedSectionResults, IEnumerable<HeightStructuresFailureMechanismSectionResult> actualSectionResults)
-        {
-            var expectedSectionResultsArray = expectedSectionResults.ToArray();
-            var actualSectionResultsArray = actualSectionResults.ToArray();
-
-            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
-
-            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
-            {
-                HeightStructuresFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
-                HeightStructuresFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
-
-                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
-                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
-            }
-        }
-
         private static void AssertFailureMechanismSectionResults(IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> expectedSectionResults, IEnumerable<StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult> actualSectionResults)
         {
             var expectedSectionResultsArray = expectedSectionResults.ToArray();
@@ -1001,6 +984,31 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertHeightStructures(expectedFailureMechanism.HeightStructures, actualFailureMechanism.HeightStructures);
             AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
+        }
+
+        private static void AssertFailureMechanismSectionResults(IEnumerable<HeightStructuresFailureMechanismSectionResult> expectedSectionResults, IEnumerable<HeightStructuresFailureMechanismSectionResult> actualSectionResults)
+        {
+            var expectedSectionResultsArray = expectedSectionResults.ToArray();
+            var actualSectionResultsArray = actualSectionResults.ToArray();
+
+            Assert.AreEqual(expectedSectionResultsArray.Length, actualSectionResultsArray.Length);
+
+            for (var i = 0; i < expectedSectionResultsArray.Length; i++)
+            {
+                HeightStructuresFailureMechanismSectionResult expectedSection = expectedSectionResultsArray[i];
+                HeightStructuresFailureMechanismSectionResult actualSection = actualSectionResultsArray[i];
+
+                Assert.AreEqual(expectedSection.AssessmentLayerOne, actualSection.AssessmentLayerOne);
+                Assert.AreEqual(expectedSection.AssessmentLayerThree, actualSection.AssessmentLayerThree);
+                if (expectedSection.Calculation == null)
+                {
+                    Assert.IsNull(actualSection.Calculation);
+                }
+                else
+                {
+                    AssertStructuresCalculation(expectedSection.Calculation, actualSection.Calculation);
+                }
+            }
         }
 
         private static void AssertHeightStructures(ObservableList<HeightStructure> expectedHeightStructures, ObservableList<HeightStructure> actualHeightStructures)
