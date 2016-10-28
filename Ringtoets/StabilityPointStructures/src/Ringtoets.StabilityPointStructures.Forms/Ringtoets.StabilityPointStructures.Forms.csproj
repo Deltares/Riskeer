@@ -55,7 +55,7 @@
     </Compile>
     <Compile Include="PropertyClasses\StabilityPointStructuresFailureMechanismProperties.cs" />
     <Compile Include="PropertyClasses\StabilityPointStructureProperties.cs" />
-    <Compile Include="PropertyClasses\StabilitypointStructuresInputContextProperties.cs" />
+    <Compile Include="PropertyClasses\StabilityPointStructuresInputContextProperties.cs" />
     <Compile Include="Views\StabilityPointStructuresScenarioRow.cs" />
     <Compile Include="Views\StabilityPointStructuresScenariosView.cs">
       <SubType>UserControl</SubType>

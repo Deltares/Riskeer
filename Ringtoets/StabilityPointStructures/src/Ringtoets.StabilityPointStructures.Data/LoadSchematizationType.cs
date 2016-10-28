@@ -25,7 +25,7 @@ using Ringtoets.StabilityPointStructures.Data.Properties;
 namespace Ringtoets.StabilityPointStructures.Data
 {
     /// <summary>
-    /// Defines the types of load represemtations that can be used 
+    /// Defines the types of load representations that can be used 
     /// for the schematization of <see cref="StabilityPointStructure"/>.
     /// </summary>
     public enum LoadSchematizationType

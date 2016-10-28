@@ -41,12 +41,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
     {
         private const int namePropertyIndex = 1;
         private const int locationPropertyIndex = 2;
-
         private const int insideWaterLevelPropertyIndex = 3;
         private const int insideWaterLevelFailureConstructionPropertyIndex = 4;
-
         private const int flowVelocityStructureClosablePropertyIndex = 5;
-
         private const int structureNormalOrientationPropertyIndex = 6;
         private const int stabilityPointStructureInflowModelTypePropertyIndex = 7;
         private const int widthFlowAperturesPropertyIndex = 8;
