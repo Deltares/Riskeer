@@ -40,7 +40,6 @@ using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.TreeNodeInfos;
 using Ringtoets.Common.Utils;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Forms;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 using Ringtoets.HeightStructures.Forms.Views;
@@ -474,13 +473,16 @@ namespace Ringtoets.HeightStructures.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateHeightStructuresCalculations(nodeData.FailureMechanism.SectionResults, dialog.SelectedItems, nodeData.WrappedData.Children);
+                    GenerateHeightStructuresCalculations(
+                        nodeData.FailureMechanism.SectionResults,
+                        dialog.SelectedItems.Cast<HeightStructure>(),
+                        nodeData.WrappedData.Children);
                     nodeData.NotifyObservers();
                 }
             }
         }
 
-        private static void GenerateHeightStructuresCalculations(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<StructureBase> structures, IList<ICalculationBase> calculations)
+        private static void GenerateHeightStructuresCalculations(IEnumerable<HeightStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<HeightStructure> structures, IList<ICalculationBase> calculations)
         {
             foreach (var structure in structures)
             {
@@ -489,7 +491,7 @@ namespace Ringtoets.HeightStructures.Plugin
                     Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
                     InputParameters =
                     {
-                        Structure = (HeightStructure) structure
+                        Structure = structure
                     }
                 };
                 calculations.Add(calculation);

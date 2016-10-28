@@ -450,8 +450,8 @@ namespace Ringtoets.ClosingStructures.Plugin
             bool structuresAvailable = closingStructures.Any();
 
             string closingStructuresCalculationGroupContextToolTip = structuresAvailable
-                                                                        ? RingtoetsCommonFormsResources.StructuresPlugin_Generate_calculations_for_selected_structures
-                                                                        : RingtoetsCommonFormsResources.StructuresPlugin_No_structures_to_generate_for;
+                                                                         ? RingtoetsCommonFormsResources.StructuresPlugin_Generate_calculations_for_selected_structures
+                                                                         : RingtoetsCommonFormsResources.StructuresPlugin_No_structures_to_generate_for;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
                                              closingStructuresCalculationGroupContextToolTip,
@@ -470,13 +470,16 @@ namespace Ringtoets.ClosingStructures.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateClosingStructuresCalculations(nodeData.FailureMechanism.SectionResults, dialog.SelectedItems, nodeData.WrappedData.Children);
+                    GenerateClosingStructuresCalculations(
+                        nodeData.FailureMechanism.SectionResults,
+                        dialog.SelectedItems.Cast<ClosingStructure>(),
+                        nodeData.WrappedData.Children);
                     nodeData.NotifyObservers();
                 }
             }
         }
 
-        private static void GenerateClosingStructuresCalculations(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<StructureBase> structures, IList<ICalculationBase> calculations)
+        private static void GenerateClosingStructuresCalculations(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<ClosingStructure> structures, IList<ICalculationBase> calculations)
         {
             foreach (var structure in structures)
             {
@@ -485,7 +488,7 @@ namespace Ringtoets.ClosingStructures.Plugin
                     Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
                     InputParameters =
                     {
-                        Structure = (ClosingStructure)structure
+                        Structure = structure
                     }
                 };
                 calculations.Add(calculation);

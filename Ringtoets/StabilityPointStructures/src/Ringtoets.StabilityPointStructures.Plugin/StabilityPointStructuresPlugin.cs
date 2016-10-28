@@ -418,8 +418,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             bool structuresAvailable = closingStructures.Any();
 
             string closingStructuresCalculationGroupContextToolTip = structuresAvailable
-                                                                        ? RingtoetsCommonFormsResources.StructuresPlugin_Generate_calculations_for_selected_structures
-                                                                        : RingtoetsCommonFormsResources.StructuresPlugin_No_structures_to_generate_for;
+                                                                         ? RingtoetsCommonFormsResources.StructuresPlugin_Generate_calculations_for_selected_structures
+                                                                         : RingtoetsCommonFormsResources.StructuresPlugin_No_structures_to_generate_for;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
                                              closingStructuresCalculationGroupContextToolTip,
@@ -438,13 +438,16 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
                 if (dialog.SelectedItems.Any())
                 {
-                    GenerateStabilityPointStructuresCalculations(nodeData.FailureMechanism.SectionResults, dialog.SelectedItems, nodeData.WrappedData.Children);
+                    GenerateStabilityPointStructuresCalculations(
+                        nodeData.FailureMechanism.SectionResults,
+                        dialog.SelectedItems.Cast<StabilityPointStructure>(),
+                        nodeData.WrappedData.Children);
                     nodeData.NotifyObservers();
                 }
             }
         }
 
-        private static void GenerateStabilityPointStructuresCalculations(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<StructureBase> structures, IList<ICalculationBase> calculations)
+        private static void GenerateStabilityPointStructuresCalculations(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults, IEnumerable<StabilityPointStructure> structures, IList<ICalculationBase> calculations)
         {
             foreach (var structure in structures)
             {
@@ -453,7 +456,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                     Name = NamingHelper.GetUniqueName(calculations, structure.Name, c => c.Name),
                     InputParameters =
                     {
-                        Structure = (StabilityPointStructure)structure
+                        Structure = structure
                     }
                 };
                 calculations.Add(calculation);
