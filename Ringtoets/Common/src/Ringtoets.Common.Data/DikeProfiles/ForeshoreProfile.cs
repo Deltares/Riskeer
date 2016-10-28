@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Data.DikeProfiles
         /// <summary>
         /// Creates a new instance of the <see cref="ForeshoreProfile"/> class.
         /// </summary>
-        /// <param name="worldCoordinate">worldCoordinate">The value for <see cref="WorldReferencePoint"/>.</param>
+        /// <param name="worldCoordinate">The value for <see cref="WorldReferencePoint"/>.</param>
         /// <param name="geometry">The geometry of the foreshore.</param>
         /// <param name="breakWater">The break water definition (can be null).</param>
         /// <param name="properties">The property values required to create an instance of <see cref="ForeshoreProfile"/>.</param>

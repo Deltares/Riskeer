@@ -156,11 +156,11 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     public class TestHydraRingCalculator<T>
     {
         public readonly List<T> ReceivedInputs = new List<T>();
-        public bool IsCanceled = false;
         public event EventHandler CalculationFinishedHandler;
         public string RingId { get; set; }
         public string HydraulicBoundaryDatabaseDirectory { get; set; }
         public bool EndInFailure { get; set; }
+        public bool IsCanceled { get; set; }
 
         public void Calculate(T input)
         {

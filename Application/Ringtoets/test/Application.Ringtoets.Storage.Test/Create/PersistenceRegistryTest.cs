@@ -1794,6 +1794,20 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Register_WithNullHeightStructureEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(null, new TestHeightStructure());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
         public void Register_WithNullHeightStructure_ThrowsArgumentNullException()
         {
             // Setup
@@ -1808,6 +1822,20 @@ namespace Application.Ringtoets.Storage.Test.Create
         }
 
         [Test]
+        public void Register_WithNullStabilityPointStructureEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(null, new TestStabilityPointStructure());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
         public void Register_WithNullStabilityPointStructure_ThrowsArgumentNullException()
         {
             // Setup
@@ -1819,6 +1847,20 @@ namespace Application.Ringtoets.Storage.Test.Create
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
             Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullHeightStructuresCalculationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(null, new TestHeightStructuresCalculation());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
         }
 
         [Test]
