@@ -110,7 +110,7 @@ namespace Ringtoets.Common.Service
 
         protected override void OnFinish()
         {
-            // hydraulicBoundaryLocation.NotinfyObservers();
+            // hydraulicBoundaryLocation.NotifyObservers();
         }
 
         private bool AlreadyCalculated

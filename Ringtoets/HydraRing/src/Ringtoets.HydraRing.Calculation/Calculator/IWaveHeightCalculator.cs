@@ -27,8 +27,8 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// Interface for a calculator which calculates a wave height associated with a
     /// reliability index.
     /// </summary>
-    public interface IWaveHeightCalculator {
-
+    public interface IWaveHeightCalculator
+    {
         /// <summary>
         /// Gets the wave height resulting from iterating towards the reliability index.
         /// </summary>
