@@ -465,6 +465,40 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(group.Children, elementToBeRemoved);
         }
 
+        [Test]
+        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
+        {
+            // Setup
+            var group = new CalculationGroup();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var elementToBeRemoved = new StructuresCalculation<StabilityPointStructuresInput>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var calculationContext = new StabilityPointStructuresCalculationContext(elementToBeRemoved,
+                                                                             failureMechanism,
+                                                                             assessmentSectionStub);
+            var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                            failureMechanism,
+                                                                            assessmentSectionStub);
+
+            mocks.ReplayAll();
+
+            group.Children.Add(elementToBeRemoved);
+
+            failureMechanism.AddSection(new FailureMechanismSection("section", new[]
+            {
+                new Point2D(0, 0)
+            }));
+
+            StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
+            result.Calculation = elementToBeRemoved;
+
+            // Call
+            info.OnNodeRemoved(calculationContext, groupContext);
+
+            // Assert
+            Assert.IsNull(result.Calculation);
+        }
+
         public override void TearDown()
         {
             plugin.Dispose();

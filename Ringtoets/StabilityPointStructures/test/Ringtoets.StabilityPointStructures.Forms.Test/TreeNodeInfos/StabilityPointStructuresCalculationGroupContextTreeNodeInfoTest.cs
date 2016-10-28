@@ -919,6 +919,78 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             CollectionAssert.DoesNotContain(parentGroup.Children, group);
         }
 
+        [Test]
+        public void OnNodeRemoved_CalculationInGroupAssignedToSection_CalculationDetachedFromSection()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                       failureMechanism,
+                                                                       assessmentSectionStub);
+            var parentNodeData = new StabilityPointStructuresCalculationGroupContext(parentGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSectionStub);
+
+            mocks.ReplayAll();
+
+            parentGroup.Children.Add(group);
+
+            failureMechanism.AddSection(new FailureMechanismSection("section", new[]
+            {
+                new Point2D(0, 0)
+            }));
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            group.Children.Add(calculation);
+
+            StabilityPointStructuresFailureMechanismSectionResult result = failureMechanism.SectionResults.First();
+            result.Calculation = calculation;
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentNodeData);
+
+            // Assert
+            Assert.IsNull(result.Calculation);
+        }
+
+        [Test]
+        public void OnNodeRemoved_NestedCalculationGroupContainingCalculations_RemoveGroupAndCalculationsAndNotifyObservers()
+        {
+            // Setup
+            var observerMock = mocks.StrictMock<IObserver>();
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var group = new CalculationGroup();
+            var parentGroup = new CalculationGroup();
+            var nodeData = new StabilityPointStructuresCalculationGroupContext(group,
+                                                                       failureMechanism,
+                                                                       assessmentSectionStub);
+            var parentNodeData = new StabilityPointStructuresCalculationGroupContext(parentGroup,
+                                                                             failureMechanism,
+                                                                             assessmentSectionStub);
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+
+            observerMock.Expect(o => o.UpdateObserver());
+
+            mocks.ReplayAll();
+
+            group.Children.Add(calculation);
+            parentGroup.Children.Add(group);
+            parentNodeData.Attach(observerMock);
+
+            // Precondition
+            Assert.IsTrue(info.CanRemove(nodeData, parentNodeData));
+
+            // Call
+            info.OnNodeRemoved(nodeData, parentNodeData);
+
+            // Assert
+            CollectionAssert.DoesNotContain(parentGroup.Children, group);
+        }
+
         public override void TearDown()
         {
             plugin.Dispose();

@@ -504,6 +504,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             var parentGroupContext = (StabilityPointStructuresCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
+            foreach (var calculation in context.WrappedData.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>())
+            {
+                StructuresHelper.Delete(context.FailureMechanism.SectionResults,
+                                        calculation,
+                                        context.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
+            }
             parentGroupContext.NotifyObservers();
         }
 
@@ -582,6 +588,10 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             if (calculationGroupContext != null)
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
+                StructuresHelper.Delete(
+                    context.FailureMechanism.SectionResults, 
+                    context.WrappedData,
+                    context.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
                 calculationGroupContext.NotifyObservers();
             }
         }
