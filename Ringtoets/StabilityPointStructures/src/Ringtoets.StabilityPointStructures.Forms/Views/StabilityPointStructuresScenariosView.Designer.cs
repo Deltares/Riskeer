@@ -48,14 +48,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
             this.scenarioSelectionControl.Size = new System.Drawing.Size(150, 150);
             this.scenarioSelectionControl.TabIndex = 0;
             // 
-            // ClosingStructuresScenariosView
+            // StabilityPointStructuresScenariosView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.scenarioSelectionControl);
-            this.Name = "ClosingStructuresScenariosView";
-            this.ResumeLayout(false);
             this.AutoScroll = true;
+            this.Controls.Add(this.scenarioSelectionControl);
+            this.Name = "StabilityPointStructuresScenariosView";
+            this.ResumeLayout(false);
 
         }
 
