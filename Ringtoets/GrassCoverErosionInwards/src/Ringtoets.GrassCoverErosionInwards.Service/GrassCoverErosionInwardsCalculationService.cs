@@ -271,44 +271,37 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         {
             List<string> validationResult = new List<string>();
 
-            if (assessmentSection.HydraulicBoundaryDatabase == null)
+            var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
+            if (!string.IsNullOrEmpty(validationProblem))
             {
-                validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_database_selected);
+                validationResult.Add(validationProblem);
+                return validationResult.ToArray();
+            }
+
+            if (inputParameters.HydraulicBoundaryLocation == null)
+            {
+                validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+            }
+
+            if (inputParameters.DikeProfile == null)
+            {
+                validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_dike_profile_selected);
             }
             else
             {
-                if (inputParameters.HydraulicBoundaryLocation == null)
+                if (double.IsNaN(inputParameters.Orientation))
                 {
-                    validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
+                    string message = string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
+                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.Orientation_DisplayName));
+                    validationResult.Add(message);
                 }
+            }
 
-                var validationProblem = HydraulicDatabaseHelper.ValidatePathForCalculation(assessmentSection.HydraulicBoundaryDatabase.FilePath);
-
-                if (!string.IsNullOrEmpty(validationProblem))
+            if (inputParameters.UseBreakWater)
+            {
+                if (double.IsNaN(inputParameters.BreakWater.Height) || double.IsInfinity(inputParameters.BreakWater.Height))
                 {
-                    validationResult.Add(validationProblem);
-                }
-
-                if (inputParameters.DikeProfile == null)
-                {
-                    validationResult.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_dike_profile_selected);
-                }
-                else
-                {
-                    if (double.IsNaN(inputParameters.Orientation))
-                    {
-                        string message = string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
-                                                       ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonForms.Orientation_DisplayName));
-                        validationResult.Add(message);
-                    }
-                }
-
-                if (inputParameters.UseBreakWater)
-                {
-                    if (double.IsNaN(inputParameters.BreakWater.Height) || double.IsInfinity(inputParameters.BreakWater.Height))
-                    {
-                        validationResult.Add(RingtoetsCommonServiceResources.Validation_Invalid_BreakWaterHeight_value);
-                    }
+                    validationResult.Add(RingtoetsCommonServiceResources.Validation_Invalid_BreakWaterHeight_value);
                 }
             }
 
