@@ -121,7 +121,7 @@
     <value>Er zijn geen dijkprofielen beschikbaar om berekeningen voor te genereren.</value>
   </data>
   <data name="GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip" xml:space="preserve">
-    <value>Genereer scenario's op basis van geselecteerde dijkprofielen.</value>
+    <value>Genereer berekeningen op basis van geselecteerde dijkprofielen.</value>
   </data>
   <data name="GrassCoverErosionInwardsPlugin_DikeProfilesContext_DisplayName" xml:space="preserve">
     <value>Dijkprofielen</value>

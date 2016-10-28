@@ -92,7 +92,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Genereer scenario&apos;s op basis van geselecteerde dijkprofielen..
+        ///   Looks up a localized string similar to Genereer berekeningen op basis van geselecteerde dijkprofielen..
         /// </summary>
         internal static string GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip {
             get {
