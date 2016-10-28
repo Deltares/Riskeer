@@ -125,6 +125,13 @@ namespace Ringtoets.ClosingStructures.Service
             canceled = true;
         }
 
+        /// <summary>
+        /// Performs validation over the values on the given <paramref name="calculation"/>. Error and status information is logged during
+        /// the execution of the operation.
+        /// </summary>
+        /// <param name="calculation">The <see cref="StructuresCalculation{T}"/> for which to validate the values.</param>
+        /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> for which to validate the values.</param>
+        /// <returns><c>True</c>c> if <paramref name="calculation"/> has no validation errors; <c>False</c>c> otherwise.</returns>
         public static bool Validate(StructuresCalculation<ClosingStructuresInput> calculation, IAssessmentSection assessmentSection)
         {
             CalculationServiceHelper.LogValidationBeginTime(calculation.Name);
@@ -276,6 +283,9 @@ namespace Ringtoets.ClosingStructures.Service
                     case ClosingStructureInflowModelType.VerticalWall:
                         validationResults.AddRange(ValidateVerticalWallCalculationInput(inputParameters));
                         break;
+                    case ClosingStructureInflowModelType.LowSill:
+                        validationResults.AddRange(ValidateLowSillCalculationInput(inputParameters));
+                        break;
                     default:
                         throw new InvalidEnumArgumentException("inputParameters",
                                                                (int) inputParameters.InflowModelType,
@@ -323,6 +333,41 @@ namespace Ringtoets.ClosingStructures.Service
                                                                                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)));
             validationResults.AddRange(DistributionValidation.ValidateDistribution(input.LevelCrestStructureNotClosing,
                                                                                    ParameterNameExtractor.GetFromDisplayName(ClosingStructuresFormsResources.LevelCrestStructureNotClosing_DisplayName)));
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.CriticalOvertoppingDischarge,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName)));
+            return validationResults;
+        }
+
+        private static IEnumerable<string> ValidateLowSillCalculationInput(ClosingStructuresInput input)
+        {
+            var validationResults = new List<string>();
+
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.StormDuration,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)));
+
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.InsideWaterLevel,
+                                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_InsideWaterLevel_DisplayName)));
+
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.ModelFactorSuperCriticalFlow,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)));
+
+            if (IsInvalidNumber(input.FactorStormDurationOpenStructure))
+            {
+                validationResults.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
+                                                    ParameterNameExtractor.GetFromDisplayName(ClosingStructuresFormsResources.FactorStormDurationOpenStructure_DisplayName)));
+            }
+
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.WidthFlowApertures,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)));
+
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.FlowWidthAtBottomProtection,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)));
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.StorageStructureArea,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName)));
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.AllowedLevelIncreaseStorage,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)));
+            validationResults.AddRange(DistributionValidation.ValidateDistribution(input.ThresholdHeightOpenWeir,
+                                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ThresholdHeightOpenWeir_DisplayName)));
             validationResults.AddRange(DistributionValidation.ValidateDistribution(input.CriticalOvertoppingDischarge,
                                                                                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName)));
             return validationResults;
