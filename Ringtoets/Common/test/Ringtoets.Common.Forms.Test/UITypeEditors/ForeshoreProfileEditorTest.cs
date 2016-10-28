@@ -45,6 +45,17 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         }
 
         [Test]
+        public void Constructor_NullItemSet()
+        {
+            // Call
+            var editor = new ForeshoreProfileEditorWithPublicNullItem();
+
+            // Assert
+            Assert.IsInstanceOf<ForeshoreProfile>(editor.PublicNullItem);
+            Assert.AreEqual("<geen>", editor.PublicNullItem.Name);
+        }
+
+        [Test]
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
@@ -92,30 +103,6 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
 
             // Assert
             Assert.AreSame(foreshoreProfile, result);
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void EditValue_NullItem_ReturnsNullItem()
-        {
-            // Setup
-            var foreshoreProfile = CreateForeshoreProfile();
-            var properties = new ObjectPropertiesWithForeshoreProfile(foreshoreProfile, new ForeshoreProfile[0]);
-            var propertyBag = new DynamicPropertyBag(properties);
-            var editor = new ForeshoreProfileEditorWithPublicNullItem();
-            var serviceProviderMock = mockRepository.Stub<IServiceProvider>();
-            var serviceMock = mockRepository.Stub<IWindowsFormsEditorService>();
-            var descriptorContextMock = mockRepository.Stub<ITypeDescriptorContext>();
-            serviceProviderMock.Stub(p => p.GetService(null)).IgnoreArguments().Return(serviceMock);
-            descriptorContextMock.Stub(c => c.Instance).Return(propertyBag);
-            mockRepository.ReplayAll();
-
-            // Call
-            var result = editor.EditValue(descriptorContextMock, serviceProviderMock, editor.PublicNullItem) as ForeshoreProfile;
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual("<geen>", result.Name);
             mockRepository.VerifyAll();
         }
 
