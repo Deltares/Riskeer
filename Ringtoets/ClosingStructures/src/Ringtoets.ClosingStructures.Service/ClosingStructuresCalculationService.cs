@@ -354,7 +354,7 @@ namespace Ringtoets.ClosingStructures.Service
             if (IsInvalidNumber(input.FactorStormDurationOpenStructure))
             {
                 validationResults.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
-                                                    ParameterNameExtractor.GetFromDisplayName(ClosingStructuresFormsResources.FactorStormDurationOpenStructure_DisplayName)));
+                                                    ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FactorStormDurationOpenStructure_DisplayName)));
             }
 
             validationResults.AddRange(DistributionValidation.ValidateDistribution(input.WidthFlowApertures,
