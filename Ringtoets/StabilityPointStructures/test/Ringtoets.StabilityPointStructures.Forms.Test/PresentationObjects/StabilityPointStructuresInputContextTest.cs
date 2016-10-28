@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
@@ -55,30 +54,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PresentationObjects
             var context = new StabilityPointStructuresInputContext(input, calculation, failureMechanism, assessmentSectionMock);
 
             // Assert
-            Assert.IsInstanceOf<FailureMechanismItemContextBase<StabilityPointStructuresInput, StabilityPointStructuresFailureMechanism>>(context);
+            Assert.IsInstanceOf<InputContextBase<StabilityPointStructuresInput, StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>>(context);
             Assert.AreSame(input, context.WrappedData);
             Assert.AreSame(calculation, context.Calculation);
             Assert.AreSame(failureMechanism, context.FailureMechanism);
             Assert.AreSame(assessmentSectionMock, context.AssessmentSection);
-            mocksRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Constructor_NullCalculation_ThrowsArgumentNullException()
-        {
-            // Setup
-            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
-            mocksRepository.ReplayAll();
-
-            var input = new StabilityPointStructuresInput();
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            // Call
-            TestDelegate test = () => new StabilityPointStructuresInputContext(input, null, failureMechanism, assessmentSectionMock);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("calculation", paramName);
             mocksRepository.VerifyAll();
         }
     }
