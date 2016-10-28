@@ -284,6 +284,24 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Geeft aan of het lineair belastingmodel of het kwadratisch belastingmodel moet worden gebruikt..
+        /// </summary>
+        internal static string Structure_LoadSchematizationType_Description {
+            get {
+                return ResourceManager.GetString("Structure_LoadSchematizationType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Belastingschematisering.
+        /// </summary>
+        internal static string Structure_LoadSchematizationType_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_LoadSchematizationType_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kans op aanvaring tweede keermiddel per nivellering..
         /// </summary>
         internal static string Structure_ProbabilityCollisionSecondaryStructure_Description {
@@ -388,6 +406,24 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         internal static string Structure_VerticalDistance_DisplayName {
             get {
                 return ResourceManager.GetString("Structure_VerticalDistance_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volumiek gewicht van water..
+        /// </summary>
+        internal static string Structure_VolumicWeightWater_Description {
+            get {
+                return ResourceManager.GetString("Structure_VolumicWeightWater_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Volumiek gewicht van water [kN/m³].
+        /// </summary>
+        internal static string Structure_VolumicWeightWater_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_VolumicWeightWater_DisplayName", resourceCulture);
             }
         }
     }

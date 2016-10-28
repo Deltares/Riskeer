@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Data;
@@ -29,8 +30,10 @@ using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
+using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Utils;
+using Ringtoets.StabilityPointStructures.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
@@ -40,6 +43,24 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
     /// </summary>
     public class StabilityPointStructuresInputContextProperties : StructuresInputBaseProperties<StabilityPointStructure, StabilityPointStructuresInput, StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>
     {
+        private const int verticalDistancePropertyIndex = 0;
+        private const int evaluationLevelPropertyIndex = 0;
+        private const int bankWidthPropertyIndex = 0;
+        private const int probabilityCollisionSecondaryStructurePropertyIndex = 0;
+        private const int levellingCountPropertyIndex = 0;
+        private const int shipVelocityPropertyIndex = 0;
+        private const int shipMassPropertyIndex = 0;
+        private const int failureCollisionEnergyPropertyIndex = 0;
+        private const int failureProbabilityRepairClosurePropertyIndex = 0;
+        private const int stabilityQuadraticLoadModelPropertyIndex = 0;
+        private const int stabilityLinearLoadModelPropertyIndex = 0;
+        private const int constructiveStrengthQuadraticLoadModelPropertyIndex = 0;
+        private const int constructiveStrengthLinearLoadModelPropertyIndex = 0;
+        private const int levelCrestStructurePropertyIndex = 0;
+        private const int flowVelocityStructureClosablePropertyIndex = 0;
+        private const int insideWaterLevelFailureConstructionPropertyIndex = 0;
+        private const int volumicWeightWaterPropertyIndex = 0;
+        private const int loadSchematizationTypePropertyIndex = 0;
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int stormDurationPropertyIndex = 2;
         private const int insideWaterLevelPropertyIndex = 4;
@@ -102,6 +123,39 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         #region Hydraulic data
 
+        [PropertyOrder(volumicWeightWaterPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_VolumicWeightWater_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_VolumicWeightWater_Description")]
+        public RoundedDouble VolumicWeightWater
+        {
+            get
+            {
+                return data.WrappedData.VolumicWeightWater;
+            }
+            set
+            {
+                data.WrappedData.VolumicWeightWater = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(insideWaterLevelFailureConstructionPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_InsideWaterLevelFailureConstruction_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_InsideWaterLevelFailureConstruction_Description")]
+        public NormalDistributionProperties InsideWaterLevelFailureConstruction
+        {
+            get
+            {
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.InsideWaterLevelFailureConstruction
+                };
+            }
+        }
+
         [PropertyOrder(insideWaterLevelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
@@ -155,6 +209,22 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [PropertyOrder(flowVelocityStructureClosablePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_FlowVelocityStructureClosable_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_FlowVelocityStructureClosable_Description")]
+        public NormalDistributionProperties FlowVelocityStructureClosable
+        {
+            get
+            {
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.FlowVelocityStructureClosable
+                };
+            }
+        }
+
         #endregion
 
         #region Schematization
@@ -174,6 +244,40 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             {
                 data.WrappedData.InflowModelType = value;
                 data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(loadSchematizationTypePropertyIndex)]
+        [TypeConverter(typeof(EnumTypeConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_LoadSchematizationType_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_LoadSchematizationType_Description")]
+        public LoadSchematizationType LoadSchematizationType
+        {
+            get
+            {
+                return data.WrappedData.LoadSchematizationType;
+            }
+            set
+            {
+                data.WrappedData.LoadSchematizationType = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(levelCrestStructurePropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_LevelCrestStructure_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_LevelCrestStructure_Description")]
+        public NormalDistributionProperties LevelCrestStructure
+        {
+            get
+            {
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.LevelCrestStructure
+                };
             }
         }
 
@@ -206,6 +310,249 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
                 {
                     Data = data.WrappedData.AreaFlowApertures
                 };
+            }
+        }
+
+        [PropertyOrder(constructiveStrengthLinearLoadModelPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_ConstructiveStrengthLinearLoadModel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_ConstructiveStrengthLinearLoadModel_Description")]
+        public VariationCoefficientLogNormalDistributionProperties ConstructiveStrengthLinearLoadModel
+        {
+            get
+            {
+                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.ConstructiveStrengthLinearLoadModel
+                };
+            }
+        }
+
+        [PropertyOrder(constructiveStrengthQuadraticLoadModelPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_ConstructiveStrengthQuadraticLoadModel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_ConstructiveStrengthQuadraticLoadModel_Description")]
+        public VariationCoefficientLogNormalDistributionProperties ConstructiveStrengthQuadraticLoadModel
+        {
+            get
+            {
+                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.ConstructiveStrengthQuadraticLoadModel
+                };
+            }
+        }
+
+        [PropertyOrder(stabilityLinearLoadModelPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_StabilityLinearLoadModel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_StabilityLinearLoadModel_Description")]
+        public VariationCoefficientLogNormalDistributionProperties StabilityLinearLoadModel
+        {
+            get
+            {
+                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.StabilityLinearLoadModel
+                };
+            }
+        }
+
+        [PropertyOrder(stabilityQuadraticLoadModelPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_StabilityQuadraticLoadModel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_StabilityQuadraticLoadModel_Description")]
+        public VariationCoefficientLogNormalDistributionProperties StabilityQuadraticLoadModel
+        {
+            get
+            {
+                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.StabilityQuadraticLoadModel
+                };
+            }
+        }
+
+        [PropertyOrder(failureProbabilityRepairClosurePropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_FailureProbabilityRepairClosure_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_FailureProbabilityRepairClosure_Description")]
+        public string FailureProbabilityRepairClosure
+        {
+            get
+            {
+                return ProbabilityFormattingHelper.Format(data.WrappedData.FailureProbabilityRepairClosure);
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value", RingtoetsCommonFormsResources.FailureProbability_Value_cannot_be_null);
+                }
+                try
+                {
+                    data.WrappedData.FailureProbabilityRepairClosure = (RoundedDouble)double.Parse(value);
+                }
+                catch (OverflowException)
+                {
+                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbability_Value_too_large);
+                }
+                catch (FormatException)
+                {
+                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbability_Could_not_parse_string_to_double_value);
+                }
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(failureCollisionEnergyPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_FailureCollisionEnergy_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_FailureCollisionEnergy_Description")]
+        public VariationCoefficientLogNormalDistributionProperties FailureCollisionEnergy
+        {
+            get
+            {
+                return new VariationCoefficientLogNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.FailureCollisionEnergy
+                };
+            }
+        }
+
+        [PropertyOrder(shipMassPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_ShipMass_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_ShipMass_Description")]
+        public VariationCoefficientNormalDistributionProperties ShipMass
+        {
+            get
+            {
+                return new VariationCoefficientNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.ShipMass
+                };
+            }
+        }
+
+        [PropertyOrder(shipVelocityPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_ShipVelocity_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_ShipVelocity_Description")]
+        public VariationCoefficientNormalDistributionProperties ShipVelocity
+        {
+            get
+            {
+                return new VariationCoefficientNormalDistributionProperties(VariationCoefficientDistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.ShipVelocity
+                };
+            }
+        }
+
+        [PropertyOrder(levellingCountPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_LevellingCount_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_LevellingCount_Description")]
+        public int LevellingCount
+        {
+            get
+            {
+                return data.WrappedData.LevellingCount;
+            }
+            set
+            {
+                data.WrappedData.LevellingCount = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(probabilityCollisionSecondaryStructurePropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_ProbabilityCollisionSecondaryStructure_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_ProbabilityCollisionSecondaryStructure_Description")]
+        public string ProbabilityCollisionSecondaryStructure
+        {
+            get
+            {
+                return ProbabilityFormattingHelper.Format(data.WrappedData.ProbabilityCollisionSecondaryStructure);
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value", RingtoetsCommonFormsResources.FailureProbability_Value_cannot_be_null);
+                }
+                try
+                {
+                    data.WrappedData.ProbabilityCollisionSecondaryStructure = (RoundedDouble)double.Parse(value);
+                }
+                catch (OverflowException)
+                {
+                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbability_Value_too_large);
+                }
+                catch (FormatException)
+                {
+                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbability_Could_not_parse_string_to_double_value);
+                }
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(bankWidthPropertyIndex)]
+        [TypeConverter(typeof(ExpandableObjectConverter))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_BankWidth_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_BankWidth_Description")]
+        public NormalDistributionProperties BankWidth
+        {
+            get
+            {
+                return new NormalDistributionProperties(DistributionPropertiesReadOnly.None, data.WrappedData)
+                {
+                    Data = data.WrappedData.BankWidth
+                };
+            }
+        }
+
+        [PropertyOrder(evaluationLevelPropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_EvaluationLevel_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_EvaluationLevel_Description")]
+        public RoundedDouble EvaluationLevel
+        {
+            get
+            {
+                return data.WrappedData.EvaluationLevel;
+            }
+            set
+            {
+                data.WrappedData.EvaluationLevel = value;
+                data.WrappedData.NotifyObservers();
+            }
+        }
+
+        [PropertyOrder(verticalDistancePropertyIndex)]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
+        [ResourcesDisplayName(typeof(Resources), "Structure_VerticalDistance_DisplayName")]
+        [ResourcesDescription(typeof(Resources), "Structure_VerticalDistance_Description")]
+        public RoundedDouble VerticalDistance
+        {
+            get
+            {
+                return data.WrappedData.VerticalDistance;
+            }
+            set
+            {
+                data.WrappedData.VerticalDistance = value;
+                data.WrappedData.NotifyObservers();
             }
         }
 

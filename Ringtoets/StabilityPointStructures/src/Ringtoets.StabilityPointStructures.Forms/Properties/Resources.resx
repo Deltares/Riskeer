@@ -183,6 +183,12 @@
   <data name="Structure_LevellingCount_DisplayName" xml:space="preserve">
     <value>Aantal nivelleringen per jaar [1/jaar]</value>
   </data>
+  <data name="Structure_LoadSchematizationType_Description" xml:space="preserve">
+    <value>Geeft aan of het lineair belastingmodel of het kwadratisch belastingmodel moet worden gebruikt.</value>
+  </data>
+  <data name="Structure_LoadSchematizationType_DisplayName" xml:space="preserve">
+    <value>Belastingschematisering</value>
+  </data>
   <data name="Structure_ProbabilityCollisionSecondaryStructure_Description" xml:space="preserve">
     <value>Kans op aanvaring tweede keermiddel per nivellering.</value>
   </data>
@@ -218,5 +224,11 @@
   </data>
   <data name="Structure_VerticalDistance_DisplayName" xml:space="preserve">
     <value>Afstand onderkant wand en teen van de dijk/berm [m]</value>
+  </data>
+  <data name="Structure_VolumicWeightWater_Description" xml:space="preserve">
+    <value>Volumiek gewicht van water.</value>
+  </data>
+  <data name="Structure_VolumicWeightWater_DisplayName" xml:space="preserve">
+    <value>Volumiek gewicht van water [kN/m³]</value>
   </data>
 </root>
