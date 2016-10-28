@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
@@ -37,6 +38,7 @@ using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
@@ -662,6 +664,38 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[hydraulicBoundaryLocationPropertyIndex].DisplayName);
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[stormDurationPropertyIndex].DisplayName);
 
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetStructure_StructureInSection_UpdateSectionResults()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
+            {
+                new Point2D(-10.0, -10.0),
+                new Point2D(10.0, 10.0)
+            }));
+
+            // Call
+            properties.Structure = new TestClosingStructure();
+
+            // Assert
+            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
             mockRepository.VerifyAll();
         }
 

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Application.Ringtoets.Storage.TestUtil;
@@ -31,6 +32,7 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -205,6 +207,38 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 
             // Assert
             Assert.AreEqual(newDeviationWaveDirection, properties.DeviationWaveDirection, properties.DeviationWaveDirection.GetAccuracy());
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetStructure_StructureInSection_UpdateSectionResults()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var inputContext = new HeightStructuresInputContext(calculation.InputParameters,
+                                                                calculation,
+                                                                failureMechanism,
+                                                                assessmentSectionStub);
+            var properties = new HeightStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
+            {
+                new Point2D(-10.0, -10.0),
+                new Point2D(10.0, 10.0)
+            }));
+
+            // Call
+            properties.Structure = new TestHeightStructure();
+
+            // Assert
+            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
             mockRepository.VerifyAll();
         }
 
