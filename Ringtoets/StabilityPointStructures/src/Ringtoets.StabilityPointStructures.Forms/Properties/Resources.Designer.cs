@@ -82,24 +82,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instroommodel van het kunstwerk..
-        /// </summary>
-        internal static string StabilityPointStructureInflowModelType_Description {
-            get {
-                return ResourceManager.GetString("StabilityPointStructureInflowModelType_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Instroommodel [-].
-        /// </summary>
-        internal static string StabilityPointStructureInflowModelType_DisplayName {
-            get {
-                return ResourceManager.GetString("StabilityPointStructureInflowModelType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Modelfactor voor aanvaarbelasting..
         /// </summary>
         internal static string StabilityPointStructuresInputFailureMechanismContext_ModelFactorCollisionLoad_Description {

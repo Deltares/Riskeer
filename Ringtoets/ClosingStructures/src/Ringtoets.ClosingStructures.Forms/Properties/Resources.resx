@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ClosingStructureInflowModelType_Description" xml:space="preserve">
-    <value>Instroommodel van het kunstwerk.</value>
-  </data>
-  <data name="ClosingStructureInflowModelType_DisplayName" xml:space="preserve">
-    <value>Instroommodel</value>
-  </data>
   <data name="IdenticalApertures_Description" xml:space="preserve">
     <value>Aantal identieke doorstroomopeningen.</value>
   </data>
@@ -164,17 +158,5 @@
   </data>
   <data name="ClosingStructureFailureMechanismContextProperties_N2A_DisplayName" xml:space="preserve">
     <value>2NA [-]</value>
-  </data>
-  <data name="DrainCoefficient_Description" xml:space="preserve">
-    <value>Afvoercoëfficient.</value>
-  </data>
-  <data name="DrainCoefficient_DisplayName" xml:space="preserve">
-    <value>Afvoercoëfficient [-]</value>
-  </data>
-  <data name="FactorStormDurationOpenStructure_Description" xml:space="preserve">
-    <value>Factor voor stormduur hoogwater gegeven geopend kunstwerk.</value>
-  </data>
-  <data name="FactorStormDurationOpenStructure_DisplayName" xml:space="preserve">
-    <value>Factor voor stormduur hoogwater [-]</value>
   </data>
 </root>

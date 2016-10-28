@@ -27,7 +27,6 @@ using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
-using Ringtoets.StabilityPointStructures.Forms.Properties;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PropertyClasses;
@@ -126,8 +125,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(drainCoefficientPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "DrainCoefficient_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DrainCoefficient_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_DrainCoefficient_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_DrainCoefficient_Description")]
         public NormalDistributionProperties DrainCoefficient
         {
             get
@@ -141,8 +140,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(factorStormDurationOpenStructurePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "FactorStormDurationOpenStructure_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FactorStormDurationOpenStructure_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_FactorStormDurationOpenStructure_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_FactorStormDurationOpenStructure_Description")]
         public RoundedDouble FactorStormDurationOpenStructure
         {
             get
@@ -163,8 +162,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(inflowModelTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityPointStructureInflowModelType_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityPointStructureInflowModelType_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_InflowModelType_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_InflowModelType_Description")]
         public StabilityPointStructureInflowModelType InflowModelType
         {
             get

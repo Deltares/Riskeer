@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="StabilityPointStructureInflowModelType_Description" xml:space="preserve">
-    <value>Instroommodel van het kunstwerk.</value>
-  </data>
-  <data name="StabilityPointStructureInflowModelType_DisplayName" xml:space="preserve">
-    <value>Instroommodel [-]</value>
-  </data>
   <data name="StabilityPointStructuresInputFailureMechanismContext_ModelFactorCollisionLoad_Description" xml:space="preserve">
     <value>Modelfactor voor aanvaarbelasting.</value>
   </data>

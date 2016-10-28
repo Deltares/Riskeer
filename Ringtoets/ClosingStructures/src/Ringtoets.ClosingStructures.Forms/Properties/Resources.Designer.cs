@@ -118,60 +118,6 @@ namespace Ringtoets.ClosingStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instroommodel van het kunstwerk..
-        /// </summary>
-        public static string ClosingStructureInflowModelType_Description {
-            get {
-                return ResourceManager.GetString("ClosingStructureInflowModelType_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Instroommodel.
-        /// </summary>
-        public static string ClosingStructureInflowModelType_DisplayName {
-            get {
-                return ResourceManager.GetString("ClosingStructureInflowModelType_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Afvoercoëfficient..
-        /// </summary>
-        public static string DrainCoefficient_Description {
-            get {
-                return ResourceManager.GetString("DrainCoefficient_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Afvoercoëfficient [-].
-        /// </summary>
-        public static string DrainCoefficient_DisplayName {
-            get {
-                return ResourceManager.GetString("DrainCoefficient_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Factor voor stormduur hoogwater gegeven geopend kunstwerk..
-        /// </summary>
-        public static string FactorStormDurationOpenStructure_Description {
-            get {
-                return ResourceManager.GetString("FactorStormDurationOpenStructure_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Factor voor stormduur hoogwater [-].
-        /// </summary>
-        public static string FactorStormDurationOpenStructure_DisplayName {
-            get {
-                return ResourceManager.GetString("FactorStormDurationOpenStructure_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kans op mislukken sluiting van geopend kunstwerk..
         /// </summary>
         public static string FailureProbabilityOpenStructure_Description {

@@ -1775,6 +1775,42 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Afvoercoëfficient..
+        /// </summary>
+        public static string Structure_DrainCoefficient_Description {
+            get {
+                return ResourceManager.GetString("Structure_DrainCoefficient_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Afvoercoëfficient [-].
+        /// </summary>
+        public static string Structure_DrainCoefficient_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_DrainCoefficient_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Factor voor stormduur hoogwater gegeven geopend kunstwerk..
+        /// </summary>
+        public static string Structure_FactorStormDurationOpenStructure_Description {
+            get {
+                return ResourceManager.GetString("Structure_FactorStormDurationOpenStructure_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Factor voor stormduur hoogwater [-].
+        /// </summary>
+        public static string Structure_FactorStormDurationOpenStructure_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_FactorStormDurationOpenStructure_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Faalkans kunstwerk gegeven erosie bodem..
         /// </summary>
         public static string Structure_FailureProbabilityStructureWithErosion_Description {
@@ -1825,6 +1861,24 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string Structure_ForeshoreProfile_DisplayName {
             get {
                 return ResourceManager.GetString("Structure_ForeshoreProfile_DisplayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instroommodel van het kunstwerk..
+        /// </summary>
+        public static string Structure_InflowModelType_Description {
+            get {
+                return ResourceManager.GetString("Structure_InflowModelType_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instroommodel.
+        /// </summary>
+        public static string Structure_InflowModelType_DisplayName {
+            get {
+                return ResourceManager.GetString("Structure_InflowModelType_DisplayName", resourceCulture);
             }
         }
         

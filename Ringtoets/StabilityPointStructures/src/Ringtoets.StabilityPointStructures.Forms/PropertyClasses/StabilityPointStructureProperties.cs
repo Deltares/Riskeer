@@ -173,8 +173,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         [PropertyOrder(stabilityPointStructureInflowModelTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "StabilityPointStructureInflowModelType_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "StabilityPointStructureInflowModelType_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_InflowModelType_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_InflowModelType_Description")]
         public StabilityPointStructureInflowModelType InflowModelType
         {
             get

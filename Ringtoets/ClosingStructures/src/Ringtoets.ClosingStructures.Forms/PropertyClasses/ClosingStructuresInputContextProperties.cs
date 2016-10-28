@@ -150,8 +150,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [PropertyOrder(drainCoefficientPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "DrainCoefficient_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "DrainCoefficient_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_DrainCoefficient_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_DrainCoefficient_Description")]
         public NormalDistributionProperties DrainCoefficient
         {
             get
@@ -165,8 +165,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         [PropertyOrder(factorStormDurationOpenStructurePropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
-        [ResourcesDisplayName(typeof(Resources), "FactorStormDurationOpenStructure_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "FactorStormDurationOpenStructure_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_FactorStormDurationOpenStructure_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_FactorStormDurationOpenStructure_Description")]
         public RoundedDouble FactorStormDurationOpenStructure
         {
             get
@@ -187,8 +187,8 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         [PropertyOrder(inflowModelTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
-        [ResourcesDisplayName(typeof(Resources), "ClosingStructureInflowModelType_DisplayName")]
-        [ResourcesDescription(typeof(Resources), "ClosingStructureInflowModelType_Description")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_InflowModelType_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "Structure_InflowModelType_Description")]
         public ClosingStructureInflowModelType InflowModelType
         {
             get

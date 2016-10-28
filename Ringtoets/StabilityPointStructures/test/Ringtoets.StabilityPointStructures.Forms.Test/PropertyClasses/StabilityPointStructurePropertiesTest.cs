@@ -266,7 +266,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             PropertyDescriptor stabilityPointStructureTypeProperty = dynamicProperties[stabilityPointStructureInflowModelTypePropertyIndex];
             Assert.IsInstanceOf<EnumConverter>(stabilityPointStructureTypeProperty.Converter);
             Assert.AreEqual(schematizationCategory, stabilityPointStructureTypeProperty.Category);
-            Assert.AreEqual("Instroommodel [-]", stabilityPointStructureTypeProperty.DisplayName);
+            Assert.AreEqual("Instroommodel", stabilityPointStructureTypeProperty.DisplayName);
             Assert.AreEqual("Instroommodel van het kunstwerk.", stabilityPointStructureTypeProperty.Description);
 
             PropertyDescriptor widthFlowAperturesProperty = dynamicProperties[widthFlowAperturesPropertyIndex];
