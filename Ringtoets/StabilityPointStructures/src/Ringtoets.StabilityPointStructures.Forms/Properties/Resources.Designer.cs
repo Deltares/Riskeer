@@ -149,7 +149,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lineair belastingschematisering constructieve sterkte [kN/m²].
+        ///   Looks up a localized string similar to Lineaire belastingschematisering constructieve sterkte [kN/m²].
         /// </summary>
         internal static string Structure_ConstructiveStrengthLinearLoadModel_DisplayName {
             get {
@@ -167,7 +167,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kwadratisch belastingschematisering constructieve sterkte [kN/m].
+        ///   Looks up a localized string similar to Kwadratische belastingschematisering constructieve sterkte [kN/m].
         /// </summary>
         internal static string Structure_ConstructiveStrengthQuadraticLoadModel_DisplayName {
             get {
@@ -284,7 +284,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Geeft aan of het lineair belastingmodel of het kwadratisch belastingmodel moet worden gebruikt..
+        ///   Looks up a localized string similar to Geeft aan of het lineaire belastingmodel of het kwadratische belastingmodel moet worden gebruikt..
         /// </summary>
         internal static string Structure_LoadSchematizationType_Description {
             get {
@@ -383,7 +383,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kwadratisch belastingschematisering stabiliteit [kN/m].
+        ///   Looks up a localized string similar to Kwadratische belastingschematisering stabiliteit [kN/m].
         /// </summary>
         internal static string Structure_StabilityQuadraticLoadModel_DisplayName {
             get {
