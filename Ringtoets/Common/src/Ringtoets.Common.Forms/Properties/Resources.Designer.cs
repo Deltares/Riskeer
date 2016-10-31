@@ -373,6 +373,15 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Genereer &amp;berekeningen....
+        /// </summary>
+        public static string CalculationGroup_Generate_calculations {
+            get {
+                return ResourceManager.GetString("CalculationGroup_Generate_calculations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Genereer &amp;scenario&apos;s....
         /// </summary>
         public static string CalculationGroup_Generate_Scenarios {
@@ -452,15 +461,6 @@ namespace Ringtoets.Common.Forms.Properties {
         public static string CalculationOutput_DisplayName {
             get {
                 return ResourceManager.GetString("CalculationOutput_DisplayName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Genereer &amp;berekeningen....
-        /// </summary>
-        public static string CalculationsGroup_Generate_calculations {
-            get {
-                return ResourceManager.GetString("CalculationsGroup_Generate_calculations", resourceCulture);
             }
         }
         

@@ -466,7 +466,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                                                                                 ? RingtoetsCommonFormsResources.StructuresPlugin_Generate_calculations_for_selected_structures
                                                                                 : RingtoetsCommonFormsResources.StructuresPlugin_No_structures_to_generate_for;
 
-            return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
+            return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                              stabilityPointStructuresCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                              (sender, args) => { ShowStabilityPointStructuresSelectionDialog(nodeData); })

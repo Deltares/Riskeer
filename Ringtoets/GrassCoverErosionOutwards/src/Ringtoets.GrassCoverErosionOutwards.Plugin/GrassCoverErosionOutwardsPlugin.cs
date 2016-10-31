@@ -653,7 +653,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Plugin
                                                                                                ? RingtoetsCommonFormsResources.CalculationGroup_CreateGenerateHydraulicBoundaryCalculationsItem_ToolTip
                                                                                                : RingtoetsCommonFormsResources.CalculationGroup_No_HRD_To_Generate_ToolTip;
 
-            return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
+            return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                              grassCoverErosionOutwardsWaveConditionsCalculationGroupContextToolTip,
                                              RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                              (sender, args) => { ShowHydraulicBoundaryLocationSelectionDialog(nodeData); })

@@ -352,7 +352,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(16, menu.Items.Count);
                     TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
-                                                                  RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
+                                                                  RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                                                   "Er is geen hydraulische randvoorwaardendatabase beschikbaar om de randvoorwaardenberekeningen te genereren.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon, false);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,
@@ -455,7 +455,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                     // Assert
                     Assert.AreEqual(16, menu.Items.Count);
                     TestHelper.AssertContextMenuStripContainsItem(menu, customOnlyContextMenuAddGenerateCalculationsIndex,
-                                                                  RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
+                                                                  RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                                                   "Genereer randvoorwaardenberekeningen.",
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon);
                     TestHelper.AssertContextMenuStripContainsItem(menu, contextMenuAddCalculationGroupIndexRootGroup,

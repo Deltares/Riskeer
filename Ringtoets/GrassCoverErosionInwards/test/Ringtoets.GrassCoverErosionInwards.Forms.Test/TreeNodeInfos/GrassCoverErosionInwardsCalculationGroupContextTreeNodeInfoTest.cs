@@ -608,7 +608,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuGenerateCalculationsIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
+                                                                  RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                                                   GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip,
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon,
                                                                   false);
@@ -643,7 +643,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 {
                     // Assert
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuGenerateCalculationsIndexRootGroup,
-                                                                  RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
+                                                                  RingtoetsCommonFormsResources.CalculationGroup_Generate_calculations,
                                                                   GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_ToolTip,
                                                                   RingtoetsCommonFormsResources.GenerateScenariosIcon);
                 }

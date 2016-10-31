@@ -433,7 +433,7 @@
   <data name="CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip" xml:space="preserve">
     <value>Verwijder alle berekeningen en mappen binnen deze map.</value>
   </data>
-  <data name="CalculationsGroup_Generate_calculations" xml:space="preserve">
+  <data name="CalculationGroup_Generate_calculations" xml:space="preserve">
     <value>Genereer &amp;berekeningen...</value>
   </data>
   <data name="ForeshoreProfiles_DisplayName" xml:space="preserve">
