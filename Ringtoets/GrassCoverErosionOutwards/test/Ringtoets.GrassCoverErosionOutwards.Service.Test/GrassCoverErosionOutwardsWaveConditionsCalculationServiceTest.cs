@@ -22,8 +22,8 @@
 using System;
 using System.IO;
 using System.Linq;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -76,10 +76,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () =>
-                {
-                    isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath);
-                };
+                Action call = () => { isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath); };
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -106,10 +103,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () =>
-                {
-                    isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath);
-                };
+                Action call = () => { isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath); };
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -136,10 +130,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () =>
-                {
-                    isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath);
-                };
+                Action call = () => { isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath); };
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -166,10 +157,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () =>
-                {
-                    isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath);
-                };
+                Action call = () => { isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath); };
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -191,18 +179,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             // Setup
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.LowerBoundaryRevetment = (RoundedDouble)lowerBoundaryRevetment;
-            calculation.InputParameters.UpperBoundaryRevetment = (RoundedDouble)upperBoundaryRevetment;
+            calculation.InputParameters.LowerBoundaryRevetment = (RoundedDouble) lowerBoundaryRevetment;
+            calculation.InputParameters.UpperBoundaryRevetment = (RoundedDouble) upperBoundaryRevetment;
 
             var isValid = true;
 
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () =>
-                {
-                    isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath);
-                };
+                Action call = () => { isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath); };
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -225,8 +210,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             // Setup
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam,
-                                                                                                 breakWaterHeight));
+            calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam,
+                                                                                                   breakWaterHeight));
             calculation.InputParameters.UseBreakWater = true;
 
             var isValid = true;
@@ -234,10 +219,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () =>
-                {
-                    isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath);
-                };
+                Action call = () => { isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath); };
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -252,7 +234,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 Assert.IsFalse(isValid);
             }
         }
-        
+
         [Test]
         [TestCase(double.NegativeInfinity, TestName = "Calculate_CalculationWithForeshoreNoBreakWaterAndInvalidBreakWaterHeight_PerformAndLog(negativeInfinity)")]
         [TestCase(double.PositiveInfinity, TestName = "Calculate_CalculationWithForeshoreNoBreakWaterAndInvalidBreakWaterHeight_PerformAndLog(positiveInfinity)")]
@@ -261,8 +243,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         {
             // Setup
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam,
-                                                                                                 breakWaterHeight));
+            calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam,
+                                                                                                   breakWaterHeight));
             calculation.InputParameters.UseBreakWater = false;
             GrassCoverErosionOutwardsFailureMechanism grassCoverErosionOutwardsFailureMechanism = new GrassCoverErosionOutwardsFailureMechanism
             {
@@ -277,9 +259,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 // Call
                 Action call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                            grassCoverErosionOutwardsFailureMechanism,
-                                                                            assessmentSectionStub,
-                                                                            validFilePath);
+                                                                                                              grassCoverErosionOutwardsFailureMechanism,
+                                                                                                              assessmentSectionStub,
+                                                                                                              validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -329,7 +311,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                     calculation.InputParameters.UseBreakWater = false;
                     break;
                 case CalculationType.ForeshoreWithoutBreakWater:
-                    calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(null);
+                    calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
                     calculation.InputParameters.UseBreakWater = false;
                     break;
                 case CalculationType.ForeshoreWithValidBreakWater:
@@ -340,9 +322,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 // Call
                 Action call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                            grassCoverErosionOutwardsFailureMechanism,
-                                                                            assessmentSectionStub,
-                                                                            validFilePath);
+                                                                                                              grassCoverErosionOutwardsFailureMechanism,
+                                                                                                              assessmentSectionStub,
+                                                                                                              validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -366,7 +348,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 });
             }
         }
-        
+
         [Test]
         public void Calculate_Always_InputPropertiesCorrectlySendToCalculator()
         {
@@ -383,13 +365,13 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                var testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
 
                 // Call
                 new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                            grassCoverErosionOutwardsFailureMechanism,
-                                                                            assessmentSectionStub,
-                                                                            validFilePath);
+                                                                                          grassCoverErosionOutwardsFailureMechanism,
+                                                                                          assessmentSectionStub,
+                                                                                          validFilePath);
 
                 // Assert
                 WaveConditionsCosineCalculationInput[] testWaveConditionsInputs = testWaveConditionsCosineCalculator.ReceivedInputs.ToArray();
@@ -401,7 +383,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 int waterLevelIndex = 0;
                 foreach (WaveConditionsCosineCalculationInput actualInput in testWaveConditionsInputs)
                 {
-
                     GeneralGrassCoverErosionOutwardsInput generalInput = grassCoverErosionOutwardsFailureMechanism.GeneralInput;
 
                     var input = calculation.InputParameters;
@@ -410,7 +391,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                                                                                  input.HydraulicBoundaryLocation.Id,
                                                                                  grassCoverErosionOutwardsFailureMechanism.CalculationBeta(assessmentSectionStub),
                                                                                  input.ForeshoreProfile.Geometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)),
-                                                                                 new HydraRingBreakWater((int)input.BreakWater.Type, input.BreakWater.Height),
+                                                                                 new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height),
                                                                                  calculation.InputParameters.WaterLevels.ElementAt(waterLevelIndex++),
                                                                                  generalInput.GeneralWaveConditionsInput.A,
                                                                                  generalInput.GeneralWaveConditionsInput.B,
@@ -442,9 +423,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
                 // Call
                 grassCoverErosionOutwardsWaveConditionsCalculationService.Calculate(calculation,
-                                                                                        grassCoverErosionOutwardsFailureMechanism,
-                                                                                        assessmentSectionStub,
-                                                                                        validFilePath);
+                                                                                    grassCoverErosionOutwardsFailureMechanism,
+                                                                                    assessmentSectionStub,
+                                                                                    validFilePath);
 
                 // Assert
                 Assert.IsFalse(calculation.HasOutput);
@@ -468,16 +449,15 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                var testWaveConditionsCosineCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 var grassCoverErosionOutwardsWaveConditionsCalculationService = new GrassCoverErosionOutwardsWaveConditionsCalculationService();
                 testWaveConditionsCosineCalculator.CalculationFinishedHandler += (s, e) => grassCoverErosionOutwardsWaveConditionsCalculationService.Cancel();
 
-
                 // Call
                 grassCoverErosionOutwardsWaveConditionsCalculationService.Calculate(calculation,
-                                                                                        grassCoverErosionOutwardsFailureMechanism,
-                                                                                        assessmentSectionStub,
-                                                                                        validFilePath);
+                                                                                    grassCoverErosionOutwardsFailureMechanism,
+                                                                                    assessmentSectionStub,
+                                                                                    validFilePath);
 
                 // Assert
                 Assert.IsNull(calculation.Output);
@@ -504,9 +484,9 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             {
                 // Call
                 new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                            grassCoverErosionOutwardsFailureMechanism,
-                                                                            assessmentSectionStub,
-                                                                            validFilePath);
+                                                                                          grassCoverErosionOutwardsFailureMechanism,
+                                                                                          assessmentSectionStub,
+                                                                                          validFilePath);
 
                 // Assert
                 Assert.IsNotNull(calculation.Output);
@@ -530,14 +510,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 calculator.EndInFailure = true;
 
                 // Call
                 TestDelegate test = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                        grassCoverErosionOutwardsFailureMechanism,
-                                                                                        assessmentSectionStub,
-                                                                                        validFilePath);
+                                                                                                                    grassCoverErosionOutwardsFailureMechanism,
+                                                                                                                    assessmentSectionStub,
+                                                                                                                    validFilePath);
 
                 // Assert
                 Assert.Throws<HydraRingFileParserException>(test);
@@ -553,16 +533,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "locationName", 0, 0)
                     {
-                        DesignWaterLevel = (RoundedDouble)9.3
+                        DesignWaterLevel = (RoundedDouble) 9.3
                     },
-                    ForeshoreProfile = CreateForeshoreProfile(),
+                    ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = WaveConditionsInputStepSize.Half,
-                    LowerBoundaryRevetment = (RoundedDouble)4,
-                    UpperBoundaryRevetment = (RoundedDouble)10,
-                    UpperBoundaryWaterLevels = (RoundedDouble)8,
-                    LowerBoundaryWaterLevels = (RoundedDouble)7.1
+                    LowerBoundaryRevetment = (RoundedDouble) 4,
+                    UpperBoundaryRevetment = (RoundedDouble) 10,
+                    UpperBoundaryWaterLevels = (RoundedDouble) 8,
+                    LowerBoundaryWaterLevels = (RoundedDouble) 7.1
                 }
             };
             return calculation;
@@ -571,27 +551,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetDefaultCalculation()
         {
             GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation();
-            calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble)5;
-            calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble)5.4;
+            calculation.InputParameters.LowerBoundaryWaterLevels = (RoundedDouble) 5;
+            calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble) 5.4;
 
             return calculation;
-        }
-
-        private static ForeshoreProfile CreateForeshoreProfile()
-        {
-            return CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, 10.0));
-        }
-
-        private static ForeshoreProfile CreateForeshoreProfile(BreakWater breakWater)
-        {
-            return new ForeshoreProfile(new Point2D(0, 0),
-                                        new[]
-                                        {
-                                            new Point2D(3.3, 4.4),
-                                            new Point2D(5.5, 6.6)
-                                        },
-                                        breakWater,
-                                        new ForeshoreProfile.ConstructionProperties());
         }
     }
 }
