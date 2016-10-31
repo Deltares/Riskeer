@@ -23,6 +23,7 @@ using System;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Properties;
 using Ringtoets.Common.Data.Structures;
 
@@ -46,43 +47,64 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        [TestCase(-20)]
-        [TestCase(-1e-6)]
-        [TestCase(1 + 1e-6)]
-        [TestCase(12)]
-        public void AssessmentLayerTwoA_ForInvalidValues_ThrowsException(double newValue)
+        public void AssessmentLayerTwoA_CalculationNull_ReturnNaN()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = null
+            };
 
             // Call
-            TestDelegate test = () => result.AssessmentLayerTwoA = newValue;
+            double twoAValue = result.AssessmentLayerTwoA;
 
             // Assert
-            var message = Assert.Throws<ArgumentException>(test).Message;
-            Assert.AreEqual(
-                Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1,
-                message);
+            Assert.IsNaN(twoAValue);
         }
 
         [Test]
-        [TestCase(0)]
-        [TestCase(1e-6)]
-        [TestCase(0.5)]
-        [TestCase(1 - 1e-6)]
-        [TestCase(1)]
-        public void AssessmentLayerTwoA_ForValidValues_NewValueSet(double newValue)
+        public void AssessmentLayerTwoA_FailedCalculation_ReturnNaN()
         {
             // Setup
             FailureMechanismSection section = CreateSection();
-            var result = new StabilityPointStructuresFailureMechanismSectionResult(section);
+
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, double.NaN, 1.0, 1.0)
+                }
+            };
 
             // Call
-            result.AssessmentLayerTwoA = newValue;
+            double twoAValue = result.AssessmentLayerTwoA;
 
             // Assert
-            Assert.AreEqual(newValue, result.AssessmentLayerTwoA);
+            Assert.IsNaN(twoAValue);
+        }
+
+        [Test]
+        public void AssessmentLayerTwoA_SuccessfulCalculation_ReturnProbability()
+        {
+            // Setup
+            FailureMechanismSection section = CreateSection();
+
+            double probability = 0.65;
+            var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
+            {
+                Calculation = new StructuresCalculation<StabilityPointStructuresInput>
+                {
+                    Output = new ProbabilityAssessmentOutput(1.0, 1.0, probability, 1.0, 1.0)
+                }
+            };
+
+            // Call
+            double twoAValue = result.AssessmentLayerTwoA;
+
+            // Assert
+            Assert.AreEqual(probability, twoAValue);
         }
 
         private static FailureMechanismSection CreateSection()

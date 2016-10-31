@@ -48,7 +48,6 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
             }
 
             sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
-            sectionResult.AssessmentLayerTwoA = (RoundedDouble)entity.LayerTwoA.ToNullAsNaN();
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
         }
     }

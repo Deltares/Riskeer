@@ -274,7 +274,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = random.NextBoolean();
-                sectionResult.AssessmentLayerTwoA = (RoundedDouble) random.NextDouble();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
             }
         }

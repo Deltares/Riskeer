@@ -19,8 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.Linq;
 using System.Windows.Forms;
+using Core.Common.Base;
 using Core.Common.Utils.Reflection;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Views;
 using Ringtoets.StabilityPointStructures.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -32,13 +37,48 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
     /// </summary>
     public class StabilityPointStructuresFailureMechanismResultView : FailureMechanismResultView<StabilityPointStructuresFailureMechanismSectionResult>
     {
+        private readonly RecursiveObserver<CalculationGroup, ICalculationInput> calculationInputObserver;
+        private readonly RecursiveObserver<CalculationGroup, ICalculationOutput> calculationOutputObserver;
+        private readonly RecursiveObserver<CalculationGroup, ICalculationBase> calculationGroupObserver;
+
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismResultView"/>.
         /// </summary>
         public StabilityPointStructuresFailureMechanismResultView()
         {
             DataGridViewControl.AddCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+
+            // The concat is needed to observe the input of calculations in child groups.
+            calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
+                UpdateDataGridViewDataSource,
+                cg => cg.Children.Concat<object>(cg.Children
+                                                   .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                   .Select(c => c.GetObservableInput())));
+            calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(
+                UpdateDataGridViewDataSource,
+                cg => cg.Children.Concat<object>(cg.Children
+                                                   .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                   .Select(c => c.GetObservableOutput())));
+            calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
+                UpdateDataGridViewDataSource,
+                c => c.Children);
+
             AddDataGridColumns();
+        }
+
+        public override IFailureMechanism FailureMechanism
+        {
+            set
+            {
+                base.FailureMechanism = value;
+
+                var calculatableFailureMechanism = value as ICalculatableFailureMechanism;
+                CalculationGroup observableGroup = calculatableFailureMechanism != null ? calculatableFailureMechanism.CalculationsGroup : null;
+
+                calculationInputObserver.Observable = observableGroup;
+                calculationOutputObserver.Observable = observableGroup;
+                calculationGroupObserver.Observable = observableGroup;
+            }
         }
 
         protected override object CreateFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult)
@@ -49,6 +89,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         protected override void Dispose(bool disposing)
         {
             DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+
+            calculationInputObserver.Dispose();
+            calculationOutputObserver.Dispose();
+            calculationGroupObserver.Dispose();
 
             base.Dispose(disposing);
         }

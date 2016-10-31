@@ -41,20 +41,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Views
         public StabilityPointStructuresFailureMechanismSectionResultRow(StabilityPointStructuresFailureMechanismSectionResult sectionResult) : base(sectionResult) {}
 
         /// <summary>
-        /// Gets the assessment layer two a of the <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
+        /// Gets the <see cref="StabilityPointStructuresFailureMechanismSectionResult.AssessmentLayerTwoA"/>.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is
-        /// not in the range [0,1].</exception>
         [TypeConverter(typeof(FailureMechanismSectionResultNoProbabilityValueDoubleConverter))]
         public double AssessmentLayerTwoA
         {
             get
             {
                 return SectionResult.AssessmentLayerTwoA;
-            }
-            set
-            {
-                SectionResult.AssessmentLayerTwoA = value;
             }
         }
     }

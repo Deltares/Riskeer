@@ -21,7 +21,6 @@
 
 using System;
 using Ringtoets.Common.Data.FailureMechanism;
-using Ringtoets.Common.Data.Properties;
 using Ringtoets.Common.Data.Structures;
 
 namespace Ringtoets.StabilityPointStructures.Data
@@ -32,36 +31,26 @@ namespace Ringtoets.StabilityPointStructures.Data
     /// </summary>
     public class StabilityPointStructuresFailureMechanismSectionResult : StructuresFailureMechanismSectionResult<StabilityPointStructuresInput>
     {
-        private double assessmentLayerTwoA;
-
         /// <summary>
         /// Creates a new instance of <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="section">The <see cref="FailureMechanismSection"/> for which the
         /// <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> will hold the result.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="section"/> is <c>null</c>.</exception>
-        public StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section)
-        {
-            AssessmentLayerTwoA = double.NaN;
-        }
+        public StabilityPointStructuresFailureMechanismSectionResult(FailureMechanismSection section) : base(section) {}
 
         /// <summary>
         /// Gets or sets the value for the detailed assessment of safety per failure mechanism section as a probability.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is not in range [0,1].</exception>
         public double AssessmentLayerTwoA
         {
             get
             {
-                return assessmentLayerTwoA;
-            }
-            set
-            {
-                if (!double.IsNaN(value) && (value < 0 || value > 1))
+                if (Calculation == null || !Calculation.HasOutput)
                 {
-                    throw new ArgumentException(Resources.ArbitraryProbabilityFailureMechanismSectionResult_AssessmentLayerTwoA_Value_needs_to_be_between_0_and_1);
+                    return double.NaN;
                 }
-                assessmentLayerTwoA = value;
+                return Calculation.Output.Probability;
             }
         }
     }

@@ -48,14 +48,12 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
         [Test]
         public void Create_VariousResults_ReturnsEntity(
             [Values(true, false)] bool assessmentLayerOneResult,
-            [Values(0.2, 0.523)] double assessmentLayerTwoAResult,
             [Values(3.2, 4.5)] double assessmentLayerThreeResult)
         {
             // Setup
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
             {
                 AssessmentLayerOne = assessmentLayerOneResult,
-                AssessmentLayerTwoA = (RoundedDouble)assessmentLayerTwoAResult,
                 AssessmentLayerThree = (RoundedDouble) assessmentLayerThreeResult
             };
 
@@ -64,24 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
-            Assert.AreEqual(assessmentLayerTwoAResult, result.LayerTwoA);
             Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
-        }
-
-        [Test]
-        public void Create_WithNaNLevel2aResult_ReturnsEntityWithExpectedResults()
-        {
-            // Setup
-            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
-            {
-                AssessmentLayerTwoA = RoundedDouble.NaN
-            };
-
-            // Call
-            var result = sectionResult.Create(new PersistenceRegistry());
-
-            // Assert
-            Assert.IsNull(result.LayerTwoA);
         }
 
         [Test]
