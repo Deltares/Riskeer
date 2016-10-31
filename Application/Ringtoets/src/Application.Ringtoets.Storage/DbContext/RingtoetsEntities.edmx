@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\WTI\trunk\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -1050,6 +1050,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ClosingStructuresSectionResultEntity_1_0">
+          <End Role="ClosingStructuresCalculationEntity" Type="Self.ClosingStructuresCalculationEntity" Multiplicity="0..1" />
+          <End Role="ClosingStructuresSectionResultEntity" Type="Self.ClosingStructuresSectionResultEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClosingStructuresCalculationEntity">
+              <PropertyRef Name="ClosingStructuresCalculationEntityId" />
+            </Principal>
+            <Dependent Role="ClosingStructuresSectionResultEntity">
+              <PropertyRef Name="ClosingStructuresCalculationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DikeProfileEntity_0_0">
           <End Role="FailureMechanismEntity" Type="Self.FailureMechanismEntity" Multiplicity="1" />
           <End Role="DikeProfileEntity" Type="Self.DikeProfileEntity" Multiplicity="*" />
@@ -1982,6 +1994,10 @@
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="ClosingStructuresSectionResultEntity" EntitySet="ClosingStructuresSectionResultEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_ClosingStructuresSectionResultEntity_1_0" Association="Self.FK_ClosingStructuresSectionResultEntity_1_0">
+            <End Role="ClosingStructuresCalculationEntity" EntitySet="ClosingStructuresCalculationEntity" />
+            <End Role="ClosingStructuresSectionResultEntity" EntitySet="ClosingStructuresSectionResultEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_DikeProfileEntity_0_0" Association="Self.FK_DikeProfileEntity_0_0">
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="DikeProfileEntity" EntitySet="DikeProfileEntity" />
@@ -2403,6 +2419,10 @@
             <End Role="ClosingStructuresCalculationEntity" EntitySet="ClosingStructuresCalculationEntities" />
             <End Role="ClosingStructuresOutputEntity" EntitySet="ClosingStructuresOutputEntities" />
           </AssociationSet>
+          <AssociationSet Name="FK_ClosingStructuresSectionResultEntity_1_0" Association="RingtoetsEntitiesModel.FK_ClosingStructuresSectionResultEntity_1_0">
+            <End Role="ClosingStructuresCalculationEntity" EntitySet="ClosingStructuresCalculationEntities" />
+            <End Role="ClosingStructuresSectionResultEntity" EntitySet="ClosingStructuresSectionResultEntities" />
+          </AssociationSet>
           <AssociationSet Name="FK_ClosingStructuresSectionResultEntity_0_0" Association="RingtoetsEntitiesModel.FK_ClosingStructuresSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntities" />
             <End Role="ClosingStructuresSectionResultEntity" EntitySet="ClosingStructuresSectionResultEntities" />
@@ -2794,6 +2814,7 @@
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresCalculationEntity_0_0" FromRole="ClosingStructuresCalculationEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresCalculationEntity_1_0" FromRole="ClosingStructuresCalculationEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="ClosingStructuresOutputEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresOutputEntity_0_0" FromRole="ClosingStructuresCalculationEntity" ToRole="ClosingStructuresOutputEntity" />
+          <NavigationProperty Name="ClosingStructuresSectionResultEntities" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresSectionResultEntity_1_0" FromRole="ClosingStructuresCalculationEntity" ToRole="ClosingStructuresSectionResultEntity" />
         </EntityType>
         <EntityType Name="ClosingStructuresOutputEntity">
           <Key>
@@ -2817,6 +2838,7 @@
           <Property Name="ClosingStructuresCalculationEntityId" Type="Int64" />
           <Property Name="LayerOne" Type="Byte" Nullable="false" />
           <Property Name="LayerThree" Type="Double" />
+          <NavigationProperty Name="ClosingStructuresCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresSectionResultEntity_1_0" FromRole="ClosingStructuresSectionResultEntity" ToRole="ClosingStructuresCalculationEntity" />
           <NavigationProperty Name="FailureMechanismSectionEntity" Relationship="RingtoetsEntitiesModel.FK_ClosingStructuresSectionResultEntity_0_0" FromRole="ClosingStructuresSectionResultEntity" ToRole="FailureMechanismSectionEntity" />
         </EntityType>
         <EntityType Name="DikeProfileEntity">
@@ -3953,6 +3975,18 @@
               <PropertyRef Name="ClosingStructuresCalculationEntityId" />
             </Principal>
             <Dependent Role="ClosingStructuresOutputEntity">
+              <PropertyRef Name="ClosingStructuresCalculationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClosingStructuresSectionResultEntity_1_0">
+          <End Type="RingtoetsEntitiesModel.ClosingStructuresCalculationEntity" Role="ClosingStructuresCalculationEntity" Multiplicity="0..1" />
+          <End Type="RingtoetsEntitiesModel.ClosingStructuresSectionResultEntity" Role="ClosingStructuresSectionResultEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClosingStructuresCalculationEntity">
+              <PropertyRef Name="ClosingStructuresCalculationEntityId" />
+            </Principal>
+            <Dependent Role="ClosingStructuresSectionResultEntity">
               <PropertyRef Name="ClosingStructuresCalculationEntityId" />
             </Dependent>
           </ReferentialConstraint>

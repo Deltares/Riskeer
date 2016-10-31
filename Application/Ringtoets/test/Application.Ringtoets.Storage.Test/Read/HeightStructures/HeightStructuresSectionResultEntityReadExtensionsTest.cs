@@ -121,16 +121,13 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             // Setup
             var calculation = new StructuresCalculation<HeightStructuresInput>();
 
-            var failureMechanismSectionEntity = new FailureMechanismSectionEntity();
             var calculationEntity = new HeightStructuresCalculationEntity();
 
             var collector = new ReadConversionCollector();
-            collector.Read(failureMechanismSectionEntity, new TestFailureMechanismSection());
             collector.Read(calculationEntity, calculation);
 
             var entity = new HeightStructuresSectionResultEntity
             {
-                FailureMechanismSectionEntity = failureMechanismSectionEntity,
                 HeightStructuresCalculationEntity = calculationEntity
             };
             var sectionResult = new HeightStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());

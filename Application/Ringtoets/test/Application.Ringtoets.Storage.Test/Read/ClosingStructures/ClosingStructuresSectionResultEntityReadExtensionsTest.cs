@@ -26,6 +26,7 @@ using Application.Ringtoets.Storage.Read.ClosingStructures;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
@@ -40,11 +41,26 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             var entity = new ClosingStructuresSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            TestDelegate call = () => entity.Read(null, new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("sectionResult", paramName);
+        }
+
+        [Test]
+        public void Read_CollectorIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var entity = new ClosingStructuresSectionResultEntity();
+
+            // Call
+            TestDelegate call = () => entity.Read(new ClosingStructuresFailureMechanismSectionResult(
+                                                      new TestFailureMechanismSection()), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("collector", paramName);
         }
 
         [Test]
@@ -68,7 +84,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
-            entity.Read(sectionResult);
+            entity.Read(sectionResult, collector);
 
             // Assert
             Assert.IsNotNull(sectionResult);
@@ -94,10 +110,34 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
-            entity.Read(sectionResult);
+            entity.Read(sectionResult, collector);
 
             // Assert
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
+        }
+
+        [Test]
+        public void Read_CalculationEntitySet_ReturnClosingStructuresSectionResultWithCalculation()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+
+            var calculationEntity = new ClosingStructuresCalculationEntity();
+
+            var collector = new ReadConversionCollector();
+            collector.Read(calculationEntity, calculation);
+
+            var entity = new ClosingStructuresSectionResultEntity
+            {
+                ClosingStructuresCalculationEntity = calculationEntity
+            };
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+
+            // Call
+            entity.Read(sectionResult, collector);
+
+            // Assert
+            Assert.AreSame(calculation, sectionResult.Calculation);
         }
     }
 }

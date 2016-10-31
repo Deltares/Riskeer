@@ -41,6 +41,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public byte LayerOne { get; set; }
         public Nullable<double> LayerThree { get; set; }
     
+        public virtual ClosingStructuresCalculationEntity ClosingStructuresCalculationEntity { get; set; }
         public virtual FailureMechanismSectionEntity FailureMechanismSectionEntity { get; set; }
     }
 }

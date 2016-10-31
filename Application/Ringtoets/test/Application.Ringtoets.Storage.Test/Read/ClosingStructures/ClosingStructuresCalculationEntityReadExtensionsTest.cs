@@ -294,5 +294,30 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             // Assert
             Assert.IsTrue(calculation.HasOutput);
         }
+
+
+        [Test]
+        public void Read_CalculationEntityAlreadyRead_ReturnReadCalculation()
+        {
+            // Setup
+            var entity = new ClosingStructuresCalculationEntity
+            {
+                ClosingStructuresOutputEntities =
+                {
+                    new ClosingStructuresOutputEntity()
+                }
+            };
+
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+
+            var collector = new ReadConversionCollector();
+            collector.Read(entity, calculation);
+
+            // Call
+            StructuresCalculation<ClosingStructuresInput> returnedCalculation = entity.Read(collector);
+
+            // Assert
+            Assert.AreSame(calculation, returnedCalculation);
+        }
     }
 }

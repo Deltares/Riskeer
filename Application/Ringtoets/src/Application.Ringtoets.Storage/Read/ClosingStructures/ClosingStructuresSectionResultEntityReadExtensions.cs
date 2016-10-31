@@ -38,17 +38,28 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
         /// </summary>
         /// <param name="entity">The <see cref="ClosingStructuresSectionResultEntity"/> to create <see cref="ClosingStructuresFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="ClosingStructuresFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        internal static void Read(this ClosingStructuresSectionResultEntity entity, ClosingStructuresFailureMechanismSectionResult sectionResult)
+        internal static void Read(this ClosingStructuresSectionResultEntity entity, ClosingStructuresFailureMechanismSectionResult sectionResult,
+            ReadConversionCollector collector)
         {
             if (sectionResult == null)
             {
                 throw new ArgumentNullException("sectionResult");
             }
+            if (collector == null)
+            {
+                throw new ArgumentNullException("collector");
+            }
 
             sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
+
+            if (entity.ClosingStructuresCalculationEntity != null)
+            {
+                sectionResult.Calculation = entity.ClosingStructuresCalculationEntity.Read(collector);
+            }
         }
     }
 }

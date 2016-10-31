@@ -49,6 +49,10 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
             {
                 throw new ArgumentNullException("collector");
             }
+            if (collector.Contains(entity))
+            {
+                return collector.Get(entity);
+            }
 
             var calculation = new StructuresCalculation<ClosingStructuresInput>
             {

@@ -39,6 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public ClosingStructuresCalculationEntity()
         {
             this.ClosingStructuresOutputEntities = new HashSet<ClosingStructuresOutputEntity>();
+            this.ClosingStructuresSectionResultEntities = new HashSet<ClosingStructuresSectionResultEntity>();
         }
     
         public long ClosingStructuresCalculationEntityId { get; set; }
@@ -91,5 +92,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClosingStructuresOutputEntity> ClosingStructuresOutputEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClosingStructuresSectionResultEntity> ClosingStructuresSectionResultEntities { get; set; }
     }
 }
