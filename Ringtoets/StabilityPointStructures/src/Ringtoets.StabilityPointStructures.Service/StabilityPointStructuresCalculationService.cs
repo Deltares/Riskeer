@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.Common.Utils;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -263,68 +264,68 @@ namespace Ringtoets.StabilityPointStructures.Service
                                                                                                                 GeneralStabilityPointStructuresInput generalInput)
         {
             return new StructuresStabilityPointLowSillQuadraticCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                                             new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
-                                                                             HydraRingInputParser.ParseForeshore(calculation.InputParameters),
-                                                                             HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
-                                                                             calculation.InputParameters.VolumicWeightWater,
-                                                                             generalInput.GravitationalAcceleration,
-                                                                             calculation.InputParameters.LevelCrestStructure.Mean,
-                                                                             calculation.InputParameters.LevelCrestStructure.StandardDeviation,
-                                                                             calculation.InputParameters.StructureNormalOrientation,
-                                                                             calculation.InputParameters.FactorStormDurationOpenStructure,
-                                                                             calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean,
-                                                                             calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation,
-                                                                             calculation.InputParameters.ThresholdHeightOpenWeir.Mean,
-                                                                             calculation.InputParameters.ThresholdHeightOpenWeir.StandardDeviation,
-                                                                             calculation.InputParameters.InsideWaterLevelFailureConstruction.Mean,
-                                                                             calculation.InputParameters.InsideWaterLevelFailureConstruction.StandardDeviation,
-                                                                             calculation.InputParameters.FailureProbabilityRepairClosure,
-                                                                             calculation.InputParameters.FailureCollisionEnergy.Mean,
-                                                                             calculation.InputParameters.FailureCollisionEnergy.CoefficientOfVariation,
-                                                                             generalInput.ModelFactorCollisionLoad.Mean,
-                                                                             generalInput.ModelFactorCollisionLoad.CoefficientOfVariation,
-                                                                             calculation.InputParameters.ShipMass.Mean,
-                                                                             calculation.InputParameters.ShipMass.CoefficientOfVariation,
-                                                                             calculation.InputParameters.ShipVelocity.Mean,
-                                                                             calculation.InputParameters.ShipVelocity.CoefficientOfVariation,
-                                                                             calculation.InputParameters.LevellingCount,
-                                                                             calculation.InputParameters.ProbabilityCollisionSecondaryStructure,
-                                                                             calculation.InputParameters.FlowVelocityStructureClosable.Mean,
-                                                                             calculation.InputParameters.FlowVelocityStructureClosable.StandardDeviation,
-                                                                             calculation.InputParameters.InsideWaterLevel.Mean,
-                                                                             calculation.InputParameters.InsideWaterLevel.StandardDeviation,
-                                                                             calculation.InputParameters.AllowedLevelIncreaseStorage.Mean,
-                                                                             calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation,
-                                                                             generalInput.ModelFactorStorageVolume.Mean,
-                                                                             generalInput.ModelFactorStorageVolume.StandardDeviation,
-                                                                             calculation.InputParameters.StorageStructureArea.Mean,
-                                                                             calculation.InputParameters.StorageStructureArea.CoefficientOfVariation,
-                                                                             generalInput.ModelFactorInflowVolume,
-                                                                             calculation.InputParameters.FlowWidthAtBottomProtection.Mean,
-                                                                             calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
-                                                                             calculation.InputParameters.CriticalOvertoppingDischarge.Mean,
-                                                                             calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
-                                                                             calculation.InputParameters.FailureProbabilityStructureWithErosion,
-                                                                             calculation.InputParameters.StormDuration.Mean,
-                                                                             calculation.InputParameters.StormDuration.CoefficientOfVariation,
-                                                                             calculation.InputParameters.BankWidth.Mean,
-                                                                             calculation.InputParameters.BankWidth.StandardDeviation,
-                                                                             calculation.InputParameters.EvaluationLevel,
-                                                                             generalInput.ModelFactorLoadEffect.Mean,
-                                                                             generalInput.ModelFactorLoadEffect.StandardDeviation,
-                                                                             generalInput.WaveRatioMaxHN,
-                                                                             generalInput.WaveRatioMaxHStandardDeviation,
-                                                                             calculation.InputParameters.VerticalDistance,
-                                                                             generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
-                                                                             generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                                                                             calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean,
-                                                                             calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation,
-                                                                             calculation.InputParameters.ConstructiveStrengthQuadraticLoadModel.Mean,
-                                                                             calculation.InputParameters.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
-                                                                             calculation.InputParameters.StabilityQuadraticLoadModel.Mean,
-                                                                             calculation.InputParameters.StabilityQuadraticLoadModel.CoefficientOfVariation,
-                                                                             calculation.InputParameters.WidthFlowApertures.Mean,
-                                                                             calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation);
+                                                                                new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
+                                                                                HydraRingInputParser.ParseForeshore(calculation.InputParameters),
+                                                                                HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
+                                                                                calculation.InputParameters.VolumicWeightWater,
+                                                                                generalInput.GravitationalAcceleration,
+                                                                                calculation.InputParameters.LevelCrestStructure.Mean,
+                                                                                calculation.InputParameters.LevelCrestStructure.StandardDeviation,
+                                                                                calculation.InputParameters.StructureNormalOrientation,
+                                                                                calculation.InputParameters.FactorStormDurationOpenStructure,
+                                                                                calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean,
+                                                                                calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation,
+                                                                                calculation.InputParameters.ThresholdHeightOpenWeir.Mean,
+                                                                                calculation.InputParameters.ThresholdHeightOpenWeir.StandardDeviation,
+                                                                                calculation.InputParameters.InsideWaterLevelFailureConstruction.Mean,
+                                                                                calculation.InputParameters.InsideWaterLevelFailureConstruction.StandardDeviation,
+                                                                                calculation.InputParameters.FailureProbabilityRepairClosure,
+                                                                                calculation.InputParameters.FailureCollisionEnergy.Mean,
+                                                                                calculation.InputParameters.FailureCollisionEnergy.CoefficientOfVariation,
+                                                                                generalInput.ModelFactorCollisionLoad.Mean,
+                                                                                generalInput.ModelFactorCollisionLoad.CoefficientOfVariation,
+                                                                                calculation.InputParameters.ShipMass.Mean,
+                                                                                calculation.InputParameters.ShipMass.CoefficientOfVariation,
+                                                                                calculation.InputParameters.ShipVelocity.Mean,
+                                                                                calculation.InputParameters.ShipVelocity.CoefficientOfVariation,
+                                                                                calculation.InputParameters.LevellingCount,
+                                                                                calculation.InputParameters.ProbabilityCollisionSecondaryStructure,
+                                                                                calculation.InputParameters.FlowVelocityStructureClosable.Mean,
+                                                                                calculation.InputParameters.FlowVelocityStructureClosable.StandardDeviation,
+                                                                                calculation.InputParameters.InsideWaterLevel.Mean,
+                                                                                calculation.InputParameters.InsideWaterLevel.StandardDeviation,
+                                                                                calculation.InputParameters.AllowedLevelIncreaseStorage.Mean,
+                                                                                calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation,
+                                                                                generalInput.ModelFactorStorageVolume.Mean,
+                                                                                generalInput.ModelFactorStorageVolume.StandardDeviation,
+                                                                                calculation.InputParameters.StorageStructureArea.Mean,
+                                                                                calculation.InputParameters.StorageStructureArea.CoefficientOfVariation,
+                                                                                generalInput.ModelFactorInflowVolume,
+                                                                                calculation.InputParameters.FlowWidthAtBottomProtection.Mean,
+                                                                                calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
+                                                                                calculation.InputParameters.CriticalOvertoppingDischarge.Mean,
+                                                                                calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                                                                                calculation.InputParameters.FailureProbabilityStructureWithErosion,
+                                                                                calculation.InputParameters.StormDuration.Mean,
+                                                                                calculation.InputParameters.StormDuration.CoefficientOfVariation,
+                                                                                calculation.InputParameters.BankWidth.Mean,
+                                                                                calculation.InputParameters.BankWidth.StandardDeviation,
+                                                                                calculation.InputParameters.EvaluationLevel,
+                                                                                generalInput.ModelFactorLoadEffect.Mean,
+                                                                                generalInput.ModelFactorLoadEffect.StandardDeviation,
+                                                                                generalInput.WaveRatioMaxHN,
+                                                                                generalInput.WaveRatioMaxHStandardDeviation,
+                                                                                calculation.InputParameters.VerticalDistance,
+                                                                                generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
+                                                                                generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
+                                                                                calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean,
+                                                                                calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation,
+                                                                                calculation.InputParameters.ConstructiveStrengthQuadraticLoadModel.Mean,
+                                                                                calculation.InputParameters.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
+                                                                                calculation.InputParameters.StabilityQuadraticLoadModel.Mean,
+                                                                                calculation.InputParameters.StabilityQuadraticLoadModel.CoefficientOfVariation,
+                                                                                calculation.InputParameters.WidthFlowApertures.Mean,
+                                                                                calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation);
         }
 
         private StructuresStabilityPointFloodedCulvertLinearCalculationInput CreateFloodedCulvertLinearCalculationInput(StructuresCalculation<StabilityPointStructuresInput> calculation,
@@ -332,68 +333,68 @@ namespace Ringtoets.StabilityPointStructures.Service
                                                                                                                         GeneralStabilityPointStructuresInput generalInput)
         {
             return new StructuresStabilityPointFloodedCulvertLinearCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                                             new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
-                                                                             HydraRingInputParser.ParseForeshore(calculation.InputParameters),
-                                                                             HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
-                                                                             calculation.InputParameters.VolumicWeightWater,
-                                                                             generalInput.GravitationalAcceleration,
-                                                                             calculation.InputParameters.LevelCrestStructure.Mean,
-                                                                             calculation.InputParameters.LevelCrestStructure.StandardDeviation,
-                                                                             calculation.InputParameters.StructureNormalOrientation,
-                                                                             calculation.InputParameters.FactorStormDurationOpenStructure,
-                                                                             calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean,
-                                                                             calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation,
-                                                                             calculation.InputParameters.ThresholdHeightOpenWeir.Mean,
-                                                                             calculation.InputParameters.ThresholdHeightOpenWeir.StandardDeviation,
-                                                                             calculation.InputParameters.InsideWaterLevelFailureConstruction.Mean,
-                                                                             calculation.InputParameters.InsideWaterLevelFailureConstruction.StandardDeviation,
-                                                                             calculation.InputParameters.FailureProbabilityRepairClosure,
-                                                                             calculation.InputParameters.FailureCollisionEnergy.Mean,
-                                                                             calculation.InputParameters.FailureCollisionEnergy.CoefficientOfVariation,
-                                                                             generalInput.ModelFactorCollisionLoad.Mean,
-                                                                             generalInput.ModelFactorCollisionLoad.CoefficientOfVariation,
-                                                                             calculation.InputParameters.ShipMass.Mean,
-                                                                             calculation.InputParameters.ShipMass.CoefficientOfVariation,
-                                                                             calculation.InputParameters.ShipVelocity.Mean,
-                                                                             calculation.InputParameters.ShipVelocity.CoefficientOfVariation,
-                                                                             calculation.InputParameters.LevellingCount,
-                                                                             calculation.InputParameters.ProbabilityCollisionSecondaryStructure,
-                                                                             calculation.InputParameters.FlowVelocityStructureClosable.Mean,
-                                                                             calculation.InputParameters.FlowVelocityStructureClosable.StandardDeviation,
-                                                                             calculation.InputParameters.InsideWaterLevel.Mean,
-                                                                             calculation.InputParameters.InsideWaterLevel.StandardDeviation,
-                                                                             calculation.InputParameters.AllowedLevelIncreaseStorage.Mean,
-                                                                             calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation,
-                                                                             generalInput.ModelFactorStorageVolume.Mean,
-                                                                             generalInput.ModelFactorStorageVolume.StandardDeviation,
-                                                                             calculation.InputParameters.StorageStructureArea.Mean,
-                                                                             calculation.InputParameters.StorageStructureArea.CoefficientOfVariation,
-                                                                             generalInput.ModelFactorInflowVolume,
-                                                                             calculation.InputParameters.FlowWidthAtBottomProtection.Mean,
-                                                                             calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
-                                                                             calculation.InputParameters.CriticalOvertoppingDischarge.Mean,
-                                                                             calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
-                                                                             calculation.InputParameters.FailureProbabilityStructureWithErosion,
-                                                                             calculation.InputParameters.StormDuration.Mean,
-                                                                             calculation.InputParameters.StormDuration.CoefficientOfVariation,
-                                                                             calculation.InputParameters.BankWidth.Mean,
-                                                                             calculation.InputParameters.BankWidth.StandardDeviation,
-                                                                             calculation.InputParameters.EvaluationLevel,
-                                                                             generalInput.ModelFactorLoadEffect.Mean,
-                                                                             generalInput.ModelFactorLoadEffect.StandardDeviation,
-                                                                             generalInput.WaveRatioMaxHN,
-                                                                             generalInput.WaveRatioMaxHStandardDeviation,
-                                                                             calculation.InputParameters.VerticalDistance,
-                                                                             generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
-                                                                             generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                                                                             calculation.InputParameters.DrainCoefficient.Mean,
-                                                                             calculation.InputParameters.DrainCoefficient.StandardDeviation,
-                                                                             calculation.InputParameters.AreaFlowApertures.Mean,
-                                                                             calculation.InputParameters.AreaFlowApertures.StandardDeviation,
-                                                                             calculation.InputParameters.ConstructiveStrengthLinearLoadModel.Mean,
-                                                                             calculation.InputParameters.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
-                                                                             calculation.InputParameters.StabilityLinearLoadModel.Mean,
-                                                                             calculation.InputParameters.StabilityLinearLoadModel.CoefficientOfVariation);
+                                                                                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
+                                                                                    HydraRingInputParser.ParseForeshore(calculation.InputParameters),
+                                                                                    HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
+                                                                                    calculation.InputParameters.VolumicWeightWater,
+                                                                                    generalInput.GravitationalAcceleration,
+                                                                                    calculation.InputParameters.LevelCrestStructure.Mean,
+                                                                                    calculation.InputParameters.LevelCrestStructure.StandardDeviation,
+                                                                                    calculation.InputParameters.StructureNormalOrientation,
+                                                                                    calculation.InputParameters.FactorStormDurationOpenStructure,
+                                                                                    calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean,
+                                                                                    calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation,
+                                                                                    calculation.InputParameters.ThresholdHeightOpenWeir.Mean,
+                                                                                    calculation.InputParameters.ThresholdHeightOpenWeir.StandardDeviation,
+                                                                                    calculation.InputParameters.InsideWaterLevelFailureConstruction.Mean,
+                                                                                    calculation.InputParameters.InsideWaterLevelFailureConstruction.StandardDeviation,
+                                                                                    calculation.InputParameters.FailureProbabilityRepairClosure,
+                                                                                    calculation.InputParameters.FailureCollisionEnergy.Mean,
+                                                                                    calculation.InputParameters.FailureCollisionEnergy.CoefficientOfVariation,
+                                                                                    generalInput.ModelFactorCollisionLoad.Mean,
+                                                                                    generalInput.ModelFactorCollisionLoad.CoefficientOfVariation,
+                                                                                    calculation.InputParameters.ShipMass.Mean,
+                                                                                    calculation.InputParameters.ShipMass.CoefficientOfVariation,
+                                                                                    calculation.InputParameters.ShipVelocity.Mean,
+                                                                                    calculation.InputParameters.ShipVelocity.CoefficientOfVariation,
+                                                                                    calculation.InputParameters.LevellingCount,
+                                                                                    calculation.InputParameters.ProbabilityCollisionSecondaryStructure,
+                                                                                    calculation.InputParameters.FlowVelocityStructureClosable.Mean,
+                                                                                    calculation.InputParameters.FlowVelocityStructureClosable.StandardDeviation,
+                                                                                    calculation.InputParameters.InsideWaterLevel.Mean,
+                                                                                    calculation.InputParameters.InsideWaterLevel.StandardDeviation,
+                                                                                    calculation.InputParameters.AllowedLevelIncreaseStorage.Mean,
+                                                                                    calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation,
+                                                                                    generalInput.ModelFactorStorageVolume.Mean,
+                                                                                    generalInput.ModelFactorStorageVolume.StandardDeviation,
+                                                                                    calculation.InputParameters.StorageStructureArea.Mean,
+                                                                                    calculation.InputParameters.StorageStructureArea.CoefficientOfVariation,
+                                                                                    generalInput.ModelFactorInflowVolume,
+                                                                                    calculation.InputParameters.FlowWidthAtBottomProtection.Mean,
+                                                                                    calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
+                                                                                    calculation.InputParameters.CriticalOvertoppingDischarge.Mean,
+                                                                                    calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                                                                                    calculation.InputParameters.FailureProbabilityStructureWithErosion,
+                                                                                    calculation.InputParameters.StormDuration.Mean,
+                                                                                    calculation.InputParameters.StormDuration.CoefficientOfVariation,
+                                                                                    calculation.InputParameters.BankWidth.Mean,
+                                                                                    calculation.InputParameters.BankWidth.StandardDeviation,
+                                                                                    calculation.InputParameters.EvaluationLevel,
+                                                                                    generalInput.ModelFactorLoadEffect.Mean,
+                                                                                    generalInput.ModelFactorLoadEffect.StandardDeviation,
+                                                                                    generalInput.WaveRatioMaxHN,
+                                                                                    generalInput.WaveRatioMaxHStandardDeviation,
+                                                                                    calculation.InputParameters.VerticalDistance,
+                                                                                    generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
+                                                                                    generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
+                                                                                    calculation.InputParameters.DrainCoefficient.Mean,
+                                                                                    calculation.InputParameters.DrainCoefficient.StandardDeviation,
+                                                                                    calculation.InputParameters.AreaFlowApertures.Mean,
+                                                                                    calculation.InputParameters.AreaFlowApertures.StandardDeviation,
+                                                                                    calculation.InputParameters.ConstructiveStrengthLinearLoadModel.Mean,
+                                                                                    calculation.InputParameters.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
+                                                                                    calculation.InputParameters.StabilityLinearLoadModel.Mean,
+                                                                                    calculation.InputParameters.StabilityLinearLoadModel.CoefficientOfVariation);
         }
 
         private StructuresStabilityPointFloodedCulvertQuadraticCalculationInput CreateFloodedCulvertQuadraticCalculationInput(StructuresCalculation<StabilityPointStructuresInput> calculation,
@@ -401,68 +402,68 @@ namespace Ringtoets.StabilityPointStructures.Service
                                                                                                                               GeneralStabilityPointStructuresInput generalInput)
         {
             return new StructuresStabilityPointFloodedCulvertQuadraticCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                                             new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
-                                                                             HydraRingInputParser.ParseForeshore(calculation.InputParameters),
-                                                                             HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
-                                                                             calculation.InputParameters.VolumicWeightWater,
-                                                                             generalInput.GravitationalAcceleration,
-                                                                             calculation.InputParameters.LevelCrestStructure.Mean,
-                                                                             calculation.InputParameters.LevelCrestStructure.StandardDeviation,
-                                                                             calculation.InputParameters.StructureNormalOrientation,
-                                                                             calculation.InputParameters.FactorStormDurationOpenStructure,
-                                                                             calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean,
-                                                                             calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation,
-                                                                             calculation.InputParameters.ThresholdHeightOpenWeir.Mean,
-                                                                             calculation.InputParameters.ThresholdHeightOpenWeir.StandardDeviation,
-                                                                             calculation.InputParameters.InsideWaterLevelFailureConstruction.Mean,
-                                                                             calculation.InputParameters.InsideWaterLevelFailureConstruction.StandardDeviation,
-                                                                             calculation.InputParameters.FailureProbabilityRepairClosure,
-                                                                             calculation.InputParameters.FailureCollisionEnergy.Mean,
-                                                                             calculation.InputParameters.FailureCollisionEnergy.CoefficientOfVariation,
-                                                                             generalInput.ModelFactorCollisionLoad.Mean,
-                                                                             generalInput.ModelFactorCollisionLoad.CoefficientOfVariation,
-                                                                             calculation.InputParameters.ShipMass.Mean,
-                                                                             calculation.InputParameters.ShipMass.CoefficientOfVariation,
-                                                                             calculation.InputParameters.ShipVelocity.Mean,
-                                                                             calculation.InputParameters.ShipVelocity.CoefficientOfVariation,
-                                                                             calculation.InputParameters.LevellingCount,
-                                                                             calculation.InputParameters.ProbabilityCollisionSecondaryStructure,
-                                                                             calculation.InputParameters.FlowVelocityStructureClosable.Mean,
-                                                                             calculation.InputParameters.FlowVelocityStructureClosable.StandardDeviation,
-                                                                             calculation.InputParameters.InsideWaterLevel.Mean,
-                                                                             calculation.InputParameters.InsideWaterLevel.StandardDeviation,
-                                                                             calculation.InputParameters.AllowedLevelIncreaseStorage.Mean,
-                                                                             calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation,
-                                                                             generalInput.ModelFactorStorageVolume.Mean,
-                                                                             generalInput.ModelFactorStorageVolume.StandardDeviation,
-                                                                             calculation.InputParameters.StorageStructureArea.Mean,
-                                                                             calculation.InputParameters.StorageStructureArea.CoefficientOfVariation,
-                                                                             generalInput.ModelFactorInflowVolume,
-                                                                             calculation.InputParameters.FlowWidthAtBottomProtection.Mean,
-                                                                             calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
-                                                                             calculation.InputParameters.CriticalOvertoppingDischarge.Mean,
-                                                                             calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
-                                                                             calculation.InputParameters.FailureProbabilityStructureWithErosion,
-                                                                             calculation.InputParameters.StormDuration.Mean,
-                                                                             calculation.InputParameters.StormDuration.CoefficientOfVariation,
-                                                                             calculation.InputParameters.BankWidth.Mean,
-                                                                             calculation.InputParameters.BankWidth.StandardDeviation,
-                                                                             calculation.InputParameters.EvaluationLevel,
-                                                                             generalInput.ModelFactorLoadEffect.Mean,
-                                                                             generalInput.ModelFactorLoadEffect.StandardDeviation,
-                                                                             generalInput.WaveRatioMaxHN,
-                                                                             generalInput.WaveRatioMaxHStandardDeviation,
-                                                                             calculation.InputParameters.VerticalDistance,
-                                                                             generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
-                                                                             generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
-                                                                             calculation.InputParameters.DrainCoefficient.Mean,
-                                                                             calculation.InputParameters.DrainCoefficient.StandardDeviation,
-                                                                             calculation.InputParameters.AreaFlowApertures.Mean,
-                                                                             calculation.InputParameters.AreaFlowApertures.StandardDeviation,
-                                                                             calculation.InputParameters.ConstructiveStrengthQuadraticLoadModel.Mean,
-                                                                             calculation.InputParameters.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
-                                                                             calculation.InputParameters.StabilityQuadraticLoadModel.Mean,
-                                                                             calculation.InputParameters.StabilityQuadraticLoadModel.CoefficientOfVariation);
+                                                                                       new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
+                                                                                       HydraRingInputParser.ParseForeshore(calculation.InputParameters),
+                                                                                       HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
+                                                                                       calculation.InputParameters.VolumicWeightWater,
+                                                                                       generalInput.GravitationalAcceleration,
+                                                                                       calculation.InputParameters.LevelCrestStructure.Mean,
+                                                                                       calculation.InputParameters.LevelCrestStructure.StandardDeviation,
+                                                                                       calculation.InputParameters.StructureNormalOrientation,
+                                                                                       calculation.InputParameters.FactorStormDurationOpenStructure,
+                                                                                       calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean,
+                                                                                       calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation,
+                                                                                       calculation.InputParameters.ThresholdHeightOpenWeir.Mean,
+                                                                                       calculation.InputParameters.ThresholdHeightOpenWeir.StandardDeviation,
+                                                                                       calculation.InputParameters.InsideWaterLevelFailureConstruction.Mean,
+                                                                                       calculation.InputParameters.InsideWaterLevelFailureConstruction.StandardDeviation,
+                                                                                       calculation.InputParameters.FailureProbabilityRepairClosure,
+                                                                                       calculation.InputParameters.FailureCollisionEnergy.Mean,
+                                                                                       calculation.InputParameters.FailureCollisionEnergy.CoefficientOfVariation,
+                                                                                       generalInput.ModelFactorCollisionLoad.Mean,
+                                                                                       generalInput.ModelFactorCollisionLoad.CoefficientOfVariation,
+                                                                                       calculation.InputParameters.ShipMass.Mean,
+                                                                                       calculation.InputParameters.ShipMass.CoefficientOfVariation,
+                                                                                       calculation.InputParameters.ShipVelocity.Mean,
+                                                                                       calculation.InputParameters.ShipVelocity.CoefficientOfVariation,
+                                                                                       calculation.InputParameters.LevellingCount,
+                                                                                       calculation.InputParameters.ProbabilityCollisionSecondaryStructure,
+                                                                                       calculation.InputParameters.FlowVelocityStructureClosable.Mean,
+                                                                                       calculation.InputParameters.FlowVelocityStructureClosable.StandardDeviation,
+                                                                                       calculation.InputParameters.InsideWaterLevel.Mean,
+                                                                                       calculation.InputParameters.InsideWaterLevel.StandardDeviation,
+                                                                                       calculation.InputParameters.AllowedLevelIncreaseStorage.Mean,
+                                                                                       calculation.InputParameters.AllowedLevelIncreaseStorage.StandardDeviation,
+                                                                                       generalInput.ModelFactorStorageVolume.Mean,
+                                                                                       generalInput.ModelFactorStorageVolume.StandardDeviation,
+                                                                                       calculation.InputParameters.StorageStructureArea.Mean,
+                                                                                       calculation.InputParameters.StorageStructureArea.CoefficientOfVariation,
+                                                                                       generalInput.ModelFactorInflowVolume,
+                                                                                       calculation.InputParameters.FlowWidthAtBottomProtection.Mean,
+                                                                                       calculation.InputParameters.FlowWidthAtBottomProtection.StandardDeviation,
+                                                                                       calculation.InputParameters.CriticalOvertoppingDischarge.Mean,
+                                                                                       calculation.InputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                                                                                       calculation.InputParameters.FailureProbabilityStructureWithErosion,
+                                                                                       calculation.InputParameters.StormDuration.Mean,
+                                                                                       calculation.InputParameters.StormDuration.CoefficientOfVariation,
+                                                                                       calculation.InputParameters.BankWidth.Mean,
+                                                                                       calculation.InputParameters.BankWidth.StandardDeviation,
+                                                                                       calculation.InputParameters.EvaluationLevel,
+                                                                                       generalInput.ModelFactorLoadEffect.Mean,
+                                                                                       generalInput.ModelFactorLoadEffect.StandardDeviation,
+                                                                                       generalInput.WaveRatioMaxHN,
+                                                                                       generalInput.WaveRatioMaxHStandardDeviation,
+                                                                                       calculation.InputParameters.VerticalDistance,
+                                                                                       generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
+                                                                                       generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
+                                                                                       calculation.InputParameters.DrainCoefficient.Mean,
+                                                                                       calculation.InputParameters.DrainCoefficient.StandardDeviation,
+                                                                                       calculation.InputParameters.AreaFlowApertures.Mean,
+                                                                                       calculation.InputParameters.AreaFlowApertures.StandardDeviation,
+                                                                                       calculation.InputParameters.ConstructiveStrengthQuadraticLoadModel.Mean,
+                                                                                       calculation.InputParameters.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation,
+                                                                                       calculation.InputParameters.StabilityQuadraticLoadModel.Mean,
+                                                                                       calculation.InputParameters.StabilityQuadraticLoadModel.CoefficientOfVariation);
         }
 
         private static string[] ValidateInput(StabilityPointStructuresInput inputParameters, IAssessmentSection assessmentSection)
@@ -481,7 +482,97 @@ namespace Ringtoets.StabilityPointStructures.Service
                 validationResults.Add(RingtoetsCommonServiceResources.CalculationService_ValidateInput_No_hydraulic_boundary_location_selected);
             }
 
+            if (inputParameters.Structure == null)
+            {
+                validationResults.Add(RingtoetsCommonServiceResources.StructuresCalculationService_ValidateInput_No_Structure_selected);
+            }
+            else
+            {
+                IEnumerable<ValidationRule> validationRules;
+                switch (inputParameters.InflowModelType)
+                {
+                    case StabilityPointStructureInflowModelType.LowSill:
+                        switch (inputParameters.LoadSchematizationType)
+                        {
+                            case LoadSchematizationType.Linear:
+                                validationRules = GetLowSillLinearValidationRules(inputParameters);
+                                break;
+                            case LoadSchematizationType.Quadratic:
+                                validationRules = GetLowSillQuadraticValidationRules(inputParameters);
+                                break;
+                            default:
+                                throw new InvalidEnumArgumentException("inputParameters",
+                                                                       (int) inputParameters.LoadSchematizationType,
+                                                                       typeof(LoadSchematizationType));
+                        }
+                        break;
+                    case StabilityPointStructureInflowModelType.FloodedCulvert:
+                        switch (inputParameters.LoadSchematizationType)
+                        {
+                            case LoadSchematizationType.Linear:
+                                validationRules = GetFloodedCulvertLinearValidationRules(inputParameters);
+                                break;
+                            case LoadSchematizationType.Quadratic:
+                                validationRules = GetFloodedCulvertQuadraticValidationRules(inputParameters);
+                                break;
+                            default:
+                                throw new InvalidEnumArgumentException("inputParameters",
+                                                                       (int) inputParameters.LoadSchematizationType,
+                                                                       typeof(LoadSchematizationType));
+                        }
+                        break;
+                    default:
+                        throw new InvalidEnumArgumentException("inputParameters",
+                                                               (int) inputParameters.InflowModelType,
+                                                               typeof(StabilityPointStructureInflowModelType));
+                }
+
+                foreach (var validationRule in validationRules)
+                {
+                    validationResults.AddRange(validationRule.Validate());
+                }
+            }
             return validationResults.ToArray();
+        }
+
+        private static IEnumerable<ValidationRule> GetLowSillLinearValidationRules(StabilityPointStructuresInput input)
+        {
+            var validationRules = new List<ValidationRule>()
+            {
+                new UseBreakWaterRule(input)
+            };
+
+            return validationRules;
+        }
+
+        private static IEnumerable<ValidationRule> GetLowSillQuadraticValidationRules(StabilityPointStructuresInput input)
+        {
+            var validationRules = new List<ValidationRule>()
+            {
+                new UseBreakWaterRule(input)
+            };
+
+            return validationRules;
+        }
+
+        private static IEnumerable<ValidationRule> GetFloodedCulvertLinearValidationRules(StabilityPointStructuresInput input)
+        {
+            var validationRules = new List<ValidationRule>()
+            {
+                new UseBreakWaterRule(input)
+            };
+
+            return validationRules;
+        }
+
+        private static IEnumerable<ValidationRule> GetFloodedCulvertQuadraticValidationRules(StabilityPointStructuresInput input)
+        {
+            var validationRules = new List<ValidationRule>()
+            {
+                new UseBreakWaterRule(input)
+            };
+
+            return validationRules;
         }
     }
 }

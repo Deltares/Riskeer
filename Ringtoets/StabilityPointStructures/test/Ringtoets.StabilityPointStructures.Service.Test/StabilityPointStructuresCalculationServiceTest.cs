@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -131,6 +132,54 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
+        public void Validate_CalculationWithoutStructuresValidHydraulicBoundaryDatabase_LogStartAndEndAndErrorMessage()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            mockRepository.ReplayAll();
+
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            const string name = "<a very nice name>";
+            var calculation = new TestStabilityPointStructuresCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    InflowModelType = StabilityPointStructureInflowModelType.FloodedCulvert,
+                    LoadSchematizationType = LoadSchematizationType.Linear,
+                    Structure = null
+                }
+            };
+
+            bool isValid = false;
+
+            // Call
+            Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen kunstwerk geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Calculate_InvalidInFlowModelType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
@@ -223,6 +272,137 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.AreEqual("calculation", exception.ParamName);
                 StringAssert.StartsWith("The value of argument 'calculation' (100) is invalid for Enum type 'LoadSchematizationType'.", exception.Message);
             }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
+        public void Validate_UseBreakWaterWithInvalidBreakWaterHeight_LogStartAndEndAndErrorMessageAndThrowsException(
+            [Values(StabilityPointStructureInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.LowSill)] StabilityPointStructureInflowModelType inflowModelType,
+            [Values(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear)] LoadSchematizationType loadSchematizationType,
+            [Values(double.NaN, double.PositiveInfinity, double.NegativeInfinity)] double breakWaterHeight)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            mockRepository.ReplayAll();
+
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            const string name = "<a very nice name>";
+            var calculation = new TestStabilityPointStructuresCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    InflowModelType = inflowModelType,
+                    LoadSchematizationType = loadSchematizationType,
+                    ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
+                    UseBreakWater = true,
+                    UseForeshore = true
+                }
+            };
+
+            bool isValid = false;
+
+            // Call
+            Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen geldige damhoogte ingevoerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_InvalidInFlowModelType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            mockRepository.ReplayAll();
+
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            const string name = "<a very nice name>";
+            var calculation = new TestStabilityPointStructuresCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    InflowModelType = (StabilityPointStructureInflowModelType) 100,
+                }
+            };
+
+            // Call
+            TestDelegate call = () => StabilityPointStructuresCalculationService.Validate(calculation,
+                                                                                          assessmentSectionStub);
+            // Assert
+            const string expectedMessage = "The value of argument 'inputParameters' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
+                                                                                                                    expectedMessage).ParamName;
+            Assert.AreEqual("inputParameters", paramName);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Validate_InvalidLoadSchematizationType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            mockRepository.ReplayAll();
+
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            const string name = "<a very nice name>";
+            var calculation = new TestStabilityPointStructuresCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    LoadSchematizationType = (LoadSchematizationType) 100
+                }
+            };
+
+            // Call
+            TestDelegate call = () => StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            const string expectedMessage = "The value of argument 'inputParameters' (100) is invalid for Enum type 'LoadSchematizationType'.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
+                                                                                                                    expectedMessage).ParamName;
+            Assert.AreEqual("inputParameters", paramName);
+
             mockRepository.VerifyAll();
         }
 
@@ -762,7 +942,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         [Combinatorial]
         public void Calculate_ValidCalculation_LogStartAndEndAndReturnOutput(
             [Values(StabilityPointStructureInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.LowSill)] StabilityPointStructureInflowModelType inflowModelType,
-            [Values(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear)] LoadSchematizationType loadSchematizationType)
+            [Values(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear)] LoadSchematizationType loadSchematizationType,
+            [Values(CalculationType.NoForeshore, CalculationType.ForeshoreWithValidBreakWater, CalculationType.ForeshoreWithoutBreakWater)] CalculationType calculationType)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -783,26 +964,47 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     InflowModelType = inflowModelType,
-                    LoadSchematizationType = loadSchematizationType
+                    LoadSchematizationType = loadSchematizationType,
+                    ForeshoreProfile = new TestForeshoreProfile(true),
+                    UseBreakWater = true,
+                    UseForeshore = true
                 }
             };
 
-            // Call
-            Action call = () => new StabilityPointStructuresCalculationService().Calculate(calculation,
-                                                                                           assessmentSectionStub,
-                                                                                           failureMechanism,
-                                                                                           validDataFilepath);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            switch (calculationType)
             {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith("Puntconstructies kunstwerk berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
-            });
-            Assert.IsNotNull(calculation.Output);
+                case CalculationType.NoForeshore:
+                    calculation.InputParameters.ForeshoreProfile = null;
+                    calculation.InputParameters.UseForeshore = false;
+                    calculation.InputParameters.UseBreakWater = false;
+                    break;
+                case CalculationType.ForeshoreWithoutBreakWater:
+                    calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
+                    calculation.InputParameters.UseBreakWater = false;
+                    break;
+                case CalculationType.ForeshoreWithValidBreakWater:
+                    break;
+            }
+
+            // Call
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                Action call = () => new StabilityPointStructuresCalculationService().Calculate(calculation,
+                                                                                               assessmentSectionStub,
+                                                                                               failureMechanism,
+                                                                                               validDataFilepath);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(3, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith("Puntconstructies kunstwerk berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+                });
+                Assert.IsNotNull(calculation.Output);
+            }
 
             mockRepository.VerifyAll();
         }
