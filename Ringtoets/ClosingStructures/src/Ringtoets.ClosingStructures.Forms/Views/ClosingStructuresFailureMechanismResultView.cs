@@ -26,6 +26,7 @@ using Core.Common.Utils.Reflection;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -52,24 +53,17 @@ namespace Ringtoets.ClosingStructures.Forms.Views
             // The concat is needed to observe the input of calculations in child groups.
             calculationInputObserver = new RecursiveObserver<CalculationGroup, ICalculationInput>(
                 UpdateDataGridViewDataSource,
-                cg => cg.Children.Concat<object>(
-                    cg.Children
-                      .OfType<ICalculation>()
-                      .Select(c => c.GetObservableInput())
-                          )
-                );
+                cg => cg.Children.Concat<object>(cg.Children
+                                                   .OfType<StructuresCalculation<ClosingStructuresInput>>()
+                                                   .Select(c => c.GetObservableInput())));
             calculationOutputObserver = new RecursiveObserver<CalculationGroup, ICalculationOutput>(
                 UpdateDataGridViewDataSource,
-                cg => cg.Children.Concat<object>(
-                    cg.Children
-                      .OfType<ICalculation>()
-                      .Select(c => c.GetObservableOutput())
-                          )
-                );
+                cg => cg.Children.Concat<object>(cg.Children
+                                                   .OfType<StructuresCalculation<ClosingStructuresInput>>()
+                                                   .Select(c => c.GetObservableOutput())));
             calculationGroupObserver = new RecursiveObserver<CalculationGroup, ICalculationBase>(
                 UpdateDataGridViewDataSource,
-                c => c.Children
-                );
+                c => c.Children);
 
             AddDataGridColumns();
         }

@@ -74,7 +74,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         public void Data_DataAlreadySetNewDataSet_DataSetAndDataGridViewUpdated()
         {
             // Setup
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
@@ -110,7 +110,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         {
             // Setup
             var testData = new object();
-            using (var view = ShowFullyConfiguredFailureMechanismResultsView())
+            using (ClosingStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
                 var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
@@ -125,18 +125,18 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
         }
 
         [Test]
-        public void FailureMechanismResultsView_AllDataSet_DataGridViewCorrectlyInitialized()
+        public void GivenFailureMechanismResultsView_WhenAllDataSet_ThenDataGridViewCorrectlyInitialized()
         {
-            // Setup & Call
-            using (ShowFullyConfiguredFailureMechanismResultsView())
+            // Given
+            using (CreateConfiguredFailureMechanismResultsView())
             {
+                // Then
                 var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
 
-                // Assert
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(2, rows.Count);
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.IsFalse((bool)cells[assessmentLayerOneIndex].FormattedValue);
@@ -217,10 +217,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(2, rows.Count);
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
                 Assert.AreEqual(result1.AssessmentLayerOne, cells[assessmentLayerOneIndex].Value);
@@ -270,10 +270,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
 
-                var cells = rows[0].Cells;
+                DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
 
                 AssertCellIsDisabled(cells[assessmentLayerTwoAIndex]);
@@ -307,7 +307,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
 
                 // Then
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-                var rows = dataGridView.Rows;
+                DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(0, rows.Count);
             }
         }
@@ -326,7 +326,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.Views
             Assert.AreEqual(Color.FromKnownColor(KnownColor.White), dataGridViewCell.Style.BackColor);
         }
 
-        private ClosingStructuresFailureMechanismResultView ShowFullyConfiguredFailureMechanismResultsView()
+        private ClosingStructuresFailureMechanismResultView CreateConfiguredFailureMechanismResultsView()
         {
             var failureMechanism = new ClosingStructuresFailureMechanism();
 
