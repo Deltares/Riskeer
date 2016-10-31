@@ -35,6 +35,12 @@ namespace Application.Ringtoets.Storage.DbContext
     
     public partial class ClosingStructuresCalculationEntity
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ClosingStructuresCalculationEntity()
+        {
+            this.ClosingStructuresOutputEntities = new HashSet<ClosingStructuresOutputEntity>();
+        }
+    
         public long ClosingStructuresCalculationEntityId { get; set; }
         public long CalculationGroupEntityId { get; set; }
         public Nullable<long> ForeshoreProfileEntityId { get; set; }
@@ -83,5 +89,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual ClosingStructureEntity ClosingStructureEntity { get; set; }
         public virtual HydraulicLocationEntity HydraulicLocationEntity { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClosingStructuresOutputEntity> ClosingStructuresOutputEntities { get; set; }
     }
 }
