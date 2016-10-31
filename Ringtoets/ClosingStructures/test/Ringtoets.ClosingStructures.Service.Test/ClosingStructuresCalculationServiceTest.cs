@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -463,7 +464,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 {
                     InflowModelType = inflowModelType,
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
-                    ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
+                    ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
                     UseBreakWater = true
                 }
             };
@@ -790,7 +791,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 {
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     InflowModelType = inflowModelType,
-                    ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, 10)),
+                    ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true
                 }
@@ -804,7 +805,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     calculation.InputParameters.UseBreakWater = false;
                     break;
                 case CalculationType.ForeshoreWithoutBreakWater:
-                    calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(null);
+                    calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
                     calculation.InputParameters.UseBreakWater = false;
                     break;
                 case CalculationType.ForeshoreWithValidBreakWater:
@@ -1000,18 +1001,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 input.ThresholdHeightOpenWeir.StandardDeviation = value;
                 input.WidthFlowApertures.CoefficientOfVariation = value;
             }
-        }
-
-        private static ForeshoreProfile CreateForeshoreProfile(BreakWater breakWater)
-        {
-            return new ForeshoreProfile(new Point2D(0, 0),
-                                        new[]
-                                        {
-                                            new Point2D(3.3, 4.4),
-                                            new Point2D(5.5, 6.6)
-                                        },
-                                        breakWater,
-                                        new ForeshoreProfile.ConstructionProperties());
         }
 
         #region Parameter name mappings

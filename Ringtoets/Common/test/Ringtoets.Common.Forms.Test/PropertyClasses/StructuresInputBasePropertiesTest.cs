@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -219,7 +220,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var random = new Random(100);
             double newStructureNormalOrientation = random.NextDouble();
             var newStructure = new SimpleStructure();
-            ForeshoreProfile newForeshoreProfile = CreateForeshoreProfile();
+            ForeshoreProfile newForeshoreProfile = new TestForeshoreProfile();
             HydraulicBoundaryLocation newHydraulicBoundaryLocation = CreateHydraulicBoundaryLocation();
 
             // Call
@@ -574,11 +575,6 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             return new HydraulicBoundaryLocation(0, "", 0, 0);
         }
 
-        private static ForeshoreProfile CreateForeshoreProfile()
-        {
-            return new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), null, new ForeshoreProfile.ConstructionProperties());
-        }
-
         private class SimpleStructure : StructureBase
         {
             public SimpleStructure() : base("Name", "Id", new Point2D(0, 0), 0.0) {}
@@ -598,7 +594,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             public override IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
             {
-                yield return CreateForeshoreProfile();
+                yield return new TestForeshoreProfile();
             }
 
             public override IEnumerable<SimpleStructure> GetAvailableStructures()

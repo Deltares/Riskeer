@@ -22,9 +22,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Forms.Design;
-using Core.Common.Base.Geometry;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -59,7 +58,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup
-            var foreshoreProfile = CreateForeshoreProfile();
+            var foreshoreProfile = new TestForeshoreProfile();
             var properties = new ObjectPropertiesWithForeshoreProfile(foreshoreProfile, new ForeshoreProfile[0]);
             var propertyBag = new DynamicPropertyBag(properties);
             var editor = new ForeshoreProfileEditor();
@@ -83,7 +82,7 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         public void EditValue_WithCurrentItemInAvailableItems_ReturnsCurrentItem()
         {
             // Setup
-            var foreshoreProfile = CreateForeshoreProfile();
+            var foreshoreProfile = new TestForeshoreProfile();
             var properties = new ObjectPropertiesWithForeshoreProfile(foreshoreProfile, new[]
             {
                 foreshoreProfile
@@ -104,11 +103,6 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
             // Assert
             Assert.AreSame(foreshoreProfile, result);
             mockRepository.VerifyAll();
-        }
-
-        private static ForeshoreProfile CreateForeshoreProfile()
-        {
-            return new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), new BreakWater(BreakWaterType.Caisson, 0.0), new ForeshoreProfile.ConstructionProperties());
         }
 
         private class ForeshoreProfileEditorWithPublicNullItem : ForeshoreProfileEditor
