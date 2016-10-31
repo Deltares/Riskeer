@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Data;
@@ -246,23 +245,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value", RingtoetsCommonFormsResources.FailureProbability_Value_cannot_be_null);
-                }
-                try
-                {
-                    data.WrappedData.FailureProbabilityOpenStructure = (RoundedDouble) double.Parse(value);
-                }
-                catch (OverflowException)
-                {
-                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbability_Value_too_large);
-                }
-                catch (FormatException)
-                {
-                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbability_Could_not_parse_string_to_double_value);
-                }
-                data.WrappedData.NotifyObservers();
+                SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.FailureProbabilityOpenStructure = parsedValue);
             }
         }
 
@@ -278,23 +261,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value", RingtoetsCommonFormsResources.FailureProbability_Value_cannot_be_null);
-                }
-                try
-                {
-                    data.WrappedData.FailureProbabilityReparation = (RoundedDouble) double.Parse(value);
-                }
-                catch (OverflowException)
-                {
-                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbability_Value_too_large);
-                }
-                catch (FormatException)
-                {
-                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbability_Could_not_parse_string_to_double_value);
-                }
-                data.WrappedData.NotifyObservers();
+                SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.FailureProbabilityReparation = parsedValue);
             }
         }
 
@@ -343,23 +310,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value", RingtoetsCommonFormsResources.FailureProbability_Value_cannot_be_null);
-                }
-                try
-                {
-                    data.WrappedData.ProbabilityOpenStructureBeforeFlooding = (RoundedDouble) double.Parse(value);
-                }
-                catch (OverflowException)
-                {
-                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbability_Value_too_large);
-                }
-                catch (FormatException)
-                {
-                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbability_Could_not_parse_string_to_double_value);
-                }
-                data.WrappedData.NotifyObservers();
+                SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.ProbabilityOpenStructureBeforeFlooding = parsedValue);
             }
         }
 

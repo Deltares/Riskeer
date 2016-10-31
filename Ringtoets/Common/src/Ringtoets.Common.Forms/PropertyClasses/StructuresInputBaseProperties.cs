@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.Linq.Expressions;
+using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.Gui.Attributes;
@@ -167,6 +168,40 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         /// The action to perform after setting the <see cref="Structure"/> property.
         /// </summary>
         protected abstract void AfterSettingStructure();
+
+        /// <summary>
+        /// Sets a probability value to one of the properties of a wrapped data object.
+        /// </summary>
+        /// <typeparam name="T">The type of the wrapped data to set a probability value for.</typeparam>
+        /// <param name="value">The probability value to set.</param>
+        /// <param name="wrappedData">The wrapped data to set a probability value for.</param>
+        /// <param name="setValueAction">The action that sets the probability value to a specific property of the wrapped data.</param>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="value"/> equals <c>null</c>.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> cannot be parsed into a <c>double</c>.</exception>
+        /// <remarks>After correctly setting the <paramref name="value"/> to the wrapped data, observers will be notified.</remarks>
+        protected static void SetProbabilityValue<T>(string value,
+                                                     T wrappedData,
+                                                     Action<T, RoundedDouble> setValueAction)
+            where T : IObservable
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value", Resources.FailureProbability_Value_cannot_be_null);
+            }
+            try
+            {
+                setValueAction(wrappedData, (RoundedDouble) double.Parse(value));
+            }
+            catch (OverflowException)
+            {
+                throw new ArgumentException(Resources.FailureProbability_Value_too_large);
+            }
+            catch (FormatException)
+            {
+                throw new ArgumentException(Resources.FailureProbability_Could_not_parse_string_to_double_value);
+            }
+            wrappedData.NotifyObservers();
+        }
 
         private static string GetMemberName(Expression<Func<StructuresInputBaseProperties<TStructure, TStructureInput, TCalculation, TFailureMechanism>, object>> expression)
         {
@@ -411,23 +446,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
             }
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value", Resources.FailureProbability_Value_cannot_be_null);
-                }
-                try
-                {
-                    data.WrappedData.FailureProbabilityStructureWithErosion = (RoundedDouble) double.Parse(value);
-                }
-                catch (OverflowException)
-                {
-                    throw new ArgumentException(Resources.FailureProbability_Value_too_large);
-                }
-                catch (FormatException)
-                {
-                    throw new ArgumentException(Resources.FailureProbability_Could_not_parse_string_to_double_value);
-                }
-                data.WrappedData.NotifyObservers();
+                SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.FailureProbabilityStructureWithErosion = parsedValue);
             }
         }
 

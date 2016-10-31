@@ -19,20 +19,19 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
 using Ringtoets.Common.Utils;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
 using Ringtoets.StabilityPointStructures.Forms.Properties;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -104,7 +103,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
                 ModelFactorSuperCriticalFlowPropertyIndex = modelFactorSuperCriticalFlowPropertyIndex,
                 HydraulicBoundaryLocationPropertyIndex = hydraulicBoundaryLocationPropertyIndex,
                 StormDurationPropertyIndex = stormDurationPropertyIndex
-            }) { }
+            }) {}
 
         public override IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
         {
@@ -389,23 +388,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value", RingtoetsCommonFormsResources.FailureProbability_Value_cannot_be_null);
-                }
-                try
-                {
-                    data.WrappedData.FailureProbabilityRepairClosure = (RoundedDouble)double.Parse(value);
-                }
-                catch (OverflowException)
-                {
-                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbability_Value_too_large);
-                }
-                catch (FormatException)
-                {
-                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbability_Could_not_parse_string_to_double_value);
-                }
-                data.WrappedData.NotifyObservers();
+                SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.FailureProbabilityRepairClosure = parsedValue);
             }
         }
 
@@ -486,23 +469,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value", RingtoetsCommonFormsResources.FailureProbability_Value_cannot_be_null);
-                }
-                try
-                {
-                    data.WrappedData.ProbabilityCollisionSecondaryStructure = (RoundedDouble)double.Parse(value);
-                }
-                catch (OverflowException)
-                {
-                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbability_Value_too_large);
-                }
-                catch (FormatException)
-                {
-                    throw new ArgumentException(RingtoetsCommonFormsResources.FailureProbability_Could_not_parse_string_to_double_value);
-                }
-                data.WrappedData.NotifyObservers();
+                SetProbabilityValue(value, data.WrappedData, (wrappedData, parsedValue) => wrappedData.ProbabilityCollisionSecondaryStructure = parsedValue);
             }
         }
 
