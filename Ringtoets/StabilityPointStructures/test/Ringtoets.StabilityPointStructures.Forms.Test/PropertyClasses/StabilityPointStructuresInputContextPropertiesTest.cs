@@ -20,13 +20,18 @@
 // All rights reserved.
 
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base;
 using Core.Common.Base.Data;
+using Core.Common.Base.Geometry;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
@@ -150,9 +155,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             };
 
             var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSectionStub);
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
             var properties = new StabilityPointStructuresInputContextProperties();
 
             // Call
@@ -215,9 +220,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var input = calculation.InputParameters;
             var inputContext = new StabilityPointStructuresInputContext(input,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSectionStub);
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
             var properties = new StabilityPointStructuresInputContextProperties
             {
                 Data = inputContext
@@ -259,6 +264,220 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             Assert.AreEqual(newEvaluationLevel, properties.EvaluationLevel, properties.EvaluationLevel.GetAccuracy());
             Assert.AreEqual(newVerticalDistance, properties.VerticalDistance, properties.VerticalDistance.GetAccuracy());
 
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(double.MinValue)]
+        [TestCase(double.MaxValue)]
+        public void SetFailureProbabilityRepairClosure_InvalidValues_ThrowsArgumentException(double newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new StabilityPointStructuresInputContext(input,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityRepairClosure = newValue.ToString(CultureInfo.InvariantCulture);
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("no double value")]
+        [TestCase("")]
+        public void SetFailureProbabilityRepairClosure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new StabilityPointStructuresInputContext(input,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityRepairClosure = newValue;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetFailureProbabilityRepairClosure_NullValue_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new StabilityPointStructuresInputContext(input,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.FailureProbabilityRepairClosure = null;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(double.MinValue)]
+        [TestCase(double.MaxValue)]
+        public void SetProbabilityCollisionSecondaryStructure_InvalidValues_ThrowsArgumentException(double newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new StabilityPointStructuresInputContext(input,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newValue.ToString(CultureInfo.InvariantCulture);
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans is te groot of te klein.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase("no double value")]
+        [TestCase("")]
+        public void SetProbabilityCollisionSecondaryStructure_ValuesUnableToParse_ThrowsArgumentException(string newValue)
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new StabilityPointStructuresInputContext(input,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = newValue;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans kon niet geïnterpreteerd worden als een getal.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetProbabilityCollisionSecondaryStructure_NullValue_ThrowsArgumentNullException()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var input = calculation.InputParameters;
+            var inputContext = new StabilityPointStructuresInputContext(input,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            TestDelegate call = () => properties.ProbabilityCollisionSecondaryStructure = null;
+
+            // Assert
+            var expectedMessage = "De waarde voor de faalkans moet ingevuld zijn.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentNullException>(call, expectedMessage);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void SetStructure_StructureInSection_UpdateSectionResults()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            failureMechanism.AddSection(new FailureMechanismSection("Section", new List<Point2D>
+            {
+                new Point2D(-10.0, -10.0),
+                new Point2D(10.0, 10.0)
+            }));
+
+            // Call
+            properties.Structure = new TestStabilityPointStructure();
+
+            // Assert
+            Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
             mockRepository.VerifyAll();
         }
     }
