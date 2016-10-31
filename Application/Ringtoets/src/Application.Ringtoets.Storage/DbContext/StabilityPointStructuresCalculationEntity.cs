@@ -43,7 +43,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public int Order { get; set; }
         public string Name { get; set; }
         public string Comments { get; set; }
-        public Nullable<byte> UseBreakWater { get; set; }
+        public byte UseBreakWater { get; set; }
         public short BreakWaterType { get; set; }
         public Nullable<double> BreakWaterHeight { get; set; }
         public byte UseForeshore { get; set; }
@@ -98,6 +98,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public Nullable<double> ModelFactorSuperCriticalFlowMean { get; set; }
         public Nullable<double> FactorStormDurationOpenStructure { get; set; }
         public Nullable<double> DrainCoefficientMean { get; set; }
+        public double FailureProbabilityStructureWithErosion { get; set; }
     
         public virtual CalculationGroupEntity CalculationGroupEntity { get; set; }
         public virtual ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\repos\WettelijkToetsInstrumentarium\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RingtoetsEntitiesModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Clean_WTI2017\Application\Ringtoets\src\Application.Ringtoets.Storage\Ringtoets.rtd" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AssessmentSectionEntity">
           <Key>
             <PropertyRef Name="AssessmentSectionEntityId" />
@@ -686,7 +686,7 @@
           <Property Name="Order" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="260" />
           <Property Name="Comments" Type="nvarchar" MaxLength="2147483647" />
-          <Property Name="UseBreakWater" Type="tinyint" />
+          <Property Name="UseBreakWater" Type="tinyint" Nullable="false" />
           <Property Name="BreakWaterType" Type="smallint" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="real" />
           <Property Name="UseForeshore" Type="tinyint" Nullable="false" />
@@ -741,6 +741,7 @@
           <Property Name="ModelFactorSuperCriticalFlowMean" Type="real" />
           <Property Name="FactorStormDurationOpenStructure" Type="real" />
           <Property Name="DrainCoefficientMean" Type="real" />
+          <Property Name="FailureProbabilityStructureWithErosion" Type="real" Nullable="false" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresFailureMechanismMetaEntity">
           <Key>
@@ -3478,7 +3479,7 @@
           <Property Name="Order" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="260" FixedLength="false" Unicode="false" />
           <Property Name="Comments" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
-          <Property Name="UseBreakWater" Type="Byte" />
+          <Property Name="UseBreakWater" Type="Byte" Nullable="false" />
           <Property Name="BreakWaterType" Type="Int16" Nullable="false" />
           <Property Name="BreakWaterHeight" Type="Double" />
           <Property Name="UseForeshore" Type="Byte" Nullable="false" />
@@ -3533,6 +3534,7 @@
           <Property Name="ModelFactorSuperCriticalFlowMean" Type="Double" />
           <Property Name="FactorStormDurationOpenStructure" Type="Double" />
           <Property Name="DrainCoefficientMean" Type="Double" />
+          <Property Name="FailureProbabilityStructureWithErosion" Type="Double" Nullable="false" />
           <NavigationProperty Name="CalculationGroupEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_3_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="CalculationGroupEntity" />
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_2_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_1_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="HydraulicLocationEntity" />
@@ -5432,6 +5434,7 @@
           <EntitySetMapping Name="StabilityPointStructuresCalculationEntities">
             <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StabilityPointStructuresCalculationEntity">
               <MappingFragment StoreEntitySet="StabilityPointStructuresCalculationEntity">
+                <ScalarProperty Name="FailureProbabilityStructureWithErosion" ColumnName="FailureProbabilityStructureWithErosion" />
                 <ScalarProperty Name="DrainCoefficientMean" ColumnName="DrainCoefficientMean" />
                 <ScalarProperty Name="FactorStormDurationOpenStructure" ColumnName="FactorStormDurationOpenStructure" />
                 <ScalarProperty Name="ModelFactorSuperCriticalFlowMean" ColumnName="ModelFactorSuperCriticalFlowMean" />
