@@ -22,6 +22,7 @@
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.TestUtil.Test
 {
@@ -55,7 +56,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.IsTrue(profile.HasBreakWater);
             Assert.IsNotNull(profile.BreakWater);
             Assert.AreEqual(BreakWaterType.Dam, profile.BreakWater.Type);
-            Assert.AreEqual(10.0, profile.BreakWater.Height);
+            Assert.AreEqual(10.0, profile.BreakWater.Height, profile.BreakWater.Height.GetAccuracy());
             Assert.AreEqual(0.0, profile.X0);
             Assert.AreEqual(0.0, profile.Orientation.Value);
             Assert.AreEqual(new Point2D(0, 0), profile.WorldReferencePoint);
