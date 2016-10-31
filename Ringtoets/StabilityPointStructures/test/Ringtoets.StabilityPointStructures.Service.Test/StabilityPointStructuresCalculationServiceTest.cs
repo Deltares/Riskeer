@@ -131,7 +131,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        public void Calculate_InvalidInFlowModelType_ThrowsNotSupportedException()
+        public void Calculate_InvalidInFlowModelType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             var stabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -179,7 +179,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        public void Calculate_InvalidLoadSchematizationType_ThrowsNotSupportedException()
+        public void Calculate_InvalidLoadSchematizationType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             var stabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
