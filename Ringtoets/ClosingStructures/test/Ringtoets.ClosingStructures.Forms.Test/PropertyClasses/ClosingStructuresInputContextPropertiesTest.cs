@@ -169,8 +169,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                 InputParameters =
                 {
                     Structure = new TestClosingStructure(),
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocation(),
-                    ForeshoreProfile = CreateForeshoreProfile()
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1),
+                    ForeshoreProfile = new TestForeshoreProfile()
                 }
             };
 
@@ -697,16 +697,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             // Assert
             Assert.AreSame(calculation, failureMechanism.SectionResults.ElementAt(0).Calculation);
             mockRepository.VerifyAll();
-        }
-
-        private static ForeshoreProfile CreateForeshoreProfile()
-        {
-            return new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), new BreakWater(BreakWaterType.Caisson, 0), new ForeshoreProfile.ConstructionProperties());
-        }
-
-        private static HydraulicBoundaryLocation CreateHydraulicBoundaryLocation()
-        {
-            return new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
         }
     }
 }
