@@ -22,8 +22,8 @@
 using System;
 using System.IO;
 using System.Linq;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -200,8 +200,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam,
-                                                                                                 breakWaterHeight));
+            calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam,
+                                                                                                   breakWaterHeight));
             calculation.InputParameters.UseBreakWater = true;
 
             var isValid = true;
@@ -233,8 +233,8 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         {
             // Setup
             StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
-            calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam,
-                                                                                                 breakWaterHeight));
+            calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam,
+                                                                                                   breakWaterHeight));
             calculation.InputParameters.UseBreakWater = false;
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
@@ -308,7 +308,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     calculation.InputParameters.UseBreakWater = false;
                     break;
                 case CalculationType.ForeshoreWithoutBreakWater:
-                    calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(null);
+                    calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile();
                     calculation.InputParameters.UseBreakWater = false;
                     break;
                 case CalculationType.ForeshoreWithValidBreakWater:
@@ -586,7 +586,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                     {
                         DesignWaterLevel = (RoundedDouble) 9.3
                     },
-                    ForeshoreProfile = CreateForeshoreProfile(),
+                    ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = WaveConditionsInputStepSize.Half,
@@ -606,23 +606,6 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             calculation.InputParameters.UpperBoundaryWaterLevels = (RoundedDouble) 5.4;
 
             return calculation;
-        }
-
-        private static ForeshoreProfile CreateForeshoreProfile()
-        {
-            return CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, 10.0));
-        }
-
-        private static ForeshoreProfile CreateForeshoreProfile(BreakWater breakWater)
-        {
-            return new ForeshoreProfile(new Point2D(0, 0),
-                                        new[]
-                                        {
-                                            new Point2D(3.3, 4.4),
-                                            new Point2D(5.5, 6.6)
-                                        },
-                                        breakWater,
-                                        new ForeshoreProfile.ConstructionProperties());
         }
     }
 }
