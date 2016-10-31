@@ -95,6 +95,11 @@
       <Name>Ringtoets.Common.Utils</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
+      <Project>{888d4097-8bc2-4703-9fb1-8744c94d525e}</Project>
+      <Name>Ringtoets.HydraRing.Calculation</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
@@ -118,6 +123,11 @@
     <ProjectReference Include="..\Ringtoets.StabilityPointStructures.IO\Ringtoets.StabilityPointStructures.IO.csproj">
       <Project>{9A80CDD2-4681-4A5D-9A2C-A2FEE133E0F9}</Project>
       <Name>Ringtoets.StabilityPointStructures.IO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.StabilityPointStructures.Service\Ringtoets.StabilityPointStructures.Service.csproj">
+      <Project>{ebcfa2e9-c292-4f22-a4a5-a8cd304ed838}</Project>
+      <Name>Ringtoets.StabilityPointStructures.Service</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
