@@ -100,6 +100,7 @@
     <Compile Include="DbContext\ClosingStructuresSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\PartialClosingStructuresOutputEntity.cs" />
     <Compile Include="DbContext\DikeProfileEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>

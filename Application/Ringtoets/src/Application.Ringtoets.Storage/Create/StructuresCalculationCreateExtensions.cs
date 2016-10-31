@@ -95,6 +95,13 @@ namespace Application.Ringtoets.Storage.Create
             };
             SetInputValues(entity, calculation.InputParameters, registry);
 
+            if (calculation.HasOutput)
+            {
+                entity.ClosingStructuresOutputEntities.Add(calculation.Output.Create<ClosingStructuresOutputEntity>(registry));
+            }
+
+            registry.Register(entity, calculation);
+
             return entity;
         }
 
