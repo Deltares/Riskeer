@@ -258,21 +258,17 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
         private static void ValidateAll(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, IAssessmentSection assessmentSection) {}
 
-        private static void ValidateAll(StabilityPointStructuresFailureMechanismContext context)
+        private void CalculateAll(StabilityPointStructuresFailureMechanism failureMechanism,
+                                  IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations,
+                                  IAssessmentSection assessmentSection)
         {
-            ValidateAll(context.WrappedData.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>(),
-                        context.Parent);
+            ActivityProgressDialogRunner.Run(Gui.MainWindow,
+                                             calculations.Select(calc => new StabilityPointStructuresCalculationActivity(
+                                                                             calc,
+                                                                             assessmentSection.HydraulicBoundaryDatabase.FilePath,
+                                                                             failureMechanism,
+                                                                             assessmentSection)).ToArray());
         }
-
-        private static void ValidateAll(StabilityPointStructuresCalculationGroupContext context)
-        {
-            ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<StabilityPointStructuresInput>>(),
-                        context.AssessmentSection);
-        }
-
-        private static void CalculateAll(StabilityPointStructuresFailureMechanismContext context) {}
-
-        private static void CalculateAll(CalculationGroup group, StabilityPointStructuresCalculationGroupContext context) {}
 
         #endregion
 
@@ -369,6 +365,18 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.Parent, context.WrappedData);
         }
+
+        private static void ValidateAll(StabilityPointStructuresFailureMechanismContext context)
+        {
+            ValidateAll(context.WrappedData.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>(),
+                        context.Parent);
+        }
+
+        private void CalculateAll(StabilityPointStructuresFailureMechanismContext context)
+        {
+            CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>(), context.Parent);
+        }
+
 
         #endregion
 
@@ -529,6 +537,17 @@ namespace Ringtoets.StabilityPointStructures.Plugin
         private static string ValidateAllDataAvailableAndGetErrorMessageForCalculationsInGroup(StabilityPointStructuresCalculationGroupContext context)
         {
             return ValidateAllDataAvailableAndGetErrorMessage(context.AssessmentSection, context.FailureMechanism);
+        }
+
+        private static void ValidateAll(StabilityPointStructuresCalculationGroupContext context)
+        {
+            ValidateAll(context.WrappedData.GetCalculations().OfType<StructuresCalculation<StabilityPointStructuresInput>>(),
+                        context.AssessmentSection);
+        }
+
+        private void CalculateAll(CalculationGroup group, StabilityPointStructuresCalculationGroupContext context)
+        {
+            CalculateAll(context.FailureMechanism, group.GetCalculations().OfType<StructuresCalculation<StabilityPointStructuresInput>>(), context.AssessmentSection);
         }
 
         #endregion

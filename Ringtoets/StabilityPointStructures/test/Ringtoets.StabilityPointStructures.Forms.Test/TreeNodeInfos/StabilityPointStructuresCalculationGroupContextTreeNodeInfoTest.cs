@@ -705,6 +705,94 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void ContextMenuStrip_ClickOnCalculateAllItem_ScheduleAllChildCalculations()
+        {
+            // Setup
+            var mainWindowStub = mocks.Stub<IMainWindow>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            failureMechanism.AddSection(new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(2, 2)
+            }));
+
+            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                }
+            });
+
+            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
+            {
+                Name = "B",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                }
+            });
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var hydraulicBoundaryDatabaseStub = mocks.Stub<HydraulicBoundaryDatabase>();
+            hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
+
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            var groupContext = new StabilityPointStructuresCalculationGroupContext(failureMechanism.CalculationsGroup,
+                                                                            failureMechanism,
+                                                                            assessmentSectionStub);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(groupContext, treeViewControl)).Return(menuBuilder);
+                guiMock.Expect(g => g.MainWindow).Return(mainWindowStub);
+                guiMock.Stub(cmp => cmp.ViewCommands).Return(mocks.Stub<IViewCommands>());
+
+                mocks.ReplayAll();
+
+                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+
+                plugin.Gui = guiMock;
+
+                DialogBoxHandler = (name, wnd) =>
+                {
+                    // Expect an activity dialog which is automatically closed
+                };
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControl))
+                {
+                    // Call
+                    TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndexRootGroup].PerformClick(), messages =>
+                    {
+                        var messageList = messages.ToList();
+
+                        // Assert
+                        Assert.AreEqual(14, messageList.Count);
+                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
+                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
+                        StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[2]);
+                        Assert.AreEqual("De berekening voor kunstwerk puntconstructies 'A' is niet gelukt.", messageList[3]);
+                        StringAssert.StartsWith("Puntconstructies kunstwerk berekeningsverslag. Klik op details voor meer informatie.", messageList[4]);
+                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[5]);
+                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[6]);
+                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[7]);
+                        StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[8]);
+                        Assert.AreEqual("De berekening voor kunstwerk puntconstructies 'B' is niet gelukt.", messageList[9]);
+                        StringAssert.StartsWith("Puntconstructies kunstwerk berekeningsverslag. Klik op details voor meer informatie.", messageList[10]);
+                        StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[11]);
+                        Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[12]);
+                        Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[13]);
+                    });
+                }
+            }
+        }
+
+        [Test]
         public void GivenCalculationsViewGenerateScenariosButtonClicked_WhenStabilityPointStructureSelectedAndDialogClosed_ThenCalculationsAddedWithStabilityPointStructureAssigned()
         {
             // Given
