@@ -35,6 +35,7 @@ using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
+using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
@@ -755,6 +756,159 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.IsFalse(calculator.IsCanceled);
             }
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
+        public void Calculate_ValidCalculation_LogStartAndEndAndReturnOutput(
+            [Values(StabilityPointStructureInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.LowSill)] StabilityPointStructureInflowModelType inflowModelType,
+            [Values(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear)] LoadSchematizationType loadSchematizationType)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestStabilityPointStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    InflowModelType = inflowModelType,
+                    LoadSchematizationType = loadSchematizationType
+                }
+            };
+
+            // Call
+            Action call = () => new StabilityPointStructuresCalculationService().Calculate(calculation,
+                                                                                           assessmentSectionStub,
+                                                                                           failureMechanism,
+                                                                                           validDataFilepath);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith("Puntconstructies kunstwerk berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+            });
+            Assert.IsNotNull(calculation.Output);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
+        public void Calculate_InvalidCalculation_LogStartAndEndAndErrorMessageAndThrowsException(
+            [Values(StabilityPointStructureInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.LowSill)] StabilityPointStructureInflowModelType inflowModelType,
+            [Values(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear)] LoadSchematizationType loadSchematizationType)
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestStabilityPointStructuresCalculation
+            {
+                InputParameters =
+                {
+                    InflowModelType = inflowModelType,
+                    LoadSchematizationType = loadSchematizationType
+                }
+            };
+
+            var exception = false;
+
+            // Call
+            Action call = () =>
+            {
+                try
+                {
+                    new StabilityPointStructuresCalculationService().Calculate(calculation,
+                                                                               assessmentSectionStub,
+                                                                               failureMechanism,
+                                                                               testDataPath);
+                }
+                catch (HydraRingFileParserException)
+                {
+                    exception = true;
+                }
+            };
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(4, msgs.Length);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt.", calculation.Name), msgs[1]);
+                StringAssert.StartsWith("Puntconstructies kunstwerk berekeningsverslag. Klik op details voor meer informatie.", msgs[2]);
+                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+            });
+            Assert.IsNull(calculation.Output);
+            Assert.IsTrue(exception);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CancelCalculationWithValidInput_CancelsCalculatorAndHasNullOutput()
+        {
+            // Setup
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestStabilityPointStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                var service = new StabilityPointStructuresCalculationService();
+                calculator.CalculationFinishedHandler += (s, e) => service.Cancel();
+
+                // Call
+                service.Calculate(calculation,
+                                  assessmentSectionStub,
+                                  failureMechanism,
+                                  testDataPath);
+
+                // Assert
+                Assert.IsNull(calculation.Output);
+                Assert.IsTrue(calculator.IsCanceled);
+            }
         }
     }
 }
