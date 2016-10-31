@@ -845,13 +845,6 @@ namespace Ringtoets.HeightStructures.Service.Test
             }
         }
 
-        public enum CalculationType
-        {
-            NoForeshore,
-            ForeshoreWithValidBreakWater,
-            ForeshoreWithoutBreakWater
-        }
-
         private static ForeshoreProfile CreateForeshoreProfile(BreakWater breakWater)
         {
             return new ForeshoreProfile(new Point2D(0, 0),

@@ -512,13 +512,6 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             mockRepository.VerifyAll();
         }
 
-        public enum CalculationType
-        {
-            NoForeshore,
-            ForeshoreWithValidBreakWater,
-            ForeshoreWithoutBreakWater
-        }
-
         private static WaveImpactAsphaltCoverWaveConditionsCalculation GetValidCalculation()
         {
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation

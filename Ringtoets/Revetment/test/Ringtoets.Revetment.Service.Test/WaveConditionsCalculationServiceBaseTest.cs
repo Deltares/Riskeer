@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
@@ -517,13 +518,6 @@ namespace Ringtoets.Revetment.Service.Test
                 // Assert
                 Assert.IsTrue(testCalculator.IsCanceled);
             }
-        }
-
-        public enum CalculationType
-        {
-            NoForeshore,
-            ForeshoreWithValidBreakWater,
-            ForeshoreWithoutBreakWater
         }
 
         private static WaveConditionsInput GetDefaultValidationInput()

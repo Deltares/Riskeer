@@ -545,13 +545,6 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             mockRepository.VerifyAll();
         }
 
-        public enum CalculationType
-        {
-            NoForeshore,
-            ForeshoreWithValidBreakWater,
-            ForeshoreWithoutBreakWater
-        }
-
         private static GrassCoverErosionOutwardsWaveConditionsCalculation GetValidCalculation()
         {
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
