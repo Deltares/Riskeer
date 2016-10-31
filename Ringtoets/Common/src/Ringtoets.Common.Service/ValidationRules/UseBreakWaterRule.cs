@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Service.ValidationRules
         {
             var messages = new List<string>();
 
-            if (breakWater.UseBreakWater && IsInValidNumber(breakWater.BreakWater.Height))
+            if (breakWater.UseBreakWater && IsInvalidNumber(breakWater.BreakWater.Height))
             {
                 messages.Add(RingtoetsCommonServiceResources.Validation_Invalid_BreakWaterHeight_value);
             }
