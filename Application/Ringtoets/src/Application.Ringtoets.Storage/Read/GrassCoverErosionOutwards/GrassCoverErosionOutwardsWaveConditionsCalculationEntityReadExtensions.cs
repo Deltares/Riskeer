@@ -55,34 +55,31 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards
             var calculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
             {
                 Name = entity.Name,
-                Comments = entity.Comments,
-                InputParameters =
-                {
-                    ForeshoreProfile = GetDikeProfileValue(entity.ForeshoreProfileEntity, collector),
-                    HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.GrassCoverErosionOutwardsHydraulicLocationEntity, collector),
-                    Orientation = (RoundedDouble) entity.Orientation.ToNullAsNaN(),
-                    UseForeshore = Convert.ToBoolean(entity.UseForeshore),
-                    UseBreakWater = Convert.ToBoolean(entity.UseBreakWater),
-                    BreakWater =
-                    {
-                        Height = (RoundedDouble) entity.BreakWaterHeight.ToNullAsNaN(),
-                        Type = (BreakWaterType) entity.BreakWaterType
-                    },
-                    UpperBoundaryRevetment = (RoundedDouble) entity.UpperBoundaryRevetment.ToNullAsNaN(),
-                    LowerBoundaryRevetment = (RoundedDouble) entity.LowerBoundaryRevetment.ToNullAsNaN(),
-                    UpperBoundaryWaterLevels = (RoundedDouble) entity.UpperBoundaryWaterLevels.ToNullAsNaN(),
-                    LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN(),
-                    StepSize = (WaveConditionsInputStepSize) entity.StepSize
-                }
+                Comments = entity.Comments
             };
-
-            ReadCalculationOutputs(entity, calculation);
+            ReadCalculationInputs(calculation.InputParameters, entity, collector);
+            ReadCalculationOutputs(calculation, entity);
 
             return calculation;
         }
 
-        private static void ReadCalculationOutputs(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity,
-                                                   GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
+        private static void ReadCalculationInputs(WaveConditionsInput inputParameters, GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, ReadConversionCollector collector)
+        {
+            inputParameters.ForeshoreProfile = GetDikeProfileValue(entity.ForeshoreProfileEntity, collector);
+            inputParameters.HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.GrassCoverErosionOutwardsHydraulicLocationEntity, collector);
+            inputParameters.Orientation = (RoundedDouble) entity.Orientation.ToNullAsNaN();
+            inputParameters.UseForeshore = Convert.ToBoolean(entity.UseForeshore);
+            inputParameters.UseBreakWater = Convert.ToBoolean(entity.UseBreakWater);
+            inputParameters.BreakWater.Height = (RoundedDouble) entity.BreakWaterHeight.ToNullAsNaN();
+            inputParameters.BreakWater.Type = (BreakWaterType) entity.BreakWaterType;
+            inputParameters.UpperBoundaryRevetment = (RoundedDouble) entity.UpperBoundaryRevetment.ToNullAsNaN();
+            inputParameters.LowerBoundaryRevetment = (RoundedDouble) entity.LowerBoundaryRevetment.ToNullAsNaN();
+            inputParameters.UpperBoundaryWaterLevels = (RoundedDouble) entity.UpperBoundaryWaterLevels.ToNullAsNaN();
+            inputParameters.LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN();
+            inputParameters.StepSize = (WaveConditionsInputStepSize) entity.StepSize;
+        }
+
+        private static void ReadCalculationOutputs(GrassCoverErosionOutwardsWaveConditionsCalculation calculation, GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity)
         {
             if (!entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Any())
             {

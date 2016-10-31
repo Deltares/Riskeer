@@ -58,38 +58,38 @@ namespace Application.Ringtoets.Storage.Read.GrassCoverErosionInwards
             var calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = entity.Name,
-                Comments = entity.Comments,
-                InputParameters =
-                {
-                    DikeProfile = GetDikeProfileValue(entity.DikeProfileEntity, collector),
-                    HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.HydraulicLocationEntity, collector),
-                    Orientation = (RoundedDouble) entity.Orientation.ToNullAsNaN(),
-                    CriticalFlowRate =
-                    {
-                        Mean = (RoundedDouble) entity.CriticalFlowRateMean.ToNullAsNaN(),
-                        StandardDeviation = (RoundedDouble) entity.CriticalFlowRateStandardDeviation.ToNullAsNaN()
-                    },
-                    UseForeshore = Convert.ToBoolean(entity.UseForeshore),
-                    DikeHeight = (RoundedDouble) entity.DikeHeight.ToNullAsNaN(),
-                    UseBreakWater = Convert.ToBoolean(entity.UseBreakWater),
-                    BreakWater =
-                    {
-                        Height = (RoundedDouble) entity.BreakWaterHeight.ToNullAsNaN(),
-                        Type = (BreakWaterType) entity.BreakWaterType
-                    },
-                    CalculateDikeHeight = Convert.ToBoolean(entity.CalculateDikeHeight)
-                }
+                Comments = entity.Comments
             };
+            ReadInput(calculation.InputParameters, entity, collector);
+            ReadOutput(calculation, entity);
 
+            collector.Read(entity, calculation);
+
+            return calculation;
+        }
+
+        private static void ReadInput(GrassCoverErosionInwardsInput inputParameters, GrassCoverErosionInwardsCalculationEntity entity, ReadConversionCollector collector)
+        {
+            inputParameters.DikeProfile = GetDikeProfileValue(entity.DikeProfileEntity, collector);
+            inputParameters.HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.HydraulicLocationEntity, collector);
+            inputParameters.Orientation = (RoundedDouble) entity.Orientation.ToNullAsNaN();
+            inputParameters.CriticalFlowRate.Mean = (RoundedDouble) entity.CriticalFlowRateMean.ToNullAsNaN();
+            inputParameters.CriticalFlowRate.StandardDeviation = (RoundedDouble) entity.CriticalFlowRateStandardDeviation.ToNullAsNaN();
+            inputParameters.UseForeshore = Convert.ToBoolean(entity.UseForeshore);
+            inputParameters.DikeHeight = (RoundedDouble) entity.DikeHeight.ToNullAsNaN();
+            inputParameters.UseBreakWater = Convert.ToBoolean(entity.UseBreakWater);
+            inputParameters.BreakWater.Height = (RoundedDouble) entity.BreakWaterHeight.ToNullAsNaN();
+            inputParameters.BreakWater.Type = (BreakWaterType) entity.BreakWaterType;
+            inputParameters.CalculateDikeHeight = Convert.ToBoolean(entity.CalculateDikeHeight);
+        }
+
+        private static void ReadOutput(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationEntity entity)
+        {
             GrassCoverErosionInwardsOutputEntity output = entity.GrassCoverErosionInwardsOutputEntities.FirstOrDefault();
             if (output != null)
             {
                 calculation.Output = output.Read();
             }
-
-            collector.Read(entity, calculation);
-
-            return calculation;
         }
 
         private static DikeProfile GetDikeProfileValue(DikeProfileEntity dikeProfileEntity, ReadConversionCollector collector)

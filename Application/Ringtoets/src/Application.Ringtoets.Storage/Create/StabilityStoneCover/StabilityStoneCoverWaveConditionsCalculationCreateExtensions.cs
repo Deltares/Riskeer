@@ -54,18 +54,16 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
                 Order = order,
                 Name = calculation.Name.DeepClone(),
                 Comments = calculation.Comments.DeepClone(),
-                Orientation = calculation.InputParameters.Orientation,
-                UseBreakWater = Convert.ToByte(calculation.InputParameters.UseBreakWater),
-                BreakWaterType = (byte) calculation.InputParameters.BreakWater.Type,
-                BreakWaterHeight = calculation.InputParameters.BreakWater.Height,
-                UseForeshore = Convert.ToByte(calculation.InputParameters.UseForeshore),
-                UpperBoundaryRevetment = calculation.InputParameters.UpperBoundaryRevetment,
-                LowerBoundaryRevetment = calculation.InputParameters.LowerBoundaryRevetment,
-                UpperBoundaryWaterLevels = calculation.InputParameters.UpperBoundaryWaterLevels,
-                LowerBoundaryWaterLevels = calculation.InputParameters.LowerBoundaryWaterLevels,
-                StepSize = Convert.ToByte(calculation.InputParameters.StepSize)
             };
 
+            SetInputParameters(entity, calculation, registry);
+            SetOutputEntities(entity, calculation, registry);
+
+            return entity;
+        }
+
+        private static void SetInputParameters(StabilityStoneCoverWaveConditionsCalculationEntity entity, StabilityStoneCoverWaveConditionsCalculation calculation, PersistenceRegistry registry)
+        {
             if (calculation.InputParameters.HydraulicBoundaryLocation != null)
             {
                 entity.HydraulicLocationEntity = calculation.InputParameters.HydraulicBoundaryLocation.Create(registry, 0);
@@ -75,26 +73,31 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
                 entity.ForeshoreProfileEntity = calculation.InputParameters.ForeshoreProfile.Create(registry, 0);
             }
 
-            if (calculation.HasOutput)
-            {
-                AddEntityForStabilityStoneCoverWaveConditionsOutput(calculation.Output, registry, entity);
-            }
-
-            return entity;
+            entity.Orientation = calculation.InputParameters.Orientation;
+            entity.UseBreakWater = Convert.ToByte(calculation.InputParameters.UseBreakWater);
+            entity.BreakWaterType = (byte) calculation.InputParameters.BreakWater.Type;
+            entity.BreakWaterHeight = calculation.InputParameters.BreakWater.Height;
+            entity.UseForeshore = Convert.ToByte(calculation.InputParameters.UseForeshore);
+            entity.UpperBoundaryRevetment = calculation.InputParameters.UpperBoundaryRevetment;
+            entity.LowerBoundaryRevetment = calculation.InputParameters.LowerBoundaryRevetment;
+            entity.UpperBoundaryWaterLevels = calculation.InputParameters.UpperBoundaryWaterLevels;
+            entity.LowerBoundaryWaterLevels = calculation.InputParameters.LowerBoundaryWaterLevels;
+            entity.StepSize = Convert.ToByte(calculation.InputParameters.StepSize);
         }
 
-        private static void AddEntityForStabilityStoneCoverWaveConditionsOutput(StabilityStoneCoverWaveConditionsOutput stabilityStoneCoverWaveConditionsOutputs,
-                                                                                PersistenceRegistry registry,
-                                                                                StabilityStoneCoverWaveConditionsCalculationEntity entity)
+        private static void SetOutputEntities(StabilityStoneCoverWaveConditionsCalculationEntity entity, StabilityStoneCoverWaveConditionsCalculation calculation, PersistenceRegistry registry)
         {
-            int i = 0;
-            foreach (var output in stabilityStoneCoverWaveConditionsOutputs.BlocksOutput)
+            if (calculation.HasOutput)
             {
-                entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Blocks, i++, registry));
-            }
-            foreach (var output in stabilityStoneCoverWaveConditionsOutputs.ColumnsOutput)
-            {
-                entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Columns, i++, registry));
+                int i = 0;
+                foreach (var output in calculation.Output.BlocksOutput)
+                {
+                    entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Blocks, i++, registry));
+                }
+                foreach (var output in calculation.Output.ColumnsOutput)
+                {
+                    entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Columns, i++, registry));
+                }
             }
         }
     }

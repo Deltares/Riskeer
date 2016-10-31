@@ -54,19 +54,17 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
             {
                 Order = order,
                 Name = calculation.Name.DeepClone(),
-                Comments = calculation.Comments.DeepClone(),
-                Orientation = calculation.InputParameters.Orientation,
-                UseBreakWater = Convert.ToByte(calculation.InputParameters.UseBreakWater),
-                BreakWaterType = (byte) calculation.InputParameters.BreakWater.Type,
-                BreakWaterHeight = calculation.InputParameters.BreakWater.Height,
-                UseForeshore = Convert.ToByte(calculation.InputParameters.UseForeshore),
-                UpperBoundaryRevetment = calculation.InputParameters.UpperBoundaryRevetment,
-                LowerBoundaryRevetment = calculation.InputParameters.LowerBoundaryRevetment,
-                UpperBoundaryWaterLevels = calculation.InputParameters.UpperBoundaryWaterLevels,
-                LowerBoundaryWaterLevels = calculation.InputParameters.LowerBoundaryWaterLevels,
-                StepSize = Convert.ToByte(calculation.InputParameters.StepSize)
+                Comments = calculation.Comments.DeepClone()
             };
 
+            SetInputParameters(entity, calculation, registry);
+            AddEntityForWaveImpactAsphaltCoverWaveConditionsOutput(calculation, registry, entity);
+
+            return entity;
+        }
+
+        private static void SetInputParameters(WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity, WaveImpactAsphaltCoverWaveConditionsCalculation calculation, PersistenceRegistry registry)
+        {
             HydraulicBoundaryLocation hydraulicBoundaryLocation = calculation.InputParameters.HydraulicBoundaryLocation;
             if (hydraulicBoundaryLocation != null)
             {
@@ -77,9 +75,16 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
                 entity.ForeshoreProfileEntity = calculation.InputParameters.ForeshoreProfile.Create(registry, 0);
             }
 
-            AddEntityForWaveImpactAsphaltCoverWaveConditionsOutput(calculation, registry, entity);
-
-            return entity;
+            entity.Orientation = calculation.InputParameters.Orientation;
+            entity.UseBreakWater = Convert.ToByte(calculation.InputParameters.UseBreakWater);
+            entity.BreakWaterType = (byte) calculation.InputParameters.BreakWater.Type;
+            entity.BreakWaterHeight = calculation.InputParameters.BreakWater.Height;
+            entity.UseForeshore = Convert.ToByte(calculation.InputParameters.UseForeshore);
+            entity.UpperBoundaryRevetment = calculation.InputParameters.UpperBoundaryRevetment;
+            entity.LowerBoundaryRevetment = calculation.InputParameters.LowerBoundaryRevetment;
+            entity.UpperBoundaryWaterLevels = calculation.InputParameters.UpperBoundaryWaterLevels;
+            entity.LowerBoundaryWaterLevels = calculation.InputParameters.LowerBoundaryWaterLevels;
+            entity.StepSize = Convert.ToByte(calculation.InputParameters.StepSize);
         }
 
         private static void AddEntityForWaveImpactAsphaltCoverWaveConditionsOutput(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, PersistenceRegistry registry, WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity)

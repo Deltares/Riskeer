@@ -59,11 +59,7 @@ namespace Application.Ringtoets.Storage.Create
                 Order = order
             };
             SetInputValues(entity, calculation.InputParameters, registry);
-
-            if (calculation.HasOutput)
-            {
-                entity.HeightStructuresOutputEntities.Add(calculation.Output.Create<HeightStructuresOutputEntity>(registry));
-            }
+            SetOutputEntity(entity, calculation, registry);
 
             registry.Register(entity, calculation);
 
@@ -118,6 +114,14 @@ namespace Application.Ringtoets.Storage.Create
             entity.LevelCrestStructureStandardDeviation = input.LevelCrestStructure.StandardDeviation.Value.ToNaNAsNull();
 
             entity.DeviationWaveDirection = input.DeviationWaveDirection.Value.ToNaNAsNull();
+        }
+
+        private static void SetOutputEntity(HeightStructuresCalculationEntity entity, StructuresCalculation<HeightStructuresInput> calculation, PersistenceRegistry registry)
+        {
+            if (calculation.HasOutput)
+            {
+                entity.HeightStructuresOutputEntities.Add(calculation.Output.Create<HeightStructuresOutputEntity>(registry));
+            }
         }
 
         private static void SetInputValues(ClosingStructuresCalculationEntity entity, ClosingStructuresInput input, PersistenceRegistry registry)

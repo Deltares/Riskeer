@@ -729,7 +729,7 @@ namespace Application.Ringtoets.Storage.Create
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">Thrown when no create operation 
         /// has been registered for <paramref name="model"/>.</exception>
-        /// <remarks>Use <see cref="Contains(StructuresCalculation{HeightStructuresInput})"/> to find out
+        /// <remarks>Use <see cref="Contains(StructuresCalculation{ClosingStructuresInput})"/> to find out
         /// whether a create operation has been registered for <paramref name="model"/>.</remarks>
         internal ClosingStructuresCalculationEntity Get(StructuresCalculation<ClosingStructuresInput> model)
         {

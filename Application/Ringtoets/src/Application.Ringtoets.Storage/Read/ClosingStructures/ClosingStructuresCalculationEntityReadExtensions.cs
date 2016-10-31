@@ -56,12 +56,7 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
                 Comments = entity.Comments
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
-
-            ClosingStructuresOutputEntity output = entity.ClosingStructuresOutputEntities.FirstOrDefault();
-            if (output != null)
-            {
-                calculation.Output = output.Read();
-            }
+            ReadOutput(calculation, entity);
 
             return calculation;
         }
@@ -91,6 +86,15 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
             inputParameters.LevelCrestStructureNotClosing.Mean = (RoundedDouble) entity.LevelCrestStructureNotClosingMean.ToNullAsNaN();
             inputParameters.LevelCrestStructureNotClosing.StandardDeviation = (RoundedDouble) entity.LevelCrestStructureNotClosingStandardDeviation.ToNullAsNaN();
             inputParameters.ProbabilityOpenStructureBeforeFlooding = entity.ProbabilityOpenStructureBeforeFlooding;
+        }
+
+        private static void ReadOutput(StructuresCalculation<ClosingStructuresInput> calculation, ClosingStructuresCalculationEntity entity)
+        {
+            ClosingStructuresOutputEntity output = entity.ClosingStructuresOutputEntities.FirstOrDefault();
+            if (output != null)
+            {
+                calculation.Output = output.Read();
+            }
         }
     }
 }

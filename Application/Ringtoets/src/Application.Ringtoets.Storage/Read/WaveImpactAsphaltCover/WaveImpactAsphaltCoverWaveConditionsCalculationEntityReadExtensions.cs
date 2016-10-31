@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
@@ -56,29 +55,28 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
             var calculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
             {
                 Name = entity.Name,
-                Comments = entity.Comments,
-                InputParameters =
-                {
-                    ForeshoreProfile = GetDikeProfileValue(entity.ForeshoreProfileEntity, collector),
-                    HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.HydraulicLocationEntity, collector),
-                    Orientation = (RoundedDouble) entity.Orientation.ToNullAsNaN(),
-                    UseForeshore = Convert.ToBoolean(entity.UseForeshore),
-                    UseBreakWater = Convert.ToBoolean(entity.UseBreakWater),
-                    BreakWater =
-                    {
-                        Height = (RoundedDouble) entity.BreakWaterHeight.ToNullAsNaN(),
-                        Type = (BreakWaterType) entity.BreakWaterType
-                    },
-                    UpperBoundaryRevetment = (RoundedDouble) entity.UpperBoundaryRevetment.ToNullAsNaN(),
-                    LowerBoundaryRevetment = (RoundedDouble) entity.LowerBoundaryRevetment.ToNullAsNaN(),
-                    UpperBoundaryWaterLevels = (RoundedDouble) entity.UpperBoundaryWaterLevels.ToNullAsNaN(),
-                    LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN(),
-                    StepSize = (WaveConditionsInputStepSize) entity.StepSize
-                },
-                Output = ReadCalculationOutputs(entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities)
+                Comments = entity.Comments
             };
+            ReadInputParameters(calculation.InputParameters, entity, collector);
+            ReadOutput(calculation, entity);
 
             return calculation;
+        }
+
+        private static void ReadInputParameters(WaveConditionsInput inputParameters, WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity, ReadConversionCollector collector)
+        {
+            inputParameters.ForeshoreProfile = GetDikeProfileValue(entity.ForeshoreProfileEntity, collector);
+            inputParameters.HydraulicBoundaryLocation = GetHydraulicBoundaryLocationValue(entity.HydraulicLocationEntity, collector);
+            inputParameters.Orientation = (RoundedDouble) entity.Orientation.ToNullAsNaN();
+            inputParameters.UseForeshore = Convert.ToBoolean(entity.UseForeshore);
+            inputParameters.UseBreakWater = Convert.ToBoolean(entity.UseBreakWater);
+            inputParameters.BreakWater.Height = (RoundedDouble) entity.BreakWaterHeight.ToNullAsNaN();
+            inputParameters.BreakWater.Type = (BreakWaterType) entity.BreakWaterType;
+            inputParameters.UpperBoundaryRevetment = (RoundedDouble) entity.UpperBoundaryRevetment.ToNullAsNaN();
+            inputParameters.LowerBoundaryRevetment = (RoundedDouble) entity.LowerBoundaryRevetment.ToNullAsNaN();
+            inputParameters.UpperBoundaryWaterLevels = (RoundedDouble) entity.UpperBoundaryWaterLevels.ToNullAsNaN();
+            inputParameters.LowerBoundaryWaterLevels = (RoundedDouble) entity.LowerBoundaryWaterLevels.ToNullAsNaN();
+            inputParameters.StepSize = (WaveConditionsInputStepSize) entity.StepSize;
         }
 
         private static ForeshoreProfile GetDikeProfileValue(ForeshoreProfileEntity foreshoreProfileEntity, ReadConversionCollector collector)
@@ -101,15 +99,14 @@ namespace Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover
             return null;
         }
 
-        private static WaveImpactAsphaltCoverWaveConditionsOutput ReadCalculationOutputs(ICollection<WaveImpactAsphaltCoverWaveConditionsOutputEntity> waveImpactAsphaltCoverWaveConditionsOutputEntities)
+        private static void ReadOutput(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity)
         {
-            if (waveImpactAsphaltCoverWaveConditionsOutputEntities.Any())
+            if (entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities.Any())
             {
-                return new WaveImpactAsphaltCoverWaveConditionsOutput(waveImpactAsphaltCoverWaveConditionsOutputEntities
-                                                                          .OrderBy(oe => oe.Order)
-                                                                          .Select(oe => oe.Read()));
+                calculation.Output = new WaveImpactAsphaltCoverWaveConditionsOutput(entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities
+                                                                                          .OrderBy(oe => oe.Order)
+                                                                                          .Select(oe => oe.Read()));
             }
-            return null;
         }
     }
 }

@@ -152,15 +152,14 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             var firstCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual(1, firstCalculationGroup.Children.Count);
-            var calculationWithOutput = firstCalculationGroup.Children[0] as PipingCalculationScenario;
-            Assert.NotNull(calculationWithOutput);
+
+            var calculationWithOutput = (PipingCalculationScenario)firstCalculationGroup.Children[0];
             Assert.IsTrue(calculationWithOutput.HasOutput);
 
             var emptyCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, emptyCalculationGroup.Children.Count);
 
-            var calculationWithoutOutput = failureMechanism.CalculationsGroup.Children[2] as PipingCalculationScenario;
-            Assert.NotNull(calculationWithoutOutput);
+            var calculationWithoutOutput = (PipingCalculationScenario)failureMechanism.CalculationsGroup.Children[2];
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
         }
 
@@ -172,15 +171,14 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             var firstCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual(1, firstCalculationGroup.Children.Count);
-            var calculationWithOutput = firstCalculationGroup.Children[0] as GrassCoverErosionInwardsCalculation;
-            Assert.NotNull(calculationWithOutput);
+
+            var calculationWithOutput = (GrassCoverErosionInwardsCalculation)firstCalculationGroup.Children[0];
             Assert.IsTrue(calculationWithOutput.HasOutput);
 
             var emptyCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, emptyCalculationGroup.Children.Count);
 
-            var calculationWithoutOutput = failureMechanism.CalculationsGroup.Children[2] as GrassCoverErosionInwardsCalculation;
-            Assert.NotNull(calculationWithoutOutput);
+            var calculationWithoutOutput = (GrassCoverErosionInwardsCalculation)failureMechanism.CalculationsGroup.Children[2];
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
             
             GrassCoverErosionInwardsFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults.First();
@@ -195,15 +193,14 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             var firstCalculationGroup = (CalculationGroup)failureMechanism.WaveConditionsCalculationGroup.Children[0];
             Assert.AreEqual(1, firstCalculationGroup.Children.Count);
-            var calculationWithoutOutput = firstCalculationGroup.Children[0] as GrassCoverErosionOutwardsWaveConditionsCalculation;
-            Assert.NotNull(calculationWithoutOutput);
+
+            var calculationWithoutOutput = (GrassCoverErosionOutwardsWaveConditionsCalculation)firstCalculationGroup.Children[0];
             Assert.IsFalse(calculationWithoutOutput.HasOutput);
 
             var emptyCalculationGroup = (CalculationGroup)failureMechanism.WaveConditionsCalculationGroup.Children[1];
             Assert.AreEqual(0, emptyCalculationGroup.Children.Count);
 
-            var calculationWithOutput = failureMechanism.WaveConditionsCalculationGroup.Children[2] as GrassCoverErosionOutwardsWaveConditionsCalculation;
-            Assert.NotNull(calculationWithOutput);
+            var calculationWithOutput = (GrassCoverErosionOutwardsWaveConditionsCalculation)failureMechanism.WaveConditionsCalculationGroup.Children[2];
             Assert.IsTrue(calculationWithOutput.HasOutput);
         }
 
@@ -214,20 +211,15 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.NotNull(failureMechanism.WaveConditionsCalculationGroup);
             Assert.AreEqual(3, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
 
-            Assert.AreEqual(1, ((CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[0]).Children.Count);
-            Assert.IsInstanceOf<StabilityStoneCoverWaveConditionsCalculation>(
-                ((CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[0]).Children[0]);
+            var calculationGroup = ((CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[0]);
+            Assert.AreEqual(1, calculationGroup.Children.Count);
 
-            var stabilityStoneCoverCalculationWithoutOutput = ((CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[0])
-                                                                  .Children[0] as StabilityStoneCoverWaveConditionsCalculation;
-            Assert.NotNull(stabilityStoneCoverCalculationWithoutOutput);
+            var stabilityStoneCoverCalculationWithoutOutput = (StabilityStoneCoverWaveConditionsCalculation)calculationGroup.Children[0];
             Assert.IsFalse(stabilityStoneCoverCalculationWithoutOutput.HasOutput);
 
             Assert.AreEqual(0, ((CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[1]).Children.Count);
 
-            var stabilityStoneCoverCalculationWithOutput = failureMechanism.WaveConditionsCalculationGroup.Children[2]
-                                                           as StabilityStoneCoverWaveConditionsCalculation;
-            Assert.NotNull(stabilityStoneCoverCalculationWithOutput);
+            var stabilityStoneCoverCalculationWithOutput = (StabilityStoneCoverWaveConditionsCalculation)failureMechanism.WaveConditionsCalculationGroup.Children[2];
             Assert.IsTrue(stabilityStoneCoverCalculationWithOutput.HasOutput);
             Assert.AreEqual(2, stabilityStoneCoverCalculationWithOutput.Output.BlocksOutput.Count());
             Assert.AreEqual(2, stabilityStoneCoverCalculationWithOutput.Output.ColumnsOutput.Count());
@@ -240,18 +232,15 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             Assert.NotNull(failureMechanism.WaveConditionsCalculationGroup);
             Assert.AreEqual(3, failureMechanism.WaveConditionsCalculationGroup.Children.Count);
 
-            Assert.AreEqual(1, ((CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[0]).Children.Count);
+            var calculationGroup = ((CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[0]);
+            Assert.AreEqual(1, calculationGroup.Children.Count);
 
-            var waveImpactAsphaltCoverCalculationWithoutOutput = ((CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[0])
-                                                                     .Children[0] as WaveImpactAsphaltCoverWaveConditionsCalculation;
-            Assert.NotNull(waveImpactAsphaltCoverCalculationWithoutOutput);
+            var waveImpactAsphaltCoverCalculationWithoutOutput = (WaveImpactAsphaltCoverWaveConditionsCalculation)calculationGroup.Children[0];
             Assert.IsFalse(waveImpactAsphaltCoverCalculationWithoutOutput.HasOutput);
 
             Assert.AreEqual(0, ((CalculationGroup) failureMechanism.WaveConditionsCalculationGroup.Children[1]).Children.Count);
 
-            var waveImpactAsphaltCoverCalculationWithOutput = failureMechanism.WaveConditionsCalculationGroup.Children[2]
-                                                              as WaveImpactAsphaltCoverWaveConditionsCalculation;
-            Assert.NotNull(waveImpactAsphaltCoverCalculationWithOutput);
+            var waveImpactAsphaltCoverCalculationWithOutput = (WaveImpactAsphaltCoverWaveConditionsCalculation)failureMechanism.WaveConditionsCalculationGroup.Children[2];
             Assert.IsTrue(waveImpactAsphaltCoverCalculationWithOutput.HasOutput);
             Assert.AreEqual(2, waveImpactAsphaltCoverCalculationWithOutput.Output.Items.Count());
             Assert.AreEqual(2, waveImpactAsphaltCoverCalculationWithOutput.Output.Items.Count());
@@ -268,8 +257,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             var firstCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual(1, firstCalculationGroup.Children.Count);
-            var calculationWithOutput = firstCalculationGroup.Children[0] as StructuresCalculation<HeightStructuresInput>;
-            Assert.NotNull(calculationWithOutput);
+
+            var calculationWithOutput = (StructuresCalculation<HeightStructuresInput>)firstCalculationGroup.Children[0];
             Assert.IsTrue(calculationWithOutput.HasOutput);
 
             var secondCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
@@ -291,8 +280,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             var firstCalculationGroup = (CalculationGroup)failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual(1, firstCalculationGroup.Children.Count);
-            var calculationWithOutput = firstCalculationGroup.Children[0] as StructuresCalculation<ClosingStructuresInput>;
-            Assert.NotNull(calculationWithOutput);
+
+            var calculationWithOutput = (StructuresCalculation<ClosingStructuresInput>)firstCalculationGroup.Children[0];
             Assert.IsTrue(calculationWithOutput.HasOutput);
 
             var secondCalculationGroup = (CalculationGroup)failureMechanism.CalculationsGroup.Children[1];

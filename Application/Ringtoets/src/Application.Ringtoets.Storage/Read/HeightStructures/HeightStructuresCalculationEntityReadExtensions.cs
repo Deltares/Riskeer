@@ -60,12 +60,7 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
                 Comments = entity.Comments
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
-
-            HeightStructuresOutputEntity output = entity.HeightStructuresOutputEntities.FirstOrDefault();
-            if (output != null)
-            {
-                calculation.Output = output.Read();
-            }
+            ReadOutput(calculation, entity);
 
             collector.Read(entity, calculation);
 
@@ -82,8 +77,17 @@ namespace Application.Ringtoets.Storage.Read.HeightStructures
             entity.Read(inputParameters, collector);
 
             inputParameters.LevelCrestStructure.Mean = (RoundedDouble) entity.LevelCrestStructureMean.ToNullAsNaN();
-            inputParameters.LevelCrestStructure.StandardDeviation = (RoundedDouble)entity.LevelCrestStructureStandardDeviation.ToNullAsNaN();
+            inputParameters.LevelCrestStructure.StandardDeviation = (RoundedDouble) entity.LevelCrestStructureStandardDeviation.ToNullAsNaN();
             inputParameters.DeviationWaveDirection = (RoundedDouble) entity.DeviationWaveDirection.ToNullAsNaN();
+        }
+
+        private static void ReadOutput(StructuresCalculation<HeightStructuresInput> calculation, HeightStructuresCalculationEntity entity)
+        {
+            HeightStructuresOutputEntity output = entity.HeightStructuresOutputEntities.FirstOrDefault();
+            if (output != null)
+            {
+                calculation.Output = output.Read();
+            }
         }
     }
 }
