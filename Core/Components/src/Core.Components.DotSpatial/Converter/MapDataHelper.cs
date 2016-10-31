@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using System.ComponentModel;
 using Core.Components.Gis.Data;
 using Core.Components.Gis.Style;
 using DotSpatial.Symbology;
@@ -51,7 +51,9 @@ namespace Core.Components.DotSpatial.Converter
                     shape = PointShape.Triangle;
                     break;
                 default:
-                    throw new NotSupportedException();
+                    throw new InvalidEnumArgumentException("symbol",
+                                                           (int) symbol,
+                                                           typeof(PointShape));
             }
             return shape;
         }

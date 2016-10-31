@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Components.Charting.Data;
@@ -60,7 +61,9 @@ namespace Core.Components.OxyPlot.Converter
                     lineStyle = LineStyle.DashDotDot;
                     break;
                 default:
-                    throw new NotSupportedException();
+                    throw new InvalidEnumArgumentException("dashStyle",
+                                                           (int) dashStyle,
+                                                           typeof(DashStyle));
             }
             return lineStyle;
         }
@@ -93,7 +96,9 @@ namespace Core.Components.OxyPlot.Converter
                     markerType = MarkerType.Triangle;
                     break;
                 default:
-                    throw new NotSupportedException();
+                    throw new InvalidEnumArgumentException("symbol",
+                                                           (int) symbol,
+                                                           typeof(ChartPointSymbol));
             }
             return markerType;
         }

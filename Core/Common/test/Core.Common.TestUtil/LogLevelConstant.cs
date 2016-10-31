@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using System.ComponentModel;
 using log4net.Core;
 
 namespace Core.Common.TestUtil
@@ -53,7 +53,7 @@ namespace Core.Common.TestUtil
                 case LogLevelConstant.Debug:
                     return Level.Debug;
                 default:
-                    throw new NotImplementedException();
+                    throw new InvalidEnumArgumentException("level", (int) level, typeof(LogLevelConstant));
             }
         }
     }

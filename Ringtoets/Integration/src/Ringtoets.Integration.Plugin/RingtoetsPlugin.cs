@@ -22,6 +22,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -1126,7 +1127,9 @@ namespace Ringtoets.Integration.Plugin
                 case TreeFolderCategory.Output:
                     return RingtoetsCommonFormsResources.OutputFolderIcon;
                 default:
-                    throw new NotImplementedException();
+                    throw new InvalidEnumArgumentException("category",
+                                                           (int) category,
+                                                           typeof(TreeFolderCategory));
             }
         }
 

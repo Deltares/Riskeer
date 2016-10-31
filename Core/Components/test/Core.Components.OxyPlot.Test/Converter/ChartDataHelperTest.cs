@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using Core.Components.Charting.Styles;
@@ -106,13 +106,13 @@ namespace Core.Components.OxyPlot.Test.Converter
         }
 
         [Test]
-        public void Convert_Custom_ThrowsNotSupportedException()
+        public void Convert_Custom_ThrowsInvalidEnumArgumentException()
         {
             // Call
             TestDelegate call = () => ChartDataHelper.Convert(DashStyle.Custom);
 
             // Assert
-            Assert.Throws<NotSupportedException>(call);
+            Assert.Throws<InvalidEnumArgumentException>(call);
         }
 
         #endregion

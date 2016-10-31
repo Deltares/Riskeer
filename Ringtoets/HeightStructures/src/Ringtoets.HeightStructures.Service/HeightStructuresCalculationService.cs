@@ -180,7 +180,7 @@ namespace Ringtoets.HeightStructures.Service
 
             if (inputParameters.Structure == null)
             {
-                validationResults.Add(RingtoetsCommonServiceResources.HeightStructuresCalculationService_ValidateInput_No_Structure_selected);
+                validationResults.Add(RingtoetsCommonServiceResources.StructuresCalculationService_ValidateInput_No_Structure_selected);
             }
             else
             {

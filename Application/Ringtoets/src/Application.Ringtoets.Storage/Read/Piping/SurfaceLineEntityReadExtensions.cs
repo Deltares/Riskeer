@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.Serializers;
 using Core.Common.Base.Geometry;
@@ -111,7 +112,9 @@ namespace Application.Ringtoets.Storage.Read.Piping
                     surfaceLine.SetDitchPolderSideAt(geometryPoint);
                     break;
                 default:
-                    throw new NotImplementedException();
+                    throw new InvalidEnumArgumentException("type",
+                                                           (int) type,
+                                                           typeof(CharacteristicPointType));
             }
         }
     }

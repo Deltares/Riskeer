@@ -325,7 +325,7 @@ namespace Ringtoets.Common.IO.Structures
                 case StructureFilesKeywords.VariationValueColumnName:
                     return row.VarianceValue;
                 default:
-                    throw new NotImplementedException();
+                    throw new NotSupportedException();
             }
         }
 

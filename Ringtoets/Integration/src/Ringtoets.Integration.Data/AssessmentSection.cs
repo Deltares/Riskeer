@@ -21,6 +21,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Core.Common.Base;
 using Core.Common.Base.Geometry;
 using Ringtoets.ClosingStructures.Data;
@@ -267,7 +268,9 @@ namespace Ringtoets.Integration.Data
                     FailureMechanismContribution.UpdateContributions(GetContributingFailureMechanisms(), 20);
                     break;
                 default:
-                    throw new NotImplementedException();
+                    throw new InvalidEnumArgumentException("newComposition",
+                                                           (int) newComposition,
+                                                           typeof(AssessmentSectionComposition));
             }
             Composition = newComposition;
         }

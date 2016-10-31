@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using FormsTreeView = System.Windows.Forms.TreeView;
@@ -394,7 +395,9 @@ namespace Core.Common.Controls.TreeView
                     yPos = bounds.Top + bounds.Height/2;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("location");
+                    throw new InvalidEnumArgumentException("location",
+                                                           (int) location,
+                                                           typeof(PlaceholderLocation));
             }
 
             return CreateTrianglePoints(new Rectangle(xPos, yPos - placeHolderWidth, placeHolderWidth, placeHolderHeight), anchor);

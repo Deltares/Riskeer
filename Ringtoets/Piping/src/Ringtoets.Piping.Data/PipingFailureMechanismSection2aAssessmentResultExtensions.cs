@@ -19,8 +19,8 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -97,7 +97,9 @@ namespace Ringtoets.Piping.Data
                     case CalculationScenarioStatus.Done:
                         continue;
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new InvalidEnumArgumentException("pipingFailureMechanismSectionResult",
+                                                               (int) calculationScenario.Status,
+                                                               typeof(CalculationScenarioStatus));
                 }
             }
 

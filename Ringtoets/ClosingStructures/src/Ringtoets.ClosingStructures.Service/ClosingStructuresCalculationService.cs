@@ -273,7 +273,7 @@ namespace Ringtoets.ClosingStructures.Service
 
             if (inputParameters.Structure == null)
             {
-                validationResults.Add("Er is geen kunstwerk sluiten geselecteerd.");
+                validationResults.Add(RingtoetsCommonServiceResources.StructuresCalculationService_ValidateInput_No_Structure_selected);
             }
             else
             {
