@@ -373,7 +373,7 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Genereer &amp;berekeningen....
+        ///   Looks up a localized string similar to Genereer &amp;scenario&apos;s....
         /// </summary>
         public static string CalculationGroup_Generate_Scenarios {
             get {

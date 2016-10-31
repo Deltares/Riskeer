@@ -487,7 +487,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
                                                                      : GrassCoverErosionInwardsPluginResources.GrassCoverErosionInwardsPlugin_CreateGenerateCalculationsItem_NoDikeLocations_ToolTip;
 
             var generateCalculationsItem = new StrictContextMenuItem(
-                RingtoetsCommonFormsResources.CalculationGroup_Generate_Scenarios,
+                RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
                 calculationGroupGenerateCalculationsToolTip,
                 RingtoetsCommonFormsResources.GenerateScenariosIcon, (o, args) => { ShowDikeProfileSelectionDialog(nodeData); })
             {
