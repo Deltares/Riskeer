@@ -62,6 +62,8 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
             ReadInputParameters(calculation.InputParameters, entity, collector);
             ReadOutput(calculation, entity);
 
+            collector.Read(entity, calculation);
+
             return calculation;
         }
 

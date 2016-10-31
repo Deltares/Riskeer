@@ -22,10 +22,12 @@
 using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.ClosingStructures;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
+using Ringtoets.Common.Data.Structures;
 
 namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
 {
@@ -58,7 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             };
 
             // Call
-            var result = sectionResult.Create(new PersistenceRegistry());
+            ClosingStructuresSectionResultEntity result = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
@@ -75,10 +77,31 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             };
 
             // Call
-            var result = sectionResult.Create(new PersistenceRegistry());
+            ClosingStructuresSectionResultEntity result = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
             Assert.IsNull(result.LayerThree);
+        }
+
+        [Test]
+        public void Create_CalculationSet_ReturnEntityWithCalculationEntity()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var sectionResult = new ClosingStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                Calculation = calculation
+            };
+
+            var registry = new PersistenceRegistry();
+            var entity = new ClosingStructuresCalculationEntity();
+            registry.Register(entity, calculation);
+
+            // Call
+            ClosingStructuresSectionResultEntity result = sectionResult.Create(registry);
+
+            // Assert
+            Assert.AreSame(entity, result.ClosingStructuresCalculationEntity);
         }
     }
 }

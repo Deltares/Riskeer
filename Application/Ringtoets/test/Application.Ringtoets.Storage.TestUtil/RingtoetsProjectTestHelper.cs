@@ -110,7 +110,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             AddForeshoreProfiles(closingStructuresFailureMechanism.ForeshoreProfiles);
             ConfigureClosingStructuresFailureMechanism(closingStructuresFailureMechanism, assessmentSection);
             AddSections(closingStructuresFailureMechanism);
-            SetSectionResults(closingStructuresFailureMechanism.SectionResults);
+            SetSectionResults(closingStructuresFailureMechanism.SectionResults,
+                (StructuresCalculation<ClosingStructuresInput>)closingStructuresFailureMechanism.Calculations.First());
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             AddForeshoreProfiles(stabilityPointStructuresFailureMechanism.ForeshoreProfiles);
@@ -465,13 +466,20 @@ namespace Application.Ringtoets.Storage.TestUtil
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
         }
 
-        private static void SetSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults)
+        private static void SetSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults, 
+            StructuresCalculation<ClosingStructuresInput> calculation)
         {
             var random = new Random(21);
+            var firstSectionResultHasCalculation = false;
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = random.NextBoolean();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                if (!firstSectionResultHasCalculation)
+                {
+                    sectionResult.Calculation = calculation;
+                    firstSectionResultHasCalculation = true;
+                }
             }
         }
 

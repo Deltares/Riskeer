@@ -49,6 +49,10 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
                 LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
+            if (result.Calculation != null)
+            {
+                sectionResultEntity.ClosingStructuresCalculationEntity = registry.Get(result.Calculation);
+            }
 
             return sectionResultEntity;
         }

@@ -42,11 +42,11 @@ namespace Application.Ringtoets.Storage.Create.ClosingStructures
         internal static FailureMechanismEntity Create(this ClosingStructuresFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.ReliabilityClosingOfStructure, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             AddEntitiesForClosingStructures(mechanism.ClosingStructures, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
         }

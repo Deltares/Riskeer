@@ -60,7 +60,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             };
 
             // Call
-            var result = sectionResult.Create(new PersistenceRegistry());
+            HeightStructuresSectionResultEntity result = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
@@ -77,7 +77,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             };
 
             // Call
-            var result = sectionResult.Create(new PersistenceRegistry());
+            HeightStructuresSectionResultEntity result = sectionResult.Create(new PersistenceRegistry());
 
             // Assert
             Assert.IsNull(result.LayerThree);

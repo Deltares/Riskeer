@@ -287,6 +287,9 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             var secondCalculationGroup = (CalculationGroup)failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);
             Assert.IsInstanceOf<StructuresCalculation<ClosingStructuresInput>>(failureMechanism.CalculationsGroup.Children[2]);
+
+            ClosingStructuresFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults.First();
+            Assert.AreSame(calculationWithOutput, firstSectionResult.Calculation);
         }
 
         private static void AssertStabilityPointStructuresFailureMechanism(AssessmentSection assessmentSection)

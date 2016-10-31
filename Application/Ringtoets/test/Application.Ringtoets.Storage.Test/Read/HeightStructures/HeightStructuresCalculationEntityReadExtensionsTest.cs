@@ -116,6 +116,8 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             Assert.IsNull(input.HydraulicBoundaryLocation);
             Assert.IsNull(input.Structure);
             Assert.IsFalse(calculation.HasOutput);
+
+            Assert.IsTrue(collector.Contains(entity));
         }
 
         [Test]

@@ -209,6 +209,8 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             Assert.IsNaN(inputParameters.AreaFlowApertures.StandardDeviation);
             Assert.IsNaN(inputParameters.LevelCrestStructureNotClosing.Mean);
             Assert.IsNaN(inputParameters.LevelCrestStructureNotClosing.StandardDeviation);
+
+            Assert.IsTrue(collector.Contains(entity));
         }
 
         [Test]

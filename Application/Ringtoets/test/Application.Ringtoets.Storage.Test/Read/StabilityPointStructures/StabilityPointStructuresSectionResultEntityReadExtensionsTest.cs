@@ -85,7 +85,6 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             var entity = new StabilityPointStructuresSectionResultEntity
             {
                 LayerOne = Convert.ToByte(false),
-                LayerTwoA = null,
                 LayerThree = new Random(21).NextDouble(),
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
@@ -108,7 +107,6 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             var entity = new StabilityPointStructuresSectionResultEntity
             {
                 LayerOne = Convert.ToByte(true),
-                LayerTwoA = new Random(21).NextDouble(),
                 LayerThree = null,
                 FailureMechanismSectionEntity = failureMechanismSectionEntity
             };
