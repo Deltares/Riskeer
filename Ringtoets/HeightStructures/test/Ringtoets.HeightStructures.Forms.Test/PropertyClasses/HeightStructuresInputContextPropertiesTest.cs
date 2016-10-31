@@ -31,7 +31,6 @@ using Core.Common.Gui.PropertyBag;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
@@ -144,7 +143,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                 {
                     Structure = new TestHeightStructure(),
                     HydraulicBoundaryLocation = CreateHydraulicBoundaryLocation(),
-                    ForeshoreProfile = CreateForeshoreProfile()
+                    ForeshoreProfile = new TestForeshoreProfile()
                 }
             };
 
@@ -303,11 +302,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[stormDurationPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
-        }
-
-        private static ForeshoreProfile CreateForeshoreProfile()
-        {
-            return new ForeshoreProfile(new Point2D(0, 0), Enumerable.Empty<Point2D>(), new BreakWater(BreakWaterType.Caisson, 0), new ForeshoreProfile.ConstructionProperties());
         }
 
         private static HydraulicBoundaryLocation CreateHydraulicBoundaryLocation()
