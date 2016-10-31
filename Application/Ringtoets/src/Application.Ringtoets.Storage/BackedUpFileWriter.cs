@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Storage
         /// </list>
         /// </exception>
         /// <exception cref="CannotDeleteBackupFileException">When cleaning up, the temporary file cannot be removed.</exception>
-        /// <remark>Any <see cref="Exception"/> thrown by <paramref name="writeAction"/> will be rethrown.</remark>
+        /// <remarks>Any <see cref="Exception"/> thrown by <paramref name="writeAction"/> will be rethrown.</remarks>
         public void Perform(Action writeAction)
         {
             CreateTemporaryFile();

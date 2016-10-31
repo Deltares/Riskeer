@@ -209,8 +209,8 @@ namespace Ringtoets.Common.Data.DikeProfiles
             /// <summary>
             /// Gets or sets the value for <see cref="DikeProfile.DikeHeight"/>.
             /// </summary>
-            /// <remark><paramref name="value"/> will be rounded to the <see cref="RoundedDouble.NumberOfDecimalPlaces"/>
-            ///  of <see cref="DikeProfile.DikeHeight"/>.</remark>
+            /// <remarks><paramref name="value"/> will be rounded to the <see cref="RoundedDouble.NumberOfDecimalPlaces"/>
+            ///  of <see cref="DikeProfile.DikeHeight"/>.</remarks>
             public double DikeHeight { get; set; }
         }
     }

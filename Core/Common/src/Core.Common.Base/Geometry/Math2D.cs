@@ -184,7 +184,7 @@ namespace Core.Common.Base.Geometry
         /// <returns>A <see cref="IEnumerable{T}"/> of <see cref="Point2D"/> with all intersection points of the 
         /// <paramref name="segments"/> with the vertical line at x=<paramref name="verticalLineX"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="segments"/> is <c>null</c>.</exception>
-        /// <remark>Segments which have length=0 or which are vertical, will not return an intersection point.</remark>
+        /// <remarks>Segments which have length=0 or which are vertical, will not return an intersection point.</remarks>
         public static IEnumerable<Point2D> SegmentsIntersectionWithVerticalLine(IEnumerable<Segment2D> segments, double verticalLineX)
         {
             if (segments == null)

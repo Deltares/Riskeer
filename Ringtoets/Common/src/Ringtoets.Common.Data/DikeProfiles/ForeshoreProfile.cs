@@ -146,8 +146,8 @@ namespace Ringtoets.Common.Data.DikeProfiles
             /// <summary>
             /// Gets or sets the value for <see cref="ForeshoreProfile.Orientation"/>.
             /// </summary>
-            /// <remark><paramref name="value"/> will be rounded to the <see cref="RoundedDouble.NumberOfDecimalPlaces"/> 
-            /// of <see cref="ForeshoreProfile.Orientation"/>.</remark>
+            /// <remarks><paramref name="value"/> will be rounded to the <see cref="RoundedDouble.NumberOfDecimalPlaces"/> 
+            /// of <see cref="ForeshoreProfile.Orientation"/>.</remarks>
             public double Orientation { get; set; }
         }
     }
