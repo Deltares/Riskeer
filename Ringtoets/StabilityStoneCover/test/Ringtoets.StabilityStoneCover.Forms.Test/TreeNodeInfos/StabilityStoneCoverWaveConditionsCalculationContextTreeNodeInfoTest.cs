@@ -24,6 +24,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
@@ -1113,7 +1114,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1300001, "", 0.0, 0.0),
-                    ForeshoreProfile = CreateForeshoreProfile(),
+                    ForeshoreProfile = new TestForeshoreProfile(true),
                     UseForeshore = true,
                     UseBreakWater = true,
                     StepSize = WaveConditionsInputStepSize.Half,
@@ -1125,18 +1126,6 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.TreeNodeInfos
             };
             calculation.InputParameters.HydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) 9.3;
             return calculation;
-        }
-
-        private static ForeshoreProfile CreateForeshoreProfile()
-        {
-            return new ForeshoreProfile(new Point2D(0, 0),
-                                        new[]
-                                        {
-                                            new Point2D(3.3, 4.4),
-                                            new Point2D(5.5, 6.6)
-                                        },
-                                        new BreakWater(BreakWaterType.Dam, 10.0),
-                                        new ForeshoreProfile.ConstructionProperties());
         }
     }
 }

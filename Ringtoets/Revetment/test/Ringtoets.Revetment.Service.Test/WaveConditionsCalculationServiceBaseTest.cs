@@ -24,7 +24,6 @@ using System.IO;
 using System.Linq;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
-using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.Data.DikeProfiles;
