@@ -23,15 +23,15 @@ using System;
 using Core.Common.Base.Service;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HydraRing.Calculation.Activities;
+using Ringtoets.StabilityPointStructures.Data;
 
-namespace Ringtoets.ClosingStructures.Service.Test
+namespace Ringtoets.StabilityPointStructures.Service.Test
 {
     [TestFixture]
-    public class ClosingStructuresCalculationActivityTest
+    public class StabilityPointStructuresCalculationActivityTest
     {
         [Test]
         public void ParameteredConstructor_ExpectedValues()
@@ -41,11 +41,11 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             // Call
-            var activity = new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSectionMock);
+            var activity = new StabilityPointStructuresCalculationActivity(calculation, "", failureMechanism, assessmentSectionMock);
 
             // Assert
             Assert.IsInstanceOf<HydraRingActivityBase>(activity);
@@ -64,10 +64,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             // Call
-            TestDelegate call = () => new ClosingStructuresCalculationActivity(null, "", failureMechanism, assessmentSectionMock);
+            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(null, "", failureMechanism, assessmentSectionMock);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -83,11 +83,11 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             // Call
-            TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, null, failureMechanism, assessmentSectionMock);
+            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(calculation, null, failureMechanism, assessmentSectionMock);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -103,10 +103,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
             var assessmentSectionMock = mocks.Stub<IAssessmentSection>();
             mocks.ReplayAll();
 
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             // Call
-            TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, "", null, assessmentSectionMock);
+            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(calculation, "", null, assessmentSectionMock);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
@@ -118,11 +118,11 @@ namespace Ringtoets.ClosingStructures.Service.Test
         public void ParameteredConstructor_AssessmentSectionNull_ThrowsArgumentNullException()
         {
             // Setup
-            var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
 
             // Call
-            TestDelegate call = () => new ClosingStructuresCalculationActivity(calculation, "", failureMechanism, null);
+            TestDelegate call = () => new StabilityPointStructuresCalculationActivity(calculation, "", failureMechanism, null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);

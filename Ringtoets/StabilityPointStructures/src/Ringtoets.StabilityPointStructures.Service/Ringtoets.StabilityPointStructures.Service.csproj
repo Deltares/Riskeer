@@ -49,6 +49,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="StabilityPointStructuresCalculationActivity.cs" />
     <Compile Include="StabilityPointStructuresCalculationService.cs" />
   </ItemGroup>
   <ItemGroup>
