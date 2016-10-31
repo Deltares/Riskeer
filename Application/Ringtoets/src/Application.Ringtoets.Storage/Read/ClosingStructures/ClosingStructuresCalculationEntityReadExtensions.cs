@@ -20,11 +20,10 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.ClosingStructures.Data;
-using Ringtoets.Common.Data;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 
 namespace Application.Ringtoets.Storage.Read.ClosingStructures
@@ -57,6 +56,12 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
                 Comments = entity.Comments
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
+
+            ClosingStructuresOutputEntity output = entity.ClosingStructuresOutputEntities.FirstOrDefault();
+            if (output != null)
+            {
+                calculation.Output = output.Read();
+            }
 
             return calculation;
         }

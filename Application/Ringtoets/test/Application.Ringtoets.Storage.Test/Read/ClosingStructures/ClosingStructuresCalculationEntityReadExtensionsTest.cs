@@ -37,7 +37,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
     public class ClosingStructuresCalculationEntityReadExtensionsTest
     {
         [Test]
-        public void Read_ReadConversionColletorNull_ThrowArugumentNullException()
+        public void Read_ReadConversionCollectorNull_ThrowArgumentNullException()
         {
             // Setup
             var entity = new ClosingStructuresCalculationEntity();
@@ -141,6 +141,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             Assert.AreEqual(entity.LevelCrestStructureNotClosingMean, inputParameters.LevelCrestStructureNotClosing.Mean.Value);
             Assert.AreEqual(entity.LevelCrestStructureNotClosingStandardDeviation, inputParameters.LevelCrestStructureNotClosing.StandardDeviation.Value);
             Assert.AreEqual(entity.ProbabilityOpenStructureBeforeFlooding, inputParameters.ProbabilityOpenStructureBeforeFlooding);
+            Assert.IsFalse(calculation.HasOutput);
         }
 
         [Test]
@@ -271,6 +272,27 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
 
             // Assert
             Assert.AreSame(profile, calculation.InputParameters.ForeshoreProfile);
+        }
+
+        [Test]
+        public void Read_ValidEntityWithOutputEntity_ReturnCalculationWithOutput()
+        {
+            // Setup
+            var entity = new ClosingStructuresCalculationEntity
+            {
+                ClosingStructuresOutputEntities =
+                {
+                    new ClosingStructuresOutputEntity()
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            StructuresCalculation<ClosingStructuresInput> calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(calculation.HasOutput);
         }
     }
 }

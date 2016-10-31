@@ -1999,5 +1999,154 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         #endregion
+
+        #region ClosingStructuresCalculationEntity: Read, Contains, Get
+
+        [Test]
+        public void Contains_WithoutClosingStructuresCalculationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Contains((ClosingStructuresCalculationEntity) null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Contains_ClosingStructuresCalculationEntityAdded_ReturnsTrue()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new ClosingStructuresCalculationEntity();
+            collector.Read(entity, new StructuresCalculation<ClosingStructuresInput>());
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoClosingStructuresCalculationEntityAdded_ReturnsFalse()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new ClosingStructuresCalculationEntity();
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherClosingStructuresCalculationEntityAdded_ReturnsFalse()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new ClosingStructuresCalculationEntity();
+            collector.Read(new ClosingStructuresCalculationEntity(), new StructuresCalculation<ClosingStructuresInput>());
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Get_WithoutClosingStructuresCalculationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Get((ClosingStructuresCalculationEntity) null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Get_ClosingStructuresCalculationEntityAdded_ReturnsClosingStructuresCalculation()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var entity = new ClosingStructuresCalculationEntity();
+            collector.Read(entity, calculation);
+
+            // Call
+            var result = collector.Get(entity);
+
+            // Assert
+            Assert.AreSame(calculation, result);
+        }
+
+        [Test]
+        public void Get_NoClosingStructuresCalculationEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new ClosingStructuresCalculationEntity();
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherClosingStructuresCalculationEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new ClosingStructuresCalculationEntity();
+            collector.Read(new ClosingStructuresCalculationEntity(), new StructuresCalculation<ClosingStructuresInput>());
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Read_WithNullClosingStructuresCalculationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(null, new StructuresCalculation<ClosingStructuresInput>());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Read_WithNullClosingStructuresCalculation_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(new ClosingStructuresCalculationEntity(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        #endregion
     }
 }

@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
@@ -164,7 +165,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(Convert.ToByte(input.UseBreakWater), entity.UseBreakWater);
             Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
 
-            Assert.IsFalse(calculation.HasOutput);
+            Assert.IsFalse(entity.HeightStructuresOutputEntities.Any());
         }
 
         [Test]
@@ -524,7 +525,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(inputParameters.ProbabilityOpenStructureBeforeFlooding, entity.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(order, entity.Order);
 
-            Assert.IsFalse(calculation.HasOutput);
+            Assert.IsFalse(entity.ClosingStructuresOutputEntities.Any());
         }
 
         [Test]
