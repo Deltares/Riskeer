@@ -28,6 +28,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Service;
+using Ringtoets.Common.Service.ValidationRules;
 using Ringtoets.Common.Utils;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Service.Properties;
@@ -183,44 +184,44 @@ namespace Ringtoets.HeightStructures.Service
             }
             else
             {
-                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.StormDuration,
-                                                                                       ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)));
+                IEnumerable<ValidationRule> inputValidationRules = GetInputValidationRules(inputParameters);
 
-                if (IsInvalidNumber(inputParameters.DeviationWaveDirection))
+                foreach (var validationRule in inputValidationRules)
                 {
-                    validationResults.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
-                                                        ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_DeviationWaveDirection_DisplayName)));
+                    validationResults.AddRange(validationRule.Validate());
                 }
-
-                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.ModelFactorSuperCriticalFlow,
-                                                                                       ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)));
-
-                if (IsInvalidNumber(inputParameters.StructureNormalOrientation))
-                {
-                    validationResults.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
-                                                        ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Orientation_DisplayName)));
-                }
-
-                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.FlowWidthAtBottomProtection,
-                                                                                       ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)));
-                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.WidthFlowApertures,
-                                                                                       ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)));
-                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.StorageStructureArea,
-                                                                                       ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName)));
-                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.AllowedLevelIncreaseStorage,
-                                                                                       ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)));
-                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.LevelCrestStructure,
-                                                                                       ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_DisplayName)));
-                validationResults.AddRange(DistributionValidation.ValidateDistribution(inputParameters.CriticalOvertoppingDischarge,
-                                                                                       ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName)));
             }
 
             return validationResults.ToArray();
         }
 
-        private static bool IsInvalidNumber(RoundedDouble value)
+        private static IEnumerable<ValidationRule> GetInputValidationRules(HeightStructuresInput input)
         {
-            return double.IsNaN(value) || double.IsInfinity(value);
+            var validationRules = new List<ValidationRule>
+            {
+                new VariationCoefficientLogNormalDistributionRule(input.StormDuration,
+                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)),
+                new NumericInputRule(input.DeviationWaveDirection,
+                                     ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_DeviationWaveDirection_DisplayName)),
+                new NormalDistributionRule(input.ModelFactorSuperCriticalFlow,
+                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_ModelFactorSuperCriticalFlow_DisplayName)),
+                new NumericInputRule(input.StructureNormalOrientation,
+                                     ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Orientation_DisplayName)),
+                new LogNormalDistributionRule(input.FlowWidthAtBottomProtection,
+                                              ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_FlowWidthAtBottomProtection_DisplayName)),
+                new VariationCoefficientNormalDistributionRule(input.WidthFlowApertures,
+                                                               ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_WidthFlowApertures_DisplayName)),
+                new VariationCoefficientLogNormalDistributionRule(input.StorageStructureArea,
+                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StorageStructureArea_DisplayName)),
+                new LogNormalDistributionRule(input.AllowedLevelIncreaseStorage,
+                                              ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_AllowedLevelIncreaseStorage_DisplayName)),
+                new NormalDistributionRule(input.LevelCrestStructure,
+                                           ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_LevelCrestStructure_DisplayName)),
+                new VariationCoefficientLogNormalDistributionRule(input.CriticalOvertoppingDischarge,
+                                                                  ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName)),
+            };
+
+            return validationRules;
         }
     }
 }

@@ -51,6 +51,12 @@
     <Compile Include="DistributionValidation.cs" />
     <Compile Include="HydraRingInputParser.cs" />
     <Compile Include="ParameterNameExtractor.cs" />
+    <Compile Include="ValidationRules\NumericInputRule.cs" />
+    <Compile Include="ValidationRules\VariationCoefficientLogNormalDistributionRule.cs" />
+    <Compile Include="ValidationRules\VariationCoefficientNormalDistributionRule.cs" />
+    <Compile Include="ValidationRules\LogNormalDistributionRule.cs" />
+    <Compile Include="ValidationRules\ValidationRule.cs" />
+    <Compile Include="ValidationRules\NormalDistributionRule.cs" />
     <Compile Include="WaveHeightCalculationActivity.cs" />
     <Compile Include="WaveHeightCalculationService.cs" />
     <Compile Include="DesignWaterLevelCalculationService.cs" />

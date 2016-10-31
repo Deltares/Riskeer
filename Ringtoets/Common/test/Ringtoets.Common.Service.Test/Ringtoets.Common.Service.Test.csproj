@@ -68,6 +68,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RingtoetsCommonDataCalculationServiceTest.cs" />
     <Compile Include="RingtoetsCommonDataSynchronizationServices.Test.cs" />
+    <Compile Include="ValidationRules\NumericInputRuleTest.cs" />
+    <Compile Include="ValidationRules\VariationCoefficientLogNormalDistributionRuleTest.cs" />
+    <Compile Include="ValidationRules\VariationCoefficientNormalDistributionRuleTest.cs" />
+    <Compile Include="ValidationRules\LogNormalDistributionRuleTest.cs" />
+    <Compile Include="ValidationRules\NormalDistributionRuleTest.cs" />
+    <Compile Include="ValidationRules\ValidationRuleTest.cs" />
     <Compile Include="WaveHeightCalculationActivityTest.cs" />
     <Compile Include="WaveHeightCalculationServiceTest.cs" />
   </ItemGroup>
