@@ -163,6 +163,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual((short) input.BreakWater.Type, entity.BreakWaterType);
             Assert.AreEqual(Convert.ToByte(input.UseBreakWater), entity.UseBreakWater);
             Assert.AreEqual(Convert.ToByte(input.UseForeshore), entity.UseForeshore);
+
+            Assert.IsFalse(calculation.HasOutput);
         }
 
         [Test]
@@ -521,6 +523,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(inputParameters.LevelCrestStructureNotClosing.StandardDeviation.Value, entity.LevelCrestStructureNotClosingStandardDeviation);
             Assert.AreEqual(inputParameters.ProbabilityOpenStructureBeforeFlooding, entity.ProbabilityOpenStructureBeforeFlooding);
             Assert.AreEqual(order, entity.Order);
+
+            Assert.IsFalse(calculation.HasOutput);
         }
 
         [Test]
@@ -703,6 +707,27 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity.ForeshoreProfileEntity);
+        }
+
+        [Test]
+        public void CreateForClosingStructures_CalculationWithOutput_ReturnEntity()
+        {
+            // Setup
+            var random = new Random(160);
+            var calculation = new StructuresCalculation<ClosingStructuresInput>
+            {
+                Output = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
+                                                         random.NextDouble(), random.NextDouble(),
+                                                         random.NextDouble())
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            ClosingStructuresCalculationEntity entity = calculation.CreateForClosingStructures(registry, 0);
+
+            // Assert
+            Assert.AreEqual(1, entity.ClosingStructuresOutputEntities.Count);
         }
 
         #endregion

@@ -826,6 +826,66 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsFalse(result);
         }
 
+        [Test]
+        public void Contains_WithoutClosingStructuresCalculation_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Contains((StructuresCalculation<ClosingStructuresInput>) null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Contains_ClosingStructuresCalculationAdded_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var registry = new PersistenceRegistry();
+            registry.Register(new ClosingStructuresCalculationEntity(), calculation);
+
+            // Call
+            bool result = registry.Contains(calculation);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_OtherClosingStructuresCalculationAdded_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+
+            var otherCalculation = new StructuresCalculation<ClosingStructuresInput>();
+            var registry = new PersistenceRegistry();
+            registry.Register(new ClosingStructuresCalculationEntity(), otherCalculation);
+
+            // Call
+            bool result = registry.Contains(calculation);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_NoClosingStructuresCalculationAdded_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var registry = new PersistenceRegistry();
+
+            // Call
+            bool result = registry.Contains(calculation);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
         #endregion
 
         #region Get methods
@@ -1562,6 +1622,69 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreSame(registeredEntity, retrievedEntity);
         }
 
+        [Test]
+        public void Get_WithoutClosingStructuresCalculation_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Get((StructuresCalculation<ClosingStructuresInput>) null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Get_NoClosingStructuresCalculationAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Get(calculation);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_OtherClosingStructuresCalculationAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var registeredCalculation = new StructuresCalculation<ClosingStructuresInput>();
+            var registeredEntity = new ClosingStructuresCalculationEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(registeredEntity, registeredCalculation);
+
+            // Call
+            TestDelegate call = () => registry.Get(calculation);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_ClosingStructuresCalculationAdded_ReturnsEntity()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var registeredEntity = new ClosingStructuresCalculationEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(registeredEntity, calculation);
+
+            // Call
+            ClosingStructuresCalculationEntity retrievedEntity = registry.Get(calculation);
+
+            // Assert
+            Assert.AreSame(registeredEntity, retrievedEntity);
+        }
+
         #endregion
 
         #region Register methods
@@ -1871,6 +1994,34 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             TestDelegate test = () => registry.Register(new HeightStructuresCalculationEntity(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullClosingStructuresCalculationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(null, new TestClosingStructuresCalculation());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullClosingStructuresCalculation_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(new ClosingStructuresCalculationEntity(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
