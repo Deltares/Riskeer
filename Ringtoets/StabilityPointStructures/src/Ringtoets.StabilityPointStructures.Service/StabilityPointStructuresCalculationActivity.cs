@@ -79,19 +79,29 @@ namespace Ringtoets.StabilityPointStructures.Service
             calculationService = new StabilityPointStructuresCalculationService();
         }
 
-        protected override void OnCancel()
+        protected override bool Validate()
         {
-            
-        }
-
-        protected override void OnFinish()
-        {
-            throw new NotImplementedException();
+            return StabilityPointStructuresCalculationService.Validate(calculation, assessmentSection);
         }
 
         protected override void PerformCalculation()
         {
-            throw new NotImplementedException();
+            calculation.ClearOutput();
+
+            calculationService.Calculate(calculation,
+                                         assessmentSection,
+                                         failureMechanism,
+                                         hlcdFilepath);
+        }
+
+        protected override void OnCancel()
+        {
+            calculationService.Cancel();
+        }
+
+        protected override void OnFinish()
+        {
+            calculation.NotifyObservers();
         }
     }
 }
