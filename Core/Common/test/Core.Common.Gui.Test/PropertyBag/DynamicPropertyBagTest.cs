@@ -303,10 +303,10 @@ namespace Core.Common.Gui.Test.PropertyBag
 
             var propThreeDescriptor = propertyDescriptorCollection.Find("PropThree", false);
             Assert.GreaterOrEqual(propertyDescriptorCollection.IndexOf(propThreeDescriptor), index,
-                                  "PropThree is not decorated with PropertyOrderAttribute, therefore should come after those that are.");
+                                  "PropThree is not decorated with PropertyOrderAttribute or DynamicPropertyOrderAttribute, therefore should come after those that are.");
             var propSevenDescriptor = propertyDescriptorCollection.Find("PropSeven", false);
             Assert.GreaterOrEqual(propertyDescriptorCollection.IndexOf(propSevenDescriptor), index,
-                                  "PropSeven is not decorated with PropertyOrderAttribute, therefore should come after those that are.");
+                                  "PropSeven is not decorated with PropertyOrderAttribute or DynamicPropertyOrderAttribute, therefore should come after those that are.");
         }
 
         [Test]

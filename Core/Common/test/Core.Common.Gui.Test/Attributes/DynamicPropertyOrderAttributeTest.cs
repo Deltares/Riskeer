@@ -143,7 +143,7 @@ namespace Core.Common.Gui.Test.Attributes
         }
 
         [Test]
-        public void IsPropertyOrder_ClassHasDynamicPropertyOrderEvaluationMethodWithIncorrectArgumentType_ThrowsMissingMethodException()
+        public void PropertyOrder_ClassHasDynamicPropertyOrderEvaluationMethodWithIncorrectArgumentType_ThrowsMissingMethodException()
         {
             // Setup
             var o = new InvalidClassWithDynamicPropertyOrderPropertyButEvaluationMethodArgumentNotString();

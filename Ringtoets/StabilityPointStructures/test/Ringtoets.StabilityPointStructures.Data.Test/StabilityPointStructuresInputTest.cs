@@ -189,40 +189,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
             AssertStabilityPointStructure(structure, input);
         }
 
-        # region Structure / calculation
-
-        [Test]
-        [TestCase(StabilityPointStructureInflowModelType.LowSill)]
-        [TestCase(StabilityPointStructureInflowModelType.FloodedCulvert)]
-        public void InflowModelType_SetValue_ReturnSetValue(StabilityPointStructureInflowModelType inflowModelType)
-        {
-            // Setup
-            var input = new StabilityPointStructuresInput();
-
-            // Call
-            input.InflowModelType = inflowModelType;
-
-            // Assert
-            Assert.AreEqual(inflowModelType, input.InflowModelType);
-        }
-
-        [Test]
-        [TestCase(LoadSchematizationType.Linear)]
-        [TestCase(LoadSchematizationType.Quadratic)]
-        public void LoadSchematizationType_SetValue_ReturnSetValue(LoadSchematizationType type)
-        {
-            // Setup
-            var input = new StabilityPointStructuresInput();
-
-            // Call
-            input.LoadSchematizationType = type;
-
-            // Assert
-            Assert.AreEqual(type, input.LoadSchematizationType);
-        }
-
-        #endregion
-
         #region Hydraulic data
 
         [Test]
@@ -659,21 +625,6 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
 
             // Assert
             AssertDistributionCorrectlySet(input.ShipVelocity, distributionToSet, expectedDistribution);
-        }
-
-        [Test]
-        public void Properties_LevellingCount_ExpectedValues()
-        {
-            // Setup
-            var input = new StabilityPointStructuresInput();
-            var random = new Random(22);
-            int levellingCount = random.Next();
-
-            // Call
-            input.LevellingCount = levellingCount;
-
-            // Assert
-            Assert.AreEqual(levellingCount, input.LevellingCount);
         }
 
         [Test]

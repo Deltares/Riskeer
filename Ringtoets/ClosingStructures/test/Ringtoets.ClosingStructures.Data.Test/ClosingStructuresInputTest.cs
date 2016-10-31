@@ -115,26 +115,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
             AssertClosingStructure(structure, input);
         }
 
-        #region Structure
-
-        [Test]
-        [TestCase(ClosingStructureInflowModelType.VerticalWall)]
-        [TestCase(ClosingStructureInflowModelType.LowSill)]
-        [TestCase(ClosingStructureInflowModelType.FloodedCulvert)]
-        public void InflowModelType_SetValue_ReturnSetValue(ClosingStructureInflowModelType inflowModelType)
-        {
-            // Setup
-            var input = new ClosingStructuresInput();
-
-            // Call
-            input.InflowModelType = inflowModelType;
-
-            // Assert
-            Assert.AreEqual(inflowModelType, input.InflowModelType);
-        }
-
-        #endregion
-
         #region Hydraulic data
 
         [Test]
@@ -367,21 +347,6 @@ namespace Ringtoets.ClosingStructures.Data.Test
 
             // Assert
             Assert.AreEqual(probability, input.FailureProbabilityReparation);
-        }
-
-        [Test]
-        public void Properties_IdenticalApertures_ExpectedValues()
-        {
-            // Setup
-            var random = new Random(22);
-            var input = new ClosingStructuresInput();
-            int identicalApertures = random.Next();
-
-            // Call
-            input.IdenticalApertures = identicalApertures;
-
-            // Assert
-            Assert.AreEqual(identicalApertures, input.IdenticalApertures);
         }
 
         [Test]

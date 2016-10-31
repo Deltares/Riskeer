@@ -40,6 +40,8 @@ namespace Core.Common.Gui.PropertyBag
     /// <item><see cref="PropertyOrderAttribute"/></item>
     /// <item><see cref="DynamicPropertyOrderAttribute"/></item>
     /// </list>
+    /// Worth mentioning is the fact that, when specified both, the <see cref="PropertyOrderAttribute"/>
+    /// overrules the <see cref="DynamicPropertyOrderAttribute"/>.
     /// </remarks>
     public class DynamicPropertyBag : ICustomTypeDescriptor
     {
