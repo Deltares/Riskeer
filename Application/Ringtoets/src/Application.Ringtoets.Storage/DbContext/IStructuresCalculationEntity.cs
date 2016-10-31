@@ -19,30 +19,31 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-
 namespace Application.Ringtoets.Storage.DbContext
 {
+    /// <summary>
+    /// Interface for a calculation entity that represents a structure calculation.
+    /// </summary>
     public interface IStructuresCalculationEntity
     {
-        Nullable<double> ModelFactorSuperCriticalFlowMean { get; set; }
-        Nullable<double> StructureNormalOrientation { get; set; }
-        Nullable<double> AllowedLevelIncreaseStorageMean { get; set; }
-        Nullable<double> AllowedLevelIncreaseStorageStandardDeviation { get; set; }
-        Nullable<double> StorageStructureAreaMean { get; set; }
-        Nullable<double> StorageStructureAreaCoefficientOfVariation { get; set; }
-        Nullable<double> FlowWidthAtBottomProtectionMean { get; set; }
-        Nullable<double> FlowWidthAtBottomProtectionStandardDeviation { get; set; }
-        Nullable<double> CriticalOvertoppingDischargeMean { get; set; }
-        Nullable<double> CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
+        double? ModelFactorSuperCriticalFlowMean { get; set; }
+        double? StructureNormalOrientation { get; set; }
+        double? AllowedLevelIncreaseStorageMean { get; set; }
+        double? AllowedLevelIncreaseStorageStandardDeviation { get; set; }
+        double? StorageStructureAreaMean { get; set; }
+        double? StorageStructureAreaCoefficientOfVariation { get; set; }
+        double? FlowWidthAtBottomProtectionMean { get; set; }
+        double? FlowWidthAtBottomProtectionStandardDeviation { get; set; }
+        double? CriticalOvertoppingDischargeMean { get; set; }
+        double? CriticalOvertoppingDischargeCoefficientOfVariation { get; set; }
         double FailureProbabilityStructureWithErosion { get; set; }
-        Nullable<double> WidthFlowAperturesMean { get; set; }
-        Nullable<double> WidthFlowAperturesCoefficientOfVariation { get; set; }
-        Nullable<double> StormDurationMean { get; set; }
+        double? WidthFlowAperturesMean { get; set; }
+        double? WidthFlowAperturesCoefficientOfVariation { get; set; }
+        double? StormDurationMean { get; set; }
         byte UseBreakWater { get; set; }
         byte UseForeshore { get; set; }
         short BreakWaterType { get; set; }
-        Nullable<double> BreakWaterHeight { get; set; }
+        double? BreakWaterHeight { get; set; }
 
         HydraulicLocationEntity HydraulicLocationEntity { get; set; }
         ForeshoreProfileEntity ForeshoreProfileEntity { get; set; }

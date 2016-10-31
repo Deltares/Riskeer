@@ -148,7 +148,7 @@ namespace Application.Ringtoets.Storage.Create
 
             entity.FailureProbabilityOpenStructure = input.FailureProbabilityOpenStructure;
 
-            entity.FailureProbablityReparation = input.FailureProbabilityReparation;
+            entity.FailureProbabilityReparation = input.FailureProbabilityReparation;
 
             entity.IdenticalApertures = input.IdenticalApertures;
 

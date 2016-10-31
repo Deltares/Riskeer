@@ -1097,7 +1097,7 @@ CREATE TABLE 'ClosingStructuresCalculationEntity'
 	'ProbabilityOpenStructureBeforeFlooding' REAL NOT NULL,
 	'FailureProbabilityOpenStructure' REAL NOT NULL,
 	'IdenticalApertures' INT (4) NOT NULL,
-	'FailureProbablityReparation' REAL NOT NULL,
+	'FailureProbabilityReparation' REAL NOT NULL,
 	'InflowModelType' TINYINT (1) NOT NULL,
 	'FailureProbabilityStructureWithErosion' REAL NOT NULL,
 	'DeviationWaveDirection' REAL,

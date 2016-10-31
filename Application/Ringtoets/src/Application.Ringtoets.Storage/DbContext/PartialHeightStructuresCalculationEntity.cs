@@ -21,8 +21,9 @@
 
 namespace Application.Ringtoets.Storage.DbContext
 {
-    public partial class HeightStructuresCalculationEntity : IStructuresCalculationEntity
-    {
-         
-    }
+    /// <summary>
+    /// Partial implementation of <see cref="HeightStructuresCalculationEntity"/> that implements 
+    /// <see cref="IStructuresCalculationEntity"/>.
+    /// </summary>
+    public partial class HeightStructuresCalculationEntity : IStructuresCalculationEntity {}
 }

@@ -76,7 +76,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public double ProbabilityOpenStructureBeforeFlooding { get; set; }
         public double FailureProbabilityOpenStructure { get; set; }
         public int IdenticalApertures { get; set; }
-        public double FailureProbablityReparation { get; set; }
+        public double FailureProbabilityReparation { get; set; }
         public byte InflowModelType { get; set; }
         public double FailureProbabilityStructureWithErosion { get; set; }
         public Nullable<double> DeviationWaveDirection { get; set; }

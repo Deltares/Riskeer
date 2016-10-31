@@ -518,7 +518,7 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(inputParameters.AreaFlowApertures.Mean.Value, entity.AreaFlowAperturesMean);
             Assert.AreEqual(inputParameters.AreaFlowApertures.StandardDeviation.Value, entity.AreaFlowAperturesStandardDeviation);
             Assert.AreEqual(inputParameters.FailureProbabilityOpenStructure, entity.FailureProbabilityOpenStructure);
-            Assert.AreEqual(inputParameters.FailureProbabilityReparation, entity.FailureProbablityReparation);
+            Assert.AreEqual(inputParameters.FailureProbabilityReparation, entity.FailureProbabilityReparation);
             Assert.AreEqual(inputParameters.IdenticalApertures, entity.IdenticalApertures);
             Assert.AreEqual(inputParameters.LevelCrestStructureNotClosing.Mean.Value, entity.LevelCrestStructureNotClosingMean);
             Assert.AreEqual(inputParameters.LevelCrestStructureNotClosing.StandardDeviation.Value, entity.LevelCrestStructureNotClosingStandardDeviation);

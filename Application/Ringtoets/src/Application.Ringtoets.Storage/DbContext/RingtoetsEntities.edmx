@@ -124,7 +124,7 @@
           <Property Name="ProbabilityOpenStructureBeforeFlooding" Type="real" Nullable="false" />
           <Property Name="FailureProbabilityOpenStructure" Type="real" Nullable="false" />
           <Property Name="IdenticalApertures" Type="int" Nullable="false" />
-          <Property Name="FailureProbablityReparation" Type="real" Nullable="false" />
+          <Property Name="FailureProbabilityReparation" Type="real" Nullable="false" />
           <Property Name="InflowModelType" Type="tinyint" Nullable="false" />
           <Property Name="FailureProbabilityStructureWithErosion" Type="real" Nullable="false" />
           <Property Name="DeviationWaveDirection" Type="real" />
@@ -2781,7 +2781,7 @@
           <Property Name="ProbabilityOpenStructureBeforeFlooding" Type="Double" Nullable="false" />
           <Property Name="FailureProbabilityOpenStructure" Type="Double" Nullable="false" />
           <Property Name="IdenticalApertures" Type="Int32" Nullable="false" />
-          <Property Name="FailureProbablityReparation" Type="Double" Nullable="false" />
+          <Property Name="FailureProbabilityReparation" Type="Double" Nullable="false" />
           <Property Name="InflowModelType" Type="Byte" Nullable="false" />
           <Property Name="FailureProbabilityStructureWithErosion" Type="Double" Nullable="false" />
           <Property Name="DeviationWaveDirection" Type="Double" />
@@ -4778,7 +4778,7 @@
                 <ScalarProperty Name="DeviationWaveDirection" ColumnName="DeviationWaveDirection" />
                 <ScalarProperty Name="FailureProbabilityStructureWithErosion" ColumnName="FailureProbabilityStructureWithErosion" />
                 <ScalarProperty Name="InflowModelType" ColumnName="InflowModelType" />
-                <ScalarProperty Name="FailureProbablityReparation" ColumnName="FailureProbablityReparation" />
+                <ScalarProperty Name="FailureProbabilityReparation" ColumnName="FailureProbabilityReparation" />
                 <ScalarProperty Name="IdenticalApertures" ColumnName="IdenticalApertures" />
                 <ScalarProperty Name="FailureProbabilityOpenStructure" ColumnName="FailureProbabilityOpenStructure" />
                 <ScalarProperty Name="ProbabilityOpenStructureBeforeFlooding" ColumnName="ProbabilityOpenStructureBeforeFlooding" />

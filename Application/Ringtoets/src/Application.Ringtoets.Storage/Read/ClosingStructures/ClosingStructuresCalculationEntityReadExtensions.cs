@@ -86,7 +86,7 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
             inputParameters.AreaFlowApertures.Mean = (RoundedDouble) entity.AreaFlowAperturesMean.ToNullAsNaN();
             inputParameters.AreaFlowApertures.StandardDeviation = (RoundedDouble) entity.AreaFlowAperturesStandardDeviation.ToNullAsNaN();
             inputParameters.FailureProbabilityOpenStructure = entity.FailureProbabilityOpenStructure;
-            inputParameters.FailureProbabilityReparation = entity.FailureProbablityReparation;
+            inputParameters.FailureProbabilityReparation = entity.FailureProbabilityReparation;
             inputParameters.IdenticalApertures = entity.IdenticalApertures;
             inputParameters.LevelCrestStructureNotClosing.Mean = (RoundedDouble) entity.LevelCrestStructureNotClosingMean.ToNullAsNaN();
             inputParameters.LevelCrestStructureNotClosing.StandardDeviation = (RoundedDouble) entity.LevelCrestStructureNotClosingStandardDeviation.ToNullAsNaN();

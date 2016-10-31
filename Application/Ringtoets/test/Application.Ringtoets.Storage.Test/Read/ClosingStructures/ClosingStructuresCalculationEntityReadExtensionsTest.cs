@@ -87,7 +87,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
                 AreaFlowAperturesMean = 23.23,
                 AreaFlowAperturesStandardDeviation = 24.24,
                 FailureProbabilityOpenStructure = 0.25,
-                FailureProbablityReparation = 0.26,
+                FailureProbabilityReparation = 0.26,
                 IdenticalApertures = 27,
                 LevelCrestStructureNotClosingMean = 28.28,
                 LevelCrestStructureNotClosingStandardDeviation = 29.29,
@@ -136,7 +136,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             Assert.AreEqual(entity.AreaFlowAperturesMean, inputParameters.AreaFlowApertures.Mean.Value);
             Assert.AreEqual(entity.AreaFlowAperturesStandardDeviation, inputParameters.AreaFlowApertures.StandardDeviation.Value);
             Assert.AreEqual(entity.FailureProbabilityOpenStructure, inputParameters.FailureProbabilityOpenStructure);
-            Assert.AreEqual(entity.FailureProbablityReparation, inputParameters.FailureProbabilityReparation);
+            Assert.AreEqual(entity.FailureProbabilityReparation, inputParameters.FailureProbabilityReparation);
             Assert.AreEqual(entity.IdenticalApertures, inputParameters.IdenticalApertures);
             Assert.AreEqual(entity.LevelCrestStructureNotClosingMean, inputParameters.LevelCrestStructureNotClosing.Mean.Value);
             Assert.AreEqual(entity.LevelCrestStructureNotClosingStandardDeviation, inputParameters.LevelCrestStructureNotClosing.StandardDeviation.Value);

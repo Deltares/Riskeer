@@ -100,7 +100,6 @@
     <Compile Include="DbContext\ClosingStructuresSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\PartialClosingStructuresOutputEntity.cs" />
     <Compile Include="DbContext\DikeProfileEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -167,8 +166,6 @@
     <Compile Include="DbContext\HydraulicLocationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbContext\IProbabilityAssessmentOutputEntity.cs" />
-    <Compile Include="DbContext\IStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\MacrostabilityInwardsSectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
@@ -178,6 +175,9 @@
     <Compile Include="DbContext\MicrostabilitySectionResultEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="DbContext\PartialClosingStructuresOutputEntity.cs" />
+    <Compile Include="DbContext\IProbabilityAssessmentOutputEntity.cs" />
+    <Compile Include="DbContext\IStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialClosingStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialHeightStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialHeightStructuresOutputEntity.cs" />
