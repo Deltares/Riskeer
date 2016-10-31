@@ -22,6 +22,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
@@ -242,7 +243,7 @@ namespace Ringtoets.Revetment.Service.Test
             var dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             WaveConditionsInput input = GetDefaultValidationInput();
-            input.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight));
+            input.ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight));
             input.UseBreakWater = true;
 
             // Call
@@ -277,7 +278,7 @@ namespace Ringtoets.Revetment.Service.Test
             var dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             WaveConditionsInput input = GetDefaultValidationInput();
-            input.ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Wall, breakWaterHeight));
+            input.ForeshoreProfile = new TestForeshoreProfile(new BreakWater(BreakWaterType.Wall, breakWaterHeight));
             input.UseBreakWater = false;
 
             // Call
@@ -321,7 +322,7 @@ namespace Ringtoets.Revetment.Service.Test
                     input.Orientation = (RoundedDouble) 0;
                     break;
                 case CalculationType.ForeshoreWithoutBreakWater:
-                    input.ForeshoreProfile = CreateForeshoreProfile(null);
+                    input.ForeshoreProfile = new TestForeshoreProfile();
                     input.UseBreakWater = false;
                     break;
                 case CalculationType.ForeshoreWithValidBreakWater:
@@ -364,7 +365,7 @@ namespace Ringtoets.Revetment.Service.Test
                 {
                     DesignWaterLevel = waterLevel
                 },
-                ForeshoreProfile = CreateForeshoreProfile(),
+                ForeshoreProfile = new TestForeshoreProfile(true),
                 UpperBoundaryRevetment = (RoundedDouble) 4,
                 LowerBoundaryRevetment = (RoundedDouble) 3,
                 StepSize = WaveConditionsInputStepSize.Two,
@@ -441,7 +442,7 @@ namespace Ringtoets.Revetment.Service.Test
                 {
                     DesignWaterLevel = (RoundedDouble) 4.2
                 },
-                ForeshoreProfile = CreateForeshoreProfile(),
+                ForeshoreProfile = new TestForeshoreProfile(),
                 UpperBoundaryRevetment = waterLevel,
                 LowerBoundaryRevetment = (RoundedDouble) 3
             };
@@ -497,7 +498,7 @@ namespace Ringtoets.Revetment.Service.Test
                 {
                     DesignWaterLevel = (RoundedDouble)4.2
                 },
-                ForeshoreProfile = CreateForeshoreProfile(),
+                ForeshoreProfile = new TestForeshoreProfile(),
                 UpperBoundaryRevetment = waterLevel,
                 LowerBoundaryRevetment = (RoundedDouble)3
             };
@@ -528,7 +529,7 @@ namespace Ringtoets.Revetment.Service.Test
                 {
                     DesignWaterLevel = (RoundedDouble) 12.0
                 },
-                ForeshoreProfile = CreateForeshoreProfile(),
+                ForeshoreProfile = new TestForeshoreProfile(true),
                 UseBreakWater = true,
                 UseForeshore = true,
                 LowerBoundaryRevetment = (RoundedDouble) 1.0,
@@ -539,23 +540,6 @@ namespace Ringtoets.Revetment.Service.Test
                 Orientation = (RoundedDouble) 0
             };
             return input;
-        }
-
-        private static ForeshoreProfile CreateForeshoreProfile()
-        {
-            return CreateForeshoreProfile(new BreakWater(BreakWaterType.Wall, 5.5));
-        }
-
-        private static ForeshoreProfile CreateForeshoreProfile(BreakWater breakWater)
-        {
-            return new ForeshoreProfile(new Point2D(0, 0),
-                                        new[]
-                                        {
-                                            new Point2D(3.3, 4.4),
-                                            new Point2D(5.5, 6.6)
-                                        },
-                                        breakWater,
-                                        new ForeshoreProfile.ConstructionProperties());
         }
 
         private static WaveConditionsCosineCalculationInput CreateInput(double waterLevel, double a, double b, double c, double norm, WaveConditionsInput input, bool useForeshore, bool useBreakWater)
