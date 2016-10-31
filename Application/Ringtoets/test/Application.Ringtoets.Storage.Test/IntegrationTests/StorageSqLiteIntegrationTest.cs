@@ -1019,6 +1019,15 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
 
             AssertClosingStructuresInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
+            
+            if (expectedCalculation.HasOutput)
+            {
+                AssertProbabilityAssessmentOutput(expectedCalculation.Output, actualCalculation.Output);
+            }
+            else
+            {
+                Assert.IsFalse(actualCalculation.HasOutput);
+            }
         }
 
         private static void AssertClosingStructuresInput(ClosingStructuresInput expectedInput, ClosingStructuresInput actualInput)

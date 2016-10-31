@@ -181,16 +181,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             }
         }
 
-        private static void SetSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = random.NextBoolean();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
         private static void SetSectionResults(IEnumerable<MacrostabilityOutwardsFailureMechanismSectionResult> sectionResults)
         {
             var random = new Random(21);
@@ -358,6 +348,17 @@ namespace Application.Ringtoets.Storage.TestUtil
             return hydraulicBoundaryDatabase;
         }
 
+        #region StabilityPointStructures FailureMechanism
+
+        private static void ConfigureStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism)
+        {
+            failureMechanism.GeneralInput.N = 8;
+            failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
+            failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
+        }
+
+        #endregion
+
         #region ClosingStructures FailureMechanism
 
         private static void ConfigureClosingStructuresFailureMechanism(ClosingStructuresFailureMechanism failureMechanism,
@@ -453,7 +454,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                             ProbabilityOpenStructureBeforeFlooding = (RoundedDouble) 0.98,
                             ForeshoreProfile = foreshoreProfile,
                             HydraulicBoundaryLocation = hydroLocation
-                        }
+                        },
+                        Output = new ProbabilityAssessmentOutput(0.8, 0.95, 0.10, 0.11, 0.12)
                     }
                 }
             });
@@ -464,15 +466,14 @@ namespace Application.Ringtoets.Storage.TestUtil
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
         }
 
-        #endregion
-
-        #region StabilityPointStructures FailureMechanism
-
-        private static void ConfigureStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism)
+        private static void SetSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults)
         {
-            failureMechanism.GeneralInput.N = 8;
-            failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
-            failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = random.NextBoolean();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
         }
 
         #endregion
