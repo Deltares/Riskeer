@@ -47,7 +47,7 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
         public void Constructor_UseBreakWater_ReturnsSectionWithEmptyNameAndOnePointAtOriginAndDefaultBreakWater()
         {
             // Call
-            var profile = new TestForeshoreProfile();
+            var profile = new TestForeshoreProfile(true);
 
             // Assert
             Assert.IsEmpty(profile.Geometry);
