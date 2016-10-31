@@ -358,7 +358,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
         }
 
         [Test]
-        public void Validate_InvalidInFlowModelType_ThrowsNotSupportedException()
+        public void Validate_InvalidInFlowModelType_ThrowsInvalidEnumArgumentException()
         {
             // Setup 
             var mockRepository = new MockRepository();
@@ -393,7 +393,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
         }
 
         [Test]
-        public void Calculate_InvalidInFlowModelType_ThrowsNotSupportedException()
+        public void Calculate_InvalidInFlowModelType_ThrowsInvalidEnumArgumentException()
         {
             // Setup
             var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
@@ -438,6 +438,52 @@ namespace Ringtoets.ClosingStructures.Service.Test
                                                                                                                         expectedMessage).ParamName;
                 Assert.AreEqual("calculation", paramName);
             }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [Combinatorial]
+        public void Validate_UsesBreakWaterAndHasInvalidBreakWaterSettings_ReturnsFalse(
+            [Values(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.FloodedCulvert)] ClosingStructureInflowModelType inflowModelType,
+            [Values(double.NaN, double.NegativeInfinity, double.PositiveInfinity)] double breakWaterHeight)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            const string name = "<very nice name>";
+
+            var calculation = new TestClosingStructuresCalculation()
+            {
+                Name = name,
+                InputParameters =
+                {
+                    InflowModelType = inflowModelType,
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
+                    UseBreakWater = true
+                }
+            };
+
+            bool isValid = false;
+
+            // Call
+            Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen geldige damhoogte ingevoerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
             mockRepository.VerifyAll();
         }
 
@@ -719,10 +765,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
         }
 
         [Test]
-        [TestCase(ClosingStructureInflowModelType.VerticalWall)]
-        [TestCase(ClosingStructureInflowModelType.LowSill)]
-        [TestCase(ClosingStructureInflowModelType.FloodedCulvert)]
-        public void Calculate_ValidCalculation_LogStartAndEndAndReturnOutput(ClosingStructureInflowModelType inflowModelType)
+        [Combinatorial]
+        public void Calculate_ValidCalculation_LogStartAndEndAndReturnOutput(
+            [Values(ClosingStructureInflowModelType.VerticalWall, ClosingStructureInflowModelType.LowSill, ClosingStructureInflowModelType.FloodedCulvert)] ClosingStructureInflowModelType inflowModelType,
+            [Values(CalculationType.NoForeshore, CalculationType.ForeshoreWithoutBreakWater, CalculationType.ForeshoreWithValidBreakWater)] CalculationType calculationType)
         {
             // Setup
             var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
@@ -743,26 +789,47 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    InflowModelType = inflowModelType
+                    InflowModelType = inflowModelType,
+                    ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, 10)),
+                    UseForeshore = true,
+                    UseBreakWater = true
                 }
             };
 
-            // Call
-            Action call = () => new ClosingStructuresCalculationService().Calculate(calculation,
-                                                                                    assessmentSectionStub,
-                                                                                    closingStructuresFailureMechanism,
-                                                                                    validDataFilepath);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            switch (calculationType)
             {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
-            });
-            Assert.IsNotNull(calculation.Output);
+                case CalculationType.NoForeshore:
+                    calculation.InputParameters.ForeshoreProfile = null;
+                    calculation.InputParameters.UseForeshore = false;
+                    calculation.InputParameters.UseBreakWater = false;
+                    break;
+                case CalculationType.ForeshoreWithoutBreakWater:
+                    calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(null);
+                    calculation.InputParameters.UseBreakWater = false;
+                    break;
+                case CalculationType.ForeshoreWithValidBreakWater:
+                    break;
+            }
+
+            // Call
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                Action call = () => new ClosingStructuresCalculationService().Calculate(calculation,
+                                                                                        assessmentSectionStub,
+                                                                                        closingStructuresFailureMechanism,
+                                                                                        validDataFilepath);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(3, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+                });
+                Assert.IsNotNull(calculation.Output);
+            }
 
             mockRepository.VerifyAll();
         }
@@ -933,6 +1000,25 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 input.ThresholdHeightOpenWeir.StandardDeviation = value;
                 input.WidthFlowApertures.CoefficientOfVariation = value;
             }
+        }
+
+        public enum CalculationType
+        {
+            NoForeshore,
+            ForeshoreWithValidBreakWater,
+            ForeshoreWithoutBreakWater
+        }
+
+        private static ForeshoreProfile CreateForeshoreProfile(BreakWater breakWater)
+        {
+            return new ForeshoreProfile(new Point2D(0, 0),
+                                        new[]
+                                        {
+                                            new Point2D(3.3, 4.4),
+                                            new Point2D(5.5, 6.6)
+                                        },
+                                        breakWater,
+                                        new ForeshoreProfile.ConstructionProperties());
         }
 
         #region Parameter name mappings

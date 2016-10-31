@@ -36,7 +36,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
         public void Validate_ValidOrientation_NoErrorMessage()
         {
             // Setup
-            ValidationRule rule = new NumericInputRule(new RoundedDouble(2), paramName);
+            var rule = new NumericInputRule(new RoundedDouble(2), paramName);
 
             // Call
             IEnumerable<string> message = rule.Validate();
@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
             var expectedMessage = string.Format("Er is geen concreet getal ingevoerd voor '{0}'.", paramName);
             var orientation = new RoundedDouble(2, double.NaN);
 
-            ValidationRule rule = new NumericInputRule(orientation, paramName);
+            var rule = new NumericInputRule(orientation, paramName);
 
             // Call
             IEnumerable<string> messages = rule.Validate();

@@ -37,7 +37,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
         public void Validate_ValidNormalDistribution_NoErrorMessage()
         {
             // Setup
-            ValidationRule rule = new NormalDistributionRule(new NormalDistribution(2), paramName);
+            var rule = new NormalDistributionRule(new NormalDistribution(2), paramName);
 
             // Call
             IEnumerable<string> message = rule.Validate();
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
                 Mean = (RoundedDouble) value
             };
 
-            ValidationRule rule = new NormalDistributionRule(distribution, paramName);
+            var rule = new NormalDistributionRule(distribution, paramName);
 
             // Call
             IEnumerable<string> messages = rule.Validate();
@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
                 StandardDeviation = (RoundedDouble) value
             };
 
-            ValidationRule rule = new NormalDistributionRule(distribution, paramName);
+            var rule = new NormalDistributionRule(distribution, paramName);
 
             // Call
             IEnumerable<string> messages = rule.Validate();

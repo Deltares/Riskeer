@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Common.Base.Data;
@@ -35,7 +34,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
         [TestCase(double.NaN)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(double.PositiveInfinity)]
-        public void ValidationRule_ValidatesInvalidNumber_ReturnFalse(double value)
+        public void IsNumberInvalid_ValidatesInvalidNumber_ReturnTrue(double value)
         {
             // Call
             bool isNumberInvalid = TestRule.PublicIsNumberValid((RoundedDouble) value);

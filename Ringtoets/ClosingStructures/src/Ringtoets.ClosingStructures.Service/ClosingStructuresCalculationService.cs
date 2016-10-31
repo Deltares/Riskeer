@@ -308,6 +308,7 @@ namespace Ringtoets.ClosingStructures.Service
         {
             var validationRules = new List<ValidationRule>
             {
+                new UseBreakWaterRule(input),
                 new VariationCoefficientLogNormalDistributionRule(input.StormDuration,
                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)),
                 new NumericInputRule(input.DeviationWaveDirection,
@@ -339,6 +340,7 @@ namespace Ringtoets.ClosingStructures.Service
         {
             var validationRules = new List<ValidationRule>
             {
+                new UseBreakWaterRule(input),
                 new VariationCoefficientLogNormalDistributionRule(input.StormDuration,
                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)),
                 new NormalDistributionRule(input.InsideWaterLevel,
@@ -368,6 +370,7 @@ namespace Ringtoets.ClosingStructures.Service
         {
             var validationRules = new List<ValidationRule>
             {
+                new UseBreakWaterRule(input),
                 new VariationCoefficientLogNormalDistributionRule(input.StormDuration,
                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)),
                 new NormalDistributionRule(input.InsideWaterLevel,

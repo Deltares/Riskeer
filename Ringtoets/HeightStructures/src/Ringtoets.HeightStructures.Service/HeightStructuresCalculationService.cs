@@ -185,7 +185,6 @@ namespace Ringtoets.HeightStructures.Service
             else
             {
                 IEnumerable<ValidationRule> inputValidationRules = GetInputValidationRules(inputParameters);
-
                 foreach (var validationRule in inputValidationRules)
                 {
                     validationResults.AddRange(validationRule.Validate());
@@ -199,6 +198,7 @@ namespace Ringtoets.HeightStructures.Service
         {
             var validationRules = new List<ValidationRule>
             {
+                new UseBreakWaterRule(input),
                 new VariationCoefficientLogNormalDistributionRule(input.StormDuration,
                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_StormDuration_DisplayName)),
                 new NumericInputRule(input.DeviationWaveDirection,

@@ -446,6 +446,51 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(double.PositiveInfinity)]
+        public void Validate_UsesBreakWaterAndHasInvalidBreakWaterSettings_ReturnsFalse(double breakWaterHeight)
+        {
+            // Setup
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            const string name = "<very nice name>";
+
+            var calculation = new TestHeightStructuresCalculation()
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    Structure = new TestHeightStructure(),
+                    ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, breakWaterHeight)),
+                    UseBreakWater = true
+                }
+            };
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = HeightStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen geldige damhoogte ingevoerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Validate_ValidCalculationInputAndHydraulicBoundaryDatabase_ReturnsTrue()
         {
             // Setup
@@ -485,7 +530,10 @@ namespace Ringtoets.HeightStructures.Service.Test
         }
 
         [Test]
-        public void Calculate_ValidCalculation_LogStartAndEndAndReturnOutput()
+        [TestCase(CalculationType.NoForeshore)]
+        [TestCase(CalculationType.ForeshoreWithValidBreakWater)]
+        [TestCase(CalculationType.ForeshoreWithoutBreakWater)]
+        public void Calculate_ValidCalculationInputAndForeshoreWithValidBreakWater_LogStartAndEndAndReturnOutput(CalculationType calculationType)
         {
             // Setup
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
@@ -505,29 +553,104 @@ namespace Ringtoets.HeightStructures.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    Structure = new TestHeightStructure()
+                    Structure = new TestHeightStructure(),
+                    ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, 10)),
+                    UseBreakWater = true,
+                    UseForeshore = true
+                }
+            };
+
+            switch (calculationType)
+            {
+                case CalculationType.NoForeshore:
+                    calculation.InputParameters.ForeshoreProfile = null;
+                    calculation.InputParameters.UseForeshore = false;
+                    calculation.InputParameters.UseBreakWater = false;
+                    break;
+                case CalculationType.ForeshoreWithoutBreakWater:
+                    calculation.InputParameters.ForeshoreProfile = CreateForeshoreProfile(null);
+                    calculation.InputParameters.UseBreakWater = false;
+                    break;
+                case CalculationType.ForeshoreWithValidBreakWater:
+                    break;
+            }
+
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            // Call
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                Action call = () => new HeightStructuresCalculationService().Calculate(calculation,
+                                                                                       assessmentSectionStub,
+                                                                                       heightStructuresFailureMechanism,
+                                                                                       validFilePath);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(3, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith("Hoogte kunstwerk berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+                });
+                Assert.IsNotNull(calculation.Output);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(double.PositiveInfinity)]
+        public void Calculate_ValidCalculationInputAndForeshoreWithInvalidBreakWater_LogStartAndEndAndReturnOutput(double height)
+        {
+            // Setup
+            var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    Structure = new TestHeightStructure(),
+                    ForeshoreProfile = CreateForeshoreProfile(new BreakWater(BreakWaterType.Dam, height)),
+                    UseBreakWater = false,
+                    UseForeshore = true
                 }
             };
 
             string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             // Call
-            Action call = () => new HeightStructuresCalculationService().Calculate(calculation,
-                                                                                   assessmentSectionStub,
-                                                                                   heightStructuresFailureMechanism,
-                                                                                   validFilePath);
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            using (new HydraRingCalculatorFactoryConfig())
             {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(3, msgs.Length);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith("Hoogte kunstwerk berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
-            });
-            Assert.IsNotNull(calculation.Output);
+                Action call = () => new HeightStructuresCalculationService().Calculate(calculation,
+                                                                                       assessmentSectionStub,
+                                                                                       heightStructuresFailureMechanism,
+                                                                                       validFilePath);
 
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(3, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith("Hoogte kunstwerk berekeningsverslag. Klik op details voor meer informatie.", msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+                });
+                Assert.IsNotNull(calculation.Output);
+            }
             mockRepository.VerifyAll();
         }
 
@@ -568,7 +691,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                                                                        heightStructuresFailureMechanism,
                                                                        testDataPath);
                 }
-                catch(HydraRingFileParserException)
+                catch (HydraRingFileParserException)
                 {
                     exception = true;
                 }
@@ -699,7 +822,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001), 
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
                     Structure = new TestHeightStructure()
                 }
             };
@@ -720,6 +843,25 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(testStructuresOvertoppingCalculator.IsCanceled);
             }
+        }
+
+        public enum CalculationType
+        {
+            NoForeshore,
+            ForeshoreWithValidBreakWater,
+            ForeshoreWithoutBreakWater
+        }
+
+        private static ForeshoreProfile CreateForeshoreProfile(BreakWater breakWater)
+        {
+            return new ForeshoreProfile(new Point2D(0, 0),
+                                        new[]
+                                        {
+                                            new Point2D(3.3, 4.4),
+                                            new Point2D(5.5, 6.6)
+                                        },
+                                        breakWater,
+                                        new ForeshoreProfile.ConstructionProperties());
         }
 
         #region Testcases

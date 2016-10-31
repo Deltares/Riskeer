@@ -37,8 +37,8 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
         public void Validate_ValidDistribution_NoErrorMessage()
         {
             // Setup
-            ValidationRule rule = new VariationCoefficientLogNormalDistributionRule(new VariationCoefficientLogNormalDistribution(2),
-                                                                                    paramName);
+            var rule = new VariationCoefficientLogNormalDistributionRule(new VariationCoefficientLogNormalDistribution(2),
+                                                                         paramName);
 
             // Call
             IEnumerable<string> message = rule.Validate();
@@ -59,7 +59,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
                 Mean = (RoundedDouble) value
             };
 
-            ValidationRule rule = new VariationCoefficientLogNormalDistributionRule(distribution, paramName);
+            var rule = new VariationCoefficientLogNormalDistributionRule(distribution, paramName);
 
             // Call
             IEnumerable<string> messages = rule.Validate();
@@ -83,7 +83,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
                 CoefficientOfVariation = (RoundedDouble) value
             };
 
-            ValidationRule rule = new VariationCoefficientLogNormalDistributionRule(distribution, paramName);
+            var rule = new VariationCoefficientLogNormalDistributionRule(distribution, paramName);
 
             // Call
             IEnumerable<string> messages = rule.Validate();

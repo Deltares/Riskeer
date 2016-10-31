@@ -62,13 +62,13 @@
     <Compile Include="DateTimeServiceTest.cs" />
     <Compile Include="DesignWaterLevelCalculationActivityTest.cs" />
     <Compile Include="DesignWaterLevelCalculationServiceTest.cs" />
-    <Compile Include="DistributionValidationTest.cs" />
     <Compile Include="ParameterNameExtractorTest.cs" />
     <Compile Include="ProbabilityAssessmentServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RingtoetsCommonDataCalculationServiceTest.cs" />
     <Compile Include="RingtoetsCommonDataSynchronizationServices.Test.cs" />
     <Compile Include="ValidationRules\NumericInputRuleTest.cs" />
+    <Compile Include="ValidationRules\UseBreakWaterRuleTest.cs" />
     <Compile Include="ValidationRules\VariationCoefficientLogNormalDistributionRuleTest.cs" />
     <Compile Include="ValidationRules\VariationCoefficientNormalDistributionRuleTest.cs" />
     <Compile Include="ValidationRules\LogNormalDistributionRuleTest.cs" />

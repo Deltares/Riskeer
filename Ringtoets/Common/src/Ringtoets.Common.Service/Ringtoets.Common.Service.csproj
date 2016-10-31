@@ -48,10 +48,10 @@
       <Link>Properties\GlobalAssembly.cs</Link>
     </Compile>
     <Compile Include="CalculationServiceHelper.cs" />
-    <Compile Include="DistributionValidation.cs" />
     <Compile Include="HydraRingInputParser.cs" />
     <Compile Include="ParameterNameExtractor.cs" />
     <Compile Include="ValidationRules\NumericInputRule.cs" />
+    <Compile Include="ValidationRules\UseBreakWaterRule.cs" />
     <Compile Include="ValidationRules\VariationCoefficientLogNormalDistributionRule.cs" />
     <Compile Include="ValidationRules\VariationCoefficientNormalDistributionRule.cs" />
     <Compile Include="ValidationRules\LogNormalDistributionRule.cs" />
