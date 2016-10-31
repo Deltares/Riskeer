@@ -173,7 +173,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         #endregion
 
-        #region Model factors
+        # region Model factors and critical values
 
         [PropertyOrder(drainCoefficientPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
@@ -210,7 +210,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         [PropertyOrder(flowVelocityStructureClosablePropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_CriticalValues")]
         [ResourcesDisplayName(typeof(Resources), "Structure_FlowVelocityStructureClosable_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_FlowVelocityStructureClosable_Description")]
         public NormalDistributionProperties FlowVelocityStructureClosable

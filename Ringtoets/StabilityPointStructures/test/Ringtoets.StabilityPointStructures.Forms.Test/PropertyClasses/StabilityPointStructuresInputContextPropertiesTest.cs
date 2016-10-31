@@ -515,6 +515,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             const string schematizationCategory = "Schematisatie";
             const string hydraulicDataCategory = "Hydraulische gegevens";
             const string modelSettingsCategory = "Modelinstellingen";
+            const string criticalValuesCategory = "Kritieke waarden";
 
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties(new Attribute[]
@@ -543,7 +544,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             PropertyDescriptor flowVelocityStructureClosableProperty = dynamicProperties[flowVelocityStructureClosablePropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(flowVelocityStructureClosableProperty.Converter);
-            Assert.AreEqual(modelSettingsCategory, flowVelocityStructureClosableProperty.Category);
+            Assert.AreEqual(criticalValuesCategory, flowVelocityStructureClosableProperty.Category);
             Assert.AreEqual("Kritieke stroomsnelheid sluiting eerste keermiddel [m/s]", flowVelocityStructureClosableProperty.DisplayName);
             Assert.AreEqual("Stroomsnelheid waarbij na aanvaring het eerste keermiddel nog net kan worden gesloten.", flowVelocityStructureClosableProperty.Description);
 
