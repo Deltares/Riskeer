@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void Validate_InValidPipingCalculationWithOutput_ReturnsFalseNoOutputChange()
+        public void Validate_InvalidPipingCalculationWithOutput_ReturnsFalseNoOutputChange()
         {
             // Setup
             var output = new TestPipingOutput();
@@ -75,7 +75,7 @@ namespace Ringtoets.Piping.Service.Test
         }
 
         [Test]
-        public void Validate_InValidCalculationInput_LogsErrorAndReturnsFalse()
+        public void Validate_InvalidCalculationInput_LogsErrorAndReturnsFalse()
         {
             // Setup
             const string name = "<very nice name>";

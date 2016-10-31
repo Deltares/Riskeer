@@ -135,7 +135,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        public void Run_InValidCalculationAndRan_PerformHeightStructuresValidationAndCalculationAndLogStartAndEndAndError()
+        public void Run_InvalidCalculationAndRan_PerformHeightStructuresValidationAndCalculationAndLogStartAndEndAndError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -235,7 +235,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
         }
 
         [Test]
-        public void Finish_InValidCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfCalculation()
+        public void Finish_InvalidCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfCalculation()
         {
             // Setup
             var mocks = new MockRepository();

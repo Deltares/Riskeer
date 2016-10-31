@@ -134,7 +134,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
         }
 
         [Test]
-        public void Run_InValidClosingStructuresCalculationAndRan_PerformClosingStructuresValidationAndCalculationAndLogStartAndEndAndError()
+        public void Run_InvalidClosingStructuresCalculationAndRan_PerformClosingStructuresValidationAndCalculationAndLogStartAndEndAndError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -231,7 +231,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
         }
 
         [Test]
-        public void Finish_InValidClosingStructuresCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfClosingStructuresCalculation()
+        public void Finish_InvalidClosingStructuresCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfClosingStructuresCalculation()
         {
             // Setup
             var mocks = new MockRepository();

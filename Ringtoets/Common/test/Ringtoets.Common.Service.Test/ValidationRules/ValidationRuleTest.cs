@@ -48,7 +48,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
     {
         public static bool PublicIsNumberValid(RoundedDouble value)
         {
-            return IsInValidNumber(value);
+            return IsInvalidNumber(value);
         }
 
         public override IEnumerable<string> Validate()

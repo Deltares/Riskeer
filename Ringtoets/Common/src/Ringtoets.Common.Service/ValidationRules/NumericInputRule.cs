@@ -49,7 +49,7 @@ namespace Ringtoets.Common.Service.ValidationRules
         {
             var validationResult = new List<string>();
 
-            if (IsInValidNumber(numericInput))
+            if (IsInvalidNumber(numericInput))
             {
                 validationResult.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
                                                    parameterName));

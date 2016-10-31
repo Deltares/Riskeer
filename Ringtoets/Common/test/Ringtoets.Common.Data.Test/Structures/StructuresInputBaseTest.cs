@@ -26,7 +26,6 @@ using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
-using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Probabilistics;
 using Ringtoets.Common.Data.Structures;
@@ -119,7 +118,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
-        public void Properties_Structure_UpdateValuesAccordingly()
+        public void Structure_Always_ExpectedValues()
         {
             // Setup
             var structure = new SimpleStructure(new StructureBase.ConstructionProperties
@@ -146,7 +145,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         #region Model factors
 
         [Test]
-        public void Properties_ModelFactorSuperCriticalFlow_ExpectedValues()
+        public void ModelFactorSuperCriticalFlow_Always_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
@@ -175,21 +174,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         #region Hydraulic data
 
         [Test]
-        public void Properties_HydraulicBoundaryLocation_ExpectedValues()
-        {
-            // Setup
-            var input = new SimpleStructuresInput();
-            var location = new HydraulicBoundaryLocation(0, "test", 0, 0);
-
-            // Call
-            input.HydraulicBoundaryLocation = location;
-
-            // Assert
-            Assert.AreSame(location, input.HydraulicBoundaryLocation);
-        }
-
-        [Test]
-        public void Properties_StormDuration_ExpectedValues()
+        public void StormDuration_Always_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
@@ -224,7 +209,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         [TestCase(-23)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
-        public void Properties_StructureNormalOrientationInValidValues_ThrowsArgumentOutOfRangeException(double invalidValue)
+        public void StructureNormalOrientation_InvalidValues_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
             var input = new SimpleStructuresInput();
@@ -242,7 +227,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         [TestCase(0)]
         [TestCase(-0.004)]
         [TestCase(double.NaN)]
-        public void Properties_StructureNormalOrientationValidValues_NewValueSet(double orientation)
+        public void StructureNormalOrientation_ValidValues_ExpectedValues(double orientation)
         {
             // Setup
             var input = new SimpleStructuresInput();
@@ -256,7 +241,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
-        public void Properties_AllowedLevelIncreaseStorage_ExpectedValues()
+        public void AllowedLevelIncreaseStorage_Always_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
@@ -282,7 +267,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
-        public void Properties_StorageStructureArea_ExpectedValues()
+        public void StorageStructureArea_Always_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
@@ -308,7 +293,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
-        public void Properties_FlowWidthAtBottomProtection_ExpectedValues()
+        public void FlowWidthAtBottomProtection_Always_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
@@ -334,7 +319,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
-        public void Properties_CriticalOvertoppingDischarge_ExpectedValues()
+        public void CriticalOvertoppingDischarge_Always_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
@@ -363,7 +348,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         [TestCase(0)]
         [TestCase(0.5)]
         [TestCase(1)]
-        public void Properties_ValidFailureProbabilityStructureWithErosion_ExpectedValues(double failureProbabilityStructureWithErosion)
+        public void FailureProbabilityStructureWithErosion_ValidValues_ExpectedValues(double failureProbabilityStructureWithErosion)
         {
             // Setup
             var input = new SimpleStructuresInput();
@@ -379,7 +364,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         [TestCase(-0.1)]
         [TestCase(1.1)]
         [TestCase(double.NaN)]
-        public void Properties_InvalidFailureProbabilityStructureWithErosion_ThrowArgumentOutOfRangeException(double failureProbabilityStructureWithErosion)
+        public void FailureProbabilityStructureWithErosion_InvalidValues_ThrowArgumentOutOfRangeException(double failureProbabilityStructureWithErosion)
         {
             // Setup
             var input = new SimpleStructuresInput();
@@ -392,7 +377,7 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         [Test]
-        public void Properties_WidthFlowApertures_ExpectedValues()
+        public void WidthFlowApertures_Always_ExpectedValues()
         {
             // Setup
             var random = new Random(22);

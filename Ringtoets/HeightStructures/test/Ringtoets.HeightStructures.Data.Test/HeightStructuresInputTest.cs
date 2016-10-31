@@ -111,7 +111,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         [TestCase(-400)]
         [TestCase(double.PositiveInfinity)]
         [TestCase(double.NegativeInfinity)]
-        public void Properties_StructureNormalOrientationInValidValues_ThrowsArgumentOutOfRangeException(double invalidValue)
+        public void Properties_StructureNormalOrientationInvalidValues_ThrowsArgumentOutOfRangeException(double invalidValue)
         {
             // Setup
             var input = new HeightStructuresInput();

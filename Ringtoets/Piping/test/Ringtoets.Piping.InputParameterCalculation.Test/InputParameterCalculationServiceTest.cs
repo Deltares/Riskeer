@@ -38,7 +38,7 @@ namespace Ringtoets.Piping.InputParameterCalculation.Test
     public class InputParameterCalculationServiceTest
     {
         [Test]
-        public static void CalculateThicknessCoverageLayer_InValidPipingCalculationWithOutput_ReturnsNaN()
+        public static void CalculateThicknessCoverageLayer_InvalidPipingCalculationWithOutput_ReturnsNaN()
         {
             // Setup
             PipingCalculation invalidPipingCalculation = PipingCalculationFactory.CreateCalculationWithValidInput();

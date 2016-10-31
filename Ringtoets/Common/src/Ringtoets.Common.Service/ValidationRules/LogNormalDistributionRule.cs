@@ -48,14 +48,14 @@ namespace Ringtoets.Common.Service.ValidationRules
         public override IEnumerable<string> Validate()
         {
             var validationResults = new List<string>();
-            
-            if (IsInValidNumber(distribution.Mean))
+
+            if (IsInvalidNumber(distribution.Mean))
             {
                 validationResults.Add(string.Format(RingtoetsCommonServiceResources.DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_positive_value,
                                                    parameterName));
             }
 
-            if (IsInValidNumber(distribution.StandardDeviation))
+            if (IsInvalidNumber(distribution.StandardDeviation))
             {
                 validationResults.Add(string.Format(RingtoetsCommonServiceResources.DistributionValidationService_ValidateDistribution_StandardDeviation_of_ParameterName_0_must_be_larger_or_equal_to_zero,
                                                    parameterName));

@@ -572,7 +572,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Import_ImportingToValidTargetWithInValidFileWithDuplicatePointsCausingRecline_SkipInvalidRowAndLog()
+        public void Import_ImportingToValidTargetWithInvalidFileWithDuplicatePointsCausingRecline_SkipInvalidRowAndLog()
         {
             // Setup
             var twovalidsurfacelinesCsv = "InvalidRow_DuplicatePointsCausingRecline.csv";
@@ -617,7 +617,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
         }
 
         [Test]
-        public void Import_ImportingToValidTargetWithInValidFileWithDuplicatePointsCausingZeroLength_SkipInvalidRowAndLog()
+        public void Import_ImportingToValidTargetWithInvalidFileWithDuplicatePointsCausingZeroLength_SkipInvalidRowAndLog()
         {
             // Setup
             var twovalidsurfacelinesCsv = "InvalidRow_DuplicatePointsCausingZeroLength.csv";

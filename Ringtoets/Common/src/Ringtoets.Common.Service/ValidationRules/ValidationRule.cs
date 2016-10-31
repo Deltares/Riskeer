@@ -40,7 +40,7 @@ namespace Ringtoets.Common.Service.ValidationRules
         /// </summary>
         /// <param name="value">The value which needs to be checked.</param>
         /// <returns><c>True</c>if <paramref name="value"/>is invalid, <c>false</c> if otherwise.</returns>
-        protected static bool IsInValidNumber(RoundedDouble value)
+        protected static bool IsInvalidNumber(RoundedDouble value)
         {
             return double.IsNaN(value) || double.IsInfinity(value);
         }

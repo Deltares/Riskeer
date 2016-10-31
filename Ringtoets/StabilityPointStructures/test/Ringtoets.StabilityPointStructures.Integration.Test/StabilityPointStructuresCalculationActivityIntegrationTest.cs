@@ -133,7 +133,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
         }
 
         [Test]
-        public void Run_InValidCalculationAndRan_PerformValidationAndCalculationAndLogStartAndEndAndError()
+        public void Run_InvalidCalculationAndRan_PerformValidationAndCalculationAndLogStartAndEndAndError()
         {
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
@@ -230,7 +230,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
         }
 
         [Test]
-        public void Finish_InValidCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfCalculation()
+        public void Finish_InvalidCalculationAndRan_DoesNotSetOutputAndNotifyObserversOfCalculation()
         {
             // Setup
             var mocks = new MockRepository();
