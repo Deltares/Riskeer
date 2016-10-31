@@ -524,11 +524,12 @@ namespace Ringtoets.ClosingStructures.Plugin
             var parentGroupContext = (ClosingStructuresCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
+            var closingStructuresCalculations = context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>().ToArray();
             foreach (var calculation in context.WrappedData.GetCalculations().Cast<StructuresCalculation<ClosingStructuresInput>>())
             {
                 StructuresHelper.Delete(context.FailureMechanism.SectionResults,
                                         calculation,
-                                        context.FailureMechanism.Calculations.Cast<StructuresCalculation<ClosingStructuresInput>>());
+                                        closingStructuresCalculations);
             }
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);

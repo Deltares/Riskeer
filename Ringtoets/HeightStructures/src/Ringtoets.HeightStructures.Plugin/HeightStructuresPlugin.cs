@@ -504,11 +504,12 @@ namespace Ringtoets.HeightStructures.Plugin
             var parentGroupContext = (HeightStructuresCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
+            var heightStructuresCalculations = context.FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>().ToArray();
             foreach (var calculation in context.WrappedData.GetCalculations().Cast<StructuresCalculation<HeightStructuresInput>>())
             {
                 StructuresHelper.Delete(context.FailureMechanism.SectionResults,
                                         calculation,
-                                        context.FailureMechanism.Calculations.Cast<StructuresCalculation<HeightStructuresInput>>());
+                                        heightStructuresCalculations);
             }
             parentGroupContext.NotifyObservers();
         }

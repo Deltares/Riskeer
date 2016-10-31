@@ -453,8 +453,8 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             bool structuresAvailable = stabilityPointStructures.Any();
 
             string stabilityPointStructuresCalculationGroupContextToolTip = structuresAvailable
-                                                                         ? RingtoetsCommonFormsResources.StructuresPlugin_Generate_calculations_for_selected_structures
-                                                                         : RingtoetsCommonFormsResources.StructuresPlugin_No_structures_to_generate_for;
+                                                                                ? RingtoetsCommonFormsResources.StructuresPlugin_Generate_calculations_for_selected_structures
+                                                                                : RingtoetsCommonFormsResources.StructuresPlugin_No_structures_to_generate_for;
 
             return new StrictContextMenuItem(RingtoetsCommonFormsResources.CalculationsGroup_Generate_calculations,
                                              stabilityPointStructuresCalculationGroupContextToolTip,
@@ -504,11 +504,12 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             var parentGroupContext = (StabilityPointStructuresCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
+            var stabilityPointStructuresCalculations = context.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>().ToArray();
             foreach (var calculation in context.WrappedData.GetCalculations().Cast<StructuresCalculation<StabilityPointStructuresInput>>())
             {
                 StructuresHelper.Delete(context.FailureMechanism.SectionResults,
                                         calculation,
-                                        context.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
+                                        stabilityPointStructuresCalculations);
             }
             parentGroupContext.NotifyObservers();
         }
@@ -589,7 +590,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             {
                 calculationGroupContext.WrappedData.Children.Remove(context.WrappedData);
                 StructuresHelper.Delete(
-                    context.FailureMechanism.SectionResults, 
+                    context.FailureMechanism.SectionResults,
                     context.WrappedData,
                     context.FailureMechanism.Calculations.Cast<StructuresCalculation<StabilityPointStructuresInput>>());
                 calculationGroupContext.NotifyObservers();

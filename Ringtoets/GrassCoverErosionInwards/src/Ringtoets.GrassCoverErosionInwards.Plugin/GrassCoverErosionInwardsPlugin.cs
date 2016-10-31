@@ -528,11 +528,12 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
             var parentGroupContext = (GrassCoverErosionInwardsCalculationGroupContext) parentNodeData;
 
             parentGroupContext.WrappedData.Children.Remove(context.WrappedData);
+            var grassCoverErosionInwardsCalculations = context.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>().ToArray();
             foreach (var calculation in context.WrappedData.GetCalculations().Cast<GrassCoverErosionInwardsCalculation>())
             {
                 GrassCoverErosionInwardsHelper.Delete(context.FailureMechanism.SectionResults,
                                                       calculation,
-                                                      context.FailureMechanism.Calculations.Cast<GrassCoverErosionInwardsCalculation>());
+                                                      grassCoverErosionInwardsCalculations);
             }
             parentGroupContext.NotifyObservers();
         }
