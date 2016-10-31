@@ -25,9 +25,9 @@ using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.StabilityPointStructures.Data.TestUtil
 {
-    public class TestStabilityPointStructureCalculation : StructuresCalculation<StabilityPointStructuresInput>
+    public class TestStabilityPointStructuresCalculation : StructuresCalculation<StabilityPointStructuresInput>
     {
-        public TestStabilityPointStructureCalculation()
+        public TestStabilityPointStructuresCalculation()
         {
             InputParameters.Structure = new TestStabilityPointStructure();
             InputParameters.HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "location", 1, 1);

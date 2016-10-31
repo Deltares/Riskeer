@@ -26,7 +26,7 @@ using Ringtoets.Common.Data.TestUtil;
 namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
 {
     [TestFixture]
-    public class TestStabilityPointStructureCalculationTest
+    public class TestStabilityPointStructuresCalculationTest
     {
         [Test]
         public void Constructor_DefaultPropertyValuesAreSet()
@@ -35,7 +35,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             var referenceStructure = new TestStabilityPointStructure();
 
             // Call 
-            var calculation = new TestStabilityPointStructureCalculation();
+            var calculation = new TestStabilityPointStructuresCalculation();
 
             // Assert
             Assert.IsInstanceOf<StructuresCalculation<StabilityPointStructuresInput>>(calculation);

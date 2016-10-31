@@ -20,13 +20,23 @@
 // All rights reserved.
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
+using Ringtoets.Common.Data.DikeProfiles;
+using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.Data;
+using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
+using Ringtoets.HydraRing.Calculation.TestUtil;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
@@ -37,6 +47,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
     public class StabilityPointStructuresCalculationServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string validDataFilepath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void Validate_ValidCalculationInvalidHydraulicBoundaryDatabase_ReturnsFalse()
@@ -90,7 +101,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            var calculation = new TestStabilityPointStructureCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation()
             {
                 Name = name,
                 InputParameters =
@@ -115,6 +126,235 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             });
             Assert.IsFalse(isValid);
 
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_InvalidInFlowModelType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var stabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            stabilityPointStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestStabilityPointStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    InflowModelType = (StabilityPointStructureInflowModelType) 100
+                }
+            };
+
+            var service = new StabilityPointStructuresCalculationService();
+
+            // Call
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+
+                // Call
+                TestDelegate call = () => service.Calculate(calculation,
+                                                            assessmentSectionStub,
+                                                            stabilityPointStructuresFailureMechanism,
+                                                            testDataPath);
+
+                StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+
+                // Assert
+                Assert.AreEqual(0, calculationInputs.Length);
+                var exception = Assert.Throws<InvalidEnumArgumentException>(call);
+                Assert.AreEqual("calculation", exception.ParamName);
+                StringAssert.StartsWith("The value of argument 'calculation' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.", exception.Message);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_InvalidLoadSchematizationType_ThrowsNotSupportedException()
+        {
+            // Setup
+            var stabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            stabilityPointStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestStabilityPointStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    LoadSchematizationType = (LoadSchematizationType) 100
+                }
+            };
+
+            var service = new StabilityPointStructuresCalculationService();
+
+            // Call
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+
+                // Call
+                TestDelegate call = () => service.Calculate(calculation,
+                                                            assessmentSectionStub,
+                                                            stabilityPointStructuresFailureMechanism,
+                                                            testDataPath);
+
+                StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+
+                // Assert
+                Assert.AreEqual(0, calculationInputs.Length);
+                var exception = Assert.Throws<InvalidEnumArgumentException>(call);
+                Assert.AreEqual("calculation", exception.ParamName);
+                StringAssert.StartsWith("The value of argument 'calculation' (100) is invalid for Enum type 'LoadSchematizationType'.", exception.Message);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(true, false)]
+        [TestCase(true, true)]
+        [TestCase(false, false)]
+        public void Calculate_VariousLowSillLinearCalculations_InputPropertiesCorrectlySentToCalculator(bool useForeshore, bool useBreakWater)
+        {
+            // Setup
+            var stabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(stabilityPointStructuresFailureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            stabilityPointStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestStabilityPointStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                    LoadSchematizationType = LoadSchematizationType.Linear
+                }
+            };
+
+            if (useForeshore)
+            {
+                calculation.InputParameters.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                                                    new[]
+                                                                                    {
+                                                                                        new Point2D(1, 1),
+                                                                                        new Point2D(2, 2)
+                                                                                    },
+                                                                                    useBreakWater ? new BreakWater(BreakWaterType.Wall, 3.0) : null,
+                                                                                    new ForeshoreProfile.ConstructionProperties());
+            }
+
+            FailureMechanismSection failureMechanismSection = stabilityPointStructuresFailureMechanism.Sections.First();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+
+                // Call
+                new StabilityPointStructuresCalculationService().Calculate(calculation,
+                                                                           assessmentSectionStub,
+                                                                           stabilityPointStructuresFailureMechanism,
+                                                                           validDataFilepath);
+
+                // Assert
+                StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+                Assert.AreEqual(1, calculationInputs.Length);
+                Assert.AreEqual(testDataPath, calculator.HydraulicBoundaryDatabaseDirectory);
+                Assert.AreEqual(assessmentSectionStub.Id, calculator.RingId);
+
+                GeneralStabilityPointStructuresInput generalInput = stabilityPointStructuresFailureMechanism.GeneralInput;
+                StabilityPointStructuresInput input = calculation.InputParameters;
+                var expectedInput = new StructuresStabilityPointLowSillLinearCalculationInput(
+                    1300001,
+                    new HydraRingSection(1, failureMechanismSection.GetSectionLength(), input.StructureNormalOrientation),
+                    useForeshore ? input.ForeshoreGeometry.Select(c => new HydraRingForelandPoint(c.X, c.Y)) : new HydraRingForelandPoint[0],
+                    useBreakWater ? new HydraRingBreakWater((int) input.BreakWater.Type, input.BreakWater.Height) : null,
+                    input.VolumicWeightWater,
+                    generalInput.GravitationalAcceleration,
+                    input.LevelCrestStructure.Mean,
+                    input.LevelCrestStructure.StandardDeviation,
+                    input.StructureNormalOrientation,
+                    input.FactorStormDurationOpenStructure,
+                    input.ModelFactorSuperCriticalFlow.Mean,
+                    input.ModelFactorSuperCriticalFlow.StandardDeviation,
+                    input.ThresholdHeightOpenWeir.Mean,
+                    input.ThresholdHeightOpenWeir.StandardDeviation,
+                    input.InsideWaterLevelFailureConstruction.Mean,
+                    input.InsideWaterLevelFailureConstruction.StandardDeviation,
+                    input.FailureProbabilityRepairClosure,
+                    input.FailureCollisionEnergy.Mean,
+                    input.FailureCollisionEnergy.CoefficientOfVariation,
+                    generalInput.ModelFactorCollisionLoad.Mean,
+                    generalInput.ModelFactorCollisionLoad.CoefficientOfVariation,
+                    input.ShipMass.Mean,
+                    input.ShipMass.CoefficientOfVariation,
+                    input.ShipVelocity.Mean,
+                    input.ShipVelocity.CoefficientOfVariation,
+                    input.LevellingCount,
+                    input.ProbabilityCollisionSecondaryStructure,
+                    input.FlowVelocityStructureClosable.Mean,
+                    input.FlowVelocityStructureClosable.StandardDeviation,
+                    input.InsideWaterLevel.Mean,
+                    input.InsideWaterLevel.StandardDeviation,
+                    input.AllowedLevelIncreaseStorage.Mean,
+                    input.AllowedLevelIncreaseStorage.StandardDeviation,
+                    generalInput.ModelFactorStorageVolume.Mean,
+                    generalInput.ModelFactorStorageVolume.StandardDeviation,
+                    input.StorageStructureArea.Mean,
+                    input.StorageStructureArea.CoefficientOfVariation,
+                    generalInput.ModelFactorInflowVolume,
+                    input.FlowWidthAtBottomProtection.Mean,
+                    input.FlowWidthAtBottomProtection.StandardDeviation,
+                    input.CriticalOvertoppingDischarge.Mean,
+                    input.CriticalOvertoppingDischarge.CoefficientOfVariation,
+                    input.FailureProbabilityStructureWithErosion,
+                    input.StormDuration.Mean,
+                    input.StormDuration.CoefficientOfVariation,
+                    input.BankWidth.Mean,
+                    input.BankWidth.StandardDeviation,
+                    input.EvaluationLevel,
+                    generalInput.ModelFactorLoadEffect.Mean,
+                    generalInput.ModelFactorLoadEffect.StandardDeviation,
+                    generalInput.WaveRatioMaxHN,
+                    generalInput.WaveRatioMaxHStandardDeviation,
+                    input.VerticalDistance,
+                    generalInput.ModificationFactorWavesSlowlyVaryingPressureComponent,
+                    generalInput.ModificationFactorDynamicOrImpulsivePressureComponent,
+                    input.ModelFactorSuperCriticalFlow.Mean,
+                    input.ModelFactorSuperCriticalFlow.StandardDeviation,
+                    input.ConstructiveStrengthLinearLoadModel.Mean,
+                    input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation,
+                    input.StabilityLinearLoadModel.Mean,
+                    input.StabilityLinearLoadModel.CoefficientOfVariation,
+                    input.WidthFlowApertures.Mean,
+                    input.WidthFlowApertures.CoefficientOfVariation);
+
+                StructuresStabilityPointLowSillLinearCalculationInput actualInput = (StructuresStabilityPointLowSillLinearCalculationInput)calculationInputs[0];
+                HydraRingDataEqualityHelper.AreEqual(expectedInput, actualInput);
+                Assert.IsFalse(calculator.IsCanceled);
+            }
             mockRepository.VerifyAll();
         }
     }
