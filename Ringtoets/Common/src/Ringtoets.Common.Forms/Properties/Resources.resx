@@ -389,7 +389,7 @@
     <value>Er is geen hydraulische randvoorwaardendatabase geïmporteerd.</value>
   </data>
   <data name="CalculationGroup_Generate_Scenarios" xml:space="preserve">
-    <value>Genereer &amp;berekeningen...</value>
+    <value>Genereer &amp;scenario's...</value>
   </data>
   <data name="GenerateScenariosIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\wand-hat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
