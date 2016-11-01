@@ -32,7 +32,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
     /// This class defines extension methods for read operations for a <see cref="StructuresCalculation{T}"/>
     /// based on the <see cref="StabilityPointStructuresCalculationEntity"/>.
     /// </summary>
-    internal static class StabilityPointStructureCalculationEntityReadExtensions
+    internal static class StabilityPointStructuresCalculationEntityReadExtensions
     {
         /// <summary>
         /// Reads the <see cref="StabilityPointStructuresCalculationEntity"/> and use the
@@ -61,7 +61,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
             ReadOutput(calculation, entity);
-            
+
             collector.Read(entity, calculation);
 
             return calculation;

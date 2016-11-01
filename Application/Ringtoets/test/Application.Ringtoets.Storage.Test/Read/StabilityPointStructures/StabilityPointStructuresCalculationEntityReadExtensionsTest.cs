@@ -34,7 +34,7 @@ using Ringtoets.StabilityPointStructures.Data.TestUtil;
 namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
 {
     [TestFixture]
-    public class StabilityPointStructureCalculationEntityReadExtensionsTest
+    public class StabilityPointStructuresCalculationEntityReadExtensionsTest
     {
         [Test]
         public void Read_ReadConversionCollectorNull_ThrowArgumentNullException()
