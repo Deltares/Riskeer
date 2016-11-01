@@ -99,6 +99,7 @@
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
     <Compile Include="Parsers\HydraRingFileParserExceptionTest.cs" />
     <Compile Include="Parsers\HydraRingOutputFileParserTest.cs" />
+    <Compile Include="Parsers\LastErrorFileParserTest.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParserTest.cs" />
     <Compile Include="Parsers\ReliabilityIndexCalculationParserTest.cs" />
     <Compile Include="Parsers\WaveConditionsCalculationParserTest.cs" />

@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     /// </summary>
     internal abstract class HydraRingCalculatorBase
     {
-        private readonly HydraRingOutputFileParser outputFileParser;
+        private readonly LastErrorFileParser lastErrorFileParser;
         private Process hydraRingProcess;
 
         private readonly string hlcdDirectory;
@@ -57,13 +57,18 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             this.hlcdDirectory = hlcdDirectory;
             this.ringId = ringId;
 
-            outputFileParser = new HydraRingOutputFileParser();
+            lastErrorFileParser = new LastErrorFileParser();
         }
 
         /// <summary>
-        /// The content of the output file produced during calculation.
+        /// Gets the directory of the output used during the calculation.
         /// </summary>
         public string OutputDirectory { get; private set; }
+
+        /// <summary>
+        /// Gets the content of the last error file when it is generated during the calculation.
+        /// </summary>
+        public string LastErrorContent { get; private set; }
 
         /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.
@@ -110,30 +115,24 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             hydraRingConfigurationService.WriteDataBaseCreationScript(hydraRingInitializationService.DatabaseCreationScriptFilePath);
 
             PerformCalculation(OutputDirectory, hydraRingInitializationService);
-            ExecuteParsers(hydraRingInitializationService.TemporaryWorkingDirectory, sectionId);
-            SetAllOutputs();
+            ExecuteGenericParsers(hydraRingInitializationService, sectionId);
+            ExecuteCustomParsers(hydraRingInitializationService.TemporaryWorkingDirectory, sectionId);
         }
 
-        private void SetAllOutputs()
+        private void ExecuteGenericParsers(HydraRingInitializationService hydraRingInitializationService, int sectionId)
         {
-            SetOutputs();
+            lastErrorFileParser.Parse(hydraRingInitializationService.TemporaryWorkingDirectory, sectionId);
+            LastErrorContent = lastErrorFileParser.ErrorFileContent;
         }
 
-        private IEnumerable<IHydraRingFileParser> GetAllParsers()
+        private void ExecuteCustomParsers(string temporaryWorkingDirectory, int sectionId)
         {
-            yield return outputFileParser;
             foreach (var parser in GetParsers())
-            {
-                yield return parser;
-            }
-        }
-
-        private void ExecuteParsers(string temporaryWorkingDirectory, int sectionId)
-        {
-            foreach (var parser in GetAllParsers())
             {
                 parser.Parse(temporaryWorkingDirectory, sectionId);
             }
+
+            SetOutputs();
         }
 
         private void PerformCalculation(string workingDirectory, HydraRingInitializationService hydraRingInitializationService)

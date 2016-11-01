@@ -130,4 +130,7 @@
   <data name="NumericsSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\defaults_numerics.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="Parse_Cannot_read_last_error_Filename_0_from_FolderPath_1_" xml:space="preserve">
+    <value>Kan het Hydra-Ring last_error bestand {0} niet lezen uit de map {1}.</value>
+  </data>
 </root>

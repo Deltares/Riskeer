@@ -104,6 +104,7 @@
     <Compile Include="IO\HydraulicModelsSettingsColumns.cs" />
     <Compile Include="IO\HydraulicModelsSettingsCsvReader.cs" />
     <Compile Include="IO\NumericsSettingsColumns.cs" />
+    <Compile Include="Parsers\LastErrorFileParser.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParser.cs" />
     <Compile Include="Parsers\WaveConditionsCalculationParser.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParser.cs" />

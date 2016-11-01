@@ -83,6 +83,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
         }
+        
         [Test]
         public void Run_ValidCalculation_PerformValidationAndCalculationAndLogStartAndEnd()
         {

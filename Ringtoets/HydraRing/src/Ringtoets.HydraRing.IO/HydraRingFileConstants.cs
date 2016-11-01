@@ -60,5 +60,10 @@ namespace Ringtoets.HydraRing.IO
         /// The database which contains configuration paramters.
         /// </summary>
         internal const string ConfigurationDatabaseFileName = "config.sqlite";
+
+        /// <summary>
+        /// The file name of the file containing the error of a calculation.
+        /// </summary>
+        internal const string LastErrorFileName = "last_error.txt";
     }
 }
