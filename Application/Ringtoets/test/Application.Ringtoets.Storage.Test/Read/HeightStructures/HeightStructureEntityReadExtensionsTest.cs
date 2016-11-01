@@ -47,6 +47,29 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
         }
 
         [Test]
+        public void Read_EntityNotReadBefore_RegisterEntity()
+        {
+            // Setup
+            var entity = new HeightStructureEntity
+            {
+                Name = "name",
+                Id = "id"
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Precondition
+            Assert.IsFalse(collector.Contains(entity));
+
+            // Call
+            HeightStructure calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(collector.Contains(entity));
+            Assert.AreSame(calculation, collector.Get(entity));
+        }
+
+        [Test]
         public void Read_ValidEntity_ReturnHeightStructure()
         {
             // Setup
@@ -97,8 +120,6 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             Assert.AreEqual(entity.StorageStructureAreaCoefficientOfVariation, structure.StorageStructureArea.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.AllowedLevelIncreaseStorageMean, structure.AllowedLevelIncreaseStorage.Mean.Value);
             Assert.AreEqual(entity.AllowedLevelIncreaseStorageStandardDeviation, structure.AllowedLevelIncreaseStorage.StandardDeviation.Value);
-
-            Assert.IsTrue(collector.Contains(entity));
         }
 
         [Test]

@@ -46,6 +46,27 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
+        public void Read_EntityNotReadBefore_EntityRegistered()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            var entity = new ForeshoreProfileEntity
+            {
+                GeometryXml = new Point2DXmlSerializer().ToXml(new Point2D[0])
+            };
+
+            // Precondition
+            Assert.IsFalse(collector.Contains(entity));
+
+            // Call
+            entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(collector.Contains(entity));
+        }
+
+        [Test]
         [TestCase("")]
         [TestCase(null)]
         public void Read_GeometryXmlNullOrEmpty_ThrowsArgumentException(string xml)

@@ -70,7 +70,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        public void Read_WithCollector_ReturnsNewStochasticSoilModelWithPropertiesSet()
+        public void Read_WithCollector_ReturnsNewStochasticSoilModelWithPropertiesSetAndEntityRegistered()
         {
             // Setup
             string testName = "testName";
@@ -90,6 +90,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             Assert.IsNotNull(model);
             Assert.AreEqual(testName, model.Name);
             Assert.AreEqual(testSegmentName, model.SegmentName);
+
+            Assert.IsTrue(collector.Contains(entity));
         }
 
         [Test]

@@ -51,6 +51,25 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
         }
 
         [Test]
+        public void Read_EntityNotReadBefore_RegisterEntity()
+        {
+            // Setup
+            var entity = new ClosingStructuresCalculationEntity();
+
+            var collector = new ReadConversionCollector();
+
+            // Precondition
+            Assert.IsFalse(collector.Contains(entity));
+
+            // Call
+            StructuresCalculation<ClosingStructuresInput> calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(collector.Contains(entity));
+            Assert.AreSame(calculation, collector.Get(entity));
+        }
+
+        [Test]
         public void Read_ValidEntity_ReturnClosingStructuresCalculation()
         {
             // Setup
@@ -209,8 +228,6 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             Assert.IsNaN(inputParameters.AreaFlowApertures.StandardDeviation);
             Assert.IsNaN(inputParameters.LevelCrestStructureNotClosing.Mean);
             Assert.IsNaN(inputParameters.LevelCrestStructureNotClosing.StandardDeviation);
-
-            Assert.IsTrue(collector.Contains(entity));
         }
 
         [Test]

@@ -53,6 +53,25 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
         }
 
         [Test]
+        public void Read_EntityNotReadBefore_RegisterEntity()
+        {
+            // Setup
+            var entity = new HeightStructuresCalculationEntity();
+
+            var collector = new ReadConversionCollector();
+
+            // Precondition
+            Assert.IsFalse(collector.Contains(entity));
+
+            // Call
+            StructuresCalculation<HeightStructuresInput> calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(collector.Contains(entity));
+            Assert.AreSame(calculation, collector.Get(entity));
+        }
+
+        [Test]
         [TestCase("I have no comments", null, 827364)]
         [TestCase("I have a comment", "I am comment", 231)]
         public void Read_ValidEntity_ReturnCalculation(string name, string comments, int randomSeed)
@@ -116,8 +135,6 @@ namespace Application.Ringtoets.Storage.Test.Read.HeightStructures
             Assert.IsNull(input.HydraulicBoundaryLocation);
             Assert.IsNull(input.Structure);
             Assert.IsFalse(calculation.HasOutput);
-
-            Assert.IsTrue(collector.Contains(entity));
         }
 
         [Test]

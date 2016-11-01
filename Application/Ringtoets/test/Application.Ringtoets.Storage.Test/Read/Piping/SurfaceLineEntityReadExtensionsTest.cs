@@ -48,6 +48,27 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
+        public void Read_EntityNotReadBefore_EntityRegistered()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            var entity = new SurfaceLineEntity
+            {
+                PointsXml = new Point3DXmlSerializer().ToXml(new Point3D[0])
+            };
+
+            // Precondition
+            Assert.IsFalse(collector.Contains(entity));
+
+            // Call
+            entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(collector.Contains(entity));
+        }
+
+        [Test]
         [TestCase("")]
         [TestCase(null)]
         public void Read_PointsXmlNullOrEmpty_ThrowsArgumentException(string xml)

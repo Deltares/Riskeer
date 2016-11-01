@@ -46,7 +46,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         }
 
         [Test]
-        public void Read_WithCollector_ReturnsNewStochasticSoilProfileWithPropertiesSet()
+        public void Read_WithCollector_ReturnsNewStochasticSoilProfileWithPropertiesSetAndEntityRegistered()
         {
             // Setup
             var random = new Random(21);
@@ -70,6 +70,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
             // Assert
             Assert.IsNotNull(profile);
             Assert.AreEqual(probability, profile.Probability, 1e-6);
+
+            Assert.IsTrue(collector.Contains(entity));
         }
 
         [Test]

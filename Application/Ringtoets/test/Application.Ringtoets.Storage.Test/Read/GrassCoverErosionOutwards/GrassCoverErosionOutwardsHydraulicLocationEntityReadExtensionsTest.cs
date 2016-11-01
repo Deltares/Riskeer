@@ -48,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
         }
 
         [Test]
-        public void Read_Always_ReturnsHydraulicBoundaryLocationWithPropertiesSet()
+        public void Read_WithCollector_ReturnsHydraulicBoundaryLocationWithPropertiesSetAndEntityRegistered()
         {
             // Setup
             var random = new Random(21);
@@ -81,6 +81,8 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionOutwards
             Assert.IsNaN(location.WaveHeight);
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, location.DesignWaterLevelCalculationConvergence);
             Assert.AreEqual(CalculationConvergence.CalculatedConverged, location.WaveHeightCalculationConvergence);
+
+            Assert.IsTrue(collector.Contains(entity));
         }
 
         [Test]

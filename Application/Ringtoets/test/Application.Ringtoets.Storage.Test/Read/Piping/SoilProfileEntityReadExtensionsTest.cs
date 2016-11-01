@@ -49,7 +49,7 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
         [Test]
         [TestCase(true)]
         [TestCase(false)]
-        public void Read_WithCollector_ReturnsNewPipingSoilProfileWithPropertiesSet(bool isRelevant)
+        public void Read_WithCollector_ReturnsNewPipingSoilProfileWithPropertiesSetAndEntityRegistered(bool isRelevant)
         {
             // Setup
             string testName = "testName";
@@ -89,6 +89,8 @@ namespace Application.Ringtoets.Storage.Test.Read.Piping
                 "B",
                 "A"
             }, profile.Layers.Select(l => l.MaterialName));
+
+            Assert.IsTrue(collector.Contains(entity));
         }
 
         [Test]

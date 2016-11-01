@@ -62,7 +62,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         [Test]
-        public void Read_Always_NewPoint()
+        public void Read_WithCollector_NewPointAndEntityRegistered()
         {
             // Setup
             string name = "testName";
@@ -77,14 +77,17 @@ namespace Application.Ringtoets.Storage.Test.Read
                 FailureMechanismSectionPointXml = pointXml
             };
 
+            var collector = new ReadConversionCollector();
+
             // Call
-            var readConversionCollector = new ReadConversionCollector();
-            var section = entity.Read(readConversionCollector);
+            var section = entity.Read(collector);
 
             // Assert
             Assert.IsNotNull(section);
             Assert.AreEqual(name, section.Name);
-            Assert.AreEqual(section, readConversionCollector.Get(entity));
+            Assert.AreEqual(section, collector.Get(entity));
+
+            Assert.IsTrue(collector.Contains(entity));
         }
     }
 }

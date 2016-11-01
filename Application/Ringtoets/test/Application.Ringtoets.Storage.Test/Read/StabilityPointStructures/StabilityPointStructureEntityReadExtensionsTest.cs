@@ -47,6 +47,29 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
         }
 
         [Test]
+        public void Read_EntityNotReadBefore_RegisterEntity()
+        {
+            // Setup
+            var entity = new StabilityPointStructureEntity
+            {
+                Name = "name",
+                Id = "id"
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Precondition
+            Assert.IsFalse(collector.Contains(entity));
+
+            // Call
+            StabilityPointStructure calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(collector.Contains(entity));
+            Assert.AreSame(calculation, collector.Get(entity));
+        }
+
+        [Test]
         public void Read_ValidEntity_ReturnStabilityPointStructure()
         {
             // Setup
@@ -159,8 +182,6 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.AreEqual(entity.AreaFlowAperturesMean, structure.AreaFlowApertures.Mean.Value);
             Assert.AreEqual(entity.AreaFlowAperturesStandardDeviation, structure.AreaFlowApertures.StandardDeviation.Value);
             Assert.AreEqual((StabilityPointStructureInflowModelType)entity.InflowModelType, structure.InflowModelType);
-
-            Assert.IsTrue(collector.Contains(entity));
         }
 
         [Test]

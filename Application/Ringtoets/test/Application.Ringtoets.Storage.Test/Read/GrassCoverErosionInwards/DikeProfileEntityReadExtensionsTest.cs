@@ -54,6 +54,28 @@ namespace Application.Ringtoets.Storage.Test.Read.GrassCoverErosionInwards
         }
 
         [Test]
+        public void Read_EntityNotReadBefore_EntityRegistered()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            var entity = new DikeProfileEntity
+            {
+                ForeshoreXml = new Point2DXmlSerializer().ToXml(new Point2D[0]),
+                DikeGeometryXml = new RoughnessPointXmlSerializer().ToXml(new RoughnessPoint[0]),
+            };
+
+            // Precondition
+            Assert.IsFalse(collector.Contains(entity));
+
+            // Call
+            entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(collector.Contains(entity));
+        }
+
+        [Test]
         [TestCase("")]
         [TestCase(null)]
         public void Read_DikeGeometryXmlNullOrEmpty_ThrowsArgumentException(string xml)

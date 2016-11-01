@@ -47,6 +47,29 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
         }
 
         [Test]
+        public void Read_EntityNotReadBefore_RegisterEntity()
+        {
+            // Setup
+            var entity = new ClosingStructureEntity
+            {
+                Name = "name",
+                Id = "id"
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Precondition
+            Assert.IsFalse(collector.Contains(entity));
+
+            // Call
+            ClosingStructure calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(collector.Contains(entity));
+            Assert.AreSame(calculation, collector.Get(entity));
+        }
+
+        [Test]
         public void Read_ValidEntity_ReturnClosingStructure()
         {
             // Setup
