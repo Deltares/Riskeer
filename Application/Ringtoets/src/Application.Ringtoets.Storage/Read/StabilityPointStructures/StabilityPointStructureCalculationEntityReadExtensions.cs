@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System;
+using System.Linq;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
 using Ringtoets.Common.Data.Structures;
@@ -55,6 +56,7 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
                 Comments = entity.Comments
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
+            ReadOutput(calculation, entity);
 
             return calculation;
         }
@@ -101,11 +103,20 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
             inputParameters.StabilityQuadraticLoadModel.CoefficientOfVariation = (RoundedDouble) entity.StabilityQuadraticLoadModelCoefficientOfVariation.ToNullAsNaN();
             inputParameters.AreaFlowApertures.Mean = (RoundedDouble) entity.AreaFlowAperturesMean.ToNullAsNaN();
             inputParameters.AreaFlowApertures.StandardDeviation = (RoundedDouble) entity.AreaFlowAperturesStandardDeviation.ToNullAsNaN();
-            inputParameters.InflowModelType = (StabilityPointStructureInflowModelType)entity.InflowModelType;
-            inputParameters.LoadSchematizationType = (LoadSchematizationType)entity.LoadSchematizationType;
+            inputParameters.InflowModelType = (StabilityPointStructureInflowModelType) entity.InflowModelType;
+            inputParameters.LoadSchematizationType = (LoadSchematizationType) entity.LoadSchematizationType;
             inputParameters.VolumicWeightWater = (RoundedDouble) entity.VolumicWeightWater.ToNullAsNaN();
             inputParameters.FactorStormDurationOpenStructure = (RoundedDouble) entity.FactorStormDurationOpenStructure.ToNullAsNaN();
             inputParameters.DrainCoefficient.Mean = (RoundedDouble) entity.DrainCoefficientMean.ToNullAsNaN();
+        }
+
+        private static void ReadOutput(StructuresCalculation<StabilityPointStructuresInput> calculation, StabilityPointStructuresCalculationEntity entity)
+        {
+            StabilityPointStructuresOutputEntity output = entity.StabilityPointStructuresOutputEntities.FirstOrDefault();
+            if (output != null)
+            {
+                calculation.Output = output.Read();
+            }
         }
     }
 }

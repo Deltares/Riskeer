@@ -180,11 +180,12 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.AreEqual(entity.StabilityQuadraticLoadModelCoefficientOfVariation, inputParameters.StabilityQuadraticLoadModel.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.AreaFlowAperturesMean, inputParameters.AreaFlowApertures.Mean.Value);
             Assert.AreEqual(entity.AreaFlowAperturesStandardDeviation, inputParameters.AreaFlowApertures.StandardDeviation.Value);
-            Assert.AreEqual((StabilityPointStructureInflowModelType)entity.InflowModelType, inputParameters.InflowModelType);
-            Assert.AreEqual((LoadSchematizationType)entity.LoadSchematizationType, inputParameters.LoadSchematizationType);
+            Assert.AreEqual((StabilityPointStructureInflowModelType) entity.InflowModelType, inputParameters.InflowModelType);
+            Assert.AreEqual((LoadSchematizationType) entity.LoadSchematizationType, inputParameters.LoadSchematizationType);
             Assert.AreEqual(entity.VolumicWeightWater, inputParameters.VolumicWeightWater.Value);
             Assert.AreEqual(entity.FactorStormDurationOpenStructure, inputParameters.FactorStormDurationOpenStructure.Value);
             Assert.AreEqual(entity.DrainCoefficientMean, inputParameters.DrainCoefficient.Mean.Value);
+            Assert.IsFalse(calculation.HasOutput);
         }
 
         [Test]
@@ -359,6 +360,27 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
 
             // Assert
             Assert.AreSame(profile, calculation.InputParameters.ForeshoreProfile);
+        }
+
+        [Test]
+        public void Read_ValidEntityWithOutputEntity_ReturnCalculationWithOutput()
+        {
+            // Setup
+            var entity = new StabilityPointStructuresCalculationEntity
+            {
+                StabilityPointStructuresOutputEntities =
+                {
+                    new StabilityPointStructuresOutputEntity()
+                }
+            };
+
+            var collector = new ReadConversionCollector();
+
+            // Call
+            StructuresCalculation<StabilityPointStructuresInput> calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(calculation.HasOutput);
         }
     }
 }

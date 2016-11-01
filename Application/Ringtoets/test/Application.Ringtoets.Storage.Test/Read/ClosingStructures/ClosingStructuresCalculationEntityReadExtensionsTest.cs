@@ -314,7 +314,6 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             Assert.IsTrue(calculation.HasOutput);
         }
 
-
         [Test]
         public void Read_CalculationEntityAlreadyRead_ReturnReadCalculation()
         {
