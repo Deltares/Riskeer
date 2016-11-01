@@ -243,7 +243,6 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             var waveImpactAsphaltCoverCalculationWithOutput = (WaveImpactAsphaltCoverWaveConditionsCalculation)failureMechanism.WaveConditionsCalculationGroup.Children[2];
             Assert.IsTrue(waveImpactAsphaltCoverCalculationWithOutput.HasOutput);
             Assert.AreEqual(2, waveImpactAsphaltCoverCalculationWithOutput.Output.Items.Count());
-            Assert.AreEqual(2, waveImpactAsphaltCoverCalculationWithOutput.Output.Items.Count());
         }
 
         private static void AssertHeightStructuresFailureMechanism(AssessmentSection assessmentSection)
@@ -263,7 +262,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             var secondCalculationGroup = (CalculationGroup) failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);
-            Assert.IsInstanceOf<StructuresCalculation<HeightStructuresInput>>(failureMechanism.CalculationsGroup.Children[2]);
+            var calculationWithoutOutput = (StructuresCalculation<HeightStructuresInput>)failureMechanism.CalculationsGroup.Children[2];
+            Assert.IsFalse(calculationWithoutOutput.HasOutput);
 
             HeightStructuresFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults.First();
             Assert.AreSame(calculationWithOutput, firstSectionResult.Calculation);
@@ -286,7 +286,8 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
 
             var secondCalculationGroup = (CalculationGroup)failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);
-            Assert.IsInstanceOf<StructuresCalculation<ClosingStructuresInput>>(failureMechanism.CalculationsGroup.Children[2]);
+            var calculationWithoutOutput = (StructuresCalculation<ClosingStructuresInput>)failureMechanism.CalculationsGroup.Children[2];
+            Assert.IsFalse(calculationWithoutOutput.HasOutput);
 
             ClosingStructuresFailureMechanismSectionResult firstSectionResult = failureMechanism.SectionResults.First();
             Assert.AreSame(calculationWithOutput, firstSectionResult.Calculation);
@@ -304,12 +305,14 @@ namespace Application.Ringtoets.Storage.TestUtil.Test
             var firstCalculationGroup = (CalculationGroup)failureMechanism.CalculationsGroup.Children[0];
             Assert.AreEqual(1, firstCalculationGroup.Children.Count);
 
-            var calculation = (StructuresCalculation<StabilityPointStructuresInput>)firstCalculationGroup.Children[0];
-            Assert.AreEqual("Calculation 1", calculation.Name);
+            var calculationWithOutput = (StructuresCalculation<StabilityPointStructuresInput>)firstCalculationGroup.Children[0];
+            Assert.AreEqual("Calculation 1", calculationWithOutput.Name);
+            Assert.IsTrue(calculationWithOutput.HasOutput);
 
             var secondCalculationGroup = (CalculationGroup)failureMechanism.CalculationsGroup.Children[1];
             Assert.AreEqual(0, secondCalculationGroup.Children.Count);
-            Assert.IsInstanceOf<StructuresCalculation<StabilityPointStructuresInput>>(failureMechanism.CalculationsGroup.Children[2]);
+            var calculationWithoutOutput = (StructuresCalculation<StabilityPointStructuresInput>)failureMechanism.CalculationsGroup.Children[2];
+            Assert.IsFalse(calculationWithoutOutput.HasOutput);
         }
     }
 }

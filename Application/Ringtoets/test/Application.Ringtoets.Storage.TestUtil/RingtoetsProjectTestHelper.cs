@@ -270,16 +270,6 @@ namespace Application.Ringtoets.Storage.TestUtil
             }
         }
 
-        private static void SetSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults)
-        {
-            var random = new Random(21);
-            foreach (var sectionResult in sectionResults)
-            {
-                sectionResult.AssessmentLayerOne = random.NextBoolean();
-                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
-            }
-        }
-
         private static void AddSections(IFailureMechanism failureMechanism)
         {
             failureMechanism.AddSection(new FailureMechanismSection("section 1", new[]
@@ -500,7 +490,8 @@ namespace Application.Ringtoets.Storage.TestUtil
                             },
                             ForeshoreProfile = foreshoreProfile,
                             HydraulicBoundaryLocation = hydroLocation
-                        }
+                        },
+                        Output = new ProbabilityAssessmentOutput(0.7, 0.85, 0.9, 0.10, 0.11)
                     }
                 }
             });
@@ -509,6 +500,16 @@ namespace Application.Ringtoets.Storage.TestUtil
                 Name = "StabilityPoint Structure B"
             });
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
+        }
+
+        private static void SetSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults)
+        {
+            var random = new Random(21);
+            foreach (var sectionResult in sectionResults)
+            {
+                sectionResult.AssessmentLayerOne = random.NextBoolean();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+            }
         }
 
         #endregion
