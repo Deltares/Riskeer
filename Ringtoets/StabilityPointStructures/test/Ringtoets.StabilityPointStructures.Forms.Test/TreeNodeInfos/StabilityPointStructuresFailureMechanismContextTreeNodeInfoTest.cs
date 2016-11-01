@@ -703,6 +703,79 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             }
         }
 
+        [Test]
+        public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
+        {
+            // Setup
+            var guiMock = mocksRepository.StrictMock<IGui>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var section = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0)
+            });
+            failureMechanism.AddSection(section);
+
+            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation()
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                    LoadSchematizationType = LoadSchematizationType.Linear
+                }
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation()
+            {
+                Name = "B",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                    LoadSchematizationType = LoadSchematizationType.Linear
+                }
+            });
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var hydraulicBoundaryDatabaseStub = mocksRepository.Stub<HydraulicBoundaryDatabase>();
+            hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
+
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+
+            var failureMechanismContext = new StabilityPointStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            using (var plugin = new StabilityPointStructuresPlugin())
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = guiMock;
+                var info = GetInfo(plugin);
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Call
+                    TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick(), messages =>
+                    {
+                        var messageList = messages.ToList();
+
+                        // Assert
+                        Assert.AreEqual(4, messageList.Count);
+                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
+                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
+                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[2]);
+                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[3]);
+                    });
+                }
+            }
+        }
+
         private static TreeNodeInfo GetInfo(StabilityPointStructuresPlugin plugin)
         {
             return plugin.GetTreeNodeInfos().First(tni => tni.TagType == typeof(StabilityPointStructuresFailureMechanismContext));

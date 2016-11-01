@@ -517,6 +517,75 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
+        public void GivenCalculationWithNonExistingFilePath_WhenValidatingFromContextMenu_ThenLogMessagesAdded()
+        {
+            // Given
+            var guiMock = mocks.StrictMock<IGui>();
+            var observerMock = mocks.StrictMock<IObserver>();
+            
+            var section = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(1, 2),
+                new Point2D(3, 4)
+            });
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.AddSection(section);
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0.0, 1.1);
+            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
+            {
+                FilePath = validFilePath,
+                Version = "random"
+            };
+            hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
+
+            var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+
+            var calculation = new TestStabilityPointStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                    LoadSchematizationType = LoadSchematizationType.Linear
+                }
+            };
+
+            var calculationContext = new StabilityPointStructuresCalculationContext(calculation, failureMechanism, assessmentSectionStub);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
+
+                mocks.ReplayAll();
+
+                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+
+                plugin.Gui = guiMock;
+
+                calculation.Attach(observerMock);
+
+                using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
+                {
+                    // When
+                    Action action = () => contextMenuStrip.Items[contextMenuValidateIndex].PerformClick();
+
+                    // Then
+                    TestHelper.AssertLogMessages(action, messages =>
+                    {
+                        var msgs = messages.ToArray();
+                        Assert.AreEqual(2, msgs.Length);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                        StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    });
+                }
+            }
+        }
+
+        [Test]
         public void OnNodeRemoved_ParentIsCalculationGroupContext_RemoveCalculationFromGroup()
         {
             // Setup

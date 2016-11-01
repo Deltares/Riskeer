@@ -256,7 +256,13 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             return null;
         }
 
-        private static void ValidateAll(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, IAssessmentSection assessmentSection) {}
+        private static void ValidateAll(IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations, IAssessmentSection assessmentSection)
+        {
+            foreach (var calculation in calculations)
+            {
+                StabilityPointStructuresCalculationService.Validate(calculation, assessmentSection);
+            }
+        }
 
         private void CalculateAll(StabilityPointStructuresFailureMechanism failureMechanism,
                                   IEnumerable<StructuresCalculation<StabilityPointStructuresInput>> calculations,
@@ -583,7 +589,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin
 
             StructuresCalculation<StabilityPointStructuresInput> calculation = context.WrappedData;
 
-            return builder.AddValidateCalculationItem(context, delegate { }, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
+            return builder.AddValidateCalculationItem(context, Validate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddPerformCalculationItem(calculation, context, Calculate, ValidateAllDataAvailableAndGetErrorMessageForCalculation)
                           .AddClearCalculationOutputItem(calculation)
                           .AddSeparator()
@@ -609,6 +615,11 @@ namespace Ringtoets.StabilityPointStructures.Plugin
                                                                                              context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                              context.FailureMechanism,
                                                                                              context.AssessmentSection));
+        }
+
+        private static void Validate(StabilityPointStructuresCalculationContext context)
+        {
+            StabilityPointStructuresCalculationService.Validate(context.WrappedData, context.AssessmentSection);
         }
 
         private static void CalculationContextOnNodeRemoved(StabilityPointStructuresCalculationContext context, object parentData)

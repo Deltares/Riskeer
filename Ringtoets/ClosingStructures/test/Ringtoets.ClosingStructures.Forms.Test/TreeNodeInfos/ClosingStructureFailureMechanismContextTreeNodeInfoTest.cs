@@ -674,5 +674,73 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 }
             }
         }
+
+        [Test]
+        public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
+        {
+            // Setup
+            var guiMock = mocksRepository.StrictMock<IGui>();
+            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism();
+
+            var section = new FailureMechanismSection("A", new[]
+            {
+                new Point2D(0, 0)
+            });
+            failureMechanism.AddSection(section);
+
+            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation()
+            {
+                Name = "A",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                }
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation()
+            {
+                Name = "B",
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                }
+            });
+
+            string validFilePath = Path.Combine(testDataPath, "complete.sqlite");
+
+            var hydraulicBoundaryDatabaseStub = mocksRepository.Stub<HydraulicBoundaryDatabase>();
+            hydraulicBoundaryDatabaseStub.FilePath = validFilePath;
+
+            var assessmentSectionMock = mocksRepository.Stub<IAssessmentSection>();
+            assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
+
+            var failureMechanismContext = new ClosingStructuresFailureMechanismContext(failureMechanism, assessmentSectionMock);
+
+            using (var treeViewControl = new TreeViewControl())
+            {
+                guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+
+                mocksRepository.ReplayAll();
+
+                plugin.Gui = guiMock;
+
+                using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                {
+                    // Call
+                    TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick(), messages =>
+                    {
+                        var messageList = messages.ToList();
+
+                        // Assert
+                        Assert.AreEqual(4, messageList.Count);
+                        StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
+                        StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
+                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[2]);
+                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[3]);
+                    });
+                }
+            }
+        }
     }
 }
