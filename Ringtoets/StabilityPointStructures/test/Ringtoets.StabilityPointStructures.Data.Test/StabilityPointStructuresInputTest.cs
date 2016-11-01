@@ -164,7 +164,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Input_StructureNull_DoesNotChangeValues()
+        public void Structure_Null_ExpectedValues()
         {
             var input = new StabilityPointStructuresInput();
 
@@ -176,7 +176,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Input_Structure_UpdateValuesAccordingly()
+        public void Structure_NotNull_ExpectedValues()
         {
             // Setup
             var input = new StabilityPointStructuresInput();
@@ -192,7 +192,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         #region Hydraulic data
 
         [Test]
-        public void Properties_VolumicWeightWater_ExpectedValues()
+        public void VolumicWeightWater_Always_ExpectedValues()
         {
             // Setup
             var input = new StabilityPointStructuresInput();
@@ -208,7 +208,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_InsideWaterLevelFailureConstruction_ExpectedValues()
+        public void InsideWaterLevelFailureConstruction_Always_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
@@ -234,7 +234,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_InsideWaterLevel_ExpectedValues()
+        public void InsideWaterLevel_Always_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
@@ -264,7 +264,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         #region Model factors and critical values
 
         [Test]
-        public void Properties_FactorStormDurationOpenStructure_ExpectedValues()
+        public void FactorStormDurationOpenStructure_Always_ExpectedValues()
         {
             // Setup
             var input = new StabilityPointStructuresInput();
@@ -280,7 +280,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_DrainCoefficient_ExpectedValues()
+        public void DrainCoefficient_Always_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
@@ -306,7 +306,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_FlowVelocityStructureClosable_ExpectedValues()
+        public void FlowVelocityStructureClosable_Always_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
@@ -336,7 +336,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         #region Schematization
 
         [Test]
-        public void Properties_LevelCrestStructure_ExpectedValues()
+        public void LevelCrestStructure_Always_ExpectedValues()
         {
             // Setup 
             var random = new Random(22);
@@ -362,7 +362,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_ThresholdHeightOpenWeir_ExpectedValues()
+        public void ThresholdHeightOpenWeir_Always_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
@@ -388,7 +388,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_AreaFlowApertures_ExpectedValues()
+        public void AreaFlowApertures_Always_ExpectedValues()
         {
             // Setup 
             var random = new Random(22);
@@ -414,7 +414,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_ConstructiveStrengthLinearLoadModel_ExpectedValues()
+        public void ConstructiveStrengthLinearLoadModel_Always_ExpectedValues()
         {
             // Setup 
             var random = new Random(22);
@@ -440,7 +440,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_ConstructiveStrengthQuadraticLoadModel_ExpectedValues()
+        public void ConstructiveStrengthQuadraticLoadModel_Always_ExpectedValues()
         {
             // Setup 
             var random = new Random(22);
@@ -466,7 +466,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_StabilityLinearLoadModel_ExpectedValues()
+        public void StabilityLinearLoadModel_Always_ExpectedValues()
         {
             // Setup 
             var random = new Random(22);
@@ -492,7 +492,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_StabilityQuadraticLoadModel()
+        public void StabilityQuadraticLoadModel_Always_ExpectedValues()
         {
             // Setup 
             var random = new Random(22);
@@ -521,7 +521,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
-        public void Properties_FailureProbabilityRepairClosure_ThrowArgumentOutOfRangeException(double probability)
+        public void FailureProbabilityRepairClosure_InvalidValues_ThrowsArgumentOutOfRangeException(double probability)
         {
             // Setup
             var input = new StabilityPointStructuresInput();
@@ -537,7 +537,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         [TestCase(0)]
         [TestCase(0.5)]
         [TestCase(1.0)]
-        public void Properties_FailureProbabilityRepairClosure_ExpectedValues(double probability)
+        public void FailureProbabilityRepairClosure_ValidValues_ExpectedValues(double probability)
         {
             // Setup
             var input = new StabilityPointStructuresInput();
@@ -550,7 +550,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_FailureCollisionEnergy_ExpectedValues()
+        public void FailureCollisionEnergy_Always_ExpectedValues()
         {
             // Setup 
             var random = new Random(22);
@@ -576,7 +576,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_ShipMass_ExpectedValues()
+        public void ShipMass_Always_ExpectedValues()
         {
             // Setup 
             var random = new Random(22);
@@ -602,7 +602,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_ShipVelocity_ExpectedValues()
+        public void ShipVelocity_Always_ExpectedValues()
         {
             // Setup 
             var random = new Random(22);
@@ -631,7 +631,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         [TestCase(-1.1)]
         [TestCase(2)]
         [TestCase(double.NaN)]
-        public void Properties_ProbabilityCollisionSecondaryStructure_ThrowArgumentOutOfRangeException(double probability)
+        public void ProbabilityCollisionSecondaryStructure_InvalidValues_ThrowsArgumentOutOfRangeException(double probability)
         {
             // Setup
             var input = new StabilityPointStructuresInput();
@@ -647,7 +647,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         [TestCase(0)]
         [TestCase(0.5)]
         [TestCase(1.0)]
-        public void Properties_ProbabilityCollisionSecondaryStructure_ExpectedValues(double probability)
+        public void ProbabilityCollisionSecondaryStructure_ValidValues_ExpectedValues(double probability)
         {
             // Setup
             var input = new StabilityPointStructuresInput();
@@ -660,9 +660,9 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_BankWidth_ExpectedValues()
+        public void BankWidth_Always_ExpectedValues()
         {
-            // Setup 
+            // Setup
             var random = new Random(22);
             var input = new StabilityPointStructuresInput();
             var mean = (RoundedDouble) (0.01 + random.NextDouble());
@@ -686,7 +686,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_EvaluationLevel_ExpectedValues()
+        public void EvaluationLevel_Always_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
@@ -702,7 +702,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         }
 
         [Test]
-        public void Properties_VerticalDistance_ExpectedValues()
+        public void VerticalDistance_Always_ExpectedValues()
         {
             // Setup 
             var random = new Random(22);

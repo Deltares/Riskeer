@@ -34,7 +34,7 @@ namespace Ringtoets.HeightStructures.Data.Test
     public class HeightStructuresInputTest
     {
         [Test]
-        public void Constructor_DefaultPropertyValuesAreSet()
+        public void Constructor_ExpectedValues()
         {
             // Setup
             var levelCrestStructure = new NormalDistribution(2)
@@ -56,7 +56,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void Input_StructureNull_DoesNotChangeValues()
+        public void Structure_Null_ExpectedValues()
         {
             // Setup
             var input = new HeightStructuresInput();
@@ -69,7 +69,7 @@ namespace Ringtoets.HeightStructures.Data.Test
         }
 
         [Test]
-        public void Input_Structure_UpdateValuesAccordingly()
+        public void Structure_NotNull_ExpectedValues()
         {
             // Setup
             var input = new HeightStructuresInput();
@@ -85,12 +85,32 @@ namespace Ringtoets.HeightStructures.Data.Test
         #region Hydraulic data
 
         [Test]
+        [TestCase(400)]
+        [TestCase(360.05)]
+        [TestCase(-360.005)]
+        [TestCase(-400)]
+        [TestCase(double.PositiveInfinity)]
+        [TestCase(double.NegativeInfinity)]
+        public void DeviationWaveDirection_InvalidValues_ThrowsArgumentOutOfRangeException(double invalidValue)
+        {
+            // Setup
+            var input = new HeightStructuresInput();
+
+            // Call
+            TestDelegate call = () => input.DeviationWaveDirection = (RoundedDouble)invalidValue;
+
+            // Assert
+            const string expectedMessage = "De waarde voor de afwijking van de golfrichting moet in het bereik [-360, 360] liggen.";
+            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
+        }
+
+        [Test]
         [TestCase(360.004)]
         [TestCase(300)]
         [TestCase(0)]
         [TestCase(-360.004)]
         [TestCase(double.NaN)]
-        public void Properties_DeviationWaveDirection_ExpectedValues(double validValue)
+        public void DeviationWaveDirection_ValidValues_ExpectedValues(double validValue)
         {
             // Setup
             var input = new HeightStructuresInput();
@@ -104,32 +124,12 @@ namespace Ringtoets.HeightStructures.Data.Test
             AssertAreEqual(deviationWaveDirection, input.DeviationWaveDirection);
         }
 
-        [Test]
-        [TestCase(400)]
-        [TestCase(360.05)]
-        [TestCase(-360.005)]
-        [TestCase(-400)]
-        [TestCase(double.PositiveInfinity)]
-        [TestCase(double.NegativeInfinity)]
-        public void Properties_StructureNormalOrientationInvalidValues_ThrowsArgumentOutOfRangeException(double invalidValue)
-        {
-            // Setup
-            var input = new HeightStructuresInput();
-
-            // Call
-            TestDelegate call = () => input.DeviationWaveDirection = (RoundedDouble)invalidValue;
-
-            // Assert
-            const string expectedMessage = "De waarde voor de afwijking van de golfrichting moet in het bereik [-360, 360] liggen.";
-            TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, expectedMessage);
-        }
-
         #endregion
 
         #region Schematization
 
         [Test]
-        public void Properties_LevelCrestStructure_ExpectedValues()
+        public void LevelCrestStructure_Always_ExpectedValues()
         {
             // Setup
             var random = new Random(22);
