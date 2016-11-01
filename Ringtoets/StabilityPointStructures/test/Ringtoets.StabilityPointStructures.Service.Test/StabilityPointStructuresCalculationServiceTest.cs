@@ -181,101 +181,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        public void Calculate_InvalidInFlowModelType_ThrowsInvalidEnumArgumentException()
-        {
-            // Setup
-            var stabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            stabilityPointStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var calculation = new TestStabilityPointStructuresCalculation()
-            {
-                InputParameters =
-                {
-                    InflowModelType = (StabilityPointStructureInflowModelType) 100
-                }
-            };
-
-            var service = new StabilityPointStructuresCalculationService();
-
-            // Call
-            using (new HydraRingCalculatorFactoryConfig())
-            {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
-
-                // Call
-                TestDelegate call = () => service.Calculate(calculation,
-                                                            assessmentSectionStub,
-                                                            stabilityPointStructuresFailureMechanism,
-                                                            testDataPath);
-
-                StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
-
-                // Assert
-                Assert.AreEqual(0, calculationInputs.Length);
-                var exception = Assert.Throws<InvalidEnumArgumentException>(call);
-                Assert.AreEqual("calculation", exception.ParamName);
-                StringAssert.StartsWith("The value of argument 'calculation' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.", exception.Message);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_InvalidLoadSchematizationType_ThrowsInvalidEnumArgumentException()
-        {
-            // Setup
-            var stabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            mockRepository.ReplayAll();
-
-            stabilityPointStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var calculation = new TestStabilityPointStructuresCalculation()
-            {
-                InputParameters =
-                {
-                    LoadSchematizationType = (LoadSchematizationType) 100
-                }
-            };
-
-            var service = new StabilityPointStructuresCalculationService();
-
-            using (new HydraRingCalculatorFactoryConfig())
-            {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
-
-                // Call
-                TestDelegate call = () => service.Calculate(calculation,
-                                                            assessmentSectionStub,
-                                                            stabilityPointStructuresFailureMechanism,
-                                                            testDataPath);
-
-                StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
-
-                // Assert
-                Assert.AreEqual(0, calculationInputs.Length);
-                var exception = Assert.Throws<InvalidEnumArgumentException>(call);
-                Assert.AreEqual("calculation", exception.ParamName);
-                StringAssert.StartsWith("The value of argument 'calculation' (100) is invalid for Enum type 'LoadSchematizationType'.", exception.Message);
-            }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         [Combinatorial]
         public void Validate_UseBreakWaterWithInvalidBreakWaterHeight_LogStartAndEndAndErrorMessageAndThrowsException(
             [Values(StabilityPointStructureInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.LowSill)] StabilityPointStructureInflowModelType inflowModelType,
@@ -692,7 +597,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Name = name,
                 InputParameters =
                 {
-                    InflowModelType = (StabilityPointStructureInflowModelType) 100,
+                    InflowModelType = (StabilityPointStructureInflowModelType) 100
                 }
             };
 
@@ -708,7 +613,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        public void Validate_InvalidLoadSchematizationType_ThrowsInvalidEnumArgumentException()
+        [TestCase(StabilityPointStructureInflowModelType.FloodedCulvert)]
+        [TestCase(StabilityPointStructureInflowModelType.LowSill)]
+        public void Validate_InvalidLoadSchematizationType_ThrowsInvalidEnumArgumentException(StabilityPointStructureInflowModelType inflowModelType)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -730,6 +637,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Name = name,
                 InputParameters =
                 {
+                    InflowModelType = inflowModelType,
                     LoadSchematizationType = (LoadSchematizationType) 100
                 }
             };
@@ -743,6 +651,104 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                                     expectedMessage).ParamName;
             Assert.AreEqual("inputParameters", paramName);
 
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_InvalidInFlowModelType_ThrowsInvalidEnumArgumentException()
+        {
+            // Setup
+            var stabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            stabilityPointStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestStabilityPointStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    InflowModelType = (StabilityPointStructureInflowModelType) 100
+                }
+            };
+
+            var service = new StabilityPointStructuresCalculationService();
+
+            // Call
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+
+                // Call
+                TestDelegate call = () => service.Calculate(calculation,
+                                                            assessmentSectionStub,
+                                                            stabilityPointStructuresFailureMechanism,
+                                                            testDataPath);
+
+                StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+
+                // Assert
+                Assert.AreEqual(0, calculationInputs.Length);
+                var exception = Assert.Throws<InvalidEnumArgumentException>(call);
+                Assert.AreEqual("calculation", exception.ParamName);
+                StringAssert.StartsWith("The value of argument 'calculation' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.", exception.Message);
+            }
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(StabilityPointStructureInflowModelType.FloodedCulvert)]
+        [TestCase(StabilityPointStructureInflowModelType.LowSill)]
+        public void Calculate_InvalidLoadSchematizationType_ThrowsInvalidEnumArgumentException(StabilityPointStructureInflowModelType inflowModelType)
+        {
+            // Setup
+            var stabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            stabilityPointStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestStabilityPointStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    InflowModelType = inflowModelType,
+                    LoadSchematizationType = (LoadSchematizationType) 100
+                }
+            };
+
+            var service = new StabilityPointStructuresCalculationService();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+
+                // Call
+                TestDelegate call = () => service.Calculate(calculation,
+                                                            assessmentSectionStub,
+                                                            stabilityPointStructuresFailureMechanism,
+                                                            testDataPath);
+
+                StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+
+                // Assert
+                Assert.AreEqual(0, calculationInputs.Length);
+                var exception = Assert.Throws<InvalidEnumArgumentException>(call);
+                Assert.AreEqual("calculation", exception.ParamName);
+                StringAssert.StartsWith("The value of argument 'calculation' (100) is invalid for Enum type 'LoadSchematizationType'.", exception.Message);
+            }
             mockRepository.VerifyAll();
         }
 
