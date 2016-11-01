@@ -141,8 +141,7 @@
   <data name="WaveConditionsCalculationService_OnRun_Calculate_waterlevel_0_" xml:space="preserve">
     <value>Waterstand '{0}' berekenen.</value>
   </data>
-  <data name="WaveConditionsCalculationService_CalculateWaterLevel_Calculation_report_Click_details_for_full_report_0" xml:space="preserve">
-    <value>Golfcondities berekeningsverslag. Klik op details voor meer informatie.
-{0}</value>
+  <data name="WaveConditionsCalculationService_CalculateWaterLevel_Calculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
+    <value>Golfcondities berekening is uitgevoerd op de tijdelijke locatie: {0}. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
   </data>
 </root>

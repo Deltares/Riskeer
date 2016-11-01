@@ -451,9 +451,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 var msgs = messages.ToArray();
                 Assert.AreEqual(5, msgs.Length);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith("Overloop berekeningsverslag. Klik op details voor meer informatie.\r\n", msgs[1]);
+                StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[1]);
                 StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[2]);
-                StringAssert.StartsWith("Dijkhoogte berekeningsverslag. Klik op details voor meer informatie.\r\n", msgs[3]);
+                StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie:", msgs[3]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
             });
             Assert.IsFalse(expectedExceptionThrown);
@@ -520,7 +520,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 Assert.AreEqual(4, msgs.Length);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
                 StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[1]);
-                StringAssert.StartsWith("Overloop berekeningsverslag. Klik op details voor meer informatie.\r\n", msgs[2]);
+                StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
             });
             Assert.IsTrue(expectedExceptionThrown);

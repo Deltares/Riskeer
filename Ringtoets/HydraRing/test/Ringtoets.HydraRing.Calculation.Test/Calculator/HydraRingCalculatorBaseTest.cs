@@ -50,7 +50,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             var calculator = new TestHydraRingCalculator("", null);
 
             // Assert
-            Assert.IsNull(calculator.OutputFileContent);
+            Assert.IsNull(calculator.OutputDirectory);
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             calculator.PublicCalculate();
 
             // Assert
-            Assert.AreEqual("Fatal error: File not found: HLCD.sqlite\r\n", calculator.OutputFileContent);
+            Assert.IsNotNullOrEmpty(calculator.OutputDirectory);
             Assert.IsTrue(calculator.Output);
         }
     }

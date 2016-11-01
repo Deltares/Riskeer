@@ -188,7 +188,7 @@ namespace Ringtoets.Common.Service.Test
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), messages[0]);
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), messages[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculationName), messages[2]);
-                    StringAssert.StartsWith("Golfhoogte berekeningsverslag. Klik op details voor meer informatie.", messages[3]);
+                    StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie:", messages[3]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculationName), messages[4]);
                 });
                 var waveHeightCalculationInput = testWaveHeightCalculator.ReceivedInputs.First();

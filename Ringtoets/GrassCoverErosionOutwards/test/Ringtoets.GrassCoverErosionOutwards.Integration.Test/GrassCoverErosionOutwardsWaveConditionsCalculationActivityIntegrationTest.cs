@@ -130,7 +130,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                     foreach (var waterLevel in calculation.InputParameters.WaterLevels)
                     {
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[i + 1]);
-                        StringAssert.StartsWith("Golfcondities berekeningsverslag. Klik op details voor meer informatie.", msgs[i + 2]);
+                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[i + 2]);
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[i + 3]);
                         i = i + 3;
                     }
@@ -257,7 +257,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Integration.Test
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
                     Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, firstWaterLevel), msgs[3]);
-                    StringAssert.StartsWith("Golfcondities berekeningsverslag. Klik op details voor meer informatie.", msgs[4]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
                     Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, firstWaterLevel), msgs[5]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
                 });

@@ -36,7 +36,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             // Assert
             Assert.IsInstanceOf<HydraRingCalculatorBase>(calculator);
             Assert.IsNaN(calculator.ExceedanceProbabilityBeta);
-            Assert.IsNull(calculator.OutputFileContent);
+            Assert.IsNull(calculator.OutputDirectory);
         }
          
     }

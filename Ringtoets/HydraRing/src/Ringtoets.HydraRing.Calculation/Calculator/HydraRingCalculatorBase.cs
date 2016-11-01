@@ -63,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         /// <summary>
         /// The content of the output file produced during calculation.
         /// </summary>
-        public string OutputFileContent { get; private set; }
+        public string OutputDirectory { get; private set; }
 
         /// <summary>
         /// Cancels any currently running Hydra-Ring calculation.
@@ -100,23 +100,22 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
             HydraRingCalculationInput hydraRingCalculationInput)
         {
             var sectionId = hydraRingCalculationInput.Section.SectionId;
-            var workingDirectory = CreateWorkingDirectory();
+            OutputDirectory = CreateWorkingDirectory();
 
             var hydraRingConfigurationService = new HydraRingConfigurationService(ringId, uncertaintiesType);
             hydraRingConfigurationService.AddHydraRingCalculationInput(hydraRingCalculationInput);
 
-            var hydraRingInitializationService = new HydraRingInitializationService(hydraRingCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, workingDirectory);
+            var hydraRingInitializationService = new HydraRingInitializationService(hydraRingCalculationInput.FailureMechanismType, sectionId, hlcdDirectory, OutputDirectory);
             hydraRingInitializationService.WriteInitializationScript();
             hydraRingConfigurationService.WriteDataBaseCreationScript(hydraRingInitializationService.DatabaseCreationScriptFilePath);
 
-            PerformCalculation(workingDirectory, hydraRingInitializationService);
+            PerformCalculation(OutputDirectory, hydraRingInitializationService);
             ExecuteParsers(hydraRingInitializationService.TemporaryWorkingDirectory, sectionId);
             SetAllOutputs();
         }
 
         private void SetAllOutputs()
         {
-            OutputFileContent = outputFileParser.OutputFileContent;
             SetOutputs();
         }
 

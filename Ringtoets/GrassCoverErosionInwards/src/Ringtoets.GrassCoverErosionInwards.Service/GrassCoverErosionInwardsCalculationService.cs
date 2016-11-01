@@ -175,7 +175,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
             finally
             {
-                log.InfoFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_calculation_report_message_text_0, overtoppingCalculator.OutputFileContent);
+                log.InfoFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateOvertopping_calculation_temporary_directory_can_be_found_on_location_0, overtoppingCalculator.OutputDirectory);
             }
         }
 
@@ -196,7 +196,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 }
                 finally
                 {
-                    log.InfoFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_calculation_report_message_text_0, dikeHeightCalculator.OutputFileContent);
+                    log.InfoFormat(Resources.GrassCoverErosionInwardsCalculationService_CalculateDikeHeight_calculation_temporary_directory_can_be_found_on_location_0, dikeHeightCalculator.OutputDirectory);
                 }
             }
         }

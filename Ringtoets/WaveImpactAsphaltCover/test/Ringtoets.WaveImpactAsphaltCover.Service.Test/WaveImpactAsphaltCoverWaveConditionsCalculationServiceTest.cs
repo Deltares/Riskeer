@@ -273,7 +273,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     foreach (var waterLevel in calculation.InputParameters.WaterLevels)
                     {
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[i + 1]);
-                        StringAssert.StartsWith("Golfcondities berekeningsverslag. Klik op details voor meer informatie.", msgs[i + 2]);
+                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[i + 2]);
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[i + 3]);
 
                         i = i + 3;
@@ -334,7 +334,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
                     foreach (var waterLevel in calculation.InputParameters.WaterLevels)
                     {
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[i + 1]);
-                        StringAssert.StartsWith("Golfcondities berekeningsverslag. Klik op details voor meer informatie.", msgs[i + 2]);
+                        StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[i + 2]);
                         Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[i + 3]);
 
                         i = i + 3;

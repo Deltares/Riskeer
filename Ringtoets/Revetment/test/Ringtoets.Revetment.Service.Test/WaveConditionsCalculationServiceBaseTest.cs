@@ -476,7 +476,7 @@ namespace Ringtoets.Revetment.Service.Test
                     Assert.AreEqual(3, msgs.Length);
                     Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", name, waterLevel), msgs[0]);
                     Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt.", name, waterLevel), msgs[1]);
-                    StringAssert.StartsWith("Golfcondities berekeningsverslag. Klik op details voor meer informatie.", msgs[2]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
                 });
                 Assert.IsTrue(exceptionThrown);
             }

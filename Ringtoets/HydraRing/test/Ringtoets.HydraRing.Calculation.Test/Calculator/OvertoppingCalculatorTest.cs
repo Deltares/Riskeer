@@ -38,7 +38,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             Assert.IsNaN(calculator.WaveHeight);
             Assert.IsNaN(calculator.ExceedanceProbabilityBeta);
             Assert.IsFalse(calculator.IsOvertoppingDominant);
-            Assert.IsNull(calculator.OutputFileContent);
+            Assert.IsNull(calculator.OutputDirectory);
         }
          
     }

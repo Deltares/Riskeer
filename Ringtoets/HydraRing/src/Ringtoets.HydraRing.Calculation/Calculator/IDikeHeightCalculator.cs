@@ -35,9 +35,9 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         double DikeHeight { get; }
 
         /// <summary>
-        /// Gets the content of the output file generated during the Hydra-Ring calculation.
+        /// Gets the the output directory used during the Hydra-Ring calculation.
         /// </summary>
-        string OutputFileContent { get; }
+        string OutputDirectory { get; }
 
         /// <summary>
         /// Performs the actual calculation by running the Hydra-Ring executable.

@@ -133,7 +133,7 @@ namespace Ringtoets.HeightStructures.Service
             }
             finally
             {
-                log.InfoFormat(Resources.HeightStructuresCalculationService_Calculate_Calculation_report_Click_details_for_full_report, calculator.OutputFileContent);
+                log.InfoFormat(Resources.HeightStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
                 CalculationServiceHelper.LogCalculationEndTime(calculationName);
             }
         }

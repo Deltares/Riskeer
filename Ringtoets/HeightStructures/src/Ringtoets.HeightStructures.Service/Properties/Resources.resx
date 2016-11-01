@@ -120,8 +120,7 @@
   <data name="HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation" xml:space="preserve">
     <value>De berekening voor hoogte kunstwerk '{0}' is niet gelukt.</value>
   </data>
-  <data name="HeightStructuresCalculationService_Calculate_Calculation_report_Click_details_for_full_report" xml:space="preserve">
-    <value>Hoogte kunstwerk berekeningsverslag. Klik op details voor meer informatie.
-{0}</value>
+  <data name="HeightStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
+    <value>Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie: {0}. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
   </data>
 </root>

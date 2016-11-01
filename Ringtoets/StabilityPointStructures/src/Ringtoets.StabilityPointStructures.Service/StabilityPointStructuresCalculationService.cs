@@ -128,7 +128,7 @@ namespace Ringtoets.StabilityPointStructures.Service
             }
             finally
             {
-                log.InfoFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Calculation_report_Click_details_for_full_report_0, calculator.OutputFileContent);
+                log.InfoFormat(Resources.StabilityPointStructuresCalculationService_CalculateCalculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
                 CalculationServiceHelper.LogCalculationEndTime(calculationName);
             }
         }

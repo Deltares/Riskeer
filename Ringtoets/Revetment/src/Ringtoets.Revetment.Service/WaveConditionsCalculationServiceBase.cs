@@ -237,7 +237,7 @@ namespace Ringtoets.Revetment.Service
             }
             finally
             {
-                log.InfoFormat(Resources.WaveConditionsCalculationService_CalculateWaterLevel_Calculation_report_Click_details_for_full_report_0, calculator.OutputFileContent);
+                log.InfoFormat(Resources.WaveConditionsCalculationService_CalculateWaterLevel_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
             }
         }
 
