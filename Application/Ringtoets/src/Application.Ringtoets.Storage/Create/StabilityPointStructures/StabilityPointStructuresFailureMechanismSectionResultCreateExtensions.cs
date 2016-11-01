@@ -49,6 +49,10 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),
                 LayerThree = result.AssessmentLayerThree.Value.ToNaNAsNull()
             };
+            if (result.Calculation != null)
+            {
+                sectionResultEntity.StabilityPointStructuresCalculationEntity = registry.Get(result.Calculation);
+            }
 
             return sectionResultEntity;
         }

@@ -65,6 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Create.HeightStructures
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
             Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
+            Assert.IsNull(result.HeightStructuresCalculationEntityId);
         }
 
         [Test]

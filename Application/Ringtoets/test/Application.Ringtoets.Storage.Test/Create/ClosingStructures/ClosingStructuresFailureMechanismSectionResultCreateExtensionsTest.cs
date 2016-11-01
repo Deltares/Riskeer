@@ -65,6 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Create.ClosingStructures
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
             Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
+            Assert.IsNull(result.ClosingStructuresCalculationEntityId);
         }
 
         [Test]

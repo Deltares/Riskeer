@@ -886,6 +886,66 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.IsFalse(result);
         }
 
+        [Test]
+        public void Contains_WithoutStabilityPointStructuresCalculation_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Contains((StructuresCalculation<StabilityPointStructuresInput>) null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Contains_StabilityPointStructuresCalculationAdded_ReturnsTrue()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var registry = new PersistenceRegistry();
+            registry.Register(new StabilityPointStructuresCalculationEntity(), calculation);
+
+            // Call
+            bool result = registry.Contains(calculation);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_OtherStabilityPointStructuresCalculationAdded_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+
+            var otherCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var registry = new PersistenceRegistry();
+            registry.Register(new StabilityPointStructuresCalculationEntity(), otherCalculation);
+
+            // Call
+            bool result = registry.Contains(calculation);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_NoStabilityPointStructuresCalculationAdded_ReturnsFalse()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var registry = new PersistenceRegistry();
+
+            // Call
+            bool result = registry.Contains(calculation);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
         #endregion
 
         #region Get methods
@@ -1685,6 +1745,69 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreSame(registeredEntity, retrievedEntity);
         }
 
+        [Test]
+        public void Get_WithoutStabilityPointStructuresCalculation_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Get((StructuresCalculation<StabilityPointStructuresInput>) null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Get_NoStabilityPointStructuresCalculationAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate call = () => registry.Get(calculation);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_OtherStabilityPointStructuresCalculationAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var registeredCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var registeredEntity = new StabilityPointStructuresCalculationEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(registeredEntity, registeredCalculation);
+
+            // Call
+            TestDelegate call = () => registry.Get(calculation);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(call);
+        }
+
+        [Test]
+        public void Get_StabilityPointStructuresCalculationAdded_ReturnsEntity()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var registeredEntity = new StabilityPointStructuresCalculationEntity();
+
+            var registry = new PersistenceRegistry();
+            registry.Register(registeredEntity, calculation);
+
+            // Call
+            StabilityPointStructuresCalculationEntity retrievedEntity = registry.Get(calculation);
+
+            // Assert
+            Assert.AreSame(registeredEntity, retrievedEntity);
+        }
+
         #endregion
 
         #region Register methods
@@ -2022,6 +2145,34 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Call
             TestDelegate test = () => registry.Register(new ClosingStructuresCalculationEntity(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullStabilityPointStructuresCalculationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(null, new TestStabilityPointStructuresCalculation());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Register_WithNullStabilityPointStructuresCalculation_ThrowsArgumentNullException()
+        {
+            // Setup
+            var registry = new PersistenceRegistry();
+
+            // Call
+            TestDelegate test = () => registry.Register(new StabilityPointStructuresCalculationEntity(), null);
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;

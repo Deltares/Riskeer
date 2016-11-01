@@ -22,9 +22,11 @@
 using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.StabilityPointStructures;
+using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
@@ -63,6 +65,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
             Assert.AreEqual(assessmentLayerThreeResult, result.LayerThree);
+            Assert.IsNull(result.StabilityPointStructuresCalculationEntityId);
         }
 
         [Test]
@@ -79,6 +82,27 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
 
             // Assert
             Assert.IsNull(result.LayerThree);
+        }
+
+        [Test]
+        public void Create_CalculationSet_ReturnEntityWithCalculationEntity()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection())
+            {
+                Calculation = calculation
+            };
+
+            var registry = new PersistenceRegistry();
+            var entity = new StabilityPointStructuresCalculationEntity();
+            registry.Register(entity, calculation);
+
+            // Call
+            StabilityPointStructuresSectionResultEntity result = sectionResult.Create(registry);
+
+            // Assert
+            Assert.AreSame(entity, result.StabilityPointStructuresCalculationEntity);
         }
     }
 }

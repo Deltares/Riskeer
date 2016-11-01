@@ -45,20 +45,50 @@ namespace Application.Ringtoets.Storage.Create
     /// </summary>
     internal class PersistenceRegistry
     {
-        private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = CreateDictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
-        private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles = CreateDictionary<DikeProfileEntity, DikeProfile>();
-        private readonly Dictionary<ForeshoreProfileEntity, ForeshoreProfile> foreshoreProfiles = CreateDictionary<ForeshoreProfileEntity, ForeshoreProfile>();
-        private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations = CreateDictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation>();
-        private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels = CreateDictionary<StochasticSoilModelEntity, StochasticSoilModel>();
-        private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles = CreateDictionary<StochasticSoilProfileEntity, StochasticSoilProfile>();
-        private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
-        private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines = CreateDictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>();
-        private readonly Dictionary<object, HydraulicBoundaryLocation> hydraulicLocations = CreateDictionary<object, HydraulicBoundaryLocation>();
-        private readonly Dictionary<HeightStructureEntity, HeightStructure> heightStructures = CreateDictionary<HeightStructureEntity, HeightStructure>();
-        private readonly Dictionary<ClosingStructureEntity, ClosingStructure> closingStructures = CreateDictionary<ClosingStructureEntity, ClosingStructure>();
-        private readonly Dictionary<StabilityPointStructureEntity, StabilityPointStructure> stabilityPointStructures = CreateDictionary<StabilityPointStructureEntity, StabilityPointStructure>();
-        private readonly Dictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations = CreateDictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>>();
-        private readonly Dictionary<ClosingStructuresCalculationEntity, StructuresCalculation<ClosingStructuresInput>> closingStructuresCalculations = CreateDictionary<ClosingStructuresCalculationEntity, StructuresCalculation<ClosingStructuresInput>>();
+        private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections =
+            CreateDictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
+
+        private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles =
+            CreateDictionary<DikeProfileEntity, DikeProfile>();
+
+        private readonly Dictionary<ForeshoreProfileEntity, ForeshoreProfile> foreshoreProfiles =
+            CreateDictionary<ForeshoreProfileEntity, ForeshoreProfile>();
+
+        private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations =
+            CreateDictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation>();
+
+        private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels =
+            CreateDictionary<StochasticSoilModelEntity, StochasticSoilModel>();
+
+        private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles =
+            CreateDictionary<StochasticSoilProfileEntity, StochasticSoilProfile>();
+
+        private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles =
+            CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
+
+        private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines =
+            CreateDictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>();
+
+        private readonly Dictionary<object, HydraulicBoundaryLocation> hydraulicLocations =
+            CreateDictionary<object, HydraulicBoundaryLocation>();
+
+        private readonly Dictionary<HeightStructureEntity, HeightStructure> heightStructures =
+            CreateDictionary<HeightStructureEntity, HeightStructure>();
+
+        private readonly Dictionary<ClosingStructureEntity, ClosingStructure> closingStructures =
+            CreateDictionary<ClosingStructureEntity, ClosingStructure>();
+
+        private readonly Dictionary<StabilityPointStructureEntity, StabilityPointStructure> stabilityPointStructures =
+            CreateDictionary<StabilityPointStructureEntity, StabilityPointStructure>();
+
+        private readonly Dictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations =
+            CreateDictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>>();
+
+        private readonly Dictionary<ClosingStructuresCalculationEntity, StructuresCalculation<ClosingStructuresInput>> closingStructuresCalculations =
+            CreateDictionary<ClosingStructuresCalculationEntity, StructuresCalculation<ClosingStructuresInput>>();
+
+        private readonly Dictionary<StabilityPointStructuresCalculationEntity, StructuresCalculation<StabilityPointStructuresInput>> stabilityPointStructuresCalculations =
+            CreateDictionary<StabilityPointStructuresCalculationEntity, StructuresCalculation<StabilityPointStructuresInput>>();
 
         private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
         {
@@ -339,6 +369,20 @@ namespace Application.Ringtoets.Storage.Create
             Register(closingStructuresCalculations, entity, model);
         }
 
+        /// <summary>
+        /// Registers a create operation for <paramref name="model"/> and the <paramref name="entity"/>
+        /// that was constructed with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="StabilityPointStructuresCalculationEntity"/>
+        /// to be registered.</param>
+        /// <param name="model">The <see cref="StructuresCalculation{T}"/> to
+        /// be registered.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        internal void Register(StabilityPointStructuresCalculationEntity entity, StructuresCalculation<StabilityPointStructuresInput> model)
+        {
+            Register(stabilityPointStructuresCalculations, entity, model);
+        }
+
         #endregion
 
         #region Contains Methods
@@ -495,6 +539,17 @@ namespace Application.Ringtoets.Storage.Create
         internal bool Contains(StructuresCalculation<ClosingStructuresInput> model)
         {
             return ContainsValue(closingStructuresCalculations, model);
+        }
+
+        /// <summary>
+        /// Checks whether a create operations has been registered for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="StructuresCalculation{T}"/> to check for.</param>
+        /// <returns><c>true</c> if the <see cref="model"/> was registered before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        internal bool Contains(StructuresCalculation<StabilityPointStructuresInput> model)
+        {
+            return ContainsValue(stabilityPointStructuresCalculations, model);
         }
 
         #endregion
@@ -734,6 +789,23 @@ namespace Application.Ringtoets.Storage.Create
         internal ClosingStructuresCalculationEntity Get(StructuresCalculation<ClosingStructuresInput> model)
         {
             return Get(closingStructuresCalculations, model);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="StabilityPointStructuresCalculationEntity"/> which was
+        /// registered for the given <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">The <see cref="StructuresCalculation{T}"/> for
+        /// which a read operation has been registered.</param>
+        /// <returns>The constructed <see cref="StabilityPointStructuresCalculationEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="model"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no create operation 
+        /// has been registered for <paramref name="model"/>.</exception>
+        /// <remarks>Use <see cref="Contains(StructuresCalculation{StabilityPointStructuresInput})"/> to find out
+        /// whether a create operation has been registered for <paramref name="model"/>.</remarks>
+        internal StabilityPointStructuresCalculationEntity Get(StructuresCalculation<StabilityPointStructuresInput> model)
+        {
+            return Get(stabilityPointStructuresCalculations, model);
         }
 
         #endregion
