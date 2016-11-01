@@ -42,21 +42,53 @@ namespace Application.Ringtoets.Storage.Read
     /// </summary>
     internal class ReadConversionCollector
     {
-        private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels = CreateDictionary<StochasticSoilModelEntity, StochasticSoilModel>();
-        private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles = CreateDictionary<StochasticSoilProfileEntity, StochasticSoilProfile>();
-        private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles = CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
-        private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines = CreateDictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>();
-        private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicBoundaryLocations = CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
-        private readonly Dictionary<GrassCoverErosionOutwardsHydraulicLocationEntity, HydraulicBoundaryLocation> grassCoverErosionOutwardsHydraulicBoundaryLocations = CreateDictionary<GrassCoverErosionOutwardsHydraulicLocationEntity, HydraulicBoundaryLocation>();
-        private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections = CreateDictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
-        private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles = CreateDictionary<DikeProfileEntity, DikeProfile>();
-        private readonly Dictionary<ForeshoreProfileEntity, ForeshoreProfile> foreshoreProfiles = CreateDictionary<ForeshoreProfileEntity, ForeshoreProfile>();
-        private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations = CreateDictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation>();
-        private readonly Dictionary<HeightStructureEntity, HeightStructure> heightStructures = CreateDictionary<HeightStructureEntity, HeightStructure>();
-        private readonly Dictionary<ClosingStructureEntity, ClosingStructure> closingStructures = CreateDictionary<ClosingStructureEntity, ClosingStructure>();
-        private readonly Dictionary<StabilityPointStructureEntity, StabilityPointStructure> stabilityPointStructures = CreateDictionary<StabilityPointStructureEntity, StabilityPointStructure>();
-        private readonly Dictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations = CreateDictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>>();
-        private readonly Dictionary<ClosingStructuresCalculationEntity, StructuresCalculation<ClosingStructuresInput>> closingStructuresCalculations = CreateDictionary<ClosingStructuresCalculationEntity, StructuresCalculation<ClosingStructuresInput>>();
+        private readonly Dictionary<StochasticSoilModelEntity, StochasticSoilModel> stochasticSoilModels =
+            CreateDictionary<StochasticSoilModelEntity, StochasticSoilModel>();
+
+        private readonly Dictionary<StochasticSoilProfileEntity, StochasticSoilProfile> stochasticSoilProfiles =
+            CreateDictionary<StochasticSoilProfileEntity, StochasticSoilProfile>();
+
+        private readonly Dictionary<SoilProfileEntity, PipingSoilProfile> soilProfiles =
+            CreateDictionary<SoilProfileEntity, PipingSoilProfile>();
+
+        private readonly Dictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine> surfaceLines =
+            CreateDictionary<SurfaceLineEntity, RingtoetsPipingSurfaceLine>();
+
+        private readonly Dictionary<HydraulicLocationEntity, HydraulicBoundaryLocation> hydraulicBoundaryLocations =
+            CreateDictionary<HydraulicLocationEntity, HydraulicBoundaryLocation>();
+
+        private readonly Dictionary<GrassCoverErosionOutwardsHydraulicLocationEntity, HydraulicBoundaryLocation> grassCoverErosionOutwardsHydraulicBoundaryLocations =
+            CreateDictionary<GrassCoverErosionOutwardsHydraulicLocationEntity, HydraulicBoundaryLocation>();
+
+        private readonly Dictionary<FailureMechanismSectionEntity, FailureMechanismSection> failureMechanismSections =
+            CreateDictionary<FailureMechanismSectionEntity, FailureMechanismSection>();
+
+        private readonly Dictionary<DikeProfileEntity, DikeProfile> dikeProfiles =
+            CreateDictionary<DikeProfileEntity, DikeProfile>();
+
+        private readonly Dictionary<ForeshoreProfileEntity, ForeshoreProfile> foreshoreProfiles =
+            CreateDictionary<ForeshoreProfileEntity, ForeshoreProfile>();
+
+        private readonly Dictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation> grassCoverErosionInwardsCalculations =
+            CreateDictionary<GrassCoverErosionInwardsCalculationEntity, GrassCoverErosionInwardsCalculation>();
+
+        private readonly Dictionary<HeightStructureEntity, HeightStructure> heightStructures =
+            CreateDictionary<HeightStructureEntity, HeightStructure>();
+
+        private readonly Dictionary<ClosingStructureEntity, ClosingStructure> closingStructures =
+            CreateDictionary<ClosingStructureEntity, ClosingStructure>();
+
+        private readonly Dictionary<StabilityPointStructureEntity, StabilityPointStructure> stabilityPointStructures =
+            CreateDictionary<StabilityPointStructureEntity, StabilityPointStructure>();
+
+        private readonly Dictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>> heightStructuresCalculations =
+            CreateDictionary<HeightStructuresCalculationEntity, StructuresCalculation<HeightStructuresInput>>();
+
+        private readonly Dictionary<ClosingStructuresCalculationEntity, StructuresCalculation<ClosingStructuresInput>> closingStructuresCalculations =
+            CreateDictionary<ClosingStructuresCalculationEntity, StructuresCalculation<ClosingStructuresInput>>();
+
+        private readonly Dictionary<StabilityPointStructuresCalculationEntity, StructuresCalculation<StabilityPointStructuresInput>> stabilityPointStructuresCalculations =
+            CreateDictionary<StabilityPointStructuresCalculationEntity, StructuresCalculation<StabilityPointStructuresInput>>();
 
         private static Dictionary<TEntity, TModel> CreateDictionary<TEntity, TModel>()
         {
@@ -1132,6 +1164,77 @@ namespace Application.Ringtoets.Storage.Read
             try
             {
                 return stabilityPointStructures[entity];
+            }
+            catch (KeyNotFoundException e)
+            {
+                throw new InvalidOperationException(e.Message, e);
+            }
+        }
+
+        #endregion
+
+        #region StabilityPointStructuresCalculationEntity: Read, Contains, Get
+
+        /// <summary>
+        /// Registers a read operation for <see cref="StabilityPointStructuresCalculationEntity"/>
+        /// and the <see cref="StructuresCalculation{T}"/> that was constructed
+        /// with the information.
+        /// </summary>
+        /// <param name="entity">The <see cref="StabilityPointStructuresCalculationEntity"/>
+        /// that was read.</param>
+        /// <param name="model">The <see cref="StructuresCalculation{T}"/> that
+        /// was constructed.</param>
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        internal void Read(StabilityPointStructuresCalculationEntity entity, StructuresCalculation<StabilityPointStructuresInput> model)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            if (model == null)
+            {
+                throw new ArgumentNullException("model");
+            }
+
+            stabilityPointStructuresCalculations[entity] = model;
+        }
+
+        /// <summary>
+        /// Checks whether a read operation has been registered for a given <see cref="StabilityPointStructuresCalculationEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="StabilityPointStructuresCalculationEntity"/> to check for.</param>
+        /// <returns><c>true</c> if the <paramref cref="entity"/> was read before, <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        internal bool Contains(StabilityPointStructuresCalculationEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            return stabilityPointStructuresCalculations.ContainsKey(entity);
+        }
+
+        /// <summary>
+        /// Obtains the <see cref="StructuresCalculation{T}"/> which was read
+        /// for the given <see cref="StabilityPointStructuresCalculationEntity"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="StabilityPointStructuresCalculationEntity"/> for which a read
+        /// operation has been registered.</param>
+        /// <returns>The constructed <see cref="StructuresCalculation{T}"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="entity"/> is <c>null</c>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no read operation has
+        /// been registered for <paramref name="entity"/>.</exception>
+        /// <remarks>Use <see cref="Contains(StabilityPointStructuresCalculationEntity)"/>
+        /// to find out whether a read operation has been registered for <paramref name="entity"/>.</remarks>
+        internal StructuresCalculation<StabilityPointStructuresInput> Get(StabilityPointStructuresCalculationEntity entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
+            }
+            try
+            {
+                return stabilityPointStructuresCalculations[entity];
             }
             catch (KeyNotFoundException e)
             {

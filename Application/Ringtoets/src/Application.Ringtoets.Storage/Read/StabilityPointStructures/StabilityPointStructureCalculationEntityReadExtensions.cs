@@ -49,6 +49,10 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
             {
                 throw new ArgumentNullException("collector");
             }
+            if (collector.Contains(entity))
+            {
+                return collector.Get(entity);
+            }
 
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
@@ -57,6 +61,8 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
             };
             ReadInputParameters(calculation.InputParameters, entity, collector);
             ReadOutput(calculation, entity);
+            
+            collector.Read(entity, calculation);
 
             return calculation;
         }

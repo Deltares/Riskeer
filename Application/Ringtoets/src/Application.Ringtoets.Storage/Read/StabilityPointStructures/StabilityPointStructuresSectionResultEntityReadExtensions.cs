@@ -38,17 +38,28 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
         /// </summary>
         /// <param name="entity">The <see cref="StabilityPointStructuresSectionResultEntity"/> to create <see cref="StabilityPointStructuresFailureMechanismSectionResult"/> for.</param>
         /// <param name="sectionResult">The target of the read operation.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="sectionResult"/> is <c>null</c>.</exception>
-        internal static void Read(this StabilityPointStructuresSectionResultEntity entity, StabilityPointStructuresFailureMechanismSectionResult sectionResult)
+        /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
+        internal static void Read(this StabilityPointStructuresSectionResultEntity entity, StabilityPointStructuresFailureMechanismSectionResult sectionResult, 
+            ReadConversionCollector collector)
         {
             if (sectionResult == null)
             {
                 throw new ArgumentNullException("sectionResult");
             }
+            if (collector == null)
+            {
+                throw new ArgumentNullException("collector");
+            }
 
             sectionResult.AssessmentLayerOne = Convert.ToBoolean(entity.LayerOne);
             sectionResult.AssessmentLayerThree = (RoundedDouble) entity.LayerThree.ToNullAsNaN();
+
+            if (entity.StabilityPointStructuresCalculationEntity != null)
+            {
+                sectionResult.Calculation = entity.StabilityPointStructuresCalculationEntity.Read(collector);
+            }
         }
     }
 }

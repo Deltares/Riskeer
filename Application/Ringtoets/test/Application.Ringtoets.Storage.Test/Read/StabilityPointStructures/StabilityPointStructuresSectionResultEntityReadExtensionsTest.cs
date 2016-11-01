@@ -25,6 +25,7 @@ using Application.Ringtoets.Storage.Read;
 using Application.Ringtoets.Storage.Read.StabilityPointStructures;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.StabilityPointStructures.Data;
 
 namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
@@ -39,11 +40,26 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             var entity = new StabilityPointStructuresSectionResultEntity();
 
             // Call
-            TestDelegate call = () => entity.Read(null);
+            TestDelegate call = () => entity.Read(null, new ReadConversionCollector());
 
             // Assert
             string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
             Assert.AreEqual("sectionResult", paramName);
+        }
+
+        [Test]
+        public void Read_CollectorIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var entity = new StabilityPointStructuresSectionResultEntity();
+
+            // Call
+            TestDelegate call = () => entity.Read(new StabilityPointStructuresFailureMechanismSectionResult(
+                                                      new TestFailureMechanismSection()), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("collector", paramName);
         }
 
         [Test]
@@ -67,12 +83,13 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
-            entity.Read(sectionResult);
+            entity.Read(sectionResult, collector);
 
             // Assert
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
             Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
             Assert.IsNotNull(sectionResult);
+            Assert.IsNull(sectionResult.Calculation);
         }
 
         [Test]
@@ -91,7 +108,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
-            entity.Read(sectionResult);
+            entity.Read(sectionResult, collector);
 
             // Assert
             Assert.IsNaN(sectionResult.AssessmentLayerTwoA);
@@ -113,10 +130,33 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
 
             // Call
-            entity.Read(sectionResult);
+            entity.Read(sectionResult, collector);
 
             // Assert
             Assert.IsNaN(sectionResult.AssessmentLayerThree);
+        }
+
+        [Test]
+        public void Read_CalculationEntitySet_ReturnStabilityPointStructuresSectionResultWithCalculation()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var calculationEntity = new StabilityPointStructuresCalculationEntity();
+
+            var collector = new ReadConversionCollector();
+            collector.Read(calculationEntity, calculation);
+
+            var entity = new StabilityPointStructuresSectionResultEntity
+            {
+                StabilityPointStructuresCalculationEntity = calculationEntity
+            };
+            var sectionResult = new StabilityPointStructuresFailureMechanismSectionResult(new TestFailureMechanismSection());
+
+            // Call
+            entity.Read(sectionResult, collector);
+
+            // Assert
+            Assert.AreSame(calculation, sectionResult.Calculation);
         }
     }
 }

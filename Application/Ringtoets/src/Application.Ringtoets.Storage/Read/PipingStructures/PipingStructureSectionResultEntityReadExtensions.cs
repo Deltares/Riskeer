@@ -25,7 +25,7 @@ using Core.Common.Base.Data;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
-namespace Application.Ringtoets.Storage.Read.Piping
+namespace Application.Ringtoets.Storage.Read.PipingStructures
 {
     /// <summary>
     /// This class defines extension methods for read operations for a <see cref="PipingStructureFailureMechanismSectionResult"/> based on the

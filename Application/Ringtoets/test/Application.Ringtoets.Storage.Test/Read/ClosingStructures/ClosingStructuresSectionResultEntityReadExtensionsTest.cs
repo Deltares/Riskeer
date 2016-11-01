@@ -27,7 +27,6 @@ using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data.Structures;
-using Ringtoets.Integration.Data.StandAlone.SectionResults;
 
 namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
 {
@@ -90,6 +89,7 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             Assert.IsNotNull(sectionResult);
             Assert.AreEqual(layerOne, sectionResult.AssessmentLayerOne);
             Assert.AreEqual(layerThree, sectionResult.AssessmentLayerThree, 1e-6);
+            Assert.IsNull(sectionResult.Calculation);
         }
 
         [Test]

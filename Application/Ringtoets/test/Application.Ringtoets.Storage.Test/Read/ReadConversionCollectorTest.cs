@@ -2148,5 +2148,154 @@ namespace Application.Ringtoets.Storage.Test.Read
         }
 
         #endregion
+
+        #region StabilityPointStructuresCalculationEntity: Read, Contains, Get
+
+        [Test]
+        public void Contains_WithoutStabilityPointStructuresCalculationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Contains((StabilityPointStructuresCalculationEntity) null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Contains_StabilityPointStructuresCalculationEntityAdded_ReturnsTrue()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new StabilityPointStructuresCalculationEntity();
+            collector.Read(entity, new StructuresCalculation<StabilityPointStructuresInput>());
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void Contains_NoStabilityPointStructuresCalculationEntityAdded_ReturnsFalse()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new StabilityPointStructuresCalculationEntity();
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Contains_OtherStabilityPointStructuresCalculationEntityAdded_ReturnsFalse()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new StabilityPointStructuresCalculationEntity();
+            collector.Read(new StabilityPointStructuresCalculationEntity(), new StructuresCalculation<StabilityPointStructuresInput>());
+
+            // Call
+            var result = collector.Contains(entity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void Get_WithoutStabilityPointStructuresCalculationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Get((StabilityPointStructuresCalculationEntity) null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Get_StabilityPointStructuresCalculationEntityAdded_ReturnsStabilityPointStructuresCalculation()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var entity = new StabilityPointStructuresCalculationEntity();
+            collector.Read(entity, calculation);
+
+            // Call
+            var result = collector.Get(entity);
+
+            // Assert
+            Assert.AreSame(calculation, result);
+        }
+
+        [Test]
+        public void Get_NoStabilityPointStructuresCalculationEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new StabilityPointStructuresCalculationEntity();
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Get_OtherStabilityPointStructuresCalculationEntityAdded_ThrowsInvalidOperationException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+            var entity = new StabilityPointStructuresCalculationEntity();
+            collector.Read(new StabilityPointStructuresCalculationEntity(), new StructuresCalculation<StabilityPointStructuresInput>());
+
+            // Call
+            TestDelegate test = () => collector.Get(entity);
+
+            // Assert
+            Assert.Throws<InvalidOperationException>(test);
+        }
+
+        [Test]
+        public void Read_WithNullStabilityPointStructuresCalculationEntity_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(null, new StructuresCalculation<StabilityPointStructuresInput>());
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("entity", paramName);
+        }
+
+        [Test]
+        public void Read_WithNullStabilityPointStructuresCalculation_ThrowsArgumentNullException()
+        {
+            // Setup
+            var collector = new ReadConversionCollector();
+
+            // Call
+            TestDelegate test = () => collector.Read(new StabilityPointStructuresCalculationEntity(), null);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(test).ParamName;
+            Assert.AreEqual("model", paramName);
+        }
+
+        #endregion
     }
 }
