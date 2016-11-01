@@ -28,6 +28,7 @@ using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Read.HeightStructures;
 using Application.Ringtoets.Storage.Read.Piping;
 using Application.Ringtoets.Storage.Read.StabilityStoneCover;
+using Application.Ringtoets.Storage.Read.StabilityPointStructures;
 using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
@@ -235,6 +236,42 @@ namespace Application.Ringtoets.Storage.Read
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="CalculationGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
+        internal static CalculationGroup ReadAsStabilityPointStructuresCalculationGroup(this CalculationGroupEntity entity,
+                                                                                ReadConversionCollector collector)
+        {
+            if (collector == null)
+            {
+                throw new ArgumentNullException("collector");
+            }
+
+            var group = new CalculationGroup(entity.Name, true);
+
+            foreach (object childEntity in GetChildEntitiesInOrder(entity))
+            {
+                var childCalculationGroupEntity = childEntity as CalculationGroupEntity;
+                if (childCalculationGroupEntity != null)
+                {
+                    group.Children.Add(childCalculationGroupEntity.ReadAsStabilityPointStructuresCalculationGroup(collector));
+                }
+                var childCalculationEntity = childEntity as StabilityPointStructuresCalculationEntity;
+                if (childCalculationEntity != null)
+                {
+                    group.Children.Add(childCalculationEntity.Read(collector));
+                }
+            }
+
+            return group;
+        }
+
+        /// <summary>
+        /// Read the <see cref="CalculationGroupEntity"/> and use the information to construct
+        /// a <see cref="CalculationGroup"/>.
+        /// </summary>
+        /// <param name="entity">The <see cref="CalculationGroupEntity"/> to create 
+        /// <see cref="CalculationGroup"/> for.</param>
+        /// <param name="collector">The object keeping track of read operations.</param>
+        /// <returns>A new <see cref="CalculationGroup"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static CalculationGroup ReadAsStabilityStoneCoverWaveConditionsCalculationGroup(this CalculationGroupEntity entity,
                                                                                                  ReadConversionCollector collector)
         {
@@ -322,6 +359,10 @@ namespace Application.Ringtoets.Storage.Read
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }
             foreach (ClosingStructuresCalculationEntity calculationEntity in entity.ClosingStructuresCalculationEntities)
+            {
+                sortedList.Add(calculationEntity.Order, calculationEntity);
+            }
+            foreach (StabilityPointStructuresCalculationEntity calculationEntity in entity.StabilityPointStructuresCalculationEntities)
             {
                 sortedList.Add(calculationEntity.Order, calculationEntity);
             }

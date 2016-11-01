@@ -972,7 +972,7 @@ namespace Application.Ringtoets.Storage.Test.Read
             var entity = new FailureMechanismEntity
             {
                 CalculationGroupEntity = new CalculationGroupEntity(),
-                ClosingStructureEntities = 
+                ClosingStructureEntities =
                 {
                     new ClosingStructureEntity
                     {
@@ -987,7 +987,7 @@ namespace Application.Ringtoets.Storage.Test.Read
                         Id = "b"
                     }
                 },
-                ClosingStructureFailureMechanismMetaEntities = 
+                ClosingStructureFailureMechanismMetaEntities =
                 {
                     new ClosingStructureFailureMechanismMetaEntity()
                 }
@@ -1026,14 +1026,14 @@ namespace Application.Ringtoets.Storage.Test.Read
                     },
                     ClosingStructuresCalculationEntities =
                     {
-                                                new ClosingStructuresCalculationEntity
+                        new ClosingStructuresCalculationEntity
                         {
                             Name = "B",
                             Order = 0
                         }
                     }
                 },
-                ClosingStructureFailureMechanismMetaEntities = 
+                ClosingStructureFailureMechanismMetaEntities =
                 {
                     new ClosingStructureFailureMechanismMetaEntity()
                 }
@@ -1154,6 +1154,57 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             StabilityPointStructure child2 = failureMechanism.StabilityPointStructures[1];
             Assert.AreEqual("Child1", child2.Name);
+        }
+
+        [Test]
+        public void ReadAsStabilityPointStructuresFailureMechanism_WithCalculationsAndGroups_ReturnFailureMechanismWithCalculationsAndGroups()
+        {
+            // Setup
+            var entity = new FailureMechanismEntity
+            {
+                CalculationGroupEntity = new CalculationGroupEntity
+                {
+                    CalculationGroupEntity1 =
+                    {
+                        new CalculationGroupEntity
+                        {
+                            Name = "A",
+                            Order = 1
+                        }
+                    },
+                    StabilityPointStructuresCalculationEntities =
+                    {
+                        new StabilityPointStructuresCalculationEntity
+                        {
+                            Name = "B",
+                            Order = 0
+                        }
+                    }
+                },
+                StabilityPointStructuresFailureMechanismMetaEntities =
+                {
+                    new StabilityPointStructuresFailureMechanismMetaEntity
+                    {
+                        N = 2
+                    }
+                }
+            };
+            var collector = new ReadConversionCollector();
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+
+            // Call
+            entity.ReadAsStabilityPointStructuresFailureMechanism(failureMechanism, collector);
+
+            // Assert
+            Assert.AreEqual(2, failureMechanism.CalculationsGroup.Children.Count);
+
+            ICalculationBase expectedCalculation = failureMechanism.CalculationsGroup.Children[0];
+            Assert.AreEqual("B", expectedCalculation.Name);
+            Assert.IsInstanceOf<StructuresCalculation<StabilityPointStructuresInput>>(expectedCalculation);
+
+            ICalculationBase expectedCalculationGroup = failureMechanism.CalculationsGroup.Children[1];
+            Assert.AreEqual("A", expectedCalculationGroup.Name);
+            Assert.IsInstanceOf<CalculationGroup>(expectedCalculationGroup);
         }
 
         #endregion

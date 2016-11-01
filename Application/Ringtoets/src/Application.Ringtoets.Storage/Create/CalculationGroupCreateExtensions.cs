@@ -20,10 +20,8 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create.ClosingStructures;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
-using Application.Ringtoets.Storage.Create.HeightStructures;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.Create.StabilityStoneCover;
 using Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover;
@@ -36,6 +34,7 @@ using Ringtoets.GrassCoverErosionInwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.Piping.Data;
+using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.WaveImpactAsphaltCover.Data;
 
@@ -106,6 +105,11 @@ namespace Application.Ringtoets.Storage.Create
                 if (childClosingStructuresCalculation != null)
                 {
                     entity.ClosingStructuresCalculationEntities.Add(childClosingStructuresCalculation.CreateForClosingStructures(registry, i));
+                }
+                var childStabilityPointStructuresCalculation = calculationBase as StructuresCalculation<StabilityPointStructuresInput>;
+                if (childStabilityPointStructuresCalculation != null)
+                {
+                    entity.StabilityPointStructuresCalculationEntities.Add(childStabilityPointStructuresCalculation.CreateForStabilityPointStructures(registry, i));
                 }
                 var stabilityStoneCoverWaveConditionsCalculation = calculationBase as StabilityStoneCoverWaveConditionsCalculation;
                 if (stabilityStoneCoverWaveConditionsCalculation != null)

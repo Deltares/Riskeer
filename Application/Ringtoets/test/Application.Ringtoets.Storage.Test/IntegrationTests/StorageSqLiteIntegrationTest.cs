@@ -729,6 +729,11 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
                 {
                     AssertStructuresCalculation(expectedClosingStructuresCalculation, (StructuresCalculation<ClosingStructuresInput>) actualChild);
                 }
+                var expectedStabilityPointStructuresCalculation = expectedChild as StructuresCalculation<StabilityPointStructuresInput>;
+                if (expectedStabilityPointStructuresCalculation != null)
+                {
+                    AssertStructuresCalculation(expectedStabilityPointStructuresCalculation, (StructuresCalculation<StabilityPointStructuresInput>)actualChild);
+                }
                 var expectedStabilityStoneCoverWaveConditionsCalculation = expectedChild as StabilityStoneCoverWaveConditionsCalculation;
                 if (expectedStabilityStoneCoverWaveConditionsCalculation != null)
                 {
@@ -921,6 +926,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertStabilityPointStructures(expectedFailureMechanism.StabilityPointStructures, actualFailureMechanism.StabilityPointStructures);
+            AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
 
         private static void AssertStabilityPointStructures(ObservableList<StabilityPointStructure> expectedStabilityPointStructures,
@@ -967,6 +973,63 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
             Assert.AreEqual(expectedStabilityPointStructure.InflowModelType, actualStabilityPointStructure.InflowModelType);
         }
 
+        private static void AssertStructuresCalculation(StructuresCalculation<StabilityPointStructuresInput> expectedCalculation,
+                                                        StructuresCalculation<StabilityPointStructuresInput> actualCalculation)
+        {
+            Assert.AreEqual(expectedCalculation.Name, actualCalculation.Name);
+            Assert.AreEqual(expectedCalculation.Comments, actualCalculation.Comments);
+
+            AssertStabilityPointStructuresInput(expectedCalculation.InputParameters, actualCalculation.InputParameters);
+
+            if (expectedCalculation.HasOutput)
+            {
+                AssertProbabilityAssessmentOutput(expectedCalculation.Output, actualCalculation.Output);
+            }
+            else
+            {
+                Assert.IsFalse(actualCalculation.HasOutput);
+            }
+        }
+
+        private static void AssertStabilityPointStructuresInput(StabilityPointStructuresInput expectedInput, StabilityPointStructuresInput actualInput)
+        {
+            AssertStructureInputBase(expectedInput, actualInput);
+
+            if (expectedInput.Structure == null)
+            {
+                Assert.IsNull(actualInput.Structure);
+            }
+            else
+            {
+                AssertStabilityPointStructure(expectedInput.Structure, actualInput.Structure);
+            }
+
+            DistributionAssert.AreEqual(expectedInput.InsideWaterLevel, actualInput.InsideWaterLevel);
+            DistributionAssert.AreEqual(expectedInput.ThresholdHeightOpenWeir, actualInput.ThresholdHeightOpenWeir);
+            DistributionAssert.AreEqual(expectedInput.ConstructiveStrengthLinearLoadModel, actualInput.ConstructiveStrengthLinearLoadModel);
+            DistributionAssert.AreEqual(expectedInput.ConstructiveStrengthQuadraticLoadModel, actualInput.ConstructiveStrengthQuadraticLoadModel);
+            DistributionAssert.AreEqual(expectedInput.BankWidth, actualInput.BankWidth);
+            DistributionAssert.AreEqual(expectedInput.InsideWaterLevelFailureConstruction, actualInput.InsideWaterLevelFailureConstruction);
+            Assert.AreEqual(expectedInput.EvaluationLevel, actualInput.EvaluationLevel);
+            DistributionAssert.AreEqual(expectedInput.LevelCrestStructure, actualInput.LevelCrestStructure);
+            Assert.AreEqual(expectedInput.VerticalDistance, actualInput.VerticalDistance);
+            Assert.AreEqual(expectedInput.FailureProbabilityRepairClosure, actualInput.FailureProbabilityRepairClosure);
+            DistributionAssert.AreEqual(expectedInput.FailureCollisionEnergy, actualInput.FailureCollisionEnergy);
+            DistributionAssert.AreEqual(expectedInput.ShipMass, actualInput.ShipMass);
+            DistributionAssert.AreEqual(expectedInput.ShipVelocity, actualInput.ShipVelocity);
+            Assert.AreEqual(expectedInput.LevellingCount, actualInput.LevellingCount);
+            Assert.AreEqual(expectedInput.ProbabilityCollisionSecondaryStructure, actualInput.ProbabilityCollisionSecondaryStructure);
+            DistributionAssert.AreEqual(expectedInput.FlowVelocityStructureClosable, actualInput.FlowVelocityStructureClosable);
+            DistributionAssert.AreEqual(expectedInput.StabilityLinearLoadModel, actualInput.StabilityLinearLoadModel);
+            DistributionAssert.AreEqual(expectedInput.StabilityQuadraticLoadModel, actualInput.StabilityQuadraticLoadModel);
+            DistributionAssert.AreEqual(expectedInput.AreaFlowApertures, actualInput.AreaFlowApertures);
+            Assert.AreEqual(expectedInput.InflowModelType, actualInput.InflowModelType);
+            Assert.AreEqual(expectedInput.LoadSchematizationType, actualInput.LoadSchematizationType);
+            Assert.AreEqual(expectedInput.VolumicWeightWater, actualInput.VolumicWeightWater);
+            Assert.AreEqual(expectedInput.FactorStormDurationOpenStructure, actualInput.FactorStormDurationOpenStructure);
+            DistributionAssert.AreEqual(expectedInput.DrainCoefficient, actualInput.DrainCoefficient);
+        }
+
         #endregion
 
         #region ClosingStructures FailureMechanism
@@ -978,6 +1041,7 @@ namespace Application.Ringtoets.Storage.Test.IntegrationTests
 
             AssertForeshoreProfiles(expectedFailureMechanism.ForeshoreProfiles, actualFailureMechanism.ForeshoreProfiles);
             AssertClosingStructures(expectedFailureMechanism.ClosingStructures, actualFailureMechanism.ClosingStructures);
+            AssertCalculationGroup(expectedFailureMechanism.CalculationsGroup, actualFailureMechanism.CalculationsGroup);
         }
 
         private static void AssertClosingStructures(ObservableList<ClosingStructure> expectedClosingStructures, ObservableList<ClosingStructure> actualClosingStructures)

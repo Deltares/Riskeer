@@ -111,11 +111,12 @@ namespace Application.Ringtoets.Storage.TestUtil
             ConfigureClosingStructuresFailureMechanism(closingStructuresFailureMechanism, assessmentSection);
             AddSections(closingStructuresFailureMechanism);
             SetSectionResults(closingStructuresFailureMechanism.SectionResults,
-                (StructuresCalculation<ClosingStructuresInput>)closingStructuresFailureMechanism.Calculations.First());
+                              (StructuresCalculation<ClosingStructuresInput>) closingStructuresFailureMechanism.Calculations.First());
 
             StabilityPointStructuresFailureMechanism stabilityPointStructuresFailureMechanism = assessmentSection.StabilityPointStructures;
             AddForeshoreProfiles(stabilityPointStructuresFailureMechanism.ForeshoreProfiles);
-            ConfigureStabilityPointStructuresFailureMechanism(stabilityPointStructuresFailureMechanism);
+            ConfigureStabilityPointStructuresFailureMechanism(stabilityPointStructuresFailureMechanism,
+                                                              assessmentSection);
             AddSections(stabilityPointStructuresFailureMechanism);
             SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults);
 
@@ -350,11 +351,164 @@ namespace Application.Ringtoets.Storage.TestUtil
 
         #region StabilityPointStructures FailureMechanism
 
-        private static void ConfigureStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism)
+        private static void ConfigureStabilityPointStructuresFailureMechanism(StabilityPointStructuresFailureMechanism failureMechanism,
+                                                                              IAssessmentSection assessmentSection)
         {
             failureMechanism.GeneralInput.N = 8;
             failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
             failureMechanism.StabilityPointStructures.Add(new TestStabilityPointStructure());
+
+            var random = new Random(56);
+
+            ForeshoreProfile foreshoreProfile = failureMechanism.ForeshoreProfiles[0];
+            HydraulicBoundaryLocation hydroLocation = assessmentSection.HydraulicBoundaryDatabase.Locations[0];
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Name = "StabilityPoint Structure A",
+                Children =
+                {
+                    new StructuresCalculation<StabilityPointStructuresInput>
+                    {
+                        Name = "Calculation 1",
+                        Comments = "Fully configured for greatness!",
+                        InputParameters =
+                        {
+                            StormDuration =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                            },
+                            StructureNormalOrientation = (RoundedDouble) random.NextDouble(),
+                            FailureProbabilityStructureWithErosion = random.NextDouble(),
+                            UseForeshore = random.NextBoolean(),
+                            UseBreakWater = random.NextBoolean(),
+                            BreakWater =
+                            {
+                                Type = BreakWaterType.Dam,
+                                Height = (RoundedDouble) random.NextDouble()
+                            },
+                            AllowedLevelIncreaseStorage =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                StandardDeviation = (RoundedDouble) random.NextDouble()
+                            },
+                            StorageStructureArea =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                            },
+                            FlowWidthAtBottomProtection =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                StandardDeviation = (RoundedDouble) random.NextDouble()
+                            },
+                            CriticalOvertoppingDischarge =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                            },
+                            ModelFactorSuperCriticalFlow =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble()
+                            },
+                            WidthFlowApertures =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                            },
+                            InsideWaterLevel =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                StandardDeviation = (RoundedDouble) random.NextDouble()
+                            },
+                            ThresholdHeightOpenWeir =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                StandardDeviation = (RoundedDouble) random.NextDouble()
+                            },
+                            ConstructiveStrengthLinearLoadModel =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                            },
+                            ConstructiveStrengthQuadraticLoadModel =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                            },
+                            BankWidth =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                StandardDeviation = (RoundedDouble) random.NextDouble()
+                            },
+                            InsideWaterLevelFailureConstruction =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                StandardDeviation = (RoundedDouble) random.NextDouble()
+                            },
+                            EvaluationLevel = (RoundedDouble) random.NextDouble(),
+                            LevelCrestStructure =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                StandardDeviation = (RoundedDouble) random.NextDouble()
+                            },
+                            VerticalDistance = (RoundedDouble) random.NextDouble(),
+                            FailureProbabilityRepairClosure = random.NextDouble(),
+                            FailureCollisionEnergy =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                            },
+                            ShipMass =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                            },
+                            ShipVelocity =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                            },
+                            LevellingCount = random.Next(),
+                            ProbabilityCollisionSecondaryStructure = random.NextDouble(),
+                            FlowVelocityStructureClosable =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                StandardDeviation = (RoundedDouble) random.NextDouble()
+                            },
+                            StabilityLinearLoadModel =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                            },
+                            StabilityQuadraticLoadModel =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                            },
+                            AreaFlowApertures =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble(),
+                                StandardDeviation = (RoundedDouble) random.NextDouble()
+                            },
+                            InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                            LoadSchematizationType = LoadSchematizationType.Quadratic,
+                            VolumicWeightWater = (RoundedDouble) random.NextDouble(),
+                            FactorStormDurationOpenStructure = (RoundedDouble) random.NextDouble(),
+                            DrainCoefficient =
+                            {
+                                Mean = (RoundedDouble) random.NextDouble()
+                            },
+                            ForeshoreProfile = foreshoreProfile,
+                            HydraulicBoundaryLocation = hydroLocation
+                        }
+                    }
+                }
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup
+            {
+                Name = "StabilityPoint Structure B"
+            });
+            failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
         }
 
         #endregion
@@ -466,15 +620,15 @@ namespace Application.Ringtoets.Storage.TestUtil
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<ClosingStructuresInput>());
         }
 
-        private static void SetSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults, 
-            StructuresCalculation<ClosingStructuresInput> calculation)
+        private static void SetSectionResults(IEnumerable<ClosingStructuresFailureMechanismSectionResult> sectionResults,
+                                              StructuresCalculation<ClosingStructuresInput> calculation)
         {
             var random = new Random(21);
             var firstSectionResultHasCalculation = false;
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = random.NextBoolean();
-                sectionResult.AssessmentLayerThree = (RoundedDouble)random.NextDouble();
+                sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
                 if (!firstSectionResultHasCalculation)
                 {
                     sectionResult.Calculation = calculation;

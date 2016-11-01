@@ -42,10 +42,11 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
         internal static FailureMechanismEntity Create(this StabilityPointStructuresFailureMechanism mechanism, PersistenceRegistry registry)
         {
             FailureMechanismEntity entity = mechanism.Create(FailureMechanismType.StabilityPointStructures, registry);
-            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             AddEntitiesForStabilityPointStructures(mechanism.StabilityPointStructures, entity, registry);
             AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
+            entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
+            AddEntitiesForSectionResults(mechanism.SectionResults, registry);
 
             return entity;
         }

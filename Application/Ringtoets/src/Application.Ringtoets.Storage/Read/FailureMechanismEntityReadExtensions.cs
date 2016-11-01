@@ -385,8 +385,8 @@ namespace Application.Ringtoets.Storage.Read
         }
 
         private static void ReadClosingStructuresRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
-                                                             CalculationGroup targetRootCalculationGroup,
-                                                             ReadConversionCollector collector)
+                                                                      CalculationGroup targetRootCalculationGroup,
+                                                                      ReadConversionCollector collector)
         {
             CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsClosingStructuresCalculationGroup(collector);
             foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
@@ -743,6 +743,7 @@ namespace Application.Ringtoets.Storage.Read
             entity.ReadForeshoreProfiles(failureMechanism.ForeshoreProfiles, collector);
             entity.ReadStabilityPointStructures(failureMechanism.StabilityPointStructures, collector);
             entity.ReadGeneralInput(failureMechanism.GeneralInput);
+            ReadStabilityPointStructuresRootCalculationGroup(entity.CalculationGroupEntity, failureMechanism.CalculationsGroup, collector);
         }
 
         private static void ReadStabilityPointStructuresMechanismSectionResults(this FailureMechanismEntity entity, StabilityPointStructuresFailureMechanism failureMechanism, ReadConversionCollector collector)
@@ -767,6 +768,17 @@ namespace Application.Ringtoets.Storage.Read
         {
             GeneralStabilityPointStructuresInput generalStabilityPointStructuresInput = entity.StabilityPointStructuresFailureMechanismMetaEntities.First().Read();
             generalInput.N = generalStabilityPointStructuresInput.N;
+        }
+
+        private static void ReadStabilityPointStructuresRootCalculationGroup(CalculationGroupEntity rootCalculationGroupEntity,
+                                                                             CalculationGroup targetRootCalculationGroup,
+                                                                             ReadConversionCollector collector)
+        {
+            CalculationGroup rootCalculationGroup = rootCalculationGroupEntity.ReadAsStabilityPointStructuresCalculationGroup(collector);
+            foreach (ICalculationBase calculationBase in rootCalculationGroup.Children)
+            {
+                targetRootCalculationGroup.Children.Add(calculationBase);
+            }
         }
 
         #endregion

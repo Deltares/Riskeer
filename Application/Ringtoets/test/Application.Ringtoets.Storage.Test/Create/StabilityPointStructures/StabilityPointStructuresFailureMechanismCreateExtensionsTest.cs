@@ -26,6 +26,8 @@ using Application.Ringtoets.Storage.Create.StabilityPointStructures;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Structures;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
@@ -162,6 +164,44 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             // Assert
             Assert.AreEqual(1, entity.StabilityPointStructureEntities.Count);
             Assert.IsTrue(persistenceRegistry.Contains(structure));
+        }
+
+        [Test]
+        public void Create_WithCalculationGroup_ReturnFailureMechanismEntityWithCalculationGroupEntities()
+        {
+            // Setup
+            StructuresCalculation<StabilityPointStructuresInput> calculation = new TestStabilityPointStructuresCalculation();
+            calculation.InputParameters.Structure = null;
+            calculation.InputParameters.HydraulicBoundaryLocation = null;
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            failureMechanism.CalculationsGroup.Children.Add(new CalculationGroup("A", true));
+            failureMechanism.CalculationsGroup.Children.Add(calculation);
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            FailureMechanismEntity entity = failureMechanism.Create(registry);
+
+            // Assert
+            Assert.IsNotNull(entity);
+            Assert.AreEqual(failureMechanism.CalculationsGroup.Name, entity.CalculationGroupEntity.Name);
+            Assert.AreEqual(0, entity.CalculationGroupEntity.Order);
+
+            CalculationGroupEntity[] childGroupEntities = entity.CalculationGroupEntity.CalculationGroupEntity1
+                                                                .OrderBy(cge => cge.Order)
+                                                                .ToArray();
+            Assert.AreEqual(1, childGroupEntities.Length);
+            CalculationGroupEntity childGroupEntity = childGroupEntities[0];
+            Assert.AreEqual("A", childGroupEntity.Name);
+            Assert.AreEqual(0, childGroupEntity.Order);
+
+            StabilityPointStructuresCalculationEntity[] calculationEntities = entity.CalculationGroupEntity.StabilityPointStructuresCalculationEntities
+                                                                             .OrderBy(ce => ce.Order)
+                                                                             .ToArray();
+            StabilityPointStructuresCalculationEntity calculationEntity = calculationEntities[0];
+            Assert.AreEqual("Nieuwe berekening", calculationEntity.Name);
+            Assert.AreEqual(1, calculationEntity.Order);
         }
     }
 }
