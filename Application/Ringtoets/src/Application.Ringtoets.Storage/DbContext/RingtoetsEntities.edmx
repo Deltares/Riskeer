@@ -751,6 +751,18 @@
           <Property Name="FailureMechanismEntityId" Type="integer" Nullable="false" />
           <Property Name="N" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="StabilityPointStructuresOutputEntity">
+          <Key>
+            <PropertyRef Name="StabilityPointStructuresOutputEntity" />
+          </Key>
+          <Property Name="StabilityPointStructuresOutputEntity" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StabilityPointStructuresCalculationEntityId" Type="integer" Nullable="false" />
+          <Property Name="RequiredProbability" Type="real" />
+          <Property Name="RequiredReliability" Type="real" />
+          <Property Name="Probability" Type="real" />
+          <Property Name="Reliability" Type="real" />
+          <Property Name="FactorOfSafety" Type="real" />
+        </EntityType>
         <EntityType Name="StabilityPointStructuresSectionResultEntity">
           <Key>
             <PropertyRef Name="StabilityPointStructuresSectionResultEntityId" />
@@ -1674,6 +1686,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StabilityPointStructuresOutputEntity_0_0">
+          <End Role="StabilityPointStructuresCalculationEntity" Type="Self.StabilityPointStructuresCalculationEntity" Multiplicity="1" />
+          <End Role="StabilityPointStructuresOutputEntity" Type="Self.StabilityPointStructuresOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StabilityPointStructuresCalculationEntity">
+              <PropertyRef Name="StabilityPointStructuresCalculationEntityId" />
+            </Principal>
+            <Dependent Role="StabilityPointStructuresOutputEntity">
+              <PropertyRef Name="StabilityPointStructuresCalculationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StabilityPointStructuresSectionResultEntity_0_0">
           <End Role="FailureMechanismSectionEntity" Type="Self.FailureMechanismSectionEntity" Multiplicity="1" />
           <End Role="StabilityPointStructuresSectionResultEntity" Type="Self.StabilityPointStructuresSectionResultEntity" Multiplicity="*" />
@@ -1936,6 +1960,7 @@
           <EntitySet Name="StabilityPointStructureEntity" EntityType="Self.StabilityPointStructureEntity" store:Type="Tables" />
           <EntitySet Name="StabilityPointStructuresCalculationEntity" EntityType="Self.StabilityPointStructuresCalculationEntity" store:Type="Tables" />
           <EntitySet Name="StabilityPointStructuresFailureMechanismMetaEntity" EntityType="Self.StabilityPointStructuresFailureMechanismMetaEntity" store:Type="Tables" />
+          <EntitySet Name="StabilityPointStructuresOutputEntity" EntityType="Self.StabilityPointStructuresOutputEntity" store:Type="Tables" />
           <EntitySet Name="StabilityPointStructuresSectionResultEntity" EntityType="Self.StabilityPointStructuresSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="StabilityStoneCoverSectionResultEntity" EntityType="Self.StabilityStoneCoverSectionResultEntity" store:Type="Tables" />
           <EntitySet Name="StabilityStoneCoverWaveConditionsCalculationEntity" EntityType="Self.StabilityStoneCoverWaveConditionsCalculationEntity" store:Type="Tables" />
@@ -2202,6 +2227,10 @@
             <End Role="FailureMechanismEntity" EntitySet="FailureMechanismEntity" />
             <End Role="StabilityPointStructuresFailureMechanismMetaEntity" EntitySet="StabilityPointStructuresFailureMechanismMetaEntity" />
           </AssociationSet>
+          <AssociationSet Name="FK_StabilityPointStructuresOutputEntity_0_0" Association="Self.FK_StabilityPointStructuresOutputEntity_0_0">
+            <End Role="StabilityPointStructuresCalculationEntity" EntitySet="StabilityPointStructuresCalculationEntity" />
+            <End Role="StabilityPointStructuresOutputEntity" EntitySet="StabilityPointStructuresOutputEntity" />
+          </AssociationSet>
           <AssociationSet Name="FK_StabilityPointStructuresSectionResultEntity_0_0" Association="Self.FK_StabilityPointStructuresSectionResultEntity_0_0">
             <End Role="FailureMechanismSectionEntity" EntitySet="FailureMechanismSectionEntity" />
             <End Role="StabilityPointStructuresSectionResultEntity" EntitySet="StabilityPointStructuresSectionResultEntity" />
@@ -2325,6 +2354,7 @@
           <EntitySet Name="StabilityPointStructureEntities" EntityType="RingtoetsEntitiesModel.StabilityPointStructureEntity" />
           <EntitySet Name="StabilityPointStructuresCalculationEntities" EntityType="RingtoetsEntitiesModel.StabilityPointStructuresCalculationEntity" />
           <EntitySet Name="StabilityPointStructuresFailureMechanismMetaEntities" EntityType="RingtoetsEntitiesModel.StabilityPointStructuresFailureMechanismMetaEntity" />
+          <EntitySet Name="StabilityPointStructuresOutputEntities" EntityType="RingtoetsEntitiesModel.StabilityPointStructuresOutputEntity" />
           <EntitySet Name="StabilityPointStructuresSectionResultEntities" EntityType="RingtoetsEntitiesModel.StabilityPointStructuresSectionResultEntity" />
           <EntitySet Name="StabilityStoneCoverSectionResultEntities" EntityType="RingtoetsEntitiesModel.StabilityStoneCoverSectionResultEntity" />
           <EntitySet Name="StabilityStoneCoverWaveConditionsCalculationEntities" EntityType="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsCalculationEntity" />
@@ -2650,6 +2680,10 @@
           <AssociationSet Name="FK_StabilityPointStructuresCalculationEntity_0_0" Association="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_0_0">
             <End Role="StabilityPointStructureEntity" EntitySet="StabilityPointStructureEntities" />
             <End Role="StabilityPointStructuresCalculationEntity" EntitySet="StabilityPointStructuresCalculationEntities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StabilityPointStructuresOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_StabilityPointStructuresOutputEntity_0_0">
+            <End Role="StabilityPointStructuresCalculationEntity" EntitySet="StabilityPointStructuresCalculationEntities" />
+            <End Role="StabilityPointStructuresOutputEntity" EntitySet="StabilityPointStructuresOutputEntities" />
           </AssociationSet>
           <AssociationSet Name="FK_StabilityStoneCoverWaveConditionsOutputEntity_0_0" Association="RingtoetsEntitiesModel.FK_StabilityStoneCoverWaveConditionsOutputEntity_0_0">
             <End Role="StabilityStoneCoverWaveConditionsCalculationEntity" EntitySet="StabilityStoneCoverWaveConditionsCalculationEntities" />
@@ -3538,6 +3572,7 @@
           <NavigationProperty Name="ForeshoreProfileEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_2_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="ForeshoreProfileEntity" />
           <NavigationProperty Name="HydraulicLocationEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_1_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="HydraulicLocationEntity" />
           <NavigationProperty Name="StabilityPointStructureEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresCalculationEntity_0_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="StabilityPointStructureEntity" />
+          <NavigationProperty Name="StabilityPointStructuresOutputEntities" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresOutputEntity_0_0" FromRole="StabilityPointStructuresCalculationEntity" ToRole="StabilityPointStructuresOutputEntity" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresFailureMechanismMetaEntity">
           <Key>
@@ -3547,6 +3582,19 @@
           <Property Name="FailureMechanismEntityId" Type="Int64" Nullable="false" />
           <Property Name="N" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FailureMechanismEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresFailureMechanismMetaEntity_0_0" FromRole="StabilityPointStructuresFailureMechanismMetaEntity" ToRole="FailureMechanismEntity" />
+        </EntityType>
+        <EntityType Name="StabilityPointStructuresOutputEntity">
+          <Key>
+            <PropertyRef Name="StabilityPointStructuresOutputEntity1" />
+          </Key>
+          <Property Name="StabilityPointStructuresOutputEntity1" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StabilityPointStructuresCalculationEntityId" Type="Int64" Nullable="false" />
+          <Property Name="RequiredProbability" Type="Double" />
+          <Property Name="RequiredReliability" Type="Double" />
+          <Property Name="Probability" Type="Double" />
+          <Property Name="Reliability" Type="Double" />
+          <Property Name="FactorOfSafety" Type="Double" />
+          <NavigationProperty Name="StabilityPointStructuresCalculationEntity" Relationship="RingtoetsEntitiesModel.FK_StabilityPointStructuresOutputEntity_0_0" FromRole="StabilityPointStructuresOutputEntity" ToRole="StabilityPointStructuresCalculationEntity" />
         </EntityType>
         <EntityType Name="StabilityPointStructuresSectionResultEntity">
           <Key>
@@ -4675,6 +4723,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StabilityPointStructuresOutputEntity_0_0">
+          <End Type="RingtoetsEntitiesModel.StabilityPointStructuresCalculationEntity" Role="StabilityPointStructuresCalculationEntity" Multiplicity="1" />
+          <End Type="RingtoetsEntitiesModel.StabilityPointStructuresOutputEntity" Role="StabilityPointStructuresOutputEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StabilityPointStructuresCalculationEntity">
+              <PropertyRef Name="StabilityPointStructuresCalculationEntityId" />
+            </Principal>
+            <Dependent Role="StabilityPointStructuresOutputEntity">
+              <PropertyRef Name="StabilityPointStructuresCalculationEntityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StabilityStoneCoverWaveConditionsOutputEntity_0_0">
           <End Type="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsCalculationEntity" Role="StabilityStoneCoverWaveConditionsCalculationEntity" Multiplicity="1" />
           <End Type="RingtoetsEntitiesModel.StabilityStoneCoverWaveConditionsOutputEntity" Role="StabilityStoneCoverWaveConditionsOutputEntity" Multiplicity="*" />
@@ -5505,6 +5565,19 @@
                 <ScalarProperty Name="N" ColumnName="N" />
                 <ScalarProperty Name="FailureMechanismEntityId" ColumnName="FailureMechanismEntityId" />
                 <ScalarProperty Name="StrengthStabilityPointConstructionFailureMechanismMetaEntityId" ColumnName="StrengthStabilityPointConstructionFailureMechanismMetaEntityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StabilityPointStructuresOutputEntities">
+            <EntityTypeMapping TypeName="RingtoetsEntitiesModel.StabilityPointStructuresOutputEntity">
+              <MappingFragment StoreEntitySet="StabilityPointStructuresOutputEntity">
+                <ScalarProperty Name="FactorOfSafety" ColumnName="FactorOfSafety" />
+                <ScalarProperty Name="Reliability" ColumnName="Reliability" />
+                <ScalarProperty Name="Probability" ColumnName="Probability" />
+                <ScalarProperty Name="RequiredReliability" ColumnName="RequiredReliability" />
+                <ScalarProperty Name="RequiredProbability" ColumnName="RequiredProbability" />
+                <ScalarProperty Name="StabilityPointStructuresCalculationEntityId" ColumnName="StabilityPointStructuresCalculationEntityId" />
+                <ScalarProperty Name="StabilityPointStructuresOutputEntity1" ColumnName="StabilityPointStructuresOutputEntity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
