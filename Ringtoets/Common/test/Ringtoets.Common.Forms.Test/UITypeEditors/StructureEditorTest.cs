@@ -44,6 +44,16 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         }
 
         [Test]
+        public void DefaultConstructor_ReturnsNewInstance()
+        {
+            // Call
+            var editor = new StructureEditor<SimpleStructure>();
+
+            // Assert
+            Assert.IsInstanceOf<SelectionEditor<IHasStructureProperty<SimpleStructure>, SimpleStructure>>(editor);
+        }
+
+        [Test]
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup

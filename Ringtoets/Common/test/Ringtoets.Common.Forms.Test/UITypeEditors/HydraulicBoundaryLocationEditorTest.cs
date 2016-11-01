@@ -43,6 +43,16 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         }
 
         [Test]
+        public void DefaultConstructor_ReturnsNewInstance()
+        {
+            // Call
+            var editor = new HydraulicBoundaryLocationEditor();
+
+            // Assert
+            Assert.IsInstanceOf<SelectionEditor<IHasHydraulicBoundaryLocationProperty, HydraulicBoundaryLocation>>(editor);
+        }
+
+        [Test]
         public void EditValue_WithCurrentItemNotInAvailableItems_ReturnsOriginalValue()
         {
             // Setup

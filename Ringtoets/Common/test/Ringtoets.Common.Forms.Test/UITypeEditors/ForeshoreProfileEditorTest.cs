@@ -44,6 +44,16 @@ namespace Ringtoets.Common.Forms.Test.UITypeEditors
         }
 
         [Test]
+        public void DefaultConstructor_ReturnsNewInstance()
+        {
+            // Call
+            var editor = new ForeshoreProfileEditor();
+
+            // Assert
+            Assert.IsInstanceOf<SelectionEditor<IHasForeshoreProfileProperty, ForeshoreProfile>>(editor);
+        }
+
+        [Test]
         public void Constructor_NullItemSet()
         {
             // Call
