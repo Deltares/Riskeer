@@ -118,7 +118,8 @@ namespace Application.Ringtoets.Storage.TestUtil
             ConfigureStabilityPointStructuresFailureMechanism(stabilityPointStructuresFailureMechanism,
                                                               assessmentSection);
             AddSections(stabilityPointStructuresFailureMechanism);
-            SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults);
+            SetSectionResults(stabilityPointStructuresFailureMechanism.SectionResults,
+                              (StructuresCalculation<StabilityPointStructuresInput>) stabilityPointStructuresFailureMechanism.Calculations.First());
 
             AddSections(assessmentSection.MacrostabilityInwards);
             SetSectionResults(assessmentSection.MacrostabilityInwards.SectionResults);
@@ -502,13 +503,20 @@ namespace Application.Ringtoets.Storage.TestUtil
             failureMechanism.CalculationsGroup.Children.Add(new StructuresCalculation<StabilityPointStructuresInput>());
         }
 
-        private static void SetSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults)
+        private static void SetSectionResults(IEnumerable<StabilityPointStructuresFailureMechanismSectionResult> sectionResults,
+                                              StructuresCalculation<StabilityPointStructuresInput> calculation)
         {
             var random = new Random(21);
+            var firstSectionResultHasCalculation = false;
             foreach (var sectionResult in sectionResults)
             {
                 sectionResult.AssessmentLayerOne = random.NextBoolean();
                 sectionResult.AssessmentLayerThree = (RoundedDouble) random.NextDouble();
+                if (!firstSectionResultHasCalculation)
+                {
+                    sectionResult.Calculation = calculation;
+                    firstSectionResultHasCalculation = true;
+                }
             }
         }
 

@@ -260,6 +260,8 @@ namespace Application.Ringtoets.Storage.Create
             SetInputValues(entity, calculation.InputParameters, registry);
             SetOutputEntity(calculation, entity, registry);
 
+            registry.Register(entity, calculation);
+
             return entity;
         }
 

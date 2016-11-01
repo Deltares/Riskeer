@@ -38,7 +38,8 @@ namespace Application.Ringtoets.Storage.Create.StabilityPointStructures
         /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StabilityPointStructuresSectionResultEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static StabilityPointStructuresSectionResultEntity Create(this StabilityPointStructuresFailureMechanismSectionResult result, PersistenceRegistry registry)
+        internal static StabilityPointStructuresSectionResultEntity Create(this StabilityPointStructuresFailureMechanismSectionResult result,
+                                                                           PersistenceRegistry registry)
         {
             if (registry == null)
             {
