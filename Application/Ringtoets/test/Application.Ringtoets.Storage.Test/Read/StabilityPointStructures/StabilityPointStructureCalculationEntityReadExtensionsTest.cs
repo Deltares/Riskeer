@@ -51,6 +51,25 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
         }
 
         [Test]
+        public void Read_EntityNotReadBefore_RegisterEntity()
+        {
+            // Setup
+            var entity = new StabilityPointStructuresCalculationEntity();
+
+            var collector = new ReadConversionCollector();
+
+            // Precondition
+            Assert.IsFalse(collector.Contains(entity));
+
+            // Call
+            StructuresCalculation<StabilityPointStructuresInput> calculation = entity.Read(collector);
+
+            // Assert
+            Assert.IsTrue(collector.Contains(entity));
+            Assert.AreSame(calculation, collector.Get(entity));
+        }
+
+        [Test]
         public void Read_ValidEntity_ReturnStabilityPointStructuresCalculation()
         {
             // Setup
@@ -381,6 +400,30 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
 
             // Assert
             Assert.IsTrue(calculation.HasOutput);
+        }
+
+        [Test]
+        public void Read_CalculationEntityAlreadyRead_ReturnReadCalculation()
+        {
+            // Setup
+            var entity = new StabilityPointStructuresCalculationEntity
+            {
+                StabilityPointStructuresOutputEntities =
+                {
+                    new StabilityPointStructuresOutputEntity()
+                }
+            };
+
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+
+            var collector = new ReadConversionCollector();
+            collector.Read(entity, calculation);
+
+            // Call
+            StructuresCalculation<StabilityPointStructuresInput> returnedCalculation = entity.Read(collector);
+
+            // Assert
+            Assert.AreSame(calculation, returnedCalculation);
         }
     }
 }
