@@ -24,6 +24,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using Application.Ringtoets.Storage.TestUtil;
+using Core.Common.Base.Data;
 using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
@@ -326,6 +327,46 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             Assert.IsFalse(isValid);
 
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        [TestCase(double.NaN)]
+        [TestCase(double.NegativeInfinity)]
+        [TestCase(double.PositiveInfinity)]
+        public void Validate_InvalidLowSillLinearCalculation_LogsErrorAndReturnsFalse(double value)
+        {
+            // Setup 
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(),
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
+
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            const string name = "<very nice name>";
+
+            var calculation = new TestStabilityPointStructuresCalculation()
+            {
+                Name = name
+            };
+
+            SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
+
+            bool isValid = false;
+
+            // Call 
+            Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            Assert.IsFalse(isValid);
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(2, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[1]);
+            });
         }
 
         [Test]
@@ -1111,5 +1152,154 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Assert.IsTrue(calculator.IsCanceled);
             }
         }
+
+        /// <summary>
+        /// Sets all input parameters of <see cref="StabilityPointStructuresInput"/> to invalid values.
+        /// </summary>
+        /// <param name="input">The input to be updated.</param>
+        /// <param name="value">The invalid value to be set on all input properties.</param>
+        /// <remarks>If <paramref name="value"/> cannot be set on an input property, that
+        /// value is set to <see cref="RoundedDouble.NaN"/>.</remarks>
+        private static void SetInvalidInputParameters(StabilityPointStructuresInput input, RoundedDouble value)
+        {
+            input.FactorStormDurationOpenStructure = value;
+            input.StructureNormalOrientation = RoundedDouble.NaN;
+            input.EvaluationLevel = value;
+            input.VerticalDistance = value;
+            input.VolumicWeightWater = value;
+
+            input.InsideWaterLevelFailureConstruction.Mean = value;
+            input.InsideWaterLevel.Mean = value;
+            input.ModelFactorSuperCriticalFlow.Mean = value;
+            input.FlowVelocityStructureClosable.Mean = value;
+            input.DrainCoefficient.Mean = value;
+            input.LevelCrestStructure.Mean = value;
+            input.ThresholdHeightOpenWeir.Mean = value;
+            input.ShipMass.Mean = value;
+            input.ShipVelocity.Mean = value;
+            input.WidthFlowApertures.Mean = value;
+            input.BankWidth.Mean = value;
+
+            if (double.IsNegativeInfinity(value))
+            {
+                input.InsideWaterLevelFailureConstruction.StandardDeviation = RoundedDouble.NaN;
+                input.InsideWaterLevel.StandardDeviation = RoundedDouble.NaN;
+                input.StormDuration.CoefficientOfVariation = RoundedDouble.NaN;
+                input.ModelFactorSuperCriticalFlow.StandardDeviation = RoundedDouble.NaN;
+                input.FlowVelocityStructureClosable.StandardDeviation = RoundedDouble.NaN;
+                input.DrainCoefficient.StandardDeviation = RoundedDouble.NaN;
+                input.LevelCrestStructure.StandardDeviation = RoundedDouble.NaN;
+                input.ThresholdHeightOpenWeir.StandardDeviation = RoundedDouble.NaN;
+                input.AreaFlowApertures.StandardDeviation = RoundedDouble.NaN;
+                input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation = RoundedDouble.NaN;
+                input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation = RoundedDouble.NaN;
+                input.StabilityLinearLoadModel.CoefficientOfVariation = RoundedDouble.NaN;
+                input.StabilityQuadraticLoadModel.CoefficientOfVariation = RoundedDouble.NaN;
+                input.FailureCollisionEnergy.CoefficientOfVariation = RoundedDouble.NaN;
+                input.ShipMass.CoefficientOfVariation = RoundedDouble.NaN;
+                input.ShipVelocity.CoefficientOfVariation = RoundedDouble.NaN;
+                input.AllowedLevelIncreaseStorage.StandardDeviation = RoundedDouble.NaN;
+                input.StorageStructureArea.CoefficientOfVariation = RoundedDouble.NaN;
+                input.FlowWidthAtBottomProtection.StandardDeviation = RoundedDouble.NaN;
+                input.CriticalOvertoppingDischarge.CoefficientOfVariation = RoundedDouble.NaN;
+                input.WidthFlowApertures.CoefficientOfVariation = RoundedDouble.NaN;
+                input.BankWidth.StandardDeviation = RoundedDouble.NaN;
+
+                input.StormDuration.Mean = RoundedDouble.NaN;
+                input.ModelFactorSuperCriticalFlow.Mean = RoundedDouble.NaN;
+                input.FlowVelocityStructureClosable.Mean = RoundedDouble.NaN;
+                input.DrainCoefficient.Mean = RoundedDouble.NaN;
+                input.LevelCrestStructure.Mean = RoundedDouble.NaN;
+                input.ThresholdHeightOpenWeir.Mean = RoundedDouble.NaN;
+                input.AreaFlowApertures.Mean = RoundedDouble.NaN;
+                input.ConstructiveStrengthLinearLoadModel.Mean = RoundedDouble.NaN;
+                input.ConstructiveStrengthQuadraticLoadModel.Mean = RoundedDouble.NaN;
+                input.StabilityLinearLoadModel.Mean = RoundedDouble.NaN;
+                input.StabilityQuadraticLoadModel.Mean = RoundedDouble.NaN;
+                input.FailureCollisionEnergy.Mean = RoundedDouble.NaN;
+                input.ShipMass.Mean = RoundedDouble.NaN;
+                input.ShipVelocity.Mean = RoundedDouble.NaN;
+                input.AllowedLevelIncreaseStorage.Mean = RoundedDouble.NaN;
+                input.StorageStructureArea.Mean = RoundedDouble.NaN;
+                input.FlowWidthAtBottomProtection.Mean = RoundedDouble.NaN;
+                input.CriticalOvertoppingDischarge.Mean = RoundedDouble.NaN;
+            }
+            else
+            {
+                input.InsideWaterLevelFailureConstruction.StandardDeviation = value;
+                input.InsideWaterLevel.StandardDeviation = value;
+                input.StormDuration.CoefficientOfVariation = value;
+                input.ModelFactorSuperCriticalFlow.StandardDeviation = value;
+                input.FlowVelocityStructureClosable.StandardDeviation = value;
+                input.DrainCoefficient.StandardDeviation = value;
+                input.LevelCrestStructure.StandardDeviation = value;
+                input.ThresholdHeightOpenWeir.StandardDeviation = value;
+                input.AreaFlowApertures.StandardDeviation = value;
+                input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation = value;
+                input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation = value;
+                input.StabilityLinearLoadModel.CoefficientOfVariation = value;
+                input.StabilityQuadraticLoadModel.CoefficientOfVariation = value;
+                input.FailureCollisionEnergy.CoefficientOfVariation = value;
+                input.ShipMass.CoefficientOfVariation = value;
+                input.ShipVelocity.CoefficientOfVariation = value;
+                input.AllowedLevelIncreaseStorage.StandardDeviation = value;
+                input.StorageStructureArea.CoefficientOfVariation = value;
+                input.FlowWidthAtBottomProtection.StandardDeviation = value;
+                input.CriticalOvertoppingDischarge.CoefficientOfVariation = value;
+                input.WidthFlowApertures.CoefficientOfVariation = value;
+                input.BankWidth.StandardDeviation = value;
+
+                input.StormDuration.Mean = value;
+                input.ModelFactorSuperCriticalFlow.Mean = value;
+                input.FlowVelocityStructureClosable.Mean = value;
+                input.DrainCoefficient.Mean = value;
+                input.LevelCrestStructure.Mean = value;
+                input.ThresholdHeightOpenWeir.Mean = value;
+                input.AreaFlowApertures.Mean = value;
+                input.ConstructiveStrengthLinearLoadModel.Mean = value;
+                input.ConstructiveStrengthQuadraticLoadModel.Mean = value;
+                input.StabilityLinearLoadModel.Mean = value;
+                input.StabilityQuadraticLoadModel.Mean = value;
+                input.FailureCollisionEnergy.Mean = value;
+                input.ShipMass.Mean = value;
+                input.ShipVelocity.Mean = value;
+                input.AllowedLevelIncreaseStorage.Mean = value;
+                input.StorageStructureArea.Mean = value;
+                input.FlowWidthAtBottomProtection.Mean = value;
+                input.CriticalOvertoppingDischarge.Mean = value;
+            }
+        }
+
+        #region Parametername mappings
+
+        private const string volumicWeightWater = "Volumiek gewicht van water";
+        private const string insideWaterLevelFailureConstruction = "Binnenwaterstand bij constructief falen";
+        private const string insideWaterLevel = "Binnenwaterstand";
+        private const string stormDuration = "Stormduur";
+        private const string factorStormDurationOpenStructure = "Factor voor stormduur hoogwater";
+        private const string modelFactorSuperCriticalFlow = "Modelfactor overloopdebiet volkomen overlaat";
+        private const string flowVelocityStructureClosable = "Kritieke stroomsnelheid sluiting eerste keermiddel";
+        private const string drainCoefficient = "Afvoercoëfficient";
+        private const string structureNormalOrientation = "Oriëntatie";
+        private const string levelCrestStructure = "Kerende hoogte";
+        private const string thresholdHeightOpenWeir = "Drempelhoogte";
+        private const string areaFlowApertures = "Doorstroomoppervlak";
+        private const string constructiveStrengthLinearLoadModel = "Lineaire belastingschematisering constructieve sterkte";
+        private const string constructiveStrengthQuadraticLoadModel = "Kwadratische belastingschematisering constructieve sterkte";
+        private const string stabilityLinearLoadModel = "Lineaire belastingschematisering stabiliteit";
+        private const string stabilityQuadraticLoadModel = "Kwadratische belastingschematisering stabiliteit";
+        private const string failureCollisionEnergy = "Bezwijkwaarde aanvaarenergie";
+        private const string shipMass = "Massa van het schip";
+        private const string shipVelocity = "Aanvaarsnelheid";
+        private const string allowedLevelIncreaseStorage = "Toegestane peilverhoging komberging";
+        private const string storageStructureArea = "Kombergend oppervlak";
+        private const string flowWidthAtBottomProtection = "Stroomvoerende breedte bodembescherming";
+        private const string criticalOvertoppingDischarge = "Kritiek instromend debiet";
+        private const string widthFlowApertures = "Breedte van doorstroomopening";
+        private const string bankWidth = "Bermbreedte";
+        private const string evaluationLevel = "Analysehoogte";
+        private const string verticalDistance = "Afstand onderkant wand en teen van de dijk/berm";
+
+        #endregion
     }
 }
