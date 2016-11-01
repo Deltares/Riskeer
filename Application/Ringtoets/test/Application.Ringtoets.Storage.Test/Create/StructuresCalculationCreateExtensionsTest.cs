@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using System.Linq;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using Application.Ringtoets.Storage.TestUtil;
@@ -36,6 +35,8 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Data.TestUtil;
 
 namespace Application.Ringtoets.Storage.Test.Create
 {
@@ -729,6 +730,496 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.AreEqual(1, entity.ClosingStructuresOutputEntities.Count);
+        }
+
+        #endregion
+
+        #region CreateForStabilityPointStructures
+
+        [Test]
+        public void CreateForStabilityPointStructures_RegistryIsNull_ThrowArgumentNullException()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+
+            // Call
+            TestDelegate call = () => calculation.CreateForStabilityPointStructures(null, 0);
+
+            // Assert
+            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
+            Assert.AreEqual("registry", paramName);
+        }
+
+        [Test]
+        public void CreateForStabilityPointStructures_ValidCalculation_ReturnStabilityPointStructuresCalculationEntity()
+        {
+            // Setup
+            var random = new Random(45);
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Name = "A",
+                Comments = "B",
+                InputParameters =
+                {
+                    StormDuration =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                    },
+                    StructureNormalOrientation = (RoundedDouble) random.NextDouble(),
+                    FailureProbabilityStructureWithErosion = random.NextDouble(),
+                    UseForeshore = random.NextBoolean(),
+                    UseBreakWater = random.NextBoolean(),
+                    BreakWater =
+                    {
+                        Type = BreakWaterType.Dam,
+                        Height = (RoundedDouble) random.NextDouble()
+                    },
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                    },
+                    StorageStructureArea =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                    },
+                    ModelFactorSuperCriticalFlow =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble()
+                    },
+                    WidthFlowApertures =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                    },
+                    InsideWaterLevel =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                    },
+                    ConstructiveStrengthLinearLoadModel =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                    },
+                    ConstructiveStrengthQuadraticLoadModel =
+                    {
+                        Mean = (RoundedDouble)random.NextDouble(),
+                        CoefficientOfVariation = (RoundedDouble)random.NextDouble()
+                    },
+                    BankWidth =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                    },
+                    InsideWaterLevelFailureConstruction =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                    },
+                    EvaluationLevel = (RoundedDouble) random.NextDouble(),
+                    LevelCrestStructure =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                    },
+                    VerticalDistance = (RoundedDouble) random.NextDouble(),
+                    FailureProbabilityRepairClosure = random.NextDouble(),
+                    FailureCollisionEnergy =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                    },
+                    ShipMass =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                    },
+                    ShipVelocity =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                    },
+                    LevellingCount = random.Next(),
+                    ProbabilityCollisionSecondaryStructure = random.NextDouble(),
+                    FlowVelocityStructureClosable =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                    },
+                    StabilityLinearLoadModel =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                    },
+                    StabilityQuadraticLoadModel =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
+                    },
+                    AreaFlowApertures =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        StandardDeviation = (RoundedDouble) random.NextDouble()
+                    },
+                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                    LoadSchematizationType = LoadSchematizationType.Quadratic,
+                    VolumicWeightWater = (RoundedDouble) random.NextDouble(),
+                    FactorStormDurationOpenStructure = (RoundedDouble) random.NextDouble(),
+                    DrainCoefficient =
+                    {
+                        Mean = (RoundedDouble) random.NextDouble()
+                    }
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            const int order = 67;
+
+            // Call
+            StabilityPointStructuresCalculationEntity entity = calculation.CreateForStabilityPointStructures(registry, order);
+
+            // Assert
+            Assert.AreEqual(calculation.Name, entity.Name);
+            Assert.AreEqual(calculation.Comments, entity.Comments);
+
+            StabilityPointStructuresInput inputParameters = calculation.InputParameters;
+            Assert.AreEqual(inputParameters.StormDuration.Mean.Value, entity.StormDurationMean);
+            Assert.AreEqual(inputParameters.StructureNormalOrientation.Value, entity.StructureNormalOrientation);
+            Assert.AreEqual(inputParameters.FailureProbabilityStructureWithErosion, entity.FailureProbabilityStructureWithErosion);
+            Assert.IsNull(entity.StabilityPointStructureEntity);
+            Assert.IsNull(entity.HydraulicLocationEntity);
+            Assert.IsNull(entity.ForeshoreProfileEntity);
+            Assert.AreEqual(Convert.ToByte(inputParameters.UseForeshore), entity.UseForeshore);
+            Assert.AreEqual(Convert.ToByte(inputParameters.UseBreakWater), entity.UseBreakWater);
+            Assert.AreEqual(Convert.ToInt16(inputParameters.BreakWater.Type), entity.BreakWaterType);
+            Assert.AreEqual(inputParameters.BreakWater.Height.Value, entity.BreakWaterHeight);
+            Assert.AreEqual(inputParameters.AllowedLevelIncreaseStorage.Mean.Value, entity.AllowedLevelIncreaseStorageMean);
+            Assert.AreEqual(inputParameters.AllowedLevelIncreaseStorage.StandardDeviation.Value, entity.AllowedLevelIncreaseStorageStandardDeviation);
+            Assert.AreEqual(inputParameters.StorageStructureArea.Mean.Value, entity.StorageStructureAreaMean);
+            Assert.AreEqual(inputParameters.StorageStructureArea.CoefficientOfVariation.Value, entity.StorageStructureAreaCoefficientOfVariation);
+            Assert.AreEqual(inputParameters.FlowWidthAtBottomProtection.Mean.Value, entity.FlowWidthAtBottomProtectionMean);
+            Assert.AreEqual(inputParameters.FlowWidthAtBottomProtection.StandardDeviation.Value, entity.FlowWidthAtBottomProtectionStandardDeviation);
+            Assert.AreEqual(inputParameters.CriticalOvertoppingDischarge.Mean.Value, entity.CriticalOvertoppingDischargeMean);
+            Assert.AreEqual(inputParameters.CriticalOvertoppingDischarge.CoefficientOfVariation.Value, entity.CriticalOvertoppingDischargeCoefficientOfVariation);
+            Assert.AreEqual(inputParameters.ModelFactorSuperCriticalFlow.Mean.Value, entity.ModelFactorSuperCriticalFlowMean);
+            Assert.AreEqual(inputParameters.WidthFlowApertures.Mean.Value, entity.WidthFlowAperturesMean);
+            Assert.AreEqual(inputParameters.WidthFlowApertures.CoefficientOfVariation.Value, entity.WidthFlowAperturesCoefficientOfVariation);
+
+            Assert.AreEqual(inputParameters.InsideWaterLevel.Mean.Value, entity.InsideWaterLevelMean);
+            Assert.AreEqual(inputParameters.InsideWaterLevel.StandardDeviation.Value, entity.InsideWaterLevelStandardDeviation);
+            Assert.AreEqual(inputParameters.ThresholdHeightOpenWeir.Mean.Value, entity.ThresholdHeightOpenWeirMean);
+            Assert.AreEqual(inputParameters.ThresholdHeightOpenWeir.StandardDeviation.Value, entity.ThresholdHeightOpenWeirStandardDeviation);
+            Assert.AreEqual(inputParameters.ConstructiveStrengthLinearLoadModel.Mean.Value, entity.ConstructiveStrengthLinearLoadModelMean);
+            Assert.AreEqual(inputParameters.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation.Value, entity.ConstructiveStrengthLinearLoadModelCoefficientOfVariation);
+            Assert.AreEqual(inputParameters.ConstructiveStrengthQuadraticLoadModel.Mean.Value, entity.ConstructiveStrengthQuadraticLoadModelMean);
+            Assert.AreEqual(inputParameters.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation.Value, entity.ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation);
+            Assert.AreEqual(inputParameters.BankWidth.Mean.Value, entity.BankWidthMean);
+            Assert.AreEqual(inputParameters.BankWidth.StandardDeviation.Value, entity.BankWidthStandardDeviation);
+            Assert.AreEqual(inputParameters.InsideWaterLevelFailureConstruction.Mean.Value, entity.InsideWaterLevelFailureConstructionMean);
+            Assert.AreEqual(inputParameters.InsideWaterLevelFailureConstruction.StandardDeviation.Value, entity.InsideWaterLevelFailureConstructionStandardDeviation);
+            Assert.AreEqual(inputParameters.EvaluationLevel.Value, entity.EvaluationLevel);
+            Assert.AreEqual(inputParameters.LevelCrestStructure.Mean.Value, entity.LevelCrestStructureMean);
+            Assert.AreEqual(inputParameters.LevelCrestStructure.StandardDeviation.Value, entity.LevelCrestStructureStandardDeviation);
+            Assert.AreEqual(inputParameters.VerticalDistance.Value, entity.VerticalDistance);
+            Assert.AreEqual(inputParameters.FailureProbabilityRepairClosure, entity.FailureProbabilityRepairClosure);
+            Assert.AreEqual(inputParameters.FailureCollisionEnergy.Mean.Value, entity.FailureCollisionEnergyMean);
+            Assert.AreEqual(inputParameters.FailureCollisionEnergy.CoefficientOfVariation.Value, entity.FailureCollisionEnergyCoefficientOfVariation);
+            Assert.AreEqual(inputParameters.ShipMass.Mean.Value, entity.ShipMassMean);
+            Assert.AreEqual(inputParameters.ShipMass.CoefficientOfVariation.Value, entity.ShipMassCoefficientOfVariation);
+            Assert.AreEqual(inputParameters.ShipVelocity.Mean.Value, entity.ShipVelocityMean);
+            Assert.AreEqual(inputParameters.ShipVelocity.CoefficientOfVariation.Value, entity.ShipVelocityCoefficientOfVariation);
+            Assert.AreEqual(inputParameters.LevellingCount, entity.LevellingCount);
+            Assert.AreEqual(inputParameters.ProbabilityCollisionSecondaryStructure, entity.ProbabilityCollisionSecondaryStructure);
+            Assert.AreEqual(inputParameters.FlowVelocityStructureClosable.Mean.Value, entity.FlowVelocityStructureClosableMean);
+            Assert.AreEqual(inputParameters.FlowVelocityStructureClosable.StandardDeviation.Value, entity.FlowVelocityStructureClosableStandardDeviation);
+            Assert.AreEqual(inputParameters.StabilityLinearLoadModel.Mean.Value, entity.StabilityLinearLoadModelMean);
+            Assert.AreEqual(inputParameters.StabilityLinearLoadModel.CoefficientOfVariation.Value, entity.StabilityLinearLoadModelCoefficientOfVariation);
+            Assert.AreEqual(inputParameters.StabilityQuadraticLoadModel.Mean.Value, entity.StabilityQuadraticLoadModelMean);
+            Assert.AreEqual(inputParameters.StabilityQuadraticLoadModel.CoefficientOfVariation.Value, entity.StabilityQuadraticLoadModelCoefficientOfVariation);
+            Assert.AreEqual(inputParameters.AreaFlowApertures.Mean.Value, entity.AreaFlowAperturesMean);
+            Assert.AreEqual(inputParameters.AreaFlowApertures.StandardDeviation.Value, entity.AreaFlowAperturesStandardDeviation);
+            Assert.AreEqual(Convert.ToByte(inputParameters.InflowModelType), entity.InflowModelType);
+            Assert.AreEqual(Convert.ToByte(inputParameters.LoadSchematizationType), entity.LoadSchematizationType);
+            Assert.AreEqual(inputParameters.VolumicWeightWater.Value, entity.VolumicWeightWater);
+            Assert.AreEqual(inputParameters.FactorStormDurationOpenStructure.Value, entity.FactorStormDurationOpenStructure);
+            Assert.AreEqual(inputParameters.DrainCoefficient.Mean.Value, entity.DrainCoefficientMean);
+            Assert.AreEqual(order, entity.Order);
+        }
+
+        [Test]
+        public void CreateForStabilityPointStructures_CalculationWithParametersNaN_ReturnEntityWithNullParameters()
+        {
+            // Setup
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    StormDuration =
+                    {
+                        Mean = RoundedDouble.NaN
+                    },
+                    StructureNormalOrientation = RoundedDouble.NaN,
+                    BreakWater =
+                    {
+                        Type = BreakWaterType.Dam,
+                        Height = RoundedDouble.NaN
+                    },
+                    AllowedLevelIncreaseStorage =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
+                    },
+                    StorageStructureArea =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    },
+                    FlowWidthAtBottomProtection =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
+                    },
+                    CriticalOvertoppingDischarge =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    },
+                    ModelFactorSuperCriticalFlow =
+                    {
+                        Mean = RoundedDouble.NaN
+                    },
+                    WidthFlowApertures =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    },
+                    InsideWaterLevel =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
+                    },
+                    ThresholdHeightOpenWeir =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
+                    },
+                    ConstructiveStrengthLinearLoadModel =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    },
+                    ConstructiveStrengthQuadraticLoadModel =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    },
+                    BankWidth =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
+                    },
+                    InsideWaterLevelFailureConstruction =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
+                    },
+                    EvaluationLevel = RoundedDouble.NaN,
+                    LevelCrestStructure =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
+                    },
+                    VerticalDistance = RoundedDouble.NaN,
+                    FailureCollisionEnergy =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    },
+                    ShipMass =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    },
+                    ShipVelocity =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    },
+                    FlowVelocityStructureClosable =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
+                    },
+                    StabilityLinearLoadModel =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    },
+                    StabilityQuadraticLoadModel =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        CoefficientOfVariation = RoundedDouble.NaN
+                    },
+                    AreaFlowApertures =
+                    {
+                        Mean = RoundedDouble.NaN,
+                        StandardDeviation = RoundedDouble.NaN
+                    },
+                    VolumicWeightWater = RoundedDouble.NaN,
+                    FactorStormDurationOpenStructure = RoundedDouble.NaN,
+                    DrainCoefficient =
+                    {
+                        Mean = RoundedDouble.NaN
+                    }
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+
+            const int order = 67;
+
+            // Call
+            StabilityPointStructuresCalculationEntity entity = calculation.CreateForStabilityPointStructures(registry, order);
+
+            // Assert
+            Assert.IsNull(entity.StormDurationMean);
+            Assert.IsNull(entity.StructureNormalOrientation);
+            Assert.IsNull(entity.BreakWaterHeight);
+            Assert.IsNull(entity.AllowedLevelIncreaseStorageMean);
+            Assert.IsNull(entity.AllowedLevelIncreaseStorageStandardDeviation);
+            Assert.IsNull(entity.StorageStructureAreaMean);
+            Assert.IsNull(entity.StorageStructureAreaCoefficientOfVariation);
+            Assert.IsNull(entity.FlowWidthAtBottomProtectionMean);
+            Assert.IsNull(entity.FlowWidthAtBottomProtectionStandardDeviation);
+            Assert.IsNull(entity.CriticalOvertoppingDischargeMean);
+            Assert.IsNull(entity.CriticalOvertoppingDischargeCoefficientOfVariation);
+            Assert.IsNull(entity.ModelFactorSuperCriticalFlowMean);
+            Assert.IsNull(entity.WidthFlowAperturesMean);
+            Assert.IsNull(entity.WidthFlowAperturesCoefficientOfVariation);
+
+            Assert.IsNull(entity.InsideWaterLevelMean);
+            Assert.IsNull(entity.InsideWaterLevelStandardDeviation);
+            Assert.IsNull(entity.ThresholdHeightOpenWeirMean);
+            Assert.IsNull(entity.ThresholdHeightOpenWeirStandardDeviation);
+            Assert.IsNull(entity.ConstructiveStrengthLinearLoadModelMean);
+            Assert.IsNull(entity.ConstructiveStrengthLinearLoadModelCoefficientOfVariation);
+            Assert.IsNull(entity.ConstructiveStrengthQuadraticLoadModelMean);
+            Assert.IsNull(entity.ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation);
+            Assert.IsNull(entity.BankWidthMean);
+            Assert.IsNull(entity.BankWidthStandardDeviation);
+            Assert.IsNull(entity.InsideWaterLevelFailureConstructionMean);
+            Assert.IsNull(entity.InsideWaterLevelFailureConstructionStandardDeviation);
+            Assert.IsNull(entity.EvaluationLevel);
+            Assert.IsNull(entity.LevelCrestStructureMean);
+            Assert.IsNull(entity.LevelCrestStructureStandardDeviation);
+            Assert.IsNull(entity.VerticalDistance);
+            Assert.IsNull(entity.FailureCollisionEnergyMean);
+            Assert.IsNull(entity.FailureCollisionEnergyCoefficientOfVariation);
+            Assert.IsNull(entity.ShipMassMean);
+            Assert.IsNull(entity.ShipMassCoefficientOfVariation);
+            Assert.IsNull(entity.ShipVelocityMean);
+            Assert.IsNull(entity.ShipVelocityCoefficientOfVariation);
+            Assert.IsNull(entity.FlowVelocityStructureClosableMean);
+            Assert.IsNull(entity.FlowVelocityStructureClosableStandardDeviation);
+            Assert.IsNull(entity.StabilityLinearLoadModelMean);
+            Assert.IsNull(entity.StabilityLinearLoadModelCoefficientOfVariation);
+            Assert.IsNull(entity.StabilityQuadraticLoadModelMean);
+            Assert.IsNull(entity.StabilityQuadraticLoadModelCoefficientOfVariation);
+            Assert.IsNull(entity.AreaFlowAperturesMean);
+            Assert.IsNull(entity.AreaFlowAperturesStandardDeviation);
+            Assert.IsNull(entity.VolumicWeightWater);
+            Assert.IsNull(entity.FactorStormDurationOpenStructure);
+            Assert.IsNull(entity.DrainCoefficientMean);
+        }
+
+        [Test]
+        public void CreateForStabilityPointStructures_CalculationWithStructure_ReturnEntityWithStructureEntity()
+        {
+            // Setup
+            StabilityPointStructure alreadyRegisteredStructure = new TestStabilityPointStructure();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    Structure = alreadyRegisteredStructure
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(new StabilityPointStructureEntity(), alreadyRegisteredStructure);
+
+            // Call
+            StabilityPointStructuresCalculationEntity entity = calculation.CreateForStabilityPointStructures(registry, 0);
+
+            // Assert
+            Assert.IsNotNull(entity.StabilityPointStructureEntity);
+        }
+
+        [Test]
+        public void CreateForStabilityPointStructures_CalculationWithHydraulicBoundaryLocation_ReturnEntityWithHydraulicLocationEntity()
+        {
+            // Setup
+            var alreadyRegisteredHydroLocation = new HydraulicBoundaryLocation(1, "A", 2, 3);
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = alreadyRegisteredHydroLocation
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(new HydraulicLocationEntity(), alreadyRegisteredHydroLocation);
+
+            // Call
+            StabilityPointStructuresCalculationEntity entity = calculation.CreateForStabilityPointStructures(registry, 0);
+
+            // Assert
+            Assert.IsNotNull(entity.HydraulicLocationEntity);
+        }
+
+        [Test]
+        public void CreateForStabilityPointStructures_CalculationWithForeshoreProfile_ReturnEntityWithForeshoreProfileEntity()
+        {
+            // Setup
+            var alreadyRegisteredForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
+                                                                         new Point2D[0],
+                                                                         null,
+                                                                         new ForeshoreProfile.ConstructionProperties());
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                InputParameters =
+                {
+                    ForeshoreProfile = alreadyRegisteredForeshoreProfile
+                }
+            };
+
+            var registry = new PersistenceRegistry();
+            registry.Register(new ForeshoreProfileEntity(), alreadyRegisteredForeshoreProfile);
+
+            // Call
+            StabilityPointStructuresCalculationEntity entity = calculation.CreateForStabilityPointStructures(registry, 0);
+
+            // Assert
+            Assert.IsNotNull(entity.ForeshoreProfileEntity);
         }
 
         #endregion

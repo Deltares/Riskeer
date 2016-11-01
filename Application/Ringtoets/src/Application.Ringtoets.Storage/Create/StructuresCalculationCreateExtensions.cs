@@ -26,6 +26,7 @@ using Ringtoets.ClosingStructures.Data;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.HeightStructures.Data;
+using Ringtoets.StabilityPointStructures.Data;
 
 namespace Application.Ringtoets.Storage.Create
 {
@@ -101,6 +102,34 @@ namespace Application.Ringtoets.Storage.Create
             return entity;
         }
 
+        /// <summary>
+        /// Creates a <see cref="StabilityPointStructuresCalculationEntity"/> based
+        /// on the information of the <see cref="StructuresCalculation{T}"/>.
+        /// </summary>
+        /// <param name="calculation">The calculation to create a database entity for.</param>
+        /// <param name="registry">The object keeping track of create operations.</param>
+        /// <param name="order">The index at where <paramref name="calculation"/> resides
+        /// in its parent container.</param>
+        /// <returns>A new <see cref="StabilityPointStructuresCalculationEntity"/>.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
+        internal static StabilityPointStructuresCalculationEntity CreateForStabilityPointStructures(this StructuresCalculation<StabilityPointStructuresInput> calculation, PersistenceRegistry registry, int order)
+        {
+            if (registry == null)
+            {
+                throw new ArgumentNullException("registry");
+            }
+
+            var entity = new StabilityPointStructuresCalculationEntity
+            {
+                Name = calculation.Name.DeepClone(),
+                Comments = calculation.Comments.DeepClone(),
+                Order = order
+            };
+            SetInputValues(entity, calculation.InputParameters, registry);
+
+            return entity;
+        }
+
         private static void SetInputValues(HeightStructuresCalculationEntity entity, HeightStructuresInput input, PersistenceRegistry registry)
         {
             input.Create(entity, registry);
@@ -160,6 +189,55 @@ namespace Application.Ringtoets.Storage.Create
             entity.LevelCrestStructureNotClosingStandardDeviation = input.LevelCrestStructureNotClosing.StandardDeviation.Value.ToNaNAsNull();
 
             entity.ProbabilityOpenStructureBeforeFlooding = input.ProbabilityOpenStructureBeforeFlooding;
+        }
+
+        private static void SetInputValues(StabilityPointStructuresCalculationEntity entity, StabilityPointStructuresInput input, PersistenceRegistry registry)
+        {
+            input.Create(entity, registry);
+
+            if (input.Structure != null)
+            {
+                entity.StabilityPointStructureEntity = registry.Get(input.Structure);
+            }
+
+            entity.InsideWaterLevelMean = input.InsideWaterLevel.Mean.Value.ToNaNAsNull();
+            entity.InsideWaterLevelStandardDeviation = input.InsideWaterLevel.StandardDeviation.Value.ToNaNAsNull();
+            entity.ThresholdHeightOpenWeirMean = input.ThresholdHeightOpenWeir.Mean.Value.ToNaNAsNull();
+            entity.ThresholdHeightOpenWeirStandardDeviation = input.ThresholdHeightOpenWeir.StandardDeviation.Value.ToNaNAsNull();
+            entity.ConstructiveStrengthLinearLoadModelMean = input.ConstructiveStrengthLinearLoadModel.Mean.Value.ToNaNAsNull();
+            entity.ConstructiveStrengthLinearLoadModelCoefficientOfVariation = input.ConstructiveStrengthLinearLoadModel.CoefficientOfVariation.Value.ToNaNAsNull();
+            entity.ConstructiveStrengthQuadraticLoadModelMean = input.ConstructiveStrengthQuadraticLoadModel.Mean.Value.ToNaNAsNull();
+            entity.ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation = input.ConstructiveStrengthQuadraticLoadModel.CoefficientOfVariation.Value.ToNaNAsNull();
+            entity.BankWidthMean = input.BankWidth.Mean.Value.ToNaNAsNull();
+            entity.BankWidthStandardDeviation = input.BankWidth.StandardDeviation.Value.ToNaNAsNull();
+            entity.InsideWaterLevelFailureConstructionMean = input.InsideWaterLevelFailureConstruction.Mean.Value.ToNaNAsNull();
+            entity.InsideWaterLevelFailureConstructionStandardDeviation = input.InsideWaterLevelFailureConstruction.StandardDeviation.Value.ToNaNAsNull();
+            entity.EvaluationLevel = input.EvaluationLevel.Value.ToNaNAsNull();
+            entity.LevelCrestStructureMean = input.LevelCrestStructure.Mean.Value.ToNaNAsNull();
+            entity.LevelCrestStructureStandardDeviation = input.LevelCrestStructure.StandardDeviation.Value.ToNaNAsNull();
+            entity.VerticalDistance = input.VerticalDistance.Value.ToNaNAsNull();
+            entity.FailureProbabilityRepairClosure = input.FailureProbabilityRepairClosure;
+            entity.FailureCollisionEnergyMean = input.FailureCollisionEnergy.Mean.Value.ToNaNAsNull();
+            entity.FailureCollisionEnergyCoefficientOfVariation = input.FailureCollisionEnergy.CoefficientOfVariation.Value.ToNaNAsNull();
+            entity.ShipMassMean = input.ShipMass.Mean.Value.ToNaNAsNull();
+            entity.ShipMassCoefficientOfVariation = input.ShipMass.CoefficientOfVariation.Value.ToNaNAsNull();
+            entity.ShipVelocityMean = input.ShipVelocity.Mean.Value.ToNaNAsNull();
+            entity.ShipVelocityCoefficientOfVariation = input.ShipVelocity.CoefficientOfVariation.Value.ToNaNAsNull();
+            entity.LevellingCount = input.LevellingCount;
+            entity.ProbabilityCollisionSecondaryStructure = input.ProbabilityCollisionSecondaryStructure;
+            entity.FlowVelocityStructureClosableMean = input.FlowVelocityStructureClosable.Mean.Value.ToNaNAsNull();
+            entity.FlowVelocityStructureClosableStandardDeviation = input.FlowVelocityStructureClosable.StandardDeviation.Value.ToNaNAsNull();
+            entity.StabilityLinearLoadModelMean = input.StabilityLinearLoadModel.Mean.Value.ToNaNAsNull();
+            entity.StabilityLinearLoadModelCoefficientOfVariation = input.StabilityLinearLoadModel.CoefficientOfVariation.Value.ToNaNAsNull();
+            entity.StabilityQuadraticLoadModelMean = input.StabilityQuadraticLoadModel.Mean.Value.ToNaNAsNull();
+            entity.StabilityQuadraticLoadModelCoefficientOfVariation = input.StabilityQuadraticLoadModel.CoefficientOfVariation.Value.ToNaNAsNull();
+            entity.AreaFlowAperturesMean = input.AreaFlowApertures.Mean.Value.ToNaNAsNull();
+            entity.AreaFlowAperturesStandardDeviation = input.AreaFlowApertures.StandardDeviation.Value.ToNaNAsNull();
+            entity.InflowModelType = Convert.ToByte(input.InflowModelType);
+            entity.LoadSchematizationType = Convert.ToByte(input.LoadSchematizationType);
+            entity.VolumicWeightWater = input.VolumicWeightWater.Value.ToNaNAsNull();
+            entity.FactorStormDurationOpenStructure = input.FactorStormDurationOpenStructure.Value.ToNaNAsNull();
+            entity.DrainCoefficientMean = input.DrainCoefficient.Mean.Value.ToNaNAsNull();
         }
 
         private static void Create<T>(this StructuresInputBase<T> input, IStructuresCalculationEntity entityToUpdate, PersistenceRegistry registry)
