@@ -191,12 +191,13 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [TestCase(DistributionPropertiesReadOnly.StandardDeviation, false, true)]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues(DistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectStandardDeviationReadOnly)
         {
-            // Call
+            // Setup
             var mocks = new MockRepository();
             var observable = mocks.Stub<IObservable>();
             var distribution = mocks.Stub<IDistribution>();
             mocks.ReplayAll();
 
+            // Call
             var properties = new SimpleDistributionProperties(propertiesReadOnly, observable)
             {
                 Data = distribution

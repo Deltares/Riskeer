@@ -75,18 +75,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
-            // Setup
+            // Call
             var hydraulicBoundaryLocationProperties = new HydraulicBoundaryDatabaseProperties();
 
+            // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(hydraulicBoundaryLocationProperties);
             const string expectedFilePathDisplayName = "Hydraulische randvoorwaardendatabase";
             const string expectedFilePathDescription = "Locatie van het hydraulische randvoorwaardendatabase bestand.";
             const string expectedFilePathCategory = "Algemeen";
-
-            // Call
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(hydraulicBoundaryLocationProperties, true);
-
-            // Assert
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             PropertyDescriptor filePathProperty = dynamicProperties.Find("FilePath", false);
 

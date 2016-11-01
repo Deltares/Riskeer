@@ -175,7 +175,6 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
             double pipingReliability = random.NextDouble();
             double pipingFactorOfSafety = random.NextDouble();
 
-            // Call
             var semiProbabilisticOutput = new PipingSemiProbabilisticOutput(
                 upliftFactorOfSafety,
                 upliftReliability,

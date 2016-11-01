@@ -79,15 +79,14 @@ namespace Ringtoets.Revetment.Forms.Test.PropertyClasses
             const string expectedWavePeakPeriodDescription = "Berekende golfperiode.";
             const string expectedWaveAngleDescription = "Berekende golfrichting ten opzichte van dijknormaal.";
 
+            // Call
             var properties = new WaveConditionsOutputProperties
             {
                 Data = new WaveConditionsOutput(waterLevel, waveHeight, wavePeakPeriod, waveAngle)
             };
 
-            // Call
+            // Assert
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-
-            // Assert 
             var propertyBag = new DynamicPropertyBag(properties);
 
             PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties(new Attribute[]

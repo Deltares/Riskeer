@@ -96,10 +96,12 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            var properties = new PipingFailureMechanismContextProperties();
 
             // Call
-            properties.Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>());
+            var properties = new PipingFailureMechanismContextProperties
+            {
+                Data = new PipingFailureMechanismContext(failureMechanism, new MockRepository().StrictMock<IAssessmentSection>())
+            };
 
             // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);

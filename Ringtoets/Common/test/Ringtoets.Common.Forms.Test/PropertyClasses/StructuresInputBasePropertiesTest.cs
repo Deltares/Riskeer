@@ -371,8 +371,9 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
-            // Call
             var constructionProperties = GetRandomConstructionProperties();
+
+            // Call
             var properties = new SimpleStructuresInputProperties(constructionProperties)
             {
                 Data = inputContext

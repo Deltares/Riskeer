@@ -84,19 +84,20 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
             };
 
             var waveImpactAsphaltCoverWaveConditionsOutput = new WaveImpactAsphaltCoverWaveConditionsOutput(items);
+
+            // Call
             var properties = new WaveImpactAsphaltCoverWaveConditionsOutputProperties()
             {
                 Data = waveImpactAsphaltCoverWaveConditionsOutput
             };
 
-            // Call
+            // Assert
             var propertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties(new Attribute[]
             {
                 new BrowsableAttribute(true)
             });
 
-            // Assert
             Assert.AreEqual(1, dynamicProperties.Count);
 
             PropertyDescriptor itemsProperty = dynamicProperties[0];

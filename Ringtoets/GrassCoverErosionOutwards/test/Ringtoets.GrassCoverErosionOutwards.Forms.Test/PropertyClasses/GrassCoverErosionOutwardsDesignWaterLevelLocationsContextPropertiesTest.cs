@@ -77,18 +77,16 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
         [Test]
         public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
-            // Setup
+            // Call
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationsContextProperties();
 
+            // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             const string expectedLocationsDisplayName = "Locaties";
             const string expectedLocationsDescription = "Locaties uit de hydraulische randvoorwaardendatabase.";
             const string expectedLocationsCategory = "Algemeen";
-
-            // Call
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
 
-            // Assert
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             PropertyDescriptor locationsProperty = dynamicProperties.Find("Locations", false);
 

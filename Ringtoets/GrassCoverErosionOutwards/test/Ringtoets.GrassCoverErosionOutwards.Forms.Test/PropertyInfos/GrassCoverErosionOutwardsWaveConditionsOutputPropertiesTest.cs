@@ -84,19 +84,20 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyInfos
             };
 
             var grassCoverErosionOutwardsOutputProperties = new GrassCoverErosionOutwardsWaveConditionsOutput(items);
+
+            // Call
             var properties = new GrassCoverErosionOutwardsWaveConditionsOutputProperties()
             {
                 Data = grassCoverErosionOutwardsOutputProperties
             };
 
-            // Call
+            // Assert
             var propertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = propertyBag.GetProperties(new Attribute[]
             {
                 new BrowsableAttribute(true)
             });
 
-            // Assert
             Assert.AreEqual(1, dynamicProperties.Count);
 
             PropertyDescriptor itemsProperty = dynamicProperties[0];

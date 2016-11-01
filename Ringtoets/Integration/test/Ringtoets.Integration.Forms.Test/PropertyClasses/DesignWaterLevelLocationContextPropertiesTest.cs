@@ -105,16 +105,15 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             HydraulicBoundaryLocation hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "", 0.0, 0.0);
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
-            DesignWaterLevelLocationContextProperties properties =
-                new DesignWaterLevelLocationContextProperties
-                {
-                    Data = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
-                };
 
             // Call
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
+            var properties = new DesignWaterLevelLocationContextProperties
+            {
+                Data = new DesignWaterLevelLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation)
+            };
 
             // Assert
+            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             const string expectedCategory = "Algemeen";
             const string expectedIdDisplayName = "ID";

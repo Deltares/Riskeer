@@ -112,11 +112,13 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
             var context = new TestHydraulicBoundaryLocationContext(hydraulicBoundaryDatabase, hydraulicBoundaryLocation);
 
+            // Call
             var hydraulicBoundaryLocationProperties = new TestHydraulicBoundaryLocationProperties
             {
                 Data = context
             };
 
+            // Assert
             var dynamicPropertyBag = new DynamicPropertyBag(hydraulicBoundaryLocationProperties);
             const string expectedCategory = "Algemeen";
             const string expectedIdDisplayName = "ID";
@@ -125,11 +127,7 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             const string expectedIdDescription = "ID van de hydraulische randvoorwaardenlocatie in de database.";
             const string expectedNameDescription = "Naam van de hydraulische randvoorwaardenlocatie.";
             const string expectedLocationDescription = "Coördinaten van de hydraulische randvoorwaardenlocatie.";
-
-            // Call
             TypeConverter classTypeConverter = TypeDescriptor.GetConverter(hydraulicBoundaryLocationProperties, true);
-
-            // Assert
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             PropertyDescriptor idProperty = dynamicProperties.Find("Id", false);
             PropertyDescriptor nameProperty = dynamicProperties.Find("Name", false);

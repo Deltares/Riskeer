@@ -99,15 +99,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             };
             var context = new GrassCoverErosionOutwardsDesignWaterLevelLocationContext(locations, hydraulicBoundaryLocation);
 
+            // Call
             var properties = new GrassCoverErosionOutwardsDesignWaterLevelLocationContextProperties
             {
                 Data = context
             };
 
-            // Call
-            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
-
             // Assert
+            TypeConverter classTypeConverter = TypeDescriptor.GetConverter(properties, true);
             var dynamicPropertyBag = new DynamicPropertyBag(properties);
             PropertyDescriptorCollection dynamicProperties = dynamicPropertyBag.GetProperties();
             PropertyDescriptor idProperty = dynamicProperties.Find("Id", false);
