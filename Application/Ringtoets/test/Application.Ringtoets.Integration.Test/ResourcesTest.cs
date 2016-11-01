@@ -19,8 +19,11 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
@@ -71,18 +74,22 @@ namespace Application.Ringtoets.Integration.Test
             process.WaitForExit();
 
             // Assert
-            int counter = 0;
             outputFilePath = Path.Combine(outputPath, "UnusedResources.txt");
+            var lines = new List<string>();
             using (StreamReader reader = new StreamReader(outputFilePath))
             {
-                while (reader.ReadLine() != null)
+                string line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    counter++;
+                    lines.Add(line);
                 }
             }
 
             // There are 30 entries because we can't filter them with our search patterns.
-            Assert.AreEqual(30, counter);
+            var message = string.Format("The following resources are marked as unused:{0}{1}",
+                                        Environment.NewLine,
+                                        string.Join(Environment.NewLine, lines.OrderBy(s => s).ToList()));
+            Assert.AreEqual(30, lines.Count, message);
         }
     }
 }
