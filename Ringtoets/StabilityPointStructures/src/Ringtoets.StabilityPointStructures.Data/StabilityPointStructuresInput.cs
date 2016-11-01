@@ -186,6 +186,7 @@ namespace Ringtoets.StabilityPointStructures.Data
                 ThresholdHeightOpenWeir = Structure.ThresholdHeightOpenWeir;
                 VerticalDistance = Structure.VerticalDistance;
                 WidthFlowApertures = Structure.WidthFlowApertures;
+                StructureNormalOrientation = Structure.StructureNormalOrientation;
             }
         }
 

@@ -49,7 +49,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
 
             DistributionAssert.AreEqual(referenceStructure.StorageStructureArea, calculation.InputParameters.StorageStructureArea);
             DistributionAssert.AreEqual(referenceStructure.AllowedLevelIncreaseStorage, calculation.InputParameters.AllowedLevelIncreaseStorage);
-            Assert.IsNaN(calculation.InputParameters.StructureNormalOrientation);
+            Assert.AreEqual(123.456, calculation.InputParameters.StructureNormalOrientation, calculation.InputParameters.StructureNormalOrientation.GetAccuracy());
             DistributionAssert.AreEqual(referenceStructure.WidthFlowApertures, calculation.InputParameters.WidthFlowApertures);
             DistributionAssert.AreEqual(referenceStructure.InsideWaterLevel, calculation.InputParameters.InsideWaterLevel);
             DistributionAssert.AreEqual(referenceStructure.ThresholdHeightOpenWeir, calculation.InputParameters.ThresholdHeightOpenWeir);

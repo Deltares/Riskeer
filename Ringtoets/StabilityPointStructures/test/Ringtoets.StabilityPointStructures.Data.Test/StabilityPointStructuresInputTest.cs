@@ -755,6 +755,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 DistributionAssert.AreEqual(defaultInput.ThresholdHeightOpenWeir, input.ThresholdHeightOpenWeir);
                 AssertAreEqual(defaultInput.VerticalDistance, input.VerticalDistance);
                 DistributionAssert.AreEqual(defaultInput.WidthFlowApertures, input.WidthFlowApertures);
+                Assert.AreEqual(defaultInput.StructureNormalOrientation, input.StructureNormalOrientation);
             }
             else
             {
@@ -783,6 +784,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
                 DistributionAssert.AreEqual(expectedStructure.ThresholdHeightOpenWeir, input.ThresholdHeightOpenWeir);
                 AssertAreEqual(expectedStructure.VerticalDistance, input.VerticalDistance);
                 DistributionAssert.AreEqual(expectedStructure.WidthFlowApertures, input.WidthFlowApertures);
+                AssertAreEqual(expectedStructure.StructureNormalOrientation, input.StructureNormalOrientation);
             }
         }
 
