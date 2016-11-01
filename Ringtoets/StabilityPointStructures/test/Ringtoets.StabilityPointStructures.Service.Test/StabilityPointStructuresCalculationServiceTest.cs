@@ -208,7 +208,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             // Call
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
 
                 // Call
                 TestDelegate call = () => service.Calculate(calculation,
@@ -216,7 +216,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                             stabilityPointStructuresFailureMechanism,
                                                             testDataPath);
 
-                StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+                StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
 
                 // Assert
                 Assert.AreEqual(0, calculationInputs.Length);
@@ -253,10 +253,9 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             var service = new StabilityPointStructuresCalculationService();
 
-            // Call
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
 
                 // Call
                 TestDelegate call = () => service.Calculate(calculation,
@@ -264,7 +263,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                             stabilityPointStructuresFailureMechanism,
                                                             testDataPath);
 
-                StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
+                StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
 
                 // Assert
                 Assert.AreEqual(0, calculationInputs.Length);

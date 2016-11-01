@@ -419,7 +419,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             var service = new ClosingStructuresCalculationService();
 
-            // Call
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
