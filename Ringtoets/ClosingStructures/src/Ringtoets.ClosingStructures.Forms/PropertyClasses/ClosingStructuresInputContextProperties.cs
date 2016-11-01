@@ -40,7 +40,10 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="ClosingStructuresInputContext"/> for properties panel.
     /// </summary>
-    public class ClosingStructuresInputContextProperties : StructuresInputBaseProperties<ClosingStructure, ClosingStructuresInput, StructuresCalculation<ClosingStructuresInput>, ClosingStructuresFailureMechanism>
+    public class ClosingStructuresInputContextProperties : StructuresInputBaseProperties<ClosingStructure,
+                                                               ClosingStructuresInput,
+                                                               StructuresCalculation<ClosingStructuresInput>,
+                                                               ClosingStructuresFailureMechanism>
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int stormDurationPropertyIndex = 2;

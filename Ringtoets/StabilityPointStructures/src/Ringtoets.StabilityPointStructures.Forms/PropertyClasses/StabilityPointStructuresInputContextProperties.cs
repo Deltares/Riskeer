@@ -40,7 +40,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
     /// <summary>
     /// ViewModel of <see cref="StabilityPointStructuresInputContext"/> for properties panel.
     /// </summary>
-    public class StabilityPointStructuresInputContextProperties : StructuresInputBaseProperties<StabilityPointStructure, StabilityPointStructuresInput, StructuresCalculation<StabilityPointStructuresInput>, StabilityPointStructuresFailureMechanism>
+    public class StabilityPointStructuresInputContextProperties : StructuresInputBaseProperties<StabilityPointStructure,
+                                                                      StabilityPointStructuresInput,
+                                                                      StructuresCalculation<StabilityPointStructuresInput>,
+                                                                      StabilityPointStructuresFailureMechanism>
     {
         private const int hydraulicBoundaryLocationPropertyIndex = 1;
         private const int volumicWeightWaterPropertyIndex = 2;
