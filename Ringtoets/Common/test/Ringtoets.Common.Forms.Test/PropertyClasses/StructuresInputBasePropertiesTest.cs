@@ -125,7 +125,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewInputContextInstanceWithData_ReturnCorrectPropertyValues()
+        public void GetAvailableHydraulicBoundaryLocations_SetInputContextInstanceWithHydraulicBoundaryLocations_ReturnHydraulicBoundaryLocations()
         {
             // Setup
             var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
@@ -142,47 +142,21 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
 
             mockRepository.ReplayAll();
 
-            var calculation = new StructuresCalculation<SimpleStructureInput>
-            {
-                InputParameters =
-                {
-                    Structure = new SimpleStructure()
-                }
-            };
-            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties());
+            var calculation = new StructuresCalculation<SimpleStructureInput>();
             var inputContext = new SimpleInputContext(calculation.InputParameters,
                                                       calculation,
                                                       failureMechanismStub,
                                                       assessmentSectionStub);
+            var properties = new SimpleStructuresInputProperties(new StructuresInputBaseProperties<SimpleStructure, SimpleStructureInput, StructuresCalculation<SimpleStructureInput>, IFailureMechanism>.ConstructionProperties())
+            {
+                Data = inputContext
+            };
 
             // Call
-            properties.Data = inputContext;
+            var availableHydraulicBoundaryLocations = properties.GetAvailableHydraulicBoundaryLocations().ToArray();
 
             // Assert
-            SimpleStructureInput input = calculation.InputParameters;
-            var expectedStructureLocation = new Point2D(new RoundedDouble(0, input.Structure.Location.X), new RoundedDouble(0, input.Structure.Location.Y));
-            var expectedFailureProbabilityStructureWithErosion = ProbabilityFormattingHelper.Format(input.FailureProbabilityStructureWithErosion);
-
-            Assert.AreSame(input.Structure, properties.Structure);
-            Assert.AreEqual(expectedStructureLocation, properties.StructureLocation);
-            Assert.AreSame(input.ModelFactorSuperCriticalFlow, properties.ModelFactorSuperCriticalFlow.Data);
-            Assert.AreEqual(input.StructureNormalOrientation, properties.StructureNormalOrientation);
-            Assert.AreSame(input.AllowedLevelIncreaseStorage, properties.AllowedLevelIncreaseStorage.Data);
-            Assert.AreSame(input.StorageStructureArea, properties.StorageStructureArea.Data);
-            Assert.AreSame(input.FlowWidthAtBottomProtection, properties.FlowWidthAtBottomProtection.Data);
-            Assert.AreSame(input.WidthFlowApertures, properties.WidthFlowApertures.Data);
-            Assert.AreSame(input.CriticalOvertoppingDischarge, properties.CriticalOvertoppingDischarge.Data);
-            Assert.AreSame(input.ForeshoreProfile, properties.ForeshoreProfile);
-            Assert.IsInstanceOf<UseBreakWaterProperties>(properties.UseBreakWater);
-            Assert.IsInstanceOf<UseForeshoreProperties>(properties.UseForeshore);
-            Assert.AreEqual(expectedFailureProbabilityStructureWithErosion, properties.FailureProbabilityStructureWithErosion);
-            Assert.AreSame(input.HydraulicBoundaryLocation, properties.HydraulicBoundaryLocation);
-            Assert.AreSame(input.StormDuration, properties.StormDuration.Data);
-
-            var availableHydraulicBoundaryLocations = properties.GetAvailableHydraulicBoundaryLocations().ToArray();
-            Assert.AreEqual(1, availableHydraulicBoundaryLocations.Length);
-            CollectionAssert.AreEqual(inputContext.AvailableHydraulicBoundaryLocations, availableHydraulicBoundaryLocations);
-
+            CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
 

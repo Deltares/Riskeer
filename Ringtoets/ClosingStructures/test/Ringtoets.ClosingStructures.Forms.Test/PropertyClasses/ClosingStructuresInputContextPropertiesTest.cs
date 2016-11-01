@@ -37,13 +37,11 @@ using Ringtoets.ClosingStructures.Data.TestUtil;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.PropertyClasses;
 using Ringtoets.Common.Data.AssessmentSection;
-using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 {
@@ -139,18 +137,10 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewInputContextInstanceWithData_ReturnCorrectPropertyValues()
+        public void GetAvailableForeshoreProfiles_SetInputContextInstanceWithForeshoreProfiles_ReturnForeshoreProfiles()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(0, "", 0, 0)
-                }
-            };
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism
@@ -158,58 +148,55 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
                 ForeshoreProfiles =
                 {
                     new TestForeshoreProfile()
-                },
-                ClosingStructures =
-                {
-                    new TestClosingStructure()
                 }
             };
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = new TestClosingStructure(),
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1),
-                    ForeshoreProfile = new TestForeshoreProfile()
-                }
-            };
-
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
                                                                  calculation,
                                                                  failureMechanism,
                                                                  assessmentSectionStub);
-            var properties = new ClosingStructuresInputContextProperties();
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
 
             // Call
-            properties.Data = inputContext;
+            var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
 
             // Assert
-            ClosingStructuresInput input = calculation.InputParameters;
-            var expectedProbabilityOpenStructureBeforeFlooding = ProbabilityFormattingHelper.Format(input.ProbabilityOpenStructureBeforeFlooding);
-            var expectedFailureProbabilityOpenStructure = ProbabilityFormattingHelper.Format(input.FailureProbabilityOpenStructure);
-            var expectedFailureProbabilityReparation = ProbabilityFormattingHelper.Format(input.FailureProbabilityReparation);
-
-            Assert.AreEqual(input.DeviationWaveDirection, properties.DeviationWaveDirection);
-            Assert.AreSame(input.InsideWaterLevel, properties.InsideWaterLevel.Data);
-            Assert.AreEqual(input.InflowModelType, properties.InflowModelType);
-            Assert.AreSame(input.AreaFlowApertures, properties.AreaFlowApertures.Data);
-            Assert.AreEqual(input.IdenticalApertures, properties.IdenticalApertures);
-            Assert.AreSame(input.LevelCrestStructureNotClosing, properties.LevelCrestStructureNotClosing.Data);
-            Assert.AreSame(input.ThresholdHeightOpenWeir, properties.ThresholdHeightOpenWeir.Data);
-            Assert.AreEqual(expectedProbabilityOpenStructureBeforeFlooding, properties.ProbabilityOpenStructureBeforeFlooding);
-            Assert.AreEqual(expectedFailureProbabilityOpenStructure, properties.FailureProbabilityOpenStructure);
-            Assert.AreEqual(expectedFailureProbabilityReparation, properties.FailureProbabilityReparation);
-            Assert.AreSame(input.DrainCoefficient, properties.DrainCoefficient.Data);
-            Assert.AreEqual(input.FactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure);
-
-            var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles().ToArray();
-            Assert.AreEqual(1, availableForeshoreProfiles.Length);
             CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
+            mockRepository.VerifyAll();
+        }
 
-            var availableStructures = properties.GetAvailableStructures().ToArray();
-            Assert.AreEqual(1, availableStructures.Length);
+        [Test]
+        public void GetAvailableStructures_SetInputContextInstanceWithStructures_ReturnStructures()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new ClosingStructuresFailureMechanism
+            {
+                ClosingStructures = 
+                {
+                    new TestClosingStructure()
+                }
+            };
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
+            var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
+                                                                 calculation,
+                                                                 failureMechanism,
+                                                                 assessmentSectionStub);
+            var properties = new ClosingStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            var availableStructures = properties.GetAvailableStructures();
+
+            // Assert
             CollectionAssert.AreEqual(failureMechanism.ClosingStructures, availableStructures);
-
             mockRepository.VerifyAll();
         }
 

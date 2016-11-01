@@ -112,18 +112,10 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewInputContextInstanceWithData_ReturnCorrectPropertyValues()
+        public void GetAvailableForeshoreProfiles_SetInputContextInstanceWithForeshoreProfiles_ReturnForeshoreProfiles()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(0, "", 0, 0)
-                }
-            };
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mockRepository.ReplayAll();
 
             var failureMechanism = new HeightStructuresFailureMechanism
@@ -131,44 +123,55 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
                 ForeshoreProfiles =
                 {
                     new TestForeshoreProfile()
-                },
+                }
+            };
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
+            var inputContext = new HeightStructuresInputContext(calculation.InputParameters,
+                                                                calculation,
+                                                                failureMechanism,
+                                                                assessmentSectionStub);
+            var properties = new HeightStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
+
+            // Assert
+            CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetAvailableStructures_SetInputContextInstanceWithStructures_ReturnStructures()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new HeightStructuresFailureMechanism
+            {
                 HeightStructures =
                 {
                     new TestHeightStructure()
                 }
             };
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = new TestHeightStructure(),
-                    HydraulicBoundaryLocation = CreateHydraulicBoundaryLocation(),
-                    ForeshoreProfile = new TestForeshoreProfile()
-                }
-            };
-
+            var calculation = new StructuresCalculation<HeightStructuresInput>();
             var inputContext = new HeightStructuresInputContext(calculation.InputParameters,
                                                                 calculation,
                                                                 failureMechanism,
                                                                 assessmentSectionStub);
-            var properties = new HeightStructuresInputContextProperties();
+            var properties = new HeightStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
 
             // Call
-            properties.Data = inputContext;
+            var availableStructures = properties.GetAvailableStructures();
 
             // Assert
-            HeightStructuresInput input = calculation.InputParameters;
-            Assert.AreSame(input.LevelCrestStructure, properties.LevelCrestStructure.Data);
-            Assert.AreEqual(input.DeviationWaveDirection, properties.DeviationWaveDirection);
-
-            var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles().ToArray();
-            Assert.AreEqual(1, availableForeshoreProfiles.Length);
-            CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
-
-            var availableStructures = properties.GetAvailableStructures().ToArray();
-            Assert.AreEqual(1, availableStructures.Length);
             CollectionAssert.AreEqual(failureMechanism.HeightStructures, availableStructures);
-
             mockRepository.VerifyAll();
         }
 

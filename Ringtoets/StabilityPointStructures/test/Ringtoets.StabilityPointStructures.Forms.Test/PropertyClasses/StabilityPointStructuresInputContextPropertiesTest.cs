@@ -38,7 +38,6 @@ using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.PropertyClasses;
-using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
 using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
@@ -49,8 +48,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
     [TestFixture]
     public class StabilityPointStructuresInputContextPropertiesTest
     {
-        private MockRepository mockRepository;
-
         private const int hydraulicBoundaryLocationPropertyIndex = 0;
         private const int volumicWeightWaterPropertyIndex = 1;
         private const int stormDurationPropertyIndex = 2;
@@ -90,6 +87,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         private const int foreshoreProfilePropertyIndex = 36;
         private const int useBreakWaterPropertyIndex = 37;
         private const int useForeshorePropertyIndex = 38;
+        private MockRepository mockRepository;
 
         [SetUp]
         public void SetUp()
@@ -161,18 +159,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void Data_SetNewInputContextInstanceWithData_ReturnCorrectPropertyValues()
+        public void GetAvailableForeshoreProfiles_SetInputContextInstanceWithForeshoreProfiles_ReturnForeshoreProfiles()
         {
             // Setup
-            var hydraulicBoundaryDatabase = new HydraulicBoundaryDatabase
-            {
-                Locations =
-                {
-                    new HydraulicBoundaryLocation(0, "", 0, 0)
-                }
-            };
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
-            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
             mockRepository.ReplayAll();
 
             var failureMechanism = new StabilityPointStructuresFailureMechanism
@@ -180,69 +170,55 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
                 ForeshoreProfiles =
                 {
                     new TestForeshoreProfile()
-                },
+                }
+            };
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+            var properties = new StabilityPointStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call
+            var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
+
+            // Assert
+            CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void GetAvailableStructures_SetInputContextInstanceWithStructures_ReturnStructures()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism
+            {
                 StabilityPointStructures =
                 {
                     new TestStabilityPointStructure()
                 }
             };
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = new TestStabilityPointStructure(),
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "name", 0.0, 1.1),
-                    ForeshoreProfile = new TestForeshoreProfile()
-                }
-            };
-
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
                                                                         calculation,
                                                                         failureMechanism,
                                                                         assessmentSectionStub);
-            var properties = new StabilityPointStructuresInputContextProperties();
+            var properties = new StabilityPointStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
 
             // Call
-            properties.Data = inputContext;
+            var availableStructures = properties.GetAvailableStructures();
 
             // Assert
-            StabilityPointStructuresInput input = calculation.InputParameters;
-            var expectedFailureProbabilityRepairClosure = ProbabilityFormattingHelper.Format(input.FailureProbabilityRepairClosure);
-            var expectedProbabilityCollisionSecondaryStructure = ProbabilityFormattingHelper.Format(input.ProbabilityCollisionSecondaryStructure);
-
-            Assert.AreEqual(input.VolumicWeightWater, properties.VolumicWeightWater);
-            Assert.AreSame(input.InsideWaterLevelFailureConstruction, properties.InsideWaterLevelFailureConstruction.Data);
-            Assert.AreSame(input.InsideWaterLevel, properties.InsideWaterLevel.Data);
-            Assert.AreSame(input.DrainCoefficient, properties.DrainCoefficient.Data);
-            Assert.AreEqual(input.FactorStormDurationOpenStructure, properties.FactorStormDurationOpenStructure);
-            Assert.AreSame(input.FlowVelocityStructureClosable, properties.FlowVelocityStructureClosable.Data);
-            Assert.AreEqual(input.InflowModelType, properties.InflowModelType);
-            Assert.AreEqual(input.LoadSchematizationType, properties.LoadSchematizationType);
-            Assert.AreSame(input.LevelCrestStructure, properties.LevelCrestStructure.Data);
-            Assert.AreSame(input.ThresholdHeightOpenWeir, properties.ThresholdHeightOpenWeir.Data);
-            Assert.AreSame(input.AreaFlowApertures, properties.AreaFlowApertures.Data);
-            Assert.AreSame(input.ConstructiveStrengthLinearLoadModel, properties.ConstructiveStrengthLinearLoadModel.Data);
-            Assert.AreSame(input.ConstructiveStrengthQuadraticLoadModel, properties.ConstructiveStrengthQuadraticLoadModel.Data);
-            Assert.AreSame(input.StabilityLinearLoadModel, properties.StabilityLinearLoadModel.Data);
-            Assert.AreSame(input.StabilityQuadraticLoadModel, properties.StabilityQuadraticLoadModel.Data);
-            Assert.AreEqual(expectedFailureProbabilityRepairClosure, properties.FailureProbabilityRepairClosure);
-            Assert.AreSame(input.FailureCollisionEnergy, properties.FailureCollisionEnergy.Data);
-            Assert.AreSame(input.ShipMass, properties.ShipMass.Data);
-            Assert.AreSame(input.ShipVelocity, properties.ShipVelocity.Data);
-            Assert.AreEqual(input.LevellingCount, properties.LevellingCount);
-            Assert.AreEqual(expectedProbabilityCollisionSecondaryStructure, properties.ProbabilityCollisionSecondaryStructure);
-            Assert.AreSame(input.BankWidth, properties.BankWidth.Data);
-            Assert.AreEqual(input.EvaluationLevel, properties.EvaluationLevel);
-            Assert.AreEqual(input.VerticalDistance, properties.VerticalDistance);
-
-            var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles().ToArray();
-            Assert.AreEqual(1, availableForeshoreProfiles.Length);
-            CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
-
-            var availableStructures = properties.GetAvailableStructures().ToArray();
-            Assert.AreEqual(1, availableStructures.Length);
             CollectionAssert.AreEqual(failureMechanism.StabilityPointStructures, availableStructures);
-
             mockRepository.VerifyAll();
         }
 
@@ -501,9 +477,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
             var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
             var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
-                                                                 calculation,
-                                                                 failureMechanism,
-                                                                 assessmentSectionStub);
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
 
             // Call
             var properties = new StabilityPointStructuresInputContextProperties
