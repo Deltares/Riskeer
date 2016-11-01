@@ -39,6 +39,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public StabilityPointStructuresCalculationEntity()
         {
             this.StabilityPointStructuresOutputEntities = new HashSet<StabilityPointStructuresOutputEntity>();
+            this.StabilityPointStructuresSectionResultEntities = new HashSet<StabilityPointStructuresSectionResultEntity>();
         }
     
         public long StabilityPointStructuresCalculationEntityId { get; set; }
@@ -112,5 +113,7 @@ namespace Application.Ringtoets.Storage.DbContext
         public virtual StabilityPointStructureEntity StabilityPointStructureEntity { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StabilityPointStructuresOutputEntity> StabilityPointStructuresOutputEntities { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StabilityPointStructuresSectionResultEntity> StabilityPointStructuresSectionResultEntities { get; set; }
     }
 }
