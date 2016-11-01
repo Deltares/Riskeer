@@ -347,7 +347,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             var calculation = new TestStabilityPointStructuresCalculation()
             {
-                Name = name
+                Name = name,
             };
 
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
@@ -784,8 +784,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    input.ModelFactorSuperCriticalFlow.Mean,
-                    input.ModelFactorSuperCriticalFlow.StandardDeviation,
+                    generalInput.ModelFactorSubCriticalFlow.Mean,
+                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -917,8 +917,8 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                     input.LevelCrestStructure.StandardDeviation,
                     input.StructureNormalOrientation,
                     input.FactorStormDurationOpenStructure,
-                    input.ModelFactorSuperCriticalFlow.Mean,
-                    input.ModelFactorSuperCriticalFlow.StandardDeviation,
+                    generalInput.ModelFactorSubCriticalFlow.Mean,
+                    generalInput.ModelFactorSubCriticalFlow.CoefficientOfVariation,
                     input.ThresholdHeightOpenWeir.Mean,
                     input.ThresholdHeightOpenWeir.StandardDeviation,
                     input.InsideWaterLevelFailureConstruction.Mean,
@@ -1272,33 +1272,33 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
         #region Parametername mappings
 
-        private const string volumicWeightWater = "Volumiek gewicht van water";
-        private const string insideWaterLevelFailureConstruction = "Binnenwaterstand bij constructief falen";
-        private const string insideWaterLevel = "Binnenwaterstand";
-        private const string stormDuration = "Stormduur";
-        private const string factorStormDurationOpenStructure = "Factor voor stormduur hoogwater";
-        private const string modelFactorSuperCriticalFlow = "Modelfactor overloopdebiet volkomen overlaat";
-        private const string flowVelocityStructureClosable = "Kritieke stroomsnelheid sluiting eerste keermiddel";
-        private const string drainCoefficient = "Afvoercoëfficient";
-        private const string structureNormalOrientation = "Oriëntatie";
-        private const string levelCrestStructure = "Kerende hoogte";
-        private const string thresholdHeightOpenWeir = "Drempelhoogte";
-        private const string areaFlowApertures = "Doorstroomoppervlak";
-        private const string constructiveStrengthLinearLoadModel = "Lineaire belastingschematisering constructieve sterkte";
-        private const string constructiveStrengthQuadraticLoadModel = "Kwadratische belastingschematisering constructieve sterkte";
-        private const string stabilityLinearLoadModel = "Lineaire belastingschematisering stabiliteit";
-        private const string stabilityQuadraticLoadModel = "Kwadratische belastingschematisering stabiliteit";
-        private const string failureCollisionEnergy = "Bezwijkwaarde aanvaarenergie";
-        private const string shipMass = "Massa van het schip";
-        private const string shipVelocity = "Aanvaarsnelheid";
-        private const string allowedLevelIncreaseStorage = "Toegestane peilverhoging komberging";
-        private const string storageStructureArea = "Kombergend oppervlak";
-        private const string flowWidthAtBottomProtection = "Stroomvoerende breedte bodembescherming";
-        private const string criticalOvertoppingDischarge = "Kritiek instromend debiet";
-        private const string widthFlowApertures = "Breedte van doorstroomopening";
-        private const string bankWidth = "Bermbreedte";
-        private const string evaluationLevel = "Analysehoogte";
-        private const string verticalDistance = "Afstand onderkant wand en teen van de dijk/berm";
+        private const string volumicWeightWater = "volumiek gewicht van water";
+        private const string insideWaterLevelFailureConstruction = "binnenwaterstand bij constructief falen";
+        private const string insideWaterLevel = "binnenwaterstand";
+        private const string stormDuration = "stormduur";
+        private const string factorStormDurationOpenStructure = "factor voor stormduur hoogwater";
+        private const string modelFactorSuperCriticalFlow = "modelfactor overloopdebiet volkomen overlaat";
+        private const string flowVelocityStructureClosable = "kritieke stroomsnelheid sluiting eerste keermiddel";
+        private const string drainCoefficient = "afvoercoëfficient";
+        private const string structureNormalOrientation = "oriëntatie";
+        private const string levelCrestStructure = "kerende hoogte";
+        private const string thresholdHeightOpenWeir = "drempelhoogte";
+        private const string areaFlowApertures = "doorstroomoppervlak";
+        private const string constructiveStrengthLinearLoadModel = "lineaire belastingschematisering constructieve sterkte";
+        private const string constructiveStrengthQuadraticLoadModel = "kwadratische belastingschematisering constructieve sterkte";
+        private const string stabilityLinearLoadModel = "lineaire belastingschematisering stabiliteit";
+        private const string stabilityQuadraticLoadModel = "kwadratische belastingschematisering stabiliteit";
+        private const string failureCollisionEnergy = "bezwijkwaarde aanvaarenergie";
+        private const string shipMass = "massa van het schip";
+        private const string shipVelocity = "aanvaarsnelheid";
+        private const string allowedLevelIncreaseStorage = "toegestane peilverhoging komberging";
+        private const string storageStructureArea = "kombergend oppervlak";
+        private const string flowWidthAtBottomProtection = "stroomvoerende breedte bodembescherming";
+        private const string criticalOvertoppingDischarge = "kritiek instromend debiet";
+        private const string widthFlowApertures = "breedte van doorstroomopening";
+        private const string bankWidth = "bermbreedte";
+        private const string evaluationLevel = "analysehoogte";
+        private const string verticalDistance = "afstand onderkant wand en teen van de dijk/berm";
 
         #endregion
     }
