@@ -182,6 +182,7 @@
     <Compile Include="DbContext\PartialHeightStructuresCalculationEntity.cs" />
     <Compile Include="DbContext\PartialHeightStructuresOutputEntity.cs" />
     <Compile Include="DbContext\PartialStabilityPointStructuresCalculationEntity.cs" />
+    <Compile Include="DbContext\PartialStabilityPointStructuresOutputEntity.cs" />
     <Compile Include="DbContext\PipingCalculationEntity.cs">
       <DependentUpon>RingtoetsEntities.tt</DependentUpon>
     </Compile>

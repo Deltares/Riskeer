@@ -962,6 +962,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             Assert.AreEqual(inputParameters.FactorStormDurationOpenStructure.Value, entity.FactorStormDurationOpenStructure);
             Assert.AreEqual(inputParameters.DrainCoefficient.Mean.Value, entity.DrainCoefficientMean);
             Assert.AreEqual(order, entity.Order);
+
+            CollectionAssert.IsEmpty(entity.StabilityPointStructuresOutputEntities);
         }
 
         [Test]
@@ -1220,6 +1222,27 @@ namespace Application.Ringtoets.Storage.Test.Create
 
             // Assert
             Assert.IsNotNull(entity.ForeshoreProfileEntity);
+        }
+
+        [Test]
+        public void CreateForStabilityPointStructures_CalculationWithOutput_ReturnEntity()
+        {
+            // Setup
+            var random = new Random(161);
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Output = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
+                                                         random.NextDouble(), random.NextDouble(),
+                                                         random.NextDouble())
+            };
+
+            var registry = new PersistenceRegistry();
+
+            // Call
+            StabilityPointStructuresCalculationEntity entity = calculation.CreateForStabilityPointStructures(registry, 0);
+
+            // Assert
+            Assert.AreEqual(1, entity.StabilityPointStructuresOutputEntities.Count);
         }
 
         #endregion
