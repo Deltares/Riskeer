@@ -192,7 +192,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.PropertyClasses
 
         [TestCase(true)]
         [TestCase(false)]
-        public void PropertyAttributes_ReturnExpectedValues(bool withDikeProfile)
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(bool withDikeProfile)
         {
             // Setup
             var assessmentSectionMock = mockRepository.StrictMock<IAssessmentSection>();

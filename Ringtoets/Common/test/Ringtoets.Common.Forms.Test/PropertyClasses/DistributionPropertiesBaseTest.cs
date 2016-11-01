@@ -189,7 +189,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [TestCase(DistributionPropertiesReadOnly.Mean, true, false)]
         [TestCase(DistributionPropertiesReadOnly.None, false, false)]
         [TestCase(DistributionPropertiesReadOnly.StandardDeviation, false, true)]
-        public void PropertyAttributes_ReturnExpectedValues(DistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectStandardDeviationReadOnly)
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(DistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectStandardDeviationReadOnly)
         {
             // Call
             var mocks = new MockRepository();

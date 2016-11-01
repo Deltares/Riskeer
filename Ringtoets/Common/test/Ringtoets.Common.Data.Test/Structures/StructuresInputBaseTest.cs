@@ -131,7 +131,6 @@ namespace Ringtoets.Common.Data.Test.Structures
             var input = new SimpleStructuresInput();
 
             // Precondition
-            Assert.IsNull(input.Structure);
             Assert.IsFalse(input.Updated);
 
             // Call

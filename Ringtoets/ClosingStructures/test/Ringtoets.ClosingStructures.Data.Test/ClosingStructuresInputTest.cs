@@ -92,6 +92,7 @@ namespace Ringtoets.ClosingStructures.Data.Test
         [Test]
         public void Structure_Null_ExpectedValues()
         {
+            // Setup
             var input = new ClosingStructuresInput();
 
             // Call

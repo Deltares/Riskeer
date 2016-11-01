@@ -59,7 +59,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void PropertyAttributes_ReturnExpectedValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Call
             var properties = new StabilityStoneCoverFailureMechanismProperties

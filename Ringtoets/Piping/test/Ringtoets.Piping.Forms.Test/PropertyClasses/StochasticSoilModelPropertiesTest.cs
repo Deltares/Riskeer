@@ -84,7 +84,7 @@ namespace Ringtoets.Piping.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void PropertyAttributes_ReturnExpectedValues()
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues()
         {
             // Setup
             StochasticSoilModel stochasticSoilModel = new StochasticSoilModel(1324, "Name", "SegmentName");

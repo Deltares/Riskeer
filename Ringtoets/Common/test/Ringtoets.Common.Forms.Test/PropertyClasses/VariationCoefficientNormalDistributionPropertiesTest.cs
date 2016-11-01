@@ -239,7 +239,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
         [TestCase(VariationCoefficientDistributionPropertiesReadOnly.Mean, true, false)]
         [TestCase(VariationCoefficientDistributionPropertiesReadOnly.None, false, false)]
         [TestCase(VariationCoefficientDistributionPropertiesReadOnly.CoefficientOfVariation, false, true)]
-        public void PropertyAttributes_ReturnExpectedValues(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectVariationCoefficientReadOnly)
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(VariationCoefficientDistributionPropertiesReadOnly propertiesReadOnly, bool expectMeanReadOnly, bool expectVariationCoefficientReadOnly)
         {
             // Setup
             var mockRepository = new MockRepository();

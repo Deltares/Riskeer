@@ -166,6 +166,7 @@ namespace Ringtoets.StabilityPointStructures.Data.Test
         [Test]
         public void Structure_Null_ExpectedValues()
         {
+            // Setup
             var input = new StabilityPointStructuresInput();
 
             // Call

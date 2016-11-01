@@ -285,7 +285,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Forms.Test.PropertyClasses
         }
 
         [Test]
-        public void PropertyAttributes_ReturnExpectedValues(
+        public void Constructor_Always_PropertiesHaveExpectedAttributesValues(
             [Values(true, false)] bool withForeshoreProfile)
         {
             // Setup
