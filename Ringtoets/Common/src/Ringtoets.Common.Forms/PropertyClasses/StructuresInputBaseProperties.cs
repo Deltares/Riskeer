@@ -132,7 +132,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_ModelSettings")]
         [ResourcesDisplayName(typeof(Resources), "Structure_ModelFactorSuperCriticalFlow_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_ModelFactorSuperCriticalFlow_Description")]
-        public NormalDistributionProperties ModelFactorSuperCriticalFlow
+        public virtual NormalDistributionProperties ModelFactorSuperCriticalFlow
         {
             get
             {
@@ -341,7 +341,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Structure_StructureNormalOrientation_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_StructureNormalOrientation_Description")]
-        public RoundedDouble StructureNormalOrientation
+        public virtual RoundedDouble StructureNormalOrientation
         {
             get
             {
@@ -375,7 +375,7 @@ namespace Ringtoets.Common.Forms.PropertyClasses
         [ResourcesCategory(typeof(Resources), "Categories_Schematization")]
         [ResourcesDisplayName(typeof(Resources), "Structure_WidthFlowApertures_DisplayName")]
         [ResourcesDescription(typeof(Resources), "Structure_WidthFlowApertures_Description")]
-        public VariationCoefficientNormalDistributionProperties WidthFlowApertures
+        public virtual VariationCoefficientNormalDistributionProperties WidthFlowApertures
         {
             get
             {

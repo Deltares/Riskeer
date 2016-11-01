@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Reflection;
 using Ringtoets.ClosingStructures.Data;
 using Ringtoets.ClosingStructures.Forms.PresentationObjects;
 using Ringtoets.ClosingStructures.Forms.Properties;
@@ -112,6 +113,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         #region Hydraulic data
 
+        [DynamicVisible]
         [PropertyOrder(insideWaterLevelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
@@ -128,6 +130,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(deviationWaveDirectionPropertyIndex)]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
         [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "Structure_DeviationWaveDirection_DisplayName")]
@@ -149,6 +152,16 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         #region Model factors
 
+        [DynamicVisible]
+        public override NormalDistributionProperties ModelFactorSuperCriticalFlow
+        {
+            get
+            {
+                return base.ModelFactorSuperCriticalFlow;
+            }
+        }
+
+        [DynamicVisible]
         [PropertyOrder(drainCoefficientPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
@@ -186,6 +199,28 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
 
         #region Schematization
 
+        [DynamicVisible]
+        public override RoundedDouble StructureNormalOrientation
+        {
+            get
+            {
+                return base.StructureNormalOrientation;
+            }
+            set
+            {
+                base.StructureNormalOrientation = value;
+            }
+        }
+
+        [DynamicVisible]
+        public override VariationCoefficientNormalDistributionProperties WidthFlowApertures
+        {
+            get
+            {
+                return base.WidthFlowApertures;
+            }
+        }
+
         [PropertyOrder(inflowModelTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -204,6 +239,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(thresholdHeightOpenWeirPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -220,6 +256,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(areaFlowAperturesPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -285,6 +322,7 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(levelCrestStructureNotClosingPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -318,5 +356,54 @@ namespace Ringtoets.ClosingStructures.Forms.PropertyClasses
         }
 
         #endregion
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            // Note: A default initialized calculation doesn't have InflowModelType initialized to any of these 3 values.
+            if (data.WrappedData.InflowModelType == ClosingStructureInflowModelType.VerticalWall ||
+                data.WrappedData.InflowModelType == ClosingStructureInflowModelType.FloodedCulvert ||
+                data.WrappedData.InflowModelType == ClosingStructureInflowModelType.LowSill)
+            {
+                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.InsideWaterLevel))
+                {
+                    return data.WrappedData.InflowModelType != ClosingStructureInflowModelType.VerticalWall;
+                }
+                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DeviationWaveDirection))
+                {
+                    return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.VerticalWall;
+                }
+                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow))
+                {
+                    return data.WrappedData.InflowModelType != ClosingStructureInflowModelType.FloodedCulvert;
+                }
+                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.DrainCoefficient))
+                {
+                    return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.FloodedCulvert;
+                }
+                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.StructureNormalOrientation))
+                {
+                    return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.VerticalWall;
+                }
+                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.ThresholdHeightOpenWeir))
+                {
+                    return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.LowSill;
+                }
+                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.AreaFlowApertures))
+                {
+                    return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.FloodedCulvert;
+                }
+                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.LevelCrestStructureNotClosing))
+                {
+                    return data.WrappedData.InflowModelType == ClosingStructureInflowModelType.VerticalWall;
+                }
+                if (propertyName == TypeUtils.GetMemberName<ClosingStructuresInputContextProperties>(p => p.WidthFlowApertures))
+                {
+                    return data.WrappedData.InflowModelType != ClosingStructureInflowModelType.FloodedCulvert;
+                }
+            }
+
+            return true;
+        }
     }
 }

@@ -36,6 +36,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             // Assert
             Assert.AreEqual("test", structure.Name);
             Assert.AreEqual(new Point2D(12345.56789, 9876.54321), structure.Location);
+            Assert.AreEqual(ClosingStructureInflowModelType.VerticalWall, structure.InflowModelType);
             AssertTestClosingStructureDefaults(structure);
         }
 
@@ -51,11 +52,12 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             // Assert
             Assert.AreEqual(name, structure.Name);
             Assert.AreEqual(new Point2D(12345.56789, 9876.54321), structure.Location);
+            Assert.AreEqual(ClosingStructureInflowModelType.VerticalWall, structure.InflowModelType);
             AssertTestClosingStructureDefaults(structure);
         }
 
         [Test]
-        public void Constructor_WithLocationName_ExpectedValues()
+        public void Constructor_WithLocation_ExpectedValues()
         {
             // Setup
             Point2D location = new Point2D(1234.5, 5678.9);
@@ -64,7 +66,25 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             ClosingStructure structure = new TestClosingStructure(location);
 
             // Assert
-            Assert.AreEqual(new Point2D(1234.5, 5678.9), structure.Location);
+            Assert.AreEqual("test", structure.Name);
+            Assert.AreEqual(location, structure.Location);
+            Assert.AreEqual(ClosingStructureInflowModelType.VerticalWall, structure.InflowModelType);
+            AssertTestClosingStructureDefaults(structure);
+        }
+
+        [Test]
+        [TestCase(ClosingStructureInflowModelType.VerticalWall)]
+        [TestCase(ClosingStructureInflowModelType.LowSill)]
+        [TestCase(ClosingStructureInflowModelType.FloodedCulvert)]
+        public void Constructor_WithLocationName_ExpectedValues(ClosingStructureInflowModelType type)
+        {
+            // Call
+            ClosingStructure structure = new TestClosingStructure(type);
+
+            // Assert
+            Assert.AreEqual("test", structure.Name);
+            Assert.AreEqual(new Point2D(12345.56789, 9876.54321), structure.Location);
+            Assert.AreEqual(type, structure.InflowModelType);
             AssertTestClosingStructureDefaults(structure);
         }
 
@@ -105,7 +125,6 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
             Assert.AreEqual(0.1, structure.FailureProbabilityOpenStructure);
             Assert.AreEqual(4, structure.IdenticalApertures);
             Assert.AreEqual(1.0, structure.FailureProbabilityReparation);
-            Assert.AreEqual(ClosingStructureInflowModelType.VerticalWall, structure.InflowModelType);
         }
     }
 }

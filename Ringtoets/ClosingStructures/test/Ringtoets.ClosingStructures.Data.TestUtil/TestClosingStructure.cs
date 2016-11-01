@@ -26,15 +26,18 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
 {
     public class TestClosingStructure : ClosingStructure
     {
-        public TestClosingStructure() 
+        public TestClosingStructure()
             : this("test") {}
 
-        public TestClosingStructure(string name) 
-            : this(name, new Point2D(12345.56789, 9876.54321)) { }
+        public TestClosingStructure(string name)
+            : this(name, new Point2D(12345.56789, 9876.54321), ClosingStructureInflowModelType.VerticalWall) {}
 
-        public TestClosingStructure(Point2D location) : this("test", location) {}
+        public TestClosingStructure(Point2D location) : this("test", location, ClosingStructureInflowModelType.VerticalWall) {}
 
-        public TestClosingStructure(string name, Point2D location)
+        public TestClosingStructure(ClosingStructureInflowModelType type)
+            : this("test", new Point2D(12345.56789, 9876.54321), type) {}
+
+        protected TestClosingStructure(string name, Point2D location, ClosingStructureInflowModelType type)
             : base(new ConstructionProperties
             {
                 Name = name,
@@ -90,7 +93,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
                 FailureProbabilityOpenStructure = 0.1,
                 IdenticalApertures = 4,
                 FailureProbabilityReparation = 1.0,
-                InflowModelType = ClosingStructureInflowModelType.VerticalWall
+                InflowModelType = type
             }) {}
     }
 }
