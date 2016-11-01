@@ -109,6 +109,8 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                    LoadSchematizationType = LoadSchematizationType.Linear
                 }
             };
 
@@ -158,6 +160,8 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1),
+                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                    LoadSchematizationType = LoadSchematizationType.Linear
                 }
             };
 
@@ -210,6 +214,8 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                    LoadSchematizationType = LoadSchematizationType.Linear
                 }
             };
 

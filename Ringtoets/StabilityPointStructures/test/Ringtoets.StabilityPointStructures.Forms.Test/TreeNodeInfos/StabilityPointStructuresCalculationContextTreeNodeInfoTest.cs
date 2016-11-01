@@ -469,6 +469,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                    LoadSchematizationType = LoadSchematizationType.Linear
                 }
             };
 

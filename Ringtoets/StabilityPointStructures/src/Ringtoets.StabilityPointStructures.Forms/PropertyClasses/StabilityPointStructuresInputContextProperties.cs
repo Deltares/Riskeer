@@ -25,6 +25,7 @@ using Core.Common.Base.Data;
 using Core.Common.Gui.Attributes;
 using Core.Common.Utils;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Reflection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.Helpers;
@@ -178,6 +179,16 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
 
         # region Model factors and critical values
 
+        [DynamicVisible]
+        public override NormalDistributionProperties ModelFactorSuperCriticalFlow
+        {
+            get
+            {
+                return base.ModelFactorSuperCriticalFlow;
+            }
+        }
+
+        [DynamicVisible]
         [PropertyOrder(drainCoefficientPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_ModelSettings")]
@@ -230,6 +241,15 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         #endregion
 
         #region Schematization
+
+        [DynamicVisible]
+        public override VariationCoefficientNormalDistributionProperties WidthFlowApertures
+        {
+            get
+            {
+                return base.WidthFlowApertures;
+            }
+        }
 
         [PropertyOrder(inflowModelTypePropertyIndex)]
         [TypeConverter(typeof(EnumTypeConverter))]
@@ -299,6 +319,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(areaFlowAperturesPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -315,6 +336,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(constructiveStrengthLinearLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -331,6 +353,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(constructiveStrengthQuadraticLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -347,6 +370,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(stabilityLinearLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -363,6 +387,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
             }
         }
 
+        [DynamicVisible]
         [PropertyOrder(stabilityQuadraticLoadModelPropertyIndex)]
         [TypeConverter(typeof(ExpandableObjectConverter))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -527,5 +552,55 @@ namespace Ringtoets.StabilityPointStructures.Forms.PropertyClasses
         }
 
         #endregion
+
+        [DynamicVisibleValidationMethod]
+        public bool DynamicVisibleValidationMethod(string propertyName)
+        {
+            // Note: A default initialized calculation doesn't have InflowModelType initialized to any of these 2 values.
+            if (data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.FloodedCulvert ||
+                data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.LowSill)
+            {
+                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow))
+                {
+                    return data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.LowSill;
+                }
+                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.DrainCoefficient))
+                {
+                    return data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.FloodedCulvert;
+                }
+                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.AreaFlowApertures))
+                {
+                    return data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.FloodedCulvert;
+                }
+                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.WidthFlowApertures))
+                {
+                    return data.WrappedData.InflowModelType == StabilityPointStructureInflowModelType.LowSill;
+                }
+            }
+
+            // Note: A default initialized calculation doesn't have LoadSchematizationType initialized to any of these 2 values.
+            if (data.WrappedData.LoadSchematizationType == LoadSchematizationType.Linear ||
+                data.WrappedData.LoadSchematizationType == LoadSchematizationType.Quadratic)
+            {
+                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ConstructiveStrengthLinearLoadModel))
+                {
+                    return data.WrappedData.LoadSchematizationType == LoadSchematizationType.Linear;
+                }
+                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ConstructiveStrengthQuadraticLoadModel))
+                {
+                    return data.WrappedData.LoadSchematizationType == LoadSchematizationType.Quadratic;
+                }
+                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.StabilityLinearLoadModel))
+                {
+                    return data.WrappedData.LoadSchematizationType == LoadSchematizationType.Linear;
+                }
+                if (propertyName == TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.StabilityQuadraticLoadModel))
+                {
+                    return data.WrappedData.LoadSchematizationType == LoadSchematizationType.Quadratic;
+                }
+            }
+
+            return true;
+        }
     }
 }

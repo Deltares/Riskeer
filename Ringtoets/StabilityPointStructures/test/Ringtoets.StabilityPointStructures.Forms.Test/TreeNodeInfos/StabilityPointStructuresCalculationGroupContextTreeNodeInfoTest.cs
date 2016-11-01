@@ -725,6 +725,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                    LoadSchematizationType = LoadSchematizationType.Linear
                 }
             });
 
@@ -734,6 +736,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                    InflowModelType = StabilityPointStructureInflowModelType.LowSill,
+                    LoadSchematizationType = LoadSchematizationType.Linear
                 }
             });
 
