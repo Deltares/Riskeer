@@ -129,7 +129,7 @@ namespace Ringtoets.StabilityStoneCover.Forms.Test.Views
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.IsTrue((bool)cells[assessmentLayerOneIndex].Value);
+                Assert.IsTrue((bool) cells[assessmentLayerOneIndex].Value);
                 Assert.AreEqual(result2.AssessmentLayerTwoA, cells[assessmentLayerTwoAIndex].Value);
                 Assert.AreEqual(result2.AssessmentLayerThree.ToString(), cells[assessmentLayerThreeIndex].FormattedValue);
             }
