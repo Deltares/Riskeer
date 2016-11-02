@@ -282,9 +282,9 @@ namespace Demo.Ringtoets.Test.Commands
 
             Assert.AreEqual(1, demoAssessmentSection.HeightStructures.CalculationsGroup.Children.Count);
             StructuresCalculation<HeightStructuresInput> calculation = demoAssessmentSection.HeightStructures
-                                                                           .Calculations
-                                                                           .OfType<StructuresCalculation<HeightStructuresInput>>()
-                                                                           .First();
+                                                                                            .Calculations
+                                                                                            .OfType<StructuresCalculation<HeightStructuresInput>>()
+                                                                                            .First();
             AssertExpectedHeightStructuresInput(calculation.InputParameters);
         }
 
@@ -327,9 +327,9 @@ namespace Demo.Ringtoets.Test.Commands
 
             Assert.AreEqual(1, demoAssessmentSection.ClosingStructures.CalculationsGroup.Children.Count);
             StructuresCalculation<ClosingStructuresInput> calculation = demoAssessmentSection.ClosingStructures
-                                                                            .Calculations
-                                                                            .OfType<StructuresCalculation<ClosingStructuresInput>>()
-                                                                            .First();
+                                                                                             .Calculations
+                                                                                             .OfType<StructuresCalculation<ClosingStructuresInput>>()
+                                                                                             .First();
             AssertExpectedClosingStructuresInput(calculation.InputParameters);
         }
 
@@ -474,9 +474,9 @@ namespace Demo.Ringtoets.Test.Commands
             Assert.AreEqual(1, demoAssessmentSection.StabilityPointStructures.CalculationsGroup.Children.Count);
             AssertExpectedStabilityPointStructureValues(demoAssessmentSection.StabilityPointStructures.StabilityPointStructures[0]);
             StructuresCalculation<StabilityPointStructuresInput> calculation = demoAssessmentSection.StabilityPointStructures
-                                                                                   .Calculations
-                                                                                   .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
-                                                                                   .First();
+                                                                                                    .Calculations
+                                                                                                    .OfType<StructuresCalculation<StabilityPointStructuresInput>>()
+                                                                                                    .First();
             AssertExpectedStabilityPointStructuresInput(calculation.InputParameters);
         }
 

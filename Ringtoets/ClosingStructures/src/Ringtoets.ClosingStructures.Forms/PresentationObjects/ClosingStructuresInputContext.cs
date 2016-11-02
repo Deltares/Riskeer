@@ -45,6 +45,6 @@ namespace Ringtoets.ClosingStructures.Forms.PresentationObjects
                                              StructuresCalculation<ClosingStructuresInput> calculation,
                                              ClosingStructuresFailureMechanism failureMechanism,
                                              IAssessmentSection assessmentSection)
-            : base(wrappedData, calculation, failureMechanism, assessmentSection) { }
+            : base(wrappedData, calculation, failureMechanism, assessmentSection) {}
     }
 }

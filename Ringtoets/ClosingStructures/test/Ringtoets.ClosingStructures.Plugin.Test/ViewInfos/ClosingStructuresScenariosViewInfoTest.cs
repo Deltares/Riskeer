@@ -252,7 +252,7 @@ namespace Ringtoets.ClosingStructures.Plugin.Test.ViewInfos
             {
                 Data = new CalculationGroup()
             };
-            
+
             // Call
             bool closeForData = info.CloseForData(view, assessmentSectionMock);
 

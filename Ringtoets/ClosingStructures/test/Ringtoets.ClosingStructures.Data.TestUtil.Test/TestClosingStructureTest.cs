@@ -91,7 +91,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil.Test
         private static void AssertTestClosingStructureDefaults(ClosingStructure structure)
         {
             Assert.AreEqual("id", structure.Id);
-            
+
             Assert.AreEqual(10.0, structure.StructureNormalOrientation.Value);
 
             Assert.AreEqual(20000, structure.StorageStructureArea.Mean.Value);

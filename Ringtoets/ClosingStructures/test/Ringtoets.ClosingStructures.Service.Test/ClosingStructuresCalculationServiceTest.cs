@@ -199,7 +199,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
             SetInvalidInputParameters(calculation.InputParameters, (RoundedDouble) value);
 
             bool isValid = false;
-            
+
             // Call 
             Action call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
