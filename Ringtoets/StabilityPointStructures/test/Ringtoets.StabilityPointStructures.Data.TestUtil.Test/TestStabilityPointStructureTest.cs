@@ -109,11 +109,6 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             Assert.AreEqual(StabilityPointStructureInflowModelType.FloodedCulvert, structure.InflowModelType);
         }
 
-        private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)
-        {
-            Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
-        }
-
         [Test]
         public void Constructor_WithName_ExpectedValues()
         {
@@ -195,6 +190,11 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil.Test
             AssertAreEqual(0.901, structure.AreaFlowApertures.StandardDeviation);
 
             Assert.AreEqual(StabilityPointStructureInflowModelType.FloodedCulvert, structure.InflowModelType);
+        }
+
+        private static void AssertAreEqual(double expectedValue, RoundedDouble actualValue)
+        {
+            Assert.AreEqual(expectedValue, actualValue, actualValue.GetAccuracy());
         }
     }
 }

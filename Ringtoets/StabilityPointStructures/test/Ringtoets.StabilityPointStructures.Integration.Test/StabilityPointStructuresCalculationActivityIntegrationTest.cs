@@ -84,7 +84,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
         }
-        
+
         [Test]
         public void Run_ValidCalculation_PerformValidationAndCalculationAndLogStartAndEnd()
         {
@@ -218,7 +218,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             var activity = new StabilityPointStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
                 calculator.EndInFailure = true;
 
                 // Call
@@ -233,7 +233,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
                     StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.",
-                        calculation.Name), msgs[3]);
+                                                          calculation.Name), msgs[3]);
                     StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
                 });
@@ -273,7 +273,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             var activity = new StabilityPointStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorContent = "An error occured";
 
@@ -289,7 +289,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
                     StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
-                        calculation.Name), msgs[3]);
+                                                          calculation.Name), msgs[3]);
                     StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
                 });

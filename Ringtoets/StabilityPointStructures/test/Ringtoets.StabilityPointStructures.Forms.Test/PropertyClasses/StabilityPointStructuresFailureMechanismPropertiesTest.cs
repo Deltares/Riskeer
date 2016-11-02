@@ -33,7 +33,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
     [TestFixture]
     public class StabilityPointStructuresFailureMechanismPropertiesTest
     {
-
         private const int namePropertyIndex = 0;
         private const int codePropertyIndex = 1;
         private const int gravitationalAccelerationPropertyIndex = 2;

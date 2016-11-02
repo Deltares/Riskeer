@@ -59,9 +59,9 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             TestDelegate action = () => new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                           name,
-                                                                                           dbFilePath,
-                                                                                           null);
+                                                                                                                 name,
+                                                                                                                 dbFilePath,
+                                                                                                                 null);
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(action);
@@ -100,10 +100,7 @@ namespace Ringtoets.Revetment.Service.Test
             var dbFilePath = Path.Combine(testDataPath, "NonExisting.sqlite");
 
             // Call
-            Action action = () =>
-            {
-                isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(null, name, dbFilePath, string.Empty);
-            };
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(null, name, dbFilePath, string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -129,10 +126,7 @@ namespace Ringtoets.Revetment.Service.Test
             var dbFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             // Call
-            Action action = () =>
-            {
-                isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input, name, dbFilePath, string.Empty);
-            };
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input, name, dbFilePath, string.Empty);
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -164,9 +158,9 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                               name,
-                                                                                               dbFilePath,
-                                                                                               designWaterLevelName);
+                                                                                                                     name,
+                                                                                                                     dbFilePath,
+                                                                                                                     designWaterLevelName);
 
             // Assert
             string expectedMessage = string.Format("Validatie mislukt: Kan {0} niet afleiden op basis van de invoer",
@@ -212,9 +206,9 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                               name,
-                                                                                               dbFilePath,
-                                                                                               "DesignWaterLevelName");
+                                                                                                                     name,
+                                                                                                                     dbFilePath,
+                                                                                                                     "DesignWaterLevelName");
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -247,9 +241,9 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                               name,
-                                                                                               dbFilePath,
-                                                                                               "DesignWaterLevelName");
+                                                                                                                     name,
+                                                                                                                     dbFilePath,
+                                                                                                                     "DesignWaterLevelName");
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -282,9 +276,9 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                               name,
-                                                                                               dbFilePath,
-                                                                                               "DesignWaterLevelName");
+                                                                                                                     name,
+                                                                                                                     dbFilePath,
+                                                                                                                     "DesignWaterLevelName");
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -330,9 +324,9 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                               name,
-                                                                                               dbFilePath,
-                                                                                               "DesignWaterLevelName");
+                                                                                                                     name,
+                                                                                                                     dbFilePath,
+                                                                                                                     "DesignWaterLevelName");
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -354,9 +348,9 @@ namespace Ringtoets.Revetment.Service.Test
         {
             // Setup
             RoundedDouble waterLevel = (RoundedDouble) 4.20;
-            RoundedDouble a = (RoundedDouble)1.0;
-            RoundedDouble b = (RoundedDouble)0.8;
-            RoundedDouble c = (RoundedDouble)0.4;
+            RoundedDouble a = (RoundedDouble) 1.0;
+            RoundedDouble b = (RoundedDouble) 0.8;
+            RoundedDouble c = (RoundedDouble) 0.4;
             int norm = 5;
             var input = new WaveConditionsInput
             {
@@ -409,9 +403,9 @@ namespace Ringtoets.Revetment.Service.Test
 
             // Call
             Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(input,
-                                                                                               name,
-                                                                                               dbFilePath,
-                                                                                               "DesignWaterLevelName");
+                                                                                                                     name,
+                                                                                                                     dbFilePath,
+                                                                                                                     "DesignWaterLevelName");
 
             // Assert
             TestHelper.AssertLogMessages(action, messages =>
@@ -431,9 +425,9 @@ namespace Ringtoets.Revetment.Service.Test
         {
             // Setup
             var waterLevel = new RoundedDouble(2, 4.00);
-            var a = (RoundedDouble)1.0;
-            var b = (RoundedDouble)0.8;
-            var c = (RoundedDouble)0.4;
+            var a = (RoundedDouble) 1.0;
+            var b = (RoundedDouble) 0.8;
+            var c = (RoundedDouble) 0.4;
             int norm = 5;
             var input = new WaveConditionsInput
             {
@@ -453,7 +447,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 testCalculator.EndInFailure = true;
 
                 // Call
@@ -487,19 +481,19 @@ namespace Ringtoets.Revetment.Service.Test
         {
             // Setup
             var waterLevel = new RoundedDouble(2, 4.00);
-            var a = (RoundedDouble)1.0;
-            var b = (RoundedDouble)0.8;
-            var c = (RoundedDouble)0.4;
+            var a = (RoundedDouble) 1.0;
+            var b = (RoundedDouble) 0.8;
+            var c = (RoundedDouble) 0.4;
             int norm = 5;
             var input = new WaveConditionsInput
             {
                 HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, string.Empty, 0, 0)
                 {
-                    DesignWaterLevel = (RoundedDouble)4.2
+                    DesignWaterLevel = (RoundedDouble) 4.2
                 },
                 ForeshoreProfile = new TestForeshoreProfile(),
                 UpperBoundaryRevetment = waterLevel,
-                LowerBoundaryRevetment = (RoundedDouble)3
+                LowerBoundaryRevetment = (RoundedDouble) 3
             };
 
             string hlcdDirectory = "C:/temp";
@@ -508,7 +502,7 @@ namespace Ringtoets.Revetment.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 var service = new WaveConditionsCalculationService();
                 testCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
@@ -535,7 +529,7 @@ namespace Ringtoets.Revetment.Service.Test
                 UpperBoundaryRevetment = (RoundedDouble) 10.0,
                 StepSize = WaveConditionsInputStepSize.One,
                 LowerBoundaryWaterLevels = (RoundedDouble) 1.0,
-                UpperBoundaryWaterLevels = (RoundedDouble) 10.0, 
+                UpperBoundaryWaterLevels = (RoundedDouble) 10.0,
                 Orientation = (RoundedDouble) 0
             };
             return input;

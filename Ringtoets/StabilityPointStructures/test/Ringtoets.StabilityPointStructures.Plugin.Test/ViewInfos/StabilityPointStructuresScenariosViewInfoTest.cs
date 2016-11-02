@@ -25,12 +25,12 @@ using Core.Common.Gui.Plugin;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
-using Ringtoets.StabilityPointStructures.Data;
-using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
-using Ringtoets.StabilityPointStructures.Forms.Views;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Common.Data.FailureMechanism;
+using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Forms.PresentationObjects;
+using Ringtoets.StabilityPointStructures.Forms.Views;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
 namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
@@ -252,7 +252,7 @@ namespace Ringtoets.StabilityPointStructures.Plugin.Test.ViewInfos
             {
                 Data = new CalculationGroup()
             };
-            
+
             // Call
             bool closeForData = info.CloseForData(view, assessmentSectionMock);
 

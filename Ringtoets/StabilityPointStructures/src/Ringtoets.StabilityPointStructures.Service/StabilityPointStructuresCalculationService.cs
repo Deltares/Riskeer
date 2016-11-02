@@ -132,7 +132,7 @@ namespace Ringtoets.StabilityPointStructures.Service
                     else
                     {
                         log.ErrorFormat(Resources.StabilityPointStructuresCalculationService_Calculate_Error_in_stabilityPoint_structures_0_calculation_click_details_for_last_error_1,
-                                    calculationName, lastErrorContent);
+                                        calculationName, lastErrorContent);
                     }
 
                     exceptionThrown = true;
@@ -736,7 +736,7 @@ namespace Ringtoets.StabilityPointStructures.Service
         {
             var validationRules = new List<ValidationRule>()
             {
-                 new UseBreakWaterRule(input),
+                new UseBreakWaterRule(input),
                 new NumericInputRule(input.VolumicWeightWater,
                                      ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_VolumicWeightWater_DisplayName)),
                 new VariationCoefficientLogNormalDistributionRule(input.StormDuration,

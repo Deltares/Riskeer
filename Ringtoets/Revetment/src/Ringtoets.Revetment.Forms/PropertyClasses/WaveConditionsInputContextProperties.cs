@@ -255,24 +255,6 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
         [ResourcesDescription(typeof(Resources), "WaveConditionsInput_RevetmentType_Description")]
         public abstract string RevetmentType { get; }
 
-        [PropertyOrder(hydraulicBoundaryLocationPropertyIndex)]
-        [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
-        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
-        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_DisplayName")]
-        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_Description")]
-        public virtual HydraulicBoundaryLocation HydraulicBoundaryLocation
-        {
-            get
-            {
-                return data.WrappedData.HydraulicBoundaryLocation;
-            }
-            set
-            {
-                data.WrappedData.HydraulicBoundaryLocation = value;
-                data.WrappedData.NotifyObservers();
-            }
-        }
-
         [PropertyOrder(foreshoreProfilePropertyIndex)]
         [Editor(typeof(ForeshoreProfileEditor), typeof(UITypeEditor))]
         [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_Schematization")]
@@ -291,14 +273,32 @@ namespace Ringtoets.Revetment.Forms.PropertyClasses
             }
         }
 
-        public virtual IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
+        [PropertyOrder(hydraulicBoundaryLocationPropertyIndex)]
+        [Editor(typeof(HydraulicBoundaryLocationEditor), typeof(UITypeEditor))]
+        [ResourcesCategory(typeof(RingtoetsCommonFormsResources), "Categories_HydraulicData")]
+        [ResourcesDisplayName(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_DisplayName")]
+        [ResourcesDescription(typeof(RingtoetsCommonFormsResources), "HydraulicBoundaryLocation_Description")]
+        public virtual HydraulicBoundaryLocation HydraulicBoundaryLocation
         {
-            return data.HydraulicBoundaryLocations;
+            get
+            {
+                return data.WrappedData.HydraulicBoundaryLocation;
+            }
+            set
+            {
+                data.WrappedData.HydraulicBoundaryLocation = value;
+                data.WrappedData.NotifyObservers();
+            }
         }
 
         public virtual IEnumerable<ForeshoreProfile> GetAvailableForeshoreProfiles()
         {
             return data.ForeshoreProfiles;
+        }
+
+        public virtual IEnumerable<HydraulicBoundaryLocation> GetAvailableHydraulicBoundaryLocations()
+        {
+            return data.HydraulicBoundaryLocations;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Ringtoets.StabilityPointStructures.Data.TestUtil
 {
     public class TestStabilityPointStructure : StabilityPointStructure
     {
-        public TestStabilityPointStructure() : this("aName"){}
+        public TestStabilityPointStructure() : this("aName") {}
 
         public TestStabilityPointStructure(string name)
             : base(new ConstructionProperties

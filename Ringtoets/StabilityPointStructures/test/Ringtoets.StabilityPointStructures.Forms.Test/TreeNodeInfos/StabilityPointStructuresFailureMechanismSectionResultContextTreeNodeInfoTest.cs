@@ -28,8 +28,8 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Forms.PresentationObjects;
 using Ringtoets.Common.Forms.Properties;
-using Ringtoets.StabilityPointStructures.Plugin;
 using Ringtoets.StabilityPointStructures.Data;
+using Ringtoets.StabilityPointStructures.Plugin;
 
 namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 {

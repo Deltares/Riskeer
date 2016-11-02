@@ -76,7 +76,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             // Setup
             using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 var points = new[]
                 {
@@ -112,7 +112,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var testData = new object();
             using (StabilityPointStructuresFailureMechanismResultView view = CreateConfiguredFailureMechanismResultsView())
             {
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 // Call
                 view.Data = testData;
@@ -131,7 +131,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (CreateConfiguredFailureMechanismResultsView())
             {
                 // Then
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(2, rows.Count);
@@ -139,14 +139,14 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 DataGridViewCellCollection cells = rows[0].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 1", cells[nameColumnIndex].FormattedValue);
-                Assert.IsFalse((bool)cells[assessmentLayerOneIndex].FormattedValue);
+                Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
 
                 cells = rows[1].Cells;
                 Assert.AreEqual(4, cells.Count);
                 Assert.AreEqual("Section 2", cells[nameColumnIndex].FormattedValue);
-                Assert.IsFalse((bool)cells[assessmentLayerOneIndex].FormattedValue);
+                Assert.IsFalse((bool) cells[assessmentLayerOneIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerTwoAIndex].FormattedValue);
                 Assert.AreEqual("-", cells[assessmentLayerThreeIndex].FormattedValue);
             }
@@ -159,7 +159,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             using (ShowFailureMechanismResultsView())
             {
                 // Then
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
 
                 Assert.AreEqual(4, dataGridView.ColumnCount);
 
@@ -198,12 +198,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var result1 = new StabilityPointStructuresFailureMechanismSectionResult(section1)
             {
                 AssessmentLayerOne = true,
-                AssessmentLayerThree = (RoundedDouble)random.NextDouble()
+                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             var result2 = new StabilityPointStructuresFailureMechanismSectionResult(section2)
             {
                 AssessmentLayerOne = false,
-                AssessmentLayerThree = (RoundedDouble)random.NextDouble()
+                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
 
             using (var view = ShowFailureMechanismResultsView())
@@ -216,7 +216,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 };
 
                 // Then
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(2, rows.Count);
 
@@ -255,7 +255,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
             var result = new StabilityPointStructuresFailureMechanismSectionResult(section)
             {
                 AssessmentLayerOne = false,
-                AssessmentLayerThree = (RoundedDouble)random.NextDouble()
+                AssessmentLayerThree = (RoundedDouble) random.NextDouble()
             };
             using (var view = ShowFailureMechanismResultsView())
             {
@@ -269,7 +269,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 result.NotifyObservers();
 
                 // Then
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(1, rows.Count);
 
@@ -306,7 +306,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.Views
                 };
 
                 // Then
-                var dataGridView = (DataGridView)new ControlTester("dataGridView").TheObject;
+                var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
                 DataGridViewRowCollection rows = dataGridView.Rows;
                 Assert.AreEqual(0, rows.Count);
             }

@@ -30,7 +30,6 @@ using log4net;
 using Ringtoets.Common.Service;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
-using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.IO;

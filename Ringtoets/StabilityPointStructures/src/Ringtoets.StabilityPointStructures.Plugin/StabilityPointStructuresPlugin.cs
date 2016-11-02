@@ -383,7 +383,6 @@ namespace Ringtoets.StabilityPointStructures.Plugin
             CalculateAll(context.WrappedData, context.WrappedData.Calculations.OfType<StructuresCalculation<StabilityPointStructuresInput>>(), context.Parent);
         }
 
-
         #endregion
 
         #region StabilityPointStructuresCalculationGroupContext TreeNodeInfo
