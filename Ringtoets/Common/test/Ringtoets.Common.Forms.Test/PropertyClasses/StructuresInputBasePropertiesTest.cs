@@ -153,7 +153,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             };
 
             // Call
-            var availableHydraulicBoundaryLocations = properties.GetAvailableHydraulicBoundaryLocations().ToArray();
+            var availableHydraulicBoundaryLocations = properties.GetAvailableHydraulicBoundaryLocations();
 
             // Assert
             Assert.AreSame(hydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);
