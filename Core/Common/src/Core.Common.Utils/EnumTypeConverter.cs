@@ -25,6 +25,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Core.Common.Utils.Attributes;
+using Core.Common.Utils.Properties;
 
 namespace Core.Common.Utils
 {
@@ -45,10 +46,13 @@ namespace Core.Common.Utils
             var valueString = value as string;
             if (valueString != null)
             {
-                foreach (var fieldInfo in EnumType.GetFields().Where(fieldInfo => valueString == GetDisplayName(fieldInfo)))
+                foreach (var fieldInfo in EnumType.GetFields().Where(fieldInfo => valueString == GetDisplayName(fieldInfo, fieldInfo.Name)))
                 {
                     return Enum.Parse(EnumType, fieldInfo.Name);
                 }
+                throw new FormatException(string.Format(Resources.ConvertFrom_Only_following_values_are_accepted_ParameterValues_0_,
+                                                        string.Join(", ", EnumType.GetFields(BindingFlags.Public | BindingFlags.Static)
+                                                                                  .Select(fi => GetDisplayName(fi, fi.Name)))));
             }
             return base.ConvertFrom(context, culture, value);
         }
@@ -59,15 +63,15 @@ namespace Core.Common.Utils
             {
                 return base.ConvertTo(context, culture, value, destinationType);
             }
-
-            var fieldInfo = EnumType.GetField(value.ToString());
-            return GetDisplayName(fieldInfo);
+            var valueString = value.ToString();
+            var fieldInfo = EnumType.GetField(valueString);
+            return fieldInfo != null ? GetDisplayName(fieldInfo, valueString) : string.Empty;
         }
 
-        private static string GetDisplayName(MemberInfo memberInfo)
+        private static string GetDisplayName(MemberInfo memberInfo, string valueString)
         {
             var resourcesDisplayNameAttribute = (ResourcesDisplayNameAttribute) Attribute.GetCustomAttribute(memberInfo, typeof(ResourcesDisplayNameAttribute));
-            return (resourcesDisplayNameAttribute != null) ? resourcesDisplayNameAttribute.DisplayName : null;
+            return resourcesDisplayNameAttribute != null ? resourcesDisplayNameAttribute.DisplayName : valueString;
         }
     }
 }

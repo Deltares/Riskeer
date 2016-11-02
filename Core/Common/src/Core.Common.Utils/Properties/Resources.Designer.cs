@@ -82,6 +82,15 @@ namespace Core.Common.Utils.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Slechts de volgende waardes worden geaccepteerd: {0}..
+        /// </summary>
+        public static string ConvertFrom_Only_following_values_are_accepted_ParameterValues_0_ {
+            get {
+                return ResourceManager.GetString("ConvertFrom_Only_following_values_are_accepted_ParameterValues_0_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Het bestandspad verwijst naar een map die niet bestaat..
         /// </summary>
         public static string Error_Directory_missing {

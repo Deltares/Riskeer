@@ -49,166 +49,6 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
     [TestFixture]
     public class StabilityPointStructuresInputContextPropertiesTest
     {
-        #region LowSill + Linear Model property Indices
-
-        private const int linear_LowSill_hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int linear_LowSill_volumicWeightWaterPropertyIndex = 1;
-        private const int linear_LowSill_stormDurationPropertyIndex = 2;
-        private const int linear_LowSill_insideWaterLevelPropertyIndex = 3;
-        private const int linear_LowSill_insideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int linear_LowSill_flowVelocityStructureClosablePropertyIndex = 5;
-        private const int linear_LowSill_modelFactorSuperCriticalFlowPropertyIndex = 6;
-        private const int linear_LowSill_factorStormDurationOpenStructurePropertyIndex = 7;
-        private const int linear_LowSill_structurePropertyIndex = 8;
-        private const int linear_LowSill_structureLocationPropertyIndex = 9;
-        private const int linear_LowSill_structureNormalOrientationPropertyIndex = 10;
-        private const int linear_LowSill_inflowModelTypePropertyIndex = 11;
-        private const int linear_LowSill_loadSchematizationTypePropertyIndex = 12;
-        private const int linear_LowSill_widthFlowAperturesPropertyIndex = 13;
-        private const int linear_LowSill_flowWidthAtBottomProtectionPropertyIndex = 14;
-        private const int linear_LowSill_storageStructureAreaPropertyIndex = 15;
-        private const int linear_LowSill_allowedLevelIncreaseStoragePropertyIndex = 16;
-        private const int linear_LowSill_levelCrestStructurePropertyIndex = 17;
-        private const int linear_LowSill_thresholdHeightOpenWeirPropertyIndex = 18;
-        private const int linear_LowSill_criticalOvertoppingDischargePropertyIndex = 19;
-        private const int linear_LowSill_constructiveStrengthLinearLoadModelPropertyIndex = 20;
-        private const int linear_LowSill_bankWidthPropertyIndex = 21;
-        private const int linear_LowSill_evaluationLevelPropertyIndex = 22;
-        private const int linear_LowSill_verticalDistancePropertyIndex = 23;
-        private const int linear_LowSill_failureProbabilityRepairClosurePropertyIndex = 24;
-        private const int linear_LowSill_failureCollisionEnergyPropertyIndex = 25;
-        private const int linear_LowSill_shipMassPropertyIndex = 26;
-        private const int linear_LowSill_shipVelocityPropertyIndex = 27;
-        private const int linear_LowSill_levellingCountPropertyIndex = 28;
-        private const int linear_LowSill_probabilityCollisionSecondaryStructurePropertyIndex = 29;
-        private const int linear_LowSill_stabilityLinearLoadModelPropertyIndex = 30;
-        private const int linear_LowSill_failureProbabilityStructureWithErosionPropertyIndex = 31;
-        private const int linear_LowSill_foreshoreProfilePropertyIndex = 32;
-        private const int linear_LowSill_useBreakWaterPropertyIndex = 33;
-        private const int linear_LowSill_useForeshorePropertyIndex = 34;
-
-        #endregion
-
-        #region FloodedCulvert + Linear Model property Indices
-
-        private const int linear_FloodedCulvert_hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int linear_FloodedCulvert_volumicWeightWaterPropertyIndex = 1;
-        private const int linear_FloodedCulvert_stormDurationPropertyIndex = 2;
-        private const int linear_FloodedCulvert_insideWaterLevelPropertyIndex = 3;
-        private const int linear_FloodedCulvert_insideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int linear_FloodedCulvert_flowVelocityStructureClosablePropertyIndex = 5;
-        private const int linear_FloodedCulvert_drainCoefficientPropertyIndex = 6;
-        private const int linear_FloodedCulvert_factorStormDurationOpenStructurePropertyIndex = 7;
-        private const int linear_FloodedCulvert_structurePropertyIndex = 8;
-        private const int linear_FloodedCulvert_structureLocationPropertyIndex = 9;
-        private const int linear_FloodedCulvert_structureNormalOrientationPropertyIndex = 10;
-        private const int linear_FloodedCulvert_inflowModelTypePropertyIndex = 11;
-        private const int linear_FloodedCulvert_loadSchematizationTypePropertyIndex = 12;
-        private const int linear_FloodedCulvert_areaFlowAperturesPropertyIndex = 13;
-        private const int linear_FloodedCulvert_flowWidthAtBottomProtectionPropertyIndex = 14;
-        private const int linear_FloodedCulvert_storageStructureAreaPropertyIndex = 15;
-        private const int linear_FloodedCulvert_allowedLevelIncreaseStoragePropertyIndex = 16;
-        private const int linear_FloodedCulvert_levelCrestStructurePropertyIndex = 17;
-        private const int linear_FloodedCulvert_thresholdHeightOpenWeirPropertyIndex = 18;
-        private const int linear_FloodedCulvert_criticalOvertoppingDischargePropertyIndex = 19;
-        private const int linear_FloodedCulvert_constructiveStrengthLinearLoadModelPropertyIndex = 20;
-        private const int linear_FloodedCulvert_bankWidthPropertyIndex = 21;
-        private const int linear_FloodedCulvert_evaluationLevelPropertyIndex = 22;
-        private const int linear_FloodedCulvert_verticalDistancePropertyIndex = 23;
-        private const int linear_FloodedCulvert_failureProbabilityRepairClosurePropertyIndex = 24;
-        private const int linear_FloodedCulvert_failureCollisionEnergyPropertyIndex = 25;
-        private const int linear_FloodedCulvert_shipMassPropertyIndex = 26;
-        private const int linear_FloodedCulvert_shipVelocityPropertyIndex = 27;
-        private const int linear_FloodedCulvert_levellingCountPropertyIndex = 28;
-        private const int linear_FloodedCulvert_probabilityCollisionSecondaryStructurePropertyIndex = 29;
-        private const int linear_FloodedCulvert_stabilityLinearLoadModelPropertyIndex = 30;
-        private const int linear_FloodedCulvert_failureProbabilityStructureWithErosionPropertyIndex = 31;
-        private const int linear_FloodedCulvert_foreshoreProfilePropertyIndex = 32;
-        private const int linear_FloodedCulvert_useBreakWaterPropertyIndex = 33;
-        private const int linear_FloodedCulvert_useForeshorePropertyIndex = 34;
-
-        #endregion
-
-        #region LowSill + Quadratic Model property Indices
-
-        private const int quadratic_LowSill_hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int quadratic_LowSill_volumicWeightWaterPropertyIndex = 1;
-        private const int quadratic_LowSill_stormDurationPropertyIndex = 2;
-        private const int quadratic_LowSill_insideWaterLevelPropertyIndex = 3;
-        private const int quadratic_LowSill_insideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int quadratic_LowSill_flowVelocityStructureClosablePropertyIndex = 5;
-        private const int quadratic_LowSill_modelFactorSuperCriticalFlowPropertyIndex = 6;
-        private const int quadratic_LowSill_factorStormDurationOpenStructurePropertyIndex = 7;
-        private const int quadratic_LowSill_structurePropertyIndex = 8;
-        private const int quadratic_LowSill_structureLocationPropertyIndex = 9;
-        private const int quadratic_LowSill_structureNormalOrientationPropertyIndex = 10;
-        private const int quadratic_LowSill_inflowModelTypePropertyIndex = 11;
-        private const int quadratic_LowSill_loadSchematizationTypePropertyIndex = 12;
-        private const int quadratic_LowSill_widthFlowAperturesPropertyIndex = 13;
-        private const int quadratic_LowSill_flowWidthAtBottomProtectionPropertyIndex = 14;
-        private const int quadratic_LowSill_storageStructureAreaPropertyIndex = 15;
-        private const int quadratic_LowSill_allowedLevelIncreaseStoragePropertyIndex = 16;
-        private const int quadratic_LowSill_levelCrestStructurePropertyIndex = 17;
-        private const int quadratic_LowSill_thresholdHeightOpenWeirPropertyIndex = 18;
-        private const int quadratic_LowSill_criticalOvertoppingDischargePropertyIndex = 19;
-        private const int quadratic_LowSill_constructiveStrengthQuadraticLoadModelPropertyIndex = 20;
-        private const int quadratic_LowSill_bankWidthPropertyIndex = 21;
-        private const int quadratic_LowSill_evaluationLevelPropertyIndex = 22;
-        private const int quadratic_LowSill_verticalDistancePropertyIndex = 23;
-        private const int quadratic_LowSill_failureProbabilityRepairClosurePropertyIndex = 24;
-        private const int quadratic_LowSill_failureCollisionEnergyPropertyIndex = 25;
-        private const int quadratic_LowSill_shipMassPropertyIndex = 26;
-        private const int quadratic_LowSill_shipVelocityPropertyIndex = 27;
-        private const int quadratic_LowSill_levellingCountPropertyIndex = 28;
-        private const int quadratic_LowSill_probabilityCollisionSecondaryStructurePropertyIndex = 29;
-        private const int quadratic_LowSill_stabilityQuadraticLoadModelPropertyIndex = 30;
-        private const int quadratic_LowSill_failureProbabilityStructureWithErosionPropertyIndex = 31;
-        private const int quadratic_LowSill_foreshoreProfilePropertyIndex = 32;
-        private const int quadratic_LowSill_useBreakWaterPropertyIndex = 33;
-        private const int quadratic_LowSill_useForeshorePropertyIndex = 34;
-
-        #endregion
-
-        #region FloodedCulvert + Quadratic Model property Indices
-
-        private const int quadratic_FloodedCulvert_hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int quadratic_FloodedCulvert_volumicWeightWaterPropertyIndex = 1;
-        private const int quadratic_FloodedCulvert_stormDurationPropertyIndex = 2;
-        private const int quadratic_FloodedCulvert_insideWaterLevelPropertyIndex = 3;
-        private const int quadratic_FloodedCulvert_insideWaterLevelFailureConstructionPropertyIndex = 4;
-        private const int quadratic_FloodedCulvert_flowVelocityStructureClosablePropertyIndex = 5;
-        private const int quadratic_FloodedCulvert_drainCoefficientPropertyIndex = 6;
-        private const int quadratic_FloodedCulvert_factorStormDurationOpenStructurePropertyIndex = 7;
-        private const int quadratic_FloodedCulvert_structurePropertyIndex = 8;
-        private const int quadratic_FloodedCulvert_structureLocationPropertyIndex = 9;
-        private const int quadratic_FloodedCulvert_structureNormalOrientationPropertyIndex = 10;
-        private const int quadratic_FloodedCulvert_inflowModelTypePropertyIndex = 11;
-        private const int quadratic_FloodedCulvert_loadSchematizationTypePropertyIndex = 12;
-        private const int quadratic_FloodedCulvert_areaFlowAperturesPropertyIndex = 13;
-        private const int quadratic_FloodedCulvert_flowWidthAtBottomProtectionPropertyIndex = 14;
-        private const int quadratic_FloodedCulvert_storageStructureAreaPropertyIndex = 15;
-        private const int quadratic_FloodedCulvert_allowedLevelIncreaseStoragePropertyIndex = 16;
-        private const int quadratic_FloodedCulvert_levelCrestStructurePropertyIndex = 17;
-        private const int quadratic_FloodedCulvert_thresholdHeightOpenWeirPropertyIndex = 18;
-        private const int quadratic_FloodedCulvert_criticalOvertoppingDischargePropertyIndex = 19;
-        private const int quadratic_FloodedCulvert_constructiveStrengthQuadraticLoadModelPropertyIndex = 20;
-        private const int quadratic_FloodedCulvert_bankWidthPropertyIndex = 21;
-        private const int quadratic_FloodedCulvert_evaluationLevelPropertyIndex = 22;
-        private const int quadratic_FloodedCulvert_verticalDistancePropertyIndex = 23;
-        private const int quadratic_FloodedCulvert_failureProbabilityRepairClosurePropertyIndex = 24;
-        private const int quadratic_FloodedCulvert_failureCollisionEnergyPropertyIndex = 25;
-        private const int quadratic_FloodedCulvert_shipMassPropertyIndex = 26;
-        private const int quadratic_FloodedCulvert_shipVelocityPropertyIndex = 27;
-        private const int quadratic_FloodedCulvert_levellingCountPropertyIndex = 28;
-        private const int quadratic_FloodedCulvert_probabilityCollisionSecondaryStructurePropertyIndex = 29;
-        private const int quadratic_FloodedCulvert_stabilityQuadraticLoadModelPropertyIndex = 30;
-        private const int quadratic_FloodedCulvert_failureProbabilityStructureWithErosionPropertyIndex = 31;
-        private const int quadratic_FloodedCulvert_foreshoreProfilePropertyIndex = 32;
-        private const int quadratic_FloodedCulvert_useBreakWaterPropertyIndex = 33;
-        private const int quadratic_FloodedCulvert_useForeshorePropertyIndex = 34;
-
-        #endregion
-
         private MockRepository mockRepository;
 
         [SetUp]
@@ -1362,10 +1202,43 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         }
 
         [Test]
+        public void DynamicVisibleValidationMethod_StructureTypeUnknown_ReturnExpectedValues()
+        {
+            // Setup
+            var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
+            mockRepository.ReplayAll();
+
+            var failureMechanism = new StabilityPointStructuresFailureMechanism();
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var inputContext = new StabilityPointStructuresInputContext(calculation.InputParameters,
+                                                                        calculation,
+                                                                        failureMechanism,
+                                                                        assessmentSectionStub);
+
+            var properties = new StabilityPointStructuresInputContextProperties
+            {
+                Data = inputContext
+            };
+
+            // Call & Assert
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ModelFactorSuperCriticalFlow)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.DrainCoefficient)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.AreaFlowApertures)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.WidthFlowApertures)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ConstructiveStrengthLinearLoadModel)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.ConstructiveStrengthQuadraticLoadModel)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.StabilityLinearLoadModel)));
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(TypeUtils.GetMemberName<StabilityPointStructuresInputContextProperties>(p => p.StabilityQuadraticLoadModel)));
+
+            Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
+        }
+
+        [Test]
         [TestCase(LoadSchematizationType.Linear)]
         [TestCase(LoadSchematizationType.Quadratic)]
-        public void DynamicVisibileValidationMethod_LowSillStructure_ReturnExpectedValues(LoadSchematizationType schematizationType)
+        public void DynamicVisibleValidationMethod_LowSillStructure_ReturnExpectedValues(LoadSchematizationType schematizationType)
         {
+            // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
@@ -1400,8 +1273,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase(LoadSchematizationType.Linear)]
         [TestCase(LoadSchematizationType.Quadratic)]
-        public void DynamicVisibileValidationMethod_FloodedCulvertStructure_ReturnExpectedValues(LoadSchematizationType schematizationType)
+        public void DynamicVisibleValidationMethod_FloodedCulvertStructure_ReturnExpectedValues(LoadSchematizationType schematizationType)
         {
+            // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
@@ -1436,8 +1310,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase(StabilityPointStructureInflowModelType.FloodedCulvert)]
         [TestCase(StabilityPointStructureInflowModelType.LowSill)]
-        public void DynamicVisibileValidationMethod_LinearModel_ReturnExpectedValues(StabilityPointStructureInflowModelType structureType)
+        public void DynamicVisibleValidationMethod_LinearModel_ReturnExpectedValues(StabilityPointStructureInflowModelType structureType)
         {
+            // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
@@ -1472,8 +1347,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
         [Test]
         [TestCase(StabilityPointStructureInflowModelType.FloodedCulvert)]
         [TestCase(StabilityPointStructureInflowModelType.LowSill)]
-        public void DynamicVisibileValidationMethod_QuadraticModel_ReturnExpectedValues(StabilityPointStructureInflowModelType structureType)
+        public void DynamicVisibleValidationMethod_QuadraticModel_ReturnExpectedValues(StabilityPointStructureInflowModelType structureType)
         {
+            // Setup
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();
             mockRepository.ReplayAll();
 
@@ -1504,5 +1380,165 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
 
             Assert.IsTrue(properties.DynamicVisibleValidationMethod(null));
         }
+
+        #region LowSill + Linear Model property Indices
+
+        private const int linear_LowSill_hydraulicBoundaryLocationPropertyIndex = 0;
+        private const int linear_LowSill_volumicWeightWaterPropertyIndex = 1;
+        private const int linear_LowSill_stormDurationPropertyIndex = 2;
+        private const int linear_LowSill_insideWaterLevelPropertyIndex = 3;
+        private const int linear_LowSill_insideWaterLevelFailureConstructionPropertyIndex = 4;
+        private const int linear_LowSill_flowVelocityStructureClosablePropertyIndex = 5;
+        private const int linear_LowSill_modelFactorSuperCriticalFlowPropertyIndex = 6;
+        private const int linear_LowSill_factorStormDurationOpenStructurePropertyIndex = 7;
+        private const int linear_LowSill_structurePropertyIndex = 8;
+        private const int linear_LowSill_structureLocationPropertyIndex = 9;
+        private const int linear_LowSill_structureNormalOrientationPropertyIndex = 10;
+        private const int linear_LowSill_inflowModelTypePropertyIndex = 11;
+        private const int linear_LowSill_loadSchematizationTypePropertyIndex = 12;
+        private const int linear_LowSill_widthFlowAperturesPropertyIndex = 13;
+        private const int linear_LowSill_flowWidthAtBottomProtectionPropertyIndex = 14;
+        private const int linear_LowSill_storageStructureAreaPropertyIndex = 15;
+        private const int linear_LowSill_allowedLevelIncreaseStoragePropertyIndex = 16;
+        private const int linear_LowSill_levelCrestStructurePropertyIndex = 17;
+        private const int linear_LowSill_thresholdHeightOpenWeirPropertyIndex = 18;
+        private const int linear_LowSill_criticalOvertoppingDischargePropertyIndex = 19;
+        private const int linear_LowSill_constructiveStrengthLinearLoadModelPropertyIndex = 20;
+        private const int linear_LowSill_bankWidthPropertyIndex = 21;
+        private const int linear_LowSill_evaluationLevelPropertyIndex = 22;
+        private const int linear_LowSill_verticalDistancePropertyIndex = 23;
+        private const int linear_LowSill_failureProbabilityRepairClosurePropertyIndex = 24;
+        private const int linear_LowSill_failureCollisionEnergyPropertyIndex = 25;
+        private const int linear_LowSill_shipMassPropertyIndex = 26;
+        private const int linear_LowSill_shipVelocityPropertyIndex = 27;
+        private const int linear_LowSill_levellingCountPropertyIndex = 28;
+        private const int linear_LowSill_probabilityCollisionSecondaryStructurePropertyIndex = 29;
+        private const int linear_LowSill_stabilityLinearLoadModelPropertyIndex = 30;
+        private const int linear_LowSill_failureProbabilityStructureWithErosionPropertyIndex = 31;
+        private const int linear_LowSill_foreshoreProfilePropertyIndex = 32;
+        private const int linear_LowSill_useBreakWaterPropertyIndex = 33;
+        private const int linear_LowSill_useForeshorePropertyIndex = 34;
+
+        #endregion
+
+        #region FloodedCulvert + Linear Model property Indices
+
+        private const int linear_FloodedCulvert_hydraulicBoundaryLocationPropertyIndex = 0;
+        private const int linear_FloodedCulvert_volumicWeightWaterPropertyIndex = 1;
+        private const int linear_FloodedCulvert_stormDurationPropertyIndex = 2;
+        private const int linear_FloodedCulvert_insideWaterLevelPropertyIndex = 3;
+        private const int linear_FloodedCulvert_insideWaterLevelFailureConstructionPropertyIndex = 4;
+        private const int linear_FloodedCulvert_flowVelocityStructureClosablePropertyIndex = 5;
+        private const int linear_FloodedCulvert_drainCoefficientPropertyIndex = 6;
+        private const int linear_FloodedCulvert_factorStormDurationOpenStructurePropertyIndex = 7;
+        private const int linear_FloodedCulvert_structurePropertyIndex = 8;
+        private const int linear_FloodedCulvert_structureLocationPropertyIndex = 9;
+        private const int linear_FloodedCulvert_structureNormalOrientationPropertyIndex = 10;
+        private const int linear_FloodedCulvert_inflowModelTypePropertyIndex = 11;
+        private const int linear_FloodedCulvert_loadSchematizationTypePropertyIndex = 12;
+        private const int linear_FloodedCulvert_areaFlowAperturesPropertyIndex = 13;
+        private const int linear_FloodedCulvert_flowWidthAtBottomProtectionPropertyIndex = 14;
+        private const int linear_FloodedCulvert_storageStructureAreaPropertyIndex = 15;
+        private const int linear_FloodedCulvert_allowedLevelIncreaseStoragePropertyIndex = 16;
+        private const int linear_FloodedCulvert_levelCrestStructurePropertyIndex = 17;
+        private const int linear_FloodedCulvert_thresholdHeightOpenWeirPropertyIndex = 18;
+        private const int linear_FloodedCulvert_criticalOvertoppingDischargePropertyIndex = 19;
+        private const int linear_FloodedCulvert_constructiveStrengthLinearLoadModelPropertyIndex = 20;
+        private const int linear_FloodedCulvert_bankWidthPropertyIndex = 21;
+        private const int linear_FloodedCulvert_evaluationLevelPropertyIndex = 22;
+        private const int linear_FloodedCulvert_verticalDistancePropertyIndex = 23;
+        private const int linear_FloodedCulvert_failureProbabilityRepairClosurePropertyIndex = 24;
+        private const int linear_FloodedCulvert_failureCollisionEnergyPropertyIndex = 25;
+        private const int linear_FloodedCulvert_shipMassPropertyIndex = 26;
+        private const int linear_FloodedCulvert_shipVelocityPropertyIndex = 27;
+        private const int linear_FloodedCulvert_levellingCountPropertyIndex = 28;
+        private const int linear_FloodedCulvert_probabilityCollisionSecondaryStructurePropertyIndex = 29;
+        private const int linear_FloodedCulvert_stabilityLinearLoadModelPropertyIndex = 30;
+        private const int linear_FloodedCulvert_failureProbabilityStructureWithErosionPropertyIndex = 31;
+        private const int linear_FloodedCulvert_foreshoreProfilePropertyIndex = 32;
+        private const int linear_FloodedCulvert_useBreakWaterPropertyIndex = 33;
+        private const int linear_FloodedCulvert_useForeshorePropertyIndex = 34;
+
+        #endregion
+
+        #region LowSill + Quadratic Model property Indices
+
+        private const int quadratic_LowSill_hydraulicBoundaryLocationPropertyIndex = 0;
+        private const int quadratic_LowSill_volumicWeightWaterPropertyIndex = 1;
+        private const int quadratic_LowSill_stormDurationPropertyIndex = 2;
+        private const int quadratic_LowSill_insideWaterLevelPropertyIndex = 3;
+        private const int quadratic_LowSill_insideWaterLevelFailureConstructionPropertyIndex = 4;
+        private const int quadratic_LowSill_flowVelocityStructureClosablePropertyIndex = 5;
+        private const int quadratic_LowSill_modelFactorSuperCriticalFlowPropertyIndex = 6;
+        private const int quadratic_LowSill_factorStormDurationOpenStructurePropertyIndex = 7;
+        private const int quadratic_LowSill_structurePropertyIndex = 8;
+        private const int quadratic_LowSill_structureLocationPropertyIndex = 9;
+        private const int quadratic_LowSill_structureNormalOrientationPropertyIndex = 10;
+        private const int quadratic_LowSill_inflowModelTypePropertyIndex = 11;
+        private const int quadratic_LowSill_loadSchematizationTypePropertyIndex = 12;
+        private const int quadratic_LowSill_widthFlowAperturesPropertyIndex = 13;
+        private const int quadratic_LowSill_flowWidthAtBottomProtectionPropertyIndex = 14;
+        private const int quadratic_LowSill_storageStructureAreaPropertyIndex = 15;
+        private const int quadratic_LowSill_allowedLevelIncreaseStoragePropertyIndex = 16;
+        private const int quadratic_LowSill_levelCrestStructurePropertyIndex = 17;
+        private const int quadratic_LowSill_thresholdHeightOpenWeirPropertyIndex = 18;
+        private const int quadratic_LowSill_criticalOvertoppingDischargePropertyIndex = 19;
+        private const int quadratic_LowSill_constructiveStrengthQuadraticLoadModelPropertyIndex = 20;
+        private const int quadratic_LowSill_bankWidthPropertyIndex = 21;
+        private const int quadratic_LowSill_evaluationLevelPropertyIndex = 22;
+        private const int quadratic_LowSill_verticalDistancePropertyIndex = 23;
+        private const int quadratic_LowSill_failureProbabilityRepairClosurePropertyIndex = 24;
+        private const int quadratic_LowSill_failureCollisionEnergyPropertyIndex = 25;
+        private const int quadratic_LowSill_shipMassPropertyIndex = 26;
+        private const int quadratic_LowSill_shipVelocityPropertyIndex = 27;
+        private const int quadratic_LowSill_levellingCountPropertyIndex = 28;
+        private const int quadratic_LowSill_probabilityCollisionSecondaryStructurePropertyIndex = 29;
+        private const int quadratic_LowSill_stabilityQuadraticLoadModelPropertyIndex = 30;
+        private const int quadratic_LowSill_failureProbabilityStructureWithErosionPropertyIndex = 31;
+        private const int quadratic_LowSill_foreshoreProfilePropertyIndex = 32;
+        private const int quadratic_LowSill_useBreakWaterPropertyIndex = 33;
+        private const int quadratic_LowSill_useForeshorePropertyIndex = 34;
+
+        #endregion
+
+        #region FloodedCulvert + Quadratic Model property Indices
+
+        private const int quadratic_FloodedCulvert_hydraulicBoundaryLocationPropertyIndex = 0;
+        private const int quadratic_FloodedCulvert_volumicWeightWaterPropertyIndex = 1;
+        private const int quadratic_FloodedCulvert_stormDurationPropertyIndex = 2;
+        private const int quadratic_FloodedCulvert_insideWaterLevelPropertyIndex = 3;
+        private const int quadratic_FloodedCulvert_insideWaterLevelFailureConstructionPropertyIndex = 4;
+        private const int quadratic_FloodedCulvert_flowVelocityStructureClosablePropertyIndex = 5;
+        private const int quadratic_FloodedCulvert_drainCoefficientPropertyIndex = 6;
+        private const int quadratic_FloodedCulvert_factorStormDurationOpenStructurePropertyIndex = 7;
+        private const int quadratic_FloodedCulvert_structurePropertyIndex = 8;
+        private const int quadratic_FloodedCulvert_structureLocationPropertyIndex = 9;
+        private const int quadratic_FloodedCulvert_structureNormalOrientationPropertyIndex = 10;
+        private const int quadratic_FloodedCulvert_inflowModelTypePropertyIndex = 11;
+        private const int quadratic_FloodedCulvert_loadSchematizationTypePropertyIndex = 12;
+        private const int quadratic_FloodedCulvert_areaFlowAperturesPropertyIndex = 13;
+        private const int quadratic_FloodedCulvert_flowWidthAtBottomProtectionPropertyIndex = 14;
+        private const int quadratic_FloodedCulvert_storageStructureAreaPropertyIndex = 15;
+        private const int quadratic_FloodedCulvert_allowedLevelIncreaseStoragePropertyIndex = 16;
+        private const int quadratic_FloodedCulvert_levelCrestStructurePropertyIndex = 17;
+        private const int quadratic_FloodedCulvert_thresholdHeightOpenWeirPropertyIndex = 18;
+        private const int quadratic_FloodedCulvert_criticalOvertoppingDischargePropertyIndex = 19;
+        private const int quadratic_FloodedCulvert_constructiveStrengthQuadraticLoadModelPropertyIndex = 20;
+        private const int quadratic_FloodedCulvert_bankWidthPropertyIndex = 21;
+        private const int quadratic_FloodedCulvert_evaluationLevelPropertyIndex = 22;
+        private const int quadratic_FloodedCulvert_verticalDistancePropertyIndex = 23;
+        private const int quadratic_FloodedCulvert_failureProbabilityRepairClosurePropertyIndex = 24;
+        private const int quadratic_FloodedCulvert_failureCollisionEnergyPropertyIndex = 25;
+        private const int quadratic_FloodedCulvert_shipMassPropertyIndex = 26;
+        private const int quadratic_FloodedCulvert_shipVelocityPropertyIndex = 27;
+        private const int quadratic_FloodedCulvert_levellingCountPropertyIndex = 28;
+        private const int quadratic_FloodedCulvert_probabilityCollisionSecondaryStructurePropertyIndex = 29;
+        private const int quadratic_FloodedCulvert_stabilityQuadraticLoadModelPropertyIndex = 30;
+        private const int quadratic_FloodedCulvert_failureProbabilityStructureWithErosionPropertyIndex = 31;
+        private const int quadratic_FloodedCulvert_foreshoreProfilePropertyIndex = 32;
+        private const int quadratic_FloodedCulvert_useBreakWaterPropertyIndex = 33;
+        private const int quadratic_FloodedCulvert_useForeshorePropertyIndex = 34;
+
+        #endregion
     }
 }

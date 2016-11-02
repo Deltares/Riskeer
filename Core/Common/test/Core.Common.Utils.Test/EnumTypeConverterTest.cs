@@ -96,6 +96,33 @@ namespace Core.Common.Utils.Test
         }
 
         [Test]
+        public void ConvertTo_ValueIsNonExistingEnumValue_ReturnsEmptyString()
+        {
+            // Setup
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+
+            // Call
+            object result = converter.ConvertTo((SimpleEnum) 5, typeof(string));
+
+            // Assert
+            Assert.AreEqual(string.Empty, result);
+        }
+
+        [Test]
+        public void ConvertTo_ValueWithoutResourceDisplayName_ReturnsEmptyString()
+        {
+            // Setup
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+
+            // Call
+            object result = converter.ConvertTo(SimpleEnum.ThirdValue, typeof(string));
+
+            // Assert
+            string expectedText = SimpleEnum.ThirdValue.ToString();
+            Assert.AreEqual(expectedText, result);
+        }
+
+        [Test]
         public void ConvertTo_DestinationTypeIsNull_ThrowsArgumentNullException()
         {
             // Setup
@@ -191,7 +218,7 @@ namespace Core.Common.Utils.Test
         }
 
         [Test]
-        public void ConvertFrom_ValueIsString_ReturnsExpectedEnum()
+        public void ConvertFrom_ValueIsStringOfDisplayName_ReturnsExpectedEnum()
         {
             // Setup
             const string second = "<second>";
@@ -205,13 +232,45 @@ namespace Core.Common.Utils.Test
             Assert.AreEqual(expectedEnumValue, result);
         }
 
+        [Test]
+        public void ConvertFrom_ValueIsStringOfElementName_ReturnsExpectedEnum()
+        {
+            // Setup
+            string third = SimpleEnum.ThirdValue.ToString();
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+
+            // Call
+            var result = converter.ConvertFrom(third);
+
+            // Assert
+            var expectedEnumValue = SimpleEnum.ThirdValue;
+            Assert.AreEqual(expectedEnumValue, result);
+        }
+
+        [Test]
+        public void ConvertFrom_ValueIsStringOfElementNameWhileHasDisplayName_ThrowsFormatException()
+        {
+            // Setup
+            string second = SimpleEnum.FirstValue.ToString();
+            var converter = new EnumTypeConverter(typeof(SimpleEnum));
+
+            // Call
+            TestDelegate call = () => converter.ConvertFrom(second);
+
+            // Assert
+            string message = Assert.Throws<FormatException>(call).Message;
+            Assert.AreEqual("Slechts de volgende waardes worden geaccepteerd: <first>, <second>, ThirdValue.", message);
+        }
+
         private enum SimpleEnum
         {
             [ResourcesDisplayName(typeof(Resources), "SimpleEnum_FirstValue_DisplayName")]
-            FirstValue,
+            FirstValue = 1,
 
             [ResourcesDisplayName(typeof(Resources), "SimpleEnum_SecondValue_DisplayName")]
-            SecondValue
+            SecondValue = 2,
+
+            ThirdValue = 3
         }
 
         private class NotSupportedType {}

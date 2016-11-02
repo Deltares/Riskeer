@@ -159,4 +159,7 @@
   <data name="Error_General_output_error_0" xml:space="preserve">
     <value>Er is een onverwachte fout opgetreden tijdens het schrijven van het bestand '{0}'.</value>
   </data>
+  <data name="ConvertFrom_Only_following_values_are_accepted_ParameterValues_0_" xml:space="preserve">
+    <value>Slechts de volgende waardes worden geaccepteerd: {0}.</value>
+  </data>
 </root>
