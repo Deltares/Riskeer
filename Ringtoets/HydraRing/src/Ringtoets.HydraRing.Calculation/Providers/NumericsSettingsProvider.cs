@@ -188,7 +188,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                             422, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
-                            424, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            424, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
                         },
                         {
                             425, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)

@@ -78,7 +78,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, 426, 1, 1)]
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, 427, 1, 1)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 422, 1, 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 424, 1, 1)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 424, 1, 4)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 425, 1, 4)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 430, 1, 4)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 431, 1, 1)]
