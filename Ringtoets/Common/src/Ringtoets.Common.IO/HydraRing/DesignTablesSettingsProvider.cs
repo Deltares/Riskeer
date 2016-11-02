@@ -65,6 +65,11 @@ namespace Ringtoets.Common.IO.HydraRing
                    defaultDesignTablesSettings[failureMechanismType];
         }
 
+        public void Dispose()
+        {
+            designTableSettingsReader.Dispose();
+        }
+
         private void InitializeDefaultDesignTablesSettings()
         {
             defaultDesignTablesSettings = new Dictionary<HydraRingFailureMechanismType, DesignTablesSetting>
@@ -114,11 +119,6 @@ namespace Ringtoets.Common.IO.HydraRing
                     new DesignTablesSetting(double.NaN, double.NaN)
                 }
             };
-        }
-
-        public void Dispose()
-        {
-            designTableSettingsReader.Dispose();
         }
     }
 }

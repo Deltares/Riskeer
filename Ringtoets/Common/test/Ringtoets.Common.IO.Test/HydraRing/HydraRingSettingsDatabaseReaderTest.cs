@@ -42,7 +42,6 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             TestDataPath.Ringtoets.Common.IO,
             Path.Combine("HydraRingSettingsDatabaseReader", "7_67-empty.config.sqlite"));
 
-
         [Test]
         public void Constructor_Always_ReturnsNewReader()
         {

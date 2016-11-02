@@ -78,6 +78,11 @@ namespace Ringtoets.Common.IO.HydraRing
             return numericsSettings;
         }
 
+        public void Dispose()
+        {
+            numericsSettingsReader.Dispose();
+        }
+
         private void InitializeDefaultNumericsSettings()
         {
             defaultNumericsSettings = new Dictionary<HydraRingFailureMechanismType, IDictionary<int, NumericsSetting>>
@@ -225,11 +230,6 @@ namespace Ringtoets.Common.IO.HydraRing
                     }
                 }
             };
-        }
-
-        public void Dispose()
-        {
-            numericsSettingsReader.Dispose();
         }
     }
 }
