@@ -40,7 +40,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
         /// </summary>
         /// <param name="calculation">The <see cref="GrassCoverErosionOutwardsWaveConditionsCalculation"/> for which to validate the values.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The file path of the hydraulic boundary database file which to validate.</param>
-        /// <returns><c>True</c>c> if there were no validation errors; <c>False</c>c> otherwise.</returns>
+        /// <returns><c>True</c> if there were no validation errors; <c>False</c> otherwise.</returns>
         public static bool Validate(GrassCoverErosionOutwardsWaveConditionsCalculation calculation, string hydraulicBoundaryDatabaseFilePath)
         {
             return ValidateWaveConditionsInput(

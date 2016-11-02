@@ -69,7 +69,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// the given <paramref name="path"/>.
         /// </summary>
         /// <param name="path">The path to use for reading characteristic points.</param>
-        /// <exception cref="ArgumentException"><paramref name="path"/> is invalid.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
         public CharacteristicPointsCsvReader(string path)
         {
             FileUtils.ValidateFilePath(path);
@@ -78,11 +78,11 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Reads the file to determine the number of available <see cref="CriticalFileReadException"/>
+        /// Reads the file to determine the number of available <see cref="CharacteristicPoints"/>
         /// data rows.
         /// </summary>
         /// <returns>A value greater than or equal to 0.</returns>
-        /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:
+        /// <exception cref="CriticalFileReadException">Thrown when a critical error has occurred, which may be caused by:
         /// <list type="bullet">
         /// <item>The file cannot be found at specified path.</item>
         /// <item>The specified path is invalid, such as being on an unmapped drive.</item>
@@ -106,8 +106,8 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// Reads and parses the next data row to create a new instance of <see cref="CharacteristicPoints"/>,
         /// which will contain all the declared characteristic points for some surfaceline.
         /// </summary>
-        /// <returns>Return the parsed characteristic points location, or null when at the end of the file.</returns>
-        /// <exception cref="CriticalFileReadException">A critical error has occurred, which may be caused by:
+        /// <returns>Return the parsed characteristic points location, or <c>null</c> when at the end of the file.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when a critical error has occurred, which may be caused by:
         /// <list type="bullet">
         /// <item>The file cannot be found at specified path.</item>
         /// <item>The specified path is invalid, such as being on an unmapped drive.</item>
@@ -117,7 +117,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <item>The file incompatible for importing characteristic points.</item>
         /// </list>
         /// </exception>
-        /// <exception cref="LineParseException">A parse error has occurred for the current row, which may be caused by:
+        /// <exception cref="LineParseException">Thrown when a parse error has occurred for the current row, which may be caused by:
         /// <list type="bullet">
         /// <item>The row doesn't use ';' as separator character.</item>
         /// <item>The row contains a coordinate value that cannot be parsed as a double.</item>
@@ -154,7 +154,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         }
 
         /// <summary>
-        /// Disposed the current <see cref="fileReader"/>.
+        /// Disposes the current <see cref="fileReader"/>.
         /// </summary>
         public void Dispose()
         {
@@ -168,8 +168,8 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <summary>
         /// Reads lines from file until the first non-white line is hit.
         /// </summary>
-        /// <returns>The next line which is not a white line, or <c>null</c> when no non-white line could be found before the
-        /// end of file.</returns>
+        /// <returns>The next line which is not a white line, or <c>null</c> when no non-white 
+        /// line could be found before the end of file.</returns>
         private string ReadNextNonEmptyLine()
         {
             string readText;
@@ -191,7 +191,8 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// Validates the header of the file.
         /// </summary>
         /// <param name="reader">The reader, which is currently at the header row.</param>
-        /// <exception cref="CriticalFileReadException">The header is not in the required format or the file is empty.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when the header is not in the 
+        /// required format or the file is empty.</exception>
         private void ValidateHeader(TextReader reader)
         {
             var currentLine = 1;
@@ -214,8 +215,8 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// </summary>
         /// <param name="reader">The opened text file reader.</param>
         /// <param name="currentLine">Row number for error messaging.</param>
-        /// <returns>The read line, or null when at the end of the file.</returns>
-        /// <exception cref="CriticalFileReadException">An critical I/O exception occurred.</exception>
+        /// <returns>The read line, or <c>null</c> when at the end of the file.</returns>
+        /// <exception cref="CriticalFileReadException">Thrown when a critical I/O exception occurred.</exception>
         private string ReadLineAndHandleIOExceptions(TextReader reader, int currentLine)
         {
             try
@@ -322,7 +323,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <param name="reader">The reader at the row from which counting should start.</param>
         /// <param name="currentLine">The current line, used for error messaging.</param>
         /// <returns>An integer greater than or equal to 0, being the number of characteristic points location rows.</returns>
-        /// <exception cref="CriticalFileReadException">An I/O exception occurred.</exception>
+        /// <exception cref="CriticalFileReadException">Thrown when an I/O exception occurred.</exception>
         private int CountNonEmptyLines(TextReader reader, int currentLine)
         {
             int count = 0, lineNumberForMessage = currentLine;
@@ -401,7 +402,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// <param name="typeKey">The key for the type of characteristic point.</param>
         /// <param name="locationName">The name of the location used for creating descriptive errors.</param>
         /// <returns>A new <see cref="Point3D"/> with values for x,y,z set.</returns>
-        /// <exception cref="LineParseException"><paramref name="valuesRead"/> 
+        /// <exception cref="LineParseException">Thrown when <paramref name="valuesRead"/> 
         /// contains a value which could not be parsed to a double in the column that had to be read for creating
         /// the <see cref="Point3D"/>.</exception>
         private Point3D GetPoint3D(string[] valuesRead, string typeKey, string locationName)
@@ -445,7 +446,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// </summary>
         /// <param name="tokenizedString">The tokenized string from which the name should be extracted.</param>
         /// <returns>The name of the location.</returns>
-        /// <exception cref="LineParseException">Id value is null or empty.</exception>
+        /// <exception cref="LineParseException">Thrown when id value is <c>null</c> or empty.</exception>
         private string GetLocationName(IList<string> tokenizedString)
         {
             string name = tokenizedString.Any() ? tokenizedString[columnsInFile[locationIdKey]].Trim() : null;
@@ -461,7 +462,7 @@ namespace Ringtoets.Piping.IO.SurfaceLines
         /// </summary>
         /// <param name="readText">The text.</param>
         /// <returns>The tokenized parts.</returns>
-        /// <exception cref="LineParseException"><paramref name="readText"/> lacks separator character.</exception>
+        /// <exception cref="LineParseException">Thrown when <paramref name="readText"/> lacks separator character.</exception>
         private string[] TokenizeString(string readText)
         {
             if (!readText.Contains(separator))
