@@ -24,7 +24,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
     /// <summary>
     /// Container for design tables settings.
     /// </summary>
-    internal class DesignTablesSetting
+    public class DesignTablesSetting
     {
         private readonly double valueMin;
         private readonly double valueMax;

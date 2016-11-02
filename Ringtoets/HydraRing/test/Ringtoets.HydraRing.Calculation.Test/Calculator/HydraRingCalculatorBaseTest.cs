@@ -105,7 +105,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         {
             get
             {
-                return 0;
+                return HydraRingFailureMechanismType.AssessmentLevel;
             }
         }
 

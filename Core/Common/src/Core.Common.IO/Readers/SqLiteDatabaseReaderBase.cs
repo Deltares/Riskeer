@@ -44,7 +44,6 @@ namespace Core.Common.IO.Readers
         /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
         /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
         /// <item>Unable to open database file.</item>
-        /// <item>Preparing the queries to read from the database failed.</item>
         /// </list>
         /// </exception>
         protected SqLiteDatabaseReaderBase(string databaseFilePath)

@@ -24,7 +24,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
     /// <summary>
     /// Container for numerics settings.
     /// </summary>
-    internal class NumericsSetting
+    public class NumericsSetting
     {
         private readonly int calculationTechniqueId;
         private readonly int formStartMethod;

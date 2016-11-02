@@ -25,7 +25,7 @@ using System.Linq;
 using Ringtoets.Common.IO.Properties;
 using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.Common.IO.FileImporters
+namespace Ringtoets.Common.IO.HydraRing
 {
     /// <summary>
     /// This class allows for filtering out <see cref="HydraulicBoundaryLocation"/> based

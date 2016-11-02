@@ -24,7 +24,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
     /// <summary>
     /// Container for hydraulic models settings.
     /// </summary>
-    internal class HydraulicModelsSetting
+    public class HydraulicModelsSetting
     {
         private readonly int timeIntegrationSchemeId;
 

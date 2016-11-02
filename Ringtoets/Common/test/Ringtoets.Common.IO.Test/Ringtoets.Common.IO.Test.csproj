@@ -46,6 +46,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.99.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\System.Data.SQLite.Core.1.0.99.0\lib\net40\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
@@ -66,9 +67,10 @@
     <Compile Include="FileImporters\FailureMechanismSectionsImporterTest.cs" />
     <Compile Include="FileImporters\ForeshoreProfilesImporterTest.cs" />
     <Compile Include="FileImporters\HydraulicBoundaryDatabaseImporterTest.cs" />
-    <Compile Include="FileImporters\HydraulicBoundaryLocationFilterTest.cs" />
+    <Compile Include="HydraRing\HydraulicBoundaryLocationFilterTest.cs" />
     <Compile Include="FileImporters\ProfilesImporterTest.cs" />
     <Compile Include="FileImporters\StructuresImporterTest.cs" />
+    <Compile Include="HydraRing\HydraRingSettingsDatabaseReaderTest.cs" />
     <Compile Include="HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineMetaImporterTest.cs" />
@@ -105,6 +107,10 @@
     <ProjectReference Include="..\..\..\..\Core\Common\test\Core.Common.TestUtil\Core.Common.TestUtil.csproj">
       <Project>{d749ee4c-ce50-4c17-bf01-9a953028c126}</Project>
       <Name>Core.Common.TestUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Calculation\Ringtoets.HydraRing.Calculation.csproj">
+      <Project>{888D4097-8BC2-4703-9FB1-8744C94D525E}</Project>
+      <Name>Ringtoets.HydraRing.Calculation</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\HydraRing\src\Ringtoets.HydraRing.Data\Ringtoets.HydraRing.Data.csproj">
       <Project>{70f8cc9c-5bc8-4fb2-b201-eae7fa8088c2}</Project>

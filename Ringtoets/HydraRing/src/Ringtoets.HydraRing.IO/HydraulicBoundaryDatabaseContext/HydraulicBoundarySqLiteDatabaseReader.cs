@@ -70,10 +70,7 @@ namespace Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext
             HasNext = false;
 
             string locationsQuery = HydraulicBoundaryDatabaseQueryBuilder.GetRelevantLocationsQuery();
-            sqliteDataReader = CreateDataReader(locationsQuery, new SQLiteParameter
-            {
-                DbType = DbType.String
-            });
+            sqliteDataReader = CreateDataReader(locationsQuery);
             MoveNext();
         }
 
