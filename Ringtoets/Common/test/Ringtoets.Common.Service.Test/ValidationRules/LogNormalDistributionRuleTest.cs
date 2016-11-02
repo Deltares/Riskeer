@@ -52,7 +52,6 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
         public void Validate_InvalidMean_ErrorMessage(double value)
         {
             // Setup 
-            var expectedMessage = string.Format("De verwachtingswaarde voor '{0}' moet een positief getal zijn.", paramName);
             var distribution = new LogNormalDistribution(2)
             {
                 Mean = (RoundedDouble) value
@@ -67,6 +66,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
 
             // Assert
             Assert.AreEqual(1, validationMessages.Length);
+            var expectedMessage = string.Format("De verwachtingswaarde voor '{0}' moet een positief getal zijn.", paramName);
             StringAssert.StartsWith(expectedMessage, validationMessages[0]);
         }
 
@@ -76,7 +76,6 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
         public void ValidateDistribution_InvalidStandardDeviation_ErrorMessage(double value)
         {
             // Setup 
-            var expectedMessage = string.Format("De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", paramName);
             var distribution = new LogNormalDistribution(2)
             {
                 StandardDeviation = (RoundedDouble) value
@@ -91,6 +90,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
 
             // Assert
             Assert.AreEqual(1, validationMessages.Length);
+            var expectedMessage = string.Format("De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", paramName);
             StringAssert.StartsWith(expectedMessage, validationMessages[0]);
         }
     }

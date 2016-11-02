@@ -20,27 +20,27 @@
 // All rights reserved.
 
 using System.Collections.Generic;
-using Core.Common.Base.Data;
 
 namespace Ringtoets.Common.Service.ValidationRules
 {
     /// <summary>
-    /// Interface for validation rules that are used for validating inputs before performing HydraRing calculations.
+    /// Base implementation of a validation rule.
     /// </summary>
     public abstract class ValidationRule
     {
         /// <summary>
         /// Validates the subject.
         /// </summary>
-        /// <returns>A <see cref="IEnumerable{T}"/> containing validation messages.</returns>
+        /// <returns>A <see cref="IEnumerable{T}"/> containing validation messages. 
+        /// Empty if no validation errors are found.</returns>
         public abstract IEnumerable<string> Validate();
 
         /// <summary>
         /// Checks if a value is <c>NaN</c> or <c>Infinity</c>.
         /// </summary>
         /// <param name="value">The value which needs to be checked.</param>
-        /// <returns><c>True</c>if <paramref name="value"/>is invalid, <c>false</c> if otherwise.</returns>
-        protected static bool IsInvalidNumber(RoundedDouble value)
+        /// <returns><c>True</c>if <paramref name="value"/>is not a concrete number, <c>false</c> if otherwise.</returns>
+        protected static bool IsNotConcreteNumber(double value)
         {
             return double.IsNaN(value) || double.IsInfinity(value);
         }

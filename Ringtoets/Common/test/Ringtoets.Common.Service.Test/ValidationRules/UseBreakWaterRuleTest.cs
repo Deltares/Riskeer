@@ -90,7 +90,6 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
             [Values(double.NaN, double.NegativeInfinity, double.PositiveInfinity)] double height)
         {
             // Setup
-            const string expectedMessage = "Er is geen geldige damhoogte ingevoerd.";
             var breakWaterStub = mockRepository.Stub<IUseBreakWater>();
             breakWaterStub.UseBreakWater = true;
             breakWaterStub.Stub(call => breakWaterStub.BreakWater).Return(new BreakWater(type, height));
@@ -105,6 +104,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
 
             // Assert
             Assert.AreEqual(1, validationMessages.Length);
+            const string expectedMessage = "Er is geen geldige damhoogte ingevoerd.";
             StringAssert.StartsWith(expectedMessage, validationMessages[0]);
             mockRepository.VerifyAll();
         }

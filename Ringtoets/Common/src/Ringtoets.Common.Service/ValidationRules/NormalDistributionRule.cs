@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using Ringtoets.Common.Data.Probabilistics;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using Ringtoets.Common.Service.Properties;
 
 namespace Ringtoets.Common.Service.ValidationRules
 {
@@ -49,15 +49,15 @@ namespace Ringtoets.Common.Service.ValidationRules
         {
             var validationResults = new List<string>();
 
-            if (IsInvalidNumber(distribution.Mean))
+            if (IsNotConcreteNumber(distribution.Mean))
             {
-                validationResults.Add(string.Format(RingtoetsCommonServiceResources.DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_a_valid_number,
+                validationResults.Add(string.Format(Resources.ProbabilisticDistributionValidationRule_Mean_of_0_must_be_a_valid_number,
                                                     parameterName));
             }
 
-            if (IsInvalidNumber(distribution.StandardDeviation))
+            if (IsNotConcreteNumber(distribution.StandardDeviation))
             {
-                validationResults.Add(string.Format(RingtoetsCommonServiceResources.DistributionValidationService_ValidateDistribution_StandardDeviation_of_ParameterName_0_must_be_larger_or_equal_to_zero,
+                validationResults.Add(string.Format(Resources.ProbabilisticDistributionValidationRule_StandardDeviation_of_ParameterName_0_must_be_larger_or_equal_to_zero,
                                                     parameterName));
             }
 

@@ -318,7 +318,7 @@ namespace Ringtoets.Revetment.Service
 
             if (double.IsNaN(input.Orientation))
             {
-                return string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
+                return string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
                                      ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Orientation_DisplayName));
             }
 

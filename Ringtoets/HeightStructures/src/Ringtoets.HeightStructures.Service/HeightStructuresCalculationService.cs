@@ -221,9 +221,9 @@ namespace Ringtoets.HeightStructures.Service
             return validationResults.ToArray();
         }
 
-        private static IEnumerable<ValidationRule> GetInputValidationRules(HeightStructuresInput input)
+        private static ValidationRule[] GetInputValidationRules(HeightStructuresInput input)
         {
-            var validationRules = new List<ValidationRule>
+            var validationRules = new ValidationRule[]
             {
                 new UseBreakWaterRule(input),
                 new VariationCoefficientLogNormalDistributionRule(input.StormDuration,

@@ -340,9 +340,9 @@ namespace Ringtoets.ClosingStructures.Service
             return validationRules;
         }
 
-        private static IEnumerable<ValidationRule> GetVerticalWallValidationRules(ClosingStructuresInput input)
+        private static ValidationRule[] GetVerticalWallValidationRules(ClosingStructuresInput input)
         {
-            var validationRules = new List<ValidationRule>
+            return new ValidationRule[]
             {
                 new UseBreakWaterRule(input),
                 new VariationCoefficientLogNormalDistributionRule(input.StormDuration,
@@ -368,13 +368,11 @@ namespace Ringtoets.ClosingStructures.Service
                 new VariationCoefficientLogNormalDistributionRule(input.CriticalOvertoppingDischarge,
                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName))
             };
-
-            return validationRules;
         }
 
-        private static IEnumerable<ValidationRule> GetLowSillValidationRules(ClosingStructuresInput input)
+        private static ValidationRule[] GetLowSillValidationRules(ClosingStructuresInput input)
         {
-            var validationRules = new List<ValidationRule>
+            return new ValidationRule[]
             {
                 new UseBreakWaterRule(input),
                 new VariationCoefficientLogNormalDistributionRule(input.StormDuration,
@@ -398,13 +396,11 @@ namespace Ringtoets.ClosingStructures.Service
                 new VariationCoefficientLogNormalDistributionRule(input.CriticalOvertoppingDischarge,
                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName))
             };
-
-            return validationRules;
         }
 
-        private static IEnumerable<ValidationRule> GetFloodedCulvertValidationRules(ClosingStructuresInput input)
+        private static ValidationRule[] GetFloodedCulvertValidationRules(ClosingStructuresInput input)
         {
-            var validationRules = new List<ValidationRule>
+            return new ValidationRule[]
             {
                 new UseBreakWaterRule(input),
                 new VariationCoefficientLogNormalDistributionRule(input.StormDuration,
@@ -426,8 +422,6 @@ namespace Ringtoets.ClosingStructures.Service
                 new VariationCoefficientLogNormalDistributionRule(input.CriticalOvertoppingDischarge,
                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsCommonFormsResources.Structure_CriticalOvertoppingDischarge_DisplayName))
             };
-
-            return validationRules;
         }
     }
 }

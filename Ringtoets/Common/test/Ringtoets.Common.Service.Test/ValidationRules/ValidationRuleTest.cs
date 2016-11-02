@@ -21,7 +21,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Service.ValidationRules;
 
@@ -34,21 +33,21 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
         [TestCase(double.NaN)]
         [TestCase(double.NegativeInfinity)]
         [TestCase(double.PositiveInfinity)]
-        public void IsNumberInvalid_ValidatesInvalidNumber_ReturnTrue(double value)
+        public void IsNotConcreteNumber_ValidatesInvalidNumber_ReturnTrue(double value)
         {
             // Call
-            bool isNumberInvalid = TestRule.PublicIsNumberValid((RoundedDouble) value);
+            bool isNumberNotConcrete = TestRule.PublicIsNumberValid(value);
 
             // Assert
-            Assert.IsTrue(isNumberInvalid);
+            Assert.IsTrue(isNumberNotConcrete);
         }
     }
 
     public class TestRule : ValidationRule
     {
-        public static bool PublicIsNumberValid(RoundedDouble value)
+        public static bool PublicIsNumberValid(double value)
         {
-            return IsInvalidNumber(value);
+            return IsNotConcreteNumber(value);
         }
 
         public override IEnumerable<string> Validate()

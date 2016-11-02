@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using Core.Common.Base.Data;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using Ringtoets.Common.Service.Properties;
 
 namespace Ringtoets.Common.Service.ValidationRules
 {
@@ -49,9 +49,9 @@ namespace Ringtoets.Common.Service.ValidationRules
         {
             var validationResult = new List<string>();
 
-            if (IsInvalidNumber(numericInput))
+            if (IsNotConcreteNumber(numericInput))
             {
-                validationResult.Add(string.Format(RingtoetsCommonServiceResources.Validation_ValidateInput_No_value_entered_for_ParameterName_0_,
+                validationResult.Add(string.Format(Resources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
                                                    parameterName));
             }
 

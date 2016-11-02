@@ -21,7 +21,7 @@
 
 using System.Collections.Generic;
 using Ringtoets.Common.Data.DikeProfiles;
-using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
+using Ringtoets.Common.Service.Properties;
 
 namespace Ringtoets.Common.Service.ValidationRules
 {
@@ -46,9 +46,9 @@ namespace Ringtoets.Common.Service.ValidationRules
         {
             var messages = new List<string>();
 
-            if (breakWater.UseBreakWater && IsInvalidNumber(breakWater.BreakWater.Height))
+            if (breakWater.UseBreakWater && IsNotConcreteNumber(breakWater.BreakWater.Height))
             {
-                messages.Add(RingtoetsCommonServiceResources.Validation_Invalid_BreakWaterHeight_value);
+                messages.Add(Resources.Validation_Invalid_BreakWaterHeight_value);
             }
 
             return messages;

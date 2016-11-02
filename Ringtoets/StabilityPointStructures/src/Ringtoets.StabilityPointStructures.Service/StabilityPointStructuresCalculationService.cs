@@ -564,9 +564,9 @@ namespace Ringtoets.StabilityPointStructures.Service
             return validationResults.ToArray();
         }
 
-        private static IEnumerable<ValidationRule> GetLowSillLinearValidationRules(StabilityPointStructuresInput input)
+        private static ValidationRule[] GetLowSillLinearValidationRules(StabilityPointStructuresInput input)
         {
-            var validationRules = new List<ValidationRule>()
+            return new ValidationRule[]
             {
                 new UseBreakWaterRule(input),
                 new NumericInputRule(input.VolumicWeightWater,
@@ -616,13 +616,11 @@ namespace Ringtoets.StabilityPointStructures.Service
                 new VariationCoefficientLogNormalDistributionRule(input.StabilityLinearLoadModel,
                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_StabilityLinearLoadModel_DisplayName)),
             };
-
-            return validationRules;
         }
 
-        private static IEnumerable<ValidationRule> GetLowSillQuadraticValidationRules(StabilityPointStructuresInput input)
+        private static ValidationRule[] GetLowSillQuadraticValidationRules(StabilityPointStructuresInput input)
         {
-            var validationRules = new List<ValidationRule>()
+            return new ValidationRule[]
             {
                 new UseBreakWaterRule(input),
                 new NumericInputRule(input.VolumicWeightWater,
@@ -672,13 +670,11 @@ namespace Ringtoets.StabilityPointStructures.Service
                 new VariationCoefficientLogNormalDistributionRule(input.StabilityQuadraticLoadModel,
                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_StabilityQuadraticLoadModel_DisplayName))
             };
-
-            return validationRules;
         }
 
-        private static IEnumerable<ValidationRule> GetFloodedCulvertLinearValidationRules(StabilityPointStructuresInput input)
+        private static ValidationRule[] GetFloodedCulvertLinearValidationRules(StabilityPointStructuresInput input)
         {
-            var validationRules = new List<ValidationRule>()
+            return new ValidationRule[]
             {
                 new UseBreakWaterRule(input),
                 new NumericInputRule(input.VolumicWeightWater,
@@ -728,13 +724,11 @@ namespace Ringtoets.StabilityPointStructures.Service
                 new VariationCoefficientLogNormalDistributionRule(input.StabilityLinearLoadModel,
                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_StabilityLinearLoadModel_DisplayName)),
             };
-
-            return validationRules;
         }
 
-        private static IEnumerable<ValidationRule> GetFloodedCulvertQuadraticValidationRules(StabilityPointStructuresInput input)
+        private static ValidationRule[] GetFloodedCulvertQuadraticValidationRules(StabilityPointStructuresInput input)
         {
-            var validationRules = new List<ValidationRule>()
+            return new ValidationRule[]
             {
                 new UseBreakWaterRule(input),
                 new NumericInputRule(input.VolumicWeightWater,
@@ -784,8 +778,6 @@ namespace Ringtoets.StabilityPointStructures.Service
                 new VariationCoefficientLogNormalDistributionRule(input.StabilityQuadraticLoadModel,
                                                                   ParameterNameExtractor.GetFromDisplayName(RingtoetsStabilityPointStructuresFormsResources.Structure_StabilityQuadraticLoadModel_DisplayName)),
             };
-
-            return validationRules;
         }
     }
 }
