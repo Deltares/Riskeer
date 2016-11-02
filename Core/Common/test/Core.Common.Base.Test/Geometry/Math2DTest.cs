@@ -33,112 +33,6 @@ namespace Core.Common.Base.Test.Geometry
     [TestFixture]
     public class Math2DTest
     {
-        #region testcases
-
-        /// <summary>
-        /// Test cases for intersecting segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
-        /// which represent the coordinate of a point. Each pair of coordinates forms a segment. 
-        /// The last 2 double values are the expected intersection points.
-        /// </summary>
-        private static IEnumerable IntersectingSegments()
-        {
-            // \/
-            // /\
-            var testCaseDatadata1 = new TestCaseData(new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(1.0, 1.0),
-                new Point2D(1.0, 0.0),
-                new Point2D(0.0, 1.0),
-                new Point2D(0.5, 0.5)
-            }, "IntersectingSegments 1");
-            yield return testCaseDatadata1;
-
-            // __
-            //  /
-            // /
-            var testCaseDatadata2 = new TestCaseData(new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(1.0, 1.0),
-                new Point2D(0.0, 1.0),
-                new Point2D(1.0, 1.0),
-                new Point2D(1.0, 1.0)
-            }, "IntersectingSegments 2");
-            yield return testCaseDatadata2;
-
-            // 
-            //  /
-            // /__
-            var testCaseDatadata3 = new TestCaseData(new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(1.0, 0.0),
-                new Point2D(0.0, 0.0),
-                new Point2D(1.0, 1.0),
-                new Point2D(0.0, 0.0)
-            }, "IntersectingSegments 3");
-            yield return testCaseDatadata3;
-        }
-
-        /// <summary>
-        /// Test cases for parallel segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
-        /// which represent the coordinate of a point. Each pair of coordinates forms a segment.
-        /// </summary>
-        private static IEnumerable ParallelSegments()
-        {
-            // __
-            // __
-            var testCaseDatadata1 = new TestCaseData(new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(1.0, 0.0),
-                new Point2D(0.0, 1.0),
-                new Point2D(1.0, 1.0)
-            }, "ParallelSegments");
-            yield return testCaseDatadata1;
-
-            // ____ (connected in single point)
-            var testCaseDatadata2 = new TestCaseData(new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(1.0, 0.0),
-                new Point2D(1.0, 0.0),
-                new Point2D(2.0, 0.0)
-            }, "ParallelSegments, connected in single point");
-            yield return testCaseDatadata2;
-
-            // __ (overlap)
-            var testCaseDatadata3 = new TestCaseData(new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(1.0, 0.0),
-                new Point2D(0.5, 0.0),
-                new Point2D(1.5, 0.0)
-            }, "ParallelSegments, overlap");
-            yield return testCaseDatadata3;
-        }
-
-        /// <summary>
-        /// Test cases for non intersecting segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
-        /// which represent the coordinate of a point. Each pair of coordinates forms a segment.
-        /// </summary>
-        private static readonly Point2D[][] nonIntersectingSegments =
-        {
-            //  |
-            // ___
-            new[]
-            {
-                new Point2D(0.0, 0.0),
-                new Point2D(1.0, 0.0),
-                new Point2D(0.5, 1.0),
-                new Point2D(0.5, 0.5),
-                new Point2D(0.5, 0.0)
-            }
-        };
-
-        #endregion
-
         [Test]
         [TestCase(0, "line1Point1")]
         [TestCase(1, "line1Point2")]
@@ -415,7 +309,7 @@ namespace Core.Common.Base.Test.Geometry
                 new Point2D(20.0, 60.0),
             };
 
-            var lengths = GetLengthsBasedOnReletative(new[]
+            var lengths = GetLengthsBasedOnRelative(new[]
             {
                 0.25,
                 0.25,
@@ -1317,10 +1211,116 @@ namespace Core.Common.Base.Test.Geometry
             }
         }
 
-        private double[] GetLengthsBasedOnReletative(double[] relativeLengths, IEnumerable<Point2D> lineGeometryPoints)
+        private static double[] GetLengthsBasedOnRelative(double[] relativeLengths, IEnumerable<Point2D> lineGeometryPoints)
         {
             var lineLength = Math2D.ConvertLinePointsToLineSegments(lineGeometryPoints).Sum(s => s.Length);
             return relativeLengths.Select(l => lineLength*l).ToArray();
         }
+
+        #region testcases
+
+        /// <summary>
+        /// Test cases for intersecting segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
+        /// which represent the coordinate of a point. Each pair of coordinates forms a segment. 
+        /// The last 2 double values are the expected intersection points.
+        /// </summary>
+        private static IEnumerable IntersectingSegments()
+        {
+            // \/
+            // /\
+            var testCaseDatadata1 = new TestCaseData(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 1.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(0.0, 1.0),
+                new Point2D(0.5, 0.5)
+            }, "IntersectingSegments 1");
+            yield return testCaseDatadata1;
+
+            // __
+            //  /
+            // /
+            var testCaseDatadata2 = new TestCaseData(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 1.0),
+                new Point2D(0.0, 1.0),
+                new Point2D(1.0, 1.0),
+                new Point2D(1.0, 1.0)
+            }, "IntersectingSegments 2");
+            yield return testCaseDatadata2;
+
+            // 
+            //  /
+            // /__
+            var testCaseDatadata3 = new TestCaseData(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 1.0),
+                new Point2D(0.0, 0.0)
+            }, "IntersectingSegments 3");
+            yield return testCaseDatadata3;
+        }
+
+        /// <summary>
+        /// Test cases for parallel segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
+        /// which represent the coordinate of a point. Each pair of coordinates forms a segment.
+        /// </summary>
+        private static IEnumerable ParallelSegments()
+        {
+            // __
+            // __
+            var testCaseDatadata1 = new TestCaseData(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(0.0, 1.0),
+                new Point2D(1.0, 1.0)
+            }, "ParallelSegments");
+            yield return testCaseDatadata1;
+
+            // ____ (connected in single point)
+            var testCaseDatadata2 = new TestCaseData(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(2.0, 0.0)
+            }, "ParallelSegments, connected in single point");
+            yield return testCaseDatadata2;
+
+            // __ (overlap)
+            var testCaseDatadata3 = new TestCaseData(new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(0.5, 0.0),
+                new Point2D(1.5, 0.0)
+            }, "ParallelSegments, overlap");
+            yield return testCaseDatadata3;
+        }
+
+        /// <summary>
+        /// Test cases for non intersecting segments. The <see cref="Array"/> contains pairs of <see cref="double"/>,
+        /// which represent the coordinate of a point. Each pair of coordinates forms a segment.
+        /// </summary>
+        private static readonly Point2D[][] nonIntersectingSegments =
+        {
+            //  |
+            // ___
+            new[]
+            {
+                new Point2D(0.0, 0.0),
+                new Point2D(1.0, 0.0),
+                new Point2D(0.5, 1.0),
+                new Point2D(0.5, 0.5),
+                new Point2D(0.5, 0.0)
+            }
+        };
+
+        #endregion
     }
 }

@@ -43,7 +43,7 @@ namespace Core.Common.Base.Data
         /// Represents a value that is not a number (NaN). This field is constant.
         /// </summary>
         /// <seealso cref="double.NaN"/>
-        public readonly static RoundedDouble NaN = new RoundedDouble(MaximumNumberOfDecimalPlaces, double.NaN);
+        public static readonly RoundedDouble NaN = new RoundedDouble(MaximumNumberOfDecimalPlaces, double.NaN);
 
         private readonly double value;
         private readonly int numberOfDecimalPlaces;
