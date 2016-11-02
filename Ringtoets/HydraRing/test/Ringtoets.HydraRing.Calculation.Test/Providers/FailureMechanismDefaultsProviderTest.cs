@@ -73,8 +73,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         })]
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, 111, new[]
         {
+            422,
             424,
             425,
+            426,
+            427
         })]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 112, new[]
         {
