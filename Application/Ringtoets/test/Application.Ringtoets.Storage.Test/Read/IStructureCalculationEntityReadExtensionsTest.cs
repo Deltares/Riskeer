@@ -174,8 +174,8 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_EntityWithForeshoreProfileEntity_InputObjectUpdatedWithForeshoreProfile()
         {
             // Setup
-            var foreshoreProfile = new ForeshoreProfile(new Point2D(0,0), new Point2D[0],
-                null, new ForeshoreProfile.ConstructionProperties());
+            var foreshoreProfile = new ForeshoreProfile(new Point2D(0, 0), new Point2D[0],
+                                                        null, new ForeshoreProfile.ConstructionProperties());
             var foreshoreEntity = new ForeshoreProfileEntity();
 
             var mocks = new MockRepository();
@@ -199,7 +199,7 @@ namespace Application.Ringtoets.Storage.Test.Read
         public void Read_EntityWithHydraulicLocationEntity_InputObjectUpdatedWithHydraulicBoundaryLocation()
         {
             // Setup
-            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "A", 0,0);
+            var hydraulicBoundaryLocation = new HydraulicBoundaryLocation(0, "A", 0, 0);
             var hydraulicLocationEntity = new HydraulicLocationEntity();
 
             var mocks = new MockRepository();
@@ -221,7 +221,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
         private static void AssertRoundedDouble(double? entityValue, RoundedDouble roundedDouble)
         {
-            Assert.AreEqual((RoundedDouble)entityValue.ToNullAsNaN(), roundedDouble, roundedDouble.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) entityValue.ToNullAsNaN(), roundedDouble, roundedDouble.GetAccuracy());
         }
 
         private class SimpleStructure : StructureBase

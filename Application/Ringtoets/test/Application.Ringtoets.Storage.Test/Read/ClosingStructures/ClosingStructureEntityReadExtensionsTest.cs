@@ -138,8 +138,8 @@ namespace Application.Ringtoets.Storage.Test.Read.ClosingStructures
             Assert.AreEqual(entity.FailureProbabilityOpenStructure, structure.FailureProbabilityOpenStructure);
             Assert.AreEqual(entity.IdenticalApertures, structure.IdenticalApertures);
             Assert.AreEqual(entity.FailureProbabilityReparation, structure.FailureProbabilityReparation);
-            Assert.AreEqual((ClosingStructureInflowModelType)entity.InflowModelType, structure.InflowModelType);
-            
+            Assert.AreEqual((ClosingStructureInflowModelType) entity.InflowModelType, structure.InflowModelType);
+
             Assert.IsTrue(collector.Contains(entity));
         }
 

@@ -801,7 +801,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismType = (int)FailureMechanismType.StructureHeight,
+                FailureMechanismType = (int) FailureMechanismType.StructureHeight,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
                 Comments = comments,
@@ -836,11 +836,11 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismType = (int)FailureMechanismType.ReliabilityClosingOfStructure,
+                FailureMechanismType = (int) FailureMechanismType.ReliabilityClosingOfStructure,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
                 Comments = comments,
-                ClosingStructureFailureMechanismMetaEntities = 
+                ClosingStructureFailureMechanismMetaEntities =
                 {
                     new ClosingStructureFailureMechanismMetaEntity
                     {
@@ -871,11 +871,11 @@ namespace Application.Ringtoets.Storage.Test.Read
 
             var failureMechanismEntity = new FailureMechanismEntity
             {
-                FailureMechanismType = (int)FailureMechanismType.StabilityPointStructures,
+                FailureMechanismType = (int) FailureMechanismType.StabilityPointStructures,
                 CalculationGroupEntity = new CalculationGroupEntity(),
                 IsRelevant = Convert.ToByte(isRelevant),
                 Comments = comments,
-                StabilityPointStructuresFailureMechanismMetaEntities = 
+                StabilityPointStructuresFailureMechanismMetaEntities =
                 {
                     new StabilityPointStructuresFailureMechanismMetaEntity
                     {

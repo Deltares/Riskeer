@@ -58,107 +58,107 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
                 Id = entity.Id,
                 Location = new Point2D(entity.X.ToNullAsNaN(), entity.Y.ToNullAsNaN()),
                 StructureNormalOrientation = entity.StructureNormalOrientation.ToNullAsNaN(),
-                                StorageStructureArea =
+                StorageStructureArea =
                 {
-                    Mean = (RoundedDouble)entity.StorageStructureAreaMean.ToNullAsNaN(),
-                    CoefficientOfVariation = (RoundedDouble)entity.StorageStructureAreaCoefficientOfVariation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.StorageStructureAreaMean.ToNullAsNaN(),
+                    CoefficientOfVariation = (RoundedDouble) entity.StorageStructureAreaCoefficientOfVariation.ToNullAsNaN()
                 },
                 AllowedLevelIncreaseStorage =
                 {
-                    Mean = (RoundedDouble)entity.AllowedLevelIncreaseStorageMean.ToNullAsNaN(),
-                    StandardDeviation = (RoundedDouble)entity.AllowedLevelIncreaseStorageStandardDeviation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.AllowedLevelIncreaseStorageMean.ToNullAsNaN(),
+                    StandardDeviation = (RoundedDouble) entity.AllowedLevelIncreaseStorageStandardDeviation.ToNullAsNaN()
                 },
                 FlowWidthAtBottomProtection =
                 {
-                    Mean = (RoundedDouble)entity.FlowWidthAtBottomProtectionMean.ToNullAsNaN(),
-                    StandardDeviation = (RoundedDouble)entity.FlowWidthAtBottomProtectionStandardDeviation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.FlowWidthAtBottomProtectionMean.ToNullAsNaN(),
+                    StandardDeviation = (RoundedDouble) entity.FlowWidthAtBottomProtectionStandardDeviation.ToNullAsNaN()
                 },
                 InsideWaterLevel =
                 {
-                    Mean = (RoundedDouble)entity.InsideWaterLevelMean.ToNullAsNaN(),
-                    StandardDeviation = (RoundedDouble)entity.InsideWaterLevelStandardDeviation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.InsideWaterLevelMean.ToNullAsNaN(),
+                    StandardDeviation = (RoundedDouble) entity.InsideWaterLevelStandardDeviation.ToNullAsNaN()
                 },
                 ThresholdHeightOpenWeir =
                 {
-                    Mean = (RoundedDouble)entity.ThresholdHeightOpenWeirMean.ToNullAsNaN(),
-                    StandardDeviation = (RoundedDouble)entity.ThresholdHeightOpenWeirStandardDeviation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.ThresholdHeightOpenWeirMean.ToNullAsNaN(),
+                    StandardDeviation = (RoundedDouble) entity.ThresholdHeightOpenWeirStandardDeviation.ToNullAsNaN()
                 },
                 CriticalOvertoppingDischarge =
                 {
-                    Mean = (RoundedDouble)entity.CriticalOvertoppingDischargeMean.ToNullAsNaN(),
-                    CoefficientOfVariation = (RoundedDouble)entity.CriticalOvertoppingDischargeCoefficientOfVariation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.CriticalOvertoppingDischargeMean.ToNullAsNaN(),
+                    CoefficientOfVariation = (RoundedDouble) entity.CriticalOvertoppingDischargeCoefficientOfVariation.ToNullAsNaN()
                 },
                 WidthFlowApertures =
                 {
-                    Mean = (RoundedDouble)entity.WidthFlowAperturesMean.ToNullAsNaN(),
-                    CoefficientOfVariation = (RoundedDouble)entity.WidthFlowAperturesCoefficientOfVariation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.WidthFlowAperturesMean.ToNullAsNaN(),
+                    CoefficientOfVariation = (RoundedDouble) entity.WidthFlowAperturesCoefficientOfVariation.ToNullAsNaN()
                 },
                 ConstructiveStrengthLinearLoadModel =
                 {
-                    Mean = (RoundedDouble)entity.ConstructiveStrengthLinearLoadModelMean.ToNullAsNaN(),
-                    CoefficientOfVariation = (RoundedDouble)entity.ConstructiveStrengthLinearLoadModelCoefficientOfVariation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.ConstructiveStrengthLinearLoadModelMean.ToNullAsNaN(),
+                    CoefficientOfVariation = (RoundedDouble) entity.ConstructiveStrengthLinearLoadModelCoefficientOfVariation.ToNullAsNaN()
                 },
                 ConstructiveStrengthQuadraticLoadModel =
                 {
-                    Mean = (RoundedDouble)entity.ConstructiveStrengthQuadraticLoadModelMean.ToNullAsNaN(),
-                    CoefficientOfVariation = (RoundedDouble)entity.ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.ConstructiveStrengthQuadraticLoadModelMean.ToNullAsNaN(),
+                    CoefficientOfVariation = (RoundedDouble) entity.ConstructiveStrengthQuadraticLoadModelCoefficientOfVariation.ToNullAsNaN()
                 },
                 BankWidth =
                 {
-                    Mean = (RoundedDouble)entity.BankWidthMean.ToNullAsNaN(),
-                    StandardDeviation = (RoundedDouble)entity.BankWidthStandardDeviation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.BankWidthMean.ToNullAsNaN(),
+                    StandardDeviation = (RoundedDouble) entity.BankWidthStandardDeviation.ToNullAsNaN()
                 },
                 InsideWaterLevelFailureConstruction =
                 {
-                    Mean = (RoundedDouble)entity.InsideWaterLevelFailureConstructionMean.ToNullAsNaN(),
-                    StandardDeviation = (RoundedDouble)entity.InsideWaterLevelFailureConstructionStandardDeviation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.InsideWaterLevelFailureConstructionMean.ToNullAsNaN(),
+                    StandardDeviation = (RoundedDouble) entity.InsideWaterLevelFailureConstructionStandardDeviation.ToNullAsNaN()
                 },
-                EvaluationLevel = (RoundedDouble)entity.EvaluationLevel.ToNullAsNaN(),
+                EvaluationLevel = (RoundedDouble) entity.EvaluationLevel.ToNullAsNaN(),
                 LevelCrestStructure =
                 {
-                    Mean = (RoundedDouble)entity.LevelCrestStructureMean.ToNullAsNaN(),
-                    StandardDeviation = (RoundedDouble)entity.LevelCrestStructureStandardDeviation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.LevelCrestStructureMean.ToNullAsNaN(),
+                    StandardDeviation = (RoundedDouble) entity.LevelCrestStructureStandardDeviation.ToNullAsNaN()
                 },
-                VerticalDistance = (RoundedDouble)entity.VerticalDistance.ToNullAsNaN(),
+                VerticalDistance = (RoundedDouble) entity.VerticalDistance.ToNullAsNaN(),
                 FailureProbabilityRepairClosure = entity.FailureProbabilityRepairClosure.ToNullAsNaN(),
                 FailureCollisionEnergy =
                 {
-                    Mean = (RoundedDouble)entity.FailureCollisionEnergyMean.ToNullAsNaN(),
-                    CoefficientOfVariation = (RoundedDouble)entity.FailureCollisionEnergyCoefficientOfVariation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.FailureCollisionEnergyMean.ToNullAsNaN(),
+                    CoefficientOfVariation = (RoundedDouble) entity.FailureCollisionEnergyCoefficientOfVariation.ToNullAsNaN()
                 },
                 ShipMass =
                 {
-                    Mean = (RoundedDouble)entity.ShipMassMean.ToNullAsNaN(),
-                    CoefficientOfVariation = (RoundedDouble)entity.ShipMassCoefficientOfVariation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.ShipMassMean.ToNullAsNaN(),
+                    CoefficientOfVariation = (RoundedDouble) entity.ShipMassCoefficientOfVariation.ToNullAsNaN()
                 },
                 ShipVelocity =
                 {
-                    Mean = (RoundedDouble)entity.ShipVelocityMean.ToNullAsNaN(),
-                    CoefficientOfVariation = (RoundedDouble)entity.ShipVelocityCoefficientOfVariation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.ShipVelocityMean.ToNullAsNaN(),
+                    CoefficientOfVariation = (RoundedDouble) entity.ShipVelocityCoefficientOfVariation.ToNullAsNaN()
                 },
                 LevellingCount = entity.LevellingCount,
                 ProbabilityCollisionSecondaryStructure = entity.ProbabilityCollisionSecondaryStructure.ToNullAsNaN(),
                 FlowVelocityStructureClosable =
                 {
-                    Mean = (RoundedDouble)entity.FlowVelocityStructureClosableMean.ToNullAsNaN(),
-                    StandardDeviation = (RoundedDouble)entity.FlowVelocityStructureClosableStandardDeviation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.FlowVelocityStructureClosableMean.ToNullAsNaN(),
+                    StandardDeviation = (RoundedDouble) entity.FlowVelocityStructureClosableStandardDeviation.ToNullAsNaN()
                 },
                 StabilityLinearLoadModel =
                 {
-                    Mean = (RoundedDouble)entity.StabilityLinearLoadModelMean.ToNullAsNaN(),
-                    CoefficientOfVariation = (RoundedDouble)entity.StabilityLinearLoadModelCoefficientOfVariation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.StabilityLinearLoadModelMean.ToNullAsNaN(),
+                    CoefficientOfVariation = (RoundedDouble) entity.StabilityLinearLoadModelCoefficientOfVariation.ToNullAsNaN()
                 },
                 StabilityQuadraticLoadModel =
                 {
-                    Mean = (RoundedDouble)entity.StabilityQuadraticLoadModelMean.ToNullAsNaN(),
-                    CoefficientOfVariation = (RoundedDouble)entity.StabilityQuadraticLoadModelCoefficientOfVariation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.StabilityQuadraticLoadModelMean.ToNullAsNaN(),
+                    CoefficientOfVariation = (RoundedDouble) entity.StabilityQuadraticLoadModelCoefficientOfVariation.ToNullAsNaN()
                 },
                 AreaFlowApertures =
                 {
-                    Mean = (RoundedDouble)entity.AreaFlowAperturesMean.ToNullAsNaN(),
-                    StandardDeviation = (RoundedDouble)entity.AreaFlowAperturesStandardDeviation.ToNullAsNaN()
+                    Mean = (RoundedDouble) entity.AreaFlowAperturesMean.ToNullAsNaN(),
+                    StandardDeviation = (RoundedDouble) entity.AreaFlowAperturesStandardDeviation.ToNullAsNaN()
                 },
-                InflowModelType = (StabilityPointStructureInflowModelType)entity.InflowModelType
+                InflowModelType = (StabilityPointStructureInflowModelType) entity.InflowModelType
             });
 
             collector.Read(entity, structure);

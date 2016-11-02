@@ -820,8 +820,8 @@ namespace Application.Ringtoets.Storage.Test.Create
                     },
                     ConstructiveStrengthQuadraticLoadModel =
                     {
-                        Mean = (RoundedDouble)random.NextDouble(),
-                        CoefficientOfVariation = (RoundedDouble)random.NextDouble()
+                        Mean = (RoundedDouble) random.NextDouble(),
+                        CoefficientOfVariation = (RoundedDouble) random.NextDouble()
                     },
                     BankWidth =
                     {

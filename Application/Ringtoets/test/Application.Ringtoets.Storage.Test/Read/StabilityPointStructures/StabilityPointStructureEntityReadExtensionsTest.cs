@@ -181,7 +181,7 @@ namespace Application.Ringtoets.Storage.Test.Read.StabilityPointStructures
             Assert.AreEqual(entity.StabilityQuadraticLoadModelCoefficientOfVariation, structure.StabilityQuadraticLoadModel.CoefficientOfVariation.Value);
             Assert.AreEqual(entity.AreaFlowAperturesMean, structure.AreaFlowApertures.Mean.Value);
             Assert.AreEqual(entity.AreaFlowAperturesStandardDeviation, structure.AreaFlowApertures.StandardDeviation.Value);
-            Assert.AreEqual((StabilityPointStructureInflowModelType)entity.InflowModelType, structure.InflowModelType);
+            Assert.AreEqual((StabilityPointStructureInflowModelType) entity.InflowModelType, structure.InflowModelType);
         }
 
         [Test]

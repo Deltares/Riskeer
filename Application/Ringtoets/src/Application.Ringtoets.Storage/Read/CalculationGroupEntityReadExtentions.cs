@@ -27,8 +27,8 @@ using Application.Ringtoets.Storage.Read.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.Read.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.Read.HeightStructures;
 using Application.Ringtoets.Storage.Read.Piping;
-using Application.Ringtoets.Storage.Read.StabilityStoneCover;
 using Application.Ringtoets.Storage.Read.StabilityPointStructures;
+using Application.Ringtoets.Storage.Read.StabilityStoneCover;
 using Application.Ringtoets.Storage.Read.WaveImpactAsphaltCover;
 using Ringtoets.Common.Data.Calculation;
 using Ringtoets.Piping.Data;
@@ -201,7 +201,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <returns>A new <see cref="CalculationGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static CalculationGroup ReadAsClosingStructuresCalculationGroup(this CalculationGroupEntity entity,
-                                                                                ReadConversionCollector collector)
+                                                                                 ReadConversionCollector collector)
         {
             if (collector == null)
             {
@@ -237,7 +237,7 @@ namespace Application.Ringtoets.Storage.Read
         /// <returns>A new <see cref="CalculationGroup"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="collector"/> is <c>null</c>.</exception>
         internal static CalculationGroup ReadAsStabilityPointStructuresCalculationGroup(this CalculationGroupEntity entity,
-                                                                                ReadConversionCollector collector)
+                                                                                        ReadConversionCollector collector)
         {
             if (collector == null)
             {

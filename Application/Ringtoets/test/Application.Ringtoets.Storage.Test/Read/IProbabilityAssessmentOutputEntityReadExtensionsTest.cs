@@ -21,11 +21,11 @@
 
 using System;
 using Application.Ringtoets.Storage.DbContext;
+using Application.Ringtoets.Storage.Read;
 using Core.Common.Base.Data;
 using NUnit.Framework;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.TestUtil;
-using Application.Ringtoets.Storage.Read;
 
 namespace Application.Ringtoets.Storage.Test.Read
 {
@@ -55,8 +55,8 @@ namespace Application.Ringtoets.Storage.Test.Read
             Assert.AreEqual(entity.Probability, output.Probability);
             AssertRoundedDouble(entity.Reliability, output.Reliability);
             AssertRoundedDouble(entity.FactorOfSafety, output.FactorOfSafety);
-        } 
-        
+        }
+
         [Test]
         public void Read_ValidEntityWithNullValues_ReturnProbabilityAssessmentOutput()
         {
@@ -92,7 +92,7 @@ namespace Application.Ringtoets.Storage.Test.Read
 
         private static void AssertRoundedDouble(double? expectedValue, RoundedDouble actualValue)
         {
-            Assert.AreEqual((RoundedDouble)expectedValue.ToNullAsNaN(), actualValue, actualValue.GetAccuracy());
+            Assert.AreEqual((RoundedDouble) expectedValue.ToNullAsNaN(), actualValue, actualValue.GetAccuracy());
         }
     }
 }

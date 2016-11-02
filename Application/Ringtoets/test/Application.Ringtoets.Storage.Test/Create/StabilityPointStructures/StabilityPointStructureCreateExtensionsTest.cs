@@ -138,7 +138,7 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
                     Mean = RoundedDouble.NaN,
                     StandardDeviation = RoundedDouble.NaN
                 },
-                                WidthFlowApertures =
+                WidthFlowApertures =
                 {
                     Mean = RoundedDouble.NaN,
                     CoefficientOfVariation = RoundedDouble.NaN

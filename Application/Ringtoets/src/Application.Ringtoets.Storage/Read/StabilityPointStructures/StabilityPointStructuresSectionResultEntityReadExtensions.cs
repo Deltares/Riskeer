@@ -41,8 +41,8 @@ namespace Application.Ringtoets.Storage.Read.StabilityPointStructures
         /// <param name="collector">The object keeping track of read operations.</param>
         /// <returns>A new <see cref="StabilityPointStructuresFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
-        internal static void Read(this StabilityPointStructuresSectionResultEntity entity, StabilityPointStructuresFailureMechanismSectionResult sectionResult, 
-            ReadConversionCollector collector)
+        internal static void Read(this StabilityPointStructuresSectionResultEntity entity, StabilityPointStructuresFailureMechanismSectionResult sectionResult,
+                                  ReadConversionCollector collector)
         {
             if (sectionResult == null)
             {

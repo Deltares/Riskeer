@@ -271,7 +271,7 @@ namespace Application.Ringtoets.Storage.Read
 
         private static void ReadStabilityPointStructuresFailureMechanism(this AssessmentSectionEntity entity, AssessmentSection assessmentSection, ReadConversionCollector collector)
         {
-            var stabilityPointStructuresFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int)FailureMechanismType.StabilityPointStructures);
+            var stabilityPointStructuresFailureMechanismEntity = entity.FailureMechanismEntities.SingleOrDefault(fme => fme.FailureMechanismType == (int) FailureMechanismType.StabilityPointStructures);
             if (stabilityPointStructuresFailureMechanismEntity != null)
             {
                 stabilityPointStructuresFailureMechanismEntity.ReadAsStabilityPointStructuresFailureMechanism(assessmentSection.StabilityPointStructures, collector);

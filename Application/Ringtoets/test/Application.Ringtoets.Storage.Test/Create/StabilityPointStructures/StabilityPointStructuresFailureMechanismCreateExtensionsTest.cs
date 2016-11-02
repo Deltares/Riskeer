@@ -197,8 +197,8 @@ namespace Application.Ringtoets.Storage.Test.Create.StabilityPointStructures
             Assert.AreEqual(0, childGroupEntity.Order);
 
             StabilityPointStructuresCalculationEntity[] calculationEntities = entity.CalculationGroupEntity.StabilityPointStructuresCalculationEntities
-                                                                             .OrderBy(ce => ce.Order)
-                                                                             .ToArray();
+                                                                                    .OrderBy(ce => ce.Order)
+                                                                                    .ToArray();
             StabilityPointStructuresCalculationEntity calculationEntity = calculationEntities[0];
             Assert.AreEqual("Nieuwe berekening", calculationEntity.Name);
             Assert.AreEqual(1, calculationEntity.Order);

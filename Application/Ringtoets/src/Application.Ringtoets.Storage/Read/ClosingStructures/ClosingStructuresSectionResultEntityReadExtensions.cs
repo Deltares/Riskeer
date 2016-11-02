@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Read.ClosingStructures
         /// <returns>A new <see cref="ClosingStructuresFailureMechanismSectionResult"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when any input parameter is <c>null</c>.</exception>
         internal static void Read(this ClosingStructuresSectionResultEntity entity, ClosingStructuresFailureMechanismSectionResult sectionResult,
-            ReadConversionCollector collector)
+                                  ReadConversionCollector collector)
         {
             if (sectionResult == null)
             {
