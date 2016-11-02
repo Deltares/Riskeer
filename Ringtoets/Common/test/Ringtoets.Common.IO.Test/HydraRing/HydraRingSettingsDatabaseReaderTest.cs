@@ -167,13 +167,14 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
-        [TestCase(700132, 11, 16, 1, 4, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 20000, 100000.0, 0.1, -6.0, 6)]
-        [TestCase(700135, 3, 5, 4, 1, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 10000, 10000.0, 0.1, -6.0, 6)]
-        [TestCase(700135, 101, 102, 1, 4, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 20000, 100000.0, 0.1, -6.0, 6)]
+        [TestCase(700132, 11, 3, 16, 1, 4, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 20000, 100000.0, 0.1, -6.0, 6)]
+        [TestCase(700135, 3, 1, 5, 4, 1, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 10000, 10000.0, 0.1, -6.0, 6)]
+        [TestCase(700135, 101, 1, 102, 1, 4, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 20000, 100000.0, 0.1, -6.0, 6)]
         public void ReadNumericsSetting_ValidLocationIdAndFailureMechanismType_DesignTableSettingWithExpectedValues(
-            long locationId, 
-            int mechanismId, 
-            int subMechanismId,
+            long locationId,
+            int mechanismId,
+            int expectedNumberOfSettings,
+            int subMechanismIdForSample,
             int expectedCalculationTechniqueId,
             int expectedFormStartMethod,
             int expectedFormNumberOfIterations,
@@ -193,9 +194,11 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             var reader = new HydraRingSettingsDatabaseReader(completeDatabaseDataPath);
 
             // Call
-            NumericsSetting setting = reader.ReadNumericsSetting(locationId, mechanismId, subMechanismId);
+            Dictionary<int, NumericsSetting> settings = reader.ReadNumericsSetting(locationId, mechanismId);
 
             // Assert
+            Assert.AreEqual(expectedNumberOfSettings, settings.Count);
+            var setting = settings[subMechanismIdForSample];
             Assert.AreEqual(expectedCalculationTechniqueId, setting.CalculationTechniqueId);
             Assert.AreEqual(expectedFormStartMethod, setting.FormStartMethod);
             Assert.AreEqual(expectedFormNumberOfIterations, setting.FormNumberOfIterations);
@@ -213,33 +216,33 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         }
 
         [Test]
-        [TestCase(700134, 7, 14)]
-        [TestCase(0, 5, 11)]
-        [TestCase(700134, 5, 25)]
-        public void ReadNumericsSetting_ValidLocationIdFailureMechanismTypeAndSubMechanismIdNotInDatabase_ReturnNull(
-            long locationId, int mechanismId, int subMechanismId)
+        [TestCase(700134, 7)]
+        [TestCase(0, 5)]
+        [TestCase(700134, 5)]
+        public void ReadNumericsSetting_ValidLocationIdFailureMechanismTypeNotInDatabase_ReturnEmptyDictionary(
+            long locationId, int mechanismId)
         {
             // Setup
             var reader = new HydraRingSettingsDatabaseReader(completeDatabaseDataPath);
 
             // Call
-            NumericsSetting setting = reader.ReadNumericsSetting(locationId, mechanismId, subMechanismId);
+            Dictionary<int, NumericsSetting> setting = reader.ReadNumericsSetting(locationId, mechanismId);
 
             // Assert
-            Assert.IsNull(setting);
+            Assert.IsEmpty(setting);
         }
 
         [Test]
-        public void ReadNumericsSetting_EmptyTable_ReturnNull()
+        public void ReadNumericsSetting_EmptyTable_ReturnEmptyDictionary()
         {
             // Setup
             var reader = new HydraRingSettingsDatabaseReader(emptyDatabaseDataPath);
 
             // Call
-            NumericsSetting setting = reader.ReadNumericsSetting(700135, 101, 102);
+            Dictionary<int, NumericsSetting> setting = reader.ReadNumericsSetting(700135, 101);
 
             // Assert
-            Assert.IsNull(setting);
+            Assert.IsEmpty(setting);
         }
 
         [Test]
