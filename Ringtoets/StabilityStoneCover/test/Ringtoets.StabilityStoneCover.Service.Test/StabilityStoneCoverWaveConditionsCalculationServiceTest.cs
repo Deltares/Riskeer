@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -239,7 +240,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
@@ -296,7 +297,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
@@ -365,7 +366,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
@@ -400,7 +401,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
@@ -468,7 +469,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
@@ -495,7 +496,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
@@ -524,7 +525,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
@@ -550,7 +551,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             StabilityStoneCoverFailureMechanism stabilityStoneCoverFailureMechanism = new StabilityStoneCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 stabilityStoneCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 

@@ -27,6 +27,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.TestUtil;
@@ -52,7 +53,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository, filePath);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -91,13 +94,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            var invalidFilePath = Path.Combine(testDataPath, "notexisting.sqlite");
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository, filePath);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           invalidFilePath);
             mockRepository.ReplayAll();
-
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "notexisting.sqlite");
 
             const string name = "<very nice name>";
 
@@ -139,7 +142,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository, filePath);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -184,7 +189,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository, filePath);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -219,7 +226,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository, filePath);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -270,7 +279,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository, filePath);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -304,7 +315,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository, filePath);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -349,7 +362,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository, filePath);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
             mockRepository.ReplayAll();
 
             var dikeProfile = GetDikeProfile();
@@ -403,7 +418,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository, filePath);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
             mockRepository.ReplayAll();
 
             var dikeProfile = GetDikeProfile();
@@ -472,7 +489,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository, filePath);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
             mockRepository.ReplayAll();
 
             var dikeProfile = GetDikeProfile();
@@ -539,7 +558,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository, filePath);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -585,11 +606,13 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(grassCoverErosionInwardsFailureMechanism);
-           
+
             var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism, mockRepository, filePath);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";

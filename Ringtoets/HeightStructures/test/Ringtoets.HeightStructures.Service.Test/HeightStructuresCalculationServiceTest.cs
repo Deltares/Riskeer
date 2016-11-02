@@ -56,7 +56,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "notexisting.sqlite");
@@ -96,7 +96,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -135,7 +135,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -174,7 +174,8 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
+                                                                                                           mockRepository);
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -218,7 +219,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -262,7 +263,8 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(),
+                                                                                                           mockRepository);
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -309,7 +311,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -358,7 +360,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -406,7 +408,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -455,7 +457,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -497,7 +499,7 @@ namespace Ringtoets.HeightStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -541,7 +543,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
@@ -611,7 +613,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
@@ -663,7 +665,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
@@ -726,7 +728,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
@@ -746,14 +748,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                                                    new[]
-                                                                                    {
-                                                                                        new Point2D(1, 1),
-                                                                                        new Point2D(2, 2)
-                                                                                    },
-                                                                                    useBreakWater ? new BreakWater(BreakWaterType.Wall, 3.0) : null,
-                                                                                    new ForeshoreProfile.ConstructionProperties());
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
 
             FailureMechanismSection failureMechanismSection = heightStructuresFailureMechanism.Sections.First();
@@ -811,7 +806,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]

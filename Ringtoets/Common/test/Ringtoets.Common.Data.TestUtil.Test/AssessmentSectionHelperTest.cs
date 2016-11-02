@@ -23,6 +23,7 @@ using System.Linq;
 using Core.Common.Base.Geometry;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 
 namespace Ringtoets.Common.Data.TestUtil.Test
 {
@@ -37,8 +38,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var mocks = new MockRepository();
 
             // Call
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
-            mocks.ReplayAll();            
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks);
+            mocks.ReplayAll();
 
             // Assert
             Assert.IsNotNull(assessmentSectionStub);
@@ -63,8 +64,8 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var mocks = new MockRepository();
 
             // Call
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks, path);
-            mocks.ReplayAll();            
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mocks, path);
+            mocks.ReplayAll();
 
             // Assert
             Assert.IsNotNull(assessmentSectionStub);
@@ -87,7 +88,7 @@ namespace Ringtoets.Common.Data.TestUtil.Test
             var mocks = new MockRepository();
 
             // Call
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mocks);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mocks);
             mocks.ReplayAll();
 
             // Assert

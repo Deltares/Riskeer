@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.GrassCoverErosionOutwards.Data;
@@ -252,7 +253,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
+                                                                                                                                  mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -300,7 +302,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
+                                                                                                                                  mockRepository);
             mockRepository.ReplayAll();
 
             switch (calculationType)
@@ -360,7 +363,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
+                                                                                                                                  mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -413,7 +417,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
+                                                                                                                                  mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -444,7 +449,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
+                                                                                                                                  mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -477,7 +483,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
+                                                                                                                                  mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -505,7 +512,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             };
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(grassCoverErosionOutwardsFailureMechanism,
+                                                                                                                                  mockRepository);
             mockRepository.ReplayAll();
 
             using (new HydraRingCalculatorFactoryConfig())

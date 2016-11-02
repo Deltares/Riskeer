@@ -28,7 +28,7 @@ using Ringtoets.HydraRing.Data;
 namespace Ringtoets.Common.Data.TestUtil
 {
     /// <summary>
-    /// Helper class for testing the assessment section.
+    /// Helper class for creating assessment sections that can be used for unit tests.
     /// </summary>
     public static class AssessmentSectionHelper
     {
@@ -60,7 +60,7 @@ namespace Ringtoets.Common.Data.TestUtil
 
         private static IAssessmentSection CreateAssessmentSectionStub(IFailureMechanism failureMechanism,
                                                                       MockRepository mockRepository,
-            bool addBoundaryDatabase,
+                                                                      bool addBoundaryDatabase,
                                                                       string filePath)
         {
             var assessmentSectionStub = mockRepository.Stub<IAssessmentSection>();

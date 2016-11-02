@@ -386,10 +386,10 @@ namespace Ringtoets.ClosingStructures.Service.Test
             TestDelegate call = () => isValid = ClosingStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
-            var exception = Assert.Throws<InvalidEnumArgumentException>(call);
-            Assert.AreEqual("inputParameters", exception.ParamName);
-            StringAssert.StartsWith("The value of argument 'inputParameters' (9001) is invalid for Enum type 'ClosingStructureInflowModelType'.",
-                                    exception.Message);
+            const string expectedMessage = "The value of argument 'inputParameters' (9001) is invalid for Enum type 'ClosingStructureInflowModelType'.";
+            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
+                                                                                                                    expectedMessage).ParamName;
+            Assert.AreEqual("inputParameters", paramName);
             Assert.IsFalse(isValid);
             mockRepository.VerifyAll();
         }
@@ -450,7 +450,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new ClosingStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -518,14 +518,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                                                    new[]
-                                                                                    {
-                                                                                        new Point2D(1, 1),
-                                                                                        new Point2D(2, 2)
-                                                                                    },
-                                                                                    useBreakWater ? new BreakWater(BreakWaterType.Wall, 3.0) : null,
-                                                                                    new ForeshoreProfile.ConstructionProperties());
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
 
             FailureMechanismSection failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
@@ -612,14 +605,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                                                    new[]
-                                                                                    {
-                                                                                        new Point2D(1, 1),
-                                                                                        new Point2D(2, 2)
-                                                                                    },
-                                                                                    useBreakWater ? new BreakWater(BreakWaterType.Wall, 3.0) : null,
-                                                                                    new ForeshoreProfile.ConstructionProperties());
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
 
             FailureMechanismSection failureMechanismSection = closingStructuresFailureMechanism.Sections.First();
@@ -705,14 +691,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                                                    new[]
-                                                                                    {
-                                                                                        new Point2D(1, 1),
-                                                                                        new Point2D(2, 2)
-                                                                                    },
-                                                                                    useBreakWater ? new BreakWater(BreakWaterType.Wall, 3.0) : null,
-                                                                                    new ForeshoreProfile.ConstructionProperties());
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
 
             FailureMechanismSection failureMechanismSection = closingStructuresFailureMechanism.Sections.First();

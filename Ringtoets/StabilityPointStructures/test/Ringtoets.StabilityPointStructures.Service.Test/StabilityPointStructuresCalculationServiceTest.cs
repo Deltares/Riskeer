@@ -57,7 +57,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "notexisting.sqlite");
@@ -97,7 +97,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         {
             // Setup
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
@@ -141,7 +141,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             mockRepository.ReplayAll();
 
@@ -193,7 +193,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             mockRepository.ReplayAll();
 
@@ -583,7 +583,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             mockRepository.ReplayAll();
 
@@ -623,7 +623,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
             assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             mockRepository.ReplayAll();
 
@@ -697,9 +697,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
                 // Assert
                 Assert.AreEqual(0, calculationInputs.Length);
-                var exception = Assert.Throws<InvalidEnumArgumentException>(call);
-                Assert.AreEqual("calculation", exception.ParamName);
-                StringAssert.StartsWith("The value of argument 'calculation' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.", exception.Message);
+                const string expectedMessage = "The value of argument 'calculation' (100) is invalid for Enum type 'StabilityPointStructureInflowModelType'.";
+                string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
+                                                                                                                        expectedMessage).ParamName;
+                Assert.AreEqual("calculation", paramName);
             }
             mockRepository.VerifyAll();
         }
@@ -747,9 +748,10 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
                 // Assert
                 Assert.AreEqual(0, calculationInputs.Length);
-                var exception = Assert.Throws<InvalidEnumArgumentException>(call);
-                Assert.AreEqual("calculation", exception.ParamName);
-                StringAssert.StartsWith("The value of argument 'calculation' (100) is invalid for Enum type 'LoadSchematizationType'.", exception.Message);
+                const string expectedMessage = "The value of argument 'calculation' (100) is invalid for Enum type 'LoadSchematizationType'.";
+                string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
+                                                                                                                        expectedMessage).ParamName;
+                Assert.AreEqual("calculation", paramName);
             }
             mockRepository.VerifyAll();
         }
@@ -764,7 +766,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var stabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(stabilityPointStructuresFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(stabilityPointStructuresFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             stabilityPointStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
@@ -785,14 +787,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                                                    new[]
-                                                                                    {
-                                                                                        new Point2D(1, 1),
-                                                                                        new Point2D(2, 2)
-                                                                                    },
-                                                                                    useBreakWater ? new BreakWater(BreakWaterType.Wall, 3.0) : null,
-                                                                                    new ForeshoreProfile.ConstructionProperties());
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
 
             FailureMechanismSection failureMechanismSection = stabilityPointStructuresFailureMechanism.Sections.First();
@@ -897,7 +892,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var stabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(stabilityPointStructuresFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(stabilityPointStructuresFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             stabilityPointStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
@@ -918,14 +913,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                                                    new[]
-                                                                                    {
-                                                                                        new Point2D(1, 1),
-                                                                                        new Point2D(2, 2)
-                                                                                    },
-                                                                                    useBreakWater ? new BreakWater(BreakWaterType.Wall, 3.0) : null,
-                                                                                    new ForeshoreProfile.ConstructionProperties());
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
 
             FailureMechanismSection failureMechanismSection = stabilityPointStructuresFailureMechanism.Sections.First();
@@ -1030,7 +1018,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var stabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(stabilityPointStructuresFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(stabilityPointStructuresFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             stabilityPointStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
@@ -1051,14 +1039,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                                                    new[]
-                                                                                    {
-                                                                                        new Point2D(1, 1),
-                                                                                        new Point2D(2, 2)
-                                                                                    },
-                                                                                    useBreakWater ? new BreakWater(BreakWaterType.Wall, 3.0) : null,
-                                                                                    new ForeshoreProfile.ConstructionProperties());
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
 
             FailureMechanismSection failureMechanismSection = stabilityPointStructuresFailureMechanism.Sections.First();
@@ -1163,7 +1144,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var stabilityPointStructuresFailureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(stabilityPointStructuresFailureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(stabilityPointStructuresFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             stabilityPointStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
@@ -1184,14 +1165,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             if (useForeshore)
             {
-                calculation.InputParameters.ForeshoreProfile = new ForeshoreProfile(new Point2D(0, 0),
-                                                                                    new[]
-                                                                                    {
-                                                                                        new Point2D(1, 1),
-                                                                                        new Point2D(2, 2)
-                                                                                    },
-                                                                                    useBreakWater ? new BreakWater(BreakWaterType.Wall, 3.0) : null,
-                                                                                    new ForeshoreProfile.ConstructionProperties());
+                calculation.InputParameters.ForeshoreProfile = new TestForeshoreProfile(useBreakWater);
             }
 
             FailureMechanismSection failureMechanismSection = stabilityPointStructuresFailureMechanism.Sections.First();
@@ -1297,7 +1271,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
@@ -1367,7 +1341,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
@@ -1426,7 +1400,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]

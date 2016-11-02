@@ -610,7 +610,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    Structure = new TestClosingStructure()
                 }
             });
             failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
@@ -619,7 +618,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
-                    Structure = new TestClosingStructure()
                 }
             });
 

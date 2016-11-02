@@ -27,6 +27,7 @@ using Core.Common.Base.Data;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.TestUtil;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
@@ -249,7 +250,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
@@ -295,7 +296,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
@@ -353,7 +354,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
@@ -404,7 +405,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
@@ -433,7 +434,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
@@ -464,7 +465,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             var waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
@@ -490,7 +491,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             WaveImpactAsphaltCoverFailureMechanism waveImpactAsphaltCoverFailureMechanism = new WaveImpactAsphaltCoverFailureMechanism();
 
             var mockRepository = new MockRepository();
-            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(
                 waveImpactAsphaltCoverFailureMechanism, mockRepository);
             mockRepository.ReplayAll();
 
