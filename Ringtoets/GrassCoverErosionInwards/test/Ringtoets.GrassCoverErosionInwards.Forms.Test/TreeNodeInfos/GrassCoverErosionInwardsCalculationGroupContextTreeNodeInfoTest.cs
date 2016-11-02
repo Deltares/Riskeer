@@ -766,7 +766,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
             assessmentSectionMock.Stub(a => a.Id).Return(string.Empty);
             assessmentSectionMock.Stub(a => a.FailureMechanismContribution)
-                .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(),1,1));
+                                 .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
 
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(failureMechanism.CalculationsGroup,
                                                                                    failureMechanism,
@@ -1167,11 +1167,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var group = new CalculationGroup();
             var parentGroup = new CalculationGroup();
             var nodeData = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                       failureMechanism,
-                                                                       assessmentSectionStub);
+                                                                               failureMechanism,
+                                                                               assessmentSectionStub);
             var parentNodeData = new GrassCoverErosionInwardsCalculationGroupContext(parentGroup,
-                                                                             failureMechanism,
-                                                                             assessmentSectionStub);
+                                                                                     failureMechanism,
+                                                                                     assessmentSectionStub);
 
             mocks.ReplayAll();
 

@@ -227,7 +227,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             var input = new GrassCoverErosionInwardsInput();
 
             // Call
-            TestDelegate call = () => input.Orientation = (RoundedDouble)invalidOrientation;
+            TestDelegate call = () => input.Orientation = (RoundedDouble) invalidOrientation;
 
             // Assert
             TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentOutOfRangeException>(call, "De waarde voor de oriëntatie moet in het bereik [0, 360] liggen.");
@@ -255,8 +255,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Data.Test
             // Setup
             var random = new Random(22);
             var input = new GrassCoverErosionInwardsInput();
-            var mean = (RoundedDouble)(0.01 + random.NextDouble());
-            var standardDeviation = (RoundedDouble)(0.01 + random.NextDouble());
+            var mean = (RoundedDouble) (0.01 + random.NextDouble());
+            var standardDeviation = (RoundedDouble) (0.01 + random.NextDouble());
             var expectedDistribution = new LogNormalDistribution(4)
             {
                 Mean = mean,

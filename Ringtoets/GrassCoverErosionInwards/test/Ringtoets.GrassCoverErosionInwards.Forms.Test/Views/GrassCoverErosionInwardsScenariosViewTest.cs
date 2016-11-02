@@ -118,10 +118,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
 
                 // Assert
-                AssertDataGridView(failureMechanism, false, new []
+                AssertDataGridView(failureMechanism, false, new[]
                 {
-                    new [] { "<geen>", "CalculationA"},
-                    new [] { "<geen>", "CalculationB"}
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationA"
+                    },
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationB"
+                    }
                 });
             }
         }
@@ -157,10 +165,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 view.FailureMechanism = failureMechanism;
 
                 // Assert
-                AssertDataGridView(failureMechanism, false, new []
+                AssertDataGridView(failureMechanism, false, new[]
                 {
-                    new [] { "<geen>", "CalculationA"},
-                    new [] { "<geen>", "CalculationB"}
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationA"
+                    },
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationB"
+                    }
                 });
             }
         }
@@ -193,20 +209,32 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                view.FailureMechanism.AddSection(new FailureMechanismSection("SectionC", new []
+                view.FailureMechanism.AddSection(new FailureMechanismSection("SectionC", new[]
                 {
-                    view.FailureMechanism.Sections.Last().GetLast(), new Point2D(30,30) 
+                    view.FailureMechanism.Sections.Last().GetLast(),
+                    new Point2D(30, 30)
                 }));
 
                 // Call
                 failureMechanism.NotifyObservers();
 
                 // Assert
-                AssertDataGridView(failureMechanism, false, new []
+                AssertDataGridView(failureMechanism, false, new[]
                 {
-                    new [] { "<geen>", "CalculationA"},
-                    new [] { "<geen>", "CalculationB"},
-                    new [] { "<geen>"}
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationA"
+                    },
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationB"
+                    },
+                    new[]
+                    {
+                        "<geen>"
+                    }
                 });
             }
         }
@@ -230,10 +258,18 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 calculationA.NotifyObservers();
 
                 // Assert
-                AssertDataGridView(failureMechanism, false, new []
+                AssertDataGridView(failureMechanism, false, new[]
                 {
-                    new [] { "<geen>"},
-                    new [] { "<geen>", "CalculationA", "CalculationB"},
+                    new[]
+                    {
+                        "<geen>"
+                    },
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationA",
+                        "CalculationB"
+                    },
                 });
             }
         }
@@ -248,7 +284,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                var calculationB = ((GrassCoverErosionInwardsCalculation)failureMechanism.CalculationsGroup.Children[1]);
+                var calculationB = ((GrassCoverErosionInwardsCalculation) failureMechanism.CalculationsGroup.Children[1]);
                 var calculationC = new GrassCoverErosionInwardsCalculation
                 {
                     Name = "CalculationC",
@@ -265,17 +301,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.Views
                 failureMechanism.CalculationsGroup.NotifyObservers();
 
                 // Assert
-                AssertDataGridView(failureMechanism, false, new []
+                AssertDataGridView(failureMechanism, false, new[]
                 {
-                    new [] { "<geen>", "CalculationA"},
-                    new [] { "<geen>", "CalculationB", "CalculationC"},
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationA"
+                    },
+                    new[]
+                    {
+                        "<geen>",
+                        "CalculationB",
+                        "CalculationC"
+                    },
                 });
             }
         }
 
         private void AssertDataGridView(
-            GrassCoverErosionInwardsFailureMechanism failureMechanism, 
-            bool shouldBeCleared, 
+            GrassCoverErosionInwardsFailureMechanism failureMechanism,
+            bool shouldBeCleared,
             string[][] expectedComboBoxItemTexts = null)
         {
             var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;

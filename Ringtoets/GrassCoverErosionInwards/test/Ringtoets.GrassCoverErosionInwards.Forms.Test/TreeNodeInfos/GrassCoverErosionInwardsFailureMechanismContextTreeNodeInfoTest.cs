@@ -755,7 +755,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             assessmentSectionMock.HydraulicBoundaryDatabase = hydraulicBoundaryDatabaseStub;
             assessmentSectionMock.Stub(a => a.Id).Return(string.Empty);
             assessmentSectionMock.Stub(a => a.FailureMechanismContribution)
-                .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
+                                 .Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
             var failureMechanismContext = new GrassCoverErosionInwardsFailureMechanismContext(failureMechanism, assessmentSectionMock);
 
             using (var treeViewControl = new TreeViewControl())

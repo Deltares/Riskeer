@@ -578,7 +578,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     using (new HydraRingCalculatorFactoryConfig())
                     {
-                        var testFactory = (TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance;
+                        var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
 
                         // Call
                         Action action = () => contextMenuAdapter.Items[contextMenuRunDesignWaterLevelCalculationsIndex].PerformClick();

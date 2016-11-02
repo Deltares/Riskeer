@@ -824,11 +824,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
             var elementToBeRemoved = new GrassCoverErosionInwardsCalculation();
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var calculationContext = new GrassCoverErosionInwardsCalculationContext(elementToBeRemoved,
-                                                                            failureMechanism,
-                                                                            assessmentSectionStub);
+                                                                                    failureMechanism,
+                                                                                    assessmentSectionStub);
             var groupContext = new GrassCoverErosionInwardsCalculationGroupContext(group,
-                                                                           failureMechanism,
-                                                                           assessmentSectionStub);
+                                                                                   failureMechanism,
+                                                                                   assessmentSectionStub);
 
             mocks.ReplayAll();
 

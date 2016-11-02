@@ -353,7 +353,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     using (new HydraRingCalculatorFactoryConfig())
                     {
-                        ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveHeightCalculator.EndInFailure = true;
+                        ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator.EndInFailure = true;
 
                         // When
                         contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
@@ -433,7 +433,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.TreeNodeInfos
                         Assert.AreEqual(assessmentSectionMock.Id, testWaveHeightCalculator.RingId);
 
                         Assert.AreEqual(grassCoverErosionOutwardsHydraulicBoundaryLocation.Id, waveHeightCalculationInput.HydraulicBoundaryLocationId);
-                        var expectedNorm = assessmentSectionMock.FailureMechanismContribution.Norm /
+                        var expectedNorm = assessmentSectionMock.FailureMechanismContribution.Norm/
                                            (failureMechanism.Contribution/100)*
                                            failureMechanism.GeneralInput.N;
                         Assert.AreEqual(StatisticsConverter.NormToBeta(expectedNorm), waveHeightCalculationInput.Beta);

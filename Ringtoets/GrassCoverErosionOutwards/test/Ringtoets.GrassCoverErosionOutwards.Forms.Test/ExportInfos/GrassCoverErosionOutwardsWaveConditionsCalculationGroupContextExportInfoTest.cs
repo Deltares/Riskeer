@@ -120,10 +120,10 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.ExportInfos
             if (hasOutput)
             {
                 var output = new[]
-            {
-                new WaveConditionsOutput(1, 0, 3, 5),
-                new WaveConditionsOutput(8, 2, 6, 1)
-            };
+                {
+                    new WaveConditionsOutput(1, 0, 3, 5),
+                    new WaveConditionsOutput(8, 2, 6, 1)
+                };
 
                 calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(output);
             }
