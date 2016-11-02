@@ -137,7 +137,7 @@ namespace Ringtoets.HeightStructures.Service
                     else
                     {
                         log.ErrorFormat(Resources.HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation_click_details_for_last_error_1,
-                                    calculationName, lastErrorContent);
+                                        calculationName, lastErrorContent);
                     }
 
                     exceptionThrown = true;

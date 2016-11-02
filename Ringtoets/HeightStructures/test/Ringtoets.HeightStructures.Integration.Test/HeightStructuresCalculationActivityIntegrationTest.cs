@@ -215,7 +215,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
             var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
                 calculator.EndInFailure = true;
 
                 // Call
@@ -230,7 +230,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
                     StringAssert.StartsWith(string.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.",
-                        calculation.Name), msgs[3]);
+                                                          calculation.Name), msgs[3]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
                 });
@@ -269,7 +269,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
             var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorContent = "An error occured";
 
@@ -285,7 +285,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                     StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
                     StringAssert.StartsWith(string.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
-                        calculation.Name), msgs[3]);
+                                                          calculation.Name), msgs[3]);
                     StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
                     StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
                 });
@@ -332,9 +332,9 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                activity.Run();    
+                activity.Run();
             }
-            
+
             // Call
             activity.Finish();
 

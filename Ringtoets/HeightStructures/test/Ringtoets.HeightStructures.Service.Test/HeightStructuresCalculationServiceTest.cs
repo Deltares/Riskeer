@@ -869,7 +869,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
                 calculator.LastErrorContent = "An error occured";
                 calculator.EndInFailure = true;
 
@@ -881,9 +881,9 @@ namespace Ringtoets.HeightStructures.Service.Test
                     try
                     {
                         new HeightStructuresCalculationService().Calculate(calculation,
-                                                                            assessmentSectionStub,
-                                                                            failureMechanism,
-                                                                            testDataPath);
+                                                                           assessmentSectionStub,
+                                                                           failureMechanism,
+                                                                           testDataPath);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -931,7 +931,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
                 calculator.EndInFailure = true;
 
                 var exceptionThrown = false;
@@ -942,9 +942,9 @@ namespace Ringtoets.HeightStructures.Service.Test
                     try
                     {
                         new HeightStructuresCalculationService().Calculate(calculation,
-                                                                            assessmentSectionStub,
-                                                                            failureMechanism,
-                                                                            testDataPath);
+                                                                           assessmentSectionStub,
+                                                                           failureMechanism,
+                                                                           testDataPath);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -992,7 +992,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorContent = "An error occured";
 
@@ -1005,9 +1005,9 @@ namespace Ringtoets.HeightStructures.Service.Test
                     try
                     {
                         new HeightStructuresCalculationService().Calculate(calculation,
-                                                                            assessmentSectionStub,
-                                                                            failureMechanism,
-                                                                            testDataPath);
+                                                                           assessmentSectionStub,
+                                                                           failureMechanism,
+                                                                           testDataPath);
                     }
                     catch (HydraRingFileParserException e)
                     {

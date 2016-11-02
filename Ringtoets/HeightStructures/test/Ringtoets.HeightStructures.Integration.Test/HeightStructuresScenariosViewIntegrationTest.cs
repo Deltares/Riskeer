@@ -89,7 +89,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
                                              assessmentSection.ReferenceLine,
                                              filePath)
-                                             .Import();
+                    .Import();
 
                 CalculationGroup calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
                 var view = new HeightStructuresScenariosView
@@ -101,7 +101,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 form.Show();
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
 
                 // Call
                 foreach (var structure in assessmentSection.HeightStructures.HeightStructures)
@@ -121,7 +120,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
                 Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
                 Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
-                Assert.AreEqual("Eerste kunstwerk 6-3", ((DataGridViewComboBoxCell)dataGridViewCell).Items[1].ToString());
+                Assert.AreEqual("Eerste kunstwerk 6-3", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
             }
         }
 
@@ -137,7 +136,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
                                              assessmentSection.ReferenceLine,
                                              filePath)
-                                             .Import();
+                    .Import();
 
                 CalculationGroup calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
                 var view = new HeightStructuresScenariosView
@@ -149,7 +148,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 form.Show();
 
                 var dataGridView = (DataGridView) new ControlTester("dataGridView").TheObject;
-
 
                 foreach (var structure in assessmentSection.HeightStructures.HeightStructures)
                 {
@@ -167,7 +165,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 // Call
                 foreach (var calculationBase in calculationsGroup.Children)
                 {
-                    var calculation = (StructuresCalculation<HeightStructuresInput>)calculationBase;
+                    var calculation = (StructuresCalculation<HeightStructuresInput>) calculationBase;
                     calculation.Name += "_changed";
                 }
 
@@ -175,7 +173,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
                 Assert.AreEqual(2, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
                 Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
-                Assert.AreEqual("Eerste kunstwerk 6-3_changed", ((DataGridViewComboBoxCell)dataGridViewCell).Items[1].ToString());
+                Assert.AreEqual("Eerste kunstwerk 6-3_changed", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
             }
         }
 
@@ -191,7 +189,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 new HeightStructuresImporter(assessmentSection.HeightStructures.HeightStructures,
                                              assessmentSection.ReferenceLine,
                                              filePath)
-                                             .Import();
+                    .Import();
 
                 var view = new HeightStructuresScenariosView
                 {
@@ -217,15 +215,15 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
                 // Call
                 var calculationsGroup = assessmentSection.HeightStructures.CalculationsGroup;
-                ((StructuresCalculation<HeightStructuresInput>)calculationsGroup.Children[1]).InputParameters.Structure =
-                    ((StructuresCalculation<HeightStructuresInput>)calculationsGroup.Children[0]).InputParameters.Structure;
+                ((StructuresCalculation<HeightStructuresInput>) calculationsGroup.Children[1]).InputParameters.Structure =
+                    ((StructuresCalculation<HeightStructuresInput>) calculationsGroup.Children[0]).InputParameters.Structure;
                 calculationsGroup.NotifyObservers();
 
                 // Assert
                 DataGridViewCell dataGridViewCell = dataGridView.Rows[13].Cells[1];
                 Assert.AreEqual(3, ((DataGridViewComboBoxCell) dataGridViewCell).Items.Count);
                 Assert.AreEqual("<geen>", ((DataGridViewComboBoxCell) dataGridViewCell).Items[0].ToString());
-                Assert.AreEqual("Eerste kunstwerk 6-3Calculation", ((DataGridViewComboBoxCell)dataGridViewCell).Items[1].ToString());
+                Assert.AreEqual("Eerste kunstwerk 6-3Calculation", ((DataGridViewComboBoxCell) dataGridViewCell).Items[1].ToString());
                 Assert.AreEqual("Tweede kunstwerk 6-3Calculation", ((DataGridViewComboBoxCell) dataGridViewCell).Items[2].ToString());
 
                 DataGridViewCell dataGridViewCellWithRemovedCalculation = dataGridView.Rows[56].Cells[1];

@@ -26,7 +26,6 @@ using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.HeightStructures.Data;
-using Ringtoets.HeightStructures.Data.Properties;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
 
 namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses

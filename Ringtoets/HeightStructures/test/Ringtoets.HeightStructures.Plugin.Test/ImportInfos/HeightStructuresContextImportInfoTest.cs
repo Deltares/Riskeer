@@ -184,6 +184,6 @@ namespace Ringtoets.HeightStructures.Plugin.Test.ImportInfos
         private static ImportInfo GetImportInfo(HeightStructuresPlugin plugin)
         {
             return plugin.GetImportInfos().First(ii => ii.DataType == typeof(HeightStructuresContext));
-        } 
+        }
     }
 }

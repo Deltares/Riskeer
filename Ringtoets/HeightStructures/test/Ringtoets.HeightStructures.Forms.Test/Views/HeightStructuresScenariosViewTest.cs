@@ -250,8 +250,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                var calculationA = (StructuresCalculation<HeightStructuresInput>)failureMechanism.CalculationsGroup.Children[0];
-                var calculationB = (StructuresCalculation<HeightStructuresInput>)failureMechanism.CalculationsGroup.Children[1];
+                var calculationA = (StructuresCalculation<HeightStructuresInput>) failureMechanism.CalculationsGroup.Children[0];
+                var calculationB = (StructuresCalculation<HeightStructuresInput>) failureMechanism.CalculationsGroup.Children[1];
 
                 calculationA.InputParameters.Structure = calculationB.InputParameters.Structure;
 
@@ -285,7 +285,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.Views
                 view.Data = failureMechanism.CalculationsGroup;
                 view.FailureMechanism = failureMechanism;
 
-                var calculationB = ((StructuresCalculation<HeightStructuresInput>)failureMechanism.CalculationsGroup.Children[1]);
+                var calculationB = ((StructuresCalculation<HeightStructuresInput>) failureMechanism.CalculationsGroup.Children[1]);
                 var calculationC = new StructuresCalculation<HeightStructuresInput>
                 {
                     Name = "CalculationC"
