@@ -28,6 +28,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil
     {
         public TestHeightStructuresCalculation()
         {
+            InputParameters.Structure = new TestHeightStructure();
             InputParameters.LevelCrestStructure.Mean = (RoundedDouble) 5.74;
             InputParameters.StorageStructureArea.Mean = (RoundedDouble) 1.0;
             InputParameters.StructureNormalOrientation = (RoundedDouble) 115;

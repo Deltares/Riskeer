@@ -40,6 +40,7 @@ namespace Ringtoets.HeightStructures.Data.TestUtil.Test
             Assert.IsNull(calculation.Comments);
             Assert.IsFalse(calculation.HasOutput);
 
+            Assert.IsNotNull(calculation.InputParameters.Structure);
             Assert.AreEqual(2, calculation.InputParameters.LevelCrestStructure.Mean.NumberOfDecimalPlaces);
             Assert.AreEqual(5.74, calculation.InputParameters.LevelCrestStructure.Mean.Value);
             Assert.AreEqual(2, calculation.InputParameters.StructureNormalOrientation.NumberOfDecimalPlaces);

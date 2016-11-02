@@ -92,12 +92,23 @@ namespace Ringtoets.HeightStructures.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekening voor hoogte kunstwerk &apos;{0}&apos; is niet gelukt..
+        ///   Looks up a localized string similar to De berekening voor hoogte kunstwerk &apos;{0}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
+        ///{1}.
         /// </summary>
-        internal static string HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation {
+        internal static string HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation_click_details_for_last_error_1 {
             get {
                 return ResourceManager.GetString("HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calcula" +
-                        "tion", resourceCulture);
+                        "tion_click_details_for_last_error_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De berekening voor hoogte kunstwerk &apos;{0}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
+        /// </summary>
+        internal static string HeightStructuresCalculationService_Calculate_Unexplained_error_in_height_structures_0_calculation {
+            get {
+                return ResourceManager.GetString("HeightStructuresCalculationService_Calculate_Unexplained_error_in_height_structur" +
+                        "es_0_calculation", resourceCulture);
             }
         }
     }

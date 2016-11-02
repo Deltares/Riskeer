@@ -29,6 +29,7 @@ using Core.Common.Base.Geometry;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
+using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.DikeProfiles;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
@@ -843,6 +844,195 @@ namespace Ringtoets.HeightStructures.Service.Test
                 // Assert
                 Assert.IsNull(calculation.Output);
                 Assert.IsTrue(testStructuresOvertoppingCalculator.IsCanceled);
+            }
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
+
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                calculator.LastErrorContent = "An error occured";
+                calculator.EndInFailure = true;
+
+                var exceptionThrown = false;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new HeightStructuresCalculationService().Calculate(calculation,
+                                                                            assessmentSectionStub,
+                                                                            failureMechanism,
+                                                                            testDataPath);
+                    }
+                    catch (HydraRingFileParserException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                });
+                Assert.IsTrue(exceptionThrown);
+            }
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
+
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                calculator.EndInFailure = true;
+
+                var exceptionThrown = false;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new HeightStructuresCalculationService().Calculate(calculation,
+                                                                            assessmentSectionStub,
+                                                                            failureMechanism,
+                                                                            testDataPath);
+                    }
+                    catch (HydraRingFileParserException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                });
+                Assert.IsTrue(exceptionThrown);
+            }
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new HeightStructuresFailureMechanism();
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
+
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                calculator.EndInFailure = false;
+                calculator.LastErrorContent = "An error occured";
+
+                var exceptionThrown = false;
+                var exceptionMessage = string.Empty;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new HeightStructuresCalculationService().Calculate(calculation,
+                                                                            assessmentSectionStub,
+                                                                            failureMechanism,
+                                                                            testDataPath);
+                    }
+                    catch (HydraRingFileParserException e)
+                    {
+                        exceptionThrown = true;
+                        exceptionMessage = e.Message;
+                    }
+                };
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
+                                                          calculation.Name), msgs[1]);
+                    StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                });
+                Assert.IsTrue(exceptionThrown);
+                Assert.AreEqual(calculator.LastErrorContent, exceptionMessage);
             }
         }
 

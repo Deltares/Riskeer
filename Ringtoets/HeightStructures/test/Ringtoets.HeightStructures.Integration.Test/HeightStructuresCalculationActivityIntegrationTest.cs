@@ -35,6 +35,7 @@ using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Service;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.Integration.Data;
@@ -181,6 +182,115 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
             });
             Assert.AreEqual(ActivityState.Failed, activity.State);
+        }
+
+        [Test]
+        public void Run_UnexplainedErrorInCalculation_PerformValidationAndCalculationAndLogStartAndEndAndError()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                }
+            };
+
+            var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                calculator.EndInFailure = true;
+
+                // Call
+                Action call = () => activity.Run();
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith(string.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.",
+                        calculation.Name), msgs[3]);
+                    StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                });
+                Assert.AreEqual(ActivityState.Failed, activity.State);
+            }
+        }
+
+        [Test]
+        public void Run_ErrorInCalculation_PerformValidationAndCalculationAndLogStartAndEndAndError()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new HeightStructuresFailureMechanism();
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            {
+                new Point2D(0, 0),
+                new Point2D(1, 1)
+            }));
+
+            var calculation = new TestHeightStructuresCalculation()
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                }
+            };
+
+            var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                calculator.EndInFailure = false;
+                calculator.LastErrorContent = "An error occured";
+
+                // Call
+                Action call = () => activity.Run();
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith(string.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
+                        calculation.Name), msgs[3]);
+                    StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                });
+                Assert.AreEqual(ActivityState.Failed, activity.State);
+            }
         }
 
         [Test]

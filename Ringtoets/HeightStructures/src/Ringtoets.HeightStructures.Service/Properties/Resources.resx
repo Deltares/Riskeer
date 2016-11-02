@@ -117,10 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation" xml:space="preserve">
-    <value>De berekening voor hoogte kunstwerk '{0}' is niet gelukt.</value>
+  <data name="HeightStructuresCalculationService_Calculate_Unexplained_error_in_height_structures_0_calculation" xml:space="preserve">
+    <value>De berekening voor hoogte kunstwerk '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.</value>
   </data>
   <data name="HeightStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
     <value>Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie: {0}. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
+  </data>
+  <data name="HeightStructuresCalculationService_Calculate_Error_in_height_structures_0_calculation_click_details_for_last_error_1" xml:space="preserve">
+    <value>De berekening voor hoogte kunstwerk '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.
+{1}</value>
   </data>
 </root>
