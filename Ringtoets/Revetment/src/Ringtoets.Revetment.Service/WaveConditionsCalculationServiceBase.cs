@@ -214,6 +214,7 @@ namespace Ringtoets.Revetment.Service
             calculator = HydraRingCalculatorFactory.Instance.CreateWaveConditionsCosineCalculator(hlcdDirectory, ringId);
             WaveConditionsCosineCalculationInput calculationInput = CreateInput(waterLevel, a, b, c, norm, input);
 
+            var exceptionThrown = false;
             try
             {
                 calculator.Calculate(calculationInput);
@@ -227,17 +228,48 @@ namespace Ringtoets.Revetment.Service
             {
                 if (!Canceled)
                 {
-                    log.ErrorFormat(CultureInfo.CurrentCulture,
-                                    Resources.WaveConditionsCalculationService_VerifyWaveConditionsCalculationOutput_Error_in_wave_conditions_calculation_0_for_waterlevel_1,
-                                    name,
-                                    waterLevel);
+                    var lastErrorContent = calculator.LastErrorContent;
+                    if (string.IsNullOrEmpty(lastErrorContent))
+                    {
+                        log.ErrorFormat(CultureInfo.CurrentCulture,
+                                        Resources.WaveConditionsCalculationService_CalculateWaterLevel_Unexplained_error_in_wave_conditions_calculation_0_for_waterlevel_1,
+                                        name,
+                                        waterLevel);
+                    }
+                    else
+                    {
+                        log.ErrorFormat(CultureInfo.CurrentCulture,
+                                        Resources.WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_click_details_for_last_error_2,
+                                        name,
+                                        waterLevel,
+                                        lastErrorContent);
+                    }
+
+                    exceptionThrown = true;
                     throw;
                 }
                 return null;
             }
             finally
             {
-                log.InfoFormat(Resources.WaveConditionsCalculationService_CalculateWaterLevel_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
+                try
+                {
+                    var lastErrorContent = calculator.LastErrorContent;
+                    if (!exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
+                    {
+                        log.ErrorFormat(CultureInfo.CurrentCulture,
+                                        Resources.WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_click_details_for_last_error_2,
+                                        name,
+                                        waterLevel,
+                                        lastErrorContent);
+
+                        throw new HydraRingFileParserException(lastErrorContent);
+                    }
+                }
+                finally
+                {
+                    log.InfoFormat(Resources.WaveConditionsCalculationService_CalculateWaterLevel_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
+                }
             }
         }
 

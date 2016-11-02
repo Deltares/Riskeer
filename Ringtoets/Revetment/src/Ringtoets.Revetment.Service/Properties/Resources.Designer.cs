@@ -92,6 +92,27 @@ namespace Ringtoets.Revetment.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
+        ///{2}.
+        /// </summary>
+        public static string WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_calculation_0_for_waterlevel_1_click_details_for_last_error_2 {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationService_CalculateWaterLevel_Error_in_wave_conditions_cal" +
+                        "culation_0_for_waterlevel_1_click_details_for_last_error_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
+        /// </summary>
+        public static string WaveConditionsCalculationService_CalculateWaterLevel_Unexplained_error_in_wave_conditions_calculation_0_for_waterlevel_1 {
+            get {
+                return ResourceManager.GetString("WaveConditionsCalculationService_CalculateWaterLevel_Unexplained_error_in_wave_co" +
+                        "nditions_calculation_0_for_waterlevel_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waterstand &apos;{0}&apos; berekenen..
         /// </summary>
         public static string WaveConditionsCalculationService_OnRun_Calculate_waterlevel_0_ {
@@ -152,16 +173,6 @@ namespace Ringtoets.Revetment.Service.Properties {
             get {
                 return ResourceManager.GetString("WaveConditionsCalculationService_ValidateInput_No_HydraulicBoundaryLocation_selec" +
                         "ted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Berekening &apos;{0}&apos; voor waterstand &apos;{1}&apos; is niet gelukt..
-        /// </summary>
-        public static string WaveConditionsCalculationService_VerifyWaveConditionsCalculationOutput_Error_in_wave_conditions_calculation_0_for_waterlevel_1 {
-            get {
-                return ResourceManager.GetString("WaveConditionsCalculationService_VerifyWaveConditionsCalculationOutput_Error_in_w" +
-                        "ave_conditions_calculation_0_for_waterlevel_1", resourceCulture);
             }
         }
     }

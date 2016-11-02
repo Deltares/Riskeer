@@ -967,6 +967,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                         exceptionThrown = true;
                     }
                 };
+
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
@@ -1028,6 +1029,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                         exceptionThrown = true;
                     }
                 };
+
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
@@ -1092,6 +1094,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                         exceptionMessage = e.Message;
                     }
                 };
+
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {

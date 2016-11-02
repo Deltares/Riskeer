@@ -502,6 +502,104 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
         }
 
         [Test]
+        public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_ExceptionThrown()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 20
+            };
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                calculator.LastErrorContent = "An error occured";
+                calculator.EndInFailure = true;
+
+                // Call
+                TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                              failureMechanism,
+                                                                                                              assessmentSectionStub,
+                                                                                                              testDataPath);
+
+                // Assert
+                Assert.Throws<HydraRingFileParserException>(call);
+            }
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_ExceptionThrown()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 20
+            };
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
+
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                calculator.EndInFailure = true;
+
+                // Call
+                TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                                    failureMechanism,
+                                                                                                                    assessmentSectionStub,
+                                                                                                                    testDataPath);
+
+                // Assert
+                Assert.Throws<HydraRingFileParserException>(call);
+            }
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionOutwardsFailureMechanism
+            {
+                Contribution = 20
+            };
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
+
+            GrassCoverErosionOutwardsWaveConditionsCalculation calculation = GetValidCalculation();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                calculator.EndInFailure = false;
+                calculator.LastErrorContent = "An error occured";
+
+                // Call
+                TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                              failureMechanism,
+                                                                                                              assessmentSectionStub,
+                                                                                                              testDataPath);
+
+                // Assert
+                var exception = Assert.Throws<HydraRingFileParserException>(call);
+                Assert.AreEqual(calculator.LastErrorContent, exception.Message);
+            }
+        }
+
+        [Test]
         public void Calculate_InnerCalculationFails_ThrowsException()
         {
             // Setup

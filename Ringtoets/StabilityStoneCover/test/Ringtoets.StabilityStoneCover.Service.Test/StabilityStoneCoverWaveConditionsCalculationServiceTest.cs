@@ -533,7 +533,9 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
             {
                 // Call
                 new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                    assessmentSectionStub, stabilityStoneCoverFailureMechanism.GeneralInput, validFilePath);
+                                                                                    assessmentSectionStub,
+                                                                                    stabilityStoneCoverFailureMechanism.GeneralInput,
+                                                                                    validFilePath);
 
                 // Assert
                 Assert.IsNotNull(calculation.Output);
@@ -541,6 +543,104 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());
             }
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_ExceptionThrown()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                Contribution = 20
+            };
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                calculator.LastErrorContent = "An error occured";
+                calculator.EndInFailure = true;
+
+                // Call
+                TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                              assessmentSectionStub,
+                                                                                                              failureMechanism.GeneralInput,
+                                                                                                              testDataPath);
+
+                // Assert
+                Assert.Throws<HydraRingFileParserException>(call);
+            }
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_ExceptionThrown()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                Contribution = 20
+            };
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
+
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                calculator.EndInFailure = true;
+
+                // Call
+                TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                              assessmentSectionStub,
+                                                                                                              failureMechanism.GeneralInput,
+                                                                                                              testDataPath);
+
+                // Assert
+                Assert.Throws<HydraRingFileParserException>(call);
+            }
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new StabilityStoneCoverFailureMechanism
+            {
+                Contribution = 20
+            };
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
+
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                calculator.EndInFailure = false;
+                calculator.LastErrorContent = "An error occured";
+
+                // Call
+                TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                              assessmentSectionStub,
+                                                                                                              failureMechanism.GeneralInput,
+                                                                                                              testDataPath);
+
+                // Assert
+                var exception = Assert.Throws<HydraRingFileParserException>(call);
+                Assert.AreEqual(calculator.LastErrorContent, exception.Message);
+            }
         }
 
         [Test]

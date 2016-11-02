@@ -31,12 +31,14 @@ using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.TestUtil;
+using Ringtoets.Common.IO.FileImporters;
 using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
 using Ringtoets.HydraRing.Calculation.TestUtil;
 using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
+using Ringtoets.Integration.Data;
 using Ringtoets.Revetment.Data;
 using Ringtoets.StabilityStoneCover.Data;
 using Ringtoets.StabilityStoneCover.Service;
@@ -381,6 +383,65 @@ namespace Ringtoets.StabilityStoneCover.Integration.Test
                 Assert.AreEqual(3, calculation.Output.BlocksOutput.Count());
             }
             mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Run_UnexplainedErrorInCalculation_ActivityStateFailed()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
+
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                calculator.EndInFailure = true;
+
+                // Call
+                activity.Run();
+
+                // Assert
+                Assert.AreEqual(ActivityState.Failed, activity.State);
+            }
+        }
+
+        [Test]
+        public void Run_ErrorInCalculation_ActivityStateFailed()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+
+            using (var importer = new HydraulicBoundaryDatabaseImporter())
+            {
+                importer.Import(assessmentSection, validFilePath);
+            }
+
+            var failureMechanism = new StabilityStoneCoverFailureMechanism();
+
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetValidCalculation();
+
+            var activity = new StabilityStoneCoverWaveConditionsCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                calculator.EndInFailure = false;
+                calculator.LastErrorContent = "An error occured";
+
+                // Call
+                activity.Run();
+
+                // Assert
+                Assert.AreEqual(ActivityState.Failed, activity.State);
+            }
         }
 
         [Test]

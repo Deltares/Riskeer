@@ -484,6 +484,104 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
         }
 
         [Test]
+        public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_ExceptionThrown()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 20
+            };
+
+            var mockRepository = new MockRepository();
+            var assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStubWithoutBoundaryDatabase(failureMechanism, mockRepository);
+            mockRepository.ReplayAll();
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                calculator.LastErrorContent = "An error occured";
+                calculator.EndInFailure = true;
+
+                // Call
+                TestDelegate call = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                                 assessmentSectionStub,
+                                                                                                                 failureMechanism.GeneralInput,
+                                                                                                                 testDataPath);
+
+                // Assert
+                Assert.Throws<HydraRingFileParserException>(call);
+            }
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_ExceptionThrown()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 20
+            };
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                calculator.EndInFailure = true;
+
+                // Call
+                TestDelegate call = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                                 assessmentSectionStub,
+                                                                                                                 failureMechanism.GeneralInput,
+                                                                                                                 testDataPath);
+
+                // Assert
+                Assert.Throws<HydraRingFileParserException>(call);
+            }
+        }
+
+        [Test]
+        public void Calculate_CalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new WaveImpactAsphaltCoverFailureMechanism
+            {
+                Contribution = 20
+            };
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository);
+            mockRepository.ReplayAll();
+
+            WaveImpactAsphaltCoverWaveConditionsCalculation calculation = GetValidCalculation();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                calculator.EndInFailure = false;
+                calculator.LastErrorContent = "An error occured";
+
+                // Call
+                TestDelegate call = () => new WaveImpactAsphaltCoverWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                                 assessmentSectionStub,
+                                                                                                                 failureMechanism.GeneralInput,
+                                                                                                                 testDataPath);
+
+                // Assert
+                var exception = Assert.Throws<HydraRingFileParserException>(call);
+                Assert.AreEqual(calculator.LastErrorContent, exception.Message);
+            }
+        }
+
+        [Test]
         public void Calculate_InnerCalculationFails_ThrowsException()
         {
             // Setup
