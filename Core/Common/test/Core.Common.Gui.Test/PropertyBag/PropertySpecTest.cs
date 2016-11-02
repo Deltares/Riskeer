@@ -359,6 +359,21 @@ namespace Core.Common.Gui.Test.PropertyBag
             Assert.False(hasExpandableObjectTypeConverter);
         }
 
+        [Test]
+        public void IsNonCustomExpandableObjectProperty_ExpandableObjectConverterInherited_ReturnTrue()
+        {
+            // Setup
+            var target = new InheritorSettingPropertyToNotBrowsable();
+
+            var propertySpec = new PropertySpec(target.GetType().GetProperty("StringPropertyWithExpandableObjectConverter"));
+
+            // Call
+            var hasExpandableObjectTypeConverter = propertySpec.IsNonCustomExpandableObjectProperty();
+
+            // Assert
+            Assert.True(hasExpandableObjectTypeConverter);
+        }
+
         private class ClassWithProperties
         {
             public float this[int index]
@@ -392,7 +407,7 @@ namespace Core.Common.Gui.Test.PropertyBag
             public bool BoolPropertyWithAttributes { get; set; }
 
             [TypeConverter(typeof(ExpandableObjectConverter))]
-            public string StringPropertyWithExpandableObjectConverter { get; set; }
+            public virtual string StringPropertyWithExpandableObjectConverter { get; set; }
 
             [TypeConverter(typeof(CustomExpandableObjectConverter))]
             public string StringPropertyWithCustomExpandableObjectConverter { get; set; }
@@ -413,6 +428,8 @@ namespace Core.Common.Gui.Test.PropertyBag
         {
             [Browsable(false)]
             public override string StringPropertyWithAttributes { get; set; }
+
+            public override string StringPropertyWithExpandableObjectConverter { get; set; }
         }
 
         private class SomeTypeConverter : TypeConverter {}

@@ -165,15 +165,12 @@ namespace Core.Common.Gui.PropertyBag
         /// such those properties will be considered not having the expandable object type converter.</remarks>
         public bool IsNonCustomExpandableObjectProperty()
         {
-            var typeConverterClassName = propertyInfo.GetCustomAttributes(typeof(TypeConverterAttribute), false)
-                                                     .OfType<TypeConverterAttribute>()
-                                                     .Select(tca => tca.ConverterTypeName)
-                                                     .Where(n => !string.IsNullOrEmpty(n));
-            foreach (string typeName in typeConverterClassName)
+            var typeConverterAttribute = (TypeConverterAttribute)Attribute.GetCustomAttribute(propertyInfo, typeof(TypeConverterAttribute), true);
+            if (typeConverterAttribute != null)
             {
                 try
                 {
-                    var type = Type.GetType(typeName);
+                    var type = Type.GetType(typeConverterAttribute.ConverterTypeName);
                     if (type != null && typeof(ExpandableObjectConverter) == type)
                     {
                         return true;
@@ -184,7 +181,7 @@ namespace Core.Common.Gui.PropertyBag
                     if (e is TargetInvocationException || e is ArgumentException ||
                         e is TypeLoadException || e is FileLoadException || e is BadImageFormatException)
                     {
-                        log.DebugFormat("Unable to find TypeConverter of type '{0}", typeConverterClassName);
+                        log.DebugFormat("Unable to find TypeConverter of type '{0}", typeConverterAttribute.ConverterTypeName);
                     }
                     else
                     {
