@@ -77,7 +77,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => { isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, testFilePath); };
+                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, testFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -104,7 +104,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => { isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, testFilePath); };
+                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, testFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -131,7 +131,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => { isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, validFilePath); };
+                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -158,7 +158,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => { isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, validFilePath); };
+                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -188,7 +188,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => { isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, validFilePath); };
+                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -220,7 +220,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => { isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, validFilePath); };
+                Action call = () => isValid = WaveImpactAsphaltCoverWaveConditionsCalculationService.Validate(calculation, validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
