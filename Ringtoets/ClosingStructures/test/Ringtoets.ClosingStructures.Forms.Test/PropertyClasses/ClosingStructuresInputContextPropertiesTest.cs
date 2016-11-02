@@ -64,7 +64,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             var properties = new ClosingStructuresInputContextProperties();
 
             // Assert
-            Assert.IsInstanceOf<StructuresInputBaseProperties<ClosingStructure, ClosingStructuresInput, StructuresCalculation<ClosingStructuresInput>, ClosingStructuresFailureMechanism>>(properties);
+            Assert.IsInstanceOf<StructuresInputBaseProperties<ClosingStructure, ClosingStructuresInput,
+                StructuresCalculation<ClosingStructuresInput>, ClosingStructuresFailureMechanism>>(properties);
             Assert.IsNull(properties.Data);
         }
 
@@ -150,7 +151,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
             var failureMechanism = new ClosingStructuresFailureMechanism
             {
-                ClosingStructures = 
+                ClosingStructures =
                 {
                     new TestClosingStructure()
                 }
@@ -541,70 +542,70 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             });
             Assert.AreEqual(23, dynamicProperties.Count);
 
-            PropertyDescriptor deviationWaveDirectionProperty = dynamicProperties[VerticalWall_deviationWaveDirectionPropertyIndex];
+            PropertyDescriptor deviationWaveDirectionProperty = dynamicProperties[verticalWallDeviationWaveDirectionPropertyIndex];
             Assert.IsFalse(deviationWaveDirectionProperty.IsReadOnly);
             Assert.AreEqual(hydraulicDataCategory, deviationWaveDirectionProperty.Category);
             Assert.AreEqual("Afwijking golfrichting [°]", deviationWaveDirectionProperty.DisplayName);
             Assert.AreEqual("Afwijking van de golfrichting.", deviationWaveDirectionProperty.Description);
 
-            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[VerticalWall_inflowModelTypePropertyIndex];
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[verticalWallInflowModelTypePropertyIndex];
             Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
             Assert.AreEqual(schematizationCategory, inflowModelTypeProperty.Category);
             Assert.AreEqual("Instroommodel", inflowModelTypeProperty.DisplayName);
             Assert.AreEqual("Instroommodel van het kunstwerk.", inflowModelTypeProperty.Description);
 
-            PropertyDescriptor identicalAperturesProperty = dynamicProperties[VerticalWall_identicalAperturesPropertyIndex];
+            PropertyDescriptor identicalAperturesProperty = dynamicProperties[verticalWallIdenticalAperturesPropertyIndex];
             Assert.IsFalse(identicalAperturesProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, identicalAperturesProperty.Category);
             Assert.AreEqual("Aantal identieke doorstroomopeningen [-]", identicalAperturesProperty.DisplayName);
             Assert.AreEqual("Aantal identieke doorstroomopeningen.", identicalAperturesProperty.Description);
 
-            PropertyDescriptor levelCrestStructureNotClosingProperty = dynamicProperties[VerticalWall_levelCrestStructureNotClosingPropertyIndex];
+            PropertyDescriptor levelCrestStructureNotClosingProperty = dynamicProperties[verticalWallLevelCrestStructureNotClosingPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(levelCrestStructureNotClosingProperty.Converter);
             Assert.AreEqual(schematizationCategory, levelCrestStructureNotClosingProperty.Category);
             Assert.AreEqual("Kruinhoogte niet gesloten kering [m+NAP]", levelCrestStructureNotClosingProperty.DisplayName);
             Assert.AreEqual("Niveau kruin bij niet gesloten maximaal kerende keermiddelen.", levelCrestStructureNotClosingProperty.Description);
 
-            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[VerticalWall_probabilityOpenStructureBeforeFloodingPropertyIndex];
+            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[verticalWallProbabilityOpenStructureBeforeFloodingPropertyIndex];
             Assert.IsFalse(probabilityOpenStructureBeforeFloodingProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, probabilityOpenStructureBeforeFloodingProperty.Category);
             Assert.AreEqual("Kans op open staan bij naderend hoogwater [1/jaar]", probabilityOpenStructureBeforeFloodingProperty.DisplayName);
             Assert.AreEqual("Kans op open staan bij naderend hoogwater.", probabilityOpenStructureBeforeFloodingProperty.Description);
 
-            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[VerticalWall_failureProbabilityOpenStructurePropertyIndex];
+            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[verticalWallFailureProbabilityOpenStructurePropertyIndex];
             Assert.IsFalse(failureProbabilityOpenStructureProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, failureProbabilityOpenStructureProperty.Category);
             Assert.AreEqual("Kans mislukken sluiting [1/jaar]", failureProbabilityOpenStructureProperty.DisplayName);
             Assert.AreEqual("Kans op mislukken sluiting van geopend kunstwerk.", failureProbabilityOpenStructureProperty.Description);
 
-            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[VerticalWall_failureProbabilityReparationPropertyIndex];
+            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[verticalWallFailureProbabilityReparationPropertyIndex];
             Assert.IsFalse(failureProbabilityReparationProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, failureProbabilityReparationProperty.Category);
             Assert.AreEqual("Faalkans herstel van gefaalde situatie [1/jaar]", failureProbabilityReparationProperty.DisplayName);
             Assert.AreEqual("Faalkans herstel van gefaalde situatie.", failureProbabilityReparationProperty.Description);
 
-            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[VerticalWall_factorStormDurationOpenStructurePropertyIndex];
+            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[verticalWallFactorStormDurationOpenStructurePropertyIndex];
             Assert.IsFalse(factorStormDurationOpenStructureProperty.IsReadOnly);
             Assert.AreEqual(modelSettingsCategory, factorStormDurationOpenStructureProperty.Category);
             Assert.AreEqual("Factor voor stormduur hoogwater [-]", factorStormDurationOpenStructureProperty.DisplayName);
             Assert.AreEqual("Factor voor stormduur hoogwater gegeven geopend kunstwerk.", factorStormDurationOpenStructureProperty.Description);
 
             // Only check the order of the base properties
-            Assert.AreEqual("Kunstwerk", dynamicProperties[VerticalWall_structurePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[VerticalWall_structureLocationPropertyIndex].DisplayName);
-            Assert.AreEqual("Oriëntatie [°]", dynamicProperties[VerticalWall_structureNormalOrientationPropertyIndex].DisplayName);
-            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", dynamicProperties[VerticalWall_flowWidthAtBottomProtectionPropertyIndex].DisplayName);
-            Assert.AreEqual("Breedte van doorstroomopening [m]", dynamicProperties[VerticalWall_widthFlowAperturesPropertyIndex].DisplayName);
-            Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[VerticalWall_storageStructureAreaPropertyIndex].DisplayName);
-            Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[VerticalWall_allowedLevelIncreaseStoragePropertyIndex].DisplayName);
-            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[VerticalWall_criticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[VerticalWall_failureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[VerticalWall_modelFactorSuperCriticalFlowPropertyIndex].DisplayName);
-            Assert.AreEqual("Voorlandprofiel", dynamicProperties[VerticalWall_foreshoreProfilePropertyIndex].DisplayName);
-            Assert.AreEqual("Dam", dynamicProperties[VerticalWall_useBreakWaterPropertyIndex].DisplayName);
-            Assert.AreEqual("Voorlandgeometrie", dynamicProperties[VerticalWall_useForeshorePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[VerticalWall_hydraulicBoundaryLocationPropertyIndex].DisplayName);
-            Assert.AreEqual("Stormduur [uur]", dynamicProperties[VerticalWall_stormDurationPropertyIndex].DisplayName);
+            Assert.AreEqual("Kunstwerk", dynamicProperties[verticalWallStructurePropertyIndex].DisplayName);
+            Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[verticalWallStructureLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Oriëntatie [°]", dynamicProperties[verticalWallStructureNormalOrientationPropertyIndex].DisplayName);
+            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", dynamicProperties[verticalWallFlowWidthAtBottomProtectionPropertyIndex].DisplayName);
+            Assert.AreEqual("Breedte van doorstroomopening [m]", dynamicProperties[verticalWallWidthFlowAperturesPropertyIndex].DisplayName);
+            Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[verticalWallStorageStructureAreaPropertyIndex].DisplayName);
+            Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[verticalWallAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
+            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[verticalWallCriticalOvertoppingDischargePropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[verticalWallFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[verticalWallModelFactorSuperCriticalFlowPropertyIndex].DisplayName);
+            Assert.AreEqual("Voorlandprofiel", dynamicProperties[verticalWallForeshoreProfilePropertyIndex].DisplayName);
+            Assert.AreEqual("Dam", dynamicProperties[verticalWallUseBreakWaterPropertyIndex].DisplayName);
+            Assert.AreEqual("Voorlandgeometrie", dynamicProperties[verticalWallUseForeshorePropertyIndex].DisplayName);
+            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[verticalWallHydraulicBoundaryLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Stormduur [uur]", dynamicProperties[verticalWallStormDurationPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
         }
@@ -647,73 +648,73 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             });
             Assert.AreEqual(21, dynamicProperties.Count);
 
-            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[FloodedCulvert_insideWaterLevelPropertyIndex];
+            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[floodedCulvertInsideWaterLevelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
             Assert.AreEqual(hydraulicDataCategory, insideWaterLevelProperty.Category);
             Assert.AreEqual("Binnenwaterstand [m+NAP]", insideWaterLevelProperty.DisplayName);
             Assert.AreEqual("Binnenwaterstand.", insideWaterLevelProperty.Description);
 
-            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[FloodedCulvert_inflowModelTypePropertyIndex];
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[floodedCulvertInflowModelTypePropertyIndex];
             Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
             Assert.AreEqual(schematizationCategory, inflowModelTypeProperty.Category);
             Assert.AreEqual("Instroommodel", inflowModelTypeProperty.DisplayName);
             Assert.AreEqual("Instroommodel van het kunstwerk.", inflowModelTypeProperty.Description);
 
-            PropertyDescriptor areaFlowAperturesProperty = dynamicProperties[FloodedCulvert_areaFlowAperturesPropertyIndex];
+            PropertyDescriptor areaFlowAperturesProperty = dynamicProperties[floodedCulvertAreaFlowAperturesPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(areaFlowAperturesProperty.Converter);
             Assert.AreEqual(schematizationCategory, areaFlowAperturesProperty.Category);
             Assert.AreEqual("Doorstroomoppervlak [m²]", areaFlowAperturesProperty.DisplayName);
             Assert.AreEqual("Doorstroomoppervlak van doorstroomopeningen.", areaFlowAperturesProperty.Description);
 
-            PropertyDescriptor identicalAperturesProperty = dynamicProperties[FloodedCulvert_identicalAperturesPropertyIndex];
+            PropertyDescriptor identicalAperturesProperty = dynamicProperties[floodedCulvertIdenticalAperturesPropertyIndex];
             Assert.IsFalse(identicalAperturesProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, identicalAperturesProperty.Category);
             Assert.AreEqual("Aantal identieke doorstroomopeningen [-]", identicalAperturesProperty.DisplayName);
             Assert.AreEqual("Aantal identieke doorstroomopeningen.", identicalAperturesProperty.Description);
 
-            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[FloodedCulvert_probabilityOpenStructureBeforeFloodingPropertyIndex];
+            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[floodedCulvertProbabilityOpenStructureBeforeFloodingPropertyIndex];
             Assert.IsFalse(probabilityOpenStructureBeforeFloodingProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, probabilityOpenStructureBeforeFloodingProperty.Category);
             Assert.AreEqual("Kans op open staan bij naderend hoogwater [1/jaar]", probabilityOpenStructureBeforeFloodingProperty.DisplayName);
             Assert.AreEqual("Kans op open staan bij naderend hoogwater.", probabilityOpenStructureBeforeFloodingProperty.Description);
 
-            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[FloodedCulvert_failureProbabilityOpenStructurePropertyIndex];
+            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[floodedCulvertFailureProbabilityOpenStructurePropertyIndex];
             Assert.IsFalse(failureProbabilityOpenStructureProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, failureProbabilityOpenStructureProperty.Category);
             Assert.AreEqual("Kans mislukken sluiting [1/jaar]", failureProbabilityOpenStructureProperty.DisplayName);
             Assert.AreEqual("Kans op mislukken sluiting van geopend kunstwerk.", failureProbabilityOpenStructureProperty.Description);
 
-            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[FloodedCulvert_failureProbabilityReparationPropertyIndex];
+            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[floodedCulvertFailureProbabilityReparationPropertyIndex];
             Assert.IsFalse(failureProbabilityReparationProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, failureProbabilityReparationProperty.Category);
             Assert.AreEqual("Faalkans herstel van gefaalde situatie [1/jaar]", failureProbabilityReparationProperty.DisplayName);
             Assert.AreEqual("Faalkans herstel van gefaalde situatie.", failureProbabilityReparationProperty.Description);
 
-            PropertyDescriptor drainCoefficientProperty = dynamicProperties[FloodedCulvert_drainCoefficientPropertyIndex];
+            PropertyDescriptor drainCoefficientProperty = dynamicProperties[floodedCulvertDrainCoefficientPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(drainCoefficientProperty.Converter);
             Assert.AreEqual(modelSettingsCategory, drainCoefficientProperty.Category);
             Assert.AreEqual("Afvoercoëfficient [-]", drainCoefficientProperty.DisplayName);
             Assert.AreEqual("Afvoercoëfficient.", drainCoefficientProperty.Description);
 
-            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[FloodedCulvert_factorStormDurationOpenStructurePropertyIndex];
+            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[floodedCulvertFactorStormDurationOpenStructurePropertyIndex];
             Assert.IsFalse(factorStormDurationOpenStructureProperty.IsReadOnly);
             Assert.AreEqual(modelSettingsCategory, factorStormDurationOpenStructureProperty.Category);
             Assert.AreEqual("Factor voor stormduur hoogwater [-]", factorStormDurationOpenStructureProperty.DisplayName);
             Assert.AreEqual("Factor voor stormduur hoogwater gegeven geopend kunstwerk.", factorStormDurationOpenStructureProperty.Description);
 
             // Only check the order of the base properties
-            Assert.AreEqual("Kunstwerk", dynamicProperties[FloodedCulvert_structurePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[FloodedCulvert_structureLocationPropertyIndex].DisplayName);
-            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", dynamicProperties[FloodedCulvert_flowWidthAtBottomProtectionPropertyIndex].DisplayName);
-            Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[FloodedCulvert_storageStructureAreaPropertyIndex].DisplayName);
-            Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[FloodedCulvert_allowedLevelIncreaseStoragePropertyIndex].DisplayName);
-            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[FloodedCulvert_criticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[FloodedCulvert_failureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Voorlandprofiel", dynamicProperties[FloodedCulvert_foreshoreProfilePropertyIndex].DisplayName);
-            Assert.AreEqual("Dam", dynamicProperties[FloodedCulvert_useBreakWaterPropertyIndex].DisplayName);
-            Assert.AreEqual("Voorlandgeometrie", dynamicProperties[FloodedCulvert_useForeshorePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[FloodedCulvert_hydraulicBoundaryLocationPropertyIndex].DisplayName);
-            Assert.AreEqual("Stormduur [uur]", dynamicProperties[FloodedCulvert_stormDurationPropertyIndex].DisplayName);
+            Assert.AreEqual("Kunstwerk", dynamicProperties[floodedCulvertStructurePropertyIndex].DisplayName);
+            Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[floodedCulvertStructureLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", dynamicProperties[floodedCulvertFlowWidthAtBottomProtectionPropertyIndex].DisplayName);
+            Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[floodedCulvertStorageStructureAreaPropertyIndex].DisplayName);
+            Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[floodedCulvertAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
+            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[floodedCulvertCriticalOvertoppingDischargePropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[floodedCulvertFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Voorlandprofiel", dynamicProperties[floodedCulvertForeshoreProfilePropertyIndex].DisplayName);
+            Assert.AreEqual("Dam", dynamicProperties[floodedCulvertUseBreakWaterPropertyIndex].DisplayName);
+            Assert.AreEqual("Voorlandgeometrie", dynamicProperties[floodedCulvertUseForeshorePropertyIndex].DisplayName);
+            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[floodedCulvertHydraulicBoundaryLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Stormduur [uur]", dynamicProperties[floodedCulvertStormDurationPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
         }
@@ -756,69 +757,69 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             });
             Assert.AreEqual(22, dynamicProperties.Count);
 
-            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[LowSill_insideWaterLevelPropertyIndex];
+            PropertyDescriptor insideWaterLevelProperty = dynamicProperties[lowSillInsideWaterLevelPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(insideWaterLevelProperty.Converter);
             Assert.AreEqual(hydraulicDataCategory, insideWaterLevelProperty.Category);
             Assert.AreEqual("Binnenwaterstand [m+NAP]", insideWaterLevelProperty.DisplayName);
             Assert.AreEqual("Binnenwaterstand.", insideWaterLevelProperty.Description);
 
-            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[LowSill_inflowModelTypePropertyIndex];
+            PropertyDescriptor inflowModelTypeProperty = dynamicProperties[lowSillInflowModelTypePropertyIndex];
             Assert.IsInstanceOf<EnumConverter>(inflowModelTypeProperty.Converter);
             Assert.AreEqual(schematizationCategory, inflowModelTypeProperty.Category);
             Assert.AreEqual("Instroommodel", inflowModelTypeProperty.DisplayName);
             Assert.AreEqual("Instroommodel van het kunstwerk.", inflowModelTypeProperty.Description);
 
-            PropertyDescriptor identicalAperturesProperty = dynamicProperties[LowSill_identicalAperturesPropertyIndex];
+            PropertyDescriptor identicalAperturesProperty = dynamicProperties[lowSillIdenticalAperturesPropertyIndex];
             Assert.IsFalse(identicalAperturesProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, identicalAperturesProperty.Category);
             Assert.AreEqual("Aantal identieke doorstroomopeningen [-]", identicalAperturesProperty.DisplayName);
             Assert.AreEqual("Aantal identieke doorstroomopeningen.", identicalAperturesProperty.Description);
 
-            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[LowSill_thresholdHeightOpenWeirPropertyIndex];
+            PropertyDescriptor thresholdHeightOpenWeirProperty = dynamicProperties[lowSillThresholdHeightOpenWeirPropertyIndex];
             Assert.IsInstanceOf<ExpandableObjectConverter>(thresholdHeightOpenWeirProperty.Converter);
             Assert.AreEqual(schematizationCategory, thresholdHeightOpenWeirProperty.Category);
             Assert.AreEqual("Drempelhoogte [m+NAP]", thresholdHeightOpenWeirProperty.DisplayName);
             Assert.AreEqual("Drempelhoogte niet gesloten kering of hoogte van de onderkant van de wand/drempel.", thresholdHeightOpenWeirProperty.Description);
 
-            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[LowSill_probabilityOpenStructureBeforeFloodingPropertyIndex];
+            PropertyDescriptor probabilityOpenStructureBeforeFloodingProperty = dynamicProperties[lowSillProbabilityOpenStructureBeforeFloodingPropertyIndex];
             Assert.IsFalse(probabilityOpenStructureBeforeFloodingProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, probabilityOpenStructureBeforeFloodingProperty.Category);
             Assert.AreEqual("Kans op open staan bij naderend hoogwater [1/jaar]", probabilityOpenStructureBeforeFloodingProperty.DisplayName);
             Assert.AreEqual("Kans op open staan bij naderend hoogwater.", probabilityOpenStructureBeforeFloodingProperty.Description);
 
-            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[LowSill_failureProbabilityOpenStructurePropertyIndex];
+            PropertyDescriptor failureProbabilityOpenStructureProperty = dynamicProperties[lowSillFailureProbabilityOpenStructurePropertyIndex];
             Assert.IsFalse(failureProbabilityOpenStructureProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, failureProbabilityOpenStructureProperty.Category);
             Assert.AreEqual("Kans mislukken sluiting [1/jaar]", failureProbabilityOpenStructureProperty.DisplayName);
             Assert.AreEqual("Kans op mislukken sluiting van geopend kunstwerk.", failureProbabilityOpenStructureProperty.Description);
 
-            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[LowSill_failureProbabilityReparationPropertyIndex];
+            PropertyDescriptor failureProbabilityReparationProperty = dynamicProperties[lowSillFailureProbabilityReparationPropertyIndex];
             Assert.IsFalse(failureProbabilityReparationProperty.IsReadOnly);
             Assert.AreEqual(schematizationCategory, failureProbabilityReparationProperty.Category);
             Assert.AreEqual("Faalkans herstel van gefaalde situatie [1/jaar]", failureProbabilityReparationProperty.DisplayName);
             Assert.AreEqual("Faalkans herstel van gefaalde situatie.", failureProbabilityReparationProperty.Description);
 
-            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[LowSill_factorStormDurationOpenStructurePropertyIndex];
+            PropertyDescriptor factorStormDurationOpenStructureProperty = dynamicProperties[lowSillFactorStormDurationOpenStructurePropertyIndex];
             Assert.IsFalse(factorStormDurationOpenStructureProperty.IsReadOnly);
             Assert.AreEqual(modelSettingsCategory, factorStormDurationOpenStructureProperty.Category);
             Assert.AreEqual("Factor voor stormduur hoogwater [-]", factorStormDurationOpenStructureProperty.DisplayName);
             Assert.AreEqual("Factor voor stormduur hoogwater gegeven geopend kunstwerk.", factorStormDurationOpenStructureProperty.Description);
 
             // Only check the order of the base properties
-            Assert.AreEqual("Kunstwerk", dynamicProperties[LowSill_structurePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[LowSill_structureLocationPropertyIndex].DisplayName);
-            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", dynamicProperties[LowSill_flowWidthAtBottomProtectionPropertyIndex].DisplayName);
-            Assert.AreEqual("Breedte van doorstroomopening [m]", dynamicProperties[LowSill_widthFlowAperturesPropertyIndex].DisplayName);
-            Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[LowSill_storageStructureAreaPropertyIndex].DisplayName);
-            Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[LowSill_allowedLevelIncreaseStoragePropertyIndex].DisplayName);
-            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[LowSill_criticalOvertoppingDischargePropertyIndex].DisplayName);
-            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[LowSill_failureProbabilityStructureWithErosionPropertyIndex].DisplayName);
-            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[LowSill_modelFactorSuperCriticalFlowPropertyIndex].DisplayName);
-            Assert.AreEqual("Voorlandprofiel", dynamicProperties[LowSill_foreshoreProfilePropertyIndex].DisplayName);
-            Assert.AreEqual("Dam", dynamicProperties[LowSill_useBreakWaterPropertyIndex].DisplayName);
-            Assert.AreEqual("Voorlandgeometrie", dynamicProperties[LowSill_useForeshorePropertyIndex].DisplayName);
-            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[LowSill_hydraulicBoundaryLocationPropertyIndex].DisplayName);
-            Assert.AreEqual("Stormduur [uur]", dynamicProperties[LowSill_stormDurationPropertyIndex].DisplayName);
+            Assert.AreEqual("Kunstwerk", dynamicProperties[lowSillStructurePropertyIndex].DisplayName);
+            Assert.AreEqual("Locatie (RD) [m]", dynamicProperties[lowSillStructureLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Stroomvoerende breedte bodembescherming [m]", dynamicProperties[lowSillFlowWidthAtBottomProtectionPropertyIndex].DisplayName);
+            Assert.AreEqual("Breedte van doorstroomopening [m]", dynamicProperties[lowSillWidthFlowAperturesPropertyIndex].DisplayName);
+            Assert.AreEqual("Kombergend oppervlak [m²]", dynamicProperties[lowSillStorageStructureAreaPropertyIndex].DisplayName);
+            Assert.AreEqual("Toegestane peilverhoging komberging [m]", dynamicProperties[lowSillAllowedLevelIncreaseStoragePropertyIndex].DisplayName);
+            Assert.AreEqual("Kritiek instromend debiet [m³/s/m]", dynamicProperties[lowSillCriticalOvertoppingDischargePropertyIndex].DisplayName);
+            Assert.AreEqual("Faalkans gegeven erosie bodem [1/jaar]", dynamicProperties[lowSillFailureProbabilityStructureWithErosionPropertyIndex].DisplayName);
+            Assert.AreEqual("Modelfactor overloopdebiet volkomen overlaat [-]", dynamicProperties[lowSillModelFactorSuperCriticalFlowPropertyIndex].DisplayName);
+            Assert.AreEqual("Voorlandprofiel", dynamicProperties[lowSillForeshoreProfilePropertyIndex].DisplayName);
+            Assert.AreEqual("Dam", dynamicProperties[lowSillUseBreakWaterPropertyIndex].DisplayName);
+            Assert.AreEqual("Voorlandgeometrie", dynamicProperties[lowSillUseForeshorePropertyIndex].DisplayName);
+            Assert.AreEqual("Locatie met hydraulische randvoorwaarden", dynamicProperties[lowSillHydraulicBoundaryLocationPropertyIndex].DisplayName);
+            Assert.AreEqual("Stormduur [uur]", dynamicProperties[lowSillStormDurationPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
         }
@@ -977,13 +978,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
             mockRepository.ReplayAll();
 
             var failureMechanism = new ClosingStructuresFailureMechanism();
-            var calculation = new StructuresCalculation<ClosingStructuresInput>
-            {
-                InputParameters =
-                {
-                    Structure = new TestClosingStructure(0)
-                }
-            };
+            var calculation = new StructuresCalculation<ClosingStructuresInput>();
             var inputContext = new ClosingStructuresInputContext(calculation.InputParameters,
                                                                  calculation,
                                                                  failureMechanism,
@@ -1011,82 +1006,82 @@ namespace Ringtoets.ClosingStructures.Forms.Test.PropertyClasses
 
         #region VerticalWall structures indices
 
-        private const int VerticalWall_hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int VerticalWall_stormDurationPropertyIndex = 1;
-        private const int VerticalWall_deviationWaveDirectionPropertyIndex = 2;
-        private const int VerticalWall_structurePropertyIndex = 3;
-        private const int VerticalWall_structureLocationPropertyIndex = 4;
-        private const int VerticalWall_structureNormalOrientationPropertyIndex = 5;
-        private const int VerticalWall_inflowModelTypePropertyIndex = 6;
-        private const int VerticalWall_widthFlowAperturesPropertyIndex = 7;
-        private const int VerticalWall_identicalAperturesPropertyIndex = 8;
-        private const int VerticalWall_flowWidthAtBottomProtectionPropertyIndex = 9;
-        private const int VerticalWall_storageStructureAreaPropertyIndex = 10;
-        private const int VerticalWall_allowedLevelIncreaseStoragePropertyIndex = 11;
-        private const int VerticalWall_levelCrestStructureNotClosingPropertyIndex = 12;
-        private const int VerticalWall_criticalOvertoppingDischargePropertyIndex = 13;
-        private const int VerticalWall_probabilityOpenStructureBeforeFloodingPropertyIndex = 14;
-        private const int VerticalWall_failureProbabilityOpenStructurePropertyIndex = 15;
-        private const int VerticalWall_failureProbabilityReparationPropertyIndex = 16;
-        private const int VerticalWall_failureProbabilityStructureWithErosionPropertyIndex = 17;
-        private const int VerticalWall_foreshoreProfilePropertyIndex = 18;
-        private const int VerticalWall_useBreakWaterPropertyIndex = 19;
-        private const int VerticalWall_useForeshorePropertyIndex = 20;
-        private const int VerticalWall_modelFactorSuperCriticalFlowPropertyIndex = 21;
-        private const int VerticalWall_factorStormDurationOpenStructurePropertyIndex = 22;
+        private const int verticalWallHydraulicBoundaryLocationPropertyIndex = 0;
+        private const int verticalWallStormDurationPropertyIndex = 1;
+        private const int verticalWallDeviationWaveDirectionPropertyIndex = 2;
+        private const int verticalWallStructurePropertyIndex = 3;
+        private const int verticalWallStructureLocationPropertyIndex = 4;
+        private const int verticalWallStructureNormalOrientationPropertyIndex = 5;
+        private const int verticalWallInflowModelTypePropertyIndex = 6;
+        private const int verticalWallWidthFlowAperturesPropertyIndex = 7;
+        private const int verticalWallIdenticalAperturesPropertyIndex = 8;
+        private const int verticalWallFlowWidthAtBottomProtectionPropertyIndex = 9;
+        private const int verticalWallStorageStructureAreaPropertyIndex = 10;
+        private const int verticalWallAllowedLevelIncreaseStoragePropertyIndex = 11;
+        private const int verticalWallLevelCrestStructureNotClosingPropertyIndex = 12;
+        private const int verticalWallCriticalOvertoppingDischargePropertyIndex = 13;
+        private const int verticalWallProbabilityOpenStructureBeforeFloodingPropertyIndex = 14;
+        private const int verticalWallFailureProbabilityOpenStructurePropertyIndex = 15;
+        private const int verticalWallFailureProbabilityReparationPropertyIndex = 16;
+        private const int verticalWallFailureProbabilityStructureWithErosionPropertyIndex = 17;
+        private const int verticalWallForeshoreProfilePropertyIndex = 18;
+        private const int verticalWallUseBreakWaterPropertyIndex = 19;
+        private const int verticalWallUseForeshorePropertyIndex = 20;
+        private const int verticalWallModelFactorSuperCriticalFlowPropertyIndex = 21;
+        private const int verticalWallFactorStormDurationOpenStructurePropertyIndex = 22;
 
         #endregion
 
         #region LowSill structures indices
 
-        private const int LowSill_hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int LowSill_stormDurationPropertyIndex = 1;
-        private const int LowSill_insideWaterLevelPropertyIndex = 2;
-        private const int LowSill_structurePropertyIndex = 3;
-        private const int LowSill_structureLocationPropertyIndex = 4;
-        private const int LowSill_inflowModelTypePropertyIndex = 5;
-        private const int LowSill_widthFlowAperturesPropertyIndex = 6;
-        private const int LowSill_identicalAperturesPropertyIndex = 7;
-        private const int LowSill_flowWidthAtBottomProtectionPropertyIndex = 8;
-        private const int LowSill_storageStructureAreaPropertyIndex = 9;
-        private const int LowSill_allowedLevelIncreaseStoragePropertyIndex = 10;
-        private const int LowSill_thresholdHeightOpenWeirPropertyIndex = 11;
-        private const int LowSill_criticalOvertoppingDischargePropertyIndex = 12;
-        private const int LowSill_probabilityOpenStructureBeforeFloodingPropertyIndex = 13;
-        private const int LowSill_failureProbabilityOpenStructurePropertyIndex = 14;
-        private const int LowSill_failureProbabilityReparationPropertyIndex = 15;
-        private const int LowSill_failureProbabilityStructureWithErosionPropertyIndex = 16;
-        private const int LowSill_foreshoreProfilePropertyIndex = 17;
-        private const int LowSill_useBreakWaterPropertyIndex = 18;
-        private const int LowSill_useForeshorePropertyIndex = 19;
-        private const int LowSill_modelFactorSuperCriticalFlowPropertyIndex = 20;
-        private const int LowSill_factorStormDurationOpenStructurePropertyIndex = 21;
+        private const int lowSillHydraulicBoundaryLocationPropertyIndex = 0;
+        private const int lowSillStormDurationPropertyIndex = 1;
+        private const int lowSillInsideWaterLevelPropertyIndex = 2;
+        private const int lowSillStructurePropertyIndex = 3;
+        private const int lowSillStructureLocationPropertyIndex = 4;
+        private const int lowSillInflowModelTypePropertyIndex = 5;
+        private const int lowSillWidthFlowAperturesPropertyIndex = 6;
+        private const int lowSillIdenticalAperturesPropertyIndex = 7;
+        private const int lowSillFlowWidthAtBottomProtectionPropertyIndex = 8;
+        private const int lowSillStorageStructureAreaPropertyIndex = 9;
+        private const int lowSillAllowedLevelIncreaseStoragePropertyIndex = 10;
+        private const int lowSillThresholdHeightOpenWeirPropertyIndex = 11;
+        private const int lowSillCriticalOvertoppingDischargePropertyIndex = 12;
+        private const int lowSillProbabilityOpenStructureBeforeFloodingPropertyIndex = 13;
+        private const int lowSillFailureProbabilityOpenStructurePropertyIndex = 14;
+        private const int lowSillFailureProbabilityReparationPropertyIndex = 15;
+        private const int lowSillFailureProbabilityStructureWithErosionPropertyIndex = 16;
+        private const int lowSillForeshoreProfilePropertyIndex = 17;
+        private const int lowSillUseBreakWaterPropertyIndex = 18;
+        private const int lowSillUseForeshorePropertyIndex = 19;
+        private const int lowSillModelFactorSuperCriticalFlowPropertyIndex = 20;
+        private const int lowSillFactorStormDurationOpenStructurePropertyIndex = 21;
 
         #endregion
 
         #region FloodedCulvert structures indices
 
-        private const int FloodedCulvert_hydraulicBoundaryLocationPropertyIndex = 0;
-        private const int FloodedCulvert_stormDurationPropertyIndex = 1;
-        private const int FloodedCulvert_insideWaterLevelPropertyIndex = 2;
-        private const int FloodedCulvert_structurePropertyIndex = 3;
-        private const int FloodedCulvert_structureLocationPropertyIndex = 4;
-        private const int FloodedCulvert_inflowModelTypePropertyIndex = 5;
-        private const int FloodedCulvert_areaFlowAperturesPropertyIndex = 6;
-        private const int FloodedCulvert_identicalAperturesPropertyIndex = 7;
-        private const int FloodedCulvert_flowWidthAtBottomProtectionPropertyIndex = 8;
-        private const int FloodedCulvert_storageStructureAreaPropertyIndex = 9;
-        private const int FloodedCulvert_allowedLevelIncreaseStoragePropertyIndex = 10;
-        private const int FloodedCulvert_criticalOvertoppingDischargePropertyIndex = 11;
-        private const int FloodedCulvert_probabilityOpenStructureBeforeFloodingPropertyIndex = 12;
-        private const int FloodedCulvert_failureProbabilityOpenStructurePropertyIndex = 13;
-        private const int FloodedCulvert_failureProbabilityReparationPropertyIndex = 14;
-        private const int FloodedCulvert_failureProbabilityStructureWithErosionPropertyIndex = 15;
-        private const int FloodedCulvert_foreshoreProfilePropertyIndex = 16;
-        private const int FloodedCulvert_useBreakWaterPropertyIndex = 17;
-        private const int FloodedCulvert_useForeshorePropertyIndex = 18;
-        private const int FloodedCulvert_drainCoefficientPropertyIndex = 19;
-        private const int FloodedCulvert_factorStormDurationOpenStructurePropertyIndex = 20;
+        private const int floodedCulvertHydraulicBoundaryLocationPropertyIndex = 0;
+        private const int floodedCulvertStormDurationPropertyIndex = 1;
+        private const int floodedCulvertInsideWaterLevelPropertyIndex = 2;
+        private const int floodedCulvertStructurePropertyIndex = 3;
+        private const int floodedCulvertStructureLocationPropertyIndex = 4;
+        private const int floodedCulvertInflowModelTypePropertyIndex = 5;
+        private const int floodedCulvertAreaFlowAperturesPropertyIndex = 6;
+        private const int floodedCulvertIdenticalAperturesPropertyIndex = 7;
+        private const int floodedCulvertFlowWidthAtBottomProtectionPropertyIndex = 8;
+        private const int floodedCulvertStorageStructureAreaPropertyIndex = 9;
+        private const int floodedCulvertAllowedLevelIncreaseStoragePropertyIndex = 10;
+        private const int floodedCulvertCriticalOvertoppingDischargePropertyIndex = 11;
+        private const int floodedCulvertProbabilityOpenStructureBeforeFloodingPropertyIndex = 12;
+        private const int floodedCulvertFailureProbabilityOpenStructurePropertyIndex = 13;
+        private const int floodedCulvertFailureProbabilityReparationPropertyIndex = 14;
+        private const int floodedCulvertFailureProbabilityStructureWithErosionPropertyIndex = 15;
+        private const int floodedCulvertForeshoreProfilePropertyIndex = 16;
+        private const int floodedCulvertUseBreakWaterPropertyIndex = 17;
+        private const int floodedCulvertUseForeshorePropertyIndex = 18;
+        private const int floodedCulvertDrainCoefficientPropertyIndex = 19;
+        private const int floodedCulvertFactorStormDurationOpenStructurePropertyIndex = 20;
 
         #endregion
 
