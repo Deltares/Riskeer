@@ -156,7 +156,7 @@ namespace Ringtoets.Common.Forms.Test.PropertyClasses
             var availableHydraulicBoundaryLocations = properties.GetAvailableHydraulicBoundaryLocations().ToArray();
 
             // Assert
-            CollectionAssert.AreEqual(hydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);
+            Assert.AreSame(hydraulicBoundaryDatabase.Locations, availableHydraulicBoundaryLocations);
             mockRepository.VerifyAll();
         }
 

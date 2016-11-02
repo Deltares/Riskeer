@@ -39,7 +39,6 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Forms.PropertyClasses;
-using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
 {
@@ -139,7 +138,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
 
             // Assert
-            CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
+            Assert.AreSame(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
             mockRepository.VerifyAll();
         }
 
@@ -171,7 +170,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             var availableStructures = properties.GetAvailableStructures();
 
             // Assert
-            CollectionAssert.AreEqual(failureMechanism.HeightStructures, availableStructures);
+            Assert.AreSame(failureMechanism.HeightStructures, availableStructures);
             mockRepository.VerifyAll();
         }
 
@@ -305,11 +304,6 @@ namespace Ringtoets.HeightStructures.Forms.Test.PropertyClasses
             Assert.AreEqual("Stormduur [uur]", dynamicProperties[stormDurationPropertyIndex].DisplayName);
 
             mockRepository.VerifyAll();
-        }
-
-        private static HydraulicBoundaryLocation CreateHydraulicBoundaryLocation()
-        {
-            return new HydraulicBoundaryLocation(0, "name", 0.0, 1.1);
         }
     }
 }

@@ -308,7 +308,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var availableForeshoreProfiles = properties.GetAvailableForeshoreProfiles();
 
             // Assert
-            CollectionAssert.AreEqual(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
+            Assert.AreSame(failureMechanism.ForeshoreProfiles, availableForeshoreProfiles);
             mockRepository.VerifyAll();
         }
 
@@ -340,7 +340,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.PropertyClasses
             var availableStructures = properties.GetAvailableStructures();
 
             // Assert
-            CollectionAssert.AreEqual(failureMechanism.StabilityPointStructures, availableStructures);
+            Assert.AreSame(failureMechanism.StabilityPointStructures, availableStructures);
             mockRepository.VerifyAll();
         }
 
