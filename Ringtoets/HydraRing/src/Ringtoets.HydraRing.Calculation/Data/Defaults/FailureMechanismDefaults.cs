@@ -26,7 +26,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Defaults
     /// <summary>
     /// Container for failure mechanism defaults.
     /// </summary>
-    internal class FailureMechanismDefaults
+    public class FailureMechanismDefaults
     {
         private readonly int mechanismId;
         private readonly IEnumerable<int> subMechanismIds;

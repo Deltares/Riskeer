@@ -35,12 +35,8 @@ namespace Ringtoets.Common.IO.HydraRing
     /// This class is responsible for reading values from the Hydra-Ring settings database and creating
     /// settings from them.
     /// </summary>
-    public class HydraRingSettingsDatabaseReader : SqLiteDatabaseReaderBase
+    internal class HydraRingSettingsDatabaseReader : SqLiteDatabaseReaderBase
     {
-        private const string minColumn = "Min";
-        private const string maxColumn = "Max";
-
-        private const string subMechanismIdColumn = "SubMechanismID";
         private const string calculationTechniqueIdColumn = "CalculationMethod";
         private const string formStartMethodColumn = "FORM_StartMethod";
         private const string formNumberOfIterationsColumn = "FORM_NIterations";
@@ -56,11 +52,14 @@ namespace Ringtoets.Common.IO.HydraRing
         private const string niUMaxColumn = "NI_UMax";
         private const string niNumberStepsColumn = "NI_NumberSteps";
 
-        private const string timeIntegrationSchemeIdColumn = "TimeIntegrationSchemeID";
+        private const string minColumn = "Min";
+        private const string maxColumn = "Max";
 
         private const string locationIdParameterName = "@locationId";
         private const string calculationTypeIdParameterName = "@calculationTypeId";
         private const string mechanismIdParameterName = "@mechanismID";
+        private const string subMechanismIdParameterName = "@subMechanismID";
+        private const string timeIntegrationSchemeIdColumn = "TimeIntegrationSchemeID";
 
         private readonly string designTableSettingsForLocationAndCalculationTypeQuery;
         private readonly string numericSettingsForLocationMechanismAndSubMechanismQuery;
@@ -91,9 +90,8 @@ namespace Ringtoets.Common.IO.HydraRing
                 calculationTypeIdParameterName);
 
             numericSettingsForLocationMechanismAndSubMechanismQuery = string.Format(
-                "SELECT {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14} " +
-                "FROM NumericsSettings WHERE LocationID = {15} AND MechanismID = {16}",
-                subMechanismIdColumn,
+                "SELECT {0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13} " +
+                "FROM NumericsSettings WHERE LocationID = {14} AND MechanismID = {15} AND SubMechanismID = {16}",
                 calculationTechniqueIdColumn,
                 formStartMethodColumn,
                 formNumberOfIterationsColumn,
@@ -109,7 +107,8 @@ namespace Ringtoets.Common.IO.HydraRing
                 niUMaxColumn,
                 niNumberStepsColumn,
                 locationIdParameterName,
-                mechanismIdParameterName);
+                mechanismIdParameterName,
+                subMechanismIdParameterName);
 
             timeIntegrationSettingsForLocationAndCalculationTypeQuery = string.Format(
                 "SELECT {0} FROM TimeIntegrationSettings WHERE LocationID = {1} AND CalculationTypeID = {2}",
@@ -152,33 +151,30 @@ namespace Ringtoets.Common.IO.HydraRing
         /// </summary>
         /// <param name="locationId">The id of a hydraulic boundary location.</param>
         /// <param name="mechanimsId">The mechanism id to obtain the <see cref="NumericsSetting"/> for.</param>
-        /// <returns>A new <see cref="Dictionary{T, T}"/> where the key is the submechanism id, and the value is
-        /// the <see cref="NumericsSetting"/> containing values read from the database.</returns>
-        public Dictionary<int, NumericsSetting> ReadNumericsSetting(long locationId, int mechanimsId)
+        /// <param name="subMechanismId">The sub mechanism id to obtain the <see cref="NumericsSetting"/> for.</param>
+        /// <returns>A new <see cref="NumericsSetting"/> containing values read from the database.</returns>
+        public NumericsSetting ReadNumericsSetting(long locationId, int mechanimsId, int subMechanismId)
         {
-            var settings = new Dictionary<int, NumericsSetting>();
-            var reader = CreateNumericsSettingsDataReader(locationId, mechanimsId);
-            while (MoveNext(reader))
+            var reader = CreateNumericsSettingsDataReader(locationId, mechanimsId, subMechanismId);
+            if (MoveNext(reader))
             {
-                settings.Add(
-                    Convert.ToInt32(reader[subMechanismIdColumn]),
-                    new NumericsSetting(
-                        Convert.ToInt32(reader[calculationTechniqueIdColumn]),
-                        Convert.ToInt32(reader[formStartMethodColumn]),
-                        Convert.ToInt32(reader[formNumberOfIterationsColumn]),
-                        Convert.ToDouble(reader[formRelaxationFactorColumn]),
-                        Convert.ToDouble(reader[formEpsBetaColumn]),
-                        Convert.ToDouble(reader[formEpsHohColumn]),
-                        Convert.ToDouble(reader[formEpsZFuncColumn]),
-                        Convert.ToInt32(reader[dsStartMethodColumn]),
-                        Convert.ToInt32(reader[dsMinNumberOfIterationsColumn]),
-                        Convert.ToInt32(reader[dsMaxNumberOfIterationsColumn]),
-                        Convert.ToDouble(reader[dsVarCoefficientColumn]),
-                        Convert.ToDouble(reader[niUMinColumn]),
-                        Convert.ToDouble(reader[niUMaxColumn]),
-                        Convert.ToInt32(reader[niNumberStepsColumn])));
+                return new NumericsSetting(
+                    Convert.ToInt32(reader[calculationTechniqueIdColumn]),
+                    Convert.ToInt32(reader[formStartMethodColumn]),
+                    Convert.ToInt32(reader[formNumberOfIterationsColumn]),
+                    Convert.ToDouble(reader[formRelaxationFactorColumn]),
+                    Convert.ToDouble(reader[formEpsBetaColumn]),
+                    Convert.ToDouble(reader[formEpsHohColumn]),
+                    Convert.ToDouble(reader[formEpsZFuncColumn]),
+                    Convert.ToInt32(reader[dsStartMethodColumn]),
+                    Convert.ToInt32(reader[dsMinNumberOfIterationsColumn]),
+                    Convert.ToInt32(reader[dsMaxNumberOfIterationsColumn]),
+                    Convert.ToDouble(reader[dsVarCoefficientColumn]),
+                    Convert.ToDouble(reader[niUMinColumn]),
+                    Convert.ToDouble(reader[niUMaxColumn]),
+                    Convert.ToInt32(reader[niNumberStepsColumn]));
             }
-            return settings;
+            return null;
         }
 
         /// <summary>
@@ -240,7 +236,7 @@ namespace Ringtoets.Common.IO.HydraRing
                 typeParameter);
         }
 
-        private SQLiteDataReader CreateNumericsSettingsDataReader(long locationId, int mechanimsId)
+        private SQLiteDataReader CreateNumericsSettingsDataReader(long locationId, int mechanimsId, int subMechanismId)
         {
             var locationParameter = new SQLiteParameter
             {
@@ -256,10 +252,18 @@ namespace Ringtoets.Common.IO.HydraRing
                 Value = mechanimsId
             };
 
+            var subMechanismIdParameter = new SQLiteParameter
+            {
+                DbType = DbType.Int32,
+                ParameterName = subMechanismIdParameterName,
+                Value = subMechanismId
+            };
+
             return CreateDataReader(
                 numericSettingsForLocationMechanismAndSubMechanismQuery,
                 locationParameter,
-                mechanismIdParameter);
+                mechanismIdParameter,
+                subMechanismIdParameter);
         }
 
         private SQLiteDataReader CreateTimeIntegrationDataReader(long locationId, HydraRingFailureMechanismType calculationType)
