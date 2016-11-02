@@ -27,13 +27,13 @@ namespace Ringtoets.Common.Data.DikeProfiles
     /// <summary>
     /// This interface describes properties for the usage of <see cref="ForeshoreProfile"/>.
     /// </summary>
-    public interface IUseForeshore: IObservable
+    public interface IUseForeshore : IObservable
     {
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="ForeshoreProfile"/> needs to be taken into account.
         /// </summary>
         bool UseForeshore { get; set; }
-        
+
         /// <summary>
         /// Gets the geometry of the foreshore.
         /// </summary>

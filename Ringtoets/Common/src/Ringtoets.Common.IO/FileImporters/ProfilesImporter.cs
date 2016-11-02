@@ -282,7 +282,7 @@ namespace Ringtoets.Common.IO.FileImporters
                         dikeProfileData.Add(data);
                     }
                 }
-                // No need to catch ArgumentException, as prflFilePaths are valid by construction.
+                    // No need to catch ArgumentException, as prflFilePaths are valid by construction.
                 catch (CriticalFileReadException exception)
                 {
                     log.Error(exception.Message);

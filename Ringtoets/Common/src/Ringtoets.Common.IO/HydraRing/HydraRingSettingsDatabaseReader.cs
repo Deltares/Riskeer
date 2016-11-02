@@ -58,8 +58,6 @@ namespace Ringtoets.Common.IO.HydraRing
 
         private const string timeIntegrationSchemeIdColumn = "TimeIntegrationSchemeID";
 
-        private string locationIdColumn = "LocationID";
-
         private const string locationIdParameterName = "@locationId";
         private const string calculationTypeIdParameterName = "@calculationTypeId";
         private const string mechanismIdParameterName = "@mechanismID";
@@ -68,6 +66,8 @@ namespace Ringtoets.Common.IO.HydraRing
         private readonly string numericSettingsForLocationMechanismAndSubMechanismQuery;
         private readonly string excludedLocationsQuery;
         private readonly string timeIntegrationSettingsForLocationAndCalculationTypeQuery;
+
+        private readonly string locationIdColumn = "LocationID";
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingSettingsDatabaseReader"/>.
@@ -136,7 +136,7 @@ namespace Ringtoets.Common.IO.HydraRing
             {
                 throw new InvalidEnumArgumentException("calculationType", (int) calculationType, calculationType.GetType());
             }
-            
+
             var reader = CreateDesignTablesDataReader(locationId, calculationType);
             if (MoveNext(reader))
             {
@@ -193,7 +193,7 @@ namespace Ringtoets.Common.IO.HydraRing
         {
             if (!Enum.IsDefined(calculationType.GetType(), calculationType))
             {
-                throw new InvalidEnumArgumentException("calculationType", (int)calculationType, calculationType.GetType());
+                throw new InvalidEnumArgumentException("calculationType", (int) calculationType, calculationType.GetType());
             }
 
             var reader = CreateTimeIntegrationDataReader(locationId, calculationType);
@@ -231,12 +231,12 @@ namespace Ringtoets.Common.IO.HydraRing
             {
                 DbType = DbType.Int32,
                 ParameterName = calculationTypeIdParameterName,
-                Value = (int)calculationType
+                Value = (int) calculationType
             };
 
             return CreateDataReader(
                 designTableSettingsForLocationAndCalculationTypeQuery,
-                locationParameter, 
+                locationParameter,
                 typeParameter);
         }
 
@@ -275,7 +275,7 @@ namespace Ringtoets.Common.IO.HydraRing
             {
                 DbType = DbType.Int32,
                 ParameterName = calculationTypeIdParameterName,
-                Value = (int)calculationType
+                Value = (int) calculationType
             };
 
             return CreateDataReader(

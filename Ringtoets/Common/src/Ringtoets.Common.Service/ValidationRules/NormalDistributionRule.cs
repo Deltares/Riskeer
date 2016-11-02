@@ -44,21 +44,21 @@ namespace Ringtoets.Common.Service.ValidationRules
             this.distribution = distribution;
             this.parameterName = parameterName;
         }
-        
+
         public override IEnumerable<string> Validate()
         {
             var validationResults = new List<string>();
-            
+
             if (IsInvalidNumber(distribution.Mean))
             {
                 validationResults.Add(string.Format(RingtoetsCommonServiceResources.DistributionValidationService_ValidateDistribution_Mean_of_0_must_be_a_valid_number,
-                                                   parameterName));
+                                                    parameterName));
             }
 
             if (IsInvalidNumber(distribution.StandardDeviation))
             {
                 validationResults.Add(string.Format(RingtoetsCommonServiceResources.DistributionValidationService_ValidateDistribution_StandardDeviation_of_ParameterName_0_must_be_larger_or_equal_to_zero,
-                                                   parameterName));
+                                                    parameterName));
             }
 
             return validationResults;

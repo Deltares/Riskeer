@@ -38,7 +38,7 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
         {
             mockRepository = new MockRepository();
         }
-        
+
         [Test]
         [TestCase(BreakWaterType.Wall)]
         [TestCase(BreakWaterType.Caisson)]
@@ -82,7 +82,6 @@ namespace Ringtoets.Common.Service.Test.ValidationRules
             CollectionAssert.IsEmpty(message);
             mockRepository.VerifyAll();
         }
-
 
         [Test]
         [Combinatorial]

@@ -30,14 +30,6 @@ namespace Ringtoets.Common.IO.Test.Structures
     [TestFixture]
     public class ValidationResultTest
     {
-        private List<string> TestMessages()
-        {
-            return new List<string>
-            {
-                "Some text."
-            };
-        }
-
         [Test]
         public void Constructor_ErrorMessagesNull_ThrowsArgumentException()
         {
@@ -92,6 +84,14 @@ namespace Ringtoets.Common.IO.Test.Structures
             // Assert
             Assert.IsFalse(validationResult.IsValid);
             CollectionAssert.AreEqual(errorMessages, validationResult.ErrorMessages);
+        }
+
+        private List<string> TestMessages()
+        {
+            return new List<string>
+            {
+                "Some text."
+            };
         }
     }
 }

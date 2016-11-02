@@ -40,8 +40,8 @@ namespace Ringtoets.Common.Service
         public static CalculationConvergence CalculationConverged(double reliabilityIndex, double norm)
         {
             return Math.Abs(reliabilityIndex - StatisticsConverter.NormToBeta(norm)) <= 1.0e-3 ?
-                CalculationConvergence.CalculatedConverged : 
-                CalculationConvergence.CalculatedNotConverged;
+                       CalculationConvergence.CalculatedConverged :
+                       CalculationConvergence.CalculatedNotConverged;
         }
     }
 }

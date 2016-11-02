@@ -28,7 +28,7 @@ namespace Ringtoets.Common.Data.Structures
     /// </summary>
     /// <typeparam name="T">The type of the structure which can be assigned to the
     /// calculation.</typeparam>
-    public interface IStructuresCalculationInput<out T> : ICalculationInput where T: StructureBase
+    public interface IStructuresCalculationInput<out T> : ICalculationInput where T : StructureBase
     {
         /// <summary>
         /// Gets the structure.

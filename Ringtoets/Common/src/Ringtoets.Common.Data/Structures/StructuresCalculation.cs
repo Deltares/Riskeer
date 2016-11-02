@@ -63,6 +63,11 @@ namespace Ringtoets.Common.Data.Structures
             }
         }
 
+        public override string ToString()
+        {
+            return Name;
+        }
+
         public void ClearOutput()
         {
             Output = null;
@@ -76,11 +81,6 @@ namespace Ringtoets.Common.Data.Structures
         public ICalculationOutput GetObservableOutput()
         {
             return Output;
-        }
-
-        public override string ToString()
-        {
-            return Name;
         }
     }
 }

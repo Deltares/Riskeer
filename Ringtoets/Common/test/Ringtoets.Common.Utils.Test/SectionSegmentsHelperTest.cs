@@ -40,6 +40,7 @@ namespace Ringtoets.Common.Utils.Test
             var exception = Assert.Throws<ArgumentNullException>(test);
             Assert.AreEqual("sections", exception.ParamName);
         }
+
         [Test]
         public void MakeSectionSegments_SectionsElementNull_ThrowsArgumentNullException()
         {
@@ -127,7 +128,7 @@ namespace Ringtoets.Common.Utils.Test
             // Assert
             Assert.IsNull(section);
         }
-        
+
         [Test]
         public void GetSectionForPoint_PointNotOnSection_ReturnClosestSection()
         {
@@ -146,7 +147,7 @@ namespace Ringtoets.Common.Utils.Test
             SectionSegments[] sectionSegments =
             {
                 new SectionSegments(failureMechanismSection1),
-                new SectionSegments(failureMechanismSection2), 
+                new SectionSegments(failureMechanismSection2),
             };
 
             // Call
@@ -155,7 +156,7 @@ namespace Ringtoets.Common.Utils.Test
             // Assert
             Assert.AreSame(failureMechanismSection1, sectionForPoint);
         }
-        
+
         [Test]
         public void GetSectionForPoint_PointOnSection_ReturnSection()
         {
@@ -174,7 +175,7 @@ namespace Ringtoets.Common.Utils.Test
             SectionSegments[] sectionSegments =
             {
                 new SectionSegments(failureMechanismSection1),
-                new SectionSegments(failureMechanismSection2), 
+                new SectionSegments(failureMechanismSection2),
             };
 
             // Call

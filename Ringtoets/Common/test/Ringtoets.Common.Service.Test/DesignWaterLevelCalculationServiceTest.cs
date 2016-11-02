@@ -150,7 +150,7 @@ namespace Ringtoets.Common.Service.Test
         {
             // Setup
             string validFilePath = Path.Combine(testDataPath, validFile);
-            
+
             var mockRepository = new MockRepository();
             var calculationMessageProviderMock = mockRepository.Stub<ICalculationMessageProvider>();
             mockRepository.ReplayAll();

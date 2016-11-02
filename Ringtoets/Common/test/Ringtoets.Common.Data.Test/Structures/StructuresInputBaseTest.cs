@@ -199,6 +199,21 @@ namespace Ringtoets.Common.Data.Test.Structures
 
         #endregion
 
+        private class SimpleStructuresInput : StructuresInputBase<StructureBase>
+        {
+            public bool Updated { get; private set; }
+
+            protected override void UpdateStructureParameters()
+            {
+                Updated = true;
+            }
+        }
+
+        private class SimpleStructure : StructureBase
+        {
+            public SimpleStructure(ConstructionProperties constructionProperties) : base(constructionProperties) {}
+        }
+
         #region Schematization
 
         [Test]
@@ -528,20 +543,5 @@ namespace Ringtoets.Common.Data.Test.Structures
         }
 
         #endregion
-
-        private class SimpleStructuresInput : StructuresInputBase<StructureBase>
-        {
-            public bool Updated { get; private set; }
-
-            protected override void UpdateStructureParameters()
-            {
-                Updated = true;
-            }
-        }
-
-        private class SimpleStructure : StructureBase
-        {
-            public SimpleStructure(ConstructionProperties constructionProperties) : base(constructionProperties) { }
-        }
     }
 }

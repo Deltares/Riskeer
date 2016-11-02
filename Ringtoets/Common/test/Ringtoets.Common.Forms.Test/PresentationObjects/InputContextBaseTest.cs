@@ -80,7 +80,7 @@ namespace Ringtoets.Common.Forms.Test.PresentationObjects
             where TFailureMechanism : IFailureMechanism
         {
             public SimpleInputContext(TInput input, TCalculation calculation, TFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
-                : base(input, calculation, failureMechanism, assessmentSection) { }
+                : base(input, calculation, failureMechanism, assessmentSection) {}
         }
     }
 }

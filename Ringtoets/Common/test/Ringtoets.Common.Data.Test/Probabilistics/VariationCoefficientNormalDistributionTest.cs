@@ -85,7 +85,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var distribution = new VariationCoefficientNormalDistribution(2);
 
             // Call
-            distribution.CoefficientOfVariation = (RoundedDouble)actualSetValue;
+            distribution.CoefficientOfVariation = (RoundedDouble) actualSetValue;
 
             // Assert
             Assert.AreEqual(expectedRoundedValue, distribution.CoefficientOfVariation.Value);
@@ -100,7 +100,7 @@ namespace Ringtoets.Common.Data.Test.Probabilistics
             var distribution = new VariationCoefficientNormalDistribution(2);
 
             // Call
-            TestDelegate call = () => distribution.CoefficientOfVariation = (RoundedDouble)invalidCoefficient;
+            TestDelegate call = () => distribution.CoefficientOfVariation = (RoundedDouble) invalidCoefficient;
 
             // Assert
             string expectedMessage = "Variatiecoëfficiënt (CV) moet groter zijn dan of gelijk zijn aan 0.";

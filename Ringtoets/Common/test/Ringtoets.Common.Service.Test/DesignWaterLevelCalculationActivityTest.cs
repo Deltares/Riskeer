@@ -191,7 +191,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testFactory = (TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance;
+                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
                 var testDesignWaterLevelCalculator = testFactory.DesignWaterLevelCalculator;
                 testDesignWaterLevelCalculator.ReliabilityIndex = StatisticsConverter.NormToBeta(norm);
 
@@ -283,7 +283,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
+                var testDesignWaterLevelCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator;
                 testDesignWaterLevelCalculator.DesignWaterLevel = expectedDesignWaterLevel;
                 testDesignWaterLevelCalculator.ReliabilityIndex = StatisticsConverter.NormToBeta(norm);
 
@@ -325,7 +325,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator.EndInFailure = true;
+                ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator.EndInFailure = true;
 
                 // Call
                 Action call = () => activity.Run();
@@ -368,7 +368,7 @@ namespace Ringtoets.Common.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var testFactory = (TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance;
+                var testFactory = (TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance;
                 testFactory.DesignWaterLevelCalculator.ReliabilityIndex = 3;
 
                 Action call = () => activity.Run();

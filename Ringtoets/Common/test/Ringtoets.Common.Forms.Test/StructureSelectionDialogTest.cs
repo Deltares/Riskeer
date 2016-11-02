@@ -82,7 +82,7 @@ namespace Ringtoets.Common.Forms.Test
             // Setup
             using (var viewParent = new Form())
 
-            // Call
+                // Call
             using (var dialog = new StructureSelectionDialog(viewParent, Enumerable.Empty<StructureBase>()))
             {
                 dialog.Show();
@@ -123,7 +123,7 @@ namespace Ringtoets.Common.Forms.Test
 
             using (var viewParent = new Form())
 
-            // Call
+                // Call
             using (var dialog = new StructureSelectionDialog(viewParent, new[]
             {
                 structure

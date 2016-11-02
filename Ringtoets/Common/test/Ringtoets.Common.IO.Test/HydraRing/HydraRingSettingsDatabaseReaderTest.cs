@@ -36,7 +36,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         private static readonly string completeDatabaseDataPath = TestHelper.GetTestDataPath(
             TestDataPath.Ringtoets.Common.IO,
             Path.Combine("HydraRingSettingsDatabaseReader", "7_67.config.sqlite"));
-        
+
         private static readonly string emptyDatabaseDataPath = TestHelper.GetTestDataPath(
             TestDataPath.Ringtoets.Common.IO,
             Path.Combine("HydraRingSettingsDatabaseReader", "7_67-empty.config.sqlite"));
@@ -255,7 +255,13 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             IEnumerable<long> locations = reader.ReadExcludedLocations();
 
             // Assert
-            CollectionAssert.AreEqual(new [] { 700141, 700142, 700143, 700146 }, locations);
+            CollectionAssert.AreEqual(new[]
+            {
+                700141,
+                700142,
+                700143,
+                700146
+            }, locations);
         }
 
         [Test]

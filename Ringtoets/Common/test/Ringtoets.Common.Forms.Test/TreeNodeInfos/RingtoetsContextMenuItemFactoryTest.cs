@@ -21,7 +21,6 @@
 
 using System.Linq;
 using Core.Common.Base;
-using Core.Common.Gui.Commands;
 using Core.Common.Gui.ContextMenu;
 using Core.Common.TestUtil;
 using NUnit.Extensions.Forms;
@@ -1309,7 +1308,7 @@ namespace Ringtoets.Common.Forms.Test.TreeNodeInfos
         }
 
         #endregion
-        
+
         # region Nested types
 
         private class TestFailureMechanismContext : FailureMechanismContext<IFailureMechanism>
