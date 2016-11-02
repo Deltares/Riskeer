@@ -114,7 +114,7 @@ namespace Ringtoets.Common.Data.Test.Structures
             DistributionAssert.AreEqual(widthFlowApertures, input.WidthFlowApertures);
             DistributionAssert.AreEqual(stormDuration, input.StormDuration);
 
-            Assert.AreEqual(0, input.FailureProbabilityStructureWithErosion);
+            Assert.AreEqual(1.0, input.FailureProbabilityStructureWithErosion);
         }
 
         [Test]
