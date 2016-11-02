@@ -617,7 +617,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         [Test]
         [TestCase(StabilityPointStructureInflowModelType.FloodedCulvert)]
         [TestCase(StabilityPointStructureInflowModelType.LowSill)]
-        public void Validate_InvalidLoadSchematizationType_ThrowsInvalidEnumArgumentException(StabilityPointStructureInflowModelType inflowModelType)
+        public void Validate_InvalidLoadSchematizationType_ReturnsFalseAndLogsErrorMessage(StabilityPointStructureInflowModelType inflowModelType)
         {
             // Setup
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
@@ -644,16 +644,21 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 }
             };
 
-            // Call
-            TestDelegate call = () => StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
+            bool isValid = false;
+
+            // Call 
+            Action call = () => isValid = StabilityPointStructuresCalculationService.Validate(calculation, assessmentSectionStub);
 
             // Assert
-            const string expectedMessage = "The value of argument 'inputParameters' (100) is invalid for Enum type 'LoadSchematizationType'.";
-            string paramName = TestHelper.AssertThrowsArgumentExceptionAndTestMessage<InvalidEnumArgumentException>(call,
-                                                                                                                    expectedMessage).ParamName;
-            Assert.AreEqual("inputParameters", paramName);
-
-            mockRepository.VerifyAll();
+            Assert.IsFalse(isValid);
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Er is geen belastingschematisering geselecteerd.", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
         }
 
         [Test]
