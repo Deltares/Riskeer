@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -803,17 +804,12 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
         {
             // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
             var failureMechanism = new HeightStructuresFailureMechanism();
-
             var section = new FailureMechanismSection("A", new[]
             {
                 new Point2D(0, 0)
             });
             failureMechanism.AddSection(section);
-
             failureMechanism.CalculationsGroup.Children.Add(new TestHeightStructuresCalculation
             {
                 Name = "A",
@@ -845,6 +841,8 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var guiMock = mocksRepository.Stub<IGui>();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
 
                 mocksRepository.ReplayAll();
@@ -854,12 +852,14 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
                     // Call
-                    TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick(), messages =>
+                    Action call = () => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
+
+                    TestHelper.AssertLogMessages(call, messages =>
                     {
-                        var messageList = messages.ToList();
+                        var messageList = messages.ToArray();
 
                         // Assert
-                        Assert.AreEqual(4, messageList.Count);
+                        Assert.AreEqual(4, messageList.Length);
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
                         StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
                         StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[2]);

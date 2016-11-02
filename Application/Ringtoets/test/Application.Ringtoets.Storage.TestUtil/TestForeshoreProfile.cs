@@ -34,7 +34,10 @@ namespace Application.Ringtoets.Storage.TestUtil
         /// Creates a new instance of <see cref="TestForeshoreProfile"/>.
         /// </summary>
         /// <param name="useBreakWater">If <c>true</c>, create the ForeshoreProfile with a default <see cref="BreakWater"/>.</param>
-        public TestForeshoreProfile(bool useBreakWater = false) : base(new Point2D(0, 0), Enumerable.Empty<Point2D>(), useBreakWater ? new BreakWater(BreakWaterType.Dam, 10) : null, new ConstructionProperties()) {}
+        public TestForeshoreProfile(bool useBreakWater = false) : base(new Point2D(0, 0),
+                                                                       Enumerable.Empty<Point2D>(),
+                                                                       useBreakWater ? new BreakWater(BreakWaterType.Dam, 10) : null,
+                                                                       new ConstructionProperties()) {}
 
         /// <summary>
         /// Creates a new instance of <see cref="TestForeshoreProfile"/> with a specified<see cref="BreakWater"/>.

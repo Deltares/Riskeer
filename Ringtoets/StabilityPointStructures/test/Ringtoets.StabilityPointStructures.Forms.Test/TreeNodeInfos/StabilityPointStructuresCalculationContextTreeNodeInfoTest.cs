@@ -425,9 +425,9 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                                                                   RingtoetsCommonFormsResources.CalculateIcon);
 
                     TestHelper.AssertContextMenuStripContainsItem(contextMenu, contextMenuValidateIndex,
-                                                                 "&Valideren",
-                                                                 "Valideer de invoer voor deze berekening.",
-                                                                 RingtoetsCommonFormsResources.ValidateIcon);
+                                                                  "&Valideren",
+                                                                  "Valideer de invoer voor deze berekening.",
+                                                                  RingtoetsCommonFormsResources.ValidateIcon);
                 }
             }
         }
@@ -520,9 +520,8 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         public void GivenCalculationWithNonExistingFilePath_WhenValidatingFromContextMenu_ThenLogMessagesAdded()
         {
             // Given
-            var guiMock = mocks.StrictMock<IGui>();
             var observerMock = mocks.StrictMock<IObserver>();
-            
+
             var section = new FailureMechanismSection("A", new[]
             {
                 new Point2D(1, 2),
@@ -543,6 +542,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             hydraulicBoundaryDatabase.Locations.Add(hydraulicBoundaryLocation);
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
+            assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
             var calculation = new TestStabilityPointStructuresCalculation()
             {
@@ -558,11 +558,10 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var guiMock = mocks.StrictMock<IGui>();
                 guiMock.Expect(g => g.Get(calculationContext, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
 
                 mocks.ReplayAll();
-
-                assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
                 plugin.Gui = guiMock;
 
@@ -630,11 +629,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var elementToBeRemoved = new StructuresCalculation<StabilityPointStructuresInput>();
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             var calculationContext = new StabilityPointStructuresCalculationContext(elementToBeRemoved,
-                                                                             failureMechanism,
-                                                                             assessmentSectionStub);
+                                                                                    failureMechanism,
+                                                                                    assessmentSectionStub);
             var groupContext = new StabilityPointStructuresCalculationGroupContext(group,
-                                                                            failureMechanism,
-                                                                            assessmentSectionStub);
+                                                                                   failureMechanism,
+                                                                                   assessmentSectionStub);
 
             mocks.ReplayAll();
 

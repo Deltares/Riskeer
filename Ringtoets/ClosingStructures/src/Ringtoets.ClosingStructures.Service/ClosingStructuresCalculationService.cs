@@ -306,23 +306,7 @@ namespace Ringtoets.ClosingStructures.Service
             }
             else
             {
-                IEnumerable<ValidationRule> validationRules;
-                switch (inputParameters.InflowModelType)
-                {
-                    case ClosingStructureInflowModelType.VerticalWall:
-                        validationRules = GetVerticalWallValidationRules(inputParameters);
-                        break;
-                    case ClosingStructureInflowModelType.LowSill:
-                        validationRules = GetLowSillValidationRules(inputParameters);
-                        break;
-                    case ClosingStructureInflowModelType.FloodedCulvert:
-                        validationRules = GetFloodedCulvertValidationRules(inputParameters);
-                        break;
-                    default:
-                        throw new InvalidEnumArgumentException("inputParameters",
-                                                               (int) inputParameters.InflowModelType,
-                                                               typeof(ClosingStructureInflowModelType));
-                }
+                IEnumerable<ValidationRule> validationRules = GetValidationRules(inputParameters);
 
                 foreach (var validationRule in validationRules)
                 {
@@ -331,6 +315,29 @@ namespace Ringtoets.ClosingStructures.Service
             }
 
             return validationResults.ToArray();
+        }
+
+        private static IEnumerable<ValidationRule> GetValidationRules(ClosingStructuresInput inputParameters)
+        {
+            IEnumerable<ValidationRule> validationRules;
+            switch (inputParameters.InflowModelType)
+            {
+                case ClosingStructureInflowModelType.VerticalWall:
+                    validationRules = GetVerticalWallValidationRules(inputParameters);
+                    break;
+                case ClosingStructureInflowModelType.LowSill:
+                    validationRules = GetLowSillValidationRules(inputParameters);
+                    break;
+                case ClosingStructureInflowModelType.FloodedCulvert:
+                    validationRules = GetFloodedCulvertValidationRules(inputParameters);
+                    break;
+                default:
+                    throw new InvalidEnumArgumentException("inputParameters",
+                                                           (int) inputParameters.InflowModelType,
+                                                           typeof(ClosingStructureInflowModelType));
+            }
+
+            return validationRules;
         }
 
         private static IEnumerable<ValidationRule> GetVerticalWallValidationRules(ClosingStructuresInput input)

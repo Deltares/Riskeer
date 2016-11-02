@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -124,7 +125,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 Assert.AreSame(failureMechanism, failureMechanismSectionsContext.WrappedData);
                 Assert.AreSame(assessmentSectionMock, failureMechanismSectionsContext.ParentAssessmentSection);
 
-                var profilesContext = (ForeshoreProfilesContext)inputsFolder.Contents[1];
+                var profilesContext = (ForeshoreProfilesContext) inputsFolder.Contents[1];
                 Assert.AreSame(failureMechanism.ForeshoreProfiles, profilesContext.WrappedData);
                 Assert.AreSame(assessmentSectionMock, profilesContext.ParentAssessmentSection);
 
@@ -145,7 +146,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 Assert.AreEqual(TreeFolderCategory.Output, outputsFolder.Category);
                 Assert.AreEqual(2, outputsFolder.Contents.Count);
 
-                var scenariosContext = (StabilityPointStructuresScenariosContext)outputsFolder.Contents[0];
+                var scenariosContext = (StabilityPointStructuresScenariosContext) outputsFolder.Contents[0];
                 Assert.AreSame(failureMechanism, scenariosContext.ParentFailureMechanism);
                 Assert.AreSame(failureMechanism.CalculationsGroup, scenariosContext.WrappedData);
 
@@ -709,17 +710,12 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_ClickOnValidateAllItem_ValidateAllChildCalculations()
         {
             // Setup
-            var guiMock = mocksRepository.StrictMock<IGui>();
-            var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
-
             var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
             var section = new FailureMechanismSection("A", new[]
             {
                 new Point2D(0, 0)
             });
             failureMechanism.AddSection(section);
-
             failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation()
             {
                 Name = "A",
@@ -754,21 +750,26 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             using (var plugin = new StabilityPointStructuresPlugin())
             using (var treeViewControl = new TreeViewControl())
             {
+                var guiMock = mocksRepository.Stub<IGui>();
+                var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
                 guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
+
                 mocksRepository.ReplayAll();
 
                 plugin.Gui = guiMock;
-                var info = GetInfo(plugin);
+                TreeNodeInfo info = GetInfo(plugin);
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
                 {
                     // Call
-                    TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuValidateAllIndex].PerformClick(), messages =>
+                    Action call = () => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
+
+                    TestHelper.AssertLogMessages(call, messages =>
                     {
-                        var messageList = messages.ToList();
+                        var messageList = messages.ToArray();
 
                         // Assert
-                        Assert.AreEqual(4, messageList.Count);
+                        Assert.AreEqual(4, messageList.Length);
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
                         StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
                         StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[2]);
