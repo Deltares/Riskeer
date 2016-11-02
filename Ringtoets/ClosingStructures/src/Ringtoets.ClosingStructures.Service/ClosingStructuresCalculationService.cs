@@ -85,6 +85,8 @@ namespace Ringtoets.ClosingStructures.Service
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
+            var exceptionThrown = false;
+
             try
             {
                 calculator.Calculate(input);
@@ -101,14 +103,41 @@ namespace Ringtoets.ClosingStructures.Service
             {
                 if (!canceled)
                 {
-                    log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation, calculationName);
+                    var lastErrorContent = calculator.LastErrorContent;
+                    if (string.IsNullOrEmpty(lastErrorContent))
+                    {
+                        log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Unexplained_error_in_closing_structures_0_calculation,
+                                        calculationName);
+                    }
+                    else
+                    {
+                        log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_click_details_for_last_error_1,
+                                    calculationName, lastErrorContent);
+                    }
+
+                    exceptionThrown = true;
                     throw;
                 }
             }
             finally
             {
-                log.InfoFormat(Resources.ClosingStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
-                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                try
+                {
+                    var lastErrorContent = calculator.LastErrorContent;
+                    if (!exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
+                    {
+                        log.ErrorFormat(Resources.ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_click_details_for_last_error_1,
+                                        calculationName, lastErrorContent);
+
+                        throw new HydraRingFileParserException(lastErrorContent);
+                    }
+                }
+                finally
+                {
+                    log.InfoFormat(Resources.ClosingStructuresCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0,
+                                   calculator.OutputDirectory);
+                    CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                }
             }
         }
 

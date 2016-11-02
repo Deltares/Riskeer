@@ -92,12 +92,23 @@ namespace Ringtoets.ClosingStructures.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekening voor kunstwerk sluiten &apos;{0}&apos; is niet gelukt..
+        ///   Looks up a localized string similar to De berekening voor kunstwerk sluiten &apos;{0}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
+        ///{1}.
         /// </summary>
-        internal static string ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation {
+        internal static string ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calculation_click_details_for_last_error_1 {
             get {
                 return ResourceManager.GetString("ClosingStructuresCalculationService_Calculate_Error_in_closing_structures_0_calcu" +
-                        "lation", resourceCulture);
+                        "lation_click_details_for_last_error_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De berekening voor kunstwerk sluiten &apos;{0}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
+        /// </summary>
+        internal static string ClosingStructuresCalculationService_Calculate_Unexplained_error_in_closing_structures_0_calculation {
+            get {
+                return ResourceManager.GetString("ClosingStructuresCalculationService_Calculate_Unexplained_error_in_closing_struct" +
+                        "ures_0_calculation", resourceCulture);
             }
         }
     }

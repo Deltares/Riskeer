@@ -698,13 +698,15 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
                         StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
                         StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[2]);
-                        Assert.AreEqual("De berekening voor kunstwerk sluiten 'A' is niet gelukt.", messageList[3]);
+                        StringAssert.StartsWith("De berekening voor kunstwerk sluiten 'A' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
+                                                messageList[3]);
                         StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", messageList[4]);
                         StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[5]);
                         StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[6]);
                         StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[7]);
                         StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[8]);
-                        Assert.AreEqual("De berekening voor kunstwerk sluiten 'B' is niet gelukt.", messageList[9]);
+                        StringAssert.StartsWith("De berekening voor kunstwerk sluiten 'B' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
+                                                messageList[9]);
                         StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", messageList[10]);
                         StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[11]);
                         Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[12]);

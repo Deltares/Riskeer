@@ -66,7 +66,7 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         public string OutputDirectory { get; private set; }
 
         /// <summary>
-        /// Gets the content of the last error file when it is generated during the calculation.
+        /// Gets the content of the last error file generated during the Hydra-Ring calculation.
         /// </summary>
         public string LastErrorContent { get; private set; }
 
