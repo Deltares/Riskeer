@@ -343,7 +343,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     using (new HydraRingCalculatorFactoryConfig())
                     {
-                        ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator.EndInFailure = true;
+                        ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DesignWaterLevelCalculator.EndInFailure = true;
 
                         // When
                         contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();

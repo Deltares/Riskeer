@@ -51,6 +51,13 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             return new DuneErosionSectionResultRow(sectionResult);
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
+
+            base.Dispose(disposing);
+        }
+
         private void AddDataGridColumns()
         {
             EnumDisplayWrapper<AssessmentLayerTwoAResult>[] twoAResultDataSource =
@@ -75,13 +82,6 @@ namespace Ringtoets.Integration.Forms.Views.SectionResultViews
             DataGridViewControl.AddTextBoxColumn(
                 TypeUtils.GetMemberName<DuneErosionSectionResultRow>(sr => sr.AssessmentLayerThree),
                 RingtoetsCommonFormsResources.FailureMechanismResultView_InitializeDataGridView_Assessment_layer_three);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            DataGridViewControl.RemoveCellFormattingHandler(DisableIrrelevantFieldsFormatting);
-
-            base.Dispose(disposing);
         }
 
         private void DisableIrrelevantFieldsFormatting(object sender, DataGridViewCellFormattingEventArgs eventArgs)

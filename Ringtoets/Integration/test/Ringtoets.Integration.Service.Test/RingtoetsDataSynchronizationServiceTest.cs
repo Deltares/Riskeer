@@ -210,8 +210,8 @@ namespace Ringtoets.Integration.Service.Test
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
 
             // Assert
-            StructuresCalculation<HeightStructuresInput> calculation1 = (StructuresCalculation<HeightStructuresInput>)failureMechanism1.CalculationsGroup.Children[0];
-            StructuresCalculation<HeightStructuresInput> calculation2 = (StructuresCalculation<HeightStructuresInput>)failureMechanism2.CalculationsGroup.Children[0];
+            StructuresCalculation<HeightStructuresInput> calculation1 = (StructuresCalculation<HeightStructuresInput>) failureMechanism1.CalculationsGroup.Children[0];
+            StructuresCalculation<HeightStructuresInput> calculation2 = (StructuresCalculation<HeightStructuresInput>) failureMechanism2.CalculationsGroup.Children[0];
             Assert.IsNull(calculation1.Output);
             Assert.IsNull(calculation2.Output);
             CollectionAssert.AreEqual(new[]
