@@ -25,7 +25,6 @@ using System.Diagnostics;
 using System.IO;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
-using Ringtoets.HydraRing.Calculation.Data.Settings;
 using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Calculation.Services;
 
@@ -37,10 +36,10 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
     internal abstract class HydraRingCalculatorBase
     {
         private readonly LastErrorFileParser lastErrorFileParser;
-        private Process hydraRingProcess;
 
         private readonly string hlcdDirectory;
         private readonly string ringId;
+        private Process hydraRingProcess;
 
         /// <summary>
         /// Creates a new instance of <see cref="HydraRingCalculatorBase"/> with a default Hydra-Ring file parser

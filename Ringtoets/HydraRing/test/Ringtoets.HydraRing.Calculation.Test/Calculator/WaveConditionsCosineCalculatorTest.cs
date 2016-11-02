@@ -40,6 +40,5 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             Assert.IsNaN(calculator.WavePeakPeriod);
             Assert.IsNull(calculator.OutputDirectory);
         }
-         
     }
 }

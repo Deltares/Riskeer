@@ -31,10 +31,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
     public class LastErrorFileParserTest
     {
         private readonly string noErrorTestDataDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation,
-                                                                               Path.Combine("Parsers", "OutputFileParser"));
+                                                                                      Path.Combine("Parsers", "OutputFileParser"));
 
         private readonly string lastErrorTestDataDirectory = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.Calculation,
-                                                                               Path.Combine("Parsers", "LastErrorFileParser"));
+                                                                                        Path.Combine("Parsers", "LastErrorFileParser"));
 
         [Test]
         public void DefaultConstructor_SetDefaultValues()

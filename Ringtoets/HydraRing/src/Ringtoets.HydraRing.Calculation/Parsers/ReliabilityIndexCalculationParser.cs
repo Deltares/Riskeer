@@ -60,7 +60,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new HydraRingFileParserException("", e);
             }

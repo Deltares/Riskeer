@@ -57,22 +57,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
     /// </summary>
     internal class HydraRingConfigurationService
     {
-        private struct InputWithSettings
-        {
-            public HydraRingCalculationInput Input;
-            public DesignTablesSetting DesignTablesSetting;
-            public HydraulicModelsSetting HydraulicModelsSetting;
-            public Dictionary<int, NumericsSetting> NumericsSetting;
-
-            public InputWithSettings(HydraRingCalculationInput hydraRingCalculationInput, DesignTablesSetting designTablesSetting, HydraulicModelsSetting hydraulicModelsSetting, Dictionary<int, NumericsSetting> numericsSetting)
-            {
-                Input = hydraRingCalculationInput;
-                DesignTablesSetting = designTablesSetting;
-                NumericsSetting = numericsSetting;
-                HydraulicModelsSetting = hydraulicModelsSetting;
-            }
-        }
-
         private const double defaultLayerId = 1;
         private const double defaultAlternativeId = 1;
         private const double defaultHydraRingValue = 0.0;
@@ -131,9 +115,9 @@ namespace Ringtoets.HydraRing.Calculation.Services
         public void AddHydraRingCalculationInput(HydraRingCalculationInput hydraRingCalculationInput)
         {
             AddHydraRingCalculationInput(hydraRingCalculationInput,
-                null,
-                null,
-                null);
+                                         null,
+                                         null,
+                                         null);
         }
 
         /// <summary>
@@ -146,7 +130,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <exception cref="ArgumentException">Thrown when <paramref name="input"/> with 
         /// the same <see cref="HydraRingSection.SectionId"/> has already been added.</exception>
         public void AddHydraRingCalculationInput(HydraRingCalculationInput input, DesignTablesSetting designTablesSetting,
-             Dictionary<int, NumericsSetting> numericsSettings, HydraulicModelsSetting hydraulicModelsSetting)
+                                                 Dictionary<int, NumericsSetting> numericsSettings, HydraulicModelsSetting hydraulicModelsSetting)
         {
             if (hydraRingInputsAndSettings.Any(h => h.Input.Section.SectionId == input.Section.SectionId))
             {
@@ -202,7 +186,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             var timeIntegrationSchemeId = 1;
 
-            if(hydraRingInputsAndSettings.Count > 0)
+            if (hydraRingInputsAndSettings.Count > 0)
             {
                 HydraulicModelsSetting hydraulicModelsSetting = hydraulicModelsSettingsProvider.GetHydraulicModelsSetting(
                     hydraRingInputsAndSettings.First().Input.FailureMechanismType,
@@ -535,7 +519,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private IList<OrderedDictionary> GetCalculationProfilesConfiguration()
         {
             var orderDictionaries = new List<OrderedDictionary>();
-            
+
             foreach (InputWithSettings inputWithSettings in hydraRingInputsAndSettings)
             {
                 HydraRingCalculationInput hydraRingCalculationInput = inputWithSettings.Input;
@@ -816,6 +800,22 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private double? GetHydraRingNullableValue(double value)
         {
             return !double.IsNaN(value) ? value : defaultHydraRingNullValue;
+        }
+
+        private struct InputWithSettings
+        {
+            public readonly HydraRingCalculationInput Input;
+            public DesignTablesSetting DesignTablesSetting;
+            public HydraulicModelsSetting HydraulicModelsSetting;
+            public Dictionary<int, NumericsSetting> NumericsSetting;
+
+            public InputWithSettings(HydraRingCalculationInput hydraRingCalculationInput, DesignTablesSetting designTablesSetting, HydraulicModelsSetting hydraulicModelsSetting, Dictionary<int, NumericsSetting> numericsSetting)
+            {
+                Input = hydraRingCalculationInput;
+                DesignTablesSetting = designTablesSetting;
+                NumericsSetting = numericsSetting;
+                HydraulicModelsSetting = hydraulicModelsSetting;
+            }
         }
     }
 }

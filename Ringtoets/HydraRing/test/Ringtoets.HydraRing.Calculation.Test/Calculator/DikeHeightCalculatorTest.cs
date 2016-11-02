@@ -38,6 +38,5 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             Assert.IsNaN(calculator.DikeHeight);
             Assert.IsNull(calculator.OutputDirectory);
         }
-         
     }
 }

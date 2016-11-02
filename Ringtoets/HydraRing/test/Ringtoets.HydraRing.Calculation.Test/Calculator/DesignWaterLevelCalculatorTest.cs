@@ -39,6 +39,5 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             Assert.IsNaN(calculator.DesignWaterLevel);
             Assert.IsNull(calculator.OutputDirectory);
         }
-         
     }
 }

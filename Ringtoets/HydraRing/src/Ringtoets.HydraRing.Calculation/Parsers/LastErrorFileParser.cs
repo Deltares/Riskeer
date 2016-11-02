@@ -48,8 +48,8 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
                 catch
                 {
                     var message = string.Format(Resources.Parse_Cannot_read_last_error_Filename_0_from_FolderPath_1_,
-                        HydraRingFileConstants.LastErrorFileName,
-                        workingDirectory);
+                                                HydraRingFileConstants.LastErrorFileName,
+                                                workingDirectory);
                     throw new HydraRingFileParserException(message);
                 }
             }

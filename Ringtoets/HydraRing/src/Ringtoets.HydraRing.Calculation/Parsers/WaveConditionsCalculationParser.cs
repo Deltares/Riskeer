@@ -35,7 +35,7 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
         private const string waveHeightText = "Wave height";
         private const string wavePeakPeriodText = "Wave period";
         private const string reductionFactorText = "reduction factor";
-        
+
         private const char equalsCharacter = '=';
 
         private double? waveAngle;

@@ -56,6 +56,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
             AreEqual(expectedInput.ForelandsPoints.ToArray(), actualInput.ForelandsPoints.ToArray());
             AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
         }
+
         /// <summary>
         /// Asserts whether or not <paramref name="expectedInput"/> and <paramref name="actualInput"/> are equal to eachother.
         /// </summary>
@@ -122,6 +123,21 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
             AreEqual(expectedInput.Variables.ToArray(), actualInput.Variables.ToArray());
         }
 
+        /// <summary>
+        /// Asserts whether or not <paramref name="expected"/> and <paramref name="actual"/> are equal to eachother.
+        /// </summary>
+        /// <param name="expected">The array of expected <see cref="HydraRingVariable"/>.</param>
+        /// <param name="actual">The array of actual <see cref="HydraRingVariable"/>.</param>
+        public static void AreEqual(HydraRingVariable[] expected, HydraRingVariable[] actual)
+        {
+            Assert.AreEqual(expected.Length, actual.Length);
+
+            for (var i = 0; i < expected.Length; i++)
+            {
+                AreEqual(expected[i], actual[i]);
+            }
+        }
+
         private static void AreEqual(HydraRingBreakWater expectedBreakWater, HydraRingBreakWater actualBreakWater)
         {
             if (expectedBreakWater == null)
@@ -150,21 +166,6 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil
             {
                 Assert.AreEqual(expectedForelandPoints[i].X, actualForelandPoints[i].X, accuracy);
                 Assert.AreEqual(expectedForelandPoints[i].Z, actualForelandPoints[i].Z, accuracy);
-            }
-        }
-
-        /// <summary>
-        /// Asserts whether or not <paramref name="expected"/> and <paramref name="actual"/> are equal to eachother.
-        /// </summary>
-        /// <param name="expected">The array of expected <see cref="HydraRingVariable"/>.</param>
-        /// <param name="actual">The array of actual <see cref="HydraRingVariable"/>.</param>
-        public static void AreEqual(HydraRingVariable[] expected, HydraRingVariable[] actual)
-        {
-            Assert.AreEqual(expected.Length, actual.Length);
-
-            for (var i = 0; i < expected.Length; i++)
-            {
-                AreEqual(expected[i], actual[i]);
             }
         }
 

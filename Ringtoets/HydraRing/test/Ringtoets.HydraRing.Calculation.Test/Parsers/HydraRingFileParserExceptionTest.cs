@@ -70,6 +70,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Parsers
             // Assert
             Assert.AreSame(expectedInnerException, exception.InnerException);
             Assert.AreEqual(expectedMessage, exception.Message);
-        } 
+        }
     }
 }

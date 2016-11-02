@@ -40,6 +40,5 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             Assert.IsFalse(calculator.IsOvertoppingDominant);
             Assert.IsNull(calculator.OutputDirectory);
         }
-         
     }
 }

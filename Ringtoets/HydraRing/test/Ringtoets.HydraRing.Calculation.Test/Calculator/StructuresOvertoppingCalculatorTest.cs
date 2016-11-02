@@ -38,6 +38,5 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
             Assert.IsNaN(calculator.ExceedanceProbabilityBeta);
             Assert.IsNull(calculator.OutputDirectory);
         }
-         
     }
 }

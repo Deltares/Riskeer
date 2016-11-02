@@ -53,9 +53,9 @@ namespace Ringtoets.HydraRing.Calculation.Parsers
             catch
             {
                 var message = string.Format(Resources.Parse_Cannot_read_FileName_0_nor_FileName_1_from_FolderPath_2_,
-                    sectionId + HydraRingFileConstants.OutputFileSuffix,
-                    outputFileName,
-                    workingDirectory);
+                                            sectionId + HydraRingFileConstants.OutputFileSuffix,
+                                            outputFileName,
+                                            workingDirectory);
                 throw new HydraRingFileParserException(message);
             }
         }

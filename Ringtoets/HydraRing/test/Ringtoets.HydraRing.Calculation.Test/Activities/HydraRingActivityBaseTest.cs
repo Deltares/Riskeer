@@ -105,7 +105,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
             string currentStepName = "Some step name.";
             int totalStep = new Random(21).Next();
             int currentStep = new Random(21).Next();
-            
+
             // Call
             activity.PublicUpdateProgressText(currentStepName, currentStep, totalStep);
 
@@ -121,6 +121,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         public bool Calculated { get; private set; }
 
         public bool IsValid { private get; set; }
+
+        public void PublicUpdateProgressText(string currentStepName, int currentStep, int totalStep)
+        {
+            UpdateProgressText(currentStepName, currentStep, totalStep);
+        }
 
         protected override void OnCancel()
         {
@@ -140,11 +145,6 @@ namespace Ringtoets.HydraRing.Calculation.Test.Activities
         protected override bool Validate()
         {
             return IsValid;
-        }
-
-        public void PublicUpdateProgressText(string currentStepName, int currentStep, int totalStep)
-        {
-            UpdateProgressText(currentStepName, currentStep, totalStep);
         }
     }
 }
