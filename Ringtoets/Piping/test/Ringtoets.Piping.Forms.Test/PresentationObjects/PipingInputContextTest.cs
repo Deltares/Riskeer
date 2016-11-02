@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Core.Common.TestUtil;
 using NUnit.Framework;
 using Rhino.Mocks;
 using Ringtoets.Common.Data.AssessmentSection;
