@@ -153,6 +153,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     {
         public double ExceedanceProbabilityBeta { get; set; }
         public string OutputDirectory { get; set; }
+        public string LastErrorContent { get; set; }
     }
 
     public class TestHydraRingCalculator<T>

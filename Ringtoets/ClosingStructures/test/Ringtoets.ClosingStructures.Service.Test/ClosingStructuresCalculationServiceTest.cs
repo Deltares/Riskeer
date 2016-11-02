@@ -944,14 +944,14 @@ namespace Ringtoets.ClosingStructures.Service.Test
         public void Calculate_CalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
-            var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
 
-            closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -980,7 +980,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     {
                         new ClosingStructuresCalculationService().Calculate(calculation,
                                                                             assessmentSectionStub,
-                                                                            closingStructuresFailureMechanism,
+                                                                            failureMechanism,
                                                                             testDataPath);
                     }
                     catch (HydraRingFileParserException)
@@ -1006,14 +1006,14 @@ namespace Ringtoets.ClosingStructures.Service.Test
         public void Calculate_CalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
-            var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
 
-            closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -1041,7 +1041,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     {
                         new ClosingStructuresCalculationService().Calculate(calculation,
                                                                             assessmentSectionStub,
-                                                                            closingStructuresFailureMechanism,
+                                                                            failureMechanism,
                                                                             testDataPath);
                     }
                     catch (HydraRingFileParserException)
@@ -1067,14 +1067,14 @@ namespace Ringtoets.ClosingStructures.Service.Test
         public void Calculate_CalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
         {
             // Setup
-            var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
+            var failureMechanism = new ClosingStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
 
-            closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
+            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
             {
                 new Point2D(0, 0),
                 new Point2D(1, 1)
@@ -1104,7 +1104,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                     {
                         new ClosingStructuresCalculationService().Calculate(calculation,
                                                                             assessmentSectionStub,
-                                                                            closingStructuresFailureMechanism,
+                                                                            failureMechanism,
                                                                             testDataPath);
                     }
                     catch (HydraRingFileParserException e)

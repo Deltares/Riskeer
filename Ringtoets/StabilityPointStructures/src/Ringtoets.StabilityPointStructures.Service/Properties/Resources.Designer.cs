@@ -82,12 +82,23 @@ namespace Ringtoets.StabilityPointStructures.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekening voor kunstwerk puntconstructies &apos;{0}&apos; is niet gelukt..
+        ///   Looks up a localized string similar to De berekening voor kunstwerk puntconstructies &apos;{0}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
+        ///{1}.
         /// </summary>
-        internal static string StabilityPointStructuresCalculationService_Calculate_Error_in_stabilityPoint_structures_0_calculation {
+        internal static string StabilityPointStructuresCalculationService_Calculate_Error_in_stabilityPoint_structures_0_calculation_click_details_for_last_error_1 {
             get {
                 return ResourceManager.GetString("StabilityPointStructuresCalculationService_Calculate_Error_in_stabilityPoint_stru" +
-                        "ctures_0_calculation", resourceCulture);
+                        "ctures_0_calculation_click_details_for_last_error_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De berekening voor kunstwerk puntconstructies &apos;{0}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
+        /// </summary>
+        internal static string StabilityPointStructuresCalculationService_Calculate_Unexplained_error_in_stabilityPoint_structures_0_calculation {
+            get {
+                return ResourceManager.GetString("StabilityPointStructuresCalculationService_Calculate_Unexplained_error_in_stabili" +
+                        "tyPoint_structures_0_calculation", resourceCulture);
             }
         }
         

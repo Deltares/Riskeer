@@ -120,7 +120,11 @@
   <data name="StabilityPointStructuresCalculationService_CalculateCalculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
     <value>Puntconstructies berekening is uitgevoerd op de tijdelijke locatie: {0}. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
   </data>
-  <data name="StabilityPointStructuresCalculationService_Calculate_Error_in_stabilityPoint_structures_0_calculation" xml:space="preserve">
-    <value>De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt.</value>
+  <data name="StabilityPointStructuresCalculationService_Calculate_Error_in_stabilityPoint_structures_0_calculation_click_details_for_last_error_1" xml:space="preserve">
+    <value>De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.
+{1}</value>
+  </data>
+  <data name="StabilityPointStructuresCalculationService_Calculate_Unexplained_error_in_stabilityPoint_structures_0_calculation" xml:space="preserve">
+    <value>De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.</value>
   </data>
 </root>
