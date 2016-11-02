@@ -43,7 +43,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input
             // Assert
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
             Assert.AreEqual(locationId, reliabilityIndexCalculationInput.HydraulicBoundaryLocationId);
-            Assert.AreEqual(2, reliabilityIndexCalculationInput.CalculationTypeId);
+            Assert.AreEqual(9, reliabilityIndexCalculationInput.CalculationTypeId);
             CollectionAssert.IsEmpty(reliabilityIndexCalculationInput.Variables);
             CollectionAssert.IsEmpty(reliabilityIndexCalculationInput.ProfilePoints);
             CollectionAssert.IsEmpty(reliabilityIndexCalculationInput.ForelandsPoints);

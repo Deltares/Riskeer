@@ -22,8 +22,8 @@
 namespace Ringtoets.HydraRing.Calculation.Data.Input
 {
     /// <summary>
-    /// Container of all data necessary for performing a type I calculation via Hydra-Ring:
-    /// Given a set of random variables, compute the probability of failure.
+    /// Container of all data necessary for performing Hydra-Ring calculations that compute a
+    /// probability of failure.
     /// </summary>
     public abstract class ExceedanceProbabilityCalculationInput : HydraRingCalculationInput
     {

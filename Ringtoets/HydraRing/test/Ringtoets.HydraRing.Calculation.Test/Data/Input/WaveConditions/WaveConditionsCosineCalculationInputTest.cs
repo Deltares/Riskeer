@@ -61,13 +61,11 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.WaveConditions
                                                                                                 c);
 
             // Assert
-            const int expectedCalculationTypeId = 7;
-            const int expectedVariableId = 114;
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
             Assert.IsInstanceOf<WaveConditionsCalculationInput>(waveConditionsCosineCalculationInput);
             Assert.AreEqual(HydraRingFailureMechanismType.QVariant, waveConditionsCosineCalculationInput.FailureMechanismType);
-            Assert.AreEqual(expectedCalculationTypeId, waveConditionsCosineCalculationInput.CalculationTypeId);
-            Assert.AreEqual(expectedVariableId, waveConditionsCosineCalculationInput.VariableId);
+            Assert.AreEqual(8, waveConditionsCosineCalculationInput.CalculationTypeId);
+            Assert.AreEqual(114, waveConditionsCosineCalculationInput.VariableId);
             Assert.AreEqual(hydraulicBoundaryLocationId, waveConditionsCosineCalculationInput.HydraulicBoundaryLocationId);
             Assert.IsNotNull(waveConditionsCosineCalculationInput.Section);
             Assert.AreEqual(sectionId, waveConditionsCosineCalculationInput.Section.SectionId);

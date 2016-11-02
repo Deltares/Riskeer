@@ -76,14 +76,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
                                                                                                    exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation);
 
             // Assert
-            const int expectedCalculationTypeId = 2;
-            const int expectedVariableId = 1;
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
             Assert.IsInstanceOf<ReliabilityIndexCalculationInput>(dikeHeightCalculationInput);
-            Assert.AreEqual(expectedCalculationTypeId, dikeHeightCalculationInput.CalculationTypeId);
+            Assert.AreEqual(9, dikeHeightCalculationInput.CalculationTypeId);
             Assert.AreEqual(hydraulicBoundaryLocationId, dikeHeightCalculationInput.HydraulicBoundaryLocationId);
             Assert.AreEqual(HydraRingFailureMechanismType.DikesHeight, dikeHeightCalculationInput.FailureMechanismType);
-            Assert.AreEqual(expectedVariableId, dikeHeightCalculationInput.VariableId);
+            Assert.AreEqual(1, dikeHeightCalculationInput.VariableId);
             Assert.IsNotNull(dikeHeightCalculationInput.Section);
             HydraRingDataEqualityHelper.AreEqual(GetDefaultDikeHeightVariables().ToArray(), dikeHeightCalculationInput.Variables.ToArray());
             CollectionAssert.AreEqual(expectedRingProfilePoints, dikeHeightCalculationInput.ProfilePoints);

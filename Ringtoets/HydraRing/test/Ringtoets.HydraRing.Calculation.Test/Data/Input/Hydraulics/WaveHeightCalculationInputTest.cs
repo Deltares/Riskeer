@@ -44,7 +44,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Data.Input.Hydraulics
             // Assert
             double expectedBeta = StatisticsConverter.NormToBeta(norm);
             Assert.AreEqual(HydraRingFailureMechanismType.WaveHeight, waveHeightCalculationInput.FailureMechanismType);
-            Assert.AreEqual(2, waveHeightCalculationInput.CalculationTypeId);
+            Assert.AreEqual(9, waveHeightCalculationInput.CalculationTypeId);
             Assert.AreEqual(28, waveHeightCalculationInput.VariableId);
             Assert.AreEqual(hydraulicBoundaryLocationId, waveHeightCalculationInput.HydraulicBoundaryLocationId);
             Assert.IsNotNull(waveHeightCalculationInput.Section);

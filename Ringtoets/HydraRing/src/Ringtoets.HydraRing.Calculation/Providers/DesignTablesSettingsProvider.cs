@@ -69,11 +69,11 @@ namespace Ringtoets.HydraRing.Calculation.Providers
             {
                 {
                     HydraRingFailureMechanismType.AssessmentLevel,
-                    new DesignTablesSetting(5, 15)
+                    new DesignTablesSetting(2, 4)
                 },
                 {
                     HydraRingFailureMechanismType.WaveHeight,
-                    new DesignTablesSetting(5, 15)
+                    new DesignTablesSetting(1, 4)
                 },
                 {
                     HydraRingFailureMechanismType.WavePeakPeriod,
@@ -85,7 +85,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                 },
                 {
                     HydraRingFailureMechanismType.QVariant,
-                    new DesignTablesSetting(5, 15)
+                    new DesignTablesSetting(10, 50)
                 },
                 {
                     HydraRingFailureMechanismType.DikesOvertopping,
@@ -93,7 +93,7 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                 },
                 {
                     HydraRingFailureMechanismType.DikesHeight,
-                    new DesignTablesSetting(5, 15)
+                    new DesignTablesSetting(2, 4)
                 },
                 {
                     HydraRingFailureMechanismType.DikesPiping,

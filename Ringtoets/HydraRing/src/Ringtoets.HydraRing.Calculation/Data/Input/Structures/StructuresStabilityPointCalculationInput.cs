@@ -282,9 +282,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 yield return new HydraRingVariable(82, HydraRingDistributionType.Normal, double.NaN,
                                                    HydraRingDeviationType.Standard, insideWaterLevelFailureConstructionMean,
                                                    insideWaterLevelFailureConstructionStandardDeviation, double.NaN);
-                yield return new HydraRingVariable(85, HydraRingDistributionType.Normal, failureProbabilityRepairClosure,
-                                                   HydraRingDeviationType.Standard, 0.0,
-                                                   1.0, double.NaN); // TODO: Pass as deterministic value as soon as Hydra-Ring is updated
+                yield return new HydraRingVariable(85, HydraRingDistributionType.Deterministic, failureProbabilityRepairClosure,
+                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
                 yield return new HydraRingVariable(86, HydraRingDistributionType.LogNormal, double.NaN,
                                                    HydraRingDeviationType.Variation, failureCollisionEnergyMean,
                                                    failureCollisionEnergyVariation, double.NaN);
@@ -299,9 +298,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                                                    shipVelocityVariation, double.NaN);
                 yield return new HydraRingVariable(90, HydraRingDistributionType.Deterministic, levellingCount,
                                                    HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
-                yield return new HydraRingVariable(91, HydraRingDistributionType.Normal, probabilityCollisionSecondaryStructure,
-                                                   HydraRingDeviationType.Standard, 0.0,
-                                                   1.0, double.NaN); // TODO: Pass as deterministic value as soon as Hydra-Ring is updated
+                yield return new HydraRingVariable(91, HydraRingDistributionType.Deterministic, probabilityCollisionSecondaryStructure,
+                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
                 yield return new HydraRingVariable(92, HydraRingDistributionType.Normal, double.NaN,
                                                    HydraRingDeviationType.Standard, flowVelocityStructureClosableMean,
                                                    flowVelocityStructureClosableStandardDeviation, double.NaN);
@@ -325,9 +323,8 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input.Structures
                 yield return new HydraRingVariable(104, HydraRingDistributionType.LogNormal, double.NaN,
                                                    HydraRingDeviationType.Variation, criticalOvertoppingDischargeMean,
                                                    criticalOvertoppingDischargeVariation, double.NaN);
-                yield return new HydraRingVariable(105, HydraRingDistributionType.Normal, failureProbabilityStructureWithErosion,
-                                                   HydraRingDeviationType.Standard, 0.0,
-                                                   1.0, double.NaN); // TODO: Pass as deterministic value as soon as Hydra-Ring is updated
+                yield return new HydraRingVariable(105, HydraRingDistributionType.Deterministic, failureProbabilityStructureWithErosion,
+                                                   HydraRingDeviationType.Standard, double.NaN, double.NaN, double.NaN);
                 yield return new HydraRingVariable(108, HydraRingDistributionType.LogNormal, double.NaN,
                                                    HydraRingDeviationType.Variation, stormDurationMean,
                                                    stormDurationVariation, double.NaN);

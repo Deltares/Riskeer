@@ -30,8 +30,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
     public class DesignTablesSettingsProviderTest
     {
         [Test]
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "205", 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "205", 2.0, 4.0)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, "205", 10, 50.0)]
         [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "11-1", 3.28, 5.28)]
         [TestCase(HydraRingFailureMechanismType.QVariant, "11-1", 1.0, 5.0)]
         public void GetDesignTablesSetting_KnownRingIdAndFailureMechanismType_ReturnsExpectedDesignTablesSetting(HydraRingFailureMechanismType failureMechanismType, string ringId, double expectedValueMin, double expectedValueMax)
@@ -47,13 +47,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
             Assert.AreEqual(expectedValueMax, designTablesSetting.ValueMax);
         }
 
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "4", 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, "4", 5.0, 15.0)]
-        [TestCase(HydraRingFailureMechanismType.WaveHeight, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, "4", 2.0, 4.0)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, "4", 10.0, 50.0)]
+        [TestCase(HydraRingFailureMechanismType.WaveHeight, "205", 1.0, 4.0)]
         [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, "205", 5.0, 15.0)]
         [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, "205", 5.0, 15.0)]
         [TestCase(HydraRingFailureMechanismType.DikesOvertopping, "205", double.NaN, double.NaN)]
-        [TestCase(HydraRingFailureMechanismType.DikesHeight, "205", 5.0, 15.0)]
+        [TestCase(HydraRingFailureMechanismType.DikesHeight, "205", 2.0, 4.0)]
         [TestCase(HydraRingFailureMechanismType.DikesPiping, "205", double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, "205", double.NaN, double.NaN)]
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, "205", double.NaN, double.NaN)]

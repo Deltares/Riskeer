@@ -29,8 +29,7 @@ using Ringtoets.HydraRing.IO;
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
-    /// Parser for the output of a Hydra-Ring type II calculation:
-    /// Iterate towards a reliability index.
+    /// Parser for the output of Hydra-Ring calculations that iterate towards a reliability index.
     /// </summary>
     public class ReliabilityIndexCalculationParser : IHydraRingFileParser
     {

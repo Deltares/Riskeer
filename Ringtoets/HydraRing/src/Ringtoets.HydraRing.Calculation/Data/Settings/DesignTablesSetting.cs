@@ -43,7 +43,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
         /// <summary>
         /// Gets the minimum value to use while iterating towards a reliability index.
         /// </summary>
-        /// <remarks>This property is only applicable in case of type II computations.</remarks>
+        /// <remarks>Only relevant for calculations that iterate towards a reliability index.</remarks>
         public double ValueMin
         {
             get
@@ -55,7 +55,7 @@ namespace Ringtoets.HydraRing.Calculation.Data.Settings
         /// <summary>
         /// Gets the maximum value to use while iterating towards a reliability index.
         /// </summary>
-        /// <remarks>This property is only applicable in case of type II computations.</remarks>
+        /// <remarks>Only relevant for calculations that iterate towards a reliability index.</remarks>
         public double ValueMax
         {
             get

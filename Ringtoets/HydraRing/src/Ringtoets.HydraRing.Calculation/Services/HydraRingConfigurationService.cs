@@ -50,7 +50,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
     /// Performing piping calculations (DesignTables > AlternativeId)
     /// </item>
     /// <item>
-    /// Type 3 computations (DesignTables > Method)
+    /// Type III calculations (DesignTables > Method)
     /// </item>
     /// </list>
     /// In the end, the configuration can be used to generate a Hydra-Ring database creation script.
@@ -305,13 +305,13 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         "LoadVariableId", defaultHydraRingValue // Fixed: not relevant
                     },
                     {
-                        "TableMin", defaultHydraRingValue // Fixed: no support for type III computations (see "Method")
+                        "TableMin", defaultHydraRingValue // Fixed: no support for type III calculations (see "Method")
                     },
                     {
-                        "TableMax", defaultHydraRingValue // Fixed: no support for type III computations (see "Method")
+                        "TableMax", defaultHydraRingValue // Fixed: no support for type III calculations (see "Method")
                     },
                     {
-                        "TableStepSize", defaultHydraRingValue // Fixed: no support for type III computations (see "Method")
+                        "TableStepSize", defaultHydraRingValue // Fixed: no support for type III calculations (see "Method")
                     },
                     {
                         "ValueMin", GetHydraRingValue(designTablesSetting.ValueMin)

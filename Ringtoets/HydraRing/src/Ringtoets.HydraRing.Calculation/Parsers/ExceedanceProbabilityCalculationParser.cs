@@ -30,8 +30,7 @@ using Ringtoets.HydraRing.IO;
 namespace Ringtoets.HydraRing.Calculation.Parsers
 {
     /// <summary>
-    /// Parser for the output of a Hydra-Ring type I calculation via Hydra-Ring:
-    /// Given a set of random variables, compute the probability of failure.
+    /// Parser for the output of Hydra-Ring calculations that compute a probability of failure.
     /// </summary>
     public class ExceedanceProbabilityCalculationParser : IHydraRingFileParser
     {
