@@ -48,7 +48,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new AssessmentLevelCalculationInput(1, 700004, 10000)
             {
-                DesignTablesSetting = new DesignTablesSetting(1.1, 2.2)
+                DesignTablesSetting = new DesignTablesSetting(1.1, 2.2),
+                NumericsSettings = new Dictionary<int, NumericsSetting>
+                {
+                    {
+                        1, new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25)
+                    }
+                }
             });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -123,7 +129,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new WaveHeightCalculationInput(1, 700004, 10000)
             {
-                DesignTablesSetting = new DesignTablesSetting(1.1, 2.2)
+                DesignTablesSetting = new DesignTablesSetting(1.1, 2.2),
+                NumericsSettings = new Dictionary<int, NumericsSetting>
+                {
+                    {
+                        11, new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25)
+                    }
+                }
             });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -220,6 +232,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 new HydraRingForelandPoint(1.1, 2.2)
             };
             var breakWater = new HydraRingBreakWater(1, 2.2);
+            var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
                 new OvertoppingCalculationInput(
@@ -234,7 +247,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                     modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
                     exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation)
                 {
-                    DesignTablesSetting = new DesignTablesSetting(17.17, 18.18)
+                    DesignTablesSetting = new DesignTablesSetting(17.17, 18.18),
+                    NumericsSettings = new Dictionary<int, NumericsSetting>
+                    {
+                        {
+                            102, numericsSetting
+                        },
+                        {
+                            103, numericsSetting
+                        }
+                    }
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -346,6 +368,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 new HydraRingForelandPoint(1.1, 2.2)
             };
             var breakWater = new HydraRingBreakWater(1, 2.2);
+            var numericsSetting = new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25);
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(
                 new DikeHeightCalculationInput(hydraulicBoundaryLocationId, norm, section,
@@ -358,7 +381,16 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
                                                exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation)
                 {
-                    DesignTablesSetting = new DesignTablesSetting(16.16, 17.17)
+                    DesignTablesSetting = new DesignTablesSetting(16.16, 17.17),
+                    NumericsSettings = new Dictionary<int, NumericsSetting>
+                    {
+                        {
+                            102, numericsSetting
+                        },
+                        {
+                            103, numericsSetting
+                        }
+                    }
                 });
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -453,6 +485,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 new HydraRingForelandPoint(1.1, 2.2)
             };
             var breakWater = new HydraRingBreakWater(1, 2.2);
+            var numericsSetting = new NumericsSetting(11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6, 6, 25);
 
             const double gravitationalAcceleration = 4.4;
             const double modelFactorOvertoppingMean = 5.5;
@@ -498,7 +531,19 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                                                  deviationWaveDirection,
                                                                                                                  stormDurationMean, stormDurationVariation)
             {
-                DesignTablesSetting = new DesignTablesSetting(0, 0)
+                DesignTablesSetting = new DesignTablesSetting(0, 0),
+                NumericsSettings = new Dictionary<int, NumericsSetting>
+                {
+                    {
+                        421, numericsSetting
+                    },
+                    {
+                        422, numericsSetting
+                    },
+                    {
+                        423, numericsSetting
+                    }
+                }
             });
             string expectedCreationScript =
                 "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -609,7 +654,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                          5.5,
                                                          6.6)
                 {
-                    DesignTablesSetting = new DesignTablesSetting(7.7, 8.8)
+                    DesignTablesSetting = new DesignTablesSetting(7.7, 8.8),
+                    NumericsSettings = new Dictionary<int, NumericsSetting>
+                    {
+                        {
+                            5, new NumericsSetting(4, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25)
+                        }
+                    }
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -710,7 +761,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                             6.6,
                                                             7.7)
                 {
-                    DesignTablesSetting = new DesignTablesSetting(8.8, 9.9)
+                    DesignTablesSetting = new DesignTablesSetting(8.8, 9.9),
+                    NumericsSettings = new Dictionary<int, NumericsSetting>
+                    {
+                        {
+                            5, new NumericsSetting(4, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25)
+                        }
+                    }
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -810,7 +867,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                     19.9, 20.0, 21.1, 22.2,
                                                                     23.3, 24.4, 25.5, 26.6)
                 {
-                    DesignTablesSetting = new DesignTablesSetting(0, 0)
+                    DesignTablesSetting = new DesignTablesSetting(0, 0),
+                    NumericsSettings = CreateStructuresClosureNumericsSettings()
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -927,7 +985,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                              23.3, 24.4, 25.5, 26.6,
                                                              27.7, 28.8, 29.9, 30.0)
                 {
-                    DesignTablesSetting = new DesignTablesSetting(0, 0)
+                    DesignTablesSetting = new DesignTablesSetting(0, 0),
+                    NumericsSettings = CreateStructuresClosureNumericsSettings()
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -1046,7 +1105,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                   23.3, 24.4, 25.5, 26.6,
                                                                   27.7, 28.8, 29.9, 30.0)
                 {
-                    DesignTablesSetting = new DesignTablesSetting(0, 0)
+                    DesignTablesSetting = new DesignTablesSetting(0, 0),
+                    NumericsSettings = CreateStructuresClosureNumericsSettings()
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -1174,7 +1234,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                  55.5, 56.6, 57.7, 58.8,
                                                                                  59.9)
                 {
-                    DesignTablesSetting = new DesignTablesSetting(0, 0)
+                    DesignTablesSetting = new DesignTablesSetting(0, 0),
+                    NumericsSettings = CreateStructuresStabilityPointNumericsSettings()
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -1324,7 +1385,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                     55.5, 56.6, 57.7, 58.8,
                                                                                     59.9)
                 {
-                    DesignTablesSetting = new DesignTablesSetting(0, 0)
+                    DesignTablesSetting = new DesignTablesSetting(0, 0),
+                    NumericsSettings = CreateStructuresStabilityPointNumericsSettings()
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -1474,7 +1536,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                           55.5, 56.6, 57.7, 58.8,
                                                                           59.9)
                 {
-                    DesignTablesSetting = new DesignTablesSetting(0, 0)
+                    DesignTablesSetting = new DesignTablesSetting(0, 0),
+                    NumericsSettings = CreateStructuresStabilityPointNumericsSettings()
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -1624,7 +1687,8 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                              55.5, 56.6, 57.7, 58.8,
                                                                              59.9)
                 {
-                    DesignTablesSetting = new DesignTablesSetting(0, 0)
+                    DesignTablesSetting = new DesignTablesSetting(0, 0),
+                    NumericsSettings = CreateStructuresStabilityPointNumericsSettings()
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -1739,6 +1803,68 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 string creationScript = File.ReadAllText(databaseFilePath);
                 Assert.AreEqual(expectedCreationScript, creationScript);
             }
+        }
+
+        private static Dictionary<int, NumericsSetting> CreateStructuresClosureNumericsSettings()
+        {
+            var numericsSettingForm = new NumericsSetting(1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6, 6, 25);
+            var numericsSettingDirs = new NumericsSetting(11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6, 6, 25);
+
+            return new Dictionary<int, NumericsSetting>
+            {
+                {
+                    422, numericsSettingForm
+                },
+                {
+                    424, numericsSettingDirs
+                },
+                {
+                    425, numericsSettingDirs
+                },
+                {
+                    426, numericsSettingForm
+                },
+                {
+                    427, numericsSettingForm
+                }
+            };
+        }
+
+        private static Dictionary<int, NumericsSetting> CreateStructuresStabilityPointNumericsSettings()
+        {
+            var numericsSettingForm = new NumericsSetting(1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6, 6, 25);
+            var numericsSettingDir = new NumericsSetting(11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6, 6, 25);
+
+            return new Dictionary<int, NumericsSetting>
+            {
+                {
+                    422, numericsSettingForm
+                },
+                {
+                    424, numericsSettingDir
+                },
+                {
+                    425, numericsSettingDir
+                },
+                {
+                    430, numericsSettingDir
+                },
+                {
+                    431, numericsSettingForm
+                },
+                {
+                    432, numericsSettingForm
+                },
+                {
+                    433, numericsSettingForm
+                },
+                {
+                    434, numericsSettingDir
+                },
+                {
+                    435, numericsSettingDir
+                }
+            };
         }
     }
 }

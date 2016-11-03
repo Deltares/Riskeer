@@ -103,6 +103,12 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
         public TestHydraRingCalculationInput() : base(12)
         {
             DesignTablesSetting = new DesignTablesSetting(0, 0);
+            NumericsSettings = new Dictionary<int, NumericsSetting>
+            {
+                {
+                    1, new NumericsSetting(11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6.0, 6.0, 25)
+                }
+            };
         }
 
         public override HydraRingFailureMechanismType FailureMechanismType

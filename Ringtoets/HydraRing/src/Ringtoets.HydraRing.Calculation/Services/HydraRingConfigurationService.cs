@@ -63,13 +63,10 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private readonly double? defaultHydraRingNullValue = null;
 
         private readonly string ringId;
+        private readonly HydraRingUncertaintiesType uncertaintiesType;
         private readonly IList<HydraRingCalculationInput> hydraRingInputs = new List<HydraRingCalculationInput>();
         private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
         private readonly VariableDefaultsProvider variableDefaultsProvider = new VariableDefaultsProvider();
-
-        private readonly NumericsSettingsProvider numericsSettingsProvider = new NumericsSettingsProvider();
-
-        private readonly HydraRingUncertaintiesType uncertaintiesType;
 
         /// <summary>
         /// Creates a new instance of the <see cref="HydraRingConfigurationService"/> class.
@@ -302,7 +299,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
                 foreach (int subMechanismId in failureMechanismDefaults.SubMechanismIds)
                 {
-                    var numericsSetting = numericsSettingsProvider.GetNumericsSetting(hydraRingCalculationInput.FailureMechanismType, subMechanismId, ringId);
+                    var numericsSetting = hydraRingCalculationInput.NumericsSettings[subMechanismId];
 
                     orderDictionaries.Add(new OrderedDictionary
                     {

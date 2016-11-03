@@ -93,7 +93,13 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(1, 700004)
             {
-                DesignTablesSetting = new DesignTablesSetting(6.6, 7.7)
+                DesignTablesSetting = new DesignTablesSetting(6.6, 7.7),
+                NumericsSettings = new Dictionary<int, NumericsSetting>
+                {
+                    {
+                        1, new NumericsSetting(8, 9, 10, 11.11, 12.12, 13.13, 14.14, 15, 16, 17, 18.18, 19.19, 20.20, 21)
+                    }
+                }
             });
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -106,7 +112,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 4, 5, 0, 0, 0, 0, 6.6, 7.7, 1.1);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Numerics];" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 8, 9, 10, 11.11, 12.12, 13.13, 14.14, 15, 1, 16, 17, 18.18, 19.19, 20.2, 21);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
@@ -182,15 +188,33 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
 
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(1, 700004)
             {
-                DesignTablesSetting = new DesignTablesSetting(6.6, 7.7)
+                DesignTablesSetting = new DesignTablesSetting(6.6, 7.7),
+                NumericsSettings = new Dictionary<int, NumericsSetting>
+                {
+                    {
+                        1, new NumericsSetting(8, 9, 10, 11.11, 12.12, 13.13, 14.14, 15, 16, 17, 18.18, 19.19, 20.20, 21)
+                    }
+                }
             });
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(2, 700005)
             {
-                DesignTablesSetting = new DesignTablesSetting(8.8, 9.9)
+                DesignTablesSetting = new DesignTablesSetting(8.8, 9.9),
+                NumericsSettings = new Dictionary<int, NumericsSetting>
+                {
+                    {
+                        1, new NumericsSetting(108, 109, 110, 111.11, 112.12, 113.13, 114.14, 115, 116, 117, 118.18, 119.19, 120.20, 121)
+                    }
+                }
             });
             hydraRingConfigurationService.AddHydraRingCalculationInput(new HydraRingCalculationInputImplementation(3, 700006)
             {
-                DesignTablesSetting = new DesignTablesSetting(10.10, 11.11)
+                DesignTablesSetting = new DesignTablesSetting(10.10, 11.11),
+                NumericsSettings = new Dictionary<int, NumericsSetting>
+                {
+                    {
+                        1, new NumericsSetting(208, 209, 210, 211.11, 212.12, 213.13, 214.14, 215, 216, 217, 218.18, 219.19, 220.20, 221)
+                    }
+                }
             });
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -207,9 +231,9 @@ namespace Ringtoets.HydraRing.Calculation.Test.Services
                                          "INSERT INTO [DesignTables] VALUES (3, 1, 1, 1, 4, 5, 0, 0, 0, 0, 10.1, 11.11, 1.1);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Numerics];" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (2, 1, 1, 1, 1, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
-                                         "INSERT INTO [Numerics] VALUES (3, 1, 1, 1, 1, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 8, 9, 10, 11.11, 12.12, 13.13, 14.14, 15, 1, 16, 17, 18.18, 19.19, 20.2, 21);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (2, 1, 1, 1, 1, 108, 109, 110, 111.11, 112.12, 113.13, 114.14, 115, 1, 116, 117, 118.18, 119.19, 120.2, 121);" + Environment.NewLine +
+                                         "INSERT INTO [Numerics] VALUES (3, 1, 1, 1, 1, 208, 209, 210, 211.11, 212.12, 213.13, 214.14, 215, 1, 216, 217, 218.18, 219.19, 220.2, 221);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [VariableDatas];" + Environment.NewLine +
                                          "INSERT INTO [VariableDatas] VALUES (1, 1, 1, 1, 26, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 300);" + Environment.NewLine +
