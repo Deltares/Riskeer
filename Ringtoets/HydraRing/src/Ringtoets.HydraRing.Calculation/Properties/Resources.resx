@@ -124,9 +124,6 @@
   <data name="DesignTablesSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\DesignTables.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="HydraulicModelsSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\defaults_hydraulicmodels.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="NumericsSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\defaults_numerics.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
