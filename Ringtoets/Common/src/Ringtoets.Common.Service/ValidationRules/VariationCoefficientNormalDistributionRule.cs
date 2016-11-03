@@ -48,21 +48,17 @@ namespace Ringtoets.Common.Service.ValidationRules
 
         public override IEnumerable<string> Validate()
         {
-            var validationResults = new List<string>();
-
             if (IsNotConcreteNumber(distribution.Mean))
             {
-                validationResults.Add(string.Format(Resources.ProbabilisticDistributionValidationRule_Mean_of_0_must_be_a_valid_number,
-                                                    parameterName));
+                yield return string.Format(Resources.ProbabilisticDistributionValidationRule_Mean_of_0_must_be_a_valid_number,
+                                           parameterName);
             }
 
             if (IsNotConcreteNumber(distribution.CoefficientOfVariation))
             {
-                validationResults.Add(string.Format(Resources.ProbabilistiDistributionValidationRule_CoefficientOfVariation_of_ParameterName_0_must_be_larger_or_equal_to_zero,
-                                                    parameterName));
+                yield return (string.Format(Resources.ProbabilistiDistributionValidationRule_CoefficientOfVariation_of_ParameterName_0_must_be_larger_or_equal_to_zero,
+                                            parameterName));
             }
-
-            return validationResults;
         }
     }
 }

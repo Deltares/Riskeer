@@ -44,14 +44,10 @@ namespace Ringtoets.Common.Service.ValidationRules
 
         public override IEnumerable<string> Validate()
         {
-            var messages = new List<string>();
-
             if (breakWater.UseBreakWater && IsNotConcreteNumber(breakWater.BreakWater.Height))
             {
-                messages.Add(Resources.Validation_Invalid_BreakWaterHeight_value);
+                yield return Resources.Validation_Invalid_BreakWaterHeight_value;
             }
-
-            return messages;
         }
     }
 }

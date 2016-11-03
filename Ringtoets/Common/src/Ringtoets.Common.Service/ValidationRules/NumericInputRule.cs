@@ -47,15 +47,11 @@ namespace Ringtoets.Common.Service.ValidationRules
 
         public override IEnumerable<string> Validate()
         {
-            var validationResult = new List<string>();
-
             if (IsNotConcreteNumber(numericInput))
             {
-                validationResult.Add(string.Format(Resources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
-                                                   parameterName));
+                yield return string.Format(Resources.Validation_ValidateInput_No_concrete_value_entered_for_ParameterName_0_,
+                                           parameterName);
             }
-
-            return validationResult;
         }
     }
 }
