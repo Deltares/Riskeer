@@ -507,6 +507,280 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
             mocks.VerifyAll();
         }
 
+        [Test]
+        public void Run_OvertoppingCalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+            AddSectionToAssessmentSection(assessmentSection);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile(),
+                    CalculateDikeHeight = true
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                calculator.LastErrorContent = "An error occured";
+                calculator.EndInFailure = true;
+                
+                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+                // Call
+                Action call = () => { activity.Run(); };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[3]);
+                    StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                });
+                Assert.AreEqual(ActivityState.Failed, activity.State);
+            }
+        }
+
+        [Test]
+        public void Run_OvertoppingCalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+            AddSectionToAssessmentSection(assessmentSection);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile(),
+                    CalculateDikeHeight = true
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                calculator.EndInFailure = true;
+
+                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+                // Call
+                Action call = () => { activity.Run(); };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculation.Name), msgs[3]);
+                    StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                });
+                Assert.AreEqual(ActivityState.Failed, activity.State);
+            }
+        }
+
+        [Test]
+        public void Run_OvertoppingCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+            AddSectionToAssessmentSection(assessmentSection);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile(),
+                    CalculateDikeHeight = true
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                calculator.EndInFailure = false;
+                calculator.LastErrorContent = "An error occured";
+
+                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+                // Call
+                Action call = () => { activity.Run(); };
+
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
+                                                          calculation.Name), msgs[3]);
+                    StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                });
+                Assert.AreEqual(ActivityState.Failed, activity.State);
+            }
+        }
+        [Test]
+        public void Run_DikeHeightCalculationFailedWithExceptionAndLastErrorPresent_LogError()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+            AddSectionToAssessmentSection(assessmentSection);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile(),
+                    CalculateDikeHeight = true
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                calculator.LastErrorContent = "An error occured";
+                calculator.EndInFailure = true;
+
+                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+                // Call
+                Action call = () => { activity.Run(); };
+
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(7, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[3]);
+                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[4]);
+                    StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie:", msgs[5]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
+                });
+                Assert.AreEqual(ActivityState.Executed, activity.State);
+            }
+        }
+
+        [Test]
+        public void Run_DikeHeightCalculationFailedWithExceptionAndNoLastErrorPresent_LogError()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+            AddSectionToAssessmentSection(assessmentSection);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile(),
+                    CalculateDikeHeight = true
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                calculator.EndInFailure = true;
+
+                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+                // Call
+                Action call = () => { activity.Run(); };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(7, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[3]);
+                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculation.Name), msgs[4]);
+                    StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie:", msgs[5]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
+                });
+                Assert.AreEqual(ActivityState.Executed, activity.State);
+            }
+        }
+
+        [Test]
+        public void Run_DikeHeightCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogError()
+        {
+            // Setup
+            var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
+            ImportHydraulicBoundaryDatabase(assessmentSection);
+            AddSectionToAssessmentSection(assessmentSection);
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = CreateDikeProfile(),
+                    CalculateDikeHeight = true
+                }
+            };
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                calculator.EndInFailure = false;
+                calculator.LastErrorContent = "An error occured";
+
+                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+
+                // Call
+                Action call = () => { activity.Run(); };
+
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(7, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[3]);
+                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[4]);
+                    StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie:", msgs[5]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
+                });
+                Assert.AreEqual(ActivityState.Executed, activity.State);
+            }
+        }
+
         private static void AddSectionToAssessmentSection(AssessmentSection assessmentSection)
         {
             assessmentSection.GrassCoverErosionInwards.AddSection(new FailureMechanismSection("test section", new[]
