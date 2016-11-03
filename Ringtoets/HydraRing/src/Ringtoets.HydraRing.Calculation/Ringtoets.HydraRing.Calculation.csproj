@@ -93,13 +93,6 @@
     <Compile Include="Data\Output\OvertoppingCalculationWaveHeightOutput.cs" />
     <Compile Include="Data\Output\WaveConditionsCalculationOutput.cs" />
     <Compile Include="Data\Settings\TimeIntegrationSetting.cs" />
-    <Compile Include="IO\DesignTablesSettingsColumns.cs" />
-    <Compile Include="IO\DesignTablesSettingsCsvReader.cs" />
-    <Compile Include="IO\HydraRingSettingsCsvReader.cs" />
-    <Compile Include="IO\HydraRingSettingsVariableCsvReader.cs" />
-    <Compile Include="IO\HydraulicModelsSettingsColumns.cs" />
-    <Compile Include="IO\HydraulicModelsSettingsCsvReader.cs" />
-    <Compile Include="IO\NumericsSettingsColumns.cs" />
     <Compile Include="Parsers\LastErrorFileParser.cs" />
     <Compile Include="Parsers\OvertoppingCalculationWaveHeightParser.cs" />
     <Compile Include="Parsers\WaveConditionsCalculationParser.cs" />
@@ -114,7 +107,6 @@
     </Compile>
     <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInput.cs" />
     <Compile Include="Data\Input\HydraRingCalculationInput.cs" />
-    <Compile Include="IO\NumericsSettingsCsvReader.cs" />
     <Compile Include="Data\Defaults\VariableDefaults.cs" />
     <Compile Include="Providers\VariableDefaultsProvider.cs" />
     <Compile Include="Data\HydraRingDistributionType.cs" />

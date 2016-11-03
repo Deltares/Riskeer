@@ -92,10 +92,6 @@
     <Compile Include="Data\Output\ReliabilityIndexCalculationOutputTest.cs" />
     <Compile Include="Data\Output\WaveConditionsCalculationOutputTest.cs" />
     <Compile Include="Data\Settings\TimeIntegrationSettingTest.cs" />
-    <Compile Include="IO\DesignTablesSettingsCsvReaderTest.cs" />
-    <Compile Include="IO\HydraRingSettingsCsvReaderTest.cs" />
-    <Compile Include="IO\HydraRingSettingsVariableCsvReaderTest.cs" />
-    <Compile Include="IO\HydraulicModelsSettingsCsvReaderTest.cs" />
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParserTest.cs" />
     <Compile Include="Parsers\HydraRingFileParserExceptionTest.cs" />
     <Compile Include="Parsers\LastErrorFileParserTest.cs" />
@@ -109,7 +105,6 @@
     <Compile Include="Integration\HydraRingConfigurationServiceIntegrationTest.cs" />
     <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInputTest.cs" />
     <Compile Include="Data\Input\ReliabilityIndexCalculationInputTest.cs" />
-    <Compile Include="IO\NumericsSettingsCsvReaderTest.cs" />
     <Compile Include="Providers\FailureMechanismDefaultsProviderTest.cs" />
     <Compile Include="Data\Defaults\FailureMechanismDefaultsTest.cs" />
     <Compile Include="Data\Settings\DesignTablesSettingTest.cs" />
