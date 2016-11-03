@@ -19,7 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.HydraRing;
@@ -34,6 +36,31 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         private static readonly string completeDatabaseDataPath = TestHelper.GetTestDataPath(
             TestDataPath.Ringtoets.Common.IO,
             Path.Combine("HydraRingSettingsDatabaseReader", "7_67.config.sqlite"));
+
+        [Test]
+        [TestCase("")]
+        [TestCase("  ")]
+        [TestCase("!")]
+        [TestCase("nonExisting")]
+        public void Constructor_InvalidPath_ThrowCriticalFileReadException(string databasePath)
+        {
+            // Call
+            TestDelegate test = () => new DesignTablesSettingsProvider(databasePath);
+
+            // Assert
+            Assert.Throws<CriticalFileReadException>(test);
+        }
+
+        [Test]
+        public void Constructor_ValidPath_ReturnsNewInstance()
+        {
+            // Call
+            using (var provider = new DesignTablesSettingsProvider(completeDatabaseDataPath))
+            {
+                // Assert
+                Assert.IsInstanceOf<IDisposable>(provider);
+            }
+        }
 
         [Test]
         [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 700131, 1)]

@@ -61,13 +61,13 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="NumericsSetting"/> for.</param>
         /// <returns>A new <see cref="Dictionary{T, T}"/> where the key is the submechanism id, and the value is
         /// the <see cref="NumericsSetting"/> containing values corresponding to the provided failure mechanism type and location id.</returns>
-        public Dictionary<long, NumericsSetting> GetNumericsSettings(long locationId, HydraRingFailureMechanismType failureMechanismType)
+        public Dictionary<int, NumericsSetting> GetNumericsSettings(long locationId, HydraRingFailureMechanismType failureMechanismType)
         {
             var failureMechanismDefaults = new FailureMechanismDefaultsProvider().GetFailureMechanismDefaults(failureMechanismType);
             var subMechanismIds = failureMechanismDefaults.SubMechanismIds;
             var mechanismId = failureMechanismDefaults.MechanismId;
 
-            var numericsSettings = new Dictionary<long, NumericsSetting>();
+            var numericsSettings = new Dictionary<int, NumericsSetting>();
 
             foreach (var subMechanismId in subMechanismIds)
             {

@@ -19,11 +19,13 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using log4net;
+using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
@@ -91,7 +93,7 @@ namespace Ringtoets.Common.Service
 
             try
             {
-                calculator.Calculate(CreateInput(hydraulicBoundaryLocation, norm));
+                calculator.Calculate(CreateInput(hydraulicBoundaryLocation, norm, hydraulicBoundaryDatabaseFilePath));
 
                 hydraulicBoundaryLocation.DesignWaterLevel = (RoundedDouble) calculator.DesignWaterLevel;
                 hydraulicBoundaryLocation.DesignWaterLevelCalculationConvergence =
@@ -129,9 +131,13 @@ namespace Ringtoets.Common.Service
             }
         }
 
-        private AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
+        private AssessmentLevelCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm, string hydraulicBoundaryDatabaseFilePath)
         {
-            return new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
+            var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
+
+            HydraRingSettingsHelper.SetHydraRingSettings(assessmentLevelCalculationInput, hydraulicBoundaryDatabaseFilePath);
+
+            return assessmentLevelCalculationInput;
         }
 
         private static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath)

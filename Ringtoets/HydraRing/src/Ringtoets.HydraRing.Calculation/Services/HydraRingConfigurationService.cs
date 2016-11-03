@@ -63,7 +63,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private readonly double? defaultHydraRingNullValue = null;
 
         private readonly string ringId;
-        private readonly IList<InputWithSettings> hydraRingInputsAndSettings = new List<InputWithSettings>();
+        private readonly IList<HydraRingCalculationInput> hydraRingInputs = new List<HydraRingCalculationInput>();
         private readonly FailureMechanismDefaultsProvider failureMechanismDefaultsProvider = new FailureMechanismDefaultsProvider();
         private readonly VariableDefaultsProvider variableDefaultsProvider = new VariableDefaultsProvider();
 
@@ -108,43 +108,22 @@ namespace Ringtoets.HydraRing.Calculation.Services
         /// <summary>
         /// Adds Hydra-Ring calculation input to the configuration.
         /// </summary>
-        /// <param name="hydraRingCalculationInput">The calculation input to add to the configuration.</param>
-        /// <exception cref="ArgumentException">Thrown when <paramref name="hydraRingCalculationInput"/> with 
-        /// the same <see cref="HydraRingSection.SectionId"/> has already been added.</exception>
-        public void AddHydraRingCalculationInput(HydraRingCalculationInput hydraRingCalculationInput)
-        {
-            AddHydraRingCalculationInput(hydraRingCalculationInput,
-                                         null,
-                                         null,
-                                         null);
-        }
-
-        /// <summary>
-        /// Adds Hydra-Ring calculation input to the configuration.
-        /// </summary>
         /// <param name="input">The calculation input to add to the configuration.</param>
-        /// <param name="designTablesSetting">The settings for the design table when performing the calculation with given <paramref name="input"/>.</param>
-        /// <param name="numericsSettings">The dictionary containing numerics settings per submechanism for the given <paramref name="input"/>.</param>
-        /// <param name="hydraulicModelsSetting">The settings for the hydraulic models when performing the calculation with given <paramref name="input"/>.</param>
         /// <exception cref="ArgumentException">Thrown when <paramref name="input"/> with 
         /// the same <see cref="HydraRingSection.SectionId"/> has already been added.</exception>
-        public void AddHydraRingCalculationInput(HydraRingCalculationInput input, DesignTablesSetting designTablesSetting,
-                                                 Dictionary<int, NumericsSetting> numericsSettings, HydraulicModelsSetting hydraulicModelsSetting)
+        public void AddHydraRingCalculationInput(HydraRingCalculationInput input)
         {
-            if (hydraRingInputsAndSettings.Any(h => h.Input.Section.SectionId == input.Section.SectionId))
+            if (hydraRingInputs.Any(h => h.Section.SectionId == input.Section.SectionId))
             {
                 throw new ArgumentException(@"Section id is not unique", "input");
             }
 
-            if (hydraRingInputsAndSettings.Count > 0 && hydraRingInputsAndSettings.First().Input.FailureMechanismType != input.FailureMechanismType)
+            if (hydraRingInputs.Count > 0 && hydraRingInputs.First().FailureMechanismType != input.FailureMechanismType)
             {
                 throw new NotSupportedException("Running calculations for multiple failure mechanism types is not supported.");
             }
 
-            hydraRingInputsAndSettings.Add(new InputWithSettings(
-                                               input,
-                                               designTablesSetting,
-                                               hydraulicModelsSetting, numericsSettings));
+            hydraRingInputs.Add(input);
         }
 
         /// <summary>
@@ -204,9 +183,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             var orderedDictionaries = new List<OrderedDictionary>();
 
-            foreach (InputWithSettings inputWithSettings in hydraRingInputsAndSettings)
+            foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
             {
-                HydraRingCalculationInput hydraRingCalculationInput = inputWithSettings.Input;
                 HydraRingSection hydraRingSection = hydraRingCalculationInput.Section;
 
                 orderedDictionaries.Add(new OrderedDictionary
@@ -263,9 +241,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             var orderedDictionaries = new List<OrderedDictionary>();
 
-            foreach (InputWithSettings inputWithSettings in hydraRingInputsAndSettings)
+            foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
             {
-                HydraRingCalculationInput hydraRingCalculationInput = inputWithSettings.Input;
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
                 DesignTablesSetting designTablesSetting = designTablesSettingsProvider.GetDesignTablesSetting(hydraRingCalculationInput.FailureMechanismType, ringId);
 
@@ -320,9 +297,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             var orderDictionaries = new List<OrderedDictionary>();
 
-            foreach (InputWithSettings inputWithSettings in hydraRingInputsAndSettings)
+            foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
             {
-                HydraRingCalculationInput hydraRingCalculationInput = inputWithSettings.Input;
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
 
                 foreach (int subMechanismId in failureMechanismDefaults.SubMechanismIds)
@@ -402,9 +378,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             var orderDictionaries = new List<OrderedDictionary>();
 
-            foreach (InputWithSettings inputWithSettings in hydraRingInputsAndSettings)
+            foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
             {
-                HydraRingCalculationInput hydraRingCalculationInput = inputWithSettings.Input;
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
 
                 foreach (HydraRingVariable hydraRingVariable in hydraRingCalculationInput.Variables)
@@ -476,9 +451,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             var orderDictionaries = new List<OrderedDictionary>();
 
-            foreach (InputWithSettings inputWithSettings in hydraRingInputsAndSettings)
+            foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
             {
-                HydraRingCalculationInput hydraRingCalculationInput = inputWithSettings.Input;
                 for (var i = 0; i < hydraRingCalculationInput.ProfilePoints.Count(); i++)
                 {
                     HydraRingProfilePoint hydraRingProfilePoint = hydraRingCalculationInput.ProfilePoints.ElementAt(i);
@@ -508,9 +482,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             var orderDictionaries = new List<OrderedDictionary>();
 
-            foreach (InputWithSettings inputWithSettings in hydraRingInputsAndSettings)
+            foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
             {
-                HydraRingCalculationInput hydraRingCalculationInput = inputWithSettings.Input;
                 for (var i = 0; i < hydraRingCalculationInput.ProfilePoints.Count(); i++)
                 {
                     HydraRingProfilePoint hydraRingProfilePoint = hydraRingCalculationInput.ProfilePoints.ElementAt(i);
@@ -542,9 +515,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private IList<OrderedDictionary> GetForlandModelsConfiguration()
         {
             var orderDictionaries = new List<OrderedDictionary>();
-            foreach (InputWithSettings inputWithSettings in hydraRingInputsAndSettings.Where(i => i.Input.ForelandsPoints.Any()))
+            foreach (HydraRingCalculationInput input in hydraRingInputs.Where(i => i.ForelandsPoints.Any()))
             {
-                HydraRingCalculationInput input = inputWithSettings.Input;
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(input.FailureMechanismType);
                 orderDictionaries.Add(new OrderedDictionary
                 {
@@ -565,9 +537,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private IList<OrderedDictionary> GetForelandsConfiguration()
         {
             var orderDictionaries = new List<OrderedDictionary>();
-            foreach (InputWithSettings inputWithSettings in hydraRingInputsAndSettings)
+            foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
             {
-                HydraRingCalculationInput hydraRingCalculationInput = inputWithSettings.Input;
                 for (var i = 0; i < hydraRingCalculationInput.ForelandsPoints.Count(); i++)
                 {
                     var forelandPoint = hydraRingCalculationInput.ForelandsPoints.ElementAt(i);
@@ -595,9 +566,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private IList<OrderedDictionary> GetBreakWatersConfiguration()
         {
             var orderedDictionaries = new List<OrderedDictionary>();
-            foreach (InputWithSettings inputWithSettings in hydraRingInputsAndSettings)
+            foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
             {
-                HydraRingCalculationInput hydraRingCalculationInput = inputWithSettings.Input;
                 if (hydraRingCalculationInput.BreakWater != null)
                 {
                     orderedDictionaries.Add(new OrderedDictionary
@@ -621,9 +591,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             var orderedDictionaries = new List<OrderedDictionary>();
 
-            foreach (InputWithSettings inputWithSettings in hydraRingInputsAndSettings)
+            foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
             {
-                HydraRingCalculationInput hydraRingCalculationInput = inputWithSettings.Input;
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
 
                 orderedDictionaries.Add(new OrderedDictionary
@@ -653,9 +622,8 @@ namespace Ringtoets.HydraRing.Calculation.Services
         {
             var orderedDictionaries = new List<OrderedDictionary>();
 
-            foreach (InputWithSettings inputWithSettings in hydraRingInputsAndSettings)
+            foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
             {
-                HydraRingCalculationInput hydraRingCalculationInput = inputWithSettings.Input;
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
 
                 foreach (var subMechanismId in failureMechanismDefaults.SubMechanismIds)
@@ -788,22 +756,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private double? GetHydraRingNullableValue(double value)
         {
             return !double.IsNaN(value) ? value : defaultHydraRingNullValue;
-        }
-
-        private struct InputWithSettings
-        {
-            public readonly HydraRingCalculationInput Input;
-            public DesignTablesSetting DesignTablesSetting;
-            public HydraulicModelsSetting HydraulicModelsSetting;
-            public Dictionary<int, NumericsSetting> NumericsSetting;
-
-            public InputWithSettings(HydraRingCalculationInput hydraRingCalculationInput, DesignTablesSetting designTablesSetting, HydraulicModelsSetting hydraulicModelsSetting, Dictionary<int, NumericsSetting> numericsSetting)
-            {
-                Input = hydraRingCalculationInput;
-                DesignTablesSetting = designTablesSetting;
-                NumericsSetting = numericsSetting;
-                HydraulicModelsSetting = hydraulicModelsSetting;
-            }
         }
     }
 }

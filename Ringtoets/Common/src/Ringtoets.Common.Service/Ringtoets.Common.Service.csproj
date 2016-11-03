@@ -49,6 +49,7 @@
     </Compile>
     <Compile Include="CalculationServiceHelper.cs" />
     <Compile Include="HydraRingInputParser.cs" />
+    <Compile Include="HydraRingSettingsHelper.cs" />
     <Compile Include="ParameterNameExtractor.cs" />
     <Compile Include="ValidationRules\NumericInputRule.cs" />
     <Compile Include="ValidationRules\UseBreakWaterRule.cs" />
@@ -79,6 +80,10 @@
       <Name>Core.Common.Base</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.IO\Core.Common.IO.csproj">
+      <Project>{E344867E-9AC9-44C8-88A5-8185681679A9}</Project>
+      <Name>Core.Common.IO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Utils\Core.Common.Utils.csproj">
       <Project>{F49BD8B2-332A-4C91-A196-8CCE0A2C7D98}</Project>
       <Name>Core.Common.Utils</Name>
@@ -103,6 +108,10 @@
       <Project>{D4200F43-3F72-4F42-AF0A-8CED416A38EC}</Project>
       <Name>Ringtoets.Common.Data</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Ringtoets.Common.IO\Ringtoets.Common.IO.csproj">
+      <Project>{52BA7627-CBAB-4209-BE77-3B5F31378277}</Project>
+      <Name>Ringtoets.Common.IO</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

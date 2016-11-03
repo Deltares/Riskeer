@@ -19,8 +19,10 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
+using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.HydraRing;
@@ -37,6 +39,31 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             Path.Combine("HydraRingSettingsDatabaseReader", "7_67.config.sqlite"));
 
         [Test]
+        [TestCase("")]
+        [TestCase("  ")]
+        [TestCase("!")]
+        [TestCase("nonExisting")]
+        public void Constructor_InvalidPath_ThrowCriticalFileReadException(string databasePath)
+        {
+            // Call
+            TestDelegate test = () => new NumericsSettingsProvider(databasePath);
+
+            // Assert
+            Assert.Throws<CriticalFileReadException>(test);
+        }
+
+        [Test]
+        public void Constructor_ValidPath_ReturnsNewInstance()
+        {
+            // Call
+            using (var provider = new NumericsSettingsProvider(completeDatabaseDataPath))
+            {
+                // Assert
+                Assert.IsInstanceOf<IDisposable>(provider);
+            }
+        }
+
+        [Test]
         public void GetNumericsSetting_KnownLocationId_ReturnsExpectedNumericsSetting()
         {
             // Setup
@@ -45,7 +72,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
                 NumericsSetting expectedValues = GetExpectedNumericsSetting();
 
                 // Call
-                Dictionary<long, NumericsSetting> numericsSettings = numericsSettingsProvider.GetNumericsSettings(700132, HydraRingFailureMechanismType.AssessmentLevel);
+                Dictionary<int, NumericsSetting> numericsSettings = numericsSettingsProvider.GetNumericsSettings(700132, HydraRingFailureMechanismType.AssessmentLevel);
 
                 // Assert
                 NumericsSetting numericsSetting = numericsSettings[1];
@@ -101,7 +128,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             using (NumericsSettingsProvider numericsSettingsProvider = new NumericsSettingsProvider(completeDatabaseDataPath))
             {
                 // Call
-                Dictionary<long, NumericsSetting> numericsSettings = numericsSettingsProvider.GetNumericsSettings(-1, failureMechanismType);
+                Dictionary<int, NumericsSetting> numericsSettings = numericsSettingsProvider.GetNumericsSettings(-1, failureMechanismType);
 
                 // Assert
                 NumericsSetting numericsSetting = numericsSettings[subMechanismId];

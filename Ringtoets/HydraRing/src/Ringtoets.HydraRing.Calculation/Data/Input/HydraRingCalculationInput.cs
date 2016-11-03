@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using Ringtoets.HydraRing.Calculation.Data.Settings;
 
 namespace Ringtoets.HydraRing.Calculation.Data.Input
 {
@@ -38,6 +39,21 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         {
             this.hydraulicBoundaryLocationId = hydraulicBoundaryLocationId;
         }
+
+        /// <summary>
+        /// Gets or sets the design tables settings.
+        /// </summary>
+        public DesignTablesSetting DesignTablesSetting { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of numerics settings specified per sub mechanism.
+        /// </summary>
+        public Dictionary<int, NumericsSetting> NumericsSettings { get; set; }
+
+        /// <summary>
+        /// Gets or sets the hydraulic models settings.
+        /// </summary>
+        public HydraulicModelsSetting HydraulicModelsSetting { get; set; }
 
         /// <summary>
         /// Gets the <see cref="HydraRingFailureMechanismType"/>.
