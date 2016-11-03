@@ -39,14 +39,18 @@
   <PropertyGroup>
     <PreBuildEvent>cmd /c $(SolutionDir)\build\svn_insert_version.cmd $(SolutionDir)\Core\Common\src\Core.Common.Version GlobalAssembly.cs.svn GlobalAssembly.cs</PreBuildEvent>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="..\..\..\..\build\Copying.Lesser.licenseheader">
       <Link>Copying.Lesser.licenseheader</Link>
     </None>
     <None Include="GlobalAssembly.cs.svn" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
