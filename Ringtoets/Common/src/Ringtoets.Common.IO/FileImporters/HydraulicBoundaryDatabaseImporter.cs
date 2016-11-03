@@ -169,7 +169,8 @@ namespace Ringtoets.Common.IO.FileImporters
                 // Locations directory of HLCD location ids and HRD location ids
                 var locationidsDictionary = hydraulicLocationConfigurationDatabaseReader.GetLocationsIdByTrackId(trackId);
 
-                var filter = new HydraulicBoundaryLocationFilter();
+                var filter = new HydraulicBoundaryLocationFilter(
+                    HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabase.FilePath));
 
                 // Prepare query to fetch hrd locations
                 hydraulicBoundaryDatabaseReader.PrepareReadLocation();

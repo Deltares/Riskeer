@@ -19,6 +19,9 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System.IO;
+using Core.Common.IO.Exceptions;
+using Core.Common.TestUtil;
 using NUnit.Framework;
 using Ringtoets.Common.IO.HydraRing;
 
@@ -27,6 +30,28 @@ namespace Ringtoets.Common.IO.Test.HydraRing
     [TestFixture]
     public class HydraulicBoundaryLocationFilterTest
     {
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO, "HydraulicBoundaryLocationFilter");
+
+        [Test]
+        public void Constructor_InvalidCharactersInPath_ThrowsCriticalFileReadException()
+        {
+            // Call
+            TestDelegate test = () => new HydraulicBoundaryLocationFilter(">");
+
+            // Assert
+            Assert.Throws<CriticalFileReadException>(test);
+        }
+
+        [Test]
+        public void Constructor_SettingsNotExisting_ThrowsArgumentException()
+        {
+            // Call
+            TestDelegate test = () => new HydraulicBoundaryLocationFilter(Path.Combine(testDataPath, "notExisting"));
+
+            // Assert
+            Assert.Throws<CriticalFileReadException>(test);
+        }
+
         [Test]
         [TestCase(-1)]
         [TestCase(long.MinValue)]
@@ -38,7 +63,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ShouldInclude_NameNotInFilterSet_ReturnsTrue(long id)
         {
             // Setup
-            var filter = new HydraulicBoundaryLocationFilter();
+            var filter = new HydraulicBoundaryLocationFilter(Path.Combine(testDataPath, "hrd.config.sqlite"));
 
             // Call
             bool shouldBeIncluded = filter.ShouldInclude(id);
@@ -53,7 +78,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         public void ShouldInclude_NameInFilterSet_ReturnsFalse(long id)
         {
             // Setup
-            var filter = new HydraulicBoundaryLocationFilter();
+            var filter = new HydraulicBoundaryLocationFilter(Path.Combine(testDataPath, "hrd.config.sqlite"));
 
             // Call
             bool shouldBeIncluded = filter.ShouldInclude(id);

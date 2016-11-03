@@ -22,7 +22,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Ringtoets.Common.IO.Properties;
+using Core.Common.IO.Exceptions;
 using Ringtoets.HydraRing.Data;
 
 namespace Ringtoets.Common.IO.HydraRing
@@ -35,17 +35,27 @@ namespace Ringtoets.Common.IO.HydraRing
     {
         private readonly List<long> locationsToFilterOut;
 
-        public HydraulicBoundaryLocationFilter()
+        /// <summary>
+        /// Creates a new instance of <see cref="HydraulicBoundaryLocationFilter"/>, which uses the settings
+        /// database at <paramref name="databaseFilePath"/> as its source.
+        /// </summary>
+        /// <param name="databaseFilePath">The path to the settings database containing a table
+        /// with filtered locations.</param>
+        /// <exception cref="CriticalFileReadException">Thrown when:
+        /// <list type="bullet">
+        /// <item>The <paramref name="databaseFilePath"/> contains invalid characters.</item>
+        /// <item>No file could be found at <paramref name="databaseFilePath"/>.</item>
+        /// <item>Unable to open database file.</item>
+        /// </list>
+        /// </exception>
+        public HydraulicBoundaryLocationFilter(string databaseFilePath)
         {
-            string[] idsAsText = Resources.HydraulicBoundaryLocationsFilterList.Split(new[]
+            using (var reader = new HydraRingSettingsDatabaseReader(databaseFilePath))
             {
-                Environment.NewLine,
-                "\n"
-            }, StringSplitOptions.RemoveEmptyEntries);
-            var filterList = new List<long>(idsAsText.Skip(1).Select(long.Parse)); // Skip the header, parse the remainder
-            filterList.Sort();
-
-            locationsToFilterOut = filterList;
+                var filterList = reader.ReadExcludedLocations().ToList();
+                filterList.Sort();
+                locationsToFilterOut = filterList;
+            }
         }
 
         /// <summary>

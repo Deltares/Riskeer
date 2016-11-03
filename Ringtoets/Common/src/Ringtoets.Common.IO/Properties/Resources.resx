@@ -408,9 +408,6 @@ Er is geen vakindeling geïmporteerd.</value>
   <data name="HydraulicBoundaryDatabaseImporter_Import_All_hydraulic_locations_read" xml:space="preserve">
     <value>De hydraulische randvoorwaardenlocaties zijn ingelezen.</value>
   </data>
-  <data name="HydraulicBoundaryLocationsFilterList" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Exceptions_DoNotCalculate.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="ProfilesImporter_AddNextProfileLocation_0_skipping_location_outside_referenceline" xml:space="preserve">
     <value>Een profiellocatie met ID '{0}' ligt niet op de referentielijn. Locatie wordt overgeslagen.</value>
   </data>

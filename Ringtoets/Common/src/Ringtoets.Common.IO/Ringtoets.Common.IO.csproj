@@ -101,7 +101,6 @@
     </None>
     <None Include="packages.config" />
     <None Include="Resources\20160624v3 N-waarden voor GEKB en HTKW.csv" />
-    <None Include="Resources\Exceptions_DoNotCalculate.csv" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Common\src\Core.Common.Base\Core.Common.Base.csproj">
