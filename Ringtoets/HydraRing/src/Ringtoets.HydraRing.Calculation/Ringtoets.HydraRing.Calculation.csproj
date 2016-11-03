@@ -106,7 +106,6 @@
     <Compile Include="Parsers\ExceedanceProbabilityCalculationParser.cs" />
     <Compile Include="Parsers\HydraRingFileParserException.cs" />
     <Compile Include="Parsers\IHydraRingFileParser.cs" />
-    <Compile Include="Parsers\HydraRingOutputFileParser.cs" />
     <Compile Include="Parsers\ReliabilityIndexCalculationParser.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
