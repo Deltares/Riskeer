@@ -517,7 +517,44 @@ namespace Ringtoets.StabilityPointStructures.Service
             }
             else
             {
-                IEnumerable<ValidationRule> validationRules = GetValidationRules(inputParameters, validationResults);
+                IEnumerable<ValidationRule> validationRules;
+                switch (inputParameters.InflowModelType)
+                {
+                    case StabilityPointStructureInflowModelType.LowSill:
+                        switch (inputParameters.LoadSchematizationType)
+                        {
+                            case LoadSchematizationType.Linear:
+                                validationRules = GetLowSillLinearValidationRules(inputParameters);
+                                break;
+                            case LoadSchematizationType.Quadratic:
+                                validationRules = GetLowSillQuadraticValidationRules(inputParameters);
+                                break;
+                            default:
+                                validationResults.Add(Resources.StabilityPointStructuresCalculationService_ValidateInput_No_LoadSchematizationType_selected);
+                                validationRules = Enumerable.Empty<ValidationRule>();
+                                break;
+                        }
+                        break;
+                    case StabilityPointStructureInflowModelType.FloodedCulvert:
+                        switch (inputParameters.LoadSchematizationType)
+                        {
+                            case LoadSchematizationType.Linear:
+                                validationRules = GetFloodedCulvertLinearValidationRules(inputParameters);
+                                break;
+                            case LoadSchematizationType.Quadratic:
+                                validationRules = GetFloodedCulvertQuadraticValidationRules(inputParameters);
+                                break;
+                            default:
+                                validationResults.Add(Resources.StabilityPointStructuresCalculationService_ValidateInput_No_LoadSchematizationType_selected);
+                                validationRules = Enumerable.Empty<ValidationRule>();
+                                break;
+                        }
+                        break;
+                    default:
+                        throw new InvalidEnumArgumentException("inputParameters",
+                                                               (int) inputParameters.InflowModelType,
+                                                               typeof(StabilityPointStructureInflowModelType));
+                }
 
                 foreach (var validationRule in validationRules)
                 {
@@ -525,49 +562,6 @@ namespace Ringtoets.StabilityPointStructures.Service
                 }
             }
             return validationResults.ToArray();
-        }
-
-        private static IEnumerable<ValidationRule> GetValidationRules(StabilityPointStructuresInput inputParameters, List<string> validationResults)
-        {
-            IEnumerable<ValidationRule> validationRules;
-            switch (inputParameters.InflowModelType)
-            {
-                case StabilityPointStructureInflowModelType.LowSill:
-                    switch (inputParameters.LoadSchematizationType)
-                    {
-                        case LoadSchematizationType.Linear:
-                            validationRules = GetLowSillLinearValidationRules(inputParameters);
-                            break;
-                        case LoadSchematizationType.Quadratic:
-                            validationRules = GetLowSillQuadraticValidationRules(inputParameters);
-                            break;
-                        default:
-                            validationResults.Add(Resources.StabilityPointStructuresCalculationService_ValidateInput_No_LoadSchematizationType_selected);
-                            validationRules = Enumerable.Empty<ValidationRule>();
-                            break;
-                    }
-                    break;
-                case StabilityPointStructureInflowModelType.FloodedCulvert:
-                    switch (inputParameters.LoadSchematizationType)
-                    {
-                        case LoadSchematizationType.Linear:
-                            validationRules = GetFloodedCulvertLinearValidationRules(inputParameters);
-                            break;
-                        case LoadSchematizationType.Quadratic:
-                            validationRules = GetFloodedCulvertQuadraticValidationRules(inputParameters);
-                            break;
-                        default:
-                            validationResults.Add(Resources.StabilityPointStructuresCalculationService_ValidateInput_No_LoadSchematizationType_selected);
-                            validationRules = Enumerable.Empty<ValidationRule>();
-                            break;
-                    }
-                    break;
-                default:
-                    throw new InvalidEnumArgumentException("inputParameters",
-                                                           (int) inputParameters.InflowModelType,
-                                                           typeof(StabilityPointStructureInflowModelType));
-            }
-            return validationRules;
         }
 
         private static ValidationRule[] GetLowSillLinearValidationRules(StabilityPointStructuresInput input)
