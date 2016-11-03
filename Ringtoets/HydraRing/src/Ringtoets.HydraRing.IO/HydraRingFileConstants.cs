@@ -57,7 +57,7 @@ namespace Ringtoets.HydraRing.IO
         internal const string HydraRingExecutableFileName = "MechanismComputation.exe";
 
         /// <summary>
-        /// The database which contains configuration paramters.
+        /// The database which contains configuration parameters.
         /// </summary>
         internal const string ConfigurationDatabaseFileName = "config.sqlite";
 
