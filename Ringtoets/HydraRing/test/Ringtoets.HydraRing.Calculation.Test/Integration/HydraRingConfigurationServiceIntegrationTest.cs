@@ -581,7 +581,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 "INSERT INTO [Numerics] VALUES (1, 110, 1, 1, 423, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 1, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                 Environment.NewLine +
                 "DELETE FROM [VariableDatas];" + Environment.NewLine +
-                "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 58, 4.4, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 58, 4.4, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 59, 0, 4, 5.5, 6.6, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 60, 0, 2, 7.7, 8.8, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 61, 9.9, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
@@ -594,7 +594,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 104, 0, 4, 21.21, NULL, NULL, NULL, 0, 22.22, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 105, 23.23, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 106, 0, 2, 24.24, NULL, NULL, NULL, 0, 25.25, 999999);" + Environment.NewLine +
-                "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 107, 26.26, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
+                "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 107, 26.26, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                 "INSERT INTO [VariableDatas] VALUES (1, 110, 1, 1, 108, 0, 4, 27.27, NULL, NULL, NULL, 0, 28.28, 999999);" + Environment.NewLine +
                 Environment.NewLine +
                 "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
@@ -920,7 +920,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 427, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 1, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 58, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 58, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 63, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 66, 0, 2, 21.1, 22.2, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 67, 0, 4, 23.3, 24.4, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
@@ -936,7 +936,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 104, 0, 4, 15.5, NULL, NULL, NULL, 0, 16.6, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 105, 17.7, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 108, 0, 4, 18.8, NULL, NULL, NULL, 0, 19.9, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 129, 20, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 129, 20, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1042,7 +1042,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 427, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 1, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 58, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 58, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 62, 0, 2, 21.1, 22.2, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 63, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 64, 0, 2, 23.3, NULL, NULL, NULL, 0, 24.4, 999999);" + Environment.NewLine +
@@ -1060,7 +1060,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 105, 17.7, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 106, 0, 2, 29.9, NULL, NULL, NULL, 0, 30, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 108, 0, 4, 18.8, NULL, NULL, NULL, 0, 19.9, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 129, 20, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 129, 20, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1166,7 +1166,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Numerics] VALUES (1, 111, 1, 1, 427, 1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 1, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 58, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 58, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 59, 0, 4, 21.1, 22.2, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 61, 23.3, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 62, 0, 2, 24.4, 25.5, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
@@ -1185,7 +1185,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 106, 0, 2, 28.8, NULL, NULL, NULL, 0, 29.9, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 107, 30, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 108, 0, 4, 18.8, NULL, NULL, NULL, 0, 19.9, 999999);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 129, 20, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 111, 1, 1, 129, 20, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1303,42 +1303,42 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 1, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 43, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 58, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 60, 0, 2, 3.3, 4.4, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 61, 5.5, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 63, 6.6, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 64, 0, 2, 7.7, NULL, NULL, NULL, 0, 8.8, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 65, 0, 2, 9.9, 10, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 66, 0, 2, 52.2, 53.3, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 67, 0, 4, 54.4, 55.5, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 80, 0, 4, 56.6, NULL, NULL, NULL, 0, 57.7, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 82, 0, 2, 11.1, 12.2, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 83, 0, 4, 58.8, NULL, NULL, NULL, 0, 59.9, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 85, 13.3, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 86, 0, 4, 14.4, NULL, NULL, NULL, 0, 15.5, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 87, 0, 2, 16.6, NULL, NULL, NULL, 0, 17.7, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 88, 0, 2, 18.8, NULL, NULL, NULL, 0, 19.9, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 89, 0, 2, 20, NULL, NULL, NULL, 0, 21.1, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 90, 22, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 91, 23.3, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 92, 0, 2, 24.4, 25.5, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 93, 0, 2, 26.6, 27.7, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 94, 0, 4, 28.8, 29.9, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 95, 0, 4, 30, 31.1, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 96, 0, 4, 32.2, NULL, NULL, NULL, 0, 33.3, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 97, 34.4, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 103, 0, 4, 35.5, 36.6, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 104, 0, 4, 37.7, NULL, NULL, NULL, 0, 38.8, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 39.9, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 108, 0, 4, 40, NULL, NULL, NULL, 0, 41.1, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 130, 0, 2, 42.2, 43.3, NULL, NULL, 1, 0, 6000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 131, 44.4, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 132, 0, 2, 45.5, 46.6, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 133, 0, 18, 48.8, 47.7, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 134, 49.9, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 135, 50, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 136, 51.1, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 43, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 58, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 60, 0, 2, 3.3, 4.4, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 61, 5.5, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 63, 6.6, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 64, 0, 2, 7.7, NULL, NULL, NULL, 0, 8.8, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 65, 0, 2, 9.9, 10, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 66, 0, 2, 52.2, 53.3, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 67, 0, 4, 54.4, 55.5, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 80, 0, 4, 56.6, NULL, NULL, NULL, 0, 57.7, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 82, 0, 2, 11.1, 12.2, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 83, 0, 4, 58.8, NULL, NULL, NULL, 0, 59.9, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 85, 13.3, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 86, 0, 4, 14.4, NULL, NULL, NULL, 0, 15.5, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 87, 0, 2, 16.6, NULL, NULL, NULL, 0, 17.7, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 88, 0, 2, 18.8, NULL, NULL, NULL, 0, 19.9, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 89, 0, 2, 20, NULL, NULL, NULL, 0, 21.1, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 90, 22, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 91, 23.3, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 92, 0, 2, 24.4, 25.5, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 93, 0, 2, 26.6, 27.7, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 94, 0, 4, 28.8, 29.9, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 95, 0, 4, 30, 31.1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 96, 0, 4, 32.2, NULL, NULL, NULL, 0, 33.3, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 97, 34.4, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 103, 0, 4, 35.5, 36.6, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 104, 0, 4, 37.7, NULL, NULL, NULL, 0, 38.8, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 39.9, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 108, 0, 4, 40, NULL, NULL, NULL, 0, 41.1, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 130, 0, 2, 42.2, 43.3, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 131, 44.4, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 132, 0, 2, 45.5, 46.6, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 133, 0, 18, 48.8, 47.7, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 134, 49.9, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 135, 50, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 136, 51.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1458,42 +1458,42 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 1, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 43, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 58, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 60, 0, 2, 3.3, 4.4, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 61, 5.5, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 63, 6.6, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 64, 0, 2, 7.7, NULL, NULL, NULL, 0, 8.8, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 65, 0, 2, 9.9, 10, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 66, 0, 2, 52.2, 53.3, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 67, 0, 4, 54.4, 55.5, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 81, 0, 4, 56.6, NULL, NULL, NULL, 0, 57.7, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 82, 0, 2, 11.1, 12.2, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 84, 0, 4, 58.8, NULL, NULL, NULL, 0, 59.9, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 85, 13.3, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 86, 0, 4, 14.4, NULL, NULL, NULL, 0, 15.5, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 87, 0, 2, 16.6, NULL, NULL, NULL, 0, 17.7, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 88, 0, 2, 18.8, NULL, NULL, NULL, 0, 19.9, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 89, 0, 2, 20, NULL, NULL, NULL, 0, 21.1, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 90, 22, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 91, 23.3, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 92, 0, 2, 24.4, 25.5, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 93, 0, 2, 26.6, 27.7, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 94, 0, 4, 28.8, 29.9, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 95, 0, 4, 30, 31.1, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 96, 0, 4, 32.2, NULL, NULL, NULL, 0, 33.3, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 97, 34.4, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 103, 0, 4, 35.5, 36.6, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 104, 0, 4, 37.7, NULL, NULL, NULL, 0, 38.8, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 39.9, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 108, 0, 4, 40, NULL, NULL, NULL, 0, 41.1, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 130, 0, 2, 42.2, 43.3, NULL, NULL, 1, 0, 6000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 131, 44.4, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 132, 0, 2, 45.5, 46.6, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 133, 0, 18, 48.8, 47.7, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 134, 49.9, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 135, 50, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 136, 51.1, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 43, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 58, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 60, 0, 2, 3.3, 4.4, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 61, 5.5, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 63, 6.6, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 64, 0, 2, 7.7, NULL, NULL, NULL, 0, 8.8, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 65, 0, 2, 9.9, 10, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 66, 0, 2, 52.2, 53.3, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 67, 0, 4, 54.4, 55.5, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 81, 0, 4, 56.6, NULL, NULL, NULL, 0, 57.7, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 82, 0, 2, 11.1, 12.2, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 84, 0, 4, 58.8, NULL, NULL, NULL, 0, 59.9, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 85, 13.3, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 86, 0, 4, 14.4, NULL, NULL, NULL, 0, 15.5, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 87, 0, 2, 16.6, NULL, NULL, NULL, 0, 17.7, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 88, 0, 2, 18.8, NULL, NULL, NULL, 0, 19.9, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 89, 0, 2, 20, NULL, NULL, NULL, 0, 21.1, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 90, 22, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 91, 23.3, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 92, 0, 2, 24.4, 25.5, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 93, 0, 2, 26.6, 27.7, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 94, 0, 4, 28.8, 29.9, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 95, 0, 4, 30, 31.1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 96, 0, 4, 32.2, NULL, NULL, NULL, 0, 33.3, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 97, 34.4, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 103, 0, 4, 35.5, 36.6, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 104, 0, 4, 37.7, NULL, NULL, NULL, 0, 38.8, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 39.9, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 108, 0, 4, 40, NULL, NULL, NULL, 0, 41.1, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 130, 0, 2, 42.2, 43.3, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 131, 44.4, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 132, 0, 2, 45.5, 46.6, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 133, 0, 18, 48.8, 47.7, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 134, 49.9, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 135, 50, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 136, 51.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1613,42 +1613,42 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 1, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 43, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 58, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 60, 0, 2, 3.3, 4.4, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 61, 5.5, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 62, 0, 2, 52.2, 53.3, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 63, 6.6, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 64, 0, 2, 7.7, NULL, NULL, NULL, 0, 8.8, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 65, 0, 2, 9.9, 10, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 80, 0, 4, 54.4, NULL, NULL, NULL, 0, 55.5, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 82, 0, 2, 11.1, 12.2, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 83, 0, 4, 56.6, NULL, NULL, NULL, 0, 57.7, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 85, 13.3, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 86, 0, 4, 14.4, NULL, NULL, NULL, 0, 15.5, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 87, 0, 2, 16.6, NULL, NULL, NULL, 0, 17.7, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 88, 0, 2, 18.8, NULL, NULL, NULL, 0, 19.9, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 89, 0, 2, 20, NULL, NULL, NULL, 0, 21.1, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 90, 22, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 91, 23.3, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 92, 0, 2, 24.4, 25.5, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 93, 0, 2, 26.6, 27.7, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 94, 0, 4, 28.8, 29.9, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 95, 0, 4, 30, 31.1, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 96, 0, 4, 32.2, NULL, NULL, NULL, 0, 33.3, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 97, 34.4, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 103, 0, 4, 35.5, 36.6, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 104, 0, 4, 37.7, NULL, NULL, NULL, 0, 38.8, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 39.9, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 106, 0, 2, 58.8, NULL, NULL, NULL, 0, 59.9, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 108, 0, 4, 40, NULL, NULL, NULL, 0, 41.1, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 130, 0, 2, 42.2, 43.3, NULL, NULL, 1, 0, 6000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 131, 44.4, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 132, 0, 2, 45.5, 46.6, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 133, 0, 18, 48.8, 47.7, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 134, 49.9, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 135, 50, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 136, 51.1, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 43, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 58, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 60, 0, 2, 3.3, 4.4, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 61, 5.5, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 62, 0, 2, 52.2, 53.3, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 63, 6.6, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 64, 0, 2, 7.7, NULL, NULL, NULL, 0, 8.8, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 65, 0, 2, 9.9, 10, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 80, 0, 4, 54.4, NULL, NULL, NULL, 0, 55.5, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 82, 0, 2, 11.1, 12.2, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 83, 0, 4, 56.6, NULL, NULL, NULL, 0, 57.7, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 85, 13.3, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 86, 0, 4, 14.4, NULL, NULL, NULL, 0, 15.5, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 87, 0, 2, 16.6, NULL, NULL, NULL, 0, 17.7, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 88, 0, 2, 18.8, NULL, NULL, NULL, 0, 19.9, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 89, 0, 2, 20, NULL, NULL, NULL, 0, 21.1, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 90, 22, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 91, 23.3, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 92, 0, 2, 24.4, 25.5, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 93, 0, 2, 26.6, 27.7, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 94, 0, 4, 28.8, 29.9, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 95, 0, 4, 30, 31.1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 96, 0, 4, 32.2, NULL, NULL, NULL, 0, 33.3, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 97, 34.4, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 103, 0, 4, 35.5, 36.6, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 104, 0, 4, 37.7, NULL, NULL, NULL, 0, 38.8, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 39.9, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 106, 0, 2, 58.8, NULL, NULL, NULL, 0, 59.9, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 108, 0, 4, 40, NULL, NULL, NULL, 0, 41.1, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 130, 0, 2, 42.2, 43.3, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 131, 44.4, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 132, 0, 2, 45.5, 46.6, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 133, 0, 18, 48.8, 47.7, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 134, 49.9, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 135, 50, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 136, 51.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
                                             Environment.NewLine +
@@ -1768,42 +1768,42 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Numerics] VALUES (1, 112, 1, 1, 435, 11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 1, 10000, 40000, 0.1, -6, 6, 25);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [VariableDatas];" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 43, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 58, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 60, 0, 2, 3.3, 4.4, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 61, 5.5, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 62, 0, 2, 52.2, 53.3, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 63, 6.6, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 64, 0, 2, 7.7, NULL, NULL, NULL, 0, 8.8, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 65, 0, 2, 9.9, 10, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 81, 0, 4, 54.4, NULL, NULL, NULL, 0, 55.5, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 82, 0, 2, 11.1, 12.2, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 84, 0, 4, 56.6, NULL, NULL, NULL, 0, 57.7, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 85, 13.3, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 86, 0, 4, 14.4, NULL, NULL, NULL, 0, 15.5, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 87, 0, 2, 16.6, NULL, NULL, NULL, 0, 17.7, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 88, 0, 2, 18.8, NULL, NULL, NULL, 0, 19.9, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 89, 0, 2, 20, NULL, NULL, NULL, 0, 21.1, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 90, 22, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 91, 23.3, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 92, 0, 2, 24.4, 25.5, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 93, 0, 2, 26.6, 27.7, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 94, 0, 4, 28.8, 29.9, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 95, 0, 4, 30, 31.1, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 96, 0, 4, 32.2, NULL, NULL, NULL, 0, 33.3, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 97, 34.4, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 103, 0, 4, 35.5, 36.6, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 104, 0, 4, 37.7, NULL, NULL, NULL, 0, 38.8, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 39.9, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 106, 0, 2, 58.8, NULL, NULL, NULL, 0, 59.9, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 108, 0, 4, 40, NULL, NULL, NULL, 0, 41.1, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 130, 0, 2, 42.2, 43.3, NULL, NULL, 1, 0, 6000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 131, 44.4, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 132, 0, 2, 45.5, 46.6, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 133, 0, 18, 48.8, 47.7, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 134, 49.9, 0, 0, NULL, NULL, NULL, 1, 0, 50);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 135, 50, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
-                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 136, 51.1, 0, 0, NULL, NULL, NULL, 1, 0, 99000);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 43, 1.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 58, 2.2, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 60, 0, 2, 3.3, 4.4, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 61, 5.5, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 62, 0, 2, 52.2, 53.3, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 63, 6.6, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 64, 0, 2, 7.7, NULL, NULL, NULL, 0, 8.8, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 65, 0, 2, 9.9, 10, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 81, 0, 4, 54.4, NULL, NULL, NULL, 0, 55.5, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 82, 0, 2, 11.1, 12.2, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 84, 0, 4, 56.6, NULL, NULL, NULL, 0, 57.7, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 85, 13.3, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 86, 0, 4, 14.4, NULL, NULL, NULL, 0, 15.5, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 87, 0, 2, 16.6, NULL, NULL, NULL, 0, 17.7, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 88, 0, 2, 18.8, NULL, NULL, NULL, 0, 19.9, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 89, 0, 2, 20, NULL, NULL, NULL, 0, 21.1, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 90, 22, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 91, 23.3, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 92, 0, 2, 24.4, 25.5, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 93, 0, 2, 26.6, 27.7, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 94, 0, 4, 28.8, 29.9, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 95, 0, 4, 30, 31.1, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 96, 0, 4, 32.2, NULL, NULL, NULL, 0, 33.3, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 97, 34.4, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 103, 0, 4, 35.5, 36.6, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 104, 0, 4, 37.7, NULL, NULL, NULL, 0, 38.8, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 105, 39.9, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 106, 0, 2, 58.8, NULL, NULL, NULL, 0, 59.9, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 108, 0, 4, 40, NULL, NULL, NULL, 0, 41.1, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 130, 0, 2, 42.2, 43.3, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 131, 44.4, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 132, 0, 2, 45.5, 46.6, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 133, 0, 18, 48.8, 47.7, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 134, 49.9, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 135, 50, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
+                                            "INSERT INTO [VariableDatas] VALUES (1, 112, 1, 1, 136, 51.1, 0, 0, NULL, NULL, NULL, 1, 0, 999999);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [CalculationProfiles];" + Environment.NewLine +
                                             Environment.NewLine +

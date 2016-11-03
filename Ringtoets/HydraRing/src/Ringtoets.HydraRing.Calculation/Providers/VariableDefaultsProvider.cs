@@ -37,6 +37,8 @@ namespace Ringtoets.HydraRing.Calculation.Providers
         /// </summary>
         public VariableDefaultsProvider()
         {
+            var notApplicableCorrelationLength = 999999;
+
             variableDefaults = new Dictionary<HydraRingFailureMechanismType, IDictionary<int, VariableDefaults>>
             {
                 {
@@ -162,10 +164,10 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                             23, new VariableDefaults(6000)
                         },
                         {
-                            42, new VariableDefaults(999999)
+                            42, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            43, new VariableDefaults(999999)
+                            43, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
                             44, new VariableDefaults(200)
@@ -174,10 +176,10 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                             45, new VariableDefaults(300)
                         },
                         {
-                            46, new VariableDefaults(999999)
+                            46, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            47, new VariableDefaults(999999)
+                            47, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
                             48, new VariableDefaults(3000)
@@ -189,16 +191,16 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                             50, new VariableDefaults(300)
                         },
                         {
-                            51, new VariableDefaults(999999)
+                            51, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
                             52, new VariableDefaults(600)
                         },
                         {
-                            53, new VariableDefaults(999999)
+                            53, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            54, new VariableDefaults(99000)
+                            54, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
                             55, new VariableDefaults(600)
@@ -207,13 +209,13 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                             56, new VariableDefaults(180)
                         },
                         {
-                            58, new VariableDefaults(99000)
+                            58, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
                             124, new VariableDefaults(300)
                         },
                         {
-                            127, new VariableDefaults(999999)
+                            127, new VariableDefaults(notApplicableCorrelationLength)
                         }
                     }
                 },
@@ -221,49 +223,49 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<int, VariableDefaults>
                     {
                         {
-                            58, new VariableDefaults(99000)
+                            58, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            59, new VariableDefaults(999999)
+                            59, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            60, new VariableDefaults(999999)
+                            60, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            61, new VariableDefaults(999999)
+                            61, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            62, new VariableDefaults(999999)
+                            62, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            94, new VariableDefaults(999999)
+                            94, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            95, new VariableDefaults(999999)
+                            95, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            96, new VariableDefaults(999999)
+                            96, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            97, new VariableDefaults(999999)
+                            97, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            103, new VariableDefaults(999999)
+                            103, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            104, new VariableDefaults(999999)
+                            104, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            105, new VariableDefaults(999999)
+                            105, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            106, new VariableDefaults(999999)
+                            106, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            107, new VariableDefaults(99000)
+                            107, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            108, new VariableDefaults(999999)
+                            108, new VariableDefaults(notApplicableCorrelationLength)
                         }
                     }
                 },
@@ -271,79 +273,79 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     HydraRingFailureMechanismType.StructuresClosure, new Dictionary<int, VariableDefaults>
                     {
                         {
-                            58, new VariableDefaults(99000)
+                            58, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            59, new VariableDefaults(999999)
+                            59, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            61, new VariableDefaults(999999)
+                            61, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            62, new VariableDefaults(999999)
+                            62, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            63, new VariableDefaults(999999)
+                            63, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            64, new VariableDefaults(999999)
+                            64, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            65, new VariableDefaults(999999)
+                            65, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            66, new VariableDefaults(999999)
+                            66, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            67, new VariableDefaults(999999)
+                            67, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            68, new VariableDefaults(999999)
+                            68, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            69, new VariableDefaults(999999)
+                            69, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            71, new VariableDefaults(999999)
+                            71, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            72, new VariableDefaults(999999)
+                            72, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            93, new VariableDefaults(999999)
+                            93, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            94, new VariableDefaults(999999)
+                            94, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            95, new VariableDefaults(999999)
+                            95, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            96, new VariableDefaults(999999)
+                            96, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            97, new VariableDefaults(999999)
+                            97, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            103, new VariableDefaults(999999)
+                            103, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            104, new VariableDefaults(999999)
+                            104, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            105, new VariableDefaults(999999)
+                            105, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            106, new VariableDefaults(999999)
+                            106, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            107, new VariableDefaults(999999)
+                            107, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            108, new VariableDefaults(999999)
+                            108, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            129, new VariableDefaults(50)
+                            129, new VariableDefaults(notApplicableCorrelationLength)
                         }
                     }
                 },
@@ -351,124 +353,124 @@ namespace Ringtoets.HydraRing.Calculation.Providers
                     HydraRingFailureMechanismType.StructuresStructuralFailure, new Dictionary<int, VariableDefaults>
                     {
                         {
-                            43, new VariableDefaults(99000)
+                            43, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            58, new VariableDefaults(99000)
+                            58, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            60, new VariableDefaults(50)
+                            60, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            61, new VariableDefaults(99000)
+                            61, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            62, new VariableDefaults(50)
+                            62, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            63, new VariableDefaults(50)
+                            63, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            64, new VariableDefaults(50)
+                            64, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            65, new VariableDefaults(50)
+                            65, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            66, new VariableDefaults(50)
+                            66, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            67, new VariableDefaults(50)
+                            67, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            80, new VariableDefaults(50)
+                            80, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            81, new VariableDefaults(50)
+                            81, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            82, new VariableDefaults(50)
+                            82, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            83, new VariableDefaults(50)
+                            83, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            84, new VariableDefaults(50)
+                            84, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            85, new VariableDefaults(50)
+                            85, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            86, new VariableDefaults(50)
+                            86, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            87, new VariableDefaults(50)
+                            87, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            88, new VariableDefaults(50)
+                            88, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            89, new VariableDefaults(50)
+                            89, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            90, new VariableDefaults(50)
+                            90, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            91, new VariableDefaults(50)
+                            91, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            92, new VariableDefaults(50)
+                            92, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            93, new VariableDefaults(50)
+                            93, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            94, new VariableDefaults(50)
+                            94, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            95, new VariableDefaults(50)
+                            95, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            96, new VariableDefaults(50)
+                            96, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            97, new VariableDefaults(50)
+                            97, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            103, new VariableDefaults(50)
+                            103, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            104, new VariableDefaults(50)
+                            104, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            105, new VariableDefaults(50)
+                            105, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            106, new VariableDefaults(50)
+                            106, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            108, new VariableDefaults(99000)
+                            108, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            130, new VariableDefaults(6000)
+                            130, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            131, new VariableDefaults(50)
+                            131, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            132, new VariableDefaults(50)
+                            132, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            133, new VariableDefaults(50)
+                            133, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            134, new VariableDefaults(50)
+                            134, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            135, new VariableDefaults(99000)
+                            135, new VariableDefaults(notApplicableCorrelationLength)
                         },
                         {
-                            136, new VariableDefaults(99000)
+                            136, new VariableDefaults(notApplicableCorrelationLength)
                         }
                     }
                 }
