@@ -531,7 +531,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 calculator.LastErrorContent = "An error occured";
                 calculator.EndInFailure = true;
                 
-                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
                 // Call
                 Action call = () => { activity.Run(); };
@@ -575,7 +575,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
                 calculator.EndInFailure = true;
 
-                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
                 // Call
                 Action call = () => { activity.Run(); };
@@ -620,7 +620,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 calculator.EndInFailure = false;
                 calculator.LastErrorContent = "An error occured";
 
-                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
                 // Call
                 Action call = () => { activity.Run(); };
@@ -666,7 +666,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 calculator.LastErrorContent = "An error occured";
                 calculator.EndInFailure = true;
 
-                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
                 // Call
                 Action call = () => { activity.Run(); };
@@ -712,7 +712,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.EndInFailure = true;
 
-                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
                 // Call
                 Action call = () => { activity.Run(); };
@@ -758,7 +758,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 calculator.EndInFailure = false;
                 calculator.LastErrorContent = "An error occured";
 
-                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+                var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
                 // Call
                 Action call = () => { activity.Run(); };
