@@ -31,7 +31,7 @@ namespace Ringtoets.Common.IO.HydraRing
     /// </summary>
     public class TimeIntegrationSettingsProvider : IDisposable
     {
-        private readonly HydraRingSettingsDatabaseReader modelSettingsReader;
+        private readonly HydraRingSettingsDatabaseReader timeIntegrationSettingsReader;
 
         /// <summary>
         /// Creates a new instance of <see cref="TimeIntegrationSettingsProvider"/>.
@@ -46,7 +46,7 @@ namespace Ringtoets.Common.IO.HydraRing
         /// </exception>
         public TimeIntegrationSettingsProvider(string databaseFilePath)
         {
-            modelSettingsReader = new HydraRingSettingsDatabaseReader(databaseFilePath);
+            timeIntegrationSettingsReader = new HydraRingSettingsDatabaseReader(databaseFilePath);
         }
 
         /// <summary>
@@ -57,13 +57,13 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <returns>The <see cref="TimeIntegrationSetting"/> corresponding to the provided failure mechanism type and location id.</returns>
         public TimeIntegrationSetting GetTimeIntegrationSetting(long locationId, HydraRingFailureMechanismType failureMechanismType)
         {
-            return modelSettingsReader.ReadTimeIntegrationSetting(locationId, failureMechanismType) ??
+            return timeIntegrationSettingsReader.ReadTimeIntegrationSetting(locationId, failureMechanismType) ??
                    new TimeIntegrationSetting(1);
         }
 
         public void Dispose()
         {
-            modelSettingsReader.Dispose();
+            timeIntegrationSettingsReader.Dispose();
         }
     }
 }

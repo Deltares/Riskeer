@@ -54,11 +54,11 @@ namespace Ringtoets.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Gets <see cref="DesignTablesSetting"/> based on the provided failure mechanism type and ring id.
+        /// Gets <see cref="DesignTablesSetting"/> based on the provided failure mechanism type and location id.
         /// </summary>
         /// <param name="locationId">The location id to obtain the <see cref="DesignTablesSetting"/> for.</param>
         /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="DesignTablesSetting"/> for.</param>
-        /// <returns>The <see cref="DesignTablesSetting"/> corresponding to the provided failure mechanism type and ring id.</returns>
+        /// <returns>The <see cref="DesignTablesSetting"/> corresponding to the provided failure mechanism type and location id.</returns>
         public DesignTablesSetting GetDesignTablesSetting(long locationId, HydraRingFailureMechanismType failureMechanismType)
         {
             return designTableSettingsReader.ReadDesignTableSetting(locationId, failureMechanismType) ??

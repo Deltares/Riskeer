@@ -55,7 +55,7 @@ namespace Ringtoets.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Returns <see cref="NumericsSetting"/> based on the provided combination of failure mechanism type, sub mechanism id and ring id.
+        /// Returns <see cref="NumericsSetting"/> based on the provided combination of failure mechanism type, sub mechanism id and location id.
         /// </summary>
         /// <param name="locationId">The location id to obtain the <see cref="NumericsSetting"/> for.</param>
         /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="NumericsSetting"/> for.</param>
