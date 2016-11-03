@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
@@ -32,29 +30,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
     public class PipingOutputCreateExtensionsTest
     {
         [Test]
-        public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var pipingOutput = new PipingOutput(1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
-
-            // Call
-            TestDelegate call = () => pipingOutput.Create(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("registry", paramName);
-        }
-
-        [Test]
         public void Create_AllOutputValuesSet_ReturnEntity()
         {
             // Setup
             var pipingOutput = new PipingOutput(1.1, 2.2, 3.3, 4.4, 5.5, 6.6);
 
-            var registry = new PersistenceRegistry();
-
             // Call
-            PipingCalculationOutputEntity entity = pipingOutput.Create(registry);
+            PipingCalculationOutputEntity entity = pipingOutput.Create();
 
             // Assert
             Assert.AreEqual(pipingOutput.HeaveFactorOfSafety, entity.HeaveFactorOfSafety);
@@ -75,10 +57,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             var pipingOutput = new PipingOutput(double.NaN, double.NaN, double.NaN,
                                                 double.NaN, double.NaN, double.NaN);
 
-            var registry = new PersistenceRegistry();
-
             // Call
-            PipingCalculationOutputEntity entity = pipingOutput.Create(registry);
+            PipingCalculationOutputEntity entity = pipingOutput.Create();
 
             // Assert
             Assert.IsNull(entity.HeaveFactorOfSafety);

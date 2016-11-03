@@ -151,16 +151,18 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.Views
             // Setup
             var view = ShowDesignWaterLevelLocationsView();
 
-            List<HydraulicBoundaryLocation> locations = new List<HydraulicBoundaryLocation>();
-            locations.Add(new HydraulicBoundaryLocation(1, "1", 1.0, 1.0));
-            locations.Add(new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
+            var locations = new List<HydraulicBoundaryLocation>
             {
-                WaveHeight = (RoundedDouble) 1.23
-            });
-            locations.Add(new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
-            {
-                DesignWaterLevel = (RoundedDouble) 2.45
-            });
+                new HydraulicBoundaryLocation(1, "1", 1.0, 1.0), 
+                new HydraulicBoundaryLocation(2, "2", 2.0, 2.0)
+                {
+                    WaveHeight = (RoundedDouble) 1.23
+                },
+                new HydraulicBoundaryLocation(3, "3", 3.0, 3.0)
+                {
+                    DesignWaterLevel = (RoundedDouble) 2.45
+                }
+            };
 
             // Call
             TestDelegate action = () => view.Data = locations;

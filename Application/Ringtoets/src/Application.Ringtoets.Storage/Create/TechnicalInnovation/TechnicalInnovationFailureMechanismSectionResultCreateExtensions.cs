@@ -35,15 +35,9 @@ namespace Application.Ringtoets.Storage.Create.TechnicalInnovation
         /// Creates a <see cref="TechnicalInnovationSectionResultEntity"/> based on the information of the <see cref="TechnicalInnovationFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="TechnicalInnovationSectionResultEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static TechnicalInnovationSectionResultEntity Create(this TechnicalInnovationFailureMechanismSectionResult result, PersistenceRegistry registry)
+        internal static TechnicalInnovationSectionResultEntity Create(this TechnicalInnovationFailureMechanismSectionResult result)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
             var sectionResultEntity = new TechnicalInnovationSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),

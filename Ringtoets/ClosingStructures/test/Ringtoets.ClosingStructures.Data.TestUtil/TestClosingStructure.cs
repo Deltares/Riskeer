@@ -37,7 +37,7 @@ namespace Ringtoets.ClosingStructures.Data.TestUtil
         public TestClosingStructure(ClosingStructureInflowModelType type)
             : this("test", new Point2D(12345.56789, 9876.54321), type) {}
 
-        protected TestClosingStructure(string name, Point2D location, ClosingStructureInflowModelType type)
+        private TestClosingStructure(string name, Point2D location, ClosingStructureInflowModelType type)
             : base(new ConstructionProperties
             {
                 Name = name,

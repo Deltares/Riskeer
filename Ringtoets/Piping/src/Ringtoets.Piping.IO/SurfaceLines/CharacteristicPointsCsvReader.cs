@@ -253,12 +253,10 @@ namespace Ringtoets.Piping.IO.SurfaceLines
                 return false;
             }
 
-            foreach (string column in tokenizedHeader.Where(c => c.StartsWith(xPrefix)))
+            if (tokenizedHeader.Where(c => c.StartsWith(xPrefix))
+                               .Any(c => !DetermineRequiredYZColumns(c, tokenizedHeader)))
             {
-                if (!DetermineRequiredYZColumns(column, tokenizedHeader))
-                {
-                    return false;
-                }
+                return false;
             }
 
             DetermineOrderColumn(tokenizedHeader);

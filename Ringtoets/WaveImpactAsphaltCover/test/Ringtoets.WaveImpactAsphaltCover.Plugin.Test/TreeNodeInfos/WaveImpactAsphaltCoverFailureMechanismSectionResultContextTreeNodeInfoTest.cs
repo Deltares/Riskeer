@@ -120,7 +120,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.TreeNodeInfos
             using (var treeViewControl = new TreeViewControl())
             {
                 var gui = mocks.StrictMock<IGui>();
-                gui.Expect<IGui, IContextMenuBuilder>(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
+                gui.Expect(g => g.Get(null, treeViewControl)).Return(menuBuilderMock);
                 gui.Stub(g => g.ProjectOpened += null).IgnoreArguments();
                 gui.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
 

@@ -35,17 +35,10 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// Creates a <see cref="SoilLayerEntity"/> based on the information of the <see cref="PipingSoilLayer"/>.
         /// </summary>
         /// <param name="layer">The layer to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <param name="order">Index at which this instance resides inside its parent container.</param>
         /// <returns>A new <see cref="SoilLayerEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static SoilLayerEntity Create(this PipingSoilLayer layer, PersistenceRegistry registry, int order)
+        internal static SoilLayerEntity Create(this PipingSoilLayer layer, int order)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
-
             var entity = new SoilLayerEntity
             {
                 IsAquifer = Convert.ToByte(layer.IsAquifer),

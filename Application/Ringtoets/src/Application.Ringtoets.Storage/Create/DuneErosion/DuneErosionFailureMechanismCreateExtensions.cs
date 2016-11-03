@@ -53,7 +53,7 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
         {
             foreach (var failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create(registry);
+                var sectionResultEntity = failureMechanismSectionResult.Create();
                 var section = registry.Get(failureMechanismSectionResult.Section);
                 section.DuneErosionSectionResultEntities.Add(sectionResultEntity);
             }

@@ -115,8 +115,7 @@ namespace Ringtoets.Piping.IO.Builders
             var result = new Collection<PipingSoilLayer>();
             if (OuterLoop != null)
             {
-                IEnumerable<double> outerLoopIntersectionHeights = GetLoopIntersectionHeights(outerLoop, atX);
-
+                double[] outerLoopIntersectionHeights = GetLoopIntersectionHeights(outerLoop, atX).ToArray();
                 if (outerLoopIntersectionHeights.Any())
                 {
                     IEnumerable<IEnumerable<double>> innerLoopsIntersectionHeights = InnerLoops.Select(loop => GetLoopIntersectionHeights(loop, atX));

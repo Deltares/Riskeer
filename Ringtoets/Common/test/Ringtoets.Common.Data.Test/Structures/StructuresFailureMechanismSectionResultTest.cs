@@ -76,12 +76,7 @@ namespace Ringtoets.Common.Data.Test.Structures
 
         private class TestStructuresInput : StructuresInputBase<StructureBase>
         {
-            public bool Updated { get; private set; }
-
-            protected override void UpdateStructureParameters()
-            {
-                Updated = true;
-            }
+            protected override void UpdateStructureParameters() {}
         }
     }
 }

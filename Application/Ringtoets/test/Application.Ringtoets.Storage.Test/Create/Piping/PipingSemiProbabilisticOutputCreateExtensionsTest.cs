@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using Core.Common.Base.Data;
@@ -34,32 +33,14 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
     public class PipingSemiProbabilisticOutputCreateExtensionsTest
     {
         [Test]
-        public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var output = new PipingSemiProbabilisticOutput(1.1, 2.2, 0.3, 4.4, 5.5, 0.6, 7.7,
-                                                           8.8, 0.9, 0.10, 11.11, 0.12,
-                                                           13.13, 14.14);
-
-            // Call
-            TestDelegate call = () => output.Create(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("registry", paramName);
-        }
-
-        [Test]
         public void Create_WithValidValues_ReturnEntity()
         {
             // Setup
             var output = new PipingSemiProbabilisticOutput(1.1, 2.2, 0.3, 4.4, 5.5, 0.6, 7.7,
                                                            8.8, 0.9, 0.10, 11.11, 0.12,
                                                            13.13, 14.14);
-            var registry = new PersistenceRegistry();
-
             // Call
-            PipingSemiProbabilisticOutputEntity entity = output.Create(registry);
+            PipingSemiProbabilisticOutputEntity entity = output.Create();
 
             // Assert
             AssertAreEqual(output.UpliftFactorOfSafety, entity.UpliftFactorOfSafety);
@@ -90,10 +71,8 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                                                            double.NaN, double.NaN, double.NaN,
                                                            double.NaN, double.NaN, double.NaN,
                                                            double.NaN, double.NaN);
-            var registry = new PersistenceRegistry();
-
             // Call
-            PipingSemiProbabilisticOutputEntity entity = output.Create(registry);
+            PipingSemiProbabilisticOutputEntity entity = output.Create();
 
             // Assert
             Assert.IsNull(entity.UpliftFactorOfSafety);

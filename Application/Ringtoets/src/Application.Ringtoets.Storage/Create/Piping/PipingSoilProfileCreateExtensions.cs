@@ -56,18 +56,18 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 Bottom = profile.Bottom.ToNaNAsNull()
             };
 
-            AddEntitiesForPipingSoilLayers(profile, registry, entity);
+            AddEntitiesForPipingSoilLayers(profile, entity);
 
             registry.Register(entity, profile);
             return entity;
         }
 
-        private static void AddEntitiesForPipingSoilLayers(PipingSoilProfile profile, PersistenceRegistry registry, SoilProfileEntity entity)
+        private static void AddEntitiesForPipingSoilLayers(PipingSoilProfile profile, SoilProfileEntity entity)
         {
             int index = 0;
             foreach (var pipingSoilLayer in profile.Layers)
             {
-                entity.SoilLayerEntities.Add(pipingSoilLayer.Create(registry, index++));
+                entity.SoilLayerEntities.Add(pipingSoilLayer.Create(index++));
             }
         }
     }

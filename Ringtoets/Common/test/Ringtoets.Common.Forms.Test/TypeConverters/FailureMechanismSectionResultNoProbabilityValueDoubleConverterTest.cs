@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using NUnit.Framework;
+using Rhino.Mocks;
 using Ringtoets.Common.Forms.Helpers;
 using Ringtoets.Common.Forms.TypeConverters;
 using CommonBaseResources = Core.Common.Base.Properties.Resources;
@@ -120,32 +121,42 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         public void ConvertFrom_TextDoesNotRepresentNumber_ThrowNotSupportedException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var context = mocks.Stub<ITypeDescriptorContext>();
+            mocks.ReplayAll();
+
             string text = "I'm not a number!";
 
             var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
+            TestDelegate call = () => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
 
             // Assert
             string message = Assert.Throws<NotSupportedException>(call).Message;
             Assert.AreEqual("De tekst moet een getal zijn.", message);
+            mocks.VerifyAll();
         }
 
         [Test]
         public void ConvertFrom_TextTooLongToStoreInDouble_ThrowNotSupportedException()
         {
             // Setup
+            var mocks = new MockRepository();
+            var context = mocks.Stub<ITypeDescriptorContext>();
+            mocks.ReplayAll();
+
             string text = "1" + double.MaxValue.ToString(CultureInfo.CurrentCulture);
 
             var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
 
             // Call
-            TestDelegate call = () => converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
+            TestDelegate call = () => converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
 
             // Assert
             string message = Assert.Throws<NotSupportedException>(call).Message;
             Assert.AreEqual("De tekst is een getal dat te groot of te klein is om gerepresenteerd te worden.", message);
+            mocks.VerifyAll();
         }
 
         [Test]
@@ -265,15 +276,20 @@ namespace Ringtoets.Common.Forms.Test.TypeConverters
         private static void DoConvertFrom_SomeNumericalTextInCurrentCulture_ReturnConvertedRoundedDouble(double input)
         {
             // Setup
+            var mocks = new MockRepository();
+            var context = mocks.Stub<ITypeDescriptorContext>();
+            mocks.ReplayAll();
+
             string text = input.ToString(CultureInfo.CurrentCulture);
 
             var converter = new FailureMechanismSectionResultNoProbabilityValueDoubleConverter();
 
             // Call
-            double conversionResult = (double) converter.ConvertFrom(null, CultureInfo.CurrentCulture, text);
+            double conversionResult = (double) converter.ConvertFrom(context, CultureInfo.CurrentCulture, text);
 
             // Assert
             Assert.AreEqual(input, conversionResult);
+            mocks.VerifyAll();
         }
     }
 }

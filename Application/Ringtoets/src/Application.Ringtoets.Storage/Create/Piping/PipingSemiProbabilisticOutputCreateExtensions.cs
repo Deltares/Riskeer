@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Data;
 
@@ -37,15 +36,9 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// </summary>
         /// <param name="semiProbabilisticOutput">The semi-probabilistic calculation output
         /// for piping to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="PipingSemiProbabilisticOutputEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static PipingSemiProbabilisticOutputEntity Create(this PipingSemiProbabilisticOutput semiProbabilisticOutput, PersistenceRegistry registry)
+        internal static PipingSemiProbabilisticOutputEntity Create(this PipingSemiProbabilisticOutput semiProbabilisticOutput)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
             var entity = new PipingSemiProbabilisticOutputEntity
             {
                 UpliftFactorOfSafety = semiProbabilisticOutput.UpliftFactorOfSafety.Value.ToNaNAsNull(),

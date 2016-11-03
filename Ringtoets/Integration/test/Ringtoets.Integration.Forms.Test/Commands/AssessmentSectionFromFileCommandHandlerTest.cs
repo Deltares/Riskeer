@@ -545,6 +545,13 @@ namespace Ringtoets.Integration.Forms.Test.Commands
 
         private static AssessmentSection TestAssessmentSection2_1()
         {
+            var referenceLine = new ReferenceLine();
+            referenceLine.SetGeometry(new[]
+            {
+                new Point2D(155556.9191, 464341.1281),
+                new Point2D(155521.4761, 464360.7401)
+            });
+
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dune)
             {
                 Id = "2-1",
@@ -552,16 +559,23 @@ namespace Ringtoets.Integration.Forms.Test.Commands
                 FailureMechanismContribution =
                 {
                     Norm = 300
+                },
+                ReferenceLine = referenceLine,
+                GrassCoverErosionInwards =
+                {
+                    GeneralInput =
+                    {
+                        N = 3
+                    }
+                },
+                HeightStructures =
+                {
+                    GeneralInput =
+                    {
+                        N = 3
+                    }
                 }
             };
-            assessmentSection.ReferenceLine = new ReferenceLine();
-            assessmentSection.ReferenceLine.SetGeometry(new[]
-            {
-                new Point2D(155556.9191, 464341.1281),
-                new Point2D(155521.4761, 464360.7401)
-            });
-            assessmentSection.GrassCoverErosionInwards.GeneralInput.N = 3;
-            assessmentSection.HeightStructures.GeneralInput.N = 3;
 
             return assessmentSection;
         }

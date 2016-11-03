@@ -115,8 +115,10 @@ namespace Ringtoets.Piping.Forms.Test
         {
             // Setup
             var testname = "testName";
-            var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine();
-            ringtoetsPipingSurfaceLine.Name = testname;
+            var ringtoetsPipingSurfaceLine = new RingtoetsPipingSurfaceLine
+            {
+                Name = testname
+            };
 
             // Call
             using (var viewParent = new Form())

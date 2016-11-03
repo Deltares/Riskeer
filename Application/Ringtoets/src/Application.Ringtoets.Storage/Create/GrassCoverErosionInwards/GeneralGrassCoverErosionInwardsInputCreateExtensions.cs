@@ -37,16 +37,10 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         /// </summary>
         /// <param name="input">The general calculation input for Grass Cover Erosion Inwards
         /// to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsFailureMechanismMetaEntity"/>.</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static GrassCoverErosionInwardsFailureMechanismMetaEntity Create(this GeneralGrassCoverErosionInwardsInput input, PersistenceRegistry registry)
+        internal static GrassCoverErosionInwardsFailureMechanismMetaEntity Create(this GeneralGrassCoverErosionInwardsInput input)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
-
             var entity = new GrassCoverErosionInwardsFailureMechanismMetaEntity
             {
                 N = input.N

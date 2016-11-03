@@ -200,16 +200,21 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
         public void ContextMenuStrip_HydraulicBoundaryDatabaseSet_ContextMenuItemBerekenenEnabled()
         {
             // Setup
-            var guiMock = mockRepository.StrictMock<IGui>();
             var assessmentSectionMock = mockRepository.Stub<IAssessmentSection>();
 
-            var nodeData = new DesignWaterLevelLocationsContext(assessmentSectionMock);
-            nodeData.WrappedData.HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase();
-            guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
-            guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
+            var nodeData = new DesignWaterLevelLocationsContext(assessmentSectionMock)
+            {
+                WrappedData =
+                {
+                    HydraulicBoundaryDatabase = new HydraulicBoundaryDatabase()
+                }
+            };
 
             using (var treeViewControl = new TreeViewControl())
             {
+                var guiMock = mockRepository.StrictMock<IGui>();
+                guiMock.Stub(g => g.ProjectOpened += null).IgnoreArguments();
+                guiMock.Stub(g => g.ProjectOpened -= null).IgnoreArguments();
                 guiMock.Expect(cmp => cmp.Get(nodeData, treeViewControl)).Return(new CustomItemsOnlyContextMenuBuilder());
                 mockRepository.ReplayAll();
 

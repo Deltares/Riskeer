@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
@@ -33,19 +32,6 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
     [TestFixture]
     public class GrassCoverErosionOutwardsFailureMechanismSectionResultCreateExtensionsTest
     {
-        [Test]
-        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
-        {
-            // Setup
-            var sectionResult = new GrassCoverErosionOutwardsFailureMechanismSectionResult(new TestFailureMechanismSection());
-
-            // Call
-            TestDelegate test = () => sectionResult.Create(null);
-
-            // Assert
-            Assert.Throws<ArgumentNullException>(test);
-        }
-
         [Test]
         public void Create_VariousResults_ReturnsExpectedEntity(
             [Values(true, false)] bool assessmentLayerOneResult,
@@ -62,7 +48,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             };
 
             // Call
-            var result = sectionResult.Create(new PersistenceRegistry());
+            var result = sectionResult.Create();
 
             // Assert
             Assert.AreEqual(Convert.ToByte(assessmentLayerOneResult), result.LayerOne);
@@ -80,7 +66,7 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionOutwards
             };
 
             // Call
-            var result = sectionResult.Create(new PersistenceRegistry());
+            var result = sectionResult.Create();
 
             // Assert
             Assert.IsNull(result.LayerThree);

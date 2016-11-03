@@ -47,7 +47,7 @@ namespace Ringtoets.WaveImpactAsphaltCover.Plugin.Test.ViewInfos
         {
             mocks = new MockRepository();
             plugin = new WaveImpactAsphaltCoverPlugin();
-            info = Enumerable.First<ViewInfo>(plugin.GetViewInfos(), tni => tni.ViewType == typeof(WaveImpactAsphaltCoverFailureMechanismResultView));
+            info = plugin.GetViewInfos().First(tni => tni.ViewType == typeof(WaveImpactAsphaltCoverFailureMechanismResultView));
         }
 
         [TearDown]

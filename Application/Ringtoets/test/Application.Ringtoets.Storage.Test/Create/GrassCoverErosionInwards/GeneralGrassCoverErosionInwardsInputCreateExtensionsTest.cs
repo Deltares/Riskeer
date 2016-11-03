@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
@@ -32,20 +31,6 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
     public class GeneralGrassCoverErosionInwardsInputCreateExtensionsTest
     {
         [Test]
-        public void Create_PersistenceRegistryNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var input = new GeneralGrassCoverErosionInwardsInput();
-
-            // Call
-            TestDelegate call = () => input.Create(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("registry", paramName);
-        }
-
-        [Test]
         public void Create_ValidGeneralInput_ReturnEntity()
         {
             // Setup
@@ -54,10 +39,9 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             {
                 N = n
             };
-            var registry = new PersistenceRegistry();
 
             // Call
-            GrassCoverErosionInwardsFailureMechanismMetaEntity entity = input.Create(registry);
+            GrassCoverErosionInwardsFailureMechanismMetaEntity entity = input.Create();
 
             // Assert
             Assert.AreEqual(n, entity.N);

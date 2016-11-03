@@ -62,14 +62,14 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 PointsXml = new Point3DXmlSerializer().ToXml(surfaceLine.Points),
                 Order = order
             };
-            CreateCharacteristicPointEntities(surfaceLine, registry, entity);
+            CreateCharacteristicPointEntities(surfaceLine, entity);
 
             registry.Register(entity, surfaceLine);
 
             return entity;
         }
 
-        private static void CreateCharacteristicPointEntities(RingtoetsPipingSurfaceLine surfaceLine, PersistenceRegistry registry, SurfaceLineEntity entity)
+        private static void CreateCharacteristicPointEntities(RingtoetsPipingSurfaceLine surfaceLine, SurfaceLineEntity entity)
         {
             var characteristicPointAssociations = new[]
             {
@@ -83,13 +83,12 @@ namespace Application.Ringtoets.Storage.Create.Piping
             foreach (Tuple<Point3D, CharacteristicPointType> characteristicPointToSave in characteristicPointAssociations.Where(t => t.Item1 != null))
             {
                 var characteristicPointEntity = CreateCharacteristicPointEntity(characteristicPointToSave.Item1,
-                                                                                characteristicPointToSave.Item2,
-                                                                                registry);
+                                                                                characteristicPointToSave.Item2);
                 entity.CharacteristicPointEntities.Add(characteristicPointEntity);
             }
         }
 
-        private static CharacteristicPointEntity CreateCharacteristicPointEntity(Point3D point, CharacteristicPointType type, PersistenceRegistry registry)
+        private static CharacteristicPointEntity CreateCharacteristicPointEntity(Point3D point, CharacteristicPointType type)
         {
             var entity = new CharacteristicPointEntity
             {

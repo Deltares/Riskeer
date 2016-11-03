@@ -21,7 +21,6 @@
 
 using System;
 using System.Drawing;
-using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
@@ -32,20 +31,6 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
     [TestFixture]
     public class PipingSoilLayerCreateExtensionsTest
     {
-        [Test]
-        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
-        {
-            // Setup
-            var soilLayer = new PipingSoilLayer(new Random(21).NextDouble());
-
-            // Call
-            TestDelegate test = () => soilLayer.Create(null, 0);
-
-            // Assert
-            var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("registry", parameterName);
-        }
-
         [Test]
         [TestCase(true)]
         [TestCase(false)]
@@ -68,10 +53,9 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
                 PermeabilityMean = random.NextDouble(),
                 PermeabilityDeviation = random.NextDouble()
             };
-            var registry = new PersistenceRegistry();
 
             // Call
-            var entity = soilLayer.Create(registry, order);
+            var entity = soilLayer.Create(order);
 
             // Assert
             Assert.IsNotNull(entity);
@@ -97,10 +81,9 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
             {
                 MaterialName = materialName
             };
-            var registry = new PersistenceRegistry();
 
             // Call
-            SoilLayerEntity entity = soilLayer.Create(registry, 0);
+            SoilLayerEntity entity = soilLayer.Create(0);
 
             // Assert
             Assert.AreNotSame(materialName, entity.MaterialName,

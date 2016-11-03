@@ -35,15 +35,9 @@ namespace Application.Ringtoets.Storage.Create.MacrostabilityInwards
         /// Creates a <see cref="MacrostabilityInwardsSectionResultEntity"/> based on the information of the <see cref="MacrostabilityInwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="MacrostabilityInwardsSectionResultEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static MacrostabilityInwardsSectionResultEntity Create(this MacrostabilityInwardsFailureMechanismSectionResult result, PersistenceRegistry registry)
+        internal static MacrostabilityInwardsSectionResultEntity Create(this MacrostabilityInwardsFailureMechanismSectionResult result)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
             var sectionResultEntity = new MacrostabilityInwardsSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),

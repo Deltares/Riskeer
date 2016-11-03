@@ -434,6 +434,16 @@ namespace Core.Common.Utils.Test.Reflection
             Assert.IsTrue(hasTypeConverter);
         }
 
+        [Test]
+        public void HasTypeConverter_TypeConverterAttributeInherited_ReturnTrue()
+        {
+            // Call
+            bool hasTypeConverter = TypeUtils.HasTypeConverter<DerivedTestClass, DoubleConverter>(c => c.PropertyWithTypeConverter);
+
+            // Assert
+            Assert.IsTrue(hasTypeConverter);
+        }
+
         private class TestClass
         {
             /// <summary>
@@ -456,7 +466,7 @@ namespace Core.Common.Utils.Test.Reflection
             public double PublicPropertyPrivateSetter { get; private set; }
 
             [TypeConverter(typeof(DoubleConverter))]
-            public double PropertyWithTypeConverter { get; private set; }
+            public virtual double PropertyWithTypeConverter { get; private set; }
 
             public object PublicMethod()
             {
@@ -475,6 +485,14 @@ namespace Core.Common.Utils.Test.Reflection
         private class DerivedTestClass : TestClass
         {
             public DerivedTestClass(int privateInt) : base(privateInt) {}
+
+            public override double PropertyWithTypeConverter
+            {
+                get
+                {
+                    return base.PropertyWithTypeConverter;
+                }
+            }
         }
     }
 }

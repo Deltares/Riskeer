@@ -38,7 +38,7 @@ namespace Core.Common.TestUtil
         private Action<Form> formShown;
         private bool wasShown;
 
-        public WindowsFormsTestHelper()
+        private WindowsFormsTestHelper()
         {
             Application.EnableVisualStyles();
 
@@ -196,7 +196,8 @@ namespace Core.Common.TestUtil
 
                 if (formShown != null && wasShown)
                 {
-                    formShown(control is Form ? (Form) control : this);
+                    var form = control as Form;
+                    formShown(form ?? this);
                 }
             }
             finally
@@ -253,9 +254,9 @@ namespace Core.Common.TestUtil
                 };
                 nodes.Add(node);
 
-                if (item is Control)
+                var control = item as Control;
+                if (control != null )
                 {
-                    var control = ((Control) item);
                     AddAllNodes(node.Nodes, control.Controls);
 
                     // hack, try to get Data or DataSource property
@@ -284,9 +285,10 @@ namespace Core.Common.TestUtil
                     }
                 }
 
-                if (item is IEnumerable)
+                var iterator = item as IEnumerable;
+                if (iterator != null)
                 {
-                    AddAllNodes(node.Nodes, (IEnumerable) item);
+                    AddAllNodes(node.Nodes, iterator);
                 }
             }
         }

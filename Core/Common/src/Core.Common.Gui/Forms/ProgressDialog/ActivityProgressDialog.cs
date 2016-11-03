@@ -76,6 +76,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
 
                     runningActivity = activities.ElementAt(i);
 
+                    int stepNumberForProgressNotification = i + 1;
                     progressReporter.ReportProgress(() =>
                     {
                         // Update the activity description label
@@ -86,7 +87,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                         labelActivityProgressText.Visible = false;
 
                         // Update the activity counter label
-                        labelActivityCounter.Text = string.Format(Resources.ActivityProgressDialog_OnShown_Executing_step_0_of_1, i + 1, activityCount);
+                        labelActivityCounter.Text = string.Format(Resources.ActivityProgressDialog_OnShown_Executing_step_0_of_1, stepNumberForProgressNotification, activityCount);
                     });
 
                     try
@@ -114,7 +115,7 @@ namespace Core.Common.Gui.Forms.ProgressDialog
                     progressReporter.ReportProgress(() =>
                     {
                         // Update the progress bar
-                        progressBar.Value = (int) Math.Round(100.0/activityCount*(i + 1));
+                        progressBar.Value = (int) Math.Round(100.0/activityCount*stepNumberForProgressNotification);
                     });
                 }
             }, cancellationToken);

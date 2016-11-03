@@ -58,7 +58,7 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
             };
 
             SetInputParameters(entity, calculation, registry);
-            AddEntityForWaveImpactAsphaltCoverWaveConditionsOutput(calculation, registry, entity);
+            AddEntityForWaveImpactAsphaltCoverWaveConditionsOutput(calculation, entity);
 
             return entity;
         }
@@ -87,14 +87,14 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
             entity.StepSize = Convert.ToByte(calculation.InputParameters.StepSize);
         }
 
-        private static void AddEntityForWaveImpactAsphaltCoverWaveConditionsOutput(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, PersistenceRegistry registry, WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity)
+        private static void AddEntityForWaveImpactAsphaltCoverWaveConditionsOutput(WaveImpactAsphaltCoverWaveConditionsCalculation calculation, WaveImpactAsphaltCoverWaveConditionsCalculationEntity entity)
         {
             if (calculation.HasOutput)
             {
                 int i = 0;
                 foreach (var waveConditionsOutput in calculation.Output.Items)
                 {
-                    entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities.Add(waveConditionsOutput.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(i++, registry));
+                    entity.WaveImpactAsphaltCoverWaveConditionsOutputEntities.Add(waveConditionsOutput.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(i++));
                 }
             }
         }

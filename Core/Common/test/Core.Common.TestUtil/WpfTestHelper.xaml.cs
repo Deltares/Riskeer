@@ -143,9 +143,10 @@ namespace Core.Common.TestUtil
 
         private void ShowTopLevelControl(Control control, bool modal)
         {
-            if (control is Window)
+            var window1 = control as Window;
+            if (window1 != null)
             {
-                window = (Window) control;
+                window = window1;
             }
             else
             {

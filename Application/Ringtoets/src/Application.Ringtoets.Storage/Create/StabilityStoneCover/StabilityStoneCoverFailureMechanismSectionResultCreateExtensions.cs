@@ -35,15 +35,9 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
         /// Creates a <see cref="StabilityStoneCoverSectionResultEntity"/> based on the information of the <see cref="StabilityStoneCoverFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StabilityStoneCoverSectionResultEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static StabilityStoneCoverSectionResultEntity Create(this StabilityStoneCoverFailureMechanismSectionResult result, PersistenceRegistry registry)
+        internal static StabilityStoneCoverSectionResultEntity Create(this StabilityStoneCoverFailureMechanismSectionResult result)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
             var sectionResultEntity = new StabilityStoneCoverSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),

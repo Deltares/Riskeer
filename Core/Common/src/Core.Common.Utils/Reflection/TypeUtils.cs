@@ -21,7 +21,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Core.Common.Utils.Properties;
@@ -233,16 +232,14 @@ namespace Core.Common.Utils.Reflection
         /// Load Assemblies into the Reflection-Only Context on MSDN for more information.</exception>
         public static bool HasTypeConverter<TTarget, TTypeConverter>(Expression<Func<TTarget, object>> expression) where TTypeConverter : TypeConverter
         {
-            var typeConverterAttributes = typeof(TTarget)
-                .GetProperty(GetMemberName(expression))
-                .GetCustomAttributes(typeof(TypeConverterAttribute), false)
-                .OfType<TypeConverterAttribute>()
-                .ToArray();
-            if (typeConverterAttributes.Length == 0)
+            var typeConverterAttribute = (TypeConverterAttribute) Attribute.GetCustomAttribute(typeof(TTarget).GetProperty(GetMemberName(expression)),
+                                                                                               typeof(TypeConverterAttribute),
+                                                                                               true);
+            if (typeConverterAttribute == null)
             {
                 return false;
             }
-            return typeConverterAttributes[0].ConverterTypeName == typeof(TTypeConverter).AssemblyQualifiedName;
+            return typeConverterAttribute.ConverterTypeName == typeof(TTypeConverter).AssemblyQualifiedName;
         }
 
         private static string GetMemberName(Expression originalExpression, Expression expressionBody)

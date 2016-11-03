@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Data;
 
@@ -36,15 +35,9 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// </summary>
         /// <param name="output">The calculation output for piping failure mechanism to 
         /// create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="PipingCalculationOutputEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static PipingCalculationOutputEntity Create(this PipingOutput output, PersistenceRegistry registry)
+        internal static PipingCalculationOutputEntity Create(this PipingOutput output)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
             var entity = new PipingCalculationOutputEntity
             {
                 HeaveFactorOfSafety = output.HeaveFactorOfSafety.ToNaNAsNull(),

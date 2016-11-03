@@ -56,8 +56,8 @@ namespace Application.Ringtoets.Storage.Create.Piping
                 Order = order
             };
             SetInputParametersToEntity(entity, calculation.InputParameters, registry);
-            AddEntityForPipingOutput(entity, calculation.Output, registry);
-            AddEntityForPipingSemiProbabilisticOutput(entity, calculation.SemiProbabilisticOutput, registry);
+            AddEntityForPipingOutput(entity, calculation.Output);
+            AddEntityForPipingSemiProbabilisticOutput(entity, calculation.SemiProbabilisticOutput);
 
             return entity;
         }
@@ -89,19 +89,19 @@ namespace Application.Ringtoets.Storage.Create.Piping
             entity.DampingFactorExitStandardDeviation = inputParameters.DampingFactorExit.StandardDeviation.Value.ToNaNAsNull();
         }
 
-        private static void AddEntityForPipingOutput(PipingCalculationEntity entity, PipingOutput output, PersistenceRegistry registry)
+        private static void AddEntityForPipingOutput(PipingCalculationEntity entity, PipingOutput output)
         {
             if (output != null)
             {
-                entity.PipingCalculationOutputEntities.Add(output.Create(registry));
+                entity.PipingCalculationOutputEntities.Add(output.Create());
             }
         }
 
-        private static void AddEntityForPipingSemiProbabilisticOutput(PipingCalculationEntity entity, PipingSemiProbabilisticOutput output, PersistenceRegistry registry)
+        private static void AddEntityForPipingSemiProbabilisticOutput(PipingCalculationEntity entity, PipingSemiProbabilisticOutput output)
         {
             if (output != null)
             {
-                entity.PipingSemiProbabilisticOutputEntities.Add(output.Create(registry));
+                entity.PipingSemiProbabilisticOutputEntities.Add(output.Create());
             }
         }
     }

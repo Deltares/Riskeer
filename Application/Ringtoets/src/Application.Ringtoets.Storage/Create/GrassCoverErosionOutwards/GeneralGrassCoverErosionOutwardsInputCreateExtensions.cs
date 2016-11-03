@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 
@@ -34,16 +33,9 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
         /// Creates a <see cref="FailureMechanismEntity"/> based on the information of the <see cref="GrassCoverErosionOutwardsFailureMechanism"/>.
         /// </summary>
         /// <param name="generalInput">The general failure mechanism input to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="FailureMechanismEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static GrassCoverErosionOutwardsFailureMechanismMetaEntity Create(this GeneralGrassCoverErosionOutwardsInput generalInput, PersistenceRegistry registry)
+        internal static GrassCoverErosionOutwardsFailureMechanismMetaEntity Create(this GeneralGrassCoverErosionOutwardsInput generalInput)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
-
             var entity = new GrassCoverErosionOutwardsFailureMechanismMetaEntity
             {
                 N = generalInput.N

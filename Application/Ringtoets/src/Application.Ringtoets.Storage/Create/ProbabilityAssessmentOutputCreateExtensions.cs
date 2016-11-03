@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Common.Data.Probability;
 
@@ -36,17 +35,10 @@ namespace Application.Ringtoets.Storage.Create
         /// the information of the <see cref="ProbabilityAssessmentOutput"/>.
         /// </summary>
         /// <param name="output">The calculation output to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="IProbabilityAssessmentOutputEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static T Create<T>(this ProbabilityAssessmentOutput output, PersistenceRegistry registry)
+        internal static T Create<T>(this ProbabilityAssessmentOutput output)
             where T : IProbabilityAssessmentOutputEntity, new()
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
-
             return new T
             {
                 RequiredProbability = output.RequiredProbability.ToNaNAsNull(),

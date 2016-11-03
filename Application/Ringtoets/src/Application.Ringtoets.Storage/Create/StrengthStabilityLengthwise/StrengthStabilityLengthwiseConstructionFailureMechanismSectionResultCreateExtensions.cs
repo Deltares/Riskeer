@@ -35,15 +35,9 @@ namespace Application.Ringtoets.Storage.Create.StrengthStabilityLengthwise
         /// Creates a <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/> based on the information of the <see cref="StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="StrengthStabilityLengthwiseConstructionSectionResultEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static StrengthStabilityLengthwiseConstructionSectionResultEntity Create(this StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult result, PersistenceRegistry registry)
+        internal static StrengthStabilityLengthwiseConstructionSectionResultEntity Create(this StrengthStabilityLengthwiseConstructionFailureMechanismSectionResult result)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
             var sectionResultEntity = new StrengthStabilityLengthwiseConstructionSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),

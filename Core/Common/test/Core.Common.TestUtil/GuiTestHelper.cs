@@ -58,12 +58,7 @@ namespace Core.Common.TestUtil
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new GuiTestHelper();
-                }
-
-                return instance;
+                return instance ?? (instance = new GuiTestHelper());
             }
         }
 

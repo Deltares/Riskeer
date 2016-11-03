@@ -106,15 +106,9 @@ namespace Ringtoets.Piping.Forms
 
             Segment2D[] surfaceLineSegments = Math2D.ConvertLinePointsToLineSegments(surfaceLine.Points.Select(p => new Point2D(p.X, p.Y))).ToArray();
 
-            var soilModelObjectsForCalculation = new List<StochasticSoilModel>();
-            foreach (StochasticSoilModel stochasticSoilModel in availableSoilModels.Where(sm => sm.StochasticSoilProfiles.Any()))
-            {
-                if (DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(stochasticSoilModel, surfaceLineSegments))
-                {
-                    soilModelObjectsForCalculation.Add(stochasticSoilModel);
-                }
-            }
-            return soilModelObjectsForCalculation;
+            return availableSoilModels.Where(stochasticSoilModel => stochasticSoilModel.StochasticSoilProfiles.Any() &&
+                                                                    DoesSoilModelGeometryIntersectWithSurfaceLineGeometry(stochasticSoilModel, surfaceLineSegments))
+                                      .ToList();
         }
 
         private static CalculationGroup CreateCalculationGroup(RingtoetsPipingSurfaceLine surfaceLine, IEnumerable<StochasticSoilModel> soilModels, GeneralPipingInput generalInput)

@@ -35,15 +35,9 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
         /// Creates a <see cref="WaveImpactAsphaltCoverSectionResultEntity"/> based on the information of the <see cref="WaveImpactAsphaltCoverFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="WaveImpactAsphaltCoverSectionResultEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static WaveImpactAsphaltCoverSectionResultEntity Create(this WaveImpactAsphaltCoverFailureMechanismSectionResult result, PersistenceRegistry registry)
+        internal static WaveImpactAsphaltCoverSectionResultEntity Create(this WaveImpactAsphaltCoverFailureMechanismSectionResult result)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
             var sectionResultEntity = new WaveImpactAsphaltCoverSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),

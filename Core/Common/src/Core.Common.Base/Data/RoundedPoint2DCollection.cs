@@ -51,6 +51,10 @@ namespace Core.Common.Base.Data
             {
                 throw new ArgumentNullException("originalPoints");
             }
+            if (numberOfDecimalPlaces < 0 || numberOfDecimalPlaces > RoundedDouble.MaximumNumberOfDecimalPlaces)
+            {
+                throw new ArgumentOutOfRangeException("numberOfDecimalPlaces", "Value must be in range [0, 15].");
+            }
 
             points = originalPoints.Select(p =>
                                            new Point2D(

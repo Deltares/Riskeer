@@ -73,7 +73,7 @@ namespace Core.Common.Base.Test.Data
         public void ParameteredConstructor_InvalidNumberOfPlaces_ThrowArgumentOutOfRangeException(int invalidNumberOfPlaces)
         {
             // Call
-            TestDelegate call = () => new RoundedPoint2DCollection(invalidNumberOfPlaces, CreatePointData()).ToList();
+            TestDelegate call = () => new RoundedPoint2DCollection(invalidNumberOfPlaces, CreatePointData());
 
             // Assert
             const string expectedMessage = "Value must be in range [0, 15].";

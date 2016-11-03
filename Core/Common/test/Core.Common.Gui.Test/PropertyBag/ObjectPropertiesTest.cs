@@ -19,6 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
+using System;
 using System.ComponentModel;
 using System.Reflection;
 using Core.Common.Gui.PropertyBag;
@@ -66,10 +67,12 @@ namespace Core.Common.Gui.Test.PropertyBag
             PropertyInfo propertyInfo = properties.GetType().GetProperty(dataPropertyName);
 
             // Call
-            object[] attributes = propertyInfo.GetCustomAttributes(typeof(BrowsableAttribute), true);
+            var browsableAttribute = (BrowsableAttribute) Attribute.GetCustomAttribute(propertyInfo,
+                                                                                       typeof(BrowsableAttribute),
+                                                                                       true);
 
             // Assert
-            CollectionAssert.Contains(attributes, BrowsableAttribute.No);
+            Assert.AreEqual(BrowsableAttribute.No, browsableAttribute);
         }
     }
 }

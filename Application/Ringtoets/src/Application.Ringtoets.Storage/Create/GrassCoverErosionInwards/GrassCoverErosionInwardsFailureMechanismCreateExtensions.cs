@@ -42,7 +42,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         internal static FailureMechanismEntity Create(this GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry registry)
         {
             var entity = mechanism.Create(FailureMechanismType.GrassRevetmentTopErosionAndInwards, registry);
-            AddEntitiesForGeneralInput(mechanism, registry, entity);
+            AddEntitiesForGeneralInput(mechanism, entity);
             AddEntitiesForDikeProfiles(mechanism, registry, entity);
             entity.CalculationGroupEntity = mechanism.CalculationsGroup.Create(registry, 0);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
@@ -50,9 +50,9 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
             return entity;
         }
 
-        private static void AddEntitiesForGeneralInput(GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)
+        private static void AddEntitiesForGeneralInput(GrassCoverErosionInwardsFailureMechanism mechanism, FailureMechanismEntity entity)
         {
-            entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(mechanism.GeneralInput.Create(registry));
+            entity.GrassCoverErosionInwardsFailureMechanismMetaEntities.Add(mechanism.GeneralInput.Create());
         }
 
         private static void AddEntitiesForDikeProfiles(GrassCoverErosionInwardsFailureMechanism mechanism, PersistenceRegistry registry, FailureMechanismEntity entity)

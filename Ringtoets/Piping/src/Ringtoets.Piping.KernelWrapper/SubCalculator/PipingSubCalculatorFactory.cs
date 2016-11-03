@@ -37,11 +37,7 @@ namespace Ringtoets.Piping.KernelWrapper.SubCalculator
         {
             get
             {
-                if (instance == null)
-                {
-                    instance = new PipingSubCalculatorFactory();
-                }
-                return instance;
+                return instance ?? (instance = new PipingSubCalculatorFactory());
             }
             set
             {

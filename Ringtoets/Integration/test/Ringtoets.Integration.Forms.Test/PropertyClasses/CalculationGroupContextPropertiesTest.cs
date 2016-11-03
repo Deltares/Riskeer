@@ -19,7 +19,7 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.Linq;
+using System;
 using System.Reflection;
 using Core.Common.Base;
 using Core.Common.Gui.Attributes;
@@ -116,10 +116,12 @@ namespace Ringtoets.Integration.Forms.Test.PropertyClasses
             PropertyInfo nameProperty = properties.GetType().GetProperty(propertyName);
 
             // Call
-            object[] namePropertyAttributes = nameProperty.GetCustomAttributes(false);
+            var dynamicReadOnlyAttribute = Attribute.GetCustomAttribute(nameProperty,
+                                                                        typeof(DynamicReadOnlyAttribute),
+                                                                        true);
 
             // Assert
-            Assert.AreEqual(1, namePropertyAttributes.OfType<DynamicReadOnlyAttribute>().Count());
+            Assert.IsNotNull(dynamicReadOnlyAttribute);
             Assert.AreEqual(!nameIsEditable, DynamicReadOnlyAttribute.IsReadOnly(properties, propertyName));
             mocks.VerifyAll();
         }

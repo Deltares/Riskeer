@@ -35,15 +35,9 @@ namespace Application.Ringtoets.Storage.Create.WaterPressureAsphaltCover
         /// Creates a <see cref="WaterPressureAsphaltCoverSectionResultEntity"/> based on the information of the <see cref="WaterPressureAsphaltCoverFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="WaterPressureAsphaltCoverSectionResultEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static WaterPressureAsphaltCoverSectionResultEntity Create(this WaterPressureAsphaltCoverFailureMechanismSectionResult result, PersistenceRegistry registry)
+        internal static WaterPressureAsphaltCoverSectionResultEntity Create(this WaterPressureAsphaltCoverFailureMechanismSectionResult result)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
             var sectionResultEntity = new WaterPressureAsphaltCoverSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),

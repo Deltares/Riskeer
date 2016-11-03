@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
@@ -32,30 +31,14 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
     public class WaveImpactAsphaltCoverWaveConditionsOutputCreateExtensionsTest
     {
         [Test]
-        public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var output = new WaveConditionsOutput(1.1, 2.2, 3.3, 4.4);
-
-            // Call
-            TestDelegate call = () => output.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(0, null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("registry", paramName);
-        }
-
-        [Test]
         public void Create_AllOutputValuesSet_ReturnEntity()
         {
             // Setup
             var output = new WaveConditionsOutput(1.1, 2.2, 3.3, 4.4);
             var order = 22;
 
-            var registry = new PersistenceRegistry();
-
             // Call
-            WaveImpactAsphaltCoverWaveConditionsOutputEntity entity = output.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(order, registry);
+            WaveImpactAsphaltCoverWaveConditionsOutputEntity entity = output.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(order);
 
             // Assert
             Assert.AreEqual(order, entity.Order);
@@ -73,10 +56,8 @@ namespace Application.Ringtoets.Storage.Test.Create.WaveImpactAsphaltCover
             // Setup
             var output = new WaveConditionsOutput(double.NaN, double.NaN, double.NaN, double.NaN);
 
-            var registry = new PersistenceRegistry();
-
             // Call
-            WaveImpactAsphaltCoverWaveConditionsOutputEntity entity = output.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(22, registry);
+            WaveImpactAsphaltCoverWaveConditionsOutputEntity entity = output.CreateWaveImpactAsphaltCoverWaveConditionsOutputEntity(22);
 
             // Assert
             Assert.IsNull(entity.WaterLevel);

@@ -19,8 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
-using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.Piping;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
@@ -32,28 +30,13 @@ namespace Application.Ringtoets.Storage.Test.Create.Piping
     public class PipingProbabilityAssessmentInputCreateExtensionsTest
     {
         [Test]
-        public void Create_WithoutPersistenceRegistry_ThrowsArgumentNullException()
-        {
-            // Setup
-            var failureMechanism = new PipingFailureMechanism();
-
-            // Call
-            TestDelegate test = () => failureMechanism.PipingProbabilityAssessmentInput.Create(null);
-
-            // Assert
-            var parameterName = Assert.Throws<ArgumentNullException>(test).ParamName;
-            Assert.AreEqual("registry", parameterName);
-        }
-
-        [Test]
         public void Create_WithCollector_ReturnsPipingFailureMechanismMetaEntityWithPropertiesSet()
         {
             // Setup
             var failureMechanism = new PipingFailureMechanism();
-            var registry = new PersistenceRegistry();
 
             // Call
-            PipingFailureMechanismMetaEntity entity = failureMechanism.PipingProbabilityAssessmentInput.Create(registry);
+            PipingFailureMechanismMetaEntity entity = failureMechanism.PipingProbabilityAssessmentInput.Create();
 
             // Assert
             Assert.IsNotNull(entity);

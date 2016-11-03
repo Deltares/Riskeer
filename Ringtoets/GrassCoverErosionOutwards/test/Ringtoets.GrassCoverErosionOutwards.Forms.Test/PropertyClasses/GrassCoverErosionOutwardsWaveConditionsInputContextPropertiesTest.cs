@@ -210,9 +210,8 @@ namespace Ringtoets.GrassCoverErosionOutwards.Forms.Test.PropertyClasses
             var inputContext = new GrassCoverErosionOutwardsWaveConditionsInputContext(input, failureMechanism);
 
             var newForeshoreProfile = new ForeshoreProfile(
-                new Point2D(
-                    (RoundedDouble) random.NextDouble(),
-                    (RoundedDouble) random.NextDouble()),
+                new Point2D((RoundedDouble) random.NextDouble(),
+                            (RoundedDouble) random.NextDouble()),
                 Enumerable.Empty<Point2D>(),
                 new BreakWater(BreakWaterType.Dam, (RoundedDouble) random.NextDouble()),
                 new ForeshoreProfile.ConstructionProperties());

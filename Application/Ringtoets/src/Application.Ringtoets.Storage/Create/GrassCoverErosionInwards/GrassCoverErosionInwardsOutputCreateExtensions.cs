@@ -37,16 +37,9 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
         /// </summary>
         /// <param name="output">The grass cover erosion inwards calculation output to create
         /// a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="GrassCoverErosionInwardsOutputEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static GrassCoverErosionInwardsOutputEntity Create(this GrassCoverErosionInwardsOutput output, PersistenceRegistry registry)
+        internal static GrassCoverErosionInwardsOutputEntity Create(this GrassCoverErosionInwardsOutput output)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
-
             var entity = new GrassCoverErosionInwardsOutputEntity
             {
                 DikeHeight = output.DikeHeight.Value.ToNaNAsNull(),

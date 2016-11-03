@@ -35,15 +35,9 @@ namespace Application.Ringtoets.Storage.Create.PipingStructure
         /// Creates a <see cref="PipingStructureSectionResultEntity"/> based on the information of the <see cref="PipingStructureFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="PipingStructureSectionResultEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static PipingStructureSectionResultEntity Create(this PipingStructureFailureMechanismSectionResult result, PersistenceRegistry registry)
+        internal static PipingStructureSectionResultEntity Create(this PipingStructureFailureMechanismSectionResult result)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
             var sectionResultEntity = new PipingStructureSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),

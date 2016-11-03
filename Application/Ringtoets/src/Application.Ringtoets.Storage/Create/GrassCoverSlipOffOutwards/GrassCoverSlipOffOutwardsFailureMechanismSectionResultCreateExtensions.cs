@@ -35,15 +35,9 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverSlipOffOutwards
         /// Creates a <see cref="GrassCoverSlipOffOutwardsSectionResultEntity"/> based on the information of the <see cref="GrassCoverSlipOffOutwardsFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="GrassCoverSlipOffOutwardsSectionResultEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static GrassCoverSlipOffOutwardsSectionResultEntity Create(this GrassCoverSlipOffOutwardsFailureMechanismSectionResult result, PersistenceRegistry registry)
+        internal static GrassCoverSlipOffOutwardsSectionResultEntity Create(this GrassCoverSlipOffOutwardsFailureMechanismSectionResult result)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
             var sectionResultEntity = new GrassCoverSlipOffOutwardsSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),

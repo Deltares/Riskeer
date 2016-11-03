@@ -497,7 +497,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     }
@@ -555,7 +555,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     }
@@ -644,7 +644,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     }
@@ -824,7 +824,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     }
@@ -907,7 +907,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     }
@@ -997,7 +997,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     }
@@ -1035,7 +1035,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     }
@@ -1059,7 +1059,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     }
@@ -1090,7 +1090,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     }
@@ -1121,7 +1121,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     }
@@ -1153,7 +1153,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     },
@@ -1188,7 +1188,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     },
@@ -1223,7 +1223,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     },
@@ -1257,7 +1257,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     },
@@ -1302,7 +1302,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     },
@@ -1345,7 +1345,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(object),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         string.Empty
                     },
@@ -1576,7 +1576,7 @@ namespace Core.Common.Controls.TreeView.Test
                 var treeNodeInfo = new TreeNodeInfo
                 {
                     TagType = typeof(IObservable),
-                    Text = o => testString
+                    Text = o => testString // Note: Access to modified closure intended!
                 };
                 treeViewControl.RegisterTreeNodeInfo(treeNodeInfo);
                 treeViewControl.Data = observable;

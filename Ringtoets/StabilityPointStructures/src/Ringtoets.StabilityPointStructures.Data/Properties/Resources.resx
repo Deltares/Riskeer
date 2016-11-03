@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LoadSchematizationType_Linear_DisplayName" xml:space="preserve">
-    <value>Linear</value>
+    <value>Lineair</value>
   </data>
   <data name="LoadSchematizationType_Quadratic_DisplayName" xml:space="preserve">
     <value>Kwadratisch</value>

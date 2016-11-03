@@ -42,11 +42,7 @@ namespace Core.Common.TestUtil
         {
             get
             {
-                if (solutionRoot == null)
-                {
-                    solutionRoot = GetSolutionRoot();
-                }
-                return solutionRoot;
+                return solutionRoot ?? (solutionRoot = GetSolutionRoot());
             }
         }
 
@@ -134,12 +130,12 @@ namespace Core.Common.TestUtil
         /// <seealso cref="AssertLogMessageIsGenerated"/>
         public static void AssertLogMessagesAreGenerated(Action action, IEnumerable<string> messages, int? expectedLogMessageCount = null)
         {
-            var renderedMessages = GetAllRenderedMessages(action);
+            Tuple<string, Level>[] renderedMessages = GetAllRenderedMessages(action).ToArray();
 
             AssertExpectedMessagesInRenderedMessages(messages, renderedMessages);
             if (expectedLogMessageCount != null)
             {
-                Assert.AreEqual((int) expectedLogMessageCount, renderedMessages.Count());
+                Assert.AreEqual((int) expectedLogMessageCount, renderedMessages.Length);
             }
         }
 
@@ -279,14 +275,14 @@ namespace Core.Common.TestUtil
         /// <param name="messages">The collection of messages that should occur in the log</param>
         /// <param name="expectedLogMessageCount">Optional: assert that log has this number of messages.</param>
         /// <seealso cref="AssertLogMessageIsGenerated"/>
-        public static void AssertLogMessagesWithLevelAreGenerated(Action action, IEnumerable<Tuple<string, LogLevelConstant>> messages, int? expectedLogMessageCount = null)
+        public static void AssertLogMessagesWithLevelAreGenerated(Action action, Tuple<string, LogLevelConstant>[] messages, int? expectedLogMessageCount = null)
         {
-            var renderedMessages = GetAllRenderedMessages(action);
+            Tuple<string, Level>[] renderedMessages = GetAllRenderedMessages(action).ToArray();
 
             AssertExpectedMessagesInRenderedMessages(messages, renderedMessages);
             if (expectedLogMessageCount != null)
             {
-                Assert.AreEqual((int) expectedLogMessageCount, renderedMessages.Count());
+                Assert.AreEqual((int) expectedLogMessageCount, renderedMessages.Length);
             }
         }
 
@@ -329,7 +325,7 @@ namespace Core.Common.TestUtil
             }
         }
 
-        private static void AssertExpectedMessagesInRenderedMessages(IEnumerable<string> messages, IEnumerable<Tuple<string, Level>> renderedMessages)
+        private static void AssertExpectedMessagesInRenderedMessages(IEnumerable<string> messages, Tuple<string, Level>[] renderedMessages)
         {
             foreach (string message in messages)
             {
@@ -342,7 +338,7 @@ namespace Core.Common.TestUtil
         /// </summary>
         /// <param name="messages">The collection of expected messages</param>
         /// <param name="renderedMessages">The collection of messages in the log</param>
-        private static void AssertExpectedMessagesInRenderedMessages(IEnumerable<Tuple<string, LogLevelConstant>> messages, IEnumerable<Tuple<string, Level>> renderedMessages)
+        private static void AssertExpectedMessagesInRenderedMessages(Tuple<string, LogLevelConstant>[] messages, Tuple<string, Level>[] renderedMessages)
         {
             var messagesWithLog4NetLevel = messages.Select(m => Tuple.Create(m.Item1, m.Item2.ToLog4NetLevel()));
             foreach (Tuple<string, Level> message in messagesWithLog4NetLevel)

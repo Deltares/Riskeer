@@ -45,7 +45,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
         {
             var entity = mechanism.Create(FailureMechanismType.GrassRevetmentErosionOutwards, registry);
             AddEntitiesForSectionResults(mechanism.SectionResults, registry);
-            AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity, registry);
+            AddEntitiesForFailureMechanismMeta(mechanism.GeneralInput, entity);
             AddEntitiesForForeshoreProfiles(mechanism.ForeshoreProfiles, entity, registry);
             AddEntitiesForHydraulicBoundaryLocations(mechanism.HydraulicBoundaryLocations, entity, registry);
             entity.CalculationGroupEntity = mechanism.WaveConditionsCalculationGroup.Create(registry, 0);
@@ -62,9 +62,9 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             }
         }
 
-        private static void AddEntitiesForFailureMechanismMeta(GeneralGrassCoverErosionOutwardsInput generalInput, FailureMechanismEntity entity, PersistenceRegistry registry)
+        private static void AddEntitiesForFailureMechanismMeta(GeneralGrassCoverErosionOutwardsInput generalInput, FailureMechanismEntity entity)
         {
-            entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Add(generalInput.Create(registry));
+            entity.GrassCoverErosionOutwardsFailureMechanismMetaEntities.Add(generalInput.Create());
         }
 
         private static void AddEntitiesForSectionResults(
@@ -73,7 +73,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
         {
             foreach (var failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create(registry);
+                var sectionResultEntity = failureMechanismSectionResult.Create();
                 var section = registry.Get(failureMechanismSectionResult.Section);
                 section.GrassCoverErosionOutwardsSectionResultEntities.Add(sectionResultEntity);
             }

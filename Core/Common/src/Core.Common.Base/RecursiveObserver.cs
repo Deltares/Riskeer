@@ -123,9 +123,10 @@ namespace Core.Common.Base
 
             foreach (var child in getChildren(container))
             {
-                if (child is TContainer)
+                var childContainer = child as TContainer;
+                if (childContainer != null)
                 {
-                    ObserveObjectsRecursively((TContainer) child);
+                    ObserveObjectsRecursively(childContainer);
                 }
                 else if (child is TObservable)
                 {

@@ -56,18 +56,18 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionInwards
                 Order = order
             };
             SetInputValues(entity, calculation.InputParameters, registry);
-            SetOutputEntity(entity, calculation, registry);
+            SetOutputEntity(entity, calculation);
 
             registry.Register(entity, calculation);
 
             return entity;
         }
 
-        private static void SetOutputEntity(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation calculation, PersistenceRegistry registry)
+        private static void SetOutputEntity(GrassCoverErosionInwardsCalculationEntity entity, GrassCoverErosionInwardsCalculation calculation)
         {
             if (calculation.HasOutput)
             {
-                entity.GrassCoverErosionInwardsOutputEntities.Add(calculation.Output.Create(registry));
+                entity.GrassCoverErosionInwardsOutputEntities.Add(calculation.Output.Create());
             }
         }
 

@@ -57,7 +57,7 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
             };
 
             SetInputParameters(entity, calculation, registry);
-            SetOutputEntities(entity, calculation, registry);
+            SetOutputEntities(entity, calculation);
 
             return entity;
         }
@@ -85,18 +85,18 @@ namespace Application.Ringtoets.Storage.Create.StabilityStoneCover
             entity.StepSize = Convert.ToByte(calculation.InputParameters.StepSize);
         }
 
-        private static void SetOutputEntities(StabilityStoneCoverWaveConditionsCalculationEntity entity, StabilityStoneCoverWaveConditionsCalculation calculation, PersistenceRegistry registry)
+        private static void SetOutputEntities(StabilityStoneCoverWaveConditionsCalculationEntity entity, StabilityStoneCoverWaveConditionsCalculation calculation)
         {
             if (calculation.HasOutput)
             {
                 int i = 0;
                 foreach (var output in calculation.Output.BlocksOutput)
                 {
-                    entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Blocks, i++, registry));
+                    entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Blocks, i++));
                 }
                 foreach (var output in calculation.Output.ColumnsOutput)
                 {
-                    entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Columns, i++, registry));
+                    entity.StabilityStoneCoverWaveConditionsOutputEntities.Add(output.CreateStabilityStoneCoverWaveConditionsOutputEntity(WaveConditionsOutputType.Columns, i++));
                 }
             }
         }

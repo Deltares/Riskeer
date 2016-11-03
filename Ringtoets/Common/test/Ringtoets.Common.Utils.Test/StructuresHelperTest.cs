@@ -149,7 +149,7 @@ namespace Ringtoets.Common.Utils.Test
 
             // Call
             FailureMechanismSection failureMechanismSection =
-                StructuresHelper.FailureMechanismSectionForCalculation<TestStructuresInput>(oneSection, calculation);
+                StructuresHelper.FailureMechanismSectionForCalculation(oneSection, calculation);
 
             // Assert
             Assert.IsNull(failureMechanismSection);
@@ -164,7 +164,7 @@ namespace Ringtoets.Common.Utils.Test
 
             // Call
             FailureMechanismSection failureMechanismSection =
-                StructuresHelper.FailureMechanismSectionForCalculation<TestStructuresInput>(emptySections, calculation);
+                StructuresHelper.FailureMechanismSectionForCalculation(emptySections, calculation);
 
             // Assert
             Assert.IsNull(failureMechanismSection);
@@ -387,12 +387,7 @@ namespace Ringtoets.Common.Utils.Test
 
         private class TestStructuresInput : StructuresInputBase<StructureBase>
         {
-            public bool Updated { get; private set; }
-
-            protected override void UpdateStructureParameters()
-            {
-                Updated = true;
-            }
+            protected override void UpdateStructureParameters() {}
         }
 
         private class TestStructuresFailureMechanismSectionResult : StructuresFailureMechanismSectionResult<TestStructuresInput>

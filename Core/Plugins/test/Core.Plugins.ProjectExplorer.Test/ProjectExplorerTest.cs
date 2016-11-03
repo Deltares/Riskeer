@@ -179,7 +179,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 new TreeNodeInfo
                 {
                     TagType = typeof(IProject),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         stringA,
                         stringB
@@ -284,7 +284,7 @@ namespace Core.Plugins.ProjectExplorer.Test
                 new TreeNodeInfo
                 {
                     TagType = typeof(IProject),
-                    ChildNodeObjects = o => new[]
+                    ChildNodeObjects = o => new object[]
                     {
                         stringA,
                         stringB

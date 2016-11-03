@@ -941,7 +941,7 @@ namespace Ringtoets.Piping.Forms.Test
                 surfaceLine2
             };
 
-            IEnumerable<ICalculationBase> result = null;
+            ICalculationBase[] result = null;
 
             // Call
             Action call = () =>
@@ -960,7 +960,7 @@ namespace Ringtoets.Piping.Forms.Test
                 LogLevelConstant.Warn);
             TestHelper.AssertLogMessageWithLevelIsGenerated(call, expectedMessage, 1);
 
-            Assert.AreEqual(1, result.Count());
+            Assert.AreEqual(1, result.Length);
             var calculationGroup1 = result.First(g => g.Name == surfaceLineName1) as CalculationGroup;
             Assert.NotNull(calculationGroup1);
 

@@ -55,7 +55,7 @@ namespace Application.Ringtoets.Storage.Create.WaveImpactAsphaltCover
         {
             foreach (var failureMechanismSectionResult in sectionResults)
             {
-                var sectionResultEntity = failureMechanismSectionResult.Create(registry);
+                var sectionResultEntity = failureMechanismSectionResult.Create();
                 var section = registry.Get(failureMechanismSectionResult.Section);
                 section.WaveImpactAsphaltCoverSectionResultEntities.Add(sectionResultEntity);
             }

@@ -53,7 +53,7 @@ namespace Ringtoets.Common.Forms.Views
         public bool ToCalculate { get; set; }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.Name"/>.
+        /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation.Name"/>.
         /// </summary>
         public string Name
         {
@@ -64,7 +64,7 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.Id"/>.
+        /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation.Id"/>.
         /// </summary>
         public long Id
         {
@@ -75,7 +75,7 @@ namespace Ringtoets.Common.Forms.Views
         }
 
         /// <summary>
-        /// Gets the <see cref="HydraulicBoundaryLocation.Location"/>.
+        /// Gets the <see cref="Ringtoets.HydraRing.Data.HydraulicBoundaryLocation.Location"/>.
         /// </summary>
         public Point2D Location
         {

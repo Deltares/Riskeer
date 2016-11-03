@@ -20,7 +20,6 @@
 // All rights reserved.
 
 using System;
-using Application.Ringtoets.Storage.Create;
 using Application.Ringtoets.Storage.Create.GrassCoverErosionInwards;
 using Application.Ringtoets.Storage.DbContext;
 using NUnit.Framework;
@@ -33,21 +32,6 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
     public class GrassCoverErosionInwardsOutputCreateExtensionsTest
     {
         [Test]
-        public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1.0, 1.0, 1.0, 1.0, 1.0);
-            var output = new GrassCoverErosionInwardsOutput(1.1, false, probabilityAssessmentOutput, 2.2);
-
-            // Call
-            TestDelegate call = () => output.Create(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("registry", paramName);
-        }
-
-        [Test]
         public void Create_ValidInput_ReturnGrassCoverErosionInwardsOutputEntity()
         {
             // Setup
@@ -57,10 +41,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
                                                                               random.NextDouble());
             var output = new GrassCoverErosionInwardsOutput(random.NextDouble(), false, probabilityAssessmentOutput, random.NextDouble());
 
-            var registry = new PersistenceRegistry();
-
             // Call
-            GrassCoverErosionInwardsOutputEntity entity = output.Create(registry);
+            GrassCoverErosionInwardsOutputEntity entity = output.Create();
 
             // Assert
             Assert.AreEqual(output.DikeHeight.Value, entity.DikeHeight);
@@ -82,10 +64,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var output = new GrassCoverErosionInwardsOutput(double.NaN, true, probabilityAssessmentOutput, double.NaN);
 
-            var registry = new PersistenceRegistry();
-
             // Call
-            GrassCoverErosionInwardsOutputEntity entity = output.Create(registry);
+            GrassCoverErosionInwardsOutputEntity entity = output.Create();
 
             // Assert
             Assert.IsNull(entity.DikeHeight);
@@ -106,10 +86,8 @@ namespace Application.Ringtoets.Storage.Test.Create.GrassCoverErosionInwards
             var probabilityAssessmentOutput = new ProbabilityAssessmentOutput(1, 1, 1, 1, 1);
             var output = new GrassCoverErosionInwardsOutput(1, true, probabilityAssessmentOutput, null);
 
-            var registry = new PersistenceRegistry();
-
             // Call
-            GrassCoverErosionInwardsOutputEntity entity = output.Create(registry);
+            GrassCoverErosionInwardsOutputEntity entity = output.Create();
 
             // Assert
             Assert.IsNull(entity.DikeHeight);

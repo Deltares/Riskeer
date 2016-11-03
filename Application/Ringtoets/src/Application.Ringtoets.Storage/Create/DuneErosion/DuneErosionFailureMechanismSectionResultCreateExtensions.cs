@@ -35,15 +35,9 @@ namespace Application.Ringtoets.Storage.Create.DuneErosion
         /// Creates a <see cref="DuneErosionSectionResultEntity"/> based on the information of the <see cref="DuneErosionFailureMechanismSectionResult"/>.
         /// </summary>
         /// <param name="result">The result to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="DuneErosionSectionResultEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static DuneErosionSectionResultEntity Create(this DuneErosionFailureMechanismSectionResult result, PersistenceRegistry registry)
+        internal static DuneErosionSectionResultEntity Create(this DuneErosionFailureMechanismSectionResult result)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
             var sectionResultEntity = new DuneErosionSectionResultEntity
             {
                 LayerOne = Convert.ToByte(result.AssessmentLayerOne),

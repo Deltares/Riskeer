@@ -31,23 +31,6 @@ namespace Application.Ringtoets.Storage.Test.Create
     public class ProbabilityAssessmentOutputCreateExtensionsTest
     {
         [Test]
-        public void Create_PersistenceRegistryIsNull_ThrowArgumentNullException()
-        {
-            // Setup
-            var random = new Random(159);
-            var output = new ProbabilityAssessmentOutput(random.NextDouble(), random.NextDouble(),
-                                                         random.NextDouble(), random.NextDouble(),
-                                                         random.NextDouble());
-
-            // Call
-            TestDelegate call = () => output.Create<TestProbabilityAssessmentOutputEntity>(null);
-
-            // Assert
-            string paramName = Assert.Throws<ArgumentNullException>(call).ParamName;
-            Assert.AreEqual("registry", paramName);
-        }
-
-        [Test]
         public void Create_ValidInput_ReturnProbabilityAssessmentOutputEntity()
         {
             // Setup
@@ -56,10 +39,8 @@ namespace Application.Ringtoets.Storage.Test.Create
                                                          random.NextDouble(), random.NextDouble(),
                                                          random.NextDouble());
 
-            var registry = new PersistenceRegistry();
-
             // Call
-            TestProbabilityAssessmentOutputEntity entity = output.Create<TestProbabilityAssessmentOutputEntity>(registry);
+            TestProbabilityAssessmentOutputEntity entity = output.Create<TestProbabilityAssessmentOutputEntity>();
 
             // Assert
             Assert.AreEqual(output.RequiredProbability, entity.RequiredProbability);
@@ -76,10 +57,8 @@ namespace Application.Ringtoets.Storage.Test.Create
             var output = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN,
                                                          double.NaN, double.NaN);
 
-            var registry = new PersistenceRegistry();
-
             // Call
-            TestProbabilityAssessmentOutputEntity entity = output.Create<TestProbabilityAssessmentOutputEntity>(registry);
+            TestProbabilityAssessmentOutputEntity entity = output.Create<TestProbabilityAssessmentOutputEntity>();
 
             // Assert
             Assert.IsNull(entity.RequiredProbability);

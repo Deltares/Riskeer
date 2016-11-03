@@ -113,7 +113,7 @@ namespace Application.Ringtoets.Storage.Create
                 Order = order
             };
             SetInputValues(entity, calculation.InputParameters, registry);
-            SetOutputEntity(calculation, entity, registry);
+            SetOutputEntity(calculation, entity);
 
             registry.Register(entity, calculation);
 
@@ -160,11 +160,11 @@ namespace Application.Ringtoets.Storage.Create
         }
 
         private static void SetOutputEntity(StructuresCalculation<ClosingStructuresInput> calculation,
-                                            ClosingStructuresCalculationEntity entity, PersistenceRegistry registry)
+                                            ClosingStructuresCalculationEntity entity)
         {
             if (calculation.HasOutput)
             {
-                entity.ClosingStructuresOutputEntities.Add(calculation.Output.Create<ClosingStructuresOutputEntity>(registry));
+                entity.ClosingStructuresOutputEntities.Add(calculation.Output.Create<ClosingStructuresOutputEntity>());
             }
         }
 
@@ -197,7 +197,7 @@ namespace Application.Ringtoets.Storage.Create
                 Order = order
             };
             SetInputValues(entity, calculation.InputParameters, registry);
-            SetOutputEntity(calculation, entity, registry);
+            SetOutputEntity(calculation, entity);
 
             registry.Register(entity, calculation);
 
@@ -221,11 +221,11 @@ namespace Application.Ringtoets.Storage.Create
         }
 
         private static void SetOutputEntity(StructuresCalculation<HeightStructuresInput> calculation,
-                                            HeightStructuresCalculationEntity entity, PersistenceRegistry registry)
+                                            HeightStructuresCalculationEntity entity)
         {
             if (calculation.HasOutput)
             {
-                entity.HeightStructuresOutputEntities.Add(calculation.Output.Create<HeightStructuresOutputEntity>(registry));
+                entity.HeightStructuresOutputEntities.Add(calculation.Output.Create<HeightStructuresOutputEntity>());
             }
         }
 
@@ -258,7 +258,7 @@ namespace Application.Ringtoets.Storage.Create
                 Order = order
             };
             SetInputValues(entity, calculation.InputParameters, registry);
-            SetOutputEntity(calculation, entity, registry);
+            SetOutputEntity(calculation, entity);
 
             registry.Register(entity, calculation);
 
@@ -335,11 +335,11 @@ namespace Application.Ringtoets.Storage.Create
         }
 
         private static void SetOutputEntity(StructuresCalculation<StabilityPointStructuresInput> calculation,
-                                            StabilityPointStructuresCalculationEntity entity, PersistenceRegistry registry)
+                                            StabilityPointStructuresCalculationEntity entity)
         {
             if (calculation.HasOutput)
             {
-                entity.StabilityPointStructuresOutputEntities.Add(calculation.Output.Create<StabilityPointStructuresOutputEntity>(registry));
+                entity.StabilityPointStructuresOutputEntities.Add(calculation.Output.Create<StabilityPointStructuresOutputEntity>());
             }
         }
 

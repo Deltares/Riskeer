@@ -59,7 +59,7 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             };
 
             SetInputParameters(entity, calculation, registry);
-            SetOutputEntities(entity, calculation, registry);
+            SetOutputEntities(entity, calculation);
 
             return entity;
         }
@@ -88,14 +88,14 @@ namespace Application.Ringtoets.Storage.Create.GrassCoverErosionOutwards
             entity.StepSize = Convert.ToByte(calculation.InputParameters.StepSize);
         }
 
-        private static void SetOutputEntities(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, GrassCoverErosionOutwardsWaveConditionsCalculation calculation, PersistenceRegistry registry)
+        private static void SetOutputEntities(GrassCoverErosionOutwardsWaveConditionsCalculationEntity entity, GrassCoverErosionOutwardsWaveConditionsCalculation calculation)
         {
             if (calculation.HasOutput)
             {
                 var i = 0;
                 foreach (WaveConditionsOutput output in calculation.Output.Items)
                 {
-                    entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Add(output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(i++, registry));
+                    entity.GrassCoverErosionOutwardsWaveConditionsOutputEntities.Add(output.CreateGrassCoverErosionOutwardsWaveConditionsOutputEntity(i++));
                 }
             }
         }

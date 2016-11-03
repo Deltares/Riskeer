@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using Application.Ringtoets.Storage.DbContext;
 using Ringtoets.Piping.Data;
 
@@ -34,16 +33,9 @@ namespace Application.Ringtoets.Storage.Create.Piping
         /// Creates a <see cref="PipingFailureMechanismMetaEntity"/> based on the information of the <see cref="PipingProbabilityAssessmentInput"/>.
         /// </summary>
         /// <param name="assessmentInput">The piping probability assessment input to create a database entity for.</param>
-        /// <param name="registry">The object keeping track of create operations.</param>
         /// <returns>A new <see cref="PipingFailureMechanismMetaEntity"/>.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="registry"/> is <c>null</c>.</exception>
-        internal static PipingFailureMechanismMetaEntity Create(this PipingProbabilityAssessmentInput assessmentInput, PersistenceRegistry registry)
+        internal static PipingFailureMechanismMetaEntity Create(this PipingProbabilityAssessmentInput assessmentInput)
         {
-            if (registry == null)
-            {
-                throw new ArgumentNullException("registry");
-            }
-
             var entity = new PipingFailureMechanismMetaEntity
             {
                 A = assessmentInput.A,
