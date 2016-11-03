@@ -69,7 +69,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
         private readonly NumericsSettingsProvider numericsSettingsProvider = new NumericsSettingsProvider();
         private readonly DesignTablesSettingsProvider designTablesSettingsProvider = new DesignTablesSettingsProvider();
-        private readonly HydraulicModelsSettingsProvider hydraulicModelsSettingsProvider = new HydraulicModelsSettingsProvider();
 
         private readonly HydraRingUncertaintiesType uncertaintiesType;
 
@@ -184,23 +183,12 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
         private IList<OrderedDictionary> GetHydraulicModelsConfiguration()
         {
-            var timeIntegrationSchemeId = 1;
-
-            if (hydraRingInputsAndSettings.Count > 0)
-            {
-                HydraulicModelsSetting hydraulicModelsSetting = hydraulicModelsSettingsProvider.GetHydraulicModelsSetting(
-                    hydraRingInputsAndSettings.First().Input.FailureMechanismType,
-                    ringId);
-
-                timeIntegrationSchemeId = hydraulicModelsSetting.TimeIntegrationSchemeId;
-            }
-
             return new List<OrderedDictionary>
             {
                 new OrderedDictionary
                 {
                     {
-                        "TimeIntegrationSchemeID", timeIntegrationSchemeId
+                        "TimeIntegrationSchemeID", 1
                     },
                     {
                         "UncertaintiesID", (int) UncertaintiesType
