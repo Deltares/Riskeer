@@ -172,7 +172,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
                 calculator.EndInFailure = true;
-                calculator.LastErrorContent = "Error";
+                calculator.LastErrorContent = "An error occured";
 
                 // Call
                 Action call = () => activity.Run();

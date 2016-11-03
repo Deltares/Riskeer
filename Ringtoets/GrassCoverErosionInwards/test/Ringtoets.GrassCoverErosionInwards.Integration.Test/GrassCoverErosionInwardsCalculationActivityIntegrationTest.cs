@@ -283,7 +283,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
                 calculator.EndInFailure = true;
 
                 // Call
@@ -396,6 +396,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                calculator.EndInFailure = true;
+
                 activity.Run();
             }
 

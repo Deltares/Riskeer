@@ -168,7 +168,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
                 calculator.EndInFailure = true;
-                calculator.LastErrorContent = "Error";
+                calculator.LastErrorContent = "An error occured";
 
                 // Call
                 Action call = () => activity.Run();
