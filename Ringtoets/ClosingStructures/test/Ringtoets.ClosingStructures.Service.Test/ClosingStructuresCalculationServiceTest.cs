@@ -70,7 +70,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Name = name,
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
                 }
             };
 
@@ -410,7 +410,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation
             {
                 InputParameters =
                 {
@@ -457,7 +457,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            var calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation
             {
                 Name = name,
                 InputParameters =
@@ -508,7 +508,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation
             {
                 InputParameters =
                 {
@@ -764,7 +764,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation
             {
                 InputParameters =
                 {
@@ -810,68 +810,6 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        [TestCase(ClosingStructureInflowModelType.VerticalWall)]
-        [TestCase(ClosingStructureInflowModelType.LowSill)]
-        [TestCase(ClosingStructureInflowModelType.FloodedCulvert)]
-        public void Calculate_InvalidCalculation_LogStartAndEndAndErrorMessageAndThrowsException(ClosingStructureInflowModelType inflowModelType)
-        {
-            // Setup
-            var closingStructuresFailureMechanism = new ClosingStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(closingStructuresFailureMechanism,
-                                                                                                           mockRepository);
-            mockRepository.ReplayAll();
-
-            closingStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var calculation = new TestClosingStructuresCalculation
-            {
-                InputParameters =
-                {
-                    InflowModelType = inflowModelType
-                }
-            };
-
-            var exception = false;
-
-            // Call
-            Action call = () =>
-            {
-                try
-                {
-                    new ClosingStructuresCalculationService().Calculate(calculation,
-                                                                        assessmentSectionStub,
-                                                                        closingStructuresFailureMechanism,
-                                                                        testDataPath);
-                }
-                catch (HydraRingFileParserException)
-                {
-                    exception = true;
-                }
-            };
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(4, msgs.Length);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(string.Format("De berekening voor kunstwerk sluiten '{0}' is niet gelukt.", calculation.Name), msgs[1]);
-                StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
-            });
-            Assert.IsNull(calculation.Output);
-            Assert.IsTrue(exception);
 
             mockRepository.VerifyAll();
         }

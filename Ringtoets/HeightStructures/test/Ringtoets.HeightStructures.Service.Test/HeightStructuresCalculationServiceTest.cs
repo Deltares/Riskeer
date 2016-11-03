@@ -108,7 +108,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 Name = name,
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
                 }
             };
 
@@ -142,7 +142,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            var calculation = new TestHeightStructuresCalculation()
+            var calculation = new TestHeightStructuresCalculation
             {
                 Name = name,
                 InputParameters =
@@ -184,7 +184,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             const string parameterName = "afwijking golfrichting";
             string expectedValidationMessage = string.Format("Validatie mislukt: Er is geen concreet getal ingevoerd voor '{0}'.", parameterName);
 
-            var calculation = new TestHeightStructuresCalculation()
+            var calculation = new TestHeightStructuresCalculation
             {
                 Name = name,
                 InputParameters =
@@ -227,7 +227,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             const string name = "<very nice name>";
             string expectedValidationMessage = "Validatie mislukt: Er is geen concreet getal ingevoerd voor 'oriëntatie'.";
 
-            var calculation = new TestHeightStructuresCalculation()
+            var calculation = new TestHeightStructuresCalculation
             {
                 Name = name,
                 InputParameters =
@@ -272,14 +272,14 @@ namespace Ringtoets.HeightStructures.Service.Test
             const string name = "<very nice name>";
             string expectedValidationMessage = string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", parameterName);
 
-            var calculation = new TestHeightStructuresCalculation()
+            var calculation = new TestHeightStructuresCalculation
             {
                 Name = name,
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
                     Structure = new TestHeightStructure()
-                },
+                }
             };
 
             calculation.InputParameters.ModelFactorSuperCriticalFlow.Mean = (RoundedDouble) meanOne;
@@ -319,7 +319,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             const string name = "<very nice name>";
             string expectedValidationMessage = string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterName);
 
-            var calculation = new TestHeightStructuresCalculation()
+            var calculation = new TestHeightStructuresCalculation
             {
                 Name = name,
                 InputParameters =
@@ -368,14 +368,14 @@ namespace Ringtoets.HeightStructures.Service.Test
             const string name = "<very nice name>";
             string expectedValidationMessage = string.Format("Validatie mislukt: De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterName);
 
-            var calculation = new TestHeightStructuresCalculation()
+            var calculation = new TestHeightStructuresCalculation
             {
                 Name = name,
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
                     Structure = new TestHeightStructure()
-                },
+                }
             };
 
             calculation.InputParameters.ModelFactorSuperCriticalFlow.StandardDeviation = (RoundedDouble) deviationOne;
@@ -416,7 +416,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             const string name = "<very nice name>";
             string expectedValidationMessage = string.Format("Validatie mislukt: De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterName);
 
-            var calculation = new TestHeightStructuresCalculation()
+            var calculation = new TestHeightStructuresCalculation
             {
                 Name = name,
                 InputParameters =
@@ -464,7 +464,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            var calculation = new TestHeightStructuresCalculation()
+            var calculation = new TestHeightStructuresCalculation
             {
                 Name = name,
                 InputParameters =
@@ -506,7 +506,7 @@ namespace Ringtoets.HeightStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            var calculation = new TestHeightStructuresCalculation()
+            var calculation = new TestHeightStructuresCalculation
             {
                 Name = name,
                 InputParameters =
@@ -655,65 +655,6 @@ namespace Ringtoets.HeightStructures.Service.Test
                 });
                 Assert.IsNotNull(calculation.Output);
             }
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
-        public void Calculate_InvalidCalculation_LogStartAndEndAndErrorMessageAndThrowsException()
-        {
-            // Setup
-            var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(heightStructuresFailureMechanism, mockRepository);
-            mockRepository.ReplayAll();
-
-            heightStructuresFailureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var calculation = new StructuresCalculation<HeightStructuresInput>
-            {
-                InputParameters =
-                {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1),
-                    Structure = new TestHeightStructure()
-                }
-            };
-
-            var exception = false;
-
-            // Call
-            Action call = () =>
-            {
-                try
-                {
-                    new HeightStructuresCalculationService().Calculate(calculation,
-                                                                       assessmentSectionStub,
-                                                                       heightStructuresFailureMechanism,
-                                                                       testDataPath);
-                }
-                catch (HydraRingFileParserException)
-                {
-                    exception = true;
-                }
-            };
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(4, msgs.Length);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(string.Format("De berekening voor hoogte kunstwerk '{0}' is niet gelukt.", calculation.Name), msgs[1]);
-                StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
-            });
-            Assert.IsNull(calculation.Output);
-            Assert.IsTrue(exception);
-
             mockRepository.VerifyAll();
         }
 

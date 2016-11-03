@@ -69,7 +69,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Name = name,
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2)
                 }
             };
 
@@ -104,7 +104,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 Name = name,
                 InputParameters =
@@ -252,7 +252,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 Name = name,
                 InputParameters =
@@ -337,7 +337,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 Name = name,
                 InputParameters =
@@ -422,7 +422,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 Name = name,
                 InputParameters =
@@ -507,7 +507,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             const string name = "<very nice name>";
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 Name = name,
                 InputParameters =
@@ -677,7 +677,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
                 {
@@ -728,7 +728,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
                 {
@@ -780,7 +780,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
                 {
@@ -906,7 +906,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
                 {
@@ -1032,7 +1032,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
                 {
@@ -1285,7 +1285,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
                 {
@@ -1337,68 +1337,6 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
         }
 
         [Test]
-        [Combinatorial]
-        public void Calculate_InvalidCalculation_LogStartAndEndAndErrorMessageAndThrowsException(
-            [Values(StabilityPointStructureInflowModelType.FloodedCulvert, StabilityPointStructureInflowModelType.LowSill)] StabilityPointStructureInflowModelType inflowModelType,
-            [Values(LoadSchematizationType.Quadratic, LoadSchematizationType.Linear)] LoadSchematizationType loadSchematizationType)
-        {
-            // Setup
-            var failureMechanism = new StabilityPointStructuresFailureMechanism();
-
-            var mockRepository = new MockRepository();
-            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
-            mockRepository.ReplayAll();
-
-            failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
-            {
-                new Point2D(0, 0),
-                new Point2D(1, 1)
-            }));
-
-            var calculation = new TestStabilityPointStructuresCalculation
-            {
-                InputParameters =
-                {
-                    InflowModelType = inflowModelType,
-                    LoadSchematizationType = loadSchematizationType
-                }
-            };
-
-            var exception = false;
-
-            // Call
-            Action call = () =>
-            {
-                try
-                {
-                    new StabilityPointStructuresCalculationService().Calculate(calculation,
-                                                                               assessmentSectionStub,
-                                                                               failureMechanism,
-                                                                               testDataPath);
-                }
-                catch (HydraRingFileParserException)
-                {
-                    exception = true;
-                }
-            };
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
-            {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(4, msgs.Length);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt.", calculation.Name), msgs[1]);
-                StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
-            });
-            Assert.IsNull(calculation.Output);
-            Assert.IsTrue(exception);
-
-            mockRepository.VerifyAll();
-        }
-
-        [Test]
         public void Calculate_CancelCalculationWithValidInput_CancelsCalculatorAndHasNullOutput()
         {
             // Setup
@@ -1414,7 +1352,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
                 {
