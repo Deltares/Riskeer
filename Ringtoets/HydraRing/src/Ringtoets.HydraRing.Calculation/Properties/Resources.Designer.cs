@@ -82,19 +82,6 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;TrajectID&quot;;&quot;MechanismID&quot;;&quot;SubMechanismID&quot;;&quot;Rekenmethode&quot;;&quot;FORM_StartMethod&quot;;&quot;FORM_NrIterations&quot;;&quot;FORM_RelaxationFactor&quot;;&quot;FORM_EpsBeta&quot;;&quot;FORM_EpsHOH&quot;;&quot;FORM_EpsZFunc&quot;;&quot;Ds_StartMethod&quot;;&quot;Ds_Min&quot;;&quot;Ds_Max&quot;;&quot;Ds_VarCoefficient&quot;;&quot;NI_UMin&quot;;&quot;NI_Umax&quot;;&quot;NI_NumberSteps&quot;
-        ///&quot;205&quot;;1;1;1;4;50;0.15;0.01;0.01;0.01;2;20000;100000;0.1;-6;6;25
-        ///&quot;205&quot;;11;11;1;4;50;0.15;0.01;0.01;0.01;2;20000;100000;0.1;-6;6;25
-        ///&quot;205&quot;;11;14;1;4;50;0.15;0.01;0.01;0.01;2;20000;100000;0.1;-6;6;25
-        ///&quot;205&quot;;11;16;1;4;50;0.15;0.01;0.01;0.01;2;20000;100000;0.1; [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string NumericsSettings {
-            get {
-                return ResourceManager.GetString("NumericsSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Kan het Hydra-Ring uitvoerbestand {0} noch het logbestand {1} lezen uit de map {2}..
         /// </summary>
         internal static string Parse_Cannot_read_FileName_0_nor_FileName_1_from_FolderPath_2_ {

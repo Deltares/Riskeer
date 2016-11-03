@@ -120,10 +120,6 @@
   <data name="Parse_Cannot_read_FileName_0_nor_FileName_1_from_FolderPath_2_" xml:space="preserve">
     <value>Kan het Hydra-Ring uitvoerbestand {0} noch het logbestand {1} lezen uit de map {2}.</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="NumericsSettings" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\defaults_numerics.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="Parse_Cannot_read_last_error_Filename_0_from_FolderPath_1_" xml:space="preserve">
     <value>Kan het Hydra-Ring last_error bestand {0} niet lezen uit de map {1}.</value>
   </data>

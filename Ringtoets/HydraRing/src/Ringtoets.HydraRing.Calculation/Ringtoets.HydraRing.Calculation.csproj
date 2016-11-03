@@ -128,7 +128,6 @@
     <Compile Include="Data\Defaults\FailureMechanismDefaults.cs" />
     <Compile Include="Providers\FailureMechanismDefaultsProvider.cs" />
     <Compile Include="Data\Settings\DesignTablesSetting.cs" />
-    <Compile Include="Providers\NumericsSettingsProvider.cs" />
     <Compile Include="Data\HydraRingFailureMechanismType.cs" />
     <Compile Include="Services\HydraRingConfigurationService.cs" />
     <Compile Include="Data\Settings\NumericsSetting.cs" />
@@ -163,7 +162,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="Resources\Defaults_Numerics.csv" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
