@@ -689,7 +689,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             return orderedDictionaries;
         }
 
-        private IList<OrderedDictionary> GetAreasConfiguration()
+        private static IList<OrderedDictionary> GetAreasConfiguration()
         {
             return new List<OrderedDictionary>
             {
@@ -708,7 +708,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             };
         }
 
-        private IList<OrderedDictionary> GetProjectsConfiguration()
+        private static IList<OrderedDictionary> GetProjectsConfiguration()
         {
             return new List<OrderedDictionary>
             {

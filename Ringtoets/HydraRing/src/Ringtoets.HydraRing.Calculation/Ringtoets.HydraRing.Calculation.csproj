@@ -117,7 +117,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Providers\HydraulicModelsSettingsProvider.cs" />
     <Compile Include="Data\Input\Hydraulics\AssessmentLevelCalculationInput.cs" />
     <Compile Include="Data\Input\HydraRingCalculationInput.cs" />
     <Compile Include="IO\NumericsSettingsCsvReader.cs" />
@@ -165,7 +164,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="Resources\Defaults_HydraulicModels.csv" />
     <None Include="Resources\Defaults_Numerics.csv" />
     <None Include="Resources\DesignTables.csv" />
   </ItemGroup>
