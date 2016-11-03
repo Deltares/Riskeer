@@ -70,7 +70,7 @@
     <Compile Include="FileImporters\StructuresImporterTest.cs" />
     <Compile Include="HydraRing\HydraRingSettingsDatabaseReaderTest.cs" />
     <Compile Include="HydraRing\HydraulicDatabaseHelperTest.cs" />
-    <Compile Include="HydraRing\HydraulicModelsSettingsProviderTest.cs" />
+    <Compile Include="HydraRing\TimeIntegrationSettingsProviderTest.cs" />
     <Compile Include="HydraRing\NumericsSettingsProviderTest.cs" />
     <Compile Include="HydraulicBoundaryLocationsExporterTest.cs" />
     <Compile Include="ReferenceLines\ReferenceLineExporterTest.cs" />

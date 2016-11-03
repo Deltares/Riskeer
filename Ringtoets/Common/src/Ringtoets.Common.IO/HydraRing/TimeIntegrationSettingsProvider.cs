@@ -29,12 +29,12 @@ namespace Ringtoets.Common.IO.HydraRing
     /// <summary>
     /// Provider of <see cref="TimeIntegrationSetting"/>.
     /// </summary>
-    public class HydraulicModelsSettingsProvider : IDisposable
+    public class TimeIntegrationSettingsProvider : IDisposable
     {
         private readonly HydraRingSettingsDatabaseReader modelSettingsReader;
 
         /// <summary>
-        /// Creates a new instance of <see cref="HydraulicModelsSettingsProvider"/>.
+        /// Creates a new instance of <see cref="TimeIntegrationSettingsProvider"/>.
         /// </summary>
         /// <param name="databaseFilePath">The full path to the database file to use when reading settings.</param>
         /// <exception cref="CriticalFileReadException">Thrown when:
@@ -44,7 +44,7 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <item>Unable to open database file.</item>
         /// </list>
         /// </exception>
-        public HydraulicModelsSettingsProvider(string databaseFilePath)
+        public TimeIntegrationSettingsProvider(string databaseFilePath)
         {
             modelSettingsReader = new HydraRingSettingsDatabaseReader(databaseFilePath);
         }
@@ -55,7 +55,7 @@ namespace Ringtoets.Common.IO.HydraRing
         /// <param name="locationId">The location id to obtain the <see cref="TimeIntegrationSetting"/> for.</param>
         /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="TimeIntegrationSetting"/> for.</param>
         /// <returns>The <see cref="TimeIntegrationSetting"/> corresponding to the provided failure mechanism type and location id.</returns>
-        public TimeIntegrationSetting GetHydraulicModelsSetting(long locationId, HydraRingFailureMechanismType failureMechanismType)
+        public TimeIntegrationSetting GetTimeIntegrationSetting(long locationId, HydraRingFailureMechanismType failureMechanismType)
         {
             return modelSettingsReader.ReadTimeIntegrationSetting(locationId, failureMechanismType) ??
                    new TimeIntegrationSetting(1);

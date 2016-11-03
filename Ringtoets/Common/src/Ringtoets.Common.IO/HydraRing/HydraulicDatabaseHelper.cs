@@ -76,7 +76,7 @@ namespace Ringtoets.Common.IO.HydraRing
                 string hlcdFilePath = Path.Combine(directoryName, hlcdFileName);
                 new HydraulicLocationConfigurationSqLiteDatabaseReader(hlcdFilePath).Dispose();
                 new DesignTablesSettingsProvider(settingsDatabaseFileName).Dispose();
-                new HydraulicModelsSettingsProvider(settingsDatabaseFileName).Dispose();
+                new TimeIntegrationSettingsProvider(settingsDatabaseFileName).Dispose();
                 new NumericsSettingsProvider(settingsDatabaseFileName).Dispose();
             }
             catch (CriticalFileReadException e)

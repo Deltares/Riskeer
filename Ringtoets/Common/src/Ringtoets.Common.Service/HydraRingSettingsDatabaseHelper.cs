@@ -67,9 +67,9 @@ namespace Ringtoets.Common.Service
                     locationId, 
                     calculationInput.FailureMechanismType);
             }
-            using (var modelsSettingsProvider = new HydraulicModelsSettingsProvider(settingsDatabaseFileName))
+            using (var timeIntegrationSettingsProvider = new TimeIntegrationSettingsProvider(settingsDatabaseFileName))
             {
-                calculationInput.TimeIntegrationSetting = modelsSettingsProvider.GetHydraulicModelsSetting(
+                calculationInput.TimeIntegrationSetting = timeIntegrationSettingsProvider.GetTimeIntegrationSetting(
                     locationId, 
                     calculationInput.FailureMechanismType);
             }

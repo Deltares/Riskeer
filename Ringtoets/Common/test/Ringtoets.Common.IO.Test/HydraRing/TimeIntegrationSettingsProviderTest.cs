@@ -31,7 +31,7 @@ using Ringtoets.HydraRing.Calculation.Data.Settings;
 namespace Ringtoets.Common.IO.Test.HydraRing
 {
     [TestFixture]
-    public class HydraulicModelsSettingsProviderTest
+    public class TimeIntegrationSettingsProviderTest
     {
         private static readonly string completeDatabaseDataPath = TestHelper.GetTestDataPath(
             TestDataPath.Ringtoets.Common.IO,
@@ -74,14 +74,14 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 700134, 1)]
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, 700134, 1)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 700134, 1)]
-        public void GetHydraulicModelsSetting_KnownLocationIdAndFailureMechanismType_ReturnsExpectedTimeIntegrationSetting(
+        public void GetTimeIntegrationSetting_KnownLocationIdAndFailureMechanismType_ReturnsExpectedTimeIntegrationSetting(
             HydraRingFailureMechanismType failureMechanismType, long locationId, int expectedTimeIntegrationSchemeId)
         {
             // Setup
-            using (HydraulicModelsSettingsProvider hydraulicModelsSettingsProvider = new HydraulicModelsSettingsProvider(completeDatabaseDataPath))
+            using (TimeIntegrationSettingsProvider timeIntegrationSettingsProvider = new TimeIntegrationSettingsProvider(completeDatabaseDataPath))
             {
                 // Call
-                TimeIntegrationSetting timeIntegrationSetting = hydraulicModelsSettingsProvider.GetHydraulicModelsSetting(locationId, failureMechanismType);
+                TimeIntegrationSetting timeIntegrationSetting = timeIntegrationSettingsProvider.GetTimeIntegrationSetting(locationId, failureMechanismType);
 
                 // Assert
                 Assert.AreEqual(expectedTimeIntegrationSchemeId, timeIntegrationSetting.TimeIntegrationSchemeId);
@@ -100,14 +100,14 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 1)]
         [TestCase(HydraRingFailureMechanismType.StructuresClosure, 1)]
         [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 1)]
-        public void GetHydraulicModelsSetting_UnknownLocationId_ReturnsDefaultTimeIntegrationSetting(
+        public void GetTimeIntegrationSetting_UnknownLocationId_ReturnsDefaultTimeIntegrationSetting(
             HydraRingFailureMechanismType failureMechanismType, int expectedTimeIntegrationSchemeId)
         {
             // Setup
-            using (HydraulicModelsSettingsProvider hydraulicModelsSettingsProvider = new HydraulicModelsSettingsProvider(completeDatabaseDataPath))
+            using (TimeIntegrationSettingsProvider timeIntegrationSettingsProvider = new TimeIntegrationSettingsProvider(completeDatabaseDataPath))
             {
                 // Call
-                TimeIntegrationSetting timeIntegrationSetting = hydraulicModelsSettingsProvider.GetHydraulicModelsSetting(-1, failureMechanismType);
+                TimeIntegrationSetting timeIntegrationSetting = timeIntegrationSettingsProvider.GetTimeIntegrationSetting(-1, failureMechanismType);
 
                 // Assert
                 Assert.AreEqual(expectedTimeIntegrationSchemeId, timeIntegrationSetting.TimeIntegrationSchemeId);

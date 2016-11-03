@@ -129,7 +129,7 @@ namespace Ringtoets.Common.IO.FileImporters
             {
                 string settingsDatabaseFileName = HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(filePath);
                 new DesignTablesSettingsProvider(settingsDatabaseFileName).Dispose();
-                new HydraulicModelsSettingsProvider(settingsDatabaseFileName).Dispose();
+                new TimeIntegrationSettingsProvider(settingsDatabaseFileName).Dispose();
                 new NumericsSettingsProvider(settingsDatabaseFileName).Dispose();
             }
             catch (CriticalFileReadException)
