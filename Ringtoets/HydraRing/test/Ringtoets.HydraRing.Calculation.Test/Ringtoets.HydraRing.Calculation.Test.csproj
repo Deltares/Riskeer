@@ -113,7 +113,6 @@
     <Compile Include="IO\NumericsSettingsCsvReaderTest.cs" />
     <Compile Include="Providers\FailureMechanismDefaultsProviderTest.cs" />
     <Compile Include="Data\Defaults\FailureMechanismDefaultsTest.cs" />
-    <Compile Include="Providers\DesignTablesSettingsProviderTest.cs" />
     <Compile Include="Data\Settings\DesignTablesSettingTest.cs" />
     <Compile Include="Providers\NumericsSettingsProviderTest.cs" />
     <Compile Include="Data\Settings\NumericsSettingTest.cs" />

@@ -68,7 +68,6 @@ namespace Ringtoets.HydraRing.Calculation.Services
         private readonly VariableDefaultsProvider variableDefaultsProvider = new VariableDefaultsProvider();
 
         private readonly NumericsSettingsProvider numericsSettingsProvider = new NumericsSettingsProvider();
-        private readonly DesignTablesSettingsProvider designTablesSettingsProvider = new DesignTablesSettingsProvider();
 
         private readonly HydraRingUncertaintiesType uncertaintiesType;
 
@@ -244,7 +243,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
             {
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
-                DesignTablesSetting designTablesSetting = designTablesSettingsProvider.GetDesignTablesSetting(hydraRingCalculationInput.FailureMechanismType, ringId);
+                DesignTablesSetting designTablesSetting = hydraRingCalculationInput.DesignTablesSetting;
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {

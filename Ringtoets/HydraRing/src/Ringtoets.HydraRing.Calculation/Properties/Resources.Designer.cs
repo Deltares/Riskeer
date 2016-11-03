@@ -82,36 +82,6 @@ namespace Ringtoets.HydraRing.Calculation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;TrajectID&quot;;&quot;Variabele&quot;;&quot;Min&quot;;&quot;Max&quot;
-        ///&quot;1-1&quot;;&quot;Toetspeil&quot;;3.83;5.83
-        ///&quot;1-1&quot;;&quot;Hs&quot;;1.09;3.09
-        ///&quot;1-1&quot;;&quot;HBN&quot;;6.22;9.82
-        ///&quot;1-1&quot;;&quot;Q&quot;;5.00;50.00
-        ///&quot;1-2&quot;;&quot;Toetspeil&quot;;3.83;5.83
-        ///&quot;1-2&quot;;&quot;Hs&quot;;1.09;3.09
-        ///&quot;1-2&quot;;&quot;HBN&quot;;6.22;9.82
-        ///&quot;1-2&quot;;&quot;Q&quot;;5.00;20.00
-        ///&quot;2-1&quot;;&quot;Toetspeil&quot;;3.51;5.51
-        ///&quot;2-1&quot;;&quot;Hs&quot;;1.02;3.02
-        ///&quot;2-1&quot;;&quot;HBN&quot;;6.09;9.77
-        ///&quot;2-1&quot;;&quot;Q&quot;;5.00;50.00
-        ///&quot;2-2&quot;;&quot;Toetspeil&quot;;3.51;5.51
-        ///&quot;2-2&quot;;&quot;Hs&quot;;1.02;3.02
-        ///&quot;2-2&quot;;&quot;HBN&quot;;6.09;9.77
-        ///&quot;2-2&quot;;&quot;Q&quot;;5.00;20.00
-        ///&quot;3-1&quot;;&quot;Toetspeil&quot;;3.34;5.34
-        ///&quot;3-1&quot;;&quot;Hs&quot;;0.86;2.86
-        ///&quot;3-1&quot;;&quot;HBN&quot;;5.31;7.98
-        ///&quot;3-1&quot;;&quot;Q&quot;;5.00;50.00
-        ///&quot;3-2&quot;;&quot;Toetspeil [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string DesignTablesSettings {
-            get {
-                return ResourceManager.GetString("DesignTablesSettings", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &quot;TrajectID&quot;;&quot;MechanismID&quot;;&quot;SubMechanismID&quot;;&quot;Rekenmethode&quot;;&quot;FORM_StartMethod&quot;;&quot;FORM_NrIterations&quot;;&quot;FORM_RelaxationFactor&quot;;&quot;FORM_EpsBeta&quot;;&quot;FORM_EpsHOH&quot;;&quot;FORM_EpsZFunc&quot;;&quot;Ds_StartMethod&quot;;&quot;Ds_Min&quot;;&quot;Ds_Max&quot;;&quot;Ds_VarCoefficient&quot;;&quot;NI_UMin&quot;;&quot;NI_Umax&quot;;&quot;NI_NumberSteps&quot;
         ///&quot;205&quot;;1;1;1;4;50;0.15;0.01;0.01;0.01;2;20000;100000;0.1;-6;6;25
         ///&quot;205&quot;;11;11;1;4;50;0.15;0.01;0.01;0.01;2;20000;100000;0.1;-6;6;25

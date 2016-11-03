@@ -30,6 +30,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Data.Input.Overtopping;
 using Ringtoets.HydraRing.Calculation.Data.Input.Structures;
 using Ringtoets.HydraRing.Calculation.Data.Input.WaveConditions;
+using Ringtoets.HydraRing.Calculation.Data.Settings;
 using Ringtoets.HydraRing.Calculation.Services;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Integration
@@ -45,7 +46,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
 
-            hydraRingConfigurationService.AddHydraRingCalculationInput(new AssessmentLevelCalculationInput(1, 700004, 10000));
+            hydraRingConfigurationService.AddHydraRingCalculationInput(new AssessmentLevelCalculationInput(1, 700004, 10000)
+            {
+                DesignTablesSetting = new DesignTablesSetting(1.1, 2.2)
+            });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -54,7 +58,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 0, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                            "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 9, 26, 0, 0, 0, 0, 2.18, 4.18, 3.71901648545568);" + Environment.NewLine +
+                                            "INSERT INTO [DesignTables] VALUES (1, 1, 1, 1, 9, 26, 0, 0, 0, 0, 1.1, 2.2, 3.71901648545568);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 1, 1, 1, 1, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -117,7 +121,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
             // Setup
             var hydraRingConfigurationService = new HydraRingConfigurationService("34-1", HydraRingUncertaintiesType.All);
 
-            hydraRingConfigurationService.AddHydraRingCalculationInput(new WaveHeightCalculationInput(1, 700004, 10000));
+            hydraRingConfigurationService.AddHydraRingCalculationInput(new WaveHeightCalculationInput(1, 700004, 10000)
+            {
+                DesignTablesSetting = new DesignTablesSetting(1.1, 2.2)
+            });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -126,7 +133,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 0, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                            "INSERT INTO [DesignTables] VALUES (1, 11, 1, 1, 9, 28, 0, 0, 0, 0, 0.11, 2.11, 3.71901648545568);" + Environment.NewLine +
+                                            "INSERT INTO [DesignTables] VALUES (1, 11, 1, 1, 9, 28, 0, 0, 0, 0, 1.1, 2.2, 3.71901648545568);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 11, 1, 1, 11, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -225,7 +232,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                     modelFactorOvertopping,
                     criticalOvertoppingMean, criticalOvertoppingStandardDeviation,
                     modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
-                    exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation));
+                    exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation)
+                {
+                    DesignTablesSetting = new DesignTablesSetting(17.17, 18.18)
+                });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -234,7 +244,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                            "INSERT INTO [DesignTables] VALUES (1, 101, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0);" + Environment.NewLine +
+                                            "INSERT INTO [DesignTables] VALUES (1, 101, 1, 1, 1, 1, 0, 0, 0, 0, 17.17, 18.18, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 101, 1, 1, 102, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -346,7 +356,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                modelFactorOvertopping,
                                                criticalOvertoppingMean, criticalOvertoppingStandardDeviation,
                                                modelFactorFrunupMean, modelFactorFrunupStandardDeviation,
-                                               exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation));
+                                               exponentModelFactorShallowMean, exponentModelFactorShallowStandardDeviation)
+                {
+                    DesignTablesSetting = new DesignTablesSetting(16.16, 17.17)
+                });
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                          "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -355,7 +368,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                          "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 3.3, 2.2);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                         "INSERT INTO [DesignTables] VALUES (1, 101, 1, 1, 9, 1, 0, 0, 0, 0, 3.48, 5.48, 3.09023230616781);" + Environment.NewLine +
+                                         "INSERT INTO [DesignTables] VALUES (1, 101, 1, 1, 9, 1, 0, 0, 0, 0, 16.16, 17.17, 3.09023230616781);" + Environment.NewLine +
                                          Environment.NewLine +
                                          "DELETE FROM [Numerics];" + Environment.NewLine +
                                          "INSERT INTO [Numerics] VALUES (1, 101, 1, 1, 102, 1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -483,7 +496,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                                                  failureProbabilityStructureWithErosion,
                                                                                                                  widthFlowAperturesMean, widthFlowAperturesStandardDeviation,
                                                                                                                  deviationWaveDirection,
-                                                                                                                 stormDurationMean, stormDurationVariation));
+                                                                                                                 stormDurationMean, stormDurationVariation)
+            {
+                DesignTablesSetting = new DesignTablesSetting(0, 0)
+            });
             string expectedCreationScript =
                 "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                 "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -591,7 +607,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                          3.3,
                                                          4.4,
                                                          5.5,
-                                                         6.6));
+                                                         6.6)
+                {
+                    DesignTablesSetting = new DesignTablesSetting(7.7, 8.8)
+                });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -600,7 +619,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 56.23, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                            "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 8, 114, 0, 0, 0, 0, 1, 5, 3.71901648545568);" + Environment.NewLine +
+                                            "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 8, 114, 0, 0, 0, 0, 7.7, 8.8, 3.71901648545568);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 3, 1, 1, 5, 4, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -689,7 +708,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                             4.4,
                                                             5.5,
                                                             6.6,
-                                                            7.7));
+                                                            7.7)
+                {
+                    DesignTablesSetting = new DesignTablesSetting(8.8, 9.9)
+                });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -698,7 +720,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                             "INSERT INTO [Sections] VALUES (1, 1, 1, 1, 1, 0, 0, 0, 0, 700004, 700004, 100, 86.48, 0);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [DesignTables];" + Environment.NewLine +
-                                            "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 8, 114, 0, 0, 0, 0, 1, 5, 3.71901648545568);" + Environment.NewLine +
+                                            "INSERT INTO [DesignTables] VALUES (1, 3, 1, 1, 8, 114, 0, 0, 0, 0, 8.8, 9.9, 3.71901648545568);" + Environment.NewLine +
                                             Environment.NewLine +
                                             "DELETE FROM [Numerics];" + Environment.NewLine +
                                             "INSERT INTO [Numerics] VALUES (1, 3, 1, 1, 5, 4, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 1, 3000, 10000, 0.1, -6, 6, 25);" + Environment.NewLine +
@@ -786,7 +808,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                     11.1, 12.2, 13.3, 14.4,
                                                                     15.5, 16.6, 17.7, 18.8,
                                                                     19.9, 20.0, 21.1, 22.2,
-                                                                    23.3, 24.4, 25.5, 26.6));
+                                                                    23.3, 24.4, 25.5, 26.6)
+                {
+                    DesignTablesSetting = new DesignTablesSetting(0, 0)
+                });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -900,7 +925,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                              15.5, 16.6, 17.7, 18.8,
                                                              19.9, 20.0, 21.1, 22.2,
                                                              23.3, 24.4, 25.5, 26.6,
-                                                             27.7, 28.8, 29.9, 30.0));
+                                                             27.7, 28.8, 29.9, 30.0)
+                {
+                    DesignTablesSetting = new DesignTablesSetting(0, 0)
+                });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -1016,7 +1044,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                   15.5, 16.6, 17.7, 18.8,
                                                                   19.9, 20.0, 21.1, 22.2,
                                                                   23.3, 24.4, 25.5, 26.6,
-                                                                  27.7, 28.8, 29.9, 30.0));
+                                                                  27.7, 28.8, 29.9, 30.0)
+                {
+                    DesignTablesSetting = new DesignTablesSetting(0, 0)
+                });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -1141,7 +1172,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                  47.7, 48.8, 49.9, 50.0,
                                                                                  51.1, 52.2, 53.3, 54.4,
                                                                                  55.5, 56.6, 57.7, 58.8,
-                                                                                 59.9));
+                                                                                 59.9)
+                {
+                    DesignTablesSetting = new DesignTablesSetting(0, 0)
+                });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -1288,7 +1322,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                                     47.7, 48.8, 49.9, 50.0,
                                                                                     51.1, 52.2, 53.3, 54.4,
                                                                                     55.5, 56.6, 57.7, 58.8,
-                                                                                    59.9));
+                                                                                    59.9)
+                {
+                    DesignTablesSetting = new DesignTablesSetting(0, 0)
+                });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -1435,7 +1472,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                           47.7, 48.8, 49.9, 50.0,
                                                                           51.1, 52.2, 53.3, 54.4,
                                                                           55.5, 56.6, 57.7, 58.8,
-                                                                          59.9));
+                                                                          59.9)
+                {
+                    DesignTablesSetting = new DesignTablesSetting(0, 0)
+                });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +
@@ -1582,7 +1622,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                                                                              47.7, 48.8, 49.9, 50.0,
                                                                              51.1, 52.2, 53.3, 54.4,
                                                                              55.5, 56.6, 57.7, 58.8,
-                                                                             59.9));
+                                                                             59.9)
+                {
+                    DesignTablesSetting = new DesignTablesSetting(0, 0)
+                });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
                                             "INSERT INTO [HydraulicModels] VALUES (1, 1, 'WTI 2017');" + Environment.NewLine +

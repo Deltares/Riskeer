@@ -25,6 +25,7 @@ using NUnit.Framework;
 using Ringtoets.HydraRing.Calculation.Calculator;
 using Ringtoets.HydraRing.Calculation.Data;
 using Ringtoets.HydraRing.Calculation.Data.Input;
+using Ringtoets.HydraRing.Calculation.Data.Settings;
 using Ringtoets.HydraRing.Calculation.Parsers;
 
 namespace Ringtoets.HydraRing.Calculation.Test.Calculator
@@ -99,7 +100,10 @@ namespace Ringtoets.HydraRing.Calculation.Test.Calculator
     {
         private readonly HydraRingSection section = new HydraRingSection(12, 12, 12);
 
-        public TestHydraRingCalculationInput() : base(12) {}
+        public TestHydraRingCalculationInput() : base(12)
+        {
+            DesignTablesSetting = new DesignTablesSetting(0, 0);
+        }
 
         public override HydraRingFailureMechanismType FailureMechanismType
         {
