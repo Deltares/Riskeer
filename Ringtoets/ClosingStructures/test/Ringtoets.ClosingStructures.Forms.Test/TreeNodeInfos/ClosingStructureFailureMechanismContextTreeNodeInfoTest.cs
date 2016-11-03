@@ -713,8 +713,8 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             using (var treeViewControl = new TreeViewControl())
             {
-                var guiMock = mocksRepository.Stub<IGui>();
                 var menuBuilder = new CustomItemsOnlyContextMenuBuilder();
+                var guiMock = mocksRepository.Stub<IGui>();
                 guiMock.Expect(g => g.Get(failureMechanismContext, treeViewControl)).Return(menuBuilder);
 
                 mocksRepository.ReplayAll();
@@ -726,11 +726,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                     // Call
                     Action call = () => contextMenu.Items[contextMenuValidateAllIndex].PerformClick();
 
+                    // Assert
                     TestHelper.AssertLogMessages(call, messages =>
                     {
                         var messageList = messages.ToArray();
 
-                        // Assert
                         Assert.AreEqual(4, messageList.Length);
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
                         StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
