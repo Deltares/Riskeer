@@ -132,6 +132,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
 
             configurationDictionary["HydraulicModels"] = GetHydraulicModelsConfiguration();
             configurationDictionary["Sections"] = GetSectionsConfiguration();
+            configurationDictionary["SectionCalculationSchemes"] = GetSectionCalculationSchemesConfiguration();
             configurationDictionary["DesignTables"] = GetDesignTablesConfiguration();
             configurationDictionary["Numerics"] = GetNumericsConfiguration();
             configurationDictionary["VariableDatas"] = GetVariableDatasConfiguration();
@@ -226,6 +227,32 @@ namespace Ringtoets.HydraRing.Calculation.Services
                     },
                     {
                         "Length", GetHydraRingValue(hydraRingSection.SectionLength)
+                    }
+                });
+            }
+
+            return orderedDictionaries;
+        }
+
+        private IList<OrderedDictionary> GetSectionCalculationSchemesConfiguration()
+        {
+            var orderedDictionaries = new List<OrderedDictionary>();
+
+            foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
+            {
+                FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
+                HydraulicModelsSetting hydraulicModelSetting  = hydraRingCalculationInput.HydraulicModelsSetting;
+
+                orderedDictionaries.Add(new OrderedDictionary
+                {
+                    {
+                        "SectionId", hydraRingCalculationInput.Section.SectionId
+                    },
+                    {
+                        "MechanismId", failureMechanismDefaults.MechanismId
+                    },
+                    {
+                        "TimeIntegrationSchemeID", hydraulicModelSetting.TimeIntegrationSchemeId
                     }
                 });
             }
