@@ -85,13 +85,16 @@ namespace Ringtoets.Common.IO.HydraRing
 
         private void InitializeDefaultNumericsSettings()
         {
+            var numericsSettingForm = new NumericsSetting(1, 1, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6.0, 6.0, 25);
+            var numericsSettingDirs = new NumericsSetting(11, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 10000, 40000, 0.1, -6.0, 6.0, 25);
+
             defaultNumericsSettings = new Dictionary<HydraRingFailureMechanismType, IDictionary<int, NumericsSetting>>
             {
                 {
                     HydraRingFailureMechanismType.AssessmentLevel, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            1, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            1, numericsSettingDirs
                         }
                     }
                 },
@@ -99,7 +102,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.WaveHeight, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            11, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            11, numericsSettingDirs
                         }
                     }
                 },
@@ -107,7 +110,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.WavePeakPeriod, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            14, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            14, numericsSettingDirs
                         }
                     }
                 },
@@ -115,7 +118,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.WaveSpectralPeriod, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            16, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            16, numericsSettingDirs
                         }
                     }
                 },
@@ -123,7 +126,7 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.QVariant, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            5, new NumericsSetting(4, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            5, new NumericsSetting(4, 4, 150, 0.15, 0.005, 0.005, 0.005, 2, 3000, 10000, 0.1, -6.0, 6.0, 25)
                         }
                     }
                 },
@@ -131,10 +134,10 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            102, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            102, numericsSettingDirs
                         },
                         {
-                            103, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            103, numericsSettingDirs
                         }
                     }
                 },
@@ -142,10 +145,10 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.DikesHeight, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            102, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            102, numericsSettingDirs
                         },
                         {
-                            103, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            103, numericsSettingDirs
                         }
                     }
                 },
@@ -153,13 +156,13 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.DikesPiping, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            311, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            311, numericsSettingDirs
                         },
                         {
-                            313, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            313, numericsSettingDirs
                         },
                         {
-                            314, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            314, numericsSettingDirs
                         }
                     }
                 },
@@ -167,13 +170,13 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            421, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            421, numericsSettingDirs
                         },
                         {
-                            422, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            422, numericsSettingDirs
                         },
                         {
-                            423, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            423, numericsSettingDirs
                         }
                     }
                 },
@@ -181,19 +184,19 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.StructuresClosure, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            422, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            422, numericsSettingForm
                         },
                         {
-                            424, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            424, numericsSettingDirs
                         },
                         {
-                            425, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            425, numericsSettingDirs
                         },
                         {
-                            426, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            426, numericsSettingForm
                         },
                         {
-                            427, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            427, numericsSettingForm
                         }
                     }
                 },
@@ -201,31 +204,31 @@ namespace Ringtoets.Common.IO.HydraRing
                     HydraRingFailureMechanismType.StructuresStructuralFailure, new Dictionary<int, NumericsSetting>
                     {
                         {
-                            422, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            422, numericsSettingForm
                         },
                         {
-                            424, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            424, numericsSettingDirs
                         },
                         {
-                            425, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            425, numericsSettingDirs
                         },
                         {
-                            430, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            430, numericsSettingDirs
                         },
                         {
-                            431, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            431, numericsSettingForm
                         },
                         {
-                            432, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            432, numericsSettingForm
                         },
                         {
-                            433, new NumericsSetting(1, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            433, numericsSettingForm
                         },
                         {
-                            434, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            434, numericsSettingDirs
                         },
                         {
-                            435, new NumericsSetting(1, 4, 50, 0.15, 0.01, 0.01, 0.01, 2, 10000, 20000, 0.1, -6.0, 6.0, 25)
+                            435, numericsSettingDirs
                         }
                     }
                 }

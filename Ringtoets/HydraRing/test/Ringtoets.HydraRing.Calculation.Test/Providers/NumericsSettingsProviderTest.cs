@@ -57,36 +57,35 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
         }
 
         [Test]
-        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 1, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.QVariant, 5, 4, 4)]
-        [TestCase(HydraRingFailureMechanismType.WaveHeight, 11, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 14, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 16, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 102, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 103, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.DikesHeight, 102, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.DikesHeight, 103, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.DikesPiping, 311, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.DikesPiping, 313, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.DikesPiping, 314, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 421, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 422, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 423, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.StructuresClosure, 422, 1, 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresClosure, 424, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.StructuresClosure, 425, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.StructuresClosure, 426, 1, 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresClosure, 427, 1, 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 422, 1, 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 424, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 425, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 430, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 431, 1, 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 432, 1, 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 433, 1, 1)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 434, 1, 4)]
-        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 435, 1, 4)]
-        public void GetNumericsSetting_UnknownRingId_ReturnsExpectedDefaultNumericsSetting(HydraRingFailureMechanismType failureMechanismType, int subMechanismId, int expectedCalculationTechniqueId, int expectedFormStartMethod)
+        [TestCase(HydraRingFailureMechanismType.AssessmentLevel, 1, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.QVariant, 5, 4, 4, 3000, 10000)]
+        [TestCase(HydraRingFailureMechanismType.WaveHeight, 11, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.WavePeakPeriod, 14, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.WaveSpectralPeriod, 16, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 102, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.DikesOvertopping, 103, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.DikesHeight, 102, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.DikesHeight, 103, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.DikesPiping, 311, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.DikesPiping, 313, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.DikesPiping, 314, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 421, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 422, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.StructuresOvertopping, 423, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.StructuresClosure, 424, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.StructuresClosure, 425, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 422, 1, 1, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 424, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 425, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 430, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 431, 1, 1, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 432, 1, 1, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 433, 1, 1, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 434, 11, 4, 10000, 40000)]
+        [TestCase(HydraRingFailureMechanismType.StructuresStructuralFailure, 435, 11, 4, 10000, 40000)]
+        public void GetNumericsSetting_UnknownLocationId_ReturnsExpectedDefaultNumericsSetting(
+            HydraRingFailureMechanismType failureMechanismType, int subMechanismId, int expectedCalculationTechniqueId,
+            int expectedFormStartMethod, int expectedDsMinNumberOfIterations, int expectedDsMaxNumberOfIterations)
         {
             // Setup
             NumericsSettingsProvider numericsSettingsProvider = new NumericsSettingsProvider();
@@ -97,14 +96,14 @@ namespace Ringtoets.HydraRing.Calculation.Test.Providers
             // Assert
             Assert.AreEqual(expectedCalculationTechniqueId, numericsSetting.CalculationTechniqueId);
             Assert.AreEqual(expectedFormStartMethod, numericsSetting.FormStartMethod);
-            Assert.AreEqual(50, numericsSetting.FormNumberOfIterations);
+            Assert.AreEqual(150, numericsSetting.FormNumberOfIterations);
             Assert.AreEqual(0.15, numericsSetting.FormRelaxationFactor);
-            Assert.AreEqual(0.01, numericsSetting.FormEpsBeta);
-            Assert.AreEqual(0.01, numericsSetting.FormEpsHoh);
-            Assert.AreEqual(0.01, numericsSetting.FormEpsZFunc);
+            Assert.AreEqual(0.005, numericsSetting.FormEpsBeta);
+            Assert.AreEqual(0.005, numericsSetting.FormEpsHoh);
+            Assert.AreEqual(0.005, numericsSetting.FormEpsZFunc);
             Assert.AreEqual(2, numericsSetting.DsStartMethod);
-            Assert.AreEqual(10000, numericsSetting.DsMinNumberOfIterations);
-            Assert.AreEqual(20000, numericsSetting.DsMaxNumberOfIterations);
+            Assert.AreEqual(expectedDsMinNumberOfIterations, numericsSetting.DsMinNumberOfIterations);
+            Assert.AreEqual(expectedDsMaxNumberOfIterations, numericsSetting.DsMaxNumberOfIterations);
             Assert.AreEqual(0.1, numericsSetting.DsVarCoefficient);
             Assert.AreEqual(-6.0, numericsSetting.NiUMin);
             Assert.AreEqual(6.0, numericsSetting.NiUMax);
