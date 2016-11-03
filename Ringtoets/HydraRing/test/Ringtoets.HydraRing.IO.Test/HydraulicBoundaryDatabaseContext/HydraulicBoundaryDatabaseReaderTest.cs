@@ -82,7 +82,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             {
                 string version = "some version";
                 // Call
-                TestDelegate test = () => { version = hydraulicBoundarySqLiteDatabaseReader.GetVersion(); };
+                TestDelegate test = () => version = hydraulicBoundarySqLiteDatabaseReader.GetVersion();
 
                 // Assert
                 Assert.DoesNotThrow(test);
@@ -104,7 +104,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => { hydraulicBoundarySqLiteDatabaseReader.GetVersion(); };
+                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetVersion();
 
                 // Assert
                 CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
@@ -160,7 +160,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => { hydraulicBoundarySqLiteDatabaseReader.GetLocationCount(); };
+                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetLocationCount();
 
                 // Assert
                 CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);
@@ -220,7 +220,7 @@ namespace Ringtoets.HydraRing.IO.Test.HydraulicBoundaryDatabaseContext
             using (HydraulicBoundarySqLiteDatabaseReader hydraulicBoundarySqLiteDatabaseReader = new HydraulicBoundarySqLiteDatabaseReader(dbFile))
             {
                 // Call
-                TestDelegate test = () => { hydraulicBoundarySqLiteDatabaseReader.GetTrackId(); };
+                TestDelegate test = () => hydraulicBoundarySqLiteDatabaseReader.GetTrackId();
 
                 // Assert
                 CriticalFileReadException exception = Assert.Throws<CriticalFileReadException>(test);

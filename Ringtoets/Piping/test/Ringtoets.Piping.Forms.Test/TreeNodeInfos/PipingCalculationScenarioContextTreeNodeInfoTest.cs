@@ -436,7 +436,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 {
                     // When
                     var calculateContextMenuItemIndex = 1;
-                    Action action = () => { contextMenuStrip.Items[calculateContextMenuItemIndex].PerformClick(); };
+                    Action action = () => contextMenuStrip.Items[calculateContextMenuItemIndex].PerformClick(); 
 
                     // Then
                     var expectedValidationMessageCount = 5;
@@ -546,7 +546,7 @@ namespace Ringtoets.Piping.Forms.Test.TreeNodeInfos
                 {
                     // When
                     var calculateContextMenuItemIndex = 1;
-                    Action action = () => { contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick(); };
+                    Action action = () => contextMenuAdapter.Items[calculateContextMenuItemIndex].PerformClick();
 
                     // Then
                     TestHelper.AssertLogMessages(action, messages =>

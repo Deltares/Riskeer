@@ -46,7 +46,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var norm = new Random(21).Next(1, int.MaxValue);
 
             // Call
-            TestDelegate test = () => { new FailureMechanismContributionItem(null, norm); };
+            TestDelegate test = () => new FailureMechanismContributionItem(null, norm); 
 
             // Assert
             const string expectedMessage = "Kan geen bijdrage element maken zonder een toetsspoor.";

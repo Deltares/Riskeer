@@ -283,7 +283,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     {
                         // When
-                        Action action = () => { contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick(); };
+                        Action action = () => contextMenuAdapter.Items[contextMenuRunAssessmentLevelCalculationsIndex].PerformClick();
 
                         // Then
                         string message = string.Format("Berekeningen konden niet worden gestart. Fout bij het lezen van bestand '{0}': Het bestand bestaat niet.",

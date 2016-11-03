@@ -399,7 +399,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                         calculator.EndInFailure = true;
 
                         // When
-                        Action action = () => { contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick(); };
+                        Action action = () => contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
                         // Then
                         TestHelper.AssertLogMessages(action, messages =>

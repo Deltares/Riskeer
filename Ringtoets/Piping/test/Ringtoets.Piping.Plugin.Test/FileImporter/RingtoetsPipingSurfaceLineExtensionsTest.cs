@@ -59,7 +59,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool result = true;
 
             // Call
-            Action test = () => { result = surfaceLine.TrySetDitchPolderSide(testPoint); };
+            Action test = () => result = surfaceLine.TrySetDitchPolderSide(testPoint);
 
             // Assert
             var message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
@@ -120,7 +120,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool result = true;
 
             // Call
-            Action test = () => { result = surfaceLine.TrySetBottomDitchDikeSide(testPoint); };
+            Action test = () => result = surfaceLine.TrySetBottomDitchDikeSide(testPoint);
 
             // Assert
             var message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
@@ -181,7 +181,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool result = true;
 
             // Call
-            Action test = () => { result = surfaceLine.TrySetBottomDitchPolderSide(testPoint); };
+            Action test = () => result = surfaceLine.TrySetBottomDitchPolderSide(testPoint);
 
             // Assert
             var message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
@@ -242,7 +242,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool result = true;
 
             // Call
-            Action test = () => { result = surfaceLine.TrySetDitchDikeSide(testPoint); };
+            Action test = () => result = surfaceLine.TrySetDitchDikeSide(testPoint);
 
             // Assert
             var message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
@@ -303,7 +303,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool result = true;
 
             // Call
-            Action test = () => { result = surfaceLine.TrySetDikeToeAtPolder(testPoint); };
+            Action test = () => result = surfaceLine.TrySetDikeToeAtPolder(testPoint);
 
             // Assert
             var message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",
@@ -364,7 +364,7 @@ namespace Ringtoets.Piping.Plugin.Test.FileImporter
             bool result = true;
 
             // Call
-            Action test = () => { result = surfaceLine.TrySetDikeToeAtRiver(testPoint); };
+            Action test = () => result = surfaceLine.TrySetDikeToeAtRiver(testPoint);
 
             // Assert
             var message = string.Format("Karakteristiek punt van profielschematisatie 'testName' is overgeslagen. De geometrie bevat geen punt op locatie {0} om als '{1}' in te stellen.",

@@ -261,7 +261,7 @@ namespace Core.Common.TestUtil.Test
             contextMenuStrip.Items.Add(testItem);
 
             // Call
-            TestDelegate call = () => { TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text + "someThing", testItem.ToolTipText, testItem.Image); };
+            TestDelegate call = () => TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text + "someThing", testItem.ToolTipText, testItem.Image);
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -276,7 +276,7 @@ namespace Core.Common.TestUtil.Test
             contextMenuStrip.Items.Add(testItem);
 
             // Call
-            TestDelegate call = () => { TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText + "someThing", testItem.Image); };
+            TestDelegate call = () => TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText + "someThing", testItem.Image);
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -291,7 +291,7 @@ namespace Core.Common.TestUtil.Test
             contextMenuStrip.Items.Add(testItem);
 
             // Call
-            TestDelegate call = () => { TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText, Resources.acorn); };
+            TestDelegate call = () => TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText, Resources.acorn);
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -309,7 +309,7 @@ namespace Core.Common.TestUtil.Test
             contextMenuStrip.Items.Add(testItem);
 
             // Call
-            TestDelegate call = () => { TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText, testItem.Image, !enabled); };
+            TestDelegate call = () => TestHelper.AssertContextMenuStripContainsItem(contextMenuStrip, 0, testItem.Text, testItem.ToolTipText, testItem.Image, !enabled);
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -356,7 +356,7 @@ namespace Core.Common.TestUtil.Test
             dropDownItem.DropDownItems.Add(testItem);
 
             // Call
-            TestDelegate call = () => { TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text + "someThing", testItem.ToolTipText, testItem.Image); };
+            TestDelegate call = () => TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text + "someThing", testItem.ToolTipText, testItem.Image);
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -371,7 +371,7 @@ namespace Core.Common.TestUtil.Test
             dropDownItem.DropDownItems.Add(testItem);
 
             // Call
-            TestDelegate call = () => { TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText + "someThing", testItem.Image); };
+            TestDelegate call = () => TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText + "someThing", testItem.Image);
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -386,7 +386,7 @@ namespace Core.Common.TestUtil.Test
             dropDownItem.DropDownItems.Add(testItem);
 
             // Call
-            TestDelegate call = () => { TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText, Resources.acorn); };
+            TestDelegate call = () => TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText, Resources.acorn);
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -404,7 +404,7 @@ namespace Core.Common.TestUtil.Test
             dropDownItem.DropDownItems.Add(testItem);
 
             // Call
-            TestDelegate call = () => { TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText, testItem.Image, !enabled); };
+            TestDelegate call = () => TestHelper.AssertDropDownItemContainsItem(dropDownItem, 0, testItem.Text, testItem.ToolTipText, testItem.Image, !enabled);
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -429,7 +429,7 @@ namespace Core.Common.TestUtil.Test
             TestDelegate t = () => { };
 
             // Call
-            TestDelegate call = () => { TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, string.Empty); };
+            TestDelegate call = () => TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, string.Empty);
 
             // Assert
             Assert.Throws<AssertionException>(call);
@@ -444,7 +444,7 @@ namespace Core.Common.TestUtil.Test
             TestDelegate t = () => { throw new ArgumentException(someMessage); };
 
             // Call
-            TestDelegate call = () => { TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, differentMessage); };
+            TestDelegate call = () => TestHelper.AssertThrowsArgumentExceptionAndTestMessage<ArgumentException>(t, differentMessage);
 
             // Assert
             Assert.Throws<AssertionException>(call);

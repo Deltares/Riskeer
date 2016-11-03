@@ -638,7 +638,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
                 {
                     // When
-                    Action action = () => { contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick(); };
+                    Action action = () => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
 
                     // Then
                     TestHelper.AssertLogMessages(action, messages =>

@@ -52,7 +52,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var norm = random.Next(1, int.MaxValue);
 
             // Call
-            TestDelegate test = () => { new FailureMechanismContribution(null, contribution, norm); };
+            TestDelegate test = () => new FailureMechanismContribution(null, contribution, norm);
 
             // Assert
             const string expectedMessage = "Kan geen bijdrageoverzicht maken zonder toetsspoor.";
@@ -89,7 +89,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var contribution = random.Next(1, 100);
 
             // Call
-            TestDelegate test = () => { new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm); };
+            TestDelegate test = () => new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm);
 
             // Assert
             const string expectedMessage = "De faalkansbijdrage kan alleen bepaald worden als de norm van het traject groter is dan 0.";
@@ -108,7 +108,7 @@ namespace Ringtoets.Common.Data.Test.Contribution
             var norm = random.Next(1, int.MaxValue);
 
             // Call
-            TestDelegate test = () => { new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm); };
+            TestDelegate test = () => new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), contribution, norm);
 
             // Assert
             var expectedMessage = Resources.Contribution_Value_should_be_in_interval_0_100;

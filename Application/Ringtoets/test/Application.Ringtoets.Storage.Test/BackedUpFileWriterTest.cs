@@ -147,7 +147,7 @@ namespace Application.Ringtoets.Storage.Test
             Assert.IsTrue(File.Exists(temporaryFilePath));
 
             // Call
-            TestDelegate test = () => { writer.Perform(() => { }); };
+            TestDelegate test = () => writer.Perform(() => { });
 
             try
             {
@@ -181,7 +181,7 @@ namespace Application.Ringtoets.Storage.Test
             Assert.IsTrue(File.Exists(filePath));
 
             // Call
-            TestDelegate test = () => { writer.Perform(() => { }); };
+            TestDelegate test = () => writer.Perform(() => { });
 
             try
             {
