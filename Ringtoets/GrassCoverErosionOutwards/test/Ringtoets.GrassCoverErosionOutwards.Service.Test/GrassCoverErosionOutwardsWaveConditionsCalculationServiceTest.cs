@@ -77,7 +77,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath); 
+                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -104,7 +104,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath); 
+                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, testFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -185,7 +185,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath); 
+                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -247,7 +247,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
-                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath); 
+                Action call = () => isValid = GrassCoverErosionOutwardsWaveConditionsCalculationService.Validate(calculation, validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -545,18 +545,48 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 calculator.LastErrorContent = "An error occured";
                 calculator.EndInFailure = true;
 
+                var exception = false;
+
                 // Call
-                TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                              failureMechanism,
-                                                                                                              assessmentSectionStub,
-                                                                                                              validFilePath);
+                Action call = () =>
+                {
+                    try
+                    {
+                        new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSectionStub,
+                                                                                                  validFilePath);
+                    }
+                    catch (HydraRingFileParserException)
+                    {
+                        exception = true;
+                    }
+                };
 
                 // Assert
-                Assert.Throws<HydraRingFileParserException>(call);
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+
+                    var waterLevel = calculation.InputParameters.WaterLevels.First();
+
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
+                                                          calculation.Name, waterLevel), msgs[2]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[3]);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[4]);
+
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                });
+                Assert.IsTrue(exception);
+                mockRepository.VerifyAll();
             }
         }
 
@@ -578,17 +608,47 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 calculator.EndInFailure = true;
 
+                var exception = false;
+
                 // Call
-                TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                                    failureMechanism,
-                                                                                                                    assessmentSectionStub,
-                                                                                                                    validFilePath);
+                Action call = () =>
+                {
+                    try
+                    {
+                        new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSectionStub,
+                                                                                                  validFilePath);
+                    }
+                    catch (HydraRingFileParserException)
+                    {
+                        exception = true;
+                    }
+                };
 
                 // Assert
-                Assert.Throws<HydraRingFileParserException>(call);
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+
+                    var waterLevel = calculation.InputParameters.WaterLevels.First();
+
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt. Er is geen foutrapport beschikbaar.",
+                                                          calculation.Name, waterLevel), msgs[2]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[3]);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[4]);
+
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                });
+                Assert.IsTrue(exception);
+                mockRepository.VerifyAll();
             }
         }
 
@@ -610,19 +670,51 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 calculator.EndInFailure = false;
                 calculator.LastErrorContent = "An error occured";
 
+                var exception = false;
+                var exceptionMessage = string.Empty;
+
                 // Call
-                TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                              failureMechanism,
-                                                                                                              assessmentSectionStub,
-                                                                                                              validFilePath);
+                Action call = () =>
+                {
+                    try
+                    {
+                        new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
+                                                                                                  failureMechanism,
+                                                                                                  assessmentSectionStub,
+                                                                                                  validFilePath);
+                    }
+                    catch (HydraRingFileParserException e)
+                    {
+                        exception = true;
+                        exceptionMessage = e.Message;
+                    }
+                };
 
                 // Assert
-                var exception = Assert.Throws<HydraRingFileParserException>(call);
-                Assert.AreEqual(calculator.LastErrorContent, exception.Message);
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+
+                    var waterLevel = calculation.InputParameters.WaterLevels.First();
+
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
+                                                          calculation.Name, waterLevel), msgs[2]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[3]);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[4]);
+
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                });
+                Assert.IsTrue(exception);
+                Assert.AreEqual(calculator.LastErrorContent, exceptionMessage);
+                mockRepository.VerifyAll();
             }
         }
 

@@ -77,14 +77,19 @@ namespace Ringtoets.WaveImpactAsphaltCover.Service
             var norm = assessmentSection.FailureMechanismContribution.Norm;
             TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count();
 
-            var outputs = CalculateWaveConditions(calculationName, calculation.InputParameters, a, b, c, norm, ringId, hlcdFilePath);
-
-            if (!Canceled)
+            try
             {
-                calculation.Output = new WaveImpactAsphaltCoverWaveConditionsOutput(outputs);
-            }
+                var outputs = CalculateWaveConditions(calculationName, calculation.InputParameters, a, b, c, norm, ringId, hlcdFilePath);
 
-            CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                if (!Canceled)
+                {
+                    calculation.Output = new WaveImpactAsphaltCoverWaveConditionsOutput(outputs);
+                }
+            }
+            finally
+            {
+                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+            }
         }
     }
 }

@@ -24,6 +24,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Service;
 using Ringtoets.GrassCoverErosionOutwards.Data;
 using Ringtoets.GrassCoverErosionOutwards.Service.Properties;
+using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.Revetment.Service;
 using RingtoetsCommonServiceResources = Ringtoets.Common.Service.Properties.Resources;
 
@@ -78,14 +79,19 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service
             var norm = failureMechanism.CalculationBeta(assessmentSection);
             TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count();
 
-            var outputs = CalculateWaveConditions(calculationName, calculation.InputParameters, a, b, c, norm, ringId, hlcdFilePath);
-
-            if (!Canceled)
+            try
             {
-                calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(outputs);
-            }
+                var outputs = CalculateWaveConditions(calculationName, calculation.InputParameters, a, b, c, norm, ringId, hlcdFilePath);
 
-            CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                if (!Canceled)
+                {
+                    calculation.Output = new GrassCoverErosionOutwardsWaveConditionsOutput(outputs);
+                }
+            }
+            finally
+            {                
+                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+            }
         }
     }
 }

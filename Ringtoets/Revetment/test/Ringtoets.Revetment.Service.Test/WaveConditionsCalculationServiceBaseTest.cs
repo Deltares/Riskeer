@@ -492,10 +492,11 @@ namespace Ringtoets.Revetment.Service.Test
                 TestHelper.AssertLogMessages(call, messages =>
                 {
                     var msgs = messages.ToArray();
-                    Assert.AreEqual(3, msgs.Length);
+                    Assert.AreEqual(4, msgs.Length);
                     Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculationName, waterLevel), msgs[0]);
                     Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculationName, waterLevel), msgs[1]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculationName, waterLevel), msgs[3]);
                 });
                 Assert.IsTrue(exceptionThrown);
             }

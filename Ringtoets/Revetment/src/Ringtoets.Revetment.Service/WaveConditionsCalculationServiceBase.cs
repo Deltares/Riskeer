@@ -127,30 +127,35 @@ namespace Ringtoets.Revetment.Service
             var waterLevels = waveConditionsInput.WaterLevels.ToArray();
             foreach (var waterLevel in waterLevels.TakeWhile(waterLevel => !Canceled))
             {
-                log.Info(string.Format(Resources.WaveConditionsCalculationService_OnRun_Subject_0_for_waterlevel_1_started,
-                                       calculationName,
-                                       waterLevel));
-
-                NotifyProgress(waterLevel, currentStep++, TotalWaterLevelCalculations);
-
-                var output = CalculateWaterLevel(waterLevel,
-                                                 a,
-                                                 b,
-                                                 c,
-                                                 norm,
-                                                 waveConditionsInput,
-                                                 hrdFilePath,
-                                                 ringId,
-                                                 calculationName);
-
-                if (output != null)
+                try
                 {
-                    outputs.Add(output);
-                }
+                    log.Info(string.Format(Resources.WaveConditionsCalculationService_OnRun_Subject_0_for_waterlevel_1_started,
+                                           calculationName,
+                                           waterLevel));
 
-                log.Info(string.Format(Resources.WaveConditionsCalculationService_OnRun_Subject_0_for_waterlevel_1_ended,
-                                       calculationName,
-                                       waterLevel));
+                    NotifyProgress(waterLevel, currentStep++, TotalWaterLevelCalculations);
+
+                    var output = CalculateWaterLevel(waterLevel,
+                                                     a,
+                                                     b,
+                                                     c,
+                                                     norm,
+                                                     waveConditionsInput,
+                                                     hrdFilePath,
+                                                     ringId,
+                                                     calculationName);
+
+                    if (output != null)
+                    {
+                        outputs.Add(output);
+                    }
+                }
+                finally
+                {
+                    log.Info(string.Format(Resources.WaveConditionsCalculationService_OnRun_Subject_0_for_waterlevel_1_ended,
+                                           calculationName,
+                                           waterLevel));
+                }
             }
             return outputs;
         }

@@ -593,14 +593,45 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 calculator.LastErrorContent = "An error occured";
                 calculator.EndInFailure = true;
 
+                var exception = false;
+
                 // Call
-                TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                              assessmentSectionStub,
-                                                                                                              failureMechanism.GeneralInput,
-                                                                                                              validFilePath);
+                Action call = () =>
+                {
+                    try
+                    {
+                        new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
+                                                                                            assessmentSectionStub,
+                                                                                            failureMechanism.GeneralInput,
+                                                                                            validFilePath);
+                    }
+                    catch (HydraRingFileParserException)
+                    {
+                        exception = true;
+                    }
+                };
 
                 // Assert
-                Assert.Throws<HydraRingFileParserException>(call);
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(7, msgs.Length);
+
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor blokken gestart.", calculation.Name), msgs[1]);
+
+                    var waterLevel = calculation.InputParameters.WaterLevels.First();
+
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
+                                                          calculation.Name, waterLevel), msgs[3]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[5]);
+
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
+                });
+                Assert.IsTrue(exception);
+                mockRepository.VerifyAll();
             }
         }
 
@@ -625,14 +656,45 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
                 calculator.EndInFailure = true;
 
+                var exception = false;
+
                 // Call
-                TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                              assessmentSectionStub,
-                                                                                                              failureMechanism.GeneralInput,
-                                                                                                              validFilePath);
+                Action call = () =>
+                {
+                    try
+                    {
+                        new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
+                                                                                            assessmentSectionStub,
+                                                                                            failureMechanism.GeneralInput,
+                                                                                            validFilePath);
+                    }
+                    catch (HydraRingFileParserException)
+                    {
+                        exception = true;
+                    }
+                };
 
                 // Assert
-                Assert.Throws<HydraRingFileParserException>(call);
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(7, msgs.Length);
+
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor blokken gestart.", calculation.Name), msgs[1]);
+
+                    var waterLevel = calculation.InputParameters.WaterLevels.First();
+
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt. Er is geen foutrapport beschikbaar.",
+                                                          calculation.Name, waterLevel), msgs[3]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[5]);
+
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
+                });
+                Assert.IsTrue(exception);
+                mockRepository.VerifyAll();
             }
         }
 
@@ -658,15 +720,48 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 calculator.EndInFailure = false;
                 calculator.LastErrorContent = "An error occured";
 
+                var exception = false;
+                var exceptionMessage = string.Empty;
+
                 // Call
-                TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
-                                                                                                              assessmentSectionStub,
-                                                                                                              failureMechanism.GeneralInput,
-                                                                                                              validFilePath);
+                Action call = () =>
+                {
+                    try
+                    {
+                        new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
+                                                                                            assessmentSectionStub,
+                                                                                            failureMechanism.GeneralInput,
+                                                                                            validFilePath);
+                    }
+                    catch (HydraRingFileParserException e)
+                    {
+                        exception = true;
+                        exceptionMessage = e.Message;
+                    }
+                };
 
                 // Assert
-                var exception = Assert.Throws<HydraRingFileParserException>(call);
-                Assert.AreEqual(calculator.LastErrorContent, exception.Message);
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(7, msgs.Length);
+
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor blokken gestart.", calculation.Name), msgs[1]);
+
+                    var waterLevel = calculation.InputParameters.WaterLevels.First();
+
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculation.Name, waterLevel), msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
+                                                          calculation.Name, waterLevel), msgs[3]);
+                    StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' beëindigd.", calculation.Name, waterLevel), msgs[5]);
+
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[6]);
+                });
+                Assert.IsTrue(exception);
+                Assert.AreEqual(calculator.LastErrorContent, exceptionMessage);
+                mockRepository.VerifyAll();
             }
         }
 

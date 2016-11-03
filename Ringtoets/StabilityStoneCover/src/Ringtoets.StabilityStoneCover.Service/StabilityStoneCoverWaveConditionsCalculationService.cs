@@ -86,24 +86,29 @@ namespace Ringtoets.StabilityStoneCover.Service
             var norm = assessmentSection.FailureMechanismContribution.Norm;
             TotalWaterLevelCalculations = calculation.InputParameters.WaterLevels.Count()*2;
 
-            log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_blocks_started, calculationName);
-            IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateWaveConditions(calculationName, calculation.InputParameters, aBlocks, bBlocks, cBlocks, norm, ringId, hlcdFilePath);
-            log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_blocks_finished, calculationName);
-
-            IEnumerable<WaveConditionsOutput> columnsOutputs = null;
-            if (!Canceled)
+            try
             {
-                log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_columns_started, calculationName);
-                columnsOutputs = CalculateWaveConditions(calculationName, calculation.InputParameters, aColumns, bColumns, cColumns, norm, ringId, hlcdFilePath);
-                log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_columns_finished, calculationName);
-            }
+                log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_blocks_started, calculationName);
+                IEnumerable<WaveConditionsOutput> blocksOutputs = CalculateWaveConditions(calculationName, calculation.InputParameters, aBlocks, bBlocks, cBlocks, norm, ringId, hlcdFilePath);
+                log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_blocks_finished, calculationName);
 
-            if (!Canceled)
+                IEnumerable<WaveConditionsOutput> columnsOutputs = null;
+                if (!Canceled)
+                {
+                    log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_columns_started, calculationName);
+                    columnsOutputs = CalculateWaveConditions(calculationName, calculation.InputParameters, aColumns, bColumns, cColumns, norm, ringId, hlcdFilePath);
+                    log.InfoFormat(Resources.StabilityStoneCoverWaveConditionsCalculationService_Calculate_Calculation_0_for_columns_finished, calculationName);
+                }
+
+                if (!Canceled)
+                {
+                    calculation.Output = new StabilityStoneCoverWaveConditionsOutput(columnsOutputs, blocksOutputs);
+                }
+            }
+            finally
             {
-                calculation.Output = new StabilityStoneCoverWaveConditionsOutput(columnsOutputs, blocksOutputs);
+                CalculationServiceHelper.LogCalculationEndTime(calculationName);
             }
-
-            CalculationServiceHelper.LogCalculationEndTime(calculationName);
         }
     }
 }
