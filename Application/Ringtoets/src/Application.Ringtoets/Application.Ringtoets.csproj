@@ -52,6 +52,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <DefineConstants>TRACE;INCLUDE_DEMOPROJECT</DefineConstants>
     <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'CreateInstaller|x86'">
     <OutputPath>$(SolutionDir)\bin\Release\</OutputPath>
@@ -59,6 +60,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <DefineConstants>TRACE</DefineConstants>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <DebugType>none</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseForCodeCoverage|x86'">
     <Optimize>true</Optimize>
