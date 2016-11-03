@@ -45,6 +45,8 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServicesResources = Ringtoets.Common.Service.Properties.Resources;
@@ -69,7 +71,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         {
             mocks = new MockRepository();
             guiMock = mocks.Stub<IGui>();
-            plugin = new ClosingStructuresPlugin()
+            plugin = new ClosingStructuresPlugin
             {
                 Gui = guiMock
             };
@@ -439,7 +441,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithNonExistingLocationId_WhenCalculatingFromContextMenuFails_ThenOutputClearedLogMessagesAddedAndUpdateObserver()
+        public void GivenCalculationThatEndsInFailure_WhenCalculatingFromContextMenuFails_ThenOutputClearedLogMessagesAddedAndUpdateObserver()
         {
             // Given
             var mainWindow = mocks.Stub<IMainWindow>();
@@ -468,12 +470,12 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
-            var calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation
             {
                 Output = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
 
@@ -496,7 +498,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 };
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
+                using (new HydraRingCalculatorFactoryConfig())
                 {
+                    var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                    calculator.EndInFailure = true;
+
                     // When
                     Action action = () => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
 
@@ -546,11 +552,11 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
 
-            var calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = hydraulicBoundaryLocation,
+                    HydraulicBoundaryLocation = hydraulicBoundaryLocation
                 }
             };
 

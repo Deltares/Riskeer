@@ -41,6 +41,7 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms;
 using Ringtoets.Common.Forms.Helpers;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
@@ -769,6 +770,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 };
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControl))
+                using (new HydraRingCalculatorFactoryConfig())
                 {
                     // Call
                     TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndexRootGroup].PerformClick(), messages =>
@@ -776,23 +778,19 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                         var messageList = messages.ToList();
 
                         // Assert
-                        Assert.AreEqual(14, messageList.Count);
+                        Assert.AreEqual(12, messageList.Count);
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
                         StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
                         StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[2]);
-                        StringAssert.StartsWith("De berekening voor kunstwerk puntconstructies 'A' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
-                                                messageList[3]);
-                        StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", messageList[4]);
-                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[5]);
-                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[6]);
-                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[7]);
-                        StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[8]);
-                        StringAssert.StartsWith("De berekening voor kunstwerk puntconstructies 'B' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
-                                                messageList[9]);
-                        StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", messageList[10]);
-                        StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[11]);
-                        Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[12]);
-                        Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[13]);
+                        StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", messageList[3]);
+                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[4]);
+                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[5]);
+                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[6]);
+                        StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[7]);
+                        StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", messageList[8]);
+                        StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[9]);
+                        Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[10]);
+                        Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[11]);
                     });
                 }
             }
@@ -811,7 +809,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 new Point2D(0, 0)
             }));
 
-            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation()
+            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
             {
                 Name = "A",
                 InputParameters =
@@ -822,7 +820,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 }
             });
 
-            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation()
+            failureMechanism.CalculationsGroup.Children.Add(new TestStabilityPointStructuresCalculation
             {
                 Name = "B",
                 InputParameters =

@@ -45,6 +45,8 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 using RingtoetsCommonServicesResources = Ringtoets.Common.Service.Properties.Resources;
@@ -573,7 +575,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithNonExistingLocationId_WhenCalculatingFromContextMenu_ThenOutputClearedLogMessagesAddedAndUpdateObserver()
+        public void GivenCalculationThatEndsInFailure_WhenCalculatingFromContextMenu_ThenOutputClearedLogMessagesAddedAndUpdateObserver()
         {
             // Given
             var gui = mocks.DynamicMock<IGui>();
@@ -633,7 +635,11 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 };
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
+                using (new HydraRingCalculatorFactoryConfig())
                 {
+                    var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
+                    calculator.EndInFailure = true;
+
                     // When
                     Action action = () => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
 

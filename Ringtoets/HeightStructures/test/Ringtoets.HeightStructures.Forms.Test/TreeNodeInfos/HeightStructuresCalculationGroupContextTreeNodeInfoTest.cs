@@ -45,6 +45,7 @@ using Ringtoets.HeightStructures.Data;
 using Ringtoets.HeightStructures.Data.TestUtil;
 using Ringtoets.HeightStructures.Forms.PresentationObjects;
 using Ringtoets.HeightStructures.Plugin;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
 
@@ -852,6 +853,7 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                 };
 
                 using (ContextMenuStrip contextMenu = info.ContextMenuStrip(groupContext, null, treeViewControl))
+                using (new HydraRingCalculatorFactoryConfig())
                 {
                     // Call
                     TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndexRootGroup].PerformClick(), messages =>
@@ -859,21 +861,19 @@ namespace Ringtoets.HeightStructures.Forms.Test.TreeNodeInfos
                         var messageList = messages.ToList();
 
                         // Assert
-                        Assert.AreEqual(14, messageList.Count);
+                        Assert.AreEqual(12, messageList.Count);
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
                         StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
                         StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[2]);
-                        StringAssert.StartsWith("De berekening voor hoogte kunstwerk 'A' is niet gelukt. Bekijk het foutrapport door op details te klikken.", messageList[3]);
-                        StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", messageList[4]);
-                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[5]);
-                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[6]);
-                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[7]);
-                        StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[8]);
-                        StringAssert.StartsWith("De berekening voor hoogte kunstwerk 'B' is niet gelukt. Bekijk het foutrapport door op details te klikken.", messageList[9]);
-                        StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", messageList[10]);
-                        StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[11]);
-                        Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[12]);
-                        Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[13]);
+                        StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", messageList[3]);
+                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[4]);
+                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[5]);
+                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[6]);
+                        StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[7]);
+                        StringAssert.StartsWith("Hoogte kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", messageList[8]);
+                        StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[9]);
+                        Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[10]);
+                        Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[11]);
                     });
                 }
             }

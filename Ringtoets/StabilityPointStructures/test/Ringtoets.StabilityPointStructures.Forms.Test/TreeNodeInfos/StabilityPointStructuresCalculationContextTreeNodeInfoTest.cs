@@ -41,6 +41,8 @@ using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Calculation.Calculator.Factory;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using Ringtoets.StabilityPointStructures.Data;
 using Ringtoets.StabilityPointStructures.Data.TestUtil;
@@ -433,7 +435,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationWithNonExistingLocationId_WhenCalculatingFromContextMenuFails_ThenOutputClearedLogMessagesAddedAndUpdateObserver()
+        public void GivenCalculationThatEndsInFailure_WhenCalculatingFromContextMenuFails_ThenOutputClearedLogMessagesAddedAndUpdateObserver()
         {
             // Given
             var guiMock = mocks.StrictMock<IGui>();
@@ -493,7 +495,11 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
                 };
 
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
+                using (new HydraRingCalculatorFactoryConfig())
                 {
+                    var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                    calculator.EndInFailure = true;
+
                     // When
                     Action action = () => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
 
@@ -544,7 +550,7 @@ namespace Ringtoets.StabilityPointStructures.Forms.Test.TreeNodeInfos
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
                 {

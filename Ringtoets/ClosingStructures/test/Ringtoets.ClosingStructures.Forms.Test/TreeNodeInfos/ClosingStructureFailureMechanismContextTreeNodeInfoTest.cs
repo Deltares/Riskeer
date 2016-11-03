@@ -43,6 +43,7 @@ using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Structures;
 using Ringtoets.Common.Forms.PresentationObjects;
+using Ringtoets.HydraRing.Calculation.TestUtil.Calculator;
 using Ringtoets.HydraRing.Data;
 using CoreCommonGuiResources = Core.Common.Gui.Properties.Resources;
 using RingtoetsCommonFormsResources = Ringtoets.Common.Forms.Properties.Resources;
@@ -610,7 +611,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
                 }
             });
             failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
@@ -618,7 +619,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
                 }
             });
 
@@ -647,6 +648,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 };
 
                 using (var contextMenu = info.ContextMenuStrip(failureMechanismContext, null, treeViewControl))
+                using (new HydraRingCalculatorFactoryConfig())
                 {
                     // Call
                     TestHelper.AssertLogMessages(() => contextMenu.Items[contextMenuCalculateAllIndex].PerformClick(), messages =>
@@ -654,23 +656,19 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                         var messageList = messages.ToList();
 
                         // Assert
-                        Assert.AreEqual(14, messageList.Count);
+                        Assert.AreEqual(12, messageList.Count);
                         StringAssert.StartsWith("Validatie van 'A' gestart om: ", messageList[0]);
                         StringAssert.StartsWith("Validatie van 'A' beëindigd om: ", messageList[1]);
                         StringAssert.StartsWith("Berekening van 'A' gestart om: ", messageList[2]);
-                        StringAssert.StartsWith("De berekening voor kunstwerk sluiten 'A' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
-                                                messageList[3]);
-                        StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", messageList[4]);
-                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[5]);
-                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[6]);
-                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[7]);
-                        StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[8]);
-                        StringAssert.StartsWith("De berekening voor kunstwerk sluiten 'B' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
-                                                messageList[9]);
-                        StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", messageList[10]);
-                        StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[11]);
-                        Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[12]);
-                        Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[13]);
+                        StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", messageList[3]);
+                        StringAssert.StartsWith("Berekening van 'A' beëindigd om: ", messageList[4]);
+                        StringAssert.StartsWith("Validatie van 'B' gestart om: ", messageList[5]);
+                        StringAssert.StartsWith("Validatie van 'B' beëindigd om: ", messageList[6]);
+                        StringAssert.StartsWith("Berekening van 'B' gestart om: ", messageList[7]);
+                        StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", messageList[8]);
+                        StringAssert.StartsWith("Berekening van 'B' beëindigd om: ", messageList[9]);
+                        Assert.AreEqual("Uitvoeren van 'A' is mislukt.", messageList[10]);
+                        Assert.AreEqual("Uitvoeren van 'B' is mislukt.", messageList[11]);
                     });
                 }
             }
@@ -686,20 +684,20 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 new Point2D(0, 0)
             });
             failureMechanism.AddSection(section);
-            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation()
+            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
             {
                 Name = "A",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
                 }
             });
-            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation()
+            failureMechanism.CalculationsGroup.Children.Add(new TestClosingStructuresCalculation
             {
                 Name = "B",
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(-1, "nonExisting", 1, 2)
                 }
             });
 

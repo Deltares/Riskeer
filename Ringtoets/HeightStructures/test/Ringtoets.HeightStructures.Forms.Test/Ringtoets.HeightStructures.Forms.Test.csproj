@@ -148,6 +148,10 @@
       <Project>{70F8CC9C-5BC8-4FB2-B201-EAE7FA8088C2}</Project>
       <Name>Ringtoets.HydraRing.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\HydraRing\test\Ringtoets.HydraRing.Calculation.TestUtil\Ringtoets.HydraRing.Calculation.TestUtil.csproj">
+      <Project>{74CBA865-9338-447F-BAD9-28312446AE84}</Project>
+      <Name>Ringtoets.HydraRing.Calculation.TestUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Ringtoets.HeightStructures.Data\Ringtoets.HeightStructures.Data.csproj">
       <Project>{1C0017D8-35B5-4CA0-8FC7-A83F46DBDC99}</Project>
       <Name>Ringtoets.HeightStructures.Data</Name>
