@@ -488,4 +488,7 @@ Er is geen vakindeling geïmporteerd.</value>
     <value>Klik op details voor meer informatie.
 {0}</value>
   </data>
+  <data name="HydraulicBoundaryDatabaseImporter_Config_sqlite_Not_found" xml:space="preserve">
+    <value>Het bijbehorende rekeninstellingen bestand is niet gevonden in dezelfde map als het HRD bestand.</value>
+  </data>
 </root>

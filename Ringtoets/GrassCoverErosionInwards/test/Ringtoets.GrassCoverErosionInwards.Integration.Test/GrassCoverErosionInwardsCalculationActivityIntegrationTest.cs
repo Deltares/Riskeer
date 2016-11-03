@@ -45,7 +45,8 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
     [TestFixture]
     public class GrassCoverErosionInwardsCalculationActivityIntegrationTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string validFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void Run_InvalidGrassCoverErosionInwardsCalculationInvalidHydraulicBoundaryDatabase_LogValidationStartAndEndWithError()
@@ -102,7 +103,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -147,7 +148,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             calculation.Attach(observerMock);
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -204,7 +205,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             calculation.Attach(observerMock);
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -250,7 +251,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -279,7 +280,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -311,7 +312,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
                 }
             };
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -348,7 +349,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             calculation.Attach(observerMock);
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -392,7 +393,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             calculation.Attach(observerMock);
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -435,7 +436,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             calculation.Attach(observerMock);
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -485,7 +486,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             calculation.Attach(observerMock);
 
-            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
+            var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, validFile, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig())
             {

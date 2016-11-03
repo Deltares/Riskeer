@@ -570,7 +570,11 @@ namespace Demo.Ringtoets.Commands
 
         private void InitializeDemoHydraulicBoundaryDatabase(AssessmentSection demoAssessmentSection)
         {
-            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly, false, "HRD dutch coast south.sqlite", "HLCD.sqlite"))
+            using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(GetType().Assembly,
+                                                                                   false,
+                                                                                   "HRD dutch coast south.sqlite",
+                                                                                   "HLCD.sqlite",
+                                                                                   "HRD dutch coast south.config.sqlite"))
             {
                 using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
                 {

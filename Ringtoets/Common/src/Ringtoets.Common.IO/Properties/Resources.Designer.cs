@@ -528,6 +528,15 @@ namespace Ringtoets.Common.IO.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Het bijbehorende rekeninstellingen bestand is niet gevonden in dezelfde map als het HRD bestand..
+        /// </summary>
+        public static string HydraulicBoundaryDatabaseImporter_Config_sqlite_Not_found {
+            get {
+                return ResourceManager.GetString("HydraulicBoundaryDatabaseImporter_Config_sqlite_Not_found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} Het bestand wordt overgeslagen..
         /// </summary>
         public static string HydraulicBoundaryDatabaseImporter_ErrorMessage_0_file_skipped {

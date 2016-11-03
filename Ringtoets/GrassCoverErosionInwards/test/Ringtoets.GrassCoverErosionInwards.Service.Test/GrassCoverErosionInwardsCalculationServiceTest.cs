@@ -43,6 +43,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
     public class GrassCoverErosionInwardsCalculationServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string validFile = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void Validate_NoHydraulicBoundaryLocation_LogsErrorAndReturnsFalse()
@@ -50,12 +51,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -139,12 +138,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -186,12 +183,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -222,25 +217,23 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         {
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
-
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
+            
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
 
-            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation()
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
             {
                 Name = name,
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
                     DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                                  null, new DikeProfile.ConstructionProperties()
+                                                  null, new DikeProfile.ConstructionProperties
                                                   {
                                                       Orientation = RoundedDouble.NaN
                                                   })
@@ -276,12 +269,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -312,12 +303,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
 
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -358,13 +347,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(grassCoverErosionInwardsFailureMechanism);
-
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
+            
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             var dikeProfile = GetDikeProfile();
@@ -390,7 +377,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                            failureMechanismSection,
                                                                            grassCoverErosionInwardsFailureMechanism.GeneralInput,
                                                                            grassCoverErosionInwardsFailureMechanism.Contribution,
-                                                                           testDataPath);
+                                                                           validFile);
             }
 
             // Assert
@@ -414,13 +401,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(grassCoverErosionInwardsFailureMechanism);
-
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
+            
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             var dikeProfile = GetDikeProfile();
@@ -453,7 +438,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                    failureMechanismSection,
                                                                                    grassCoverErosionInwardsFailureMechanism.GeneralInput,
                                                                                    grassCoverErosionInwardsFailureMechanism.Contribution,
-                                                                                   testDataPath);
+                                                                                   validFile);
                     }
                 }
                 catch (HydraRingFileParserException)
@@ -485,13 +470,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             // Setup
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(grassCoverErosionInwardsFailureMechanism);
-
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
+            
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             var dikeProfile = GetDikeProfile();
@@ -501,7 +484,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
-                    DikeProfile = dikeProfile,
+                    DikeProfile = dikeProfile
                 }
             };
 
@@ -523,7 +506,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                    failureMechanismSection,
                                                                                    grassCoverErosionInwardsFailureMechanism.GeneralInput,
                                                                                    grassCoverErosionInwardsFailureMechanism.Contribution,
-                                                                                   testDataPath);
+                                                                                   validFile);
                     }
                 }
                 catch (HydraRingFileParserException)
@@ -555,12 +538,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(grassCoverErosionInwardsFailureMechanism);
 
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -572,7 +553,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                 {
                     HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
                     DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
-                                                  null, new DikeProfile.ConstructionProperties()),
+                                                  null, new DikeProfile.ConstructionProperties())
                 }
             };
 
@@ -590,7 +571,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                   failureMechanismSection,
                                   grassCoverErosionInwardsFailureMechanism.GeneralInput,
                                   grassCoverErosionInwardsFailureMechanism.Contribution,
-                                  testDataPath);
+                                  validFile);
 
                 // Assert
                 Assert.IsTrue(calculator.IsCanceled);
@@ -607,12 +588,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(grassCoverErosionInwardsFailureMechanism);
 
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             const string name = "<very nice name>";
@@ -654,7 +633,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                   failureMechanismSection,
                                   grassCoverErosionInwardsFailureMechanism.GeneralInput,
                                   grassCoverErosionInwardsFailureMechanism.Contribution,
-                                  testDataPath);
+                                  validFile);
 
                 // Assert
                 Assert.IsNull(calculation.Output);
@@ -681,12 +660,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(failureMechanism);
 
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             var dikeProfile = GetDikeProfile();
@@ -721,7 +698,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                            failureMechanismSection,
                                                                            failureMechanism.GeneralInput,
                                                                            failureMechanism.Contribution,
-                                                                           testDataPath);
+                                                                           validFile);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -750,12 +727,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(failureMechanism);
 
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             var dikeProfile = GetDikeProfile();
@@ -789,7 +764,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                            failureMechanismSection,
                                                                            failureMechanism.GeneralInput,
                                                                            failureMechanism.Contribution,
-                                                                           testDataPath);
+                                                                           validFile);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -818,12 +793,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(failureMechanism);
 
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             var dikeProfile = GetDikeProfile();
@@ -859,7 +832,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                            failureMechanismSection,
                                                                            failureMechanism.GeneralInput,
                                                                            failureMechanism.Contribution,
-                                                                           testDataPath);
+                                                                           validFile);
                     }
                     catch (HydraRingFileParserException e)
                     {
@@ -890,12 +863,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(failureMechanism);
 
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             var dikeProfile = GetDikeProfile();
@@ -930,7 +901,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                                    failureMechanismSection,
                                                                                    failureMechanism.GeneralInput,
                                                                                    failureMechanism.Contribution,
-                                                                                   testDataPath);
+                                                                                   validFile);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -960,12 +931,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(failureMechanism);
 
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             var dikeProfile = GetDikeProfile();
@@ -999,7 +968,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                            failureMechanismSection,
                                                                            failureMechanism.GeneralInput,
                                                                            failureMechanism.Contribution,
-                                                                           testDataPath);
+                                                                           validFile);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -1029,12 +998,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
             AddSectionToFailureMechanism(failureMechanism);
 
-            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
                                                                                                            mockRepository,
-                                                                                                           filePath);
+                                                                                                           validFile);
             mockRepository.ReplayAll();
 
             var dikeProfile = GetDikeProfile();
@@ -1069,7 +1036,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                                            failureMechanismSection,
                                                                            failureMechanism.GeneralInput,
                                                                            failureMechanism.Contribution,
-                                                                           testDataPath);
+                                                                           validFile);
                     }
                     catch (HydraRingFileParserException e)
                     {
@@ -1134,7 +1101,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
                                                   new RoughnessPoint[0],
                                                   new Point2D[0],
                                                   new BreakWater(BreakWaterType.Dam, breakWaterHeight),
-                                                  new DikeProfile.ConstructionProperties()),
+                                                  new DikeProfile.ConstructionProperties())
                 }
             };
         }

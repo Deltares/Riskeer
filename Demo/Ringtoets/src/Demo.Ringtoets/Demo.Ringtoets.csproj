@@ -249,6 +249,7 @@
     <EmbeddedResource Include="Resources\DR6_surfacelines.krp.csv" />
     <EmbeddedResource Include="Resources\HLCD.sqlite" />
     <EmbeddedResource Include="Resources\DR6.soil" />
+    <EmbeddedResource Include="Resources\HRD dutch coast south.config.sqlite" />
     <None Include="Resources\map.png" />
   </ItemGroup>
   <ItemGroup>

@@ -36,7 +36,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
     public class GrassCoverErosionInwardsCalculationActivity : HydraRingActivityBase
     {
         private readonly GrassCoverErosionInwardsCalculation calculation;
-        private readonly string hlcdDirectory;
+        private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly GrassCoverErosionInwardsFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         private readonly GrassCoverErosionInwardsCalculationService calculationService;
@@ -45,20 +45,20 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// Creates a new instance of <see cref="GrassCoverErosionInwardsCalculationActivity"/>.
         /// </summary>
         /// <param name="calculation">The height structures data used for the calculation.</param>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public GrassCoverErosionInwardsCalculationActivity(GrassCoverErosionInwardsCalculation calculation, string hlcdDirectory,
+        public GrassCoverErosionInwardsCalculationActivity(GrassCoverErosionInwardsCalculation calculation, string hydraulicBoundaryDatabaseFilePath,
                                                            GrassCoverErosionInwardsFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException("calculation");
             }
-            if (hlcdDirectory == null)
+            if (hydraulicBoundaryDatabaseFilePath == null)
             {
-                throw new ArgumentNullException("hlcdDirectory");
+                throw new ArgumentNullException("hydraulicBoundaryDatabaseFilePath");
             }
             if (failureMechanism == null)
             {
@@ -70,7 +70,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             }
 
             this.calculation = calculation;
-            this.hlcdDirectory = hlcdDirectory;
+            this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
@@ -100,7 +100,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                 failureMechanismSection,
                 failureMechanism.GeneralInput,
                 failureMechanism.Contribution,
-                hlcdDirectory);
+                hydraulicBoundaryDatabaseFilePath);
         }
 
         protected override void OnCancel()

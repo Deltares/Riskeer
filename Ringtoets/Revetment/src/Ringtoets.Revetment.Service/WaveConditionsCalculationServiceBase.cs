@@ -111,7 +111,7 @@ namespace Ringtoets.Revetment.Service
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
         /// <param name="norm">The norm to use as the target.</param>
         /// <param name="ringId">The id of the assessment section for which calculations are performed.</param>
-        /// <param name="hlcdFilePath">The filepath of the hydraulic boundary database.</param>
+        /// <param name="hrdFilePath">The filepath of the hydraulic boundary database.</param>
         /// <returns>An <see cref="IEnumerable{T}"/> of <see cref="WaveConditionsOutput"/>.</returns>
         protected IEnumerable<WaveConditionsOutput> CalculateWaveConditions(string calculationName,
                                                                             WaveConditionsInput waveConditionsInput,
@@ -120,7 +120,7 @@ namespace Ringtoets.Revetment.Service
                                                                             RoundedDouble c,
                                                                             double norm,
                                                                             string ringId,
-                                                                            string hlcdFilePath)
+                                                                            string hrdFilePath)
         {
             var outputs = new List<WaveConditionsOutput>();
 
@@ -139,7 +139,7 @@ namespace Ringtoets.Revetment.Service
                                                  c,
                                                  norm,
                                                  waveConditionsInput,
-                                                 Path.GetDirectoryName(hlcdFilePath),
+                                                 hrdFilePath,
                                                  ringId,
                                                  calculationName);
 
@@ -196,7 +196,7 @@ namespace Ringtoets.Revetment.Service
         /// <param name="c">The 'c' factor decided on failure mechanism level.</param>
         /// <param name="norm">The norm to use as the target.</param>
         /// <param name="input">The input that is different per calculation.</param>
-        /// <param name="hlcdDirectory">The directory of the hydraulic boundary database.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="ringId">The id of the assessment section for which calculations are performed.</param>
         /// <param name="name">The name used for logging.</param>
         /// <returns>A <see cref="WaveConditionsOutput"/> if the calculation was succesful; or <c>null</c> if it was canceled.</returns>
@@ -206,12 +206,13 @@ namespace Ringtoets.Revetment.Service
                                                          RoundedDouble c,
                                                          double norm,
                                                          WaveConditionsInput input,
-                                                         string hlcdDirectory,
+                                                         string hydraulicBoundaryDatabaseFilePath,
                                                          string ringId,
                                                          string name)
         {
+            string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateWaveConditionsCosineCalculator(hlcdDirectory, ringId);
-            WaveConditionsCosineCalculationInput calculationInput = CreateInput(waterLevel, a, b, c, norm, input);
+            WaveConditionsCosineCalculationInput calculationInput = CreateInput(waterLevel, a, b, c, norm, input, hydraulicBoundaryDatabaseFilePath);
 
             var exceptionThrown = false;
             try
@@ -277,18 +278,24 @@ namespace Ringtoets.Revetment.Service
                                                                         RoundedDouble b,
                                                                         RoundedDouble c,
                                                                         double norm,
-                                                                        WaveConditionsInput input)
+                                                                        WaveConditionsInput input, 
+                                                                        string hydraulicBoundaryDatabaseFilePath)
         {
-            return new WaveConditionsCosineCalculationInput(1,
-                                                            input.Orientation,
-                                                            input.HydraulicBoundaryLocation.Id,
-                                                            norm,
-                                                            HydraRingInputParser.ParseForeshore(input),
-                                                            HydraRingInputParser.ParseBreakWater(input),
-                                                            waterLevel,
-                                                            a,
-                                                            b,
-                                                            c);
+            var waveConditionsCosineCalculationInput = new WaveConditionsCosineCalculationInput(
+                1,
+                input.Orientation,
+                input.HydraulicBoundaryLocation.Id,
+                norm,
+                HydraRingInputParser.ParseForeshore(input),
+                HydraRingInputParser.ParseBreakWater(input),
+                waterLevel,
+                a,
+                b,
+                c);
+
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveConditionsCosineCalculationInput, hydraulicBoundaryDatabaseFilePath);
+
+            return waveConditionsCosineCalculationInput;
         }
 
         private static string ValidateWaveConditionsInput(WaveConditionsInput input, string designWaterLevelName)

@@ -89,7 +89,8 @@ namespace Ringtoets.Piping.Integration.Test
             using (var embeddedResourceFileWriter = new EmbeddedResourceFileWriter(typeof(IntegrationTestHelper).Assembly,
                                                                                    false,
                                                                                    "HRD dutch coast south.sqlite",
-                                                                                   "HLCD.sqlite"))
+                                                                                   "HLCD.sqlite",
+                                                                                   "HRD dutch coast south.config.sqlite"))
             using (var hydraulicBoundaryDatabaseImporter = new HydraulicBoundaryDatabaseImporter())
             {
                 var filePath = Path.Combine(embeddedResourceFileWriter.TargetFolderPath, "HRD dutch coast south.sqlite");

@@ -367,16 +367,16 @@ namespace Ringtoets.Revetment.Service.Test
                 Orientation = (RoundedDouble) 0
             };
 
-            string hcldFilePath = "C:\\temp\\someFile";
+            string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
             string ringId = "11-1";
-            string name = "test";
+            string calculationName = "test";
 
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var testCalculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveConditionsCosineCalculator;
 
                 // Call
-                new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, ringId, name);
+                new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, ringId, calculationName);
 
                 // Assert
                 Assert.AreEqual(Path.GetDirectoryName(hcldFilePath), testCalculator.HydraulicBoundaryDatabaseDirectory);
@@ -440,9 +440,10 @@ namespace Ringtoets.Revetment.Service.Test
                 LowerBoundaryRevetment = (RoundedDouble) 3
             };
 
-            string hlcdDirectory = "C:/temp";
-            string ringId = "11-1";
-            string name = "test";
+            const string ringId = "11-1";
+            const string calculationName = "test";
+
+            string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
             bool exceptionThrown = false;
 
             using (new HydraRingCalculatorFactoryConfig())
@@ -455,7 +456,7 @@ namespace Ringtoets.Revetment.Service.Test
                 {
                     try
                     {
-                        new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hlcdDirectory, ringId, name);
+                        new WaveConditionsCalculationService().PublicCalculate(a, b, c, norm, input, hcldFilePath, ringId, calculationName);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -468,8 +469,8 @@ namespace Ringtoets.Revetment.Service.Test
                 {
                     var msgs = messages.ToArray();
                     Assert.AreEqual(3, msgs.Length);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", name, waterLevel), msgs[0]);
-                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt. Er is geen foutrapport beschikbaar.", name, waterLevel), msgs[1]);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' gestart.", calculationName, waterLevel), msgs[0]);
+                    Assert.AreEqual(string.Format("Berekening '{0}' voor waterstand '{1}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculationName, waterLevel), msgs[1]);
                     StringAssert.StartsWith("Golfcondities berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
                 });
                 Assert.IsTrue(exceptionThrown);
@@ -496,9 +497,10 @@ namespace Ringtoets.Revetment.Service.Test
                 LowerBoundaryRevetment = (RoundedDouble) 3
             };
 
-            string hlcdDirectory = "C:/temp";
-            string ringId = "11-1";
-            string name = "test";
+            const string ringId = "11-1";
+            const string name = "test";
+
+            string hcldFilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite");
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -507,7 +509,7 @@ namespace Ringtoets.Revetment.Service.Test
                 testCalculator.CalculationFinishedHandler += (s, e) => service.Cancel();
 
                 // Call
-                service.PublicCalculate(a, b, c, norm, input, hlcdDirectory, ringId, name);
+                service.PublicCalculate(a, b, c, norm, input, hcldFilePath, ringId, name);
 
                 // Assert
                 Assert.IsTrue(testCalculator.IsCanceled);

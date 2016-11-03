@@ -163,6 +163,7 @@
     <EmbeddedResource Include="Resources\traject_6-3_vakken.prj" />
     <EmbeddedResource Include="Resources\traject_6-3_vakken.shp" />
     <EmbeddedResource Include="Resources\traject_6-3_vakken.shx" />
+    <EmbeddedResource Include="Resources\HRD dutch coast south.config.sqlite" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

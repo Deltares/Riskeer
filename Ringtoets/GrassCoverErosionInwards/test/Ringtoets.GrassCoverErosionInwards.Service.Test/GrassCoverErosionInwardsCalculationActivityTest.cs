@@ -75,7 +75,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
-        public void ParameteredConstructor_HlcdDirectoryNull_ThrowsArgumentNullException()
+        public void ParameteredConstructor_HydraulicBoundaryDatabaseFilePathNull_ThrowsArgumentNullException()
         {
             // Setup
             var mocks = new MockRepository();
@@ -90,7 +90,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("hlcdDirectory", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryDatabaseFilePath", exception.ParamName);
             mocks.VerifyAll();
         }
 

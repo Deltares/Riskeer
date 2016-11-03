@@ -125,6 +125,18 @@ namespace Ringtoets.Common.IO.FileImporters
                 var message = new FileReaderErrorMessageBuilder(filePath).Build(Resources.HydraulicBoundaryDatabaseImporter_HLCD_sqlite_Not_Found);
                 throw new CriticalFileReadException(message);
             }
+            try
+            {
+                string settingsDatabaseFileName = HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(filePath);
+                new DesignTablesSettingsProvider(settingsDatabaseFileName).Dispose();
+                new HydraulicModelsSettingsProvider(settingsDatabaseFileName).Dispose();
+                new NumericsSettingsProvider(settingsDatabaseFileName).Dispose();
+            }
+            catch (CriticalFileReadException)
+            {
+                var message = new FileReaderErrorMessageBuilder(filePath).Build(Resources.HydraulicBoundaryDatabaseImporter_Config_sqlite_Not_found);
+                throw new CriticalFileReadException(message);
+            }
         }
 
         private bool IsImportRequired(HydraulicBoundaryDatabase hydraulicBoundaryDatabase)

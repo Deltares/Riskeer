@@ -20,6 +20,7 @@
 // All rights reserved.
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Core.Common.Base.IO;
 using log4net;
@@ -98,14 +99,15 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
         /// <param name="failureMechanismSection">The <see cref="FailureMechanismSection"/> to create input with.</param>
         /// <param name="generalInput">Calculation input parameters that apply to all <see cref="GrassCoverErosionInwardsCalculation"/> instances.</param>
         /// <param name="failureMechanismContribution">The amount of contribution for this failure mechanism in the assessment section.</param>
-        /// <param name="hlcdDirectory">The directory of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         internal void Calculate(GrassCoverErosionInwardsCalculation calculation,
                                 IAssessmentSection assessmentSection,
                                 FailureMechanismSection failureMechanismSection,
                                 GeneralGrassCoverErosionInwardsInput generalInput,
                                 double failureMechanismContribution,
-                                string hlcdDirectory)
+                                string hydraulicBoundaryDatabaseFilePath)
         {
+            var hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             var calculateDikeHeight = calculation.InputParameters.CalculateDikeHeight;
             var totalSteps = calculateDikeHeight ? 2 : 1;
             var calculationName = calculation.Name;
@@ -115,7 +117,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
 
             overtoppingCalculator = HydraRingCalculatorFactory.Instance.CreateOvertoppingCalculator(hlcdDirectory, assessmentSection.Id);
-            var overtoppingCalculationInput = CreateOvertoppingInput(calculation, failureMechanismSection, generalInput);
+            var overtoppingCalculationInput = CreateOvertoppingInput(calculation, failureMechanismSection, generalInput, hydraulicBoundaryDatabaseFilePath);
             double? dikeHeight = null;
 
             try
@@ -127,7 +129,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
                     NotifyProgress(Resources.GrassCoverErosionInwardsCalculationService_Calculate_Executing_dikeheight_calculation, 2, totalSteps);
 
                     dikeHeightCalculator = HydraRingCalculatorFactory.Instance.CreateDikeHeightCalculator(hlcdDirectory, assessmentSection.Id);
-                    var dikeHeightCalculationInput = CreateDikeHeightInput(calculation, assessmentSection, failureMechanismSection, generalInput);
+                    var dikeHeightCalculationInput = CreateDikeHeightInput(calculation, assessmentSection, failureMechanismSection, generalInput, hydraulicBoundaryDatabaseFilePath);
                     CalculateDikeHeight(dikeHeightCalculationInput, calculationName);
                     dikeHeight = dikeHeightCalculator.DikeHeight;
                 }
@@ -245,49 +247,61 @@ namespace Ringtoets.GrassCoverErosionInwards.Service
 
         private static OvertoppingCalculationInput CreateOvertoppingInput(GrassCoverErosionInwardsCalculation calculation,
                                                                           FailureMechanismSection failureMechanismSection,
-                                                                          GeneralGrassCoverErosionInwardsInput generalInput)
+                                                                          GeneralGrassCoverErosionInwardsInput generalInput,
+                                                                          string hydraulicBoundaryDatabaseFilePath)
         {
-            return new OvertoppingCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                   new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
-                                                   ParseProfilePoints(calculation.InputParameters.DikeGeometry),
-                                                   HydraRingInputParser.ParseForeshore(calculation.InputParameters),
-                                                   HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
-                                                   calculation.InputParameters.DikeHeight,
-                                                   generalInput.CriticalOvertoppingModelFactor,
-                                                   generalInput.FbFactor.Mean,
-                                                   generalInput.FbFactor.StandardDeviation,
-                                                   generalInput.FnFactor.Mean,
-                                                   generalInput.FnFactor.StandardDeviation,
-                                                   generalInput.OvertoppingModelFactor,
-                                                   calculation.InputParameters.CriticalFlowRate.Mean,
-                                                   calculation.InputParameters.CriticalFlowRate.StandardDeviation,
-                                                   generalInput.FrunupModelFactor.Mean,
-                                                   generalInput.FrunupModelFactor.StandardDeviation,
-                                                   generalInput.FshallowModelFactor.Mean,
-                                                   generalInput.FshallowModelFactor.StandardDeviation);
+            var overtoppingCalculationInput = new OvertoppingCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
+                                                                              new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
+                                                                              ParseProfilePoints(calculation.InputParameters.DikeGeometry),
+                                                                              HydraRingInputParser.ParseForeshore(calculation.InputParameters),
+                                                                              HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
+                                                                              calculation.InputParameters.DikeHeight,
+                                                                              generalInput.CriticalOvertoppingModelFactor,
+                                                                              generalInput.FbFactor.Mean,
+                                                                              generalInput.FbFactor.StandardDeviation,
+                                                                              generalInput.FnFactor.Mean,
+                                                                              generalInput.FnFactor.StandardDeviation,
+                                                                              generalInput.OvertoppingModelFactor,
+                                                                              calculation.InputParameters.CriticalFlowRate.Mean,
+                                                                              calculation.InputParameters.CriticalFlowRate.StandardDeviation,
+                                                                              generalInput.FrunupModelFactor.Mean,
+                                                                              generalInput.FrunupModelFactor.StandardDeviation,
+                                                                              generalInput.FshallowModelFactor.Mean,
+                                                                              generalInput.FshallowModelFactor.StandardDeviation);
+
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(overtoppingCalculationInput, hydraulicBoundaryDatabaseFilePath);
+
+            return overtoppingCalculationInput;
         }
 
-        private static DikeHeightCalculationInput CreateDikeHeightInput(GrassCoverErosionInwardsCalculation calculation, IAssessmentSection assessmentSection,
-                                                                        FailureMechanismSection failureMechanismSection, GeneralGrassCoverErosionInwardsInput generalInput)
+        private static DikeHeightCalculationInput CreateDikeHeightInput(GrassCoverErosionInwardsCalculation calculation,
+                                                                        IAssessmentSection assessmentSection,
+                                                                        FailureMechanismSection failureMechanismSection,
+                                                                        GeneralGrassCoverErosionInwardsInput generalInput,
+                                                                        string hydraulicBoundaryDatabaseFilePath)
         {
-            return new DikeHeightCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
-                                                  assessmentSection.FailureMechanismContribution.Norm,
-                                                  new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
-                                                  ParseProfilePoints(calculation.InputParameters.DikeGeometry),
-                                                  HydraRingInputParser.ParseForeshore(calculation.InputParameters),
-                                                  HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
-                                                  generalInput.CriticalOvertoppingModelFactor,
-                                                  generalInput.FbFactor.Mean,
-                                                  generalInput.FbFactor.StandardDeviation,
-                                                  generalInput.FnFactor.Mean,
-                                                  generalInput.FnFactor.StandardDeviation,
-                                                  generalInput.OvertoppingModelFactor,
-                                                  calculation.InputParameters.CriticalFlowRate.Mean,
-                                                  calculation.InputParameters.CriticalFlowRate.StandardDeviation,
-                                                  generalInput.FrunupModelFactor.Mean,
-                                                  generalInput.FrunupModelFactor.StandardDeviation,
-                                                  generalInput.FshallowModelFactor.Mean,
-                                                  generalInput.FshallowModelFactor.StandardDeviation);
+            var dikeHeightCalculationInput = new DikeHeightCalculationInput(calculation.InputParameters.HydraulicBoundaryLocation.Id,
+                                                                            assessmentSection.FailureMechanismContribution.Norm,
+                                                                            new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.Orientation),
+                                                                            ParseProfilePoints(calculation.InputParameters.DikeGeometry),
+                                                                            HydraRingInputParser.ParseForeshore(calculation.InputParameters),
+                                                                            HydraRingInputParser.ParseBreakWater(calculation.InputParameters),
+                                                                            generalInput.CriticalOvertoppingModelFactor,
+                                                                            generalInput.FbFactor.Mean,
+                                                                            generalInput.FbFactor.StandardDeviation,
+                                                                            generalInput.FnFactor.Mean,
+                                                                            generalInput.FnFactor.StandardDeviation,
+                                                                            generalInput.OvertoppingModelFactor,
+                                                                            calculation.InputParameters.CriticalFlowRate.Mean,
+                                                                            calculation.InputParameters.CriticalFlowRate.StandardDeviation,
+                                                                            generalInput.FrunupModelFactor.Mean,
+                                                                            generalInput.FrunupModelFactor.StandardDeviation,
+                                                                            generalInput.FshallowModelFactor.Mean,
+                                                                            generalInput.FshallowModelFactor.StandardDeviation);
+
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(dikeHeightCalculationInput, hydraulicBoundaryDatabaseFilePath);
+
+            return dikeHeightCalculationInput;
         }
 
         private static IEnumerable<HydraRingRoughnessProfilePoint> ParseProfilePoints(RoughnessPoint[] roughnessProfilePoints)

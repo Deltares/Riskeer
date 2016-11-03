@@ -526,7 +526,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
                                                                                                               failureMechanism,
                                                                                                               assessmentSectionStub,
-                                                                                                              testDataPath);
+                                                                                                              validFilePath);
 
                 // Assert
                 Assert.Throws<HydraRingFileParserException>(call);
@@ -558,7 +558,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
                                                                                                                     failureMechanism,
                                                                                                                     assessmentSectionStub,
-                                                                                                                    testDataPath);
+                                                                                                                    validFilePath);
 
                 // Assert
                 Assert.Throws<HydraRingFileParserException>(call);
@@ -591,7 +591,7 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test
                 TestDelegate call = () => new GrassCoverErosionOutwardsWaveConditionsCalculationService().Calculate(calculation,
                                                                                                               failureMechanism,
                                                                                                               assessmentSectionStub,
-                                                                                                              testDataPath);
+                                                                                                              validFilePath);
 
                 // Assert
                 var exception = Assert.Throws<HydraRingFileParserException>(call);

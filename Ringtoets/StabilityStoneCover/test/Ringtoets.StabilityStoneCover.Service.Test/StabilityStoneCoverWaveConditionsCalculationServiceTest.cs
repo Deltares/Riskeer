@@ -570,7 +570,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
                                                                                                               assessmentSectionStub,
                                                                                                               failureMechanism.GeneralInput,
-                                                                                                              testDataPath);
+                                                                                                              validFilePath);
 
                 // Assert
                 Assert.Throws<HydraRingFileParserException>(call);
@@ -602,7 +602,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
                                                                                                               assessmentSectionStub,
                                                                                                               failureMechanism.GeneralInput,
-                                                                                                              testDataPath);
+                                                                                                              validFilePath);
 
                 // Assert
                 Assert.Throws<HydraRingFileParserException>(call);
@@ -635,7 +635,7 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
                 TestDelegate call = () => new StabilityStoneCoverWaveConditionsCalculationService().Calculate(calculation,
                                                                                                               assessmentSectionStub,
                                                                                                               failureMechanism.GeneralInput,
-                                                                                                              testDataPath);
+                                                                                                              validFilePath);
 
                 // Assert
                 var exception = Assert.Throws<HydraRingFileParserException>(call);

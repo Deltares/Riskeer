@@ -179,7 +179,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow, calculations.Select(
                 calc => new GrassCoverErosionInwardsCalculationActivity(calc,
-                                                                        Path.GetDirectoryName(assessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                        assessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                         failureMechanism,
                                                                         assessmentSection)).ToArray());
         }
@@ -626,7 +626,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Plugin
         private void Calculate(GrassCoverErosionInwardsCalculation calculation, GrassCoverErosionInwardsCalculationContext context)
         {
             ActivityProgressDialogRunner.Run(Gui.MainWindow, new GrassCoverErosionInwardsCalculationActivity(calculation,
-                                                                                                             Path.GetDirectoryName(context.AssessmentSection.HydraulicBoundaryDatabase.FilePath),
+                                                                                                             context.AssessmentSection.HydraulicBoundaryDatabase.FilePath,
                                                                                                              context.FailureMechanism,
                                                                                                              context.AssessmentSection));
         }
