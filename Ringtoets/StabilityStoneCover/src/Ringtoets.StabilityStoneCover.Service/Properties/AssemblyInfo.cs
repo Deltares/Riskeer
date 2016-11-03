@@ -20,11 +20,8 @@
 // All rights reserved.
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Ringtoets.StabilityStoneCover.Service")]
 [assembly: AssemblyProduct("Ringtoets.StabilityStoneCover.Service")]
-[assembly: InternalsVisibleTo("Ringtoets.StabilityStoneCover.Service.Test")]
-[assembly: InternalsVisibleTo("Ringtoets.StabilityStoneCover.Integration.Test")]
 [assembly: Guid("501a5ee0-bb2b-415f-af4e-4a2f602a3003")]

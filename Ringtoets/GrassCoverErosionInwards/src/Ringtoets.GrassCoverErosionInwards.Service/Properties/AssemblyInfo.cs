@@ -27,4 +27,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyProduct("Ringtoets.GrassCoverErosionInwards.Service")]
 [assembly: Guid("fab17b31-71c4-4f69-a197-702ed145ff34")]
 [assembly: InternalsVisibleTo("Ringtoets.GrassCoverErosionInwards.Service.Test")]
-[assembly: InternalsVisibleTo("Ringtoets.GrassCoverErosionInwards.Integration.Test")]
