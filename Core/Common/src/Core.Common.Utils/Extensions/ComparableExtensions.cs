@@ -33,10 +33,10 @@ namespace Core.Common.Utils.Extensions
         /// </summary>
         /// <param name="object1">The first object.</param>
         /// <param name="object2">The second object.</param>
-        /// <returns>True if <paramref name="object1"/> is considered greater then <paramref name="object2"/>,
-        /// false otherwise.</returns>
+        /// <returns><c>True</c> if <paramref name="object1"/> is considered greater then <paramref name="object2"/>,
+        /// <c>false</c> otherwise.</returns>
         /// <remarks><c>null</c> is considered smaller than any other not-null value.</remarks>
-        /// <exception cref="ArgumentException">Object type of <paramref name="object1"/>
+        /// <exception cref="ArgumentException">Thrown when object type of <paramref name="object1"/>
         /// is not the same as that of <paramref name="object2"/>.</exception>
         public static bool IsBigger(this IComparable object1, IComparable object2)
         {
@@ -57,10 +57,10 @@ namespace Core.Common.Utils.Extensions
         /// </summary>
         /// <param name="object1">The first object.</param>
         /// <param name="object2">The second object.</param>
-        /// <returns>True if <paramref name="object1"/> is considered smaller then <paramref name="object2"/>,
-        /// false otherwise.</returns>
+        /// <returns><c>True</c> if <paramref name="object1"/> is considered smaller then <paramref name="object2"/>,
+        /// <c>false</c> otherwise.</returns>
         /// <remarks><c>null</c> is considered smaller then any not-null value.</remarks>
-        /// <exception cref="ArgumentException">Object type of <paramref name="object1"/>
+        /// <exception cref="ArgumentException">Thrown when object type of <paramref name="object1"/>
         /// is not the same as that of <paramref name="object2"/>.</exception>
         public static bool IsSmaller(this IComparable object1, IComparable object2)
         {
@@ -78,8 +78,9 @@ namespace Core.Common.Utils.Extensions
         /// <param name="value">Value to be checked.</param>
         /// <param name="limit1">First range value.</param>
         /// <param name="limit2">Second range value.</param>
-        /// <returns>True if <paramref name="value"/> falls within the inclusive bounds, false otherwise.</returns>
-        /// <exception cref="ArgumentException">Object type of <paramref name="value"/>
+        /// <returns><c>True</c> if <paramref name="value"/> falls within the inclusive bounds, 
+        /// <c>false</c> otherwise.</returns>
+        /// <exception cref="ArgumentException">Thrown when object type of <paramref name="value"/>
         /// is not the same as that of <paramref name="limit1"/> or <paramref name="limit2"/>.</exception>
         public static bool IsInRange(this IComparable value, IComparable limit1, IComparable limit2)
         {
@@ -108,7 +109,7 @@ namespace Core.Common.Utils.Extensions
         /// <param name="limit1">First range value.</param>
         /// <param name="limit2">Second range value.</param>
         /// <returns>The clipped value within the given validity range.</returns>
-        /// <exception cref="ArgumentException">Object type of <paramref name="value"/>
+        /// <exception cref="ArgumentException">Thrown when object type of <paramref name="value"/>
         /// is not the same as that of <paramref name="limit1"/> or <paramref name="limit2"/>.</exception>
         public static T ClipValue<T>(this T value, T limit1, T limit2) where T : IComparable
         {

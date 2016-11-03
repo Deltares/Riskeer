@@ -93,8 +93,9 @@ namespace Core.Common.Utils.Reflection
         /// Returns the type based on the full type name.
         /// </summary>
         /// <param name="typeName">Full type name.</param>
-        /// <returns>The <see cref="Type"/> matching the string name, null otherwise.</returns>
-        /// <exception cref="Exception">Specified type string is found in multiple assemblies.</exception>
+        /// <returns>The <see cref="Type"/> matching the string name, <c>null</c> otherwise.</returns>
+        /// <exception cref="AmbiguousMatchException">Thrown when the specified type string is 
+        /// found in multiple assemblies.</exception>
         public static Type GetTypeByName(string typeName)
         {
             Type result = null;
@@ -122,8 +123,8 @@ namespace Core.Common.Utils.Reflection
         /// <param name="assembly">The assembly from which to retrieve the embedded resource.</param>
         /// <param name="fileName">Name of the embedded file.</param>
         /// <returns>The byte-stream to the embedded resource.</returns>
-        /// <exception cref="ArgumentException">Embedded resource file with name <paramref name="fileName"/>
-        /// cannot be found in <paramref name="assembly"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown when the embedded resource file with 
+        /// name <paramref name="fileName"/> cannot be found in <paramref name="assembly"/>.</exception>
         public static Stream GetAssemblyResourceStream(Assembly assembly, string fileName)
         {
             try
@@ -158,7 +159,7 @@ namespace Core.Common.Utils.Reflection
         /// <summary>
         /// structure containing assembly attributes as strings.
         /// </summary>
-        /// <remarks>Values will be null if they were not specified.</remarks>
+        /// <remarks>Values will be <c>null</c> if they were not specified.</remarks>
         [Serializable]
         public struct AssemblyInfo
         {

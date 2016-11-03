@@ -39,8 +39,8 @@ namespace Core.Common.Utils.Attributes
         /// <param name="resourceName">Name of the string resource property to be used as category.</param>
         /// <param name="position">The position of the category.</param>
         /// <param name="totalCategories">The total amount of categories in the control.</param>
-        /// <exception cref="InvalidOperationException">Resource cannot be found or does 
-        /// not have the given resource name.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the resource cannot be found 
+        /// or does not have the given resource name.</exception>
         /// <remarks>Implemented as proposed at http://stackoverflow.com/a/21441892/. </remarks>
         public ResourcesCategoryAttribute(Type resourceType, string resourceName, ushort position = 0, ushort totalCategories = 0) :
             base(ResourceHelper.GetResourceLookup(resourceType, resourceName)

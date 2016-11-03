@@ -36,8 +36,9 @@ namespace Core.Common.Utils.Attributes
         /// </summary>
         /// <param name="resourceType">Type of the resource file.</param>
         /// <param name="resourceName">Name of the string resource property to be used as display name.</param>
-        /// <exception cref="InvalidOperationException">Resource cannot be found or does 
-        /// not have the given resource name.</exception>
-        public ResourcesDisplayNameAttribute(Type resourceType, string resourceName) : base(ResourceHelper.GetResourceLookup(resourceType, resourceName)) {}
+        /// <exception cref="InvalidOperationException">Thrown when the resource cannot be found 
+        /// or does not have the given resource name.</exception>
+        public ResourcesDisplayNameAttribute(Type resourceType, string resourceName) :
+            base(ResourceHelper.GetResourceLookup(resourceType, resourceName)) {}
     }
 }

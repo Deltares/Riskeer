@@ -38,7 +38,7 @@ namespace Core.Common.Utils.Reflection
         /// </summary>
         /// <typeparam name="T">The type to check for.</typeparam>
         /// <param name="thisType">Type to check.</param>
-        /// <returns>True if <paramref name="thisType"/> is the same type as <typeparamref name="T"/>,
+        /// <returns><c>True</c> if <paramref name="thisType"/> is the same type as <typeparamref name="T"/>,
         /// or has that as (one of) its supertypes.</returns>
         /// <seealso cref="Implements(Type,Type)"/>
         public static bool Implements<T>(this Type thisType)
@@ -51,7 +51,7 @@ namespace Core.Common.Utils.Reflection
         /// </summary>
         /// <param name="thisType">Type to check.</param>
         /// <param name="type">The type to check for.</param>
-        /// <returns>True if <paramref name="thisType"/> is the same type as <paramref name="type"/>,
+        /// <returns><c>True</c> if <paramref name="thisType"/> is the same type as <paramref name="type"/>,
         /// or has that as (one of) its supertypes.</returns>
         /// <seealso cref="Implements{T}"/>
         public static bool Implements(this Type thisType, Type type)
@@ -65,7 +65,7 @@ namespace Core.Common.Utils.Reflection
         /// <typeparam name="T">The type of the class on which the expression takes place.</typeparam>
         /// <param name="expression">The expression.</param>
         /// <returns>The string name of the member.</returns>
-        /// <exception cref="System.ArgumentException">When <paramref name="expression"/> 
+        /// <exception cref="System.ArgumentException">Thrown when <paramref name="expression"/> 
         /// is not an expression with a member, such as an expression calling multiple methods.</exception>
         public static string GetMemberName<T>(Expression<Func<T, object>> expression)
         {
@@ -78,7 +78,7 @@ namespace Core.Common.Utils.Reflection
         /// <typeparam name="T">The type of the class on which the expression takes place.</typeparam>
         /// <param name="expression">The expression.</param>
         /// <returns>The string name of the member.</returns>
-        /// <exception cref="System.ArgumentException">When <paramref name="expression"/> 
+        /// <exception cref="System.ArgumentException">Thrown when <paramref name="expression"/> 
         /// is not an expression with a member, such as an expression calling multiple methods.</exception>
         public static string GetMemberName<T>(Expression<Action<T>> expression)
         {
@@ -89,12 +89,12 @@ namespace Core.Common.Utils.Reflection
         /// Gets the value of a field of an instance.
         /// </summary>
         /// <typeparam name="T">Type of the field.</typeparam>
-        /// <param name="instance">Instance holding the field. Cannot be null.</param>
+        /// <param name="instance">Instance holding the field. Cannot be <c>null</c>.</param>
         /// <param name="fieldName">Name of the field.</param>
         /// <returns>The value of the field.</returns>
-        /// <exception cref="ArgumentOutOfRangeException">When <paramref name="instance"/>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="instance"/>
         /// doesn't have a field with the name <paramref name="fieldName"/>.</exception>
-        /// <exception cref="ArgumentNullException">When <paramref name="fieldName"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fieldName"/> is <c>null</c>.</exception>
         /// <remarks>This method can be used for fields of any visibility.</remarks>
         public static T GetField<T>(object instance, string fieldName)
         {
@@ -110,13 +110,13 @@ namespace Core.Common.Utils.Reflection
         /// <summary>
         /// Gets the value of a field of an instance.
         /// </summary>
-        /// <param name="obj">Instance holding the field. Cannot be null.</param>
+        /// <param name="obj">Instance holding the field. Cannot be <c>null</c>.</param>
         /// <param name="fieldName">Name of the field.</param>
         /// <param name="newValue">The new value for the field.</param>
-        /// <exception cref="ArgumentOutOfRangeException">When <paramref name="obj"/>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="obj"/>
         /// doesn't have a field with the name <paramref name="fieldName"/>.</exception>
-        /// <exception cref="ArgumentException"><paramref name="newValue"/> is of incorrect type.</exception>
-        /// <exception cref="ArgumentNullException">When <paramref name="fieldName"/> is null.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="newValue"/> is of incorrect type.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fieldName"/> is <c>null</c>.</exception>
         /// <remarks>This method can be used for fields of any visibility.</remarks>
         public static void SetField(object obj, string fieldName, object newValue)
         {
@@ -133,20 +133,20 @@ namespace Core.Common.Utils.Reflection
         /// Calls the private method that returns a value.
         /// </summary>
         /// <typeparam name="T">The return type of the method.</typeparam>
-        /// <param name="instance">The instance declaring the method. Cannot be null.</param>
+        /// <param name="instance">The instance declaring the method. Cannot be <c>null</c>.</param>
         /// <param name="methodName">Name of the method.</param>
         /// <param name="arguments">The arguments for the method.</param>
-        /// <exception cref="ArgumentOutOfRangeException">The method referred to by <paramref name="methodName"/>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the method referred to by <paramref name="methodName"/>
         /// is not declared or inherited by the class of <paramref name="instance"/>.</exception>
-        /// <exception cref="TargetInvocationException">The invoked method or constructor throws an exception.</exception>
-        /// <exception cref="TargetParameterCountException">The <paramref name="arguments"/>
+        /// <exception cref="TargetInvocationException">Thrown when the invoked method or constructor throws an exception.</exception>
+        /// <exception cref="TargetParameterCountException">Thrown when the <paramref name="arguments"/>
         /// array does not have the correct number of arguments.</exception>
         /// <exception cref="InvalidOperationException">The type that declares the method 
         /// is an open generic type. That is, the <see cref="Type.ContainsGenericParameters"/>
-        /// property returns true for the declaring type.</exception>
-        /// <exception cref="AmbiguousMatchException">More than one method is found with 
+        /// property returns <c>true</c> for the declaring type.</exception>
+        /// <exception cref="AmbiguousMatchException">Thrown when more than one method is found with 
         /// the specified name and matching the specified binding constraints.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="methodName"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="methodName"/> is <c>null</c>.</exception>
         /// <returns>The return value of the method.</returns>
         public static T CallPrivateMethod<T>(object instance, string methodName, params object[] arguments)
         {
@@ -162,20 +162,20 @@ namespace Core.Common.Utils.Reflection
         /// <summary>
         /// Calls the private method that without returning its value.
         /// </summary>
-        /// <param name="instance">The instance declaring the method. Cannot be null.</param>
+        /// <param name="instance">The instance declaring the method. Cannot be <c>null</c>.</param>
         /// <param name="methodName">Name of the method.</param>
         /// <param name="arguments">The arguments for the method.</param>
-        /// <exception cref="ArgumentOutOfRangeException">The method referred to by <paramref name="methodName"/>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the method referred to by <paramref name="methodName"/>
         /// is not declared or inherited by the class of <paramref name="instance"/>.</exception>
-        /// <exception cref="TargetInvocationException">The invoked method or constructor throws an exception.</exception>
-        /// <exception cref="TargetParameterCountException">The <paramref name="arguments"/>
+        /// <exception cref="TargetInvocationException">Thrown when the invoked method or constructor throws an exception.</exception>
+        /// <exception cref="TargetParameterCountException">Thrown when the <paramref name="arguments"/>
         /// array does not have the correct number of arguments.</exception>
-        /// <exception cref="InvalidOperationException">The type that declares the method 
-        /// is an open generic type. That is, the <see cref="Type.ContainsGenericParameters"/>
-        /// property returns true for the declaring type.</exception>
-        /// <exception cref="AmbiguousMatchException">More than one method is found with 
+        /// <exception cref="InvalidOperationException">Thrown when the type that declares the method 
+        /// is an open generic type. I.e., the <see cref="Type.ContainsGenericParameters"/>
+        /// property returns <c>true</c> for the declaring type.</exception>
+        /// <exception cref="AmbiguousMatchException">Thrown when more than one method is found with 
         /// the specified name and matching the specified binding constraints.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="methodName"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="methodName"/> is <c>null</c>.</exception>
         public static void CallPrivateMethod(object instance, string methodName, params object[] arguments)
         {
             var methodInfo = instance.GetType().GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
@@ -190,15 +190,15 @@ namespace Core.Common.Utils.Reflection
         /// <summary>
         /// Sets the value of a property with a setter.
         /// </summary>
-        /// <param name="instance">The instance declaring the property. Cannot be null.</param>
+        /// <param name="instance">The instance declaring the property. Cannot be <c>null</c>.</param>
         /// <param name="propertyName">Name of the property to be set.</param>
         /// <param name="value">The new value of the property.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="propertyName"/> is null.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">The property referred to by <paramref name="propertyName"/>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="propertyName"/> is <c>null</c>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when the property referred to by <paramref name="propertyName"/>
         /// is not declared or inherited by the class of <paramref name="instance"/>.</exception>
-        /// <exception cref="ArgumentException">The property has not setter.</exception>
-        /// <exception cref="TargetParameterCountException">Property is an indexed property.</exception>
-        /// <exception cref="TargetInvocationException">An error occurred while setting the
+        /// <exception cref="ArgumentException">Thrown when the property has not setter.</exception>
+        /// <exception cref="TargetParameterCountException">Thrown when the Property is an indexed property.</exception>
+        /// <exception cref="TargetInvocationException">Thrown when an error occurred while setting the
         /// property value. For example, an index value specified for an indexed property
         /// is out of range. The <see cref="Exception.InnerException"/> property indicates
         /// the reason for the error.</exception>
@@ -223,12 +223,12 @@ namespace Core.Common.Utils.Reflection
         /// <param name="expression">The expression that resolves to the property to be checked.</param>
         /// <returns><c>True</c> if the property is decorated with the given <see cref="TypeConverter"/>,
         /// <c>false</c> otherwise.</returns>
-        /// <exception cref="System.ArgumentException">When <paramref name="expression"/> 
+        /// <exception cref="System.ArgumentException">Thrown when <paramref name="expression"/> 
         /// is not an expression with a property, such as an expression calling multiple methods.</exception>
-        /// <exception cref="AmbiguousMatchException">More then one property is found with
+        /// <exception cref="AmbiguousMatchException">Thrown when more then one property is found with
         /// name specified in <paramref name="expression"/>.</exception>
-        /// <exception cref="TypeLoadException">A custom attribute type cannot be loaded.</exception>
-        /// <exception cref="InvalidOperationException">The property in <paramref name="expression"/>
+        /// <exception cref="TypeLoadException">Thrown when a custom attribute type cannot be loaded.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the property in <paramref name="expression"/>
         /// belongs to a type that is loaded into the reflection-only context. See How to: 
         /// Load Assemblies into the Reflection-Only Context on MSDN for more information.</exception>
         public static bool HasTypeConverter<TTarget, TTypeConverter>(Expression<Func<TTarget, object>> expression) where TTypeConverter : TypeConverter
@@ -299,9 +299,9 @@ namespace Core.Common.Utils.Reflection
         /// </summary>
         /// <param name="type">Declaring type of the field.</param>
         /// <param name="fieldName">Name of the field.</param>
-        /// <returns>A <see cref="FieldInfo"/> object capturing the requested field, or null
+        /// <returns>A <see cref="FieldInfo"/> object capturing the requested field, or <c>null</c>
         /// if the field cannot be found in <paramref name="type"/>.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="fieldName"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="fieldName"/> is <c>null</c>.</exception>
         private static FieldInfo GetFieldInfo(Type type, string fieldName)
         {
             if (type == typeof(object) || type == null)

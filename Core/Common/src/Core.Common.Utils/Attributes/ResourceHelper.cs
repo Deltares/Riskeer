@@ -35,8 +35,8 @@ namespace Core.Common.Utils.Attributes
         /// <param name="resourceType">Type of the resource file.</param>
         /// <param name="resourceName">Name of the resource property to be retrieved.</param>
         /// <returns>String resource in the resources file.</returns>
-        /// <exception cref="InvalidOperationException">Resource cannot be found or does
-        /// not have the given resource name or isn't of type string.</exception>
+        /// <exception cref="InvalidOperationException">Thrown when the resource cannot be found,
+        /// does not have the given resource name, or isn't of type string.</exception>
         internal static string GetResourceLookup(Type resourceType, string resourceName)
         {
             var property = resourceType.GetProperty(resourceName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);

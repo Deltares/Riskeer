@@ -36,7 +36,7 @@ namespace Core.Common.Utils
         /// Validates the file path.
         /// </summary>
         /// <param name="path">The file path to be validated.</param>
-        /// <exception cref="ArgumentException"><paramref name="path"/> is invalid.</exception>
+        /// <exception cref="ArgumentException">Thrown when <paramref name="path"/> is invalid.</exception>
         /// <remarks>A valid path:
         /// <list type="bullet">
         /// <item>is not empty or <c>null</c>,</item>

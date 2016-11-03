@@ -39,7 +39,7 @@ namespace Core.Common.Utils.Drawing
         /// <param name="x">The x-coordinate of the upper-left corner of the drawn image.</param>
         /// <param name="y">The y-coordinate of the upper-left corner of the drawn image.</param>
         /// <param name="opacity">The opacity for the image.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="image"/> is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="image"/> is <c>null</c>.</exception>
         /// <seealso cref="Graphics.DrawImage(System.Drawing.Image,int,int)"/>
         public static void DrawImageTransparent(this Graphics g, Image image, int x, int y, float opacity)
         {

@@ -57,7 +57,7 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        public void GetAssemblyInfo_ForThisTestProjectAssmebly_ReturnAssmeblyInfoWithExpectedValues()
+        public void GetAssemblyInfo_ForThisTestProjectAssembly_ReturnAssemblyInfoWithExpectedValues()
         {
             // Setup
             Assembly assembly = Assembly.GetAssembly(GetType());
@@ -75,7 +75,7 @@ namespace Core.Common.Utils.Test.Reflection
         }
 
         [Test]
-        public void GetExecutingAssemblyInfo_ReturnAssmeblyInfoForAssemblyUtilsAssembly()
+        public void GetExecutingAssemblyInfo_ReturnAssemblyInfoForAssemblyUtilsAssembly()
         {
             // Setup
             Assembly assembly = Assembly.GetAssembly(typeof(AssemblyUtils));
