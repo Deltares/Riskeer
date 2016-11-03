@@ -42,7 +42,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
             HydraulicModelsSettingsCsvReader reader = new HydraulicModelsSettingsCsvReader("path.csv");
 
             // Assert
-            Assert.IsInstanceOf<HydraRingSettingsCsvReader<IDictionary<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>>>>(reader);
+            Assert.IsInstanceOf<HydraRingSettingsCsvReader<IDictionary<HydraRingFailureMechanismType, IDictionary<string, TimeIntegrationSetting>>>>(reader);
         }
 
         [Test]
@@ -66,25 +66,25 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
                 string fileContents = streamReader.ReadToEnd();
 
                 var reader = new HydraulicModelsSettingsCsvReader(fileContents);
-                IDictionary<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>> expectedDictionary = GetDictionary();
+                IDictionary<HydraRingFailureMechanismType, IDictionary<string, TimeIntegrationSetting>> expectedDictionary = GetDictionary();
 
                 // Call
-                IDictionary<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>> settings = reader.ReadSettings();
+                IDictionary<HydraRingFailureMechanismType, IDictionary<string, TimeIntegrationSetting>> settings = reader.ReadSettings();
 
                 // Assert
                 Assert.AreEqual(10, settings.Count);
 
-                foreach (KeyValuePair<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>> expectedMechanism in expectedDictionary)
+                foreach (KeyValuePair<HydraRingFailureMechanismType, IDictionary<string, TimeIntegrationSetting>> expectedMechanism in expectedDictionary)
                 {
                     Assert.IsTrue(settings.ContainsKey(expectedMechanism.Key));
-                    Assert.IsInstanceOf<IDictionary<string, HydraulicModelsSetting>>(settings[expectedMechanism.Key]);
+                    Assert.IsInstanceOf<IDictionary<string, TimeIntegrationSetting>>(settings[expectedMechanism.Key]);
 
-                    foreach (KeyValuePair<string, HydraulicModelsSetting> expectedDesignTablesSetting in expectedMechanism.Value)
+                    foreach (KeyValuePair<string, TimeIntegrationSetting> expectedDesignTablesSetting in expectedMechanism.Value)
                     {
                         Assert.IsTrue(settings[expectedMechanism.Key].ContainsKey(expectedDesignTablesSetting.Key));
-                        Assert.IsInstanceOf<HydraulicModelsSetting>(settings[expectedMechanism.Key][expectedDesignTablesSetting.Key]);
+                        Assert.IsInstanceOf<TimeIntegrationSetting>(settings[expectedMechanism.Key][expectedDesignTablesSetting.Key]);
 
-                        HydraulicModelsSetting setting = settings[expectedMechanism.Key][expectedDesignTablesSetting.Key];
+                        TimeIntegrationSetting setting = settings[expectedMechanism.Key][expectedDesignTablesSetting.Key];
 
                         Assert.AreEqual(expectedDesignTablesSetting.Value.TimeIntegrationSchemeId, setting.TimeIntegrationSchemeId);
                     }
@@ -92,87 +92,87 @@ namespace Ringtoets.HydraRing.Calculation.Test.IO
             }
         }
 
-        private static IDictionary<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>> GetDictionary()
+        private static IDictionary<HydraRingFailureMechanismType, IDictionary<string, TimeIntegrationSetting>> GetDictionary()
         {
-            return new Dictionary<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>>
+            return new Dictionary<HydraRingFailureMechanismType, IDictionary<string, TimeIntegrationSetting>>
             {
                 {
-                    HydraRingFailureMechanismType.AssessmentLevel, new Dictionary<string, HydraulicModelsSetting>
+                    HydraRingFailureMechanismType.AssessmentLevel, new Dictionary<string, TimeIntegrationSetting>
                     {
                         {
-                            "205", new HydraulicModelsSetting(1)
+                            "205", new TimeIntegrationSetting(1)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.QVariant, new Dictionary<string, HydraulicModelsSetting>
+                    HydraRingFailureMechanismType.QVariant, new Dictionary<string, TimeIntegrationSetting>
                     {
                         {
-                            "205", new HydraulicModelsSetting(1)
+                            "205", new TimeIntegrationSetting(1)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.WaveHeight, new Dictionary<string, HydraulicModelsSetting>
+                    HydraRingFailureMechanismType.WaveHeight, new Dictionary<string, TimeIntegrationSetting>
                     {
                         {
-                            "205", new HydraulicModelsSetting(2)
+                            "205", new TimeIntegrationSetting(2)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.WavePeakPeriod, new Dictionary<string, HydraulicModelsSetting>
+                    HydraRingFailureMechanismType.WavePeakPeriod, new Dictionary<string, TimeIntegrationSetting>
                     {
                         {
-                            "205", new HydraulicModelsSetting(3)
+                            "205", new TimeIntegrationSetting(3)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.WaveSpectralPeriod, new Dictionary<string, HydraulicModelsSetting>
+                    HydraRingFailureMechanismType.WaveSpectralPeriod, new Dictionary<string, TimeIntegrationSetting>
                     {
                         {
-                            "205", new HydraulicModelsSetting(1)
+                            "205", new TimeIntegrationSetting(1)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesHeight, new Dictionary<string, HydraulicModelsSetting>
+                    HydraRingFailureMechanismType.DikesHeight, new Dictionary<string, TimeIntegrationSetting>
                     {
                         {
-                            "205", new HydraulicModelsSetting(1)
+                            "205", new TimeIntegrationSetting(1)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<string, HydraulicModelsSetting>
+                    HydraRingFailureMechanismType.DikesOvertopping, new Dictionary<string, TimeIntegrationSetting>
                     {
                         {
-                            "205", new HydraulicModelsSetting(1)
+                            "205", new TimeIntegrationSetting(1)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<string, HydraulicModelsSetting>
+                    HydraRingFailureMechanismType.StructuresOvertopping, new Dictionary<string, TimeIntegrationSetting>
                     {
                         {
-                            "205", new HydraulicModelsSetting(1)
+                            "205", new TimeIntegrationSetting(1)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.StructuresClosure, new Dictionary<string, HydraulicModelsSetting>
+                    HydraRingFailureMechanismType.StructuresClosure, new Dictionary<string, TimeIntegrationSetting>
                     {
                         {
-                            "205", new HydraulicModelsSetting(2)
+                            "205", new TimeIntegrationSetting(2)
                         }
                     }
                 },
                 {
-                    HydraRingFailureMechanismType.StructuresStructuralFailure, new Dictionary<string, HydraulicModelsSetting>
+                    HydraRingFailureMechanismType.StructuresStructuralFailure, new Dictionary<string, TimeIntegrationSetting>
                     {
                         {
-                            "205", new HydraulicModelsSetting(2)
+                            "205", new TimeIntegrationSetting(2)
                         }
                     }
                 }

@@ -27,7 +27,7 @@ using Ringtoets.HydraRing.Calculation.Data.Settings;
 namespace Ringtoets.Common.IO.HydraRing
 {
     /// <summary>
-    /// Provider of <see cref="HydraulicModelsSetting"/>.
+    /// Provider of <see cref="TimeIntegrationSetting"/>.
     /// </summary>
     public class HydraulicModelsSettingsProvider : IDisposable
     {
@@ -50,15 +50,15 @@ namespace Ringtoets.Common.IO.HydraRing
         }
 
         /// <summary>
-        /// Gets <see cref="HydraulicModelsSetting"/> based on the provided failure mechanism type and ring id.
+        /// Gets <see cref="TimeIntegrationSetting"/> based on the provided failure mechanism type and location id.
         /// </summary>
-        /// <param name="locationId">The location id to obtain the <see cref="HydraulicModelsSetting"/> for.</param>
-        /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="HydraulicModelsSetting"/> for.</param>
-        /// <returns>The <see cref="HydraulicModelsSetting"/> corresponding to the provided failure mechanism type and ring id.</returns>
-        public HydraulicModelsSetting GetHydraulicModelsSetting(long locationId, HydraRingFailureMechanismType failureMechanismType)
+        /// <param name="locationId">The location id to obtain the <see cref="TimeIntegrationSetting"/> for.</param>
+        /// <param name="failureMechanismType">The <see cref="HydraRingFailureMechanismType"/> to obtain the <see cref="TimeIntegrationSetting"/> for.</param>
+        /// <returns>The <see cref="TimeIntegrationSetting"/> corresponding to the provided failure mechanism type and location id.</returns>
+        public TimeIntegrationSetting GetHydraulicModelsSetting(long locationId, HydraRingFailureMechanismType failureMechanismType)
         {
             return modelSettingsReader.ReadTimeIntegrationSetting(locationId, failureMechanismType) ??
-                   new HydraulicModelsSetting(1);
+                   new TimeIntegrationSetting(1);
         }
 
         public void Dispose()

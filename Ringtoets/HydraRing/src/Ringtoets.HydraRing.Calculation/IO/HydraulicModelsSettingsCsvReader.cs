@@ -27,9 +27,9 @@ using Ringtoets.HydraRing.Calculation.Data.Settings;
 namespace Ringtoets.HydraRing.Calculation.IO
 {
     /// <summary>
-    /// The reader for <see cref="HydraulicModelsSetting"/> in csv format.
+    /// The reader for <see cref="TimeIntegrationSetting"/> in csv format.
     /// </summary>
-    internal class HydraulicModelsSettingsCsvReader : HydraRingSettingsVariableCsvReader<IDictionary<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>>>
+    internal class HydraulicModelsSettingsCsvReader : HydraRingSettingsVariableCsvReader<IDictionary<HydraRingFailureMechanismType, IDictionary<string, TimeIntegrationSetting>>>
     {
         /// <summary>
         /// Creates a new instance of <see cref="HydraulicModelsSettingsCsvReader"/>.
@@ -37,7 +37,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
         /// <param name="fileContents">The file contents to read.</param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="fileContents"/> is not set.</exception>
         public HydraulicModelsSettingsCsvReader(string fileContents)
-            : base(fileContents, new Dictionary<HydraRingFailureMechanismType, IDictionary<string, HydraulicModelsSetting>>()) {}
+            : base(fileContents, new Dictionary<HydraRingFailureMechanismType, IDictionary<string, TimeIntegrationSetting>>()) {}
 
         protected override void CreateSetting(IList<string> line)
         {
@@ -45,7 +45,7 @@ namespace Ringtoets.HydraRing.Calculation.IO
 
             if (!Settings.ContainsKey(failureMechanismType))
             {
-                Settings.Add(failureMechanismType, new Dictionary<string, HydraulicModelsSetting>());
+                Settings.Add(failureMechanismType, new Dictionary<string, TimeIntegrationSetting>());
             }
 
             string ringId = GetRingId(line);
@@ -60,9 +60,9 @@ namespace Ringtoets.HydraRing.Calculation.IO
             return GetStringValueFromElement(line[(int) HydraulicModelsSettingsColumns.RingId]);
         }
 
-        private HydraulicModelsSetting GetHydraulicModelsSetting(IList<string> line)
+        private TimeIntegrationSetting GetHydraulicModelsSetting(IList<string> line)
         {
-            return new HydraulicModelsSetting(GetIntValueFromElement(line[(int) HydraulicModelsSettingsColumns.TimeIntegrationSchemeId]));
+            return new TimeIntegrationSetting(GetIntValueFromElement(line[(int) HydraulicModelsSettingsColumns.TimeIntegrationSchemeId]));
         }
     }
 }

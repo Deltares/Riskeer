@@ -51,9 +51,9 @@ namespace Ringtoets.HydraRing.Calculation.Data.Input
         public Dictionary<int, NumericsSetting> NumericsSettings { get; set; }
 
         /// <summary>
-        /// Gets or sets the hydraulic models settings.
+        /// Gets or sets the time integration settings.
         /// </summary>
-        public HydraulicModelsSetting HydraulicModelsSetting { get; set; }
+        public TimeIntegrationSetting TimeIntegrationSetting { get; set; }
 
         /// <summary>
         /// Gets the <see cref="HydraRingFailureMechanismType"/>.

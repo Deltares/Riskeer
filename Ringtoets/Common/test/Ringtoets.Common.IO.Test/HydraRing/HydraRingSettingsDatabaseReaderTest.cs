@@ -141,14 +141,14 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         [TestCase(700131, 3, 1)]
         [TestCase(700134, 2, 1)]
         [TestCase(700135, 4, 1)]
-        public void ReadTimeIntegrationSetting_ValidLocationIdAndFailureMechanismType_DesignTableSettingWithExpectedValues(
+        public void ReadTimeIntegrationSetting_ValidLocationIdAndFailureMechanismType_TimeIntegrationSettingWithExpectedValues(
             long locationId, HydraRingFailureMechanismType calculationType, int expectedTimeIntegrationScheme)
         {
             // Setup
             using (var reader = new HydraRingSettingsDatabaseReader(completeDatabaseDataPath))
             {
                 // Call
-                HydraulicModelsSetting setting = reader.ReadTimeIntegrationSetting(locationId, calculationType);
+                TimeIntegrationSetting setting = reader.ReadTimeIntegrationSetting(locationId, calculationType);
 
                 // Assert
                 Assert.AreEqual(expectedTimeIntegrationScheme, setting.TimeIntegrationSchemeId);
@@ -164,7 +164,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             using (var reader = new HydraRingSettingsDatabaseReader(completeDatabaseDataPath))
             {
                 // Call
-                HydraulicModelsSetting setting = reader.ReadTimeIntegrationSetting(locationId, calculationType);
+                TimeIntegrationSetting setting = reader.ReadTimeIntegrationSetting(locationId, calculationType);
 
                 // Assert
                 Assert.IsNull(setting);
@@ -178,7 +178,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
             using (var reader = new HydraRingSettingsDatabaseReader(emptyDatabaseDataPath))
             {
                 // Call
-                HydraulicModelsSetting setting = reader.ReadTimeIntegrationSetting(700131, 0);
+                TimeIntegrationSetting setting = reader.ReadTimeIntegrationSetting(700131, 0);
 
                 // Assert
                 Assert.IsNull(setting);
@@ -189,7 +189,7 @@ namespace Ringtoets.Common.IO.Test.HydraRing
         [TestCase(700132, 11, 16, 1, 4, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 20000, 100000.0, 0.1, -6.0, 6)]
         [TestCase(700135, 3, 5, 4, 1, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 10000, 10000.0, 0.1, -6.0, 6)]
         [TestCase(700135, 101, 102, 1, 4, 50, 0.15, 0.05, 0.01, 0.01, 0, 2, 20000, 100000.0, 0.1, -6.0, 6)]
-        public void ReadNumericsSetting_ValidLocationIdAndFailureMechanismType_DesignTableSettingWithExpectedValues(
+        public void ReadNumericsSetting_ValidLocationIdAndFailureMechanismType_NumericsSettingWithExpectedValues(
             long locationId,
             int mechanismId,
             int subMechanismId,

@@ -91,7 +91,7 @@
     <Compile Include="Data\Output\ExceedanceProbabilityCalculationOutputTest.cs" />
     <Compile Include="Data\Output\ReliabilityIndexCalculationOutputTest.cs" />
     <Compile Include="Data\Output\WaveConditionsCalculationOutputTest.cs" />
-    <Compile Include="Data\Settings\HydraulicModelsSettingTest.cs" />
+    <Compile Include="Data\Settings\TimeIntegrationSettingTest.cs" />
     <Compile Include="IO\DesignTablesSettingsCsvReaderTest.cs" />
     <Compile Include="IO\HydraRingSettingsCsvReaderTest.cs" />
     <Compile Include="IO\HydraRingSettingsVariableCsvReaderTest.cs" />

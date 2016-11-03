@@ -241,7 +241,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
             foreach (HydraRingCalculationInput hydraRingCalculationInput in hydraRingInputs)
             {
                 FailureMechanismDefaults failureMechanismDefaults = failureMechanismDefaultsProvider.GetFailureMechanismDefaults(hydraRingCalculationInput.FailureMechanismType);
-                HydraulicModelsSetting hydraulicModelSetting  = hydraRingCalculationInput.HydraulicModelsSetting;
+                TimeIntegrationSetting timeIntegrationSetting  = hydraRingCalculationInput.TimeIntegrationSetting;
 
                 orderedDictionaries.Add(new OrderedDictionary
                 {
@@ -252,7 +252,7 @@ namespace Ringtoets.HydraRing.Calculation.Services
                         "MechanismId", failureMechanismDefaults.MechanismId
                     },
                     {
-                        "TimeIntegrationSchemeID", hydraulicModelSetting.TimeIntegrationSchemeId
+                        "TimeIntegrationSchemeID", timeIntegrationSetting.TimeIntegrationSchemeId
                     }
                 });
             }

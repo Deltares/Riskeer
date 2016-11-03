@@ -28,7 +28,7 @@ using Ringtoets.HydraRing.Calculation.Data.Input;
 namespace Ringtoets.Common.Service
 {
     /// <summary>
-    /// Helper class for providing a convinient method for obtaining and updating Hydra-Ring settings per location from the settings database 
+    /// Helper class for providing a convenient method for obtaining and updating Hydra-Ring settings per location from the settings database 
     /// based on <see cref="HydraRingCalculationInput"/>.
     /// </summary>
     public static class HydraRingSettingsDatabaseHelper 
@@ -69,7 +69,7 @@ namespace Ringtoets.Common.Service
             }
             using (var modelsSettingsProvider = new HydraulicModelsSettingsProvider(settingsDatabaseFileName))
             {
-                calculationInput.HydraulicModelsSetting = modelsSettingsProvider.GetHydraulicModelsSetting(
+                calculationInput.TimeIntegrationSetting = modelsSettingsProvider.GetHydraulicModelsSetting(
                     locationId, 
                     calculationInput.FailureMechanismType);
             }

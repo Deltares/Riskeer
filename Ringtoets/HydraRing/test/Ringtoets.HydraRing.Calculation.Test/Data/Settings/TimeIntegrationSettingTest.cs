@@ -19,33 +19,25 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-namespace Ringtoets.HydraRing.Calculation.Data.Settings
+using NUnit.Framework;
+using Ringtoets.HydraRing.Calculation.Data.Settings;
+
+namespace Ringtoets.HydraRing.Calculation.Test.Data.Settings
 {
-    /// <summary>
-    /// Container for hydraulic models settings.
-    /// </summary>
-    public class HydraulicModelsSetting
+    [TestFixture]
+    public class TimeIntegrationSettingTest
     {
-        private readonly int timeIntegrationSchemeId;
-
-        /// <summary>
-        /// Creates a new instance of <see cref="HydraulicModelsSetting"/>.
-        /// </summary>
-        /// <param name="timeIntegrationSchemeId">The time integration scheme id to use in a calculation.</param>
-        public HydraulicModelsSetting(int timeIntegrationSchemeId)
+        [Test]
+        public void Constructor_ExpectedValues()
         {
-            this.timeIntegrationSchemeId = timeIntegrationSchemeId;
-        }
+            // Setup
+            const int timeIntegrationSchemeId = 1;
 
-        /// <summary>
-        /// Gets the time integration scheme id to use in a calculation.
-        /// </summary>
-        public int TimeIntegrationSchemeId
-        {
-            get
-            {
-                return timeIntegrationSchemeId;
-            }
+            // Call
+            var timeIntegrationSetting = new TimeIntegrationSetting(timeIntegrationSchemeId);
+
+            // Assert
+            Assert.AreEqual(timeIntegrationSchemeId, timeIntegrationSetting.TimeIntegrationSchemeId);
         }
     }
 }

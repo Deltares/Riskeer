@@ -55,7 +55,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                         1, new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25)
                     }
                 },
-                HydraulicModelsSetting = new HydraulicModelsSetting(1)
+                TimeIntegrationSetting = new TimeIntegrationSetting(1)
             });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -140,7 +140,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                         11, new NumericsSetting(1, 9, 150, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25)
                     }
                 },
-                HydraulicModelsSetting = new HydraulicModelsSetting(1)
+                TimeIntegrationSetting = new TimeIntegrationSetting(1)
             });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -265,7 +265,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                             103, numericsSetting
                         }
                     },
-                    HydraulicModelsSetting = new HydraulicModelsSetting(1)
+                    TimeIntegrationSetting = new TimeIntegrationSetting(1)
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -403,7 +403,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                             103, numericsSetting
                         }
                     },
-                    HydraulicModelsSetting = new HydraulicModelsSetting(1)
+                    TimeIntegrationSetting = new TimeIntegrationSetting(1)
                 });
 
             var expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -560,7 +560,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                         423, numericsSetting
                     }
                 },
-                HydraulicModelsSetting = new HydraulicModelsSetting(1)
+                TimeIntegrationSetting = new TimeIntegrationSetting(1)
             });
             string expectedCreationScript =
                 "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -681,7 +681,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                             5, new NumericsSetting(4, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25)
                         }
                     },
-                    HydraulicModelsSetting = new HydraulicModelsSetting(1)
+                    TimeIntegrationSetting = new TimeIntegrationSetting(1)
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -792,7 +792,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                             5, new NumericsSetting(4, 1, 50, 0.15, 0.01, 0.01, 0.01, 2, 3000, 10000, 0.1, -6, 6, 25)
                         }
                     },
-                    HydraulicModelsSetting = new HydraulicModelsSetting(1)
+                    TimeIntegrationSetting = new TimeIntegrationSetting(1)
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -897,7 +897,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 {
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
                     NumericsSettings = CreateStructuresClosureNumericsSettings(),
-                    HydraulicModelsSetting = new HydraulicModelsSetting(1)
+                    TimeIntegrationSetting = new TimeIntegrationSetting(1)
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -1019,7 +1019,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 {
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
                     NumericsSettings = CreateStructuresClosureNumericsSettings(),
-                    HydraulicModelsSetting = new HydraulicModelsSetting(1)
+                    TimeIntegrationSetting = new TimeIntegrationSetting(1)
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -1143,7 +1143,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 {
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
                     NumericsSettings = CreateStructuresClosureNumericsSettings(),
-                    HydraulicModelsSetting = new HydraulicModelsSetting(1)
+                    TimeIntegrationSetting = new TimeIntegrationSetting(1)
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -1276,7 +1276,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 {
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
                     NumericsSettings = CreateStructuresStabilityPointNumericsSettings(),
-                    HydraulicModelsSetting = new HydraulicModelsSetting(1)
+                    TimeIntegrationSetting = new TimeIntegrationSetting(1)
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -1431,7 +1431,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 {
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
                     NumericsSettings = CreateStructuresStabilityPointNumericsSettings(),
-                    HydraulicModelsSetting = new HydraulicModelsSetting(1)
+                    TimeIntegrationSetting = new TimeIntegrationSetting(1)
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -1586,7 +1586,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 {
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
                     NumericsSettings = CreateStructuresStabilityPointNumericsSettings(),
-                    HydraulicModelsSetting = new HydraulicModelsSetting(1)
+                    TimeIntegrationSetting = new TimeIntegrationSetting(1)
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +
@@ -1741,7 +1741,7 @@ namespace Ringtoets.HydraRing.Calculation.Test.Integration
                 {
                     DesignTablesSetting = new DesignTablesSetting(0, 0),
                     NumericsSettings = CreateStructuresStabilityPointNumericsSettings(),
-                    HydraulicModelsSetting = new HydraulicModelsSetting(1)
+                    TimeIntegrationSetting = new TimeIntegrationSetting(1)
                 });
 
             string expectedCreationScript = "DELETE FROM [HydraulicModels];" + Environment.NewLine +

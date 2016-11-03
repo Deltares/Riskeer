@@ -66,7 +66,7 @@ namespace Ringtoets.Common.Service.Test
             // Assert
             Assert.NotNull(input.DesignTablesSetting);
             Assert.NotNull(input.NumericsSettings);
-            Assert.NotNull(input.HydraulicModelsSetting);
+            Assert.NotNull(input.TimeIntegrationSetting);
         } 
     }
 

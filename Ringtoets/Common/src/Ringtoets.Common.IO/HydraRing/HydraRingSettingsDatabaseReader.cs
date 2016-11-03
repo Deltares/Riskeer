@@ -181,11 +181,11 @@ namespace Ringtoets.Common.IO.HydraRing
         /// Read a time integration setting for a given location and <see cref="HydraRingFailureMechanismType"/>.
         /// </summary>
         /// <param name="locationId">The id of a hydraulic boundary location.</param>
-        /// <param name="calculationType">The type of the calculation to obtain the <see cref="DesignTablesSetting"/> for.</param>
-        /// <returns>A new <see cref="DesignTablesSetting"/> containing values read from the database.</returns>
+        /// <param name="calculationType">The type of the calculation to obtain the <see cref="TimeIntegrationSetting"/> for.</param>
+        /// <returns>A new <see cref="TimeIntegrationSetting"/> containing values read from the database.</returns>
         /// <exception cref="InvalidEnumArgumentException">Thrown when <paramref name="calculationType"/> is not a valid
         /// <see cref="HydraRingFailureMechanismType"/> value.</exception>
-        public HydraulicModelsSetting ReadTimeIntegrationSetting(long locationId, HydraRingFailureMechanismType calculationType)
+        public TimeIntegrationSetting ReadTimeIntegrationSetting(long locationId, HydraRingFailureMechanismType calculationType)
         {
             if (!Enum.IsDefined(calculationType.GetType(), calculationType))
             {
@@ -195,8 +195,7 @@ namespace Ringtoets.Common.IO.HydraRing
             var reader = CreateTimeIntegrationDataReader(locationId, calculationType);
             if (MoveNext(reader))
             {
-                return new HydraulicModelsSetting(
-                    Convert.ToInt32(reader[timeIntegrationSchemeIdColumn]));
+                return new TimeIntegrationSetting(Convert.ToInt32(reader[timeIntegrationSchemeIdColumn]));
             }
             return null;
         }
