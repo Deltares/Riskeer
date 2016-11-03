@@ -50,7 +50,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
     public class ClosingStructuresCalculationServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-        private static readonly string validDataFilepath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void Validate_ValidCalculationInvalidHydraulicBoundaryDatabase_ReturnsFalse()
@@ -428,7 +428,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 TestDelegate call = () => service.Calculate(calculation,
                                                             assessmentSectionStub,
                                                             closingStructuresFailureMechanism,
-                                                            testDataPath);
+                                                            validFilePath);
 
                 StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
 
@@ -531,7 +531,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     assessmentSectionStub,
                                                                     closingStructuresFailureMechanism,
-                                                                    validDataFilepath);
+                                                                    validFilePath);
 
                 // Assert
                 StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
@@ -618,7 +618,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     assessmentSectionStub,
                                                                     closingStructuresFailureMechanism,
-                                                                    validDataFilepath);
+                                                                    validFilePath);
 
                 // Assert
                 StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
@@ -704,7 +704,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 new ClosingStructuresCalculationService().Calculate(calculation,
                                                                     assessmentSectionStub,
                                                                     closingStructuresFailureMechanism,
-                                                                    validDataFilepath);
+                                                                    validFilePath);
 
                 // Assert
                 StructuresClosureCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
@@ -797,7 +797,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 Action call = () => new ClosingStructuresCalculationService().Calculate(calculation,
                                                                                         assessmentSectionStub,
                                                                                         closingStructuresFailureMechanism,
-                                                                                        validDataFilepath);
+                                                                                        validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -849,7 +849,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                 service.Calculate(calculation,
                                   assessmentSectionStub,
                                   closingStructuresFailureMechanism,
-                                  testDataPath);
+                                  validFilePath);
 
                 // Assert
                 Assert.IsNull(calculation.Output);
@@ -898,7 +898,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                         new ClosingStructuresCalculationService().Calculate(calculation,
                                                                             assessmentSectionStub,
                                                                             failureMechanism,
-                                                                            testDataPath);
+                                                                            validFilePath);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -960,7 +960,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                         new ClosingStructuresCalculationService().Calculate(calculation,
                                                                             assessmentSectionStub,
                                                                             failureMechanism,
-                                                                            testDataPath);
+                                                                            validFilePath);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -1024,7 +1024,7 @@ namespace Ringtoets.ClosingStructures.Service.Test
                         new ClosingStructuresCalculationService().Calculate(calculation,
                                                                             assessmentSectionStub,
                                                                             failureMechanism,
-                                                                            testDataPath);
+                                                                            validFilePath);
                     }
                     catch (HydraRingFileParserException e)
                     {

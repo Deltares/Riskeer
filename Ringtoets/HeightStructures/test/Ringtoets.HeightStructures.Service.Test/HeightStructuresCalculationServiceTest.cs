@@ -49,7 +49,8 @@ namespace Ringtoets.HeightStructures.Service.Test
     [TestFixture]
     public class HeightStructuresCalculationServiceTest
     {
-        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private readonly static string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private readonly static string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void Validate_ValidCalculationInvalidHydraulicBoundaryDatabase_ReturnsFalse()
@@ -99,7 +100,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
 
@@ -138,7 +139,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
 
@@ -178,7 +179,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
             const string parameterName = "afwijking golfrichting";
@@ -222,7 +223,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
             string expectedValidationMessage = "Validatie mislukt: Er is geen concreet getal ingevoerd voor 'oriëntatie'.";
@@ -267,7 +268,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
             string expectedValidationMessage = string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een concreet getal zijn.", parameterName);
@@ -314,7 +315,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
             string expectedValidationMessage = string.Format("Validatie mislukt: De verwachtingswaarde voor '{0}' moet een positief getal zijn.", parameterName);
@@ -363,7 +364,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
             string expectedValidationMessage = string.Format("Validatie mislukt: De standaard afwijking voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterName);
@@ -411,7 +412,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
             string expectedValidationMessage = string.Format("Validatie mislukt: De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.", parameterName);
@@ -460,7 +461,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
 
@@ -502,7 +503,7 @@ namespace Ringtoets.HeightStructures.Service.Test
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new HeightStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
 
@@ -579,8 +580,6 @@ namespace Ringtoets.HeightStructures.Service.Test
                     break;
             }
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             // Call
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -634,8 +633,6 @@ namespace Ringtoets.HeightStructures.Service.Test
                 }
             };
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             // Call
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -665,7 +662,6 @@ namespace Ringtoets.HeightStructures.Service.Test
         public void Calculate_VariousCalculations_InputPropertiesCorrectlySentToCalculator(bool useForeshore, bool useBreakWater)
         {
             // Setup
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             var heightStructuresFailureMechanism = new HeightStructuresFailureMechanism();
 
             var mockRepository = new MockRepository();
@@ -775,7 +771,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                 service.Calculate(calculation,
                                   assessmentSectionStub,
                                   heightStructuresFailureMechanism,
-                                  testDataPath);
+                                  validFilePath);
 
                 // Assert
                 Assert.IsNull(calculation.Output);
@@ -824,7 +820,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                         new HeightStructuresCalculationService().Calculate(calculation,
                                                                            assessmentSectionStub,
                                                                            failureMechanism,
-                                                                           testDataPath);
+                                                                           validFilePath);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -886,7 +882,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                         new HeightStructuresCalculationService().Calculate(calculation,
                                                                            assessmentSectionStub,
                                                                            failureMechanism,
-                                                                           testDataPath);
+                                                                           validFilePath);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -950,7 +946,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                         new HeightStructuresCalculationService().Calculate(calculation,
                                                                            assessmentSectionStub,
                                                                            failureMechanism,
-                                                                           testDataPath);
+                                                                           validFilePath);
                     }
                     catch (HydraRingFileParserException e)
                     {

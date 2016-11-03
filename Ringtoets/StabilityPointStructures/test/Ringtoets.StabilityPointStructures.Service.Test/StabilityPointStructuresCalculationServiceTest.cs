@@ -50,7 +50,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
     public class StabilityPointStructuresCalculationServiceTest
     {
         private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
-        private static readonly string validDataFilepath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void Validate_ValidCalculationInvalidHydraulicBoundaryDatabase_ReturnsFalse()
@@ -100,7 +100,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(new StabilityPointStructuresFailureMechanism(), mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
 
@@ -142,7 +142,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
             mockRepository.ReplayAll();
 
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
@@ -194,7 +194,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
             mockRepository.ReplayAll();
 
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
@@ -248,7 +248,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
 
@@ -333,7 +333,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
 
@@ -418,7 +418,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
 
@@ -503,7 +503,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                                                                                                            mockRepository);
             mockRepository.ReplayAll();
 
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
 
             const string name = "<very nice name>";
 
@@ -584,7 +584,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
             mockRepository.ReplayAll();
 
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
@@ -624,7 +624,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             var mockRepository = new MockRepository();
             IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism, mockRepository);
-            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            assessmentSectionStub.HydraulicBoundaryDatabase.FilePath = validFilePath;
             mockRepository.ReplayAll();
 
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
@@ -805,7 +805,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            assessmentSectionStub,
                                                                            stabilityPointStructuresFailureMechanism,
-                                                                           validDataFilepath);
+                                                                           validFilePath);
 
                 // Assert
                 StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
@@ -931,7 +931,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            assessmentSectionStub,
                                                                            stabilityPointStructuresFailureMechanism,
-                                                                           validDataFilepath);
+                                                                           validFilePath);
 
                 // Assert
                 StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
@@ -1057,7 +1057,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            assessmentSectionStub,
                                                                            stabilityPointStructuresFailureMechanism,
-                                                                           validDataFilepath);
+                                                                           validFilePath);
 
                 // Assert
                 StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
@@ -1183,7 +1183,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                            assessmentSectionStub,
                                                                            stabilityPointStructuresFailureMechanism,
-                                                                           validDataFilepath);
+                                                                           validFilePath);
 
                 // Assert
                 StructuresStabilityPointCalculationInput[] calculationInputs = calculator.ReceivedInputs.ToArray();
@@ -1319,7 +1319,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 Action call = () => new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                                                assessmentSectionStub,
                                                                                                failureMechanism,
-                                                                                               validDataFilepath);
+                                                                                               validFilePath);
 
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
@@ -1372,7 +1372,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                 service.Calculate(calculation,
                                   assessmentSectionStub,
                                   failureMechanism,
-                                  testDataPath);
+                                  validFilePath);
 
                 // Assert
                 Assert.IsNull(calculation.Output);
@@ -1422,7 +1422,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                         new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                                    assessmentSectionStub,
                                                                                    failureMechanism,
-                                                                                   testDataPath);
+                                                                                   validFilePath);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -1484,7 +1484,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                         new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                                    assessmentSectionStub,
                                                                                    failureMechanism,
-                                                                                   testDataPath);
+                                                                                   validFilePath);
                     }
                     catch (HydraRingFileParserException)
                     {
@@ -1548,7 +1548,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
                         new StabilityPointStructuresCalculationService().Calculate(calculation,
                                                                                    assessmentSectionStub,
                                                                                    failureMechanism,
-                                                                                   testDataPath);
+                                                                                   validFilePath);
                     }
                     catch (HydraRingFileParserException e)
                     {

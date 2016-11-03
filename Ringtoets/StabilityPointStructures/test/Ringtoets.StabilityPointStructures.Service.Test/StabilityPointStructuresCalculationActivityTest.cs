@@ -91,7 +91,7 @@ namespace Ringtoets.StabilityPointStructures.Service.Test
 
             // Assert
             var exception = Assert.Throws<ArgumentNullException>(call);
-            Assert.AreEqual("hlcdFilepath", exception.ParamName);
+            Assert.AreEqual("hydraulicBoundaryDatabaseFilePath", exception.ParamName);
             mocks.VerifyAll();
         }
 

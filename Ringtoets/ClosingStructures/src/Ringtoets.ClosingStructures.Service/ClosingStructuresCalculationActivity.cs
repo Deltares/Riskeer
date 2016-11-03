@@ -37,17 +37,17 @@ namespace Ringtoets.ClosingStructures.Service
         private readonly ClosingStructuresCalculationService calculationService;
         private readonly ClosingStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
-        private readonly string hlcdFilepath;
+        private readonly string hydraulicBoundaryDatabaseFilePath;
 
         /// <summary>
         /// Creates a new instance of <see cref="ClosingStructuresCalculationActivity"/>.
         /// </summary>
         /// <param name="calculation">The closing structures data used for the calculation.</param>
-        /// <param name="hlcdFilepath">The filepath of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public ClosingStructuresCalculationActivity(StructuresCalculation<ClosingStructuresInput> calculation, string hlcdFilepath,
+        public ClosingStructuresCalculationActivity(StructuresCalculation<ClosingStructuresInput> calculation, string hydraulicBoundaryDatabaseFilePath,
                                                     ClosingStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (calculation == null)
@@ -55,9 +55,9 @@ namespace Ringtoets.ClosingStructures.Service
                 throw new ArgumentNullException("calculation");
             }
 
-            if (hlcdFilepath == null)
+            if (hydraulicBoundaryDatabaseFilePath == null)
             {
-                throw new ArgumentNullException("hlcdFilepath");
+                throw new ArgumentNullException("hydraulicBoundaryDatabaseFilePath");
             }
 
             if (failureMechanism == null)
@@ -73,7 +73,7 @@ namespace Ringtoets.ClosingStructures.Service
             this.calculation = calculation;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
-            this.hlcdFilepath = hlcdFilepath;
+            this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
 
             Name = calculation.Name;
             calculationService = new ClosingStructuresCalculationService();
@@ -91,7 +91,7 @@ namespace Ringtoets.ClosingStructures.Service
             calculationService.Calculate(calculation,
                                          assessmentSection,
                                          failureMechanism,
-                                         hlcdFilepath);
+                                         hydraulicBoundaryDatabaseFilePath);
         }
 
         protected override void OnCancel()

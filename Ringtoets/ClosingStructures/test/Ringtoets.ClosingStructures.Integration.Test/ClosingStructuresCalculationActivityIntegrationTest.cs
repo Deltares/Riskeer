@@ -45,7 +45,8 @@ namespace Ringtoets.ClosingStructures.Integration.Test
     [TestFixture]
     public class ClosingStructuresCalculationActivityIntegrationTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private static readonly string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void Run_CalculationInvalidInput_LogValidationStartAndEndWithError()
@@ -91,8 +92,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);
@@ -113,7 +112,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 }
             };
 
-            var activity = new ClosingStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
@@ -140,8 +139,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);
@@ -162,7 +159,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 }
             };
 
-            var activity = new ClosingStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -196,8 +193,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);
@@ -218,7 +213,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 }
             };
 
-            var activity = new ClosingStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
@@ -250,8 +245,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);
@@ -272,7 +265,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 }
             };
 
-            var activity = new ClosingStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new ClosingStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
@@ -309,8 +302,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             mocks.ReplayAll();
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
-
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+            
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);
@@ -359,7 +351,6 @@ namespace Ringtoets.ClosingStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);

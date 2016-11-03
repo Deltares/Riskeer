@@ -92,20 +92,20 @@ namespace Ringtoets.HeightStructures.Service
         /// <param name="assessmentSection">The <see cref="IAssessmentSection"/> that holds information about the norm used in the calculation.</param>
         /// <param name="failureMechanism"> The <see cref="HeightStructuresFailureMechanism"/> that holds the information about the contribution 
         /// and the general inputs used in the calculation.</param>
-        /// <param name="hlcdFilePath">The file path of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         internal void Calculate(StructuresCalculation<HeightStructuresInput> calculation,
                                 IAssessmentSection assessmentSection,
                                 HeightStructuresFailureMechanism failureMechanism,
-                                string hlcdFilePath)
+                                string hydraulicBoundaryDatabaseFilePath)
         {
             var calculationName = calculation.Name;
 
             FailureMechanismSection failureMechanismSection = StructuresHelper.FailureMechanismSectionForCalculation(failureMechanism.Sections,
                                                                                                                      calculation);
 
-            StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanismSection, failureMechanism.GeneralInput);
+            StructuresOvertoppingCalculationInput input = CreateInput(calculation, failureMechanismSection, failureMechanism.GeneralInput, hydraulicBoundaryDatabaseFilePath);
 
-            string hlcdDirectory = Path.GetDirectoryName(hlcdFilePath);
+            string hlcdDirectory = Path.GetDirectoryName(hydraulicBoundaryDatabaseFilePath);
             calculator = HydraRingCalculatorFactory.Instance.CreateStructuresOvertoppingCalculator(hlcdDirectory, assessmentSection.Id);
 
             CalculationServiceHelper.LogCalculationBeginTime(calculationName);
@@ -165,9 +165,13 @@ namespace Ringtoets.HeightStructures.Service
             }
         }
 
-        private static StructuresOvertoppingCalculationInput CreateInput(StructuresCalculation<HeightStructuresInput> calculation, FailureMechanismSection failureMechanismSection, GeneralHeightStructuresInput generalInput)
+        private static StructuresOvertoppingCalculationInput CreateInput(
+            StructuresCalculation<HeightStructuresInput> calculation,
+            FailureMechanismSection failureMechanismSection,
+            GeneralHeightStructuresInput generalInput,
+            string hydraulicBoundaryDatabaseFilePath)
         {
-            return new StructuresOvertoppingCalculationInput(
+            var structuresOvertoppingCalculationInput = new StructuresOvertoppingCalculationInput(
                 calculation.InputParameters.HydraulicBoundaryLocation.Id,
                 new HydraRingSection(1, failureMechanismSection.GetSectionLength(), calculation.InputParameters.StructureNormalOrientation),
                 HydraRingInputParser.ParseForeshore(calculation.InputParameters),
@@ -187,6 +191,10 @@ namespace Ringtoets.HeightStructures.Service
                 calculation.InputParameters.WidthFlowApertures.Mean, calculation.InputParameters.WidthFlowApertures.CoefficientOfVariation,
                 calculation.InputParameters.DeviationWaveDirection,
                 calculation.InputParameters.StormDuration.Mean, calculation.InputParameters.StormDuration.CoefficientOfVariation);
+
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(structuresOvertoppingCalculationInput, hydraulicBoundaryDatabaseFilePath);
+
+            return structuresOvertoppingCalculationInput;
         }
 
         private static string[] ValidateInput(HeightStructuresInput inputParameters, IAssessmentSection assessmentSection)

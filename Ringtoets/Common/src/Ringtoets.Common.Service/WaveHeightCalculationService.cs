@@ -94,7 +94,7 @@ namespace Ringtoets.Common.Service
 
             try
             {
-                calculator.Calculate(CreateInput(hydraulicBoundaryLocation, norm));
+                calculator.Calculate(CreateInput(hydraulicBoundaryLocation, norm, hydraulicBoundaryDatabaseFilePath));
 
                 hydraulicBoundaryLocation.WaveHeight = (RoundedDouble) calculator.WaveHeight;
                 hydraulicBoundaryLocation.WaveHeightCalculationConvergence =
@@ -149,9 +149,13 @@ namespace Ringtoets.Common.Service
             }
         }
 
-        private WaveHeightCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm)
+        private WaveHeightCalculationInput CreateInput(HydraulicBoundaryLocation hydraulicBoundaryLocation, double norm, string hydraulicBoundaryDatabaseFilePath)
         {
-            return new WaveHeightCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
+            var waveHeightCalculationInput = new WaveHeightCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
+
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(waveHeightCalculationInput, hydraulicBoundaryDatabaseFilePath);
+
+            return waveHeightCalculationInput;
         }
 
         private static string[] ValidateInput(string hydraulicBoundaryDatabaseFilePath)

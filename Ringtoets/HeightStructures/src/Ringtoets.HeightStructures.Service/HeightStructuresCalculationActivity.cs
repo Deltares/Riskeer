@@ -34,7 +34,7 @@ namespace Ringtoets.HeightStructures.Service
     public class HeightStructuresCalculationActivity : HydraRingActivityBase
     {
         private readonly StructuresCalculation<HeightStructuresInput> calculation;
-        private readonly string hlcdFilepath;
+        private readonly string hydraulicBoundaryDatabaseFilePath;
         private readonly HeightStructuresFailureMechanism failureMechanism;
         private readonly IAssessmentSection assessmentSection;
         private readonly HeightStructuresCalculationService calculationService;
@@ -43,20 +43,20 @@ namespace Ringtoets.HeightStructures.Service
         /// Creates a new instance of <see cref="HeightStructuresCalculationActivity"/>.
         /// </summary>
         /// <param name="calculation">The height structures data used for the calculation.</param>
-        /// <param name="hlcdFilepath">The filepath of the HLCD file that should be used for performing the calculation.</param>
+        /// <param name="hydraulicBoundaryDatabaseFilePath">The path which points to the hydraulic boundary database file.</param>
         /// <param name="failureMechanism">The failure mechanism the calculation belongs to.</param>
         /// <param name="assessmentSection">The assessment section the calculation belongs to.</param>
         /// <exception cref="ArgumentNullException">Thrown when any input argument is <c>null</c>.</exception>
-        public HeightStructuresCalculationActivity(StructuresCalculation<HeightStructuresInput> calculation, string hlcdFilepath,
+        public HeightStructuresCalculationActivity(StructuresCalculation<HeightStructuresInput> calculation, string hydraulicBoundaryDatabaseFilePath,
                                                    HeightStructuresFailureMechanism failureMechanism, IAssessmentSection assessmentSection)
         {
             if (calculation == null)
             {
                 throw new ArgumentNullException("calculation");
             }
-            if (hlcdFilepath == null)
+            if (hydraulicBoundaryDatabaseFilePath == null)
             {
-                throw new ArgumentNullException("hlcdFilepath");
+                throw new ArgumentNullException("hydraulicBoundaryDatabaseFilePath");
             }
             if (failureMechanism == null)
             {
@@ -68,7 +68,7 @@ namespace Ringtoets.HeightStructures.Service
             }
 
             this.calculation = calculation;
-            this.hlcdFilepath = hlcdFilepath;
+            this.hydraulicBoundaryDatabaseFilePath = hydraulicBoundaryDatabaseFilePath;
             this.failureMechanism = failureMechanism;
             this.assessmentSection = assessmentSection;
 
@@ -89,7 +89,7 @@ namespace Ringtoets.HeightStructures.Service
             calculationService.Calculate(calculation,
                                          assessmentSection,
                                          failureMechanism,
-                                         hlcdFilepath);
+                                         hydraulicBoundaryDatabaseFilePath);
         }
 
         protected override void OnCancel()

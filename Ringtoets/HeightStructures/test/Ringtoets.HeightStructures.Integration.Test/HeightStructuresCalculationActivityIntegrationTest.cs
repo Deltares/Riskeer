@@ -45,7 +45,8 @@ namespace Ringtoets.HeightStructures.Integration.Test
     [TestFixture]
     public class HeightStructuresCalculationActivityIntegrationTest
     {
-        private readonly string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private readonly static string testDataPath = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Integration.Service, "HydraRingCalculation");
+        private readonly static string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
         [Test]
         public void Run_CalculationInvalidInput_LogValidationStartAndEndWithError()
@@ -91,8 +92,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);
@@ -114,7 +113,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
                 // Call
@@ -141,8 +140,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);
@@ -164,7 +161,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
 
             using (new HydraRingCalculatorFactoryConfig())
             {
@@ -197,8 +194,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);
@@ -219,7 +214,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
@@ -251,8 +246,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
             // Setup
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);
@@ -273,7 +266,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
                 }
             };
 
-            var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
             using (new HydraRingCalculatorFactoryConfig())
             {
                 var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresOvertoppingCalculator;
@@ -311,7 +304,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
 
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
@@ -361,8 +353,6 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             var assessmentSection = new AssessmentSection(AssessmentSectionComposition.Dike);
 
-            string validFilePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
-
             using (var importer = new HydraulicBoundaryDatabaseImporter())
             {
                 importer.Import(assessmentSection, validFilePath);
@@ -386,7 +376,7 @@ namespace Ringtoets.HeightStructures.Integration.Test
 
             calculation.Attach(observerMock);
 
-            var activity = new HeightStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
+            var activity = new HeightStructuresCalculationActivity(calculation, validFilePath, failureMechanism, assessmentSection);
 
             activity.Run();
 
