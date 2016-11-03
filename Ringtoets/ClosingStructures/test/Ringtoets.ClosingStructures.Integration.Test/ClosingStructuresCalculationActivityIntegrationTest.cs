@@ -105,11 +105,11 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -154,33 +154,40 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
                 }
             };
 
             var activity = new ClosingStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
 
-            // Call
-            Action call = () => activity.Run();
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            using (new HydraRingCalculatorFactoryConfig())
             {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(6, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                StringAssert.StartsWith(string.Format("De berekening voor kunstwerk sluiten '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
-                                                      calculation.Name), msgs[3]);
-                StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
-            });
-            Assert.AreEqual(ActivityState.Failed, activity.State);
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
+                calculator.EndInFailure = true;
+                calculator.LastErrorContent = "Error";
+
+                // Call
+                Action call = () => activity.Run();
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith(string.Format("De berekening voor kunstwerk sluiten '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
+                                                          calculation.Name), msgs[3]);
+                    StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                });
+                Assert.AreEqual(ActivityState.Failed, activity.State);
+            }
         }
 
         [Test]
@@ -203,7 +210,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation
             {
                 InputParameters =
                 {
@@ -257,7 +264,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestClosingStructuresCalculation()
+            var calculation = new TestClosingStructuresCalculation
             {
                 InputParameters =
                 {
@@ -320,7 +327,7 @@ namespace Ringtoets.ClosingStructures.Integration.Test
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    HydraulicBoundaryLocation = assessmentSection.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001)
                 }
             };
 
@@ -365,11 +372,11 @@ namespace Ringtoets.ClosingStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new StructuresCalculation<ClosingStructuresInput>()
+            var calculation = new StructuresCalculation<ClosingStructuresInput>
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
                 }
             };
 

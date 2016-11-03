@@ -105,7 +105,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
                 {
@@ -156,7 +156,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
                 {
@@ -168,22 +168,29 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
 
             var activity = new StabilityPointStructuresCalculationActivity(calculation, testDataPath, failureMechanism, assessmentSection);
 
-            // Call
-            Action call = () => activity.Run();
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            using (new HydraRingCalculatorFactoryConfig())
             {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(6, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt.", calculation.Name), msgs[3]);
-                StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
-            });
-            Assert.AreEqual(ActivityState.Failed, activity.State);
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresStabilityPointCalculator;
+                calculator.EndInFailure = true;
+                calculator.LastErrorContent = "Error";
+
+                // Call
+                Action call = () => activity.Run();
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith(string.Format("De berekening voor kunstwerk puntconstructies '{0}' is niet gelukt.", calculation.Name), msgs[3]);
+                    StringAssert.StartsWith("Puntconstructies berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                });
+                Assert.AreEqual(ActivityState.Failed, activity.State);
+            }
         }
 
         [Test]
@@ -206,7 +213,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
                 {
@@ -261,7 +268,7 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new TestStabilityPointStructuresCalculation()
+            var calculation = new TestStabilityPointStructuresCalculation
             {
                 InputParameters =
                 {
@@ -372,11 +379,11 @@ namespace Ringtoets.StabilityPointStructures.Integration.Test
                 new Point2D(1, 1)
             }));
 
-            var calculation = new StructuresCalculation<StabilityPointStructuresInput>()
+            var calculation = new StructuresCalculation<StabilityPointStructuresInput>
             {
                 InputParameters =
                 {
-                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1),
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "test", 1, 1)
                 }
             };
 
