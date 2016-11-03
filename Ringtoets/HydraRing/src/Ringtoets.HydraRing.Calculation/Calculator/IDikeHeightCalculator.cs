@@ -40,6 +40,11 @@ namespace Ringtoets.HydraRing.Calculation.Calculator
         string OutputDirectory { get; }
 
         /// <summary>
+        /// Gets the content of the last error file generated during the Hydra-Ring calculation.
+        /// </summary>
+        string LastErrorContent { get; }
+
+        /// <summary>
         /// Performs the actual calculation by running the Hydra-Ring executable.
         /// </summary>
         /// <param name="input">The <see cref="DikeHeightCalculationInput"/> which contains all the necessary input

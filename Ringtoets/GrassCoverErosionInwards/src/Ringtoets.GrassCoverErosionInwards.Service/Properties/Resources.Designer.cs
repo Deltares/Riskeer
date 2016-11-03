@@ -82,22 +82,24 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet gelukt..
+        ///   Looks up a localized string similar to De berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
+        ///{1}.
         /// </summary>
-        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation {
+        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_1 {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Error_in_grass_cover_erosion" +
-                        "_inwards_0_calculation", resourceCulture);
+                        "_inwards_0_calculation_click_details_for_last_error_1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to De HBN berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet gelukt..
+        ///   Looks up a localized string similar to De HBN berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet gelukt. Bekijk het foutrapport door op details te klikken.
+        ///{1}.
         /// </summary>
-        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation {
+        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_erosion_inwards_0_calculation_click_details_for_last_error_1 {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Error_in_hbn_grass_cover_ero" +
-                        "sion_inwards_0_calculation", resourceCulture);
+                        "sion_inwards_0_calculation_click_details_for_last_error_1", resourceCulture);
             }
         }
         
@@ -118,6 +120,26 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Properties {
             get {
                 return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Executing_overtopping_calcul" +
                         "ation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Unexplained_error_in_grass_cover_erosion_inwards_0_calculation {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Unexplained_error_in_grass_c" +
+                        "over_erosion_inwards_0_calculation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to De HBN berekening voor grasbekleding erosie kruin en binnentalud &apos;{0}&apos; is niet gelukt. Er is geen foutrapport beschikbaar..
+        /// </summary>
+        internal static string GrassCoverErosionInwardsCalculationService_Calculate_Unexplained_error_in_hbn_grass_cover_erosion_inwards_0_calculation {
+            get {
+                return ResourceManager.GetString("GrassCoverErosionInwardsCalculationService_Calculate_Unexplained_error_in_hbn_gra" +
+                        "ss_cover_erosion_inwards_0_calculation", resourceCulture);
             }
         }
         

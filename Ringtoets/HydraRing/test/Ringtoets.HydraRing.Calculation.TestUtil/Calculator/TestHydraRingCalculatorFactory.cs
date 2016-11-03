@@ -122,12 +122,14 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
         public double WaveHeight { get; set; }
         public bool IsOvertoppingDominant { get; set; }
         public string OutputDirectory { get; set; }
+        public string LastErrorContent { get; set; }
     }
 
     public class TestDikeHeightCalculator : TestHydraRingCalculator<DikeHeightCalculationInput>, IDikeHeightCalculator
     {
         public double DikeHeight { get; set; }
         public string OutputDirectory { get; set; }
+        public string LastErrorContent { get; set; }
     }
 
     public class TestDesignWaterLevelCalculator : TestHydraRingCalculator<AssessmentLevelCalculationInput>, IDesignWaterLevelCalculator

@@ -674,6 +674,424 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
             }
         }
 
+        [Test]
+        public void Calculate_OvertoppingCalculationFailedWithExceptionAndLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            AddSectionToFailureMechanism(failureMechanism);
+
+            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
+            mockRepository.ReplayAll();
+
+            var dikeProfile = GetDikeProfile();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = dikeProfile,
+                    CalculateDikeHeight = true
+                }
+            };
+
+            var failureMechanismSection = failureMechanism.Sections.First();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                calculator.LastErrorContent = "An error occured";
+                calculator.EndInFailure = true;
+
+                var exceptionThrown = false;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                           assessmentSectionStub,
+                                                                           failureMechanismSection,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.Contribution,
+                                                                           testDataPath);
+                    }
+                    catch (HydraRingFileParserException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                });
+                Assert.IsTrue(exceptionThrown);
+            }
+        }
+
+        [Test]
+        public void Calculate_OvertoppingCalculationFailedWithExceptionAndNoLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            AddSectionToFailureMechanism(failureMechanism);
+
+            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
+            mockRepository.ReplayAll();
+
+            var dikeProfile = GetDikeProfile();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = dikeProfile,
+                    CalculateDikeHeight = true
+                }
+            };
+
+            var failureMechanismSection = failureMechanism.Sections.First();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                calculator.EndInFailure = true;
+
+                var exceptionThrown = false;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                           assessmentSectionStub,
+                                                                           failureMechanismSection,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.Contribution,
+                                                                           testDataPath);
+                    }
+                    catch (HydraRingFileParserException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                });
+                Assert.IsTrue(exceptionThrown);
+            }
+        }
+
+        [Test]
+        public void Calculate_OvertoppingCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogErrorAndThrowException()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            AddSectionToFailureMechanism(failureMechanism);
+
+            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
+            mockRepository.ReplayAll();
+
+            var dikeProfile = GetDikeProfile();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = dikeProfile,
+                    CalculateDikeHeight = true
+                }
+            };
+
+            var failureMechanismSection = failureMechanism.Sections.First();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                calculator.EndInFailure = false;
+                calculator.LastErrorContent = "An error occured";
+
+                var exceptionThrown = false;
+                var exceptionMessage = string.Empty;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                           assessmentSectionStub,
+                                                                           failureMechanismSection,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.Contribution,
+                                                                           testDataPath);
+                    }
+                    catch (HydraRingFileParserException e)
+                    {
+                        exceptionThrown = true;
+                        exceptionMessage = e.Message;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(4, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.",
+                                                          calculation.Name), msgs[1]);
+                    StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[2]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[3]);
+                });
+                Assert.IsTrue(exceptionThrown);
+                Assert.AreEqual(calculator.LastErrorContent, exceptionMessage);
+            }
+        }
+        [Test]
+        public void Calculate_DikeHeightCalculationFailedWithExceptionAndLastErrorPresent_LogError()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            AddSectionToFailureMechanism(failureMechanism);
+
+            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
+            mockRepository.ReplayAll();
+
+            var dikeProfile = GetDikeProfile();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = dikeProfile,
+                    CalculateDikeHeight = true
+                }
+            };
+
+            var failureMechanismSection = failureMechanism.Sections.First();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                calculator.LastErrorContent = "An error occured";
+                calculator.EndInFailure = true;
+
+                var exceptionThrown = false;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                                   assessmentSectionStub,
+                                                                                   failureMechanismSection,
+                                                                                   failureMechanism.GeneralInput,
+                                                                                   failureMechanism.Contribution,
+                                                                                   testDataPath);
+                    }
+                    catch (HydraRingFileParserException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(5, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[1]);
+                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie:", msgs[3]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                });
+                Assert.IsFalse(exceptionThrown);
+            }
+        }
+
+        [Test]
+        public void Calculate_DikeHeightCalculationFailedWithExceptionAndNoLastErrorPresent_LogError()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            AddSectionToFailureMechanism(failureMechanism);
+
+            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
+            mockRepository.ReplayAll();
+
+            var dikeProfile = GetDikeProfile();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = dikeProfile,
+                    CalculateDikeHeight = true
+                }
+            };
+
+            var failureMechanismSection = failureMechanism.Sections.First();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                calculator.EndInFailure = true;
+
+                var exceptionThrown = false;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                           assessmentSectionStub,
+                                                                           failureMechanismSection,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.Contribution,
+                                                                           testDataPath);
+                    }
+                    catch (HydraRingFileParserException)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(5, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[1]);
+                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Er is geen foutrapport beschikbaar.", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie:", msgs[3]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                });
+                Assert.IsFalse(exceptionThrown);
+            }
+        }
+
+        [Test]
+        public void Calculate_DikeHeightCalculationFailedWithoutExceptionAndWithLastErrorPresent_LogError()
+        {
+            // Setup
+            var failureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+            AddSectionToFailureMechanism(failureMechanism);
+
+            var filePath = Path.Combine(testDataPath, "HRD dutch coast south.sqlite");
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(failureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           filePath);
+            mockRepository.ReplayAll();
+
+            var dikeProfile = GetDikeProfile();
+
+            var calculation = new GrassCoverErosionInwardsCalculation
+            {
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = assessmentSectionStub.HydraulicBoundaryDatabase.Locations.First(hl => hl.Id == 1300001),
+                    DikeProfile = dikeProfile,
+                    CalculateDikeHeight = true
+                }
+            };
+
+            var failureMechanismSection = failureMechanism.Sections.First();
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                calculator.EndInFailure = false;
+                calculator.LastErrorContent = "An error occured";
+
+                var exceptionThrown = false;
+
+                // Call
+                Action call = () =>
+                {
+                    try
+                    {
+                        new GrassCoverErosionInwardsCalculationService().Calculate(calculation,
+                                                                           assessmentSectionStub,
+                                                                           failureMechanismSection,
+                                                                           failureMechanism.GeneralInput,
+                                                                           failureMechanism.Contribution,
+                                                                           testDataPath);
+                    }
+                    catch (HydraRingFileParserException e)
+                    {
+                        exceptionThrown = true;
+                    }
+                };
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(5, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[1]);
+                    StringAssert.StartsWith(string.Format("De HBN berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt. Bekijk het foutrapport door op details te klikken.", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith("Dijkhoogte berekening is uitgevoerd op de tijdelijke locatie:", msgs[3]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                });
+                Assert.IsFalse(exceptionThrown);
+            }
+        }
+
         private static void AddSectionToFailureMechanism(GrassCoverErosionInwardsFailureMechanism failureMechanism)
         {
             failureMechanism.AddSection(new FailureMechanismSection("test section", new[]
