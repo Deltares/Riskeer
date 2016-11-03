@@ -182,16 +182,6 @@ namespace Ringtoets.Piping.Data.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kritische veiligheidsfactor voor opbarsten moet in het bereik (0, 50] liggen..
-        /// </summary>
-        public static string PipingProbabilityAssessmentInput_UpliftCriticalSafetyFactor_Value_must_be_in_range_zero_and_fifty {
-            get {
-                return ResourceManager.GetString("PipingProbabilityAssessmentInput_UpliftCriticalSafetyFactor_Value_must_be_in_rang" +
-                        "e_zero_and_fifty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to De geometrie bevat geen punt op locatie {0} om als &apos;{1}&apos; in te stellen..
         /// </summary>
         public static string RingtoetsPipingSurfaceLine_SetCharacteristicPointAt_Geometry_does_not_contain_point_at_0_to_assign_as_characteristic_point_1_ {

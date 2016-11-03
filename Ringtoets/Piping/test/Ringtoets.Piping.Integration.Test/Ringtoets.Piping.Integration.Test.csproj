@@ -145,10 +145,6 @@
     <EmbeddedResource Include="Resources\DR6_surfacelines.krp.csv" />
     <EmbeddedResource Include="Resources\HLCD.sqlite" />
     <EmbeddedResource Include="Resources\HRD dutch coast south.sqlite" />
-    <EmbeddedResource Include="Resources\traject_10-1_vakken.dbf" />
-    <EmbeddedResource Include="Resources\traject_10-1_vakken.prj" />
-    <EmbeddedResource Include="Resources\traject_10-1_vakken.shp" />
-    <EmbeddedResource Include="Resources\traject_10-1_vakken.shx" />
     <EmbeddedResource Include="Resources\traject_6-3.dbf" />
     <EmbeddedResource Include="Resources\traject_6-3.prj" />
     <EmbeddedResource Include="Resources\traject_6-3.shp" />

@@ -51,9 +51,9 @@ namespace Application.Ringtoets.Integration.Test
             // Setup
             string solution = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.Parent.Parent.FullName;
             string outputPath = Directory.GetCurrentDirectory();
-            string resource = "Resources.resx";
-            string sourceCode = "*.cs;*.xaml";
-            string filters = "Resources.designer.cs;test";
+            const string resource = "Resources.resx";
+            const string sourceCode = "*.cs;*.xaml";
+            const string filters = "Resources.designer.cs;test";
             string searchPatterns = Regex.Replace("\\[.*\\(typeof\\(.*Resources\\).*\"-f-\".*\\)\\];\"-f-\"\\);Resources.-f-;Resources\\\\-f-", @"(\\*)" + "\"", @"$1$1\" + "\"");
 
             string directory = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "UnusedResourceSearcher");
@@ -65,7 +65,7 @@ namespace Application.Ringtoets.Integration.Test
                 {
                     UseShellExecute = false,
                     CreateNoWindow = true,
-                    Arguments = string.Format("{0} {1} {2} {3} {4} {5}", solution, outputPath, resource, sourceCode, filters, searchPatterns)
+                    Arguments = string.Join(" ", solution, outputPath, resource, sourceCode, filters, searchPatterns)
                 }
             };
 
@@ -85,11 +85,11 @@ namespace Application.Ringtoets.Integration.Test
                 }
             }
 
-            // There are 30 entries because we can't filter them with our search patterns.
+            // There are 25 entries because we can't filter them with our search patterns.
             var message = string.Format("The following resources are marked as unused:{0}{1}",
                                         Environment.NewLine,
                                         string.Join(Environment.NewLine, lines.OrderBy(s => s).ToList()));
-            Assert.AreEqual(30, lines.Count, message);
+            Assert.AreEqual(25, lines.Count, message);
         }
     }
 }

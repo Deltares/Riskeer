@@ -162,9 +162,6 @@
   <data name="Validation_Invalid_BreakWaterHeight_value" xml:space="preserve">
     <value>Er is geen geldige damhoogte ingevoerd.</value>
   </data>
-  <data name="CalculationService_ValidateInput_No_hydraulic_boundary_database_selected" xml:space="preserve">
-    <value>Er is geen hydraulische randvoorwaardendatabase geïmporteerd.</value>
-  </data>
   <data name="ProbabilistiDistributionValidationRule_CoefficientOfVariation_of_ParameterName_0_must_be_larger_or_equal_to_zero" xml:space="preserve">
     <value>De variatiecoëfficient voor '{0}' moet groter zijn dan of gelijk zijn aan 0.</value>
   </data>

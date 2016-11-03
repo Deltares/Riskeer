@@ -410,33 +410,6 @@ namespace Ringtoets.Common.Forms.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er zijn geen berekeningen of mappen om te verwijderen..
-        /// </summary>
-        public static string CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove {
-            get {
-                return ResourceManager.GetString("CalculationGroup_RemoveAllChildrenFromGroup_No_Calculation_or_Group_to_remove", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Map &amp;leegmaken....
-        /// </summary>
-        public static string CalculationGroup_RemoveAllChildrenFromGroup_Remove_all {
-            get {
-                return ResourceManager.GetString("CalculationGroup_RemoveAllChildrenFromGroup_Remove_all", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Verwijder alle berekeningen en mappen binnen deze map..
-        /// </summary>
-        public static string CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip {
-            get {
-                return ResourceManager.GetString("CalculationGroup_RemoveAllChildrenFromGroup_Remove_all_Tooltip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Valideer alle berekeningen binnen deze berekeningsmap..
         /// </summary>
         public static string CalculationGroup_Validate_all_ToolTip {

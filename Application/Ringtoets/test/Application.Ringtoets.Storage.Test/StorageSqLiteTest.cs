@@ -23,7 +23,6 @@ using System;
 using System.Data;
 using System.Data.SQLite;
 using System.IO;
-using Application.Ringtoets.Storage.Properties;
 using Application.Ringtoets.Storage.TestUtil;
 using Core.Common.Base.Data;
 using Core.Common.Base.Storage;
@@ -94,7 +93,8 @@ namespace Application.Ringtoets.Storage.Test
             // Setup
             string validPath = "empty.rtd";
             var tempFile = Path.Combine(testDataPath, validPath);
-            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}", tempFile, @"Het bestand is geen geldig Ringtoets bestand.");
+            string expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}", 
+                tempFile, @"Het bestand is geen geldig Ringtoets bestand.");
 
             // Call
             TestDelegate test = () => new StorageSqLite().LoadProject(tempFile);
@@ -118,7 +118,8 @@ namespace Application.Ringtoets.Storage.Test
                 TestDelegate test = () => new StorageSqLite().LoadProject(tempRingtoetsFile);
 
                 // Assert
-                var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}", tempRingtoetsFile, Resources.StorageSqLite_LoadProject_Invalid_Ringtoets_database_file);
+                var expectedMessage = string.Format(@"Fout bij het lezen van bestand '{0}': {1}",
+                                                    tempRingtoetsFile, @"Het bestand is geen geldig Ringtoets bestand.");
 
                 StorageException exception = Assert.Throws<StorageException>(test);
                 Assert.IsInstanceOf<Exception>(exception);
@@ -462,7 +463,7 @@ namespace Application.Ringtoets.Storage.Test
         }
 
         [Test]
-        public void SaveProkectAs_NoStagedProject_ThrowInvalidOperationException()
+        public void SaveProjectAs_NoStagedProject_ThrowInvalidOperationException()
         {
             // Setup
             var storage = new StorageSqLite();
@@ -599,7 +600,7 @@ namespace Application.Ringtoets.Storage.Test
         {
             // Setup
             StorageSqLite storageSqLite = new StorageSqLite();
-            RingtoetsProject storedProject = RingtoetsProjectTestHelper.GetFullTestProject(); //new RingtoetsProject();
+            RingtoetsProject storedProject = RingtoetsProjectTestHelper.GetFullTestProject();
             var changedDescription = "some description";
 
             FileDisposeHelper fileDisposeHelper = new FileDisposeHelper(tempRingtoetsFile);

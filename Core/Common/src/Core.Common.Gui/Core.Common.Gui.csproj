@@ -333,7 +333,6 @@
     <Resource Include="Resources\application_import_blue.png" />
     <Resource Include="Resources\application_view_list.png" />
     <Resource Include="Resources\brick.png" />
-    <Resource Include="Resources\chart_curve.png" />
     <Resource Include="Resources\ClosePreviewHH.png" />
     <Resource Include="Resources\Copy.png" />
     <Resource Include="Resources\CopyHS.png" />
@@ -357,9 +356,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrow-000-medium-question-mark.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\plus.ico" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\key.png" />
