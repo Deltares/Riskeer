@@ -94,6 +94,8 @@ namespace Core.Common.TestUtil.Test
 
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.IO);
             Assert.IsTrue(Directory.Exists(path));
+            path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.Common.Service);
+            Assert.IsTrue(Directory.Exists(path));
 
             path = TestHelper.GetTestDataPath(TestDataPath.Ringtoets.HydraRing.IO);
             Assert.IsTrue(Directory.Exists(path));

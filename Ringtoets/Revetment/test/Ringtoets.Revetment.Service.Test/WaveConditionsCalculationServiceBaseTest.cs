@@ -116,6 +116,30 @@ namespace Ringtoets.Revetment.Service.Test
         }
 
         [Test]
+        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsValidationMessageAndReturnFalse()
+        {
+            // Setup 
+            string name = "test";
+            bool isValid = false;
+            var dbFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
+
+            // Call
+            Action action = () => isValid = new WaveConditionsCalculationService().PublicValidateWaveConditionsInput(null, name, dbFilePath, string.Empty);
+
+            // Assert
+            TestHelper.AssertLogMessages(action, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+
+            Assert.IsFalse(isValid);
+        }
+
+        [Test]
         public void Validate_NoHydraulicBoundaryLocation_ReturnsFalseAndLogsValidationError()
         {
             // Setup 

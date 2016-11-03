@@ -72,6 +72,7 @@ namespace Core.Common.TestUtil
             public static class Common
             {
                 public static readonly TestDataPath IO = System.IO.Path.Combine("Ringtoets", "Common", "test", "Ringtoets.Common.IO.Test");
+                public static readonly TestDataPath Service = System.IO.Path.Combine("Ringtoets", "Common", "test", "Ringtoets.Common.Service.Test");
             }
 
             public static class GrassCoverErosionInwards

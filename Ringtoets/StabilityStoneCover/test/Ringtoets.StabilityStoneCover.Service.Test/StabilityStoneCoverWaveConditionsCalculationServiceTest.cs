@@ -110,6 +110,33 @@ namespace Ringtoets.StabilityStoneCover.Service.Test
         }
 
         [Test]
+        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsValidationMessageAndReturnFalse()
+        {
+            // Setup
+            StabilityStoneCoverWaveConditionsCalculation calculation = GetDefaultCalculation();
+            var testFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
+
+            var isValid = true;
+
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                // Call
+                Action call = () => isValid = StabilityStoneCoverWaveConditionsCalculationService.Validate(calculation, testFilePath);
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(3, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[2]);
+                });
+                Assert.IsFalse(isValid);
+            }
+        }
+
+        [Test]
         public void Validate_NoHydraulicBoundaryLocation_LogsValidationMessageAndReturnFalse()
         {
             // Setup

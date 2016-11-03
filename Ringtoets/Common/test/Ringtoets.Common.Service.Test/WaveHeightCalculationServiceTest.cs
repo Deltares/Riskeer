@@ -100,6 +100,35 @@ namespace Ringtoets.Common.Service.Test
         }
 
         [Test]
+        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsErrorAndReturnsFalse()
+        {
+            // Setup
+            const string calculationName = "calculationName";
+            string validFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
+            bool valid = false;
+
+            var mockRepository = new MockRepository();
+            ICalculationMessageProvider messageProviderStub = mockRepository.Stub<ICalculationMessageProvider>();
+            messageProviderStub.Stub(mp => mp.GetCalculationName(calculationName)).Return(calculationName);
+            mockRepository.ReplayAll();
+
+            // Call
+            Action call = () => valid = WaveHeightCalculationService.Validate(calculationName, validFilePath, messageProviderStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculationName), msgs[0]);
+                StringAssert.StartsWith("Herstellen van de verbinding met de hydraulische randvoorwaardendatabase is mislukt. Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculationName), msgs[2]);
+            });
+            Assert.IsFalse(valid);
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Calculate_ValidHydraulicBoundaryLocation_StartsCalculationWithRightParameters()
         {
             // Setup

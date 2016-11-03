@@ -133,6 +133,51 @@ namespace Ringtoets.GrassCoverErosionInwards.Service.Test
         }
 
         [Test]
+        public void Validate_ValidHydraulicBoundaryDatabaseWithoutSettings_LogsValidationMessageAndReturnFalse()
+        {
+            // Setup
+            var grassCoverErosionInwardsFailureMechanism = new GrassCoverErosionInwardsFailureMechanism();
+
+            var invalidFilePath = Path.Combine(testDataPath, "HRD nosettings.sqlite");
+
+            var mockRepository = new MockRepository();
+            IAssessmentSection assessmentSectionStub = AssessmentSectionHelper.CreateAssessmentSectionStub(grassCoverErosionInwardsFailureMechanism,
+                                                                                                           mockRepository,
+                                                                                                           invalidFilePath);
+            mockRepository.ReplayAll();
+
+            const string name = "<very nice name>";
+
+            GrassCoverErosionInwardsCalculation calculation = new GrassCoverErosionInwardsCalculation
+            {
+                Name = name,
+                InputParameters =
+                {
+                    HydraulicBoundaryLocation = new HydraulicBoundaryLocation(1, "name", 2, 2),
+                    DikeProfile = new DikeProfile(new Point2D(0, 0), new RoughnessPoint[0], new Point2D[0],
+                                                  null, new DikeProfile.ConstructionProperties())
+                }
+            };
+
+            // Call
+            bool isValid = false;
+            Action call = () => isValid = GrassCoverErosionInwardsCalculationService.Validate(calculation, assessmentSectionStub);
+
+            // Assert
+            TestHelper.AssertLogMessages(call, messages =>
+            {
+                var msgs = messages.ToArray();
+                Assert.AreEqual(3, msgs.Length);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", name), msgs[0]);
+                StringAssert.StartsWith("Validatie mislukt: Fout bij het lezen van bestand", msgs[1]);
+                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", name), msgs[2]);
+            });
+            Assert.IsFalse(isValid);
+
+            mockRepository.VerifyAll();
+        }
+
+        [Test]
         public void Validate_NoDikeProfile_ReturnsTrue()
         {
             // Setup
