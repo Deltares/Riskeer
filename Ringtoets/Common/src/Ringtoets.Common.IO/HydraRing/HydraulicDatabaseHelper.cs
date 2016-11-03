@@ -28,13 +28,16 @@ using Ringtoets.HydraRing.IO.HydraulicBoundaryDatabaseContext;
 using Ringtoets.HydraRing.IO.HydraulicLocationConfigurationDatabaseContext;
 using Ringtoets.HydraRing.IO.Properties;
 
-namespace Ringtoets.HydraRing.IO
+namespace Ringtoets.Common.IO.HydraRing
 {
     /// <summary>
     /// This class defines helper methods for obtaining meta data from hyraulic boundary databases.
     /// </summary>
     public static class HydraulicDatabaseHelper
     {
+        private const string hydraRingConfigurationDatabaseExtension = "config.sqlite";
+        private const string hlcdFileName = "HLCD.sqlite";
+
         /// <summary>
         /// Attempts to connect to the <paramref name="filePath"/> as if it is a Hydraulic Boundary Locations 
         /// database with a Hydraulic Location Configurations database next to it.
@@ -60,17 +63,21 @@ namespace Ringtoets.HydraRing.IO
             }
             catch (PathTooLongException)
             {
-                return string.Format(Resources.HydraulicDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_, filePath);
+                return String.Format(Resources.HydraulicDatabaseHelper_ValidatePathForCalculation_Invalid_path_0_, filePath);
             }
 
+            string settingsDatabaseFileName = GetHydraulicBoundarySettingsDatabase(filePath);
             try
             {
                 using (var db = new HydraulicBoundarySqLiteDatabaseReader(filePath))
                 {
                     db.GetVersion();
                 }
-                string hlcdFilePath = Path.Combine(directoryName, HydraRingFileConstants.HlcdDatabaseFileName);
+                string hlcdFilePath = Path.Combine(directoryName, hlcdFileName);
                 new HydraulicLocationConfigurationSqLiteDatabaseReader(hlcdFilePath).Dispose();
+                new DesignTablesSettingsProvider(settingsDatabaseFileName).Dispose();
+                new HydraulicModelsSettingsProvider(settingsDatabaseFileName).Dispose();
+                new NumericsSettingsProvider(settingsDatabaseFileName).Dispose();
             }
             catch (CriticalFileReadException e)
             {
@@ -120,6 +127,11 @@ namespace Ringtoets.HydraRing.IO
             {
                 return db.GetVersion();
             }
+        }
+
+        public static string GetHydraulicBoundarySettingsDatabase(string hydraulicBoundaryDatabaseFilePath)
+        {
+            return Path.ChangeExtension(hydraulicBoundaryDatabaseFilePath, hydraRingConfigurationDatabaseExtension);
         }
     }
 }

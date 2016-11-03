@@ -19,7 +19,6 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -33,7 +32,6 @@ using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.Common.Service
 {
@@ -154,7 +152,7 @@ namespace Ringtoets.Common.Service
         {
             var assessmentLevelCalculationInput = new AssessmentLevelCalculationInput(1, hydraulicBoundaryLocation.Id, norm);
 
-            HydraRingSettingsHelper.SetHydraRingSettings(assessmentLevelCalculationInput, hydraulicBoundaryDatabaseFilePath);
+            HydraRingSettingsDatabaseHelper.AssignSettingsFromDatabase(assessmentLevelCalculationInput, hydraulicBoundaryDatabaseFilePath);
 
             return assessmentLevelCalculationInput;
         }

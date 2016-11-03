@@ -49,7 +49,7 @@
     </Compile>
     <Compile Include="CalculationServiceHelper.cs" />
     <Compile Include="HydraRingInputParser.cs" />
-    <Compile Include="HydraRingSettingsHelper.cs" />
+    <Compile Include="HydraRingSettingsDatabaseHelper.cs" />
     <Compile Include="ParameterNameExtractor.cs" />
     <Compile Include="ValidationRules\NumericInputRule.cs" />
     <Compile Include="ValidationRules\UseBreakWaterRule.cs" />

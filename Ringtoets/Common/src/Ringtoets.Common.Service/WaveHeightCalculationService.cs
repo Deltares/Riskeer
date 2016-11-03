@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using Core.Common.Base.Data;
 using log4net;
+using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.Common.Service.MessageProviders;
 using Ringtoets.Common.Service.Properties;
 using Ringtoets.HydraRing.Calculation.Calculator;
@@ -31,7 +32,6 @@ using Ringtoets.HydraRing.Calculation.Calculator.Factory;
 using Ringtoets.HydraRing.Calculation.Data.Input.Hydraulics;
 using Ringtoets.HydraRing.Calculation.Parsers;
 using Ringtoets.HydraRing.Data;
-using Ringtoets.HydraRing.IO;
 
 namespace Ringtoets.Common.Service
 {

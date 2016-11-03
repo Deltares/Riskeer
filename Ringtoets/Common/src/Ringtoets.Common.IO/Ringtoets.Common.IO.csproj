@@ -69,6 +69,7 @@
     <Compile Include="HydraRing\HydraulicBoundaryLocationFilter.cs" />
     <Compile Include="FileImporters\ProfilesImporter.cs" />
     <Compile Include="FileImporters\StructuresImporter.cs" />
+    <Compile Include="HydraRing\HydraulicDatabaseHelper.cs" />
     <Compile Include="HydraRing\HydraulicModelsSettingsProvider.cs" />
     <Compile Include="HydraRing\NumericsSettingsProvider.cs" />
     <Compile Include="HydraulicBoundaryLocationsExporter.cs" />

@@ -19,58 +19,60 @@
 // Stichting Deltares and remain full property of Stichting Deltares at all times.
 // All rights reserved.
 
-using System.IO;
+using System;
 using Core.Common.IO.Exceptions;
+using Core.Common.Utils;
 using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.HydraRing.Calculation.Data.Input;
 
 namespace Ringtoets.Common.Service
 {
     /// <summary>
-    /// Helper class for providing a convinient method for obtaining Hydra-Ring settings per location from the settings database 
+    /// Helper class for providing a convinient method for obtaining and updating Hydra-Ring settings per location from the settings database 
     /// based on <see cref="HydraRingCalculationInput"/>.
     /// </summary>
-    public static class HydraRingSettingsHelper 
+    public static class HydraRingSettingsDatabaseHelper 
     {
-        private const string hydraRingConfigurationDatabaseExtension = "config.sqlite";
-
         /// <summary>
         /// Obtains the Hydra-Ring settings based on the location and the failure mechanism obtained from the <paramref name="calculationInput"/>
         /// and sets these value on the <paramref name="calculationInput"/>.
         /// </summary>
         /// <param name="calculationInput">The calculation input for which the settings are updated.</param>
         /// <param name="hydraulicBoundaryDatabaseFilePath">The path to the hydraulic boundary database file.</param>
+        /// <exception cref="ArgumentException">Thrown when the <paramref name="hydraulicBoundaryDatabaseFilePath"/> 
+        /// contains invalid characters.</exception>
         /// <exception cref="CriticalFileReadException">Thrown when:
         /// <list type="bullet">
-        /// <item>The <paramref name="hydraulicBoundaryDatabaseFilePath"/> contains invalid characters.</item>
         /// <item>No settings database file could be found at the location of <paramref name="hydraulicBoundaryDatabaseFilePath"/>
         /// with the same name.</item>
         /// <item>Unable to open settings database file.</item>
         /// </list>
         /// </exception>
-        public static void SetHydraRingSettings(HydraRingCalculationInput calculationInput, string hydraulicBoundaryDatabaseFilePath)
+        public static void AssignSettingsFromDatabase(HydraRingCalculationInput calculationInput, string hydraulicBoundaryDatabaseFilePath)
         {
-            var locationId = calculationInput.HydraulicBoundaryLocationId;
-            using (var designTablesSettingsProviders = new DesignTablesSettingsProvider(GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabaseFilePath)))
-            {
-                calculationInput.DesignTablesSetting =
-                    designTablesSettingsProviders.GetDesignTablesSetting(locationId, calculationInput.FailureMechanismType);
-            }
-            using (var numericsSettingsProvider = new NumericsSettingsProvider(GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabaseFilePath)))
-            {
-                calculationInput.NumericsSettings =
-                    numericsSettingsProvider.GetNumericsSettings(locationId, calculationInput.FailureMechanismType);
-            }
-            using (var modelsSettingsProvider = new HydraulicModelsSettingsProvider(GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabaseFilePath)))
-            {
-                calculationInput.HydraulicModelsSetting =
-                    modelsSettingsProvider.GetHydraulicModelsSetting(locationId, calculationInput.FailureMechanismType);
-            }
-        }
+            FileUtils.ValidateFilePath(hydraulicBoundaryDatabaseFilePath);
 
-        private static string GetHydraulicBoundarySettingsDatabase(string hydraulicBoundaryDatabaseFilePath)
-        {
-            return Path.ChangeExtension(hydraulicBoundaryDatabaseFilePath, hydraRingConfigurationDatabaseExtension);
+            var locationId = calculationInput.HydraulicBoundaryLocationId;
+            var settingsDatabaseFileName = HydraulicDatabaseHelper.GetHydraulicBoundarySettingsDatabase(hydraulicBoundaryDatabaseFilePath);
+
+            using (var designTablesSettingsProviders = new DesignTablesSettingsProvider(settingsDatabaseFileName))
+            {
+                calculationInput.DesignTablesSetting = designTablesSettingsProviders.GetDesignTablesSetting(
+                    locationId, 
+                    calculationInput.FailureMechanismType);
+            }
+            using (var numericsSettingsProvider = new NumericsSettingsProvider(settingsDatabaseFileName))
+            {
+                calculationInput.NumericsSettings = numericsSettingsProvider.GetNumericsSettings(
+                    locationId, 
+                    calculationInput.FailureMechanismType);
+            }
+            using (var modelsSettingsProvider = new HydraulicModelsSettingsProvider(settingsDatabaseFileName))
+            {
+                calculationInput.HydraulicModelsSetting = modelsSettingsProvider.GetHydraulicModelsSetting(
+                    locationId, 
+                    calculationInput.FailureMechanismType);
+            }
         }
     }
 }

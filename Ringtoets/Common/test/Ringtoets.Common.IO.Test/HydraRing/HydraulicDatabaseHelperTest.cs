@@ -24,9 +24,10 @@ using System.IO;
 using Core.Common.IO.Exceptions;
 using Core.Common.TestUtil;
 using NUnit.Framework;
+using Ringtoets.Common.IO.HydraRing;
 using Ringtoets.HydraRing.Data;
 
-namespace Ringtoets.HydraRing.IO.Test
+namespace Ringtoets.Common.IO.Test.HydraRing
 {
     [TestFixture]
     public class HydraulicDatabaseHelperTest
