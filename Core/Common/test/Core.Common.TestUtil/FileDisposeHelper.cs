@@ -126,7 +126,7 @@ namespace Core.Common.TestUtil
         }
 
         /// <summary>
-        /// Delets a file at at the given file path. If the <see cref="filePath"/> is
+        /// Deletes a file at at the given file path. If the <see cref="filePath"/> is
         /// invalid, no file is deleted (obviously).
         /// </summary>
         /// <param name="filePath">Path of the file to delete.</param>

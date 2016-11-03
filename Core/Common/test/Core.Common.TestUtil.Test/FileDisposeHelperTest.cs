@@ -77,7 +77,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void Create_FileDoesNotExist_Createsfile()
+        public void Constructor_FileDoesNotExist_Createsfile()
         {
             // Setup
             string filePath = "willExist.tmp";
@@ -103,7 +103,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void Create_InvalidPath_DoesNotThrowException()
+        public void Constructor_InvalidPath_DoesNotThrowException()
         {
             // Setup
             var filePath = string.Empty;
@@ -116,7 +116,7 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
-        public void Create_MultipleFiles_CreatesFiles()
+        public void Constructor_MultipleFiles_CreatesFiles()
         {
             // Setup
             var filePaths = new[]
@@ -148,6 +148,35 @@ namespace Core.Common.TestUtil.Test
         }
 
         [Test]
+        public void Constructor_FilePathThatCannotBeCreated_ThrowsArgumentException()
+        {
+            // Setup
+            string filePath = Path.Combine("nonExistingPath", "fileThatCannotBeCreated");
+
+            // Call
+            TestDelegate test = () => new FileDisposeHelper(filePath);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
+        public void Constructor_FilePathsThatCannotBeCreated_ThrowsArgumentException()
+        {
+            // Setup
+            var filePaths = new[]
+            {
+                Path.Combine("nonExistingPath", "fileThatCannotBeCreated")
+            };
+
+            // Call
+            TestDelegate test = () => new FileDisposeHelper(filePaths);
+
+            // Assert
+            Assert.Throws<ArgumentException>(test);
+        }
+
+        [Test]
         public void Dispose_InvalidPath_DoesNotThrowException()
         {
             // Setup
@@ -164,7 +193,7 @@ namespace Core.Common.TestUtil.Test
         public void Dispose_ExistingFile_DeletesFile()
         {
             // Setup
-            string filePath = "doesExist.tmp";
+            const string filePath = "doesExist.tmp";
 
             try
             {
@@ -222,6 +251,34 @@ namespace Core.Common.TestUtil.Test
             foreach (var filePath in filePaths)
             {
                 Assert.IsFalse(File.Exists(filePath));
+            }
+        }
+
+        [Test]
+        public void Dispose_FileAlreadyDeleted_DoesNotThrowException()
+        {
+            // Setup
+            const string directoryPath = "willBeRemoved";
+            string filePath = Path.Combine(directoryPath, "doesNotExist.tmp");
+
+            // Call
+            try
+            {
+                Directory.CreateDirectory(directoryPath);
+                using (new FileDisposeHelper(filePath))
+                {
+                    Directory.Delete(directoryPath, true);
+                }
+            }
+            finally
+            {
+                // Assert
+                if (Directory.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                    Directory.Delete(directoryPath, true);
+                    Assert.Fail("File was not deleted: {0}", filePath);
+                }
             }
         }
     }
