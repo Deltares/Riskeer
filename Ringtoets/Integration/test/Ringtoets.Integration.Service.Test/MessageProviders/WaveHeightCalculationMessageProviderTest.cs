@@ -52,7 +52,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             var calculationName = provider.GetCalculationName(name);
 
             // Assert
-            var expectedName = string.Format(Resources.WaveHeightCalculationService_Name_Calculate_wave_height_for_location_0_, name);
+            var expectedName = string.Format("Golfhoogte berekenen voor locatie '{0}'", name);
             Assert.AreEqual(expectedName, calculationName);
         }
 
@@ -69,8 +69,25 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             var activityName = provider.GetActivityName(name);
 
             // Assert
-            var expectedName = string.Format(Resources.WaveHeightCalculationService_Name_Calculate_wave_height_for_location_0_, name);
+            var expectedName = string.Format("Golfhoogte berekenen voor locatie '{0}'", name);
             Assert.AreEqual(expectedName, activityName);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("value")]
+        public void GetCalculationFailedUnexplainedMessage_VariousParameters_ReturnsExpectedValue(string name)
+        {
+            // Setup
+            var provider = new WaveHeightCalculationMessageProvider();
+
+            // Call
+            var message = provider.GetCalculationFailedUnexplainedMessage(name);
+
+            // Assert
+            var expectedMessage = string.Format("Er is een fout opgetreden tijdens de golfhoogte berekening '{0}'. Er is geen foutrapport beschikbaar.", name);
+            Assert.AreEqual(expectedMessage, message);
         }
 
         [Test]
@@ -81,12 +98,14 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
         {
             // Setup
             var provider = new WaveHeightCalculationMessageProvider();
+            var failureMessage = "It failed!";
 
             // Call
-            var message = provider.GetCalculationFailedMessage(name);
+            var message = provider.GetCalculationFailedMessage(name, failureMessage);
 
             // Assert
-            var expectedMessage = string.Format(Resources.WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation, name);
+            var expectedMessage = string.Format("Er is een fout opgetreden tijdens de golfhoogte berekening '{0}'. Bekijk het foutrapport door op details te klikken.\r\n{1}",
+                                                name, failureMessage);
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -103,7 +122,7 @@ namespace Ringtoets.Integration.Service.Test.MessageProviders
             var message = provider.GetCalculatedNotConvergedMessage(name);
 
             // Assert
-            var expectedMessage = string.Format(Resources.WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged, name);
+            var expectedMessage = string.Format("Golfhoogte berekening voor locatie {0} is niet geconvergeerd.", name);
             Assert.AreEqual(expectedMessage, message);
         }
     }

@@ -147,12 +147,23 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos;: inspecteer het logbestand..
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos;. Bekijk het foutrapport door op details te klikken.
+        ///{1}.
         /// </summary>
-        public static string DesignWaterLevelCalculationService_Calculate_Error_in_design_water_level_0_calculation {
+        public static string DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevel_0_calculation_click_details_for_last_error_1 {
             get {
-                return ResourceManager.GetString("DesignWaterLevelCalculationService_Calculate_Error_in_design_water_level_0_calcul" +
-                        "ation", resourceCulture);
+                return ResourceManager.GetString("DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevel_0_calculat" +
+                        "ion_click_details_for_last_error_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de toetspeil berekening &apos;{0}&apos;. Er is geen foutrapport beschikbaar..
+        /// </summary>
+        public static string DesignWaterLevelCalculationService_Calculate_Unexplained_error_in_design_water_level_0_calculation {
+            get {
+                return ResourceManager.GetString("DesignWaterLevelCalculationService_Calculate_Unexplained_error_in_design_water_le" +
+                        "vel_0_calculation", resourceCulture);
             }
         }
         
@@ -288,11 +299,23 @@ namespace Ringtoets.Common.Service.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de golfhoogte berekening &apos;{0}&apos;: inspecteer het logbestand..
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de golfhoogte berekening &apos;{0}&apos;. Bekijk het foutrapport door op details te klikken.
+        ///{1}.
         /// </summary>
-        public static string WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation {
+        public static string WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation_click_details_for_last_error_1 {
             get {
-                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation", resourceCulture);
+                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation_click_d" +
+                        "etails_for_last_error_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Er is een fout opgetreden tijdens de golfhoogte berekening &apos;{0}&apos;. Er is geen foutrapport beschikbaar..
+        /// </summary>
+        public static string WaveHeightCalculationService_Calculate_Unexplained_error_in_wave_height_0_calculation {
+            get {
+                return ResourceManager.GetString("WaveHeightCalculationService_Calculate_Unexplained_error_in_wave_height_0_calcula" +
+                        "tion", resourceCulture);
             }
         }
         

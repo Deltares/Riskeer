@@ -80,13 +80,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
         {
             // Setup
             var provider = new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider();
+            var failureMessage = "It failed!";
 
             // Call
-            var message = provider.GetCalculationFailedMessage(name);
+            var message = provider.GetCalculationFailedMessage(name, failureMessage);
 
             // Assert
-            var expectedMessage = string.Format("Er is een fout opgetreden tijdens de Golfhoogte bij " +
-                                                "doorsnede-eis berekening '{0}': inspecteer het logbestand.", name);
+            var expectedMessage = string.Format("Er is een fout opgetreden tijdens de Golfhoogte bij doorsnede-eis berekening '{0}'. Bekijk het foutrapport door op details te klikken.\r\n{1}",
+                                                name, failureMessage);
             Assert.AreEqual(expectedMessage, message);
         }
 
@@ -104,6 +105,23 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.Test.MessageProviders
 
             // Assert
             var expectedMessage = string.Format("Golfhoogte bij doorsnede-eis berekening voor locatie '{0}' is niet geconvergeerd.", name);
+            Assert.AreEqual(expectedMessage, message);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("value")]
+        public void GetCalculationFailedUnexplainedMessage_ValidNames_ExpectedValues(string name)
+        {
+            // Setup
+            var provider = new GrassCoverErosionOutwardsWaveHeightCalculationMessageProvider();
+
+            // Call
+            var message = provider.GetCalculationFailedUnexplainedMessage(name);
+
+            // Assert
+            var expectedMessage = string.Format("Er is een fout opgetreden tijdens de Golfhoogte bij doorsnede-eis berekening '{0}'. Er is geen foutrapport beschikbaar", name);
             Assert.AreEqual(expectedMessage, message);
         }
     }

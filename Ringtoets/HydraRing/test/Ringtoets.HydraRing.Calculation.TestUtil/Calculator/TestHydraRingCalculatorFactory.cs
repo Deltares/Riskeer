@@ -102,6 +102,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     public class TestWaveHeightCalculator : TestHydraRingCalculator<WaveHeightCalculationInput>, IWaveHeightCalculator
     {
         public string OutputDirectory { get; set; }
+        public string LastErrorContent { get; set; }
         public double WaveHeight { get; set; }
         public double ReliabilityIndex { get; set; }
     }
@@ -132,6 +133,7 @@ namespace Ringtoets.HydraRing.Calculation.TestUtil.Calculator
     public class TestDesignWaterLevelCalculator : TestHydraRingCalculator<AssessmentLevelCalculationInput>, IDesignWaterLevelCalculator
     {
         public string OutputDirectory { get; set; }
+        public string LastErrorContent { get; set; }
         public double DesignWaterLevel { get; set; }
         public double ReliabilityIndex { get; set; }
     }

@@ -890,6 +890,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                         exceptionThrown = true;
                     }
                 };
+
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
@@ -951,6 +952,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                         exceptionThrown = true;
                     }
                 };
+
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {
@@ -1015,6 +1017,7 @@ namespace Ringtoets.HeightStructures.Service.Test
                         exceptionMessage = e.Message;
                     }
                 };
+
                 // Assert
                 TestHelper.AssertLogMessages(call, messages =>
                 {

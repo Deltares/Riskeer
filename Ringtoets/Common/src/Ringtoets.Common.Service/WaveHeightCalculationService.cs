@@ -90,6 +90,8 @@ namespace Ringtoets.Common.Service
 
             calculator = HydraRingCalculatorFactory.Instance.CreateWaveHeightCalculator(hlcdDirectory, ringId);
 
+            var exceptionThrown = false;
+
             try
             {
                 calculator.Calculate(CreateInput(hydraulicBoundaryLocation, norm));
@@ -107,14 +109,31 @@ namespace Ringtoets.Common.Service
             {
                 if (!canceled)
                 {
-                    log.Error(messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name));
+                    var lastErrorContent = calculator.LastErrorContent;
+                    log.Error(string.IsNullOrEmpty(lastErrorContent)
+                                  ? messageProvider.GetCalculationFailedUnexplainedMessage(hydraulicBoundaryLocation.Name)
+                                  : messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name, lastErrorContent));
+
+                    exceptionThrown = true;
                     throw;
                 }
             }
             finally
             {
-                log.InfoFormat(Resources.WaveHeightCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
-                CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                try
+                {
+                    var lastErrorContent = calculator.LastErrorContent;
+                    if (!exceptionThrown && !string.IsNullOrEmpty(lastErrorContent))
+                    {
+                        log.Error(messageProvider.GetCalculationFailedMessage(hydraulicBoundaryLocation.Name, lastErrorContent));
+                        throw new HydraRingFileParserException(lastErrorContent);
+                    }
+                }
+                finally
+                {
+                    log.InfoFormat(Resources.WaveHeightCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0, calculator.OutputDirectory);
+                    CalculationServiceHelper.LogCalculationEndTime(calculationName);
+                }
             }
         }
 

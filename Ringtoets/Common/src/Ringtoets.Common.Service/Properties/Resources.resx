@@ -141,8 +141,8 @@
   <data name="DesignWaterLevelCalculationActivity_DesignWaterLevel_calculation_for_location_0_not_converged" xml:space="preserve">
     <value>Toetspeil berekening voor locatie {0} is niet geconvergeerd.</value>
   </data>
-  <data name="DesignWaterLevelCalculationService_Calculate_Error_in_design_water_level_0_calculation" xml:space="preserve">
-    <value>Er is een fout opgetreden tijdens de toetspeil berekening '{0}': inspecteer het logbestand.</value>
+  <data name="DesignWaterLevelCalculationService_Calculate_Unexplained_error_in_design_water_level_0_calculation" xml:space="preserve">
+    <value>Er is een fout opgetreden tijdens de toetspeil berekening '{0}'. Er is geen foutrapport beschikbaar.</value>
   </data>
   <data name="DesignWaterLevelCalculationService_Name_Calculate_assessment_level_for_location_0_" xml:space="preserve">
     <value>Toetspeil berekenen voor locatie '{0}'</value>
@@ -153,8 +153,8 @@
   <data name="WaveHeightCalculationActivity_WaveHeight_calculation_for_location_0_not_converged" xml:space="preserve">
     <value>Golfhoogte berekening voor locatie {0} is niet geconvergeerd.</value>
   </data>
-  <data name="WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation" xml:space="preserve">
-    <value>Er is een fout opgetreden tijdens de golfhoogte berekening '{0}': inspecteer het logbestand.</value>
+  <data name="WaveHeightCalculationService_Calculate_Unexplained_error_in_wave_height_0_calculation" xml:space="preserve">
+    <value>Er is een fout opgetreden tijdens de golfhoogte berekening '{0}'. Er is geen foutrapport beschikbaar.</value>
   </data>
   <data name="WaveHeightCalculationService_Name_Calculate_wave_height_for_location_0_" xml:space="preserve">
     <value>Golfhoogte berekenen voor locatie '{0}'</value>
@@ -188,5 +188,13 @@
   </data>
   <data name="WaveHeightCalculationService_Calculate_Calculation_temporary_directory_can_be_found_on_location_0" xml:space="preserve">
     <value>Golfhoogte berekening is uitgevoerd op de tijdelijke locatie: {0}. Gedetailleerde invoer en uitvoer kan in de bestanden op deze locatie worden gevonden.</value>
+  </data>
+  <data name="DesignwaterlevelCalculationService_Calculate_Error_in_DesignWaterLevel_0_calculation_click_details_for_last_error_1" xml:space="preserve">
+    <value>Er is een fout opgetreden tijdens de toetspeil berekening '{0}'. Bekijk het foutrapport door op details te klikken.
+{1}</value>
+  </data>
+  <data name="WaveHeightCalculationService_Calculate_Error_in_wave_height_0_calculation_click_details_for_last_error_1" xml:space="preserve">
+    <value>Er is een fout opgetreden tijdens de golfhoogte berekening '{0}'. Bekijk het foutrapport door op details te klikken.
+{1}</value>
   </data>
 </root>

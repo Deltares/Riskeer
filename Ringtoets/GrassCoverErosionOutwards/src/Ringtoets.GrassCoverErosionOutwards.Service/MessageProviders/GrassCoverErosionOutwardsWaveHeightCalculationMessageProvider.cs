@@ -40,9 +40,14 @@ namespace Ringtoets.GrassCoverErosionOutwards.Service.MessageProviders
             return string.Format(Resources.GrassCoverErosionOutwardsPlugin_Name_Calculate_WaveHeight_for_location_0_, locationName);
         }
 
-        public string GetCalculationFailedMessage(string locationName)
+        public string GetCalculationFailedMessage(string locationName, string failureMessage)
         {
-            return string.Format(Resources.GrassCoverErosionOutwardsPlugin_Calculate_Error_in_WaveHeight_0_calculation, locationName);
+            return string.Format(Resources.GrassCoverErosionOutwardsPlugin_Calculate_Error_in_WaveHeight_0_calculation_click_details_for_last_error_1, locationName, failureMessage);
+        }
+
+        public string GetCalculationFailedUnexplainedMessage(string locationName)
+        {
+            return string.Format(Resources.GrassCoverErosionOutwardsPlugin_Calculate_Unexplained_error_in_WaveHeight_0_calculation, locationName);
         }
 
         public string GetCalculatedNotConvergedMessage(string locationName)
