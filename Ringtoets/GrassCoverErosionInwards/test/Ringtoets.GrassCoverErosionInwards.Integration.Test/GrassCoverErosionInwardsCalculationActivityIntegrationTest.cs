@@ -104,9 +104,9 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
-            // Call
             using (new HydraRingCalculatorFactoryConfig())
             {
+                // Call
                 Action call = () => activity.Run();
 
                 // Assert
@@ -149,23 +149,29 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
-            // Call
-            Action call = () => activity.Run();
-
-            // Assert
-            TestHelper.AssertLogMessages(call, messages =>
+            using (new HydraRingCalculatorFactoryConfig())
             {
-                var msgs = messages.ToArray();
-                Assert.AreEqual(6, msgs.Length);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
-                StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[3]);
-                StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
-                StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
-            });
-            Assert.AreEqual(ActivityState.Failed, activity.State);
-            mocks.VerifyAll(); // Expect no calls on the observer
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).OvertoppingCalculator;
+                calculator.EndInFailure = true;
+
+                // Call
+                Action call = () => activity.Run();
+
+                // Assert
+                TestHelper.AssertLogMessages(call, messages =>
+                {
+                    var msgs = messages.ToArray();
+                    Assert.AreEqual(6, msgs.Length);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
+                    StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
+                    StringAssert.StartsWith(string.Format("De berekening voor grasbekleding erosie kruin en binnentalud '{0}' is niet gelukt.", calculation.Name), msgs[3]);
+                    StringAssert.StartsWith("Overloop berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
+                    StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
+                });
+                Assert.AreEqual(ActivityState.Failed, activity.State);
+                mocks.VerifyAll(); // Expect no calls on the observer
+            }
         }
 
         [Test]
@@ -202,7 +208,7 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             using (new HydraRingCalculatorFactoryConfig())
             {
-                var calculator = ((TestHydraRingCalculatorFactory)HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
+                var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).DikeHeightCalculator;
                 calculator.DikeHeight = double.NaN;
                 calculator.EndInFailure = true;
 
@@ -246,8 +252,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
-            // Call
-            activity.Run();
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                // Call
+                activity.Run();
+            }
 
             // Assert
             Assert.AreEqual("Stap 1 van 1 | Uitvoeren overloop en overslag berekening", activity.ProgressText);
@@ -272,8 +281,11 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
-            // Call
-            activity.Run();
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                // Call
+                activity.Run();
+            }
 
             // Assert
             Assert.AreEqual("Stap 1 van 2 | Uitvoeren overloop en overslag berekening", activity.ProgressText);
@@ -379,7 +391,10 @@ namespace Ringtoets.GrassCoverErosionInwards.Integration.Test
 
             var activity = new GrassCoverErosionInwardsCalculationActivity(calculation, testDataPath, assessmentSection.GrassCoverErosionInwards, assessmentSection);
 
-            activity.Run();
+            using (new HydraRingCalculatorFactoryConfig())
+            {
+                activity.Run();
+            }
 
             // Call
             activity.Finish();
