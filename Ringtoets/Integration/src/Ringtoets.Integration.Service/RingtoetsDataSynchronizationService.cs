@@ -133,9 +133,14 @@ namespace Ringtoets.Integration.Service
             {
                 var pipingFailureMechanism = failureMechanism as PipingFailureMechanism;
                 var grassCoverErosionInwardsFailureMechanism = failureMechanism as GrassCoverErosionInwardsFailureMechanism;
+                var stabilityStoneCoverFailureMechanism = failureMechanism as StabilityStoneCoverFailureMechanism;
                 var heightStructuresFailureMechanism = failureMechanism as HeightStructuresFailureMechanism;
+                var closingStructuresFailureMechanism = failureMechanism as ClosingStructuresFailureMechanism;
+                var stabilityPointStructuresFailureMechanism = failureMechanism as StabilityPointStructuresFailureMechanism;
+                var grassCoverErosionOutwardsFailureMechanism = failureMechanism as GrassCoverErosionOutwardsFailureMechanism;
+                var waveImpactAsphaltCoverFailureMechanism = failureMechanism as WaveImpactAsphaltCoverFailureMechanism;
 
-                if (pipingFailureMechanism != null)
+                 if (pipingFailureMechanism != null)
                 {
                     affectedItems.AddRange(PipingDataSynchronizationService.ClearAllCalculationOutput(pipingFailureMechanism));
                 }
@@ -143,9 +148,29 @@ namespace Ringtoets.Integration.Service
                 {
                     affectedItems.AddRange(GrassCoverErosionInwardsDataSynchronizationService.ClearAllCalculationOutput(grassCoverErosionInwardsFailureMechanism));
                 }
+                if (stabilityStoneCoverFailureMechanism != null)
+                {
+                    affectedItems.AddRange(StabilityStoneCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(stabilityStoneCoverFailureMechanism));
+                }
+                if (waveImpactAsphaltCoverFailureMechanism != null)
+                {
+                    affectedItems.AddRange(WaveImpactAsphaltCoverDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(waveImpactAsphaltCoverFailureMechanism));
+                }
+                if (grassCoverErosionOutwardsFailureMechanism != null)
+                {
+                    affectedItems.AddRange(GrassCoverErosionOutwardsDataSynchronizationService.ClearAllWaveConditionsCalculationOutput(grassCoverErosionOutwardsFailureMechanism));
+                }
                 if (heightStructuresFailureMechanism != null)
                 {
                     affectedItems.AddRange(HeightStructuresDataSynchronizationService.ClearAllCalculationOutput(heightStructuresFailureMechanism));
+                }
+                if (closingStructuresFailureMechanism != null)
+                {
+                    affectedItems.AddRange(ClosingStructuresDataSynchronizationService.ClearAllCalculationOutput(closingStructuresFailureMechanism));
+                }
+                if (stabilityPointStructuresFailureMechanism != null)
+                {
+                    affectedItems.AddRange(StabilityPointStructuresDataSynchronizationService.ClearAllCalculationOutput(stabilityPointStructuresFailureMechanism));
                 }
             }
 

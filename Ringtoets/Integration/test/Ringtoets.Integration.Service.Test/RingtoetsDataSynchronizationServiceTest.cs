@@ -82,12 +82,52 @@ namespace Ringtoets.Integration.Service.Test
                 Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
             };
 
+            var emptyClosingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>();
+            var closingStructuresCalculation = new StructuresCalculation<ClosingStructuresInput>
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+
+            var emptyStabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>();
+            var stabilityPointStructuresCalculation = new StructuresCalculation<StabilityPointStructuresInput>
+            {
+                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
+            };
+
+            var emptyStabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation();
+            var stabilityStoneCoverWaveConditionsCalculation = new StabilityStoneCoverWaveConditionsCalculation
+            {
+                Output = new StabilityStoneCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>(), Enumerable.Empty<WaveConditionsOutput>())
+            };
+
+            var emptyGrassCoverErosionOutwardsWaveConditionsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation();
+            var grassCoverErosionOutwardsWaveConditionsCalculation = new GrassCoverErosionOutwardsWaveConditionsCalculation
+            {
+                Output = new GrassCoverErosionOutwardsWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+
+            var emptyWaveImpactAshpaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation();
+            var waveImpactAshpaltCoverWaveConditionsCalculation = new WaveImpactAsphaltCoverWaveConditionsCalculation
+            {
+                Output = new WaveImpactAsphaltCoverWaveConditionsOutput(Enumerable.Empty<WaveConditionsOutput>())
+            };
+
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(emptyPipingCalculation);
             assessmentSection.PipingFailureMechanism.CalculationsGroup.Children.Add(pipingCalculation);
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(emptyGrassCoverErosionInwardsCalculation);
             assessmentSection.GrassCoverErosionInwards.CalculationsGroup.Children.Add(grassCoverErosionInwardsCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(emptyHeightStructuresCalculation);
             assessmentSection.HeightStructures.CalculationsGroup.Children.Add(heightStructuresCalculation);
+            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(emptyClosingStructuresCalculation);
+            assessmentSection.ClosingStructures.CalculationsGroup.Children.Add(closingStructuresCalculation);
+            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(emptyStabilityPointStructuresCalculation);
+            assessmentSection.StabilityPointStructures.CalculationsGroup.Children.Add(stabilityPointStructuresCalculation);
+            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(emptyStabilityStoneCoverWaveConditionsCalculation);
+            assessmentSection.StabilityStoneCover.WaveConditionsCalculationGroup.Children.Add(stabilityStoneCoverWaveConditionsCalculation);
+            assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(emptyGrassCoverErosionOutwardsWaveConditionsCalculation);
+            assessmentSection.GrassCoverErosionOutwards.WaveConditionsCalculationGroup.Children.Add(grassCoverErosionOutwardsWaveConditionsCalculation);
+            assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(emptyWaveImpactAshpaltCoverWaveConditionsCalculation);
+            assessmentSection.WaveImpactAsphaltCover.WaveConditionsCalculationGroup.Children.Add(waveImpactAshpaltCoverWaveConditionsCalculation);
 
             // Call
             IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
@@ -96,132 +136,22 @@ namespace Ringtoets.Integration.Service.Test
             Assert.IsNull(pipingCalculation.Output);
             Assert.IsNull(grassCoverErosionInwardsCalculation.Output);
             Assert.IsNull(heightStructuresCalculation.Output);
+            Assert.IsNull(closingStructuresCalculation.Output);
+            Assert.IsNull(stabilityPointStructuresCalculation.Output);
+            Assert.IsNull(stabilityStoneCoverWaveConditionsCalculation.Output);
+            Assert.IsNull(grassCoverErosionOutwardsWaveConditionsCalculation.Output);
+            Assert.IsNull(waveImpactAshpaltCoverWaveConditionsCalculation.Output);
             CollectionAssert.AreEqual(new ICalculation[]
             {
                 pipingCalculation,
                 grassCoverErosionInwardsCalculation,
-                heightStructuresCalculation
+                stabilityStoneCoverWaveConditionsCalculation,
+                waveImpactAshpaltCoverWaveConditionsCalculation,
+                grassCoverErosionOutwardsWaveConditionsCalculation,
+                heightStructuresCalculation,
+                closingStructuresCalculation,
+                stabilityPointStructuresCalculation
             }, affectedItems);
-        }
-
-        [Test]
-        public void ClearFailureMechanismCalculationOutputs_WithMultiplePipingFailureMechanisms_ClearsOutputAndReturnsAffectedItems()
-        {
-            // Setup
-            var failureMechanism1 = new PipingFailureMechanism();
-            failureMechanism1.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput()
-            });
-            var failureMechanism2 = new PipingFailureMechanism();
-            failureMechanism2.CalculationsGroup.Children.Add(new PipingCalculation(new GeneralPipingInput())
-            {
-                Output = new TestPipingOutput()
-            });
-
-            MockRepository mocks = new MockRepository();
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism1,
-                failureMechanism2
-            });
-            mocks.ReplayAll();
-
-            // Call
-            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
-
-            // Assert
-            PipingCalculation calculation1 = (PipingCalculation) failureMechanism1.CalculationsGroup.Children[0];
-            PipingCalculation calculation2 = (PipingCalculation) failureMechanism2.CalculationsGroup.Children[0];
-            Assert.IsNull(calculation1.Output);
-            Assert.IsNull(calculation2.Output);
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ClearFailureMechanismCalculationOutputs_WithMultipleGrassCoverErosionInwardsFailureMechanisms_ClearsOutputAndReturnsAffectedCalculations()
-        {
-            // Setup
-            var failureMechanism1 = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism1.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
-            {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
-            });
-            var failureMechanism2 = new GrassCoverErosionInwardsFailureMechanism();
-            failureMechanism2.CalculationsGroup.Children.Add(new GrassCoverErosionInwardsCalculation
-            {
-                Output = new GrassCoverErosionInwardsOutput(0, false, new ProbabilityAssessmentOutput(0, 0, 0, 0, 0), 0)
-            });
-
-            MockRepository mocks = new MockRepository();
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism1,
-                failureMechanism2
-            });
-            mocks.ReplayAll();
-
-            // Call
-            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
-
-            // Assert
-            GrassCoverErosionInwardsCalculation calculation1 = (GrassCoverErosionInwardsCalculation) failureMechanism1.CalculationsGroup.Children[0];
-            GrassCoverErosionInwardsCalculation calculation2 = (GrassCoverErosionInwardsCalculation) failureMechanism2.CalculationsGroup.Children[0];
-            Assert.IsNull(calculation1.Output);
-            Assert.IsNull(calculation2.Output);
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-            mocks.VerifyAll();
-        }
-
-        [Test]
-        public void ClearFailureMechanismCalculationOutputs_WithMultipleHeightStructuresFailureMechanisms_ClearsOutputAndReturnsAffectedCalculations()
-        {
-            // Setup
-            var failureMechanism1 = new HeightStructuresFailureMechanism();
-            failureMechanism1.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            });
-            var failureMechanism2 = new HeightStructuresFailureMechanism();
-            failureMechanism2.CalculationsGroup.Children.Add(new StructuresCalculation<HeightStructuresInput>
-            {
-                Output = new ProbabilityAssessmentOutput(0, 0, 0, 0, 0)
-            });
-
-            MockRepository mocks = new MockRepository();
-            IAssessmentSection assessmentSection = mocks.StrictMock<IAssessmentSection>();
-            assessmentSection.Expect(a => a.GetFailureMechanisms()).Return(new[]
-            {
-                failureMechanism1,
-                failureMechanism2
-            });
-            mocks.ReplayAll();
-
-            // Call
-            IEnumerable<ICalculation> affectedItems = RingtoetsDataSynchronizationService.ClearFailureMechanismCalculationOutputs(assessmentSection);
-
-            // Assert
-            StructuresCalculation<HeightStructuresInput> calculation1 = (StructuresCalculation<HeightStructuresInput>) failureMechanism1.CalculationsGroup.Children[0];
-            StructuresCalculation<HeightStructuresInput> calculation2 = (StructuresCalculation<HeightStructuresInput>) failureMechanism2.CalculationsGroup.Children[0];
-            Assert.IsNull(calculation1.Output);
-            Assert.IsNull(calculation2.Output);
-            CollectionAssert.AreEqual(new[]
-            {
-                calculation1,
-                calculation2
-            }, affectedItems);
-            mocks.VerifyAll();
         }
 
         [Test]
