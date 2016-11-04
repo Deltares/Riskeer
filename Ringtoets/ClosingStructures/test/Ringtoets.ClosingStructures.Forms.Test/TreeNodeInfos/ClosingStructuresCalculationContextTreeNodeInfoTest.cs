@@ -41,6 +41,7 @@ using Ringtoets.ClosingStructures.Plugin;
 using Ringtoets.Common.Data;
 using Ringtoets.Common.Data.AssessmentSection;
 using Ringtoets.Common.Data.Calculation;
+using Ringtoets.Common.Data.Contribution;
 using Ringtoets.Common.Data.FailureMechanism;
 using Ringtoets.Common.Data.Probability;
 using Ringtoets.Common.Data.Structures;
@@ -441,7 +442,7 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
         }
 
         [Test]
-        public void GivenCalculationThatEndsInFailure_WhenCalculatingFromContextMenuFails_ThenOutputClearedLogMessagesAddedAndUpdateObserver()
+        public void GivenSuccessfulCalculation_WhenCalculatingFromContextMenu_ThenOutputSetLogMessagesAddedAndUpdateObserver()
         {
             // Given
             var mainWindow = mocks.Stub<IMainWindow>();
@@ -469,10 +470,13 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
 
             var assessmentSectionStub = mocks.Stub<IAssessmentSection>();
             assessmentSectionStub.HydraulicBoundaryDatabase = hydraulicBoundaryDatabase;
+            assessmentSectionStub.Stub(a => a.Id).Return(string.Empty);
+            assessmentSectionStub.Stub(a => a.FailureMechanismContribution).Return(new FailureMechanismContribution(Enumerable.Empty<IFailureMechanism>(), 1, 1));
 
+            var initialOutput = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN);
             var calculation = new TestClosingStructuresCalculation
             {
-                Output = new ProbabilityAssessmentOutput(double.NaN, double.NaN, double.NaN, double.NaN, double.NaN),
+                Output = initialOutput,
                 InputParameters =
                 {
                     HydraulicBoundaryLocation = hydraulicBoundaryLocation
@@ -500,9 +504,6 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                 using (ContextMenuStrip contextMenuStrip = info.ContextMenuStrip(calculationContext, null, treeViewControl))
                 using (new HydraRingCalculatorFactoryConfig())
                 {
-                    var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).StructuresClosureCalculator;
-                    calculator.EndInFailure = true;
-
                     // When
                     Action action = () => contextMenuStrip.Items[contextMenuCalculateIndex].PerformClick();
 
@@ -510,17 +511,16 @@ namespace Ringtoets.ClosingStructures.Forms.Test.TreeNodeInfos
                     TestHelper.AssertLogMessages(action, messages =>
                     {
                         var msgs = messages.ToArray();
-                        Assert.AreEqual(7, msgs.Length);
+                        Assert.AreEqual(6, msgs.Length);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' gestart om: ", calculation.Name), msgs[0]);
                         StringAssert.StartsWith(string.Format("Validatie van '{0}' beëindigd om: ", calculation.Name), msgs[1]);
                         StringAssert.StartsWith(string.Format("Berekening van '{0}' gestart om: ", calculation.Name), msgs[2]);
-                        StringAssert.StartsWith(string.Format("De berekening voor kunstwerk sluiten '{0}' is niet gelukt.", calculation.Name), msgs[3]);
-                        StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
-                        StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[5]);
-                        StringAssert.StartsWith(string.Format("Uitvoeren van '{0}' is mislukt.", calculation.Name), msgs[6]);
+                        StringAssert.StartsWith("Betrouwbaarheid sluiting kunstwerk berekening is uitgevoerd op de tijdelijke locatie:", msgs[3]);
+                        StringAssert.StartsWith(string.Format("Berekening van '{0}' beëindigd om: ", calculation.Name), msgs[4]);
+                        StringAssert.StartsWith(string.Format("Uitvoeren van '{0}' is gelukt.", calculation.Name), msgs[5]);
                     });
 
-                    Assert.IsNull(calculation.Output);
+                    Assert.AreNotSame(initialOutput, calculation.Output);
                 }
             }
         }

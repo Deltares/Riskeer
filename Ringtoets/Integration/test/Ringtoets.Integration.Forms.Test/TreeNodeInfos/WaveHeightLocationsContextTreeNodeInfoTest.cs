@@ -353,7 +353,7 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
 
         [Test]
         [RequiresSTA]
-        public void GivenHydraulicBoundaryLocationThatFails_CalculatingWaveHeightFromContextMenu_ThenLogMessagesAddedPreviousOutputNotAffected()
+        public void GivenHydraulicBoundaryLocationThatSucceeds_CalculatingWaveHeightFromContextMenu_ThenLogMessagesAddedPreviousOutputAffected()
         {
             // Given
             var guiMock = mockRepository.DynamicMock<IGui>();
@@ -369,7 +369,8 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                         location
                     },
                     FilePath = Path.Combine(testDataPath, "HRD ijsselmeer.sqlite")
-                }
+                },
+                Id = string.Empty
             };
 
             var context = new WaveHeightLocationsContext(assessmentSection);
@@ -395,9 +396,6 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                     using (ContextMenuStrip contextMenuAdapter = info.ContextMenuStrip(context, null, treeViewControl))
                     using (new HydraRingCalculatorFactoryConfig())
                     {
-                        var calculator = ((TestHydraRingCalculatorFactory) HydraRingCalculatorFactory.Instance).WaveHeightCalculator;
-                        calculator.EndInFailure = true;
-
                         // When
                         Action action = () => contextMenuAdapter.Items[contextMenuRunWaveHeightCalculationsIndex].PerformClick();
 
@@ -409,12 +407,12 @@ namespace Ringtoets.Integration.Forms.Test.TreeNodeInfos
                             StringAssert.StartsWith(string.Format("Validatie van 'Golfhoogte berekenen voor locatie '{0}'' gestart om:", locationName), msgs[0]);
                             StringAssert.StartsWith(string.Format("Validatie van 'Golfhoogte berekenen voor locatie '{0}'' beëindigd om:", locationName), msgs[1]);
                             StringAssert.StartsWith(string.Format("Berekening van 'Golfhoogte berekenen voor locatie '{0}'' gestart om:", locationName), msgs[2]);
-                            StringAssert.StartsWith(string.Format("Er is een fout opgetreden tijdens de golfhoogte berekening '{0}'. Er is geen foutrapport beschikbaar.", locationName), msgs[3]);
+                            StringAssert.StartsWith(string.Format("Golfhoogte berekening voor locatie {0} is niet geconvergeerd.", locationName), msgs[3]);
                             StringAssert.StartsWith("Golfhoogte berekening is uitgevoerd op de tijdelijke locatie:", msgs[4]);
                             StringAssert.StartsWith(string.Format("Berekening van 'Golfhoogte berekenen voor locatie '{0}'' beëindigd om:", locationName), msgs[5]);
-                            StringAssert.StartsWith(string.Format("Uitvoeren van 'Golfhoogte berekenen voor locatie '{0}'' is mislukt.", locationName), msgs[6]);
+                            StringAssert.StartsWith(string.Format("Uitvoeren van 'Golfhoogte berekenen voor locatie '{0}'' is gelukt.", locationName), msgs[6]);
                         });
-                        Assert.AreEqual(CalculationConvergence.NotCalculated, location.WaveHeightCalculationConvergence);
+                        Assert.AreEqual(CalculationConvergence.CalculatedNotConverged, location.WaveHeightCalculationConvergence);
                     }
                 }
             }
